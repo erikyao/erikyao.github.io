@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "private、package权限字段不可继承"
+title: "private、package 权限字段不可继承"
 description: ""
 category: Java
 tags: [Java-101]

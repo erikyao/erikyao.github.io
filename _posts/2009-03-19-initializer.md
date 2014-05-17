@@ -111,3 +111,7 @@ public class InitializerTest {
 </pre>
 
 　　另：在声明 field 的时候，常常会当场初始化 field，这个称为 variable intializer (更倾向于将声明 field 的表达式右值称为 variable initializer)。根据 field 是否 static 及初始化是否调用了 static 方法，variable initializer 有的属于 class 行为，有的属于 object 行为。static initializer 完全属于 class 行为。
+
+<br/> 
+
+_2009年09月04日归纳_：[class loading: further discussion involving steps of instance creation](/java/2009/09/04/class-loading-further-discussion-involving-steps-of-instance-creation/)

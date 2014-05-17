@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Java的值传递"
+title: "Java 的值传递"
 description: ""
 category: Java
 tags: [Java-101]

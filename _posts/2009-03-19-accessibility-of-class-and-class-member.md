@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "关于class和class member的访问权限"
+title: "关于 class 和 class member 的访问权限"
 description: ""
 category: Java
 tags: [Java-101]
