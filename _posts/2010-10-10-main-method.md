@@ -21,7 +21,7 @@ public static void main(String[] args) {
 
 ## 2、关于 main 方法中的 static
 
-　　main 方法必须是一个静态方法，这样可以在不需要构造类实例的前提下，直接运行应用程序。
+　　main 方法必须是一个静态方法，因为 JVM 是直接访问 main 方法的，事先不用先创建 main class 对象，直接运行应用程序。
 
 ---
 
