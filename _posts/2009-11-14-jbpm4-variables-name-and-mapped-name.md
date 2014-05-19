@@ -11,28 +11,28 @@ tags: []
 
 　　假定我们有一个极其简单的流程 vartest。在 start-state 的 controller 里添加一个 variable，name 为 "var"，mapped-name 为 "variable"，如下：
 
-```xml
-<?xml version="1.0" encoding="UTF-8"?>  
+<pre class="prettyprint linenums">
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;  
   
-<process-definition  xmlns=""  name="vartest">  
+&lt;process-definition  xmlns=""  name="vartest"&gt;  
   
-	<start-state name="start-state1">  
-		<task>  
-			<controller>  
-				<variable access="read,write" name="var" mapped-name="variable"></variable>  
-			</controller>  
-		</task>  
-		<transition to="task-node1"></transition>  
-	</start-state>  
+	&lt;start-state name="start-state1"&gt;  
+		&lt;task&gt;  
+			&lt;controller&gt;  
+				&lt;variable access="read,write" name="var" mapped-name="variable"&gt;&lt;/variable&gt;  
+			&lt;/controller&gt;  
+		&lt;/task&gt;  
+		&lt;transition to="task-node1"&gt;&lt;/transition&gt;  
+	&lt;/start-state&gt;  
   
-	<task-node name="task-node1"       
-		<transition to="end-state1"></transition>  
-	</task-node>  
+	&lt;task-node name="task-node1"&gt;   
+		&lt;transition to="end-state1"&gt;&lt;/transition&gt;  
+	&lt;/task-node&gt;  
   
-	<end-state name="end-state1"></end-state>  
+	&lt;end-state name="end-state1"&gt;&lt;/end-state&gt;  
   
-</process-definition>
-```
+&lt;/process-definition&gt;
+</pre>
 
 　　然后我们来写一个 Test Case：
 	
@@ -49,7 +49,7 @@ public class AccessVariable extends TestCase {
         TaskInstance ti = pi.getTaskMgmtInstance().createStartTaskInstance()  
           
         // hint 1:  
-        // ci can create new variable (not declared in <controller>)  
+        // ci can create new variable (not declared in &lt;controller&gt;)  
         // and ti can access the variable ci created  
         ci.setVariable("abc", "ABC");  
         System.out.println(ti.getVariable("abc")); // ABC  
@@ -65,7 +65,7 @@ public class AccessVariable extends TestCase {
         System.out.println(ti.getVariable("def")); // FED  
           
         // hint 2:         
-        // for the variables declared in <controller>, it's the same situation  
+        // for the variables declared in &lt;controller&gt;, it's the same situation  
         // both ci and ti can create and access this kind of variable  
         ci.setVariable("var", "VAR");  
         System.out.println(ti.getVariable("var")); // VAR  
