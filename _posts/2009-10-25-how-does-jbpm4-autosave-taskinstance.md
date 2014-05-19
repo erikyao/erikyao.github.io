@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "jBPM 自动保存 TaskInstance 至数据库的机制"
+title: "jBPM 4.3 自动保存 TaskInstance 至数据库的机制"
 description: ""
 category: jBPM-4.3
-tags: [HowDoes]
+tags: []
 ---
 {% include JB/setup %}
 
