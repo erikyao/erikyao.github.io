@@ -3,7 +3,7 @@ layout: post
 title: "IR 经典模型之向量模型"
 description: ""
 category: Information-Retrieval
-tags: [Theory]
+tags: [Theory, Theory-IR]
 ---
 {% include JB/setup %}
 

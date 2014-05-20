@@ -2,7 +2,7 @@
 layout: post
 title: "windows 下查看端口是否被占用的方法"
 description: ""
-category: OS
+category: Windows
 tags: [GTR]
 ---
 {% include JB/setup %}
