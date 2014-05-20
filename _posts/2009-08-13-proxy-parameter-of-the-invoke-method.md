@@ -2,8 +2,8 @@
 layout: post
 title: "the proxy parameter of the invoke() method"
 description: ""
-categories: [Java, AOP]
-tags: [AOP, Proxy, 动态代理]
+category: Java
+tags: [Java-101, Java-AOP, Proxy, 动态代理]
 ---
 {% include JB/setup %}
 

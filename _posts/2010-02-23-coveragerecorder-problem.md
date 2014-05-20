@@ -3,7 +3,7 @@ layout: post
 title: "clover 测试 servlet，提示找不到类 com_cenqua_clover/CoverageRecorder 的解决方法"
 description: ""
 category: Continuous-Integration
-tags: [GTR, Clover-Config]
+tags: [GTR, Config-Clover]
 ---
 {% include JB/setup %}
 

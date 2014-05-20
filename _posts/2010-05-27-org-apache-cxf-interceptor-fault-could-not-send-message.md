@@ -3,7 +3,7 @@ layout: post
 title: "org.apache.cxf.interceptor.Fault: Could not send Message"
 description: ""
 category: CXF
-tags: [GTR, Config, CXF-Config]
+tags: [GTR, Config, Config-CXF]
 ---
 {% include JB/setup %}
 

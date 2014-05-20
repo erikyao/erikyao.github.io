@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Disk Drive (磁盘驱动器)"
+title: "Disk Drive（磁盘驱动器）"
 description: ""
 category: Hardware
 tags: [Database-101]

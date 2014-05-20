@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "简单SQL语句的逻辑顺序"
+title: "简单 SQL 语句的逻辑顺序"
 description: ""
 category: SQL
 tags: [Database-101]

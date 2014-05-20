@@ -3,7 +3,7 @@ layout: post
 title: "CruiseControl with Clover: the Configuration Guide"
 description: ""
 category: Continuous-Integration
-tags: [Config, Ant-Config, Clover-Config, CruiseControl-Config, WrittenByMe]
+tags: [Config, Config-Ant, Config-Clover, Config-CruiseControl, WrittenByMe, HowDoes, HowDoes-CruiseControl]
 ---
 {% include JB/setup %}
 
