@@ -28,13 +28,8 @@ permalink: "index.html"
   
   <div class="span4">
   
-	<img id="bingImg" style="width:180px; height:180px;"/>
-	
-	<script type="text/javascript">
-		var today = {{ site.time | date: "%Y%m%d" }};
-		var theDayBeforeYesterday = today - 2;
-		document.getElementById("bingImg").setAttribute("src", "http://bcs.duapp.com/bingbackground/" + theDayBeforeYesterday);
-	</script>
+    <!-- SnapWidget -->
+	<iframe src="http://snapwidget.com/in/?u=aW5zdGFncmFtfGlufDk1fDJ8Mnx8bm98NXxub25lfG9uU3RhcnR8eWVz&v=22514" title="Instagram Widget" allowTransparency="true" frameborder="0" scrolling="no" style="border:none; overflow:hidden; width:200px; height:200px"></iframe>
   
     <h4>Contact</h4>
 	<ul>
@@ -47,7 +42,7 @@ permalink: "index.html"
 			<a href="mailto:johnATgmailDOTcom" target="_blank" onclick = "this.href=this.href.replace(/john/, '{{ site.author.gmail }}').replace(/AT/,'@').replace(/DOT/,'.')">Gmail</a> 
 		</li>
 		<li>
-			<img style="vertical-align:top; width:16px; height:16px;" src="https://hefqzq.bn1303.livefilestore.com/y2p_2UOBKRWWMTyO8Fb1mAYG_973wdv4OauV9omcRZgfnlo5UqFV621DKgehPS0p6d7sEDBlbCGBp3vf_wZNLG052T8t2kfIEJqcUFLkVDg2KE/twitter-favicon.ico?psid=1"/>
+			<img style="vertical-align:top; width:16px; height:16px;" src="https://twitter.com/favicon.ico"/>
 			<a href="https://twitter.com/john" target="_blank" onclick = "this.href=this.href.replace(/john/, '{{ site.author.twitter }}')">Twitter</a>
 		</li>
 	</ul>
