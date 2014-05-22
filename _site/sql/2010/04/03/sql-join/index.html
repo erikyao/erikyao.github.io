@@ -1,0 +1,337 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Erik Yao's Join</title>
+    <meta name="description" content="">
+    <meta name="author" content="Erik Yao">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/css/1.4.0/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Le fav and touch icons -->
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  <!-- Update these with your own images
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+	<link href="/assets/themes/twitter/google-code-prettify/prettify.css" rel="stylesheet" type="text/css" media="all">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/themes/twitter/google-code-prettify/prettify.js"></script>
+	<script type="text/javascript" src="/assets/themes/twitter/google-code-prettify/use-prettify.js"></script>
+  </head>
+
+  <body>
+
+    <div class="topbar">
+      <div class="fill">
+        <div class="container">
+          <a class="brand" href="/">Erik Yao's</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/index.html">Home</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+  <h1>Join <small></small></h1>
+</div>
+
+<div class="row">
+  <div class="span10">
+    <p>　　参考 <a href="http://en.wikipedia.org/wiki/Join_%28SQL%29">Join (SQL)</a>，本文仅作总结。</p>
+
+<p>　　假设有两张表：</p>
+
+<p><img src="https://ibmkqq.bn1304.livefilestore.com/y2pfn8d6av1Pei7fkRVkQ7lS4skNxvhnc7ZmVztUip4txhA22LjXQximkzD1pvs9TbhqlZn6zjRe5xIjfHaHf1ktL87lr8R-mHURAwpDAfGQaU/tables.png?psid=1" alt="" /></p>
+
+<hr />
+
+<h2>1. Cross Join</h2>
+
+<p>　　即笛卡尔乘积 (Cartesian Product)。标准语法为：</p>
+
+<pre class="prettyprint linenums">
+SELECT *  
+FROM   employee CROSS JOIN department;  
+</pre>
+
+
+<p>也可以隐式地写为：</p>
+
+<pre class="prettyprint linenums">
+SELECT *  
+FROM   employee, department;
+</pre>
+
+
+<p>得到的表结构为 (LastName, DepartmentID, DepartmentID, DepartmentName)</p>
+
+<hr />
+
+<h2>2. Inner Join</h2>
+
+<p>　　不标准地说，Inner Join 就是 Cross Join 加上了一个 where 子句，如：</p>
+
+<pre class="prettyprint linenums">
+SELECT *    
+FROM   employee, department   
+WHERE  employee.DepartmentID = department.DepartmentID;  
+</pre>
+
+
+<p>当然，这也是隐式的写法。标准语法为：</p>
+
+<pre class="prettyprint linenums">
+SELECT *  
+FROM   employee INNER JOIN department   
+ON     employee.DepartmentID = department.DepartmentID;  
+</pre>
+
+
+<h3>2.1 Equi-Join</h3>
+
+<p>　　是 Inner Join 的特殊形式，特指 where 子句中的条件为 Equality Comparison，如上面的例子。不过它也有自己独特的语法：</p>
+
+<pre class="prettyprint linenums">
+SELECT *  
+FROM   employee INNER JOIN department   
+USING  (DepartmentID)  
+</pre>
+
+
+<p>注意 using 子句会消除掉一个 DepartmentID 列，即得到 (LastName, DepartmentID, DepartmentName)，而不是 (LastName, DepartmentID, DepartmentID, DepartmentName)。可以把 using 子句看做是特殊的 where 子句。</p>
+
+<h3>2.2 Natural Join</h3>
+
+<p>　　是 Equi-Join 的特殊形式。Natural Join 不用指定 Equality Comparison 的 Column，它会自动查找做 Natural Join 的表中同名的 Column，隐式地在这个 Column 上使用 using 子句。它的标准语法为：</p>
+
+<pre class="prettyprint linenums">
+SELECT *  
+FROM   employee NATURAL JOIN department;  
+</pre>
+
+
+<p>如果有多个同名 Column (或者 Equi-Join 中 USING(Column1, ..., Column N))，则必须这多个 Column 都相等的列才被检入 Join 的结果中。</p>
+
+<hr />
+
+<h2>3. Outer Join</h2>
+
+<p>　　Outer Join 的定义不太好描述，我们先来看看 Inner Join 的示意图：</p>
+
+<p><img src="https://ibmkqq.bn1304.livefilestore.com/y2pXAXZXrfdPZGWeNzQclvP-2kIzIuIhIjx-0GpYq4K9lnKqdrSLtOenTtTiRG8o3JNkPojRboWru7Ti1rSm4uDttjbC8f9aqGvxQLFzbxfF7A/Inner%20Join.png?psid=1" alt="" /></p>
+
+<p>由于 (John, NULL) 和 (35, Marketing) 在对面表中没有匹配的记录，所以它们不会出现在 Inner Join 的结果中，而 Outer Join 就可以让这些没有匹配的记录出现在结果中。</p>
+
+<h3>3.1 Left Outer Join</h3>
+
+<p>　　指 “LEFT OUTER JOIN” 关键字左方的表中的记录都会出现在结果中，如：</p>
+
+<pre class="prettyprint linenums">
+SELECT *    
+FROM   employee  LEFT OUTER JOIN department    
+ON     employee.DepartmentID = department.DepartmentID;
+</pre>
+
+
+<p>得到的结果是：</p>
+
+<p><img src="https://ibmkqq.bn1304.livefilestore.com/y2pcmzuH2-3_5IDotjDRgJeuQTsPx5vV2OefUQCNl8LXVf0Nz6qdmaRFL_Jskeo5NEMtyFy48e10hZ5LkFer1Qki8S7AcsT22ImLozsWXXPXfs/Left%20Outer%20Join%201.png?psid=1" alt="" /></p>
+
+<p>示意图为：</p>
+
+<p><img src="https://ibmkqq.bn1301.livefilestore.com/y2pAN1e146OBMOvjDzTyWrdmpw5WyC2Q7T2n61gMhHXyEuzAHzfz5LIqGIxQQBdq3xfz-NiEZDItEZsB-PsqbHomhYmOT-RztimF_ZYOECfxc8/Left%20Outer%20Join%202.png?psid=1" alt="" /></p>
+
+<h3>3.2 Right Outer Join</h3>
+
+<p>　　指 “RIGHT OUTER JOIN” 关键字右方的表中的记录都会出现在结果中，如：</p>
+
+<pre class="prettyprint linenums">
+SELECT *   
+FROM   employee RIGHT OUTER JOIN department   
+ON     employee.DepartmentID = department.DepartmentID;
+</pre>
+
+
+<p>得到的结果是：</p>
+
+<p><img src="https://ibmkqq.bn1302.livefilestore.com/y2pcX-upqfQJII6wSQhc5y3kkbkBvp0Dio-d6DHnA5oK1l1Lk4GIuMjoGjLjTvlkyrzFEHpUy3l5VW1t3ASdzyCzVpbSt5pk77wZUKZ8mqgobI/Right%20Outer%20Join%201.png?psid=1" alt="" /></p>
+
+<p>示意图为：</p>
+
+<p><img src="https://ibmkqq.bn1.livefilestore.com/y2ptKZ4pQ1FMZ-jd2YLqZP-esk_QSjCSjp8V4hzzbtd-IOaYqVcBxk9ON21Kg3lEGtsbp8hA2lbshHBRLmNEG4AJDxiwjsGAjUrdOUoRrnGkGI/Right%20Outer%20Join%202.png?psid=1" alt="" /></p>
+
+<h3>3.3 Full Outer Join</h3>
+
+<p>　　全外联结，即左外联结和右外联结的综合 (并集)。如：</p>
+
+<pre class="prettyprint linenums">
+SELECT *    
+FROM   employee FULL OUTER JOIN department   
+ON     employee.DepartmentID = department.DepartmentID;  
+</pre>
+
+
+<p>得到的结果是：</p>
+
+<p><img src="https://ibmkqq.bn1.livefilestore.com/y2pVpxpTR605YqNDrKQknXiadTF0mx1uFlCEG7zsxr73ElnjbuFrELcWHnAyJIUnoMvQAkAazSW9jw4zjX6DzoHFiilMYiVKbocE0wEhMCe2Qs/Full%20Outer%20Join.png?psid=1" alt="" /></p>
+
+<hr />
+
+<h2>4. Self Join</h2>
+
+<p>　　指表与自身的联结。</p>
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/continuous-integration/2010/03/30/cruisecontrol-with-clover-the-configuration-guide" title="CruiseControl with Clover: the Configuration Guide">&larr; Previous</a></li>
+      
+        <li><a href="/archive.html">Archive</a></li>
+      
+        <li class="next"><a href="/design-pattern/2010/05/05/association-aggregation-composition-and-dependency" title="UML 类图之关联、聚合、组合、依赖">Next &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+  </div>
+  
+  <div class="span4">
+    <h4>Published</h4>
+    <div class="date"><span>03 April 2010</span></div>
+	
+  <br/>
+	
+  
+    <h4>Categories</h4>
+	<ul class="tag_box">
+	
+	
+
+
+  
+     
+    	<li><a href="/categories.html#sql-ref">
+    		sql <span>2</span>
+    	</a></li>
+    
+  
+
+
+	</ul>
+    
+
+  
+    <h4>Tags</h4>
+    <ul class="tag_box">
+    
+    
+
+
+  
+     
+    	<li><a href="/tags.html#Database-101-ref">Database-101 <span>6</span></a></li>
+    
+  
+
+
+
+    </ul>
+    
+  </div>
+</div>
+
+
+      </div>
+
+      <footer>
+        <p>&copy; Erik Yao 2012 
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+        </p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    
+  </body>
+</html>
+

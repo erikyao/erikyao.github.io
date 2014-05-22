@@ -1,0 +1,256 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Erik Yao's 阻止 form submit 的方法</title>
+    <meta name="description" content="">
+    <meta name="author" content="Erik Yao">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/css/1.4.0/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Le fav and touch icons -->
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  <!-- Update these with your own images
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+	<link href="/assets/themes/twitter/google-code-prettify/prettify.css" rel="stylesheet" type="text/css" media="all">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/themes/twitter/google-code-prettify/prettify.js"></script>
+	<script type="text/javascript" src="/assets/themes/twitter/google-code-prettify/use-prettify.js"></script>
+  </head>
+
+  <body>
+
+    <div class="topbar">
+      <div class="fill">
+        <div class="container">
+          <a class="brand" href="/">Erik Yao's</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/index.html">Home</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+  <h1>阻止 form submit 的方法 <small></small></h1>
+</div>
+
+<div class="row">
+  <div class="span10">
+    <p>　　有两个地方可以可以阻止 form submit，一是 <code>&lt;form onsubmit=""&gt;</code> ，二是 &lt;form&gt; 下的 <code>&lt;input type="submit" onclick=""&gt;</code> ，只要这两个函数有一个是 return false;，那么点击这个 button 并不会 submit form。</p>
+
+<p>　　具体的执行流程是这样的：</p>
+
+<pre class="prettyprint linenums">
+if (submitInput.onclick() == false) {  
+    // 不触发 form.onsubmit();  
+    // form 不提交;  
+} else {  
+    // 触发 form.onsubmit();  
+    if (form.onsubmit() == false) {  
+        // form 不提交  
+    } else {  
+        // 提交 form  
+    }  
+}  
+</pre>
+
+
+<p>所以在这个两个函数里面可以加一些验证工作，同时，可以根据验证结果来判断是否提交form。比如有：</p>
+
+<pre class="prettyprint linenums">
+var checkForm = function() {  
+    // 获取输入  
+    if (校验失败)  
+        return false；  
+    else  
+        return true；  
+}  
+</pre>
+
+
+<p>然后把这个函数写到 onsubmit 或是 onclick，也可以针对不同的 button 写不同的逻辑的校验函数，比如这样：</p>
+
+<pre class="prettyprint linenums">
+&lt;html&gt;  
+    &lt;form onsubmit="return checkFormStep2();" method="post" action="/XXX.do"&gt;  
+        &lt;input type="text" id="username"&gt;  
+        &lt;input type="password" id="password"&gt;  
+  
+        &lt;input type="submit" onclick="return checkFormStep1();" value="go" /&gt;  
+    &lt;/form&gt;  
+&lt;/html&gt;  
+</pre>
+
+
+<p>在点击时先执行 checkFormStep1()，在 form 提交前再执行 checkFormStep2()，两个都通过都 return true 了才提交。</p>
+
+<p>　　也可以针对 “撤销” 功能的按钮写一些类似清空输入的功能，再禁止它提交 form，比如这样：</p>
+
+<pre class="prettyprint linenums">
+&lt;html&gt;  
+    &lt;form method="post" action="/XXX.do"&gt;  
+        &lt;input type="text" id="username"&gt;  
+        &lt;input type="password" id="password"&gt;  
+  
+        &lt;input type="submit" onclick="return checkFormStep();" value="go" /&gt;  
+        &lt;input type="submit" onclick="clearInput(); return false;" value="reset" /&gt;  
+    &lt;/form&gt;  
+&lt;/html&gt;  
+</pre>
+
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/spring/2011/09/02/static-injection" title="static 属性的注入必须使用非 static 的 setter">&larr; Previous</a></li>
+      
+        <li><a href="/archive.html">Archive</a></li>
+      
+        <li class="next"><a href="/java/2011/11/01/shallow-copy-and-deep-clone" title="shallow copy v.s. deep clone">Next &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+  </div>
+  
+  <div class="span4">
+    <h4>Published</h4>
+    <div class="date"><span>18 October 2011</span></div>
+	
+  <br/>
+	
+  
+    <h4>Categories</h4>
+	<ul class="tag_box">
+	
+	
+
+
+  
+     
+    	<li><a href="/categories.html#html-ref">
+    		html <span>1</span>
+    	</a></li>
+    
+  
+
+
+	</ul>
+    
+
+  
+    <h4>Tags</h4>
+    <ul class="tag_box">
+    
+    
+
+
+  
+     
+    	<li><a href="/tags.html#HTML-101-ref">HTML-101 <span>1</span></a></li>
+    
+  
+
+
+
+    </ul>
+    
+  </div>
+</div>
+
+
+      </div>
+
+      <footer>
+        <p>&copy; Erik Yao 2012 
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+        </p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    
+  </body>
+</html>
+

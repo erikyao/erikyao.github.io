@@ -1,0 +1,232 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Erik Yao's 简单 SQL 语句的逻辑顺序</title>
+    <meta name="description" content="">
+    <meta name="author" content="Erik Yao">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/css/1.4.0/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Le fav and touch icons -->
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  <!-- Update these with your own images
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+	<link href="/assets/themes/twitter/google-code-prettify/prettify.css" rel="stylesheet" type="text/css" media="all">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/themes/twitter/google-code-prettify/prettify.js"></script>
+	<script type="text/javascript" src="/assets/themes/twitter/google-code-prettify/use-prettify.js"></script>
+  </head>
+
+  <body>
+
+    <div class="topbar">
+      <div class="fill">
+        <div class="container">
+          <a class="brand" href="/">Erik Yao's</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/index.html">Home</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+  <h1>简单 SQL 语句的逻辑顺序 <small></small></h1>
+</div>
+
+<div class="row">
+  <div class="span10">
+    <p>　　考虑一个简单的语句：</p>
+
+<pre class="prettyprint linenums">
+SELECT order_num, SUM(quantity * item_price) AS ordertotal  
+FROM orderitems  
+WHERE quantity > 1  
+GROUP BY order_num  
+HAVING ordertotal >= 50  
+ORDER BY ordertotal; 
+</pre>
+
+
+<ul>
+<li>FROM 确定所操作的表
+
+<ul>
+<li>WHERE 作行过滤 (row filtering)，过滤掉不符合条件的行
+
+<ul>
+<li>将过滤后的表按 GROUP BY 分组
+
+<ul>
+<li>HAVING 作分组过滤 (group filtering)，过滤掉不符合条件的分组
+
+<ul>
+<li>在过滤后的分组上作 SELECT 操作</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<p>ORDER BY 在何时执行并不重要，它只是保证最后的结果是排序显示的。</p>
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/mysql/2009/12/25/mysql-regexp" title="MySQL REGEXP">&larr; Previous</a></li>
+      
+        <li><a href="/archive.html">Archive</a></li>
+      
+        <li class="next"><a href="/continuous-integration/2010/02/23/coveragerecorder-problem" title="clover 测试 servlet，提示找不到类 com_cenqua_clover/CoverageRecorder 的解决方法">Next &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+  </div>
+  
+  <div class="span4">
+    <h4>Published</h4>
+    <div class="date"><span>26 December 2009</span></div>
+	
+  <br/>
+	
+  
+    <h4>Categories</h4>
+	<ul class="tag_box">
+	
+	
+
+
+  
+     
+    	<li><a href="/categories.html#sql-ref">
+    		sql <span>2</span>
+    	</a></li>
+    
+  
+
+
+	</ul>
+    
+
+  
+    <h4>Tags</h4>
+    <ul class="tag_box">
+    
+    
+
+
+  
+     
+    	<li><a href="/tags.html#Database-101-ref">Database-101 <span>6</span></a></li>
+    
+  
+
+
+
+    </ul>
+    
+  </div>
+</div>
+
+
+      </div>
+
+      <footer>
+        <p>&copy; Erik Yao 2012 
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+        </p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    
+  </body>
+</html>
+

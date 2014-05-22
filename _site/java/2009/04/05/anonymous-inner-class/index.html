@@ -1,0 +1,296 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Erik Yao's 匿名内部类 (anonymous inner class)：简化形式及自动向上转型</title>
+    <meta name="description" content="">
+    <meta name="author" content="Erik Yao">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/css/1.4.0/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Le fav and touch icons -->
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  <!-- Update these with your own images
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+	<link href="/assets/themes/twitter/google-code-prettify/prettify.css" rel="stylesheet" type="text/css" media="all">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/themes/twitter/google-code-prettify/prettify.js"></script>
+	<script type="text/javascript" src="/assets/themes/twitter/google-code-prettify/use-prettify.js"></script>
+  </head>
+
+  <body>
+
+    <div class="topbar">
+      <div class="fill">
+        <div class="container">
+          <a class="brand" href="/">Erik Yao's</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/index.html">Home</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+  <h1>匿名内部类 (anonymous inner class)：简化形式及自动向上转型 <small></small></h1>
+</div>
+
+<div class="row">
+  <div class="span10">
+    <p>　　内部类的一个重要作用是隐藏继承或是对接口的实现，典型的形式是：内部类来继承或是实现接口，由外部类提供代理 constructor 方法。这些代理 constructor 方法一般都利用的向上转型，即不返回内部类对象，而是返回内部类继承的父类对象或是实现的接口对象。如：</p>
+
+<pre class="prettyprint linenums">
+interface Intf {...}  
+  
+class Outer {  
+    class Inner implements Intf {...}  
+  
+    public Intf createInner() {  
+        return new Inner();  
+    }  
+} 
+</pre>
+
+
+<p>　　而匿名内部类实际是对上述代码的简化，如：</p>
+
+<pre class="prettyprint linenums">
+interface Intf {...}  
+  
+class Outer {  
+    public Intf createInner() {  
+        return new Intf() {...};  
+    }  
+}  
+</pre>
+
+
+<p>　　这里的匿名内部类表示：我要创建一个 implements Intf 的 class，这个 class 的定义是 {...}。由于这个 class 没有名字，我们用的是 new Intf()，可以看作是自动的向上转型。</p>
+
+<p><br/></p>
+
+<p><em>2014-05-18补充</em>：匿名内部类可以是继承，不一定是 new Intf()</p>
+
+<pre class="prettyprint linenums">
+public class InnerBase {  
+    ...
+}  
+  
+public class Outer {
+    private InnerBase ib = new InnerBase() {
+        @Override
+        public String toString() {
+            return "whatever";
+        }
+    };
+}
+</pre>
+
+
+<p><em>4月7日补充</em>：匿名内部类的另一种用法</p>
+
+<pre class="prettyprint linenums">
+interface Intf {  
+    int sum();  
+}  
+  
+public class Outer {  
+    public static int getSum() {  
+        return new Intf() {  
+            public int sum() {  
+                return 1;  
+            }  
+        }.sum();  
+    }  
+      
+    public static void main(String[] args) {  
+        System.out.println(getSum());  
+    }  
+} 
+</pre>
+
+
+<p>　　因为对匿名内部类的使用是直接 new 一个匿名内部类对象，所以也可以直接使用这个对象的方法或是域。</p>
+
+<p><em>7月27日补充</em>：匿名内部类的另一种用法</p>
+
+<pre class="prettyprint linenums">
+interface Intf {...}  
+  
+class Outer {  
+    public Intf createInner() {  
+        return new Intf() {  
+            // Anonymous inner class CANNOT have a named constructor  
+            // only an instance initializer here  
+            {  
+                ......  
+            }  
+  
+            // method allowed here  
+            return-type xxx(arg list) {  
+                ......  
+            }   
+        };  
+    }  
+}  
+</pre>
+
+
+<p>匿名内部类没有构造器， <strong>只能</strong> 有一个 initializer (当然，你不用也可以)；另外，可以在匿名内部类中写方法。</p>
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/java/2009/04/03/entends-interface" title="entends interface">&larr; Previous</a></li>
+      
+        <li><a href="/archive.html">Archive</a></li>
+      
+        <li class="next"><a href="/java/2009/04/05/inner-class-this-and-new" title="内部类：对外部类的访问及 .this 和 .new">Next &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+  </div>
+  
+  <div class="span4">
+    <h4>Published</h4>
+    <div class="date"><span>05 April 2009</span></div>
+	
+  <br/>
+	
+  
+    <h4>Categories</h4>
+	<ul class="tag_box">
+	
+	
+
+
+  
+     
+    	<li><a href="/categories.html#java-ref">
+    		java <span>40</span>
+    	</a></li>
+    
+  
+
+
+	</ul>
+    
+
+  
+    <h4>Tags</h4>
+    <ul class="tag_box">
+    
+    
+
+
+  
+     
+    	<li><a href="/tags.html#Java-101-ref">Java-101 <span>49</span></a></li>
+     
+    	<li><a href="/tags.html#Java-InnerClass-ref">Java-InnerClass <span>6</span></a></li>
+    
+  
+
+
+
+    </ul>
+    
+  </div>
+</div>
+
+
+      </div>
+
+      <footer>
+        <p>&copy; Erik Yao 2012 
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+        </p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    
+  </body>
+</html>
+

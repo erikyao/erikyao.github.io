@@ -1,0 +1,297 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Erik Yao's class loading: an example</title>
+    <meta name="description" content="">
+    <meta name="author" content="Erik Yao">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/css/1.4.0/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Le fav and touch icons -->
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  <!-- Update these with your own images
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+	<link href="/assets/themes/twitter/google-code-prettify/prettify.css" rel="stylesheet" type="text/css" media="all">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/themes/twitter/google-code-prettify/prettify.js"></script>
+	<script type="text/javascript" src="/assets/themes/twitter/google-code-prettify/use-prettify.js"></script>
+  </head>
+
+  <body>
+
+    <div class="topbar">
+      <div class="fill">
+        <div class="container">
+          <a class="brand" href="/">Erik Yao's</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/index.html">Home</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+  <h1>class loading: an example <small></small></h1>
+</div>
+
+<div class="row">
+  <div class="span10">
+    <p>　　class loading 是一个比较复杂的过程。一般说来，类是在其 static member 被访问时被加载的。在加载时会做的一件事是：初始化 static member 和 static 代码段 (static block, i.e. static {......})，当然，static 是只会被执行 only once 的。</p>
+
+<p>　　以下是一个例子 (adapted from <em>Chapter 7, Thinking in Java, Fourth Edition</em>)：</p>
+
+<pre class="prettyprint linenums">
+import static java.lang.System.out;  
+  
+class Insect {  
+    private int i = 1;  
+    protected int j;  
+    private static int x1 = printInit("static Insect.x1 initialized");  
+      
+    Insect() {  
+        out.println("Insect constructor");  
+        out.println("i = " + i + ", j = " + j + ", x1 = " + x1);  
+        this.j = 2;  
+    }  
+      
+    static int printInit(String s) {  
+        out.println(s);  
+  
+        return 3;  
+    }  
+}  
+  
+public class Beetle extends Insect {  
+    private int k = printInit("Beetle.k initialized");  
+    private static int x2 = printInit("static Beetle.x2 initialized");  
+      
+    public Beetle() {  
+        out.println("Beetle constructor");  
+        out.println("j = " + j + ", k = " + k + ", x2 = " + x2);  
+    }  
+   
+    public static void main(String[] args) {  
+        Beetle b = new Beetle();  
+    }  
+}  
+//output:  
+/* 
+    static Insect.x1 initialized 
+    static Beetle.x2 initialized 
+    Insect constructor 
+    i = 1, j = 0, x1 = 3 
+    Beetle.k initialized 
+    Beetle constructor 
+    j = 2, k = 3, x2 = 3 
+*/ 
+</pre>
+
+
+<ol>
+<li>首先，访问Beetle.main()，是个 static，好，加载 Beetle.class；
+
+<ul>
+<li>发现Beetle extends Insect，好，加载 Insect.class (如果 Insect 还有 base class，则持续这一过程，直到找到 root base class)；
+
+<ul>
+<li>初始化 private static int x1( = 3)，打印 "static Insect.x1 initialized"；</li>
+<li>Insect.class 加载完毕</li>
+</ul>
+</li>
+<li>继续加载 Beetle.class；
+
+<ul>
+<li>初始化private static int x2( = 3)，打印"static Beetle.x2 initialized"；</li>
+<li>Beetle.class 加载完毕，</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>开始执行 Beetle.main()；
+
+<ul>
+<li>要 new 一个 Beetle，须先 new 一个 Insect；
+
+<ul>
+<li>在执行 Insect constructor 前，先要初始化 member，由于 private static int x1 是 static 且已经初始化了，所以这次只初始化 private int i( = 1) 和 protected int j( = 0 by default)；</li>
+<li>执行 Insect constructor，打印 "Insect constructor" 和 "i = 1, j = 0, x1 = 3"，然后 j = 2；</li>
+<li>Insect constructor 执行完毕，即 new Insect 过程完毕</li>
+</ul>
+</li>
+<li>继续 new Beetle；
+
+<ul>
+<li>同理，在执行 Beetle constructor 之前，要先初始化 member，这里是初始化 private int k( = 3)，打印 "Beetle.k initialized"；</li>
+<li>执行 Beetle constructor，打印 "Beetle constructor" 和 "j = 2, k = 3, x2 = 3"；</li>
+<li>Beetle constructor 执行完毕，即 new Beetle 过程完毕</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Beetle.main() 执行完毕。</li>
+</ol>
+
+
+<p><br/></p>
+
+<p><em>2009年03月27日补充</em>：more details see <a href="/java/2009/03/27/using-overridden-method-in-constructor-is-dangerous/">warning: 在构造器中请谨慎使用被覆写方法</a></p>
+
+<p><br/></p>
+
+<p><em>2009年09月04日归纳</em>：<a href="/java/2009/09/04/class-loading-further-discussion-involving-steps-of-instance-creation/">class loading: further discussion involving steps of instance creation</a></p>
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/java/2009/03/23/private-and-package-members-is-not-inheritable" title="private、package 权限字段不可继承">&larr; Previous</a></li>
+      
+        <li><a href="/archive.html">Archive</a></li>
+      
+        <li class="next"><a href="/java/2009/03/25/final" title="final">Next &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+  </div>
+  
+  <div class="span4">
+    <h4>Published</h4>
+    <div class="date"><span>25 March 2009</span></div>
+	
+  <br/>
+	
+  
+    <h4>Categories</h4>
+	<ul class="tag_box">
+	
+	
+
+
+  
+     
+    	<li><a href="/categories.html#java-ref">
+    		java <span>40</span>
+    	</a></li>
+    
+  
+
+
+	</ul>
+    
+
+  
+    <h4>Tags</h4>
+    <ul class="tag_box">
+    
+    
+
+
+  
+     
+    	<li><a href="/tags.html#Java-101-ref">Java-101 <span>49</span></a></li>
+    
+  
+
+
+
+    </ul>
+    
+  </div>
+</div>
+
+
+      </div>
+
+      <footer>
+        <p>&copy; Erik Yao 2012 
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+        </p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    
+  </body>
+</html>
+

@@ -1,0 +1,279 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Erik Yao's 关于 class 和 class member 的访问权限</title>
+    <meta name="description" content="">
+    <meta name="author" content="Erik Yao">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/css/1.4.0/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Le fav and touch icons -->
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  <!-- Update these with your own images
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+	<link href="/assets/themes/twitter/google-code-prettify/prettify.css" rel="stylesheet" type="text/css" media="all">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/themes/twitter/google-code-prettify/prettify.js"></script>
+	<script type="text/javascript" src="/assets/themes/twitter/google-code-prettify/use-prettify.js"></script>
+  </head>
+
+  <body>
+
+    <div class="topbar">
+      <div class="fill">
+        <div class="container">
+          <a class="brand" href="/">Erik Yao's</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/index.html">Home</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+  <h1>关于 class 和 class member 的访问权限 <small></small></h1>
+</div>
+
+<div class="row">
+  <div class="span10">
+    <h2>class的访问权限</h2>
+
+<p>　　class的访问权限只有public和package两种，不存在private和protected（内部类是特例）。</p>
+
+<p>　　每一个编译单元（即.java文件）至多只能有一个public class，且如果有的话，该public class名必须与文件名相同。</p>
+
+<p>　　class访问权限是member访问权限的基础。</p>
+
+<hr />
+
+<h2>member的访问权限</h2>
+
+<p>　　当一个class是可访问的时候，member的访问权限才有意义。</p>
+
+<p>　　private、package、protected、public，具体的就不详细说了。</p>
+
+<p>　　protected包含package权限。</p>
+
+<p><br/>
+<em>7月27日补充：member的访问权限是针对类而言的</em></p>
+
+<p>　　public: 对所有类可见。</p>
+
+<p>　　protectd: 对其Ext Class可见 + package。</p>
+
+<p>　　package: 对同一pkg内的类可见。</p>
+
+<p>　　private: 仅对member所在的类可见。</p>
+
+<p>　　我们这里说的都是Class，而不是Object。有时候在理解上会有这样的混淆：</p>
+
+<pre class="prettyprint linenums">
+class Test {  
+    private int i;  
+}  
+  
+public class PrivateTest {  
+    public static void main(String[] args) {  
+        Test t = new Test();  
+        System.out.println("i = " + t.i); // syntax error  
+    }  
+} 
+</pre>
+
+
+<p>　　我们的确是获得了 Test 对象 t，i 也的确是 t 的 member，不过我们访问 i 是在 PrivateTest 类中，根据 private 的定义，这里依旧是会出错。</p>
+
+<p>　　所以说，member 的访问权限是针对类而言的，而不是针对对象。不能单纯地以为只要获得了对象(引用)，就能随便访问对象中的所有成员。</p>
+
+<p><br/>
+<em>10月10日补充：可见的意思</em></p>
+
+<p>　　如果类 A 的字段 i 对类 B 可见，则在类 B 中可以通过类的对象引用（假设有<code>A a = new A();</code>）（如果是 static 字段，则是通过类名）来访问字段 i，即：可以在类B中直接写 a.i（如果是 static 字段，则是可以写A.i）。</p>
+
+<p>　　那么，我们现在回头看，如果类 A 的字段 i 是：</p>
+
+<table>
+<thead>
+<tr>
+<th>Accessibility  </th>
+<th>  Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>public: 对所有类可见 </td>
+<td> 所有的类中都可以写 a.i 或是 A.i</td>
+</tr>
+<tr>
+<td>protectd: 对其Ext Class可见 + package </td>
+<td> 只有与类 A 同包的类，或是类 A 的子类中可以写 a.i 或是 A.i</td>
+</tr>
+<tr>
+<td>package: 对同一pkg内的类可见 </td>
+<td> 只有与类 A 同包的类中可以写 a.i或是 A.i</td>
+</tr>
+<tr>
+<td>private: 仅对member所在的类可见 </td>
+<td> 只有类 A 本身可以直接用 a.i或是 A.i</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>　　这里又涉及到另外一个问题，即我自己常用的表达：private、package 不可继承。其实这里 private、package 权限字段是由于对子类不可见所以不能继承。可以理解为 ext class 隐式包含一个 base class，base class 根据 member 的访问权限决定是否将 member 暴露给 ext class。</p>
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/java/2009/03/18/static" title="static">&larr; Previous</a></li>
+      
+        <li><a href="/archive.html">Archive</a></li>
+      
+        <li class="next"><a href="/java/2009/03/19/initializer" title="initializer">Next &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+  </div>
+  
+  <div class="span4">
+    <h4>Published</h4>
+    <div class="date"><span>19 March 2009</span></div>
+	
+  <br/>
+	
+  
+    <h4>Categories</h4>
+	<ul class="tag_box">
+	
+	
+
+
+  
+     
+    	<li><a href="/categories.html#java-ref">
+    		java <span>40</span>
+    	</a></li>
+    
+  
+
+
+	</ul>
+    
+
+  
+    <h4>Tags</h4>
+    <ul class="tag_box">
+    
+    
+
+
+  
+     
+    	<li><a href="/tags.html#Java-101-ref">Java-101 <span>49</span></a></li>
+    
+  
+
+
+
+    </ul>
+    
+  </div>
+</div>
+
+
+      </div>
+
+      <footer>
+        <p>&copy; Erik Yao 2012 
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+        </p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    
+  </body>
+</html>
+

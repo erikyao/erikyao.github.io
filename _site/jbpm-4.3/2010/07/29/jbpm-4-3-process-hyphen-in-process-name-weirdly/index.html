@@ -1,0 +1,206 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Erik Yao's jBPM-4.3 &lt;process&gt; 标签 name 属性中的短横线会变成下划线赋给 key 属性</title>
+    <meta name="description" content="">
+    <meta name="author" content="Erik Yao">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/css/1.4.0/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Le fav and touch icons -->
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  <!-- Update these with your own images
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+	<link href="/assets/themes/twitter/google-code-prettify/prettify.css" rel="stylesheet" type="text/css" media="all">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/themes/twitter/google-code-prettify/prettify.js"></script>
+	<script type="text/javascript" src="/assets/themes/twitter/google-code-prettify/use-prettify.js"></script>
+  </head>
+
+  <body>
+
+    <div class="topbar">
+      <div class="fill">
+        <div class="container">
+          <a class="brand" href="/">Erik Yao's</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/index.html">Home</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+  <h1>jBPM-4.3 &lt;process&gt; 标签 name 属性中的短横线会变成下划线赋给 key 属性 <small></small></h1>
+</div>
+
+<div class="row">
+  <div class="span10">
+    <p>　　假设我部署了一个 jpdl.xml，&lt;process name="test-vehicle"&gt;，那么，查询出的 ProcessDefinition 的属性如下：</p>
+
+<pre class="prettyprint linenums">
+System.out.println(pd.getName());    // definitionName == "test-vehicle"  
+System.out.println(pd.getKey());       // definitionKey == "test_vehicle"  
+System.out.println(pd.getVersion()); // definitionVersion == "1"  
+System.out.println(pd.getId());         // definitionId == "test_vehicle-1" 
+</pre>
+
+
+<p></p>
+
+<p>这在创建流程实例和查询流程定义的时候要特别注意：</p>
+
+<pre class="prettyprint linenums">
+ExecutionService.startProcessInstanceById(“test_vehicle-1”);  
+ExecutionService.startProcessInstanceByKey(“test_vehicle”);  
+</pre>
+
+
+<p>startProcessInstanceById() 传的是 definitionId（不是 deploymentId），startProcessInstanceByKey() 传的是 definitionKey。查询的时候，还可以通过 definitionName 来查：</p>
+
+<pre class="prettyprint linenums">
+RepositoryService.createProcessDefinitionQuery().processDefinitionName("test-vehicle"); 
+</pre>
+
+
+<p>在项目中有一个方法，是传入 definitionName 来创建实例，先 RepositoryService.createProcessDefinitionQuery().processDefinitionName("test-vehicle") 来确定时候有 processDefinition 存在，如果有，就 ExecutionService.startProcessInstanceByKey("test-vehicle")。结果就悲剧了。</p>
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/jbpm-4.3/2010/07/29/deploymentid-and-definitionid-in-jbpm-4-3" title="jBPM-4.3 中 deploymentId 和definitionId 应该是一对一的关系">&larr; Previous</a></li>
+      
+        <li><a href="/archive.html">Archive</a></li>
+      
+        <li class="next"><a href="/jbpm-4.3/2010/07/29/what-is-resource-in-jbpm-4-3" title="jBPM-4.3 流程定义 zip 包中的所有文件都是资源">Next &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+  </div>
+  
+  <div class="span4">
+    <h4>Published</h4>
+    <div class="date"><span>29 July 2010</span></div>
+	
+  <br/>
+	
+  
+    <h4>Categories</h4>
+	<ul class="tag_box">
+	
+	
+
+
+  
+     
+    	<li><a href="/categories.html#jbpm-4.3-ref">
+    		jbpm-4.3 <span>6</span>
+    	</a></li>
+    
+  
+
+
+	</ul>
+    
+
+    
+  </div>
+</div>
+
+
+      </div>
+
+      <footer>
+        <p>&copy; Erik Yao 2012 
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+        </p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    
+  </body>
+</html>
+

@@ -1,0 +1,253 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Erik Yao's Isolation</title>
+    <meta name="description" content="">
+    <meta name="author" content="Erik Yao">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/css/1.4.0/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Le fav and touch icons -->
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  <!-- Update these with your own images
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+	<link href="/assets/themes/twitter/google-code-prettify/prettify.css" rel="stylesheet" type="text/css" media="all">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/themes/twitter/google-code-prettify/prettify.js"></script>
+	<script type="text/javascript" src="/assets/themes/twitter/google-code-prettify/use-prettify.js"></script>
+  </head>
+
+  <body>
+
+    <div class="topbar">
+      <div class="fill">
+        <div class="container">
+          <a class="brand" href="/">Erik Yao's</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/index.html">Home</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+  <h1>Isolation <small></small></h1>
+</div>
+
+<div class="row">
+  <div class="span10">
+    <p>　　参考 <a href="http://en.wikipedia.org/wiki/Isolation_%28database_systems%29#Read_phenomena">Isolation (database systems)</a></p>
+
+<hr />
+
+<p>　　Isolation 的理想状态是：the result of Transaction A is invisible to Transaction B until Transaction A is completed。不过这么一来，只有 Serializable 级别才能满足要求，即 Transactions 是一个接一个地执行，不允许 Transactions 的并行。如果想要 Transactions 的并行，那么就不可能有绝对的 Isolation。为此，ANSI/ISO 制定的 SQL 标准给 Isolation 分了4个级别，由高到低分别是：</p>
+
+<ul>
+<li>Serializable</li>
+<li>Repeatable Read (Phantom Read)</li>
+<li>Read Committed (Nonrepeatable Read)</li>
+<li>Read Uncommitted (Dirty Read)</li>
+</ul>
+
+
+<p>级别越高的，isolation 性越好，而低级别的 isolation 会有各种各样的并发问题 (如上面括号中所示)。下面一一介绍。</p>
+
+<hr />
+
+<h2>1. Read Uncommitted</h2>
+
+<p>　　Transaction 1 可以查看 Transaction 2 未提交的操作结果，这会导致 Dirty Read 的问题，如下图所示：</p>
+
+<p><img src="https://wxet4g.bn1302.livefilestore.com/y2pBrwlTJ9uhagsjWMFovD3FqiRnGNUO7_w0DmTHmTc7JZHIloJMJTvd8TJXcalHACGhNJRF3AjTym7GnDVU7SLFJ2rXn11L89lobfDgB1_Yi0/Dirty%20Read.png?psid=1" alt="" /></p>
+
+<p>Transaction 1 的执行的第二个 query 会读到 Transaction 2 中 update 的结果，如果 Transaction 2 rollback 的话，这个读到的数据明显是错误的。</p>
+
+<hr />
+
+<h2>2. Read Committed</h2>
+
+<p>　　如果我们强制 Transaction 1 只能读 Transaction 2 中已经 commit 的 update，就可以解决 Dirty Read 的问题。强制的手段是：每次 query（比如SELECT）时，都会获取当前数据库（或者可能只是 query 涉及的表）的一个 snapshot，query 从这个 snapshot中获得结果。没有 commit 的 update 不会在 snapshot 中出现，所以就不会被 query 到。</p>
+
+<p>　　这样允许 Transaction 2 并行执行，且不会影响 Transaction 1。当 Transaction 1 commit 的时候，DBMS 检测是否有冲突（比如 Transaction 1 也 update 了 Transaction 2 中 update 的 row），如果执行的结果等同于顺序执行 Transaction 1 和 Transaction 2，则认为没有冲突。</p>
+
+<p>　　但这样也会有问题：Nonrepeatable Read，即可能执行同一 query 两次而出现不同的结果，我们认为这是不符合一致性原则的。</p>
+
+<p><img src="https://wxet4g.bn1304.livefilestore.com/y2pfwcDEtpnU8LvpUEND715nFyYMdwl89f0hLw680o2Y2TnIrPGbU2BGKdX19Ls5HrD5_mN44V-N040j5LHTFO1YIzqAn2aXQIgJ641jN9uyo0/Nonrepeatable%20Read.png?psid=1" alt="" /></p>
+
+<hr />
+
+<h2>3. Repeatable Read</h2>
+
+<p>　　解决 Nonrepeatable Read 问题的办法是给 Transaction 1 中 SELECT 涉及的行加一个 read lock。</p>
+
+<p>　　锁的排斥功能很明确：read locks 不会 block read locks，只 block write locks；write locks block both read locks and write locks。</p>
+
+<p>　　不过会有新的问题：Phantom Read。</p>
+
+<p><img src="https://wxet4g.bn1303.livefilestore.com/y2putLwKZX0iBoFmYG3g4zfmnSNHhle7OjndVNGY2PQ19u5fZQjdtbiLtwbztcbrgSbcWON3ydC5Zt3y0-ICYYEBwPbeHpQFSDi-yp2YQXD4jY/Phantom%20Read.png?psid=1" alt="" /></p>
+
+<p>当 Transaction 1 执行一个 range query（范围查询，如 like, between 等）时，只会为涉及到的 row 加 read lock，如果插入一个新 row 在 range 之内，第二次 range query 还是会被读出。</p>
+
+<hr />
+
+<h2>4. Serializable</h2>
+
+<p>　　强制 Transactions 按顺序执行，所以 Transaction 之间不可能冲突。强制的手段是 place a read lock on every row the transaction read；同时，如果有 range query，还会添加一个 range lock。明显，Serializable 会耗费很多的 lock overhead。</p>
+
+<p>　　Serializable 相当于在 Transaction 1 开始时（而不是 query 开始时）给当前数据库（或是 Transaction 涉及的表）take a snapshot，Transaction 1 中的所有 query 都从这一个 snapshot 中获取结果。</p>
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/springmvc/2009/12/11/simple-form-handling-example" title="Simple Form Handling Example">&larr; Previous</a></li>
+      
+        <li><a href="/archive.html">Archive</a></li>
+      
+        <li class="next"><a href="/mysql/2009/12/25/mysql-regexp" title="MySQL REGEXP">Next &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+  </div>
+  
+  <div class="span4">
+    <h4>Published</h4>
+    <div class="date"><span>25 December 2009</span></div>
+	
+  <br/>
+	
+  
+    <h4>Categories</h4>
+	<ul class="tag_box">
+	
+	
+
+
+  
+     
+    	<li><a href="/categories.html#database-ref">
+    		database <span>1</span>
+    	</a></li>
+    
+  
+
+
+	</ul>
+    
+
+  
+    <h4>Tags</h4>
+    <ul class="tag_box">
+    
+    
+
+
+  
+     
+    	<li><a href="/tags.html#Database-101-ref">Database-101 <span>6</span></a></li>
+    
+  
+
+
+
+    </ul>
+    
+  </div>
+</div>
+
+
+      </div>
+
+      <footer>
+        <p>&copy; Erik Yao 2012 
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+        </p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    
+  </body>
+</html>
+

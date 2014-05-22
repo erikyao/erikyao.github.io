@@ -1,0 +1,323 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Erik Yao's foreach 与 iterable</title>
+    <meta name="description" content="">
+    <meta name="author" content="Erik Yao">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/css/1.4.0/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Le fav and touch icons -->
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  <!-- Update these with your own images
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+	<link href="/assets/themes/twitter/google-code-prettify/prettify.css" rel="stylesheet" type="text/css" media="all">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/themes/twitter/google-code-prettify/prettify.js"></script>
+	<script type="text/javascript" src="/assets/themes/twitter/google-code-prettify/use-prettify.js"></script>
+  </head>
+
+  <body>
+
+    <div class="topbar">
+      <div class="fill">
+        <div class="container">
+          <a class="brand" href="/">Erik Yao's</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/index.html">Home</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+  <h1>foreach 与 iterable <small></small></h1>
+</div>
+
+<div class="row">
+  <div class="span10">
+    <p>　　Iterable 是一个接口，它只有一个方法 iterator()，要求返回一个 Iterator。</p>
+
+<pre class="prettyprint linenums">
+package java.lang;  
+  
+public interface Iterable<T> {  
+    Iterator<T> iterator();  
+} 
+</pre>
+
+
+<p>　　而 Iterator 本身也是个接口，它有 hasNext()、next()、remove() 三个方法。</p>
+
+<pre class="prettyprint linenums">
+package java.util;  
+  
+public interface Iterator<T> {  
+    boolean hasNext();  
+    T       next();  
+    void    remove(); //optional  
+}  
+</pre>
+
+
+<p>　　一般的实现为：</p>
+
+<pre class="prettyprint linenums">
+import java.util.*;  
+  
+public class StringArray implements Iterable<String> {  
+    private String[] words;  
+      
+    public StringArray() {  
+        words = "This is the default sentence".split(" ");  
+    }  
+      
+    public StringArray(String sentence) {  
+        words = sentence.split(" ");  
+    }  
+      
+    public Iterator<String> iterator() {  
+        return new Iterator<String>() {  
+            private int index = 0;  
+              
+            public boolean hasNext() {  
+                return index <= words.length - 1;  
+            }  
+              
+            public String next() {  
+                return words[index++];  
+            }  
+              
+            public void remove() {  
+                // we do not implement it here  
+                throw new UnsupportedOperationException();  
+            }  
+        };  
+    }  
+      
+    public static void main(String[] args) {  
+        StringArray sa = new StringArray("Hello World");  
+          
+        for (String s : sa) {
+            System.out.println(s);  
+        }
+    }  
+}  
+
+//output:  
+/*   
+    Hello    
+    World 
+*/ 
+</pre>
+
+
+<p>　　目前有这么一个问题，如果一个类想要有不同的 Iterable 效果怎么办？我们可以使用不同的方法来返回不同的 Iterable 实现，而不是去实现 Iterable 接口。这样也是可以使用 foreach 语句的，因为 foreach 的语法要求就是 <code>for (Obj o : Iterable i)</code>，不管是 StringArray implements Iterable<String> 或是 public Iterable<String> getIterable()，冒号后面放一个 Iterable 实现就好了，具体是什么形式并不限制。如下：</p>
+
+<pre class="prettyprint linenums">
+public class ReverseStringArray {  
+    private String[] words;  
+      
+    public ReverseStringArray() {
+        words = "This is the default sentence".split(" ");  
+    }  
+      
+    public ReverseStringArray(String sentence) {
+        words = sentence.split(" ");  
+    }  
+      
+    public Iterable<String> reverseIterable() {
+        return new Iterable<String>() {  
+            public Iterator<String> iterator() {  
+                return new Iterator<String>() {  
+                    private int index = words.length - 1;  
+                  
+                    public boolean hasNext() {  
+                        return index >= 0;  
+                    }  
+                  
+                    public String next() {  
+                        return words[index--];  
+                    }  
+                      
+                    public void remove() {  
+                        // we do not implement it here  
+                        throw new UnsupportedOperationException();  
+                    }  
+                };  
+            }  
+        };  
+    }  
+      
+    public static void main(String[] args) {
+        ReverseStringArray rsa = new ReverseStringArray("Hello World");  
+          
+        for (String s : rsa.reverseIterable()) { 
+            System.out.println(s);
+        }
+    }  
+}  
+  
+//output:  
+/* 
+    World 
+    Hello 
+*/  
+</pre>
+
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/java/2009/07/28/arrays-aslist" title="Arrays.asList()">&larr; Previous</a></li>
+      
+        <li><a href="/archive.html">Archive</a></li>
+      
+        <li class="next"><a href="/java/2009/07/31/first-catch" title="first catch">Next &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+  </div>
+  
+  <div class="span4">
+    <h4>Published</h4>
+    <div class="date"><span>30 July 2009</span></div>
+	
+  <br/>
+	
+  
+    <h4>Categories</h4>
+	<ul class="tag_box">
+	
+	
+
+
+  
+     
+    	<li><a href="/categories.html#java-ref">
+    		java <span>40</span>
+    	</a></li>
+    
+  
+
+
+	</ul>
+    
+
+  
+    <h4>Tags</h4>
+    <ul class="tag_box">
+    
+    
+
+
+  
+     
+    	<li><a href="/tags.html#Java-101-ref">Java-101 <span>49</span></a></li>
+    
+  
+
+
+
+    </ul>
+    
+  </div>
+</div>
+
+
+      </div>
+
+      <footer>
+        <p>&copy; Erik Yao 2012 
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+        </p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    
+  </body>
+</html>
+

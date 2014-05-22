@@ -1,0 +1,301 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Erik Yao's Spring AOP 学习（一）：组合对比继承的优势</title>
+    <meta name="description" content="">
+    <meta name="author" content="Erik Yao">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/css/1.4.0/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Le fav and touch icons -->
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  <!-- Update these with your own images
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+	<link href="/assets/themes/twitter/google-code-prettify/prettify.css" rel="stylesheet" type="text/css" media="all">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/themes/twitter/google-code-prettify/prettify.js"></script>
+	<script type="text/javascript" src="/assets/themes/twitter/google-code-prettify/use-prettify.js"></script>
+  </head>
+
+  <body>
+
+    <div class="topbar">
+      <div class="fill">
+        <div class="container">
+          <a class="brand" href="/">Erik Yao's</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/index.html">Home</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+  <h1>Spring AOP 学习（一）：组合对比继承的优势 <small></small></h1>
+</div>
+
+<div class="row">
+  <div class="span10">
+    <p>　　来自尚学堂Spring视频教程；作文字总结。</p>
+
+<hr />
+
+<p>　　系统中现有接口 UserDAO 及其实现 UseDAOImpl：</p>
+
+<pre class="prettyprint linenums">
+package com.bjsxt.dao;  
+  
+import com.bjsxt.model.User;  
+  
+public interface UserDAO {  
+    public void save(User user);  
+}  
+</pre>
+
+
+
+
+<pre class="prettyprint linenums">
+package com.bjsxt.dao.impl;  
+  
+import com.bjsxt.dao.UserDAO;  
+import com.bjsxt.model.User;  
+  
+public class UserDAOImpl implements UserDAO {  
+    public void save(User user) {     
+        // Hibernate or JDBC, whatever
+        System.out.println("user saved!");  
+    }  
+}  
+</pre>
+
+
+<p>现在需要在save方法前记录日志，如：</p>
+
+<pre class="prettyprint linenums">
+package com.bjsxt.dao.impl;  
+  
+import com.bjsxt.dao.UserDAO;  
+import com.bjsxt.model.User;  
+  
+public class UserDAOImpl implements UserDAO {  
+    public void save(User user) {     
+        // Hibernate or JDBC, whatever
+        System.out.println("logging......");  
+        System.out.println("user saved!");  
+    }  
+}  
+</pre>
+
+
+<p>当然，像这样直接在源代码里添加当然是最简单的了。但如果拿不到源代码呢？此时可以新写一个类来继承 UserDAOImpl，用 delegation：</p>
+
+<pre class="prettyprint linenums">
+package com.bjsxt.dao.impl;  
+  
+import com.bjsxt.model.User;  
+  
+public class UserDAOImpl2 extends UserDAOImpl {  
+    public void save(User user) {  
+        System.out.println("logging......");  
+        super.save(user);     
+    }  
+}  
+</pre>
+
+
+<p>用组合的方式也可以，如：</p>
+
+<pre class="prettyprint linenums">
+package com.bjsxt.dao.impl;  
+  
+import com.bjsxt.dao.UserDAO;  
+import com.bjsxt.model.User;  
+  
+public class UserDAOImpl3 implements UserDAO {    
+    private UserDAO userDAO = new UserDAOImpl();  
+      
+    public void save(User user) {     
+        System.out.println("logging......");  
+        userDAO.save(user);   
+    }  
+}  
+</pre>
+
+
+<p>这样，把系统的 beans.xml 文件中配置的 UserDAOImpl 改成 UserDAOImpl2 或者 UserDAOImpl3，系统就有了记录日志的的功能了。</p>
+
+<p>　　这三种添加日志功能的方法中：</p>
+
+<ol>
+<li>直接在源码中写死是最不灵活的方式，因为万一要修改日志功能，要在 UserDAOImpl 的代码中去搜索日志功能的代码，耦合度太高</li>
+<li>继承的方式也不够灵活。首先 UserDAOImpl1 这个类无法再继承其他的类；再次，父类的改动必然引起子类的改动，耦合度太高</li>
+<li>组合没有耦合度太高的问题；成员 private UserDAO userDAO 可以使用多态；继承只能继承一个 Impl，而组合更为灵活，可以组合多个 Impl，如同时组合 UserDAOImpl 和 ForumDAOImpl。这3种方法中，组合的方式最好，在设计模式中也经常用组合来替代继承</li>
+</ol>
+
+
+<p>　　另：这里的继承和组合都是静态代理，对应于 <a href="/aop/2010/07/28/learning-spring-aop-part-2-dynamic-proxy/">Spring AOP 学习（二）：动态代理</a> 中的动态代理</p>
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/java/2010/07/04/pass-by-value-in-java" title="Java 的值传递">&larr; Previous</a></li>
+      
+        <li><a href="/archive.html">Archive</a></li>
+      
+        <li class="next"><a href="/aop/2010/07/28/learning-spring-aop-part-2-dynamic-proxy" title="Spring AOP 学习（二）：动态代理">Next &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+  </div>
+  
+  <div class="span4">
+    <h4>Published</h4>
+    <div class="date"><span>28 July 2010</span></div>
+	
+  <br/>
+	
+  
+    <h4>Categories</h4>
+	<ul class="tag_box">
+	
+	
+
+
+  
+     
+    	<li><a href="/categories.html#aop-ref">
+    		aop <span>4</span>
+    	</a></li>
+    
+  
+
+
+	</ul>
+    
+
+  
+    <h4>Tags</h4>
+    <ul class="tag_box">
+    
+    
+
+
+  
+     
+    	<li><a href="/tags.html#Java-101-ref">Java-101 <span>49</span></a></li>
+     
+    	<li><a href="/tags.html#Java-AOP-ref">Java-AOP <span>5</span></a></li>
+     
+    	<li><a href="/tags.html#Proxy-ref">Proxy <span>4</span></a></li>
+     
+    	<li><a href="/tags.html#Delegate-ref">Delegate <span>2</span></a></li>
+     
+    	<li><a href="/tags.html#动态代理-ref">动态代理 <span>3</span></a></li>
+    
+  
+
+
+
+    </ul>
+    
+  </div>
+</div>
+
+
+      </div>
+
+      <footer>
+        <p>&copy; Erik Yao 2012 
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+        </p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    
+  </body>
+</html>
+

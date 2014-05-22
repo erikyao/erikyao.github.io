@@ -1,0 +1,520 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Erik Yao's ARM7 学习笔记</title>
+    <meta name="description" content="">
+    <meta name="author" content="Erik Yao">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/css/1.4.0/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Le fav and touch icons -->
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  <!-- Update these with your own images
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+	<link href="/assets/themes/twitter/google-code-prettify/prettify.css" rel="stylesheet" type="text/css" media="all">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/themes/twitter/google-code-prettify/prettify.js"></script>
+	<script type="text/javascript" src="/assets/themes/twitter/google-code-prettify/use-prettify.js"></script>
+  </head>
+
+  <body>
+
+    <div class="topbar">
+      <div class="fill">
+        <div class="container">
+          <a class="brand" href="/">Erik Yao's</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/index.html">Home</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+  <h1>ARM7 学习笔记 <small></small></h1>
+</div>
+
+<div class="row">
+  <div class="span10">
+    <h2>1．MEMMAP</h2>
+
+<p>MEMMAP = 0x00时为Boot模式，异常向量表从Boot Block重新映射</p>
+
+<p>MEMMAP = 0x01时为片内Flash模式，异常向量表不重新映射</p>
+
+<p>MEMMAP = 0x10时为片内RAM模式，异常向量表从静态RAM重新映射</p>
+
+<p>MEMMAP = 0x11时为片外存储器模式，异常向量表从外部存储器重新映射(only for LPC22xx)</p>
+
+<p>所谓映射，就是一种对应关系，所以“重映射”就是重新对应的意思</p>
+
+<table>
+<thead>
+<tr>
+<th>逻辑地址  </th>
+<th> MEMMAP  </th>
+<th> 对应物理地址</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x00000000~0x0000003F  </td>
+<td> 00   </td>
+<td> 0x7FFFE000~0x7FFFE03F (Boot Block地址)</td>
+</tr>
+<tr>
+<td>(同上)  </td>
+<td> 01   </td>
+<td> 0x00000000~0x0000003F (片内Flash地址)</td>
+</tr>
+<tr>
+<td>(同上)  </td>
+<td> 10   </td>
+<td> 0x40000000~0x4000003F (片内RAM地址)</td>
+</tr>
+<tr>
+<td>(同上)  </td>
+<td> 11   </td>
+<td> 0x80000000~0x8000003F (片外存储器地址)</td>
+</tr>
+<tr>
+<td>0x00000040~0xFFFFFFFF  </td>
+<td> 任意   </td>
+<td> 对应不变</td>
+</tr>
+</tbody>
+</table>
+
+
+<hr />
+
+<h2>2．P0 &amp; P1</h2>
+
+<p>LPC2148有两个32位的通用I/O口：PORT0的32个可用引脚中P0.31为输出引脚，P0.24未用，其余30个为输入/输出引脚；PORT1中P1.16-P1.31引脚可用作GPIO功能。</p>
+
+<p>PINSEL0、PINSEL1用于选择PORT0，每2bit对应一个引脚(2bit有4种组合，对应4种引脚功能)</p>
+
+<p>PINSEL0 [31:0]对应P0.15~P0.0</p>
+
+<p>PINSEL1 [31:0]对应P0.31~P0.16</p>
+
+<p>PINSEL2直接控制P1.31~P1.0</p>
+
+<p>IO0SET、IO1SET [31:0]：对应P0.31~P0.0和P1.31~P1.0，往 [n]写1即将Px.n置1，写0无效</p>
+
+<p>IO0CLR、IO1CLR [31:0]：对应P0.31~P0.0和P1.31~P1.0，往 [n]写1即将Px.n置0，写0无效</p>
+
+<p>IO0DIR、IO1DIR [31:0]：对应P0.31~P0.0和P1.31~P1.0，往 [n]写1即将Px.n设为output，写0则设为input</p>
+
+<p>IO0PIN、IO1PIN [31:0]：存储P0.31~P0.0和P1.31~P1.0的当前值(for read)</p>
+
+<hr />
+
+<h2>3．F &amp; PLL</h2>
+
+<p>Fosc：晶振频率，在软件中设置时应与实际晶振频率相同，是计算其他频率的基础</p>
+
+<p>Fcclk：system clock，= M * Fosc，int M∈ [1, 32]，但Fcclk≤60MHz</p>
+
+<p>Fcco：CCO工作频率，= 2 * P * Fcclk = 2 * P * M * Fosc，int p=1/2/4/8，须满足Fcco∈ [156, 320]MHz</p>
+
+<p>Fpclk：外设工作频率</p>
+
+<p>PLLCON：PLL Control</p>
+
+<p>PLLCON [0]：enable PLL when 1</p>
+
+<p>PLLCON [1]：connect PLL when 1</p>
+
+<p>PLLCON [1:0]：00/10->disabled and not connected; 01->enabled but not connected; 11->enabled and connected</p>
+
+<p>PLLCFG：PLL Config</p>
+
+<p>PLLCFG [4:0]：将(M-1)的值写入这5位即设置M值</p>
+
+<p>PLLCFG [6:5]：写入00/01/10/11即设置P值为1/2/4/8</p>
+
+<p>PLLFEED：设置好PLLCON和PLLCFG后，向PLLFEED先后写入0xAA、0x55才能使设置生效(像点击“确定”一样)</p>
+
+<p>PLLSTAT：存储PLL的当前状态(for read)</p>
+
+<p>PLLSTAT [4:0]：当前的PLLCFG [4:0]值</p>
+
+<p>PLLSTAT [6:5]：当前的PLLCFG [6:5]值</p>
+
+<p>PLLSTAT [8]：当前的PLLCON [0]值</p>
+
+<p>PLLSTAT [9]：当前的PLLCON [1]值</p>
+
+<p>PLLSTAT [10]：PLOCK值，为1时表示PLL已被锁定到设置的频率上。PLOCK在0xAA、0x55 写入PLLFEED后由系统自动设置。必须等待PLOCK为1时才能connect PLL</p>
+
+<hr />
+
+<h2>4．PR, PC, TCR, MR, MCR &amp; IR</h2>
+
+<p>T0PR、T1PR：用来存储Prescale值</p>
+
+<p>T0PC、T1PC：Prescale Counter，频率为Fpclk，从0开始，递增到Prescale值时，PC置0，TC加1</p>
+
+<p>T0TC、T1TC：Timer Counter，由PC可知，TC的频率为Fpclk/(Prescale+1)，是整个Timer的中断源</p>
+
+<p>T0TCR、T1TCR：Timer Control Register</p>
+
+<p>T0TCR、T1TCR  [0]：enable TC and PC when 1</p>
+
+<p>T0TCR、T1TCR  [1]：reset TC and PC when 1</p>
+
+<p>MR0、MR1、MR2、MR3：设置Match值，当TC递增到Match值时产生动作(产生中断、复位TC或是停止TC和PC，这个动作由MCR控制)</p>
+
+<p>MCR：Match Control Register，控制TC递增到Match值时的动作</p>
+
+<p>MCR [0]：为1时，TC递增到MR0中的Match值时产生中断</p>
+
+<p>MCR [1]：为1时，TC递增到MR0中的Match值时复位TC</p>
+
+<p>MCR [2]：为1时，TC递增到MR0中的Match值时停止TC和PC</p>
+
+<p>MCR [5:3]：对应MR1，顺序同上</p>
+
+<p>MCR [8:6]：对应MR2，顺序同上</p>
+
+<p>MCR [11:9]：对应MR3，顺序同上</p>
+
+<p>T0IR、T1IR：Interrupt Register，有中断时，对应位置1；往某位写入1则将该位置0 (即复位中断)，写入0无效</p>
+
+<p>T0IR、T1IR [3:0]：对应timer自身产生的MR3/MR2/MR1/MR0中断</p>
+
+<p>T0IR、T1IR [7:4]：对应捕获到的外部输入中断，即CR3/CR2/CR1/CR0中断</p>
+
+<hr />
+
+<h2>5．向量地址</h2>
+
+<p>所谓“向量”，就是引导、跳转的意思，“向量地址”实际就是跳转地址 (another example of why I hate translation)</p>
+
+<p style="text-align:center;"> ARM7: 8种异常的向量地址</p>
+
+<table>
+<thead>
+<tr>
+<th>异常  </th>
+<th> 向量地址  </th>
+<th> 优先级</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reset 复位  </td>
+<td> 0x0000 0000   </td>
+<td> 1 (highest)</td>
+</tr>
+<tr>
+<td>Undefined Instruction 未定义指令 </td>
+<td> 0x0000 0004   </td>
+<td> 6</td>
+</tr>
+<tr>
+<td>Software Interrupt (SWI) 软件中断  </td>
+<td> 0x0000 0008   </td>
+<td> 7 (lowest)</td>
+</tr>
+<tr>
+<td>Prefetch Abort (instruction fetch memory fault) 预取指中止  </td>
+<td> 0x0000 000C   </td>
+<td> 5</td>
+</tr>
+<tr>
+<td>Data Abort (data access memory fault) 数据中止  </td>
+<td> 0x0000 0010   </td>
+<td> 2</td>
+</tr>
+<tr>
+<td>Reserved (used by the Boot Loader as the Valid User Program key) 保留  </td>
+<td> 0x0000 0014   </td>
+<td> N/A</td>
+</tr>
+<tr>
+<td>IRQ  </td>
+<td> 0x0000 0018   </td>
+<td> 4</td>
+</tr>
+</tbody>
+</table>
+
+
+<hr />
+
+<h2>6．FIQ</h2>
+
+<p>发生中断时，ARM只负责(把PC)跳转到向量地址(FIQ to 0x1C, IRQ to 0x18)，后面的工作需要我们自己完成。</p>
+
+<p>FIQ的ISR可以直接写到0x1C，也可以像IRQ一样，用一个一级ISR取到VICVectAddr中的地址(即是二级ISR的地址)，再运行二级ISR。当然，也可以直接在0x18写IRQ的ISR，不过 ARM 既然提供了这么多类似VICVectAddr的寄存器，不用白不用。</p>
+
+<p>接下来的问题是：如何把一个函数地址准确地放在0x18/0x1C?</p>
+
+<p>Yeah, we have <code>#pragma</code>!</p>
+
+<blockquote><p>In Programming Languages, Principles and Practice (Boston, PWS-Kent Publishing Co, 1993), Kenneth C. Louden writes</p>
+
+<p>"Finally, a translator needs to provide the user options for debugging, for interfacing with the operating system, and perhaps with a software development environment. These options, such as specifying files for inclusion, disabling optimizations or turning on tracing or debugging information, are the pragmatics of a programming language translator. Occasionally, facilities for pragmatic directives (实用性指示), or pragmas, are part of the language definition"</p></blockquote>
+
+<p><code>#pragma vector = address</code></p>
+
+<p>该命令为其后声明的一个中断函数指定地址，即把中断函数和地址绑定</p>
+
+<p><code>#pragma type_attribute = keyword</code></p>
+
+<p>该命令影响其后声明的一个函数，keyword包括：</p>
+
+<p>__arm：使函数以ARM模式运行</p>
+
+<p>__thumb：使函数以thumb模式运行</p>
+
+<p>__interwork：使函数既可以以ARM模式运行，也可以以thumb模式运行</p>
+
+<p>__fiq：声明函数为FIQ函数(ISR)</p>
+
+<p>__irq：声明函数为IRQ函数(ISR)</p>
+
+<p>ISR must be compiled in ARM mode. ISR does not accept parameters and does not have a return value.</p>
+
+<p>__swi：声明函数为软件中断函数(ISR)</p>
+
+<p>__monitor：声明函数为监视函数</p>
+
+<p>这些keyword也可以在函数声明时直接使用，如：</p>
+
+<pre class="prettyprint linenums">
+__irq __arm interrupt_handler() {
+    ...
+}
+</pre>
+
+
+<hr />
+
+<h2>7．中断引脚</h2>
+
+<p>LPC2148有32个中断源(部分保留未用)，每个中断源对应一个固定的VIC Channel (VIC Channel #可以看作中断源的编号) (可以理解为每一个中断源有一根固定的信号线连到内核，一有中断就通过这根信号线通知内核)。一些片内中断源已经固定，额外添加的中断源要经过外部中断引脚(EINT)，此时要用到PINSEL，一般使用P0.15和P0.16，因为P0.15对应S4(也就是说S4可以控制P0.15的值，也一点并不只是在P0.15用作GPIO时才成立)，P0.16对应S5，而它们又分别对应EINT2和EINT0 (关于YL所做的内部连接是个让人头痛的问题)</p>
+
+<p>EXTMODE：设置EXTINT的捕捉模式</p>
+
+<p>EXTMODE [0]：对应EINT0，置1表示即EXTINT捕捉EINT0引脚上的边沿，0表示EXTINT捕捉EINT0引脚上的电平</p>
+
+<p>EXTMODE [1]：对应EINT1，同上</p>
+
+<p>EXTMODE [2]：对应EINT2，同上</p>
+
+<p>EXTMODE [3]：对应EINT3，同上</p>
+
+<p>EXTPOLAR：设置EXTINT的捕捉极性</p>
+
+<p>EXTPOLAR  [0]：对应EINT0，置1表示EXTINT捕捉EINT0引脚上的高电平或是上升沿，0表示EXTINT捕捉EINT0引脚上的低电平或是下降沿</p>
+
+<p>EXTPOLAR [1]：对应EINT1，同上</p>
+
+<p>EXTPOLAR [2]：对应EINT2，同上</p>
+
+<p>EXTPOLAR [3]：对应EINT3，同上</p>
+
+<p>EXTINT：External Interrupt Flag register (where dose the ‘F’ go?)</p>
+
+<p>EXTINT [0]：对应EINT0，若捕捉到EINT0上的敏感信号(电平或是边沿)，则该位置1，否则为0，写入1则将该位置0</p>
+
+<p>EXTINT [1]：对应EINT1，同上</p>
+
+<p>EXTINT [2]：对应EINT2，同上</p>
+
+<p>EXTINT [3]：对应EINT3，同上</p>
+
+<hr />
+
+<h2>8．中断源</h2>
+
+<p>32个中断源可以设置为FIQ和IRQ两种模式，有关FIQ和IRQ的处理方式，参见第6点。</p>
+
+<p>VICIntEnable：使能中断源</p>
+
+<p>VICIntEnable [x]：置1表示使能第x号中断源(即是VIC Channel #为x的中断源)，写0无效</p>
+
+<p>VICIntEnClr：禁止中断源</p>
+
+<p>VICIntEnClr [x]：写入1即将VICIntEnable [x]置0，写0无效</p>
+
+<p>VICIntSelect：设置中断源</p>
+
+<p>VICIntSelect [x]：写1表示把第x号中断源设置为FIQ，写0则设置为IRQ</p>
+
+<p>VICFIQStatus：FIQ Status</p>
+
+<p>VICFIQStatus [x]：为1表示第x号中断源产生FIQ中断请求</p>
+
+<p>VICIRQStatus：IRQ Status</p>
+
+<p>VICIRQStatus [x]：为1表示第x号中断源产生IRQ中断请求</p>
+
+<p>LPC2148有16个优先级(对应16个slot，0到15优先级从高到低)供IRQ使用，使用slot的IRQ即是向量IRQ，没有使用slot的IRQ即是非向量IRQ</p>
+
+<p>VICVectAddr0~VICVectAddr15、VICDefVectAddr、VICVectAddr：</p>
+
+<p>当ISR读取VICVectAddr时，VICVectAddr会先去查找发送过来的最高优先级的VICVectAddrx (若有向量IRQ发生，VIC会把对应的VICVectAddrx发送到VICVectAddr)，若没有VICVectAddrx发送过来 (即没有向量IRQ发生)，则VICVectAddr返回VICDefVectAddr (Def: default)中的地址值</p>
+
+<p>所以一般把非向量IRQ的地址放在VICDefVectAddr (第6点中提到处理FIQ也可以在一级ISR里读取VICVectAddr，所以FIQ的ISR一般也是写在VICDefVectAddr里的)，如果有多个非向量IRQ或是FIQ中断源，则在ISR里要先用if-else或是swith-case来判断中断源，再做相应的处理。若是非向量IRQ倒也无所谓，反正非向量IRQ不要求处理速度；若是FIQ则会严重影响FIQ的处理速度，所以一般只设置1个FIQ中断源(总之是越少越好)</p>
+
+<p>“VICVectAddr查找发送过来的最高优先级的VICVectAddrx”实际是通过一个硬件的排序器来实现的，在ISR末尾应向VICVectAddr写入(一般是0x00)来清除硬件排序器中的中断标志</p>
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev disabled"><a>&larr; Previous</a></li>
+      
+        <li><a href="/archive.html">Archive</a></li>
+      
+        <li class="next"><a href="/java/2009/03/18/array-reference-and-initialization" title="array reference and initialization">Next &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+  </div>
+  
+  <div class="span4">
+    <h4>Published</h4>
+    <div class="date"><span>18 June 2008</span></div>
+	
+  <br/>
+	
+  
+    <h4>Categories</h4>
+	<ul class="tag_box">
+	
+	
+
+
+  
+     
+    	<li><a href="/categories.html#arm7-ref">
+    		arm7 <span>1</span>
+    	</a></li>
+    
+  
+
+
+	</ul>
+    
+
+  
+    <h4>Tags</h4>
+    <ul class="tag_box">
+    
+    
+
+
+  
+     
+    	<li><a href="/tags.html#ARM7-101-ref">ARM7-101 <span>1</span></a></li>
+    
+  
+
+
+
+    </ul>
+    
+  </div>
+</div>
+
+
+      </div>
+
+      <footer>
+        <p>&copy; Erik Yao 2012 
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+        </p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    
+  </body>
+</html>
+

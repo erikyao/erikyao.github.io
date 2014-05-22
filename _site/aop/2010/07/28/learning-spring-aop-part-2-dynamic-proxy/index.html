@@ -1,0 +1,324 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Erik Yao's Spring AOP 学习（二）：动态代理</title>
+    <meta name="description" content="">
+    <meta name="author" content="Erik Yao">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/css/1.4.0/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Le fav and touch icons -->
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  <!-- Update these with your own images
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+	<link href="/assets/themes/twitter/google-code-prettify/prettify.css" rel="stylesheet" type="text/css" media="all">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/themes/twitter/google-code-prettify/prettify.js"></script>
+	<script type="text/javascript" src="/assets/themes/twitter/google-code-prettify/use-prettify.js"></script>
+  </head>
+
+  <body>
+
+    <div class="topbar">
+      <div class="fill">
+        <div class="container">
+          <a class="brand" href="/">Erik Yao's</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/index.html">Home</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+  <h1>Spring AOP 学习（二）：动态代理 <small></small></h1>
+</div>
+
+<div class="row">
+  <div class="span10">
+    <p>　　如果系统中有 500 个类，每个类都要添加日志功能，此时无论是直接修改源代码、继承还是组合，都是十分巨大的工作量。此时 AOP 可以帮我们解决这个问题。</p>
+
+<p>　　现在假设记录日志的功能已经单独提出来了，由 LogInterceptor 来完成：</p>
+
+<pre class="prettyprint linenums">
+package com.bjsxt.aop;  
+  
+public class LogInterceptor {  
+    public void beforeMethod() {  
+        System.out.println("logging...");  
+    }  
+}  
+</pre>
+
+
+<p>有了 Spring AOP，我们就可以用配置文件来说明：“在某个类的每一个方法执行之前，都给我调用一次 beforeMethod() 方法”（更复杂一点的做法是给 beforeMethod() 方法添加一个 Method 参数，这样可以配置可以具体到某个类的某个方法上），如：</p>
+
+<pre class="prettyprint linenums">
+&lt;beans&gt;  
+    &lt;bean id="u" class="com.bjsxt.dao.impl.UserDAOImpl" &gt;  
+        &lt;!-- 非标准写法，仅作演示 --&gt;  
+        &lt;Log class="com.bjsxt.aop.LogInterceptor" logMethod="beforeMethod" targetMethod="all" /&gt;  
+    &lt;/bean&gt;  
+&lt;/beans&gt;  
+</pre>
+
+
+<p>这样，在配置文件中给 500 个 bean 都加上这么一段，就能给这 500 个类都加上日志功能了。</p>
+
+<p>　　那么 Spring AOP 是如何实现的呢？用的是动态代理的方法。</p>
+
+<p>　　参考 <a href="/java/2009/08/13/proxy-parameter-of-the-invoke-method/">the proxy parameter of the invoke() method</a>，我们可以把 LogInterceptor 实现成一个 InvocationHandler:</p>
+
+<pre class="prettyprint linenums">
+package com.bjsxt.aop;  
+  
+import java.lang.reflect.InvocationHandler;  
+import java.lang.reflect.Method;  
+  
+public class LogInterceptor implements InvocationHandler {  
+    private Object target;  
+      
+    public Object getTarget() {  
+        return target;  
+    }  
+  
+    public void setTarget(Object target) {  
+        this.target = target;  
+    }  
+  
+    public void beforeMethod(Method m) {  
+        System.out.println(m.getName() + ": logging...");  
+    }  
+  
+    public Object invoke(Object proxy, Method m, Object[] args)　throws Throwable {  
+        beforeMethod(m);  
+        m.invoke(target, args);  
+        return null;  
+    }  
+}  
+</pre>
+
+
+<p>调用的代码如下：</p>
+
+<pre class="prettyprint linenums">
+public class AOPTest {  
+    public static void main(String[] args) {  
+        UserDAO userDAO = new UserDAOImpl();  
+        LogInterceptor li = new LogInterceptor();  
+        li.setTarget(userDAO);  
+          
+        UserDAO userDAOProxy = (UserDAO)Proxy.newProxyInstance(userDAO.getClass().getClassLoader(), userDAO.getClass().getInterfaces(), li);  
+          
+        userDAOProxy.save(new User());  
+    }  
+}  
+</pre>
+
+
+<p>这里要特殊说明的是：</p>
+
+<ol>
+<li>userDAOProxy 对象是 UserDAOImpl 类的动态代理，userDAOProxy 是 <em><strong>代理对象</strong></em>，UserDAOImpl 对象是 <em><strong>被代理对象</strong></em>；</li>
+<li>若想用 Java API 来给某个类（如 UserDAOImpl）来创建动态代理，那么这个类必须实现一个接口（如 UserDAO），没有实现接口的类用 Java API 是无法创建动态代理的（但 cglib 可以）。所以在 Proxy.newProxyInstance() 方法中，需要把被代理类的接口，即 userDAO.getClass().getInterfaces() 传递进去。</li>
+<li>代理对象和被代理对象应该在同一个 classLoader 中，如果在不同的 classLoader 中，它们就无法互相访问，所以 userDAO.getClass().getClassLoader() 也作为参数传递给了 Proxy.newProxyInstance()。代理对象和被代理对象需要互相访问的原因见第4点</li>
+<li>我们得到的 userDAOProxy 对象，其类型应该是一个组合了 LogInterceptor 的类（li 作为参数被传递给了 Proxy.newProxyInstance()），而 LogInterceptor 又组合了 userDAOImpl（li.setTarget(userDAO)）；加上 userDAOProxy 又实现了 UserDAO 接口，所以 userDAOProxy 看上去应该是这样一个类：</li>
+</ol>
+
+
+<pre class="prettyprint linenums">
+// 非标准写法，仅作演示用  
+public class UserDAOProxy implements UserDAO {  
+    private InvocationHandler invocationHandler;  
+  
+    public UserDAOProxy(InvocationHandler invocationHandler) {  
+        super();  
+        this.invocationHandler = invocationHandler;  
+    }  
+  
+    public InvocationHandler getInvocationHandler() {  
+        return invocationHandler;  
+    }  
+  
+    public void save(User user) {  
+        this.invocationHandler.invoke(this, UserDAO.class.getDeclaredMethod("save", User.class), user);  
+    }  
+}  
+</pre>
+
+
+<p>这样，Proxy.newProxyInstance(userDAO.getClass().getClassLoader(), userDAO.getClass().getInterfaces(), li) 也就相当于 new UserDAOProxy(li)。userDAOProxy 的 save() 方法的实际过程是：</p>
+
+<p><img src="https://eovqra.bn1.livefilestore.com/y2psdMa3VIkfLxJVKzL7OljPH8_04W32ozs_rNo70aCujoHjUlwauQag5x6AE7jPtVMrobEvNG0wvEJAIjGrXNL6EIkk78R0zG6dKwcNCcg4V8/251a2192-7c96-3baa-838c-5a0aef24de8e.png?psid=1" alt="" /></p>
+
+<p>Spring AOP 为系统添加业务逻辑的动态代理方法大抵就是这样。</p>
+
+<p>　　如果 UserDAO 还有个 delete() 方法，那么 userDAOProxy.delete() 也会去调用 li.invoke(proxy, delete, user)。这就体现了 InvocationHandler 是 “对被代理对象的任意方法的 invocation 都 handle” 这么一个概念。</p>
+
+<p>　　当然，更好的实现是把 beforeMethod 这部分逻辑提出来，让 LogInterceptor 这个类侧重 “Interceptor” 而不包含 "Log" 的逻辑，beforeMethod 完全可以用一个 Logger 类来实现</p>
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/aop/2010/07/28/learning-spring-aop-part-1-composition-over-inheritance" title="Spring AOP 学习（一）：组合对比继承的优势">&larr; Previous</a></li>
+      
+        <li><a href="/archive.html">Archive</a></li>
+      
+        <li class="next"><a href="/jbpm-4.3/2010/07/29/deploymentid-and-definitionid-in-jbpm-4-3" title="jBPM-4.3 中 deploymentId 和definitionId 应该是一对一的关系">Next &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+  </div>
+  
+  <div class="span4">
+    <h4>Published</h4>
+    <div class="date"><span>28 July 2010</span></div>
+	
+  <br/>
+	
+  
+    <h4>Categories</h4>
+	<ul class="tag_box">
+	
+	
+
+
+  
+     
+    	<li><a href="/categories.html#aop-ref">
+    		aop <span>4</span>
+    	</a></li>
+    
+  
+
+
+	</ul>
+    
+
+  
+    <h4>Tags</h4>
+    <ul class="tag_box">
+    
+    
+
+
+  
+     
+    	<li><a href="/tags.html#Java-101-ref">Java-101 <span>49</span></a></li>
+     
+    	<li><a href="/tags.html#Java-AOP-ref">Java-AOP <span>5</span></a></li>
+     
+    	<li><a href="/tags.html#Proxy-ref">Proxy <span>4</span></a></li>
+     
+    	<li><a href="/tags.html#动态代理-ref">动态代理 <span>3</span></a></li>
+     
+    	<li><a href="/tags.html#HowDoes-ref">HowDoes <span>5</span></a></li>
+     
+    	<li><a href="/tags.html#HowDoes-AOP-ref">HowDoes-AOP <span>2</span></a></li>
+    
+  
+
+
+
+    </ul>
+    
+  </div>
+</div>
+
+
+      </div>
+
+      <footer>
+        <p>&copy; Erik Yao 2012 
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+        </p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    
+  </body>
+</html>
+

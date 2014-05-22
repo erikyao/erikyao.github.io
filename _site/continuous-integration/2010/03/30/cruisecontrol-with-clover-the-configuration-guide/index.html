@@ -1,0 +1,211 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Erik Yao's CruiseControl with Clover: the Configuration Guide</title>
+    <meta name="description" content="">
+    <meta name="author" content="Erik Yao">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/css/1.4.0/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Le fav and touch icons -->
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  <!-- Update these with your own images
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+	<link href="/assets/themes/twitter/google-code-prettify/prettify.css" rel="stylesheet" type="text/css" media="all">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/themes/twitter/google-code-prettify/prettify.js"></script>
+	<script type="text/javascript" src="/assets/themes/twitter/google-code-prettify/use-prettify.js"></script>
+  </head>
+
+  <body>
+
+    <div class="topbar">
+      <div class="fill">
+        <div class="container">
+          <a class="brand" href="/">Erik Yao's</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/index.html">Home</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+  <h1>CruiseControl with Clover: the Configuration Guide <small></small></h1>
+</div>
+
+<div class="row">
+  <div class="span10">
+    <ul>
+<li>Download ①: <a href="https://wxfjyw.bn1302.livefilestore.com/y2msHQFqnQkWzqJLAouqHJGZDPVQy1YoT2Z4DrIqJdDsYFyjeOMELjiZeivg_Lu29AVg_uigKwvade3FvRC_owMpK2UFXAKF6ZcSa050jQ0UoE/CruiseControl_with_Clover_the_Configuration_Guide_v0.1.docx?download&amp;psid=1">docx edition</a></li>
+<li>Download ②: <a href="https://wxdrhw.bn1303.livefilestore.com/y2mZ3D4dM2Zkfavdjo0q_dlN3vDo3PD3KNsO9tf9N5OUe6XTfNKZrLAduzjI2ETF6m-_TI3TTOg5sYxuwDG4gn3N14JAvWSYURNcJwBu186840/CruiseControl_with_Clover_the_Configuration_Guide_v0.1.pdf?download&amp;psid=1">pdf edition</a></li>
+</ul>
+
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/ant/2010/03/04/fork-in-ant" title="Ant 中的 fork="true"">&larr; Previous</a></li>
+      
+        <li><a href="/archive.html">Archive</a></li>
+      
+        <li class="next"><a href="/sql/2010/04/03/sql-join" title="Join">Next &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+  </div>
+  
+  <div class="span4">
+    <h4>Published</h4>
+    <div class="date"><span>30 March 2010</span></div>
+	
+  <br/>
+	
+  
+    <h4>Categories</h4>
+	<ul class="tag_box">
+	
+	
+
+
+  
+     
+    	<li><a href="/categories.html#continuous-integration-ref">
+    		continuous-integration <span>2</span>
+    	</a></li>
+    
+  
+
+
+	</ul>
+    
+
+  
+    <h4>Tags</h4>
+    <ul class="tag_box">
+    
+    
+
+
+  
+     
+    	<li><a href="/tags.html#Config-ref">Config <span>11</span></a></li>
+     
+    	<li><a href="/tags.html#Config-Ant-ref">Config-Ant <span>3</span></a></li>
+     
+    	<li><a href="/tags.html#Config-Clover-ref">Config-Clover <span>2</span></a></li>
+     
+    	<li><a href="/tags.html#Config-CruiseControl-ref">Config-CruiseControl <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#WrittenByMe-ref">WrittenByMe <span>2</span></a></li>
+     
+    	<li><a href="/tags.html#HowDoes-ref">HowDoes <span>5</span></a></li>
+     
+    	<li><a href="/tags.html#HowDoes-CruiseControl-ref">HowDoes-CruiseControl <span>1</span></a></li>
+    
+  
+
+
+
+    </ul>
+    
+  </div>
+</div>
+
+
+      </div>
+
+      <footer>
+        <p>&copy; Erik Yao 2012 
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+        </p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    
+  </body>
+</html>
+

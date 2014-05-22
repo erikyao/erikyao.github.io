@@ -1,0 +1,227 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Erik Yao's MySQL REGEXP</title>
+    <meta name="description" content="">
+    <meta name="author" content="Erik Yao">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/css/1.4.0/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Le fav and touch icons -->
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  <!-- Update these with your own images
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+	<link href="/assets/themes/twitter/google-code-prettify/prettify.css" rel="stylesheet" type="text/css" media="all">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/themes/twitter/google-code-prettify/prettify.js"></script>
+	<script type="text/javascript" src="/assets/themes/twitter/google-code-prettify/use-prettify.js"></script>
+  </head>
+
+  <body>
+
+    <div class="topbar">
+      <div class="fill">
+        <div class="container">
+          <a class="brand" href="/">Erik Yao's</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/index.html">Home</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+  <h1>MySQL REGEXP <small></small></h1>
+</div>
+
+<div class="row">
+  <div class="span10">
+    <p>　　参考 <a href="http://www.zytrax.com/tech/web/regex.htm">Regular Expressions - User Guide</a></p>
+
+<hr />
+
+<h2>1. 关于 [ ] 和 { }</h2>
+
+<p>　　[ ] 表示在 [ ] 所在的位置匹配一个 (only one) 字符，该字符的范围由 [ ] 内的内容指定。</p>
+
+<p>　　在使用 [:digit:] 这类的 Character Class 时需注意，[:digit:] 只相当于0-9，[[:digit:]] 才相当于[0-9]。<a href="http://bugs.mysql.com/bug.php?id=22568">单独使用 [:digit:] 是要出问题的</a></p>
+
+<p>　　{ } 用来指定匹配字符数，[ ] 默认地相当 [ ]{1}</p>
+
+<p>　　{ } 这类的 Iteration Metacharacter 的指定对象为 { } 之前的单个字符或 ( )，比如 abc{2} -->abcc，(abc){2} -->abcabc</p>
+
+<hr />
+
+<h2>2. Positioning Metacharacters (Anchor)</h2>
+
+<p>　　^ 文本开始，$ 文本结尾，[[:&lt;:]] 单词开头，[[:>:]] 单词结尾。作用范围是其前或其后的单个字符或是 ( )。注意它们出现的位置。</p>
+
+<pre class="prettyprint linenums">
+-- 匹配一个以"x"开头、以"x"结尾的字符串  
+SELECT 'x word x' REGEXP '^x[[:print:]]*x$'; -- 1  
+-- 匹配一个以"x w"开头、以"d x"结尾的字符串  
+SELECT 'x word x' REGEXP '^(x w)[[:print:]]*(d x)$'; -- 1  
+-- 匹配一个包含以"w"开头的、以"d"结尾的单词的字符串  
+SELECT 'x word x' REGEXP '[[:<:]]w[[:print:]]*d[[:>:]]'; -- 1  
+-- 匹配一个包含以"wo"开头的、以"rd"结尾的单词的字符串  
+SELECT 'x word x' REGEXP '[[:<:]](wo)[[:print:]]*(rd)[[:>:]]'; -- 1    
+</pre>
+
+
+<p>不过这里用 ( ) 和不用 ( ) 貌似没有什么区别…</p>
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/database/2009/12/25/isolation" title="Isolation">&larr; Previous</a></li>
+      
+        <li><a href="/archive.html">Archive</a></li>
+      
+        <li class="next"><a href="/sql/2009/12/26/simple-example-of-sql-logic" title="简单 SQL 语句的逻辑顺序">Next &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+  </div>
+  
+  <div class="span4">
+    <h4>Published</h4>
+    <div class="date"><span>25 December 2009</span></div>
+	
+  <br/>
+	
+  
+    <h4>Categories</h4>
+	<ul class="tag_box">
+	
+	
+
+
+  
+     
+    	<li><a href="/categories.html#mysql-ref">
+    		mysql <span>2</span>
+    	</a></li>
+    
+  
+
+
+	</ul>
+    
+
+  
+    <h4>Tags</h4>
+    <ul class="tag_box">
+    
+    
+
+
+  
+     
+    	<li><a href="/tags.html#RegularExpression-MySQL-ref">RegularExpression-MySQL <span>1</span></a></li>
+    
+  
+
+
+
+    </ul>
+    
+  </div>
+</div>
+
+
+      </div>
+
+      <footer>
+        <p>&copy; Erik Yao 2012 
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+        </p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    
+  </body>
+</html>
+

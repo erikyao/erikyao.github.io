@@ -1,0 +1,263 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Erik Yao's UML 类图之关联、聚合、组合、依赖</title>
+    <meta name="description" content="">
+    <meta name="author" content="Erik Yao">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/css/1.4.0/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Le fav and touch icons -->
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  <!-- Update these with your own images
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+	<link href="/assets/themes/twitter/google-code-prettify/prettify.css" rel="stylesheet" type="text/css" media="all">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/themes/twitter/google-code-prettify/prettify.js"></script>
+	<script type="text/javascript" src="/assets/themes/twitter/google-code-prettify/use-prettify.js"></script>
+  </head>
+
+  <body>
+
+    <div class="topbar">
+      <div class="fill">
+        <div class="container">
+          <a class="brand" href="/">Erik Yao's</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/index.html">Home</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+  <h1>UML 类图之关联、聚合、组合、依赖 <small></small></h1>
+</div>
+
+<div class="row">
+  <div class="span10">
+    <p>　　一直没有搞清楚这几个概念，这里做总结。来自《大话设计模式》。</p>
+
+<hr />
+
+<h2>1. 关联 (Association)</h2>
+
+<p>　　仅仅表示对象 A “知道” 对象 B，对象 A 并不 “拥有” 对象 B（这里的 “知道” 和 “拥有” 并不一定是从业务逻辑上判断，应该宽泛到从常识上判断）。如下图：</p>
+
+<p><img src="https://i44cqg.bn1.livefilestore.com/y2p-PdPPH2El-_xBSn2qFo3IaKs70Mvy4xMTsTqLdIsPRujfi7sp6aesR8FtEXmM9A6DhFjtLoyRgjA5ammwmTrBq4lA2Vu_ZM_Z9tObHr3sMc/association.png?psid=1" alt="" /></p>
+
+<p>企鹅 “知道” 气候，但并不 “拥有” 气候，在代码上反映为：</p>
+
+<pre class="prettyprint linenums">
+class Penguin extends Bird {  
+    private Climate c;  
+}  
+</pre>
+
+
+<hr />
+
+<h2>2. 聚合 (Aggregation)</h2>
+
+<p>　　聚合在关联的基础上更近一步，表示一种弱 “拥有” 关系，对象 A 可以包含对象 B，对象 B 可以是对象 A 的一部分，但也可以不是（在代码上的表现是对象 B 为 null）。如下图：</p>
+
+<p><img src="https://i44cqg.bn1302.livefilestore.com/y2pg-PQCK_Eu48KFHL3QRFCsGXtmdCE0iG_lnvKvtkL1dJ1xuGdZ22toFAHSo7IxG1HROb8Rn243ZXruUdTxWcL6AXHWW7UzRrjWDdgThumrNQ/aggregation.png?psid=1" alt="" /></p>
+
+<p>虽然雁群理所当然应该包含大雁，但也存在着 null 雁群，即 WildGoose 数组为空的情况。从代码上看：</p>
+
+<pre class="prettyprint linenums">
+class WildGooseGroup {  
+    private arrayWildGoose WildGoose[];  
+}  
+</pre>
+
+
+<p>与关联并没有什么不同。的确是这样，关联和聚合的区别仅体现在这两个对象在业务逻辑或是在常识中的关系，在代码层次是没有区别的。</p>
+
+<hr />
+
+<h2>3. 组合 (Composition)</h2>
+
+<p>　　在聚合关系上更进一步，表示一种强 “拥有” 关系，对象 A 和对象 B 的生命周期一样，通俗说来就是 “同年同月同日生，同年同月同日死”。如下图：</p>
+
+<p><img src="https://i44cqg.bn1303.livefilestore.com/y2p0Za2GiOWmNidpJ19YNJU_6uu86nhRM7mU-hdJquc7p5A31Tuqfja6iJwuRZYXAkn-WXQTVQyLD3m0xktntJU3MLDmsEuqt18_vEPTM-j3oM/composition.png?psid=1" alt="" /></p>
+
+<p>鸟必然 “拥有” 翅膀，如果 Wing[2] 为空，那么这个这个 Bird 对象是不应该存在的。在代码上体现为：</p>
+
+<pre class="prettyprint linenums">
+class Bird extends Animal {  
+    private wings Wing[2];  
+      
+    public Bird() {  
+        wings[0] = new Wing();  
+        wings[1] = new Wing();  
+    }  
+}  
+</pre>
+
+
+<p>可见Bird和Wing对象是强制绑定在一起的。</p>
+
+<hr />
+
+<h2>4. 依赖 (Dependency)</h2>
+
+<p>　　依赖表示一种 “需要” 的关系，但一般被依赖的对象 B 不是对象 A 的成员。如上图所示，鸟的新陈代谢需要氧气和水，但氧气和水都不会是鸟的成员。依赖和关联的区别大抵体现于此。</p>
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/sql/2010/04/03/sql-join" title="Join">&larr; Previous</a></li>
+      
+        <li><a href="/archive.html">Archive</a></li>
+      
+        <li class="next"><a href="/cxf/2010/05/27/org-apache-cxf-interceptor-fault-could-not-send-message" title="org.apache.cxf.interceptor.Fault: Could not send Message">Next &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+  </div>
+  
+  <div class="span4">
+    <h4>Published</h4>
+    <div class="date"><span>05 May 2010</span></div>
+	
+  <br/>
+	
+  
+    <h4>Categories</h4>
+	<ul class="tag_box">
+	
+	
+
+
+  
+     
+    	<li><a href="/categories.html#design-pattern-ref">
+    		design-pattern <span>1</span>
+    	</a></li>
+    
+  
+
+
+	</ul>
+    
+
+  
+    <h4>Tags</h4>
+    <ul class="tag_box">
+    
+    
+
+
+  
+     
+    	<li><a href="/tags.html#Java-101-ref">Java-101 <span>49</span></a></li>
+     
+    	<li><a href="/tags.html#UML-ref">UML <span>1</span></a></li>
+    
+  
+
+
+
+    </ul>
+    
+  </div>
+</div>
+
+
+      </div>
+
+      <footer>
+        <p>&copy; Erik Yao 2012 
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+        </p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    
+  </body>
+</html>
+

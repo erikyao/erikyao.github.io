@@ -1,0 +1,259 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Erik Yao's throw 的屏蔽作用</title>
+    <meta name="description" content="">
+    <meta name="author" content="Erik Yao">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/css/1.4.0/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Le fav and touch icons -->
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  <!-- Update these with your own images
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+	<link href="/assets/themes/twitter/google-code-prettify/prettify.css" rel="stylesheet" type="text/css" media="all">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/themes/twitter/google-code-prettify/prettify.js"></script>
+	<script type="text/javascript" src="/assets/themes/twitter/google-code-prettify/use-prettify.js"></script>
+  </head>
+
+  <body>
+
+    <div class="topbar">
+      <div class="fill">
+        <div class="container">
+          <a class="brand" href="/">Erik Yao's</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/index.html">Home</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+  <h1>throw 的屏蔽作用 <small></small></h1>
+</div>
+
+<div class="row">
+  <div class="span10">
+    <p>　　在其所在的块内 (如方法 body、if () {...} 等)，throw 语句可以屏蔽其后的语句，即在块内，该 throw 语句后面不能再写其他语句；但在块之外，还是可以写其他的语句的。如：</p>
+
+<pre class="prettyprint linenums">
+public class ExceptionTest {  
+    private static void func() throws Exception {  
+        throw new Exception();  
+        //System.out.println("Threw Exception"); // error  
+    }  
+  
+    private static void func2() throws Exception {  
+        boolean tag = true;  
+          
+        if (tag) {  
+            throw new Exception();  
+            //System.out.println("Threw Exception"); // error  
+        }  
+        System.out.println("No Exception"); // pass // Mark No.3  
+    }  
+  
+    public static void main(String[] args) {  
+        try {  
+            func2(); // Mark No.1  
+            throw new Exception(); // Mark No.2: direct throw in try  
+        } catch (Exception e) {  
+            System.out.println("Caught Exception");  
+        }  
+          
+        System.out.println("Continue"); // Mark No.4  
+    }  
+}  
+  
+//output:  
+/* 
+    Caught Exception 
+    Continue 
+*/  
+</pre>
+
+
+<p>　　如果不是直接在 try 中抛出异常 (Mark No.2)，而是调用会抛出异常的方法 (Mark No.1)，一旦 throw 语句执行，则包含该 throw 语句的方法 (如本例的 func2()) 直接退出，后续的语句都不执行 (如 Mark No.3 处就没有运行)。而处理异常的函数 (如本例的 main()) 依旧是顺序运行，不会有什么影响，后续的语句继续运行 (如 Mark No.4 处照常运行)。</p>
+
+<p><br/></p>
+
+<p><em>2011-10-27补充</em>：多个throw的覆盖作用</p>
+
+<p>　　如果你 throw 了一个 Exception，紧接着后面的 catch/finally 也 throw 了一个 Exception，那么，只有最后抛出的 Exception 才能被外围捕捉，前面 throw 的 Exception 就被覆盖掉了。</p>
+
+<p>　　一个典型的可能的例子是：</p>
+
+<pre class="prettyprint linenums">
+try {  
+    // 读文件  
+} finally {   
+    if (io != null) {  
+        io.close();  
+    }  
+}  
+</pre>
+
+
+<p>如果读文件时出了 FileNotFoundException，而不巧 io.close() 也出了 IOException，那么外围只能捕捉到 IOException，而真实的原因 FileNotFoundException 却捕捉不到。</p>
+
+<p>　　<em>Practical Java</em> 上一个略奇葩的思路是用一个 Collection 来保存 Exception，最后 throw 出一个 AllException(Collection<Exception> c) 这样的异常出来。</p>
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/java/2009/08/04/exception-in-class-hierarchy" title="涉及继承的异常声明及捕捉">&larr; Previous</a></li>
+      
+        <li><a href="/archive.html">Archive</a></li>
+      
+        <li class="next"><a href="/java/2009/08/13/proxy-parameter-of-the-invoke-method" title="the proxy parameter of the invoke() method">Next &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+  </div>
+  
+  <div class="span4">
+    <h4>Published</h4>
+    <div class="date"><span>04 August 2009</span></div>
+	
+  <br/>
+	
+  
+    <h4>Categories</h4>
+	<ul class="tag_box">
+	
+	
+
+
+  
+     
+    	<li><a href="/categories.html#java-ref">
+    		java <span>40</span>
+    	</a></li>
+    
+  
+
+
+	</ul>
+    
+
+  
+    <h4>Tags</h4>
+    <ul class="tag_box">
+    
+    
+
+
+  
+     
+    	<li><a href="/tags.html#Java-101-ref">Java-101 <span>49</span></a></li>
+     
+    	<li><a href="/tags.html#Java-Exception-ref">Java-Exception <span>5</span></a></li>
+    
+  
+
+
+
+    </ul>
+    
+  </div>
+</div>
+
+
+      </div>
+
+      <footer>
+        <p>&copy; Erik Yao 2012 
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+        </p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    
+  </body>
+</html>
+

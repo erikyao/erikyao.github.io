@@ -1,0 +1,357 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Erik Yao's Java 多线程：终止线程的方法</title>
+    <meta name="description" content="">
+    <meta name="author" content="Erik Yao">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/css/1.4.0/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Le fav and touch icons -->
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  <!-- Update these with your own images
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+	<link href="/assets/themes/twitter/google-code-prettify/prettify.css" rel="stylesheet" type="text/css" media="all">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/themes/twitter/google-code-prettify/prettify.js"></script>
+	<script type="text/javascript" src="/assets/themes/twitter/google-code-prettify/use-prettify.js"></script>
+  </head>
+
+  <body>
+
+    <div class="topbar">
+      <div class="fill">
+        <div class="container">
+          <a class="brand" href="/">Erik Yao's</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/index.html">Home</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+  <h1>Java 多线程：终止线程的方法 <small></small></h1>
+</div>
+
+<div class="row">
+  <div class="span10">
+    <p>　　虽说 Thread 类提供了 stop() 和 suspend() 方法，但这两种方法过于粗暴，如果线程占用了一些资源（如打开了一个文件，建立了一个数据库连接什么的），直接 stop() 或是 suspend() 是会产生问题的。</p>
+
+<p>　　要终止 Thread，最好的方法就是让 run() 方法正常运行完毕，不过有的 run() 方法里面直接是一个 while (true)，这时就要使用一些特殊的手段。</p>
+
+<h2>1. 使用中断</h2>
+
+<p>　　基本思想就是在 run() 方法中的 while (true) 里检查线程是否中断，如果中断就退出（当然，退出之前可以做一些关闭资源的操作）；这么一来在主线程中就可以调用 Thread.interrupt() 来中断线程，进而使线程退出。</p>
+
+<pre class="prettyprint linenums">
+public class Runner3 implements Runnable {     
+    @Override    
+    public void run() {     
+        while(true) {     
+            System.out.println(new Date());     
+                 
+            long time = System.currentTimeMillis();     
+            while (System.currentTimeMillis() - time < 1000) {     
+                // 不使用Thread.sleep(1000)     
+                // 使用while来消耗一秒钟时间     
+            }     
+                 
+            if (Thread.currentThread().isInterrupted()) { // 时刻检查该线程是否中断     
+            // 或者使用 if (Thread.interrupted()) {     
+                return; // 如果线程中断就退出     
+            }     
+        }     
+    }     
+}    
+</pre>
+
+
+
+
+<pre class="prettyprint linenums">
+public class MultiThreadTest3 {     
+    public static void main(String[] args) {     
+        Runner3 r = new Runner3();     
+    
+        Thread t = new Thread(r);     
+        t.start();     
+             
+        try {     
+            Thread.sleep(10000);     
+        } catch (InterruptedException e) {     
+            // do nothing     
+        }     
+             
+        t.interrupt(); // 中断Thread t，使run()方法退出，线程结束     
+    }     
+}    
+</pre>
+
+
+<p>如果在 run() 方法中的 while (true) 里有可能导致 InterruptedException 的操作，那么退出 run() 方法的代码可以放在 catch 语句里。</p>
+
+<pre class="prettyprint linenums">
+public class Runner2 implements Runnable {  
+    @Override  
+    public void run() {  
+        while(true) {  
+            System.out.println(new Date());  
+              
+            try {  
+                Thread.sleep(1000);  
+            } catch (InterruptedException e) {  
+                return; // 发生中断异常时，线程直接退出  
+            }  
+        }  
+    }  
+}   
+</pre>
+
+
+
+
+<pre class="prettyprint linenums">
+public class MultiThreadTest2 {     
+    public static void main(String[] args) {     
+        Runner2 r = new Runner2();     
+    
+        Thread t = new Thread(r);     
+        t.start();     
+             
+        try {     
+            Thread.sleep(10000);     
+        } catch (InterruptedException e) {     
+            // do nothing     
+        }     
+             
+        t.interrupt(); // 中断Thread t，使t.sleep()时产生中断异常，进而终止线程     
+    }     
+}    
+</pre>
+
+
+<h2>2. 使用标志位</h2>
+
+<p>　　使用标志位 boolean flag，将 run() 方法中的 while (true) 改为while (flag)（轮询标志位），主线程中就就可以通过修改 flag 来退出线程。</p>
+
+<pre class="prettyprint linenums">
+public class Runner4 implements Runnable {  
+    private boolean flag = true;  
+      
+    public void setFlag(boolean flag) {  
+        this.flag = flag;  
+    }  
+  
+    @Override  
+    public void run() {  
+        while(flag) {  
+            System.out.println(new Date());  
+              
+            long time = System.currentTimeMillis();  
+            while (System.currentTimeMillis() - time < 1000) {  
+                // 不使用Thread.sleep(1000)  
+                // 使用while来消耗一秒钟时间  
+            }  
+        }  
+    }  
+}  
+</pre>
+
+
+<p></p>
+
+<pre class="prettyprint linenums">
+public class MultiThreadTest4 {  
+    public static void main(String[] args) {  
+        Runner4 r = new Runner4();  
+  
+        Thread t = new Thread(r);  
+        t.start();  
+          
+        try {  
+            Thread.sleep(10000);  
+        } catch (InterruptedException e) {  
+            // do nothing  
+        }  
+          
+        r.setFlag(false); // 设置标志位，使run()方法退出，线程结束  
+    }  
+}  
+</pre>
+
+
+<p>这个方法有一个缺点：如果 while (flag) {...} 方法阻塞了，则 flag 的设置会失效。</p>
+
+<h2>3. 最好的方法是使用线程池</h2>
+
+<p>　　当线程不用了，就让它 sleep 并放进队列中，这样可以最大限度地利用资源。</p>
+
+<p><br/></p>
+
+<p><em>2010-10-04补充</em>：</p>
+
+<p>　　注意这里说的退出是这样的一种情况：主线程（比如说 main 方法）创建了一个 Thread t，然后想在主线程中使t退出。<br/>
+　　文章一开始说的 stop()、suspend() 方法的问题是：主线程一句 t.stop() 或是 t.suspend() 就了事了，t 在 run() 方法中没有机会去关闭资源，不像中断或是轮询标志位的方法中，t 在 run() 方法里还握有一点主动权</p>
+
+<p><em>2011-11-03补充</em>：</p>
+
+<p>　　方法 2 可以使用的一个优化步骤是将标志位设置为 volatile</p>
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/c/2010/09/26/const-pointer" title="Const Pointer">&larr; Previous</a></li>
+      
+        <li><a href="/archive.html">Archive</a></li>
+      
+        <li class="next"><a href="/java/2010/10/04/runnable-vs-thread" title="Java 多线程：Runnable 接口 v.s. Thread 类">Next &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+  </div>
+  
+  <div class="span4">
+    <h4>Published</h4>
+    <div class="date"><span>04 October 2010</span></div>
+	
+  <br/>
+	
+  
+    <h4>Categories</h4>
+	<ul class="tag_box">
+	
+	
+
+
+  
+     
+    	<li><a href="/categories.html#java-ref">
+    		java <span>40</span>
+    	</a></li>
+    
+  
+
+
+	</ul>
+    
+
+  
+    <h4>Tags</h4>
+    <ul class="tag_box">
+    
+    
+
+
+  
+     
+    	<li><a href="/tags.html#Java-101-ref">Java-101 <span>49</span></a></li>
+     
+    	<li><a href="/tags.html#Java-Concurrent-ref">Java-Concurrent <span>3</span></a></li>
+    
+  
+
+
+
+    </ul>
+    
+  </div>
+</div>
+
+
+      </div>
+
+      <footer>
+        <p>&copy; Erik Yao 2012 
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+        </p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    
+  </body>
+</html>
+

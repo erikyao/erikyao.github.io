@@ -1,0 +1,236 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Erik Yao's 多态</title>
+    <meta name="description" content="">
+    <meta name="author" content="Erik Yao">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/css/1.4.0/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Le fav and touch icons -->
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  <!-- Update these with your own images
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+	<link href="/assets/themes/twitter/google-code-prettify/prettify.css" rel="stylesheet" type="text/css" media="all">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/themes/twitter/google-code-prettify/prettify.js"></script>
+	<script type="text/javascript" src="/assets/themes/twitter/google-code-prettify/use-prettify.js"></script>
+  </head>
+
+  <body>
+
+    <div class="topbar">
+      <div class="fill">
+        <div class="container">
+          <a class="brand" href="/">Erik Yao's</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/index.html">Home</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+  <h1>多态 <small></small></h1>
+</div>
+
+<div class="row">
+  <div class="span10">
+    <h2>1. 向上转型 (upcast)</h2>
+
+<p>　　一个 ext class 的 object 可以用 base class 的 reference 来指向，即 ext class 的 object reference 可以升级为 base class 的 object reference。</p>
+
+<p>　　如：<code>Base b = new Ext();</code></p>
+
+<hr />
+
+<h2>2. 动态绑定 (dynamic binding)</h2>
+
+<p>　　一般说来，将一个方法调用和一个方法主体关联起来叫做绑定。也可以理解为将方法名和方法 body (方法代码段) 关联起来叫做绑定。除了 static 方法和 final 方法 (final 包含 private) 外，Java 对其他所有的方法都采用 dynamic binding (<em>3月27日补充</em>：请正确理解这句话；more details see <a href="/java/2009/03/27/more-on-downcast-and-dynamic-binding/">有关向下转型的必要性和动态绑定的细节</a>)，即直到调用方法的那个时刻才开始绑定。</p>
+
+<p>　　多态即是利用了动态绑定这一特点。举个例子来说，Base 类有个 work() 方法，Base 类的两个子类 Ext1 和 Ext2 都覆写了 work() 方法，现在有一个 Base b，它可能是一个 new Base()，也可能是一个 new Ext1()或是 new Ext2() (向上转型允许)，若此时调用 b.work()，编译器会判断究竟是调用 Base 类的 work() 还是 Ext1 类的 work() 或是 Ext2 类的 work()。从这个角度来说，动态绑定更像是动态确定 reference 指向的 object，即这个 reference 到底是指向 Base object 还是 Ext1 object 或是 Ext2 object。</p>
+
+<p>　　注意，Ext1 和 Ext2 必须是都覆写了 work() 方法，如果不是覆写就没有动态绑定的意义了，因为只有覆写才能造成 Base、Ext1、Ext2 中各有一个同签名不同方法 body 的 work() 方法。</p>
+
+<p><br/></p>
+
+<p><em>p.s.</em> 不存在平行转型 (horizontal-cast)，即 Ext1 e = new Ext2()。</p>
+
+<hr />
+
+<h2>3. field 和 static 方法没有动态绑定</h2>
+
+<p>　　意味着 b.field 和 b.staticMethod()完全看 b 的声明类型。若是声明了 Ext b，则是 Ext 的 field 和 staticMethod()；若是声明了 Base b，则是 Base 的 field 和 staticMethod()，就算有 Base b = new Ext(); 也是如此。</p>
+
+<hr />
+
+<h2>4. 利用多态的一个例子</h2>
+
+<p>　　如在某方法中，不管传进来的参数是 Ext1 object 还是 Ext2 object，都要求执行 work() 方法，这是可以写成：</p>
+
+<pre class="prettyprint linenums">
+return-type xxx(..., Base b, ...) {  
+    ...;  
+    b.work();  
+    ...;  
+}  
+</pre>
+
+
+<p>这就相当于把类型判断交给编译器去执行了。</p>
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/java/2009/03/27/more-on-downcast-and-dynamic-binding" title="有关向下转型的必要性和动态绑定的细节">&larr; Previous</a></li>
+      
+        <li><a href="/archive.html">Archive</a></li>
+      
+        <li class="next"><a href="/java/2009/03/27/return-type-of-overridden-method" title="关于覆写方法的 return type">Next &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+  </div>
+  
+  <div class="span4">
+    <h4>Published</h4>
+    <div class="date"><span>27 March 2009</span></div>
+	
+  <br/>
+	
+  
+    <h4>Categories</h4>
+	<ul class="tag_box">
+	
+	
+
+
+  
+     
+    	<li><a href="/categories.html#java-ref">
+    		java <span>40</span>
+    	</a></li>
+    
+  
+
+
+	</ul>
+    
+
+  
+    <h4>Tags</h4>
+    <ul class="tag_box">
+    
+    
+
+
+  
+     
+    	<li><a href="/tags.html#Java-101-ref">Java-101 <span>49</span></a></li>
+    
+  
+
+
+
+    </ul>
+    
+  </div>
+</div>
+
+
+      </div>
+
+      <footer>
+        <p>&copy; Erik Yao 2012 
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+        </p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    
+  </body>
+</html>
+

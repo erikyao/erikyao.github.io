@@ -1,0 +1,220 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Erik Yao's jBPM-4.3 流程定义 zip 包中的所有文件都是资源</title>
+    <meta name="description" content="">
+    <meta name="author" content="Erik Yao">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/css/1.4.0/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Le fav and touch icons -->
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  <!-- Update these with your own images
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+	<link href="/assets/themes/twitter/google-code-prettify/prettify.css" rel="stylesheet" type="text/css" media="all">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/themes/twitter/google-code-prettify/prettify.js"></script>
+	<script type="text/javascript" src="/assets/themes/twitter/google-code-prettify/use-prettify.js"></script>
+  </head>
+
+  <body>
+
+    <div class="topbar">
+      <div class="fill">
+        <div class="container">
+          <a class="brand" href="/">Erik Yao's</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/index.html">Home</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+  <h1>jBPM-4.3 流程定义 zip 包中的所有文件都是资源 <small></small></h1>
+</div>
+
+<div class="row">
+  <div class="span10">
+    
+
+<pre class="prettyprint linenums">
+ZipInputStream zis = new ZipInputStream(new FileInputStream("process.jpdl.zip"));  
+  
+processEngine.getRepositoryService().createDeployment().addResourcesFromZipInputStream(zis).deploy();  
+</pre>
+
+
+<p>　　如果是部署的是 zip 包，那么 zip 包中的所有文件都是可用的资源。换句话说，你可以把杂七杂八的文件都放在 zip 包中一起部署。比如现在我的 process.jpdl.zip 里面不仅有 process.jpdl.xml 和 process.png，还有一个 resource.xml，那么这个 resource.xml 也是可以被获取到的，如：</p>
+
+<pre class="prettyprint linenums">
+Set<String> resourceSet = processEngine.getRepositoryService().getResourceNames(deployId);  
+for (String s : resourceSet) {  
+    System.out.println(s);   
+}
+
+// Output:   
+// resource.xml  
+// process.jpdl.xml  
+// process.png  
+</pre>
+
+
+<p>除了得到资源的 InputStream 外：</p>
+
+<pre class="prettyprint linenums">
+ByteArrayInputStream bis = (ByteArrayInputStream)processEngine.getRepositoryService().getResourceAsStream(deployId, "resource.xml");  
+</pre>
+
+
+<p>资源还可以被动态修改，不过要注意，动态修改资源这个方法在 RepositoryServiceImpl 中，RepositoryService 接口并没有暴露这个方法：</p>
+
+<pre class="prettyprint linenums">
+is2 = new FileInputStream("newResource.xml");  
+  
+RepositoryServiceImpl rsi = (RepositoryServiceImpl)processEngine.getRepositoryService();  
+rsi.updateDeploymentResource(deployId, "resource.xml", is2);  
+</pre>
+
+
+<p>这样就把 newResource.xml 的内容写入了 resource.xml 中（覆盖原有内容），此时再获取 resource.xml 的 InputStream，输出出来的结果就是 newResource.xml 的内容</p>
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/jbpm-4.3/2010/07/29/jbpm-4-3-process-hyphen-in-process-name-weirdly" title="jBPM-4.3 &lt;process&gt; 标签 name 属性中的短横线会变成下划线赋给 key 属性">&larr; Previous</a></li>
+      
+        <li><a href="/archive.html">Archive</a></li>
+      
+        <li class="next"><a href="/aop/2010/08/02/learning-spring-aop-part-3-example-and-basic-concept" title="Spring AOP 学习（三）：例子与基本概念">Next &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+  </div>
+  
+  <div class="span4">
+    <h4>Published</h4>
+    <div class="date"><span>29 July 2010</span></div>
+	
+  <br/>
+	
+  
+    <h4>Categories</h4>
+	<ul class="tag_box">
+	
+	
+
+
+  
+     
+    	<li><a href="/categories.html#jbpm-4.3-ref">
+    		jbpm-4.3 <span>6</span>
+    	</a></li>
+    
+  
+
+
+	</ul>
+    
+
+    
+  </div>
+</div>
+
+
+      </div>
+
+      <footer>
+        <p>&copy; Erik Yao 2012 
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+        </p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    
+  </body>
+</html>
+

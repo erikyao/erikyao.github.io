@@ -1,0 +1,209 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Erik Yao's jBPM-4.3 中 deploymentId 和definitionId 应该是一对一的关系</title>
+    <meta name="description" content="">
+    <meta name="author" content="Erik Yao">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/css/1.4.0/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Le fav and touch icons -->
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  <!-- Update these with your own images
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+	<link href="/assets/themes/twitter/google-code-prettify/prettify.css" rel="stylesheet" type="text/css" media="all">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/themes/twitter/google-code-prettify/prettify.js"></script>
+	<script type="text/javascript" src="/assets/themes/twitter/google-code-prettify/use-prettify.js"></script>
+  </head>
+
+  <body>
+
+    <div class="topbar">
+      <div class="fill">
+        <div class="container">
+          <a class="brand" href="/">Erik Yao's</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/index.html">Home</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+  <h1>jBPM-4.3 中 deploymentId 和definitionId 应该是一对一的关系 <small></small></h1>
+</div>
+
+<div class="row">
+  <div class="span10">
+    <p>　　部署的时候，deploy() 返回的就是 deploymentId。deploymentId 虽然是个 String，不过仅包含数字，目前我还不清楚它的生成策略。</p>
+
+<p>　　每次部署，还会产生一个 definitionId。definitionId 的生成与 process.jpdl.xml 文件有关：</p>
+
+<pre><code class="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;  
+
+&lt;process name="ProcessName" key="ProcessKey"  version="1024" xmlns="http://jbpm.org/4.3/jpdl"&gt;  
+    ……  
+&lt;/process&gt;  
+</code></pre>
+
+<p>definitionId == <strong>key-version</strong>，如上面这个 jpdl，部署后生成的 definitionId 就是 "ProcessKey-1024"。不过要注意两点：</p>
+
+<ol>
+<li>如果没有写 &lt;process key="xxx"&gt;，那么默认 key == name（特殊情况见 <a href="/jbpm-4.3/2010/07/29/jbpm-4-3-process-hyphen-in-process-name-weirdly/">jBPM-4.3 &lt;process&gt; 标签 name 属性中的短横线会变成下划线赋给 key 属性 </a>）</li>
+<li>如果写了 &lt;process version="xxx"&gt;，那么这个 jpdl 只能部署一次，因为 version 指定了，key-version 就定死了。若不写 &lt;process version="xxx"&lt;，可以把这个 jpdl 部署多次，且 jBPM 可以帮你实现 version 的自增1</li>
+</ol>
+
+
+<p>　　deploymentId 和 definitionId 是可以互查的：</p>
+
+<pre class="prettyprint linenums">
+/** 根据deployId找definitionId */  
+String definitionId = processEngine.getRepositoryService().createProcessDefinitionQuery().deploymentId(deployId).uniqueResult().getId(); 
+
+/** 根据definitionId找deployId */  
+String deployId = processEngine.getRepositoryService().createProcessDefinitionQuery().processDefinitionId(definitionId).uniqueResult().getDeploymentId();   
+</pre>
+
+
+<p>　　单位项目的需求中，没有解释 deploymentId 的概念，全部用 definitionId 代替，好在是一对一的关系，不然就大条了……</p>
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/aop/2010/07/28/learning-spring-aop-part-2-dynamic-proxy" title="Spring AOP 学习（二）：动态代理">&larr; Previous</a></li>
+      
+        <li><a href="/archive.html">Archive</a></li>
+      
+        <li class="next"><a href="/jbpm-4.3/2010/07/29/jbpm-4-3-process-hyphen-in-process-name-weirdly" title="jBPM-4.3 &lt;process&gt; 标签 name 属性中的短横线会变成下划线赋给 key 属性">Next &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+  </div>
+  
+  <div class="span4">
+    <h4>Published</h4>
+    <div class="date"><span>29 July 2010</span></div>
+	
+  <br/>
+	
+  
+    <h4>Categories</h4>
+	<ul class="tag_box">
+	
+	
+
+
+  
+     
+    	<li><a href="/categories.html#jbpm-4.3-ref">
+    		jbpm-4.3 <span>6</span>
+    	</a></li>
+    
+  
+
+
+	</ul>
+    
+
+    
+  </div>
+</div>
+
+
+      </div>
+
+      <footer>
+        <p>&copy; Erik Yao 2012 
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+        </p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    
+  </body>
+</html>
+

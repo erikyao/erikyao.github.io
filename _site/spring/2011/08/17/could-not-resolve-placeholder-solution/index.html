@@ -1,0 +1,264 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Erik Yao's "Could not resolve placeholder" 解决方案</title>
+    <meta name="description" content="">
+    <meta name="author" content="Erik Yao">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/css/1.4.0/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Le fav and touch icons -->
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  <!-- Update these with your own images
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+	<link href="/assets/themes/twitter/google-code-prettify/prettify.css" rel="stylesheet" type="text/css" media="all">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/themes/twitter/google-code-prettify/prettify.js"></script>
+	<script type="text/javascript" src="/assets/themes/twitter/google-code-prettify/use-prettify.js"></script>
+  </head>
+
+  <body>
+
+    <div class="topbar">
+      <div class="fill">
+        <div class="container">
+          <a class="brand" href="/">Erik Yao's</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/index.html">Home</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+  <h1>"Could not resolve placeholder" 解决方案 <small></small></h1>
+</div>
+
+<div class="row">
+  <div class="span10">
+    <p>　　除去 properites 文件路径错误、拼写错误外，出现 "Could not resolve placeholder" 很有可能是使用了多个 <code>PropertyPlaceholderConfigurer</code> 或者多个 <code>&lt;context:property-placeholder&gt;</code> 的原因。</p>
+
+<p>　　比如我有一个 dao.xml 读取 dbConnect.properties，还有一个 dfs.xml 读取 dfsManager.properties，然后 web.xml 统一 load 这两个 xml 文件</p>
+
+<pre class="prettyprint linenums">
+&lt;context-param&gt;  
+    &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;  
+    &lt;param-value&gt;  
+            WEB-INF/config/spring/dao.xml,   
+            WEB-INF/config/spring/dfs.xml  
+    &lt;/param-value&gt;  
+&lt;/context-param&gt; 
+</pre>
+
+
+<p>如果这两个 xml 文件中分别有：</p>
+
+<pre class="prettyprint linenums">
+&lt;context:property-placeholder location="WEB-INF/config/db/dbConnect.properties" /&gt;  
+</pre>
+
+
+
+
+<pre class="prettyprint linenums">
+&lt;context:property-placeholder location="WEB-INF/config/dfs/dfsManager.properties" /&gt;  
+</pre>
+
+
+<p>那么，一定会出 "Could not resolve placeholder"。</p>
+
+<p>　　一定要记住，不管是在一个 Spring 文件还是在多个 Spring 文件被统一 load 的情况下，直接写：</p>
+
+<pre class="prettyprint linenums">
+&lt;context:property-placeholder location="" /&gt;  
+&lt;context:property-placeholder location="" /&gt;  
+</pre>
+
+
+<p>是不允许的。</p>
+
+<p>　　解决方案：</p>
+
+<p>　　(1) 在 Spring 3.0 中，可以写：</p>
+
+<pre class="prettyprint linenums">
+&lt;context:property-placeholder location="xxx.properties" ignore-unresolvable="true" /&gt;    
+&lt;context:property-placeholder location="yyy.properties" ignore-unresolvable="true" /&gt;   
+</pre>
+
+
+<p>注意两个都要加上ignore-unresolvable="true"，一个加另一个不加也是不行的</p>
+
+<p>　　(2) 在Spring 2.5中，<code>&lt;context:property-placeholder&gt;</code> 没有 ignore-unresolvable 属性，此时可以改用 PropertyPlaceholderConfigurer。其实 <code>&lt;context:property-placeholder location="xxx.properties" ignore-unresolvable="true" /&gt;</code> 与下面的配置是等价的</p>
+
+<pre class="prettyprint linenums">
+&lt;bean id="随便" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"&gt;  
+    &lt;property name="location" value="xxx.properties" /&gt;  
+    &lt;property name="ignoreUnresolvablePlaceholders" value="true" /&gt;   
+&lt;/bean&gt; 
+</pre>
+
+
+<p>正因为如此，写多个 PropertyPlaceholderConfigurer 不加 ignoreUnresolvablePlaceholders 属性也是一样会出 "Could not resolve placeholder"。</p>
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/mysql/2011/07/11/default-character-set-no-longer-an-option-in-mysql-5-5" title="MySQL 5.5 版本下 my.ini 内 [mysqld] 项中不能再写 default-character-set=utf8">&larr; Previous</a></li>
+      
+        <li><a href="/archive.html">Archive</a></li>
+      
+        <li class="next"><a href="/spring/2011/09/02/static-injection" title="static 属性的注入必须使用非 static 的 setter">Next &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+  </div>
+  
+  <div class="span4">
+    <h4>Published</h4>
+    <div class="date"><span>17 August 2011</span></div>
+	
+  <br/>
+	
+  
+    <h4>Categories</h4>
+	<ul class="tag_box">
+	
+	
+
+
+  
+     
+    	<li><a href="/categories.html#spring-ref">
+    		spring <span>4</span>
+    	</a></li>
+    
+  
+
+
+	</ul>
+    
+
+  
+    <h4>Tags</h4>
+    <ul class="tag_box">
+    
+    
+
+
+  
+     
+    	<li><a href="/tags.html#GTR-ref">GTR <span>9</span></a></li>
+     
+    	<li><a href="/tags.html#Spring-101-ref">Spring-101 <span>4</span></a></li>
+     
+    	<li><a href="/tags.html#Config-ref">Config <span>11</span></a></li>
+     
+    	<li><a href="/tags.html#Config-Spring-ref">Config-Spring <span>1</span></a></li>
+    
+  
+
+
+
+    </ul>
+    
+  </div>
+</div>
+
+
+      </div>
+
+      <footer>
+        <p>&copy; Erik Yao 2012 
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+        </p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    
+  </body>
+</html>
+
