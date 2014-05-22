@@ -10,13 +10,14 @@ markdown: rdiscount
 # Themes are encouraged to use these universal variables 
 # so be sure to set them if your theme uses them.
 #
-title : Home
+title : Erik Yao's
 tagline: Site Tagline
 author :
   name : Erik Yao
   # email : blah@email.test
+  gmail : erikyao.cn
   github : erikyao
-  # twitter : username
+  twitter : iamerikyao
   # feedburner : feedname
 
 # The production_url is only used when full-domain names are needed

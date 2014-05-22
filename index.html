@@ -1,0 +1,44 @@
+---
+layout: page
+title: Home
+header: Home
+group: navigation
+weight: 1
+---
+{% include JB/setup %}
+
+<div class="row">
+  <div class="span10">
+    <h2>About</h2>
+
+	<p>　　{{ site.author.name }} is a resigned Chinese coder now in persuit of a better opportunity. </p>
+	<p>　　He enjoys learning and coding in Java, and is also a big fan of <a href="http://www.aoimiyazaki.jp/" target="_blank">Aoi Miyazaki</a> and <a href="http://www.nba.com/suns/" target="_blank">Phoenix Suns</a>. </p>
+
+	<h2>Most Recent Blog Posts</h2>
+
+	<ul>
+    {% for post in site.posts limit:10 offset:0 %}
+		<li><span>{{ post.date | date: "%B %e, %Y" }}</span> &raquo; <a href="{{ BASE_PATH }}{{ post.url }}">{{ post.title }}</a></li>
+	{% endfor %}
+		<li><a href="/archives/">View more posts in the archives...</a></li>
+	</ul>
+  </div>
+  
+  <p><div class="span4">
+    <h4>Contact</h4>
+	<ul>
+		<li>
+			<img style="vertical-align:top; width:16px; height:16px;" src="https://github.com/favicon.ico"/>
+			<a href="https://github.com/john" target="_blank" onclick = "this.href=this.href.replace(/john/, '{{ site.author.github }}')">GitHub</a>
+		</li>
+		<li>
+			<img style="vertical-align:top; width:16px; height:16px;" src="http://gmail.google.com/favicon.ico"/>
+			<a href="mailto:johnATgmailDOTcom" target="_blank" onclick = "this.href=this.href.replace(/john/, '{{ site.author.gmail }}').replace(/AT/,'@').replace(/DOT/,'.')">Gmail</a> 
+		</li>
+		<li>
+			<img style="vertical-align:top; width:16px; height:16px;" src="https://twitter.com/favicon.ico"/>
+			<a href="https://twitter.com/john" target="_blank" onclick = "this.href=this.href.replace(/john/, '{{ site.author.twitter }}')">Twitter</a>
+		</li>
+	</ul>
+  </p>
+</div>
