@@ -9,33 +9,23 @@ permalink: "index.html"
 
 <div class="row">
   <div class="span10">
-    <h2>About</h2>
-
-	<p>　　{{ site.author.name }} is a resigned Chinese coder now in persuit of a better opportunity. </p>
-	<p>　　He enjoys learning and coding in Java, and is also a big fan of <a href="http://www.aoimiyazaki.jp/" target="_blank">Aoi Miyazaki</a> and <a href="http://www.nba.com/suns/" target="_blank">Phoenix Suns</a>. </p>
-	
-	<br/>
-
 	<h2>Most Recent Blog Posts</h2>
 
 	<ul>
-    {% for post in site.posts limit:10 offset:0 %}
+    {% for post in site.posts limit:11 offset:0 %}
 		<li><span>{{ post.date | date: "%B %e, %Y" }}</span> &raquo; <a href="{{ BASE_PATH }}{{ post.url }}">{{ post.title }}</a></li>
 	{% endfor %}
 		<li><a href="/archives/">View more posts in the archives...</a></li>
 	</ul>
+	
   </div>
   
   <div class="span4">
-  
-	<img id="bingImg" style="width:180px; height:180px;"/>
+    <h4>About</h4>
+
+	<p>　　{{ site.author.name }} is a resigned Chinese coder now in persuit of a better opportunity. </p>
+	<p>　　He enjoys learning and coding in Java, and is also a big fan of <a href="http://www.aoimiyazaki.jp/" target="_blank">Aoi Miyazaki</a> and <a href="http://www.nba.com/suns/" target="_blank">Phoenix Suns</a>. </p>
 	
-	<script type="text/javascript">
-		var today = {{ site.time | date: "%Y%m%d" }};
-		var theDayBeforeYesterday = today - 2;
-		document.getElementById("bingImg").setAttribute("src", "http://bcs.duapp.com/bingbackground/" + theDayBeforeYesterday);
-	</script>
-  
     <h4>Contact</h4>
 	<ul>
 		<li>
