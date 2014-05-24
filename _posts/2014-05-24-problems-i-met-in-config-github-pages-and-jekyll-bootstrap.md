@@ -57,6 +57,6 @@ url | http://username.github.io | http://username.github.io/projectname，其实
 
 ## 7. pagination 的问题
 
-　　之前貌似有这样的一个问题 [paginator only available in index.html #267](https://github.com/jekyll/jekyll/issues/267)，现在已经不存在了，你在其他的页面上用 paginator 也没事。
+　　I just give it up.
 
-　　我觉得套页面比配置要难得多……套页面的结构可以参考 [Jekyll Pagination - More awkward than it needs to be](http://patrick-mckinley.com/tech/jekyll-pagination.html)。  
+　　先后试了两套页面，结构可以参考 [Jekyll Pagination - More awkward than it needs to be](http://patrick-mckinley.com/tech/jekyll-pagination.html)。但是最后的结果总是一样：本地一点问题都没有，push 上去第一页死活是空白，page2开始又一切正常。找不出是哪里出问题，曾经想过将站点文件归到一个 \_src 文件夹，然后和 jekyll build 出的 \_site 一起 push 过去，后来觉得何必呢……等 pagination 特性更新好了，搜出来的 issue 也不少，目前没有 pagination 也足够我用了。
