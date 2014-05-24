@@ -45,7 +45,7 @@
 		{% if paginator.previous_page %}
 			{% if paginator.previous_page == 1 %}
 			<li>
-			<a href="/">&laquo;</a>
+			<a href="/posts">&laquo;</a>
 			</li>
 			{% else %}
 			<li>
@@ -64,7 +64,7 @@
 			</li>
 		{% else %}
 			<li>
-			<a href="/">1</a>
+			<a href="/posts">1</a>
 			</li>
 		{% endif %}
 		
