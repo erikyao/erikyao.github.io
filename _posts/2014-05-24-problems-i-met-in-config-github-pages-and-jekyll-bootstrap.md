@@ -59,4 +59,6 @@ url | http://username.github.io | http://username.github.io/projectname，其实
 
 　　I just give it up.
 
-　　先后试了两套页面，结构可以参考 [Jekyll Pagination - More awkward than it needs to be](http://patrick-mckinley.com/tech/jekyll-pagination.html)。但是最后的结果总是一样：本地一点问题都没有，push 上去第一页死活是空白，page2开始又一切正常。找不出是哪里出问题，曾经想过将站点文件归到一个 \_src 文件夹，然后和 jekyll build 出的 \_site 一起 push 过去，后来觉得何必呢……等 pagination 特性更新好了，搜出来的 issue 也不少，目前没有 pagination 也足够我用了。
+　　先后试了两套页面，结构可以参考 [Jekyll Pagination - More awkward than it needs to be](http://patrick-mckinley.com/tech/jekyll-pagination.html)。但是最后的结果总是一样：本地一点问题都没有，push 上去第一页死活是空白，page2 开始又一切正常。找不出是哪里出问题。  
+
+　　曾经想过将站点文件归到一个 \_src 文件夹，然后和 jekyll build 出的 \_site 一起 push 过去，后来觉得何必呢……等 pagination 特性更新好了，搜出来的 issue 也不少，目前没有 pagination 也足够我用了。
