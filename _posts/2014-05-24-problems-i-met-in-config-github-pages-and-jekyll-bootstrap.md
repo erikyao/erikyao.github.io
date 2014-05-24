@@ -57,6 +57,6 @@ url | http://username.github.io | http://username.github.io/projectname，其实
 
 ## 7. pagination 的问题
 
-　　如果你不是在 /index.html 上做分页的话就省省吧，[paginator only available in index.html #267](https://github.com/jekyll/jekyll/issues/267)，提了有几年了，没解决还 close 掉了。
+　　之前貌似有这样的一个问题 [paginator only available in index.html #267](https://github.com/jekyll/jekyll/issues/267)，现在已经不存在了，你在其他的页面上用 paginator 也没事。
 
-　　套页面的结构可以参考 [Jekyll Pagination - More awkward than it needs to be](http://patrick-mckinley.com/tech/jekyll-pagination.html)。  
+　　我觉得套页面比配置要难得多……套页面的结构可以参考 [Jekyll Pagination - More awkward than it needs to be](http://patrick-mckinley.com/tech/jekyll-pagination.html)。  
