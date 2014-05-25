@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Digest of Mocks Aren't Stubs"
+title: "Digest of <i>Mocks Aren't Stubs</i>"
 description: ""
 category: TDD
 tags: [Paperwork, Paperwork-Digest]
