@@ -1,0 +1,13 @@
+---
+layout: post
+title: "关于表字段数量与对象字段数量的思考"
+description: ""
+category: as-a-coder
+tags: [Discernment, Discernment-Design]
+---
+{% include JB/setup %}
+
+1. mc_lottery 是一个大表（28个字段），对应 Lottery 也是个大对象。如果一个页面只用展示 Lottery 对象的3个字段，那么，SQL 层的传输就很浪费。
+2. 如果把 mc_lottery 拆成多个小表，Lottery 对象也要拆成多个小对象的话，你就需要处理事务问题，也很烦。
+3. 由于小表之间互相很难沟通，所以穗文后台的设计就很好：用一张 club_be_cj_lottery 做主表，也可以认为是外键表（当然在 SQL 层我们是不使用外键的），然后各个小表与外键表关联，出现了事务问题也可以很容易定位到是那张表的数据不对。
+4. 是否可以考虑 “大表 + 小对象” 的模式？
