@@ -24,6 +24,8 @@ tags: [Java-101]
 
 <br/>
 
+_p.s._ 多态的 3 个条件：继承或实现、@Override、baseRef 指向 Ext 对象
+
 _p.s._ 不存在平行转型 (horizontal-cast)，即 Ext1 e = new Ext2()。
 
 ---
