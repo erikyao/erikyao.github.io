@@ -70,7 +70,7 @@ tags: [Java-InnerClass, Java-Exception, Java-Concurrent, Java-Collection, Java-D
 - item 31. 尽量避免使用 enum.ordinal 属性
 - item 32. 用 EnumSet 代替 bit 标志位
 - item 33. 若需要按 enum 分类，可以使用 EnumMap（enum 做 key）
-- item 34. enum 可以实现结构（把 [enum 可以包方法](#method_in_enum) 中的方法抽到接口中即可）
+- item 34. enum 可以实现接口（把 [enum 可以包方法](#method_in_enum) 中的方法抽到接口中即可）
 - item 35. 注解初步
 - item 36. 请坚持使用 @Override
 - item 37. 标记接口与标记注解
