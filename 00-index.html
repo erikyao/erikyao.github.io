@@ -15,7 +15,7 @@ permalink: "index.html"
     {% for post in site.posts limit:11 offset:0 %}
 		<li><span>{{ post.date | date: "%B %e, %Y" }}</span> &raquo; <a href="{{ BASE_PATH }}{{ post.url }}">{{ post.title }}</a></li>
 	{% endfor %}
-		<li><a href="/archives/">View more posts in the archives...</a></li>
+		<li><a href="/archive/">View more posts in the archives...</a></li>
 	</ul>
 	
   </div>
