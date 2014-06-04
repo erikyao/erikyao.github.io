@@ -216,7 +216,7 @@ construtor 参数列表很长时，一般有两种常规做法：
 	  
 	缺点二：construtor不能做状态检验  
   
-	缺点三：JavaBean很难做成不可变类（why? see [item 15](item15)）  
+	缺点三：JavaBean很难做成不可变类（why? see item 15）  
   
 救星是 <a name="dp_builder"></a>Builder 模式。Builder 模式可以简单理解为 setter 的一个变种，它是一个链式的 setter  
   
@@ -243,7 +243,7 @@ LPaper lp = LPaperBuilder.docId(1003401).font("SimHei").bgColor("red").build();
   
 进行状态检验的时机：  
   
-- build 过程中，Builder 的字段 copy 到目标对象后，在 对象域 而不是 Builder 域中做状态检验（why? see [item39](#item39)）  
+- build 过程中，Builder 的字段 copy 到目标对象后，在 对象域 而不是 Builder 域中做状态检验（why? see [item 39](#item39)）  
 - 类似层叠构造器的一种变种，比如有两个字段需要满足一个特定状态，可以定义一个包含两参数的方法：  
   
 <pre class="prettyprint linenums">
@@ -358,7 +358,7 @@ public Object serialize() throws IOException, ClassNotFoundException {
   
 典型的例子是方法中每次都创建的 日期对象，完全可以在定义为 static field；但也没有必要用懒加载，把事情搞复杂了。  
   
-避免自动装箱（autoboxing）：比如 `Long l = 0L; l++;` 因为 l 声明为 Long 对象，所以每次 \++ 都会创建一个 Long 对象（详见 [item 49](#item49)）  
+避免自动装箱（autoboxing）：比如 `Long l = 0L; l++;` 因为 l 声明为 Long 对象，所以每次 \++ 都会创建一个 Long 对象（详见 item 49）  
   
 [item 39. defensive copy](#item39) 的场合与本 item 不同：当重用对象的代价远大于创建新对象的时候，请使用 defensive copy；与本 item 并不矛盾  
   
@@ -584,8 +584,6 @@ public class ForwardingClass {
 </pre>
 
 True Delegation 有被运用在 State Pattern 里
-
------
 
 ### <a name="simulated_multiple_inheritance"></a>模拟多重继承
 
