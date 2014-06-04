@@ -735,26 +735,26 @@ listS instanceof List&lt;String&gt; // error
 
 [Type Erasure](http://docs.oracle.com/javase/specs/jls/se5.0/html/typesValues.html#4.6)
 
-> ype erasure is a mapping from types (possibly including parameterized types and type variables) to types (that are never parameterized types or type variables). We write |T| for the erasure of type T. The erasure mapping is defined as follows.  
-> <br/>
-> * The erasure of a parameterized type G<T1, ... ,Tn> is |G|.
-> * The erasure of a nested type T.C is |T|.C.
-> * The erasure of an array type T[] is |T|[].
-> * The erasure of a type variable is the erasure of its leftmost bound.
-> * The erasure of every other type is the type itself. 
-> <br/>
+> Type erasure is a mapping from types (possibly including parameterized types and type variables) to types (that are never parameterized types or type variables). We write |T| for the erasure of type T. The erasure mapping is defined as follows.  
+
+>* The erasure of a parameterized type G<T1, ... ,Tn> is |G|.  
+>* The erasure of a nested type T.C is |T|.C.  
+>* The erasure of an array type T[] is |T|[].  
+>* The erasure of a type variable is the erasure of its leftmost bound.  
+>* The erasure of every other type is the type itself.   
+
 > The erasure of a method signature s is a signature consisting of the same name as s, and the erasures of all the formal parameter types given in s.
 
 [Reifiable Types](http://docs.oracle.com/javase/specs/jls/se5.0/html/typesValues.html#4.7)
 
 > Because some type information is erased during compilation, not all types are available at run time. Types that are completely available at run time are known as reifiable types. A type is reifiable if and only if one of the following holds:  
-> <br/>
-> * It refers to a non-generic type declaration.
-> * It is a parameterized type in which all type arguments are unbounded wildcards.
-> * It is a raw type.
-> * It is a primitive type.
-> * It is an array type whose component type is reifiable. 
-> <br/>
+
+>* It refers to a non-generic type declaration.
+>* It is a parameterized type in which all type arguments are unbounded wildcards.
+>* It is a raw type.
+>* It is a primitive type.
+>* It is an array type whose component type is reifiable. 
+
 
 注意下这个逻辑，因为泛型是 "some type information is erased during compilation"，所以为了确保能正确的 erase，compilation 会做严格的类型检查。而 Array 是 reified，所以是到 runtime 才类型检查，下面看个例子：
 
