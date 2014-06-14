@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "R Data Type Part 3: Missing Values, Data Frames and Names"
+title: "R Data Type - Part 3: Missing Values, Data Frames & Names"
 description: ""
 category: R
 tags: [R-101]
