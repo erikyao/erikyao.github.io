@@ -1105,7 +1105,23 @@ public boolean addLot(Lot l) {
 
 ![](https://hedjpw.bn1.livefilestore.com/y2puXvvEyYTXaJkDKyoCH_SngMsvzb96L30ytHe0BgVn8DF2S1ne8tinJaW1D_GkggRdgvlFl9symsySPsAmgqpqaou19KUAZuUtQu9XBOOzNs/800px-Observer.svg.png?psid=1)
 
-Observer 模式通常被用在 Event Handling 方面
+Observer 模式通常被用在 Event Handling 方面。
+
+<br/>
+
+_2014.06.16 补充_：
+
+Observer 模式还有 push 和 pull 两种模式，这是从被观察对象的角度来看的。如果被观察对象调用的是 `observer.update(xxx)`，xxx 可以是对象、enum 或是被观察对象自身，反正就是一种消息，这就相当于是被观察对象 push 一个消息给 observer；如果没有任何参数，只调用一个 `observer.update()`，则 observer 需要自己去查找有哪些内容被修改的，可能要去查询被观察者的状态，这就相当于是 observer 从被观察对象 pull 消息。  
+
+pull 模式的优缺点：
+
+* 实现简单
+* 如果需要查询被观察者的状态的话，在并发条件下可能会读到错误的状态
+
+push 模式的优缺点：
+
+* 消息精确，利于控制
+* 实现略复杂
 
 -----
 
