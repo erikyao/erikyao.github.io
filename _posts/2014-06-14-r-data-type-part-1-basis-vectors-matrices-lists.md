@@ -27,7 +27,7 @@ R has 5 atomic classes
 	* 1L 才是 integer（L 应该是指 long）
 * complex（复数）
 	* 比如 `2+4i`
-* logical (boolean; TRUE & FALSE，可以简写成 T & F )
+* logical (boolean; TRUE & FALSE，可以简写成 T & F; 另外还有 `NA` 值)
 
 ### 1.2 Basic Objects
 
@@ -53,7 +53,9 @@ Attributes of an object can be accessed using the attributes() function.
 
 * Empty vectors can be created with the vector() function.
 * x <- vector("numeric", length = 10) 产生 10 个 0
+	* 或者用 x <- rep(0, times = 10) 也可以
 * x <- 9:29 产生 [9, 29] 的整数序列
+	* 其实也可以产生实数序列，比如: `pi:10` 产生 `3.141593 4.141593 5.141593 6.141593 7.141593 8.141593 9.141593`
 * x <- c(xxx, yyy, zzz, ...) 接收变长参数列表填到 vector
 
 ### 2.2 Vector Element Coercion
@@ -62,6 +64,14 @@ When different objects are mixed in a vector, coercion occurs so that every elem
 of the same class. e.g. `y <- c(1.7, "a") ## class(y) 得到的是 character`  
 
 Explicit Coercion 可以理解为强制类型转换，比如 `as.numeric(x)`、`as.logical(x)`、`as.character(x)`、`as.complex(x)`
+
+### 2.3 Element Index
+
+* `x[1:10]` 返回前 10 个 元素
+* `x[!is.na(x)]` 返回所有不是 NA 的元素
+* ·x[x>0]` 返回所有大于 0 的元素
+* `x[c(-2, -10)]` 或者 `x[-c(2, 10)]` gives us all elements of x EXCEPT for the 2nd and 10 elements
+* `x["bar"]` 获取 name 为 bar 的元素
 
 ## 3. Matrices ['meɪtrɪsi:z] (matrix [ˈmeɪtrɪks])
 
@@ -73,7 +83,7 @@ Matrices are vectors with a dimension attribute.
 
 `dim(m)` 返回一个 `c(nrow, ncol)` 
 
-Matrices are constructed column-wise, so entries can be thought of starting in the “upper left” corner and running down the columns. 
+Matrices are constructed column-wise, so entries scan be thought of starting in the “upper left” corner and running down the columns. 
 
 	> m <- matrix(1:6, nrow = 2, ncol = 3) 
 	> m
