@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "R Data Type - Part 2: Factors"
+title: "R Data Types - Part 2: Factors"
 description: ""
 category: R
 tags: [R-101]
