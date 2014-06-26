@@ -58,6 +58,9 @@ tags: [Java-DesignPattern, Discernment, Discernment-Design]
 		- Abstract Server 模式的作用其实是为了引出后面两个模式
 		- Adapter 模式可以直接 [看这个](http://erikyao.github.io/java/2014/06/04/digest-of-effective-java/#dp_adapter)
 		- [Bridge 模式](#dp_bridge)
+	- [chapter 26. Proxy 模式 和 Stairway To Heaven 模式：管理第三方 API](#ch26)
+		- [Proxy 模式](#dp_proxy)
+		- Stairway To Heaven 模式要求多重继承，给的例子是 c++，有兴趣自己看下
 
 ----------  
   
@@ -771,3 +774,32 @@ Bridge 模式和 [Adapter 模式](http://erikyao.github.io/java/2014/06/04/diges
 还是来自上面 Stack Overflow 的说明：
 
 > At first sight, the Bridge pattern looks a lot like the Adapter pattern in that a class is used to convert one kind of interface to another. However, the intent of the Adapter pattern is to make one or more classes' interfaces look the same as that of a particular class. The Bridge pattern is designed to separate a class's interface from its implementation so you can vary or replace the implementation without changing the client code.
+
+----------  
+  
+----------  
+
+## <a name="ch26"></a>chapter 26. Proxy 模式 和 Stairway To Heaven 模式：管理第三方 API
+
+----------  
+  
+----------  
+
+### <a name="dp_proxy"></a>Proxy 模式
+
+26.1.3 节的内容最多，但是我不是很理解它这个例子，无法把它联系到我们的 Service / DAO 结构上。下面单独说一下 Proxy 模式。
+
+![](https://hecftw.bn1.livefilestore.com/y2pvqKZiQ8v41szml1XVAdKcD-3v10uOfPnfJqBtFEhaTFXbvcjjE3Li37U3_ak4_fz6gyUCWjxeL6Pk7Xjmlo5RqOkzC-rgjkhe-QQufJRxzM/Proxy_pattern_diagram.svg.png?psid=1)
+
+其实本身是很简答的，而且尼玛巨像 Decorator 有没有？[Stack Overflow](http://stackoverflow.com/questions/18618779/differences-between-proxy-and-decorator-pattern) 上提到了这两者的区别：
+
+* *Proxy* may not instantiate wrapping object at all (e.g. ORMs prevent unnecessary access to DB if object fields/getters are not used) while *Decorator* always hold link to actual wrapped instance.
+* *Decorator* usually used to add new behavior to old or legacy classes by developer itself. *Proxy* usually used by frameworks to add security or caching/lazing and constructed by framework (not by regular developer itself).
+
+这篇 [The Proxy Pattern](http://www.cs.sjsu.edu/~pearce/oom/patterns/behavioral/proxy.htm) 还提到了 Proxy Chain，有点意思，可以联想到 Struts2 的 interceptor stack。
+
+[wiki](http://en.wikipedia.org/wiki/Proxy_pattern) 还提了一句：
+
+> A well-known example of the proxy pattern is a reference counting (引用计数) pointer object.
+
+注意 "a reference counting pointer object" 这个表述真的很啰嗦，还容易导致误解（尼玛 "pointer object" 是啥），其实 "a reference-counted pointer" 就已经是 an object which tracks the number of reference-counted pointers referencing a given object, and destructs the tracked object when this number drops to zero。
