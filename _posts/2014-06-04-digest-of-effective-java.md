@@ -218,9 +218,9 @@ construtor 参数列表很长时，一般有两种常规做法：
   
 	缺点三：JavaBean很难做成不可变类（why? see item 15）  
   
-救星是 <a name="dp_builder"></a>Builder 模式。Builder 模式可以简单理解为 setter 的一个变种，它是一个链式的 setter  
+救星是 <a name="dp_builder"></a>Builder 模式。Builder 模式可以简单理解为 setter 的一个变种，它是一个链式的 setter。  
   
-比如 LPaper(docId, font, bgColor)，对应的有 LPaperBuilder(docId, font, bgColor)  
+比如 `LPaper(docId, font, bgColor)`，对应的有 `LPaperBuilder(docId, font, bgColor)`  
 
 <pre class="prettyprint linenums">
 LPaperBuilder {  
@@ -261,7 +261,7 @@ LPaperBuilder init(arg1, arg2) {
 		
 该方法的好处是：不用等到 build 时才发现问题。  
   
-注意，此时 目标对象 可以是 **不可变** 的，因为可以没有setter  
+注意，此时 目标对象 可以是 **不可变** 的，因为可以没有setter。  
   
 另外，Builder 很适合 抽象工厂（Abstract Factory）。可以定义一个  
   
@@ -271,7 +271,7 @@ public interface Builder<T> {
 }  
 </pre>
 	
-抽象工厂持有一组这样的 Builder 实现，就可以方便生产类型的对象  
+抽象工厂持有一组这样的 Builder 实现，就可以方便生产类型的对象。  
   
 ### <a name="item3"></a>item 3. 用 private constructor 或者 enum 来强化 singleton
   
@@ -296,14 +296,14 @@ public class singlton {
 }  
 </pre>
   
-如果为了防止通过反射来访问 construtor，可以在 construtor 中直接抛异常（好贱啊……）  
+如果为了防止通过反射来访问 construtor，可以在 construtor 中直接抛异常（好贱啊……）。  
   
 为了防止 反序列化 重新生成一个新的 INSTANCE，需要做到：  
   
 1. 将 INSTANCE 标记为 transient（transient 关键字可以将字段 mark 为“hi，这个家伙是不参与序列化的，忽略它吧~”）  
 2. 覆写 [readResolve](#readResolve) 方法，直接返回 INSTANCE  
   
-随着 Java 1.5 引入 enum，现在 singleton 也能用 enum 实现了  
+随着 Java 1.5 引入 enum，现在 singleton 也能用 enum 实现了：  
 
 <pre class="prettyprint linenums">
 public enum Singleton {  
@@ -350,7 +350,7 @@ public Object serialize() throws IOException, ClassNotFoundException {
   
 ### <a name="#item4"></a>item 4. 用 private constructor 来强化 util 类
   
-方法在 [item 3](#item3) 中已经说了，private construtor，保险点再加一个异常。最好加注释说明一下  
+方法在 [item 3](#item3) 中已经说了，private construtor，保险点再加一个异常。最好加注释说明一下。  
   
 ----------  
   
@@ -358,17 +358,17 @@ public Object serialize() throws IOException, ClassNotFoundException {
   
 典型的例子是方法中每次都创建的 日期对象，完全可以在定义为 static field；但也没有必要用懒加载，把事情搞复杂了。  
   
-避免自动装箱（autoboxing）：比如 `Long l = 0L; l++;` 因为 l 声明为 Long 对象，所以每次 \++ 都会创建一个 Long 对象（详见 item 49）  
+避免自动装箱（autoboxing）：比如 `Long l = 0L; l++;` 因为 l 声明为 Long 对象，所以每次 \++ 都会创建一个 Long 对象（详见 item 49）。  
   
-[item 39. defensive copy](#item39) 的场合与本 item 不同：当重用对象的代价远大于创建新对象的时候，请使用 defensive copy；与本 item 并不矛盾  
+[item 39. defensive copy](#item39) 的场合与本 item 不同：当重用对象的代价远大于创建新对象的时候，请使用 defensive copy；与本 item 并不矛盾。  
   
 ----------  
   
 ### <a name="#item6"></a>item 6. 消除过期引用
   
-过期引用，obsolete reference，is simply a reference that will never be dereferenced again  
+过期引用，obsolete reference，is simply a reference that will never be dereferenced again。  
   
-比如说你自定义一个 stack，然后 pop 操作只是 `top--`，那么 `stack[top+1]`，i.e. 原 top 元素就可能成为一个 obsolete reference  
+比如说你自定义一个 stack，然后 pop 操作只是 `top--`，那么 `stack[top+1]`，i.e. 原 top 元素就可能成为一个 obsolete reference。  
   
 内存泄露也可称为 unintentional object retension，无意识的对象保留。如果一个对象被保留，那么它引用的对象也会被保留。  
   
@@ -380,7 +380,7 @@ public Object serialize() throws IOException, ClassNotFoundException {
 2. 缓存。缓存中的对象可能被遗忘。解决方案：  
 	- WeakHashMap: 当 WeakHashMap 的 keyObject 被 GC 之后，对应的 WeakHashMap entry 也被删除。see [Understanding Weak References](http://weblogs.java.net/blog/enicholas/archive/2006/05/understanding_w.html "Understanding Weak References")、[WeakHashMap is not a cache! ](http://www.codeinstructions.com/2008/09/weakhashmap-is-not-cache-understanding.html "WeakHashMap is not a cache! ")  
 	- 起一个线程定时清除。`LinkedHashMap#removeEldestEntry()` will be your good friend.  
-3. 监听器和其他回调。（待学习）  
+3. 监听器和其他回调（待学习）  
   
 ### <a name="weakReference"></a>Understanding Weak References
   
@@ -388,7 +388,7 @@ public Object serialize() throws IOException, ClassNotFoundException {
   
 #### 1. Strong Reference
   
-我们说一个 reference 是 Strong 的，表示在定义 reference 的定义域内，这个 reference 指向的 object 是无法被 GC 的，这个 object 有被称为 strongly reachable （if an object is reachable via a chain of strong references (strongly reachable), it is not eligible for garbage collection.）  
+我们说一个 reference 是 Strong 的，表示在定义 reference 的定义域内，这个 reference 指向的 object 是无法被 GC 的，这个 object 有被称为 strongly reachable （if an object is reachable via a chain of strong references (strongly reachable), it is not eligible for garbage collection）。  
   
 #### 2. Weak Reference
   
@@ -406,14 +406,14 @@ and then elsewhere in the code you can use `weakWidget.get()` to get the actual 
   
 > `WeakReference<Widget> weakWidget = new WeakReference<Widget>(widget, refQueue);`  
   
-WeakReferences are enqueued as soon as the object to which they point becomes weakly reachable. ReferenceQueue 是 WeakHashMap 的重要组成部分  
+WeakReferences are enqueued as soon as the object to which they point becomes weakly reachable. ReferenceQueue 是 WeakHashMap 的重要组成部分。  
   
   
 #### 3. Soft Reference
   
-An object which is only weakly reachable (the strongest references to it are WeakReferences) will be discarded at the next garbage collection cycle, but an object which is softly reachable 相对比较坚挺，不会那么快被 GC. 除此之外，soft reference 与 weak reference 并无差别  
+An object which is only weakly reachable (the strongest references to it are WeakReferences) will be discarded at the next garbage collection cycle, but an object which is softly reachable 相对比较坚挺，不会那么快被 GC. 除此之外，soft reference 与 weak reference 并无差别。  
   
-实际上，只要内存够用，softly-reachable object 是不会被 GC 的。所以 soft reference 是做 cache 的好材料，因为 GCer 会帮你判断内存是否不够用而要进行 GC  
+实际上，只要内存够用，softly-reachable object 是不会被 GC 的。所以 soft reference 是做 cache 的好材料，因为 GCer 会帮你判断内存是否不够用而要进行 GC。  
   
 #### 4. Phantom Reference
   
@@ -444,7 +444,7 @@ Phantom Reference 的两大用处：
   
 假设有一个非 abstract 的父类，有两个字段，有一个子类A，加了一个字段a。此时子类A如果用父类的 equals，那么子类间的比较会漏掉字段 a 的比较。如果子类A自己写一个 equals 比较三个字段，那么子类A和父类的比较就很麻烦，需要慎重处理。因为要确保`子类对象.equals(父类对象) == 父类对象.equals(子类对象)`，如果你一定要做这样的比较的话。建议的做法是：约定哪些字段是需要比较的，哪些字段不需要比较；如果需要比较的字段都相等，可以判定两个对象相等。  
   
-如果你在 equals 里限定 `o.getClass() == this.getClass()`，那么又违反了 Liskov 置换原则。考虑一个子类B，没有加字段，那么它和父类的比较，不需要限定 class 相等。所以，还是用 instanceof 比较科学，注意，`(子类对象 instanceof 父类) == true`  
+如果你在 equals 里限定 `o.getClass() == this.getClass()`，那么又违反了 Liskov 置换原则。考虑一个子类B，没有加字段，那么它和父类的比较，不需要限定 class 相等。所以，还是用 instanceof 比较科学，注意，`(子类对象 instanceof 父类) == true`。  
   
 用组合代替继承的话，equals 也有新的写法，如下：  
 
@@ -470,7 +470,7 @@ class Ext {
 }  
 </pre>
   
-float 的比较请用 `Float.compare()`，double 的比较请用 `Double.compare()`  
+float 的比较请用 `Float.compare()`，double 的比较请用 `Double.compare()`。  
   
 ----------  
 
@@ -484,11 +484,11 @@ _注_：工作经验告诉我们：如果自定义的 PO（的对象）会作为
   
 ### <a name="item12"></a>item 12. 如何覆写 compareTo()
   
-比 `equals()` 简单点，`compareTo()` 不需要考虑子类父类的关系（考虑了也没啥意义，你会拿不同 class 的对象来排序么？），如果两个对象的 class 不同，直接让类型转换抛出 ClassCastException 好了  
+比 `equals()` 简单点，`compareTo()` 不需要考虑子类父类的关系（考虑了也没啥意义，你会拿不同 class 的对象来排序么？），如果两个对象的 class 不同，直接让类型转换抛出 ClassCastException 好了。  
   
-需要保证的一点：如果 `x.compareTo(y) == 0`，那么 `x.equals(y) == true`  
+需要保证的一点：如果 `x.compareTo(y) == 0`，那么 `x.equals(y) == true`。  
   
-如果父类实现了 Comparable，子类想加一个字段，最好是使用组合而不是继承（考虑 `Base b1 = new Base(); Base b2 = new Ext(); list.add(b1); list.add(b2);` 的情况，此时 `list.sort()` 是要抛 ClassCastException 的  
+如果父类实现了 Comparable，子类想加一个字段，最好是使用组合而不是继承（考虑 `Base b1 = new Base(); Base b2 = new Ext(); list.add(b1); list.add(b2);` 的情况，此时 `list.sort()` 是要抛 ClassCastException 的。  
   
 ----------  
   
@@ -521,7 +521,7 @@ _注_：工作经验告诉我们：如果自定义的 PO（的对象）会作为
   
 ### <a name="item14"></a>item 14. Use getter/setter in public class  
   
-如果是包级私有类，或是私有嵌套类，你用 public 字段不用 getter/setter 是无所谓的  
+如果是包级私有类，或是私有嵌套类，你用 public 字段不用 getter/setter 是无所谓的。  
   
 如果是 public class，应该用 getter/setter，原因有：  
   
@@ -548,7 +548,7 @@ _注_：工作经验告诉我们：如果自定义的 PO（的对象）会作为
 
 你大呼坑爹然后改了实现，结果下一版 HashSet 的 `addAll` 又不调用 `add` 了，你不是欲哭无泪？  
 
-为了解决这个问题，我们可以引入一个 forwarding class, who forwards Set<E>'s feature
+为了解决这个问题，我们可以引入一个 forwarding class, who forwards Set<E>'s feature：
 
 <pre class="prettyprint linenums">
 public class ForwardingSet<E> implements Set<E> {
@@ -567,9 +567,9 @@ public class ForwardingSet<E> implements Set<E> {
 }
 </pre>
 
-这么一来就屏蔽了 HashSet 的内部实现细节，我们 extends ForwardingSet，就不用关心 HashSet 的内部实现细节了，上面计数器的实现逻辑就不会随着 HashSet 的实现细节而发生变化了
+这么一来就屏蔽了 HashSet 的内部实现细节，我们 extends ForwardingSet，就不用关心 HashSet 的内部实现细节了，上面计数器的实现逻辑就不会随着 HashSet 的实现细节而发生变化了。
 
-这个 extends ForwardingSet 的类我们又称为 wrapper class，而且是一个非常经典的 <a name="dp_decorator"></a>Decorator 模式 实现, who wrapped Set<E> and decorate it with "addCount" feature
+这个 extends ForwardingSet 的类我们又称为 wrapper class，而且是一个非常经典的 <a name="dp_decorator"></a>Decorator 模式 实现, who wrapped Set<E> and decorate it with "addCount" feature。
 
 <a name="true_delegation"></a>严格来说 forwarding class 不算是委托（delegation）（唔……[a simple delegation example](/java/2009/10/31/a-simple-delegation-example/)），真正意义上的 delegation 应该是这样的（参 [Delegates - find out what constitutes true delegation](http://www.javaworld.com/article/2077357/learn-java/delegates.html)）：
 
@@ -583,11 +583,11 @@ public class ForwardingClass {
 	public void xxx() { forwardedObject.zzz(this); }
 </pre>
 
-True Delegation 有被运用在 State Pattern 里
+True Delegation 有被运用在 State Pattern 里。
 
 ### <a name="simulated_multiple_inheritance"></a>模拟多重继承
 
-假设我们有一个接口 Inf，一个骨架类 AbstractImp，一般我们会 `Impl extends AbstractImp`，如果不想用继承的话，可以 `Impl implements Inf，一个骨架类`，然后把接口的实现转发到一个内部类实例上，由这个内部类来 `extends AbstractImpl`。这么一来就可以把 “继承多个骨架类” 转移成 “实现多个接口”，称为 “模拟多重继承”  
+假设我们有一个接口 Inf，一个骨架类 AbstractImp，一般我们会 `Impl extends AbstractImp`，如果不想用继承的话，可以 `Impl implements Inf，一个骨架类`，然后把接口的实现转发到一个内部类实例上，由这个内部类来 `extends AbstractImpl`。这么一来就可以把 “继承多个骨架类” 转移成 “实现多个接口”，称为 “模拟多重继承”。  
 
 其实质还是组合代替继承。
 
@@ -595,9 +595,9 @@ True Delegation 有被运用在 State Pattern 里
 
 ### <a name="item20"></a>item 20. 类层次优于标签类
 
-比如一个 `Class Shape`，有一个 `String type`，`type == "circle"` 时表示 Shape 是圆形，`type == "rectangle"` 时表示 Shape 是长方形。这样的类就是标签类（tagged class）
+比如一个 `Class Shape`，有一个 `String type`，`type == "circle"` 时表示 Shape 是圆形，`type == "rectangle"` 时表示 Shape 是长方形。这样的类就是标签类（tagged class）。
 
-标签类过于冗长，容易出错，效率低下。还是以上面的 Shape 为例，它必须要有 radius, length, width 三个 field，但最多只会同时用到两个。这三个 field 也不能都标为 final，否则构造器要一次性把三个 field 都初始化掉，这明显是不合逻辑的
+标签类过于冗长，容易出错，效率低下。还是以上面的 Shape 为例，它必须要有 radius, length, width 三个 field，但最多只会同时用到两个。这三个 field 也不能都标为 final，否则构造器要一次性把三个 field 都初始化掉，这明显是不合逻辑的。
 
 -----
 
@@ -647,7 +647,7 @@ public class MySet&lt;E&gt; extends AbstractSet&lt;E&gt; {
 }
 </pre>
 
-这里 client 是 MySet，Inf 是 Iterator<E>（target），otherImpl 是原有的 iterator 实现（adaptee），adapter 是 MyInterator，这明显是 class adapter pattern，MyIterator 可以通过 .this 访问到原有的 iterator
+这里 client 是 MySet，Inf 是 Iterator<E>（target），otherImpl 是原有的 iterator 实现（adaptee），adapter 是 MyInterator，这明显是 class adapter pattern，MyIterator 可以通过 .this 访问到原有的 iterator。
 
 至于为什么说要优先考虑静态内部类，这是因为非静态内部类的每个实例都有一个 .this，消耗更大，而且会导致外围类在符合 GC 条件时仍然得以保留。
 
@@ -675,7 +675,7 @@ public class MySet&lt;E&gt; extends AbstractSet&lt;E&gt; {
 
 #### raw type
 
-List&lt;E&gt; 是泛型，对应的 List 就是 List&lt;E&gt; 的 raw type。raw type  不做类型检查，所以是很危险的，保留它们只是为了提供移植兼容性（Migration Compatibility）
+List&lt;E&gt; 是泛型，对应的 List 就是 List&lt;E&gt; 的 raw type。raw type  不做类型检查，所以是很危险的，保留它们只是为了提供移植兼容性（Migration Compatibility）。
 
 List&lt;Object&gt; 虽然和 List 一样，可以 add 任意类型的对象进来，但是：
 
@@ -688,14 +688,14 @@ List&lt;Object&gt; listO = listS; // Type Mismatch; and actually List&lt;Object&
 
 #### wildcard type
 
-List&lt;?&gt; 是 unbounded wildcard type；List&lt;? extends Number&gt; 是 bounded wildcard type
+List&lt;?&gt; 是 unbounded wildcard type；List&lt;? extends Number&gt; 是 bounded wildcard type。
 
 对于 List&lt;?&gt; 可以这么理解：
 
 1. List&lt;Object&gt; 相当于 /，根路径
 2. List&lt;?&gt; 相当于 \*\*，可以匹配任意路径，但没有任何路径 == \*\*
 
-前面有说 List&lt;Object&gt; is not a supertype of all kinds of lists, but List&lt;?&gt; is，所以 `List<?> listQ = listS;` 是可行的
+前面有说 List&lt;Object&gt; is not a supertype of all kinds of lists, but List&lt;?&gt; is，所以 `List<?> listQ = listS;` 是可行的。
 
 [Wildcards](http://docs.oracle.com/javase/tutorial/extra/generics/wildcards.html) 有说：
 
@@ -725,7 +725,7 @@ listS instanceof List&lt;String&gt; // error
 
 #### covariant and invariant
 
-数组是 covariant（协变的），即，如果 Sub 是 Super 的子类型，那么 Sub[] 就是 Super[] 的子类型。  
+数组是 covariant（协变的），即：如果 Sub 是 Super 的子类型，那么 Sub[] 就是 Super[] 的子类型。  
 
 泛型是 invariant（不可变的），即 List&lt;Sub&gt; 和 List&lt;Super&gt; 没有任何子类型关系。  
 
@@ -763,11 +763,11 @@ objectArray[0] = "I don't fit in"; // 编译通过，运行时抛出 ArrayStoreE
 List&lt;Object&gt; objectList = new ArrayList&lt;Long&gt;(); // invariant; 编译直接不通过，Type Mismatch
 </pre>
 
-因为两者的 type 有本质区别，所以泛型数组是不允许的，比如 List&lt;Object&gt;[]、List&lt;E&gt;[] 这样都是不合法的，唯一的例外是 List&lt;?&gt;[]，因为 List&lt;?&gt; 是 Reifiable Types  
+因为两者的 type 有本质区别，所以泛型数组是不允许的，比如 List&lt;Object&gt;[]、List&lt;E&gt;[] 这样都是不合法的，唯一的例外是 List&lt;?&gt;[]，因为 List&lt;?&gt; 是 Reifiable Types。  
 
-_注意_：E[] 是合法的，但是 `E[] elements = new E[5]` 是非法的，需要 cast 一下 `E[] elements = new (E[]) new Object[5]` 
+_注意_：E[] 是合法的，但是 `E[] elements = new E[5]` 是非法的，需要 cast 一下 `E[] elements = new (E[]) new Object[5]`。 
 
-还有一个很好的例子请看书
+还有一个很好的例子请看书。
 
 -----
 
@@ -918,7 +918,7 @@ public enum Operation {
 }
 </pre>
 
-避免了 switch-case 和土鳖的 String.equals() 
+避免了 switch-case 和土鳖的 String.equals()。 
 
 #### <a name="strategy_enum"></a>嵌套策略枚举
 
@@ -947,7 +947,7 @@ public class Period {
 }
 </pre>
 
-如果我们 `Date start = new Date(); Date end = new Date(); Period p = new Period(start, end);` 然后 `end.setYear(78)`，这样就破坏了 p  
+如果我们 `Date start = new Date(); Date end = new Date(); Period p = new Period(start, end);` 然后 `end.setYear(78)`，这样就破坏了 p。  
 
 这时我们可以使用 Defensive Copy：
 
@@ -1000,19 +1000,19 @@ Throwable:
 	* runtime exception
 	* error
 
-Error 常常被 JVM 保留用于表示资源不足、约束失败或者恰使程序无法继续执行的条件，所以对程序员而言，能抛出的 unchecked exception 基本就等同于 RuntimeException 了
+Error 常常被 JVM 保留用于表示资源不足、约束失败或者恰使程序无法继续执行的条件，所以对程序员而言，能抛出的 unchecked exception 基本就等同于 RuntimeException 了。
 
 如果你的 API 决定抛出 checked exception，那么就表示：调用者在遇到 exception 时还是有机会恢复程序的，或是可以返回一些错误视图。  
 
-如果你的 API 决定抛出 unchecked exception，那么就表示：如果调用者真的触发了这个 unchecked exception，说明调用者违反了 API 规范（比如数组下标越界），违反了底线，程序继续执行下去有害无益，不如干脆直接给你停掉
+如果你的 API 决定抛出 unchecked exception，那么就表示：如果调用者真的触发了这个 unchecked exception，说明调用者违反了 API 规范（比如数组下标越界），违反了底线，程序继续执行下去有害无益，不如干脆直接给你停掉。
 
-另外，你其实可以自己定义一个 Throwable，它可以不是 Exception、RuntimeException 或是 Error 的子类。但 JLS 指出：这样的 Throwable 行为上会等同于 Exception 的子类。所以没有必要去这么做
+另外，你其实可以自己定义一个 Throwable，它可以不是 Exception、RuntimeException 或是 Error 的子类。但 JLS 指出：这样的 Throwable 行为上会等同于 Exception 的子类。所以没有必要去这么做。
 
 -----
 
 ### <a name="item59"></a>item 59. 如果不确定是否该用 checked exception，或许使用 unchecked exception 会更好，以及如何改写成 unchecked exception
 
-_注_：感觉在实际工作中，很少抛 RuntimeException，其实主要是为了返回错误视图（很多情况下不好直接 404），不然闭着眼睛都知道 RuntimeException 要好一些，因为可以不用 try-catch 啊……不过是否该用 checked exception 这个问题还是值得考虑的，因为自己常常既是 API 提供者又是 API 使用者，让自己爽一点总是不错的
+_注_：感觉在实际工作中，很少抛 RuntimeException，其实主要是为了返回错误视图（很多情况下不好直接 404），不然闭着眼睛都知道 RuntimeException 要好一些，因为可以不用 try-catch 啊……不过是否该用 checked exception 这个问题还是值得考虑的，因为自己常常既是 API 提供者又是 API 使用者，让自己爽一点总是不错的。
 
 假设原有的结构是：
 
@@ -1176,4 +1176,4 @@ FieldType getField() {
 }
 </pre>
 
-如果 FieldType 是 primitive 且不是 long 或者 double（即 FieldType 的读写是 atomic 的），你不用 volatile 也可以，这样就是 racy (原始的) single-check idiom
+如果 FieldType 是 primitive 且不是 long 或者 double（即 FieldType 的读写是 atomic 的），你不用 volatile 也可以，这样就是 racy (原始的) single-check idiom。
