@@ -61,6 +61,7 @@ tags: [Java-DesignPattern, Discernment, Discernment-Design]
 	- [chapter 26. Proxy 模式 和 Stairway To Heaven 模式：管理第三方 API](#ch26)
 		- [Proxy 模式](#dp_proxy)
 		- Stairway To Heaven 模式要求多重继承，给的例子是 c++，有兴趣自己看下
+	- [chapter 27. 案例研究：气象站](#ch27)
 
 ----------  
   
@@ -791,7 +792,7 @@ Bridge 模式和 [Adapter 模式](http://erikyao.github.io/java/2014/06/04/diges
 
 ![](https://hecftw.bn1.livefilestore.com/y2pvqKZiQ8v41szml1XVAdKcD-3v10uOfPnfJqBtFEhaTFXbvcjjE3Li37U3_ak4_fz6gyUCWjxeL6Pk7Xjmlo5RqOkzC-rgjkhe-QQufJRxzM/Proxy_pattern_diagram.svg.png?psid=1)
 
-其实本身是很简答的，而且尼玛巨像 Decorator 有没有？[Stack Overflow](http://stackoverflow.com/questions/18618779/differences-between-proxy-and-decorator-pattern) 上提到了这两者的区别：
+其实本身是很简单的，而且尼玛巨像 Decorator 有没有？[Stack Overflow](http://stackoverflow.com/questions/18618779/differences-between-proxy-and-decorator-pattern) 上提到了这两者的区别：
 
 * *Proxy* may not instantiate wrapping object at all (e.g. ORMs prevent unnecessary access to DB if object fields/getters are not used) while *Decorator* always hold link to actual wrapped instance.
 * *Decorator* usually used to add new behavior to old or legacy classes by developer itself. *Proxy* usually used by frameworks to add security or caching/lazing and constructed by framework (not by regular developer itself).
@@ -803,3 +804,29 @@ Bridge 模式和 [Adapter 模式](http://erikyao.github.io/java/2014/06/04/diges
 > A well-known example of the proxy pattern is a reference counting (引用计数) pointer object.
 
 注意 "a reference counting pointer object" 这个表述真的很啰嗦，还容易导致误解（尼玛 "pointer object" 是啥），其实 "a reference-counted pointer" 就已经是 an object which tracks the number of reference-counted pointers referencing a given object, and destructs the tracked object when this number drops to zero。
+
+----------  
+  
+----------  
+
+## <a name="ch27"></a>chapter 27. 案例研究：气象站
+
+----------  
+  
+---------- 
+
+图 27.6 中 Barometric Pressure Trend Observer 的提出值得学习，它把大气压趋势算法单独隔离出来了。这要是我们自己来设计，肯定是和 Barometric Pressure Observer 混到一起了。  
+
+比较 _27.2.2 定期测量_ 的 Schedule 和 _27.2.6 再次考虑 Schedule_ 的 AlarmClock，其实 Schedule 的问题是：
+
+1. 时间是 Schedule 自己定的
+2. 看不出来 Schedule 是怎样持有 Sensor 的（但看作者的意思肯定是没有下面主动注册来得好） 
+
+换成 AlarmClock 之后变成了：
+
+1. Sensor 自己主动注册到 AlarmClock
+2. 注册的时候就顺带把时间参数带上了
+
+程序 27.2 的 factory 用得有点意思，它是直接把 factory 传给了 PO 的构造器，在构造器里用 factory 初始化 PO 的单例。
+
+剩下的部分不说了。这一章是个很大的完整的例子，最好一口气弄懂，会有点启发。可以先从 27.4 节开始。
