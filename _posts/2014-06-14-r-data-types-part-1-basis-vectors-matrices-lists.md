@@ -33,7 +33,8 @@ R has 5 atomic classes
 
 * The most basic object is a `vector`
 	* A vector can only contain objects of the same class
-* `list` is represented as a vector, but can contain objects of different classes 
+* `list` is represented as a vector, but can contain objects of different classes
+	* Technically, lists are vectors. 因为 `is.vector(list()) == TRUE`。但 `is.list(vector()) == FALSE` 
 
 ### 1.3 Attributes
 
