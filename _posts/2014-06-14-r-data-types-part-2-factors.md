@@ -61,7 +61,7 @@ Factors represent a very efficient way to store character values, because each u
 
 如果指定的 levels 和实际的 level 值不符，则会得到 NA
 	
-	fdata = factor(data, levels=c("a", "b", "c"))
+	> fdata = factor(data, levels=c("a", "b", "c"))
 	> fdata
 	 [1] <NA> <NA> <NA> <NA> <NA> <NA> <NA> <NA> <NA> <NA> <NA> <NA> <NA> <NA>
 	[15] <NA>

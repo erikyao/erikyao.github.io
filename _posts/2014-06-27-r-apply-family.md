@@ -63,8 +63,8 @@ The simplification rule is:
 首先我们要搞清楚 R 的 array。在 R 中说 array 你不能直接联想到 `int[]`，因为 R 的 array 上来就是多维的，而且你最好理解为多维 matrix。单个的 matrix 可以看做是最简单的 array。下面这个 array 你可以理解成 4 个 matrix，想象成 4 页纸，每张纸上有一个 matrix；或者想象成 4 块玻璃板，每一块上有一个 matrix，4 块玻璃板拼成一个 matrix 立方体。  
 
 <pre class="prettyprint linenums">
-&gt;x &lt;- array(rep(1, 24), c(2, 3, 4))
-&gt;x
+&gt; x &lt;- array(rep(1, 24), c(2, 3, 4))
+&gt; x
 , , 1
 
      [,1] [,2] [,3]
@@ -93,16 +93,16 @@ The simplification rule is:
 然后再是这个 "Array Margins"，这个名字起得很奇怪，从字面上很难理解，我们举两个例子说明下：
 
 <pre class="prettyprint linenums">
-&gt;x &lt;- matrix(rep(1, 6), nrow=2, ncol=3)
-&gt;x
+&gt; x &lt;- matrix(rep(1, 6), nrow=2, ncol=3)
+&gt; x
      [,1] [,2] [,3]
 [1,]    1    1    1
 [2,]    1    1    1
-&gt;apply(x, 1, sum)
+&gt; apply(x, 1, sum)
 [1] 3 3
-&gt;apply(x, 2, sum)
+&gt; apply(x, 2, sum)
 [1] 2 2 2
-&gt;apply(x, c(1, 2), sum)
+&gt; apply(x, c(1, 2), sum)
      [,1] [,2] [,3]
 [1,]    1    1    1
 [2,]    1    1    1
@@ -111,8 +111,8 @@ The simplification rule is:
 对矩阵而言，`margin = 1` 就是 apply by row，`margin = 2` 就是 apply by column，`margin = c(1, 2)` 就是 apply by every single element.
 
 <pre class="prettyprint linenums">
-&gt;x &lt;- array(rep(1, 24), c(2, 3, 4))
-&gt;x
+&gt; x &lt;- array(rep(1, 24), c(2, 3, 4))
+&gt; x
 , , 1
 
      [,1] [,2] [,3]
@@ -183,8 +183,8 @@ The shortcut functions are much faster，因为有专门优化过.
 然后我们的 tapply 并不是直接作用在 Ragged Array 上的，这个 Ragged Array 是由 X 和 INDEX 两个参数拼起来的。以最简单的情况，X 是 vector、INDEX 是 factor 举个例子：
 
 <pre class="prettyprint linenums">
-&gt;X &lt;- 1:9
-&gt;INDEX &lt;- factor('a', 'a', 'a', 'a', 'b', 'b', 'b', 'c', 'c')
+&gt; X &lt;- 1:9
+&gt; INDEX &lt;- factor('a', 'a', 'a', 'a', 'b', 'b', 'b', 'c', 'c')
 </pre>
 
 这两个参数一拼就会形成：
@@ -216,9 +216,9 @@ The shortcut functions are much faster，因为有专门优化过.
 就是 tapply 拼 Ragged Array 的过程，举个例子：
 
 <pre class="prettyprint linenums">
-&gt;X &lt;- 1:30
-&gt;INDEX &lt;- gl(3, 10) ## Generate Levels：10 个 1，10 个 2，10 个 3；levels = 1, 2, 3
-&gt;split(X, INDEX)
+&gt; X &lt;- 1:30
+&gt; INDEX &lt;- gl(3, 10) ## Generate Levels：10 个 1，10 个 2，10 个 3；levels = 1, 2, 3
+&gt; split(X, INDEX)
 $`1`
  [1]  1  2  3  4  5  6  7  8  9 10
 
@@ -232,7 +232,7 @@ $`3`
 `tapply(X, INDEX, fun)` == `lapply(split(X, INDEX), fun)`
 
 <pre class="prettyprint linenums">
-&gt;lapply(split(X, INDEX), sum)
+&gt; lapply(split(X, INDEX), sum)
 $`1`
 [1] 55
 
@@ -246,27 +246,27 @@ $`3`
 下面看一个按两个 factor 分组的例子：
 
 <pre class="prettyprint linenums">
-&gt;X &lt;- 1:10
-&gt;INDEX_1 &lt;- as.factor(c(rep('a', 5), rep('b', 5)))
-&gt;INDEX_2 &lt;- gl(5, 2)
-&gt;INDEX_1
+&gt; X &lt;- 1:10
+&gt; INDEX_1 &lt;- as.factor(c(rep('a', 5), rep('b', 5)))
+&gt; INDEX_2 &lt;- gl(5, 2)
+&gt; INDEX_1
  [1] a a a a a b b b b b
 Levels: a b
-&gt;INDEX_2
+&gt; INDEX_2
  [1] 1 1 2 2 3 3 4 4 5 5
 Levels: 1 2 3 4 5
-&gt;str(split(X, INDEX_1))
+&gt; str(split(X, INDEX_1))
 List of 2
  $ a: int [1:5] 1 2 3 4 5
  $ b: int [1:5] 6 7 8 9 10
-&gt;str(split(X, INDEX_2))
+&gt; str(split(X, INDEX_2))
 List of 5
  $ 1: int [1:2] 1 2
  $ 2: int [1:2] 3 4
  $ 3: int [1:2] 5 6
  $ 4: int [1:2] 7 8
  $ 5: int [1:2] 9 10
-&gt;str(split(X, list(INDEX_1, INDEX_2)))
+&gt; str(split(X, list(INDEX_1, INDEX_2)))
 List of 10
  $ a.1: int [1:2] 1 2
  $ b.1: int(0) 
@@ -299,9 +299,9 @@ List of 6
 mapply applies `FUN` to the first elements of each (…) argument, the second elements, the third elements, and so on.  举个例子：
 
 <pre class="prettyprint linenums">
-&gt;l1 &lt;- list(a = c(1:10), b = c(11:20))
-&gt;l2 &lt;- list(c = c(21:30), d = c(31:40))
-&gt;mapply(sum, l1$a, l1$b, l2$c, l2$d)
+&gt; l1 &lt;- list(a = c(1:10), b = c(11:20))
+&gt; l2 &lt;- list(c = c(21:30), d = c(31:40))
+&gt; mapply(sum, l1$a, l1$b, l2$c, l2$d)
 [1]  64  68  72  76  80  84  88  92  96 100
 </pre>
 

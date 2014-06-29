@@ -58,11 +58,11 @@ change &lt;- function(x) {
 	x
 }
 
-&gt;x &lt;- 10
-&gt;change(x)
+&gt; x &lt;- 10
+&gt; change(x)
 [1] "after innerChange(5) (x &lt;- 5), x = 10"
 [1] 10
-&gt;x
+&gt; x
 [1] 10
 </pre>
 
@@ -79,11 +79,11 @@ change &lt;- function(x) {
 	x
 }
 
-&gt;x &lt;- 10
-&gt;change(x)
+&gt; x &lt;- 10
+&gt; change(x)
 [1] "after innerChange(5) (x &lt;&lt;- 5), x = 5"
 [1] 5
-&gt;x
+&gt; x
 [1] 10
 </pre>
 
