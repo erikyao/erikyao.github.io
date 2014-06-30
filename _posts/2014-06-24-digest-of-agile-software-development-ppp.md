@@ -62,6 +62,12 @@ tags: [Java-DesignPattern, Discernment, Discernment-Design]
 		- [Proxy 模式](#dp_proxy)
 		- Stairway To Heaven 模式要求多重继承，给的例子是 c++，有兴趣自己看下
 	- [chapter 27. 案例研究：气象站](#ch27)
+	- [chapter 28. Visitor 模式](#ch28)
+		- [Double Dispatch](#double_dispatch)
+		- [Acyclic Visitor 模式](#acyclic_visitor)
+		- [Visitor 模式使用场景](#visitor_usage)
+		- [Decorator 模式](#dp_decorator)
+		- Extension Object 模式你可以看做是 Acyclic Visitor 模式的变体，而且 PO 是持有 `<VistorName, VisitorObj>` 这样一个 Map，可以进一步细分 Visitor 逻辑 
 
 ----------  
   
@@ -74,7 +80,7 @@ tags: [Java-DesignPattern, Discernment, Discernment-Design]
   
 ### 论文档   
   
-1. 编制文档是很花时间的，what's more，保持文档和代码的同步更花时间。  
+1. 编制文档是很花时间的，what's more，保持文档和代码的同步更花时间  
 2. Therefore，对团队而言，维护一份系统原理和结构的文档足矣（自注：提供给外部的接口也要写一份）。这份文档应该是短小（一二十页足矣）且主题突出的（包括系统的高层结构和概括的设计原理即可）  
 3. 对团队新成员而言，最好的文档是代码和团队本身  
 4. Martin 文档第一定律：不到迫不得已，可以不写文档  
@@ -124,9 +130,9 @@ tags: [Java-DesignPattern, Discernment, Discernment-Design]
   
 ### 隐喻   
   
-1. 隐喻是将整个系统的全局视图，它使得所有单独模块的位置和外观（原文为 shape）变得直观。  
+1. 隐喻是将整个系统的全局视图，它使得所有单独模块的位置和外观（原文为 shape）变得直观  
 2. 隐喻简单来说就是用自己的语言来描述系统，用自己的方式来理解系统。它多少有点“低幼”的意味，比如说一个产生字符输出到屏幕的程序，可以把缓冲区当做卡车，屏幕是垃圾场，程序是垃圾制造者。这就是隐喻  
-3. 当模块的外观与隐喻不符时，你就可以确定模块是错误的。  
+3. 当模块的外观与隐喻不符时，你就可以确定模块是错误的  
   
   
 ----------  
@@ -153,7 +159,7 @@ tags: [Java-DesignPattern, Discernment, Discernment-Design]
 	  
 	- 这种方法称为有意图的编程（intentional programming），在测试中陈述你的意图  
   
-4. 验收测试：单元测试是用来验证系统中单个机制的白盒测试，它无法验证系统作为一个整体工作时的正确性。此时需要验收测试，它是验证系统满足客户需求的黑盒测试，可以看做是一份关于特性（feature）的最终文档。  
+4. 验收测试：单元测试是用来验证系统中单个机制的白盒测试，它无法验证系统作为一个整体工作时的正确性。此时需要验收测试，它是验证系统满足客户需求的黑盒测试，可以看做是一份关于特性（feature）的最终文档  
   
   
 ----------  
@@ -189,7 +195,7 @@ tags: [Java-DesignPattern, Discernment, Discernment-Design]
   
 1. Never forget，过程是混乱的——过程中只要有人参与就都是这样  
 2. “画” 出我们可能会遇到的输入，不管用什么形式。把这个输入作为第一组完整的测试数据  
-3. UML 出可能的类，但不一定要完全按照 UML 来 code。UML 只是提供一种可能的思路，不要一上来就定义很多的类，多定义类的行为。  
+3. UML 出可能的类，但不一定要完全按照 UML 来 code。UML 只是提供一种可能的思路，不要一上来就定义很多的类，多定义类的行为  
 4. 从完整输入的合法子集入手，构造 Test Unit。完整输入的合法子集，指不一定要覆盖到所有可能的输入项，选一个简单的有实际意义的子集即可，比如完整输入是`(String, String, Object)`，那么`(String, String, null)` 是一种可能的情况，那么它就是一个合法子集。逐步复杂这个合法子集到完整输入，一路复杂 Test Case 和实现  
 5. 最初设计的类之间不要有双向依赖。所谓依赖不一定是组合关系，也可以是信息的依赖，比如 `ClazzA#methodA()` 的参数需要 `ClazzB` 的信息，`ClazzB#methodB()` 的实现需要 `ClazzA` 的协助，这样也构成互相依赖  
 6. 参数检查和异常：看涉及的接口被谁使用，如果是供外部调用，需要加防护；如果是内部调用，可以等到出现问题再加防护。但就目前的进度而言（初步设计），可以不考虑，等到加了异常 Test Case 时你自然会加  
@@ -234,7 +240,7 @@ SRP: Single Responsibility Principle
   
 简单说，就是当有新需求来的时候，如果非要修改某个类的实现，不能因为不同的理由而修改同一个类。  
   
-比方说，一个类同时负责 “建立连接” 和 “读写数据” 两个功能。这次改需求要改连接方式，你修改的是这个类；下次改需求要修改读写格式，你修改的还是这个类，这就违反了 SRP  
+比方说，一个类同时负责 “建立连接” 和 “读写数据” 两个功能。这次改需求要改连接方式，你修改的是这个类；下次改需求要修改读写格式，你修改的还是这个类，这就违反了 SRP。  
   
 ----------  
   
@@ -248,13 +254,13 @@ SRP: Single Responsibility Principle
   
 OCP: Open-Closed Principle. Open for extension; Closed for modification  
   
-SRP 说的是修改实现的原则；OCP 则是说：有新需求来的时候，应该只是添加子类或是接口实现（Open），不应该去修改原有类的实现（Closed）  
+SRP 说的是修改实现的原则；OCP 则是说：有新需求来的时候，应该只是添加子类或是接口实现（Open），不应该去修改原有类的实现（Closed）。  
   
-但是，不可能完全做到 Closed，不然的话就没必要提 SRP 了  
+但是，不可能完全做到 Closed，不然的话就没必要提 SRP 了。  
   
-这里需要程序员判断哪些部分有潜在的新需求，对这些部分的设计要遵循 OCP  
+这里需要程序员判断哪些部分有潜在的新需求，对这些部分的设计要遵循 OCP。  
   
-判断潜在新需求的一个方法是：程序员自己诱发变化。TDD、原型、短迭代和持续交付 都是良好的诱发变化的手段  
+判断潜在新需求的一个方法是：程序员自己诱发变化。TDD、原型、短迭代和持续交付都是良好的诱发变化的手段。  
   
 ----------  
   
@@ -266,21 +272,21 @@ SRP 说的是修改实现的原则；OCP 则是说：有新需求来的时候，
   
 ----------  
   
-SRP 说的是修改实现的原则；OCP 说：有新需求来的时候，应该只是添加子类或是接口实现（Open），不应该去修改原有类的实现（Closed）；LSP 则告诉你：怎样的子类和接口实现才是合格的子类和接口实现  
+SRP 说的是修改实现的原则；OCP 说：有新需求来的时候，应该只是添加子类或是接口实现（Open），不应该去修改原有类的实现（Closed）；LSP 则告诉你：怎样的子类和接口实现才是合格的子类和接口实现。  
   
 简单说来：Liskov 就是说子类应该可以无痛替换父类。看上去理所应当，但从另外一个角度来说，如果引入了一个子类，针对父类编程（即利用多态的实现）的部分需要做修改或者是做额外的兼容处理的话，那么只可能是两种情况：  
 
 1. 父类设计不合理，针对父类的编程（即利用多态的实现）没有考虑所有的情况  
 2. 引入的子类不合理，即这个子类不应该继承父类  
   
-书中的例子举得很好：从常识上说，Square IS-A Rectangle，但是如果把 Square 设计成 Rectangle 的子类，那么如何在 Square 中处理从 Rectangle 继承的 `setWidth(int)` 和 `setHeight(int)`呢？做兼容处理会带来很大的麻烦，而且对 `rectangle.setWidth(2); rectangle.setHeight(5);  
- assertEquals(10, rectangle.area());` 的断言也会失败。所以 Square 不应该设计成 Rectangle 的子类。从另一个角度来说，常识中的 IS-A 关系也不一定是很靠谱的  
+书中的例子举得很好：从常识上说，Square IS-A Rectangle，但是如果把 Square 设计成 Rectangle 的子类，那么如何在 Square 中处理从 Rectangle 继承的 `setWidth(int)` 和 `setHeight(int)`呢？做兼容处理会带来很大的麻烦，而且对 `rectangle.setWidth(2); rectangle.setHeight(5); assertEquals(10, rectangle.area());` 的断言也会失败。所以 Square 不应该设计成 Rectangle 的子类。从另一个角度来说，常识中的 IS-A 关系也不一定是很靠谱的。  
    
 一个继承关系，如果孤立来看，并不能看出它是否有设计问题；只有通过客户程序才能看出它是否有问题。比如前面，如果我们没有计算面积的需求，我们可能觉得对 Square 的 `setWidth(int)` 和 `setHeight(int)` 做点兼容处理也是可行的。OOD 中的 IS-A 关系，应该是指父类和子类的行为方式一致，这个行为方式是由客户程序决定的。  
   
-书中另外一个例子也很说明问题，父类可以接受任何类型，但是引入的子类只能接受某个特定类型，这个继承关系就违反了 LSP  
+书中另外一个例子也很说明问题，父类可以接受任何类型，但是引入的子类只能接受某个特定类型，这个继承关系就违反了 LSP。  
   
-检查是否违反了LSP有两个常见的方法：  
+检查是否违反了LSP有两个常见的方法：
+  
 1. 子类中有退化方法，即父类的方法在子类中没有用处。一般的做法是子类覆写了某个父类的方法，但是是个空实现或是抛出 NotImpelmentedException 之类的。有退化方法不一定代表违反了 LSP，但应引起注意  
 2. 子类的方法声明抛出了父类没有声明的异常，一定是违反了 LSP  
   
@@ -301,22 +307,22 @@ SRP 说的是修改实现的原则；OCP 说：有新需求来的时候，应该
   
 DIP, Dependency Inversion Principle  
   
-1. 高层模块不应该依赖于具体的底层模块（死依赖），应该依赖于底层模块的抽象（活依赖）。若是死依赖，改动会牵涉太多。  
+1. 高层模块不应该依赖于具体的底层模块（死依赖），应该依赖于底层模块的抽象（活依赖）。若是死依赖，改动会牵涉太多  
 2. 抽象不应该依赖于细节（比如具体实现）；细节应该依赖于抽象  
   
 DIP 是框架（framework）设计的核心原则。框架提供给开发者的都是抽象，而实现都是由抽象派生的。  
   
-其实说白了就是“面向接口编程”这么简单。我们实际也经常这么做。比如 ServiceImpl 依赖于 Dao，而不是依赖于 DaoImpl  
+其实说白了就是“面向接口编程”这么简单。我们实际也经常这么做。比如 ServiceImpl 依赖于 Dao，而不是依赖于 DaoImpl。  
   
 另一种理解方式是：程序中所有的依赖关系都应该终止于抽象类或是接口。从这个规则可以可以得到三个过于严格的规则：  
   
-1. 类的 field 中不应该有指向具体类的引用。创建其他类的实例，持有实例的引用，即是依赖了这个类。但是，如果这个类比较稳定，那么依赖于它也不不太会造成什么损害，比如，依赖于 String；如果依赖的类不稳定，我们就依赖于它的抽象，抽象是相对稳定的。  
-2. 任何类都不应该从具体类派生。  
+1. 类的 field 中不应该有指向具体类的引用。创建其他类的实例，持有实例的引用，即是依赖了这个类。但是，如果这个类比较稳定，那么依赖于它也不不太会造成什么损害，比如，依赖于 String；如果依赖的类不稳定，我们就依赖于它的抽象，抽象是相对稳定的  
+2. 任何类都不应该从具体类派生  
 3. 任何方法都不应该覆写它的任何基类中已经实现的方法  
   
-高层策略是应用级别的抽象，它是不随细节变化的真理。换言之，它是我们对应用的代码描绘，它就是隐喻（metaphore）  
+高层策略是应用级别的抽象，它是不随细节变化的真理。换言之，它是我们对应用的代码描绘，它就是隐喻（metaphore）。  
   
-书中的 Button/Lamp 例子很典型，Lamp implements SwitchableDevice，Button 持有一个 SwitchableDevice 实例，实际类型是 Lamp。这里我们创造的 SwitchableDevice 就是一个隐喻，我可以理解为它来源与我们生活的常识。  
+书中的 Button/Lamp 例子很典型，`Lamp implements SwitchableDevice`，Button 持有一个 SwitchableDevice 实例，实际类型是 Lamp。这里我们创造的 SwitchableDevice 就是一个隐喻，我可以理解为它来源与我们生活的常识。  
   
 ----------  
   
@@ -373,16 +379,16 @@ ISP, Interface Segregation Principle
 2. Data-Command binding  
 3. Command Stack (Redo/Undo)  
   
-Sensor-Command Wiring 中，因为多态，sensor 绑定一个 command 但无需知道这是具体是一个什么类型的 command，sensor 只需在检测到 event 时执行 `command.do()` 就可以了。这里也可以看做是一种 Event-Command Wiring  
+Sensor-Command Wiring 中，因为多态，sensor 绑定一个 command 但无需知道这是具体是一个什么类型的 command，sensor 只需在检测到 event 时执行 `command.do()` 就可以了。这里也可以看做是一种 Event-Command Wiring。  
   
-同样因为多态，这种 wiring 是设备无关的。从 web 开发的角度来看，我们可以想象用 ibatis 的 api 来代替 sensor，有N种数据库产品就有N套 Command 实现，我们选择数据库方言实际就是做了 Api-Command wiring  
+同样因为多态，这种 wiring 是设备无关的。从 web 开发的角度来看，我们可以想象用 ibatis 的 api 来代替 sensor，有N种数据库产品就有N套 Command 实现，我们选择数据库方言实际就是做了 Api-Command wiring。  
   
 Data-Command binding 给的例子是 Transaction 操作。Transaction 是包含了`boolean validate()` 和 `void execute()` 两个方法的 Command ，具体的 Transaction 实现要有与 pojo 一致的 field（否则没有 field 你咋验证？对非法的输入你也不好 new 一个 pojo 来验证），比如 AddEmployeeTransaction 需要有 `Srring name` 和 `String address` 这两个字段，与 Employee 类保持一致。  
   
 这样做有两个好处：  
   
-1. 实体上的解耦：获取数据的代码、后台验证（如果你在 js 中用这种模式，倒是也可以做到前台验证，而且可以和 dom 显示逻辑分离。我们一般也就是写个函数应付了，validate-ajax 或者 validate-commit，其实与这里的场景是一致的，只是没有做 command 封装而已）和操作数据的代码、以及 pojo 本身这三者得到了分离。  
-2. 时间上解耦：对于某些不能立刻处理的数据，可以维持一个 Command 集合到特定时间再统一处理。  
+1. 实体上的解耦：获取数据的代码、后台验证（如果你在 js 中用这种模式，倒是也可以做到前台验证，而且可以和 dom 显示逻辑分离。我们一般也就是写个函数应付了，validate-ajax 或者 validate-commit，其实与这里的场景是一致的，只是没有做 command 封装而已）和操作数据的代码、以及 pojo 本身这三者得到了分离  
+2. 时间上解耦：对于某些不能立刻处理的数据，可以维持一个 Command 集合到特定时间再统一处理  
   
 当执行完一个 `command.do()`，可以把 command 压到 Command Stack 中，然后要 Undo 时，把这个 command 出栈，执行 `command.undo()` 即可。  
   
@@ -401,12 +407,13 @@ Data-Command binding 给的例子是 Transaction 操作。Transaction 是包含�
   
 ### <a name="dp_activeObject"></a>Active Object 模式 
   
-Active Object 的组成：Proxy 实现外部的访问接口，在客户线程中被调用执行，而且用户只能看到 Proxy，Active Object 模式的其他组件对用户是透明的；Servant 在另外的线程完成操作。运行时，Proxy 把客户的调用信息封装到“调用请求”（Method Request）（i.e. where Command Pattern works），通过调度者（Scheduler）把这个请求放到一个活动队列（Activation Queue）。Scheduler 和 Servant 运行在另外的线程中，这个线程启动后，不断地从活动队列中得到“调用请求”对象，派发给 Servant 完成客户请求的操作。客户调用 Proxy 后马上得到一个预约容器（Future），今后可以通过这个预约容器得到返回的结果。  
+Active Object 的组成：Proxy 实现外部的访问接口，在客户线程中被调用执行，而且用户只能看到 Proxy，Active Object 模式的其他组件对用户是透明的；Servant 在另外的线程完成操作。运行时，Proxy 把客户的调用信息封装到 “调用请求”（Method Request）（i.e. where Command Pattern works），通过调度者（Scheduler）把这个请求放到一个活动队列（Activation Queue）。Scheduler 和 Servant 运行在另外的线程中，这个线程启动后，不断地从活动队列中得到 “调用请求” 对象，派发给 Servant 完成客户请求的操作。客户调用 Proxy 后马上得到一个预约容器（Future），今后可以通过这个预约容器得到返回的结果。  
   
-下面的图说明了一个调用过程中的三个阶段。  
-注×：[原作 pdf](http://www.cs.wustl.edu/~schmidt/PDF/Act-Obj.pdf) 的图中，“enqueue(M1)” 的位置有误，入队操作应该在返回Future之前。[崔超的翻译](http://blog.csdn.net/cuichaox/article/details/1414305) 中已经更正。黄色表现客户线程空间，绿色表示调度者线程空间。  
+下面的图说明了一个调用过程中的三个阶段：    
    
 ![Active Object Sequence](https://vgjveg.bn1.livefilestore.com/y2p_ZRj4u79fvTV91_h3QtQQMQ0H58k3mV9FQW2iD4m5tZx7l-vXe3AxYhl_ord-F0zPtTYj0g4tqXaNztAv8pJqknVVujPvZAk7hS5aaB7I4E/Active%20Object%20Sequence.png?psid=1)  
+
+注×：[原作 pdf](http://www.cs.wustl.edu/~schmidt/PDF/Act-Obj.pdf) 的图中，“enqueue(M1)” 的位置有误，入队操作应该在返回Future之前。[崔超的翻译](http://blog.csdn.net/cuichaox/article/details/1414305) 中已经更正。黄色表现客户线程空间，绿色表示调度者线程空间。  
   
 1. 构造 “调用请求”：在这个阶段，客户调用代理者的一个方法 m1()。“调用请求” 对象被创建，这个对象中包含了所有的参数。代理者把这个 “调用请求” 对象传递给调度者，调度者把它入队到活动队列。如果方法 m1() 有返回值，就返回一个预约容器（Future），否则不返回。  
 2. 调度执行：调度者的执行线程中，监控活动队列，当队列中的一个请求满足执行条件时，调度者把它出队，把一个执行者绑定到这个请求上。然后通过 “调用请求” 的 Call 方法，Call 再调用执行者的 m1()，完成客户请求的操作。  
@@ -422,7 +429,7 @@ Active Object 的组成：Proxy 实现外部的访问接口，在客户线程中
   
 ----------   
 
-这俩模式都是用来将通用的算法与具体的上下文分离，两者基本可以互换，只是 Template Method 是使用继承，Strategy 是使用组合  
+这俩模式都是用来将通用的算法与具体的上下文分离，两者基本可以互换，只是 Template Method 是使用继承，Strategy 是使用组合。  
 
 ### <a name="dp_template"></a>Template Method 模式 
 
@@ -533,7 +540,7 @@ null object 在实现上比空列表要复杂一点，它是正常业务类的 s
 
 此时，可以给 LP 定一个方法，比如 isNull() 或是 isUsable() 之类的，给上层调用代码判断一下这个 LP 到底是 CustomLP 还是 NullCustomLP。  
 
-然后 NullCustomLP 可以设计成单例，或是设计成 LP 的内部类（接口也可以有内部类，所以 LP 是接口也无所谓）然后通过 LP 的一个 public static field 暴露出来，比如 `LP.NULL`
+然后 NullCustomLP 可以设计成单例，或是设计成 LP 的内部类（接口也可以有内部类，所以 LP 是接口也无所谓）然后通过 LP 的一个 public static field 暴露出来，比如 `LP.NULL`。
 
 
 ----------  
@@ -830,3 +837,134 @@ Bridge 模式和 [Adapter 模式](http://erikyao.github.io/java/2014/06/04/diges
 程序 27.2 的 factory 用得有点意思，它是直接把 factory 传给了 PO 的构造器，在构造器里用 factory 初始化 PO 的单例。
 
 剩下的部分不说了。这一章是个很大的完整的例子，最好一口气弄懂，会有点启发。可以先从 27.4 节开始。
+
+
+----------  
+  
+----------  
+
+## <a name="ch28"></a>chapter 28. Visitor 模式
+
+----------  
+  
+---------- 
+
+我觉得书上的图比 wiki 来的好：
+
+![](https://hecftw.bn1.livefilestore.com/y2pH7FL6i0iqKbAOGyX1XcCg3RXXl-1YSJzRfUZUdtllksn8slLASyMXaYEeoUYidS0hry-9TjdDpquEtfK8fhTavXx7vSgSInvOPNtVA-WWxo/visitor_pattern.png?psid=1)
+
+简化的代码是：
+
+<pre class="prettyprint linenums">
+public class UnixModemConfigurator implements ModemVistor {
+	@Override
+	public void visit(HayesModem hm) {
+		hm.setConfigString("Hayes");
+	}
+
+	@Override
+	public void visit(ZoomModem zm) {
+		zm.setConfigString("zoom");
+	}
+}
+</pre>
+
+<pre class="prettyprint linenums">
+public class HayesModem implements Modem {
+
+	private String configString;
+	
+	@Override
+	public String getConfigString() {
+		return configString;
+	}
+
+	public void setConfigString(String configString) {
+		this.configString = configString;
+	}
+
+	@Override
+	public void accept(ModemVistor v) {
+		v.visit(this);
+	}
+}
+</pre>
+
+<pre class="prettyprint linenums">
+public static void main(String[] args) {
+	Modem hayes = new HayesModem();
+	Modem zoom = new ZoomModem();
+	
+	ModemVistor umc = new UnixModemConfigurator();
+	hayes.accept(umc);
+	zoom.accept(umc);
+	
+	System.out.println(hayes.getConfigString());
+	System.out.println(zoom.getConfigString());
+}
+</pre>
+
+[wiki](http://en.wikipedia.org/wiki/Visitor_pattern) 的说法是：
+
+> The visitor design pattern is a way of separating an algorithm from an object structure on which it operates. A practical result of this separation is the ability to add new operations to existing object structures without modifying those structures. It is one way to follow the open/closed principle.
+
+这也说明了应用场景和使用 visitor 的初衷：
+
+1. 我想给每个 Modem 子类都加个 `setConfigString()` 的功能（the ability to add new operations to existing object structures）。
+2. 但是我觉得把这个逻辑（或者上面说的 an algorithm）集中到一个类中比较好，不想分散到各个子类（separating an algorithm from an object structure）。
+3. 或者我觉得这个逻辑和 `Modem` 接口无关，我并不想在 Modem 子类中关注这个 `setConfigString()` 具体是怎么实现的。
+
+注意我写的简化的代码和书上的有些区别：
+
+1. 书上 'Modem' 接口并没有 `getConfigString()` 方法，这样一来在 `main` 里就不能用 `Modem` 的多态了，你要么定义具体的 Modem 子类实例，要么 cast 一下。
+2. 书上各个 Modem 子类并不是统一的 `setConfigString()` 方法，而是直接把 field 暴露出来的了，而且 field 名字也不相同，有的是 `configurationString`，有的是 `configurationValue` 等等。
+
+另外注意几点：
+
+1. `UnixModemConfigurator` 里并没有用 Modem 的多态，也没有 if-else 判断子类型，而是每个 Modem 子类单独写了一个 `visit` 方法，这样如果有 N 个 Modem 子类就要写 N 个 `visit` 重载方法。这必然是比 if-else 判断子类型来得要好。
+2. 我自然是可以定义多个 `ModemVistor` 实现，都让 Modem 去 `accept`。
+3. 感觉这 Visitor 模式有点像 AOP 的横切面概念。
+
+### <a name="double_dispatch"></a>Double Dispatch
+
+Visitor 模式用到了 Double Dispatch，也叫 Dual Dispatch，也就是 N == 2 的 Multiple Dispatch。按这篇 [Visitor Pattern](http://www.cs.wustl.edu/~cytron/cacweb/Tutorial/Visitor/) 的说法：
+
+> Multiple Dispatch is a concept that allows method dispatch to be based not only on the receiving object but also on the parameters of the method's invocation.
+
+Double Dispatch 可以简单理解成 `infA.do(InfB infB)`， 就是在 infA 和 infB 上双重多态，具体就是 `Modem` 接口里 `public void accept(ModemVistor v)` 这个方法。  
+
+`infA.do(xxx)` 这样很常见的一重多态可以叫做 Single Dispatch。  
+
+### <a name="acyclic_visitor"></a>Acyclic Visitor 模式
+
+注意到上面的类图里是有依赖环的，而且还有这么一个问题：如果我有一个 Modem 子类不需要这个 `setConfigString()` 功能咋办？这时可以用 Acyclic Visitor 模式：
+
+![](https://hecftw.bn1.livefilestore.com/y2pevUHj1wE97dvq_L0_Yqb2HJrYuIGyLBPRfSt6RhRCHUVS6TkHHelLmDykSSZzizF9EJ0MortPaoUO5DZxzu1w0kTNrZUCAgGj-b26fXMcWM/acyclic_visitor_pattern.png?psid=1)
+
+具体的变化是：
+
+1. `ModemVistor` 变成了标记接口。
+2. 单个 Modem 子类要实现一个 `XxxModemVistor` 接口，只实现一个 `public void visit(XxxModem xm)` 方法。
+3. 单个 Modem 子类实现 `accept(ModemVisitor v)` 时需要把 `v` cast 成具体的 `XxxModemVistor`。
+4. `UnixModemConfigurator` 多重 `implements XxxModemVistor, ...`。
+5. 此时如果 ZoomModem 不需要 `setConfigString()` 功能，你就不要定义 `ZoomModemVisitor`，`UnixModemConfigurator` 也不要去 `implements ZoomModemVisitor` 就好了。
+
+书上举了个很好的比喻，这里是有 3 个 Modem 子类，假设我除了 `UnixModemConfigurator` 还有个 `Win32ModemConfigurator`，那么一般的 Visitor 模式就构成了一个 2×3 矩阵，而 Acyclic Visitor 模式则构成一个 2×3 的稀疏矩阵（因为可以有 Modem 子类不实现 `ZzzModemConfigurator` 的功能）。
+
+### <a name="visitor_usage"></a>Visitor 模式使用场景
+
+书上给了个 “生成报表” 的例子，报表 visitor 使数据类中不包含任何产生报表的逻辑（想象我们的 PO 和 JSON 生成逻辑……），而且可以通过不同的 visitor 支持不同格式的报表输出。末了又提了一句：
+
+> 一般来说，如果一个应用程序中存在需要以多种方式进行解释的数据结构，就可以使用 Visitor 模式。
+
+### <a name="dp_decorator"></a>Decorator 模式
+
+还是老样子，Decorator 模式具体见[这篇](http://erikyao.github.io/java/2014/06/04/digest-of-effective-java/#dp_decorator)。  
+
+不过书上提了个很有意思的观点：
+
+> 每当使用者提出一些其他的古怪要求时，就必须对它（业务类）进行修改吗？
+
+这里其实是说我们要 SRP。不过也从侧面说明：Decorator 适合封装古怪的业务逻辑。这应该也算是开发人员对业务概念的一种捍卫。  
+
+然后书中还提了下 Decorator Hierarchy，多层 Decorator 封装不同层面的业务逻辑。  
