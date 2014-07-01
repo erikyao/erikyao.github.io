@@ -68,6 +68,10 @@ tags: [Java-DesignPattern, Discernment, Discernment-Design]
 		- [Visitor 模式使用场景](#visitor_usage)
 		- [Decorator 模式](#dp_decorator)
 		- Extension Object 模式你可以看做是 Acyclic Visitor 模式的变体，而且 PO 是持有 `<VistorName, VisitorObj>` 这样一个 Map，可以进一步细分 Visitor 逻辑 
+	- [chapter 29. State 模式](#ch29)
+		- [enum 版本的 State](#state_enum)
+		- [SMC: State Machine Compiler](#state_smc)
+		- [应该在哪些地方适用 State 模式](#state_usage)
 
 ----------  
   
@@ -967,4 +971,182 @@ Double Dispatch 可以简单理解成 `infA.do(InfB infB)`， 就是在 infA 和
 
 这里其实是说我们要 SRP。不过也从侧面说明：Decorator 适合封装古怪的业务逻辑。这应该也算是开发人员对业务概念的一种捍卫。  
 
-然后书中还提了下 Decorator Hierarchy，多层 Decorator 封装不同层面的业务逻辑。  
+然后书中还提了下 Decorator Hierarchy，多层 Decorator 封装不同层面的业务逻辑。 
+
+----------  
+  
+----------  
+
+## <a name="ch29"></a>chapter 29. State 模式
+
+----------  
+  
+---------- 
+
+传统的处理 FSM 的做法是：
+
+1. 大量的 if-else
+2. 自己写 Transition、Event 这些类并自己设计并解析状态迁移表
+
+这两种方法都很繁，所以我们要有 State 模式。  
+
+书上的例子简单清晰，假设我们面对的是闸机 Turnstile 的状态：
+
+| Current State    | Event | Action   | Next State |
+|------------------|-------|----------|------------|
+| *Locked*         | coin  | unlock   | *Unlocked* |
+| *Locked*         | pass  | alarm    | *Locked*   |
+| *Unlocked*       | coin  | thankyou | *Unlocked* |
+| *Unlocked*       | pass  | lock     | *Locked*   |
+
+类图如下：
+
+![](https://hecftw.bn1.livefilestore.com/y2puv22haqudJvzCRwLLxb4YO6x3_63ZJHtWafG9U_0SCzAg29n5ydn4uohdG8Mrasv34aX8Eoe5_skWtg9_TnBgCXrdDGW22kr56-fXCdV5O0/TurnStile.png?psid=1)
+
+实现要点：
+
+1. `State` 接口要实现 `event(StateOwner)` 方法
+2. StateOwner（Turnstile）要实现 `event()` 和 `action()` 方法；`action()` 方法可以委托给 util 类实现
+3. StateOwner 包含一个 `State` 实例，在实现 `event()` 时实际调用 `state.event(this)`，然后 `state.event(this)` 里实际操作 StateOwner
+
+画个时序图看看：
+
+![](https://hecftw.bn1.livefilestore.com/y2pNUY3K69H93hCskrw-9gtwiva6trtVJJO8EOLdkJEUOBJnkoaT9G62D8kR-weQYR6zCMaYyIneUF2Hj_hIWq-A8RY5xmowXq3Ffp5FQCWHwQ/Turnstile_seq.png?psid=1)
+
+代码如下：
+
+<pre class="prettyprint linenums">
+public class LockTurnStileState implements TurnstileState {
+	@Override
+	public void coin(Turnstile t) {
+		t.unlock();
+		t.setUnlocked();
+	}
+
+	@Override
+	public void pass(Turnstile t) {
+		t.alarm();
+	}
+}
+</pre>
+
+<pre class="prettyprint linenums">
+public class UnlockedTurnstileState implements TurnstileState {
+	@Override
+	public void coin(Turnstile t) {
+		t.thankyou();
+	}
+
+	@Override
+	public void pass(Turnstile t) {
+		t.lock();
+		t.setLocked();
+	}
+}
+</pre>
+
+<pre class="prettyprint linenums">
+public class Turnstile {
+	private static TurnstileState LOCKED = new LockTurnStileState();
+	private static TurnstileState UNLOCKED = new UnlockedTurnstileState();
+	
+	private TurnstileState currentState = LOCKED;
+	
+	// changeState()
+	
+	public void setLocked() {
+		currentState = LOCKED;
+	}
+	
+	public void setUnlocked() {
+		currentState = UNLOCKED;
+	}
+	
+	// event()
+	
+	public void coin() {
+		currentState.coin(this);
+	}
+	
+	public void pass() {
+		currentState.pass(this);
+	}
+	
+	// action()
+	
+	public void lock() {
+		TurnstileUtil.lock();
+	}
+	
+	public void unlock() {
+		TurnstileUtil.unlock();
+	}
+	
+	public void alarm() {
+		TurnstileUtil.alarm();
+	}
+	
+	public void thankyou() {
+		TurnstileUtil.thankyou();
+	}
+}
+</pre>
+
+写到这里，我不禁觉得我的 LP 项目 create、edit 那一块的逻辑真的很适合用 State 模式：StateOwner 是 `EditPage`，State 是 `UploadPic`、`UseSystemPic` 之类的，action 是 `createLP`、`saveLP`、`writeResponse` 之类，event 就靠参数来判断好了……简直不能更适用！  
+
+### <a name="state_enum"></a>enum 版本的 State
+
+我突然觉得用 enum 来实现 `State` 应该是个不错的选择，所以自己研究了下，发现这是可行的，原因有：
+
+1. enum 实例可以带方法
+2. enum 可以实现接口
+
+代码如下：
+
+<pre class="prettyprint linenums">
+public enum EnumedTurnsitleState implements TurnstileState {
+	EnumedLockedTurnstileState {
+		@Override
+		public void coin(Turnstile t) {
+			t.unlock();
+			t.setUnlocked();
+		}
+
+		@Override
+		public void pass(Turnstile t) {
+			t.alarm();
+		}
+	},
+	
+	EnumedUnlockedTurnstileState {
+		@Override
+		public void coin(Turnstile t) {
+			t.thankyou();
+		}
+
+		@Override
+		public void pass(Turnstile t) {
+			t.lock();
+			t.setLocked();
+		}
+	};
+}
+</pre>
+
+这样一来，`Turnstile` 里就可以不用 `TurnstileState` 的多态了，直接 `EnumedTurnsitleState currentState = EnumedLockedTurnstileState;` 好了。
+
+### <a name="state_smc"></a>SMC: State Machine Compiler
+
+State 模式也是有缺点的：
+
+1. State 子类的实现工作繁杂
+2. 逻辑分散，无法在一个地方看到整个状态机逻辑
+
+问了解决问题 1，Bob 大叔提供了工具 SMC (State Machine Compiler) 可以自动生成 State 模式代码框架，我隐约觉得有朝一日总会用到的……
+
+### <a name="state_usage"></a>应该在哪些地方适用 State 模式
+
+1. GUI 交互控制（你看，我就说吧，LP）
+	* 比如连续三次输入密码错误的处理逻辑
+	* 比如拖拽画图的状态：MouseDown、Dragging、MouseLeave
+2. 类似网络传输的场景（三次握手什么的），类似于 EstablishConnection、SendPackage、CloseConnection 这样的状态
