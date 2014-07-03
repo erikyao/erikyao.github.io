@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Digest of <i>Agile Software Development: Principles, Patterns, and Practices</i> (未完待续)"
+title: "Digest of <i>Agile Software Development: Principles, Patterns, and Practices</i>"
 description: ""
 category: as-a-coder
 tags: [Java-DesignPattern, Discernment, Discernment-Design]
@@ -62,6 +62,7 @@ tags: [Java-DesignPattern, Discernment, Discernment-Design]
 		- [Proxy 模式](#dp_proxy)
 		- Stairway To Heaven 模式要求多重继承，给的例子是 c++，有兴趣自己看下
 	- [chapter 27. 案例研究：气象站](#ch27)
+- Part 6. ETS 案例研究
 	- [chapter 28. Visitor 模式](#ch28)
 		- [Double Dispatch](#double_dispatch)
 		- [Acyclic Visitor 模式](#acyclic_visitor)
@@ -72,6 +73,10 @@ tags: [Java-DesignPattern, Discernment, Discernment-Design]
 		- [enum 版本的 State](#state_enum)
 		- [SMC: State Machine Compiler](#state_smc)
 		- [应该在哪些地方适用 State 模式](#state_usage)
+	- chapter 30. ETS 框架，一个庞大的例子，还是 c++ 的，建议先看附录的状态机表示法
+- 附录
+	- [附录 A. UML 表示法 I: CGI 示例](#appendix_a)
+	- [附录 B. UML 表示法 II: 统计多路复用器](#appendix_b)
 
 ----------  
   
@@ -1150,3 +1155,46 @@ State 模式也是有缺点的：
 	* 比如连续三次输入密码错误的处理逻辑
 	* 比如拖拽画图的状态：MouseDown、Dragging、MouseLeave
 2. 类似网络传输的场景（三次握手什么的），类似于 EstablishConnection、SendPackage、CloseConnection 这样的状态
+
+----------  
+  
+----------  
+
+## <a name="appendix_a"></a>附录 A. UML 表示法 I: CGI 示例
+
+----------  
+  
+---------- 
+
+UML 没啥好讲的，记录下小知识点：
+
+1. UML 的 unified 表示的是 "统一了结构化分析与结构化设计"
+2. 用例的扩展点（extension point）其实是个标志，表示 "快来几个用例来扩展（<<extend>>）我"，比如：
+	* 父用例 UC#2 是 "在线支付"
+	* extension point 是 "选择支付方式"
+	* 子用例 UC#2.1 是 "支付宝支付"，UC#2.2 是 "网银支付"
+
+----------  
+  
+----------  
+
+## <a name="appendix_b"></a>附录 B. UML 表示法 II: 统计多路复用器
+
+----------  
+  
+---------- 	
+
+状态图的示例讲得很好，特别记录一下。
+
+![](https://public.bn1.livefilestore.com/y2pKdjo90bTY8NSpCSWyflVAtKyiqBoNk7DkISkcZPYAnfYPWlCHlj1OoEZi1Kk4LPXKfv2v94XyFEZj4iD2MH_oZ78F6DdUOSSvlIUjYXdWpM/State_Diagram.png?psid=1)
+
+* `[A]-Y->[S]`: 会触发 [S] 内部初始节点到 [C] 的迁移，和直接 `[A]-V->[C]` 的过程是不同的
+* `[B]-Q`: [S] 状态终止，激发 [S]->[A] 的未标注迁移，最后到达 [A]（这应该是默认行为，自动找未标注的迁移）
+* `[S]-Z->[D]`: [S] 状态并没有终止（我觉得可以叫状态退出），而且这是个简写，表示：无论是 [C] 还是 [B]，只要激发迁移 Z（等同于发生事件 Z），都会到达 [D]
+* `[D]-T->(H)`: (H) 是 history 标记，表示：如果 [S] 有历史状态记录，则 [S] 中最近的一个活动状态被重新激活：
+	* 比如最近一次有 `[C]-Z->T`，则 [S] 最近的一个活动状态是 [C]，则这个 (H) 最终会到达 [C]
+	* `[B]-Q` 会清空历史状态记录
+	* 若 [S] 从来没有被进入过，则也没有历史状态记录
+* `(H)->B`: 表示若没有历史状态记录，这条未标注的迁移就会被激发，最终到达 [B]
+
+ 
