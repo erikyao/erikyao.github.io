@@ -81,6 +81,7 @@ tags: [Java-DesignPattern, Discernment, Discernment-Design]
 ----------  
   
 ----------  
+
 ## <a name="ch1"></a>chapter 1. 敏捷实践  
   
 ----------  
