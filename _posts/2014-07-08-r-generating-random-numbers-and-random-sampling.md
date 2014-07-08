@@ -50,7 +50,7 @@ tags: [R-101]
 * pnorm: evaluate the cumulative distribution function for a Normal distribution
 	* `pnorm(q, mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)` 计算 q 在这个 `N(mean, sd^2)` 分布上的分布函数值，即 F(q)
 	* cumulative distribution 是 **累积分布函数**，其实就是 F(x)，不知为何我的教材只翻译成分布函数
-	* if LOG.p = TRUE, probabilities p are given as log(p)
+	* if log.p = TRUE, probabilities p are given as log(p)
 	* if lower.tail = TRUE (default), probabilities are _P[X ≤ x]_ otherwise, _P[X > x]_.
 * qnorm: gives the quantile
 	* `qnorm(p, mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)` 给出 a = p 在这个 `N(mean, sd^2)` 分布上的分位数
