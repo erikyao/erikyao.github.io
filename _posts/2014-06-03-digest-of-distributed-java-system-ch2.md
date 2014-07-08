@@ -3,7 +3,7 @@ layout: post
 title: "《分布式 Java 应用：基础与实践》第二章总结：SOA 扫盲"
 description: ""
 category: Java
-tags: [Java-DistributedSystem]
+tags: [Digest, Java-DistributedSystem]
 ---
 {% include JB/setup %}
 

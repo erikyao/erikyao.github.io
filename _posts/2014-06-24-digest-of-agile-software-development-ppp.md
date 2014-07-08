@@ -3,7 +3,7 @@ layout: post
 title: "Digest of <i>Agile Software Development: Principles, Patterns, and Practices</i>"
 description: ""
 category: as-a-coder
-tags: [Java-DesignPattern, Discernment, Discernment-Design]
+tags: [Digest, Java-DesignPattern, Discernment, Discernment-Design]
 ---
 {% include JB/setup %}
 

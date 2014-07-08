@@ -3,7 +3,7 @@ layout: post
 title: "《分布式 Java 应用：基础与实践》第四章总结其一：集合类"
 description: ""
 category: Java
-tags: [Java-101, Java-Collection]
+tags: [Digest, Java-101, Java-Collection]
 ---
 {% include JB/setup %}
 

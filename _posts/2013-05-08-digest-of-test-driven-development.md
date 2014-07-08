@@ -3,7 +3,7 @@ layout: post
 title: "Digest of <i>Test Driven Development</i>"
 description: ""
 category: TDD
-tags: [Paperwork, Paperwork-Digest]
+tags: [Digest, Discernment, Discernment-Design]
 ---
 {% include JB/setup %}
 
