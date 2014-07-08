@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "R apply family"
+title: "R apply Family"
 description: ""
 category: R
 tags: [R-101]

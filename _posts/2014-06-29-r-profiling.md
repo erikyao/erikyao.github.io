@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "R profiling"
+title: "R Profiling"
 description: ""
 category: R
 tags: [R-101]
