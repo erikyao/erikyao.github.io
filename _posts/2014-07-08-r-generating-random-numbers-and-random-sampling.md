@@ -48,7 +48,7 @@ tags: [R-101]
 	* `dnorm(x, mean = 0, sd = 1, log = FALSE)` 计算 x 在这个 `N(mean, sd^2)` 分布上的概率密度，即 f(x)
 	* if LOG = TRUE, probabilities p are given as log(p)
 * pnorm: evaluate the cumulative distribution function for a Normal distribution
-	* `pnorm(q, mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)` 计算 q 在这个 `N(mean, sd^2)` 分布上的分布函数值，即 F(x)
+	* `pnorm(q, mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)` 计算 q 在这个 `N(mean, sd^2)` 分布上的分布函数值，即 F(q)
 	* cumulative distribution 是 **累积分布函数**，其实就是 F(x)，不知为何我的教材只翻译成分布函数
 	* if LOG.p = TRUE, probabilities p are given as log(p)
 	* if lower.tail = TRUE (default), probabilities are _P[X ≤ x]_ otherwise, _P[X > x]_.
