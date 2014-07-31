@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: post-mathjax
 title: "Slope, Intercept and Distance"
 description: "斜率、截距以及点到直线的距离"
 category: Math
@@ -42,8 +42,4 @@ In mathematics, the `slope` or `gradient` of a line is a number that describes b
 
 若直线定义为 ax + by + c = 0，点的座标为（x0, y0），则它们之间的距离 d 为：
 
-![](https://public.bn1.livefilestore.com/y2pfJR4ho0PMPn60RTkgrgop4zOlBVfoQDLLYuhsEpVxWvTVmlql3VV5IMxLBw47Rfxc-0wal7dhpMwh33keadpRmjL5voWT3blN_fwd3lyGTw/distance.gif?psid=1)
-
-<pre class="prettyprint linenums">
-d = \left| \frac{ax_0 + by_0 + c}{\sqrt{a^2+b^2}} \right|
-</pre>
+\\( d = \left| \frac{ax_0 + by_0 + c}{\sqrt{a^{2}+b^{2}}} \right| \\)

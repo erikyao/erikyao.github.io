@@ -62,3 +62,9 @@ url | http://username.github.io | http://username.github.io/projectname，其实
 　　先后试了两套页面，结构可以参考 [Jekyll Pagination - More awkward than it needs to be](http://patrick-mckinley.com/tech/jekyll-pagination.html)。但是最后的结果总是一样：本地一点问题都没有，push 上去第一页死活是空白，page2 开始又一切正常。找不出是哪里出问题。  
 
 　　曾经想过将站点文件归到一个 \_src 文件夹，然后和 jekyll build 出的 \_site 一起 push 过去，后来觉得何必呢……等 pagination 特性更新好了，搜出来的 issue 也不少，目前没有 pagination 也足够我用了。
+
+---
+
+## 8. MathJax
+
+　　按这篇 [Set up a blog using Jekyll Bootstrap](http://blog.jincan.info/web/2013/05/04/set-up-a-blog-using-jekyll-bootstrap/#latex-support) 的配置，挺顺利的。rdiscount 解析 `a^2` 的问题用 `a^{2}` 可以很好地解决。就是默认情况下字体有点偏小，应该是 post 本身文字的字体就偏小，MathJax 自动适应的，我也懒得改了。
