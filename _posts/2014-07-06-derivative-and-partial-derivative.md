@@ -7,7 +7,7 @@ tags: [Math-Algebra]
 ---
 {% include JB/setup %}
 
-感谢 [良田围](www.baidu.com/p/良田围) 网友在 [偏导数有什么用](http://zhidao.baidu.com/link?url=RuoDXCMzDU5A8p8D4SoIqnefEF0aK4CsVphkspenAGIWCrb8SPv-f4ouJJysB-2-pxxC4jVN7BLguR2Yakuuja) 问题上的精彩回复，以下全文摘抄，仅加音标并稍微排版。
+感谢 [良田围](http://www.baidu.com/p/良田围) 网友在 [偏导数有什么用](http://zhidao.baidu.com/link?url=RuoDXCMzDU5A8p8D4SoIqnefEF0aK4CsVphkspenAGIWCrb8SPv-f4ouJJysB-2-pxxC4jVN7BLguR2Yakuuja) 问题上的精彩回复，以下全文摘抄，仅加音标并稍微排版。
 
 -----
 
