@@ -36,7 +36,7 @@ tags: [Theory, Theory-Statistics]
   
 ## <a name="sct1"></a>1. Two Classic Types of Studies  
   
-The two classic types of studies in biomedical research are _**controlled**_ (also called experimental or interventional (intervene [ˌɪntə'vi:n], intervention [ˌɪntə'venʃn], 介入, come between)) and _**observational**_ (also called epidemiological [ˌepɪˌdi:mɪə'lɒdʒɪkl]). There are advantages and disadvantages to each, and an awareness of these differences makes for a savvier (savvy, ['sævɪ], informal, 懂行的) consumer of public health information.     
+The two classic types of studies in biomedical research are _**controlled**_ (also called experimental or intervention ([ˌɪntə'venʃn], intervene [ˌɪntə'vi:n], 介入, come between)) and _**observational**_ (also called epidemiological [ˌepɪˌdi:mɪə'lɒdʒɪkl]). There are advantages and disadvantages to each, and an awareness of these differences makes for a savvier (savvy, ['sævɪ], informal, 懂行的) consumer of public health information.     
   
 ## 2. Controlled Studies  
   
