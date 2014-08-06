@@ -75,7 +75,7 @@ tags: [R-101]
 * r for random number generation
 * d for density, i.e. f(x)
 * p for cumulative distribution, i.e. F(x)
-* q for quantile function, i.e. ua
+* q for quantile function, i.e. \\( u_a \\)
 
 ## set.seed(n)
 
