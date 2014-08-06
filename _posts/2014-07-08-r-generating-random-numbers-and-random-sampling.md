@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: post-mathjax
 title: "R Generating Random Numbers and Random Sampling"
 description: ""
 category: R
@@ -33,7 +33,7 @@ tags: [R-101]
 * 若 `F(x) = P(X <= x) = a`，称 x 为 **下侧 a 分位数**（在 `y = f(x)` 图中 x = μ 左侧）
 * 若 `F(x) = P(X <= x) = 1 - a`，i.e `P(X > x)` = a，称 x 为 **上侧 a 分位数**（在 `y = f(x)` 图中 x = μ 右侧）
 
-对一个确定的 a，它的上侧分位数也常写作 ua。比如 `X ~ N(0, 1)` 中，u0.05 = 1.65，则表示 P(X > 1.65) = 0.05，所以你可以把分位数理解为 X 的一种临界值。
+对一个确定的 a，它的分位数常写作 \\( u_a \\)。比如 `X ~ N(0, 1)` 中，上测 \\( u_{0.05} \\) = 1.65，则表示 P(X > 1.65) = 0.05。所以你可以把分位数理解为 X 的一种临界值。
 
 -----
 
