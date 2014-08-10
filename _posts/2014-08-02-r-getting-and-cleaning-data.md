@@ -78,9 +78,12 @@ Section 3.4 部分参考 [Reshaping data with the `reshape` package](http://had.
 	- [3.5.3 Using `join_all` if you have multiple data frames](#the-join-all-function)
 - [3.6 Editing Text Variables](#edit-text)
 	- [3.6.1 Important points about text in data sets](#rule-for-text)
-	- String 操作
-	- Regular Expressions
-	- Working with Dates
+	- [3.6.2 Best practices of processsing variable names](#process-var-name)
+		- [Make lower case when possible](#lower-case-when-possible)
+		- [Delete suffix ".1" like in "Location.1"](#delete-dot-1)
+		- [Delete underscore](#delete-underscore)
+	- [3.6.3 Regular Expressions](#reg-exp)
+	- [3.6.4 Working with Dates](#work-with-date)
 	
 -----
 
@@ -1154,10 +1157,10 @@ Using D as value column: use value.var to override.
 
 <pre class="prettyprint linenums">
 if(!file.exists("./data")){dir.create("./data")}
-fileUrl1 = "https://dl.dropboxusercontent.com/u/7710864/data/reviews-apr29.csv"
-fileUrl2 = "https://dl.dropboxusercontent.com/u/7710864/data/solutions-apr29.csv"
-download.file(fileUrl1,destfile="./data/reviews.csv",method="curl")
-download.file(fileUrl2,destfile="./data/solutions.csv",method="curl")
+fileUrl1 = "http://dl.dropboxusercontent.com/u/7710864/data/reviews-apr29.csv"
+fileUrl2 = "http://dl.dropboxusercontent.com/u/7710864/data/solutions-apr29.csv"
+download.file(fileUrl1,destfile="./data/reviews.csv",method="auto")
+download.file(fileUrl2,destfile="./data/solutions.csv",method="auto")
 reviews = read.csv("./data/reviews.csv"); 
 solutions = read.csv("./data/solutions.csv")
 </pre>
@@ -1177,7 +1180,7 @@ mergedData = merge(reviews, solutions, by.x="solution_id", by.y="id", all=TRUE)
 	
 参 [join](http://erikyao.github.io/sql/2010/04/03/sql-join/)
 	
-不指定 by.x 和 by.y 的话，merge all common column names
+不指定 by.x 或者 by.y 的话，merge all common column names
 
 #### <a name="the-join-function"></a>3.5.2 Using `join` in the `plyr` package
 
@@ -1236,3 +1239,52 @@ arrange(join_all(dfList), id)
 * Variables with character values
 	* Should usually be made into factor variables (depends on application)
 	* Should be descriptive (use TRUE/FALSE instead of 0/1 and Male/Female versus 0/1 or M/F)
+	
+#### <a name="process-var-name"></a>3.6.2 Best practices of processsing variable names
+
+准备数据：
+
+<pre class="prettyprint linenums">
+if(!file.exists("./data")){dir.create("./data")}
+fileUrl &lt;- "http://data.baltimorecity.gov/api/views/dz54-2aru/rows.csv?accessType=DOWNLOAD"
+download.file(fileUrl,destfile="./data/cameras.csv",method="auto")
+cameraData &lt;- read.csv("./data/cameras.csv")
+</pre>
+
+##### <a name="lower-case-when-possible"></a>Make lower case when possible
+
+<pre class="prettyprint linenums">
+names(cameraData)
+names(cameraData) &lt;- tolower(names(cameraData)) ## BTW, toupper() makes it upper case
+</pre>
+
+##### <a name="delete-dot-1"></a>Delete suffix ".1" like in "Location.1"
+
+<pre class="prettyprint linenums">
+&gt; splitNames = strsplit(names(cameraData),"\\.")
+&gt; splitNames[[6]]
+[1] "Location" "1"
+&gt; splitNames = sapply(splitNames, function(x) { x[1] })
+&gt; splitNames
+[1] "address"      "direction"    "street"       "crossStreet" 
+[5] "intersection" "Location"  
+</pre>
+
+##### <a name="delete-underscore"></a>Delete underscore
+
+<pre class="prettyprint linenums">
+&gt; v &lt;- c("A", "B", "C_1")
+&gt; v1 &lt;- sub("_", "", v) ## sub for substitute
+&gt; v1
+[1] "A"  "B"  "C1"
+
+&gt; v &lt;- c("A", "B", "C_1_1")
+&gt; v2 &lt;- sub("_", "", v1) ## 但是 sub 只能替换第一个遇到的 `_`
+&gt; v2
+[1] "A"    "B"    "C1_1"
+
+&gt; v2 &lt;- gsub("_", "", v) ## 使用 gsub 替换全部 `_`
+&gt; v2
+[1] "A"   "B"   "C11"
+</pre>
+
