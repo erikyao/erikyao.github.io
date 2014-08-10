@@ -82,8 +82,10 @@ Section 3.4 部分参考 [Reshaping data with the `reshape` package](http://had.
 		- [Make lower case when possible](#lower-case-when-possible)
 		- [Delete suffix ".1" like in "Location.1"](#delete-dot-1)
 		- [Delete underscore](#delete-underscore)
-	- [3.6.3 Regular Expressions](#reg-exp)
-	- [3.6.4 Working with Dates](#work-with-date)
+	- [3.6.3 `grep` and `grepl`](#grep-grepl)
+	- [3.6.4 Some other String functions](#string-functions)
+	- [3.6.5 Regular Expressions](#reg-exp)
+	- [3.6.6 Working with Dates](#work-with-date)
 	
 -----
 
@@ -1288,3 +1290,74 @@ names(cameraData) &lt;- tolower(names(cameraData)) ## BTW, toupper() makes it up
 [1] "A"   "B"   "C11"
 </pre>
 
+#### <a name="grep-grepl"></a>3.6.3 `grep` and `grepl`
+
+<pre class="prettyprint linenums">
+&gt; grep("Alameda", cameraData$intersection) ## 返回 index
+[1]  4  5 36
+&gt; grep("Alameda", cameraData$intersection, value=TRUE) ## 返回匹配的 item
+[1] "The Alameda  & 33rd St"   "E 33rd  & The Alameda"   
+[3] "Harford \n & The Alameda"
+&gt; grepl("Alameda", cameraData$intersection) ## l for "logical vector"
+ [1] FALSE FALSE FALSE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[25] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE
+[37] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[49] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[61] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[73] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+&gt; table(grepl("Alameda", cameraData$intersection)) ## 查看匹配与否的数量
+
+FALSE  TRUE 
+   77     3 
+&gt; grep("JeffStreet", cameraData$intersection)
+integer(0)
+&gt; grep("JeffStreet", cameraData$intersection, value=TRUE)
+character(0)
+&gt; length(grep("JeffStreet", cameraData$intersection)) ## 判断是否有匹配
+[1] 0
+
+## 根据匹配与否来 subset
+&gt; cameraData2 &lt;- cameraData[grep("Alameda", cameraData$intersection), ]
+&gt; cameraData3 &lt;- cameraData[!grepl("Alameda",cameraData$intersection), ]
+</pre>
+
+#### <a name="string-functions"></a>3.6.4 Some other String functions
+
+<pre class="prettyprint linenums">
+&gt; library(stringr)
+&gt; nchar("Jeffrey Leek") ## String.length
+[1] 12
+</pre>
+
+<pre class="prettyprint linenums">
+&gt; substr("Jeffrey Leek", 1, 7)
+[1] "Jeffrey"
+</pre>
+
+<pre class="prettyprint linenums">
+&gt; paste("Jeffrey", "Leek") ## 注意拼接结果自带一个空格
+[1] "Jeffrey Leek"
+&gt; paste("Hello", "world", sep=",")
+[1] "Hello,world"
+&gt; paste0("foo", "bar") ## 不会带空格
+[1] "foobar"
+</pre>
+
+<pre class="prettyprint linenums">
+&gt; library(stringr)
+&gt; str_trim("foo   ")
+[1] "foo"
+</pre>
+
+<pre class="prettyprint linenums">
+&gt; id <- c(1, 2, 3)
+&gt; formatC(id, width=3, flag="0") ## 格式化输出：将 id 输出为长度为 3 的串，不够长的填 0
+[1] "001" "002" "003"
+</pre>
+
+#### <a name="reg-exp"></a>3.6.5 Regular Expressions
+
+
+
+#### <a name="work-with-date"></a>3.6.6 Working with Dates
