@@ -433,7 +433,7 @@ X$var2[c(1,3)] <- NA ## 选两个元素赋为 NA
 1    1    6   15
 </pre>
 
-<a name="which"></a>##### Using `which` function
+##### <a name="which"></a>Using `which` function
 
 在使用 `which(vector > x)` 时要注意与 `vector > x` 的区别：
 
@@ -458,7 +458,7 @@ NA.1   NA   NA   NA
 4    5   10   12
 </pre>
 
-<a name="remove-columns"></a>##### How to remove columns?
+##### <a name="remove-columns"></a>How to remove columns?
 
 有时也会遇到这样的情况：需要把原 data frame 删掉一些 column 来构成新的 data frame，这是可以把具体的 column 赋值为 NULL，比如：
 
@@ -528,7 +528,7 @@ df2 &lt;- data.frame(df$A, df$B) ## 直接拿你想要的 column 重新构造一
 这里介绍一个降序排列的小技巧：
 
 <pre class="prettyprint linenums">
-order(-df$A) ## use negative to sort descending
+&gt; order(-df$A) ## use negative to sort descending
 </pre>
 
 #### <a name="plyr-order"></a>3.1.3 Ordering with `plyr`
@@ -1034,12 +1034,12 @@ melt(df, id=1:2) ## 把第一项（A）和第二项（B）设置成 id，剩下�
 
 <a name="formula-valuevar-guessvalue"></a>注意这里是简写，完整一点的写法是：`dcast(mdf, A ~ variable, value.var=c("value"))`，只是 dcast 存在一个[自动识别 value.var 的机制（`guess_value` 函数）](http://127.0.0.1:22009/library/reshape2/html/guess_value.html)：
 
-1. Is value or (all) column present? If so, use that
-2. Otherwise, guess that last column is the value column
+> 1. Is value or (all) column present? If so, use that
+> 2. Otherwise, guess that last column is the value column
 
 这个 "or (all)" 十分 confusing，直到我看到了 [`guess_value` 的源码](https://github.com/hadley/reshape/blob/master/R/helper-guess-value.r)。我不禁想吼一句：尼玛用个引号引一下会死啊！所以这里实际是：
 
-1. `value.var=c("value")` or `value.var=c("(all)")` if any
+1. `value.var=c("value")` or `value.var=c("(all)")`, if any
 2. Otherwise, use the last column
 
 cast 的结果就是把 "each row represents one observation of one variable" 变回 "each row represents one observation"，X ~ Y 的 Y 的值都变成了 variable，而这些 variable 的值由 value.var 这个 column 来填充。  
