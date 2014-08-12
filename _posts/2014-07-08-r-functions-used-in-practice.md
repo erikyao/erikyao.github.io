@@ -93,43 +93,6 @@ if (! state %in% allStates) {
 
 ## 5. 构造 data frame
 
-### data.frame 的 names 属性
-
-你不指定 names 的话，R 会自动给你分配一个：
-
-<pre class="prettyprint linenums">
-&gt; x &lt;- data.frame(c(1:3), c(4:6))
-&gt; x
-  c.1.3. c.4.6.
-1      1      4
-2      2      5
-3      3      6
-</pre>
-
-如果没有指定 names 但是是用 var 来装填的，names 会直接用 var 的名称：
-
-<pre class="prettyprint linenums">
-&gt; m &lt;- c(1:3)
-&gt; n &lt;- c(4:6)
-&gt; x &lt;- data.frame(m, n)
-&gt; x
-  m n
-1 1 4
-2 2 5
-3 3 6
-</pre>
-
-直接指定 names 的效果是这样的：
-
-<pre class="prettyprint linenums">
-&gt; x &lt;- data.frame(foo = m, bar = n)
-&gt; x
-  foo bar
-1   1   4
-2   2   5
-3   3   6
-</pre>
-
 ### data.frame(df$A, df$B, df$C): 提取 df 的 column 构成新的 Data Frame
 
 R 和 java 有一点不同的是 R 的构造器真的很强大，所以不要陷入 java 的思维去找单独的 extract 方法，灵活运用构造器可以带来很多惊喜。
