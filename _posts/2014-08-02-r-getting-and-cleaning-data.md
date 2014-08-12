@@ -86,6 +86,8 @@ Section 3.4 部分参考 [Reshaping data with the `reshape` package](http://had.
 	- [3.6.4 Some other String functions](#string-functions)
 	- [3.6.5 Regular Expressions](#reg-exp)
 	- [3.6.6 Working with Dates](#work-with-date)
+		- [简单说下 locale](#locale)
+		- [Use `lubridate` package](#lubridate-pkg)
 	
 -----
 
@@ -635,7 +637,7 @@ FALSE  TRUE
 这次换个小点的数据集来演示：
 
 <pre class="prettyprint linenums">
-data(UCBAdmissions)
+data(UCBAdmissions) ## BTW, data() will show you a list of data sets within R
 df = as.data.frame(UCBAdmissions)
 summary(df)
 
@@ -1173,14 +1175,12 @@ solutions = read.csv("./data/solutions.csv")
 mergedData = merge(reviews, solutions, by.x="solution_id", by.y="id", all=TRUE)
 </pre>
 
-这个学过数据库的应该很了解了。
+这个学过数据库的应该很了解了（参 [join](http://erikyao.github.io/sql/2010/04/03/sql-join/)）：
 	
 * all=TRUE 表示 all.x=TRUE & all.y=TRUE
 	* all.x=TRUE 表示 x 中的所有 row （包括不匹配的）都会进入 merge 后的表，对应的 y 的 column 值被填成 NA。其实就是 Left Out Join
 	* all.y=TRUE 就是 Right Out Join
 * all=TRUE 就是 Full Outer Join
-	
-参 [join](http://erikyao.github.io/sql/2010/04/03/sql-join/)
 	
 不指定 by.x 或者 by.y 的话，merge all common column names
 
@@ -1358,6 +1358,128 @@ character(0)
 
 #### <a name="reg-exp"></a>3.6.5 Regular Expressions
 
+Regular Expression has 2 components:
 
+1. literals: keywords，一个词，比如 "foo"
+	* Simplest pattern consists only of literals
+	* A match occurs if the sequence of literals occurs anywhere in the text being tested
+2. metacharacters are used to express:
+	* whitespace word boundaries
+	* sets of literals
+	* the beginning and end of a line
+	* alternatives ("foo" or "bar")
+	
+<!-- -->
+	
+* `^i think`: match lines starting with "i think"
+* `morning$`: match lines ending with "morning" or we can say $ represents the end of a line
+* `[Ff][Oo][Oo]`: 匹配 FOO, FOo, FoO, Foo, fOO, fOo, foO, foo；注意这种形式是可以匹配 xxFOOzz 这样字符串的，因为我们并没有指定 `[Ff][Oo][Oo]` 是匹配一个完整的词
+* `^[Ii] am`: match lines starting with "I am" or "i am"
+* `^[0-9][a-zA-Z]`: 匹配 "1 数字 1 字母" 模式，比如 "7th" 里的 "7t"
+* `[^?.]$`: anything other than "?" or "." at the end of a line；注意这个语法，`[?.]` 表示 "?" or "."，前面加个 `^` 表示否定，就是 not "?" or "."
+
+<!-- -->
+
+* `.`: is used to refer to any single character，比如 3.21 可以匹配 3-21, 3/21, 203.219, 03:21, 3321 等
+	* 但是 `.` 在 `[]` 里是直接表示句号的，连转义也不需要
+	* `.*`: 匹配任意多个字符
+	* `(.*)`: 匹配括号内的任意多个字符
+* `flood|fire`: "flood" or "fire", matching e.g. firewire, floods
+* `^[Gg]ood|[Bb]ad`: 注意 ^ 只作用于 [Gg]ood
+* `^([Gg]ood|[Bb]ad)`: 这样 ^ 就同时起作用了
+* `[Gg]eorge( [Ww]\.)? [Bb]ush`: 可以匹配 George W. Bush, George Bush 等
+	* `(xxx)?` indicates that the expression "xxx" is optional（对单个字符可以不用括号，比如 `AB?C`）
+	* `\.` 是转义
+* `[0-9]+`: 任意一个或多个数字
+* `[Bb]ush( +[^ ]+ +){1,5} debate`: 首先看中间那个括号，\+个空格，然后\+个非空格，再\+个空格。然后这整个括号的结构可以重复 1-5 次。简单说就是 bush 和 debate 之间可以有 1-5 个单词，这 1-5 个单词之间可以有+个空格
+	* `{5}`: 表示 exactly 重复 5 次
+	* `{1,}`: 表示重复 at least 1 次
+* `　+([a-zA-Z]+) +\1+`: \+个空格（注意：开头的这个空格我用的是全角，用半角的话会被 &lt;code&gt; 吞掉），接着\+个字母，再\+个空格，然后 `\1` 表示与前面括号内的匹配内容一样（这种用法仅限于引用括号的匹配内容），也是\+个。简单说就这就用来匹配两个相同的单词的，比如 " foo foo"
+
+<!-- -->
+
+* The `*` is "greedy" so it always matches the longest possible string that satisfies the regular expression. 
+	* 比如 `^s(.*)s` 会匹配整个 "sitting at starbucks"，而不是 "sitting at s"
+	* The greediness of `*` can be turned off with the `?`, as in `^s(.*?)s$`
 
 #### <a name="work-with-date"></a>3.6.6 Working with Dates
+
+<pre class="prettyprint linenums">
+&gt; d1 = date()
+&gt; d1
+[1] "Tue Aug 12 14:58:40 2014"
+&gt; class(d1)
+[1] "character"
+&gt; d2 = Sys.Date()
+&gt; d2
+[1] "2014-08-12"
+&gt; class(d2)
+[1] "Date"
+</pre>
+
+<pre class="prettyprint linenums">
+&gt; format(d2,"%a %b %d")
+[1] "周二 八月 12"
+</pre>
+
+* %d = day as number (01-31) 
+* %a = abbreviated weekday 
+* %A = unabbreviated weekday 
+* %m = month (01-12) 
+* %b = abbreviated month 
+* %B = unabbrevidated month 
+* %y = 2-digit year 
+* %Y = 4-digit year
+
+For more format, click [Date Formats in R](http://www.r-bloggers.com/date-formats-in-r/).  
+
+<pre class="prettyprint linenums">
+&gt; Sys.setlocale("LC_TIME", "C");
+&gt; x = c("1jan1960", "2jan1960", "31mar1960", "30jul1960")
+&gt; z = as.Date(x, "%d%b%Y")
+&gt; z
+[1] "1960-01-01" "1960-01-02" "1960-03-31" "1960-07-30"
+&gt; z[1] - z[2]
+Time difference of -1 days
+&gt; as.numeric(z[1]-z[2])
+[1] -1
+</pre>
+
+<a name="locale"></a>这里就 locale 说两句：
+
+* 这里 "LC_TIME" 和 "C" 是 \*nix 的概念，并不是 R 特有的。设置 "LC_TIME" 为 "C" 表示 "use the default locale for LC_TIME"，具体可以参见 [What does “LC_ALL=C” do?](http://unix.stackexchange.com/questions/87745/what-does-lc-all-c-do)
+* 可以用 `strsplit(Sys.getlocale(), ";")` 来查看当前的 locale 信息。`strsplit` 是为了让输出好看一点~
+
+<pre class="prettyprint linenums">
+&gt; weekdays(d2) ## 不能用于 d1
+[1] "Tuesday"
+&gt; months(d2)
+[1] "August"
+&gt; julian(d2) ## days since 1970-01-01
+[1] 16294
+attr(,"origin")
+[1] "1970-01-01"
+&gt; attr(julian(d2), "origin")
+[1] "1970-01-01"
+</pre>
+
+<a name="lubridate-pkg"></a>
+<pre class="prettyprint linenums">
+&gt; library(lubridate); 
+&gt; ymd("20140108")
+[1] "2014-01-08 UTC"
+&gt; mdy("08/04/2013")
+[1] "2013-08-04 UTC"
+&gt; dmy("03-04-2013")
+[1] "2013-04-03 UTC"
+&gt; ymd_hms("2011-08-03 10:15:03")
+[1] "2011-08-03 10:15:03 UTC"
+&gt; ymd_hms("2011-08-03 10:15:03", tz="Pacific/Auckland") ## ?Sys.timezone for more information on timezone
+[1] "2011-08-03 10:15:03 NZST"
+&gt; x = dmy(c("1jan2013", "2jan2013", "31mar2013", "30jul2013"))
+&gt; wday(x[1])
+[1] 3
+&gt; wday(x[1],label=TRUE)
+[1] Tues
+Levels: Sun < Mon < Tues < Wed < Thurs < Fri < Sat
+</pre>
