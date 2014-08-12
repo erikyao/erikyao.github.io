@@ -115,10 +115,23 @@ Matrices can be created by column-binding or row-binding with cbind() and rbind(
 	[2,] 2 11 
 	[3,] 3 12
 	> rbind(x, y) ## 可以理解为 bind by row
-	 [,1] [,2] [,3]
-	x 1 2 3
-	y 10 11 12
-	
+	  [,1] [,2] [,3]
+	x    1    2    3
+	y   10   11   12
+
+但是要注意一点：R will repeat the shorter column or row to make the matrix:
+
+	> rbind(x=1:6, y=10:12)
+	  [,1] [,2] [,3] [,4] [,5] [,6]
+	x    1    2    3    4    5    6
+	y   10   11   12   10   11   12
+
+	> cbind(x=1:3, y=4:5)
+		 x y
+	[1,] 1 4
+	[2,] 2 5
+	[3,] 3 4
+
 ## 4. Lists
 
 `x <- list(1, "a", TRUE, 1 + 4i)` 创建一个 list。注意：

@@ -10,6 +10,7 @@ tags: [R-101]
 coursera 课程总结。  
 Chapter 1 摘自 [How to share data with a statistician](https://github.com/jtleek/datasharing)。  
 Section 3.4 部分参考 [Reshaping data with the `reshape` package](http://had.co.nz/reshape/introduction.pdf)。
+部分内容参考 [Data Summarization and Manipulation](http://www.biostat.jhsph.edu/~ajaffe/lec_winterR/Lecture%202.pdf) 和 [Lists and Data Cleaning](http://www.biostat.jhsph.edu/~ajaffe/lec_winterR/Lecture%203.pdf)。
 
 -----
 
@@ -22,13 +23,19 @@ Section 3.4 部分参考 [Reshaping data with the `reshape` package](http://had.
 - [1.3 Components of Tidy Data](#tidydata)
 	- [1.3.1 Standards of Tidy Data Set and Tidy Data Files](#tidydataset)
 	- [1.3.2 The code book](#codebook)
-		- [1.3.2.1 How to code variables](#code-variables)
+		- [How to code variables](#code-variables)
 	- [1.3.3 Scripts and Instructions](#scripts-and-instructions)
 
 ### 2. [Reading Data](#ch2)
 
 - [2.1 Downloading Files](#download-files)
 - [2.2 The `data.table` Package](#datatable-pkg)
+	- [2.2.1 Using `tables`](#the-tables-function)
+	- [2.2.2 Referencing](#data-table-referencing)
+	- [2.2.3 Calculation inside the data table](#calculation-in-data-table)
+	- [2.2.4 Adding new columns](#add-new-column-to-data-table)
+	- [2.2.5 Group by, `.N`, Keys and Join](#by-dotN-key-join)
+	- [2.2.6 Fast Reading](#fread)
 - [2.3 Webscraping](#webscraping)
 - [2.4 The `sqldf` Package](#sqldf-pkg)
 
@@ -37,6 +44,8 @@ Section 3.4 部分参考 [Reshaping data with the `reshape` package](http://had.
 - [3.1 Subsetting and Sorting](#subset-and-sort)
 	- [3.1.1 Subsetting](#subset)
 		- [Using `which` function](#which)
+		- [How to remove columns?](#remove-columns)
+		- [Making new data frames by extraction](#extract-new-data-frame)
 	- [3.1.2 Sorting](#sort)
 	- [3.1.3 Ordering](#order)
 	- [3.1.4 Ordering with `plyr`](#plyr-order)
@@ -166,7 +175,7 @@ In our genomics example, the analyst would want to know:
 * how you picked the exons you used for summarizing the genomic data (UCSC/Ensembl, etc.)
 * any other information about how you did the data collection/study design. For example, are these the first 20 patients that walked into the clinic? Are they 20 highly selected patients by some characteristic like age? Are they randomized to treatments?
 
-##### <a name="code-variables"></a>1.3.2.1 How to code variables
+##### <a name="code-variables"></a>How to code variables
 
 When you put variables into a spreadsheet there are several main categories you will run into depending on their data type:
 
@@ -233,14 +242,14 @@ dateDownloaded <- date() ## Be sure to record when you downloaded.
 * Written in C so it is much faster
 * Much, much faster at subsetting, group, and updating
 
-#### tables()
+#### <a name="the-tables-function"></a>2.2.1 Using `tables` 
 
 <pre class="prettyprint linenums">
 library(data.table)
 tables() ## see all the tables in memory
 </pre>
 
-#### Accessing elements
+#### <a name="data-table-referencing"></a>2.2.2 Referencing
 
 <pre class="prettyprint linenums">
 df <- data.frame(A=1:3, B=4:6, C=7:9)
@@ -265,13 +274,13 @@ dt[dt$A>1,] ## 返回 A>1 的所有行，in this case
 dt[c(2,3)] ## 返回 row 2 和 row 3
 </pre>
 
-#### Calculate within dt
+#### <a name="calculation-in-data-table"></a>2.2.3 Calculation inside the data table
 
 我发现 dt 的第二维实际是在跑运算，也就是说 `dt[,exp]` 实际等同于执行了 `exp`，比如 `dt[,1+1]` 会得到 2，就像是在直接执行 1+1 一样。  
 
 而且第二维操作的 context 是 dt 内部，比如 `dt[, mean(A)]` 是可以是识别到 A 的，不用指明是 dt$A，这一句的作用等同于 `mean(dt$A)`
 
-#### Adding new columns
+#### <a name="add-new-column-to-data-table"></a>2.2.4 Adding new columns
 
 还是利用 dt 的第二维，比如：
 	
@@ -299,7 +308,9 @@ dt[, E:={temp <- A+B; log(temp+5)}] ## 更复杂的添加 column 运算；{} 这
 ## 3: 3 6 9 81 2.639057
 </pre>
 	
-#### Group By
+#### <a name="by-dotN-key-join"></a>2.2.5 Group by, `.N`, Keys and Join
+	
+##### Group By
 	
 <pre class="prettyprint linenums">
 dt2 <- data.table(A=1:4, B=5:8, C=c(9, 9, 10, 10))
@@ -312,7 +323,7 @@ dt2[, D:=mean(A+B), by=C] ## by 就是 group by，C 值相同的 row 算一组�
 ## 4: 4 8 10 11
 </pre>
 
-#### .N
+##### .N
 	
 `.N` 一般的解释是 "an integer, length 1, containing row#"，但我觉得也可以理解为一种操作，作用是显示 row#. It is renamed to N (no dot) in the result (otherwise a column called ".N" could conﬂict with the .N variable)
 
@@ -326,7 +337,7 @@ dt2[, D:=mean(A+B), by=C] ## by 就是 group by，C 值相同的 row 算一组�
 2: 10 2 ## 同理
 </pre>
 
-#### Keys
+##### Keys
 
 <pre class="prettyprint linenums">
 set.seed(1130)
@@ -342,7 +353,7 @@ dt3['a'] ## 等价于 dt[dt$x='a',]；注意这种用法对数值类型的 key �
 ## 5: a -0.99255419
 </pre>
 	
-#### Join
+##### Join
 
 <pre class="prettyprint linenums">
 dt4 <- data.table(x=c('a', 'a', 'b', 'c'), y=1:4)
@@ -371,7 +382,7 @@ merge(dt4, dt5) ## key 值相同的 row merge 到一起
 ## 4: c 4 7
 </pre>
 
-#### Fast Reading
+#### <a name="fread"></a>2.2.6 Fast Reading
 	
 读取大文件到 data table 时，可以使用 `fread` 来代替常用的 `read.table`
 
@@ -422,7 +433,9 @@ X$var2[c(1,3)] <- NA ## 选两个元素赋为 NA
 1    1    6   15
 </pre>
 
-<a name="which"></a>在使用 `which(vector > x)` 时要注意与 `vector > x` 的区别：
+<a name="which"></a>##### Using `which` function
+
+在使用 `which(vector > x)` 时要注意与 `vector > x` 的区别：
 
 <pre class="prettyprint linenums">
 &gt; X$var1 &gt; 3 ## 返回 TRUE-FALSE vector
@@ -443,6 +456,29 @@ NA.1   NA   NA   NA
 &gt; X[which(X$var2 &gt;8),] ## which 不会返回 NA，subset 的结果自然也没有全是 NA 的行
   var1 var2 var3
 4    5   10   12
+</pre>
+
+<a name="remove-columns"></a>##### How to remove columns?
+
+有时也会遇到这样的情况：需要把原 data frame 删掉一些 column 来构成新的 data frame，这是可以把具体的 column 赋值为 NULL，比如：
+
+<pre class="prettyprint linenums">
+&gt; df &lt;- data.frame(A=1:3, B=4:6, C=7:9)
+&gt; df2 &lt;- df  ## 保留原 df，在新的 df2 上做删除
+&gt; df2$C &lt;- NULL
+&gt; df2
+  A B
+1 1 4
+2 2 5
+3 3 6
+</pre>
+
+##### <a name="extract-new-data-frame"></a>Making new data frames by extraction
+
+有时候和 remove column 的情况相反：我只需要原来 data frame 的某几个 columns 来构成新 data frame（如果原 column 数很多的话，一个一个删除起来很麻烦），这个操作比我想得要简单：
+
+<pre class="prettyprint linenums">
+df2 &lt;- data.frame(df$A, df$B) ## 直接拿你想要的 column 重新构造一个 data frame 就好了
 </pre>
 
 #### <a name="sort"></a>3.1.2 Sorting
@@ -487,6 +523,12 @@ NA.1   NA   NA   NA
 3 2  8 12
 1 2 10 11
 5 3  9 13
+</pre>
+
+这里介绍一个降序排列的小技巧：
+
+<pre class="prettyprint linenums">
+order(-df$A) ## use negative to sort descending
 </pre>
 
 #### <a name="plyr-order"></a>3.1.3 Ordering with `plyr`
@@ -594,13 +636,22 @@ str(restData)
 #### <a name="check-NA"></a>3.2.4 Checking NA
 
 <pre class="prettyprint linenums">
+## You can use the complete.cases() function on a data frame, matrix, or vector, which returns a logical vector indicating which cases are complete, i.e., they have no missing values.
+## 我们称 a row is complete when it has no NA values
+&gt; table(complete.cases(restData)) 
+
+TRUE 
+1327 
+</pre>
+
+<pre class="prettyprint linenums">
 sum(is.na(restData$councilDistrict)) ## 统计 NA 的数量
 any(is.na(restData$councilDistrict)) ## 检查 is.na(df$A) 是否有为 TRUE 的，如果有，返回 TRUE；如果是全 FALSE，返回 FALSE
 all(restData$zipCode > 0) ## 返回 TRUE / FALSE
 </pre>
 
 <pre class="prettyprint linenums">
-> colSums(is.na(restData)) ## is.na(restData) 返回一个 TRUE / FALSE 的 data frame，而且 column 名字还没变，所以接着用 colSums 正好可以统计各个 column 为 is.na 为 TRUE 的数量
+&gt; colSums(is.na(restData)) ## is.na(restData) 返回一个 TRUE / FALSE 的 data frame，而且 column 名字还没变，所以接着用 colSums 正好可以统计各个 column 为 is.na 为 TRUE 的数量
   name  zipCode  neighborhood  councilDistrict  policeDistrict  Location.1 
   0     0        0             0                0               0 
 </pre>
@@ -733,6 +784,7 @@ Rejected Male        313 207 205 279 138 351
 * `sqrt(x)`: square root
 * `ceiling(x)`: e.g. ceiling(3.475) == 4
 * `floor(x)`: e.g. floor(3.475) == 3
+* `trunc(x)`: 截取整数部分，e.g. trunc(-5.99) == -5
 * `round(x, digits=n)`: rounds to 'n' decimal places (default 0) (保留 n 位小数). e.g. round(3.475, digits=2) == 3.48
 * `signif(x, digits=n)`: rounds to 'n' significant digits (保留 n 位有效数字). e.g. signif(3.475, digits=2) == 3.5
 * `cos(x)`, `sin(x)` etc.
@@ -740,6 +792,8 @@ Rejected Male        313 207 205 279 138 351
 * `log2(x)`: \\( \log_2 x \\)
 * `log10(x)`: \\( \log_{10} x \\), a.k.a \\( \lg x \\)
 * `exp(x)`: exponentiating x, i.e. e^x
+* `sd(x)`: takes the standard deviation of x
+* `range(x)`: displays the range; same as `c(min(x), max(x))`
 
 #### <a name="add-seq-or-indices"></a>3.3.3 Creating sequences or indices
 
@@ -769,6 +823,12 @@ restData$nearMe &lt;- restData$neighborhood %in% c("Roland Park", "Homeland")
 
 <pre class="prettyprint linenums">
 restData$zipState &lt;- ifelse(restData$zipCode < 0, "invalid", "valid") ## restData$zipCode < 0? "invalid" : "valid"
+</pre>
+
+这个 Java 一样，也是可以嵌套的，比如：
+
+<pre class="prettyprint linenums">
+ALevels = ifelse(df$A < 10000, "low", ifelse(df$A > 20000, "high", "med"))
 </pre>
 
 #### <a name="add-categorical-var"></a>3.3.5 Creating categorical variables
@@ -1342,6 +1402,11 @@ character(0)
 [1] "Hello,world"
 &gt; paste0("foo", "bar") ## 不会带空格
 [1] "foobar"
+
+&gt; paste("Visit", 1:5, sep = "_")
+[1] "Visit_1" "Visit_2" "Visit_3" "Visit_4" "Visit_5"
+&gt; paste("Visit", 1:5, sep = "_", collapse = " ") ## collapse is used to separate the results
+[1] "Visit_1 Visit_2 Visit_3 Visit_4 Visit_5"
 </pre>
 
 <pre class="prettyprint linenums">

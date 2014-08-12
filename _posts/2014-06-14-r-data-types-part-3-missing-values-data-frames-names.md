@@ -35,6 +35,7 @@ Data frames are used to store <font color="red">tabular</font> data (i.e. a tabl
 * Data frames are usually created by calling `read.table()` or `read.csv()`
 * Can be converted to a matrix by calling `data.matrix()`
 * `nrow(df)` 返回行数，`ncol(df)` 返回列数
+* `t(df)` returns the transpose of df. Also works for matrices.
 
 ## 3. Names
 
