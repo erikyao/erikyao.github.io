@@ -9,8 +9,8 @@ tags: [R-101]
 
 coursera 课程总结。  
 Chapter 1 摘自 [How to share data with a statistician](https://github.com/jtleek/datasharing)。  
-Section 3.4 部分参考 [Reshaping data with the `reshape` package](http://had.co.nz/reshape/introduction.pdf)。
-部分内容参考 [Data Summarization and Manipulation](http://www.biostat.jhsph.edu/~ajaffe/lec_winterR/Lecture%202.pdf) 和 [Lists and Data Cleaning](http://www.biostat.jhsph.edu/~ajaffe/lec_winterR/Lecture%203.pdf)。
+Section 3.4 部分参考 [Reshaping data with the `reshape` package](http://had.co.nz/reshape/introduction.pdf)。  
+部分内容参考 [Data Summarization and Manipulation](http://www.biostat.jhsph.edu/~ajaffe/lec_winterR/Lecture%202.pdf) 和 [Lists and Data Cleaning](http://www.biostat.jhsph.edu/~ajaffe/lec_winterR/Lecture%203.pdf)。  
 
 -----
 
