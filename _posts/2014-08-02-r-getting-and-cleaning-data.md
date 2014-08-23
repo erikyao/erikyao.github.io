@@ -61,6 +61,7 @@ Section 3.4 部分参考 [Reshaping data with the `reshape` package](http://had.
 - [3.3 Adding New Variables (i.e. New Columns)](#add-new-var)
 	- [3.3.1 How to add columns and rows](#add-column-row)
 		- [注意 cbind 多个 vector 产生的是 matrix 而不是 data frame](#cbind-vector-get-matrix)
+		- [顺便说一下调整 column 顺序的方法](#re-order-column)
 	- [3.3.2 Creating mathematical variables](#add-mathematical-var)
 	- [3.3.3 Creating sequences or indices](#add-seq-or-indices)
 	- [3.3.4 Adding subset result](#add-subset-result)
@@ -81,6 +82,7 @@ Section 3.4 部分参考 [Reshaping data with the `reshape` package](http://had.
 		- [`fun.aggregate` rule](#aggregation-rule)
 		- [`margins` and `subset`](#margins-subset)
 	- [3.4.3 Calculate on groups](#calculate-on-groups)
+		- [Using `aggregate` function](#the-aggregate-function)
 - [3.5 Merging Data](#merge)	
 	- [3.5.1 Using `merge`](#the-merge-function)
 	- [3.5.2 Using `join` in the `plyr` package](#the-join-function)
@@ -91,6 +93,7 @@ Section 3.4 部分参考 [Reshaping data with the `reshape` package](http://had.
 		- [Make lower case when possible](#lower-case-when-possible)
 		- [Delete suffix ".1" like in "Location.1"](#delete-dot-1)
 		- [Delete underscore](#delete-underscore)
+		- [Rename a single column](#rename-a-column)
 	- [3.6.3 `grep` and `grepl`](#grep-grepl)
 	- [3.6.4 Some other String functions](#string-functions)
 	- [3.6.5 Regular Expressions](#reg-exp)
@@ -778,6 +781,16 @@ Rejected Male        313 207 205 279 138 351
 * `cbind.data.frame(A=1:3, B=4:6)` 是 df
 * `cbind(df, C=7:9)` 是 df
 
+<a name="re-order-column"></a>另外，添加 column 后总会有调整 column 顺序的需求，而且一般都是把 last column 往前排，这里介绍一种比较简单的方法：
+
+<pre class="prettyprint linenums">
+data[, c(ncol(data),1:(ncol(data)-1))] ## move last column to first
+data[, c(1,ncol(data),2:(ncol(data)-1))] ## move last column to second
+data[, c(1:2,ncol(data),3:(ncol(data)-1))] ## move last column to third
+
+## 发现规律了么？
+</pre>
+
 #### <a name="add-mathematical-var"></a>3.3.2 Creating mathematical variables
 
 * `abs(x)`: absolute value
@@ -1215,6 +1228,26 @@ Using D as value column: use value.var to override.
 ## ave 的作用是在指定的列（或者列的 subset）上执行 FUN（默认是 mean），然后将计算结果附到该列的每个值的后面
 </pre>
 
+##### <a name="the-aggregate-function"></a>Using `aggregate` function
+
+简单举个例子：
+
+<pre class="prettyprint linenums">
+aggregate(. ~ cyl + gear, data=mtcars, FUN=mean)
+</pre>
+
+这一句的意思是：
+
+* group all the other variables ("." means "all the other variables not appeared in this formula") in `mtcars` by `cyl` and `gear`
+* apply `mean` to all the groups
+
+有几点需要注意：
+
+* 这里 `mean` 的效果其实是 `colMeans(group)`
+* 最后得到的 data frame 的 column 没有变化，只是 `cyl` 和 `gear` 提前了
+* `row.names(mtcars)` 是车名，aggregate 结果的 `row.names` 是 "1" "2" "3" "4" "5" "6" "7" "8"
+
+
 ### <a name="merge"></a>3.5 Merging Data
 
 数据准备：
@@ -1348,6 +1381,12 @@ names(cameraData) &lt;- tolower(names(cameraData)) ## BTW, toupper() makes it up
 &gt; v2 &lt;- gsub("_", "", v) ## 使用 gsub 替换全部 `_`
 &gt; v2
 [1] "A"   "B"   "C11"
+</pre>
+
+##### <a name="rename-a-column"></a>Rename a single column
+
+<pre class="prettyprint linenums">
+&gt; names(df)[names(df) == 'old.var.name'] <- 'new.var.name'
 </pre>
 
 #### <a name="grep-grepl"></a>3.6.3 `grep` and `grepl`
