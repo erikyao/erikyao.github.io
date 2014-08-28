@@ -35,6 +35,14 @@ tags: [R-101]
 
 对一个确定的 a，它的分位数常写作 \\( u_a \\)。比如 `X ~ N(0, 1)` 中，上测 \\( u_{0.05} \\) = 1.65，则表示 P(X > 1.65) = 0.05。所以你可以把分位数理解为 X 的一种临界值。
 
+## 正态分布的一些区间特性
+
+->![](https://vgjqyw.bn1304.livefilestore.com/y2p3lLUJ707PJF_Ws-NdcGYNNIojGgM8tAVN31zQTABkvuGaIz5YpvhszJ1YMRCEdhJv1HW3Le8FQSsauEWCnxqq4-GRbzWdb0QuMLJ6I5OT0I/%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E7%9A%84%E5%8C%BA%E9%97%B4%E7%89%B9%E6%80%A7.png?psid=1)<-
+
+->图片来源：[Lecture 2: Descriptive Statistics and Exploratory Data Analysis](http://www.gs.washington.edu/academics/courses/akey/56008/lecture/lecture2.pdf)<-
+
+其实还有，根据 [quartile](http://erikyao.github.io/r/2014/08/02/r-getting-and-cleaning-data/#quartile) 这一节 IQR 的定义，50% of the observations 是在 [Ave - 0.5\*IQR, Ave + 0.5\*IQR] 这个区间内的。
+
 -----
 
 ## 正态分布相关函数
