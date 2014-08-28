@@ -52,6 +52,9 @@ Section 3.4 部分参考 [Reshaping data with the `reshape` package](http://had.
 - [3.2 Summarizing Data](#summarize)
 	- [3.2.1 `dim`, `nrow`, `ncol`, `colnames`, `head`, `tail`, `summary` and `str`](#about-rows-and-columns)
 	- [3.2.2 `quantile`](#quantile)
+		- [quartile](#quartile)
+		- [题外话：boxplot 示意](#boxplot)
+		- [n^th quantile](#nth-quantile)
 	- [3.2.3 `table`](#table)
 	- [3.2.4 Checking NA](#check-NA)
 	- [3.2.5 Checking values with specific characteristics: 统计某单个变量的取值](#check-single-var)
@@ -612,7 +615,33 @@ str(restData)
   1.000   2.000   9.000   7.191  11.000  14.000 
 </pre>
 
-最后注意一种表达方式：在 Week 3 Quiz 的 Question 2 中问到了 "What are the 30th and 80th quantiles of the resulting data?"，其实就是 \\( u\_{30\%} \\) 和 \\( u\_{80\%} \\)，当然我更习惯写成 \\( u\_{0.30} \\) 和 \\( u\_{0.80} \\)
+<a name="quartile"></a>注意 summary 这里的 "Qu" 指的是 quartile [ˈkwɔ:taɪl] 而不是 quantile ['kwɒntaɪl]:
+
+->![](https://vgk8nq.bn1304.livefilestore.com/y2pal2x6OB222gf4OG68MBF-vAa60YadFic7UXy4AH00GpYmddryfJW_wj8c4XziNA0MaGBbql5VhAy8C5txRhXuEMPtydoTP6CjtTrDwxcpNg/Percentiles.png?psid=1)<-
+
+->图片来源：[Lecture 2: Descriptive Statistics and Exploratory Data Analysis](http://www.gs.washington.edu/academics/courses/akey/56008/lecture/lecture2.pdf)<-
+
+* The first quartile, \\( Q_1 \\), is the value for which 25% of the
+observations are smaller and 75% are larger
+* \\( Q_2 \\) is the same as the median (50% are smaller, 50% are
+larger)
+* Only 25% of the observations are greater than the third
+quartile \\( Q_3 \\)
+* IQR, interquartile range, is the difference between the third and the first quartiles, i.e. \\( IQR = Q_3 - Q_1 \\)
+
+<a name="boxplot"></a>这里顺带再图示一下 boxplot 的意思：
+
+->![](https://vgk8nq.bn1304.livefilestore.com/y2p8VYepFrcQWRkoMJStQ-eyZxUBIHD1DHtQGveBh3aY489MBceP1gQQGvHMSS_Dxmtbo1E3YZ4OVgAv_U9syRZm6JlDcYm-JI6Diz3Bt3vjdE/Boxplot.png?psid=1)<-
+
+->图片来源：[Lecture 2: Descriptive Statistics and Exploratory Data Analysis](http://www.gs.washington.edu/academics/courses/akey/56008/lecture/lecture2.pdf)<-
+
+是不是很清楚？简直一目了然。  
+
+<a name="nth-quantile"></a>最后注意一种表达方式：quantile a.k.a percentile，在 Week 3 Quiz 的 Question 2 中问到了 "What are the 30^th and 80^th quantiles of the resulting data?"，其实就是 \\( u\_{30\%} \\) 和 \\( u\_{80\%} \\)，当然我更习惯写成 \\( u\_{0.30} \\) 和 \\( u\_{0.80} \\)
+
+->![](https://vgk8nq.bn1304.livefilestore.com/y2psMjVKpAdVl3QcgksFlcl1dcA9ufdd7xD5Bpb1KqQnQXdkidVssRG0ry8gYr6dGPrgCE2jrwHcd6ph-dVZQURimL8aphd7uLp-w5Bii35AlQ/Percentiles.png?psid=1)<-
+
+->图片来源：[Lecture 2: Descriptive Statistics and Exploratory Data Analysis](http://www.gs.washington.edu/academics/courses/akey/56008/lecture/lecture2.pdf)<-
 
 #### <a name="table"></a>3.2.3 `table`
 
