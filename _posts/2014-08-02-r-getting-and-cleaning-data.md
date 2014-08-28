@@ -50,7 +50,7 @@ Section 3.4 部分参考 [Reshaping data with the `reshape` package](http://had.
 	- [3.1.3 Ordering](#order)
 	- [3.1.4 Ordering with `plyr`](#plyr-order)
 - [3.2 Summarizing Data](#summarize)
-	- [3.2.1 `colnames`, `head`, `tail`, `summary` and `str`](#colnames-head-tail-summary-str)
+	- [3.2.1 `dim`, `nrow`, `ncol`, `colnames`, `head`, `tail`, `summary` and `str`](#about-rows-and-columns)
 	- [3.2.2 `quantile`](#quantile)
 	- [3.2.3 `table`](#table)
 	- [3.2.4 Checking NA](#check-NA)
@@ -566,11 +566,17 @@ download.file(fileUrl,destfile="./data/restaurants.csv",method="auto") ## method
 restData <- read.csv("./data/restaurants.csv")
 </pre>
 
-#### <a name="colnames-head-tail-summary-str"></a>3.2.1 `colnames`, `head`, `tail`, `summary` and `str`
+#### <a name="about-rows-and-columns"></a>3.2.1 `dim`, `nrow`, `ncol`, `colnames`, `head`, `tail`, `summary` and `str`
 
 太常用了我就不啰嗦了。
 
 <pre class="prettyprint linenums">
+dim(restData) ## 1327    6  
+## i.e. 1327x6, 和 Octave 的 size(X) 是一个意思
+
+nrow(restData) ## 1327
+ncol(restData) ## 6
+
 colnames(restData) ## == dimnames(restData)[[2]]
 rownames(restData) ## == dimnames(restData)[[1]]
 
