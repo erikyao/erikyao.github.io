@@ -2,8 +2,8 @@
 layout: post
 title: "R: Saving, Loading and Removing in-memory Data"
 description: ""
-category: 
-tags: []
+category: R
+tags: [R-101]
 ---
 {% include JB/setup %}
 
