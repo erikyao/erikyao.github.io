@@ -617,7 +617,7 @@ str(restData)
 
 <a name="quartile"></a>注意 summary 这里的 "Qu" 指的是 quartile [ˈkwɔ:taɪl] 而不是 quantile ['kwɒntaɪl]:
 
-->![](https://vgk8nq.bn1304.livefilestore.com/y2pal2x6OB222gf4OG68MBF-vAa60YadFic7UXy4AH00GpYmddryfJW_wj8c4XziNA0MaGBbql5VhAy8C5txRhXuEMPtydoTP6CjtTrDwxcpNg/Percentiles.png?psid=1)<-
+->![](https://vgk8nq.bn1304.livefilestore.com/y2p8ZOEz83NFz3dodidirF0W1RGUWITGyjCo0LvvLLa9V-BaZ7yp1ip-RyNIL36a29MS0Rnz52lk9q-GU7EkA8nN6BKzTmHzX2AQ3Os2jNEuac/Quartile%20and%20IQR.png?psid=1)<-
 
 ->图片来源：[Lecture 2: Descriptive Statistics and Exploratory Data Analysis](http://www.gs.washington.edu/academics/courses/akey/56008/lecture/lecture2.pdf)<-
 
