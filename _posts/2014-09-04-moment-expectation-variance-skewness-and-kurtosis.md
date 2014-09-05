@@ -151,7 +151,7 @@ Skewness is a measure of asymmetry [eˈsɪmɪtri]:
 
 Kurtosis, from Greek word "kyrtos" for convex, related to word "curve", is mainly defined by 4^th standardized moment:
 
--> \\( \gamma_2 = \alpha_4 - 3 =  \frac{\mu_3}{\sigma\^3} - 3 \\)<-
+-> \\( \gamma_2 = \alpha_4 - 3 =  \frac{\mu_4}{\sigma\^4} - 3 \\)<-
 
 It is also known as **excess kurtosis (超值峰度)**. The "minus 3" at the end of this formula is often explained as a correction to make the kurtosis of the normal distribution equal to zero.
 
