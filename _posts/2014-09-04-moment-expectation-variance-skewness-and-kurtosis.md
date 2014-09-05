@@ -155,5 +155,5 @@ Kurtosis, from Greek word "kyrtos" for convex, related to word "curve", is mainl
 
 It is also known as **excess kurtosis (超值峰度)**. The "minus 3" at the end of this formula is often explained as a correction to make the kurtosis of the normal distribution equal to zero.
 
-* If \\( \gamma_1 > 0 \\)，称为尖峰态（leptokurtic, [leptəʊ'kɜ:tɪk]）
-* If \\( \gamma_1 < 0 \\)，称为低峰态（platykurtic, [plæ'ti:kɜ:tɪk]）。
+* If \\( \gamma_2 > 0 \\)，称为尖峰态（leptokurtic, [leptəʊ'kɜ:tɪk]）
+* If \\( \gamma_2 < 0 \\)，称为低峰态（platykurtic, [plæ'ti:kɜ:tɪk]）。
