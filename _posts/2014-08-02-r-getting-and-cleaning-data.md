@@ -637,6 +637,15 @@ quartile \\( Q_3 \\)
 
 是不是很清楚？简直一目了然。  
 
+另外还有几个别名也提一下：
+
+* minimum 到 \\( Q_1 \\) 的区域也叫 lower whisker
+* \\( Q_3 \\) 到 maximum 的区域也叫 upper whisker
+* minimum 也叫 lower whisker end
+* maximum 也叫 upper whisker end
+* \\( Q_1 \\) 也叫 lower hinge [hɪndʒ]
+* \\( Q_3 \\) 也叫 upper hinge
+
 <a name="nth-quantile"></a>最后注意一种表达方式：quantile a.k.a percentile，在 Week 3 Quiz 的 Question 2 中问到了 "What are the 30^th and 80^th quantiles of the resulting data?"，其实就是 \\( u\_{30\%} \\) 和 \\( u\_{80\%} \\)，当然我更习惯写成 \\( u\_{0.30} \\) 和 \\( u\_{0.80} \\)
 
 ->![](https://vgk8nq.bn1304.livefilestore.com/y2psMjVKpAdVl3QcgksFlcl1dcA9ufdd7xD5Bpb1KqQnQXdkidVssRG0ry8gYr6dGPrgCE2jrwHcd6ph-dVZQURimL8aphd7uLp-w5Bii35AlQ/Percentiles.png?psid=1)<-
