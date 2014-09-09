@@ -46,7 +46,7 @@ If there are different features on different scales (e.g. \\( x_1 \\) = size of 
 
 Suppose we are reducing data from n-dimensions to k-dimensions
 
-#### Step 1: Compute convariance matrix (协方差矩阵):
+#### Step 1: Compute covariance matrix (协方差矩阵):
 
 Non-vectorized formula is \\( \Sigma =  \frac{1}{m}  \sum_{i=1}\^n { x\^{(i)}*(x\^{(i)})\^T } \\)
 
@@ -121,7 +121,7 @@ s\_{11} &  &  & \\\\
  &  &  & s\_{nn}
 \end{vmatrix} \\)
 
-For a given k, \\( \frac{ASPE}{TV} = 1 - \frac{\sum\_{i=1}\^k {s\_{ii}}} {\sum\_{i=1}\^n {s\_{ii}}} \\).
+For a given k, \\( \frac{ASPE}{TV} = 1 - \frac{\sum\_{i=1}\^k {s\_{ii}}} {\sum\_{i=1}\^n {s\_{ii}}} \\).（注意这里 \\( s\_{ii} \\) 是递减的，i.e. \\( s\_{11} \\) 占 variance 的比总最大，\\( s\_{22} \\) 次之，依次类推）
 
 这样我们只用计算一次 `[U, S, V] = svd(Σ)`，然后尝试 k = 1,2,... 使 \\( \frac{\sum\_{i=1}\^k {s\_{ii}}}{\sum\_{i=1}\^n {s\_{ii}}} >= 0.99 \\) 就可以了，而不是每次都用 ASPE 和 TV 的公式来算。
 
