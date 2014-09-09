@@ -80,7 +80,7 @@ In Octave, use `U_reduce = U(:, 1:k)`.
 
 The new dimension \\( z^{(i)} = (U_{reduce})\^T*x\^{(i)} \\) (size = (kxn) * (nx1) = kx1)
 
-Vecterized formula is \\( Z = X*U_{reduce} \\) (size = mxn * nxk = mxk)
+Vecterized formula is \\( Z = X*U_{reduce} \\) (size = (mxn) * (nxk) = mxk)
 
 The structure of Z is:
 
