@@ -7,6 +7,10 @@ tags: [Math-Statistics]
 ---
 {% include JB/setup %}
 
+总结自 Coursera lecture [Statistical Inference](https://class.coursera.org/statinference-005/lecture) section [03 Conditional probability](https://class.coursera.org/statinference-005/lecture/157)。
+
+-----
+
 ## 1. Definition
 
 Conditional Probability refers to the probablity conditional on some new information.  

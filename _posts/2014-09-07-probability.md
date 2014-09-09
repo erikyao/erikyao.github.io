@@ -7,6 +7,10 @@ tags: [Math-Statistics]
 ---
 {% include JB/setup %}
 
+总结自 Coursera lecture [Statistical Inference](https://class.coursera.org/statinference-005/lecture) section [02 Probability](https://class.coursera.org/statinference-005/lecture/155)。
+
+-----
+
 ## 1. Notation 
 
 | Symbol         | Definition                                                             | Example                                                   |
