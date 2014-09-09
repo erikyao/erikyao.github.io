@@ -131,7 +131,7 @@ If Y = g(X), then:
 
 Variance is defined as 2^nd central moment:
 
--> \\( \sigma\^2 = \mu_2 = \int\^\infty\_{-\infty} (x-\mu)\^2 f(x) dx \\)<-
+-> \\( \sigma\^2 = \mu_2 = \int\^\infty\_{-\infty} (x-\mu)\^2 f(x) dx = E[(X-\mu)\^2] = E[X\^2] - \mu\^2 \\)<-
 
 ## <a name="Skewness"></a>4. Skewness
 
