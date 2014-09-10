@@ -211,9 +211,9 @@ When _**n**_ is large and _**p**_ is small:
 ### 3.3 Rates and Poisson random variables
 
 * Poisson random variables are used to model rates
-* \\( X \sim Poisson(p t) \\) where 
-  * \\( p = E[\frac{X}{t}] \\) is the expected count per unit of time
-  * **t** is the total monitoring time
+* If \\( X \sim Poisson(\lambda) \\) on 1 unit interval, then \\( Y \sim Poisson(k\lambda) \\) on _**k**_ unit intervals.
+  * \\( \lambda = E[\frac{Y}{k}] \\) is the expected count per time unit (i.e. rate)
+  * _**k**_ means the total monitoring process takes _**k**_ time units
   
 ### 3.4 Exercise: Rate
 
