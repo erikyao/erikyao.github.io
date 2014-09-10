@@ -186,7 +186,7 @@ qnorm(0.75, mean = 1020, sd = 50)
 
 * The Poisson mass function is
 $$
-P(X = x; \lambda) = \frac{\lambda\^x e\^(-\lambda)}{x!}
+P(X = x; \lambda) = \frac{\lambda\^x e\^{-\lambda}}{x!}
 $$
 for \\( x=0,1,\ldots \\)
 * The mean of this distribution is \\( \mu = \lambda \\)
