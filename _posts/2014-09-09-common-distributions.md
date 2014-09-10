@@ -95,7 +95,7 @@ pbinom(6, size = 8, prob = .5, lower.tail = FALSE) ## if lower.tail=TRUE (defaul
 
 ## 2. The normal distribution
 
-### 2.1 
+### 2.1 Definition
 
 - A random variable is said to follow a **normal** or **Gaussian** distribution with mean \\( \mu \\) and variance \\( \sigma\^2 \\) if the associated density is
   $$
