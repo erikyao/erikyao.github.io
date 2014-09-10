@@ -97,7 +97,23 @@ $$
 
 \\( \therefore \overline X \pm \frac{1}{\sqrt{n}} \\) is a quick CI estimate for \\( p \\) (since \\(\mu = p \\) in Bernoulli)
 
-Exercise: Your campaign advisor told you that in a random sample of 100 likely voters, 56 intent to vote for you. Can you relax? Do you have this race in the bag?
+#### Exercise I
+
+What is the probability of getting 45 or fewer heads out 100 flips of a fair coin? (Use the CLT, not the exact binomial calculation)
+	
+* \\( \mu = p = 0.5 \\)
+* \\( \sigma\^2 = p*(1-p) = 0.25, \frac{\sigma}{\sqrt{100}} = 0.05\\)
+* \\( \overline X = \frac{45}{100} = 0.45 \\)	
+
+<pre class="prettyprint linenums">
+pnorm(0.45, mean=0.5, sd=0.05)
+## [1] 0.1586553
+</pre>	
+	
+
+#### Exercise II
+
+Your campaign advisor told you that in a random sample of 100 likely voters, 56 intent to vote for you. Can you relax? Do you have this race in the bag?
 
 * \\( \overline X = \frac{56}{100} = 0.56 \\)
 * \\( \frac{1}{\sqrt{100}} = 0.1 \\)
