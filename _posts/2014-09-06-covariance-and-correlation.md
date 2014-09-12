@@ -10,11 +10,11 @@ tags: [Math-Statistics]
 ## 0. Symbols
 
 * \\( Var(X) \\): variance (\\( \sigma\^2 \\)) of X
-* \\( \bar{x} \\): mean (\\( \mu \\)) of X
-* \\( \bar{y} \\): mean (\\( \mu \\)) of Y
-* \\( s_x \\): standard deviation (\\( \sigma \\)) of X
-* \\( s_y \\): standard deviation (\\( \sigma \\)) of Y
-* \\( r_{x,y} \\): or \\( r \\) abbreviated; sample correlations of X with Y (\\( Cor(X, Y) \\)) 
+* \\( \bar{x} \\): (emprical) mean (\\( \mu \\)) of X
+* \\( \bar{y} \\): (emprical) mean (\\( \mu \\)) of Y
+* \\( s_x \\): (emprical) standard deviation (\\( \sigma \\)) of X
+* \\( s_y \\): (emprical) standard deviation (\\( \sigma \\)) of Y
+* \\( r_{x,y} \\): or \\( r \\) abbreviated; (sample) correlations of X with Y (\\( Cor(X, Y) \\)) 
 
 ## 1. Covariance
 
