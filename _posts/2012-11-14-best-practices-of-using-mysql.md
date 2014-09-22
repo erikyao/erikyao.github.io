@@ -34,7 +34,7 @@ tags: [Database-101]
 | 可重复读（Repeatable Read）  | × 不可能           | × 不可能                         | √ 可能               |
 | 可串行化（Serializable ）    | × 不可能           | × 不可能                         | × 不可能             |
 
-参见 [Isolation](database/2009/12/25/isolation/)
+参见 [Isolation](/database/2009/12/25/isolation/)
 
 简而言之：
 
