@@ -82,7 +82,7 @@ $$
 \end{equation} 
 $$
 
-Together, \\( \beta_0 \\) and \\( \beta_1 \\) are  known as the model coefficients or parameters. Once we have used our  training data to produce estimates \\( \hat{\beta}\_0 \\) and \\( \hat{\beta}\_1 \\) for the model coefficients, we can predict 
+We can describe this relationship as "regressing \\( Y \\) onto \\( X \\)". Together, \\( \beta_0 \\) and \\( \beta_1 \\) are known as the model coefficients or parameters. Once we have used our training data to produce estimates \\( \hat{\beta}\_0 \\) and \\( \hat{\beta}\_1 \\) for the model coefficients, we can predict 
 
 $$
 \begin{equation}
@@ -93,8 +93,7 @@ $$
 
 where \\( \hat y \\) indicates a prediction of \\( Y \\) on the basis of \\( X = x \\). Here we use a hat symbol, ˆ , to denote the estimated value for an unknown parameter or coefficient, or to denote the predicted value of the response.
 
-We also assume that the true relationship between \\( X \\) and \\( Y \\) takes the form \\( Y = f(X) + \epsilon \\) for some unknown function \\( f \\), where \\( \epsilon \\) is a random error term with \\( mean(\epsilon) = 0 \\). If \\( f \\) is to be approximated by a linear
-function, then we can write this relationship as
+We also assume that the true relationship between \\( X \\) and \\( Y \\) takes the form \\( Y = f(X) + \epsilon \\) for some unknown function \\( f \\), where \\( \epsilon \\) is a random error term with \\( mean(\epsilon) = 0 \\). If \\( f \\) is to be approximated by a linear function, then we can write this relationship as
 
 $$
 \begin{equation}
@@ -112,8 +111,7 @@ The error term \\( \epsilon \\) is a catch-all for what we miss with this simple
 
 We want to find an intercept \\( \hat{\beta}\_0 \\) and a slope \\( \hat{\beta}\_1 \\) such that the resulting line is as **close** as possible to the n training data points.
 
-There are a number of ways of measuring **closeness**. However, by far the
-most common approach involves minimizing the _least squares_ criterion.  
+There are a number of ways of measuring **closeness**. However, by far the most common approach involves minimizing the _least squares_ criterion.  
 
 Before introducing the _least squares_ approach, let's meet residual first.  
 
@@ -190,10 +188,7 @@ $$
 
 where \\( \sigma \\) is the standard deviation of the realizations \\( y_i \\) of Y (In probability and statistics, an observed valuea is also known as a realization, so you can refer "realizations" just to "a data set").
 
-Roughly speaking, the standard error tells us the average amount that this
-estimate \\( \hat \mu \\) differs from the actual value of \\( \mu \\) (Central Limit Theorem, \\( \hat \mu \to \sim \mbox{N}(\mu, \frac{\sigma\^2}{n}) \\)). It also tells us how
-this deviation shrinks with n — the more observations we have, the smaller
-the standard error of \\( \hat \mu \\).
+Roughly speaking, the standard error tells us the average amount that this estimate \\( \hat \mu \\) differs from the actual value of \\( \mu \\) (Central Limit Theorem, \\( \hat \mu \to \sim \mbox{N}(\mu, \frac{\sigma\^2}{n}) \\)). It also tells us how this deviation shrinks with n — the more observations we have, the smaller the standard error of \\( \hat \mu \\).
 
 #### <a name="mu-to-beta"></a>1.3.3 From \\( \hat \mu \\) to \\( \hat{\beta}\_0 \\) and \\( \hat{\beta}\_1 \\)
 
@@ -203,8 +198,7 @@ the standard error of \\( \hat \mu \\).
 
 The model given by \\( (\ref{eq1.3}) \\) defines the _population regression line_, which is the best linear approximation to the true relationship between \\( X \\) and \\( Y \\).  
 
-The least squares regression coefficient estimates \\( (\ref{eq1.5}) \\) characterize the
-_least squares line_.
+The least squares regression coefficient estimates \\( (\ref{eq1.5}) \\) characterize the _least squares line_.
 
 ##### <a name="Analogy"></a>Analogy
 
