@@ -338,7 +338,7 @@ If we believe that an outlier has occurred due to an error in data collection or
 
 P99 还提到一个点可以同时是 outlier 和 high leverage point，这种情况非常复杂，需要慎重处理。
 
-#### <a name="Collinearity (共线性) (VIF)"></a>3.3.6 Collinearity
+#### <a name="Collinearity"></a>3.3.6 Collinearity (共线性) (VIF)
 
 Collinearity refers to the situation in which two or more predictor variables  are closely related to one another. If two preditors are very highly correlated with each other, we say that they are **collinear**.
 
