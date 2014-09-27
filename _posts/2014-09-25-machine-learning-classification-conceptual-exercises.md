@@ -34,9 +34,9 @@ $$
 	\delta\_k(x) = x \frac {\mu\_k} {\sigma\^2} - \frac {\mu\_k\^2} {2 \sigma\^2} + \log(\pi\_k) 
 $$
 
-**Claim**: Maximizing \\( p\_k(x) \\) is equivalent to maximizing \\( \delta\_k(x) \\).
+**Claim:** Maximizing \\( p\_k(x) \\) is equivalent to maximizing \\( \delta\_k(x) \\).
 
-**Proof**:
+**Proof:**
 
 Let \\( x \\) remain fixed and observe that we are maximizing over the parameter \\( k \\). Suppose that \\( \delta\_k(x) \geq \delta\_i(x) \\). We will show that \\( f\_k(x) \geq f\_i(x) \\).
 
