@@ -90,9 +90,9 @@ Hint: For this problem, you should follow the arguments laid out in Section 4.4.
 
 再根据 P141，我们可以得出说 "A Bayes' classifier is linear" 的逻辑其实是：The Bayes' classifier, a function of \\( k \\), is linear because its discriminant function for a certain class \\( k \\), \\( \delta\_k(X) \\), is a linear function of \\( X \\). 非常非常的绕。
 
-这道题的思路，hint 已经说得很清楚了，还是以 P139 的 (4.11) 起手，只是不能用 \\( \sigma\^2\_1 = \cdots = \sigma\^2\_k \\) 来得出 (4.12)，需要自己算出来一个新的 \\( p\_k(X) \\)，然后再推导到一个新的 \\( \delta\_k(X) \\)，证明这个 \\( \delta\_k(X) \\) 是 quadratic of \\( X \\)。
-
 这也提醒我们在遇到 max 的时候要自问一下是 "max among what?"。
+
+至于这道题的思路，hint 已经说得很清楚了，还是以 P139 的 (4.11) 起手，只是不能用 \\( \sigma\^2\_1 = \cdots = \sigma\^2\_k \\) 来得出 (4.12)，需要自己算出来一个新的 \\( p\_k(X) \\)，然后再推导到一个新的 \\( \delta\_k(X) \\)，证明这个 \\( \delta\_k(X) \\) 是 quadratic of \\( X \\)。
 
 -----
 
