@@ -71,7 +71,7 @@ In essence, statistical learning refers to a set of approaches for estimating \\
 
 There are two main reasons that we may wish to estimate f: prediction and inference.
 
-简单说就是：prediction 注重结果（一个预测的 \\( Y \\) 值），inference 注重关系（比如：哪个 X_j 最重要？X_j 与 \\( Y \\) 是正相关还是负相关？）
+简单说就是：prediction 注重结果（一个预测的 \\( Y \\) 值），inference 注重关系（比如：哪个 \\( X_j \\) 最重要？\\( X_j \\) 与 \\( Y \\) 是正相关还是负相关？）
 
 #### <a name="Prediction"></a>1.1.1 For Prediction
 
