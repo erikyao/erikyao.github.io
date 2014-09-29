@@ -31,7 +31,7 @@ Residual \\( e \\):
 * 严格来说是 "observed \\( Y \\)" 与 "fitted (predicted) \\( Y \\)" 之间的差距。简单说就是你 data set 里的 \\( Y \\) 和你模型预测出来的 \\( Y \\) 值的差，training error 和 test error 说的就是这，它是真实可测的。
 * 可以看做是 (i) 和 (iii) 之间的问题
 
-[What is the difference between the stochastic error term and the residual?](http://www.answers.com/Q/What_is_the_difference_between_the_stochastic_error_term_and_the_residual) 这里有水友总结得还不错：
+[What is the difference between the stochastic error term and the residual?](http://www.answers.com/Q/What_is_the_difference_between_the_stochastic_error_term_and_the_residual) 这里的水友总结得还不错：
 
 > ..... Error term is theoretical concept that can never be observed, but the residual is a real-world value that is calculated for each observation every time a regression is run. The residual can be thought of as an estimate of the error term, and \\( \epsilon \\) could have been denoted by \\( \hat e \\).
 
