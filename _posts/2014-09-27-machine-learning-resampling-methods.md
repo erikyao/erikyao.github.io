@@ -7,7 +7,7 @@ tags: [ML-101]
 ---
 {% include JB/setup %}
 
-Exercises of Chapter 5, An Introduction to Statistical Learning.
+总结自 Chapter 5, An Introduction to Statistical Learning.
 
 -----
 
