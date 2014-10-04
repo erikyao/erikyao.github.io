@@ -76,7 +76,7 @@ In this chapter, we discuss three important alternatives.
 * Dimension Reduction: 
 	* projecting the \\( p \\) predictors into a \\( M \\)-dimensional subspace, where \\( M < p \\)
 	* by computing M different linear combinations, or projections, of the variables
-	* 说得这么玄乎其实就是 PCA
+	* 说得这么玄乎其实就是 PCA 那些
 	
 ## <a name="SS"></a>1. Subset Selection
 
