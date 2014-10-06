@@ -226,7 +226,7 @@ $$
 where \\( \lambda \\) is a nonnegative **tuning parameter**. The function g that minimizes \\( (\ref{eq5.1}) \\) is known as a **smoothing spline**.
 
 * \\( \sum\_{i=1}\^n {(y\_i - g(x\_i))\^2} \\) is a **loss funtion**
-* \\( \lambda \int {g''(t)\^2 \, dt} \\) is a **penalty term*8
+* \\( \lambda \int {g''(t)\^2 \, dt} \\) is a **penalty term**
 
 Broadly speaking, the 2^nd derivative of a function is a measure of its **roughness**: it is large in absolute value if \\( g(t) \\) is very wiggly near \\( t \\), and it is close to zero otherwise. (E.g. The 2^nd derivative of a straight line, which is perfectly smooth, is zero.)
 
