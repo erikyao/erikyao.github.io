@@ -173,8 +173,8 @@ We want to maximize the posterior, this means:
 
 $$
 \begin{aligned} 
-	&\max\_\beta \, f(\beta \mid X, Y) \\\\
-	&= \max\_\beta \, \log \left[ \left( \frac{ 1 }{ \sigma \sqrt{2\pi} } \right)\^n \left( \frac{ 1 }{ 2b } \right) \right] - \left( \frac{ 1 }{ 2\sigma\^2 } \sum\_{i = 1}\^{n} \left \\| Y\_i - (\beta\_0 + \sum\_{j = 1}\^{p} \beta\_j X\_{ij}) \right \\|\^2 + \frac{ \lvert \beta \rvert }{ b } \right) 
+	& \arg \max\_\beta \, f(\beta \mid X, Y) \\\\
+	&= \arg \max\_\beta \, \log \left[ \left( \frac{ 1 }{ \sigma \sqrt{2\pi} } \right)\^n \left( \frac{ 1 }{ 2b } \right) \right] - \left( \frac{ 1 }{ 2\sigma\^2 } \sum\_{i = 1}\^{n} \left \\| Y\_i - (\beta\_0 + \sum\_{j = 1}\^{p} \beta\_j X\_{ij}) \right \\|\^2 + \frac{ \lvert \beta \rvert }{ b } \right) 
 \end{aligned} 
 $$
 
@@ -182,9 +182,9 @@ Since we are taking the difference of two values, the maximum of this value is t
 
 $$ 
 \begin{aligned} 
-	&= \min\_\beta \, \frac{ 1 }{ 2\sigma\^2 } \sum\_{i = 1}\^{n} \left[ Y\_i - (\beta\_0 + \sum\_{j = 1}\^{p} \beta\_j X\_{ij}) \right]\^2 + \frac{ \lvert \beta \rvert }{ b } \\\\ 
-	&= \min\_\beta \, \frac{ 1 }{ 2\sigma\^2 } \sum\_{i = 1}\^{n} \left[ Y\_i - (\beta\_0 + \sum\_{j = 1}\^{p} \beta\_j X\_{ij}) \right]\^2 + \frac{ 1 }{ b } \sum\_{j = 1}\^{p} \lvert \beta\_j \rvert \\\\ 
-	&= \min\_\beta \, \frac{ 1 }{ 2\sigma\^2 } \left( \sum\_{i = 1}\^{n} \left[ Y\_i - (\beta\_0 + \sum\_{j = 1}\^{p} \beta\_j X\_{ij}) \right]\^2 + \frac{ 2\sigma\^2 }{ b } \sum\_{j = 1}\^{p} \lvert \beta\_j \rvert \right)
+	&= \arg \min\_\beta \, \frac{ 1 }{ 2\sigma\^2 } \sum\_{i = 1}\^{n} \left[ Y\_i - (\beta\_0 + \sum\_{j = 1}\^{p} \beta\_j X\_{ij}) \right]\^2 + \frac{ \lvert \beta \rvert }{ b } \\\\ 
+	&= \arg \min\_\beta \, \frac{ 1 }{ 2\sigma\^2 } \sum\_{i = 1}\^{n} \left[ Y\_i - (\beta\_0 + \sum\_{j = 1}\^{p} \beta\_j X\_{ij}) \right]\^2 + \frac{ 1 }{ b } \sum\_{j = 1}\^{p} \lvert \beta\_j \rvert \\\\ 
+	&= \arg \min\_\beta \, \frac{ 1 }{ 2\sigma\^2 } \left( \sum\_{i = 1}\^{n} \left[ Y\_i - (\beta\_0 + \sum\_{j = 1}\^{p} \beta\_j X\_{ij}) \right]\^2 + \frac{ 2\sigma\^2 }{ b } \sum\_{j = 1}\^{p} \lvert \beta\_j \rvert \right)
 \end{aligned} 
 $$
 
@@ -192,8 +192,8 @@ By letting \\( \lambda = \frac{2\sigma\^2}{b} \\), we can see that we end up wit
 
 $$ 
 \begin{aligned} 
-	&= \min\_\beta \, \sum\_{i = 1}\^{n} \left[ Y\_i - (\beta\_0 + \sum\_{j = 1}\^{p} \beta\_j X\_{ij}) \right]\^2 + \lambda \sum\_{j = 1}\^{p} \lvert \beta\_j \rvert \\\\ 
-	&= \min\_\beta \, \text{RSS} + \lambda \sum\_{j = 1}\^{p} \lvert \beta\_j \rvert 
+	&= \arg \min\_\beta \, \sum\_{i = 1}\^{n} \left[ Y\_i - (\beta\_0 + \sum\_{j = 1}\^{p} \beta\_j X\_{ij}) \right]\^2 + \lambda \sum\_{j = 1}\^{p} \lvert \beta\_j \rvert \\\\ 
+	&= \arg \min\_\beta \, \text{RSS} + \lambda \sum\_{j = 1}\^{p} \lvert \beta\_j \rvert 
 \end{aligned} 
 $$
 
@@ -258,8 +258,8 @@ We want to maximize the posterior, this means:
 
 $$
 \begin{aligned} 
-	&\max\_\beta \, f(\beta \mid X, Y) \\\\
-	&= \max\_\beta \, \log \left[ \left( \frac{ 1 }{ \sigma \sqrt{2\pi} } \right)\^n \left( \frac{ 1 }{ \sqrt{ 2c\pi } } \right)\^p \right] - \left( \frac{ 1 }{ 2\sigma\^2 } \sum\_{i = 1}\^{n} \left[ Y\_i - (\beta\_0 + \sum\_{j = 1}\^{p} \beta\_j X\_{ij}) \right]\^2 + \frac{ 1 }{ 2c } \sum\_{i = 1}\^{p} \beta\_i\^2 \right) 
+	& \arg \max\_\beta \, f(\beta \mid X, Y) \\\\
+	&= \arg \max\_\beta \, \log \left[ \left( \frac{ 1 }{ \sigma \sqrt{2\pi} } \right)\^n \left( \frac{ 1 }{ \sqrt{ 2c\pi } } \right)\^p \right] - \left( \frac{ 1 }{ 2\sigma\^2 } \sum\_{i = 1}\^{n} \left[ Y\_i - (\beta\_0 + \sum\_{j = 1}\^{p} \beta\_j X\_{ij}) \right]\^2 + \frac{ 1 }{ 2c } \sum\_{i = 1}\^{p} \beta\_i\^2 \right) 
 \end{aligned}
 $$
 
@@ -267,8 +267,8 @@ Since we are taking the difference of two values, the maximum of this value is t
 
 $$ 
 \begin{aligned} 
-	&= \min\_\beta \, \left( \frac{ 1 }{ 2\sigma\^2 } \sum\_{i = 1}\^{n} \left[ Y\_i - (\beta\_0 + \sum\_{j = 1}\^{p} \beta\_j X\_{ij}) \right]\^2 + \frac{ 1 }{ 2c } \sum\_{i = 1}\^{p} \beta\_i\^2 \right) \\\\ 
-	&= \min\_\beta \, \left( \frac{ 1 }{ 2\sigma\^2 } \right) \left( \sum\_{i = 1}\^{n} \left[ Y\_i - (\beta\_0 + \sum\_{j = 1}\^{p} \beta\_j X\_{ij}) \right]\^2 + \frac{ \sigma\^2 }{ c } \sum\_{i = 1}\^{p} \beta\_i\^2 \right) 
+	&= \arg \min\_\beta \, \left( \frac{ 1 }{ 2\sigma\^2 } \sum\_{i = 1}\^{n} \left[ Y\_i - (\beta\_0 + \sum\_{j = 1}\^{p} \beta\_j X\_{ij}) \right]\^2 + \frac{ 1 }{ 2c } \sum\_{i = 1}\^{p} \beta\_i\^2 \right) \\\\ 
+	&= \arg \min\_\beta \, \left( \frac{ 1 }{ 2\sigma\^2 } \right) \left( \sum\_{i = 1}\^{n} \left[ Y\_i - (\beta\_0 + \sum\_{j = 1}\^{p} \beta\_j X\_{ij}) \right]\^2 + \frac{ \sigma\^2 }{ c } \sum\_{i = 1}\^{p} \beta\_i\^2 \right) 
 \end{aligned} 
 $$
 
@@ -276,8 +276,8 @@ By letting \\( \lambda = \frac{\sigma\^2}{c} \\), we end up with:
 
 $$ 
 \begin{aligned} 
-	&= \min\_\beta \, \left( \frac{ 1 }{ 2\sigma\^2 } \right) \left( \sum\_{i = 1}\^{n} \left[ Y\_i - (\beta\_0 + \sum\_{j = 1}\^{p} \beta\_j X\_{ij}) \right]\^2 + \lambda \sum\_{i = 1}\^{p} \beta\_i\^2 \right) \\\\ 
-	&= \min\_\beta \, \text{RSS} + \lambda \sum\_{i = 1}\^{p} \beta\_i\^2 
+	&= \arg \min\_\beta \, \left( \frac{ 1 }{ 2\sigma\^2 } \right) \left( \sum\_{i = 1}\^{n} \left[ Y\_i - (\beta\_0 + \sum\_{j = 1}\^{p} \beta\_j X\_{ij}) \right]\^2 + \lambda \sum\_{i = 1}\^{p} \beta\_i\^2 \right) \\\\ 
+	&= \arg \min\_\beta \, \text{RSS} + \lambda \sum\_{i = 1}\^{p} \beta\_i\^2 
 \end{aligned} 
 $$
 
