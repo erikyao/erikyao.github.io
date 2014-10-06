@@ -133,8 +133,12 @@ words, there cannot be a jump when \\( X = c \\).
 P272 举的例子实际施加了三个 constraint：
 
 * the piecewise polynomials is continuous at \\( X = c \\) 
+	* 假设 \\( x < c \\) 时 \\( y = f\_1(x) \\)，\\( x \geq c \\) 时 \\( y = f\_2(x) \\)
+	* 要证明 continuous at \\( X = c \\)，等价于证明 \\( f\_1(c) = f\_2(c) \\)
 * the 1^st derivatives (一阶导数) of the piecewise polynomials are continuous at \\( X = c \\) 
+	* 等价于证明 \\( f'\_1(c) = f'\_2(c) \\)
 * the 2^nd derivatives (二阶导数) of the piecewise polynomials are continuous at \\( X = c \\) 
+	* 等价于证明 \\( f''\_1(c) = f''\_2(c) \\)
 * （具体怎么施加 constraint 书上没有说）
 
 这么做可以降低 degree of freedom：
