@@ -81,7 +81,11 @@ Training MSE 其实还是个挺常用的 Training Error。你在看到 MSE 前�
 
 ### 2.4 RSE 和 RMSE 是一回事
 
-这篇 [Correlation and Regression 的讲义](http://www.pitt.edu/~upjecon/MCG/STAT/Correlation.and.Regression.pdf) 里说：**RSE**, **Residual Standard Rrror**, is the phrase in R language which means RMSE. 也就是说
+这篇 [Correlation and Regression 的讲义](http://www.pitt.edu/~upjecon/MCG/STAT/Correlation.and.Regression.pdf) 里说：
+
+> **RSE**, **Residual Standard Rrror**, is the phrase in R language which means RMSE. 
+
+也就是说：
 
 $$
 	RSE = RMSE
