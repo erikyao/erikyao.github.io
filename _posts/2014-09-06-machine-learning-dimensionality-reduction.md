@@ -94,7 +94,7 @@ The structure of Z is:
 
 算法是：\\( x\^{(i)}\_{approx} = U_{reduce} * z\^{(i)} \\) (size = (nxk) * (kx1) = nx1)
 
-Vectorized formula is: \\( X_{apporx} = Z*U\_{reduce}\^T \\)
+Vectorized formula is: \\( X_{approx} = Z*U\_{reduce}\^T \\)
 
 ## 5. Choosing the Number of Principal Components
 
