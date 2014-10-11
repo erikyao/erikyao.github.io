@@ -291,6 +291,8 @@ P396-399，阐述得很详细。
 
 还有一类 dissimilarity measures 是 correlation-based distance, which considers two observations to be similar if their features are highly correlated, even though the observed values may be far apart in terms of Euclidean distance.
 
+It turns out that these two measures are almost equivalent: if each observation has been scaled to have mean 0 and standard deviation 1, and if we let \\( r\_{ij} \\) denote the correlation between the i^th and j^th observations, then the quantity \\( 1 - r\_{ij} \\) is proportional to the squared Euclidean distance between the i^th and j^th observations.
+
 另外是否要做 scaling 也是值得考虑的问题，一般都是按 application 实际情况决定。具体的例子见 P398-399。
 
 ### <a name="Practical-Clust"></a>3.3 Practical Issues in Clustering
