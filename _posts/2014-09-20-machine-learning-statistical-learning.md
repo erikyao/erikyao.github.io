@@ -1,6 +1,6 @@
 ---
 layout: post-mathjax
-title: "Machine-Learning: Statistical Learning"
+title: "Machine Learning: Statistical Learning"
 description: ""
 category: Machine-Learning
 tags: [ML-101]

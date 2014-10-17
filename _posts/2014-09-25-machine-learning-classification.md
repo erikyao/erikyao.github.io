@@ -1,6 +1,6 @@
 ---
 layout: post-mathjax
-title: "Machine-Learning: Classification"
+title: "Machine Learning: Classification"
 description: ""
 category: Machine-Learning
 tags: [ML-101]

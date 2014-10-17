@@ -1,6 +1,6 @@
 ---
 layout: post-mathjax
-title: "Machine-Learning: Linear Model Selection and Regularization - Part 1"
+title: "Machine Learning: Linear Model Selection and Regularization - Part 1"
 description: ""
 category: Machine-Learning
 tags: [ML-101]

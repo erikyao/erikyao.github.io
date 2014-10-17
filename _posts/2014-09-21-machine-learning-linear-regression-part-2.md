@@ -1,6 +1,6 @@
 ---
 layout: post-mathjax
-title: "Machine-Learning: Linear Regression - Part 2"
+title: "Machine Learning: Linear Regression - Part 2"
 description: ""
 category: Machine-Learning
 tags: [ML-101]
