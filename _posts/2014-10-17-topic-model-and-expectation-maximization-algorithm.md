@@ -1,6 +1,6 @@
 ---
 layout: post-mathjax
-title: "Topic Model, Expectation-Maximization Algorithm and PLSA"
+title: "Topic Model and Expectation-Maximization Algorithm"
 description: ""
 category: Machine-Learning
 tags: [ML-101]
@@ -56,7 +56,7 @@ One advantage of using latent variables is that it reduces the dimensionality of
 * \\( w \\) 表示 word
 * \\( z \\) 表示 topic
 * \\( P(w|d) \\) 表示词语 \\( w \\) 在文档 \\( d \\) 中出现的概率
-* \\( P(w|z) \\) 表示在给定主题 \\( z \\) 的情况下词语 \\( w \\) 出现的概率（topic model 的计算目标）
+* \\( P(w|z) \\) 表示在给定主题 \\( z \\) 的情况下词语 \\( w \\) 出现的概率
 * \\( P(z|d) \\) 表示文档 \\( d \\) 中每个主题 \\( z \\) 出现的概率
 
 于是有：
@@ -65,7 +65,9 @@ $$
 	P(w|d) = \sum\_z{P(w|z)\,P(z|d)}
 $$
 
-Topic Model 的一种，PLSA (Probabilistic Latent Semantic Analysis)，就是使用的 EM 算法来算的 \\( P(w|z) \\)。下面我们先介绍 EM 算法。
+所谓 Topic Model 就是利用大量已知的 \\( P(w|d) \\) 来训练 \\( P(z|d) \\) 以及 \\( P(w|z) \\)。
+
+Topic Model 的一种，PLSA (Probabilistic Latent Semantic Analysis)，是使用的 EM 算法来算的。下面我们先介绍 EM 算法。
 
 ## 3. Expectation-Maximization Algorithm
 
