@@ -1,6 +1,6 @@
 ---
 layout: post-mathjax
-title: "Machine Learning: Moving Beyond Linearity"
+title: "ISL: Moving Beyond Linearity"
 description: ""
 category: Machine-Learning
 tags: [ML-101]

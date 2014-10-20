@@ -1,7 +1,7 @@
 ---
 layout: post-mathjax
 title: "Machine Learning: Dimensionality Reduction"
-description: ""
+description: "A Note from Ng"
 category: Machine-Learning
 tags: [ML-101]
 ---

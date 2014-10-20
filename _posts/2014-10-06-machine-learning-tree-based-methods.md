@@ -1,6 +1,6 @@
 ---
 layout: post-mathjax
-title: "Machine Learning: Tree Based Methods"
+title: "ISL: Tree Based Methods"
 description: ""
 category: Machine-Learning
 tags: [ML-101]

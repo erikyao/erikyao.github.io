@@ -1,6 +1,6 @@
 ---
 layout: post-mathjax
-title: "Machine Learning: Support Vector Machines"
+title: "ISL: Support Vector Machines"
 description: ""
 category: Machine-Learning
 tags: [ML-101]

@@ -1,6 +1,6 @@
 ---
 layout: post-mathjax
-title: "Machine Learning: Resampling Methods"
+title: "ISL: Resampling Methods"
 description: ""
 category: Machine-Learning
 tags: [ML-101]

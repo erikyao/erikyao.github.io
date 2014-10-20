@@ -1,6 +1,6 @@
 ---
 layout: post-mathjax
-title: "Machine Learning: Classification - Conceptual Exercises"
+title: "ISL: Classification - Conceptual Exercises"
 description: ""
 category: Machine-Learning
 tags: [ML-101]

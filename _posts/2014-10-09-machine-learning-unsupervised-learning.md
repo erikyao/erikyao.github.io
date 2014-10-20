@@ -1,6 +1,6 @@
 ---
 layout: post-mathjax
-title: "Machine Learning: Unsupervised Learning"
+title: "ISL: Unsupervised Learning"
 description: ""
 category: Machine-Learning
 tags: [ML-101]
