@@ -2,8 +2,8 @@
 layout: post
 title: "What are Confounding Factors and How do they Affect Studies?"
 description: ""
-category: Statistics  
-tags: [Theory, Theory-Statistics]  
+category: Math 
+tags: [Math-Statistics]  
 ---  
 {% include JB/setup %}  
   

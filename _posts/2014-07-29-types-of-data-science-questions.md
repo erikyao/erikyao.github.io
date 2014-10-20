@@ -2,8 +2,8 @@
 layout: post
 title: "Types of Data Science Questions"
 description: ""
-category: Data-Science
-tags: [Theory, Theory-DS]
+category: Machine-Learning
+tags: [ML-101]
 ---
 {% include JB/setup %}
 

@@ -2,8 +2,8 @@
 layout: post  
 title: "What are the differences among different study designs, and what are the relative advantages of each?"  
 description: ""  
-category: Statistics  
-tags: [Theory, Theory-Statistics]  
+category: Math 
+tags: [Math-Statistics] 
 ---  
 {% include JB/setup %}  
   
