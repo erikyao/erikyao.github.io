@@ -156,7 +156,7 @@ $$
 	&= \frac{P(x\^{(i)},z\^{(j)}|\theta)}{c} \\\\
 	&= \frac{P(x\^{(i)},z\^{(j)}|\theta)}{\sum\_j{P(x\^{(i)},z\^{(j)}|\theta)}} \\\\
 	&= \frac{P(x\^{(i)},z\^{(j)}|\theta)}{P(x\^{(i)}|\theta)} \\\\
-	&= P(z\^{(j)}|x\^{(i)}, \theta)
+	&= P(z\^{(j)}|x\^{(i)}; \theta)
 \end{aligned} 
 $$
 
@@ -164,7 +164,7 @@ $$
 
 repeat until convergence:
 
-* (Step _E_) for every \\( j \\), computer \\( Q(z\^{(j)}) := P(z\^{(j)}|x\^{(i)}, \theta) \\) 
+* (Step _E_) for every \\( j \\), computer \\( Q(z\^{(j)}) := P(z\^{(j)}|x\^{(i)}; \theta) \\) 
 * (Step _M_) computer \\( \theta := \arg \max\_{\theta} \sum\_{i}{\sum\_{j}{Q(z\^{(j)}) \ln \frac{P(x\^{(i)},z\^{(j)}|\theta)}{Q(z\^{(j)})}}} \\)
 
 ## 4. PLSA
