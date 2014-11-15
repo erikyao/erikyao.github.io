@@ -69,10 +69,10 @@ Factors represent a very efficient way to store character values, because each u
 
 ordered：logical flag to determine if the levels should be regarded as ordered (in the order given). 感觉就是是标记参数，为 TRUE 时就好像在宣称：我这个 factor 是 Ordered 的哟
 
-> fdata = factor(data, levels=c(2, 1, 3), ordered=TRUE)
-> fdata
- [1] 1 1 1 1 2 2 2 2 2 3 3 3 3 3 3
-Levels: 2 < 1 < 3
+	> fdata = factor(data, levels=c(2, 1, 3), ordered=TRUE)
+	> fdata
+	 [1] 1 1 1 1 2 2 2 2 2 3 3 3 3 3 3
+	Levels: 2 < 1 < 3
 
 这个 2 < 1 < 3 是逻辑排序，并不是表示大小关系，你可以理解为是一种人为定的 sequence。
 
@@ -129,6 +129,7 @@ Although the months clearly have an ordering, this is not reflected in the outpu
 			
 While it may be necessary to convert a numeric variable to a factor for a particular application, it is often very useful to convert the factor back to its original numeric values, since even simple arithmetic operations will fail when using factors. Since the as.numeric function will simply return the internal integer values of the factor, the conversion must be done using the levels attribute of the factor.
 Suppose we are studying the effects of several levels of a fertilizer on the growth of a plant. For some analyses, it might be useful to convert the fertilizer levels to an ordered factor:
+
 	> fert = c(10,20,20,50,10,20,10,50,20)
 	> fert = factor(fert,levels=c(10,20,50),ordered=TRUE)
 	> fert
