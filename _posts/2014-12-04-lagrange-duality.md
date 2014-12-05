@@ -62,8 +62,7 @@ where
 
 ## 1. The Lagrangian
 
-Given a convex constrained minimization problem
-of the form \\( (\ref{eqopt}) \\), the (generalized) Lagrangian is a function \\( L : \mathbb{R}\^{n} \times \mathbb{R}\^{m} \times \mathbb{R}\^{p} \rightarrow \mathbb{R} \\) defined as
+Given a convex constrained minimization problem of the form \\( (\ref{eqopt}) \\), the (generalized) Lagrangian is a function \\( L : \mathbb{R}\^{n} \times \mathbb{R}\^{m} \times \mathbb{R}\^{p} \rightarrow \mathbb{R} \\) defined as
 
 $$
 \begin{aligned}
