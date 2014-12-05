@@ -167,7 +167,7 @@ $$
 
 $$
 \begin{aligned}
-	k(x, x') = \left \langle \phi(x),\phi(x') \right \rangle
+	K(x, x') = \left \langle \phi(x),\phi(x') \right \rangle
 	\tag{9}
 	\label{eq9}
 \end{aligned}
