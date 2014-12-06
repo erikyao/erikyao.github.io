@@ -176,3 +176,71 @@ $$
 除了上一节末尾说的计算方便之外，kernel 还有一个作用就是：我现在可以不用关心 \\( \phi \\) 具体是个什么函数，我只要把 \\( \left \langle \phi(x\^{(i)}),\phi(x) \right \rangle \\) 设计出来就可以了。类似于 "屏蔽底层技术细节"。
 
 最后，我觉得 kernel 的命名应该是 "kernel of discriminant function" 的意思。
+
+## 5. Kernel Examples
+
+### 5.1 Popular Kernels
+
+Popular choices for \\( K \\) in the SVM literature are:
+
+* linear kernel: \\( K(x, x') = \left \langle x,x' \right \rangle \\)
+	* 相当于没有用 \\( \phi \\) 或者 \\( \phi(x) = x \\)
+* dth-Degree polynomial kernel:
+	* homogeneous: \\( K(x, x') = \left \langle x,x' \right \rangle\^d \\)
+	* inhomogeneous: \\( K(x, x') = (1 + \left \langle x,x' \right \rangle)\^d \\)
+* Gaussian kernel: \\( K(x, x') = \exp(-\frac{\left \\| x-x' \right \\|\^2}{2 \sigma\^2}) \\)
+* Radial basis kernel: \\( K(x, x') = \exp(-\gamma \left \\| x-x' \right \\|\^2) \\)
+* Neural network kernel: \\( K(x, x') = tanh(k\_1 \left \langle x,x' \right \rangle + k\_2) \\)
+	* tanh is hyperbolic tangent
+	* \\( sinh(x) = \frac{e\^x - e\^{-x}}{2} \\)
+	* \\( cosh(x) = \frac{e\^x + e\^{-x}}{2} \\)
+	* \\( tanh(x) = \frac{sinh(x)}{cosh(x)} = \frac{e\^x - e\^{-x}}{e\^x + e\^{-x}} \\)
+	
+### 5.2 Kernels for Sequences
+
+[Support Vector Machines and Kernels for Computational Biology](http://www.ploscompbiol.org/article/info:doi/10.1371/journal.pcbi.1000173) P12 说到了，我就简单写一下。
+
+#### 5.2.1 Kernels Describing \\( \ell \\)-mer Content
+
+我们要做的就是把一个 sequence 映射到 feature space 的一个 vector。我们可以这样设计 feature coding：
+
+* 考虑所有的 dimer，以 ACGT 的顺序，\\( x\_1 \\) 表示 AA 的个数，\\( x\_2 \\) 表示 AC 的个数，……，\\( x\_{16} \\) 表示 TT 的个数
+* 如果要区分 intron 和 exon 的话，那么可以设计成：\\( x\_1 \\) 表示 intronic AA 的个数，……，\\( x\_{16} \\) 表示 intronic TT 的个数，\\( x\_{17} \\) 表示 exonic AA 的个数，……，\\( x\_{32} \\) 表示 exonic TT 的个数
+* 比如一个 sequence 是 intro ACT，那么就只有 intronic AC 和 intronic CT 上是两个 1，其余全 0。这样的一个 vector 称为 sequence 的 spectrum
+
+我们把 sequence 映射到 \\( \ell \\)-mer spectrum 的函数命名为 \\( \Phi\_{\ell}\^{spectrum}(x) \\)，于是可以得到一个 spectrum kernel：
+
+$$
+\begin{aligned}
+	K\_{\ell}\^{spectrum}(x, x') = \left \langle \Phi\_{\ell}\^{spectrum}(x) ,\Phi\_{\ell}\^{spectrum}(x')  \right \rangle
+	\tag{10}
+	\label{eq10}
+\end{aligned}
+$$
+
+Since the spectrum kernel allows no mismatches, when \\( \ell \\) is sufficiently long the chance of observing common occurrences becomes small and the kernel will no longer perform well. This problem is alleviated if we use the mixed spectrum kernel:
+
+$$
+\begin{aligned}
+	K\_{\ell}\^{mixedspectrum}(x, x') = \sum\_{d=1}\^{\ell}{\beta\_d K\_{d}\^{spectrum}(x, x')}
+	\tag{11}
+	\label{eq11}
+\end{aligned}
+$$
+
+where \\( \beta\_d \\) is a weighting for the different substring lengths.
+
+#### 5.2.2 Kernels Using Positional Information
+
+Analogous to Position Weight Matrices (PWMs), the idea is to analyze sequences of fixed length \\( L \\) and consider substrings starting at each position \\( l = 1 ,\cdots,L \\) separately, as implemented by the so-called weighted degree (WD) kernel:
+
+$$
+\begin{aligned}
+	K\_{\ell}\^{weighteddegree}(x, x') = \sum\_{l=1}\^{L}{\sum\_{d=1}\^{\ell}{\beta\_d K\_{d}\^{spectrum}(x\_{[l:l+d]}, x'\_{[l:l+d]})}}
+	\tag{12}
+	\label{eq12}
+\end{aligned}
+$$
+
+where \\( x\_{[l:l+d]} \\) is the substring of length \\( d \\) at position \\( l \\). A suggested setting for \\( \beta\_d \\) is \\( \beta\_d = \frac{2(\ell-d+1)}{\ell\^2 + \ell} \\).
+
