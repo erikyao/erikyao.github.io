@@ -3,7 +3,7 @@ layout: post-mathjax
 title: "Support Vector Machines and Kernels"
 description: ""
 category: Machine-Learning
-tags: [ML-101]
+tags: [ML-101, BioInformatics-101]
 ---
 {% include JB/setup %}
 
