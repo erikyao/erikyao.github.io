@@ -112,7 +112,13 @@ Now given a new data point \\( x \\). If \\( h\_{\ell}(x) = 0 \\), then each cla
 
 ## 3. Comparing Different Ensemble Methods
 
-Omitted here.
+前面讲了 ensemble 比 individual 好的原因有 Statistical、Computational 和 Representational 三个方面，换个说法就是 ensemble 相比 individual 解决了 Statistical、Computational 和 Representational 这三个方面的问题。在比较 ensemble 的时候可以用这个观点来阐述，因为有的 ensemble 只解决了一个问题，有的解决了两个 etc.
+
+overfitting 也和这几个问题有关。
+
+还有些比较的结果是由于算法自身的其他性质造成的。
+
+具体见 papar。
 
 ## 4. Conclusions
 
