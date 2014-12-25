@@ -2,8 +2,8 @@
 layout: post
 title: "Signal Peptide & Protein Targeting"
 description: ""
-category: 
-tags: []
+category: Biology
+tags: [Biology-101]
 ---
 {% include JB/setup %}
 
