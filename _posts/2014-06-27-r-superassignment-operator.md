@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "R <<- operator"
+title: "R &lt;&lt;- operator"
 description: ""
 category: R
 tags: [R-101]

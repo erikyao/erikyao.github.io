@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "R Data Types - Part 1: Basis, Vectors, Matrices & Lists"
+title: "R Data Types - Part 1: Basis, Vectors, Matrices &amp; Lists"
 description: ""
 category: R
 tags: [R-101]
