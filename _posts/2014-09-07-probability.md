@@ -61,7 +61,7 @@ Part 3 of the definition implies **finite additivity**: \\( P(\bigcup\_{i=1}^{n}
 * Continuous random variable can take any value on the real line or some subset of the real line.
 	* \\( P(X \in A) \\)
 
-## 6. PMF: Probablity Mass Function
+## 6. PMF: Probability Mass Function
 
 A PMF evaluated at a value corresponds to the probability that a random variable takes that value (我觉得你可以理解为 \\( p(x) = P(X = x) \\)). 
 
@@ -74,7 +74,7 @@ E.g., let _X_ be the result of a coin flip where _X_ = 0 represents tails and _X
 
 -> \\( p(x) = \theta\^x (1 - \theta)\^{1-x},\, \text{for x = 0,1} \\)<-
 
-## 7. PDF: Probablity Density Function
+## 7. PDF: Probability Density Function
 
 A PDF, is a function associated with a continuous random variable.  
 
@@ -105,7 +105,7 @@ For continuous random variables, the PDF is the derivative of the CDF, i.e. \\(f
 
 More details in wikipedia [Beta distribution](http://en.wikipedia.org/wiki/Beta_distribution).  
 
-If \\( x \in [0, 1] \\) and \\( X \sim Beta(\alpha,\beta) \\), 我们称 _X_ 满足 \\( \alpha, \beta \\) 控制的 beta 分布。\\( \alpha, \beta > 0\\) and are both real number, a.k.a "shape paremeters".  
+If \\( x \in [0, 1] \\) and \\( X \sim Beta(\alpha,\beta) \\), 我们称 _X_ 满足 \\( \alpha, \beta \\) 控制的 beta 分布。\\( \alpha, \beta > 0\\) and are both real number, a.k.a "shape parameters".  
 
 PDF is defined as \\( f(x|\alpha,\beta) = \frac{x\^{\alpha-1} (1-x)\^{\beta-1}}{B(\alpha, \beta)} \\)
 
