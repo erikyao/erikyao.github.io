@@ -18,9 +18,9 @@ tags: [Math-Statistics]
 ### 1.1 Definition
 
 - Bernoulli random variables take a binary outcome, i.e. the value 1 or 0, with probabilities of _**p**_ and _**1-p**_ respectively
-- The PMF for a Bernoulli random variable _X_ is \\( P(X=x) = p\^x (1-p)\^{1-x} \\)
+- The PMF for a Bernoulli random variable \\( X \\)  is \\( P(X=x) = p\^x (1-p)\^{1-x} \\)
 - The mean of a Bernoulli random variable is \\( \mu = p \\) and the variance is \\( \sigma\^2 = p(1-p) \\)
-- If we let _X_ be a Bernoulli random variable, it is typical to call _**X=1**_ as a "success" and _**X=0**_ as a "failure"
+- If we let \\( X \\)  be a Bernoulli random variable, it is typical to call \\( X=1 \\) as a "success" and \\( X=0 \\) as a "failure"
 
 ### 1.2 Binomial trials
 
@@ -53,7 +53,7 @@ Recall that the notation
       n \\\\ x
     \end{array}
   \right) = \frac{n!}{x!(n-x)!}
-  $$ (read "n choose x") (BTW, n! reads "n factorial") counts the number of ways of selecting _**x**_ items out of _**n**_ without replacement disregarding the order of the items, i.e. \\( C\_n\^x \\). Specially, 
+  $$ (read "n choose x") (BTW, \\( n! \\) reads "n factorial") counts the number of ways of selecting \\( x \\) items out of \\( n \\) without replacement disregarding the order of the items, i.e. \\( C\_n\^x \\). Specially, 
 
   $$\left(
     \begin{array}{c}
@@ -93,24 +93,24 @@ pbinom(6, size = 8, prob = .5, lower.tail = FALSE) ## if lower.tail=TRUE (defaul
 ## [1] 0.03516
 </pre>
 
-## 2. The normal distribution
+## 2. The normal (Gaussian) distribution
 
 ### 2.1 Definition
 
 - A random variable is said to follow a **normal** or **Gaussian** distribution with mean \\( \mu \\) and variance \\( \sigma\^2 \\) if the associated density is
   $$
-  (2\pi \sigma\^2)\^{-1/2}e\^{-(x - \mu)\^2/2\sigma\^2}
+	f(x) = \frac{1}{\sqrt{2 \pi \sigma\^2} } e\^{ - \frac{(x-\mu)\^2}{2 \sigma\^2} }
   $$
-  If _X_ is an RV (random variable) with this density, then \\( E[X] = \mu \\) and \\( Var(X) = \sigma\^2 \\)
+  If \\( X \\)  is an RV (random variable) with this density, then \\( E[X] = \mu \\) and \\( Var(X) = \sigma\^2 \\)
 - We write \\( X\sim \mbox{N}(\mu, \sigma\^2) \\)
 - When \\( \mu = 0 \\) and \\( \sigma = 1 \\), the resulting distribution is called **the standard normal distribution**
-- The standard normal density function is labeled \\( \phi(x) = (2\pi)\^{-1/2}e\^{-x\^2/2} \\)
-- Standard normal RVs are often labeled **Z**
+- The standard normal density function is labeled \\( \phi(x) = \frac{1}{\sqrt{2 \pi} } e\^{ - \frac{x\^2}{2} } \\)
+- Standard normal RVs are often labeled \\( Z \\)
 
 ### 2.2 Facts about the normal density
 
-- If \\( X \sim \mbox{N}(\mu,\sigma\^2) \\), then $$ Z = \frac{X - \mu}{\sigma} \sim \mbox{N}(0,1) $$ i.e. **Z** is standard normal
-- If **Z** is standard normal, then $$X = \mu + \sigma Z \sim \mbox{N}(\mu, \sigma\^2)$$
+- If \\( X \sim \mbox{N}(\mu,\sigma\^2) \\), then $$ Z = \frac{X - \mu}{\sigma} \sim \mbox{N}(0,1) $$ i.e. \\( Z \\) is standard normal
+- If \\( Z \\) is standard normal, then $$X = \mu + \sigma Z \sim \mbox{N}(\mu, \sigma\^2)$$
 - The non-standard normal density is $$\frac{\phi\(\frac{x - \mu}{\sigma})}{\sigma}$$
 
 <!-- -->
@@ -191,7 +191,7 @@ $$
 for \\( x=0,1,\ldots \\)
 * The mean of this distribution is \\( \mu = \lambda \\)
 * The variance of this distribution is \\( \sigma\^2 = \lambda \\)
-* Notice that _**x**_ ranges \\( [0,\infty] \\)
+* Notice that \\( x \\) ranges \\( [0,\infty] \\)
 
 ### 3.2 Some uses for the Poisson distribution
 
@@ -204,16 +204,16 @@ The Poisson distribution applies when:
 
 such as the number of times a firefly lights up in my garden in a given 5 seconds, some evening, but meaningless to ask how many such events have not occurred.
 
-When _**n**_ is large and _**p**_ is small:
+When \\( n \\) is large and \\( p \\) is small:
 
 * Poisson distribution can be used to approximate binomials 
 
 ### 3.3 Rates and Poisson random variables
 
 * Poisson random variables are used to model rates
-* If \\( X \sim Poisson(\lambda) \\) on 1 unit interval, then \\( Y \sim Poisson(k\lambda) \\) on _**k**_ unit intervals.
+* If \\( X \sim Poisson(\lambda) \\) on 1 unit interval, then \\( Y \sim Poisson(k\lambda) \\) on \\( k \\) unit intervals.
   * \\( \lambda = E[\frac{Y}{k}] \\) is the expected count per time unit (i.e. rate)
-  * _**k**_ means the total monitoring process takes _**k**_ time units
+  * \\( k \\) means the total monitoring process takes \\( k \\) time units
   
 ### 3.4 Exercise: Rate
 
@@ -226,12 +226,12 @@ ppois(3, lambda = 2.5 * 4)
 
 ### 3.5 Poisson approximation to the binomial
 
-* When _**n**_ is large and _**p**_ is small, the Poisson distribution is an accurate approximation to the binomial distribution
+* When \\( n \\) is large and \\( p \\) is small, the Poisson distribution is an accurate approximation to the binomial distribution
 * Notation
   * \\( X \sim \mbox{Binomial}(n, p) \\)
   * \\( \lambda = n p \\) and
-	  * _**n**_ gets large 
-	  * _**p**_ gets small
+	  * \\( n \\) gets large 
+	  * \\( p \\) gets small
 	  * \\( \lambda \\) stays constant
 
 
