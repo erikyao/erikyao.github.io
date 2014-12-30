@@ -57,7 +57,7 @@ Section 3.4 部分参考 [Reshaping data with the `reshape` package](http://had.
 		- [n^th quantile](#nth-quantile)
 	- [3.2.3 `table`](#table)
 	- [3.2.4 Checking NA](#check-NA)
-	- [3.2.5 Checking values with specific characteristics: 统计某单个变量的取值](#check-single-var)
+	- [3.2.5 Checking values with specific characteristics: 统计某单个变量的取值  (`%in%`)](#check-single-var)
 	- [3.2.6 Cross Tabulation (`xtabs`): 统计多个变量的取值组合](#xtab)
 		- [Flat Table (`ftable`): formatting xtabs](#ftable)
 	- [3.2.7 Calculating the size of a dataset](#data-size)
@@ -487,6 +487,8 @@ NA.1   NA   NA   NA
 df2 &lt;- data.frame(df$A, df$B) ## 直接拿你想要的 column 重新构造一个 data frame 就好了
 </pre>
 
+R 和 java 有一点不同的是 R 的构造器真的很强大，所以不要陷入 java 的思维去找单独的 extract 方法，灵活运用构造器可以带来很多惊喜。
+
 #### <a name="sort"></a>3.1.2 Sorting
 
 <pre class="prettyprint linenums">
@@ -498,6 +500,9 @@ df2 &lt;- data.frame(df$A, df$B) ## 直接拿你想要的 column 重新构造一
 [1]  6  7 10
 &gt; sort(X$var2, na.last=TRUE) ## put NA values at the end of the sort
 [1]  6  7 10 NA NA
+
+&gt; sort(c("CA", "TX", "AZ")) ## 不关是数字，alphabet 也可以排
+ [1] "AZ" "CA" "TX"
 </pre>
 
 #### <a name="order"></a>3.1.3 Ordering
@@ -520,9 +525,9 @@ df2 &lt;- data.frame(df$A, df$B) ## 直接拿你想要的 column 重新构造一
 1 2 10 11
 3 2  8 12
 5 3  9 13
-&gt; order(df$A, df$B) ## 按 df$A 升序排列，若 df$A 值相同，再按 df$B 升序排列
+&gt; order(df$A, df$B) ## 按 df$A 升序排列，若 df$A 值相同，再按 df$B 升序排列（多维排序）
 [1] 2 4 3 1 5
-&gt; df[order(df$A, df$B),]
+&gt; df[order(df$A, df$B),] ## 注意 order 只是返回一个 vector of row indexes，要得到排序后的 df 需要组合使用 df[order(df$xxx)]
   A  B  C
 2 1  6 14
 4 1  7 15
@@ -584,7 +589,7 @@ colnames(restData) ## == dimnames(restData)[[2]]
 rownames(restData) ## == dimnames(restData)[[1]]
 
 head(restData, n=3) ## n = 6 by default
-tail(restData, n=3)
+tail(restData, n=3) ## 此外还有个小技巧是：当 x 名字变得很长时，x[length(x)] 看得就会很心烦，此时可以用 tail(x, n=1) 来代替
 summary(restData)
 str(restData)
 </pre>
@@ -709,9 +714,9 @@ all(restData$zipCode > 0) ## 返回 TRUE / FALSE
 all(colSums(is.na(restData)) == 0) ## 当 column 太多时，colSums 看起来也不方便，这时用 all 就好了
 </pre>
 
-#### <a name="check-single-var"></a>3.2.5 Checking values with specific characteristics: 统计某单个变量的取值
+#### <a name="check-single-var"></a>3.2.5 Checking values with specific characteristics: 统计某单个变量的取值 (`%in%`)
 
-没啥好说的，注意 `%in%` 的用法就好。
+没啥好说的，注意 `%in%` 的用法就好（类似于 `collection.contains(obj)` 操作）。
 
 <pre class="prettyprint linenums">
 &gt; table(restData$zipCode %in% c("21212"))

@@ -7,48 +7,6 @@ tags: [R-101]
 ---
 {% include JB/setup %}
 
-## 1. 字符串处理
-
-### formatC: 格式化输出
-
-比如 `formatC(id, width=3, flag="0")` 输出长度为 3 的 id，不够长的填 0（比如 id = 1，则输出 "001"）。
-
-### paste: 字符串拼接
-
-比如 `paste("Hello", "world", sep=",")` 输出 "Hello,world"。
-
------
-
-## 2. 调试和编译
-
-### stop: 终止程序并显示错误信息
-
-比如我定义一个 `divide <- function(a, b)`，里面写了句 `if (b = 0) stop("cannot divide by 0")`，然后调用 `divide(5, 0)`，会出一句：
-
-	Error in divide(5, 0) : cannot divide by 0
-	
-### suppressWarnings: 去掉 warning
-
-注意用法：比如你调用 `x <- foo(bar)` 时 foo 产生了 warning，想去掉 warning 就可以把 `foo(bar)` 整个放到 suppressWarnings 里，变成这样：`x <- suppressWarnings(foo(bar))`，有点像 `system.time()` 的用法。
-	
------
-
-## 3. 集合与元素
-
-### %in%: 类似于 collection.contains(obj) 操作
-
-<pre class="prettyprint linenums">
-if (! state %in% allStates) {
-	stop("invalid state")
-}
-</pre>
-
-### tail(x, n=1): 可以代替 x[length(x)]
-
-当 x 名字变得很长时，`x[length(x)]` 看得就会很心烦；而且 tail 可以指定 n>1 输出倒数的多个元素。
-
------
-
 ## 4. 排序与遍历
 
 ### unique: 排除重复元素
@@ -58,24 +16,6 @@ if (! state %in% allStates) {
 &gt; unique(x)
 [1] 1 2 3 4 5 6
 </pre>
-
-### sort: 排序
-
-<pre class="prettyprint linenums">
-&gt; x &lt;- c(1:5, 2:6)
-&gt; sort(x)
- [1] 1 2 2 3 3 4 4 5 5 6
- 
-&gt; x &lt;- c("CA", "TX", "AZ")
-&gt; sort(x)
- [1] "AZ" "CA" "TX"
-</pre>
-
-### order: 多维排序
-
-比如 `order(csv$Rating, csv$Name)` 是先按 csv$Rating 升序排，对于 csv$Rating 相同的，再按 csv$Name 升序排列。  
-
-注意 order 只是返回一个 vector of row indexes，要得到排序后的 table 需要组合使用 `csv[order(csv$Rating, csv$Name), ]`。
 
 ### which.min: 找到 min 值所在的 index 或者行号；同理有 which.max
 
@@ -91,14 +31,6 @@ if (! state %in% allStates) {
 
 -----
 
-## 5. 构造 data frame
-
-### data.frame(df$A, df$B, df$C): 提取 df 的 column 构成新的 Data Frame
-
-R 和 java 有一点不同的是 R 的构造器真的很强大，所以不要陷入 java 的思维去找单独的 extract 方法，灵活运用构造器可以带来很多惊喜。
-
------
-
 ## 6. subset
 
 `data(airquality)` 之后（BTW，`data()` 可以查看所有内置的 dataset）：
@@ -109,7 +41,7 @@ R 和 java 有一点不同的是 R 的构造器真的很强大，所以不要陷
 &gt; airquality[airquality$Month == 8 & airquality$Temp &gt; 90, ]
 </pre>
 
-而且 [In R, why is `[` better than `subset`?](http://stackoverflow.com/questions/9860090/in-r-why-is-better-than-subset) 说 [] 确实是要比 subset 好，具体细看。  
+而且 [In R, why is \[ better than `subset`?](http://stackoverflow.com/questions/9860090/in-r-why-is-better-than-subset) 说 [] 确实是要比 subset 好，具体细看。  
 
 注意下这个逻辑，虽然 `airquality$Month` 是 column，但是 `airquality$Month == 8` 得到是一个长度为 nrow 的、值为 TRUE/FALSE 的 vector，`airquality[]` 根据这个 vector 过滤出值为 TRUE 的 row，所以 `airquality$Month == 8` 要放在 `[row,]` 的位置上。
 
