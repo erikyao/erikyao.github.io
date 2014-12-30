@@ -2,7 +2,7 @@
 layout: post-mathjax
 title: "EM method for identifying motifs in unaligned biopolymer sequences"
 description: ""
-category: 
+category: Machine-Learning
 tags: [ML-101, BioInformatics-101, Paper]
 ---
 {% include JB/setup %}
