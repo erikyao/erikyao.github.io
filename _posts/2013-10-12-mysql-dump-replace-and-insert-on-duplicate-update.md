@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "MySQL syntax ever used"
+title: "MySQL dump, replace and insert-on-duplicate-update"
 description: ""
 category: MySQL
 tags: [Database-101]
