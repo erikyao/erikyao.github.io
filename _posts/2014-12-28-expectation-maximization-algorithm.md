@@ -49,7 +49,7 @@ For many problems, however, it is not possible to find such analytical expressio
 
 The EM algorithm is one such elaborate technique. 
 
-The EM algorithm is a general method of finding the maximum-likelihood estimate of the parameters of an underlying distribution from a given data set when the data is incomplete or has missing values.
+**The EM algorithm is a general method of finding the maximum-likelihood estimate of the parameters of an underlying distribution from a given data set when the data is incomplete or has missing values**.
 
 There are two main applications of the EM algorithm. The first occurs when the **data indeed has missing values**, due to problems with or limitations of the observation process. The second occurs when optimizing the likelihood function is analytically intractable but when the likelihood function can be simplified by assuming the existence of and values for **additional but missing (or hidden) parameters**. The latter application is more common in the computational pattern recognition community.
 

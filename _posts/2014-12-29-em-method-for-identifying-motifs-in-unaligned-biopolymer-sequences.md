@@ -9,6 +9,8 @@ tags: [ML-101, BioInformatics-101, Paper]
 
 总结下 [Unsupervised Learning of Multiple Motifs in Biopolymers Using Expectation Maximization](http://link.springer.com/article/10.1007%2FBF00993379) 中的 EM 方法。
 
+我自己写的注释里，"motif" 和 "site" 这两个概念是混用的，可以等同视之。
+
 -----
 
 In this report we are concerned only with _**contiguous**_ [kənˈtɪgjuəs] motifs. That is, appearances of a motif may differ in point mutations, but insertions or deletions are not allowed. 
@@ -44,7 +46,7 @@ In the probabilistic model we use, we ignore the probability of the letters outs
 
 $$
 \begin{aligned}
-	P(S\_i|Y\_{ij}=1,poff) = \prod\_{k=1}\^{LSITE}{freq\_{l\_k,k}} 
+	P(S\_i|Y\_{ij}=1,poff\^{(q)}) = \prod\_{k=1}\^{LSITE}{freq\_{l\_k,k}} 
 \end{aligned}
 $$
 
@@ -63,13 +65,13 @@ This forms the basis of calculating \\( poff\^{(q)} \\)
 Define:
 
 * Event \\( A \\): \\( Y\_{ij} = 1 \\)
-* Event \\( B \\): \\( S\_i | freq \\) (given \\( freq \\) and we observed \\( S\_i \\))
+* Event \\( B \\): \\( S\_i | freq\^{(q)} \\) (given \\( freq\^{(q)} \\) and we observed \\( S\_i \\))
 
 Bayes' rule states that \\( P(A|B) = \frac{P(B|A)P(A)}{P(B)} \\), so 
 
 $$
 \begin{aligned}
-	poff\_{ij} = P(Y\_{ij}=1 | freq,S\_i) = \frac{P(S\_i|Y\_{ij}=1,freq)P\^0(Y\_{ij}=1)}{\sum\_{k=1}\^{L-LSITE+1}{P(S\_i|Y\_{ik}=1,freq)P\^0(Y\_{ik=1})}}
+	poff\_{ij}\^{(q)} = P(Y\_{ij}=1 | freq\^{(q)},S\_i) = \frac{P(S\_i|Y\_{ij}=1,freq\^{(q)})P\^0(Y\_{ij}=1)}{\sum\_{k=1}\^{L-LSITE+1}{P(S\_i|Y\_{ik}=1,freq\^{(q)})P\^0(Y\_{ik=1})}}
 \end{aligned}
 $$
 
@@ -87,7 +89,7 @@ so the above simplifies to
 
 $$
 \begin{aligned}
-	poff\_{ij} = P(Y\_{ij}=1 | freq,S\_i) = \frac{P(S\_i|Y\_{ij}=1,freq)}{\sum\_{k=1}\^{L-LSITE+1}{P(S\_i|Y\_{ik}=1,freq))}}
+	poff\_{ij}\^{(q)} = P(Y\_{ij}=1 | freq\^{(q)},S\_i) = \frac{P(S\_i|Y\_{ij}=1,freq\^{(q)})}{\sum\_{k=1}\^{L-LSITE+1}{P(S\_i|Y\_{ik}=1,freq\^{(q)}))}}
 \end{aligned}
 $$
 
@@ -104,4 +106,5 @@ where \\( fout\_l \\) is the frequency of the letter \\( l \\) in all positions 
 * 注 4：请仔细阅读这段话
 * 注 5：我们知道 binomial distribution 的情形是：黑球概率 \\( p\_1 \\)，白球概率 \\( p \_2 = 1 - p\_1 \\)，摸 \\( n \\) 次，黑球 \\( k_1 \\) 个，白球 \\( k_2 = n - k\_1 \\) 个的概率是 \\( C\_{k\_1 + k\_2}\^{k\_1} p\_1\^{k\_1} p\_2\^{k\_2} \\)。那么 multinomial 就是扩展到了多种颜色的球：假设球的颜色有 \\( m \\) 种，颜色为 \\( c\_i \\) 的球概率为 \\( p\_i \\)（\\( \sum\_{i=1}\^{m}{p\_i} = 1 \\)），还是摸 \\( n \\) 次，摸出 \\( k\_1 \\) 个 \\( c\_1 \\)，\\( k\_2 \\) 个 \\( c\_2 \\)，……，\\( k\_m \\) 个 \\( c\_m \\)（\\( \sum\_{j=1}\^{m}{k\_j} = n \\)）的概率是 \\( \frac{n!}{k\_1! \ldots k\_m!}p\_1\^{k\_1} \ldots p\_m\^{k\_m} \\) 
 * 注 6：这一段说了： motif model 是 multinomial，那么这里 letter 就是球，alphabet 就是球的颜色，\\( freq \\) 就是 \\( p\_i \\)
-* 注 7：这个式子拿出来得太快了。而且文章里的 EM 步骤是：先初始化 \\( freq \\)，然后根据 \\( freq \\) 计算 \\( poff \\)，接着反过来根据 \\( poff \\) 重新计算 \\( freq \\)，直到 \\( freq \\) 收敛。中间的细节还是没说清，我会在下一篇拿一个更详细的版本。
+* 注 7："The likelihood of the model given the training data is just the probability of the data given the model" 这一句看上去很屌的样子，其实说的就是 \\( \mathcal{L}(\Theta|\mathcal{X}) = p(\mathcal{X}|\Theta) \\)……
+* 注 8：这个式子拿出来得太快了。而且文章里的 EM 步骤是：先初始化 \\( freq \\)，然后根据 \\( freq \\) 计算 \\( poff \\)，接着反过来根据 \\( poff \\) 重新计算 \\( freq \\)，直到 \\( freq \\) 收敛。中间的细节还是没说清，我会在下一篇拿一个更详细的版本。
