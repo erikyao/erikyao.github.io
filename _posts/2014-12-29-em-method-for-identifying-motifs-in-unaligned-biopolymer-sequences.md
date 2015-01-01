@@ -34,7 +34,7 @@ Define:
 
 * \\( poff\_{ij} \\), offset probability, the probability that the site (motif) begins at position \\( j \\) in sequence \\( i \\)
 	* 可以把 \\( poff \\) 看做一个 \\( N \times L \\) 的 probability matrix
-	* 最简单的理解就是 \\( \poff = P\_{Y} \\)
+	* 最简单的理解就是 \\( poff = P\_{Y} \\)
 * \\( freq\_{lk} \\), (in-motif) letter frequency, the probability that letter \\( l \\) appearing in position \\( k \\) of the motif
 	* 可以把 \\( freq \\) 看做一个 \\( \left \\| \mathcal{L} \right \\| \times LSITE \\) 的 probability matrix
 * \\( S\_i \\), the \\( i\^{th} \\) sequence in the dataset
