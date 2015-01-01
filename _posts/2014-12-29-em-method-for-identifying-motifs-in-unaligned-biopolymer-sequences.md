@@ -34,7 +34,8 @@ Define:
 
 * \\( poff\_{ij} \\), offset probability, the probability that the site (motif) begins at position \\( j \\) in sequence \\( i \\)
 	* 可以把 \\( poff \\) 看做一个 \\( N \times L \\) 的 probability matrix
-* \\( freq\_{lk} \\), letter frequency, the probability that letter \\( l \\) appearing in position \\( k \\) of the motif
+	* 最简单的理解就是 \\( \poff = P\_{Y} \\)
+* \\( freq\_{lk} \\), (in-motif) letter frequency, the probability that letter \\( l \\) appearing in position \\( k \\) of the motif
 	* 可以把 \\( freq \\) 看做一个 \\( \left \\| \mathcal{L} \right \\| \times LSITE \\) 的 probability matrix
 * \\( S\_i \\), the \\( i\^{th} \\) sequence in the dataset
 * \\( S\_{ij} \\), the letter appearing in position \\( j \\) of \\( S\_i \\)
@@ -46,18 +47,22 @@ In the probabilistic model we use, we ignore the probability of the letters outs
 
 $$
 \begin{aligned}
-	P(S\_i|Y\_{ij}=1,poff\^{(q)}) = \prod\_{k=1}\^{LSITE}{freq\_{l\_k,k}} 
+	P(S\_i|Y\_{ij}=1,freq\^{(q)}) = \prod\_{k=1}\^{LSITE}{freq\_{l\_k,k}} 
 \end{aligned}
 $$
 
 This forms the basis of calculating \\( poff\^{(q)} \\)
 
-* 注 1：\\( l\_k \\) 表示 motif 第 \\( k \\) position 上的 letter。又因为 motif 从 \\( S\_{ij} \\) 开始（因为 \\( Y\_{ij} = 1 \\)），所以有：
+* 注 1：原文是 \\( P(S\_i|Y\_{ij}=1,poff\^{(q)}) = \cdots \\)，我觉得是错的，应该是 \\( P(S\_i|Y\_{ij}=1,freq\^{(q)}) = \cdots \\)，原因是：
+	* 文章说了：The standard EM algorithm use Bayes' rule to estimate \\( poff\^{(q)} \\) from \\( P(S\_i|Y\_{ij}=1,poff\^{(q)}) \\)（这里也写错了），这明显是不合理的，你已知了 \\( poff\^{(q)} \\) 求了个概率，然后还要反过来 estimate \\( poff\^{(q)} \\)，逻辑上不对。
+	* 后面 \\( poff\^{(q)} \\) 展开后，\\( P(S\_i|Y\_{ij}=1,poff\^{(q)}) \\) 对计算毫无帮助，只可能是 \\( P(S\_i|Y\_{ij}=1,freq\^{(q)}) \\) 才能带进去计算
+	* 原文还写了：…… calculate the probability of sequence \\( S\_i \\) given the motif and the model. This can be written as……然后接了这个式子。这里的 "and the model" 应该是指 the motif model，结合 `注 7` 也应该是 \\( P(S\_i|Y\_{ij}=1,freq\^{(q)}) \\)
+* 注 2：\\( l\_k \\) 表示 motif 第 \\( k \\) position 上的 letter。又因为 motif 从 \\( S\_{ij} \\) 开始（因为 \\( Y\_{ij} = 1 \\)），所以有：
 	* \\( k = 1, \, l\_1 = S\_{ij} \\)
 	* \\( k = 2, \, l\_2 = S\_{i,(j+1)} \\)
 	* ......
 	* \\( k = k, \, l\_k = S\_{i,(j+k-1)} \\)
-* 注 2：这段话让人困惑的地方在于 <font color="red">the probability of sequence</font> \\( S\_i \\)，有的文章里的写法是 the probability of observing sequence \\( S\_i \\)。我一开始没搞明白的是这到底是怎样的一个随机试验，怎么样才算时抽到了 \\( S\_i \\)。其实正确的思路是：
+* 注 3：这段话让人困惑的地方在于 <font color="red">the probability of sequence</font> \\( S\_i \\)，有的文章里的写法是 the probability of observing sequence \\( S\_i \\)。我一开始没搞明白的是这到底是怎样的一个随机试验，怎么样才算时抽到了 \\( S\_i \\)。其实正确的思路是：
 	* 比如考虑 \\( alphabet = \\{ A,C,T,G \\} \\)，观测到 \\( S\_{i} = AAA \\) 的概率是 \\( (\frac{1}{4})\^3 = \frac{1}{64} \\)。其实这里也是一样的。而且文章还说了 "ignore the probability of the letters outside of the motif"，所以只考虑 motif 那几个 letter 的概率就可以了
 	* \\( S\_i \\) 的 \\( i \\) 并没有参与这个随机试验，这也是个比较迷惑的地方。
 	* 以后有类似的第一眼看不明白的概率，把试验对象拆成小分子考虑，转成排列组合问题应该会更好理解一些。
@@ -75,7 +80,7 @@ $$
 \end{aligned}
 $$
 
-* 注 3：分母里 \\( k \\) 只递增到 \\( L-LSITE+1 \\) 的原因是：\\( k \\) 再往后排的话，sequence 末尾就不够 motif 的长度了，必然是 \\( P\^0(Y\_{ik=1}) = 0 \\)，所以这里就干脆不写了。
+* 注 4：分母里 \\( k \\) 只递增到 \\( L-LSITE+1 \\) 的原因是：\\( k \\) 再往后排的话，sequence 末尾就不够 motif 的长度了，必然是 \\( P\^0(Y\_{ik=1}) = 0 \\)，所以这里就干脆不写了。
 
 \\( P\^0 \\), the prior probability, is not estimated and is assumed to be uniform,
 
@@ -97,14 +102,14 @@ The EM algorithm simultaneously discovers **a model of the motif (the sequence o
 
 $$
 \begin{aligned}
-	\log(likelihood) = N \sum\_{j=1}\^{LSITE}{\sum\_{l \in \mathcal{L}}{freq\_{ij} \log(freq\_{ij})}} + N(L-LSITE) \sum\_{l \in \mathcal{L}}{fout\_l \log(fout\_l)}
+	\log(likelihood) = N \sum\_{j=1}\^{LSITE}{\sum\_{l \in \mathcal{L}}{freq\_{lj} \log(freq\_{lj})}} + N(L-LSITE) \sum\_{l \in \mathcal{L}}{fout\_l \log(fout\_l)}
 \end{aligned}
 $$
 
 where \\( fout\_l \\) is the frequency of the letter \\( l \\) in all positions of the sequences outside the instance of the shared motif.
 
-* 注 4：请仔细阅读这段话
-* 注 5：我们知道 binomial distribution 的情形是：黑球概率 \\( p\_1 \\)，白球概率 \\( p \_2 = 1 - p\_1 \\)，摸 \\( n \\) 次，黑球 \\( k_1 \\) 个，白球 \\( k_2 = n - k\_1 \\) 个的概率是 \\( C\_{k\_1 + k\_2}\^{k\_1} p\_1\^{k\_1} p\_2\^{k\_2} \\)。那么 multinomial 就是扩展到了多种颜色的球：假设球的颜色有 \\( m \\) 种，颜色为 \\( c\_i \\) 的球概率为 \\( p\_i \\)（\\( \sum\_{i=1}\^{m}{p\_i} = 1 \\)），还是摸 \\( n \\) 次，摸出 \\( k\_1 \\) 个 \\( c\_1 \\)，\\( k\_2 \\) 个 \\( c\_2 \\)，……，\\( k\_m \\) 个 \\( c\_m \\)（\\( \sum\_{j=1}\^{m}{k\_j} = n \\)）的概率是 \\( \frac{n!}{k\_1! \ldots k\_m!}p\_1\^{k\_1} \ldots p\_m\^{k\_m} \\) 
-* 注 6：这一段说了： motif model 是 multinomial，那么这里 letter 就是球，alphabet 就是球的颜色，\\( freq \\) 就是 \\( p\_i \\)
-* 注 7："The likelihood of the model given the training data is just the probability of the data given the model" 这一句看上去很屌的样子，其实说的就是 \\( \mathcal{L}(\Theta|\mathcal{X}) = p(\mathcal{X}|\Theta) \\)……
-* 注 8：这个式子拿出来得太快了。而且文章里的 EM 步骤是：先初始化 \\( freq \\)，然后根据 \\( freq \\) 计算 \\( poff \\)，接着反过来根据 \\( poff \\) 重新计算 \\( freq \\)，直到 \\( freq \\) 收敛。中间的细节还是没说清，我会在下一篇拿一个更详细的版本。
+* 注 5：请仔细阅读这段话
+* 注 6：我们知道 binomial distribution 的情形是：黑球概率 \\( p\_1 \\)，白球概率 \\( p \_2 = 1 - p\_1 \\)，摸 \\( n \\) 次，黑球 \\( k_1 \\) 个，白球 \\( k_2 = n - k\_1 \\) 个的概率是 \\( C\_{k\_1 + k\_2}\^{k\_1} p\_1\^{k\_1} p\_2\^{k\_2} \\)。那么 multinomial 就是扩展到了多种颜色的球：假设球的颜色有 \\( m \\) 种，颜色为 \\( c\_i \\) 的球概率为 \\( p\_i \\)（\\( \sum\_{i=1}\^{m}{p\_i} = 1 \\)），还是摸 \\( n \\) 次，摸出 \\( k\_1 \\) 个 \\( c\_1 \\)，\\( k\_2 \\) 个 \\( c\_2 \\)，……，\\( k\_m \\) 个 \\( c\_m \\)（\\( \sum\_{j=1}\^{m}{k\_j} = n \\)）的概率是 \\( \frac{n!}{k\_1! \ldots k\_m!}p\_1\^{k\_1} \ldots p\_m\^{k\_m} \\) 
+* 注 7：这一段说了： motif model 是 multinomial，那么这里 letter 就是球，alphabet 就是球的颜色，\\( freq \\) 就是 \\( p \\)
+* 注 8："The likelihood of the model given the training data is just the probability of the data given the model" 这一句看上去很屌的样子，其实说的就是 \\( \mathcal{L}(\Theta|\mathcal{X}) = p(\mathcal{X}|\Theta) \\)……
+* 注 9：这个式子拿出来得太快了。而且文章里的 EM 步骤是：先初始化 \\( freq \\)，然后根据 \\( freq \\) 计算 \\( poff \\)，接着反过来根据 \\( poff \\) 重新计算 \\( freq \\)，直到 \\( freq \\) 收敛。中间的细节还是没说清，我会在下一篇拿一个更详细的版本。
