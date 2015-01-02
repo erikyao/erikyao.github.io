@@ -58,8 +58,10 @@ Part 3 of the definition implies **finite additivity**: \\( P(\bigcup\_{i=1}^{n}
 	* Continuous
 * Discrete random variable are random variables that take on only a countable number of possibilities.
 	* \\( P(X = k) \\)
+	* described by PMF
 * Continuous random variable can take any value on the real line or some subset of the real line.
 	* \\( P(X \in A) \\)
+	* discribed by PDF and CDF
 
 ## 6. PMF: Probability Mass Function
 
@@ -74,9 +76,11 @@ E.g., let \\( X \\)  be the result of a coin flip where \\( X=0 \\) represents t
 
 -> \\( p(x) = \theta\^x (1 - \theta)\^{1-x},\, \text{for x = 0,1} \\)<-
 
+PMF 其实就是分布律，用来描述 discrete random variable
+
 ## 7. PDF: Probability Density Function
 
-A PDF, is a function associated with a continuous random variable.  
+A PDF, is a function associated with a **continuous** random variable.  
 
 Areas under the PDF correspond to probabilities for that random variable.  
 
