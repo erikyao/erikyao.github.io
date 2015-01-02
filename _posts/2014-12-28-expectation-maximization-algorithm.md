@@ -98,7 +98,9 @@ The key thing to understand is that \\( \mathcal{X} \\) and \\( \Theta\^{(i-1)} 
 
 $$
 \begin{aligned}
-	E \left \[ \log \, p(\mathcal{X},\mathcal{Y}|\Theta) \mid \mathcal{X}, \Theta\^{(i-1)} \right \] = \int\_{\mathbf{y} \in \Upsilon}{\log \, p(\mathcal{X},\mathbf{y}|\Theta) \, f\_{\mathcal{Y}}(\mathbf{y} | \mathcal{X}, \Theta\^{(i-1)}) \, d\mathbf{y} }
+	E \left \[ \log \, p(\mathcal{X},\mathcal{Y}|\Theta) \mid \mathcal{X}, \Theta\^{(i-1)} \right \] 
+	& = \int\_{\mathbf{y} \in \Upsilon}{\log \, p(\mathcal{X},\mathbf{y}|\Theta) \, f\_{\mathcal{Y}}(\mathbf{y} | \mathcal{X}, \Theta\^{(i-1)}) \, d\mathbf{y} } \\\\
+	& = \sum\_{\mathbf{y} \in \Upsilon}{\log \, p(\mathcal{X},\mathbf{y}|\Theta) \, P\_{\mathcal{Y}}(\mathbf{y} | \mathcal{X}, \Theta\^{(i-1)})}
 	\tag{2}
 	\label{eq2}
 \end{aligned}

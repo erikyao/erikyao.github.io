@@ -112,4 +112,28 @@ where \\( fout\_l \\) is the frequency of the letter \\( l \\) in all positions 
 * 注 6：我们知道 binomial distribution 的情形是：黑球概率 \\( p\_1 \\)，白球概率 \\( p \_2 = 1 - p\_1 \\)，摸 \\( n \\) 次，黑球 \\( k_1 \\) 个，白球 \\( k_2 = n - k\_1 \\) 个的概率是 \\( C\_{k\_1 + k\_2}\^{k\_1} p\_1\^{k\_1} p\_2\^{k\_2} \\)。那么 multinomial 就是扩展到了多种颜色的球：假设球的颜色有 \\( m \\) 种，颜色为 \\( c\_i \\) 的球概率为 \\( p\_i \\)（\\( \sum\_{i=1}\^{m}{p\_i} = 1 \\)），还是摸 \\( n \\) 次，摸出 \\( k\_1 \\) 个 \\( c\_1 \\)，\\( k\_2 \\) 个 \\( c\_2 \\)，……，\\( k\_m \\) 个 \\( c\_m \\)（\\( \sum\_{j=1}\^{m}{k\_j} = n \\)）的概率是 \\( \frac{n!}{k\_1! \ldots k\_m!}p\_1\^{k\_1} \ldots p\_m\^{k\_m} \\) 
 * 注 7：这一段说了： motif model 是 multinomial，那么这里 letter 就是球，alphabet 就是球的颜色，\\( freq \\) 就是 \\( p \\)
 * 注 8："The likelihood of the model given the training data is just the probability of the data given the model" 这一句看上去很屌的样子，其实说的就是 \\( \mathcal{L}(\Theta|\mathcal{X}) = p(\mathcal{X}|\Theta) \\)……
-* 注 9：这个式子拿出来得太快了。而且文章里的 EM 步骤是：先初始化 \\( freq \\)，然后根据 \\( freq \\) 计算 \\( poff \\)，接着反过来根据 \\( poff \\) 重新计算 \\( freq \\)，直到 \\( freq \\) 收敛。中间的细节还是没说清，我会在下一篇拿一个更详细的版本。
+* 注 9：这个式子拿出来得太快了，具体一点的推导可以参见 `[1]`。（本篇讲 EM 是 "太简"，`[1]` 这一篇讲 EM 是 "太散"，不过它的 problem 描述还是很到位的，不明白 problem 的时候可以参考一下），更具体的可能需要参考 `[1]` 引用的 `[2]`
+* 注 10：本篇讲的 EM 步骤是：先初始化 \\( freq \\)，然后根据 \\( freq \\) 计算 \\( poff \\)，接着反过来根据 \\( poff \\) 重新计算 \\( freq \\)，直到 \\( freq \\) 收敛。中间的细节还是没说清。下面还是根据 `[1]` 来讲下具体的 EM 步骤（这一篇使用的表示方法不同，不好直接搬运，不过可以依样画葫芦）：
+	* 初始化 \\( freq\^{(q)} \\)
+	* E step:
+		* 计算 \\( P(S\_i|Y\_{ij}=1,freq\^{(q)}) = \prod\_{k=1}\^{LSITE}{freq\_{l\_k,k}} \\)
+		* 接着计算 \\( poff\^{(q)} \\)
+	* M step:
+		* 展开 \\( E \left \[ \log(likelihood) \right \] = \sum\_{i,j}{poff\_{ij}\^{(q)} \log(likelihood)} \\)
+		* 求得 \\( freq\^{(q+1)} \\) 和 \\( fout\^{(q+1)} \\) 使 \\( E \left \[ \log(likelihood) \right \] \\) max
+	* 注意我们这明显是 discrete 的情况，所以不要傻乎乎地用 continuous 的积分来做
+	* 根据 \\( E \left \[ \log \, p(\mathcal{X},\mathcal{Y}|\Theta) \mid \mathcal{X}, \Theta\^{(i-1)} \right \] = \sum\_{\mathbf{y} \in \Upsilon}{\log \, p(\mathcal{X},\mathbf{y}|\Theta) \, P\_{\mathcal{Y}}(\mathbf{y} | \mathcal{X}, \Theta\^{(i-1)})} \\)，我们可以类比一下：
+		* \\( \mathcal{X} \\) 对应 \\( S \\)，取值 \\( S\_1,\ldots,S\_N \\)
+		* \\( \mathcal{Y} \\) 对应 \\( Y \\)，取值 \\( Y\_{ij} = \text{0 or 1} \\)
+		* \\( Theta = \\{ freq, fout \\} \\)
+		* \\( \log \, p(\mathcal{X},\mathbf{y}|\Theta) = \log(likelihood) \\)
+		* \\( P\_{\mathcal{Y}}(\mathbf{y} | \mathcal{X}, \Theta\^{(i-1)}) = poff \\)
+		
+-----
+
+## REFERENCES
+
+[1]C. E. Lawrence and A. A. Reilly, “[An expectation maximization (EM) algorithm for the identification and characterization of common sites in unaligned biopolymer sequences](http://www.ncbi.nlm.nih.gov/pubmed/2184437),” Proteins, vol. 7, no. 1, pp. 41–51, 1990.
+
+[2]G. Z. Hertz, G. W. Hartzell, and G. D. Stormo, “[Identification of consensus patterns in unaligned DNA sequences known to be functionally related](http://www.ncbi.nlm.nih.gov/pubmed/2193692),” Comput. Appl. Biosci., vol. 6, no. 2, pp. 81–92, Apr. 1990.
+
