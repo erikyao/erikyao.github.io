@@ -19,6 +19,7 @@ Problem:
 
 * Simple version
 	* Given a dataset of biopolymer sequence believed to contain **a single shared motif**, to locate the starting position in each sequence of the motif and to describe the motif
+	* 本篇处理的是 Simple version
 * General version
 	* Finding and describing **multiple, distinct shared motifs** in a set of biopolymer sequences.
 
