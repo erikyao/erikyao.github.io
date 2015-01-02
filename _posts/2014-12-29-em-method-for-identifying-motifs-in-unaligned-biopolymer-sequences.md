@@ -67,6 +67,7 @@ This forms the basis of calculating \\( poff\^{(q)} \\)
 	* 比如考虑 \\( alphabet = \\{ A,C,T,G \\} \\)，观测到 \\( S\_{i} = AAA \\) 的概率是 \\( (\frac{1}{4})\^3 = \frac{1}{64} \\)。其实这里也是一样的。而且文章还说了 "ignore the probability of the letters outside of the motif"，所以只考虑 motif 那几个 letter 的概率就可以了
 	* \\( S\_i \\) 的 \\( i \\) 并没有参与这个随机试验，这也是个比较迷惑的地方。
 	* 以后有类似的第一眼看不明白的概率，把试验对象拆成小分子考虑，转成排列组合问题应该会更好理解一些。
+		* 或者换个角度考虑，比如 \\( P(A|B) \\) 对你而言无法 make sense，但是 \\( P(B|A) \\) make sense 的话，你就把 \\( P(A|B) \\) 当做计算 \\( P(B|A) \\) 用的因子好了，不要在 \\( P(A|B) \\) 的意义上纠缠太多的时间
 	
 Define:
 
