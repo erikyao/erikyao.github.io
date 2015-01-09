@@ -80,7 +80,7 @@ In this chapter, we discuss three important alternatives.
 	
 ## <a name="SS"></a>1. Subset Selection
 
-这里说的其实就是 Linear Regression - Part 1 那篇的 [2.4 Question 2: How to Decide on Important Variables? Or, do all the predictors help to explain \\( Y \\), or is only a subset of the predictors useful?](http://localhost:4000/machine-learning/2014/09/21/machine-learning-linear-regression-part-1/#Mlr-Q2)
+这里说的其实就是 Linear Regression - Part 1 那篇的 [2.4 Question 2: How to Decide on Important Variables? Or, do all the predictors help to explain \\( Y \\), or is only a subset of the predictors useful?](http://erikyao.github.io/machine-learning/2014/09/21/machine-learning-linear-regression-part-1/#Mlr-Q2)
 
 ### <a name="BSS"></a>1.1 Best Subset Selection
 
