@@ -127,7 +127,7 @@ where \\( fout\_l \\) is the frequency of the letter \\( l \\) in all positions 
 	* 根据 \\( E \left \[ \log \, p(\mathcal{X},\mathcal{Y}|\Theta) \mid \mathcal{X}, \Theta\^{(i-1)} \right \] = \sum\_{\mathbf{y} \in \Upsilon}{\log \, p(\mathcal{X},\mathbf{y}|\Theta) \, P\_{\mathcal{Y}}(\mathbf{y} | \mathcal{X}, \Theta\^{(i-1)})} \\)，我们可以类比一下：
 		* \\( \mathcal{X} \\) 对应 \\( S \\)，取值 \\( S\_1,\ldots,S\_N \\)
 		* \\( \mathcal{Y} \\) 对应 \\( Y \\)，取值 \\( Y\_{ij} = \text{0 or 1} \\)
-		* \\( Theta = \\{ freq, fout \\} \\)
+		* \\( \Theta = \\{ freq, fout \\} \\)
 		* \\( \log \, p(\mathcal{X},\mathbf{y}|\Theta) = \log(likelihood) \\)
 		* \\( P\_{\mathcal{Y}}(\mathbf{y} | \mathcal{X}, \Theta\^{(i-1)}) = poff \\)
 		
