@@ -439,6 +439,19 @@ X$var2[c(1,3)] <- NA ## 选两个元素赋为 NA
 1    1    6   15
 </pre>
 
+注意 [] 的条件其实是可以组合出很多高大上的功能的，比如假设 `v` 是一个 vector，有：
+
+<pre class="prettyprint linenums">
+## Select all elements greater than the median
+v[ v &gt; median(v) ]
+## Select all elements in the lower and upper 5%
+v[ (v &lt; quantile(v,0.05)) | (v &gt; quantile(v,0.95)) ]
+## Select all elements that exceed ±2 standard deviations from the mean
+v[ abs(v-mean(v)) &gt; 2*sd(v) ]
+## Select all elements that are neither NA nor NULL
+v[ !is.na(v) & !is.null(v) ]
+</pre>
+
 ##### <a name="which"></a>Using `which` function
 
 在使用 `which(vector > x)` 时要注意与 `vector > x` 的区别：
