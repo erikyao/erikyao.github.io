@@ -870,6 +870,8 @@ data[, c(1:2,ncol(data),3:(ncol(data)-1))] ## move last column to third
 * `exp(x)`: exponentiating x, i.e. e^x
 * `sd(x)`: takes the standard deviation of x
 * `range(x)`: displays the range; same as `c(min(x), max(x))`
+* `x - mean(x)`: centering x
+* `(x - mean(x)) / sd(x)`: 计算 x 的 _z-score_
 
 #### <a name="add-seq-or-indices"></a>3.3.3 Creating sequences or indices
 
