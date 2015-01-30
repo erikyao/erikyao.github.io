@@ -284,7 +284,7 @@ dt[c(2,3)] ## 返回 row 2 和 row 3
 
 我发现 dt 的第二维实际是在跑运算，也就是说 `dt[,exp]` 实际等同于执行了 `exp`，比如 `dt[,1+1]` 会得到 2，就像是在直接执行 1+1 一样。  
 
-而且第二维操作的 context 是 dt 内部，比如 `dt[, mean(A)]` 是可以是识别到 A 的，不用指明是 dt$A，这一句的作用等同于 `mean(dt$A)`
+而且第二维操作的 context 是 dt 内部，比如 `dt[, mean(A)]` 是可以是识别到 A 的，不用指明是 `dt$A`，这一句的作用等同于 `mean(dt$A)`
 
 #### <a name="add-new-column-to-data-table"></a>2.2.4 Adding new columns
 
@@ -301,8 +301,9 @@ dt[, D:=C^2] ## 添加一个新 column D，值是 dt$C 的平方
 	
 注意：
 
+* 注意 `C^2 = {49, 64, 81}` 而 `2^C = {128, 256, 512}`
 * 注意这个操作可能会导致内存问题，因为 R 是把原 table copy 一份再添加新 column；
-* 这个操作直接影响 dt，不用重新赋值 dt <- dt[, D:=C^2]
+* 这个操作直接影响 dt，不用重新赋值 `dt <- dt[, D:=C^2]`
 * 这个操作是也是有返回值的，而且返回的是更新后的 dt
 
 <pre class="prettyprint linenums">
