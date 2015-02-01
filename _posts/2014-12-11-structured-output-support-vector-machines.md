@@ -35,11 +35,11 @@ Structured output SVMs Extends SVMs to handle arbitrary output spaces, particula
 之前有说过：In structured output learning, the discriminant function becomes a function \\( f(x, y) \\) of both inputs and labels, and can be thought of as measuring the compatibility of the input \\( x \\) with the output \\( y \\). 这里我们定义：
 
 $$
-\begin{aligned}
+\begin{align}
 	f(x,y) = w\^T \Psi(x,y)
 	\tag{1}
 	\label{eq1}
-\end{aligned}
+\end{align}
 $$ 
 
 \\( \Psi \\) 称为 **joint feature map**。
@@ -47,12 +47,12 @@ $$
 进而 SSVM 变成一个搜索问题：
 
 $$
-\begin{aligned}
+\begin{align}
 	& \underset{y \in \mathcal{Y}}{\arg\max}
 	& w\^T \Psi(x,y)
 	\tag{2}
 	\label{eq2}
-\end{aligned}
+\end{align}
 $$ 
 
 是不是有点 maximum likelihood 的意味？不过这个式子没有概率上的意义。

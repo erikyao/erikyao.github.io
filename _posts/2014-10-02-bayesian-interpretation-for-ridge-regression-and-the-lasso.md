@@ -117,14 +117,14 @@ Suppose that \\( y\_i = \beta\_0 + \sum\_{j=1}\^{p}{x\_{ij} \beta\_j} + \epsilon
 The likelihood for the data is:
 
 $$
-\begin{aligned} 
+\begin{align} 
 	L(\theta \mid \beta) 
 	&= p(\beta \mid \theta) \\\\ 
 	&= p(\beta_1 \mid \theta) \times \cdots \times p(\beta_n \mid \theta) \\\\ 
 	&= \prod\_{i = 1}\^{n} p(\beta_i \mid \theta) \\\\
 	&= \prod\_{i = 1}\^{n} \frac{ 1 }{ \sigma \sqrt{2\pi} } \exp \left(- \frac{ \left \\| Y\_i - (\beta\_0 + \sum\_{j = 1}\^{p} \beta\_j X\_{ij}) \right \\| \^2}{ 2\sigma\^2 } \right) \\\\ 
 	&= \left( \frac{ 1 }{ \sigma \sqrt{2\pi} } \right)\^n \exp \left(- \frac{ 1 }{ 2\sigma\^2 } \sum\_{i = 1}\^{n} \left \\| Y\_i - (\beta\_0 + \sum\_{j = 1}\^{p} \beta\_j X\_{ij}) \right \\| \^2 \right) 
-\end{aligned} 
+\end{align} 
 $$
 
 ### (b) Question
@@ -142,11 +142,11 @@ $$
 Substituting our values from (a) and our density function gives us:
 
 $$ 
-\begin{aligned} 
+\begin{align} 
 	&f(Y \mid X, \beta) \, p(\beta) \\\\
 	&= \left( \frac{ 1 }{ \sigma \sqrt{2\pi} } \right)\^n \exp \left( - \frac{ 1 }{ 2\sigma\^2 } \sum\_{i = 1}\^{n} \left \\| Y\_i - (\beta\_0 + \sum\_{j = 1}\^{p} \beta\_j X\_{ij}) \right \\|\^2 \right) \left( \frac{ 1 }{ 2b } \exp(- \frac{\lvert \beta \rvert}{b}) \right) \\\\ 
 	&= \left( \frac{ 1 }{ \sigma \sqrt{2\pi} } \right)\^n \left( \frac{ 1 }{ 2b } \right) \exp \left( - \frac{ 1 }{ 2\sigma\^2 } \sum\_{i = 1}\^{n} \left \\| Y\_i - (\beta\_0 + \sum\_{j = 1}\^{p} \beta\_j X\_{ij}) \right \\|\^2 - \frac{ \lvert \beta \rvert }{ b } \right) 
-\end{aligned} 
+\end{align} 
 $$
 
 ### (c) Question
@@ -162,39 +162,39 @@ We can do this by taking our likelihood and posterior and showing that it can be
 Let's start by simplifying it by taking the logarithm of both sides:
 
 $$ 
-\begin{aligned} 
+\begin{align} 
 	&\log \left \( f(Y \mid X, \beta) \, p(\beta) \right \) \\\\ 
 	&= \log \left[ \left( \frac{ 1 }{ \sigma \sqrt{2\pi} } \right)\^n \left( \frac{ 1 }{ 2b } \right) \exp \left( - \frac{ 1 }{ 2\sigma\^2 } \sum\_{i = 1}\^{n} \left \\| Y\_i - (\beta\_0 + \sum\_{j = 1}\^{p} \beta\_j X\_{ij}) \right \\|\^2 - \frac{ \lvert \beta \rvert }{ b } \right) \right] \\\\ 
 	&= \log \left[ \left( \frac{ 1 }{ \sigma \sqrt{2\pi} } \right)\^n \left( \frac{ 1 }{ 2b } \right) \right] - \left( \frac{ 1 }{ 2\sigma\^2 } \sum\_{i = 1}\^{n} \left \\| Y\_i - (\beta\_0 + \sum\_{j = 1}\^{p} \beta\_j X\_{ij}) \right \\|\^2 + \frac{ \lvert \beta \rvert }{ b } \right) 
-\end{aligned} 
+\end{align} 
 $$
 
 We want to maximize the posterior, this means: 
 
 $$
-\begin{aligned} 
+\begin{align} 
 	& \arg \max\_\beta \, f(\beta \mid X, Y) \\\\
 	&= \arg \max\_\beta \, \log \left[ \left( \frac{ 1 }{ \sigma \sqrt{2\pi} } \right)\^n \left( \frac{ 1 }{ 2b } \right) \right] - \left( \frac{ 1 }{ 2\sigma\^2 } \sum\_{i = 1}\^{n} \left \\| Y\_i - (\beta\_0 + \sum\_{j = 1}\^{p} \beta\_j X\_{ij}) \right \\|\^2 + \frac{ \lvert \beta \rvert }{ b } \right) 
-\end{aligned} 
+\end{align} 
 $$
 
 Since we are taking the difference of two values, the maximum of this value is the equivalent to taking the difference of the second value in terms of \\( \beta \\). This results in:
 
 $$ 
-\begin{aligned} 
+\begin{align} 
 	&= \arg \min\_\beta \, \frac{ 1 }{ 2\sigma\^2 } \sum\_{i = 1}\^{n} \left[ Y\_i - (\beta\_0 + \sum\_{j = 1}\^{p} \beta\_j X\_{ij}) \right]\^2 + \frac{ \lvert \beta \rvert }{ b } \\\\ 
 	&= \arg \min\_\beta \, \frac{ 1 }{ 2\sigma\^2 } \sum\_{i = 1}\^{n} \left[ Y\_i - (\beta\_0 + \sum\_{j = 1}\^{p} \beta\_j X\_{ij}) \right]\^2 + \frac{ 1 }{ b } \sum\_{j = 1}\^{p} \lvert \beta\_j \rvert \\\\ 
 	&= \arg \min\_\beta \, \frac{ 1 }{ 2\sigma\^2 } \left( \sum\_{i = 1}\^{n} \left[ Y\_i - (\beta\_0 + \sum\_{j = 1}\^{p} \beta\_j X\_{ij}) \right]\^2 + \frac{ 2\sigma\^2 }{ b } \sum\_{j = 1}\^{p} \lvert \beta\_j \rvert \right)
-\end{aligned} 
+\end{align} 
 $$
 
 By letting \\( \lambda = \frac{2\sigma\^2}{b} \\), we can see that we end up with:
 
 $$ 
-\begin{aligned} 
+\begin{align} 
 	&= \arg \min\_\beta \, \sum\_{i = 1}\^{n} \left[ Y\_i - (\beta\_0 + \sum\_{j = 1}\^{p} \beta\_j X\_{ij}) \right]\^2 + \lambda \sum\_{j = 1}\^{p} \lvert \beta\_j \rvert \\\\ 
 	&= \arg \min\_\beta \, \text{RSS} + \lambda \sum\_{j = 1}\^{p} \lvert \beta\_j \rvert 
-\end{aligned} 
+\end{align} 
 $$
 
 which we know is the Lasso from Equation 6.7 in the book. Thus we know that when the posterior comes from a Laplace distribution with mean zero and common scale parameter \\( b \\), the mode for \\( \beta \\) is given by the Lasso solution when \\( \lambda = \frac{2\sigma\^2}{b} \\).
@@ -208,30 +208,30 @@ Now assume the following prior for \\( \beta \\): \\( \beta\_1, \cdots, \beta\_p
 The posterior distributed according to Normal distribution with mean 0 and variance \\( c \\) is:
 
 $$ 
-\begin{aligned} 
+\begin{align} 
 	f(\beta \mid X, Y) \propto f(Y \mid X, \beta) \, p(\beta \mid X) = f(Y \mid X, \beta) \, p(\beta) 
-\end{aligned} 
+\end{align} 
 $$
 
 Our probability distribution function then becomes: 
 
 $$ 
-\begin{aligned} 
+\begin{align} 
 	p(\beta) 
 	&= \prod\_{i = 1}\^{p} p(\beta\_i) \\\\
 	&= \prod\_{i = 1}\^{p} \frac{ 1 }{ \sqrt{ 2c\pi } } \exp \left( - \frac{ \beta\_i\^2 }{ 2c } \right) \\\\
 	&= \left( \frac{ 1 }{ \sqrt{ 2c\pi } } \right)\^p \exp \left( - \frac{ 1 }{ 2c } \sum\_{i = 1}\^{p} \beta\_i\^2 \right) 
-\end{aligned} 
+\end{align} 
 $$
 
 Substituting our values from (a) and our density function gives us:
 
 $$ 
-\begin{aligned} 
+\begin{align} 
 	&f(Y \mid X, \beta) \, p(\beta) \\\\
 	&= \left( \frac{ 1 }{ \sigma \sqrt{2\pi} } \right)\^n \exp \left( - \frac{ 1 }{ 2\sigma\^2 } \sum\_{i = 1}\^{n} \left[ Y\_i - (\beta\_0 + \sum\_{j = 1}\^{p} \beta\_j X\_{ij}) \right]\^2 \right) \left( \frac{ 1 }{ \sqrt{ 2c\pi } } \right)\^p \exp \left( - \frac{ 1 }{ 2c } \sum\_{i = 1}\^{p} \beta\_i\^2 \right) \\\\ 
 	&= \left( \frac{ 1 }{ \sigma \sqrt{2\pi} } \right)\^n \left( \frac{ 1 }{ \sqrt{ 2c\pi } } \right)\^p \exp \left( - \frac{ 1 }{ 2\sigma\^2 } \sum\_{i = 1}\^{n} \left[ Y\_i - (\beta\_0 + \sum\_{j = 1}\^{p} \beta\_j X\_{ij}) \right]\^2 - \frac{ 1 }{ 2c } \sum\_{i = 1}\^{p} \beta\_i\^2 \right) 
-\end{aligned} 
+\end{align} 
 $$
 
 ### (e) Question
@@ -247,38 +247,38 @@ We can do this by taking our likelihood and posterior and showing that it can be
 Once again, we can take the logarithm of both sides to simplify it:
 
 $$ 
-\begin{aligned} 
+\begin{align} 
 	&\log \left \( f(Y \mid X, \beta) \, p(\beta) \right \) \\\\
 	&= \left( \frac{ 1 }{ \sigma \sqrt{2\pi} } \right)\^n \left( \frac{ 1 }{ \sqrt{ 2c\pi } } \right)\^p \exp \left( - \frac{ 1 }{ 2\sigma\^2 } \sum\_{i = 1}\^{n} \left[ Y\_i - (\beta\_0 + \sum\_{j = 1}\^{p} \beta\_j X\_{ij}) \right]\^2 - \frac{ 1 }{ 2c } \sum\_{i = 1}\^{p} \beta\_i\^2 \right) \\\\ 
 	&= \log \left[ \left( \frac{ 1 }{ \sigma \sqrt{2\pi} } \right)\^n \left( \frac{ 1 }{ \sqrt{ 2c\pi } } \right)\^p \right] - \left( \frac{ 1 }{ 2\sigma\^2 } \sum\_{i = 1}\^{n} \left[ Y\_i - (\beta\_0 + \sum\_{j = 1}\^{p} \beta\_j X\_{ij}) \right]\^2 + \frac{ 1 }{ 2c } \sum\_{i = 1}\^{p} \beta\_i\^2 \right) 
-\end{aligned} 
+\end{align} 
 $$
 
 We want to maximize the posterior, this means: 
 
 $$
-\begin{aligned} 
+\begin{align} 
 	& \arg \max\_\beta \, f(\beta \mid X, Y) \\\\
 	&= \arg \max\_\beta \, \log \left[ \left( \frac{ 1 }{ \sigma \sqrt{2\pi} } \right)\^n \left( \frac{ 1 }{ \sqrt{ 2c\pi } } \right)\^p \right] - \left( \frac{ 1 }{ 2\sigma\^2 } \sum\_{i = 1}\^{n} \left[ Y\_i - (\beta\_0 + \sum\_{j = 1}\^{p} \beta\_j X\_{ij}) \right]\^2 + \frac{ 1 }{ 2c } \sum\_{i = 1}\^{p} \beta\_i\^2 \right) 
-\end{aligned}
+\end{align}
 $$
 
 Since we are taking the difference of two values, the maximum of this value is the equivalent to taking the difference of the second value in terms of \\( \beta \\). This results in:
 
 $$ 
-\begin{aligned} 
+\begin{align} 
 	&= \arg \min\_\beta \, \left( \frac{ 1 }{ 2\sigma\^2 } \sum\_{i = 1}\^{n} \left[ Y\_i - (\beta\_0 + \sum\_{j = 1}\^{p} \beta\_j X\_{ij}) \right]\^2 + \frac{ 1 }{ 2c } \sum\_{i = 1}\^{p} \beta\_i\^2 \right) \\\\ 
 	&= \arg \min\_\beta \, \left( \frac{ 1 }{ 2\sigma\^2 } \right) \left( \sum\_{i = 1}\^{n} \left[ Y\_i - (\beta\_0 + \sum\_{j = 1}\^{p} \beta\_j X\_{ij}) \right]\^2 + \frac{ \sigma\^2 }{ c } \sum\_{i = 1}\^{p} \beta\_i\^2 \right) 
-\end{aligned} 
+\end{align} 
 $$
 
 By letting \\( \lambda = \frac{\sigma\^2}{c} \\), we end up with:
 
 $$ 
-\begin{aligned} 
+\begin{align} 
 	&= \arg \min\_\beta \, \left( \frac{ 1 }{ 2\sigma\^2 } \right) \left( \sum\_{i = 1}\^{n} \left[ Y\_i - (\beta\_0 + \sum\_{j = 1}\^{p} \beta\_j X\_{ij}) \right]\^2 + \lambda \sum\_{i = 1}\^{p} \beta\_i\^2 \right) \\\\ 
 	&= \arg \min\_\beta \, \text{RSS} + \lambda \sum\_{i = 1}\^{p} \beta\_i\^2 
-\end{aligned} 
+\end{align} 
 $$
 
 which we know is the Ridge Regression from Equation 6.5 in the book. Thus we know that when the posterior comes from a normal distribution with mean zero and variance \\( c \\), the mode for \\( \beta \\) is given by the Ridge Regression solution when \\( \lambda = \frac{\sigma\^2}{c} \\). Since the posterior is Gaussian, we also know that it is the posterior mean.

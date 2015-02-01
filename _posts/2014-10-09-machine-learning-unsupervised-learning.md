@@ -86,7 +86,7 @@ that has the largest variance. By _normalized_, we mean that \\( \sum\_{j=1}\^{p
 我们把 \\( X \\) (assuming \\( X \\) is column-centered) 扩到 matrix 形式：
 
 $$
-\begin{aligned}
+\begin{align}
 	X
 	& = \begin{pmatrix} X\_1 & X\_2 & \cdots & X\_P \end{pmatrix} \\\\
 	& = \begin{pmatrix} -- (x\^{(1)})\^T -- \\\\ -- (x\^{(2)})\^T -- \\\\ \cdots \\\\ -- (x\^{(n)})\^T -- \end{pmatrix} \\\\
@@ -96,18 +96,18 @@ $$
 			\cdots & \cdots & \cdots & \cdots \\\\ 
 			x\_{n1} & x\_{n2} & \cdots & x\_{np} \\\\  
 		\end{pmatrix}
-\end{aligned} 
+\end{align} 
 $$
 
 然后我们有 1^st loding vector \\( \phi\_1 = \begin{pmatrix} \phi\_{11} & \phi\_{21} & \cdots & \phi\_{p1} \end{pmatrix}\^T \\)，于是进一步有：
 
 $$
-\begin{aligned}
+\begin{align}
 	z\_{i1} 
 	& = x\_i \cdot \phi\_1 \\\\
 	& = \phi\_{11} x\_{i1} + \phi\_{21} x\_{i2} + \cdots + \phi\_{p1} x\_{ip}
 	\tag{2.2}
-\end{aligned} 
+\end{align} 
 $$
 
 We refer to \\( z\_{i1} \\) as the **scores** of the 1^st principal component for the i^th observation.

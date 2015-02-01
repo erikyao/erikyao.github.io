@@ -16,14 +16,14 @@ tags: [ML-101]
 In the study of convex optimization, the mathematical optimization problems follow the form below:
 
 $$
-\begin{aligned}
+\begin{align}
 	& \underset{x \in \mathbb{R}\^{n}}{\text{minimize}}
 	& & f(x) \\\\
 	& \text{subject to}
 	& & x \in C.
 	\tag{1}
 	\label{eq1}
-\end{aligned}
+\end{align}
 $$
 
 where 
@@ -39,7 +39,7 @@ In the more general setting of convex optimization problem with constraints, how
 Here we propose a form of generic differentiable convex optimization problems, as:
 
 $$
-\begin{aligned}
+\begin{align}
 	& \underset{x \in \mathbb{R}\^{n}}{\text{minimize}}
 	& & f(x) \\\\
 	& \text{subject to}
@@ -48,7 +48,7 @@ $$
 	& & h\_{i}(x) = 0, & i=1,\cdots,p
 	\tag{OPT}
 	\label{eqopt}
-\end{aligned}
+\end{align}
 $$
 
 where
@@ -65,11 +65,11 @@ where
 Given a convex constrained minimization problem of the form \\( (\ref{eqopt}) \\), the (generalized) Lagrangian is a function \\( L : \mathbb{R}\^{n} \times \mathbb{R}\^{m} \times \mathbb{R}\^{p} \rightarrow \mathbb{R} \\) defined as
 
 $$
-\begin{aligned}
+\begin{align}
 	L(x, \alpha, \beta) = f(x) + \sum\_{i=1}\^{m}{\alpha\_{i}g\_{i}(x)} + \sum\_{i=1}\^{p}{\beta\_{i}h\_{i}(x)}
 	\tag{2}
 	\label{eq2}
-\end{aligned}
+\end{align}
 $$
 
 where
@@ -92,21 +92,21 @@ To show the relationship between the Lagrangian and the original convex optimiza
 The **primal objective** function \\( \theta\_{P} : \mathbb{R}\^{n} \rightarrow \mathbb{R} \\) is defined as
 
 $$
-\begin{aligned}
+\begin{align}
 	\theta\_{P}(x) = \underset{\alpha, \beta : \alpha\_{i} \geq 0, \forall i}{\text{max}}
 	& & L(x, \alpha, \beta)
-\end{aligned}
+\end{align}
 $$
 
 Then the unconstrained minimization problem
 
 $$
-\begin{aligned}
+\begin{align}
 	\underset{x}{\text{min}}
 	& & \theta\_{P}(x)
 	\tag{P}
 	\label{eqp}
-\end{aligned}
+\end{align}
 $$
 
 is known as the **primal problem**.
@@ -121,21 +121,21 @@ By switching the order of the minimization and maximization above, we obtain an 
 The **dual objective** function \\( \theta\_{D} : \mathbb{R}\^{m} \times \mathbb{R}\^{p} \rightarrow \mathbb{R} \\) is defined as
 
 $$
-\begin{aligned}
+\begin{align}
 	\theta\_{D}(\alpha, \beta) = \underset{x}{\text{min}}
 	& & L(x, \alpha, \beta)
-\end{aligned}
+\end{align}
 $$
 
 Then the constrained maximization problem
 
 $$
-\begin{aligned}
+\begin{align}
 	\underset{\alpha, \beta : \alpha\_{i} \geq 0, \forall i}{\text{max}}
 	& & \theta\_{D}(\alpha, \beta)
 	\tag{D}
 	\label{eqd}
-\end{aligned}
+\end{align}
 $$
 
 is known as the **dual problem**.
@@ -146,7 +146,7 @@ is known as the **dual problem**.
 ## 3. Interpreting the primal problem
 
 $$
-\begin{aligned}
+\begin{align}
 	\theta\_{P}(x) 
 	& = \underset{\alpha, \beta : \alpha\_{i} \geq 0, \forall i}{\text{max}} 
 	L(x, \alpha, \beta) \\\\
@@ -154,7 +154,7 @@ $$
 	\left \[ f(x) + \sum\_{i=1}\^{m}{\alpha\_{i}g\_{i}(x)} + \sum\_{i=1}\^{p}{\beta\_{i}h\_{i}(x)} \right \] \\\\
 	& = f(x) + \underset{\alpha, \beta : \alpha\_{i} \geq 0, \forall i}{\text{max}}
 	\left \[ \sum\_{i=1}\^{m}{\alpha\_{i}g\_{i}(x)} + \sum\_{i=1}\^{p}{\beta\_{i}h\_{i}(x)} \right \] 
-\end{aligned}
+\end{align}
 $$
 
 当 \\( x \\) is primal feasible 时，\\( g\_{i}(x) \leq 0 \\), \\( h\_{i}(x) = 0 \\)，又因为 \\( \alpha\_{i} \geq 0 \\)，所以 \\( \alpha\_{i} g\_{i}(x) \\) 最大为 0，\\( \beta\_{i} h\_{i}(x) \\) 恒为 0。 此时 \\( \theta\_{P}(x) = f(x) \\)。
@@ -172,14 +172,14 @@ The dual objective, \\( \theta\_{D}(\alpha, \beta) \\), is a concave function of
 _Proof_:
 
 $$
-\begin{aligned}
+\begin{align}
 	\theta\_{D}(\alpha, \beta)
 	& = \underset{x}{\text{min}} 
 	L(x, \alpha, \beta) \\\\
 	& \leq L(x\^{\*}, \alpha, \beta) \\\\
 	& = f(x\^{\*}) + \sum\_{i=1}\^{m}{\alpha\_{i}g\_{i}(x\^{\*})} + \sum\_{i=1}\^{p}{\beta\_{i}h\_{i}(x\^{\*})} \\\\
 	& \leq f(x\^{\*}) = p\^{\*}
-\end{aligned}
+\end{align}
 $$
 
 **Lemma 2** (Weak Duality): For any pair of primal and dual problems, \\( d\^{\*} = \theta\_{D}(\alpha\^{\*}, \beta\^{\*}) \leq p\^{\*} \\). 

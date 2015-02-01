@@ -79,25 +79,25 @@ $$
 我们可以做一下变形：
 
 $$
-\begin{aligned}
+\begin{align}
 	P(d,w) 
 	&= P(d) P(w|d) \\\\
 	&= P(d) \sum\_z{P(w|z)\,P(z|d)} \\\\
 	&= \sum\_z{P(w|z) \cdot P(d)P(z|d)} \\\\
 	&= \sum\_z{P(w|z) \cdot P(d,z)} \\\\
 	&= \sum\_z{P(w|z) \cdot P(z)P(d|z)}
-\end{aligned} 
+\end{align} 
 $$
 
 ### 2.2 Algorithm
 
 $$
-\begin{aligned}
+\begin{align}
 	\ell(\theta) 
 	&= \sum\_{i}{\sum\_{j}{n(d\_i, w\_j) \ln P(w\_j | d\_i)}} \\\\
 	&= \sum\_{i}{\sum\_{j}{n(d\_i, w\_j) \ln P(w\_j | z\_k) P(z\_k | d\_i)}} \\\\
 	&\geq \sum\_{i}{\sum\_{j}{n(d\_i, w\_j)}} \sum\_{k}{Q(z\_k|d\_i,w\_j) \ln P(w\_j | z\_k) P(z\_k | d\_i)}
-\end{aligned} 
+\end{align} 
 $$
 
 注意这里 \\( P(w\_j | z\_k) \\) 被视为一个 parameter，是 \\( \theta \\) 的一部分。因为这里涉及到了 \\( w \\) 和 \\( d \\) 二维，所以 EM 的计算也有两次，有点类似二维的偏微分的感觉。具体就不展开了，需要深入研究的时候再说。

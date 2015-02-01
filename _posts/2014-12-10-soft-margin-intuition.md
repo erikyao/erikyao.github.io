@@ -10,14 +10,14 @@ tags: [ML-101]
 起手式：
 
 $$
-\begin{aligned}
+\begin{align}
 	& \underset{w, b}{\text{minimize}}
 	& & \frac{1}{2} \left \\| w \right \\|\^2 \\\\
 	& \text{subject to}
 	& & y\^{(i)}(w\^T x\^{(i)} + b) \geq 1, & i = 1, \cdots, n
 	\tag{1}
 	\label{eq1}
-\end{aligned}
+\end{align}
 $$
 
 考虑到 \\( y^{(i)} = \pm 1\\)，所以 \\( \left | w\^T x\^{(i)} + b \right | \\) 代表了 \\( x\_i \\) 的 functional distance。
@@ -60,7 +60,7 @@ $$
 这样一来，我们的优化问题转成：
 
 $$
-\begin{aligned}
+\begin{align}
 	& \underset{w, b}{\text{minimize}}
 	& & \frac{1}{2} \left \\| w \right \\|\^2 + C \sum_{i=1}\^{m}{\xi\_i} \\\\
 	& \text{subject to}
@@ -68,5 +68,5 @@ $$
 	& & & \xi\_i \geq 0, & i = 1, \cdots, n
 	\tag{3}
 	\label{eq3}
-\end{aligned}
+\end{align}
 $$

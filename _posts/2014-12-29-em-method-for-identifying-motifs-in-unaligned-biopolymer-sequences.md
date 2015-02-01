@@ -47,9 +47,9 @@ Define:
 In the probabilistic model we use, we ignore the probability of the letters outside of the motif, and only consider the probability of the letters inside the motif. Both standard and modified EM must calculate the probability of sequence \\( S\_i \\) given the motif start and the model. This can be written as:
 
 $$
-\begin{aligned}
+\begin{align}
 	P(S\_i|Y\_{ij}=1,freq\^{(q)}) = \prod\_{k=1}\^{LSITE}{freq\_{l\_k,k}} 
-\end{aligned}
+\end{align}
 $$
 
 This forms the basis of calculating \\( poff\^{(q)} \\)
@@ -77,9 +77,9 @@ Define:
 Bayes' rule states that \\( P(A|B) = \frac{P(B|A)P(A)}{P(B)} \\), so 
 
 $$
-\begin{aligned}
+\begin{align}
 	poff\_{ij}\^{(q)} = P(Y\_{ij}=1 | freq\^{(q)},S\_i) = \frac{P(S\_i|Y\_{ij}=1,freq\^{(q)})P\^0(Y\_{ij}=1)}{\sum\_{k=1}\^{L-LSITE+1}{P(S\_i|Y\_{ik}=1,freq\^{(q)})P\^0(Y\_{ik=1})}}
-\end{aligned}
+\end{align}
 $$
 
 * 注 4：分母里 \\( k \\) 只递增到 \\( L-LSITE+1 \\) 的原因是：\\( k \\) 再往后排的话，sequence 末尾就不够 motif 的长度了，必然是 \\( P\^0(Y\_{ik=1}) = 0 \\)，所以这里就干脆不写了。
@@ -87,25 +87,25 @@ $$
 \\( P\^0 \\), the prior probability, is not estimated and is assumed to be uniform,
 
 $$
-\begin{aligned}
+\begin{align}
 	& P\^0(Y\_{ik}=1) = \frac{1}{L-LSITE+1},& k = 1,2,\ldots,(L-LSITE+1)
-\end{aligned}
+\end{align}
 $$
 
 so the above simplifies to 
 
 $$
-\begin{aligned}
+\begin{align}
 	poff\_{ij}\^{(q)} = P(Y\_{ij}=1 | freq\^{(q)},S\_i) = \frac{P(S\_i|Y\_{ij}=1,freq\^{(q)})}{\sum\_{k=1}\^{L-LSITE+1}{P(S\_i|Y\_{ik}=1,freq\^{(q)}))}}
-\end{aligned}
+\end{align}
 $$
 
 The EM algorithm simultaneously discovers **a model of the motif (the sequence of independent multinomial random variables with parameters \\( freq \\))** and estimates the probability of each possible starting point of examples of the motif in the sequences in the dataset (\\( poff \\)). The likelihood of the model given the training data is just the probability of the data given the model. The logarithm of this quantity is 
 
 $$
-\begin{aligned}
+\begin{align}
 	\log(likelihood) = N \sum\_{j=1}\^{LSITE}{\sum\_{l \in \mathcal{L}}{freq\_{lj} \log(freq\_{lj})}} + N(L-LSITE) \sum\_{l \in \mathcal{L}}{fout\_l \log(fout\_l)}
-\end{aligned}
+\end{align}
 $$
 
 where \\( fout\_l \\) is the frequency of the letter \\( l \\) in all positions of the sequences outside the instance of the shared motif.

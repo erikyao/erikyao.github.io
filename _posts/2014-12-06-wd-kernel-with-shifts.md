@@ -66,11 +66,11 @@ EST 这里就不展开了。
 ### 2.2 The weighted degree (WD) kernel
 
 $$
-\begin{aligned}
+\begin{align}
 	K(s\_i, s\_j) = \sum\_{k=1}\^{d}{\beta\_d \sum\_{l=1}\^{L-k+1}{I(u\_{k,l}(s\_i) = u\_{k,l}(s\_j))}}
 	\tag{1}
 	\label{eq1}
-\end{aligned}
+\end{align}
 $$
 
 * \\( I(true) = 1 \\) and \\( I(false) = 0 \\)
@@ -80,12 +80,12 @@ $$
 这个 kernel 要求严格对齐，不能处理错位（shift）的情况，于是作者提出了 WD kernel with shifts in order to find sequence motifs which are less precisely localized:
 
 $$
-\begin{aligned}
+\begin{align}
 	K(s\_i, s\_j) &= \sum\_{k=1}\^{d}{\beta\_d \sum\_{l=1}\^{L-k+1}{\gamma_l \sum\_{s=0; \, s+l \leq L}\^{S(l)}{\delta\_s \, \mu\_{k,l,s,s\_i, s\_j}}}} \\\\
 	\mu\_{k,l,s,s\_i, s\_j} &= I(u\_{k,l+s}(s\_i) = u\_{k,l}(s\_j)) + I(u\_{k,l}(s\_i) = u\_{k,l+s}(s\_j))
 	\tag{2}
 	\label{eq2}
-\end{aligned}
+\end{align}
 $$
 
 * \\( l \\) 是 position cursor，表示当前位置
@@ -116,11 +116,11 @@ $$
 于是来了个 combined kernel：
 
 $$
-\begin{aligned}
+\begin{align}
 	K(e\_i, e\_j) = K(s\_{1,i}, s\_{1,j}) + K(s\_{2,i}, s\_{2,j}) + \sigma \left \langle f\_i,f\_j \right \rangle
 	\tag{3}
 	\label{eq3}
-\end{aligned}
+\end{align}
 $$
 
 最后那一项是一个 linear kernel，\\( \sigma \\) is a scaling factor and \\( f\_i \\) is a feature vector consisting of 4 subvectors:

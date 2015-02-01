@@ -185,12 +185,12 @@ where \\( \xi \\) is the knot. One can show that adding a term of the form \\( \
 Now the cubic spline with \\( K \\) knots can be written as
 
 $$
-\begin{aligned}
+\begin{align}
 	Y = 
 	& \beta\_0 + \beta\_1 X + \beta\_2 X\^2 + \beta\_3 X\^3 + \\\\
 	& \beta\_4 h(X, \xi\_1) + \cdots + \beta\_{K+3} h(X, \xi\_K) + \epsilon
 	\tag{4.3}
-\end{aligned} 
+\end{align} 
 $$	
 
 with \\( K+4 \\) degrees of freedom. 

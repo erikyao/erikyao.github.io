@@ -122,7 +122,7 @@ Once a system can be described as an HMM, 3 problems can be solved. The first tw
 
 * Finding the probability of an observed sequence given a HMM (evaluation). 
 	* I.e. given \\( Y\_1 Y\_2 \cdots Y\_n \\), to calculate \\( P(Y\_1 Y\_2 \cdots Y\_n) \\) 
-		* E.g. \\( \begin{aligned} P(wash,sneeze) &= P(wash,sneeze | sun,sun) + P(wash,sneeze | sun,cloud) \\\\ &+ \cdots + P(wash,sneeze | rain,rain) \end{aligned} \\)
+		* E.g. \\( \begin{align} P(wash,sneeze) &= P(wash,sneeze | sun,sun) + P(wash,sneeze | sun,cloud) \\\\ &+ \cdots + P(wash,sneeze | rain,rain) \end{align} \\)
 	* 已知模型参数，计算某一特定 observation 序列的概率
 	* 通常使用 forward 算法解决
 * Finding the sequence of hidden states that most probably generated an observed sequence (decoding). 

@@ -38,11 +38,11 @@ where \\( y\_{(k)} \in \\{0, 1\\}\^n \\) is the class-wise label indication vect
 Classical LDA seeks a linear transformation \\( G \in \mathbb{R}\^{p \times r} \\) that maps \\( x\^{(i)} \\) in the high \\(p\\)-dimensional space to \\( q\^{(i)} \in \mathbb{R}\^{r} \\) in a lower \\(r\\)-dimensional (\\(r < q \\)) space by \\( q\^{(i)} = G\^T x\^{(i)} \\). In classical LDA, the _**between-class**_, _**within-class**_, and _**total-class**_ _scatter matrices_ are defined as follows:
 
 $$
-\begin{aligned}
+\begin{align}
 	S\_b &= \sum\_{k=1}\^{K}{n\_k(m\_k - m)(m\_k - m)\^T} \\\\
 	S\_w &= \sum\_{k=1}\^{K}{\sum\_{x\^{(i)} \in \pi\_k}{(x\^{(i)} - m\_k)(x\^{(i)} - m\_k)\^T}} \\\\
 	S\_t &= \sum\_{i=1}\^{n}{(x\^{(i)} - m)(x\^{(i)} - m)\^T}
-\end{aligned}
+\end{align}
 $$
 
 where \\( m\_k = \frac{1}{n\_k} \sum\_{x\^{(i)} \in \pi\_k}{x\^{(i)}} \\) is the class mean (class centroid) of the \\(k\\)^th class, \\( m = \frac{1}{n} \sum\_{i=1}\^{n}{x\^{(i)}} \\) is the global mean (global centroid), and \\( S\_t = S\_b + S\_w \\). 
@@ -50,10 +50,10 @@ where \\( m\_k = \frac{1}{n\_k} \sum\_{x\^{(i)} \in \pi\_k}{x\^{(i)}} \\) is the
 The optimal \\( G \\) is chosen such that the _**between-class**_ distance is maximize whilst the _**within-class**_ distance is minimized in the low-dimensional projected space, which leads to the standard LDA optimization objective as follows:
 
 $$
-\begin{aligned}
+\begin{align}
 	J &= tr \left \( \frac{G\^T S\_b G}{G\^T S\_w G} \right \) \\\\
 	G\^* &= \underset{G}{\operatorname{argmax}} J
-\end{aligned}
+\end{align}
 $$
 
 -----
