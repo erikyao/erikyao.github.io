@@ -37,6 +37,21 @@ Data frames are used to store <font color="red">tabular</font> data (i.e. a tabl
 * `nrow(df)` 返回行数，`ncol(df)` 返回列数
 * `t(df)` returns the transpose of df. Also works for matrices.
 
+-> 以下根据 _R Cookbook_ 更新 <-
+
+A data frame is a tabular (rectangular) data structure, which means that it has rows and columns. It is _**not**_ implemented by a matrix, however. Rather, _**a data frame is a list**_:
+
+* The elements of the list are vectors and/or factors.
+* Those vectors and factors are the columns of the data frame.
+* The vectors and factors must all have the same length; in other words, all columns must have the same height.
+* The equal-height columns give a rectangular shape to the data frame.
+* The columns must have names.
+
+Because a data frame is both a list and a rectangular structure, R provides two different paradigms for accessing its contents:
+
+* You can use list operators to extract columns from a data frame, such as `dfrm[i]`, `dfrm[[i]]`, or `dfrm$name`.
+* You can use matrix-like notation, such as `dfrm[i,j]`, `dfrm[i,]`, or `dfrm[,j]`.
+
 ## 3. Names
 
 不是每个 object 都会有名字，但是你可以任意给 object 的 name 赋值，比如：
