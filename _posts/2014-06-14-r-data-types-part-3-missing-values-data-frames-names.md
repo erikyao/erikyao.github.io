@@ -94,7 +94,7 @@ One solution is to preallocate the data frame—assuming you know the required n
 	> N = 1000000
 	> dfrm = data.frame(dosage=numeric(N), lab=character(N), response=numeric(N))
 	
-预分配 factor 时需要制定 `levels`，比如：
+预分配 factor 时需要指定 `levels`，比如：
 
 	> N = 1000000
 	> dfrm = data.frame(dosage=numeric(N),
