@@ -467,6 +467,9 @@ subset(dfrm, select=c(colname1, ..., colnameN))
 
 subset(dfrm, subset=(response &gt; 0))
 subset(dfrm, select=c(predictor,response), subset=(response &gt; 0))
+
+subset(dfrm, select = -badboy) # All columns except 'badboy'
+subset(patient.data, select = c(-patient.id,-dosage)) # except these two columns
 </pre>
 
 ##### <a name="which"></a>Using `which` function
