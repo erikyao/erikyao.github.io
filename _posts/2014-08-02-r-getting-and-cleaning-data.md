@@ -12,6 +12,8 @@ Chapter 1 摘自 [How to share data with a statistician](https://github.com/jtle
 Section 3.4 部分参考 [Reshaping data with the `reshape` package](http://had.co.nz/reshape/introduction.pdf)。  
 部分内容参考 [Data Summarization and Manipulation](http://www.biostat.jhsph.edu/~ajaffe/lec_winterR/Lecture%202.pdf) 和 [Lists and Data Cleaning](http://www.biostat.jhsph.edu/~ajaffe/lec_winterR/Lecture%203.pdf)。  
 
+部分补充来自 _R Cookbook_。
+
 -----
 
 ## 目录
@@ -90,6 +92,7 @@ Section 3.4 部分参考 [Reshaping data with the `reshape` package](http://had.
 	- [3.5.1 Using `merge`](#the-merge-function)
 	- [3.5.2 Using `join` in the `plyr` package](#the-join-function)
 	- [3.5.3 Using `join_all` if you have multiple data frames](#the-join-all-function)
+	- [3.5.4 Using `stack` to combine vectors](#the-stack-function)
 - [3.6 Editing Text Variables](#edit-text)
 	- [3.6.1 Important points about text in data sets](#rule-for-text)
 	- [3.6.2 Best practices of processsing variable names](#process-var-name)
@@ -1382,6 +1385,36 @@ arrange(join_all(dfList), id)
 8   8  1.3038877 -1.3293329  1.12601196
 9   9  0.8370239 -0.5411611  2.34161938
 10 10 -0.3579197 -0.8578622  1.57283904
+</pre>
+
+#### <a name="the-stack-function"></a>3.5.4 Using `stack` to combine vectors
+
+You have several vectors and you want to combine these vectors into a large one and simultaneously create a parallel factor that identifies each value’s origin. 
+
+Create a list that contains the vectors. Then use the `stack` function to combine the list into a two-column data frame:
+
+* The `values` column contains the data
+* The `ind` column contains the parallel factor
+
+举个例子就好懂了：
+
+<pre class="prettyprint linenums">
+freshmenGrade = c(90,85,80)
+sophomoresGrade = c(88,82,91)
+juniorsGrade = c(78,93,95)
+
+allGrade = stack(list(fresh=freshmenGrade, soph=sophomoresGrade, jrs=juniorsGrade))
+allGrade
+  values   ind
+1     90 fresh
+2     85 fresh
+3     80 fresh
+4     88  soph
+5     82  soph
+6     91  soph
+7     78   jrs
+8     93   jrs
+9     95   jrs
 </pre>
 
 ### <a name="edit-text"></a>3.6 Editing Text Variables
