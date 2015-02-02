@@ -9,6 +9,8 @@ tags: [R-101]
 
 参照 [R Programming slides on cousera (pdf)](https://d396qusza40orc.cloudfront.net/rprog/lecture_slides/DataTypes.pdf)，作总结。
 
+部分更新来自 _R Cookbook_。
+
 ---
 
 ## 1. Data Type 基础
@@ -86,11 +88,27 @@ Matrices are vectors with a dimension attribute.
 
 Matrices are constructed column-wise, so entries scan be thought of starting in the “upper left” corner and running down the columns. 
 
-	> m <- matrix(1:6, nrow = 2, ncol = 3) 
+	> m <- matrix(1:6, nrow = 2, ncol = 3)
 	> m
-	[,1] [,2] [,3]
-	[1,] 1 3 5
-	[2,] 2 4 6 
+		 [,1] [,2] [,3]
+	[1,]    1    3    5
+	[2,]    2    4    6
+
+	
+Observe that the matrix was filled column by column, not row by row. 不过可以指定 `byrow=TRUE`:
+
+	> m <- matrix(1:6, nrow = 2, ncol = 3, byrow = TRUE) 
+	> m
+		 [,1] [,2] [,3]
+	[1,]    1    2    3
+	[2,]    4    5    6
+
+If the first argument of matrix is a single value, then R will apply the Recycling Rule and automatically replicate the value to fill the entire matrix:
+
+	> matrix(0, 2, 3) # Create an all-zeros matrix
+		 [,1] [,2] [,3]
+	[1,]    0    0    0
+	[2,]    0    0    0
 
 ### 3.2 间接创建 matrix
 
@@ -101,9 +119,9 @@ Matrices can also be created directly from vectors by adding a dimension attribu
 	[1] 1 2 3 4 5 6 7 8 9 10 
 	> dim(m) <- c(2, 5) ## 改成一个 2x5 矩阵
 	> m
-	[,1] [,2] [,3] [,4] [,5]
-	[1,] 1 3 5 7 9
-	[2,] 2 4 6 8 10
+		 [,1] [,2] [,3] [,4] [,5]
+	[1,]    1    3    5    7    9
+	[2,]    2    4    6    8   10
 
 Matrices can be created by column-binding or row-binding with cbind() and rbind().  
 
@@ -131,6 +149,13 @@ Matrices can be created by column-binding or row-binding with cbind() and rbind(
 	[1,] 1 4
 	[2,] 2 5
 	[3,] 3 4
+
+### 3.3 Matrix Operations
+
+* `t(A)`: Matrix transposition of A
+* `solve(A)`: Matrix inverse of A
+* `A %*% B`: Matrix multiplication of A and B
+* `diag(n)`: An n-by-n diagonal (identity) matrix
 
 ## 4. Lists
 
