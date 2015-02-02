@@ -136,5 +136,10 @@ Matrices can be created by column-binding or row-binding with cbind() and rbind(
 
 `x <- list(1, "a", TRUE, 1 + 4i)` 创建一个 list。注意：
 
-* x[[1]] == 1 ## 获取第一个元素
-* x[1] == list(1) ## returns a list of the selected elements
+* `x[[1]] == 1` ## 获取第一个元素
+* `x[1] == list(1)` ## returns a list of the selected elements
+
+在使用 column name 来 access 的时候也有同样的问题，比如我们定义 `x <- list(first=1, second=2)`，有
+
+* `x[["first"]] == 1` ## 获取第一个元素
+* `x["first"] == list(1)` ## returns a list of the selected elements
