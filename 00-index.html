@@ -9,7 +9,7 @@ permalink: "index.html"
 
 <div class="row">
   <div class="span10">
-	<h2>Most Recent Blog Posts</h2>
+	<h2>Most Recent Blog Posts  <a href="/rss.xml"><img src="https://hefqzq.bn1304.livefilestore.com/y2pmVY4xKTpAK1SO31cFzMUSU4YhJvpZiwrM8CMMzyTbJvF7EblI_eUew6w-H3Z2dkaizpMg-Fp_fdru79bCsDSChJxiMz7JsZoMhqt4DUHszLJFZQmUzQl1gQVitf6qRE_t7aQ602tSaHOap3hjsB4rw/rss_pill_blue.png?psid=1" alt="Subscribe to What's New"></a></h2>
 
 	<ul>
     {% for post in site.posts limit:15 offset:0 %}
@@ -23,8 +23,8 @@ permalink: "index.html"
   <div class="span4">
     <h4>About</h4>
 
-	<p>Hi! This is {{ site.author.name }}. </p>
-	<p>I am a Chinese Java coder. I am also trying R because I am interested in Machine Learning recently.</p>
+	<p>Hi! This is {{ site.author.name }}, a Chinese <br/>Java coder. </p>
+	<p>Now exploring R because I am interested in Machine Learning recently.</p>
 	<p>Personally, I am a big fan of <a href="http://www.aoimiyazaki.jp/" title="AOI MIYAZAKI official web site - 宮﨑あおい" target="_blank">Aoi Miyazaki</a> and <a href="http://www.nba.com/suns/" title="Phoenix Suns - NBA.com" target="_blank">Phoenix Suns</a>. </p>
 	
     <h4>Contact</h4>
