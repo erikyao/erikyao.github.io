@@ -52,6 +52,39 @@ Because a data frame is both a list and a rectangular structure, R provides two 
 * You can use list operators to extract columns from a data frame, such as `dfrm[i]`, `dfrm[[i]]`, or `dfrm$name`.
 * You can use matrix-like notation, such as `dfrm[i,j]`, `dfrm[i,]`, or `dfrm[,j]`.
 
+### 2.1 Combining Row Data into a Data Frame
+
+假设现在有多个 observation，每个 observation 都是一个单行的 data frame，现在想把这些单行的 data frame 合并成一个大的 data frame：
+
+	> row1 = data.frame(v1 = 1, v2 = 2, r = 3)
+	> row2 = data.frame(v1 = 4, v2 = 5, r = 6)
+	> row3 = data.frame(v1 = 7, v2 = 8, r = 9)
+	> rows = list(row1, row2, row3)
+	> dfrm = do.call(rbind, rows)
+	> dfrm
+	  v1 v2 r
+	1  1  2 3
+	2  4  5 6
+	3  7  8 9
+
+如果 `row1`, `row2`, `row3` 是 list 的话会稍微麻烦一点：
+
+	> row1 = list(v1 = 1, v2 = 2, r = 3)
+	> row2 = list(v1 = 4, v2 = 5, r = 6)
+	> row3 = list(v1 = 7, v2 = 8, r = 9)
+	> rows = list(row1, row2, row3)
+	> dfrm = do.call(rbind, Map(as.data.frame, rows))
+	> dfrm
+	  v1 v2 r
+	1  1  2 3
+	2  4  5 6
+	3  7  8 9
+
+这里区分下 `do.call` 和 `Map`:
+
+* `do.call` 的基本用法可以理解为 `do.call(function, list<args>)`，但它和 apply 一族的逻辑不同，它其实就是把 `list<args>` 全部填充到 `function` 里了。这对不定长参数列表尤其有用，因为你不用一个个的去填参数，比如上面的 `rbind`，你要自己写就是 `rbind(rows[[1]], rows[[2]], rows[[3]])`，太麻烦，`do.call` 就方便多了，不管你参数有多少个，我负责帮你把参数都填进去
+* `Map` 是 apply 一族的，它是 `mapply` 的变体。`Map(as.data.frame, rows)` 的逻辑就是对 `rows` 的每一个元素都执行 `as.data.frame`，返回一个 result list
+
 ## 3. Names
 
 不是每个 object 都会有名字，但是你可以任意给 object 的 name 赋值，比如：
