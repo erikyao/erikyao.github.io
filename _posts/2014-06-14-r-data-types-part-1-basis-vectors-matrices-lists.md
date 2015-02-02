@@ -167,3 +167,17 @@ mean(unlist(grade))
 <pre class="prettyprint linenums">
 lst[sapply(lst, is.null)] &lt;- NULL
 </pre>
+
+### 4.3 Removing Elements Whose abs < 1
+
+The simplest solution is flattening the list into a vector by calling `unlist` and then testing the vector:
+
+<pre class="prettyprint linenums">
+lst[abs(unlist(lst)) &lt; 1] &lt;- NULL
+</pre>
+
+A more elegant solution uses `lapply` to apply the function to every element of the list:
+
+<pre class="prettyprint linenums">
+lst[lapply(lst,abs) &lt; 1] &lt;- NULL
+</pre>
