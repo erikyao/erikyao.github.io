@@ -85,6 +85,22 @@ Because a data frame is both a list and a rectangular structure, R provides two 
 * `do.call` 的基本用法可以理解为 `do.call(function, list<args>)`，但它和 apply 一族的逻辑不同，它其实就是把 `list<args>` 全部填充到 `function` 里了。这对不定长参数列表尤其有用，因为你不用一个个的去填参数，比如上面的 `rbind`，你要自己写就是 `rbind(rows[[1]], rows[[2]], rows[[3]])`，太麻烦，`do.call` 就方便多了，不管你参数有多少个，我负责帮你把参数都填进去
 * `Map` 是 apply 一族的，它是 `mapply` 的变体。`Map(as.data.frame, rows)` 的逻辑就是对 `rows` 的每一个元素都执行 `as.data.frame`，返回一个 result list
 
+### 2.2 Preallocating a Data Frame
+
+Theoretically, you can build a data frame by appending new rows, one by one. That’s OK for small data frames, but building a large data frame in that way can be tortuous. The memory manager in R works poorly when one new row is repeatedly appended to a large data structure. Hence your R code will run very slowly. 我猜是 `rbind` 时 R 会保留 data.frame 的副本，然后重新做一个新的，再 dump 掉副本。
+
+One solution is to preallocate the data frame—assuming you know the required number of rows. By preallocating the data frame once and for all, you sidestep problems with the memory manager.
+
+	> N = 1000000
+	> dfrm = data.frame(dosage=numeric(N), lab=character(N), response=numeric(N))
+	
+预分配 factor 时需要制定 `levels`，比如：
+
+	> N = 1000000
+	> dfrm = data.frame(dosage=numeric(N),
+	+ 					lab=factor(N, levels=c("NJ", "IL", "CA")),
+	+ 					response=numeric(N))
+
 ## 3. Names
 
 不是每个 object 都会有名字，但是你可以任意给 object 的 name 赋值，比如：
