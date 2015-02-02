@@ -100,6 +100,46 @@ One solution is to preallocate the data frame—assuming you know the required n
 	> dfrm = data.frame(dosage=numeric(N),
 	+ 					lab=factor(N, levels=c("NJ", "IL", "CA")),
 	+ 					response=numeric(N))
+	
+### 2.3 Using `with` function
+
+For a data frame called `suburbs` that contains a column called `pop`, here is the naïve way to calculate the z-scores of `pop`:
+
+	> z <- (suburbs$pop - mean(suburbs$pop)) / sd(suburbs$pop)
+	
+The `with` function lets you expose the columns of a data frame as distinct variables. It takes two arguments, a data frame and an expression to be evaluated:
+
+	> z <- with(suburbs, (pop - mean(pop)) / sd(pop))
+	
+### 2.4 Using `attach` function
+
+`attach` 本身并没啥难的，这里要说的是：`attach(X)` 会创建一个 `X` 副本，用来简写 `X$var` 的 `var` 其实就是副本的一个 column，对 `var` 的修改不会实施到 `X$var` 上，vise versa。我们来看个例子：
+
+	> X = data.frame(var1=c(1,2,3), var2=c(4,5,6))
+	> attach(X)
+	
+	> var1 = 0 ## `var1` 的修改并没有影响到 `X$var1`
+	> X
+	  var1 var2
+	1    1    4
+	2    2    5
+	3    3    6
+	
+	> X$var2 = 0 ## `X$var2` 的修改并没有影响到 `var2`
+	> X
+	  var1 var2
+	1    1    0
+	2    2    0
+	3    3    0
+	> var2
+	[1] 4 5 6
+	
+	> detach(X) ## detach 后再检查一下，确实是 `X$var1` 没变，`X$var2` 有变
+	> X
+	  var1 var2
+	1    1    0
+	2    2    0
+	3    3    0
 
 ## 3. Names
 
