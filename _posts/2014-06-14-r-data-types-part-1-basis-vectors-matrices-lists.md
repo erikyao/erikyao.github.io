@@ -143,3 +143,27 @@ Matrices can be created by column-binding or row-binding with cbind() and rbind(
 
 * `x[["first"]] == 1` ## 获取第一个元素
 * `x["first"] == list(1)` ## returns a list of the selected elements
+
+### 4.1 Using `unlist` to Flatten a List into a Vector
+
+There are many contexts that require a vector. Basic statistical function, say, `mean`, works on vectors but not on lists, for example. Instead, we must flatten the list into a vector using `unlist` and then compute the mean of the result:
+
+<pre class="prettyprint linenums">
+grade = list(88,92,96)
+
+mean(grade)
+[1] NA
+Warning message:
+In mean.default(grade) : argument is not numeric or logical: returning NA
+
+mean(unlist(grade))
+[1] 92
+</pre>
+
+### 4.2 Removing NULL Elements from a List
+
+有点高端的写法：
+
+<pre class="prettyprint linenums">
+lst[sapply(lst, is.null)] &lt;- NULL
+</pre>
