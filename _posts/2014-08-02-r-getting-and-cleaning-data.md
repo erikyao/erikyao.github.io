@@ -45,6 +45,7 @@ Section 3.4 部分参考 [Reshaping data with the `reshape` package](http://had.
 
 - [3.1 Subsetting and Sorting](#subset-and-sort)
 	- [3.1.1 Subsetting](#subset)
+		- [Using `subset` function](#the-subset-function)
 		- [Using `which` function](#which)
 		- [How to remove columns?](#remove-columns)
 		- [Making new data frames by extraction](#extract-new-data-frame)
@@ -418,7 +419,7 @@ The `sqldf` package allows for execution of SQL commands on R data frames, e.g. 
 
 <pre class="prettyprint linenums">
 set.seed(1130)
-X <- data.frame("var1"=sample(1:5),"var2"=sample(6:10),"var3"=sample(11:15))
+X <- data.frame(var1=sample(1:5),var2=sample(6:10),var3=sample(11:15))
 X <- X[sample(1:5),] ## 随机排列这 5 行 
 X$var2[c(1,3)] <- NA ## 选两个元素赋为 NA
 
@@ -454,6 +455,18 @@ v[ (v &lt; quantile(v,0.05)) | (v &gt; quantile(v,0.95)) ]
 v[ abs(v-mean(v)) &gt; 2*sd(v) ]
 ## Select all elements that are neither NA nor NULL
 v[ !is.na(v) & !is.null(v) ]
+</pre>
+
+##### <a name="the-subset-function"></a>Using `subset` function
+
+举几个例子，应该不需要再解释了：
+
+<pre class="prettyprint linenums">
+subset(dfrm, select=colname)
+subset(dfrm, select=c(colname1, ..., colnameN))
+
+subset(dfrm, subset=(response &gt; 0))
+subset(dfrm, select=c(predictor,response), subset=(response &gt; 0))
 </pre>
 
 ##### <a name="which"></a>Using `which` function
