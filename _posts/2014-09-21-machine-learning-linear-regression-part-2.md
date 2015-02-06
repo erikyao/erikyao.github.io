@@ -434,7 +434,7 @@ We can use the `names()` function in order to find out what other pieces of info
 	(Intercept) lstat
 		  34.55 -0.95
 		  
-In order to obtain a confidence interval for the coefficient estimates, we can use the `confint()` command.
+In order to obtain a confidence interval for the coefficient estimates, we can use the `confint()` command.（注：如果区间横跨了 0，比如 [-1, 1] 这样的，说明这个 predictor is not significant for this model）
 
 	> confint(lm.fit)
 				2.5 % 97.5 %
