@@ -1605,8 +1605,11 @@ character(0)
 
 <pre class="prettyprint linenums">
 &gt; library(stringr)
-&gt; nchar("Jeffrey Leek") ## String.length
+&gt; nchar("Jeffrey Leek") ## 相当于 Java 的 String.length(); R 的 length() 是返回 vector 或者 list 的元素个数，不要误用
 [1] 12
+
+&gt; nchar(c("Moe", "Larry", "Curly")) ## nchar 也可以用于 string vector
+[1] 3 5 5
 </pre>
 
 <pre class="prettyprint linenums">
