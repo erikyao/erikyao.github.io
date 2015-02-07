@@ -1615,6 +1615,13 @@ character(0)
 <pre class="prettyprint linenums">
 &gt; substr("Jeffrey Leek", 1, 7)
 [1] "Jeffrey"
+
+&gt; substr(c("Moe", "Larry", "Curly"), 1, 3) ## Extract first 3 characters of each string
+[1] "Moe" "Lar" "Cur"
+
+&gt; cities &lt;- c("New York, NY", "Los Angeles, CA", "Peoria, IL") 
+&gt; substr(cities, nchar(cities)-1, nchar(cities)) ## In fact, all the arguments can be vectors, in which case substr will treat them as parallel vectors
+[1] "NY" "CA" "IL"
 </pre>
 
 <pre class="prettyprint linenums">
