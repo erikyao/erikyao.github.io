@@ -249,19 +249,19 @@ dateDownloaded <- date() ## Be sure to record when you downloaded.
 
 ### <a name="read-table-args"></a>2.2 `read.table` args: `na.strings`, `stringsAsFactors`, `comment.char`
 
-#### `na.strings` 参数
+#### na.strings 参数
 
 `na.strings`: a character vector of strings which are to be interpreted as NA values.   
 
 比如有的 table 里表示 NA 的字符串是 "N/A" 或 "Not Available"，那么就可以设置成 `read.table(..., na.strings=c("N/A", "Not Available" ),...)`。
 
-#### `stringsAsFactors` 参数
+#### stringsAsFactors 参数
 
 默认是 TRUE，此时元素是字符串的列 `df$A` 会被当做 factor，`df$A[[1]]` 会被当成 factor 的一个元素，`str(df$A[[1]])` 会得到类似 `Factor w/ 4510 levels "ABBEVILLE AREA MEDICAL CENTER",..: 866` 这样的信息，表示 `str(df$A[[1]])` 是 4510 个 levels 中 level 为 866 的元素，而且 `return(df$A[[1]])` 也会打出 `4510 Levels: ABBEVILLE AREA MEDICAL CENTER ...` 这样的信息，略烦。如果不用 factor 相关的功能，可以把 stringsAsFactors 这一项设置为 FALSE。  
 
 关闭之后，`str(df$A)` 得到的是类似 `chr [1:370] "PROVIDENCE MEMORIAL HOSPITAL" ...` 这样的信息，表示是一个 string vector；`str(df$A[[1]])` 得到的是 `chr "CYPRESS FAIRBANKS MEDICAL CENTER"`。
 
-#### `comment.char` 参数
+#### comment.char 参数
 
 有些文件一开头是注释，比如有像这样用 "##" 开头的：
 
