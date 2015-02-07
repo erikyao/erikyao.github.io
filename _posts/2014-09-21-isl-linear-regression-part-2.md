@@ -298,7 +298,7 @@ If in fact there is correlation among the error terms, then the estimated standa
 	* 95% CI may in reality have a much lower probability than 0.95 of containing the true value of the parameter
 * p-values associated with the model will be lower than they should be.
 
-As an extreme example, suppose we accidentally doubled our data, leading to observations and error terms identical in pairs. If we ignored this, our standard error calculations would be as if we had a sample of size \\( 2n \\), when in fact we have only \\( n \\) samples. Our estimated parameters would be the same for the \\( 2n \\) samples as for the \\( n \\) samples, but the confidence intervals would be narrower by a factor of \\( sqrt{2} \\)!
+As an extreme example, suppose we accidentally doubled our data, leading to observations and error terms identical in pairs. If we ignored this, our standard error calculations would be as if we had a sample of size \\( 2n \\), when in fact we have only \\( n \\) samples. Our estimated parameters would be the same for the \\( 2n \\) samples as for the \\( n \\) samples, but the confidence intervals would be narrower by a factor of \\( \sqrt{2} \\)!
 
 correlation of error terms 在 time series 里比较常见. If we plot the residuals from our model versus time, 一个常见的 correlation of error terms 的特征是：连续的 positive residuals 或者 negative residuals。
 
