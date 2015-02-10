@@ -7,7 +7,7 @@ tags: [Network-101]
 ---
 {% include JB/setup %}
 
-ZT. 转载茫茫多，出处不可靠。
+ZT. 转载茫茫多，原文地址不可考。
 
 -----
 
