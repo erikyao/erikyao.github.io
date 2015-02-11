@@ -3,7 +3,7 @@ layout: post
 title: "局部内部类 (local inner class)"
 description: ""
 category: Java
-tags: [Java-101, Java-InnerClass]
+tags: [Java-InnerClass]
 ---
 {% include JB/setup %}
 

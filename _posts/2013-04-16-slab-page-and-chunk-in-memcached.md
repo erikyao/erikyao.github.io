@@ -3,7 +3,7 @@ layout: post
 title: "slab, page and chunk in memcached"
 description: ""
 category: Memcached
-tags: [HowDoes, HowDoes-Memcached]
+tags: [Cache-101]
 ---
 {% include JB/setup %}
 

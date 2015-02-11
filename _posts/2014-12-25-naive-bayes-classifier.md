@@ -3,7 +3,7 @@ layout: post-mathjax
 title: "Naive Bayes classifier"
 description: ""
 category: Machine-Learning
-tags: [ML-101]
+tags: [ML-101, Bayes]
 ---
 {% include JB/setup %}
 

@@ -2,8 +2,8 @@
 layout: post
 title: "visibility symbol in UML"
 description: ""
-category: UML
-tags: [Java-101]
+category: Java
+tags: [UML]
 ---
 {% include JB/setup %}
 

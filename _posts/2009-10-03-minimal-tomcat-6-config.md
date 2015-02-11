@@ -3,7 +3,7 @@ layout: post
 title: "Tomcat 6.0 环境变量和 Tomcat Manager Account"
 description: ""
 category: Tomcat
-tags: [Config-Tomcat, Config]
+tags: [Config-Tomcat]
 ---
 {% include JB/setup %}
 

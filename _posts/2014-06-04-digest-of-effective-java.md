@@ -3,7 +3,7 @@ layout: post
 title: "Digest of <i>Effective Java</i>"
 description: ""
 category: Java
-tags: [Digest, Java-InnerClass, Java-Exception, Java-Concurrent, Java-Collection, Java-DesignPattern]
+tags: [Book, Java-InnerClass, Java-Exception, Java-Concurrent, Java-Collection, Java-DesignPattern]
 ---
 {% include JB/setup %}
 

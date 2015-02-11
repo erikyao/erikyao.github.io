@@ -3,7 +3,7 @@ layout: post
 title: "依赖、依赖注入（DI）以及控制反转（IoC）"
 description: ""
 category: Spring
-tags: [Java-101, Spring-101]
+tags: [Spring-101, Java-DesignPattern]
 ---
 {% include JB/setup %}
 

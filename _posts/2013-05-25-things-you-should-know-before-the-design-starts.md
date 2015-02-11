@@ -3,7 +3,7 @@ layout: post
 title: "有关设计的一些事后诸葛亮"
 description: ""
 category: as-a-coder
-tags: [Discernment, Discernment-Design]
+tags: [Discernment-Design]
 ---
 {% include JB/setup %}
 

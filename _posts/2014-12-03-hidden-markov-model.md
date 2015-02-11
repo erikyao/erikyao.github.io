@@ -3,7 +3,7 @@ layout: post-mathjax
 title: "Hidden Markov Models"
 description: ""
 category: Machine-Learning
-tags: [ML-101]
+tags: [ML-101, HMM]
 ---
 {% include JB/setup %}
 

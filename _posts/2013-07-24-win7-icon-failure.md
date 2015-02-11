@@ -3,7 +3,7 @@ layout: post
 title: "win7 图标显示不正常如何解决"
 description: ""
 category: Windows
-tags: [GTR]
+tags: [Config-Windows]
 ---
 {% include JB/setup %}
 

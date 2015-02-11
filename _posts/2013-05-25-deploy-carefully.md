@@ -3,7 +3,7 @@ layout: post
 title: "Deploy carefully!"
 description: ""
 category: as-a-coder
-tags: [Discernment]
+tags: [Discernment-Maintenance]
 ---
 {% include JB/setup %}
 

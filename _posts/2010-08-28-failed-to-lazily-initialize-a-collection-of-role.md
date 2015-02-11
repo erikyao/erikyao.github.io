@@ -3,7 +3,7 @@ layout: post
 title: "hibernate 延迟加载的错误"
 description: ""
 category: Hibernate
-tags: [GTR]
+tags: [Config-Hibernate]
 ---
 {% include JB/setup %}
 

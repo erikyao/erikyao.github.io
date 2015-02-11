@@ -3,7 +3,7 @@ layout: post
 title: "关于表字段数量与对象字段数量的思考"
 description: ""
 category: as-a-coder
-tags: [Discernment, Discernment-Design]
+tags: [Discernment-Design]
 ---
 {% include JB/setup %}
 

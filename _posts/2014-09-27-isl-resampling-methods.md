@@ -3,7 +3,7 @@ layout: post-mathjax
 title: "ISL: Resampling Methods"
 description: ""
 category: Machine-Learning
-tags: [ML-101]
+tags: [ML-101, Bootstrap]
 ---
 {% include JB/setup %}
 

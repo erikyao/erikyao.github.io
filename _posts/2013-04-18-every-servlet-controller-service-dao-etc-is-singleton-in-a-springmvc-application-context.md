@@ -3,7 +3,7 @@ layout: post
 title: "Every servlet, controller, service, DAO, etc is Singleton in a SpringMVC application context"
 description: ""
 category: SpringMVC
-tags: [HowDoes, HowDoes-SpringMVC]
+tags: [SpringMVC-101]
 ---
 {% include JB/setup %}
 

@@ -3,7 +3,7 @@ layout: post
 title: "对内部类的继承"
 description: ""
 category: Java
-tags: [Java-101, Java-InnerClass]
+tags: [Java-InnerClass]
 ---
 {% include JB/setup %}
 

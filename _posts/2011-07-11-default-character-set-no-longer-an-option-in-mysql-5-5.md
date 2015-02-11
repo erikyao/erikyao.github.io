@@ -3,7 +3,7 @@ layout: post
 title: "MySQL 5.5 版本下 my.ini 内 [mysqld] 项中不能再写 default-character-set=utf8"
 description: ""
 category: MySQL
-tags: [Config, Config-MySQL]
+tags: [Config-MySQL]
 ---
 {% include JB/setup %}
 

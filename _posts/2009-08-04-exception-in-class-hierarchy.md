@@ -3,7 +3,7 @@ layout: post
 title: "涉及继承的异常声明及捕捉"
 description: ""
 category: Java
-tags: [Java-101, Java-Exception]
+tags: [Java-Exception]
 ---
 {% include JB/setup %}
 

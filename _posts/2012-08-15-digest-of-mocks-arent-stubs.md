@@ -3,7 +3,7 @@ layout: post
 title: "Digest of <i>Mocks Aren't Stubs</i>"
 description: ""
 category: TDD
-tags: [Digest, Discernment, Discernment-Design]
+tags: [Article, Discernment-Test, Discernment-Design]
 ---
 {% include JB/setup %}
 

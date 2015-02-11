@@ -3,7 +3,7 @@ layout: post
 title: "《jBPM-4.3 用户手册》第6章《jpdl》翻译稿"
 description: ""
 category: jBPM-4.3
-tags: [Doc]
+tags: [Doc, jbpm-101]
 ---
 {% include JB/setup %}
 

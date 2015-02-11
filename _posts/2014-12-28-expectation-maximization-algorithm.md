@@ -3,7 +3,7 @@ layout: post-mathjax
 title: "Expectation-Maximization Algorithm"
 description: "Digest of <i>A Gentle Tutorial of the EM Algorithm and its Application to Parameter Estimation for Gaussian Mixture and Hidden Markov Models</i>"
 category: Machine-Learning
-tags: [Digest, Paper, ML-101]
+tags: [Paper, ML-101, EM]
 ---
 {% include JB/setup %}
 

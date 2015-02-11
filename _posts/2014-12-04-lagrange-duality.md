@@ -3,7 +3,7 @@ layout: post-mathjax
 title: "Lagrange duality"
 description: ""
 category: Machine-Learning
-tags: [ML-101]
+tags: [ML-101, SVM]
 ---
 {% include JB/setup %}
 

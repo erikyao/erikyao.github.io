@@ -3,7 +3,7 @@ layout: post
 title: "《分布式 Java 应用：基础与实践》第三章总结其一：理解 JVM（未完待续）"
 description: ""
 category: Java
-tags: [Digest, JVM]
+tags: [Book, JVM]
 ---
 {% include JB/setup %}
 

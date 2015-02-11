@@ -3,7 +3,7 @@ layout: post
 title: "Sqlmap Namespace"
 description: ""
 category: iBatis
-tags: [iBatis-101, Config, Config-iBatis]
+tags: [iBatis-101]
 ---
 {% include JB/setup %}
 

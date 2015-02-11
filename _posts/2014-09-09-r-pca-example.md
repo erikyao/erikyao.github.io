@@ -3,7 +3,7 @@ layout: post-mathjax
 title: "R PCA Example"
 description: ""
 category: Machine-Learning
-tags: [ML-101, R-101]
+tags: [ML-101, R-101, PCA]
 ---
 {% include JB/setup %}
 

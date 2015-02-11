@@ -2,8 +2,8 @@
 layout: post
 title: "Digest of <i>Test Driven Development</i>"
 description: ""
-category: TDD
-tags: [Digest, Discernment, Discernment-Design]
+category: [Java]
+tags: [Book, Java-TDD]
 ---
 {% include JB/setup %}
 

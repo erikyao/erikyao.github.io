@@ -2,8 +2,8 @@
 layout: post
 title: "never fake a &lt;input type=file&gt;"
 description: ""
-category: HTML
-tags: [Discernment, Discernment-HTML]
+category: JavaScript
+tags: [JavaScript-101]
 ---
 {% include JB/setup %}
 

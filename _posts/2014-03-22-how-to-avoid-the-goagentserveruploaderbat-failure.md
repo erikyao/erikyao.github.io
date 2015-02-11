@@ -3,7 +3,7 @@ layout: post
 title: "goagent/server/uploader.bat 失败的解决办法"
 description: ""
 category: Windows
-tags: [GTR]
+tags: [Config-Windows]
 ---
 {% include JB/setup %}
 

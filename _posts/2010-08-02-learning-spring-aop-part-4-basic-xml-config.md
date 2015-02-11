@@ -3,7 +3,7 @@ layout: post
 title: "Spring AOP 学习（四）：简单 XML 配置 "
 description: ""
 category: AOP
-tags: [Java-101, Java-AOP, Config, Config-AOP]
+tags: [Java-AOP]
 ---
 {% include JB/setup %}
 

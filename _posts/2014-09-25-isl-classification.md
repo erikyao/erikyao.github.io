@@ -3,7 +3,7 @@ layout: post-mathjax
 title: "ISL: Classification"
 description: ""
 category: Machine-Learning
-tags: [ML-101]
+tags: [ML-101, LDA]
 ---
 {% include JB/setup %}
 

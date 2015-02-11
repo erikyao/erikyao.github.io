@@ -3,7 +3,7 @@ layout: post
 title: "class loading: further discussion involving steps of instance creation"
 description: ""
 category: Java
-tags: [Java-101]
+tags: [JVM]
 ---
 {% include JB/setup %}
 

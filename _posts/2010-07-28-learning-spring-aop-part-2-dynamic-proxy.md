@@ -3,7 +3,7 @@ layout: post
 title: "Spring AOP 学习（二）：动态代理"
 description: ""
 category: AOP
-tags: [Java-101, Java-AOP, Proxy, 动态代理, HowDoes, HowDoes-AOP]
+tags: [Java-AOP, Proxy, 动态代理]
 ---
 {% include JB/setup %}
 

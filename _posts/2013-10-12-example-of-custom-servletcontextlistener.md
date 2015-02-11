@@ -3,7 +3,7 @@ layout: post
 title: "自定义 ServletContextListener 的写法举例"
 description: ""
 category: Java
-tags: [Servlet-101]
+tags: [Servlet]
 ---
 {% include JB/setup %}
 

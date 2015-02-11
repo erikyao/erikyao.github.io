@@ -3,7 +3,7 @@ layout: post
 title: "Ant 中 javac 假死的解决办法"
 description: ""
 category: Ant
-tags: [GTR]
+tags: [Config-Ant]
 ---
 {% include JB/setup %}
 

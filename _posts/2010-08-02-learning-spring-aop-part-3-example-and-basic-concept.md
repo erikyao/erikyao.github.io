@@ -3,7 +3,7 @@ layout: post
 title: "Spring AOP 学习（三）：例子与基本概念"
 description: ""
 category: AOP
-tags: [Java-101, Java-AOP, HowDoes, HowDoes-AOP, Config, Config-AOP]
+tags: [Java-AOP]
 ---
 {% include JB/setup %}
 

@@ -3,7 +3,7 @@ layout: post
 title: "匿名内部类 (anonymous inner class)：简化形式及自动向上转型"
 description: ""
 category: Java
-tags: [Java-101, Java-InnerClass]
+tags: [Java-InnerClass]
 ---
 {% include JB/setup %}
 

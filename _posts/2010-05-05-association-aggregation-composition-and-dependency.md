@@ -3,7 +3,7 @@ layout: post
 title: "UML 类图之关联、聚合、组合、依赖"
 description: ""
 category: UML
-tags: [Java-101, Java-DesignPattern]
+tags: [Java-DesignPattern]
 ---
 {% include JB/setup %}
 

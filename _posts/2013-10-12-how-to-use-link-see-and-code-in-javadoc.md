@@ -3,7 +3,7 @@ layout: post
 title: "How to use @link, @see and @code in JavaDoc"
 description: ""
 category: Java
-tags: [Java-101]
+tags: [JavaDoc]
 ---
 {% include JB/setup %}
 

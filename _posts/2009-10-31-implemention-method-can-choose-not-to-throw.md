@@ -3,7 +3,7 @@ layout: post
 title: "当接口方法有声明 throws Exception 时，实现方法可以选择不 throws"
 description: ""
 category: Java
-tags: [Java-101, Java-Exception]
+tags: [Java-Exception]
 ---
 {% include JB/setup %}
 

@@ -3,7 +3,7 @@ layout: post
 title: "&lt;%@ page contentType%&gt; 注意事项两则"
 description: ""
 category: JSP
-tags: [JSP-101, GTR]
+tags: [JSP-101]
 ---
 {% include JB/setup %}
 

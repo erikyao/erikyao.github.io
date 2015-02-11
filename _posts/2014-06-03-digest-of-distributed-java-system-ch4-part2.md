@@ -3,7 +3,7 @@ layout: post
 title: "《分布式 Java 应用：基础与实践》第四章总结其二：并发工具类"
 description: ""
 category: Java
-tags: [Digest, Java-Concurrent]
+tags: [Book, Java-Concurrent]
 ---
 {% include JB/setup %}
 

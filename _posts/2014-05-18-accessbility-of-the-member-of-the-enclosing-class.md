@@ -3,7 +3,7 @@ layout: post
 title: "局部内部类、匿名内部类对外部变量的访问权限 + 闭包"
 description: ""
 category: Java
-tags: [Java-101, Java-InnerClass, Closure]
+tags: [Java-InnerClass, Closure]
 ---
 {% include JB/setup %}
 

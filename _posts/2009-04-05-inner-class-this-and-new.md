@@ -3,7 +3,7 @@ layout: post
 title: "内部类：对外部类的访问及 .this 和 .new"
 description: ""
 category: Java
-tags: [Java-101, Java-InnerClass]
+tags: [Java-InnerClass]
 ---
 {% include JB/setup %}
 

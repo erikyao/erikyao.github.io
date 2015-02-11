@@ -3,7 +3,7 @@ layout: post
 title: "Spring AOP 学习（一）：组合对比继承的优势"
 description: ""
 category: AOP
-tags: [Java-101, Java-AOP, Proxy, Delegate, 动态代理]
+tags: [Java-AOP, Proxy, Delegate, 动态代理]
 ---
 {% include JB/setup %}
 

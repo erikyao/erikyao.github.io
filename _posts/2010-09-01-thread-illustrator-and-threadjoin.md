@@ -3,7 +3,7 @@ layout: post
 title: "多线程示意和 thread.join() 用法示意"
 description: ""
 category: Java
-tags: [Java-101, Java-Concurrent]
+tags: [Java-Concurrent]
 ---
 {% include JB/setup %}
 

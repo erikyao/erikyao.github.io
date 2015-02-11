@@ -3,7 +3,7 @@ layout: post-mathjax
 title: "Soft Margin Intuition"
 description: ""
 category: Machine-Learning
-tags: [ML-101]
+tags: [ML-101, SVM]
 ---
 {% include JB/setup %}
 

@@ -3,7 +3,7 @@ layout: post
 title: "2 most important questions when an old project is assigned to you"
 description: ""
 category: as-a-coder
-tags: [Discernment]
+tags: [Discernment-Maintenance]
 ---
 {% include JB/setup %}
 

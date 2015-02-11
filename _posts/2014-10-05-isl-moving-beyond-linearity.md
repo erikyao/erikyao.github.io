@@ -3,7 +3,7 @@ layout: post-mathjax
 title: "ISL: Moving Beyond Linearity"
 description: ""
 category: Machine-Learning
-tags: [ML-101]
+tags: [ML-101, Spline, GAM]
 ---
 {% include JB/setup %}
 

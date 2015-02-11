@@ -3,7 +3,7 @@ layout: post
 title: "throw 的屏蔽作用"
 description: ""
 category: Java
-tags: [Java-101, Java-Exception]
+tags: [Java-Exception]
 ---
 {% include JB/setup %}
 

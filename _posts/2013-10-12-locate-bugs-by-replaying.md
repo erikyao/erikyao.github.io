@@ -3,7 +3,7 @@ layout: post
 title: "Locate Bugs by Replaying"
 description: ""
 category: as-a-coder
-tags: [Discernment, Discernment-Maintenance]
+tags: [Discernment-Maintenance]
 ---
 {% include JB/setup %}
 

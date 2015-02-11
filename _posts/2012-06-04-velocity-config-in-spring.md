@@ -3,7 +3,7 @@ layout: post
 title: "Velocity Config in Spring"
 description: ""
 category: Spring
-tags: [Config, Config-Spring, Config-Velocity]
+tags: [Config-Spring, Config-Velocity]
 ---
 {% include JB/setup %}
 

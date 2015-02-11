@@ -3,7 +3,7 @@ layout: post
 title: "Java 多线程：synchronized"
 description: ""
 category: Java
-tags: [Java-101, Java-Concurrent]
+tags: [Java-Concurrent]
 ---
 {% include JB/setup %}
 

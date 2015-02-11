@@ -2,8 +2,8 @@
 layout: post
 title: "a weird problem caused by encoding"
 description: ""
-category: Tomcat
-tags: [GTR]
+category: JSP
+tags: [JSP-101]
 ---
 {% include JB/setup %}
 

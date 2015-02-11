@@ -3,7 +3,7 @@ layout: post-mathjax
 title: "ISL: Tree Based Methods"
 description: ""
 category: Machine-Learning
-tags: [ML-101]
+tags: [ML-101, Bootstrap, Bagging, Boosting]
 ---
 {% include JB/setup %}
 

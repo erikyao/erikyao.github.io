@@ -3,7 +3,7 @@ layout: post-mathjax
 title: "ISL: Unsupervised Learning"
 description: ""
 category: Machine-Learning
-tags: [ML-101]
+tags: [ML-101, PCA, Cluster]
 ---
 {% include JB/setup %}
 

@@ -3,7 +3,7 @@ layout: post
 title: "Spring TestContext 测试框架中 @BeforeClass 方法无法使用 @ContextConfiguration 初始化的 bean"
 description: ""
 category: Spring
-tags: [Java-101, Spring-101, GTR]
+tags: [Java-101, Spring-101, Config-Spring]
 ---
 {% include JB/setup %}
 

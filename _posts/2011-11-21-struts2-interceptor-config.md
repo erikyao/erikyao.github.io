@@ -3,7 +3,7 @@ layout: post
 title: "struts2 interceptor config"
 description: ""
 category: Struts
-tags: [Config, Config-Struts]
+tags: [Config-Struts]
 ---
 {% include JB/setup %}
 

@@ -3,7 +3,7 @@ layout: post-mathjax
 title: "Introduction to Linear Discriminant Analysis"
 description: ""
 category: Machine-Learning
-tags: [ML-101]
+tags: [ML-101, LDA]
 ---
 {% include JB/setup %}
 

@@ -2,8 +2,8 @@
 layout: post
 title: "url-patttern"
 description: ""
-category: JSP
-tags: [JSP-101, Config, Config-JSP]
+category: Java
+tags: [Servlet]
 ---
 {% include JB/setup %}
 

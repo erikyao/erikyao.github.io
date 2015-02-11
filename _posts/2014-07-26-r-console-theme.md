@@ -3,7 +3,7 @@ layout: post
 title: "R console theme"
 description: ""
 category: R
-tags: [Config, Config-R]
+tags: [R-101]
 ---
 {% include JB/setup %}
 

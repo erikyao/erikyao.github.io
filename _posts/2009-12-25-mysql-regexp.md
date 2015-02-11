@@ -3,7 +3,7 @@ layout: post
 title: "MySQL REGEXP"
 description: ""
 category: MySQL
-tags: [RegularExpression-MySQL]
+tags: [regexp]
 ---
 {% include JB/setup %}
 

@@ -3,7 +3,7 @@ layout: post
 title: "finally总是会被执行"
 description: ""
 category: Java
-tags: [Java-101, Java-Exception]
+tags: [Java-Exception]
 ---
 {% include JB/setup %}
 

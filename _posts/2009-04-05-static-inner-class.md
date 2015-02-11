@@ -3,7 +3,7 @@ layout: post
 title: "static inner class"
 description: ""
 category: Java
-tags: [Java-101, Java-InnerClass]
+tags: [Java-InnerClass]
 ---
 {% include JB/setup %}
 

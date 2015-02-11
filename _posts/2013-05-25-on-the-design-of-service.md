@@ -3,7 +3,7 @@ layout: post
 title: "设计 Service 的一些经验"
 description: ""
 category: as-a-coder
-tags: [Discernment, Discernment-Design]
+tags: [Discernment-Design]
 ---
 {% include JB/setup %}
 
