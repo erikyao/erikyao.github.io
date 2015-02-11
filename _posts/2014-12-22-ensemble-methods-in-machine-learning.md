@@ -3,7 +3,7 @@ layout: post-mathjax
 title: "Ensemble Methods in Machine Learning"
 description: ""
 category: Machine-Learning
-tags: [ML-101]
+tags: [ML-101, Bagging, Boosting]
 ---
 {% include JB/setup %}
 
