@@ -87,7 +87,7 @@ $$
 	
 ## 4. 样本修正
 
-另一个需要讨论的问题就是当 \\( Pr(x\^{(i)}\_j | y\_k) \\) 怎么办。对 continuous feature 来说这个问题很难出现；但对 discrete features 而言，当某个 class 下某个 feature 的某个取值没有出现时，就会产生这种现象，这会影响 classifier 的 performance。为了解决这个问题，我们引入 Laplace 校准，它的思想非常简单，就是对所有的 feature 值的统计量都加 1，这样如果 sample 数量充分大时，并不会对结果产生影响，并且解决了上述概率为 0 的尴尬局面。
+另一个需要讨论的问题就是当 \\( Pr(x\^{(i)}\_j | y\_k) = 0 \\) 时怎么办。对 continuous feature 来说这个问题很难出现；但对 discrete features 而言，当某个 class 下某个 feature 的某个取值没有出现时，就会产生这种现象，这会影响 classifier 的 performance。为了解决这个问题，我们引入 Laplace 校准，它的思想非常简单，就是对所有的 feature 值的统计量都加 1，这样如果 sample 数量充分大时，并不会对结果产生影响，并且解决了上述概率为 0 的尴尬局面。
 
 ## 5. Example
 
