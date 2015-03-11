@@ -93,10 +93,12 @@ $$
 \end{align}
 $$
 
-Set \\( |A| = j \\), then
+Set \\( |A| = Y \\), then
 
 $$
 \begin{align}
+	P(A \subset B | X=i, Y=j) 
+	&= \frac{\tbinom{i}{j}}{2\^n} \\\\
 	P(A \subset B | X=i) 
 	&= \sum\_{j=0}\^{i}\frac{\tbinom{i}{j}}{2\^n} \\\\
 	&= \frac{2\^i}{2\^n}
@@ -114,7 +116,13 @@ $$
 \end{align}
 $$
 
-Acoording to [http://en.wikipedia.org/wiki/Binomial_coefficient#math_2](http://en.wikipedia.org/wiki/Binomial_coefficient#math_2), 
+Acoording to [generalization of the binomial formula](http://en.wikipedia.org/wiki/Binomial_coefficient#math_2), 
+
+$$
+	(1+X)\^\alpha = \sum\_{k=0}\^\infty {\alpha \choose k} X\^k.
+$$
+
+we can get
 
 $$
 \begin{align}
