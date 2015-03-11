@@ -87,13 +87,29 @@ A [web site for home pregnancy tests](http://www.medicine.ox.ac.uk/bandolier/ban
 
 ## <a name="ex2"></a>5. Exercise 2 (draft)
 
+Let \\( S=\\{1,2,\cdots,n\\} \\). Suppose \\( A \\) and \\( B \\) are two random choices of subsets of \\( S \\); they are independent, and each of them is equally likely to be any of the \\( 2\^n \\) subsets of \\( S \\) (including the empty set or \\(S \\) itself). Prove that \\( P(A \subset B) = {(\frac{3}{4})}\^n \\). \\( P \\) is the uniform distribution.
+
+##### Hint 
+
+Let \\( X = |B| \\), the size of the set \\( B \\), so this is a random variable on the sample space \\( \Omega = \\{ \text{pairs of subsets of }S \\} \\). Derive the formula
+
+$$
+\begin{align}
+	P(A \subset B) = \sum\_{i=0}\^{n} P(A \subset B | X=i) P(X=i)
+\end{align}
+$$
+
+##### Proof
+
+\\( S \\) 一共有 \\( 2\^n \\) 个子集，size 为 \\( i \\) 的有 \\( \tbinom{n}{i} \\) 个，所以：
+
 $$
 \begin{align}
 	P(X=i) = \frac{\tbinom{n}{i}}{2\^n}
 \end{align}
 $$
 
-Set \\( |A| = Y \\), then
+Let \\( |A| = Y \\), then
 
 $$
 \begin{align}
@@ -116,10 +132,10 @@ $$
 \end{align}
 $$
 
-Acoording to [generalization of the binomial formula](http://en.wikipedia.org/wiki/Binomial_coefficient#math_2), 
+Acoording to [the generalization of the binomial formula](http://en.wikipedia.org/wiki/Binomial_coefficient#math_2), 
 
 $$
-	(1+X)\^\alpha = \sum\_{k=0}\^\infty {\alpha \choose k} X\^k.
+	(1+X)\^\alpha = \sum\_{k=0}\^\infty {\alpha \choose k} X\^k
 $$
 
 we can get
