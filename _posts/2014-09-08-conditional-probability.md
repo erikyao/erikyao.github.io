@@ -84,3 +84,48 @@ A [web site for home pregnancy tests](http://www.medicine.ox.ac.uk/bandolier/ban
 已知 \\( TPR = 75\%, SPC = 52\%, P(D) = 30\% \\)，求 \\( P(D|+) \\)。  
 
 \\( P(D|+) = \frac{P(+|D)P(D)}{P(+|D)P(D) + P(+|D\^c)P(D\^c)} = \frac{TPR * P(D)}{TPR * P(D) + (1-SPC)*(1-P(D))} = \frac{0.75 * 0.3}{0.75 * 0.3 + 0.48 * 0.7} = 40\% \\)
+
+## <a name="ex2"></a>5. Exercise 2 (draft)
+
+$$
+\begin{align}
+	P(X=i) = \frac{\tbinom{n}{i}}{2\^n}
+\end{align}
+$$
+
+Set \\( |A| = j \\), then
+
+$$
+\begin{align}
+	P(A \subset B | X=i) 
+	&= \sum\_{j=0}\^{i}\frac{\tbinom{i}{j}}{2\^n} \\\\
+	&= \frac{2\^i}{2\^n}
+\end{align}
+$$
+
+then
+
+$$
+\begin{align}
+	P(A \subset B) 
+	&= \sum\_{i=0}\^{n} P(A \subset B | X=i) P(X=i) \\\\
+	&= \sum\_{i=0}\^{n} \frac{2\^i}{2\^n} \frac{\tbinom{n}{i}}{2\^n} \\\\
+	&= \sum\_{i=0}\^{n} \frac{2\^i \tbinom{n}{i}}{4\^n}
+\end{align}
+$$
+
+Acoording to [http://en.wikipedia.org/wiki/Binomial_coefficient#math_2](http://en.wikipedia.org/wiki/Binomial_coefficient#math_2), 
+
+$$
+\begin{align}
+	\sum\_{i=0}\^{n} 2\^i \tbinom{n}{i} = 3\^n
+\end{align}
+$$
+
+Thus
+
+$$
+\begin{align}
+	P(A \subset B) = \frac{3\^n}{4\^n}
+\end{align}
+$$
