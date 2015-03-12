@@ -132,7 +132,7 @@ $$
 \end{align}
 $$
 
-Acoording to [the generalization of the binomial formula](http://en.wikipedia.org/wiki/Binomial_coefficient#math_2), 
+According to [the generalization of the binomial formula](http://en.wikipedia.org/wiki/Binomial_coefficient#math_2), 
 
 $$
 	(1+X)\^\alpha = \sum\_{k=0}\^\infty {\alpha \choose k} X\^k
