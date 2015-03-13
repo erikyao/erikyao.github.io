@@ -18,7 +18,7 @@ R interprets any text between percent signs (%...%) as a binary operator. Severa
 5%%2 ## ==1
 
 ## %/% : Integer division
-5%%2 ## ==2
+5%/%2 ## ==2
 
 ## %*% : Matrix multiplication
 
