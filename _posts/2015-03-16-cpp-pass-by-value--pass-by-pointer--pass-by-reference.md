@@ -124,7 +124,7 @@ int main() {
 
 ## 3. pass-by-reference
 
-比如 `f(int& ra)` 这个函数声明：“我接受参数的方式是 **pass-by-reference**”。从代码上看，pass-by-reference 和 pass-by-value 的调用代码是一样的，但是直接用 `ra = 5` 可以实现 `*pa = 5` 的效果。
+比如 `f(int &ra)` 这个函数声明：“我接受参数的方式是 **pass-by-reference**”。从代码上看，pass-by-reference 和 pass-by-value 的调用代码是一样的，但是直接用 `ra = 5` 可以实现 `*pa = 5` 的效果。
 
 <pre class="prettyprint linenums">
 #include &lt;iostream&gt;
