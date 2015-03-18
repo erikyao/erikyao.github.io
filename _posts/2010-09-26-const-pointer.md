@@ -9,14 +9,14 @@ tags: [C-101]
 
 ## （1）
 
-　　首先确定一点，int const i; 与 const int i 是一样的，都是定义一个只读的 int i。 
+　　首先确定一点，int const i; 与 const int i; 是一样的，都是定义一个只读的 int i。 
 
 ## （2）
  
 　　所以 int const \*p; 与 const int \*p; 也是一样的，都是定义一个只读的 int \*p。但是，不管是 int const \*p; 还是 const int \*p;，这里有几点需要注意：
 
 <pre class="prettyprint linenums">
-#include <stdio.h>  
+#include &lt;stdio.h&gt;  
   
 int main()   
 {  
@@ -46,7 +46,7 @@ int main()
 　　把一个 const int \* 赋值给 int \* 也是可以的：
 
 <pre class="prettyprint linenums">
-#include <stdio.h>  
+#include &lt;stdio.h&gt;  
   
 int main()   
 {     

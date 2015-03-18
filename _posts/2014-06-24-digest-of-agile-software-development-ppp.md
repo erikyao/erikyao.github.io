@@ -101,7 +101,7 @@ tags: [Book, Java-DesignPattern]
   
 - 为 next 2 weeks 做详细计划  
 - 为 next 3 months 做粗略计划  
-- 为 further in feature 做极为粗糙的计划  
+- 为 further in future 做极为粗糙的计划  
   
 ### 论交付   
   
@@ -508,7 +508,7 @@ mediator 与 facade 不同，不管有没有 mediator，client 的访问方式�
 >* Participant (Colleague) - defines an interface for the participants.  
 >* HumanParticipant, Bot (ConcreteColleague) - implements participants; the participant can be a human or a bot, each one having a distinct implementation but implementing the same interface. Each participant will keep only a reference to the mediator.
 
-还有一个类比就是塔台，飞机_X 不需要向其余所有的 飞机_Y 通告飞行高度，它只需要想 mediator 塔台通报就可以了。  
+还有一个类比就是塔台，飞机\_X 不需要向其余所有的 飞机\_Y 通告飞行高度，它只需要向 mediator 塔台通报就可以了。  
 
 ----------  
   
