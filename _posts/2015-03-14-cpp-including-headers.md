@@ -11,7 +11,7 @@ tags: [Cpp-101]
 
 -----
 
-#### Including headers
+## Including headers
 
 A **header file** is a file containing the external declarations for a library.
 
@@ -38,7 +38,7 @@ become:
 
 And so on, for all the Standard C headers. This provides a nice distinction to the reader indicating when you’re using C versus C++ libraries.
 
-#### How the linker searches a library
+## How the linker searches a library
 
 When you make an external reference to a function or variable in C or C++, the linker, upon encountering this reference, can do one of two things. If it has not already encountered the definition for the function or variable, it adds the identifier to its list of “unresolved references.” If the linker has already encountered the definition, the reference is resolved.
 
@@ -46,7 +46,7 @@ If the linker cannot find the definition in the list of object modules, it searc
 
 If you want to minimize executable program size, you might consider putting a single function in each source code file when you build your own libraries. This requires more editing3, but it can be helpful to the user.
 
-#### Secret additions linked in
+## Secret additions linked in
 
 When a C or C++ executable program is created, certain items are secretly linked in. One of these is the startup module, which contains initialization routines that must be run any time a C or C++ program begins to execute. These routines set up the stack and initialize certain variables in the program.
 
