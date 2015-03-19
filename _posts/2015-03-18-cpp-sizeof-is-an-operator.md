@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "C++: sizeof is an operator!"
+title: "C++: sizeof is an operator"
 description: ""
 category: C++
 tags: [Cpp-101]
