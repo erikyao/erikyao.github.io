@@ -76,8 +76,8 @@ int main() {
 	l = i;
 	f = i;
 	// Also works:
-	l = static_cast<long>(i);
-	f = static_cast<float>(i);
+	l = static_cast&lt;long&gt;(i);
+	f = static_cast&lt;float&gt;(i);
 	
 	/*
 	  (2) Narrowing conversions:
@@ -85,9 +85,9 @@ int main() {
 	i = l; // May lose digits
 	i = f; // May lose info
 	// Says "I know," eliminates warnings:
-	i = static_cast<int>(l);
-	i = static_cast<int>(f);
-	char c = static_cast<char>(i);
+	i = static_cast&lt;int&gt;(l);
+	i = static_cast&lt;int&gt;(f);
+	char c = static_cast&lt;char&gt;(i);
 	
 	/*
 	  (3) Forcing a conversion from void*: 
@@ -96,16 +96,16 @@ int main() {
 	// Old way produces a dangerous conversion:
 	float* fp = (float*)vp;
 	// The new way is equally dangerous:
-	fp = static_cast<float*>(vp);
+	fp = static_cast&lt;float*&gt;(vp);
 	
 	/* 
 	  (4) Implicit type conversions, normally performed by the compiler:
 	*/
 	double d = 0.0;
 	int x = d; // Automatic type conversion
-	x = static_cast<int>(d); // More explicit
+	x = static_cast&lt;int&gt;(d); // More explicit
 	func(d); // Automatic type conversion
-	func(static_cast<int>(d)); // More explicit
+	func(static_cast&lt;int&gt;(d)); // More explicit
 }
 </pre>
 
@@ -115,13 +115,13 @@ int main() {
 int main() {
 	const int i = 0;
 	int* j = (int*)&i; // Deprecated form
-	j = const_cast<int*>(&i); // Preferred
+	j = const_cast&lt;int*&gt;(&i); // Preferred
 	
 	// Can't do simultaneous additional casting:
-	// long* l = const_cast<long*>(&i); // Error
+	// long* l = const_cast&lt;long*&gt;(&i); // Error
 	
 	volatile int k = 0;
-	int* u = const_cast<int*>(&k);
+	int* u = const_cast&lt;int*&gt;(&k);
 }
 </pre>
 
@@ -134,21 +134,21 @@ using namespace std;
 const int sz = 100;
 struct X { int a[sz]; };
 void print(X* x) {
-	for(int i = 0; i < sz; i++)
-	cout << x->a[i] << ' ';
-	cout << endl << "--------------------" << endl;
+	for(int i = 0; i &lt; sz; i++)
+	cout &lt;&lt; x-&gt;a[i] &lt;&lt; ' ';
+	cout &lt;&lt; endl &lt;&lt; "--------------------" &lt;&lt; endl;
 }
 
 int main() {
 	X x;
 	print(&x);
 	
-	int* xp = reinterpret_cast<int*>(&x);
-	for(int* i = xp; i < xp + sz; i++)
+	int* xp = reinterpret_cast&lt;int*&gt;(&x);
+	for(int* i = xp; i &lt; xp + sz; i++)
 		*i = 0;
 		
 	// Can't use xp as an X* at this point unless you cast it back:
-	print(reinterpret_cast<X*>(xp));
+	print(reinterpret_cast&lt;X*&gt;(xp));
 	
 	// In this example, you can also just use the original identifier:
 	print(&x);
@@ -161,13 +161,13 @@ using namespace std;
 
 // Returns a hash code based on an address
 unsigned short Hash( void *p ) {
-   unsigned int val = reinterpret_cast<unsigned int>( p );
-   return ( unsigned short )( val ^ (val >> 16));
+   unsigned int val = reinterpret_cast&lt;unsigned int&gt;( p );
+   return ( unsigned short )( val ^ (val &gt;&gt; 16));
 }
 
 int main() {
    int a[20];
-   for ( int i = 0; i < 20; i++ )
-      cout << Hash( a + i ) << endl;
+   for ( int i = 0; i &lt; 20; i++ )
+      cout &lt;&lt; Hash( a + i ) &lt;&lt; endl;
 }
 </pre>

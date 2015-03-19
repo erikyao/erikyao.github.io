@@ -40,19 +40,19 @@ using namespace std;
 int dog, cat;
 
 void f(int pet) {
-	cout << "pet id number: " << pet << endl;
+	cout &lt;&lt; "pet id number: " &lt;&lt; pet &lt;&lt; endl;
 }
 
 int main() {
 	int i, j;
 	
-	cout << "f(): " << &f << endl; // address of the function
+	cout &lt;&lt; "f(): " &lt;&lt; &f &lt;&lt; endl; // address of the function
 	
-	cout << "dog: " << &dog << endl;
-	cout << "cat: " << &cat << endl;
+	cout &lt;&lt; "dog: " &lt;&lt; &dog &lt;&lt; endl;
+	cout &lt;&lt; "cat: " &lt;&lt; &cat &lt;&lt; endl;
 
-	cout << "i: " << &i << endl;
-	cout << "j: " << &j << endl;
+	cout &lt;&lt; "i: " &lt;&lt; &i &lt;&lt; endl;
+	cout &lt;&lt; "j: " &lt;&lt; &j &lt;&lt; endl;
 }
 
 // output:

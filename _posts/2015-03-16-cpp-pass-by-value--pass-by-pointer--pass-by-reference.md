@@ -20,15 +20,15 @@ Ordinarily, when you pass an argument to a function, a _**copy**_ of that argume
 using namespace std;
 
 void f(int a) {
-	cout << "Inside function, before `a = 5`, a==" << a << endl; 
+	cout &lt;&lt; "Inside function, before `a = 5`, a==" &lt;&lt; a &lt;&lt; endl; 
 	a = 5;
-	cout << "Inside function, after `a = 5`, a==" << a << endl; 
+	cout &lt;&lt; "Inside function, after `a = 5`, a==" &lt;&lt; a &lt;&lt; endl; 
 }
 int main() {
 	int a = 47;
-	cout << "Outside function, before function, a==" << a << endl; 
+	cout &lt;&lt; "Outside function, before function, a==" &lt;&lt; a &lt;&lt; endl; 
 	f(a);
-	cout << "Outside function, after function, a==" << a << endl; 
+	cout &lt;&lt; "Outside function, after function, a==" &lt;&lt; a &lt;&lt; endl; 
 }
 
 // output:
@@ -47,12 +47,12 @@ In `f()`, `a` is a **local variable**, so it exists only for the duration of the
 using namespace std;
 
 void f(int a) {
-	cout << "Inside function, &a==" << &a << endl;
+	cout &lt;&lt; "Inside function, &a==" &lt;&lt; &a &lt;&lt; endl;
 }
 int main() {
 	int a = 47;
 	f(a);
-	cout << "In `main()`, &a==" << &a << endl;
+	cout &lt;&lt; "In `main()`, &a==" &lt;&lt; &a &lt;&lt; endl;
 }
 
 // output:
@@ -71,16 +71,16 @@ int main() {
 using namespace std;
 
 void f(int *pa) {
-	cout << "Inside function, before `*pa = 5`, a==" << *pa << endl; 
+	cout &lt;&lt; "Inside function, before `*pa = 5`, a==" &lt;&lt; *pa &lt;&lt; endl; 
 	*pa = 5;
-	cout << "Inside function, after `*pa = 5`, a==" << *pa << endl; 
+	cout &lt;&lt; "Inside function, after `*pa = 5`, a==" &lt;&lt; *pa &lt;&lt; endl; 
 }
 
 int main() {
 	int a = 47;
-	cout << "Outside function, before function, a==" << a << endl; 
+	cout &lt;&lt; "Outside function, before function, a==" &lt;&lt; a &lt;&lt; endl; 
 	f(&a);
-	cout << "Outside function, after function, a==" << a << endl; 
+	cout &lt;&lt; "Outside function, after function, a==" &lt;&lt; a &lt;&lt; endl; 
 }
 
 // output:
@@ -98,15 +98,15 @@ int main() {
 #include &lt;iostream&gt;
 using namespace std;
 void f(int *pa) {
-	cout << "Inside function, pa==" << pa << endl;
-	cout << "Inside function, &pa==" << &pa << endl;
+	cout &lt;&lt; "Inside function, pa==" &lt;&lt; pa &lt;&lt; endl;
+	cout &lt;&lt; "Inside function, &pa==" &lt;&lt; &pa &lt;&lt; endl;
 }
 int main() {
 	int a = 47;
 	int *pa = &a;
 	f(pa);
-	cout << "In `main()`, pa==" << pa << endl;
-	cout << "In `main()`, &pa==" << &pa << endl;
+	cout &lt;&lt; "In `main()`, pa==" &lt;&lt; pa &lt;&lt; endl;
+	cout &lt;&lt; "In `main()`, &pa==" &lt;&lt; &pa &lt;&lt; endl;
 }
 
 // output: 
@@ -131,18 +131,18 @@ int main() {
 using namespace std;
 
 void f(int &ra) {
-	cout << "Inside function, &ra==" << &ra << endl;
-	cout << "Inside function, before `ra = 5`, ra==" << ra << endl;
+	cout &lt;&lt; "Inside function, &ra==" &lt;&lt; &ra &lt;&lt; endl;
+	cout &lt;&lt; "Inside function, before `ra = 5`, ra==" &lt;&lt; ra &lt;&lt; endl;
 	ra = 5;
-	cout << "Inside function, after `ra = 5`, ra==" << ra << endl;
+	cout &lt;&lt; "Inside function, after `ra = 5`, ra==" &lt;&lt; ra &lt;&lt; endl;
 }
 
 int main() {
 	int a = 47;
-	cout << "In `main()`, &a==" << &a << endl;
-	cout << "In `main()`, before function, a==" << a << endl; 
+	cout &lt;&lt; "In `main()`, &a==" &lt;&lt; &a &lt;&lt; endl;
+	cout &lt;&lt; "In `main()`, before function, a==" &lt;&lt; a &lt;&lt; endl; 
 	f(a);
-	cout << "In `main()`, after function, a==" << a << endl; 
+	cout &lt;&lt; "In `main()`, after function, a==" &lt;&lt; a &lt;&lt; endl; 
 }
 
 // output:
