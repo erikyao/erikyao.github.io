@@ -1,0 +1,71 @@
+---
+layout: post
+title: "C++: struct"
+description: ""
+category: C++
+tags: [Cpp-101]
+---
+{% include JB/setup %}
+
+整理自 _Thinking in C++_。没啥特别好说的。
+
+-----
+
+## 1. 起手式
+
+<pre class="prettyprint linenums">
+struct Structure1 {
+	char c;
+	int i;
+};
+
+int main() {
+	struct Structure1 s1; // 不需要 new
+	s1.c = 'a'; // access an element using a '.'
+	s1.i = 1;
+	
+	struct Structure1* ps1 = &s1;
+	ps1-&gt;c = 'b'; // access an element using a '->'
+	ps1-&gt;i = 2;
+}
+</pre>
+
+* 注意 define 要写全名 `struct Structure1 s1;`
+* 然后 `struct` variable 访问 member 直接用 `s1.c`
+* 而 `struct` pointer 访问 member 要用 `ps1->c`
+
+## 2. typedef 式
+
+<pre class="prettyprint linenums">
+typedef struct {
+	char c;
+	int i;
+} Structure2;
+
+int main() {
+	Structure2 s1;
+	s1.c = 'a';
+	s1.i = 1;
+}
+</pre>
+
+typedef + struct 连写，清爽多了
+
+## 3. typedef 式进阶
+
+<pre class="prettyprint linenums">
+typedef struct SelfReferential {
+	int i;
+	SelfReferential* sr; // 我还没 def 完，你就直接拿来用了……
+} SelfReferential;
+
+int main() {
+	SelfReferential sr1, sr2;
+	sr1.sr = &sr2;
+	sr2.sr = &sr1;
+	sr1.i = 47;
+	sr2.i = 1024;
+}
+</pre>
+
+不要问我为什么可以这样用……
