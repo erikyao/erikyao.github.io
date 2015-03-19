@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "C++: declarations vs. definitions / extern"
+title: "C: declarations vs. definitions / extern"
 description: ""
-category: C++
-tags: [Cpp-101]
+category: C
+tags: [C-101]
 ---
 {% include JB/setup %}
 
