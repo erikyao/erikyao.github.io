@@ -82,17 +82,6 @@ Now a contains the value 100 instead of 47.
 
 Reference^([2]) 的例子见 [C++: pass-by-value / pass-by-pointer / pass-by-reference](/c++/2015/03/16/cpp-pass-by-value--pass-by-pointer--pass-by-reference/)
 
-### Digression: To see `int *` and `int &` as new types?
-
-之前我就有这么一种理解：`int *` 其实可以做一种新类型，但是：
-
-* 实际上 `int *` 并不是新类型
-	* 因为 `int * pa, pb;` 并没有声明两个 pointer，而是一个 pointer 和一个 int
-	* 所以应该看做 `int (*pa), pb;` 而不是 `(int*) pa, pb;`
-* 又但是，在函数的参数列表里，你把 `int *` 看做是一种新类型明显更容易理解些
-
-`int &` 同理。
-
 ## 1. dereference 第一种解读
 
 首先要肯定的是：pointer 也是一种 reference^([1])，比如我们可以造句：
