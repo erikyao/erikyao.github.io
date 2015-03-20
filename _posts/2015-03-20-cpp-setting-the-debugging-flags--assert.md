@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "C++: Setting the debugging flags"
+title: "C++: Setting the debugging flags / assert"
 description: ""
 category: C++
 tags: [Cpp-101]
@@ -56,3 +56,17 @@ int main(int argc, char* argv[]) {
 </pre>
 
 这个参数检查的逻辑真是简单粗暴……还是我自己想得太复杂了？（我觉得怎么着都要切割下 `=` 吧）（应该是你太弱……
+
+## The C assert() macro
+
+When you use `assert()`, you give it an argument that is an expression you are “asserting to be true.” The preprocessor generates code that will test the assertion. If the assertion isn’t true, the program will stop after issuing an error message telling you what the assertion was and that it failed.
+
+<pre class="prettyprint linenums">
+#include &lt;cassert&gt;
+using namespace std;
+
+int main() {
+	int i = 100;
+	assert(i != 100); // Fails
+}
+</pre>
