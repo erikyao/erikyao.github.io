@@ -68,3 +68,4 @@ void Stash::cleanup() {
 1. 如果要分离函数声明和实现，那么在 cpp 文件里的写法要用 `::`，变成 `void Stash::initialize(int size) { ... }`
 	* `::`: scope resolution operator
 	* 注意在 cpp 文件里，你看不到 field 名，但是可以像 Java 一样直接用。我们也不是每时每刻都在写 `this.foo = xxx;`。
+	* 这样分一个 header 一个 cpp，也是一种 "接口与实现的分离"
