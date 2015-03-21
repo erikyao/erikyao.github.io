@@ -34,6 +34,14 @@ void *vp = &i;
 // MUST cast back to int before dereferencing:
 *((int*)vp) = 3; // OK
 </pre>
+
+There’s one last item to mention. In C, you could assign a `void*` to any other pointer. But in C++, this is not allowed because of stricter type check.
+
+<pre class="prettyprint linenums">
+int i = 10;
+void* vp = &i; // OK in both C and C++
+int* ip = vp; // ONLY acceptable in C
+</pre>
 	
 In general, `void` pointers should be avoided, and used only in rare special cases.
 
