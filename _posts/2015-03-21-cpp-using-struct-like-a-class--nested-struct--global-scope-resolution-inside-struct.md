@@ -121,7 +121,7 @@ void Stack::push(void* dat) {
 
 <pre class="prettyprint linenums">
 int a;
-void f() { // do nothing}
+void f() {} // do nothing
 
 struct S {
 	int a;
