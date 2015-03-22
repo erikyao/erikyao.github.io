@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "C++: using struct like a class"
+title: "C++: Using struct like a class / Nested struct / Global scope resolution inside struct"
 description: ""
 category: C++
 tags: [Cpp-101]
@@ -10,6 +10,8 @@ tags: [Cpp-101]
 整理自 _Thinking in C++_。
 
 -----
+
+## Using `struct` like a class
 
 整个第四章的中心应该是安利 class，所以一上来说了 C lib 这里不好那里不好。然后改进的切入点就是 "why not make functions members of structs?"，于是就有了这样 struct 的新用法（部分代码省略）：
 
@@ -69,3 +71,67 @@ void Stash::cleanup() {
 	* `::`: scope resolution operator
 	* 注意在 cpp 文件里，你看不到 field 名，但是可以像 Java 一样直接用。我们也不是每时每刻都在写 `this.foo = xxx;`。
 	* 这样分一个 header 一个 cpp，也是一种 "接口与实现的分离"
+	
+## Nested struct
+
+<pre class="prettyprint linenums">
+#ifndef STACK_H
+#define STACK_H
+
+struct Stack {
+	struct Link {
+		void* data;
+		Link* next;
+		void initialize(void* dat, Link* nxt);
+	}* head;
+	
+	void initialize();
+	void push(void* dat);
+	void* peek();
+	void* pop();
+	void cleanup();
+};
+
+#endif // STACK_H
+</pre>
+
+注意实现的写法：
+
+<pre class="prettyprint linenums">
+// using an additional level of scope resolution
+void Stack::Link::initialize(void* dat, Link* nxt) {
+	data = dat;
+	next = nxt;
+}
+
+void Stack::initialize() { head = 0; }
+
+void Stack::push(void* dat) {
+	Link* newLink = new Link; // 直接使用 Nested struct，不需要什么特殊的写法
+	newLink->initialize(dat, head);
+	head = newLink;
+}
+
+...
+</pre>
+
+## Global scope resolution inside struct
+
+主要的目的是想在 struct 内部访问到 global 的同名 function 或者 variable，注意写法：
+
+<pre class="prettyprint linenums">
+int a;
+void f() { // do nothing}
+
+struct S {
+	int a;
+	void f();
+};
+
+void S::f() {
+	::f(); // call the global f()
+	::a++; // increase the global a
+	f(); // call this->f(), i.e. the function itself
+	a++; // increase this->a;
+}
+</pre>
