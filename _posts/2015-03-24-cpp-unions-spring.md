@@ -46,6 +46,8 @@ int main() {
 
 ## 2. However, a union cannot be used as a base class during inheritance
 
+我也实在想不出在怎样的场合下才需要 extend 一个 union……
+
 ## 3. untagged enum & anonymous union
 
 <pre class="prettyprint linenums">
