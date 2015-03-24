@@ -17,7 +17,7 @@ tags: [Java-101]
 
 　　如果添加一个同签名 function，即work(arg list 1)，则是覆写行为。  
 
-　　方法名与参数列表合称方法签名，是方法的唯一标识。return type不属于方法签名。(3月27日补充：虽然如此，覆写对return type还是有要求的，more details see [关于覆写方法的return type](/java/2014/05/17/return-type-of-overridden-method/))
+　　方法名与参数列表合称方法签名，是方法的唯一标识。return type不属于方法签名。(3月27日补充：虽然如此，覆写对return type还是有要求的，more details see [关于覆写方法的return type](/java/2009/03/27/return-type-of-overridden-method/))
 
 　　如果base class中的work(arg list 1)方法是private或是final的，那么ext class中是不会有work(arg list 1)方法的，所以无论是添加work(arg list 1)方法或是work(arg list 2)方法，是既不算重载也不算覆写的。
 
