@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "C: auto / register / static / const / volatile / linkage"
+title: "C++: auto / register / static / const / volatile / linkage"
 description: ""
-category: C
-tags: [C-101]
+category: Cpp
+tags: [Cpp-101]
 ---
 {% include JB/setup %}
 
