@@ -128,6 +128,8 @@ Any name that has neither external linkage nor internal linkage has no linkage (
 * Function parameters.
 * Block-scoped names not declared as extern or static. (大部分的 local variable 就落到这个大类了)
 * Enumerators. (定义 enum 时，{} 内的那一系列常量我们称为 enumerator)
+	* enum 和 enumerator 的 scope 和 linkage，C++ standard 是修改过的，不同的 standard 有不同的定义，所以需要考虑这个问题的时候再仔细 google 下，不要死记硬背
+	* 这个定义是从 MSDN 扒下来的，我也不知道它用的是哪个标准……
 * Names declared in a `typedef` statement. An exception is when the `typedef` statement is used to provide a name for an unnamed class type. The name may then have external linkage if the class has external linkage.
 
 ## <a name="variable-scope"></a>2. Variable Scope
