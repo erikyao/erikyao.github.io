@@ -503,3 +503,22 @@ A special case of some storage being “outside the control of your code” is i
 ![](https://jm77tq.bn1304.livefilestore.com/y2pJmNAJWQy0-D_pSoFtPxCvVZWWfQxXMcE-2M29anmP5zTEjHHVCGME4Fzmy2UHlwiu0zO662nSkL737rhpwrIr4OJZPGbNSppDmeeY8UGoQF2JmekMzF9aWYF0v_1S93uycOcPvrj5yw63nCRge7vPA/Linkage.png?psid=1)
 
 * "common" 指 non-static + non-extern
+
+根据 [Linkage Types](https://www.informit.com/guides/content.aspx?g=cplusplus&seqNum=41)，有：
+
+* Internal linkage: 
+	* name of a static object
+	* a static function
+	* a member of an anonymous union
+	* a member of an anonymous namespace
+	* a `typedef` name
+	* a const object not declared `extern`
+* External linkage:
+	* ordinary functions that aren't explicitly declared as `static`
+	* global objects
+	* const objects explicitly declared `extern`
+	* classes
+	* enumerations and their enumerators (文章写于 2003 年；存疑)
+	* templates
+	* namespaces
+	* and so on
