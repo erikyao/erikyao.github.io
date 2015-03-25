@@ -26,7 +26,7 @@ A definition can also be a declaration. If the compiler hasn’t seen the name `
 
 ## 2. Variable declaration syntax
 
-By inference, a variable declaration might be a type followed by a name. For example: `int a;` could declare the variable a as an integer, using the logic above. Here’s the conflict: there is enough information in the code above for the compiler to create space for an integer called a, and that’s what happens. 
+By inference, a variable declaration might be a type followed by a name. For example: `int a;` could declare the variable `a` as an integer, using the logic above. Here’s the conflict: there is enough information in the code above for the compiler to create space for an integer called `a`, and that’s what happens. 
 
 To resolve this dilemma, a keyword was necessary for C and C++ to say “This is only a declaration; it’s defined elsewhere.” The keyword is `extern`. It can mean the definition is external to the file, or that the definition occurs later in the file, like this:
 
@@ -42,3 +42,7 @@ int func1(int length, int width); // equivalent
 </pre>
 	
 虽然对 function declaration 是多于的，我觉得都加上 `extern` 更统一一点。
+
+## 3. extern vs. #include
+
+一般的做法是把 extern declaration 写在 lib.h 里，然后在 lib.cpp 里 define，然后 main.cpp 去 `#include "lib.h"`，在 main.cpp 里就不用写 extern declaration 了。毕竟 #include 的作用基本可以理解为 "copy the included file into the current one"。
