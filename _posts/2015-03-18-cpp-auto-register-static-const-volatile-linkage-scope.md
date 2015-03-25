@@ -463,7 +463,7 @@ int main(int argc, char* argv[]) {
 
 * CASE 13 好解释：#include 进来相当于直接在 main 之前 declare + define
 * CASE 12 我实在不懂，它和 CASE 10 有嘛区别嘛！
-	* 顺带记录一下我用的 TDM-GCC 4.8.1 64-bit Release
+	* 顺带记录一下我用的是 TDM-GCC 4.8.1 64-bit Release
 	
 _2015-03-26 更新：_
 
