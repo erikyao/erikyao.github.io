@@ -110,16 +110,16 @@ There are two types of linkage:
 	
 注意书上用的原词是 "file"，这里用了标准用词 "translation unit"，其定义是：
 
-* A translattion unit is a source file plus all the headers you `#include`d in it, from which the compiler creates the object file. (出自 [What is external linkage and internal linkage in C++](http://stackoverflow.com/questions/1358400/what-is-external-linkage-and-internal-linkage-in-c))
+* A translation unit is a source file plus all the headers you `#include`d in it, from which the compiler creates the object file. (出自 [What is external linkage and internal linkage in C++](http://stackoverflow.com/questions/1358400/what-is-external-linkage-and-internal-linkage-in-c))
 
-而 #include 的作用基本可以理解为 "copy the included file into the current one"。在实际应用中，要注意区分 #include 和 declare。举个例子：
+<a name="linkage-example"></a>而 #include 的作用基本可以理解为 "copy the included file into the current one"。在实际应用中，要注意区分 #include 和 declare。举个例子：
 
 * 如果我在 lib.h 写了 `const int STASH_NUM = 8;`，这是个 internal linkage
 * 我在 main.cpp 里用 `extern const int STASH_NUM;` 是无法 declare 到这个 const int，使用时会报 "undefined reference"
 	* 因为 lib.h 和 main.cpp 是两个不同的 translation units，因为 internal linkage，所以 main.cpp 看不到 lib.h 里的 `const int STASH_NUM = 8;`
 * 如果我在 main.cpp 里写的是 `#include 'lib.h'`，这时 main.cpp 和 lib.h 是同一个 translation unit。而同一个 translation unit 是可以看到 `const int STASH_NUM = 8;` 的，所以 main.cpp 可以直接用 `STASH_NUM`，此时也不需要写 `extern const int STASH_NUM;`（因为没必要；但是你写了也不会报错）
 
-后面 const 还有个更大的 [例子](#global-const-example)。
+后面 extern const 还有个更大的 [例子](#global-const-example)。
 
 ### No linkage
 	
@@ -184,7 +184,7 @@ The static `keyword` can be used in the following situations:
 * When you declare a variable in a function, the `static` keyword specifies that the variable retains its state between calls to that function.
 * When you declare a data member in a class declaration, the `static` keyword specifies that one copy of the member is shared by all instances of the class. 
 	* A static data member must be defined at file scope. 
-	* An integral data member that you declare as const static can have an initializer.
+	* An integral data member that you declare as `const static` can have an initializer.
 * When you declare a member function in a class declaration, the `static` keyword specifies that the function is shared by all instances of the class. 
 	* A static member function cannot access an instance member because the function does not have an implicit `this` pointer. 
 	* To access an instance member, declare the function with a parameter that is an instance pointer or reference.
@@ -465,7 +465,7 @@ int main(int argc, char* argv[]) {
 	
 _2015-03-26 更新：_
 
-我稍微设计了一个试验，猜测：lib.h 里的 initialization 貌似是会被忽略的。看代码：
+我稍微设计了一个试验，猜测：lib.h 里 extern const 的 initialization 貌似是会被忽略的（而前面 [Linkage 的例子](#linkage-example) 里，lib.h 里 declare + define 一个 common const 是没有问题的）。看代码：
 
 <pre class="prettyprint linenums">
 /***** CASE 14 *****/
