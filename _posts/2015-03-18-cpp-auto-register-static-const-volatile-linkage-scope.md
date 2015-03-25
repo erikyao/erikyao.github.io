@@ -426,7 +426,7 @@ int main(int argc, char* argv[]) {
 * Declare + define in lib.cpp
 * Declare + use in main.cpp
 * 因为 lib.h 本身只有一个 declaration，所以在这种情况下，在 lib.cpp 和 main.cpp 中，你 `#include "MyLib.h"` 和写 `extern const int STASH_NUM;` 效果是一样的，都是 declare（CASE 7、8、9、10）
-	* 如果 lib.h 本身是 declare + define，那你 #include 的作用也应该等同于 declare + define，此时就和单单 declare 的情况不同了。参 [linkage](#linkage) 中的例子。
+	* 如果 lib.h 本身是 declare + define，那你 #include 的作用也应该等同于 declare + define，此时就和单单 declare 的情况不同了。参 [linkage 中的例子](#linkage-example)。
 * 重复 declare 不犯法（CASE 11）
 
 如果直接在 lib.h 里 declare + define (比如 `extern const int STASH_NUM = 8;`)、然后不写 lib.cpp，会出现很奇怪的效果：
@@ -465,7 +465,7 @@ int main(int argc, char* argv[]) {
 	
 _2015-03-26 更新：_
 
-我稍微设计了一个试验，猜测：lib.h 里 extern const 的 initialization 貌似是会被忽略的（而前面 [Linkage 的例子](#linkage-example) 里，lib.h 里 declare + define 一个 common const 是没有问题的）。看代码：
+我稍微设计了一个试验，猜测：lib.h 里 extern const 的 initialization 貌似是会被忽略的（而前面 [linkage 的例子](#linkage-example) 里，lib.h 里 declare + define 一个 common const 是没有问题的）。看代码：
 
 <pre class="prettyprint linenums">
 /***** CASE 14 *****/
