@@ -9,11 +9,16 @@ tags: [C-101]
 
 ## （1）
 
-　　首先确定一点，int const i; 与 const int i; 是一样的，都是定义一个只读的 int i。 
+首先确定一点，int const i; 与 const int i; 是一样的，都是定义一个只读的 int i。 
 
 ## （2）
  
-　　所以 int const \*p; 与 const int \*p; 也是一样的，都是定义一个只读的 int \*p。但是，不管是 int const \*p; 还是 const int \*p;，这里有几点需要注意：
+所以 int const \*p; 与 const int \*p; 也是一样的，都是定义一个只读的 int \*p。英语表述更清楚，称为 pointer to const
+
+* `const int *p;`: Starting from the identifier, we read “p is a pointer, which points to a const int.” 
+* `int const *p;`: p is an ordinary pointer to an int that is const
+
+但是，不管是 int const \*p; 还是 const int \*p;，这里有几点需要注意：
 
 <pre class="prettyprint linenums">
 #include &lt;stdio.h&gt;  
@@ -39,11 +44,13 @@ int main()
 
 ## （3）
 
-　　int \* const p; 是定义了一个只读的 p，所以假如有 int \* const p = &i1; 之后，就不能再有 p = &i2;了。但是 \*p 的值是可以随便改的。
+int \* const p; 是定义了一个只读的 p，所以假如有 int \* const p = &i1; 之后，就不能再有 p = &i2;了。但是 \*p 的值是可以随便改的。我们称这样的 p 为 const pointer
+
+* `int * const p = &i1;`: p is a pointer, which is const, that points to an int
 
 ## （4）
 
-　　把一个 const int \* 赋值给 int \* 也是可以的：
+把一个 const int \* 赋值给 int \* 也是可以的：
 
 <pre class="prettyprint linenums">
 #include &lt;stdio.h&gt;  
@@ -63,4 +70,4 @@ int main()
 
 ## （5）
 
-　　const int \* const p; 就是说 p 和 \*p 都是只读的，结合（2）、（3）即可得它的特性。
+const int \* const p; 就是说 p 和 \*p 都是只读的，结合（2）、（3）即可得它的特性。
