@@ -44,6 +44,9 @@ void f9(X x) {
 	x.modify();
 }
 
+void f10(X& x) { /* do nothing */ }
+void f11(const X& x) { /* do nothing */ }
+
 int main() {
 	/***** TEST 1 *****/
 	f5() = X(1); 	// OK. non-const return value
@@ -59,6 +62,10 @@ int main() {
 	f7(x);			// OK
 	f8(&x);			// OK
 	f9(x);			// OK
+	
+	/***** TEST 4 *****/
+    f10(f5());		// ERROR. invalid initialization of non-const reference of type 'X&' from an rvalue of type 'X'
+    f11(f5());		// OK
 }
 </pre>
 
@@ -68,11 +75,21 @@ int main() {
 
 * Sometimes, during the evaluation of an expression, the compiler must create temporary objects (a.k.a temporaries). 这个 sometimes 用得有点微妙
 * Temporary objects are automatically `const`.
-	* 存疑！如果是 const 的话，那 `f5() = X(1);` 该如何解释？
 * Somehow, you cannot take the address of a temporary object.
-	* 尽管 `f7()` 是 pass-by-reference，但是 pass-by-reference 实际上也要对参数做取址操作。
-	* 看到过一种说法：C++ 的 reference 实际上是由 pointer 实现的，它本质上是一种语法糖。这么看来确实不假。
+	* <del>尽管 `f7()` 是 pass-by-reference，但是 pass-by-reference 实际上也要对参数做取址操作。</del>
+	* <del>看到过一种说法：C++ 的 reference 实际上是由 pointer 实现的，它本质上是一种语法糖。这么看来确实不假。</del>
 * 除此之外，temporary object 和一般的 object 没有其他的什么区别。
+
+-> _~~~~~~~~~~ 2015-03-26 晚些时候更新 ~~~~~~~~~~_ <-
+
+TEST 4 是我后来加的，是不是又瞎了狗眼了！总结下：
+
+* 我相信对 temporary object 还是不能做取址操作的，但 `f7(f5());` 和 `f10(f5());` 编译出错并不是因为 "pass-by-reference 实际上也要对参数做取址操作"，而是因为 temporary object 是 const，而且有点像是个 const reference (从错误信息 "invalid initialization of non-const reference of type 'X&' from an rvalue of type 'X'" 反推出来)
+* 我们有：`foo(T*)` 不能接收 `const T*`，但是 `bar(const T*)` 可以接受 `T*`。所以 `f7(f5());` 和 `f10(f5());` 出错是因为它们无法接收身为 const 的 temporary object
+
+书上最后还补了一句：把函数设计成接收 const reference，i.e. `bar(const T*)` 这种形式是 best practice。 
+
+-> _~~~~~~~~~~ 2015-03-26 晚些时候更新结束 ~~~~~~~~~~_ <-
 
 我最开始的想法是：能不能理解为 "函数 return 的都是 rvalue"？因为从我调查的结果看，这个 temporary object 的特性也确实有点像 rvalue：
 
@@ -89,7 +106,7 @@ int main() {
 
 最形象的解释，还是这篇 [Temporary objects - when are they created, how do you recognise them in code?](http://stackoverflow.com/a/10898291)：
 
--> _以下部分为摘抄_ <-
+-> _~~~~~~~~~~ 以下部分为摘抄 ~~~~~~~~~~_ <-
 
 The one catch, is that you can invoke a method on a temporary: so X(1).modify() is fine but f7(X(1)) is not.
 
@@ -116,7 +133,7 @@ With that in mind, we can attack `f5() = X(1);`. We have two temporaries here, a
 
 And the key to it working is that `__0.operator=(__1)` is a method invocation, and methods can be invoked on temporaries :)
 
--> _摘抄结束_ <-
+-> _~~~~~~~~~~ 摘抄结束 ~~~~~~~~~~_ <-
 
 最后注意，我们说是 temporary object，其实对 primitive 类型也是成立的。知道你会往这个方向想，我就做了个 int 的版本，请放心食用：
 
