@@ -1,0 +1,145 @@
+---
+layout: post
+title: "C++: Temporary Objects, are you Rvalues?"
+description: ""
+category: C++
+tags: [Cpp-101]
+---
+{% include JB/setup %}
+
+问题源自：_Thinking in C++_
+
+-----
+
+书上的例子我稍微改了下：
+
+<pre class="prettyprint linenums">
+//: C08:ConstReturnValues.cpp
+// Constant return by value
+// Result cannot be used as an lvalue
+class X {
+	int i;
+public:
+	X(int ii = 0);
+	void modify();
+};
+
+X::X(int ii) { i = ii; }
+
+void X::modify() { i++; }
+
+X f5() {
+	return X();
+}
+
+void f7(X& x) {
+	x.modify();
+}
+
+void f8(X* px) {
+	px->modify();
+}
+
+void f9(X x) {
+	x.modify();
+}
+
+int main() {
+	/***** TEST 1 *****/
+	f5() = X(1); 	// OK. non-const return value
+	f5().modify(); 	// OK
+	
+	/***** TEST 2 *****/
+	f7(f5()); 		// ERROR. invalid initialization of non-const reference of type 'X&' from an rvalue of type 'X'
+	f8(&f5());		// ERROR. taking address of temporary
+	f9(f5());		// OK
+	
+	/***** TEST 3 *****/
+	X x = f5();
+	f7(x);			// OK
+	f8(&x);			// OK
+	f9(x);			// OK
+}
+</pre>
+
+对比 TEST 2 和 TEST 3，你是不是有种撞了鬼的感觉……
+
+书上说这是因为 temporary object，大致的意思我列举一下：
+
+* Sometimes, during the evaluation of an expression, the compiler must create temporary objects (a.k.a temporaries). 这个 sometimes 用得有点微妙
+* Temporary objects are automatically `const`.
+	* 存疑！如果是 const 的话，那 `f5() = X(1);` 该如何解释？
+* Somehow, you cannot take the address of a temporary object.
+	* 尽管 `f7()` 是 pass-by-reference，但是 pass-by-reference 实际上也要对参数做取址操作。
+	* 看到过一种说法：C++ 的 reference 实际上是由 pointer 实现的，它本质上是一种语法糖。这么看来确实不假。
+* 除此之外，temporary object 和一般的 object 没有其他的什么区别。
+
+我最开始的想法是：能不能理解为 "函数 return 的都是 rvalue"？因为从我调查的结果看，这个 temporary object 的特性也确实有点像 rvalue：
+
+* [error: invalid initialization of non-const reference of type ‘int&’ from an rvalue of type ‘int’](http://stackoverflow.com/a/8294009) 说：
+	* C++03 3.10/1 says: "Every expression is either an lvalue or an rvalue." It's important to remember that lvalueness versus rvalueness is a property of expressions, not of objects.
+	* Lvalues name objects that persist beyond a single expression. For example, `obj`, `*ptr`, `ptr[index]`, and `++x` are all lvalues.
+	* Rvalues are temporaries that evaporate at the end of the full-expression in which they live ("at the semicolon"). For example, `1729`, `x + y`, `std::string("meow")`, and `x++` are all rvalues.
+	* The address-of operator requires that its "operand shall be an lvalue". If we could take the address of one expression, the expression is an lvalue, otherwise it's an rvalue.
+		* 这个其实好理解，比如 `int i = 3;`，从来只见 `&i`，没见过 `&3`（而且编译会报错）
+* [c++: function lvalue or rvalue](http://stackoverflow.com/a/13854976) 说：
+	* L-Values are locations; R-Values are actual values.
+	
+不过从 `f5() = X(1);` 这个奇葩的写法来看，把 temporary object 理解为 rvalue 似乎又有点不妥……不过从 "Rvalues are temporaries" 这句来看，两者确实有共性，可以互相协助理解。
+
+最形象的解释，还是这篇 [Temporary objects - when are they created, how do you recognise them in code?](http://stackoverflow.com/a/10898291)：
+
+-> _以下部分为摘抄_ <-
+
+The one catch, is that you can invoke a method on a temporary: so X(1).modify() is fine but f7(X(1)) is not.
+
+As for where the temporary is created, this is the compiler job. The rules of the language precise that the temporary should only survive until the end of the current full-expression (and no longer) which is important for temporary instances of classes whose destructor has a side-effect.
+
+Therefore, the following statement `X(1).modify();` can be fully translated to:
+
+<pre class="prettyprint linenums">
+{
+    X __0(1);
+    __0.modify();
+} // automatic cleanup of __0
+</pre>
+
+With that in mind, we can attack `f5() = X(1);`. We have two temporaries here, and an assignment. Both arguments of the assignment must be fully evaluated before the assignment is called, but the order is not precise. One possible translation is:
+
+<pre class="prettyprint linenums">
+{
+    X __0(f5());
+    X __1(1);
+    __0.operator=(__1);
+} // the other translation is swapping the order in which __0 and __1 are initialized
+</pre>
+
+And the key to it working is that `__0.operator=(__1)` is a method invocation, and methods can be invoked on temporaries :)
+
+-> _摘抄结束_ <-
+
+最后注意，我们说是 temporary object，其实对 primitive 类型也是成立的。知道你会往这个方向想，我就做了个 int 的版本，请放心食用：
+
+<pre class="prettyprint linenums">
+int b5() {
+	return 5;
+}
+
+void b7(int& i) {
+	i++;
+}
+
+void b8(int* pi) {
+	(*pi)++;
+}
+
+void b9(int i) {
+	i++;
+}
+
+int main() {
+	b7(b5()); 	// ERROR. invalid initialization of non-const reference of type 'int&' from an rvalue of type 'int'
+	b8(&b5()); 	// ERROR. lvalue required as unary '&' operand
+	b9(b5());	// OK
+}
+</pre>
