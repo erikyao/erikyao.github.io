@@ -48,7 +48,7 @@ int \* const p; 是定义了一个只读的 p，所以假如有 int \* const p =
 
 const int \* const p; 就是说 p 和 \*p 都是只读的，结合 1、2 即可得它的特性。
 
-## 4. 大实验
+## 4. <a name="rules"></a>大实验
 
 <pre class="prettyprint linenums">
 class T { };
