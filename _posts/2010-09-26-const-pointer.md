@@ -2,8 +2,8 @@
 layout: post
 title: "Const Pointer"
 description: ""
-category: C
-tags: [C-101]
+category: C++
+tags: [Cpp-101]
 ---
 {% include JB/setup %}
 
