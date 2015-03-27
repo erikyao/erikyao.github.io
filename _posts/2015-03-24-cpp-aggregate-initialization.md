@@ -3,7 +3,7 @@ layout: post
 title: "C++: Aggregate initialization"
 description: ""
 category: C++
-tags: [Cpp-101]
+tags: [Cpp-101, const]
 ---
 {% include JB/setup %}
 

@@ -3,7 +3,7 @@ layout: post
 title: "C++ explicit cast operator: static_cast / const_cast / reinterpret_cast / dynamic_cast"
 description: ""
 category: C++
-tags: [Cpp-101]
+tags: [Cpp-101, const]
 ---
 {% include JB/setup %}
 
