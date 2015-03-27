@@ -7,13 +7,11 @@ tags: [Cpp-101]
 ---
 {% include JB/setup %}
 
-## （1）
+## 1. pointer to const
 
 首先确定一点，int const i; 与 const int i; 是一样的，都是定义一个只读的 int i。 
-
-## （2）
  
-所以 int const \*p; 与 const int \*p; 也是一样的，都是定义一个只读的 int \*p。英语表述更清楚，称为 pointer to const
+所以 int const \*p; 与 const int \*p; 也是一样的，都是定义一个只读的 int \*p。我们称这样的 p 为 pointer to const
 
 * `const int *p;`: Starting from the identifier, we read “p is a pointer, which points to a const int.” 
 * `int const *p;`: p is an ordinary pointer to an int that is const
