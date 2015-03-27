@@ -91,3 +91,25 @@ struct Y {
 
 Y y1[] = { Y(1), Y(2), Y(3) };
 </pre>
+
+## constant aggregates 初始化之后要注意
+
+In constant aggregates, `const` means “a piece of storage that cannot be changed.” However, the value cannot be used at compile time because the compiler is not required to know the contents of the storage at compile time.
+
+<pre class="prettyprint linenums">
+//: C08:Constag.cpp
+// Constants and aggregates
+const int i[] = { 1, 2, 3, 4 };
+float f[i[3]]; 			// ERROR. 这里还是 compile time 
+
+struct S { int i, j; };
+const S s[] = { { 1, 2 }, { 3, 4 } };
+double d[s[1].j];		// ERROR. 这里还是 compile time 
+
+int main() {
+	float f[i[3]];		// OK. 这里是 runtime 
+	double d[s[1].j];	// OK. 这里是 runtime 
+	
+	// If you created a variable of a primitive type or an object inside a function, you created it at runtime
+}
+</pre>

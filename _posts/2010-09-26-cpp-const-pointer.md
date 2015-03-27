@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Const Pointer"
+title: "C++: Const Pointer"
 description: ""
 category: C++
 tags: [Cpp-101]
@@ -21,51 +21,102 @@ tags: [Cpp-101]
 <pre class="prettyprint linenums">
 #include &lt;stdio.h&gt;  
   
-int main()   
-{  
+int main() {  
 	int i1 = 30;  
 	int i2 = 40;  
 	const int *p = &i1;  
 	  
-	p = &i2; // no problem  
+	p = &i2; 			// OK
 	i2 = 80;  
 	printf("%d\n", *p); // output: 80  
 	  
-	// *p = 100; // error: assignment of read-only location  
-	  
-	return 0;  
-} </pre>
+	*p = 100; 			// ERROR. assignment of read-only location '*p'
+}
+</pre>
 
 * 首先是 \*p 只读，并不是 p 只读，所以 p 的值是可以改的（p = &i2;）
 * 第二，&i1 只是一个 int \*，所以把一个int \* 赋值给 const int \* 是可以的（const int \*p = &i1;）
 * 第三，p = &i2; 之后，对 &i2 这块地址的访问就有两种方式，一是非 const 的 i2，二是 const 的 \*p，所以可以有 i2 = 80;，而不能有 \*p = 100;
 
-## （3）
+## 2. const pointer
 
 int \* const p; 是定义了一个只读的 p，所以假如有 int \* const p = &i1; 之后，就不能再有 p = &i2;了。但是 \*p 的值是可以随便改的。我们称这样的 p 为 const pointer
 
 * `int * const p = &i1;`: p is a pointer, which is const, that points to an int
 
-## （4）
+## 3. const pointer to const
 
-把一个 const int \* 赋值给 int \* 也是可以的：
+const int \* const p; 就是说 p 和 \*p 都是只读的，结合 1、2 即可得它的特性。
+
+## 4. 大实验
 
 <pre class="prettyprint linenums">
-#include &lt;stdio.h&gt;  
+class T { };
   
-int main()   
-{     
-	const int ci = 200;  
-	int *p3 = &ci;  
-	  
-	*p3 = 250;  
-	printf("%d\n", *p3); // output: 250  
-	  
-	return 0;  
-} </pre>
+int main() {  
+	T t1, t2;
+	const T ct;
+	
+	T* pt = &t1;		//  pt: pointer to T
+	const T* pct = &ct; // pct: pointer to const T
+	T* const cpt = &t2; // cpt: const pointer to T
+	
+	pt = pct; 	// ERROR. invalid conversion from 'const T*' to 'T*' 
+	pt = cpt; 	// OK
+	
+	pct = pt; 	// OK
+	pct = cpt; 	// OK
+	
+	// 因为是 const 所以无法二次赋值
+	cpt = pt;	// ERROR. assignment of read-only variable 'cpt'
+	cpt = pct;	// ERROR. assignment of read-only variable 'cpt'
+}
+</pre>
 
-这样其实是可以去修改一个 const int 的……  
+<pre class="prettyprint linenums">
+class T { };
 
-## （5）
+int main() {
+	T t;
+	const T ct;
+	
+	T* pt = &t;			//  pt: pointer to T
+	const T* pct = &ct; // pct: pointer to const T
+	
+						// cpt: const pointer to T
+	T* const cpt = pt;	// OK
+	T* const cpt = pct; // ERROR. invalid conversion from 'const T*' to 'T*'
+}
+</pre>
 
-const int \* const p; 就是说 p 和 \*p 都是只读的，结合（2）、（3）即可得它的特性。
+<pre class="prettyprint linenums">
+class T { };
+
+void foo(T* pt) { /* do nothing */ }
+void bar(const T* pct) { /* do nothing */ }
+void baz(T* const cpt) { /* do nothing */ }
+
+int main() {
+	T t1, t2;
+	const T ct;
+	
+	T* pt = &t1;		//  pt: pointer to T
+	const T* pct = &ct; // pct: pointer to const T
+	T* const cpt = &t2; // cpt: const pointer to T
+	
+	foo(pct); 	// ERROR. invalid conversion from 'const T*' to 'T*'
+	foo(cpt);	// OK
+	
+	bar(pt); 	// OK
+	bar(cpt);	// OK
+	
+	baz(pt);	// OK
+	baz(pct);	// ERROR. invalid conversion from 'const T*' to 'T*'
+}
+</pre>
+
+* 不能把 `const T*` 赋值给一个 `T*`
+	* 反过来把 `T*` 赋值给一个 `const T*` 是可以的
+* 不能把 `const T*` 实参传给一个 `T*` 形参
+	* 反过来把 `T*` 实参传给一个 `const T*` 形参是可以的
+* `T* const` 除了 const 特性外，与 `T*` 性质是一样的（同上述 4 条）
