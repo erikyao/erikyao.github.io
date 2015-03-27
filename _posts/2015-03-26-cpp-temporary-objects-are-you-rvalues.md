@@ -3,7 +3,7 @@ layout: post
 title: "C++: Temporary Objects, are you Rvalues?"
 description: ""
 category: C++
-tags: [Cpp-101]
+tags: [Cpp-101, const]
 ---
 {% include JB/setup %}
 
@@ -85,7 +85,7 @@ int main() {
 TEST 4 是我后来加的，是不是又瞎了狗眼了！总结下：
 
 * 我相信对 temporary object 还是不能做取址操作的，但 `f7(f5());` 和 `f10(f5());` 编译出错并不是因为 "pass-by-reference 实际上也要对参数做取址操作"，而是因为 temporary object 是 const，而且有点像是个 const reference (从错误信息 "invalid initialization of non-const reference of type 'X&' from an rvalue of type 'X'" 反推出来)
-* 我们有：`foo(T*)` 不能接收 `const T*`，但是 `bar(const T*)` 可以接受 `T*`。所以 `f7(f5());` 和 `f10(f5());` 出错是因为它们无法接收身为 const 的 temporary object
+* [因为不能把 `const T*` 实参传给一个 `T*` 形参](/c++/2010/09/26/cpp-const-pointer/#rules)，所以 `f7(f5());` 和 `f10(f5());` 出错是因为它们无法接收身为 const 的 temporary object
 
 书上最后还补了一句：把函数设计成接收 const reference，i.e. `bar(const T*)` 这种形式是 best practice。 
 
