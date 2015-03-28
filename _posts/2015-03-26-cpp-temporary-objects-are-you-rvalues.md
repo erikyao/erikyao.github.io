@@ -84,12 +84,26 @@ int main() {
 
 TEST 4 是我后来加的，是不是又瞎了狗眼了！总结下：
 
-* 我相信对 temporary object 还是不能做取址操作的，但 `f7(f5());` 和 `f10(f5());` 编译出错并不是因为 "pass-by-reference 实际上也要对参数做取址操作"，而是因为 temporary object 是 const，而且有点像是个 const reference (从错误信息 "invalid initialization of non-const reference of type 'X&' from an rvalue of type 'X'" 反推出来)
-* [因为不能把 `const T*` 实参传给一个 `T*` 形参](/c++/2010/09/26/cpp-const-pointer/#rules)，所以 `f7(f5());` 和 `f10(f5());` 出错是因为它们无法接收身为 const 的 temporary object
+* 我相信对 temporary object 还是不能做取址操作的，但 `f7(f5());` 和 `f10(f5());` 编译出错并不是因为 "pass-by-reference 实际上也要对参数做取址操作"，而是因为 temporary object 是 const，<del>而且有点像是个 const reference (从错误信息 "invalid initialization of non-const reference of type 'X&' from an rvalue of type 'X'" 反推出来)</del>
+* <del>[因为不能把 `const T*` 实参传给一个 `T*` 形参](/c++/2015/03/26/cpp-const-pointer/#rules)，所以 `f7(f5());` 和 `f10(f5());` 出错是因为它们无法接收身为 const 的 temporary object</del>
 
-书上最后还补了一句：把函数设计成接收 const reference，i.e. `bar(const T*)` 这种形式是 best practice。 
+书上最后还补了一句：把函数设计成接收 <del>const reference</del>，i.e. `bar(const T*)` 这种形式是 best practice。 
 
 -> _~~~~~~~~~~ 2015-03-26 晚些时候更新结束 ~~~~~~~~~~_ <-
+
+-> _~~~~~~~~~~ 2015-03-28 更新 ~~~~~~~~~~_ <-
+
+（2015-03-26 的更新，思路是对的，细节写错了，于是今天我重写一下）
+
+TEST 4 是我后来加的，是不是又瞎了狗眼了！总结下：
+
+* 我相信对 temporary object 还是不能做取址操作的，但 `f7(f5());` 和 `f10(f5());` 编译出错并不是因为 "pass-by-reference 实际上也要对参数做取址操作"，而是因为 temporary object 是 const
+* [不能把 `const T` 或者 `const T&` 实参传给一个 `T&` 形参](/c++/2015/03/28/cpp-const-reference/#rules)，所以 `f7(f5());` 和 `f10(f5());` 出错是因为 `f7(X& x)` 和 `f10(X& x)` 无法接收身为 const 的 temporary object
+	* 至于 temporary object 是 `const X` 还是 `const X&`，这里已经不重要了，反正这两者都不能被 `f7(X& x)` 和 `f10(X& x)` 接收
+
+书上最后还补了一句：把函数设计成接收 reference to const，i.e. `bar(const T*)` 这种形式是 best practice。 
+
+-> _~~~~~~~~~~ 2015-03-28 更新结束 ~~~~~~~~~~_ <-
 
 我最开始的想法是：能不能理解为 "函数 return 的都是 rvalue"？因为从我调查的结果看，这个 temporary object 的特性也确实有点像 rvalue：
 
