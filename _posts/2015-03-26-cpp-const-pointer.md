@@ -7,6 +7,10 @@ tags: [Cpp-101, const]
 ---
 {% include JB/setup %}
 
+在 2010-09-26 原作基础上修改。日期改到 2015-03-26 使本文进入 C++ 文章群落，方便查阅。
+
+-----
+
 ## 1. pointer to const
 
 首先确定一点，int const i; 与 const int i; 是一样的，都是定义一个只读的 int i。 
