@@ -13,7 +13,7 @@ tags: [Cpp-101, const]
 	
 ## 1. Const assignment & Character array literals
 	
-前面 (C++: Const Pointer)[/c++/2010/09/26/cpp-const-pointer/#rules] 有讲：
+前面 [C++: Const Pointer](/c++/2010/09/26/cpp-const-pointer/#rules) 有讲：
 
 * 不能把 `const T*` 赋值给一个 `T*`
 	* 反过来把 `T*` 赋值给一个 `const T*` 是可以的
@@ -33,7 +33,7 @@ int main() {}
 
 另外 "不能把 `const T*` 赋值给一个 `T*`" 有一个例外就是 `char* cp = "howdy";`：
 
-* With `char* cp = "howdy";`, a character array literal (“howdy” in this case) is created by the compiler as a constant character array, and the result of the quoted character array is its starting address in memory.
+* With `char* cp = "howdy";`, a **character array literal** (“howdy” in this case) is created by the compiler as a constant character array, and the result of the quoted character array is its starting address in memory.
 * However, if you try to change the values in a character array literal, the behavior is undefined, although it will probably work on many machines.
 * If you want to be able to modify the string, put it in an array: `char cp[] = "howdy";`（这和上式有个毛的区别！）
 
