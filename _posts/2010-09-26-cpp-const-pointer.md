@@ -120,3 +120,37 @@ int main() {
 * 不能把 `const T*` 实参传给一个 `T*` 形参
 	* 反过来把 `T*` 实参传给一个 `const T*` 形参是可以的
 * `T* const` 除了 const 特性外，与 `T*` 性质是一样的（同上述 4 条）
+
+<pre class="prettyprint linenums">
+class T {
+public:
+	int i;
+	void modify();
+	T(int i);
+};
+
+T::T(int i) {
+	this->i = i;
+}
+
+void T::modify() {
+	i++;
+}
+
+int main() {
+	T t(1);
+    const T ct(3);
+    
+    const T* pct1 = &ct;
+    const T* pct2 = &t;	
+    
+    t.modify();		// OK
+    ct.modify();	// ERROR. passing 'const T' as 'this' argument of 'void T::modify()' discards qualifiers
+    pct1->modify();	// ERROR. passing 'const T' as 'this' argument of 'void T::modify()' discards qualifiers
+    pct2->modify();	// ERROR. passing 'const T' as 'this' argument of 'void T::modify()' discards qualifiers
+}
+</pre>
+
+* `const T` 本身的值不能改
+* 即使你是把一个 `T*`（&t）赋给一个 `const T*`（pct2），你也不能通过这个 `const T*` 去修改它的值，虽然你可以用 `T*` 直接去修改（t.modify();）
+	* 由此看来，`const T*` 其实是一种契约精神！（说不能改就不能改）
