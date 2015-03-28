@@ -11,7 +11,7 @@ tags: [Cpp-101, const]
 
 -----
 	
-## 1. Const assignment & Character array literals
+## 1. Const pointer assignment & Character array literals
 	
 前面 [C++: Const Pointer](/c++/2010/09/26/cpp-const-pointer/#rules) 有讲：
 
