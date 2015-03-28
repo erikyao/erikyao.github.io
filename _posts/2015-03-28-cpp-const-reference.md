@@ -89,7 +89,7 @@ int main() {
 	* <del>如果我们接受了 "reference 等价于 object" 的话，那么就可以认为 `foo(T t)` 和 `foo(T& rt)` 其实是接收相同的参数类型，只有 pass-by-value 和 pass-by-reference 的区别</del>
 	* 同理，研究 `const T` 的行为也就等价于研究 `cont T&` 的行为
 	
-另外还看到过一个奇怪的言论，说 `T& const crt = t2;` 报错是因为 "reference 天生是 const"。这里 const 指的就是这种强绑定关系。不过鉴于 const reference 已经够歧义了，再说 "reference 天生是 const" 完全就是在添乱。这里必须表扬一下 [wikipedia - const (computer programming)](http://en.wikipedia.org/wiki/Const_(computer_programming)#C.2B.2B_convention)，用 "redundant" 这个词就合适得多：
+另外还看到过一个奇怪的言论，说 `T& const crt = t2;` 报错是因为 "reference 天生是 const"。这里 const 指的就是这种强绑定关系。不过鉴于 const reference 已经够歧义了，再说 "reference 天生是 const" 完全就是在添乱。这里必须表扬一下 [wikipedia - const (computer programming)](http://en.wikipedia.org/wiki/Const_(computer_programming\)#C.2B.2B_convention)，用 "redundant" 这个词就合适得多：
 
 > A declaration of a `const` reference is redundant since references can never be made to refer to another object.
 
@@ -134,8 +134,8 @@ int main() {
 }	
 </pre>
 
-* 可以把一个 `const T` 或者 `const T&` 赋值给一个 `T` 或者 `T&`
-	* 反过来把 `T` 或者 `T&` 赋值给一个 `const T` 或者 `const T&` 就不行
+* 不能把 `T` 或者 `T&` 赋值给一个 `const T` 或者 `const T&` 
+	* 反过来把 `const T` 或者 `const T&` 赋值给一个 `T` 或者 `T&` 是可以的
 	* 这一点和 [C++: Const Pointer](/c++/2010/09/26/cpp-const-pointer/#rules) 是相反的
 
 <pre class="prettyprint linenums">
@@ -177,7 +177,7 @@ int main() {
 
 * 不能把 `const T` 或者 `const T&` 实参传给一个 `T&` 形参
 	* 除此之外没有其他禁忌
-	* 这一点和 [C++: Const Pointer](/c++/2010/09/26/cpp-const-pointer/#rules) 没有太大相关性
+	* 这一点和 [C++: Const Pointer](/c++/2010/09/26/cpp-const-pointer/#rules) 是类似的
 * 试验结果有点出乎我意料，因为 `foo(T& rt)` 和 `baz(T t)` 并不只有 pass-by-value vs. pass-by-reference 这一个区别
 	
 <pre class="prettyprint linenums">
@@ -216,11 +216,3 @@ int main() {
 * 即使你是把一个 `T&`（t）赋给一个 `const T&`（rct2），你也不能通过这个 `const T&` 去修改它的值，虽然你可以用 `T*` 直接去修改（t.modify();）
 	* 由此看来，`const T&` 其实是一种契约精神！（说不能改就不能改）
 	* 这一点和 [C++: Const Pointer](/c++/2010/09/26/cpp-const-pointer/#rules) 是相同的
-
-
-
-
-
-
-
-

@@ -117,8 +117,10 @@ int main() {
 
 * 不能把 `const T*` 赋值给一个 `T*`
 	* 反过来把 `T*` 赋值给一个 `const T*` 是可以的
+	* 这一点和 [C++: Const Reference](/c++/2015/03/28/cpp-const-reference/#rules) 是相反的
 * 不能把 `const T*` 实参传给一个 `T*` 形参
 	* 反过来把 `T*` 实参传给一个 `const T*` 形参是可以的
+	* 这一点和 [C++: Const Reference](/c++/2015/03/28/cpp-const-reference/#rules) 是类似的
 * `T* const` 除了 const 特性外，与 `T*` 性质是一样的（同上述 4 条）
 
 <pre class="prettyprint linenums">
@@ -154,3 +156,4 @@ int main() {
 * `const T` 本身的值不能改
 * 即使你是把一个 `T*`（&t）赋给一个 `const T*`（pct2），你也不能通过这个 `const T*` 去修改它的值，虽然你可以用 `T*` 直接去修改（t.modify();）
 	* 由此看来，`const T*` 其实是一种契约精神！（说不能改就不能改）
+	* 这一点和 [C++: Const Reference](/c++/2015/03/28/cpp-const-reference/#rules) 是相同的
