@@ -13,7 +13,7 @@ tags: [Cpp-101, const]
 	
 ## 1. Const pointer assignment & Character array literals
 	
-前面 [C++: Const Pointer](/c++/2010/09/26/cpp-const-pointer/#rules) 有讲：
+前面 [C++: Const Pointer](/c++/2015/03/26/cpp-const-pointer/#rules) 有讲：
 
 * 不能把 `const T*` 赋值给一个 `T*`
 	* 反过来把 `T*` 赋值给一个 `const T*` 是可以的
