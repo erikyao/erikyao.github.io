@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "C: Macro Arguments (函数式 #define) / Stringizing Operator"
+title: "C: Advanced Preprocessor Features"
 description: ""
 category: C
 tags: [C-101]
@@ -9,6 +9,7 @@ tags: [C-101]
 
 整理自：
 
+* _Thinking in C++_
 * [The C Preprocessor - 3.3 Macro Arguments](https://gcc.gnu.org/onlinedocs/cpp/Macro-Arguments.html)
 * [MSDN: Stringizing Operator (#)](https://msdn.microsoft.com/en-us/library/7e3a913x.aspx)
 
