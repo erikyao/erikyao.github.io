@@ -239,6 +239,8 @@ int main() {
 }
 </pre>
 
+我们对标准的、严格要求的 const object 称为 bitwise const，意思是 every bit is const；对 mutable 这样开后门的 const object 称为 logical const，嗯，原则上的 const。
+
 ## <a name="summary"></a>4. 总结
 
 const object:

@@ -494,9 +494,18 @@ int main(int argc, char* argv[]) {
 
 ### <a name="volatile"></a>4.2 volatile
 
-Whereas the qualifier `const` tells the compiler “This never changes” (which allows the compiler to perform extra optimizations), the qualifier `volatile` tells the compiler “You never know when this will change,” and prevents the compiler from performing any optimizations based on the stability of that variable. Use this keyword when you read some value outside the control of your code, such as a register in a piece of communication hardware. A volatile variable is **always** read whenever its value is required, even if it was just read the line before. 
+Whereas the qualifier `const` tells the compiler “This never changes” (which allows the compiler to perform extra optimizations), the qualifier `volatile` tells the compiler “You never know when this will change,” and prevents the compiler from performing any optimizations based on the stability of that variable. 
 
-A special case of some storage being “outside the control of your code” is in a multithreaded program. If you’re watching a particular flag that is modified by another thread or process, that flag should be volatile so the compiler doesn’t make the assumption that it can optimize away multiple reads of the flag.
+* 或者理解为：`volatile` means “This data may change outside the knowledge of the compiler.” (possibly through multitasking, multithreading or interrupts)
+
+Use this keyword when you read some value outside the control of your code, such as a register in a piece of communication hardware. A volatile variable is **always** read whenever its value is required, even if it was just read the line before. 
+
+* If the compiler says, “I read this data into a register earlier, and I haven’t touched that register,” normally it wouldn’t need to read the data again. 
+* But if the data is volatile, the compiler cannot make such an assumption because the data may have been changed by another process, and it must reread that data rather than optimizing the code to remove what would normally be a redundant read.
+
+You can also create `const volatile` objects, which can’t be changed by the client programmer but instead change through some outside agency.
+
+As with `const`, you can use `volatile` for data members, member functions, and objects themselves. You can only call volatile member functions for volatile objects. 鉴于 The syntax of `volatile` is identical to that for `const`，所以 volatile object / member / member function 的语法请参考 [C++: const object / const member & const member function / mutable](/c++/2015/03/29/cpp-const-object--const-member--const-member-function--mutable/)。
 
 ## <a name="summary"></a>5. Summary
 
