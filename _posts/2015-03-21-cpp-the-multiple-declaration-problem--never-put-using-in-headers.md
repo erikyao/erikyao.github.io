@@ -38,3 +38,5 @@ struct Simple {
 ## Never put `using` in headers
 
 You’ll virtually never see a using directive in a header file (at least, not outside of a scope). If you put a using directive (outside of a scope) in a header file, it means that this loss of “namespace protection” will occur with any file that includes this header, which often means other header files. 换言之就是 `using` 的作用会连锁传播，影响太大。
+
+BTW，`using` 其实是可以在 function 内部使用的。
