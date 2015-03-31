@@ -150,9 +150,9 @@ A scope is a region of the program and broadly speaking there are three places, 
 		
 另外还有个词叫 file scope，MSDN 的说法是：
 
-* [MSDN: Static (C++)](https://msdn.microsoft.com/en-us/library/s1sb61xd.aspx) 说：
+* [MSDN: Static (C++)](https://msdn.microsoft.com/en-us/library/s1sb61xd.aspx)：
 	> When you declare a variable or function at file scope (global and/or namespace scope), the `static` keyword specifies that the variable or function has internal linkage. 
-* [MSDN: Scope](https://msdn.microsoft.com/en-us/library/b7kfh662.aspx) 说：
+* [MSDN: Scope](https://msdn.microsoft.com/en-us/library/b7kfh662.aspx)：
 	> Any name declared outside all blocks or classes has file scope. It is accessible anywhere in the translation unit after its declaration. Names with file scope that do not declare static objects are often called global names. In C++, file scope is also known as namespace scope.
 	
 书上有一句原话 "... is local to the file; we say it has **file scope**." 非常容易引起误解，或者说这句根本就是说错了。file scope 并不是 local to file 的意思；这句其实说的是 static identifier，你在函数外定义自然就是 file scope，用 static 限定为 internal linkage 就变成了 local to file，因果关系不对。
