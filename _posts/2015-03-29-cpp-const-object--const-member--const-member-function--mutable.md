@@ -146,6 +146,7 @@ private:
 	static const int bz = 5;	// OK
 	
 	static int qx;				// OK
+	static const int qx2;		// OK
 public:
 	T(int foo, int bar);
 	void setB(int bar);
@@ -153,7 +154,9 @@ public:
 	int getBad() const;
 };
 
-int T::qx = 0;	// initialize the non-const static member
+int T::qx = 0;			// initialize the non-const static member
+const int T::qx2 = 0;	// initialize the const static member
+						// 这里 const 必须要带上
 
 T::T(int foo, int bar) : f(foo) {
 	b = bar;
