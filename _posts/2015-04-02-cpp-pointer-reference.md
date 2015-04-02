@@ -17,7 +17,7 @@ pointer 也可以有 reference，注意语法：
 #include &lt;iostream&gt;
 using namespace std;
 
-void increment(int*& i) {
+void increment(int*& i) { // i is a reference of int*
     i++;
 }
 
