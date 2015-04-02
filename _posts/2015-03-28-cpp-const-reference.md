@@ -96,6 +96,14 @@ int main() {
 <pre class="prettyprint linenums">
 int & const constRef = i; // Error the "const" is redundant
 </pre> 
+
+-> _~~~~~~~~~~ 2015-04-02 更新 ~~~~~~~~~~_ <-
+
+11 章开头给了一个描述我觉得写得很好：
+
+> References are like constant pointers that are automatically dereferenced by the compiler.
+
+-> _~~~~~~~~~~ 2015-04-02 更新结束 ~~~~~~~~~~_ <-
 	
 ## 3. <a name="rules"></a>大实验
 
