@@ -93,7 +93,7 @@ output: (序号是我自己加的)
 
 
 1. 注意 copy-constructor 的写法，参数必须是 `const T&`
-1. class 默认会带一个 copy-constructor，而且会保证 copy member 的值；如果自己写一个 copy-constructor，必须手动 copy member，比如上面的 `T::T(const T& t) : i(t.getI()) {...}`，如果不写这个 constructor initializer list `i(t.getI())`，那么 output **(11)** 处 `t2.i` 的值就是随机（比如我碰到过 1 和 -1）
+1. class 默认会带一个 copy-constructor，而且会保证 copy member 的值（我们称为 bitcopy，i.e. copy every bit）；如果自己写一个 copy-constructor，必须手动 copy member，比如上面的 `T::T(const T& t) : i(t.getI()) {...}`，如果不写这个 constructor initializer list `i(t.getI())`，那么 output **(11)** 处 `t2.i` 的值就是随机（比如我碰到过 1 和 -1）
 1. 我们来详细解读一下这个 ouput：
 	- **(01)**: `t1` 的地址，没啥好说的
 	- **(02)(03)**: `t1` 传入了 `foo(t)`，要 copy 参数 `t1`，于是调用 copy-constructor
