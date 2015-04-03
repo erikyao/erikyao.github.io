@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "C++: Simple object assignment will call copy constructor. This different from Java!"
+title: "C++: Simple object assignment will call copy-constructor. This different from Java!"
 description: ""
 category: C++
 tags: [Cpp-101, copy-constructor]
