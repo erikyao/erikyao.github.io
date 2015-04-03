@@ -46,32 +46,32 @@ T::T(int i) {
 }
 
 T::T(const T& t) : i(t.getI()) {
-	cout << "copy-constructor: &t==" << &t << endl;
-	cout << "copy-constructor: this==" << this << endl;
+	cout &lt;&lt; "copy-constructor: &t==" &lt;&lt; &t &lt;&lt; endl;
+	cout &lt;&lt; "copy-constructor: this==" &lt;&lt; this &lt;&lt; endl;
 } 
 
 T::~T() {
-	cout << "destructor: this==" << this << endl;
+	cout &lt;&lt; "destructor: this==" &lt;&lt; this &lt;&lt; endl;
 }
 
 T foo(T t) {
 	t.setI(47);
-	cout << "foo: &t==" << &t << endl;
+	cout &lt;&lt; "foo: &t==" &lt;&lt; &t &lt;&lt; endl;
 	return t;
 }
 
 int main() {
 	T t1(5);
 	
-	cout << "main: &t1==" << &t1 << endl;
+	cout &lt;&lt; "main: &t1==" &lt;&lt; &t1 &lt;&lt; endl;
 	
 	T t2 = foo(t1);
 	
-	cout << "main: &t1==" << &t1 << endl;
-	cout << "main: &t2==" << &t2 << endl;
+	cout &lt;&lt; "main: &t1==" &lt;&lt; &t1 &lt;&lt; endl;
+	cout &lt;&lt; "main: &t2==" &lt;&lt; &t2 &lt;&lt; endl;
 	
-	cout << "main: t1.i==" << t1.getI() << endl;
-	cout << "main: t2.i==" << t2.getI() << endl;
+	cout &lt;&lt; "main: t1.i==" &lt;&lt; t1.getI() &lt;&lt; endl;
+	cout &lt;&lt; "main: t2.i==" &lt;&lt; t2.getI() &lt;&lt; endl;
 }
 </pre>
 
@@ -164,44 +164,44 @@ T::T(int i) {
 }
 
 T::T(const T& t) : i(t.getI()) {
-	cout << "copy-constructor: &t==" << &t << endl;
-	cout << "copy-constructor: this==" << this << endl;
+	cout &lt;&lt; "copy-constructor: &t==" &lt;&lt; &t &lt;&lt; endl;
+	cout &lt;&lt; "copy-constructor: this==" &lt;&lt; this &lt;&lt; endl;
 } 
 
 T::~T() {
-	cout << "destructor: this==" << this << endl;
+	cout &lt;&lt; "destructor: this==" &lt;&lt; this &lt;&lt; endl;
 }
 
 T foo(T t1, T t2, T t3) {
 	
-	cout << "foo: &t1==" << &t1 << endl;
-	cout << "foo: &t2==" << &t2 << endl;
-	cout << "foo: &t3==" << &t3 << endl;
+	cout &lt;&lt; "foo: &t1==" &lt;&lt; &t1 &lt;&lt; endl;
+	cout &lt;&lt; "foo: &t2==" &lt;&lt; &t2 &lt;&lt; endl;
+	cout &lt;&lt; "foo: &t3==" &lt;&lt; &t3 &lt;&lt; endl;
 
 	T newT1(47);
 	T newT2(48);
 	T newT3(49);
 	
-	cout << "foo: &newT1==" << &newT1 << endl;
-	cout << "foo: &newT2==" << &newT2 << endl;
-	cout << "foo: &newT3==" << &newT3 << endl;
+	cout &lt;&lt; "foo: &newT1==" &lt;&lt; &newT1 &lt;&lt; endl;
+	cout &lt;&lt; "foo: &newT2==" &lt;&lt; &newT2 &lt;&lt; endl;
+	cout &lt;&lt; "foo: &newT3==" &lt;&lt; &newT3 &lt;&lt; endl;
 	
 	return t2; // 返回一个 argument
 }
 
 T bar(T t1, T t2, T t3) {
 	
-	cout << "foo: &t1==" << &t1 << endl;
-	cout << "foo: &t2==" << &t2 << endl;
-	cout << "foo: &t3==" << &t3 << endl;
+	cout &lt;&lt; "foo: &t1==" &lt;&lt; &t1 &lt;&lt; endl;
+	cout &lt;&lt; "foo: &t2==" &lt;&lt; &t2 &lt;&lt; endl;
+	cout &lt;&lt; "foo: &t3==" &lt;&lt; &t3 &lt;&lt; endl;
 
 	T newT1(47);
 	T newT2(48);
 	T newT3(49);
 	
-	cout << "foo: &newT1==" << &newT1 << endl;
-	cout << "foo: &newT2==" << &newT2 << endl;
-	cout << "foo: &newT3==" << &newT3 << endl;
+	cout &lt;&lt; "foo: &newT1==" &lt;&lt; &newT1 &lt;&lt; endl;
+	cout &lt;&lt; "foo: &newT2==" &lt;&lt; &newT2 &lt;&lt; endl;
+	cout &lt;&lt; "foo: &newT3==" &lt;&lt; &newT3 &lt;&lt; endl;
 	
 	return newT2; // 返回一个 local variable
 }
@@ -209,15 +209,15 @@ T bar(T t1, T t2, T t3) {
 int main() {
 	T t1(5), t2(6), t3(7), t4(8);
 	
-	cout << "main: &t1==" << &t1 << endl;
-	cout << "main: &t2==" << &t2 << endl;
-	cout << "main: &t3==" << &t3 << endl;
-	cout << "main: &t4==" << &t4 << endl;
+	cout &lt;&lt; "main: &t1==" &lt;&lt; &t1 &lt;&lt; endl;
+	cout &lt;&lt; "main: &t2==" &lt;&lt; &t2 &lt;&lt; endl;
+	cout &lt;&lt; "main: &t3==" &lt;&lt; &t3 &lt;&lt; endl;
+	cout &lt;&lt; "main: &t4==" &lt;&lt; &t4 &lt;&lt; endl;
 	
 	T t123 = foo(t1, t2, t3);
 	//T t123 = bar(t1, t2, t3);
 	
-	cout << "main: &t123==" << &t123 << endl;
+	cout &lt;&lt; "main: &t123==" &lt;&lt; &t123 &lt;&lt; endl;
 }
 </pre>
 
