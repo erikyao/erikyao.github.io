@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "C++: new & delete"
+title: "C++: new &amp; delete"
 description: ""
 category: C++
 tags: [Cpp-101]

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "C++: Default function arguments & Placeholder arguments"
+title: "C++: Default function arguments &amp; Placeholder arguments"
 description: ""
 category: C++
 tags: [Cpp-101]

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "C++: const object / const member & const member function / mutable"
+title: "C++: const object / const member &amp; const member function / mutable"
 description: ""
 category: C++
 tags: [Cpp-101, const]
