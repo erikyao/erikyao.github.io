@@ -15,8 +15,8 @@ tags: [Cpp-101, copy-constructor]
 
 - `T t2 = t1;` 这样的 define 语句会调用 copy-constructor（生成一个新对象）
 - `t2 = t1;` 这样的赋值语句执行的是 `operator=`
-	- [Default assigment operator= in c++ is a shallow copy?](http://stackoverflow.com/questions/5096464/default-assigment-operator-in-c-is-a-shallow-copy) 的说法是：系统默认的 `operator=` 执行的是 copy 操作，which copies each member。但个 copy 并不像 copy-constructor 是生成一个新对象，理解为 override 似乎更合适
-		- `t2 = t1;` 就是用 `t1` 的内容 override `t2` 的内容
+	- [Default assigment operator= in c++ is a shallow copy?](http://stackoverflow.com/questions/5096464/default-assigment-operator-in-c-is-a-shallow-copy) 的说法是：系统默认的 `operator=` 执行的是 copy 操作，which copies each member。但个 copy 并不像 copy-constructor 是生成一个新对象，理解为 override 或者 memberwise assignment 似乎更合适
+		- `t2 = t1;` 就是用 `t1` 的内容 override `t2` 的内容，或者理解为 `t2.mA = t1.mA; t2.mB = t1.mB; ... t2.mZ = t1.mZ;`
 	- 如果你重载了 `operator=` 就执行重载的逻辑
 
 我们先来看下 Java 的版本：
