@@ -27,9 +27,10 @@ tags: [Cpp-101]
 			- Copy-construction or assignment of `t1` means attaching another pointer `t2.ptr` to the existing object `p` and incrementing the reference count in `p`. 
 			- Destruction of `t2` means reducing the reference count in `p` and destroying the object `p` if the reference count goes to zero.
 	- 若你使用了 shallow copy 还偏要对 `t1.ptr` 和 `t2.ptr` 所指向的这同一块内存做 write 操作，可以额外再用一个 copy-on-write 技术：
+		- copy-on-write 就是 “等我要做写操作的时候再 deep copy”，某种程度上有点像 lazy initialization，都是比较 lazy，事到临头才开始操作
 		- 假设是 `t2` 要发起写操作：
 			- If the reference count in `p` is greater than one, `t2` must make a personal copy of `p` for `t2.ptr` before writing it. 我们假设这个 copy of `p` 的名字为 `papa`，`papa` 的 reference counting 为初始值 1
 			- 同时 `p` 的 reference counting 减 1
-		- 如果 `t1.ptr == &p` 然后 `t2.ptr == &papa`，此时再赋值 `t2 = t1;`，就需要把 `papa` 的 reference counting 减一，`p` 的 reference counting 加一。这个逻辑在 `operator=` 的实现中要写清楚. 
+		- 如果 `t1.ptr == &p` 然后 `t2.ptr == &papa`，此时再赋值 `t2 = t1;`，就需要把 `papa` 的 reference counting 减 1，`p` 的 reference counting 加 1。这个逻辑在 `operator=` 的实现中要写清楚. 
 		
 具体的例子见书上 P575。
