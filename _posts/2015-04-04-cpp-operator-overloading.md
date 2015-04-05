@@ -11,7 +11,19 @@ tags: [Cpp-101]
 
 -----
 
-## 1. Intro
+## 目录
+
+- [1. Intro](#intro)
+- [2. Overloadable operators](#overloadable-operators)
+	- [2.1 Examples](#eg)
+	- [2.2 Arguments & return values](#arg-return)
+	- [2.3 Unusual operators](#unusual-operators)
+	- [2.4 Operators you can’t overload](#non-overloadable)
+- [3. Member function or not](#member-or-not)
+
+-----
+
+## <a name="intro"></a>1. Intro
 
 书上一开头就说了：Operator overloading is just “syntactic sugar,” which means it is simply another way for you to make a function call. 和我想得一样。You have no reason to overload an operator except if it will make the code involving your class easier to write and especially easier to read.
 
@@ -69,13 +81,13 @@ int main() {
 */
 </pre>
 
-## 2. Overloadable operators
+## <a name="overloadable-operators"></a>2. Overloadable operators
 
 - You cannot combine operators that currently have no meaning in C.
 - You cannot change the evaluation precedence of operators.
 - You cannot change the number of arguments required by an operator
 
-### 2.1 Examples
+### <a name="eg"></a>2.1 Examples
 
 P536~P540 针对 overloadable unary operators 给了两个非常完整的例子，一个是用 global functions (non-member friend functions) 的写法，一个是用 member functions 的写法。
 
@@ -111,7 +123,7 @@ P541~P552 给的是 overloadable binary operators 的例子，也是一个用 gl
 * 对 `operator=` 的实现最好做一下 self-assignment check，因为对 `A=A;` 这样的语句其实没必要做任何操作，直接 `return *this;` 就好了
 * `operator=` 只能用 member function 的写法实现
 
-### 2.2 Arguments & return values
+### <a name="arg-return"></a>2.2 Arguments & return values
 
 * 如果是返回一个新 object，那么 returnType 就写 `T` 或者 `const T`
 * 如果是把参数 object 修改一下再返回去，那么 returnType 就写 `T&` 或者 `const T&`
@@ -122,7 +134,7 @@ P541~P552 给的是 overloadable binary operators 的例子，也是一个用 gl
 	* 如果没有类似的需求 returnType 就用 const 好了
 * 参数一般是 `T&`，根据参数值是否发生变化酌情添加 const
 
-### 2.3 Unusual operators
+### <a name="unusual-operators"></a>2.3 Unusual operators
 
 - Subscript operator, `operator[]`, must be a member function and it requires a single argument.
 - Comma operator, `operator,`, 很少有需要重载这个的……
@@ -138,12 +150,12 @@ P541~P552 给的是 overloadable binary operators 的例子，也是一个用 gl
 	- It must return an object for which the `operator()` can be called with the arguments for the member function you’re calling.
 - Function call operator, `operator()`, must be a member function, and it is unique in that it allows any number of arguments.
 
-### 2.4 Operators you can’t overload
+### <a name="non-overloadable"></a>2.4 Operators you can’t overload
 
 - Member selection operator, `operator.`
 - Pointer-to-member dereference operator, `operator.*`
 
-## 3. Member function or not
+## <a name="member-or-not"></a>3. Member function or not
 
 方便起见，用 global functions (non-member friend functions) 实现的 operator 我们起名 non-member operator；用 member functions 实现的 operator 我们起名 member operator。
 
