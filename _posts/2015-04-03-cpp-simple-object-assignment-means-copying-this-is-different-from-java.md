@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "C++: Simple object assignment means copying. This different from Java!"
+title: "C++: Simple object assignment means copying. This is different from Java!"
 description: ""
 category: C++
 tags: [Cpp-101, copy-constructor]
