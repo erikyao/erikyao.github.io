@@ -81,6 +81,16 @@ int main() {
 */
 </pre>
 
+另外需要注意的是，operator 可以像函数一样直接调用，比如：
+
+<pre class="prettyprint linenums">
+int main() {
+    Integer ii(1), jj(2);
+	
+	Integer kk = ii.operator+(jj); // 等价于 Integer kk = ii+jj;
+}
+</pre>
+
 ## <a name="overloadable-operators"></a>2. Overloadable operators
 
 - You cannot combine operators that currently have no meaning in C.
