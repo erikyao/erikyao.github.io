@@ -35,17 +35,24 @@ A `new` expression returns a **pointer** to an object of the exact type that you
 	
 If you create an object on the stack or in static storage, the compiler determines how long the object lasts and can automatically destroy it (如果是 object 就 automatically 调用析构函数 `~Foo()`). However, if you create it on the heap via `new`, the compiler has no knowledge of its lifetime. In C++, the programmer must determine programmatically when to destroy the object, and then perform the destruction using the `delete` keyword.
 	
-`delete` 直接用于变量名，比如：
+`delete` 直接用于指针变量，比如：
 
 <pre class="prettyprint linenums">
 int *pi = new int;
 delete pi;
 </pre>
 
+If the pointer you’re deleting is zero, nothing will happen. For this reason, people often recommend setting a pointer to zero immediately after you delete it, to prevent deleting it twice.
+
+Deleting `void*` is probably a bug. 从功能上来说，delete 一个 `void*` 还是可以释放内存的，但是因为是 `void*`，`delete` 不知道它的类型信息，所以就无法调用相应的 destructor。如果 `void*` 指向的是一片原始内存（比如 `int[]`）倒还好；若是恰巧 `void*` 指向的是一个 object，这个 object 的 destructor 中还有 `delete` 语句，那这个 `delete` 就执行不到了，久而久之就是 memory leak 了。所以 delete 一个 `void*` 一定要慎重。
+
+### Deleting an array 
+
 There’s a special syntax when you’re deleting an array. It’s as if you must remind the compiler that this pointer is not just pointing to one object, but to an array of objects:
 
 * `delete[] myArray;`
 	* 写成 `delete []myArray;` 也可以
+	* The empty brackets tell the compiler to generate code that fetches the number of objects in the array, stored somewhere when the array is created, and calls the destructor for that many array objects. This is actually an improved syntax from the earlier form, which you may still occasionally see in old code: `delete [100]myArray;`
 * Every use of `new` should be balanced by a `delete`, and every use of `new[]` should be balanced by a `delete[]`.
 
 
