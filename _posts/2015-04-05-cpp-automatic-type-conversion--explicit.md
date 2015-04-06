@@ -13,12 +13,12 @@ tags: [Cpp-101, copy-constructor]
 
 ## 目录
 
-- [1. constructor conversion](#constructor-conversion)
+- [1. Constructor conversion](#constructor-conversion)
 - [2. `explicit`: banning constructor conversion](#explicit)
 - [3. Operator conversion](#operator-conversion)
 - [4. Operand Reflexivity](#operand-reflexivity)
 
-## <a name="constructor-conversion"></a>1. constructor conversion
+## <a name="constructor-conversion"></a>1. Constructor conversion
 
 直接上例子：
 
@@ -129,7 +129,7 @@ int main() {
 }
 </pre> 
 
-需要注意的是，copy-constructor 也可以声明为 `explicit`，只是这么做以后，所有后台隐式调用 copy-constructor 的地方（比如 pass-by-value）的地方都会出错。
+需要注意的是，copy-constructor 也可以声明为 `explicit`，只是这么做以后，所有后台隐式调用 copy-constructor 的地方（比如 pass-by-value）的地方都会报错。
 
 ## <a name="operator-conversion"></a>3. Operator conversion
 
