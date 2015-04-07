@@ -127,6 +127,6 @@ It doesn’t necessarily mean you’re doing it wrong, it’s just that the ulti
 
 In general, when you use inheritance this way it means you’re taking a general-purpose class and specializing it for a particular need – which is usually, but not always, considered the realm of composition.
 
-如果考虑到指针，C++ 这么干还是有点道理的。比如 `Ext::f(Foo* pfoo)` 和 `Base::f(void* pvoid)`，如果 `Ext::f(void* pvoid)` 也允许的话，看上去是有点危险……（但是你可以自己再覆写一个 `Ext::f(void* pvoid)` 也是可以的；大概 C++ 认为 "你自己写一个表示你是有意识的，我不阻止"）C++ 的哲学大概是：你定义了啥就是啥；这也相当于是一个强类型检查（`Ext::f(...)` 只能接受 `Foo*`）。
+如果考虑到指针，C++ 这么干还是有点道理的。比如 `Ext::f(Foo* pfoo)` 和 `Base::f(void* pvoid)`，如果 `Ext::f(void* pvoid)` 也允许的话，看上去是有点危险……（但是你自己再覆写一个 `Ext::f(void* pvoid)` 也是可以的；大概 C++ 认为 "你自己写一个表示你是有意识的，我不阻止"）C++ 的哲学大概是：你定义了啥就是啥；这也相当于是一个强类型检查（`Ext::f(...)` 只能接受 `Foo*`）。
 
 如果你需要像 java 那样在子类中存在多个重载方法，一个途径是每个方法都覆写；如果工作量很大的话，可以考虑使用 template。
