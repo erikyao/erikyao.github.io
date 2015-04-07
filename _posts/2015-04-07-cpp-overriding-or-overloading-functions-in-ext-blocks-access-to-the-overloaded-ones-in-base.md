@@ -122,3 +122,9 @@ int main() {
 - `Ext2` 不知道算是覆写还是重载了 `int f()`，然后 `int f(string s)` 就访问不到了
 - `Ext3` 添加了一个重载方法 `int f(int i)`，然后 `int f()` 和 `int f(string s)` 都访问不到了
 - java 问你的 functions 为什么这么水火不容……
+
+It doesn’t necessarily mean you’re doing it wrong, it’s just that the ultimate goal of inheritance is to support polymorphism, and if you change the function signature or return type then you are actually changing the interface of the base class. If this is what you have intended to do then you are using inheritance primarily to reuse code, and not to maintain the common interface of the base class (which is an essential aspect of polymorphism). 
+
+In general, when you use inheritance this way it means you’re taking a general-purpose class and specializing it for a particular need – which is usually, but not always, considered the realm of composition.
+
+如果考虑到指针，C++ 这么干还是有点道理的。比如 `Ext::f(Foo* pfoo)` 和 `Base::f(void* pvoid)`，如果 `Ext::f(void* pvoid)` 也允许的话，看上去是有点危险……（但是你可以自己再覆写一个 `Ext::f(void* pvoid)` 也是可以的；大概 C++ 认为 "你自己写一个表示你是有意识的，我不阻止"）C++ 的哲学大概是：你定义了啥就是啥；这也相当于是一个强类型检查（`Ext::f(...)` 只能接受 `Foo*`）。
