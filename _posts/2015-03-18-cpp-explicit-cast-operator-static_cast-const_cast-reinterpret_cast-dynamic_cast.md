@@ -55,8 +55,6 @@ long l = static_cast&lt;long&gt;(i);
 	* Also allows any integral type to be converted into any pointer type and vice versa. (`int` 类与各种 type 的 pointer 互转)
 * `dynamic_cast`:
 	* 用于多态
-	* 本篇不展开；后续有需要再补上
-	* 其实我说 "用于多态"，信息量应该足够大了，应该可以猜到~
 	
 下面举几个例子。
 
@@ -169,5 +167,53 @@ int main() {
    int a[20];
    for ( int i = 0; i &lt; 20; i++ )
       cout &lt;&lt; Hash( a + i ) &lt;&lt; endl;
+}
+</pre>
+
+## 4. dynamic_cast
+
+<pre class="prettyprint linenums">
+#include &lt;iostream&gt;
+using namespace std;
+
+class Pet {
+public:
+    virtual ~Pet() {}
+};
+
+class Dog : public Pet {};
+
+class Cat : public Pet {};
+
+int main() {
+    Pet* b = new Cat; // Upcast
+	
+	// Try to cast it to Dog*:
+    Dog* d1 = dynamic_cast<Dog*>(b);
+	
+	// Try to cast it to Cat*:
+    Cat* d2 = dynamic_cast<Cat*>(b);
+    
+	cout &lt;&lt; "d1 = " &lt;&lt; d1 &lt;&lt; endl; // d1 = 0; 地址为 0 表示转型失败 
+    cout &lt;&lt; "d2 = " &lt;&lt; d2 &lt;&lt; endl; // d2 = 0x2f7f40
+}
+</pre>
+
+可以配合 `#include <typeinfo>` 的 `typeid` 操作符使用：
+
+<pre class="prettyprint linenums">
+#include &lt;typeinfo&gt;
+
+int main() {
+	Circle c;
+	
+	Shape* s = &c; // Upcast
+	Circle* cp = 0;
+	Square* sp = 0;
+	
+	if(typeid(s) == typeid(cp)) // C++ RTTI
+		cp = static_cast<Circle*>(s);
+	else if(typeid(s) == typeid(sp))
+		sp = static_cast<Square*>(s);
 }
 </pre>

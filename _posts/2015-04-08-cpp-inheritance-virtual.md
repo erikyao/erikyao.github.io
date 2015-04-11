@@ -19,7 +19,7 @@ tags: [Cpp-101]
 	- [2.1 How C++ implements late binding](#late-binding)
 	- [2.2 Abstract class](#abstract-class)
 	- [2.3 Pure virtual function 也可以有实现，但是不能是 inline](#implementing-pure-virtual)
-	- [2.4 Virtual functions inside constructors](#virtual-inside-constructors)
+	- [2.4 Virtual functions inside constructors & destructors](#virtual-inside-constructors-destructors)
 	- [2.5 Virtual destructors](#virtual-destructors)
 		- [Pure virtual destructors](#pure-virtual-destructors)
 	
@@ -277,9 +277,9 @@ When an abstract class is inherited, all pure virtual functions must be implemen
 > <br/>
 > In practice, when you mark a virtual function as pure (=0), there is very little point in providing a definition, because it will never be called unless someone explicitly does so via `Base::Function(...)` or if the `Base` class constructor calls the virtual function in question.
 
-### <a name="virtual-inside-constructors"></a>2.4 Virtual functions inside constructors
+### <a name="virtual-inside-constructors-destructors"></a>2.4 Virtual functions inside constructors & destructors
 
-If you call a virtual function inside a constructor, only the local version of the function is used. That is, the virtual mechanism doesn’t work within the constructor.
+If you call a virtual function inside a constructor or a destructor, only the local version of the function is used. That is, the virtual mechanism doesn’t work within the constructor or destructor.
 
 <pre class="prettyprint linenums">
 #include &lt;iostream&gt;
