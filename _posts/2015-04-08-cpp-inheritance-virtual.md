@@ -19,6 +19,9 @@ tags: [Cpp-101]
 	- [2.1 How C++ implements late binding](#late-binding)
 	- [2.2 Abstract class](#abstract-class)
 	- [2.3 Pure virtual function 也可以有实现，但是不能是 inline](#implementing-pure-virtual)
+	- [2.4 Virtual functions inside constructors](#virtual-inside-constructors)
+	- [2.5 Virtual destructors](#virtual-destructors)
+		- [Pure virtual destructors](#pure-virtual-destructors)
 	
 -----
 
@@ -258,13 +261,13 @@ Typical compiler1 create a single table (called the **VTABLE**) for each class t
 
 ![](https://gm5g2q.bn1304.livefilestore.com/y2paz-4ObABSqWpBPQG934_9xPJdkNwNZU-9LsKaJS320bNvUiQl2YfFQtjAqhgwyW3y5RwVRLgqQ8dVcxzxnR2_hP13F4ZLtnD7VAAn1Nfsa1zrTl1pYATekRYGFjNp92KmLTFRPeBxC2nFy5frvk9-g/late%20binding.png?psid=1)
 
-### <a name="abstract-class"></a>6.2 Abstract class
+### <a name="abstract-class"></a>2.2 Abstract class
 
 If you give a class at least one pure virtual function, you make it abstract. If anyone tries to make an object of an abstract class, the compiler prevents them.
 
 When an abstract class is inherited, all pure virtual functions must be implemented, or the inherited class becomes abstract as well. 这和 java 是一致的。
 
-### <a name="implementing-pure-virtual"></a>6.3 Pure virtual function 也可以有实现，但是不能是 inline
+### <a name="implementing-pure-virtual"></a>2.3 Pure virtual function 也可以有实现，但是不能是 inline
 
 你声明一个 pure virtual function，然后放到 class 外部再实现也是可以的。这样做就成了一个带原始实现的 interface。但父类仍然是 abstract 的，你无法初始化一个父类对象来调用这些 function；也就是说，父类提供 pure virtual function 的实现完全是为子类服务的，最常见的用法就是提供一些 default 行为，避免各个子类的实现中都有重复代码。
 
@@ -273,3 +276,113 @@ When an abstract class is inherited, all pure virtual functions must be implemen
 > `= 0` means derived classes must provide an implementation, not that the base class can not provide an implementation.  
 > <br/>
 > In practice, when you mark a virtual function as pure (=0), there is very little point in providing a definition, because it will never be called unless someone explicitly does so via `Base::Function(...)` or if the `Base` class constructor calls the virtual function in question.
+
+### <a name="virtual-inside-constructors"></a>2.4 Virtual functions inside constructors
+
+If you call a virtual function inside a constructor, only the local version of the function is used. That is, the virtual mechanism doesn’t work within the constructor.
+
+<pre class="prettyprint linenums">
+#include &lt;iostream&gt;
+using namespace std;
+ 
+class Base {
+public:
+    virtual int f() const {
+        cout &lt;&lt; "Base::f()" &lt;&lt; endl;
+        return 1;
+    }
+    Base();
+};
+
+Base::Base() {
+	f();
+}
+ 
+class Ext : public Base {
+public:
+    int f() const {
+        cout &lt;&lt; "Ext::f()" &lt;&lt; endl;
+        return 1;
+    }
+};
+
+int main() {   
+    Ext ext;
+}
+
+// output: Base::f()
+</pre>
+
+In addition, many compilers recognize that a virtual function call is being made inside a constructor, and perform early binding because they know that late-binding will produce a call only to the local function.
+
+这和 java 的情况有点不同，参考 [warning: 在构造器中请谨慎使用被覆写方法](http://erikyao.github.io/java/2009/03/27/using-overridden-method-in-constructor-is-dangerous/)。
+
+### <a name="virtual-destructors"></a>2.5 Virtual destructors
+
+You cannot use the `virtual` keyword with constructors, but destructors can and often must be virtual.
+
+主要问题出现在 `Base* pb = new Ext; delete pb;` 这个么场景里。如果 destructor 不是 virtual 的话，那 `delete pb;` 其实是一个 upcasting（这里把 `delete` 当做一个 function 来看的话，`pb.delete();` 也是 upcasting；所以 `delete` 和 function 的情形是一致的），并不是多态，所以 `delete pb;` 并不会调用 `Ext` 的 destructor，而是 `Base` 的 destructor，这样就 `Ext` 对象就没有完全销毁，造成内存泄露。
+
+<pre class="prettyprint linenums">
+#include &lt;iostream&gt;
+using namespace std;
+
+class Base1 {
+public:
+    ~Base1() {
+        cout &lt;&lt; "~Base1()\n";
+    }
+};
+
+class Ext1 : public Base1 {
+public:
+    ~Ext1() {
+        cout &lt;&lt; "~Ext1()\n";
+    }
+};
+
+class Base2 {
+public:
+    virtual ~Base2() {
+        cout &lt;&lt; "~Base2()\n";
+    }
+};
+
+class Ext2 : public Base2 {
+public:
+    ~Ext2() {
+        cout &lt;&lt; "~Ext2()\n";
+    }
+};
+
+int main() {
+    Base1* bp = new Ext1; 
+    delete bp;
+    Base2* b2p = new Ext2;
+    delete b2p;
+}
+
+// output:
+/* 
+	~Base1()
+	~Ext2()
+	~Base2()
+*/
+</pre>
+
+可参考：
+
+- [When to use virtual destructors?](http://stackoverflow.com/a/461224)
+- [FAQ: When should my destructor be virtual?](http://isocpp.org/wiki/faq/virtual-functions#virtual-dtors)
+
+As a guideline, any time you have a virtual function in a class, you
+should immediately add a virtual destructor (even if it does
+nothing). i.e. 如果要用多态，保险起见父类请一定要把 destructor 设置成 virtual。
+
+#### <a name="pure-virtual-destructors"></a>Pure virtual destructors
+
+While pure virtual destructors are legal in Standard C++, there is an added constraint when using them: you must provide a function body for the pure virtual destructor.
+
+However, when you inherit a class from one that contains a pure virtual destructor, you are not required to provide a definition of a pure virtual destructor in the derived class. Remember that the compiler automatically creates a destructor definition for every class if you don’t create one. That’s what’s happening here – the base class destructor is being quietly overridden.
+
+What’s the difference between a regular virtual destructor and a pure virtual destructor? The only distinction occurs when you have a class that only has a single pure virtual function: the destructor. In this case, the only effect of the purity of the destructor is to prevent the instantiation of the base class. If there were any other pure virtual functions, whether the destructor is pure or not isn’t so important.
