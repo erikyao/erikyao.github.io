@@ -79,9 +79,9 @@ Even if you create non-inline function definitions, you’ll usually want to put
 
 There are times when you may need to place the template definitions in a separate cpp file to satisfy special needs (for example, forcing template instantiations to exist in only a single Windows dll file). Most compilers have some mechanism to allow this; you’ll have to investigate your particular compiler’s documentation to use it.
 
-## 4. Additional template arguments
+## 4. Non-type template parameters
 
-除了类型参数以外，template 还可以有其他的参数（也许说参数并不是很合适）。The values of these arguments then become compile-time constants for that particular instantiation of the template. 比如：
+除了类型参数以外，template 还可以有其他的参数。The values of these arguments then become compile-time constants for that particular instantiation of the template. 比如：
 
 <pre class="prettyprint linenums">
 template&lt;class T, int size = 100&gt;
@@ -98,7 +98,14 @@ public:
 };
 </pre>
 
-新加的这个参数 `int size = 100` 对 template instantiation 的语法没有影响。 
+1. 不管是 type parameter 还是 non-type parameter，都可以有 default value，也可以都没有 default value
+1. A non-type template-parameter shall be one of the following (optionally cv-qualified) types:
+	- integral or enumeration type,
+	- pointer to object or pointer to function,
+	- lvalue reference to object or lvalue reference to function,
+	- pointer to member,
+	- std::nullptr_t.
+1. const 和 volatile 合称 cv-qualifier；cv-qualified 的意思是 either const or volatile, or both
 
 ## 5. Function templates
 
