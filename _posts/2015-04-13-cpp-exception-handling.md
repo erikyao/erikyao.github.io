@@ -207,10 +207,10 @@ Since exception specifications are logically part of a function’s declaration,
 
 <pre class="prettyprint linenums">
 template&lt;class T&gt; T stack&lt;T&gt;::pop() {
-if(top == 0)
-	throw logic_error("stack underflow");
-else
-	return data[--top]; // If an exception was thrown here...
+	if(top == 0)
+		throw logic_error("stack underflow");
+	else
+		return data[--top]; // If an exception was thrown here...
 }
 </pre>
 
