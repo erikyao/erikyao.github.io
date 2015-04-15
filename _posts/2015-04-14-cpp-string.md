@@ -13,6 +13,8 @@ tags: [Cpp-101]
 
 ## 1. Creating strings
 
+To use strings you include the C++ header file `<string>`. The `string` class is also in the namespace `std`.
+
 <pre class="prettyprint linenums">
 string imBlank;
 string heyMom("Where are my socks?");
