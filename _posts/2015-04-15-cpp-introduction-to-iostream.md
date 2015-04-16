@@ -18,14 +18,14 @@ tags: [Cpp-101]
 Consider how to output the representation of a Date object in MM-DD-YYYY format: 
 
 <pre class="prettyprint linenums">
-ostream& operator<<(ostream& os, const Date& d) {
+ostream& operator&lt;&lt;(ostream& os, const Date& d) {
 	// 设置 fill 模式为首位填 0
 	char fillc = os.fill('0'); 
-	os << setw(2) << d.getMonth() << '-'
-		<< setw(2) << d.getDay() << '-'
-		<< setw(4) << setfill(fillc) << d.getYear();		
+	os &lt;&lt; setw(2) &lt;&lt; d.getMonth() &lt;&lt; '-'
+		&lt;&lt; setw(2) &lt;&lt; d.getDay() &lt;&lt; '-'
+		&lt;&lt; setw(4) &lt;&lt; setfill(fillc) &lt;&lt; d.getYear();		
 		// 对年份不需要做填充，setfill(fillc) 恢复原 fill 模式
-		// setfill(fillc) 返回一个 manipulator，类似 endl，所有可以直接接到 << 后面
+		// setfill(fillc) 返回一个 manipulator，类似 endl，所有可以直接接到 &lt;&lt; 后面
 	
 	return os;
 }
@@ -121,7 +121,7 @@ There are six standard manipulators that take arguments. These are defined in th
 | setprecision(int n)       | 等价于 `ios::precision(n)`，设置精度                                       |
 | setw(int n)               | 等价于 `ios::width(n)`，设置字符串宽度                                     |
 
-### 3.1 Creating manipulators
+### Creating manipulators
 
 我们先看下 `endl` 的构造：
 
@@ -129,8 +129,25 @@ There are six standard manipulators that take arguments. These are defined in th
 ostream& endl(ostream&);
 </pre>
 
-然后 `cout << endl;` 里实际是传的这个 function name，也就是 function 的地址。然后 `operator<<` 的逻辑大概是：
+然后 `cout << endl;` 里实际是传的这个 function name，也就是 function 的地址。然后 `operator<<` 的逻辑大概是（The actual definition is a little more complicated since it involves templates）：
 
 <pre class="prettyprint linenums">
+ostream& ostream::operator&lt;&lt;(ostream& (*pf)(ostream&)) {
+	return pf(*this);
+}
+</pre>
 
+所以我们只要参照 endl 函数的签名，自己做一个 manipulator 也不是很难，比如：
+
+<pre class="prettyprint linenums">
+#include &lt;iostream&gt;
+using namespace std;
+
+ostream& nl(ostream& os) { // 'nl' for 'newline'
+	return os &lt;&lt; '\n';
+}
+
+int main() {
+	cout &lt;&lt; "newlines" &lt;&lt; nl;
+}
 </pre>
