@@ -100,6 +100,7 @@ public:
 
 1. 不管是 type parameter 还是 non-type parameter，都可以有 default value，也可以都没有 default value
 1. You must provide a compile-time constant value for the non-type parameter. 比如上面的 size，你写 `int i = 100; Stack<MyType, i> stack;` 是不行的，因为 i 是变量；如果是 `const int i = 100;` 就可以。
+1. 可以只有 non-type parameter 而没有 type parameter，比如 `std::bitset` 就是如此。
 1. A non-type template-parameter shall be one of the following (optionally cv-qualified) types:
 	- integral or enumeration type,
 	- pointer to object or pointer to function,
