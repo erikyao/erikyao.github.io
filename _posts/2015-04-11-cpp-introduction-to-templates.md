@@ -7,7 +7,7 @@ tags: [Cpp-101]
 ---
 {% include JB/setup %}
 
-整理自：_Thinking in C++_
+整理自：_Thinking in C++, Volumn 1 & Volumn 2_
 
 -----
 
@@ -98,7 +98,9 @@ public:
 };
 </pre>
 
-1. 不管是 type parameter 还是 non-type parameter，都可以有 default value，也可以都没有 default value
+1. 不管是 type parameter 还是 non-type parameter，都可以有 default value，也可以都没有 default value。
+	- 但是 You can provide default arguments only for class templates, but not function templates.
+	- Once you introduce a default argument, all the subsequent template parameters must also have defaults.
 1. You must provide a compile-time constant value for the non-type parameter. 比如上面的 size，你写 `int i = 100; Stack<MyType, i> stack;` 是不行的，因为 i 是变量；如果是 `const int i = 100;` 就可以。
 1. 可以只有 non-type parameter 而没有 type parameter，比如 `std::bitset` 就是如此。
 1. A non-type template-parameter shall be one of the following (optionally cv-qualified) types:
@@ -124,3 +126,72 @@ void drawAll(T start, T end) { // assume T is an iterator
 </pre>
 
 The function template `drawAll()` can be thought of as an **(generic) algorithm**, and this is what most of the function templates in the Standard C++ Library are called.
+
+Although you cannot use default template arguments in function templates, you can use template parameters as default arguments to normal functions: 
+
+<pre class="prettyprint linenums">
+#include &lt;iostream&gt;
+using namespace std;
+
+template&lt;class T&gt; T accumulate(T begin, T end, T init = T()) {
+    while(begin != end)
+        init += begin++;
+    return init;
+}
+int main() {
+    cout &lt;&lt; accumulate(1, 10) &lt;&lt; endl; // output: 45
+}
+</pre>
+
+注意有 `int() == 0`。
+
+## 6. Template template parameters
+
+注意下语法就好：
+
+<pre class="prettyprint linenums">
+template&lt;class T&gt;
+class Array { ... }
+
+// 这里 U 并不用得上，所以可以省略
+// 而且要注意，即使你写了 U，U 也不是 Container 的参数
+template&lt;class T, template&lt;class /* U */&gt; class Seq&gt;
+class Container { 
+	Seq&lt;T&gt; seq;
+	...
+}
+
+int main() {
+	Container&lt;int, Array&gt; container;
+}
+
+///// ~~~~~ //////
+
+template&lt;class T, int N&gt;
+class Array { ... }
+
+// 这里参数 int M 其实不是必须的，完全是为了演示方便而设置的
+template&lt;class T, int N, template&lt;class, int&gt; class Seq&gt;
+class Container {
+	Seq&lt;T, N&gt; seq;
+	...
+}
+
+int main() {
+	Container&lt;int, 10, Array&gt; container;
+}
+
+///// ~~~~~ //////
+
+template&lt;class T, int N = 10&gt; // A default argument
+class Array { ... }
+
+template&lt;class T, template&lt;class, int = 10&gt; class Seq&gt;
+class Container {
+	Seq&lt;T&gt; seq; // Default used
+}
+
+int main() {
+	Container&lt;int, Array&gt; container;
+}
+</pre>
