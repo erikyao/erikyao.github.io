@@ -11,9 +11,22 @@ tags: [Cpp-101]
 
 -----
 
+## 目录
+
+- [1. Basic template syntax](#syntax)
+- [2. Non-inline function definitions in templates](#non-inline-template-impl)
+- [3. Better put template definition in headers](#put-template-all-in-header)
+- [4. Non-type template parameters](#non-type-template-param)
+- [5. Function templates](#function-template)
+	- [Function template overloading](#function-template-overloading)
+- [6. Template template parameters](#template-template-param)
+- [7. Member Templates](#member-template)
+
+-----
+
 The container no longer holds a generic base class called `Object`, but instead it holds an unspecified parameter. When you use a template, the parameter is substituted by the compiler, much like the old macro approach, but cleaner and easier to use.
 
-## 1. Basic template syntax
+## <a name="syntax"></a>1. Basic template syntax
 
 The `template` keyword tells the compiler that the class definition that follows will manipulate one or more unspecified types. At the time the actual class code is generated from the template, those types must be specified so that the compiler can substitute them.
 
@@ -51,7 +64,7 @@ int main() {
 
 另外要注意的是 template 可以直接假设 `T` 有某些 member 或者 member function（虽然我觉得没有什么规约一下实在有点不踏实；参见 [C++ templates that accept only certain types](http://stackoverflow.com/questions/874298/c-templates-that-accept-only-certain-types) 的讨论）。比如我可以假设 `T` 有 `foo` member 和 `bar()` member function，我在 template 的实现中就可以直接用 `xxx = foo;` 和 `bar();`，而且不需要像 `this->foo` 或者 `T::bar()` 这样写任何前缀，可以什么都不加地直接用。
 
-## 2. Non-inline function definitions in templates
+## <a name="non-inline-template-impl"></a>2. Non-inline function definitions in templates
 
 如果要把函数实现写到 template class 外部，需要注意下额外的语法元素：
 
@@ -73,13 +86,13 @@ T& Array&lt;T&gt;::operator[](int index) { // template class 名是 Array&lt;T&g
 
 Any reference to a template’s class name must be accompanied by its template argument list, as in `Array<T>::operator[]`.
 
-## 3. Better put template definition in headers 
+## <a name="put-template-all-in-header"></a>3. Better put template definition in headers 
 
 Even if you create non-inline function definitions, you’ll usually want to put all declarations and definitions for a template into a header file. This may seem to violate the normal header file rule of “Don’t put in anything that allocates storage,” (which prevents multiple definition errors at link time), but template definitions are special. Anything preceded by `template<...>` means the compiler won’t allocate storage for it at that point, but will instead wait until it’s told to (by a template instantiation). So you’ll almost always put the entire template declaration and definition in the header file, for ease of use.
 
 There are times when you may need to place the template definitions in a separate cpp file to satisfy special needs (for example, forcing template instantiations to exist in only a single Windows dll file). Most compilers have some mechanism to allow this; you’ll have to investigate your particular compiler’s documentation to use it.
 
-## 4. Non-type template parameters
+## <a name="non-type-template-param"></a>4. Non-type template parameters
 
 除了类型参数以外，template 还可以有其他的参数，比如：
 
@@ -111,7 +124,7 @@ public:
 	- std::nullptr_t.
 1. const 和 volatile 合称 cv-qualifier；cv-qualified 的意思是 either const or volatile, or both
 
-## 5. Function templates
+## <a name="function-template"></a>5. Function templates
 
 换汤不换药，function templates create new functions based on type parameters. 比如：
 
@@ -148,7 +161,7 @@ int main() {
 
 注意有 `int() == 0`；然后 type parameter 是可以做 returnType 的。
 
-### Function template overloading
+### <a name="function-template-overloading"></a>Function template overloading
 
 <pre class="prettyprint linenums">
 #include &lt;cstring&gt;
@@ -183,7 +196,7 @@ int main() {
 
 另外我们没有直接用 `using namespace std;` 是为了避免引入 `std::min()` 来影响这个例子。
 
-## 6. Template template parameters
+## <a name="template-template-param"></a>6. Template template parameters
 
 注意下语法就好：
 
@@ -234,7 +247,7 @@ int main() {
 }
 </pre>
 
-## 7. Member Templates
+## <a name="member-template"></a>7. Member Templates
 
 注意语法：
 
