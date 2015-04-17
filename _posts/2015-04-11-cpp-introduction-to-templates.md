@@ -133,17 +133,55 @@ Although you cannot use default template arguments in function templates, you ca
 #include &lt;iostream&gt;
 using namespace std;
 
-template&lt;class T&gt; T accumulate(T begin, T end, T init = T()) {
+template&lt;class T&gt; 
+T accumulate(T begin, T end, T init = T()) {
     while(begin != end)
         init += begin++;
     return init;
 }
 int main() {
     cout &lt;&lt; accumulate(1, 10) &lt;&lt; endl; // output: 45
+	cout &lt;&lt; accumulate&lt;int&gt;(1, 10) &lt;&lt; endl; // 其实这才是标准写法，上面是省略写法
+	// 这种根据 function 参数推断 type parameter 的做法我们称为 deduction
 }
 </pre>
 
-注意有 `int() == 0`。
+注意有 `int() == 0`；然后 type parameter 是可以做 returnType 的。
+
+### Function template overloading
+
+<pre class="prettyprint linenums">
+#include &lt;cstring&gt;
+#include &lt;iostream&gt;
+using std::strcmp;
+using std::cout;
+using std::endl;
+
+template&lt;typename T&gt; const T& min(const T& a, const T& b) {
+    return (a &lt; b) ? a : b;
+}
+
+const char* min(const char* a, const char* b) {
+    return (strcmp(a, b) &lt; 0) ? a : b;
+}
+
+double min(double x, double y) {
+    return (x &lt; y) ? x : y;
+}
+
+int main() {
+    const char *s2 = "say \"Ni-!\"", *s1 = "knights who";
+    cout &lt;&lt; min(1, 2) &lt;&lt; endl; 		// 1: 1 (template)
+    cout &lt;&lt; min(1.0, 2.0) &lt;&lt; endl; 	// 2: 1 (double)
+    cout &lt;&lt; min(1, 2.0) &lt;&lt; endl; 	// 3: 1 (double)
+    cout &lt;&lt; min(s1, s2) &lt;&lt; endl; 	// 4: knights who (const char*)
+    cout &lt;&lt; min&lt;&gt;(s1, s2) &lt;&lt; endl; 	// 5: say "Ni-!" (template)
+}
+</pre>
+
+注意最后第 5 句我们强制使用了 template，但是我们的参数类型是 `char *`，所以并不是比较的字符串，而是比较的地址，所以可能与 4 的结果不一致。
+
+另外我们没有直接用 `using namespace std;` 是为了避免引入 `std::min()` 来影响这个例子。
 
 ## 6. Template template parameters
 
@@ -194,4 +232,37 @@ class Container {
 int main() {
 	Container&lt;int, Array&gt; container;
 }
+</pre>
+
+## 7. Member Templates
+
+注意语法：
+
+<pre class="prettyprint linenums">
+template&lt;class T&gt; class Outer {
+public:
+    template&lt;class R&gt; class Inner {
+    public:
+        void f();
+    };
+};
+
+template&lt;class T&gt; template&lt;class R&gt;
+void Outer&lt;T&gt;::Inner&lt;R&gt;::f() {
+    cout &lt;&lt; "Outer == " &lt;&lt; typeid(T).name() &lt;&lt; endl;
+    cout &lt;&lt; "Inner == " &lt;&lt; typeid(R).name() &lt;&lt; endl;
+    cout &lt;&lt; "Full Inner == " &lt;&lt; typeid(*this).name() &lt;&lt; endl;
+}
+
+int main() {
+    Outer&lt;int&gt;::Inner&lt;bool&gt; inner;
+    inner.f();
+}
+
+// output: 
+/*
+	Outer == int
+	Inner == bool
+	Full Inner == Outer&lt;int&gt;::Inner&lt;bool&gt;
+*/
 </pre>
