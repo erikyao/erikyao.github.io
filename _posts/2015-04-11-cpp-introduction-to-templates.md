@@ -3,7 +3,7 @@ layout: post
 title: "C++: Introduction to Templates"
 description: ""
 category: C++
-tags: [Cpp-101]
+tags: [Cpp-101, template]
 ---
 {% include JB/setup %}
 
