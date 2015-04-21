@@ -3,7 +3,7 @@ layout: post
 title: "C++: Generic Algorithms"
 description: ""
 category: C++
-tags: [Cpp-101, template]
+tags: [Cpp-101]
 ---
 {% include JB/setup %}
 
@@ -11,7 +11,16 @@ tags: [Cpp-101, template]
 
 -----
 
-## 1. copy(a.begin, a.end, b.begin) & equal(a.begin, a.end, b.begin) & back_inserter(vector)
+## 目录
+
+- [1. `copy(a.begin, a.end, b.begin)` & `equal(a.begin, a.end, b.begin)` & `back_inserter(vector)`](#ga1)
+- [2. `remove_copy_if(a.begin, a.end, b.begin, predicateA)` & `remove_copy_if(a.begin, a.end, b.begin, predicateA, replacement)` & `replace_if(a.begin, a.end, predicateA, replacement)`](#ga2)
+- [3. `count_if(a.begin, a.end, predicateA)` & `find(a.begin, a.end, target)`](#ga3)
+- [4. `ostream_iterator(ostream, delimiter)` & `istream_iterator(istream)`](#ga4)
+
+-----
+
+## <a name="ga1"></a>1. copy(a.begin, a.end, b.begin) & equal(a.begin, a.end, b.begin) & back_inserter(vector)
 
 <pre class="prettyprint linenums">
 #include &lt;algorithm&gt;
@@ -86,7 +95,7 @@ void copy(Iterator begin, Iterator end, Iterator dest) {
 
 Whichever argument type you use in the call, `copy()` assumes it properly implements `operator*` and `operator++`. If it doesn’t, you’ll get a compile-time error.
 
-## 2. remove_copy_if(a.begin, a.end, b.begin, predicateA) & remove_copy_if(a.begin, a.end, b.begin, predicateA, replacement) & replace_if(a.begin, a.end, predicateA, replacement)
+## <a name="ga2"></a>2. remove_copy_if(a.begin, a.end, b.begin, predicateA) & remove_copy_if(a.begin, a.end, b.begin, predicateA, replacement) & replace_if(a.begin, a.end, predicateA, replacement)
 
 先来个例子看下什么叫 predicate。注意这里 predicate 是 noun，读作 /'predɪkət/，意思是谓语，(grammar) The part of the sentence (or clause) which states something about the subject or the object of the sentence.
 
@@ -180,7 +189,7 @@ int main() {
 */
 </pre>
 
-## 3. count_if(a.begin, a.end, predicateA) & find(a.begin, a.end, target)
+## <a name="ga3"></a>3. count_if(a.begin, a.end, predicateA) & find(a.begin, a.end, target)
 
 `count_if(a.begin, a.end, predicateA)` 返回容器 `a` 内满足条件 `predicateA` 的元素的个数：
 
@@ -228,7 +237,7 @@ int main() {
 }
 </pre>
 
-## 4. ostream_iterator<T>(ostream, delimiter) & istream_iterator<T>(istream)
+## <a name="ga4"></a>4. ostream_iterator<T>(ostream, delimiter) & istream_iterator<T>(istream)
 
 <pre class="prettyprint linenums">
 #include &lt;algorithm&gt;
