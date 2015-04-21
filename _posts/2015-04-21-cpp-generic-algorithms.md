@@ -17,6 +17,8 @@ tags: [Cpp-101]
 - [2. `remove_copy_if(a.begin, a.end, b.begin, predicateA)` & `remove_copy_if(a.begin, a.end, b.begin, predicateA, replacement)` & `replace_if(a.begin, a.end, predicateA, replacement)`](#ga2)
 - [3. `count_if(a.begin, a.end, predicateA)` & `find(a.begin, a.end, target)`](#ga3)
 - [4. `ostream_iterator(ostream, delimiter)` & `istream_iterator(istream)`](#ga4)
+- [5. `for_each(a.begin, a.end, func)`](#ga5)
+- [6. `transform(a.begin, a.end, b.begin, func)`](#ga6)
 
 -----
 
@@ -294,3 +296,77 @@ int main() {
 </pre>
 
 The first argument `istream_iterator<int>(inf)` attaches an `istream_iterator` object to the input file stream `inf`. The second argument `istream_iterator<int>()` uses the default constructor which builds a special `istream_iterator` that indicates EOF, so that when the first iterator finally encounters the end of the physical file, the algorithm is terminated correctly.
+
+## <a name="ga5"></a>5. for_each(a.begin, a.end, func)
+
+<pre class="prettyprint linenums">
+#include &lt;algorithm&gt;
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+void print(int x) {
+	cout &lt;&lt; x &lt;&lt; endl;
+}
+
+int main() {
+	vector&lt;int&gt; intVector;
+	intVector.push_back(1);
+	intVector.push_back(2);
+	intVector.push_back(3);
+	
+	for_each(intVector.begin(), intVector.end(), print);
+	// for_each(intVector.begin(), intVector.end(), ptr_fun&lt;int, void&gt;(print)); // equivalent
+} 
+
+// output:
+/*
+	1
+	2
+	3
+*/
+</pre>
+
+对，这就是 R 里面的 apply！
+
+## <a name="ga6"></a>6. transform(a.begin, a.end, b.begin, func)
+
+<pre class="prettyprint linenums">
+#include &lt;string&gt;
+#include &lt;algorithm&gt;
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+void print(string x) {
+	cout &lt;&lt; x &lt;&lt; endl;
+}
+
+string addZero(int x) {
+	return to_string(x) + "0"; // MinGW 下 to_string 会有 bug
+}
+
+int main() {
+	vector&lt;int&gt; intVector;
+	intVector.push_back(1);
+	intVector.push_back(2);
+	intVector.push_back(3);
+
+	vector&lt;string&gt; strVector;
+	strVector.resize(intVector.size());
+
+	transform(intVector.begin(), intVector.end(), strVector.begin(), addZero);
+	for_each(strVector.begin(), strVector.end(), print);
+}
+
+// output:
+/*
+	10
+	20
+	30
+*/
+</pre>
+
+`transform(a.begin, a.end, b.begin, func)` 的逻辑就是 "把从 a.begin 到 a.end 的每一个元素 a.i 传给 func，将 func(a.i) 依次存入 b"。
+
+还有个复杂的版本是 `transform(a.begin, a.end, b.begin, c.begin, func)`，它的逻辑是 "把从 a.begin 到 a.end 的每一个元素 a.i，与 b.i 配对传给 func，将 func(a.i, bi) 依次存入 c"。
