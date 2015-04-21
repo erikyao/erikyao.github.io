@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "C++: Generic Algorithms"
+title: "C++: Generic Algorithm Examples"
 description: ""
 category: C++
 tags: [Cpp-101]
