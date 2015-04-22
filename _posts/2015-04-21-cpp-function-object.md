@@ -86,12 +86,6 @@ int main() {
 - **Binary Predicate**: A Binary Function that returns a bool.
 - **Strict Weak Ordering**: A binary predicate that allows for a more general interpretation of “equality.” Some of the standard containers consider two elements equivalent if neither is less than the other (using `operator<`). This is important when comparing floating-point values, and objects of other types where `operator==` is unreliable or unavailable. This notion also applies if you want to sort a sequence of data records (structs) on a subset of the struct’s fields. That comparison scheme is considered a strict weak ordering because two records with equal keys are not really “equal” as total objects, but they are equal as far as the comparison you’re using is concerned. 
 
-In addition, certain algorithms make assumptions about the operations available for the types of objects they process. We will use the following terms to indicate these assumptions:
-
-- **LessThanComparable**: A class that has a `operator<`.
-- **Assignable**: A class that has a `operator=` for its own type.
-- **EqualityComparable**: A class that has an `operator==` for its own type.
-
 ## 3. Standard function objects
 
 | Name          | Type            | Result produced                |
