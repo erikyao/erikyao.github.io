@@ -330,6 +330,8 @@ From `<numeric>`.
 - const LessThanComparable& **max**(const LessThanComparable& a, const LessThanComparable& b)
 - const T& **max**(const T& a, const T& b, BinPred binary_pred)
 - void **swap**(Assignable& a, Assignable& b)
+	- When this function is applied to two containers of the same type, it uses container's member function `swap()` to achieve fast performance. 
+	- Consequently, if you apply the `sort()` algorithm to a container of containers, you will find that the performance is very fast—it turns out that fast sorting of a container of containers was a design goal of the STL.
 - void **iter_swap**(ForwI1 a, ForwI2 b)
 
 From `<utility>`.
