@@ -73,8 +73,8 @@ tags: [Cpp-101]
 		- If there are no more “next” permutations, the elements are in sorted order so `next_permutation()` returns false. 
 		- If there are no more “previous” permutations, the elements are in descending sorted order so `previous_permutation()` returns false.
 	- The versions of the functions that have a StrictWeakOrdering argument perform the comparisons using `binary_pred` instead of `operator<`.
-- void random_shuffle(RandomAccessIterator first, RandomAccessIterator last)
-- void random_shuffle(RandomAccessIterator first, RandomAccessIterator last, RandomNumberGenerator& rand)
+- void **random_shuffle**(RandomAccessIterator first, RandomAccessIterator last)
+- void **random_shuffle**(RandomAccessIterator first, RandomAccessIterator last, RandomNumberGenerator& rand)
 	- Randomly rearranges the elements in the range.
 	- The first form uses an internal random number generator, 
 	- and the second uses a user-supplied random-number generator. 
