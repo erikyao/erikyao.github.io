@@ -13,12 +13,12 @@ tags: [Cpp-101]
 
 ## 目录
 
-- [1. `copy(a.begin, a.end, b.begin)` & `equal(a.begin, a.end, b.begin)` & `back_inserter(vector)`](#ga1)
-- [2. `remove_copy_if(a.begin, a.end, b.begin, predicateA)` & `remove_copy_if(a.begin, a.end, b.begin, predicateA, replacement)` & `replace_if(a.begin, a.end, predicateA, replacement)`](#ga2)
-- [3. `count_if(a.begin, a.end, predicateA)` & `find(a.begin, a.end, target)`](#ga3)
-- [4. `ostream_iterator(ostream, delimiter)` & `istream_iterator(istream)`](#ga4)
-- [5. `for_each(a.begin, a.end, func)`](#ga5)
-- [6. `transform(a.begin, a.end, b.begin, func)`](#ga6)
+- [1. `copy`(a.begin, a.end, b.begin) & `equal`(a.begin, a.end, b.begin) & `back_inserter`(vector)](#ga1)
+- [2. `remove_copy_if`(a.begin, a.end, b.begin, predicateA) & `remove_copy_if`(a.begin, a.end, b.begin, predicateA, replacement) & `replace_if`(a.begin, a.end, predicateA, replacement)](#ga2)
+- [3. `count_if`(a.begin, a.end, predicateA) & `find`(a.begin, a.end, target)](#ga3)
+- [4. `ostream_iterator`(ostream, delimiter) & `istream_iterator`(istream)](#ga4)
+- [5. `for_each`(a.begin, a.end, func)](#ga5)
+- [6. `transform`(a.begin, a.end, b.begin, func)](#ga6)
 
 -----
 
