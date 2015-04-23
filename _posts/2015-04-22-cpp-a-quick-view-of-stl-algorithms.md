@@ -9,11 +9,31 @@ tags: [Cpp-101]
 
 整理自：_Thinking in C++, Volumn 2_
 
+基本都是来自 `<algorithm>`。
+
 -----
 
-基本都是来自 `<algorithm>`。
+## 目录
+
+- [1. Filling and generating](#fill-gen)
+- [2. Counting](#count)
+- [3. Manipulating sequences](#manipulate-seq)
+- [4. Searching and replacing](#search-replace)
+- [5. Comparing ranges](#compare)
+- [6. Removing elements](#remove)
+- [7. Sorting and operations on sorted ranges](#sort-op)
+	- [7.1 Sorting](#sort)
+	- [7.2 Locating elements in sorted ranges](#locate-in-sorted)
+	- [7.3 Merging sorted ranges](#merge-sorted)
+	- [7.4 Set operations on sorted ranges](#set-op)
+- [8. Heap operations](#heap-op)
+- [9. Applying an operation to each element in a range](#apply)
+- [10. Numeric algorithms](#numeric)
+- [11. General utilities](#util)
+
+-----
 	
-## 1. Filling and generating
+## <a name="fill-gen"></a>1. Filling and generating
 	
 - void **fill**(ForwardIterator first, ForwardIterator last, const T& value): 
 	- assigns `value` to every element in the range [first, last)
@@ -24,14 +44,14 @@ tags: [Cpp-101]
 - void **generate_n**(OutputIterator first, Size n, Generator gen): 
 	- calls `gen()` `n` times and assigns each result to `n` elements starting at `first`.
 	
-## 2. Counting
+## <a name="count"></a>2. Counting
 	
 - **count**(InputIterator first, InputIterator last, const EqualityComparable& value):
 	- returns the number of elements in [first, last) that are equivalent to `value` (when tested using `operator==`).
 - **count_if**(InputIterator first, InputIterator last, Predicate pred):
 	- returns the number of elements in [first, last`) that each cause `pred` to return true.
 	
-## 3. Manipulating sequences
+## <a name="manipulate-seq"></a>3. Manipulating sequences
 	
 - OutputIterator **copy**(InputIterator first, InputIterator last, OutputIterator destination)
 - BidirectionalIterator2 **copy_backward**(BidirectionalIterator1 first, BidirectionalIterator1 last, BidirectionalIterator2 destinationEnd)
@@ -66,7 +86,7 @@ tags: [Cpp-101]
 		- which is, in effect, an “end iterator” for the initial subsequence of elements that satisfy pred. 
 		- This location is often called the “partition point.”
 		
-## 4. Searching and replacing
+## <a name="search-replace"></a>4. Searching and replacing
 
 - InputIterator **find**(InputIterator first, InputIterator last, const EqualityComparable& value)
 - InputIterator **find_if**(InputIterator first, InputIterator last, Predicate pred)
@@ -109,7 +129,7 @@ tags: [Cpp-101]
 - OutputIterator **replace_copy**(InputIterator first, InputIterator last, OutputIterator result, const T& old_value, const T& new_value)
 - OutputIterator **replace_copy_if**(InputIterator first, InputIterator last, OutputIterator result, Predicate pred, const T& new_value)
 
-## 5. Comparing ranges
+## <a name="compare"></a>5. Comparing ranges
 
 - bool **equal**(InputIterator first1, InputIterator last1, InputIterator first2)
 - bool **equal**(InputIterator first1, InputIterator last1, InputIterator first2, BinaryPredicate binary_pred)
@@ -131,7 +151,7 @@ tags: [Cpp-101]
 	- The `pair` template class is a struct with two members defined in the `<utility>` header.
 	- The first function tests for equality using `operator==` while the second one uses `binary_pred`.
 	
-## 6. Removing elements
+## <a name="remove"></a>6. Removing elements
 
 首先要说下 remove 操作。remove 的时候，STL 的想法是维持 [first, last) 这个 range，不直接干掉元素而是把要删除的元素挪到了容器末尾，同时 remove 会 return 一个 new_last，这样 [first, new_last) 就成了新的 range，[new_last, last) is the sequence of removed elements，而 iterators in [new_last, last) are dereferenceable, and the element values are unspecified.
 
@@ -150,9 +170,9 @@ tags: [Cpp-101]
 	- 如果有连续的重复元素，则只保留一个，比如 aaaabbcd 会变成 abcd。但是这个操作和 remove 一样，要维持 [first, last) 这个 range；同时也是一样返回一个 new_last。
 	- 用 `binary_pred` 的版本，如果 `binary_pred(*i, *(i-1))` 返回 true，我们则认为这两个相邻的元素是重复的。
 
-## 7. Sorting and operations on sorted ranges
+## <a name="sort-op"></a>7. Sorting and operations on sorted ranges
 
-### 7.1 Sorting
+### <a name="sort"></a>7.1 Sorting
 
 - void **sort**(RandomAccessIterator first, RandomAccessIterator last)
 	- Use `operator<` to sort the range into ascending order.
@@ -176,7 +196,7 @@ tags: [Cpp-101]
 	- If you want to answer "which element is the 4^th-smallest?" or "which elements are the 4 smallest ones?", use `nth_element(first, first+3, last)`
 	- If you want to get the 4 smallest elements _in order_, you may want to consider using `partial_sort(first, first+3, last)`
 	
-### 7.2 Locating elements in sorted ranges
+### <a name="locate-in-sorted"></a>7.2 Locating elements in sorted ranges
 
 - bool **binary_search**(ForwardIterator first, ForwardIterator last, const T& value)
 - bool **binary_search**(ForwardIterator first, ForwardIterator last, const T& value, StrictWeakOrdering binary_pred)
@@ -193,7 +213,7 @@ tags: [Cpp-101]
 - pair<ForwardIterator, ForwardIterator> **equal_range**(ForwardIterator first, ForwardIterator last, const T& value, StrictWeakOrdering binary_pred)
 	- Essentially returns `lower_bound()` and `upper_bound()` results in a `pair`
 
-### 7.3 Merging sorted ranges
+### <a name="merge-sorted"></a>7.3 Merging sorted ranges
 
 - OutputIterator **merge**(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, InputIterator2 last2, OutputIterator result)
 - OutputIterator **merge**(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, InputIterator2 last2, OutputIterator result, StrictWeakOrdering binary_pred)
@@ -202,7 +222,7 @@ tags: [Cpp-101]
 - void **inplace_merge**(BidirectionalIterator first, BidirectionalIterator middle, BidirectionalIterator last, StrictWeakOrdering binary_pred)
 	- Assumes that [first, middle) and [middle, last) are both sorted ranges in the same sequence. Merge these two sub-ranges in sorted order.
 	
-### 7.4 Set operations on sorted ranges
+### <a name="set-op"></a>7.4 Set operations on sorted ranges
 
 - bool **includes**(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, InputIterator2 last2)
 - bool **includes**(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, InputIterator2 last2, StrictWeakOrdering binary_pred)
@@ -226,9 +246,9 @@ tags: [Cpp-101]
 	- 所谓 symmetric difference 就是 A-B 并上 B-A，等价于 A、B 的并集减去 A、B 的交集
 	- 返回 `result` 的 last
 
-## 8. Heap operations
+## <a name="heap-op"></a>8. Heap operations
 
-这里 heap 并不是内存的那个 heap，单指 heap 这种数据结构
+这里 heap 并不是内存的那个 heap，单指 heap 这种数据结构。
 
 A heap is a way to organize the elements of a range that allows for fast retrieval of the element with the highest value at any moment (with `pop_heap()`), even repeatedly, while allowing for fast insertion of new elements (with `push_heap()`).
 
@@ -249,7 +269,7 @@ The element with the highest value is always pointed by `first`. The order of th
 	- This could be thought of as the complement to `make_heap()`. It takes a range that is in heap order and turns it into ordinary sorted order, so it is no longer a heap. 
 	- That means that if you call `sort_heap()`, `push_heap()` or `pop_heap()` no longer make any sense.
 
-## 9. Applying an operation to each element in a range
+## <a name="apply"></a>9. Applying an operation to each element in a range
 
 - UnaryFunction **for_each**(InputIterator first, InputIterator last, UnaryFunction f)
 	- Applies the function object `f` to each element in [first, last)
@@ -259,7 +279,7 @@ The element with the highest value is always pointed by `first`. The order of th
 	- Applies the function object `f` to each element in the range1 [first, last), or along with each element in range2 in the second version. 
 	- Copies the return value (using `operator=`) into *result, incrementing `result` after each copy
 
-## 10. Numeric algorithms
+## <a name="numeric"></a>10. Numeric algorithms
 
 From `<numeric>`.
 
@@ -287,7 +307,7 @@ From `<numeric>`.
 	- version 2 是用 `op` 替代了 version 1 的 `operator-`
 	- 返回 result 的 last
 	
-## 11. General utilities
+## <a name="util"></a>11. General utilities
 
 - const LessThanComparable& **min**(const LessThanComparable& a, const LessThanComparable& b)
 - const T& **min**(const T& a, const T& b, BinaryPredicate binary_pred)
