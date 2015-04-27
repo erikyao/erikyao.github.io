@@ -7,7 +7,7 @@ tags: [Cpp-101, template]
 ---
 {% include JB/setup %}
 
-整理自：_Thinking in C++, Volumn 1 & Volumn 2_
+整理自：_Thinking in C++, Volume 1 & Volume 2_
 
 -----
 

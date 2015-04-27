@@ -924,7 +924,7 @@ public static void main(String[] args) {
 2. 但是我觉得把这个逻辑（或者上面说的 an algorithm）集中到一个类中比较好，不想分散到各个子类（separating an algorithm from an object structure）。
 3. 或者我觉得这个逻辑和 `Modem` 接口无关，我并不想在 Modem 子类中关注这个 `setConfigString()` 具体是怎么实现的。
 
-_Thinking in C++, Volumn 2_ 的说法是：
+_Thinking in C++, Volume 2_ 的说法是：
 
 > The goal of Visitor is to separate the operations on a class hierarchy from the hierarchy itself.  
 > <br/>

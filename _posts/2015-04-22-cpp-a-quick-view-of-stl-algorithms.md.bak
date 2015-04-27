@@ -7,7 +7,7 @@ tags: [Cpp-101]
 ---
 {% include JB/setup %}
 
-整理自：_Thinking in C++, Volumn 2_
+整理自：_Thinking in C++, Volume 2_
 
 基本都是来自 `<algorithm>`。
 

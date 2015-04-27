@@ -38,7 +38,7 @@ void foo() {
 
 ## template
 
-_Thinking in C++, Volumn 2_ 书上的那个例子并不直观，还是 [Where and why do I have to put the “template” and “typename” keywords?](http://stackoverflow.com/a/613132) 这个帖子的例子举得好：
+_Thinking in C++, Volume 2_ 书上的那个例子并不直观，还是 [Where and why do I have to put the “template” and “typename” keywords?](http://stackoverflow.com/a/613132) 这个帖子的例子举得好：
 
 <pre class="prettyprint linenums">
 boost::function&lt;int()&gt; f;
