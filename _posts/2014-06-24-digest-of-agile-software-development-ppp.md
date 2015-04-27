@@ -924,6 +924,12 @@ public static void main(String[] args) {
 2. 但是我觉得把这个逻辑（或者上面说的 an algorithm）集中到一个类中比较好，不想分散到各个子类（separating an algorithm from an object structure）。
 3. 或者我觉得这个逻辑和 `Modem` 接口无关，我并不想在 Modem 子类中关注这个 `setConfigString()` 具体是怎么实现的。
 
+_Thinking in C++, Volumn 2_ 的说法是：
+
+> The goal of Visitor is to separate the operations on a class hierarchy from the hierarchy itself.  
+> <br/>
+> If you need to add member functions to the base class, but for some reason you can’t touch the base class. How do you get around this? Visitor builds on the double-dispatching scheme which allows you to effectively extend the interface of the primary type by creating a separate class hierarchy of type Visitor to “virtualize” the operations performed on the primary type. The objects of the primary type simply “accept” the visitor and then call the visitor’s dynamically bound member function. Thus, you create a visitor, pass it into the primary hierarchy, and you get the effect of a virtual function.
+
 注意我写的简化的代码和书上的有些区别：
 
 1. 书上 'Modem' 接口并没有 `getConfigString()` 方法，这样一来在 `main` 里就不能用 `Modem` 的多态了，你要么定义具体的 Modem 子类实例，要么 cast 一下。
@@ -931,7 +937,7 @@ public static void main(String[] args) {
 
 另外注意几点：
 
-1. `UnixModemConfigurator` 里并没有用 Modem 的多态，也没有 if-else 判断子类型，而是每个 Modem 子类单独写了一个 `visit` 方法，这样如果有 N 个 Modem 子类就要写 N 个 `visit` 重载方法。这必然是比 if-else 判断子类型来得要好。
+1. `UnixModemConfigurator` 里<del>并没有用 Modem 的多态</del>（并不是你想用就能用，因为方法参数根本就不支持多态！参 [C++ double dispatch: 函数参数并不支持多态](/c++/2015/04/26/cpp-double-dispatch/)），也没有 if-else 判断子类型，而是每个 Modem 子类单独写了一个 `visit` 方法，这样如果有 N 个 Modem 子类就要写 N 个 `visit` 重载方法。这必然是比 if-else 判断子类型来得要好。
 2. 我自然是可以定义多个 `ModemVistor` 实现，都让 Modem 去 `accept`。
 3. 感觉这 Visitor 模式有点像 AOP 的横切面概念。
 
