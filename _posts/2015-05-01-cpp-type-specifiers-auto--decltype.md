@@ -47,6 +47,18 @@ If we want the deduced type to have a top-level const, we must say so explicitly
 const auto f = ci; // deduced type of ci is int; f has type const int
 </pre>
 
+两个常见的用法是：
+
+<pre class="prettyprint linenums">
+string line;
+
+auto len = line.size(); // len has type string::size_type
+
+for (auto c : line) { // for every char in line
+	...
+}
+</pre>
+
 ## decltype
 
 `decltype` returns the type of its operand. The compiler analyzes the expression to determine its type but does not evaluate the expression:
