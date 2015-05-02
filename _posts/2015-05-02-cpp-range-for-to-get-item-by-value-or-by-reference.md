@@ -10,7 +10,7 @@ tags: [Cpp-101, C++11]
 range for 就是 java 的 for each loop，C++ 里有三种形式：
 
 <pre class="prettyprint linenums">
-std::vector<MyClass> vec;
+std::vector&lt;MyClass&gt; vec;
 
 for (auto x : vec) { ... }
 for (auto &x : vec) { ... }
