@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "C: array in argument list"
+title: "C++: array in argument list"
 description: ""
 category: C++
 tags: [Cpp-101]
@@ -64,3 +64,26 @@ cout &lt;&lt; argv[i] &lt;&lt; endl;
 </pre>
 
 你理解成 `printf("%s", pstr);` 就好了。关于 C String 我不想多谈了，能扯好久的，以后用 `string` class 就不用考虑这些烦人的事情了。
+
+_~~~~~~~~~~ 2015-05-02 补充 ~~~~~~~~~~_
+
+根据 _C++ Primer, 5th Edition_，函数参数可以设置为 array 的 reference。而且设置为 reference 还有一个特点是：传参时会检查 array 的 size 是否一致，这是 array name（i.e. pointer）参数所不具备的：
+
+<pre class="prettyprint linenums">
+void func1(int a[5]) { 
+
+}
+
+void func2(int (&a)[5]) {
+	
+}
+
+int main() {
+	int foo[6] = { 0 };
+	int bar[5] = { 0 };
+	
+	func1(foo); // OK
+	func2(foo); // ERROR. invalid initialization of reference of type 'int (&)[5]' from expression of type 'int [6]'
+	func2(bar); // OK
+}
+</pre>
