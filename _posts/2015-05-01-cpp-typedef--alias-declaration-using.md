@@ -2,6 +2,7 @@
 layout: post
 title: "C++: typedef &amp; alias declaration (using)"
 description: ""
+category: C++
 tags: [Cpp-101, C++11]
 ---
 {% include JB/setup %}

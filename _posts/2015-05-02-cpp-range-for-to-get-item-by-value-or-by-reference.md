@@ -2,7 +2,7 @@
 layout: post
 title: "C++ range for: To get item by value or by reference?"
 description: ""
-description: ""
+category: C++
 tags: [Cpp-101, C++11]
 ---
 {% include JB/setup %}
