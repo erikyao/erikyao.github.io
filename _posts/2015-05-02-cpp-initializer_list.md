@@ -37,7 +37,7 @@ myclass foo{10,20};  // calls initializer_list constructor
 myclass bar(10,20);  // calls (int,int) constructor 
 </pre>
 
-然后你会发现 `initializer_list` 其实是个挺好的 variable argument list 可变参数列表的 solution，比 `func(...)` 简单多了：
+然后你会发现 `initializer_list` 其实是个挺好的 variable argument list（可变参数列表）的 solution，比 `func(...)` 简单多了：
 
 <pre class="prettyprint linenums">
 template &lt;class T&gt;
