@@ -75,16 +75,29 @@ public:
 using namespace std;
 
 class Tree {
-	int height;
+    int height;
 public:
-	Tree(int initialHeight); 	// Constructor
-	~Tree(); 					// Destructor
-	void grow(int years);
-	void printsize();
+    Tree(int initialHeight);    		
+    Tree(int initialHeight, int times);	
+    ~Tree();                    		
+    void grow(int years);
+    void printsize();
 };
 
-Tree::Tree(int initialHeight) {
-	height = initialHeight;
+// 最常见的形式
+Tree::Tree(int initialHeight) { 
+    height = initialHeight;
+}
+
+// OR
+// constructor initializer list 形式
+Tree::Tree(int initialHeight) : height(initialHeight) {
+    // nothing here
+}
+
+// constructor initializer list calling another constructor
+Tree::Tree(int initialHeight, int times) : Tree(initialHeight) { 
+    height *= times;
 }
 
 Tree::~Tree() {
@@ -123,6 +136,8 @@ int main() {
 	after closing brace
 */
 </pre>
+
+更多关于 constructor initializer list 的说明见 [C++: const object / const member & const member function / mutable](/c++/2015/03/29/cpp-const-object--const-member--const-member-function--mutable/)。
 
 ## Default constructors
 
