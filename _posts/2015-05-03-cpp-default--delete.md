@@ -41,6 +41,6 @@ struct NoInt {
 
 struct OnlyDouble {
     void f(double d);
-    template<class T> void f(T) = delete; // Generalized form to disallow calling f() with any type other than double
+    template&lt;class T&gt; void f(T) = delete; // Generalized form to disallow calling f() with any type other than double
 };
 </pre>
