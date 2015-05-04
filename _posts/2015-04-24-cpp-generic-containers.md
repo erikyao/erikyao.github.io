@@ -3,11 +3,11 @@ layout: post
 title: "C++: Generic Containers"
 description: ""
 category: C++
-tags: [Cpp-101]
+tags: [Cpp-101, C++11]
 ---
 {% include JB/setup %}
 
-整理自：_Thinking in C++, Volume 2_
+整理自：_Thinking in C++, Volume 2_ & _C++ Primer, 5th Edition_
 
 -----
 
@@ -15,11 +15,11 @@ tags: [Cpp-101]
 
 The containers and their categories are summarized in the following table:
 
-| Category               | Containers                   |
-|------------------------|------------------------------|
-| Sequence Containers    | vector, list, deque          |
-| Container Adaptors     | queue, stack, priority_queue |
-| Associative Containers | set, map, multiset, multimap |
+| Category               | Containers                               |
+|------------------------|------------------------------------------|
+| Sequence Containers    | vector, list, deque, forward_list, array |
+| Container Adaptors     | queue, stack, priority_queue             |
+| Associative Containers | set, map, multiset, multimap             |
 
 ## 2. The basic sequences: vector, list, deque
 
@@ -30,6 +30,12 @@ The containers and their categories are summarized in the following table:
 	- In addition, it never needs to copy and destroy contained objects during a new storage allocation (like **vector** does), so it is far more efficient than **vector** if you are adding an unknown quantity of objects at either end. This means that **vector** is the best choice only if you have a good idea of how many objects you need. 
 - A **list** is a doubly linked list, so it’s expensive to move around randomly but cheap to insert an element anywhere.
 	- With a **vector** or **deque**, it is possible to use the indexing `operator[]`, but that doesn’t work with **list**.
+- A **forward_list** is a singly linked list.
+	- Introducced by C++11. 
+	- Does not have the size operation.
+- An **array** is a safer, easier-to-use alternative to built-in arrays. 
+	- Introducced by C++11. 
+	- Like built-in arrays, library **array**s have fixed size. As a result, **array** does not support operations to add and remove elements or to resize the container.
 	
 <pre class="prettyprint linenums">
 typedef std::vector&lt;Shape*&gt; Container;
@@ -64,6 +70,17 @@ for(Iter j = shapes.begin(); j != shapes.end(); j++)
 - Although you can instantiate a valarray with nonnumeric types, it has mathematical functions that are intended to operate with numeric data, such as sin, cos, tan, and so on.
 - A `slice` object can be used to fetch subsets of a `valarray`.
 	- A slice object takes three arguments: the starting index, the number of elements to extract, and the “stride,” which is the gap between elements of interest.
+	
+### Rules of thumb
+
+- Unless you have a reason to use another container, use a **vector**.
+- If your program has lots of small elements and space overhead matters, don’t use **list** or **forward_list**.
+- If the program requires random access to elements, use a **vector** or a **deque**.
+- If the program needs to insert or delete elements in the middle of the container, use a **list** or **forward_list**.
+- If the program needs to insert or delete elements at the front and the back, but not in the middle, use a **deque**.
+- If the program needs to insert elements in the middle of the container only while reading input, and subsequently needs random access to the elements:
+	* First, decide whether you actually need to add elements in the middle of a container. It is often easier to append to a **vector** and then call the library `sort` function to reorder the container when you’re done with input.
+	* If you must insert into the middle, consider using a **list** for the input phase. Once the input is complete, copy the **list** into a **vector**.
 
 ## 3. Container adaptors: queue, stack, priority_queue
 
