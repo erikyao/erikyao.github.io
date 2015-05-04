@@ -36,6 +36,8 @@ The containers and their categories are summarized in the following table:
 - An **array** is a safer, easier-to-use alternative to built-in arrays. 
 	- Introducced by C++11. 
 	- Like built-in arrays, library **array**s have fixed size. As a result, **array** does not support operations to add and remove elements or to resize the container.
+	- `array<string, 10>` is an array that holds 10 strings.
+	- Although we cannot copy or assign objects of built-in array types, there is no such restriction on **array**.
 	
 <pre class="prettyprint linenums">
 typedef std::vector&lt;Shape*&gt; Container;
@@ -104,7 +106,9 @@ You cannot iterate through a **stack**; this emphasizes that you only want to pe
 
 ### 3.2 Queue
 
-The **queue** container is a restricted form of a **deque**—you can only enter elements at one end and pull them off the other end. Functionally, you could use a **deque** anywhere you need a **queue**.
+A **queue** uses a first-in, first-out (FIFO) storage and retrieval policy. Objects entering the queue are placed in the back and objects leaving the queue are removed from the front.
+
+The **queue** container is a restricted form of a **deque**. Functionally, you could use a **deque** anywhere you need a **queue**.
 
 ### 3.3 Priority queues
 
@@ -185,3 +189,17 @@ A **multiset** allows more than one object of each value to be inserted.
 - If the container is const, `begin()` and `end()` produce const iterators, which disallow changing the elements pointed to (because the appropriate operators are const).
 - All standard containers support bidirectional iteration.
 - A reversible container has the member functions `rbegin()` (to produce a `reverse_iterator` selecting the end) and `rend()` (to produce a `reverse_iterator` indicating “one past the beginning”).
+- All the containers except the unordered associative containers also support the relational operators (>, >=, <, <=). The right- and left-hand operands must be the same kind of container and must hold elements of the same type.
+	- Appropriate comparison operatos must be defined for the element type.
+
+<pre class="prettyprint linenums">
+vector&lt;int&gt; v1 = { 1, 3, 5, 7, 9, 12 };
+vector&lt;int&gt; v2 = { 1, 3, 9 };
+vector&lt;int&gt; v3 = { 1, 3, 5, 7 };
+vector&lt;int&gt; v4 = { 1, 3, 5, 7, 9, 12 };
+
+v1 &lt; v2 // true; v1 and v2 differ at element [2]: v1[2] is less than v2[2]
+v1 &lt; v3 // false; all elements are equal, but v3 has fewer of them;
+v1 == v4 // true; each element is equal and v1 and v4 have the same size()
+v1 == v2 // false; v2 has fewer elements than v1
+</pre>
