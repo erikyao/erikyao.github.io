@@ -15,11 +15,11 @@ tags: [Cpp-101, C++11]
 
 The containers and their categories are summarized in the following table:
 
-| Category               | Containers                               |
-|------------------------|------------------------------------------|
-| Sequence Containers    | vector, list, deque, forward_list, array |
-| Container Adaptors     | queue, stack, priority_queue             |
-| Associative Containers | set, map, multiset, multimap             |
+| Category               | Containers                                |
+|------------------------|-------------------------------------------|
+| Sequence Containers    | vector, list, deque, forward_list, array  |
+| Container Adaptors     | queue, stack, priority_queue              |
+| Associative Containers | set, map, multiset, multimap, unordered_x |
 
 ## 2. The basic sequences: vector, list, deque
 
@@ -182,6 +182,8 @@ A **multiset** allows more than one object of each value to be inserted.
 
 - Like any STL container that must order its elements, the **multiset** template uses the `less` function object by default to determine element ordering. This uses the contained class’s `operator<`, but you can always substitute your own comparison function.
 - 因为 **multiset** 也是自动排序的，所以 A **multiset** requires that all duplicate elements be adjacent to each other.
+
+**unordered_set**, **unordered_map**, **unordered_multiset**, and **unordered_multimap** 全部是基于 hash 的，**unordered_map** 应该就等同于 java 的 HashMap。但是有时候需要你自己提供一个 hash 函数。
 
 ## 5. Memorandum
 
