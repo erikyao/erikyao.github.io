@@ -2,6 +2,7 @@
 layout: post
 title: "C++11: bind1st() and bind2nd() are deprecated. Use bind() instead."
 description: ""
+category: C++
 tags: [Cpp-101, C++11]
 ---
 {% include JB/setup %}
