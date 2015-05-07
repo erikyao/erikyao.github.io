@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "C++11 Smart Pointer: auto_ptr is deprecated. Use unique_ptr instead. Here also comes shared_ptr and weak_ptr."
+title: "C++11 Smart Pointer: <i>auto_ptr</i> is deprecated. Use <i>unique_ptr</i> instead. Here also come <i>shared_ptr</i> and <i>weak_ptr</i>."
 description: ""
 category: C++
 tags: [Cpp-101, C++11]
