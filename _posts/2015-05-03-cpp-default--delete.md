@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "C++: <i>=default</i> &amp <i>=delete</i>"
+title: "C++: <i>=default</i> &amp; <i>=delete</i>"
 description: ""
 category: C++
 tags: [Cpp-101, C++11]
