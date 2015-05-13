@@ -65,6 +65,7 @@ public:
 
 * The destructor never has any arguments because destruction never needs any options.
 * The destructor is called automatically by the compiler when the object goes out of scope.
+	- **Note**: The destructor is not run when a reference or a pointer to an object goes out of scope.
 
 一个完整的例子：
 
