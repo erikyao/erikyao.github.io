@@ -16,7 +16,23 @@ tags: [Cpp-101, copy-constructor]
 
 ## 1. copy-constructor 你能想到的最常见的用法就是 copy-by-value 时 copy 参数
 
-类似于 java 的 `obj.clone();` 的感觉，copy-constructor 的作用也是生成一个原对象的 copy，但是 copy-constructor 是 class 默认会提供的（就像默认构造器一样，也有一个默认 copy-constructor），而且目前看来都只有隐式调用。
+类似于 java 的 `obj.clone();` 的感觉，copy-constructor 的作用也是生成一个原对象的 copy，而且 copy-constructor 是 class 默认会提供的（就像默认构造器一样，也有一个默认 copy-constructor）。
+
+_~~~~~~~~~~ 2015-05-14 补充；来自 C++ Primer, 5th Edition ~~~~~~~~~~_
+
+Copy initialization happens when we 
+
+- Define variables using an `=`, e.g.
+	- `string s2 = s1;`
+	- `string null_book = "9-999-99999-9";`
+	- `string nines = string(100, '9');`
+- Pass an object as an argument to a parameter of nonreference type
+- Return an object from a function that has a nonreference return type
+- Brace initialize the elements in an array or the members of an aggregate class
+- Call `insert()` or `push()` on some library containers
+	- By contrast, elements created by `emplace()` are direct initialized.
+	
+_~~~~~~~~~~ 2015-05-14 补充完毕 ~~~~~~~~~~_
 
 下面我们通过一个实验来展开。
 
