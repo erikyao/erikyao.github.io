@@ -22,6 +22,8 @@ tags: [Cpp-101]
 	- [2.4 Virtual functions inside constructors & destructors](#virtual-inside-constructors-destructors)
 	- [2.5 Virtual destructors](#virtual-destructors)
 		- [Pure virtual destructors](#pure-virtual-destructors)
+	- [2.6 Virtual Functions in a Derived Class](#virtual-in-derived)
+	- [2.7 Calling Base's virtual function](#call-base)
 	
 -----
 
@@ -208,6 +210,8 @@ int main() {
 }
 </pre>
 
+这里用 `using Base::j;` 也可以起到同样的效果，而且从 warning 来看使用 `using` 更标准一些。
+
 ## <a name="upcasting"></a>1.5 Upcasting
 
 C++ 在 object、pointer、reference 三个层面上做 upcast 都是可以的：
@@ -386,3 +390,47 @@ While pure virtual destructors are legal in Standard C++, there is an added cons
 However, when you inherit a class from one that contains a pure virtual destructor, you are not required to provide a definition of a pure virtual destructor in the derived class. Remember that the compiler automatically creates a destructor definition for every class if you don’t create one. That’s what’s happening here – the base class destructor is being quietly overridden.
 
 What’s the difference between a regular virtual destructor and a pure virtual destructor? The only distinction occurs when you have a class that only has a single pure virtual function: the destructor. In this case, the only effect of the purity of the destructor is to prevent the instantiation of the base class. If there were any other pure virtual functions, whether the destructor is pure or not isn’t so important.
+
+### <a name="virtual-in-derived"></a>2.6 Virtual Functions in a Derived Class
+
+When a derived class overrides a virtual function, it may, but is not required to, repeat the `virtual` keyword. Once a function is declared as virtual, it remains virtual in all the derived classes.
+
+### <a name="call-base"></a>2.7 Calling Base's virtual function
+
+<pre class="prettyprint linenums">
+#include &lt;iostream&gt;
+
+class Base {
+public:
+    virtual void print() {
+        std::cout &lt;&lt; "Base" &lt;&lt; std::endl;
+    }
+};
+
+class Ext : public Base {
+public:
+    void print() {
+    	std::cout &lt;&lt; "Ext first. Then ";
+        Base::print();	// 1) call Base's version
+    }
+};
+
+int main() {
+	Base* pb = new Ext;
+	
+	pb-&gt;print();
+	pb-&gt;Base::print();	// 2) call Base's version
+	
+	delete pb;
+	
+	Ext e;
+	Base& rb = e;
+	
+	rb.print();
+	rb.Base::print();	// 3) call Base's version
+}
+</pre>
+
+不管是在子类实现里、pointer 多态还是 reference 多态，调用父类实现都是用父类名加上 scope operator `::` 限定。 
+
+访问父类的 member 也是用这种方法。

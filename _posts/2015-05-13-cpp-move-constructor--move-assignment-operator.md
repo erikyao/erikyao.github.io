@@ -25,6 +25,7 @@ tags: [Cpp-101, C++11, copy-constructor]
 	- [2.5 Rvalues Are Moved, Lvalues Are Copied...](#25-rvalues-are-moved-lvalues-are-copied)
 	- [2.6 ...But Rvalues Are Copied If There Is No Move Constructor](#26-but-rvalues-are-copied-if-there-is-no-move-constructor)
 	- [2.7 Advice: Don’t Be Too Quick to Move](#27-advice-dont-be-too-quick-to-move)
+	- [2.8 Defining a Derived Move Constructor](#28-defining-a-derived-move-constructor)
 - [3. Rvalue References and Member Functions](#3-rvalue-references-and-member-functions)
 	- [Reference Qualifier](#reference qualifier)
 
@@ -93,7 +94,7 @@ We can destroy a moved-from object (e.g. `rr1` above) and can assign a new value
 
 To enable move operations for our own types, we define a move constructor and a move-assignment operator.
 
-The move constructor must ensure that the movedfrom object is left in a state such that destroying that object will be harmless. In particular, once its resources are moved, the original object must no longer point to those moved resources—responsibility for those resources has been assumed by the newly created object.
+The move constructor must ensure that the moved-from object is left in a state such that destroying that object will be harmless. In particular, once its resources are moved, the original object must no longer point to those moved resources—responsibility for those resources has been assumed by the newly created object.
 
 Move constructor、move `operator=` 和 copy-constructor、`operator=` 的格式基本一致，唯一的区别是 move 操作的参数必须是 **Rvalue Reference**.
 
@@ -185,6 +186,27 @@ Foo z(std::move(x));	// copy constructor, because there is no move constructor
 ### <a name="27-advice-dont-be-too-quick-to-move"></a>2.7 Advice: Don’t Be Too Quick to Move
 
 Judiciously used inside class code, `move` can offer significant performance benefits. Casually used in ordinary user code (as opposed to class implementation code), moving an object is more likely to lead to mysterious and hard-to-find bugs than to any improvement in the performance of the application.
+
+### <a name="28-defining-a-derived-move-constructor"></a>2.8 Defining a Derived Move Constructor
+
+When a derived class defines a copy or move operation, that operation is responsible for copying or moving the entire object, including base-class members.
+
+<pre class="prettyprint linenums">
+class Base { /* ... */ };
+
+class D: public Base {
+public:
+	/* 
+		By default, the base class default constructor initializes the base part of an object to use the copy or move constructor, we must explicitly call that constructor in the constructor initializer list
+	*/
+	
+	D(const D& d): Base(d)			// copy the base members
+	/* initializers for members of D */ { /* ... */ }
+	
+	D(D&& d): Base(std::move(d))	// move the base members
+	/* initializers for members of D */ { /* ... */ }
+};
+</pre>
 
 ## <a name="3-rvalue-references-and-member-functions"></a>3. Rvalue References and Member Functions
 

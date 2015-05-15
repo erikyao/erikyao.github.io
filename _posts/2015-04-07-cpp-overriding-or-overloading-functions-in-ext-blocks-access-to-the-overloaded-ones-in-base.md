@@ -197,3 +197,13 @@ int main() {
 If you’re returning a pointer or a reference to a base class, then the overridden version of the function may return a pointer or reference to a class derived from what the base returns.
 
 可参考 java 版本的 [关于覆写方法的 return type](/java/2009/03/27/return-type-of-overridden-method/)。
+
+-----
+
+_~~~~~~~~~~ 2015-05-15 更新；来自 C++ Primer, 5th Edition ~~~~~~~~~~_
+
+真因为这个对 overloaded 方法的屏蔽作用，If a derived class wants to make all the overloaded versions available through its type, then it must override all of them or none of them.
+
+It would be tedious in such cases to have to override every base-class version in order to override the ones that the class needs to specialize. 
+
+To make things easier, a derived class can provide a `using` declaration for the overloaded member. A `using` declaration specifies only a name; it may not specify a parameter list. Thus, a `using` declaration for a base-class member function adds all the overloaded instances of that function to the scope of the derived class. Having brought all the names into its scope, the derived class needs to define only those functions that truly depend on its type.

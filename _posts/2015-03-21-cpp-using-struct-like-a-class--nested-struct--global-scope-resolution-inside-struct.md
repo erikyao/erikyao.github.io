@@ -72,6 +72,15 @@ void Stash::cleanup() {
 	* 注意在 cpp 文件里，你看不到 field 名，但是可以像 Java 一样直接用。我们也不是每时每刻都在写 `this.foo = xxx;`。
 	* 这样分一个 header 一个 cpp，也是一种 "接口与实现的分离"
 	
+_~~~~~~~~~~ 2015-05-15 更新 ~~~~~~~~~~_
+
+- struct 的 member 默认是 public
+	- class member 默认是 private
+- struct 也可以继承，而且默认是 public 继承
+	- class 继承默认是 private 继承
+	
+_~~~~~~~~~~ 2015-05-15 更新完毕 ~~~~~~~~~~_
+	
 ## Nested struct
 
 <pre class="prettyprint linenums">

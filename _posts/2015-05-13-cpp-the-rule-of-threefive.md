@@ -25,6 +25,8 @@ One rule of thumb to use when you decide whether a class needs to define its own
 
 - Often, the need for a destructor is more obvious than the need for the copy constructor or assignment operator. 
 - If the class needs a destructor, it almost surely needs a copy constructor and copy-assignment operator as well.
+	- Virtual destructors are an important exception because a base class almost always needs a destructor.
+		- 我们说 "need a destructor" 是指确实需要 free 掉某些资源；virtual destructor 是多态的要求，算是语言特性，在这个场合下要注意区分。
 	- A second rule of thumb: Classes that need copy need assignment, and vice versa.
 	
 -----
