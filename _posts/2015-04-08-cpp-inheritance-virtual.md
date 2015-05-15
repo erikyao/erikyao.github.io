@@ -3,7 +3,7 @@ layout: post
 title: "C++: Inheritance / virtual"
 description: ""
 category: C++
-tags: [Cpp-101]
+tags: [Cpp-101, C++11]
 ---
 {% include JB/setup %}
 
@@ -15,6 +15,7 @@ tags: [Cpp-101]
 	- [1.3 Private inheritance is a syntactic variant of composition](#private-inheritance-vs-composition)
 	- [1.4 Private inheritance 之后重新限定 access modifier](#publicizing)
 	- [1.5 Upcasting](#upcasting)
+	- [1.6 C++11: Inherited Constructors](#inherited-constructors)
 - [2. Virtual functions](#virtual)
 	- [2.1 How C++ implements late binding](#late-binding)
 	- [2.2 Abstract class](#abstract-class)
@@ -233,6 +234,68 @@ compiler and linker)，所以 `Base base = ext;` 之后，`base.foo()` 执行的
 - C compilers have only one kind of function call, and that’s early binding.
 
 要实现 **late binding** (a.k.a dynamic binding or runtime binding)，i.e. 要实现多态，必须使用 `virtual` function
+
+## <a name="inherited-constructors"></a>1.6 C++11: Inherited Constructors
+
+Under the new standard, a derived class can reuse the constructors defined by its direct base class by providing a `using` declaration:
+
+<pre class="prettyprint linenums">
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+class Base {
+private:
+    int i;
+    int j;
+public:
+    Base(int i) {
+        this-&gt;i = i;
+    }
+    Base(int i, int j) {
+        this-&gt;i = i;
+        this-&gt;j = j;
+    }
+    virtual std::ostream& dump(std::ostream& o) {
+        return o &lt;&lt; "i=" &lt;&lt; i &lt;&lt; "; j=" &lt;&lt; j;
+    }
+};
+
+class Ext : public Base {
+public:
+    using Base::Base;
+};
+
+int main() {
+    Ext e1(5);
+    e1.dump(cout);
+    cout &lt;&lt; endl;
+
+    Ext e2(39, 47);
+    e2.dump(cout);
+    cout &lt;&lt; endl;
+}
+</pre>
+
+The compiler generates a derived constructor corresponding to each constructor in the base. That is, for each constructor in the base class, the compiler generates a constructor in the derived class that has the same parameter list.
+
+These compiler-generated constructors have the form `derived(parms) : base(args) { }`，比如对上面的例子来说，相当于生成了：
+
+<pre class="prettyprint linenums">
+class Ext : public Base {
+public:
+    Ext(int i) : Base(i) {}
+	Ext(int i, int j) : Base(i, j) {}
+};
+</pre> 
+
+注意事项：
+
+- Unlike `using` declarations for ordinary members, a constructor `using` declaration does not change the accessibility of the inherited constructor(s).
+- A `using` declaration can’t specify `explicit` or `constexpr`. If a constructor in the base is `explicit` or `constexpr`, the inherited constructor has the same property.
+- If a base-class constructor has default arguments, those arguments are not inherited. Instead, the derived class gets multiple inherited constructors in which each parameter with a default argument is successively omitted. For example, if the base has a constructor with two parameters, the second of which has a default, the derived class will obtain two constructors: one with both parameters (and no default argument) and a second constructor with a single parameter corresponding to the left-most, non-defaulted parameter in the base class.
+- The default, copy, and move constructors are not inherited.
+- An inherited constructor is not treated as a user-defined constructor. Therefore, a class that contains only inherited constructors will have a synthesized default constructor.
 
 ## <a name="virtual"></a>2. Virtual functions
 
