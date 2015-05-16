@@ -204,9 +204,9 @@ int main() {
 
 简单说就是 `mem_fun` 在遍历 object pointer `po` 时调用 `po->func()`，而 `mem_fun_ref` 是在遍历 object reference `ro` 时调用 `ro.func()`。
 
-我觉得 for_each + mem_fun 的这个用法在 C++11 支持 for-each loop 后应该就没有啥市场了…… 
+我觉得 `for_each` + `mem_fun` 的这个用法在 C++11 支持 for-each loop 后应该就没有啥市场了…… 
 
-下面再举个 find_if + mem_fun 的例子：
+下面再举个 `find_if` + `mem_fun` 的例子：
 
 <pre class="prettyprint linenums">
 typedef vector<string>::iterator StrVecIterator;
