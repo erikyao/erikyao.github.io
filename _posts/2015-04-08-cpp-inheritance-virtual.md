@@ -303,6 +303,7 @@ Late binding occurs:
 
 - only with virtual functions, 
 - and only when you’re using an address (i.e. pointer or reference) of the base class.
+- 换言之，你只能通过 pointer 或者 reference 来调用 virtual function 才能实现多态。
 
 注意 virtual function 在父类中是可以有实现的，而且实现不需要写 `virtual` 关键字，只要声明的时候有就可以了。
 
@@ -324,7 +325,7 @@ The redefinition of a virtual function in a derived class is usually called over
 
 ### <a name="late-binding"></a>2.1 How C++ implements late binding
 
-Typical compiler1 create a single table (called the **VTABLE**) for each class that contains virtual functions. The compiler places the addresses of the virtual functions for that particular class in the **VTABLE**. In each class with virtual functions, it secretly places a pointer, called the _vpointer_ (abbreviated as **VPTR**), which points to the **VTABLE** for that object. When you make a virtual function call through a base-class pointer (that is, when you make a polymorphic call), the compiler quietly inserts code to fetch the **VPTR** and look up the function address in the **VTABLE**, thus calling the correct function and causing late binding to take place.
+Typical compilers create a single table (called the **VTABLE**) for each class that contains virtual functions. The compiler places the addresses of the virtual functions for that particular class in the **VTABLE**. In each class with virtual functions, it secretly places a pointer, called the _vpointer_ (abbreviated as **VPTR**), which points to the **VTABLE** for that object. When you make a virtual function call through a base-class pointer (that is, when you make a polymorphic call), the compiler quietly inserts code to fetch the **VPTR** and look up the function address in the **VTABLE**, thus calling the correct function and causing late binding to take place.
 
 ![](https://gm5g2q.bn1304.livefilestore.com/y2paz-4ObABSqWpBPQG934_9xPJdkNwNZU-9LsKaJS320bNvUiQl2YfFQtjAqhgwyW3y5RwVRLgqQ8dVcxzxnR2_hP13F4ZLtnD7VAAn1Nfsa1zrTl1pYATekRYGFjNp92KmLTFRPeBxC2nFy5frvk9-g/late%20binding.png?psid=1)
 
