@@ -45,3 +45,19 @@ int main() {
 	delete psr2;
 }
 </pre>
+
+-----
+
+_~~~~~~~~~~ 2015-05-16 补充；来自 C++ Primer, 5th Edition ~~~~~~~~~~_
+
+Under C++11, we are able to define a type alias for a class template:
+
+<pre class="prettyprint linenums">
+template&lt;typename T&gt; using twin = pair&lt;T, T&gt;;
+twin&lt;string&gt; authors; // authors is a pair&lt;string, string&gt;
+
+template &lt;typename T&gt; using partNo = pair&lt;T, unsigned&gt;;
+partNo&lt;string&gt; books; // books is a pair&lt;string, unsigned&gt;
+</pre>
+
+简单地说就是 `twin<T> == pair<T, T>` 和 `partNo<T> == pair<T, unsigned>`。注意这种语法。

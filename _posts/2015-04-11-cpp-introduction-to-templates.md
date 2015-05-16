@@ -62,7 +62,20 @@ int main() {
 
 直观看上去和 generic 还是有点区别的：generic 是一套代码接受多种 class；template 是给每个 class 都生成一套代码。
 
-另外要注意的是 template 可以直接假设 `T` 有某些 member 或者 member function（虽然我觉得没有什么规约一下实在有点不踏实；参见 [C++ templates that accept only certain types](http://stackoverflow.com/questions/874298/c-templates-that-accept-only-certain-types) 的讨论）。比如我可以假设 `T` 有 `foo` member 和 `bar()` member function，我在 template 的实现中就可以直接用 `xxx = foo;` 和 `bar();`，而且不需要像 `this->foo` 或者 `T::bar()` 这样写任何前缀，可以什么都不加地直接用。
+另外要注意的是 template 可以直接假设 `T` 有某些 member 或者 member function（虽然我觉得没有什么规约一下实在有点不踏实；参见 [C++ templates that accept only certain types](http://stackoverflow.com/questions/874298/c-templates-that-accept-only-certain-types) 的讨论）。比如我可以假设 `T` 有 `operator<`，我在 template 的实现中就可以直接写 `t1 < t2`，如果某个具体 `T` 没有 `operator<`，运行时是会报错的，但是在编译 template 的时候并不会报错。
+
+_~~~~~~~~~~ 2015-05-16 补充；来自 C++ Primer, 5th Edition ~~~~~~~~~~_
+
+Under C++11, we can make a template type parameter a friend:
+
+<pre class="prettyprint linenums">
+template &lt;typename Type&gt; class Bar {
+	friend Type; // grants access to the type used to instantiate Bar
+	...
+};
+</pre>
+
+_~~~~~~~~~~ 2015-05-16 补充完毕 ~~~~~~~~~~_
 
 ## <a name="non-inline-template-impl"></a>2. Non-inline function definitions in templates
 
