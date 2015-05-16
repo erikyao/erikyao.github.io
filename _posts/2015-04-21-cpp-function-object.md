@@ -13,7 +13,7 @@ tags: [Cpp-101]
 
 ## 1. Intro
 
-在 [C++: Generic Algorithm Examples](/c++/2015/04/21/cpp-generic-algorithm-examples/#ga2) 我们写过一个叫做 `gt15(int x)` 的函数，如果能把这个函数封装成一个对象 `Gt(15)` 明显会更灵活。这样的对象我们称为 function object，而实现的手段就是重载 `operator()`:
+在 [C++: Generic Algorithm Examples](/c++/2015/04/21/cpp-generic-algorithm-examples/#ga2) 我们写过一个叫做 `gt15(int x)` 的函数，如果能把这个函数封装成一个对象 `Gt(15)` 明显会更灵活。这样的对象我们称为 function object，而实现的手段就是重载 `operator()` (function call operator):
 
 <pre class="prettyprint linenums">
 #include &lt;iostream&gt;
@@ -23,7 +23,7 @@ class Gt {
     int than;
 public:
     Gt(int than) : than(than) {}
-    bool operator()(int x) { // 注意语法 
+    bool operator()(int x) const { // 注意语法 
         return x &gt; than;
     }
 };
@@ -36,7 +36,11 @@ int main() {
 }
 </pre>
 
-注意重载 `operator()` 的语法：`operator()` 表示你这个对象 `gt15` 可以当函数 `gt15()` 用；而 `operator()(int x)` 表示你这个函数是 `gt15(int x)` 形式。如果是无参函数，你要写成 `operator()()`。
+注意重载 `operator()` 的语法：
+
+- `operator()` 表示你这个对象 `gt15` 可以当函数 `gt15()` 用
+- 而 `operator()(int x)` 表示你这个函数是 `gt15(int x)` 形式
+- 如果是无参函数，你要写成 `operator()()`。
 
 我们进一步观察，其实可以把 `int than;` 变成 `template<T>`。这里我们不示范了，因为 lib 已经有写了，但是又稍微有点不同：
 
@@ -49,8 +53,12 @@ template &lt;class T&gt; struct greater : binary_function &lt;T,T,bool&gt; {
 首先它是一个 struct；然后它不像我们的 Gt 可以初始化一个参数，而且只能像 `greater<int>(15, 20)` 这样传两个参数进去才能用。这个 greater 无法直接用于 [C++: Generic Algorithm Examples](/c++/2015/04/21/cpp-generic-algorithm-examples/#ga2) 的场景，所以我们需要进一步封装：
 
 <pre class="prettyprint linenums">
-bind2nd(greater<int>(), 15));
+bind2nd(greater&lt;int&gt;(), 15));
 </pre>
+
+- 需要注意的是，`greater<int>()` 这是在调用构造器生成一个 `greater<int>` 对象，对等于我们的 `Gt gt15(15);`
+- 我们经常会看到直接在这个 temporary 上调用函数，比如 `greater<int>()(37, 15)`，这一句是对等于我们的 `gt15(37)`
+	- 所以不要把 `greater<int>()` 当成是调用 `operator()`
 
 `bind2nd` 的意思是 "bind the 2nd parameter"，所以这一句的效果就是把 `greater<int>()` 这个 Binary Function 对象（虽然是个 struct，姑且这么称呼）变成了一个 Unary Function 对象，功能上等同于我们的 `Gt gt15(15);`。
 
