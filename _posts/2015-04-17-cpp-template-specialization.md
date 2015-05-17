@@ -70,7 +70,7 @@ class vector&lt;bool, allocator&lt;bool&gt;&gt; {...};
 
 ## Partial specialization
 
-Class templates can also be partially specialized, meaning that at least one of the template parameters is left “open” in some way in the specialization. 比如上面的 `template<class T, class Allocator = allocator<T>>`，我们可以指定 T 为 bool，但是 Allocator 可以留着不指定。
+Class templates can also be partially specialized (However, we cannot partially specialize a function template.), meaning that at least one of the template parameters is left “open” in some way in the specialization. 比如上面的 `template<class T, class Allocator = allocator<T>>`，我们可以指定 T 为 bool，但是 Allocator 可以留着不指定。
 
 <pre class="prettyprint linenums">
 template&lt;class T, class Allocator = allocator&lt;T&gt;&gt;
