@@ -98,7 +98,7 @@ auto func(int i) -> int(*)[10] {
 
 是不是比 `int (*func(int i))[10];` 来得清楚多了……
 
-另外 trailing return type 也可以用在 template 中，还可以结合 `decltype` 和 typename：
+另外 trailing return type 也可以用在 template function 中，还可以结合 `decltype` 和 typename：
 
 <pre class="prettyprint linenums">
 // a trailing return lets us declare the return type after the parameter list is seen
