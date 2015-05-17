@@ -98,6 +98,17 @@ auto func(int i) -> int(*)[10] {
 
 是不是比 `int (*func(int i))[10];` 来得清楚多了……
 
+另外 trailing return type 也可以用在 template 中，还可以结合 `decltype` 和 typename：
+
+<pre class="prettyprint linenums">
+// a trailing return lets us declare the return type after the parameter list is seen
+template &lt;typename It&gt;
+auto fcn(It beg, It end) -&gt; decltype(*beg) {
+	// process the range
+	return *beg; // return a reference to an element from the range
+}
+</pre>
+
 ## <a name="thing5"></a>Return from main
 
 The standard for `main()` is to return an int, but Standard C++ states that if there is no return statement inside `main()`, the compiler will automatically generate a `return 0;`.
