@@ -509,7 +509,9 @@ As with `const`, you can use `volatile` for data members, member functions, and 
 
 _~~~~~~~~~~ 2015-05-19 补充；来自 C++ Primer, 5th Edition ~~~~~~~~~~_
 
-The precise meaning of `volatile` is inherently machine dependent and can be understood only by reading the compiler documentation. Programs that use `volatile` usually must be changed when they are moved to new machines or compilers.
+**Warning**: The precise meaning of `volatile` is inherently machine dependent and can be understood only by reading the compiler documentation. Programs that use `volatile` usually must be changed when they are moved to new machines or compilers.
+
+In the same way that a class may define `const` member functions, it can also define member functions as `volatile`. Only `volatile` member functions may be called on `volatile` objects.
 
 _~~~~~~~~~~ 2015-05-19 补充完毕 ~~~~~~~~~~_
 
