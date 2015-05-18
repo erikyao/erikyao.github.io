@@ -507,6 +507,12 @@ You can also create `const volatile` objects, which can’t be changed by the cl
 
 As with `const`, you can use `volatile` for data members, member functions, and objects themselves. You can only call volatile member functions for volatile objects. 鉴于 The syntax of `volatile` is identical to that for `const`，所以 volatile object / member / member function 的语法请参考 [C++: const object / const member & const member function / mutable](/c++/2015/03/29/cpp-const-object--const-member--const-member-function--mutable/)。
 
+_~~~~~~~~~~ 2015-05-19 补充；来自 C++ Primer, 5th Edition ~~~~~~~~~~_
+
+The precise meaning of `volatile` is inherently machine dependent and can be understood only by reading the compiler documentation. Programs that use `volatile` usually must be changed when they are moved to new machines or compilers.
+
+_~~~~~~~~~~ 2015-05-19 补充完毕 ~~~~~~~~~~_
+
 ## <a name="summary"></a>5. Summary
 
 ![](https://jm77tq.bn1304.livefilestore.com/y2pJmNAJWQy0-D_pSoFtPxCvVZWWfQxXMcE-2M29anmP5zTEjHHVCGME4Fzmy2UHlwiu0zO662nSkL737rhpwrIr4OJZPGbNSppDmeeY8UGoQF2JmekMzF9aWYF0v_1S93uycOcPvrj5yw63nCRge7vPA/Linkage.png?psid=1)
