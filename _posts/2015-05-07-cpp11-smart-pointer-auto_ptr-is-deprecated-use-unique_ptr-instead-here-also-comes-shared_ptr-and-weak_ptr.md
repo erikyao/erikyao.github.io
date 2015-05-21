@@ -7,7 +7,7 @@ tags: [Cpp-101, C++11]
 ---
 {% include JB/setup %}
 
-我们在 [C++ Exception Handling](/c++/2015/04/13/cpp-exception-handling/#auto_ptr) 里介绍了 RAII wrapper for pointers--`auto_ptr`，然后 C++11 又 deprecated 了……对应的 replacement 是 unique_ptr。顺带还推出了 shared_ptr 和 weak_ptr，它们的特性是：
+我们在 [C++ Exception Handling / auto_ptr](/c++/2015/04/13/cpp-exception-handling/#auto_ptr) 里介绍了 RAII wrapper for pointers--`auto_ptr`，然后 C++11 又 deprecated 了……对应的 replacement 是 unique_ptr。顺带还推出了 shared_ptr 和 weak_ptr，它们的特性是：
 
 - `shared_ptr` allows multiple pointers to refer to the same object.
 	- `shared_ptrs` automatically destroy their objects and free the associated memory when its reference count gets 0.

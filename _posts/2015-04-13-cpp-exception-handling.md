@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "C++ Exception Handling"
+title: "C++ Exception Handling / auto_ptr"
 description: ""
 category: C++
 tags: [Cpp-101]
@@ -124,6 +124,20 @@ If an exception is thrown inside a constructor, the associated destructor will n
 `auto_ptr` 是 `#include <memory>` 自带的 RAII wrapper for pointers. `auto_ptr<A>` 就相当于上面的 `ResA`。
 
 The `auto_ptr` class template also overloads the pointer operators `*` and `->` to forward these operations to the original pointer the `auto_ptr` object is holding. So you can use the `auto_ptr` object as if it were a raw pointer.
+
+_~~~~~~~~~~ 2015-05-21 补充；来自 Item 13, Effective C++ ~~~~~~~~~~_
+
+Because an `auto_ptr` automatically deletes what it points to when the `auto_ptr` is destroyed, it’s important that there never be more than one `auto_ptr` pointing to an object. If there were, the object would be deleted more than once, and that would put your program on the fast track to undefined behavior. To prevent such problems, `auto_ptr`s have an unusual characteristic: copying them (via copy constructor or copy assignment operator) sets them to null, and the copying pointer assumes sole ownership of the resource!
+
+<pre class="prettyprint linenums">
+std::auto_ptr&lt;Investment&gt; pInv1(createInvestment()); 
+std::auto_ptr&lt;Investment&gt; pInv2(pInv1); // pInv2 now points to the object; pInv1 is now null
+pInv1 = pInv2; 							// now pInv1 points to the object, and pInv2 is null
+</pre>
+
+STL containers require that their contents exhibit “normal” copying behavior, so containers of `auto_ptr` aren’t allowed.
+
+_~~~~~~~~~~ 2015-05-21 补充完毕 ~~~~~~~~~~_
 
 ## <a name="try-function"></a>6. Function-level try-blocks
 
