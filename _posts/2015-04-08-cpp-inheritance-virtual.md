@@ -120,6 +120,8 @@ class D : private A {
 };
 </pre>
 
+也正因为外部访问不到任何 member function，所以 `C` 和 `D` 也无法多态（或者换个角度考虑：就算可以多态，但是方法都访问不到也白搭）。
+
 ## <a name="private-inheritance-vs-composition"></a>1.3 Private inheritance is a syntactic variant of composition
 
 来自 [FAQ: How are “private inheritance” and “composition” similar?](http://isocpp.org/wiki/faq/private-inheritance#priv-inherit-like-compos):

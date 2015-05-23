@@ -137,6 +137,8 @@ pInv1 = pInv2; 							// now pInv1 points to the object, and pInv2 is null
 
 STL containers require that their contents exhibit “normal” copying behavior, so containers of `auto_ptr` aren’t allowed.
 
+Both `auto_ptr` and `tr1::shared_ptr` use `delete` in their destructors, not `delete []`. That means that using them with dynamically allocated arrays is a bad idea, though, regrettably, one that will compile. (vector and string can almost always replace dynamically allocated arrays.)
+
 _~~~~~~~~~~ 2015-05-21 补充完毕 ~~~~~~~~~~_
 
 ## <a name="try-function"></a>6. Function-level try-blocks

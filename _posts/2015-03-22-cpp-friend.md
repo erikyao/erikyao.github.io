@@ -16,6 +16,8 @@ tags: [Cpp-101]
 What if you want to explicitly grant access to a function that isn’t a member of the current structure? This is accomplished by declaring that function a `friend` _**inside**_ the structure (struct or class) declaration. (反过来说，If a function is a friend, it means that it
 isn’t a member of the current structure.)
 
+- Friend functions can also be defined inside classes. When they are, they’re also implicitly declared `inline`.
+
 在 struct 或者 class 内部，把**外部的** function、struct 或者 class 声明为 `friend`，表示这些 function、struct 或者 class 可以访问我的所有 member 和 function（也就是把 private 和 protected 开放给这些 function、struct 或者 class）。举个例子：
 
 <pre class="prettyprint linenums">
