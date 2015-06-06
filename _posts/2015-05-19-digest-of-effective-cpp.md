@@ -3,7 +3,7 @@ layout: post
 title: "Digest of <i>Effective C++</i>"
 description: ""
 category: C++
-tags: [Cpp-101]
+tags: [Cpp-101, Book]
 ---
 {% include JB/setup %}
 
