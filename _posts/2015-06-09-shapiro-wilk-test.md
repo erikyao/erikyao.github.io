@@ -1,7 +1,7 @@
 ---
 layout: post-mathjax
-title: "Shapiro Wilk Test"
-description: ""
+title: "Shapiro-Wilk Test for Normality"
+description: "To test whether the sample come from a normally distributed population"
 category: Math
 tags: [Math-Statistics]
 ---
@@ -11,6 +11,11 @@ tags: [Math-Statistics]
 
 - [Wikipedia: Shapiro–Wilk test](http://en.wikipedia.org/wiki/Shapiro%E2%80%93Wilk_test)
 - [Perform a Shapiro-Wilk Normality Test](http://stackoverflow.com/questions/15427692/perform-a-shapiro-wilk-normality-test)
+
+<!-- -->
+
+- Shapiro: [ʃəˈpirəu]
+- normality: [nɔ:ˈmæləti]
 
 -----
 
