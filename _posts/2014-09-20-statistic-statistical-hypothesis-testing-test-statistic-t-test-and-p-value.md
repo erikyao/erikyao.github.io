@@ -99,3 +99,5 @@ A t-test is a statistical hypothesis test in which the test statistic follows a 
 也就是 \\( \text{p-value} = P(\text{t-statistic} \geq |\text{t-value}| \mid H_0 = true) \\). Obviously, the lower this value is, the less likely it is that you would find a difference like yours by chance.  
 
 结合分位数的概念来看，当 p-value 越小时，t-value 越靠近 tail，说明在 \\( H_0 = true \\) 时取到这个 sample 对应的 t-value 的几率越小，于是我们越有信心来 reject \\( H_0 \\)。
+
+一般我们会给 p-value 取个阈值，常用的是 0.05，当 p-value < 0.05 时我们判定 reject \\( H_0 \\)。这个阈值我们称为 Significance Level。
