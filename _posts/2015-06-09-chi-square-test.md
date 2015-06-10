@@ -24,7 +24,7 @@ tags: [Math-Statistics]
 
 A chi-square test is also referred to as \\( \chi\^2 \\) test (\\( \chi \\) 这个符号在 latex 里就是 `\chi`).
 
-The test is applied when you have two [categorical variables](http://stattrek.com/statistics/dictionary.aspx?definition=Categorical%20variable) from a single population. It is used to determine whether there is a significant association between the two variables.
+The test is applied when you have two [categorical variables](http://stattrek.com/statistics/dictionary.aspx?definition=Categorical%20variable) from a single population. It is used to determine whether these two categorical variables are independent.
 
 ## Digress: What is a categorical variable?
 
