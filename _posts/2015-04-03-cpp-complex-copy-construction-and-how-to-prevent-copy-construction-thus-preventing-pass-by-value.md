@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "C++: Complex copy-construction and How to prevent copy-construction (thus preventing pass-by-value)"
+title: "C++: Complex copy-construction &amp; How to prevent copy-construction (thus preventing pass-by-value)"
 description: ""
 category: C++
 tags: [Cpp-101, copy-constructor]

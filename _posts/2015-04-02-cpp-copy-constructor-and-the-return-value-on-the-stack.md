@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "C++: Copy-constructor and the return value on the stack"
+title: "C++: Copy-constructor &amp; the return value on the stack"
 description: ""
 category: C++
 tags: [Cpp-101, copy-constructor]
