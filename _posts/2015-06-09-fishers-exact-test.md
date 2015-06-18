@@ -29,7 +29,7 @@ Fisher's Exact Test 的 hypotheses 以及用途和 [Chi-Square Test](/math/2015/
 
 第二个不同之处在于计算方法。Fisher's Exact Test 不需要 test statistic，而是直接计算 probability 的（但是也不是直接计算 p-value），所以下面的重点在于计算方法。
 
-![](https://gm4clq.bn1304.livefilestore.com/y3p39Q8DcMvK_FykffhkYiDI2LFk6xkJIxgpB6RIztJbEtZdYa-MmFIQLdg3Z8B2mEeiplrsoSUWddt70WAjCWRtkAgqEFYxIWnjPAJCHiIlWCdbjJfOEEKTLHzmBCpFtHzIldYPYvQ-PFCcaKXJfW1chfNvWLiVJgNMSWjMEDF16U/2x2%20table.png?psid=1)
+![](https://bn1304files.storage.live.com/y2pbXjlb3ExjPD-5tvdM9dxJGY_h-y5uDwSIQxnFD1luY9z99kjZTROcTLJuuh2zNPqsNmnexe_Hyku1kCP-iOe0KEcHiFrbCHD4uME6km1zgrnIXR4Vs5hRWqQR0rwDNnw/2x2%20table.png.jpg?psid=1)
 
 对如上图所示的任意的 2x2 table，the probability of obtaining any such set of values was given by the hypergeometric distribution:
 
@@ -43,11 +43,11 @@ To generate a significance level, we need consider only the cases where the marg
 
 换言之，对这样一个 table，
 
-![](https://gm4clq.bn1304.livefilestore.com/y3pgWm0ypTF4Z1pU9uGB8sd4OGfOyJ9se6jUMFVbuvXLOMH1sRdYo47cAPLY-QibJaoz_rssw09oJ6Uq96bqacBT0WvpX3EU1dk1cP0F-_YUcwH1BL5E7P4LUNNUesyyaANsjZSEmBP6Edu2ZNtI_Oh-5irSr57-vhv2ZPJea52_uc/1-9-11-3.png?psid=1)
+![](https://bn1304files.storage.live.com/y2pvcnpWOK5b_1Vd-QuidmR9AFAsxBQp7WFg9eyqbysVIrWwBt9wJPOA_pHj7iRMJTaFNCl7RHmL-a7unPgMODHyQ8_luBNx-jPG2qqO4d1RDYHFcymVZ2vJzrwQ1_a6i9F/1-9-11-3.png.jpg?psid=1)
 
 在 marginal totals 不变的情况下，我们要考虑其他的同样极端或者更极端的情况（更极端即意味着更小的 probability）。考虑到最小的 marginal total 是 10，所以 marginal totals 不变的情况下，这张表一共可能有 11 种（0~10 是 11 个数）变化形式，不计算概率，靠直觉我们也能得到一个更极端的形式是：
 
-![](https://gm4clq.bn1304.livefilestore.com/y3p4ElSy8Tsc8GrLtydnRPmElHe6AMgPSZfQdpZUULkUETqURnYr201XdgZpCxmCj7S4FPSjn4kUsQM6RCqNAbVDH1b_s2miYbG_uF2k5FuE2SPlC9roGIwp1ERr7P8qzeOCjkUUZgb_cXgzP1XeUfKwWekwc44xS8xpwnrXG5zy_s/0-10-12-2.png?psid=1)
+![](https://bn1304files.storage.live.com/y2prYYWe3UAQ8pFodvJiuVgnmmURPg5ypECREvotEYOZJD2CqK3BTi-rRgDlRQZKIWwiqmhD0XSsIPjr5dvVLUfgUow5d9Swf93nX_laMCmH5H7r58Cqs669fTNgjSazy99/0-10-12-2.png.jpg?psid=1)
 
 考虑分布的对称性，相反的反向应该也有两种情况，我们用矩阵来简单表示下：
 
