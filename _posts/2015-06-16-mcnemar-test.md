@@ -34,7 +34,7 @@ The McNemar test is based on the following assumptions:
 - a) The sample of n subjects has been randomly selected from the population it represents; 
 - b) Each of the n observations in the contingency table is independent of the other observations; 
 - c) The scores of subjects are in the form of a dichotomous categorical measure involving two mutually exclusive categories; and
-	- dichotomous
+	- dichotomous: [daɪ'kɒtəməs], dividing or branching into two pieces.
 - d) Most sources state that the McNemar test should not be employed with extremely small sample sizes.
 
 ## 2. Examples
