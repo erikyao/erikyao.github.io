@@ -80,6 +80,8 @@ $$
 
 \\( [\overline{X} - \frac{2\sigma}{\sqrt n}, \overline{X} + \frac{2\sigma}{\sqrt n}] \\) is called a 95% interval for \\( \mu \\). 
 
+更多内容可以参考 [Stat Trek: What is a Confidence Interval?](http://stattrek.com/estimation/confidence-interval.aspx)。
+
 ### 2.3 Apply CLT to Bernoulli estimators
 
 $$
