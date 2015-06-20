@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Parametric vs. nonparametric tests"
+title: "Parametric vs. non-parametric tests"
 description: ""
 category: Math
 tags: [Math-Statistics]
