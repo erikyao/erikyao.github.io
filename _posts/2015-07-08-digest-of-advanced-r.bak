@@ -4553,7 +4553,7 @@ Your stand-alone C++ file should have extension ".cpp", and needs to start with 
 using namespace Rcpp;
 </pre>
 
-And for **each** function that you want available within R, you need to prefix it with a tag:
+And for **each** function that you want available within R, you need to prefix it with an Rcpp Attribute:
 
 <pre class="prettyprint linenums">
 // [[Rcpp::export]]
