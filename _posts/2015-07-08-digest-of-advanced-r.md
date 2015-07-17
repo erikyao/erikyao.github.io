@@ -208,7 +208,7 @@ tags: [Book]
 		- [16.5.2 Sets](#16-5-2-Sets)
 	- [16.6 Case studies (略)](#16-6-Case-studies)
 	- [16.7 Using Rcpp in a package (略)](#16-7-Using-Rcpp-in-a-package)
-- [17. R’s C interface](#17--R’s-C-interface)
+- [17. R's C interface](#17--R's-C-interface)
 	- [17.1 Calling C functions from R](#17-1-Calling-C-functions-from-R)
 	- [17.2 R's C data structures](#17-2-R's-C-data-structures)
 	- [17.3 Creating and modifying vectors](#17-3-Creating-and-modifying-vectors)
@@ -5182,7 +5182,7 @@ Note that unordered sets are only available in C++ 11, which means we need to us
 
 ### 16.7 Using Rcpp in a package (略) <a name="16-7-Using-Rcpp-in-a-package"></a>
 
-## 17. R’s C interface <a name="17--R’s-C-interface"></a>
+## 17. R's C interface <a name="17--R's-C-interface"></a>
 
 To see R’s complete C API, look at the header file `Rinternals.h`. It’s easiest to find and display this file from within R:
 
@@ -5222,7 +5222,7 @@ add &lt;- function(a, b) {
 }
 </pre>
 
-(An alternative to using `.Call` is to use `.External`.  It is used almost identically, except that the C function will receive a single argument containing a `LISTSXP`, a pairlist from which the arguments can be extracted. This makes it possible to write functions that take a variable number of arguments. However, it's not commonly used in base R and `inline` does not currently support `.External` functions.) \indexc{.Call()} 
+(An alternative to using `.Call` is to use `.External`.  It is used almost identically, except that the C function will receive a single argument containing a `LISTSXP`, a pairlist from which the arguments can be extracted. This makes it possible to write functions that take a variable number of arguments. However, it's not commonly used in base R and `inline` does not currently support `.External` functions.) 
 
 In this chapter we'll produce the two pieces in one step by using the `inline` package. This allows us to write: 
 
