@@ -3,7 +3,7 @@ layout: post-mathjax
 title: "Digest of <i>Advanced R</i>"
 description: ""
 category: R
-tags: [Book]
+tags: [Book, Rcpp]
 ---
 {% include JB/setup %}
 
