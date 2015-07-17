@@ -42,13 +42,15 @@ extern "C" SEXP fibWrapper(SEXP xs) {
 
 #### inline 实例
 
-注意这里 inline 不是指 C++ 的 inline，而是一个 R package。
+注意这里 inline 不是指 C++ 的 inline，而是一个 R package。前面的 `SEXP` 是 R 的底层，是 C 代码；而 `inline::cxxfunction()` 是在 R 的环境里内嵌 C++ 代码，本质上还是 R 代码。
 
 With `inline` package providing a complete wrapper around the compilation, linking, and loading steps, the programmer can concentrate on the actual code (in either one of the supported languages C, C++, or Fortran) and forget about the operating-system specific details of compilation, linking, and loading. A single entry point, the function `cxxfunction()` can be used to turn code supplied as a text variable into an executable function.
 
 - 类似地还有一个 `cfunction()` 接口
 
 <pre class="prettyprint linenums">
+library(inline)
+
 incltxt <- ’
 	int fibonacci(const int x) {
 		if (x == 0) return(0);
@@ -95,6 +97,8 @@ int fibonacci(const int x) {
 R 调用起来也很方便：
 
 <pre class="prettyprint linenums">
+library(Rcpp)
+
 sourceCpp("fibonacci.cpp")
 fibonacci(20)
 [1] 6765
