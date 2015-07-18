@@ -51,21 +51,21 @@ With `inline` package providing a complete wrapper around the compilation, linki
 <pre class="prettyprint linenums">
 library(inline)
 
-incltxt <- ’
+incltxt <- '
 	int fibonacci(const int x) {
 		if (x == 0) return(0);
 		if (x == 1) return(1);
 		return fibonacci(x - 1) + fibonacci(x - 2);
 	}
-’
+'
 
 fibRcpp <- cxxfunction(signature(xs="int"),
 	plugin="Rcpp",
 	incl=incltxt,
-	body=’
+	body='
 		int x = Rcpp::as&lt;int&gt;(xs);
 		return Rcpp::wrap(fibonacci(x));
-	’
+	'
 )
 </pre>
 
@@ -148,12 +148,12 @@ Rcpp Attributes 除了 `sourceCpp()` 外，还有
 - `evalCpp()`: evaluates a C++ expression directly
 
 <pre class="prettyprint linenums">
-cpptxt &lt;- ’
+cpptxt &lt;- '
 	int fibonacci(const int x) {
 		if (x &lt; 2) return(x);
 		return (fibonacci(x - 1)) + fibonacci(x - 2);
 	}
-’
+'
 
 fibCpp &lt;- cppFunction(cpptxt) # compiles, load, links, ...
 </pre>
@@ -161,7 +161,7 @@ fibCpp &lt;- cppFunction(cpptxt) # compiles, load, links, ...
 这种用法也可以使用 inline 的 plugin，比如：
 
 <pre class="prettyprint linenums">
-code &lt;- ’C++ code goes here’
+code &lt;- 'C++ code goes here'
 
 gslVolumes &lt;- cppFunction(code, depends="RcppGSL")
 </pre>
@@ -194,14 +194,14 @@ In Rcpp class hierarchy, although RObject is not directly user-facing, it provid
 #### shallow copy 和 deep copy 的问题
 
 <pre class="prettyprint linenums">
-src &lt;- ’
+src &lt;- '
 	Rcpp::NumericVector invec(vx);
 	Rcpp::NumericVector outvec(vx);
 	for (int i=0; i&lt;invec.size(); i++) {
 		outvec[i] = log(invec[i]);
 	}
 	return outvec;
-’
+'
 
 fun &lt;- cxxfunction(signature(vx="numeric"), src, plugin="Rcpp")
 x &lt;- seq(1.0, 3.0, by=1)
@@ -247,7 +247,7 @@ mean dim cnt
 等同于：
 
 <pre class="prettyprint linenums">
-src &lt;- ’
+src &lt;- '
 	Rcpp::NumericVector x =
 	Rcpp::NumericVector::create(
 		Rcpp::Named("mean") = 1.23,
@@ -255,7 +255,7 @@ src &lt;- ’
 		Rcpp::Named("cnt") = 12
 	);
 	return x; 
-’
+'
 
 fun &lt;- cxxfunction(signature(), src, plugin="Rcpp")
 fun()
@@ -288,10 +288,10 @@ mean dim cnt
 A `Function` object is needed whenever an R function—either supplied by the user or by accessing an R function—is employed.
 
 <pre class="prettyprint linenums">
-src &lt;- ’
+src &lt;- '
 	Function sort(x);
 	return sort(y, Named("decreasing", true));
-’
+'
 
 fun &lt;- cxxfunction(signature(x="function", y="ANY"), src, plugin="Rcpp")
 fun(sort, sample(1:5, 10, TRUE))
@@ -307,11 +307,11 @@ Another useful point to note is that because the second argument `y` is never in
 The `Function` class can also be used to access R functions directly. In the example below, we draw five random numbers from a t-distribution with three degrees of freedom. As we are accessing the random number generators, we need to ensure that it is in a proper state. The `RNGScope` class ensures this by initializing the random number generator by calling the `GetRNGState()` function from the class constructor, and by restoring the initial state via `PutRNGState()` via its destructor.
 
 <pre class="prettyprint linenums">
-src <- ’
+src <- '
 	RNGScope scp;
 	Rcpp::Function rt("rt");
 	return rt(5, 3);
-’
+'
 fun &lt;- cxxfunction(signature(), src, plugin="Rcpp")
 
 set.seed(42)
