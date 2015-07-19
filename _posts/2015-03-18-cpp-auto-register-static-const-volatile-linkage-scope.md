@@ -465,7 +465,22 @@ int main(int argc, char* argv[]) {
 * CASE 12 我实在不懂，它和 CASE 10 有嘛区别嘛！
 	* 顺带记录一下我用的是 TDM-GCC 4.8.1 64-bit Release
 	
-_2015-03-26 更新：_
+-> _~~~~~~~~~~ 2015-07-19 更新开始 ~~~~~~~~~~_ <-
+
+感谢 [chetui](https://disqus.com/by/chetui/) 的评论！
+
+> Case 10: 会生成两个.o:   
+>   MyLib.h 和 MyLib.cpp 编译成 MyLib.o，  
+>   MyLib.cpp 编译成 MyMain.o，  
+> extern const 这句的意思是：在编译时即使没有找到 STASH_NUM 的定义也不要报错，因为有可能这个变量被定义在外部，链接时链进去就好了。然后两个 .o 链接成同一个 a.out 时，在 MyLib.o 里找到了 STASH_NUM 的定义，链接成功。
+
+<!-- -->
+
+> Case 12: 只有一个编译单元 MyMain.o，里面没有 include MyLib.h。所以 MyLib.h 根本没有存在感，它并没有参与编译个链接。
+
+-> _~~~~~~~~~~ 2015-07-19 更新结束 ~~~~~~~~~~_ <-
+	
+-> _~~~~~~~~~~ 2015-03-26 更新开始 ~~~~~~~~~~_ <-
 
 我稍微设计了一个试验，猜测：lib.h 里 extern const 的 initialization 貌似是会被忽略的（而前面 [linkage 的例子](#linkage-example) 里，lib.h 里 declare + define 一个 common const 是没有问题的）。看代码：
 
@@ -486,6 +501,8 @@ int main(int argc, char* argv[]) {
 	// 从输出结果来看，我只能猜测 .h 里 =7 的赋值实际没有执行
 }
 </pre>
+
+-> _~~~~~~~~~~ 2015-03-26 更新结束 ~~~~~~~~~~_ <-
 	
 #### 4.1.5 其他注意事项
 
