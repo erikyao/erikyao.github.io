@@ -347,3 +347,32 @@ map["bar"] = "rab";
 global["y"] = map;						// 创建 y
 </pre>
 
+### 4.6 The S4 Class 
+
+略
+
+### 4.7 ReferenceClasses
+
+略
+
+### 4.8 The R Mathematics Library Functions
+
+略
+
+## Chapter 5. Using Rcpp in Your Package
+
+This chapter provides an overview of how to use `Rcpp` when writing an R package. It shows how using the function `Rcpp.package.skeleton()` can create a complete and self-sufficient example of a package using Rcpp. All components of the directory tree created by `Rcpp.package.skeleton()` are discussed in detail.
+
+This chapter complements the _Writing R Extensions_ manual which is the authoritative source on how to extend R in general.
+
+略
+
+## Chapter 6. Extending Rcpp
+
+第五章的末尾有讲：`RcppArmadillo`, `RcppEigen`, `RcppBDT` and `RcppGSL` are packages using `Rcpp`. 同时它们也是 plugins。要进一步研究，可以从这几个包入手，它们都是很好的例子。
+
+This chapter provides an overviewof the steps programmers should follow to extend `Rcpp` for use with their own classes and class libraries. The packages `RcppArmadillo`, `RcppEigen`, and `RcppGSL` provide working examples of how to extend `Rcpp` to work with, respectively, the `Armadillo` and `Eigen` C++ class libraries as well as the GNU Scientific Library.
+
+The chapter ends with an illustration of how the `RcppBDT` package connects the date types of R with those of the Boost `Date_Time` library by extending `Rcpp`.
+
+上面 abstract 说得很多，不过本章的实际内容其实是：假设我们有一个自定义的 C++ class `Foo`，我们如何实现 `Foo Rcpp::as(SEXP sexp);` 和 `SEXP Rcpp::wrap(const Foo& object);` 来实现 `Foo` 和 R data structure 的互相转换。
