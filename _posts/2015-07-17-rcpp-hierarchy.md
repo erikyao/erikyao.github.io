@@ -49,7 +49,7 @@ SEXP add(SEXP a, SEXP b) {
   return result;
 }
 
-// 假设编译得到 add.so (.so for Shared Library)
+// 假设编译得到 add.so
 </pre>
 
 <pre class="prettyprint linenums">
@@ -60,6 +60,11 @@ add &lt;- function(a, b) {
   .Call("add", a, b)
 }
 </pre>
+
+- `dyn.load()` loads the shared library. It uses the full filename, including 
+	- the explicit platform-dependent extension which is .so (Shared Object) on Unix, 
+	- .dll (Dynamic-Link Library) on Windows, 
+	- and .dylib (Dynamic Library) on OS X
 
 其实我们在 R 里调用 `.Call("add", a, b)` 就已经做到了 "在 R 里调用 C 函数"；然后我们再定义一个同名的 R 函数 `add <- fucntion() { .Call("add") }`，就成了 "把 C 函数转化成了 R 函数"。
 
@@ -82,14 +87,15 @@ _Seamless R and C++ Integration with Rcpp_ 的 _1.2.4 Using Inline_ 小节有讲
 <pre class="prettyprint linenums">
 library(inline)
 
-code <- '
+code &lt;- '
 	SEXP result = PROTECT(allocVector(REALSXP, 1));
 	REAL(result)[0] = asReal(a) + asReal(b);
 	UNPROTECT(1);
 	return result;
 '
 
-add <- cfunction(signature(a="numeric", b="numeric"), body=code)
+add &lt;- cfunction(signature(a="numeric", b="numeric"), body=code)
+// 加一个 verbose=TREU 参数可以看到 cfunction 生成的临时的 C 文件
 </pre>
 
 此外还需要注意的是：
@@ -105,10 +111,11 @@ add <- cfunction(signature(a="numeric", b="numeric"), body=code)
 已知有两种用法：
 
 - `cppFunction()` 
-	- 注意 `cppFunction()` 里面是写一个完整的函数，包括函数名、参数列表、函数体；不像 `cfunction(body=xxx)` 只写函数体
-	- 不用写 `add <- cppFunction(...)`，因为 `cppFunction(...)` 执行后，R 中就有一个同名的函数，可以直接调用
+	- 注意 `cppFunction()` 里面是写一个完整的函数，包括函数名、参数列表、函数体；不像 `cfunction(body=xxx)` 只写函数体。
+	- 可以不写 `add <- cppFunction(...)`，因为 `cppFunction(...)` 执行后，R 中就有一个同名的函数，可以直接调用。当然，你写也不会出错。
+	- `cppFunction()` 也可以使用 plugin，写法为 `cppFunction(..., depends="PLUGIN-NAME")` 
 - C++ 文件里写 Rcpp Attributes (比如 `[[Rcpp::export]]`)，然后 R 里执行 `sourceCpp()`
-	- 这么搞其实又回到第 3 节的 "C文件 + R文件" 模式上去了
+	- 这么搞其实又回到第 3 节的 "C文件 + R文件" 模式上去了。
 	
 具体的例子参考 [Digest of Advanced R](/r/2015/07/08/digest-of-advanced-r) 的 [16. High performance functions with Rcpp](/r/2015/07/08/digest-of-advanced-r/#16--High-performance-functions-with-Rcpp)。
 
