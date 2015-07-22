@@ -144,7 +144,7 @@ Rcpp Attributes 除了 `sourceCpp()` 外，还有
 		1. It creates a temporary file.
 		1. It creates a wrapper.
 		1. It returns an R function which calls the wrapper.
-	- 注意 `cxxfunction()` 是 inline 包的。
+	- 注意 `cxxfunction()` 是 `inline` 包的。
 - `evalCpp()`: evaluates a C++ expression directly
 
 <pre class="prettyprint linenums">
@@ -158,7 +158,7 @@ cpptxt &lt;- '
 fibCpp &lt;- cppFunction(cpptxt) # compiles, load, links, ...
 </pre>
 
-这种用法也可以使用 inline 的 plugin，比如：
+这种用法也可以使用 `inline` 的 plugin，比如：
 
 <pre class="prettyprint linenums">
 code &lt;- 'C++ code goes here'
