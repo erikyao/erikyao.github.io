@@ -123,3 +123,9 @@ add &lt;- cfunction(signature(a="numeric", b="numeric"), body=code)
 
 - `cppFunction()` 用的是 `.Call` (参 [cppFunction {Rcpp}](http://www.inside-r.org/packages/cran/rcpp/docs/cppFunction))
 - `sourceCpp()` 用的是 `inline` (参 [Rcpp Attributes](http://dirk.eddelbuettel.com/code/rcpp/Rcpp-attributes.pdf))
+
+## 6. 更进一步
+
+`RcppArmadillo`, `RcppEigen`, `RcppBDT` and `RcppGSL` are packages using `Rcpp`. 同时它们也是 plugins。
+
+要进一步研究，可以从这几个包入手，它们都是很好的例子。
