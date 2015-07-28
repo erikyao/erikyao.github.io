@@ -135,9 +135,9 @@ We have seen the use of the options `plugin="Rcpp"` in the previous examples. Pl
 
 也可以自己手动写一个 plugin，具体参书上 P30。
 
-### cppFunction() of Rcpp Attributes
+### cppFunction() and evalCpp()
 
-Rcpp Attributes 除了 `sourceCpp()` 外，还有 
+Rcpp 除了 `sourceCpp()` 外，还有 
 
 - `cppFunction()`: creates a function from a argument of text. 
 	- 步骤包括：
@@ -166,7 +166,7 @@ code &lt;- 'C++ code goes here'
 gslVolumes &lt;- cppFunction(code, depends="RcppGSL")
 </pre>
 
-## Chapter 3 Data Structures: Part One
+## Chapter 3. Data Structures: Part One
 
 ### 3.1 The RObject Class
 
@@ -233,7 +233,7 @@ Rcpp::NumericVector outvec = log(invec); // This is Rcpp sugar
 - `LogicalVector`: `vector<bool>`，但是要注意可以有 NA
 - `CharacterVector`: `vector<const char*>`，并不是 `vector<string>`
 
-## Chapter 4 Data Structures: Part Two
+## Chapter 4. Data Structures: Part Two
 
 ### 4.1 Rcpp::Named
 
@@ -361,7 +361,7 @@ global["y"] = map;						// 创建 y
 
 ## Chapter 5. Using Rcpp in Your Package
 
-This chapter provides an overview of how to use `Rcpp` when writing an R package. It shows how using the function `Rcpp.package.skeleton()` can create a complete and self-sufficient example of a package using Rcpp. All components of the directory tree created by `Rcpp.package.skeleton()` are discussed in detail.
+This chapter provides an overview of how to use Rcpp when writing an R package. It shows how using the function `Rcpp.package.skeleton()` can create a complete and self-sufficient example of a package using Rcpp. All components of the directory tree created by `Rcpp.package.skeleton()` are discussed in detail.
 
 This chapter complements the _Writing R Extensions_ manual which is the authoritative source on how to extend R in general.
 
@@ -371,8 +371,50 @@ This chapter complements the _Writing R Extensions_ manual which is the authorit
 
 第五章的末尾有讲：`RcppArmadillo`, `RcppEigen`, `RcppBDT` and `RcppGSL` are packages using `Rcpp`. 同时它们也是 plugins。要进一步研究，可以从这几个包入手，它们都是很好的例子。
 
-This chapter provides an overviewof the steps programmers should follow to extend `Rcpp` for use with their own classes and class libraries. The packages `RcppArmadillo`, `RcppEigen`, and `RcppGSL` provide working examples of how to extend `Rcpp` to work with, respectively, the `Armadillo` and `Eigen` C++ class libraries as well as the GNU Scientific Library.
+This chapter provides an overviewof the steps programmers should follow to extend Rcpp for use with their own classes and class libraries. The packages `RcppArmadillo`, `RcppEigen`, and `RcppGSL` provide working examples of how to extend `Rcpp` to work with, respectively, the `Armadillo` and `Eigen` C++ class libraries as well as the GNU Scientific Library.
 
-The chapter ends with an illustration of how the `RcppBDT` package connects the date types of R with those of the Boost `Date_Time` library by extending `Rcpp`.
+The chapter ends with an illustration of how the `RcppBDT` package connects the date types of R with those of the Boost `Date_Time` library by extending Rcpp.
 
 上面 abstract 说得很多，不过本章的实际内容其实是：假设我们有一个自定义的 C++ class `Foo`，我们如何实现 `Foo Rcpp::as(SEXP sexp);` 和 `SEXP Rcpp::wrap(const Foo& object);` 来实现 `Foo` 和 R data structure 的互相转换。
+
+## Chapter 7. Modules
+
+_7.1.1 Exposing Functions Using Rcpp_ 讲的是用 `Rcpp::as()`、`Rcpp::wrap()` 搞来搞去的很烦（不过其实是可以隐式调用的）。 
+
+_7.1.2 Exposing Classes Using Rcpp_ 这个更麻烦（不过遇到的时候可以拿书上的内容参考一下）。
+
+于是我们就要推出 Modules，它的作用是消除这些麻烦。
+
+Rcpp modules provide a convenient and easy-to-use way to expose C++ functions and classes to R, grouped together in a single entity.
+
+An Rcpp module is created in a cpp file using the `RCPP_MODULE` macro, which then provides declarative code of what the module exposes to R. 
+
+简单说，我们可以在 C++ 中定义 module，然后把 functions 或者 classes 挂到这个 module 下面，然后把这个 module export 到 R，相当于创造了一个 R 对象，可以通过 `module$foo()`、`module$bar()` 这样调用 functions，或者通过 `module$baz` 来指向一个 C++ class，然后在 R 中调用它的构造器创建一个对象并调用 member function。
+
+类比一下，module 就是 R's counterpart of C++ namespace。
+
+## Chapter 8. Sugar
+
+Rcpp sugar is based on expression templates and lazy evaluation techniques.
+
+Put succinctly, the motivation of Rcpp sugar is to bring a subset of the high-level R syntax to C++. 比如我们可以直接在 C++ 里像 R 一样直接写 vector 级别的运算，或者在 C++ 里用 apply，而不用写个 for 来搞。
+
+## Chapter 9. RInside
+
+The `RInside` package permits direct use of R inside of a C++application. 比 Rcpp Sugar 更进一步，但并不是在 C++ 中全面支持 R 语法，而是在 C++ 中构建了一个 embedded R instance（由 `RInside` class 表示）（所以情形就变成了 "在 C++ 的 R instance 中跑 R 代码"）。
+
+## Chapter 10. RcppArmadillo
+
+The `RcppArmadillo` package implements an easy-to-use interface to the C++ `Armadillo` library.
+
+`Armadillo` is a C++ linear algebra library aiming towards a good balance between speed and ease of use. The syntax is deliberately similar to Matlab. Integer, floating point and complex numbers are supported, as well as a subset of trigonometric and statistics functions.
+
+## Chapter 11. RcppGSL
+
+The `RcppGSL` package provides an easy-to-use interface between data structures from the GNU Scientific Library, or GSL for short, and R by building on facilities provided in the Rcpp package. 
+
+## Chapter 12. RcppEigen
+
+The `RcppEigen` package provides an interface to the `Eigen` library.
+
+`Eigen` is a modern C++ library for linear algebra, similar in scope as `Armadillo`, but with an even more fine-grained application programming interface (API).
