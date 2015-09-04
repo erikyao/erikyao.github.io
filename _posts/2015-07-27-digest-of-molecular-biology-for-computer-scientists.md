@@ -165,52 +165,81 @@ The twenty naturally occuring amino acids all have the common elements shown in 
 
 Exactly how the properties of the amino acids in the primary structure of a protein interact to determine the protein’s ultimate conformation remains unknown. The chemical properties of the individual amino acids, however, are known with great precision. These properties form the basis for many representations of amino acids, e.g. in programs attempting to predict structure from sequence. Here is a brief summary of some of them:
 
-- _Glycine_: ['glaɪsi:n], 甘氨酸
-	- Glycine is the simplest amino acid: 
-		- Its sidechain is a single hydrogen atom. 
-		- It is nonpolar, and does not ionize easily.
-			- The **polarity** (极性) of a molecule refers to the degree that its electrons are distributed asymmetrically. A nonpolar molecule has a relatively even distribution of charge. 
-			- **Ionization** (电离) is the process that causes a molecule to gain or lose an electron, and hence become charged overall. The distribution of charge has a strong effect on the behavior of a molecule (e.g. like charges repel).
-	- Another important characteristic of glycine is that as a result of having no heavy (i.e. non-hydrogen) atoms in its sidechain, it is very flexible. That flexibility can give rise to unusual kinks in the folded protein.
-- _Alanine_: ['æləni:n], 丙氨酸
-	- Alanine is also small and simple; its sidechain is just a methyl (['meθɪl] or ['meθəl], 甲基) group (consisting of a carbon and three hydrogen atoms).
-	- Alanine is one of the most commonly appearing amino acids.
-	- Glycine and alanine’s sidechains are **aliphatic** ([ˌælə'fætɪk], 脂肪族的), which means that they are straight chains (no loops) containing only carbon and hydrogen atoms. 
-		- There are three other aliphatic amino acids: 
-			- _valine_: ['væli:n], 缬氨酸
-			- _leucine_: ['lu:si:n], 亮氨酸
-			- _isoleucine_: [ˌaɪsə'lu:ˌsi:n], 异亮氨酸
-		- The longer aliphatic sidechains are hydrophobic ([ˌhaɪdrə'fəʊbɪk]). Hydrophobicity ([haɪdrəfəʊ'bɪsɪtɪ]) is one of the key factors that determines how the chain of amino acids will fold up into an active protein. Hydrophobic residues tend to come together to form compact core that exclude water. Because the environment inside cells is aqueous ([ˈeɪkwiəs], primarily water), these hydrophobic residues will tend to be on the inside of a protein, rather than on its surface.
-- In contrast to alanine and glycine, the sidechains of amino acids _phenylalanine_, _tyrosine_ and _tryptophan_ are quite large.
-	- _phenylalanine_: [fenɪ'læləni:n], 苯(基)丙氨酸
-	- _tyrosine_: ['taɪrəˌsi:n], 酪氨酸
-	- _tryptophan_: ['trɪptəˌfæn], 色氨酸
-	- Size matters in protein folding because atoms resist being too close to one another, so it is hard to pack many large sidechains closely. 
-	- These sidechains are also **aromatic** ([ˌærəˈmætɪk], 芳香族的), meaning that they form closed rings of carbon atoms with alternating double bonds (like the simple molecule benzene, [ˈbenzi:n], 苯). These rings are large and inflexible. 
-	- Phenylalanine and tryptophan are also hydrophobic. Tyrosine has a hydroxyl ([haɪ'drɒksɪl], 羟基) group (an OH at the end of the ring), and is therefore more reactive than the other sidechains mentioned so far, and less hydrophobic. 
-	- These large amino acids appear less often than would be expected if proteins were composed randomly. 
-	- Serine and threonine also contain hydroxyl groups, but do not have rings.
-		- _serine_: ['seri:n], 丝氨酸
-		- _threonine_: ['θri:əˌni:n], 苏氨酸
-- Another feature of importance in amino acids is whether they ionize to form charged groups. 
-	- Residues that ionize are characterized by their _pK_, which indicates at what _pH_ (level of acidity) half of the molecules of that amino acid will have ionized. 
-	- Arginine and lysine have high _pK_’s (that is, they ionize in basic environments) and histidine, gluatmic acid and aspartic acid have low pK’s (they ionize in acidic ones). 
-		- _arginine_: ['ɑ:dʒəˌni:n], 精氨酸
-		- _lysine_: ['laɪsi:n], 赖氨酸
-		- _histidine_: ['hɪstɪdi:n], 组氨酸
-		- _glutamic acid_: [ɡlu:ˈtæmik], 谷氨酸
-		- _aspartic acid_: [əˈspɑ:tɪk], 天(门)冬氨酸
-	- Since like charges repel and opposites attract, charge is an important feature in predicting protein conformation. Most of the charged residues in a protein will be found at its surface, although some will form bonds with each other on the inside of the molecule (called _salt-bridges_) which can provide strong constraints on the ultimate folded form.
-- Cysteine and methionine have hydrophobic sidechains that contain a sulphur atom, and each plays an important role in protein structure. 
-	- _cysteine_: ['sɪstɪn], 半胱氨酸
-	- _methionine_: [me'θaɪəni:n], 蛋氨酸, 甲硫氨酸
-	- The sulphurs make the amino acids' sidechains very reactive. 
-		- Cysteines can form disulphide ([daɪ'sʌlfaɪd], 二硫化物) bonds with each other; disulphide bonds often hold distant parts of a polypeptide chain near each other, constraining the folded conformation like salt bridges. For that reason, cysteines have a special role in determining the three dimensional structure of proteins. (The chapter by Holbrook, Muskal and Kim in this volume discusses the prediction of this and other folding constraints.) 
-		- Methionine is also important because all eucaryotic proteins, when originally synthesized in the ribosome, start with a methionine. It is a kind of “start” signal in the genetic code. This methionine is generally removed before the protein is released into the cell, however.
-- Histidine is a relatively rare amino acid, but often appears in the **active site** of an enzyme.
-	- The active site is the small portion of an enzyme that effects the target reaction, and it is the key to understanding the chemistry involved. 
-	- The rest of the enzyme provides the necessary scaffolding to bring the active site to bear in the right place, and to keep it away from bonds that it might do harm to. 
-		- Other regions of enzymes can also act as a switch, turning the active site on and off in a process called **allosteric control**. Because histidine’s _pK_ is near the typical _pH_ of a cell, it is possible for small, local changes in the chemical environment to flip it back and forth between being charged and not charged. This ability to flip between states makes it useful for catalyzing chemical reactions. Other charged residues also sometimes play a similar role in catalysis.
+#### _Glycine_: ['glaɪsi:n], 甘氨酸
+
+Glycine is the simplest amino acid: 
+	
+- Its sidechain is a single hydrogen atom. 
+- It is nonpolar, and does not ionize easily.
+	- The **polarity** (极性) of a molecule refers to the degree that its electrons are distributed asymmetrically. A nonpolar molecule has a relatively even distribution of charge. 
+	- **Ionization** (电离) is the process that causes a molecule to gain or lose an electron, and hence become charged overall. The distribution of charge has a strong effect on the behavior of a molecule (e.g. like charges repel).
+
+Another important characteristic of glycine is that as a result of having no heavy (i.e. non-hydrogen) atoms in its sidechain, it is very flexible. That flexibility can give rise to unusual kinks in the folded protein.
+
+#### _Alanine_: ['æləni:n], 丙氨酸
+
+Alanine is also small and simple; its sidechain is just a methyl (['meθɪl] or ['meθəl], 甲基) group (consisting of a carbon and three hydrogen atoms).
+
+Alanine is one of the most commonly appearing amino acids.
+
+Glycine and alanine’s sidechains are **aliphatic** ([ˌælə'fætɪk], 脂肪族的), which means that they are straight chains (no loops) containing only carbon and hydrogen atoms. 
+
+- There are three other aliphatic amino acids: 
+	- _valine_: ['væli:n], 缬氨酸
+	- _leucine_: ['lu:si:n], 亮氨酸
+	- _isoleucine_: [ˌaɪsə'lu:ˌsi:n], 异亮氨酸
+- The longer aliphatic sidechains are hydrophobic ([ˌhaɪdrə'fəʊbɪk]). Hydrophobicity ([haɪdrəfəʊ'bɪsɪtɪ]) is one of the key factors that determines how the chain of amino acids will fold up into an active protein. Hydrophobic residues tend to come together to form compact core that exclude water. Because the environment inside cells is aqueous ([ˈeɪkwiəs], primarily water), these hydrophobic residues will tend to be on the inside of a protein, rather than on its surface.
+
+#### In contrast to alanine and glycine, the sidechains of amino acids _phenylalanine_, _tyrosine_ and _tryptophan_ are quite large.
+
+- _phenylalanine_: [fenɪ'læləni:n], 苯(基)丙氨酸
+- _tyrosine_: ['taɪrəˌsi:n], 酪氨酸
+- _tryptophan_: ['trɪptəˌfæn], 色氨酸
+
+Size matters in protein folding because atoms resist being too close to one another, so it is hard to pack many large sidechains closely. 
+
+These sidechains are also **aromatic** ([ˌærəˈmætɪk], 芳香族的), meaning that they form closed rings of carbon atoms with alternating double bonds (like the simple molecule benzene, [ˈbenzi:n], 苯). These rings are large and inflexible. 
+
+Phenylalanine and tryptophan are also hydrophobic. Tyrosine has a hydroxyl ([haɪ'drɒksɪl], 羟基) group (an OH at the end of the ring), and is therefore more reactive than the other sidechains mentioned so far, and less hydrophobic. 
+
+These large amino acids appear less often than would be expected if proteins were composed randomly. 
+
+Serine and threonine also contain hydroxyl groups, but do not have rings.
+
+- _serine_: ['seri:n], 丝氨酸
+- _threonine_: ['θri:əˌni:n], 苏氨酸
+
+#### Another feature of importance in amino acids is whether they ionize to form charged groups. 
+	
+Residues that ionize are characterized by their _pK_, which indicates at what _pH_ (level of acidity) half of the molecules of that amino acid will have ionized. 
+
+Arginine and lysine have high _pK_’s (that is, they ionize in basic environments) and histidine, gluatmic acid and aspartic acid have low pK’s (they ionize in acidic ones). 
+	
+- _arginine_: ['ɑ:dʒəˌni:n], 精氨酸
+- _lysine_: ['laɪsi:n], 赖氨酸
+- _histidine_: ['hɪstɪdi:n], 组氨酸
+- _glutamic acid_: [ɡlu:ˈtæmik], 谷氨酸
+- _aspartic acid_: [əˈspɑ:tɪk], 天(门)冬氨酸
+
+Since like charges repel and opposites attract, charge is an important feature in predicting protein conformation. Most of the charged residues in a protein will be found at its surface, although some will form bonds with each other on the inside of the molecule (called _salt-bridges_) which can provide strong constraints on the ultimate folded form.
+
+#### Cysteine and methionine have hydrophobic sidechains that contain a sulphur atom, and each plays an important role in protein structure. 
+	
+- _cysteine_: ['sɪstɪn], 半胱氨酸
+- _methionine_: [me'θaɪəni:n], 蛋氨酸, 甲硫氨酸
+
+The sulphurs make the amino acids' sidechains very reactive. 
+	
+- Cysteines can form disulphide ([daɪ'sʌlfaɪd], 二硫化物) bonds with each other; disulphide bonds often hold distant parts of a polypeptide chain near each other, constraining the folded conformation like salt bridges. For that reason, cysteines have a special role in determining the three dimensional structure of proteins. (The chapter by Holbrook, Muskal and Kim in this volume discusses the prediction of this and other folding constraints.) 
+- Methionine is also important because all eucaryotic proteins, when originally synthesized in the ribosome, start with a methionine. It is a kind of “start” signal in the genetic code. This methionine is generally removed before the protein is released into the cell, however.
+
+#### Histidine is a relatively rare amino acid, but often appears in the **active site** of an enzyme.
+
+The active site is the small portion of an enzyme that effects the target reaction, and it is the key to understanding the chemistry involved. 
+
+The rest of the enzyme provides the necessary scaffolding to bring the active site to bear in the right place, and to keep it away from bonds that it might do harm to. 
+		
+- Other regions of enzymes can also act as a switch, turning the active site on and off in a process called **allosteric control**. Because histidine’s _pK_ is near the typical _pH_ of a cell, it is possible for small, local changes in the chemical environment to flip it back and forth between being charged and not charged. This ability to flip between states makes it useful for catalyzing chemical reactions. Other charged residues also sometimes play a similar role in catalysis.
 		
 <!--
 Abbreviation,1 letter abbreviation,[Amino acid](https://en.wikipedia.org/wiki/Proteinogenic_amino_acid) name, Chinese name
@@ -272,6 +301,8 @@ TERM,,termination codon,
 | Xaa          | X                     | Any amino acid                                                                   |                  |
 | Xle          | J                     | Leucine or Isoleucine                                                            |                  |
 | TERM         |                       | termination codon                                                                |                  |
+
+#### Protein Structures
 
 The genetic code specifies only the amino acid sequence of a protein. As a new protein comes off the ribosome, it folds up into the shape that gives it its biochemical function, sometimes called its **active conformation** (the same protein unfolded into some other shape is said to be denatured, which is what happens, e.g. to the white of an egg when you cook it). In the cell, this process takes a few seconds, which is a very long time for a chemical reaction. The complex structure of the ribosome may play a role in protein folding, and a few proteins need helper molecules, termed **chaperones** to fold properly.
 
@@ -392,24 +423,43 @@ The purpose of this section is to describe some of the basic experimental method
 
 The following six organisms form the main collection of models used in molecular biology:
 
-- E. coli: Escherichia coli, [ˌeʃəˈrikiə] ['kəʊlaɪ], 大肠杆菌
-	- Because it is a relatively simple organism with fast reproduction time and is safe and easy to work with, E. coli has been the focus of a great deal of research in genetics and molecular biology of the cell. Although it is a Bacterium, many of the basic biochemical mechanisms of E. coli are shared by humans.
-	- E. coli is a common target for genetic engineering, where genes from other organisms are inserted into the bacterial genome then produced in quantity。
-- Saccharomyces cerevisiae is better known as brewer’s yeast (酿酒酵母), and it is another safe, easy to grow, short generation time organism.
-	- Unlike the bacterium E. coli, yeasts are eucaryotes, with a cell nucleus, mitochondria, a eucaryotic cell membrane, and many of the other cellular components and processes found in most other eucaryotes, including people.
-	- One of the crucial steps in sequencing large amounts of DNA is to be able to prepare many copies of moderate sized pieces of DNA. An widely used method for doing this is the **yeast artificial chromosome** (or YAC).
-- Arabidopsis, [əræ'bɪdɒpsɪs], 拟南芥
-	- Arabidopsis makes a good model because it undergoes the same processes of growth, development, flowering and reproduction as most higher plants, but it’s genome has 30 times less DNA than corn, and very little repetitive DNA. 
-	- It also produces lots of seeds, and takes only about six weeks to grow to maturity.
-- C. elegans: Caenorhabditis elegans, [ˌseɪnɵræbˈdɪtɪs ˈɛlɛɡænz], 秀丽隐杆线虫
-	- The adult organism has exactly 959 cells, and every normal worm consists of exactly the same collection of cells in the same places doing the same thing. 
-	- It is one of the simplest creatures with a nervous system (which involves about a third of its cells). 
-	- Not only is the complete anatomy of the organism known, but a complete cell fate map has been generated, tracing the developmental lineage of each of each cell throughout the lifespan of the organism.
-- D. melanogaster: Drosophila melanogaster, [drɒˈsɒfɪlə] [mɛ.ɫa.nɔˈɡas.tɛr], i.e. common fruit fly
-	- These flies have short generation times, and many different genetically determined morphological characteristics (e.g. eye color) that can readily be determined by visual inspection.
-- M. musculus: Mus musculus, [mʌsk'jʊləs], i.e. house mouse
-	- Mice are mammals, and, as far as biochemistry is concerned, are practically identical to people. Many questions about physiology, reproduction, functioning of the immune and nervous systems and other areas of interest can only be addressed by examining creatures that are very similar to humans; mice nearly always fit the bill. 
-	- The similarities between mice and people mean also that the mouse is a very complicated creature; it has a relatively large, complex genome, and mouse development and physiology is not as regular or consistent as that of C. elegans or Drosophila.
+#### E. coli: Escherichia coli, [ˌeʃəˈrikiə] ['kəʊlaɪ], 大肠杆菌
+	
+Because it is a relatively simple organism with fast reproduction time and is safe and easy to work with, E. coli has been the focus of a great deal of research in genetics and molecular biology of the cell. Although it is a Bacterium, many of the basic biochemical mechanisms of E. coli are shared by humans.
+
+E. coli is a common target for genetic engineering, where genes from other organisms are inserted into the bacterial genome then produced in quantity。
+
+#### Saccharomyces cerevisiae 
+
+It is better known as brewer’s yeast (酿酒酵母), and it is another safe, easy to grow, short generation time organism.
+
+Unlike the bacterium E. coli, yeasts are eucaryotes, with a cell nucleus, mitochondria, a eucaryotic cell membrane, and many of the other cellular components and processes found in most other eucaryotes, including people.
+
+One of the crucial steps in sequencing large amounts of DNA is to be able to prepare many copies of moderate sized pieces of DNA. An widely used method for doing this is the **yeast artificial chromosome** (or YAC).
+
+#### Arabidopsis, [əræ'bɪdɒpsɪs], 拟南芥
+
+Arabidopsis makes a good model because it undergoes the same processes of growth, development, flowering and reproduction as most higher plants, but it’s genome has 30 times less DNA than corn, and very little repetitive DNA. 
+
+It also produces lots of seeds, and takes only about six weeks to grow to maturity.
+
+#### C. elegans: Caenorhabditis elegans, [ˌseɪnɵræbˈdɪtɪs ˈɛlɛɡænz], 秀丽隐杆线虫
+
+The adult organism has exactly 959 cells, and every normal worm consists of exactly the same collection of cells in the same places doing the same thing. 
+
+It is one of the simplest creatures with a nervous system (which involves about a third of its cells). 
+
+Not only is the complete anatomy of the organism known, but a complete cell fate map has been generated, tracing the developmental lineage of each of each cell throughout the lifespan of the organism.
+
+#### D. melanogaster: Drosophila melanogaster, [drɒˈsɒfɪlə] [mɛ.ɫa.nɔˈɡas.tɛr], i.e. common fruit fly
+
+These flies have short generation times, and many different genetically determined morphological characteristics (e.g. eye color) that can readily be determined by visual inspection.
+
+#### M. musculus: Mus musculus, [mʌsk'jʊləs], i.e. house mouse
+
+Mice are mammals, and, as far as biochemistry is concerned, are practically identical to people. Many questions about physiology, reproduction, functioning of the immune and nervous systems and other areas of interest can only be addressed by examining creatures that are very similar to humans; mice nearly always fit the bill. 
+
+The similarities between mice and people mean also that the mouse is a very complicated creature; it has a relatively large, complex genome, and mouse development and physiology is not as regular or consistent as that of C. elegans or Drosophila.
 	
 ## 7. Experimental Methods
 
@@ -452,20 +502,22 @@ The following six organisms form the main collection of models used in molecular
 - First, because crossover is an important component of inheritance in sexually reproducing organisms, genes that are near each other on the chromosome will tend to be inherited together. In fact, this forms the basis for **linkage analysis**, which is a technique that looks at the relationships between genes (or phenotypes) in large numbers of matings (in this context, often called **crosses**) to identify which genes tend to be inherited together, and are therefore likely to be near each other.
 - Second, it is possible to clone genes of known locations, opening up a wide range of possible experimental manipulations. 
 - Finally, it is currently possible to determine the sequence of moderate size pieces of DNA, so if an important gene has been mapped, it is possible to find the sequence of that area, and discover the protein that is responsible for the genetic characteristic. This is especially important for understanding the basis of inherited diseases.
-- The existence of several different kinds of restriction enzymes makes possible a molecular method of creating genetic maps. 
-	- The application of each restriction enzyme (the process is called a **digest**) creates a different collection of **restriction fragments** (the cut up pieces of DNA). By using gel electrophoresis, it is possible to determine the size of these fragments. Using multiple enzymes, together and separately, results in sets of fragments which can be (partially) ordered with respect to each other, resulting in a genetic map. AI techniques for reasoning about partial orders have been effectively applied to the problem of assembling the fragments into a map.
-	- Restriction fragment mapping becomes problematic when applied to large stretches of DNA, because the enzymes can produce many pieces of about the same size, making the map ambiguous. The use of different enzymes can help address this problem to a limited degree, but a variety of other techniques are now also used:
-		- **Contigs** + **Cosmids**:
-			- contig: 叠连群, A set of overlapping DNA segments, derived from a single source of genetic material, from which the complete sequence may be deduced.
-			- cosmid: 黏粒, A plasmid into which a short nucleotide sequence of a bacteriophage has been inserted to create a vector capable of cloning large fragments of DNA
-		- **PCR**: polymerase chain reaction
-			- PCR exponentially **amplifies** (makes copies of) a segment of a DNA molecule, given a unique pair of sequences that bracket the desired piece.
-				- 这个 unique pair of sequences that bracket the desired piece 我们称为 **primer**
-				- 从种类上来说，primer 属于 oligonucleotide
-					- **oligonucleotide**: [ˌoʊlɪgoʊ'nu:kli:ətaɪd], 寡核苷酸, 是一类只有20个以下碱基的短链核苷酸的总称, or oligo for short (oligomer 是低聚物).
-			- The primers, the target DNA and the enzyme DNA polymerase are then combined. The mixture is heated, so that the hydrogen bonds in the target DNA break and the molecule splits into two single strands. When the mixture cools sufficiently, the primers bond to the regions around the area of interest, and the DNA polymerase replicates the DNA downstream of the primers. By using a heat resistant polymerase from an Archaea species that lives at high temperatures, it is possible to rapidly cycle this process, doubling the amount of desired segment of DNA each time.
-				- 具体可以看这个 [演示](http://www.sumanasinc.com/webcontent/animations/content/pcr.html)
-			- In order to use PCR for genome mapping and sequencing, a collection of unique (short) sequences spread throughout the genome must be identified for use as primers. The primer sequences must be unique in the genome so that the source of amplified DNA is unambiguous, and they have to be relatively short so that they are easy to synthesize. The sites in the genome that correspond to these primer sequences are called **sequence tagged sites** or **STSs**. The more STSs that are known, the finer grained the map of the genome they provide.
+
+The existence of several different kinds of restriction enzymes makes possible a molecular method of creating genetic maps. 
+
+- The application of each restriction enzyme (the process is called a **digest**) creates a different collection of **restriction fragments** (the cut up pieces of DNA). By using gel electrophoresis, it is possible to determine the size of these fragments. Using multiple enzymes, together and separately, results in sets of fragments which can be (partially) ordered with respect to each other, resulting in a genetic map. AI techniques for reasoning about partial orders have been effectively applied to the problem of assembling the fragments into a map.
+- Restriction fragment mapping becomes problematic when applied to large stretches of DNA, because the enzymes can produce many pieces of about the same size, making the map ambiguous. The use of different enzymes can help address this problem to a limited degree, but a variety of other techniques are now also used:
+	- **Contigs** + **Cosmids**:
+		- contig: 叠连群, A set of overlapping DNA segments, derived from a single source of genetic material, from which the complete sequence may be deduced.
+		- cosmid: 黏粒, A plasmid into which a short nucleotide sequence of a bacteriophage has been inserted to create a vector capable of cloning large fragments of DNA
+	- **PCR**: polymerase chain reaction
+		- PCR exponentially **amplifies** (makes copies of) a segment of a DNA molecule, given a unique pair of sequences that bracket the desired piece.
+			- 这个 unique pair of sequences that bracket the desired piece 我们称为 **primer**
+			- 从种类上来说，primer 属于 oligonucleotide
+				- **oligonucleotide**: [ˌoʊlɪgoʊ'nu:kli:ətaɪd], 寡核苷酸, 是一类只有20个以下碱基的短链核苷酸的总称, or oligo for short (oligomer 是低聚物).
+		- The primers, the target DNA and the enzyme DNA polymerase are then combined. The mixture is heated, so that the hydrogen bonds in the target DNA break and the molecule splits into two single strands. When the mixture cools sufficiently, the primers bond to the regions around the area of interest, and the DNA polymerase replicates the DNA downstream of the primers. By using a heat resistant polymerase from an Archaea species that lives at high temperatures, it is possible to rapidly cycle this process, doubling the amount of desired segment of DNA each time.
+			- 具体可以看这个 [演示](http://www.sumanasinc.com/webcontent/animations/content/pcr.html)
+		- In order to use PCR for genome mapping and sequencing, a collection of unique (short) sequences spread throughout the genome must be identified for use as primers. The primer sequences must be unique in the genome so that the source of amplified DNA is unambiguous, and they have to be relatively short so that they are easy to synthesize. The sites in the genome that correspond to these primer sequences are called **sequence tagged sites** or **STSs**. The more STSs that are known, the finer grained the map of the genome they provide.
 
 ### Crystallography ([ˌkrɪstəˈlɔ:grəfi], 晶体学) and NMR (nuclear magnetic resonance)
 
