@@ -165,9 +165,11 @@ The twenty naturally occuring amino acids all have the common elements shown in 
 
 Exactly how the properties of the amino acids in the primary structure of a protein interact to determine the protein’s ultimate conformation remains unknown. The chemical properties of the individual amino acids, however, are known with great precision. These properties form the basis for many representations of amino acids, e.g. in programs attempting to predict structure from sequence. Here is a brief summary of some of them:
 
-#### _Glycine_: ['glaɪsi:n], 甘氨酸
+#### 4.2.1 Glycine is the simplest amino acid
 
-Glycine is the simplest amino acid: 
+- _Glycine_: ['glaɪsi:n], 甘氨酸
+
+Glycine is the simplest amino acid:
 	
 - Its sidechain is a single hydrogen atom. 
 - It is nonpolar, and does not ionize easily.
@@ -176,11 +178,16 @@ Glycine is the simplest amino acid:
 
 Another important characteristic of glycine is that as a result of having no heavy (i.e. non-hydrogen) atoms in its sidechain, it is very flexible. That flexibility can give rise to unusual kinks in the folded protein.
 
-#### _Alanine_: ['æləni:n], 丙氨酸
+#### 4.2.2 Alanine is also simple
 
-Alanine is also small and simple; its sidechain is just a methyl (['meθɪl] or ['meθəl], 甲基) group (consisting of a carbon and three hydrogen atoms).
+- _Alanine_: ['æləni:n], 丙氨酸
 
-Alanine is one of the most commonly appearing amino acids.
+Alanine is also small and simple: 
+
+- Its sidechain is just a methyl (['meθɪl] or ['meθəl], 甲基) group (consisting of a carbon and three hydrogen atoms).
+- Alanine is one of the most commonly appearing amino acids.
+
+#### 4.2.3 Animo acids with aliphatic sidechains
 
 Glycine and alanine’s sidechains are **aliphatic** ([ˌælə'fætɪk], 脂肪族的), which means that they are straight chains (no loops) containing only carbon and hydrogen atoms. 
 
@@ -190,7 +197,9 @@ Glycine and alanine’s sidechains are **aliphatic** ([ˌælə'fætɪk], 脂肪�
 	- _isoleucine_: [ˌaɪsə'lu:ˌsi:n], 异亮氨酸
 - The longer aliphatic sidechains are hydrophobic ([ˌhaɪdrə'fəʊbɪk]). Hydrophobicity ([haɪdrəfəʊ'bɪsɪtɪ]) is one of the key factors that determines how the chain of amino acids will fold up into an active protein. Hydrophobic residues tend to come together to form compact core that exclude water. Because the environment inside cells is aqueous ([ˈeɪkwiəs], primarily water), these hydrophobic residues will tend to be on the inside of a protein, rather than on its surface.
 
-#### In contrast to alanine and glycine, the sidechains of amino acids _phenylalanine_, _tyrosine_ and _tryptophan_ are quite large.
+#### 4.2.4 Amino acids with large sidechains
+
+In contrast to alanine and glycine, the sidechains of amino acids _phenylalanine_, _tyrosine_ and _tryptophan_ are quite large.
 
 - _phenylalanine_: [fenɪ'læləni:n], 苯(基)丙氨酸
 - _tyrosine_: ['taɪrəˌsi:n], 酪氨酸
@@ -209,7 +218,9 @@ Serine and threonine also contain hydroxyl groups, but do not have rings.
 - _serine_: ['seri:n], 丝氨酸
 - _threonine_: ['θri:əˌni:n], 苏氨酸
 
-#### Another feature of importance in amino acids is whether they ionize to form charged groups. 
+#### 4.2.5 Ionization 
+
+Another feature of importance in amino acids is whether they ionize to form charged groups. 
 	
 Residues that ionize are characterized by their _pK_, which indicates at what _pH_ (level of acidity) half of the molecules of that amino acid will have ionized. 
 
@@ -223,7 +234,9 @@ Arginine and lysine have high _pK_’s (that is, they ionize in basic environmen
 
 Since like charges repel and opposites attract, charge is an important feature in predicting protein conformation. Most of the charged residues in a protein will be found at its surface, although some will form bonds with each other on the inside of the molecule (called _salt-bridges_) which can provide strong constraints on the ultimate folded form.
 
-#### Cysteine and methionine have hydrophobic sidechains that contain a sulphur atom, and each plays an important role in protein structure. 
+#### 4.2.6 Animo acids with hydrophobic sidechains and sulphur atoms
+
+Cysteine and methionine have hydrophobic sidechains that contain a sulphur atom, and each plays an important role in protein structure. 
 	
 - _cysteine_: ['sɪstɪn], 半胱氨酸
 - _methionine_: [me'θaɪəni:n], 蛋氨酸, 甲硫氨酸
@@ -233,7 +246,9 @@ The sulphurs make the amino acids' sidechains very reactive.
 - Cysteines can form disulphide ([daɪ'sʌlfaɪd], 二硫化物) bonds with each other; disulphide bonds often hold distant parts of a polypeptide chain near each other, constraining the folded conformation like salt bridges. For that reason, cysteines have a special role in determining the three dimensional structure of proteins. (The chapter by Holbrook, Muskal and Kim in this volume discusses the prediction of this and other folding constraints.) 
 - Methionine is also important because all eucaryotic proteins, when originally synthesized in the ribosome, start with a methionine. It is a kind of “start” signal in the genetic code. This methionine is generally removed before the protein is released into the cell, however.
 
-#### Histidine is a relatively rare amino acid, but often appears in the **active site** of an enzyme.
+#### 4.2.7 Histidine is a relatively rare amino acid
+
+But it often appears in the **active site** of an enzyme.
 
 The active site is the small portion of an enzyme that effects the target reaction, and it is the key to understanding the chemistry involved. 
 
@@ -302,7 +317,7 @@ TERM,,termination codon,
 | Xle          | J                     | Leucine or Isoleucine                                                            |                  |
 | TERM         |                       | termination codon                                                                |                  |
 
-#### Protein Structures
+#### 4.2.8 Protein Structures
 
 The genetic code specifies only the amino acid sequence of a protein. As a new protein comes off the ribosome, it folds up into the shape that gives it its biochemical function, sometimes called its **active conformation** (the same protein unfolded into some other shape is said to be denatured, which is what happens, e.g. to the white of an egg when you cook it). In the cell, this process takes a few seconds, which is a very long time for a chemical reaction. The complex structure of the ribosome may play a role in protein folding, and a few proteins need helper molecules, termed **chaperones** to fold properly.
 
