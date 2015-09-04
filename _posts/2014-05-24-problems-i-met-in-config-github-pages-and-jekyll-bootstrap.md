@@ -23,13 +23,11 @@ url | http://username.github.io | http://username.github.io/projectname，其实
 
 ## 2. username.github.io 和 username.github.com
 
-　　jekyll bootstrap 的教程 [Jekyll QuickStart](http://jekyllbootstrap.com/usage/jekyll-quick-start.html) 里用的是 username.github.com，其实这是应该原先的 User & Organization Pages 地址，见 [Should I rename <username.github.com> repositories to <username.github.io>?](https://help.github.com/articles/should-i-rename-username-github-com-repositories-to-username-github-io)，而且现在 username.github.com 会直接 redirect 到 username.github.io
+　　jekyll bootstrap 的教程 [Jekyll QuickStart](http://jekyllbootstrap.com/usage/jekyll-quick-start.html) 里用的是 username.github.com，其实这应该是原先的 User & Organization Pages 地址，见 [Should I rename <username.github.com> repositories to <username.github.io>?](https://help.github.com/articles/should-i-rename-username-github-com-repositories-to-username-github-io)，而且现在 username.github.com 会直接 redirect 到 username.github.io
 
 ---
 
 ## 3. install jekyll
-
-　　好像很多推荐用 [RailsInstaller](http://railsinstaller.org/en) 的（比如这篇 [Github Pages极简教程](http://yanping.me/cn/blog/2012/03/18/github-pages-step-by-step/)），不会遇到我下面写的这个问题。  
 
 　　我用的是 [RubyInstaller for Windows](http://rubyinstaller.org/)，安装完之后按这篇 [Play with Jekyll ](http://blog.skydark.info/programming/2012/03/23/play-with-jekyll/) 换了 taobao 的 source（这篇写得不错，很多东西可以参考），接着安装 jekyll 就出了 `The 'fast-stemmer' native gem requires installed build tools.` 的问题，按照这篇 [Installing Jekyll on Windows](http://flatshaded.com/2013/05/installing-jekyll-on-windows/) 解决。注意 DevKit 和 RubyInstaller 都有 32-bit 和 64-bit 版本，必须配套
 
@@ -57,7 +55,7 @@ url | http://username.github.io | http://username.github.io/projectname，其实
 
 ## 7. pagination 的问题
 
-　　I just give it up.
+　　I just gave it up.
 
 　　先后试了两套页面，结构可以参考 [Jekyll Pagination - More awkward than it needs to be](http://patrick-mckinley.com/tech/jekyll-pagination.html)。但是最后的结果总是一样：本地一点问题都没有，push 上去第一页死活是空白，page2 开始又一切正常。找不出是哪里出问题。  
 
