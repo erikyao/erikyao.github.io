@@ -167,29 +167,29 @@ Exactly how the properties of the amino acids in the primary structure of a prot
 
 #### 4.2.1 Glycine is the simplest amino acid
 
-- _Glycine_: ['glaɪsi:n], 甘氨酸
+- _glycine_: ['glaɪsi:n], 甘氨酸
 
-Glycine is the simplest amino acid:
+_Glycine_ is the simplest amino acid:
 	
 - Its sidechain is a single hydrogen atom. 
 - It is nonpolar, and does not ionize easily.
 	- The **polarity** (极性) of a molecule refers to the degree that its electrons are distributed asymmetrically. A nonpolar molecule has a relatively even distribution of charge. 
 	- **Ionization** (电离) is the process that causes a molecule to gain or lose an electron, and hence become charged overall. The distribution of charge has a strong effect on the behavior of a molecule (e.g. like charges repel).
 
-Another important characteristic of glycine is that as a result of having no heavy (i.e. non-hydrogen) atoms in its sidechain, it is very flexible. That flexibility can give rise to unusual kinks in the folded protein.
+Another important characteristic of _glycine_ is that as a result of having no heavy (i.e. non-hydrogen) atoms in its sidechain, it is very flexible. That flexibility can give rise to unusual kinks (A tight curl, twist, or bend) in the folded protein.
 
 #### 4.2.2 Alanine is also simple
 
-- _Alanine_: ['æləni:n], 丙氨酸
+- _alanine_: ['æləni:n], 丙氨酸
 
-Alanine is also small and simple: 
+_Alanine_ is also small and simple: 
 
 - Its sidechain is just a methyl (['meθɪl] or ['meθəl], 甲基) group (consisting of a carbon and three hydrogen atoms).
-- Alanine is one of the most commonly appearing amino acids.
+- _Alanine_ is one of the most commonly appearing amino acids.
 
 #### 4.2.3 Animo acids with aliphatic sidechains
 
-Glycine and alanine’s sidechains are **aliphatic** ([ˌælə'fætɪk], 脂肪族的), which means that they are straight chains (no loops) containing only carbon and hydrogen atoms. 
+_Glycine_ and _alanine_’s sidechains are **aliphatic** ([ˌælə'fætɪk], 脂肪族的), which means that they are straight chains (no loops) containing only carbon and hydrogen atoms. 
 
 - There are three other aliphatic amino acids: 
 	- _valine_: ['væli:n], 缬氨酸
@@ -199,7 +199,7 @@ Glycine and alanine’s sidechains are **aliphatic** ([ˌælə'fætɪk], 脂肪�
 
 #### 4.2.4 Amino acids with large sidechains
 
-In contrast to alanine and glycine, the sidechains of amino acids _phenylalanine_, _tyrosine_ and _tryptophan_ are quite large.
+In contrast to _alanine_ and _glycine_, the sidechains of amino acids _phenylalanine_, _tyrosine_ and _tryptophan_ are quite large.
 
 - _phenylalanine_: [fenɪ'læləni:n], 苯(基)丙氨酸
 - _tyrosine_: ['taɪrəˌsi:n], 酪氨酸
@@ -209,11 +209,11 @@ Size matters in protein folding because atoms resist being too close to one anot
 
 These sidechains are also **aromatic** ([ˌærəˈmætɪk], 芳香族的), meaning that they form closed rings of carbon atoms with alternating double bonds (like the simple molecule benzene, [ˈbenzi:n], 苯). These rings are large and inflexible. 
 
-Phenylalanine and tryptophan are also hydrophobic. Tyrosine has a hydroxyl ([haɪ'drɒksɪl], 羟基) group (an OH at the end of the ring), and is therefore more reactive than the other sidechains mentioned so far, and less hydrophobic. 
+_Phenylalanine_ and _tryptophan_ are also hydrophobic. _Tyrosine_ has a hydroxyl ([haɪ'drɒksɪl], 羟基) group (an OH at the end of the ring), and is therefore more reactive than the other sidechains mentioned so far, and less hydrophobic. 
 
 These large amino acids appear less often than would be expected if proteins were composed randomly. 
 
-Serine and threonine also contain hydroxyl groups, but do not have rings.
+_Serine_ and _threonine_ also contain hydroxyl groups, but do not have rings.
 
 - _serine_: ['seri:n], 丝氨酸
 - _threonine_: ['θri:əˌni:n], 苏氨酸
@@ -232,29 +232,29 @@ Arginine and lysine have high _pK_’s (that is, they ionize in basic environmen
 - _glutamic acid_: [ɡlu:ˈtæmik], 谷氨酸
 - _aspartic acid_: [əˈspɑ:tɪk], 天(门)冬氨酸
 
-Since like charges repel and opposites attract, charge is an important feature in predicting protein conformation. Most of the charged residues in a protein will be found at its surface, although some will form bonds with each other on the inside of the molecule (called _salt-bridges_) which can provide strong constraints on the ultimate folded form.
+Since like charges repel and opposites attract, charge is an important feature in predicting protein conformation. Most of the charged residues in a protein will be found at its surface, although some will form bonds with each other on the inside of the molecule (called **salt-bridges**) which can provide strong constraints on the ultimate folded form.
 
 #### 4.2.6 Animo acids with hydrophobic sidechains and sulphur atoms
 
-Cysteine and methionine have hydrophobic sidechains that contain a sulphur atom, and each plays an important role in protein structure. 
+_Cysteine_ and _methionine_ have hydrophobic sidechains that contain a sulphur atom, and each plays an important role in protein structure. 
 	
 - _cysteine_: ['sɪstɪn], 半胱氨酸
 - _methionine_: [me'θaɪəni:n], 蛋氨酸, 甲硫氨酸
 
 The sulphurs make the amino acids' sidechains very reactive. 
 	
-- Cysteines can form disulphide ([daɪ'sʌlfaɪd], 二硫化物) bonds with each other; disulphide bonds often hold distant parts of a polypeptide chain near each other, constraining the folded conformation like salt bridges. For that reason, cysteines have a special role in determining the three dimensional structure of proteins. (The chapter by Holbrook, Muskal and Kim in this volume discusses the prediction of this and other folding constraints.) 
-- Methionine is also important because all eucaryotic proteins, when originally synthesized in the ribosome, start with a methionine. It is a kind of “start” signal in the genetic code. This methionine is generally removed before the protein is released into the cell, however.
+- _Cysteines_ can form disulphide ([daɪ'sʌlfaɪd], 二硫化物) bonds with each other; disulphide bonds often hold distant parts of a polypeptide chain near each other, constraining the folded conformation like salt bridges. For that reason, _cysteines_ have a special role in determining the three dimensional structure of proteins. (The chapter by Holbrook, Muskal and Kim in this volume discusses the prediction of this and other folding constraints.) 
+- _Methionine_ is also important because all eucaryotic proteins, when originally synthesized in the ribosome, start with a _methionine_. It is a kind of “start” signal in the genetic code. This methionine is generally removed before the protein is released into the cell, however.
 
-#### 4.2.7 Histidine is a relatively rare amino acid
+#### 4.2.7 Animo acids in enzymes
 
-But it often appears in the **active site** of an enzyme.
+_Histidine_ is a relatively rare amino acid, but it often appears in the **active site** of an .
 
 The active site is the small portion of an enzyme that effects the target reaction, and it is the key to understanding the chemistry involved. 
 
 The rest of the enzyme provides the necessary scaffolding to bring the active site to bear in the right place, and to keep it away from bonds that it might do harm to. 
 		
-- Other regions of enzymes can also act as a switch, turning the active site on and off in a process called **allosteric control**. Because histidine’s _pK_ is near the typical _pH_ of a cell, it is possible for small, local changes in the chemical environment to flip it back and forth between being charged and not charged. This ability to flip between states makes it useful for catalyzing chemical reactions. Other charged residues also sometimes play a similar role in catalysis.
+Other regions of enzymes can also act as a switch, turning the active site on and off in a process called **allosteric control**. Because _histidine_’s _pK_ is near the typical _pH_ of a cell, it is possible for small, local changes in the chemical environment to flip it back and forth between being charged and not charged. This ability to flip between states makes it useful for catalyzing chemical reactions. Other charged residues also sometimes play a similar role in catalysis.
 		
 <!--
 Abbreviation,1 letter abbreviation,[Amino acid](https://en.wikipedia.org/wiki/Proteinogenic_amino_acid) name, Chinese name
@@ -331,9 +331,11 @@ The genetic code specifies only the amino acid sequence of a protein. As a new p
 			- \\( \beta \\)-sheets can be composed of strands running in the same direction (called a parallel \\( \beta \\)-sheet) or running in the opposite direction (antiparallel). 
 	- Other kinds of secondary structure include structures that are even more tightly packed than \\( \alpha \\)-helices called \\( 3-10 \\) helices, and a variety of small structures that link other structures, called \\( \beta \\)-turns.
 	- Some local combinations of secondary structures have been observed in a variety of different proteins. For example, two \\( \alpha \\)-helices linked by a turn with an approximately 60° angle have been observed in a variety of proteins that bind to DNA. This pattern is called the **helix-turn-helix** motif, and is an example of what is known as super-secondary structure.	
-- Finally, some proteins only become functional when assembled with other molecules. Additions necessary to make the folded protein active are termed the protein’s quaternary structure.
-	- Some proteins bind to copies of themselves; for example, some DNA-binding proteins only function as dimers (linked pairs). 
-	- Other proteins require prosthetic groups such as heme or chlorophyl. 
+
+Finally, some proteins only become functional when assembled with other molecules. Additions necessary to make the folded protein active are termed the protein’s quaternary structure.
+
+- Some proteins bind to copies of themselves; for example, some DNA-binding proteins only function as dimers (linked pairs). 
+- Other proteins require prosthetic groups such as heme or chlorophyl. 
 	
 ### 4.3 Nucleic Acids
 
@@ -438,7 +440,9 @@ The purpose of this section is to describe some of the basic experimental method
 
 The following six organisms form the main collection of models used in molecular biology:
 
-#### E. coli: Escherichia coli, [ˌeʃəˈrikiə] ['kəʊlaɪ], 大肠杆菌
+#### E. coli
+
+- Escherichia coli: [ˌeʃəˈrikiə] ['kəʊlaɪ], 大肠杆菌
 	
 Because it is a relatively simple organism with fast reproduction time and is safe and easy to work with, E. coli has been the focus of a great deal of research in genetics and molecular biology of the cell. Although it is a Bacterium, many of the basic biochemical mechanisms of E. coli are shared by humans.
 
@@ -452,13 +456,17 @@ Unlike the bacterium E. coli, yeasts are eucaryotes, with a cell nucleus, mitoch
 
 One of the crucial steps in sequencing large amounts of DNA is to be able to prepare many copies of moderate sized pieces of DNA. An widely used method for doing this is the **yeast artificial chromosome** (or YAC).
 
-#### Arabidopsis, [əræ'bɪdɒpsɪs], 拟南芥
+#### Arabidopsis
+
+- Arabidopsis: [əræ'bɪdɒpsɪs], 拟南芥
 
 Arabidopsis makes a good model because it undergoes the same processes of growth, development, flowering and reproduction as most higher plants, but it’s genome has 30 times less DNA than corn, and very little repetitive DNA. 
 
 It also produces lots of seeds, and takes only about six weeks to grow to maturity.
 
-#### C. elegans: Caenorhabditis elegans, [ˌseɪnɵræbˈdɪtɪs ˈɛlɛɡænz], 秀丽隐杆线虫
+#### C. elegans
+
+- Caenorhabditis elegans: [ˌseɪnɵræbˈdɪtɪs ˈɛlɛɡænz], 秀丽隐杆线虫
 
 The adult organism has exactly 959 cells, and every normal worm consists of exactly the same collection of cells in the same places doing the same thing. 
 
@@ -466,11 +474,15 @@ It is one of the simplest creatures with a nervous system (which involves about 
 
 Not only is the complete anatomy of the organism known, but a complete cell fate map has been generated, tracing the developmental lineage of each of each cell throughout the lifespan of the organism.
 
-#### D. melanogaster: Drosophila melanogaster, [drɒˈsɒfɪlə] [mɛ.ɫa.nɔˈɡas.tɛr], i.e. common fruit fly
+#### D. melanogaster, i.e. common fruit fly
+
+- Drosophila melanogaster: [drɒˈsɒfɪlə] [mɛ.ɫa.nɔˈɡas.tɛr]
 
 These flies have short generation times, and many different genetically determined morphological characteristics (e.g. eye color) that can readily be determined by visual inspection.
 
-#### M. musculus: Mus musculus, [mʌsk'jʊləs], i.e. house mouse
+#### M. musculus, i.e. house mouse
+
+- Mus musculus: [mʌsk'jʊləs], 
 
 Mice are mammals, and, as far as biochemistry is concerned, are practically identical to people. Many questions about physiology, reproduction, functioning of the immune and nervous systems and other areas of interest can only be addressed by examining creatures that are very similar to humans; mice nearly always fit the bill. 
 
