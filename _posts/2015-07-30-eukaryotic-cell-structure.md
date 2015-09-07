@@ -19,14 +19,16 @@ tags: [Biology-101]
 			- cytosol (细胞液): ['saɪtəʊsɒl]
 			- vesicle (细胞囊): [ˈvesɪkl]
 			- organelle (细胞器): [ˌɔ:gə'nel], including:
-				- ribosome (核糖体): ['raɪbəsəʊm]
-				- mitochondrion / mitochondria (线粒体): [ˌmaɪtəʊˈkɒndriən] / [ˌmaɪtəʊ'kɒndrɪə]
+				- ribosome (核糖体): ['raɪbəsəʊm], an organelle that process the cell's genetic instructions to create proteins (mRNA binds to ribosomes; ribosomes 根据 mRNA 来生产 protein, i.e. translating). These organelles can float freely in the cytoplasm or be connected to the endoplasmic reticulum.
+				- mitochondrion / mitochondria (线粒体): [ˌmaɪtəʊˈkɒndriən] / [ˌmaɪtəʊ'kɒndrɪə]. Mitochondria are complex organelles that convert energy from food into a form that the cell can use. They have their own genetic material, separate from the DNA in the nucleus, and can make copies of themselves.
 				- chloroplast (叶绿体): [ˈklɒrəplɑ:st]
 				- endoplasmic reticulum (内质网): [ˌendə'plazmɪk] [rɪ'tɪkjʊləm], 缩写为 ER。A network of membranous tubules (['tju:bju:l], 小管) within the cytoplasm of a eukaryotic cell, continuous with the nuclear membrane. It usually has ribosomes attached and is involved in protein and lipid synthesis. There are 2 kinds of them:
 					- Rough ER
 					- Smooth ER
-				- Golgi apparatus (高尔基体): [ˈɡɔ:ldʒi] [ˌæpəˈreɪtəs]
+				- Golgi apparatus (高尔基体): [ˈɡɔ:ldʒi] [ˌæpəˈreɪtəs], packages molecules processed by the endoplasmic reticulum to be transported out of the cell.
 				- lysosome (溶酶体): ['laɪsəsəʊm], an organelle found in all types of animal cells which contains a large range of digestive enzymes capable of splitting most biological macromolecules (including proteins)
+				- peroxisome (过氧化物酶体): [pə'rɒksɪsəʊm], a cytoplasmic cell organelle containing enzymes (as catalase) which act in oxidative reactions and especially in the production and decomposition of hydrogen peroxide (过氧化氢, i.e. 双氧水)
+					- Lysosomes and peroxisomes are the recycling center of the cell. They digest foreign bacteria that invade the cell, rid the cell of toxic substances, and recycle worn-out cell components.
 	- **Nucleus / Nuclei** (细胞核): [ˈnju:kliəs] / ['nju:klɪaɪ]
 		- nuclear envelope and pores (核膜与核孔)
 			- pore (毛孔): a tiny opening in the skin
