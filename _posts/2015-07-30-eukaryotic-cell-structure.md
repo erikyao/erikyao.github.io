@@ -20,7 +20,7 @@ tags: [Biology-101]
 			- vesicle (细胞囊): [ˈvesɪkl]
 			- organelle (细胞器): [ˌɔ:gə'nel], including:
 				- ribosome (核糖体): ['raɪbəsəʊm], an organelle that process the cell's genetic instructions to create proteins (mRNA binds to ribosomes; ribosomes 根据 mRNA 来生产 protein, i.e. translating). These organelles can float freely in the cytoplasm or be connected to the endoplasmic reticulum.
-				- mitochondrion / mitochondria (线粒体): [ˌmaɪtəʊˈkɒndriən] / [ˌmaɪtəʊ'kɒndrɪə]. Mitochondria are complex organelles that convert energy from food into a form that the cell can use. They have their own genetic material, separate from the DNA in the nucleus, and can make copies of themselves.
+				- mitochondrion / mitochondria (线粒体): [ˌmaɪtəʊˈkɒndriən] / [ˌmaɪtəʊ'kɒndrɪə]. Mitochondria are complex organelles that convert energy from food into a form that the cell can use. They have their own genetic material (mitochondrial DNA or mtDNA), separate from the DNA in the nucleus, and can make copies of themselves.
 				- chloroplast (叶绿体): [ˈklɒrəplɑ:st]
 				- endoplasmic reticulum (内质网): [ˌendə'plazmɪk] [rɪ'tɪkjʊləm], 缩写为 ER。A network of membranous tubules (['tju:bju:l], 小管) within the cytoplasm of a eukaryotic cell, continuous with the nuclear membrane. It usually has ribosomes attached and is involved in protein and lipid synthesis. There are 2 kinds of them:
 					- Rough ER
