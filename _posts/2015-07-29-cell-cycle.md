@@ -15,6 +15,7 @@ tags: [Biology-101]
 - [Wikipedia - Mitosis](https://en.wikipedia.org/wiki/Mitosis)
 - [Wikipedia - 有丝分裂](https://zh.wikipedia.org/wiki/%E6%9C%89%E7%B5%B2%E5%88%86%E8%A3%82)
 - [The Cell: A Molecular Approach. 2nd edition.](http://www.ncbi.nlm.nih.gov/books/NBK9876/)
+- [Genetic Home Reference - Handbook](http://ghr.nlm.nih.gov/handbook)
 
 -----
 
@@ -46,4 +47,10 @@ tags: [Biology-101]
 - The division of somatic cells and single celled organisms results in the production of two identical **daughter cells**.
 - The word "post-mitotic" is sometimes used to refer to both quiescent and senescent cells. 不一定就是指 \\( G\_0 \\)。
 
-![](https://byfiles.storage.live.com/y3pcYFWk2tK6Mrd12r4LwzpFpwGrhtF0aohnFxpvZdjFdBrzQ0M6QJg_pbESKSLKz-jyX4e2-K9MumNEpfF6xbQniOmbN_Z_1itDBoch32GwR7W-dwCfIzxgKkgGUUAQCwzURNEOSfXtop6yJlE1v4QZg/Schematic-of-the-cell-cycle.png?psid=1&width=324&height=410&cropMode=center)
+->![](https://byfiles.storage.live.com/y3pcYFWk2tK6Mrd12r4LwzpFpwGrhtF0aohnFxpvZdjFdBrzQ0M6QJg_pbESKSLKz-jyX4e2-K9MumNEpfF6xbQniOmbN_Z_1itDBoch32GwR7W-dwCfIzxgKkgGUUAQCwzURNEOSfXtop6yJlE1v4QZg/Schematic-of-the-cell-cycle.png?psid=1&width=324&height=410&cropMode=center)<-
+
+The cycle has checkpoints (also called restriction points), which allow certain genes to check for mistakes and halt the cycle for repairs if something goes wrong.
+
+If a cell has an error in its DNA that cannot be repaired, it may undergo programmed cell death (apoptosis). Apoptosis is a common process throughout life that helps the body get rid of cells it doesn’t need. Cells that undergo apoptosis break apart and are recycled by a type of white blood cell called a macrophage. Apoptosis protects the body by removing genetically damaged cells that could lead to cancer, and it plays an important role in the development of the embryo and the maintenance of adult tissues.
+
+Cancer results from a disruption of the normal regulation of the cell cycle. When the cycle proceeds without control, cells can divide without order and accumulate genetic defects that can lead to a cancerous tumor.
