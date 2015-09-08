@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "DSA setting in SSH at client end"
+title: "DSA setting at SSH client end"
 description: ""
 category: SSH
 tags: [Config-SSH]
@@ -11,8 +11,8 @@ I met a problem setting up SSH and git today, and I am happy to share my workaro
 
 - Background:
 	- Windows 7 Enterprise, 64-bit
-	- git version 2.5.1.windows.1 (type git --version to see your version)
-	- OpenSSH_7.1p1 (type ssh -v localhost to see your version)
+	- git version 2.5.1.windows.1 (type `git --version` to see your version)
+	- OpenSSH_7.1p1 (type `ssh -v localhost` to see your version)
 	- I have another RSA key for my github
 - Symptom:
 	- After my DSA public key was added to server end, ssh console failed my password.
