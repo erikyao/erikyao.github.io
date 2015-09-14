@@ -108,7 +108,7 @@ Mechanisms of gene regulation include:
 - Regulating the stability of mRNA molecules.
 - Regulating the rate of translation.
 
-Regulation 的执行有多种，其中一种常见的方式是：某个 protein 绑定到 DNA 的某个部位（不一定是在 gene 上面），起到类似 catalyst 的作用来控制 transcription 的进行。这些 protein 我们称为 _**Transcription Factors**_ (TF)，DNA 上 TF 绑定的位置我们称为 _**Gene control regions**_。
+Regulation 的执行有多种，其中一种常见的方式是：某个 protein 绑定到 DNA 的某个部位（不一定是在 gene 上面），然后给 polymerases 导航，让 polymerases 来控制 transcription 的进行。这些 protein 我们称为 _**Transcription Factors**_ (TF)，DNA 上 TF 绑定的位置我们称为 _**Gene control regions**_。
 
 Gene control regions 有：
 
