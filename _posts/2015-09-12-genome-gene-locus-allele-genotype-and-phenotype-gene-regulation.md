@@ -40,7 +40,7 @@ DNA 的宏观物理结构是 Chromosome (染色体)：
 		- 我们在研究单条 Chromosome 的时候仍然会使用 p-arm、q-arm 和 centromere 来细分单条 Chromosome 的结构
 - Chromosome 按功能分类可以分为 Allosome (['ælʊsəʊm], 性染色体) / Autosome (['ɔ:təsəʊm], 常染色体)
 	- 人体的 Autosome 是按长度从长到短编号的，最长的是 1 号，最短的是 22 号
-	- For a specific chromosome, say _Chromosome 18_, we can specify it by **maternal** chromosome 18 and **paternal** chromosome 18 to indicate from which parent it is inherited.
+	- For a specific chromosome, say _Chromosome 18_, we can specify it by _**maternal**_ chromosome 18 and _**paternal**_ chromosome 18 to indicate from which parent it is inherited.
 	- 我自己姑且造一个记号：\\( m\_is \\) 表示 maternal chromosome \\( i \\) 的 single strand，\\( m\_is' \\) 表示 maternal chromosome \\( i \\) 的 complementary strand；同理有 \\( p\_is \\) 和 \\( p\_is' \\)
 
 DNA 的微观物理结构是 Double strands 或者叫 Double helix：
@@ -64,7 +64,7 @@ Gene: a length of DNA that codes for a specific protein
 - gene 是在单个 strand 上的，并不会跨两个 strands
 - DNA 的 double strands，每条都可能有 gene，并且是可能有多个 genes
 - 相同的 gene，可能 splicing 会有不同，导致最终的 protein 产物不同
-- gene 这一段 DNA 并不是全部都用来 express 的 (i.e. 并不是全部都是 codes for a specific protein)，只有 _**exon**_ 这一部分会最终 express 成 protein，而 **intron** 部分会被 splice 掉 (在 [Transcription](https://en.wikipedia.org/wiki/Transcription_(genetics)\) 阶段)
+- gene 这一段 DNA 并不是全部都用来 express 的 (i.e. 并不是全部都是 codes for a specific protein)，只有 _**exon**_ 这一部分会最终 express 成 protein，而 _**intron**_ 部分会被 splice 掉 (在 [Transcription](https://en.wikipedia.org/wiki/Transcription_(genetics)\) 阶段)
 	- Transcription i.e. 生成 mRNA 的阶段
 - Transcription 后的到的 mRNA 上面三个 base 一组的 genetic code 我们称为 _**codon**_。Translation 阶段就是根据 codon 来生成 amino acids 并最终 synthesize 成 protein
 	- 严格来说，codon 是 RNA 的概念，intron 和 exon 是 DNA 的概念，但是 codon 也经常用在 DNA 身上。如果一定要表达 "DNA 上面三个 base 一组的 genetic code" 这个概念，你也可以用 _**triplet**_ 这个词 
@@ -79,9 +79,9 @@ _**Each person has the same set of genes**_ - about 20,000 in all. The differenc
 
 A _**locus**_ is the specific physical location of a gene or other DNA sequence on a chromosome, like a genetic street address.
 
-从上面两端来看，gene 更像是一个 "表示位置" 的、universal 的概念，类似 locus。比如假定 7 号 chromosome 的 \\( s\_{100~200} \\) 是一个 gene，那么全世界所有人的 7 号 chromosome 的 \\( s\_{100~200} \\) 都是 gene，只是 expression 有差异而已。
+从上面两端来看，gene 更像是一个 "表示位置" 的、universal 的概念，类似 locus。比如假定 7 号 chromosome 的 \\( s\_{100-200} \\) 是一个 gene，那么全世界所有人的 7 号 chromosome 的 \\( s\_{100-200} \\) 都是 gene，只是 expression 有差异而已。
 
-如果我们单看一个个体，因为我们的 chromosome 是成对的，所以如果 7 号 chromosome 的 \\( s\_{100~200} \\) 是一个 gene，那么 \\( m\_7s\_{100~200} \\) 和 \\( p\_7s\_{100~200} \\) 都是 gene，这就成了 "2 versions of a gene"，换言之，2 alleles。
+如果我们单看一个个体，因为我们的 chromosome 是成对的，所以如果 7 号 chromosome 的 \\( s\_{100-200} \\) 是一个 gene，那么 \\( m\_7s\_{100-200} \\) 和 \\( p\_7s\_{100-200} \\) 都是 gene，这就成了 "2 versions of a gene"，换言之，2 alleles。
 
 Each pair of alleles represents the _**genotype**_ of a specific gene. Genotypes are described 
 
@@ -121,4 +121,4 @@ Gene control regions 有：
 - _**Silencers**_: There are many positions in which a silencer element can be located in DNA. The most common position is found upstream of the target gene.
 	- Some TFs (called _**repressors**_) bind to silencers and depress the rate of transcription.
 	
-另外对 Gene control regions 还有一种稍大一点的分类叫 [cis-Regulatory element](https://en.wikipedia.org/wiki/Cis-Regulatory_element)**: _**cis-regulatory elements**_ (CREs) are regions of non-coding DNA which regulate the transcription of nearby genes. The Latin prefix cis- ([sis]) translates to "on this side".
+另外对 Gene control regions 还有一种稍大一点的分类叫 [cis-Regulatory element](https://en.wikipedia.org/wiki/Cis-Regulatory_element): _**cis-regulatory elements**_ (CREs) are regions of non-coding DNA which regulate the transcription of nearby genes. The Latin prefix cis- ([sis]) translates to "on this side".
