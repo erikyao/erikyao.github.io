@@ -11,7 +11,7 @@ tags: [Biology-101]
 
 其实 Transcriptome Profiling 是个抽象的概念，而且涉及到 profiling (the act or process of learning information about someone based on what is already known)，就可以简单理解为确定某些东西的成分。
 
-[Wiki - Transcription (genetics): Measuring and detecting transcription](https://en.wikipedia.org/wiki/Transcription_(genetics)#Measuring_and_detecting_transcription) 列的这几个技术中，DNA microarrays 和 RNA-Seq 都是隶属 Transcriptome Profiling 的具体的技术。下面我们稍微说一下 RNA-Seq。
+[Wiki - Transcription (genetics): Measuring and detecting transcription](https://en.wikipedia.org/wiki/Transcription_(genetics\)#Measuring_and_detecting_transcription) 列的这几个技术中，DNA microarrays 和 RNA-Seq 都是隶属 Transcriptome Profiling 的具体的技术。下面我们稍微说一下 RNA-Seq。
 
 RNA-seq (RNA sequencing), also called whole transcriptome shotgun sequencing (WTSS), is a technology that uses the capabilities of next-generation sequencing to reveal a snapshot of RNA presence and quantity from a genome at a given moment in time. 所以明显，RNA-seq 就是给 RNA 测序用的。Transcriptome Profiling 大致也就是这样类似的功能。
 
