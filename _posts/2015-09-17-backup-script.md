@@ -144,5 +144,5 @@ done
 <pre class="prettyprint linenums">
 sudo apt-get install mailutils
 
-echo "BODY" | mail -s "SUBJECT" a "From: bot <bot@gmail.com>" toaddr@somewhere.com
+echo "BODY" | mail -s "SUBJECT" a "From: bot &lt;bot@gmail.com&gt;" toaddr@somewhere.com
 </pre>
