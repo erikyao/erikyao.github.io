@@ -146,3 +146,35 @@ sudo apt-get install mailutils
 
 echo "BODY" | mail -s "SUBJECT" a "From: bot &lt;bot@gmail.com&gt;" toaddr@somewhere.com
 </pre>
+
+## 3. Shell Techniques
+
+### 3.1 Exit code of the last command
+
+exit code 我们可以用 `echo $?` 获取，为 0 时表示 last command 执行成功；非 0 表示出了问题。
+
+<pre class="prettyprint linenums">
+my_command
+
+if [ $? -eq 0 ]
+then
+    echo "it worked"
+else
+    echo "it failed"
+fi
+</pre>
+
+或者直接一点：
+
+<pre class="prettyprint linenums">
+if my_command
+then
+    echo "it worked"
+else
+    echo "it failed"
+fi
+</pre>
+
+### 3.2 A command that always fails
+
+`false` 命令必定会失败，所以可以用来测试命令出错的情况。
