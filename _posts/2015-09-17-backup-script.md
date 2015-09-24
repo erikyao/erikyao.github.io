@@ -16,6 +16,8 @@ tags: [Shell]
 - [Shell script to send email](http://stackoverflow.com/questions/4658283/shell-script-to-send-email)
 - [does linux shell support list data structure?](http://stackoverflow.com/questions/12316167/does-linux-shell-support-list-data-structure)
 - [How set the From email address for mailx command?](http://stackoverflow.com/questions/1296979/how-set-the-from-email-address-for-mailx-command)
+- [How to mount remote Windows shares](https://wiki.centos.org/TipsAndTricks/WindowsShares)
+- [weird cron job issue](http://forums.fedoraforum.org/showthread.php?t=198661)
 
 -----
 
@@ -178,3 +180,31 @@ fi
 ### 3.2 A command that always fails
 
 `false` 命令必定会失败，所以可以用来测试命令出错的情况。
+
+## 4. Traps
+
+### 4.1 mount & /etc/fstab
+
+If you `mount.cifs` without `sudo`, you'll probably get the error log like:
+
+<pre class="prettyprint linenums">
+mount.cifs: permission denied: no match for /mnt found in /etc/fstab
+</pre>
+
+You need to add an entry in `/etc/fstab` like:
+
+<pre class="prettyprint linenums">
+# //2.2.22.223/foo /mnt cifs user,uid=1000,rw,suid,username=xxx,password=xxx,noauto 0 0
+</pre>
+
+in which, `uid=1000` is fixed and can be obtained by command `id <usename>`, and `noauto` option means you wish to manually mount it instead of getting mounted by boot automatically. For more details, see [How to mount remote Windows shares](https://wiki.centos.org/TipsAndTricks/WindowsShares).
+
+However, if put the script under `sudo crontab -e`, you don't have to bother with `/etc/fstab`.
+
+### 4.2 mount error(127): Key has expired
+
+If you run `mount.cifs` inside a cron task, you will probably get this weird error. Actually it has nothing to do with the key nor the expiration.
+
+According to [weird cron job issue](http://forums.fedoraforum.org/showthread.php?t=198661), `crontab` could not locate your commands in PATH under some conditions, so a easy solution is to use the full path of the command, like `/sbin/mount.cifs` for `mount.cifs`, in you script. 
+
+You can obtain the full paths by `whereis <command>`.
