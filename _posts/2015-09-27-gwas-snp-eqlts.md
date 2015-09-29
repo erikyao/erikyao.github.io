@@ -71,9 +71,9 @@ This challenge hinders the extraction of new biological knowledge and specific m
 	- Studies so far indicate that most of the regulatory control takes place locally, in the vicinity of genes. Numerous genes were detected to have cis eQTLs.
 	- Finding trans eQTLs has been less successful so far, mainly because interrogating the whole-genome for potential regulatory effects is a daunting statistical and computational task.
 	
-![](https://bn1304files.storage.live.com/y3pjeh3EC-FPwo9vf6ArdhZdmJ0H7ztV4bqF2V_LBRtidf-Bxjz6yJNzjEVRCrb8AA3I44pHxbNQ6Ja4Fn9DrEN1QSJMmoYRZ1tJTmTeM545sEMhUQhW4hSzpOv3McGw55X/figure-1.PNG?psid=1&width=518&height=174&cropMode=center)
+![](https://hefqzq.bn1304.livefilestore.com/y3p9K9aZ5I307k-VZVlsA5Vj68zyEJ9KuzQ0gr-qWn-e5vz0knkvsorZCSkzB9vVDnbyT6LmVlphwMa-Xx3L2sCSZivgL2IG8v9ARsiHNeix-QshC40BbAtIps8Vw5J4pAQmIzy12LSCuOgkAADwByJaQ/figure-1.PNG?psid=1)
 
-![](https://bn1304files.storage.live.com/y3pc8uc3PPwLE73BUSlgvqUD-cFn4ogp44C_l0WCmOi_xHHdloqWqM8zFZZaoixWHiAO-_5oxB7Vh-IjcJU7lO3H_Bt5AiRu92bsG7tLitt1KPaOEHCpYuKV35zxrj5WgGA/figure-2.PNG?psid=1&width=518&height=217&cropMode=center)
+![](https://hefqzq.bn1304.livefilestore.com/y3pObWLNBw6wpOYtwr2MytZNofhPUU6glmilDDF63PWFBFnMZPkcwzsli6us4YepDQtq6S0GhYDM2cTBVeGHmJwRub2OOYkSPe44BZL8M-MLswmFbgWx-nGrcplI1qCzPmGh3l3mYv6mkM1w0SR57VbMg/figure-2.PNG?psid=1)
 
 ## SNP 与 eQTLs 的关系
 
