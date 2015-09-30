@@ -21,6 +21,8 @@ The conditional probability of an event _B_ given that _A_ has already occurred 
 
 Notice that if _A_ and _B_ are independent, then \\( P(B|A) = \frac{P(B \cap A)}{P(A)} = \frac{P(B)P(A)}{P(A)} = P(B) \\)
 
+扩展到三个事件就是：\\( P(A,B,C) = P(A|B,C) \cdot P(B|C) \cdot P(C) \\)
+
 ## 2. Bayes' rule (a.k.a Bayes' law or Bayes' theorem)
 
 ->\\( P(B|A) = \frac{P(A|B)P(B)}{P(A|B)P(B) + P(A|B\^c)P(B\^c)} \\)<-
