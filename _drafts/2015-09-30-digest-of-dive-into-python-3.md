@@ -3,7 +3,7 @@ layout: post
 title: "Digest of <i>Dive into Python 3</i>"
 description: ""
 category: Python
-tags: [Python-101]
+tags: [Python-101, Book]
 ---
 {% include JB/setup %}
 
@@ -427,25 +427,351 @@ KeyError: 21
 
 ### 2.7. DICTIONARIES
 
+A dictionary is an unordered set of key-value pairs.
 
+<pre class="prettyprint linenums">
+# Use {} just like Sets
+&gt;&gt;&gt; a_dict = {'server': 'db.diveintopython3.org', 'database': 'mysql'} 
+&gt;&gt;&gt; a_dict
+{'server': 'db.diveintopython3.org', 'database': 'mysql'}
+&gt;&gt;&gt; a_dict['server'] 
+'db.diveintopython3.org'
+&gt;&gt;&gt; a_dict['database'] 
+'mysql'
 
+# modify the value by an existing entry
+&gt;&gt;&gt; a_dict['database'] = 'blog'
+# add a new entry
+&gt;&gt;&gt; a_dict['user'] = 'mark'
+</pre>
 
+- An empty dictionary is false. Any dictionary with at least one key-value pair is true.
 
+### 2.8. None
 
+`None` is a special constant in Python. 
 
+- It is a null value. 
+- `None` is not the same as `False`. 
+	- In a boolean context, `None` is evaluated as false and `not None` as true.
+- `None` is not 0. 
+- `None` is not an empty string. 
+- Comparing `None` to anything other than `None` will always return `False`.
+- It has its own datatype (`NoneType`). 
+- You can assign `None` to any variable, but you can not create other `NoneType` objects. 
+- All variables whose value is `None` are equal to each other.
 
+## CHAPTER 3. COMPREHENSIONS
 
+### 3.2.WORKINGWITH FILES AND DIRECTORIES
 
+Python 3 comes with a module called `os`, which stands for “operating system.” The os module contains a plethora of functions to get information on — and in some cases, to manipulate — local directories, files, processes, and environment variables. Python does its best to offer a unified API across all supported operating systems so your programs can run on any computer with as little platform-specific code as possible.
 
+<pre class="prettyprint linenums">
+&gt;&gt;&gt; import os 
 
+# 相当于 pwd 或者 cd (cd 不带参数时就相当于 pwd)
+&gt;&gt;&gt; print(os.getcwd()) 
+C:\Python31
 
+# 相当于 cd 到某个目录
+&gt;&gt;&gt; os.chdir('/Users/pilgrim/diveintopython3/examples') 
+&gt;&gt;&gt; print(os.getcwd()) 
+C:\Users\pilgrim\diveintopython3\examples
 
+# 获取 absolute path
+&gt;&gt;&gt; print(os.path.realpath('feed.xml'))
+c:\Users\pilgrim\diveintopython3\examples\feed.xml
 
+# 路径拼接
+&gt;&gt;&gt; print(os.path.join('/Users/pilgrim/diveintopython3/examples/', 'humansize.py')) 
+/Users/pilgrim/diveintopython3/examples/humansize.py
+&gt;&gt;&gt; print(os.path.join('/Users/pilgrim/diveintopython3/examples', 'humansize.py')) 
+/Users/pilgrim/diveintopython3/examples\humansize.py
+&gt;&gt;&gt; print(os.path.expanduser('~')) 
+c:\Users\pilgrim
+&gt;&gt;&gt; print(os.path.join(os.path.expanduser('~'), 'diveintopython3', 'examples', 'humansize.py')) 
+c:\Users\pilgrim\diveintopython3\examples\humansize.py
 
+# 路径拆分
+&gt;&gt;&gt; pathname = '/Users/pilgrim/diveintopython3/examples/humansize.py'
+&gt;&gt;&gt; os.path.split(pathname) 
+('/Users/pilgrim/diveintopython3/examples', 'humansize.py')
+&gt;&gt;&gt; (dirname, filename) = os.path.split(pathname) 
+&gt;&gt;&gt; dirname 
+'/Users/pilgrim/diveintopython3/examples'
+&gt;&gt;&gt; filename 
+'humansize.py'
 
+# 文件名与 extension 拆分
+&gt;&gt;&gt; (shortname, extension) = os.path.splitext(filename) 
+&gt;&gt;&gt; shortname
+'humansize'
+&gt;&gt;&gt; extension
+'.py'
+</pre>
 
+- The `os.path.expanduser()` function will expand a pathname that uses ~ to represent the current user’s home directory.
 
+The `glob` module is another tool in the Python standard library. It’s an easy way to get the contents of a directory programmatically, and it uses the sort of wildcards that you may already be familiar with from working on the command line.
 
+- glob: (programming) A limited pattern matching technique using wildcards, less powerful than a regular expression.
 
+<pre class="prettyprint linenums">
+&gt;&gt;&gt; import glob
 
+&gt;&gt;&gt; os.chdir('/Users/pilgrim/diveintopython3/')
+&gt;&gt;&gt; glob.glob('examples/*.xml') 
+['examples\\feed-broken.xml',
+'examples\\feed-ns0.xml',
+'examples\\feed.xml']
+
+&gt;&gt;&gt; os.chdir('examples/') 
+&gt;&gt;&gt; glob.glob('*test*.py') 
+['alphameticstest.py',
+'pluraltest1.py',
+'pluraltest2.py',
+'pluraltest3.py',
+'pluraltest4.py',
+'pluraltest5.py',
+'pluraltest6.py',
+'romantest1.py',
+'romantest10.py',
+'romantest2.py',
+'romantest3.py',
+'romantest4.py',
+'romantest5.py',
+'romantest6.py',
+'romantest7.py',
+'romantest8.py',
+'romantest9.py']
+</pre>
+
+Every modern file system stores metadata about each file: creation date, last-modified date, file size, and so on. Python provides a single API to access this metadata.
+
+<pre class="prettyprint linenums">
+&gt;&gt;&gt; import os
+
+&gt;&gt;&gt; print(os.getcwd()) 
+c:\Users\pilgrim\diveintopython3\examples
+&gt;&gt;&gt; metadata = os.stat('feed.xml') 
+&gt;&gt;&gt; metadata.st_mtime 
+1247520344.9537716
+
+&gt;&gt;&gt; import time 
+&gt;&gt;&gt; time.localtime(metadata.st_mtime) 
+time.struct_time(tm_year=2009, tm_mon=7, tm_mday=13, tm_hour=17,
+tm_min=25, tm_sec=44, tm_wday=0, tm_yday=194, tm_isdst=1)
+</pre>
+
+- Calling the `os.stat()` function returns an object that contains several different types of metadata about the file.
+
+### 3.3. LIST COMPREHENSIONS
+
+A list comprehension provides a compact way of mapping a list into another list by applying a function to each of the elements of the list.
+
+<pre class="prettyprint linenums">
+&gt;&gt;&gt; a_list = [1, 9, 8, 4]
+&gt;&gt;&gt; [elem * 2 for elem in a_list] 
+[2, 18, 16, 8]
+# a_list 本身并没有变
+&gt;&gt;&gt; a_list 
+[1, 9, 8, 4]
+&gt;&gt;&gt; a_list = [elem * 2 for elem in a_list] 
+&gt;&gt;&gt; a_list
+[2, 18, 16, 8]
+</pre>
+
+- A list comprehension creates a new list; it does not change the original list.
+
+<pre class="prettyprint linenums">
+&gt;&gt;&gt; import os, glob
+
+&gt;&gt;&gt; glob.glob('*.xml') 
+['feed-broken.xml', 'feed-ns0.xml', 'feed.xml']
+&gt;&gt;&gt; [os.path.realpath(f) for f in glob.glob('*.xml')] 
+['c:\\Users\\pilgrim\\diveintopython3\\examples\\feed-broken.xml',
+'c:\\Users\\pilgrim\\diveintopython3\\examples\\feed-ns0.xml',
+'c:\\Users\\pilgrim\\diveintopython3\\examples\\feed.xml']
+</pre>
+
+List comprehensions can also filter items, producing a result that can be smaller than the original list.
+
+<pre class="prettyprint linenums">
+&gt;&gt;&gt; import os, glob
+
+&gt;&gt;&gt; [f for f in glob.glob('*.py') if os.stat(f).st_size &gt; 6000] 
+['pluraltest6.py',
+'romantest10.py',
+'romantest6.py',
+'romantest7.py',
+'romantest8.py',
+'romantest9.py']
+</pre>
+
+There’s no limit to how complex a list comprehension can be.
+
+<pre class="prettyprint linenums">
+&gt;&gt;&gt; import os, glob
+&gt;&gt;&gt; [(os.stat(f).st_size, os.path.realpath(f)) for f in glob.glob('*.xml')] 
+[(3074, 'c:\\Users\\pilgrim\\diveintopython3\\examples\\feed-broken.xml'),
+(3386, 'c:\\Users\\pilgrim\\diveintopython3\\examples\\feed-ns0.xml'),
+(3070, 'c:\\Users\\pilgrim\\diveintopython3\\examples\\feed.xml')]
+
+&gt;&gt;&gt; import humansize
+&gt;&gt;&gt; [(humansize.approximate_size(os.stat(f).st_size), f) for f in glob.glob('*.xml')] 
+[('3.0 KiB', 'feed-broken.xml'),
+('3.3 KiB', 'feed-ns0.xml'),
+('3.0 KiB', 'feed.xml')]
+</pre>
+
+### 3.4. DICTIONARY COMPREHENSIONS
+
+<pre class="prettyprint linenums">
+&gt;&gt;&gt; import os, glob
+
+# This is a list comprehension
+&gt;&gt;&gt; metadata = [(f, os.stat(f)) for f in glob.glob('*test*.py')] 
+&gt;&gt;&gt; metadata[0] 
+('alphameticstest.py', nt.stat_result(st_mode=33206, st_ino=0, st_dev=0,
+st_nlink=0, st_uid=0, st_gid=0, st_size=2509, st_atime=1247520344,
+st_mtime=1247520344, st_ctime=1247520344))
+
+# This is a dictionary comprehension
+&gt;&gt;&gt; metadata_dict = {f:os.stat(f) for f in glob.glob('*test*.py')} 
+&gt;&gt;&gt; type(metadata_dict) 
+&lt;class 'dict'&gt;
+&gt;&gt;&gt; list(metadata_dict.keys()) 
+['romantest8.py', 'pluraltest1.py', 'pluraltest2.py', 'pluraltest5.py',
+'pluraltest6.py', 'romantest7.py', 'romantest10.py', 'romantest4.py',
+'romantest9.py', 'pluraltest3.py', 'romantest1.py', 'romantest2.py',
+'romantest3.py', 'romantest5.py', 'romantest6.py', 'alphameticstest.py',
+'pluraltest4.py']
+&gt;&gt;&gt; metadata_dict['alphameticstest.py'].st_size 
+2509
+</pre>
+
+- The syntax is similar to a list comprehension, with two differences. 
+	- First, it is enclosed in curly braces `{}` instead of square brackets `[]`. 
+	- Second, instead of a single expression for each item, it contains two expressions separated by a colon `:`. 
+		- The expression before the colon (`f` in this example) is the dictionary key; 
+		- the expression after the colon (`os.stat(f)` in this example) is the value.
+
+Here’s a trick with dictionary comprehensions that might be useful someday: swapping the keys and values of a dictionary.
+
+<pre class="prettyprint linenums">
+&gt;&gt;&gt; a_dict = {'a': 1, 'b': 2, 'c': 3}
+&gt;&gt;&gt; {value:key for key, value in a_dict.items()}
+{1: 'a', 2: 'b', 3: 'c'}
+</pre>
+
+Of course, this only works if the values of the dictionary are immutable, like strings or tuples. If you try this with a dictionary that contains lists, it will fail most spectacularly. 
+
+### 3.5. SET COMPREHENSIONS
+
+<pre class="prettyprint linenums">
+&gt;&gt;&gt; a_set = set(range(10))
+&gt;&gt;&gt; a_set
+{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+&gt;&gt;&gt; {x ** 2 for x in a_set} 
+{0, 1, 4, 81, 64, 9, 16, 49, 25, 36}
+&gt;&gt;&gt; {x for x in a_set if x % 2 == 0} 
+{0, 8, 2, 4, 6}
+&gt;&gt;&gt; {2**x for x in range(10)} 
+{32, 1, 2, 4, 8, 64, 128, 256, 16, 512}
+</pre>
+
+## CHAPTER 4. STRINGS
+
+### 4.1. SOME BORING STUFF YOU NEED TO UNDERSTAND BEFORE YOU CAN DIVE IN
+
+科普向。写得很好。
+
+### 4.2. UNICODE
+
+科普向。写得很好。
+
+### 4.3. DIVING IN
+
+In Python 3, all strings are sequences of Unicode characters. There is no such thing as a Python string encoded in UTF-8, or a Python string encoded as CP-1252. “Is this string UTF-8 ?” is an invalid question. UTF-8 is a way of encoding characters as a sequence of bytes. Bytes are not characters; bytes are bytes. Characters are an abstraction. A string is a sequence of those abstractions.
+
+To create a string, enclose it in quotes. Python strings can be defined with either single quotes (`'`) or double quotes (`"`).
+
+<pre class="prettyprint linenums">
+&gt;&gt;&gt; s = '深入 Python' 
+&gt;&gt;&gt; len(s) 
+9
+&gt;&gt;&gt; s[0] 
+'深'
+&gt;&gt;&gt; s + ' 3' 
+'深入 Python 3'
+</pre>
+
+### 4.4. FORMATTING STRINGS
+
+Let’s take another look at humansize.py:
+
+<pre class="prettyprint linenums">
+	......
+    if size < multiple:
+        return '{0:.1f} {1}'.format(size, suffix)
+	......
+</pre>
+
+Python 3 supports formatting values into strings. Although this can include very complicated expressions, the most basic usage is to insert a value into a string with a single placeholder.
+
+<pre class="prettyprint linenums">
+&gt;&gt;&gt; username = 'mark'
+&gt;&gt;&gt; password = 'PapayaWhip' 
+&gt;&gt;&gt; "{0}'s password is {1}".format(username, password) 
+"mark's password is PapayaWhip"
+</pre>
+
+- First, that’s a method call on a string literal. Strings are objects, and objects have methods. 
+- Second, the whole expression evaluates to a string. 
+- Third, `{0}` and `{1}` are replacement fields, which are replaced by the arguments passed to the `format()` method.
+
+#### 4.4.1. COMPOUND FIELD NAMES
+
+The previous example shows the simplest case, where the replacement fields are simply integers. Integer replacement fields are treated as positional indices into the argument list of the `format()` method. That means that `{0}` is replaced by the first argument (`username` in this case), `{1}` is replaced by the second argument (`password`), &c. But replacement fields are much more powerful than that.
+
+<pre class="prettyprint linenums">
+&gt;&gt;&gt; import humansize
+&gt;&gt;&gt; si_suffixes = humansize.SUFFIXES[1000] 
+&gt;&gt;&gt; si_suffixes
+['KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
+&gt;&gt;&gt; '1000{0[0]} = 1{0[1]}'.format(si_suffixes) 
+'1000KB = 1MB'
+</pre>
+
+- `{0}` would refer to the first argument passed to the `format()` method, `si_suffixes`. 
+- But `si_suffixes` is a list. So `{0[0]}` refers to the first item of the list which is the first argument passed to the `format()` method: 'KB'. 
+- Meanwhile, `{0[1]}` refers to the second item of the same list: 'MB'.
+
+What this example shows is that format specifiers can access items and properties of data structures using (almost) Python syntax. This is called **compound field names**. The following compound field names “just work”:
+
+- Passing a list, and accessing an item of the list by index (as in the previous example)
+- Passing a dictionary, and accessing a value of the dictionary by key
+- Passing a module, and accessing its variables and functions by name
+- Passing a class instance, and accessing its properties and methods by name
+- Any combination of the above
+
+Just to blow your mind, here’s an example that combines all of the above:
+
+<pre class="prettyprint linenums">
+&gt;&gt;&gt; import humansize
+&gt;&gt;&gt; import sys
+&gt;&gt;&gt; '1MB = 1000{0.modules[humansize].SUFFIXES[1000][0]}'.format(sys)
+'1MB = 1000KB'
+</pre>
+
+- The `sys` module holds information about the currently running Python instance. Since you just imported it, you can pass the `sys` module itself as an argument to the `format()` method. So the replacement field `{0}` refers to the `sys` module.
+- `sys.modules` is a dictionary of all the modules that have been imported in this Python instance. The keys are the module names as strings; the values are the module objects themselves. So the replacement field `{0.modules}` refers to the dictionary of imported modules.
+- `sys.modules['humansize']` is the `humansize` module which you just imported. The replacement field `{0.modules[humansize]}` refers to the humansize module. Note the slight difference in syntax here. In real Python code, the keys of the `sys.modules` dictionary are strings; to refer to them, you need to put quotes around the module name (e.g. 'humansize'). But within a replacement field, you skip the quotes around the dictionary key name (e.g. humansize). 
+	- To quote [PEP 3101: Advanced String Formatting](https://www.python.org/dev/peps/pep-3101/), “The rules for parsing an item key are very simple. If it starts with a digit, then it is treated as a number, otherwise it is used as a string.”
+- `sys.modules['humansize'].SUFFIXES` is the dictionary defined at the top of the `humansize` module. The replacement field `{0.modules[humansize].SUFFIXES}` refers to that dictionary.
+- `sys.modules['humansize'].SUFFIXES[1000]` is a list of `SI` suffixes: `['KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']`. So the replacement field `{0.modules[humansize].SUFFIXES[1000]}` refers to that list.
+- `sys.modules['humansize'].SUFFIXES[1000][0]` is the first item of the list of SI suffixes: 'KB'. Therefore, the complete replacement field `{0.modules[humansize].SUFFIXES[1000][0]}` is replaced by the two-character string 'KB'.
+
+#### 4.4.2. FORMAT SPECIFIERS
 
