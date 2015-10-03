@@ -775,3 +775,86 @@ Just to blow your mind, here’s an example that combines all of the above:
 
 #### 4.4.2. FORMAT SPECIFIERS
 
+But what is `{0:.1f}`? It’s two things: `{0}`, which you recognize, and `:.1f`, which defines the format specifier.
+
+Within a replacement field, a colon (`:`) marks the start of the format specifier. The format specifier `.1` means “round to the nearest tenth” (i.e. display only one digit after the decimal point). The format specifier `f` means “fixed-point number” (as opposed to exponential notation or some other decimal representation).
+
+### 4.5. OTHER COMMON STRING METHODS
+
+Let’s say you have a list of key-value pairs and you want to split them up and make a dictionary:
+
+<pre class="prettyprint linenums">
+&gt;&gt;&gt; query = 'user=pilgrim&database=master&password=PapayaWhip'
+&gt;&gt;&gt; a_list = query.split('&') 
+&gt;&gt;&gt; a_list
+['user=pilgrim', 'database=master', 'password=PapayaWhip']
+&gt;&gt;&gt; a_list_of_lists = [v.split('=', 1) for v in a_list if '=' in v] 
+&gt;&gt;&gt; a_list_of_lists
+[['user', 'pilgrim'], ['database', 'master'], ['password', 'PapayaWhip']]
+&gt;&gt;&gt; a_dict = dict(a_list_of_lists) 
+&gt;&gt;&gt; a_dict
+{'password': 'PapayaWhip', 'user': 'pilgrim', 'database': 'master'}
+</pre>
+
+### 4.6. STRINGS VS. BYTES
+
+Bytes are bytes; characters are an abstraction. An immutable sequence of Unicode characters is called a `string`. An immutable sequence of numbers-between-0-and-255 is called a `bytes` object.
+
+<pre class="prettyprint linenums">
+&gt;&gt;&gt; by = b'abcd\x65' 
+&gt;&gt;&gt; by
+b'abcde'
+&gt;&gt;&gt; type(by) 
+&lt;class 'bytes'&gt;
+&gt;&gt;&gt; by += b'\xff' 
+&gt;&gt;&gt; by # \xff 没有对应到一个 character，所以仍然显示为 \xff
+b'abcde\xff'
+&gt;&gt;&gt; by[5] 
+255
+</pre>
+
+A bytes object is immutable; you can not assign individual bytes. If you need to change individual bytes, you can convert the bytes object into a `bytearray` object. The assigned value must be an integer between 0–255.
+
+<pre class="prettyprint linenums">
+&gt;&gt;&gt; by = b'abcd\x65'
+&gt;&gt;&gt; barr = bytearray(by) 
+&gt;&gt;&gt; barr
+bytearray(b'abcde')
+&gt;&gt;&gt; barr[0] = 102 
+&gt;&gt;&gt; barr
+bytearray(b'fbcde')
+</pre>
+
+The one thing you can never do is mix bytes and strings.
+
+<pre class="prettyprint linenums">
+>>> by = b'd'
+>>> s = 'abcde'
+>>> by + s # ERROR
+
+>>> s.count(by) 				# ERROR
+>>> s.count(by.decode('ascii')) # OK
+1
+</pre>
+
+And here is the link between `string`s and `bytes`: `bytes` objects have a `decode()` method that takes a character encoding and returns a `string`, and `string`s have an `encode()` method that takes a character encoding and returns a `bytes` object.
+
+### 4.7. POSTSCRIPT: CHARACTER ENCODING OF PYTHON SOURCE CODE
+
+In Python 2, the default encoding for .py files was ASCII. In Python 3, the default encoding is UTF-8.
+
+If you would like to use a different encoding within your Python code, you can put an encoding declaration on the first line of each file. This declaration below defines a .py file to be windows-1252:
+
+<pre class="prettyprint linenums">
+# -*- coding: windows-1252 -*-
+</pre>
+
+Technically, the character encoding override can also be on the second line, if the first line is a UNIX-like hash-bang command.
+
+<pre class="prettyprint linenums">
+#!/usr/bin/python3
+# -*- coding: windows-1252 -*-
+</pre>
+
+## CHAPTER 5. REGULAR EXPRESSIONS
+
