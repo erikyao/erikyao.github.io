@@ -828,12 +828,12 @@ bytearray(b'fbcde')
 The one thing you can never do is mix bytes and strings.
 
 <pre class="prettyprint linenums">
->>> by = b'd'
->>> s = 'abcde'
->>> by + s # ERROR
+&gt;&gt;&gt; by = b'd'
+&gt;&gt;&gt; s = 'abcde'
+&gt;&gt;&gt; by + s # ERROR
 
->>> s.count(by) 				# ERROR
->>> s.count(by.decode('ascii')) # OK
+&gt;&gt;&gt; s.count(by) 				# ERROR
+&gt;&gt;&gt; s.count(by.decode('ascii')) # OK
 1
 </pre>
 
@@ -856,5 +856,67 @@ Technically, the character encoding override can also be on the second line, if 
 # -*- coding: windows-1252 -*-
 </pre>
 
-## CHAPTER 5. REGULAR EXPRESSIONS
+## CHAPTER 5. REGULAR EXPRESSIONS (略)
 
+## CHAPTER 6. CLOSURES & GENERATORS
+
+### 6.1. DIVING IN
+
+first, let’s talk about how to make plural nouns. If you grew up in an English-speaking country or learned English in a formal school setting, you’re probably familiar with the basic rules:
+
+- If a word ends in S, X, or Z, add ES. _Bass_ becomes _basses_, _fax_ becomes _faxes_, and _waltz_ becomes _waltzes_.
+- If a word ends in a noisy H, add ES; if it ends in a silent H, just add S. 
+	- What’s a noisy H? One that gets combined with other letters to make a sound that you can hear. So _coach_ becomes _coaches_ and _rash_ becomes _rashes_, because you can hear the CH and SH sounds when you say them. 
+	- But _cheetah_ becomes _cheetahs_, because the H is silent.
+- If a word ends in Y that sounds like I, change the Y to IES; if the Y is combined with a vowel to sound like something else, just add S. 		- So _vacancy_ becomes _vacancies_, but _day_ becomes _days_.
+- If all else fails, just add S and hope for the best.
+
+Let’s design a Python library that automatically pluralizes English nouns. We’ll start with just these four rules.
+
+### 6.2. I KNOW, LET’S USE REGULAR EXPRESSIONS!
+
+<pre class="prettyprint linenums">
+def plural(noun):
+    if re.search('[sxz]$', noun): 
+        return re.sub('$', 'es', noun) 
+    elif re.search('[^aeioudgkprt]h$', noun):
+        return re.sub('$', 'es', noun)
+    elif re.search('[^aeiou]y$', noun):
+        return re.sub('y$', 'ies', noun)
+    else:
+        return noun + 's'
+</pre>
+
+### 6.3. A LIST OF FUNCTIONS
+
+<pre class="prettyprint linenums">
+def match_sxz(noun):
+    return re.search('[sxz]$', noun)
+def apply_sxz(noun):
+    return re.sub('$', 'es', noun)
+def match_h(noun):
+    return re.search('[^aeioudgkprt]h$', noun)
+def apply_h(noun):
+    return re.sub('$', 'es', noun)
+def match_y(noun): 
+    return re.search('[^aeiou]y$', noun)
+def apply_y(noun): 
+    return re.sub('y$', 'ies', noun)
+def match_default(noun):
+    return True
+def apply_default(noun):
+    return noun + 's'
+
+rules = ((match_sxz, apply_sxz), 
+         (match_h, apply_h),
+         (match_y, apply_y),
+         (match_default, apply_default)
+)
+
+def plural(noun):
+    for matches_rule, apply_rule in rules:
+        if matches_rule(noun):
+            return apply_rule(noun)
+</pre>
+
+The reason this technique works is that everything in Python is an object, including functions. The rules data structure contains functions — not names of functions, but actual function objects. When they get assigned in the `for` loop, then `matches_rule` and `apply_rule` are actual functions that you can call.
