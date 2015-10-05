@@ -920,3 +920,471 @@ def plural(noun):
 </pre>
 
 The reason this technique works is that everything in Python is an object, including functions. The rules data structure contains functions — not names of functions, but actual function objects. When they get assigned in the `for` loop, then `matches_rule` and `apply_rule` are actual functions that you can call.
+
+### 6.4. A LIST OF PATTERNS
+
+Defining separate named functions for each match and apply rule isn’t really necessary. You never call them directly; you add them to the `rules` sequence and call them through there. Furthermore, each function follows one of two patterns. All the match functions call `re.search()`, and all the apply functions call `re.sub()`. Let’s factor out the patterns so that defining new rules can be easier.
+
+<pre class="prettyprint linenums">
+import re
+
+def build_match_and_apply_functions(pattern, search, replace):
+    def matches_rule(word): 
+        return re.search(pattern, word)
+    
+	def apply_rule(word): 
+        return re.sub(search, replace, word)
+
+	return (matches_rule, apply_rule)
+</pre>
+
+- This technique of using the values of outside parameters within a dynamic function is called _**closures**_. You’re essentially defining constants within the `apply_rule` function you’re building: it takes one parameter (`word`), but it then acts on that plus two other values (`search` and `replace`) which were set when you defined the apply function.
+- Finally, the `build_match_and_apply_functions()` function returns a tuple of two values: the two functions you just created. The constants you defined within those functions (`pattern` within the `matches_rule()` function, and `search` and `replace` within the `apply_rule()` function) stay with those functions, even after you return from `build_match_and_apply_functions()`.
+
+If this is incredibly confusing (and it should be, this is weird stuff), it may become clearer when you see how to use it.
+
+<pre class="prettyprint linenums">
+patterns = \ 
+    (
+        ('[sxz]$', '$', 'es'),
+        ('[^aeioudgkprt]h$', '$', 'es'),
+        ('(qu|[^aeiou])y$', 'y$', 'ies'),
+        ('$', '$', 's') 
+    )
+
+rules = [build_match_and_apply_functions(pattern, search, replace) for (pattern, search, replace) in patterns]
+</pre>
+
+- There’s a slight change here, in the fallback rule. In the previous example, the `match_default()` function simply returned `True`, meaning that if none of the more specific rules matched, the code would simply add an _s_ to the end of the given word. This example does something functionally equivalent. The final regular expression asks whether the word has an end (`$` matches the end of a string). Of course, every string has an end, even an empty string, so this expression always matches. Thus, it serves the same purpose as the `match_default()` function that always returned `True`
+
+<pre class="prettyprint linenums">
+def plural(noun):
+    for matches_rule, apply_rule in rules: 
+        if matches_rule(noun):
+            return apply_rule(noun)
+</pre>
+
+### 6.5. A FILE OF PATTERNS
+
+First, let’s create a text file that contains the rules you want. No fancy data structures, just whitespace-delimited strings in three columns. Let’s call it `plural4-rules.txt`.
+
+<pre class="prettyprint linenums">
+[sxz]$ $ es
+[^aeioudgkprt]h$ $ es
+[^aeiou]y$ y$ ies
+$ $ s
+</pre>
+
+Now let’s see how you can use this rules file.
+
+<pre class="prettyprint linenums">
+import re
+
+def build_match_and_apply_functions(pattern, search, replace):
+    def matches_rule(word):
+        return re.search(pattern, word)
+    def apply_rule(word):
+        return re.sub(search, replace, word)
+    return (matches_rule, apply_rule)
+
+rules = [] # initialized as empty
+
+with open('plural4-rules.txt', encoding='utf-8') as pattern_file: 
+    for line in pattern_file: 
+        pattern, search, replace = line.split(None, 3) 
+        rules.append(build_match_and_apply_functions(pattern, search, replace))
+</pre>
+
+- The `with` statement creates what’s called a _**context**_: when the with block ends, Python will automatically close the file, even if an exception is raised inside the with block.
+- The `for line in <fileobject>` idiom reads data from the open file, one line at a time.
+- The first argument to the `split()` method is `None`, which means “split on any whitespace (tabs or spaces, it makes no difference).” The second argument is `3`, which means “split on whitespace 3 times, then leave the rest of the line alone.”
+
+The improvement here is that you’ve completely separated the pluralization rules into an external file, so it can be maintained separately from the code that uses it. Code is code, data is data, and life is good.
+
+### 6.6. GENERATORS
+
+Let’s look at an interactive example first.
+
+<pre class="prettyprint linenums">
+&gt;&gt;&gt; def make_counter(x):
+... print('entering make_counter')
+... while True:
+...     yield x 
+...     print('incrementing x')
+...     x = x + 1
+...
+&gt;&gt;&gt; counter = make_counter(2) 
+&gt;&gt;&gt; counter 
+&lt;generator object at 0x001C9C10&gt;
+&gt;&gt;&gt; next(counter) 
+entering make_counter
+2
+&gt;&gt;&gt; next(counter) 
+incrementing x
+3
+&gt;&gt;&gt; next(counter) 
+incrementing x
+4
+</pre>
+
+- The presence of the yield keyword in `make_counter` means that this is not a normal function. It is a special kind of function which generates values one at a time. Calling it will return a _**generator**_ object that can be used to generate successive values of `x` (Note that this does not actually execute the function code).
+- The `next()` function takes a generator object and returns its next value.
+	- The first time you call `next()` with the counter generator, it executes the code in `make_counter()` up to the first `yield` statement, then returns the value that was yielded.
+	- Repeatedly calling `next()` with the same generator object resumes exactly where it left off and continues the loop until it hits the next `yield` statement. All variables, local state, &c. are saved on `yield` and restored on `next()`.
+	- 简单说就是： `yield` pauses a function; `next()` resumes where it left off.
+	
+Since `make_counter` sets up an infinite loop, you could theoretically do this forever, and it would just keep incrementing `x` and spitting out values. But let’s look at more productive uses of generators instead.
+
+#### 6.6.1. A FIBONACCI GENERATOR
+
+<pre class="prettyprint linenums">
+def fib(max):
+    a, b = 0, 1 
+    while a < max:
+        yield a 
+        a, b = b, a + b 
+</pre>
+
+<pre class="prettyprint linenums">
+&gt;&gt;&gt; from fibonacci import fib
+&gt;&gt;&gt; for n in fib(1000): 
+... print(n, end=' ') 
+0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987
+&gt;&gt;&gt; list(fib(1000)) 
+[0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987]
+</pre>
+
+#### 6.6.2. A PLURAL RULE GENERATOR
+
+<pre class="prettyprint linenums">
+def rules(rules_filename):
+    with open(rules_filename, encoding='utf-8') as pattern_file:
+        for line in pattern_file:
+            pattern, search, replace = line.split(None, 3)
+            yield build_match_and_apply_functions(pattern, search, replace)
+
+def plural(noun, rules_filename='plural5-rules.txt'):
+    for matches_rule, apply_rule in rules(rules_filename):
+        if matches_rule(noun):
+            return apply_rule(noun)
+
+	raise ValueError('no matching rule for {0}'.format(noun))
+</pre>
+
+What have you gained over stage 4? Startup time. In stage 4, when you imported the `plural4` module, it read the entire patterns file and built a list of all the possible rules, before you could even think about calling the `plural()` function. With generators, you can do everything lazily: you read the first rule and create functions and try them, and if that works you don’t ever read the rest of the file or create any other functions.
+
+What have you lost? Performance! Every time you call the `plural()` function, the `rules()` generator starts over from the beginning — which means re-opening the patterns file and reading from the beginning, one line at a time.
+
+What if you could have the best of both worlds: minimal startup cost (don’t execute any code on import)(import 后不立即 parse rules) and maximum performance (don’t build the same functions over and over again). Oh, and you still want to keep the rules in a separate file (because code is code and data is data), just as long as you never have to read the same line twice. To do that, you’ll need to build your own iterator.
+
+## CHAPTER 7. CLASSES & ITERATORS
+
+### 7.1. DIVING IN
+
+Comprehensions are just a simple form of iterators. Generators are just a simple form of iterators. A function that `yield`s values is a nice, compact way of building an iterator without building an iterator. Let me show you what I mean by that.
+
+Remember the Fibonacci generator? Here it is as a built-from-scratch iterator:
+
+<pre class="prettyprint linenums">
+class Fib:
+    '''iterator that yields numbers in the Fibonacci sequence'''
+
+	def __init__(self, max):
+        self.max = max
+
+	def __iter__(self):
+        self.a = 0
+        self.b = 1
+        return self
+
+	def __next__(self):
+        fib = self.a
+        if fib > self.max:
+            raise StopIteration
+        self.a, self.b = self.b, self.a + self.b
+        return fib
+</pre>
+
+Let’s take that one line at a time. `class Fib:`. Then what's a class?
+
+### 7.2. DEFINING CLASSES
+
+Python is fully object-oriented: you can define your own classes, inherit from your own or built-in classes, and instantiate the classes you’ve defined.
+
+<pre class="prettyprint linenums">
+class PapayaWhip: 
+    pass
+</pre>
+
+This `PapayaWhip` class doesn’t define any methods or attributes, but syntactically (of or relating to syntax), there needs to be something in the definition, thus the `pass` statement. This is a Python reserved word that just means “move along, nothing to see here”. It’s a statement that does nothing, and it’s a good placeholder when you’re stubbing out functions or classes.
+
+- The pass statement in Python is like a empty set of curly braces (`{}`) in Java or C.
+
+The `__init__()` method is called immediately after an instance of the class is created. It would be tempting — but technically incorrect — to call this the “constructor” of the class. It’s tempting, because it looks like a C++ constructor (by convention, the `__init__()` method is the first method defined for the class), acts like one (it’s the first piece of code executed in a newly created instance of the class), and even sounds like one. Incorrect, because the object has already been constructed by the time the `__init__()` method is called, and you already have a valid reference to the new instance of the class.
+
+The first argument of every class method, including the `__init__()` method, is always a reference to the current instance of the class. By convention, this argument is named `self`. This argument fills the role of the reserved word `this` in C++ or Java, but `self` is NOT a reserved word in Python, merely a naming convention. Nonetheless, please don’t call it anything but `self`; this is a very strong convention.
+
+In the `__init__()` method, `self` refers to the newly created object; in other class methods, it refers to the instance whose method was called. Although you need to specify self explicitly when defining the method, you do not specify it when calling the method; Python will add it for you automatically.
+
+### 7.3. INSTANTIATING CLASSES
+
+Instantiating classes in Python is straightforward. To instantiate a class, simply call the class as if it were a function, passing the arguments that the `__init__()` method requires. The return value will be the newly created object.
+
+Every class instance has a built-in attribute, `__class__`, which is the object’s class. Java programmers may be familiar with the `Class` class, which contains methods like `getName()` and `getSuperclass()` to get metadata information about an object. In Python, this kind of metadata is available through attributes, but the idea is the same.
+
+You can access the instance’s `docstring` just as with a function or a module, by the attribute `__doc__`. All instances of a class share the same `docstring`.
+
+### 7.4. INSTANCE VARIABLES
+
+I.e. `self.max`, like `this.foo` in Java.
+
+### 7.5. A FIBONACCI ITERATOR
+
+All three of these class methods, `__init__()`, `__iter__()`, and `__next__(0`), begin and end with a pair of underscore (`_`) characters. Why is that? There’s nothing magical about it, but it usually indicates that these are “special methods.” The only thing “special” about special methods is that they aren’t called directly; Python calls them when you use some other syntax on the class or an instance of the class.
+
+“Calling” `Fib(max)` is really creating an instance of this class and calling its` __init__()` method with `max`. The `__init__()` method saves the maximum value as an instance variable so other methods can refer to it later.
+
+The `__iter__()` method is called whenever someone calls `iter(fib)`. (As you’ll see in a minute, a for loop will call this automatically, but you can also call it yourself manually.) After performing beginning-of-iteration initialization (in this case, resetting `self.a` and `self.b`, our two counters), the `__iter__()` method can return any object that implements a `__next__()` method. In this case (and in most cases), `__iter__()` simply returns `self`, which signals that this class has a `__next__()` method.
+
+The `__next__()` method is called whenever someone calls `next()` on an iterator of an instance of a class. When the `__next__()` method raises a `StopIteration` exception, this signals to the caller that the iteration is exhausted. Unlike most exceptions, this is not an error; it’s a normal condition that just means that the iterator has no more values to generate. If the caller is a `for` loop, it will notice this `StopIteration` exception and gracefully exit the loop. (In other words, it will swallow the exception.) This little bit of magic is actually the key to using iterators in `for` loops.
+
+To spit out the next value, an iterator’s `__next__()` method simply returns the value. Do not use `yield` here; that’s a bit of syntactic sugar that only applies when you’re using generators. Here you’re creating your own iterator from scratch; use `return` instead.
+
+Let’s see how to call this iterator:
+
+<pre class="prettyprint linenums">
+&gt;&gt;&gt; from fibonacci2 import Fib
+&gt;&gt;&gt; for n in Fib(1000):
+... print(n, end=' ')
+0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987
+</pre>
+
+Here’s what happens:
+
+- The for loop calls `Fib(1000)`, as shown. This returns an instance of the `Fib` class. Call this `fib_inst`.
+- Secretly, and quite cleverly, the for loop calls iter(`fib_inst`), which returns an iterator object. Call this `fib_iter`. In this case, `fib_iter == fib_inst`, because the `__iter__()` method returns `self`, but the `for` loop doesn’t know (or care) about that.
+- To “loop through” the iterator, the `for` loop calls `next(fib_iter)`, which calls the `__next__()` method on the `fib_iter` object, which does the next-Fibonacci-number calculations and returns a value. The `for` loop takes this value and assigns it to `n`, then executes the body of the `for` loop for that value of `n`.
+
+### 7.6. A PLURAL RULE ITERATOR
+
+<pre class="prettyprint linenums">
+class LazyRules:
+    rules_filename = 'plural6-rules.txt'
+
+    def __init__(self):
+        self.pattern_file = open(self.rules_filename, encoding='utf-8')
+        self.cache = []
+
+    def __iter__(self):
+        self.cache_index = 0
+        return self
+
+    def __next__(self):
+        self.cache_index += 1
+        if len(self.cache) >= self.cache_index:
+            return self.cache[self.cache_index - 1]
+
+		if self.pattern_file.closed:
+            raise StopIteration
+
+        line = self.pattern_file.readline()
+        if not line:
+            self.pattern_file.close()
+            raise StopIteration
+
+        pattern, search, replace = line.split(None, 3)
+        funcs = build_match_and_apply_functions(pattern, search, replace)
+        self.cache.append(funcs)
+        return funcs
+
+rules = LazyRules()
+
+def plural(noun):
+    for matches_rule, apply_rule in rules:
+        if matches_rule(noun):
+            return apply_rule(noun)
+
+	raise ValueError('no matching rule for {0}'.format(noun))
+</pre>
+
+So this is a class that implements `__iter__()` and `__next__()`, so it can be used as an iterator. Then, you instantiate the class and assign it to rules. This happens just once, on import.
+
+Putting it all together, here’s what happens when:
+
+- When the module is imported, it creates a single instance of the `LazyRules` class, called `rules`, which opens the pattern file but does not read from it.
+- When asked for the first match and apply function, it checks its cache but finds the cache is empty. So it reads a single line from the pattern file, builds the `match` and `apply` functions from those patterns, and caches them.
+- Let’s say, for the sake of argument, that the very first rule matched. If so, no further `match` and `apply` functions are built, and no further lines are read from the pattern file.
+- Furthermore, for the sake of argument, suppose that the caller calls the `plural()` function again to pluralize a different word. The `for` loop in the `plural()` function will call `iter(rules)`, which will reset the cache index but will not reset the open file object.
+- The first time through, the `for` loop will ask for a value from rules, which will invoke its `__next__()` method. This time, however, the cache is primed with a single pair of `match` and `apply` functions, corresponding to the patterns in the first line of the pattern file. Since they were built and cached in the course of pluralizing the previous word, they’re retrieved from the cache. The cache index increments, and the open file is never touched.
+- Let’s say, for the sake of argument, that the first rule does not match this time around. So the `for` loop comes around again and asks for another value from rules. This invokes the `__next__()` method a second time. This time, the cache is exhausted — it only contained one item, and we’re asking for a second — so the `__next__()` method continues. It reads another line from the open file, builds match and apply functions out of the patterns, and caches them.
+- This read-build-and-cache process will continue as long as the rules being read from the pattern file don’t match the word we’re trying to pluralize. If we do find a matching rule before the end of the file, we simply use it and stop, with the file still open. The file pointer will stay wherever we stopped reading, waiting for the next `readline()` command. In the meantime, the cache now has more items in it, and if we start all over again trying to pluralize a new word, each of those items in the cache will be tried before reading the next line from the pattern file.
+
+书上还讨论了这种写法的优势（Minimal startup cost / Maximum performance / Separation of code and data）和劣势（主要是 opened file 一直悬在那里），值得一看。
+
+## CHAPTER 8. ADVANCED ITERATORS
+
+### 8.3. FINDING THE UNIQUE ITEMS IN A SEQUENCE
+
+<pre class="prettyprint linenums">
+&gt;&gt;&gt; a_list = ['The', 'sixth', 'sick', "sheik's", 'sixth', "sheep's", 'sick']
+&gt;&gt;&gt; set(a_list) 
+{'sixth', 'The', "sheep's", 'sick', "sheik's"}
+&gt;&gt;&gt; a_string = 'EAST IS EAST'
+&gt;&gt;&gt; set(a_string) 
+{'A', ' ', 'E', 'I', 'S', 'T'}
+&gt;&gt;&gt; words = ['SEND', 'MORE', 'MONEY']
+&gt;&gt;&gt; ''.join(words) 
+'SENDMOREMONEY'
+&gt;&gt;&gt; set(''.join(words)) 
+{'E', 'D', 'M', 'O', 'N', 'S', 'R', 'Y'}
+</pre>
+
+### 8.4.MAKING ASSERTIONS
+
+<pre class="prettyprint linenums">
+&gt;&gt;&gt; assert 1 + 1 == 2 
+&gt;&gt;&gt; assert 1 + 1 == 3 
+Traceback (most recent call last):
+File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+AssertionError
+&gt;&gt;&gt; assert 2 + 2 == 5, "Only for very large values of 2" 
+Traceback (most recent call last):
+File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+AssertionError: Only for very large values of 2
+</pre>
+
+Therefore, this line of code:
+
+<pre class="prettyprint linenums">
+assert len(unique_characters) &lt;= 10, 'Too many letters'
+</pre>
+
+is equivalent to this:
+
+<pre class="prettyprint linenums">
+if len(unique_characters) &gt; 10:
+    raise AssertionError('Too many letters')
+</pre>
+
+### 8.5. GENERATOR EXPRESSIONS
+
+<pre class="prettyprint linenums">
+# Generator expression
+(x*2 for x in range(256))
+
+# List comprehension
+[x*2 for x in range(256)]
+
+# Dictionary comprehension
+{x:x*2 for x in range(256)}
+
+# Set comprehension
+{x*2 for x in range(256)}
+
+# There is NO tuple comprehension
+# but you can new a tuple with a generator expression
+tuple(x*2 for x in range(256))
+</pre>
+
+`(x*2 for x in range(256))` is equal to:
+
+<pre class="prettyprint linenums">
+def times2(range):
+    for x in range:
+        yield x*2
+
+times2(range(256))
+</pre>
+
+### 8.6. CALCULATING PERMUTATIONS… THE LAZYWAY!
+
+<pre class="prettyprint linenums">
+# [1, 2, 3] 三个选两个做排列组合
+&gt;&gt;&gt; import itertools 
+&gt;&gt;&gt; perms = itertools.permutations([1, 2, 3], 2) 
+&gt;&gt;&gt; next(perms) 
+(1, 2)
+&gt;&gt;&gt; next(perms)
+(1, 3)
+&gt;&gt;&gt; next(perms)
+(2, 1) 
+&gt;&gt;&gt; next(perms)
+(2, 3)
+&gt;&gt;&gt; next(perms)
+(3, 1)
+&gt;&gt;&gt; next(perms)
+(3, 2)
+&gt;&gt;&gt; next(perms) 
+Traceback (most recent call last):
+File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+StopIteration
+</pre>
+
+The `permutations()` function doesn’t have to take a list. It can take any sequence — even a string.
+
+<pre class="prettyprint linenums">
+&gt;&gt;&gt; import itertools
+&gt;&gt;&gt; perms = itertools.permutations('ABC', 3) 
+&gt;&gt;&gt; next(perms)
+('A', 'B', 'C')
+</pre>
+
+### 8.7. OTHER FUN STUFF IN THE `itertools` MODULE
+
+<pre class="prettyprint linenums">
+&gt;&gt;&gt; import itertools
+&gt;&gt;&gt; list(itertools.product('ABC', '123')) 
+[('A', '1'), ('A', '2'), ('A', '3'),
+('B', '1'), ('B', '2'), ('B', '3'),
+('C', '1'), ('C', '2'), ('C', '3')]
+&gt;&gt;&gt; list(itertools.combinations('ABC', 2)) 
+[('A', 'B'), ('A', 'C'), ('B', 'C')]
+
+&gt;&gt;&gt; names = ['Alex', 'Anne', 'Dora', 'John', 'Mike', 'Chris', 'Ethan', 'Sarah', 'Lizzie', 'Wesley']
+&gt;&gt;&gt; groups = itertools.groupby(names, len)
+&gt;&gt;&gt; list(groups)
+[(4, &lt;itertools._grouper object at 0x00BA8BF0&gt;),
+ (5, &lt;itertools._grouper object at 0x00BB4050&gt;),
+ (6, &lt;itertools._grouper object at 0x00BB4030&gt;)]
+ 
+&gt;&gt;&gt; list(itertools.chain(range(0, 3), range(10, 13))) 
+[0, 1, 2, 10, 11, 12]
+&gt;&gt;&gt; list(zip(range(0, 3), range(10, 13))) 
+[(0, 10), (1, 11), (2, 12)]
+&gt;&gt;&gt; list(zip(range(0, 3), range(10, 14))) 
+[(0, 10), (1, 11), (2, 12)]
+&gt;&gt;&gt; list(itertools.zip_longest(range(0, 3), range(10, 14))) 
+[(0, 10), (1, 11), (2, 12), (None, 13)]
+</pre>
+
+### 8.8. A NEW KIND OF STRINGMANIPULATION
+
+<pre class="prettyprint linenums">
+&gt;&gt;&gt; translation_table = {ord('A'): ord('O')} 
+&gt;&gt;&gt; translation_table ②
+{65: 79}
+&gt;&gt;&gt; 'MARK'.translate(translation_table) 
+'MORK'
+</pre>
+
+更多内容见书上。
+
+### 8.9. EVALUATING ARBITRARY STRINGS AS PYTHON EXPRESSIONS
+
+<pre class="prettyprint linenums">
+&gt;&gt;&gt; eval('1 + 1 == 2')
+True
+&gt;&gt;&gt; eval('1 + 1 == 3')
+False
+&gt;&gt;&gt; eval('9567 + 1085 == 10652')
+True
+</pre>
+
+The `eval()` function isn’t limited to boolean expressions. It can handle any Python expression and returns any datatype.
+
+更多内容见书上。
+
+### 8.10. PUTTING IT ALL TOGETHER （略）
+
+## CHAPTER 9. UNIT TESTING
+
