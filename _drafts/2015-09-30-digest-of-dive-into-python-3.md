@@ -463,7 +463,7 @@ A dictionary is an unordered set of key-value pairs.
 
 ## CHAPTER 3. COMPREHENSIONS
 
-### 3.2.WORKINGWITH FILES AND DIRECTORIES
+### 3.2. WORKINGWITH FILES AND DIRECTORIES
 
 Python 3 comes with a module called `os`, which stands for “operating system.” The os module contains a plethora of functions to get information on — and in some cases, to manipulate — local directories, files, processes, and environment variables. Python does its best to offer a unified API across all supported operating systems so your programs can run on any computer with as little platform-specific code as possible.
 
@@ -1239,7 +1239,7 @@ Putting it all together, here’s what happens when:
 {'E', 'D', 'M', 'O', 'N', 'S', 'R', 'Y'}
 </pre>
 
-### 8.4.MAKING ASSERTIONS
+### 8.4. MAKING ASSERTIONS
 
 <pre class="prettyprint linenums">
 &gt;&gt;&gt; assert 1 + 1 == 2 
@@ -1436,7 +1436,7 @@ A unit test actually has three return values: `pass`, `fail`, and `error`.
 - `Fail` means it executed the code but the result was not what you expected. 
 - `Error` means that the code didn’t even execute properly.
 
-### 9.4.MORE HALTING,MORE FIRE
+### 9.4. MORE HALTING,MORE FIRE
 
 <pre class="prettyprint linenums">
 if not (0 < n < 4000): 
@@ -1499,11 +1499,11 @@ a_file = open('examples/chinese.txt', encoding='utf-8')
 - The directory path uses a forward slash. It just works, no matter what the OS is.
 - The above path is a relative one.
 
-### 11.2.1. CHARACTER ENCODING REARS ITS UGLY HEAD
+#### 11.2.1. CHARACTER ENCODING REARS ITS UGLY HEAD
 
 Bytes are bytes; characters are an abstraction. A string is a sequence of Unicode characters. But a file on disk is not a sequence of Unicode characters; a file on disk is a sequence of bytes. So if you read a “text file” from disk, how does Python convert that sequence of bytes into a sequence of characters? It decodes the bytes according to a specific character encoding algorithm and returns a sequence of Unicode characters (otherwise known as a string).
 
-### 11.2.2. STREAM OBJECTS
+#### 11.2.2. STREAM OBJECTS
 
 The `open()` function returns a `stream` object.
 
@@ -1516,3 +1516,99 @@ The `open()` function returns a `stream` object.
 &gt;&gt;&gt; a_file.mode
 'r'
 </pre>
+
+#### 11.2.3. READING DATA FROM A TEXT FILE
+
+<pre class="prettyprint linenums">
+&gt;&gt;&gt; a_file = open('examples/chinese.txt', encoding='utf-8')
+&gt;&gt;&gt; a_file.read() 
+'Dive Into Python 是为有经验的程序员编写的一本 Python 书。\n'
+&gt;&gt;&gt; a_file.read() 
+''
+</pre>
+
+Python does not consider reading past end-of-file to be an error; it simply returns an empty string.
+
+#### 11.2.4. CLOSING FILES
+
+<pre class="prettyprint linenums">
+&gt;&gt;&gt; a_file.close()
+&gt;&gt;&gt; a_file.closed 
+True
+</pre>
+
+#### 11.2.5. CLOSING FILES AUTOMATICALLY
+
+<pre class="prettyprint linenums">
+with open('examples/chinese.txt', encoding='utf-8') as a_file:
+    a_file.seek(17)
+    a_character = a_file.read(1)
+    print(a_character)
+</pre>
+
+This code calls `open()`, but it never calls `a_file.close()`. The `with` statement starts a code block, like an if statement or a `for` loop. Inside this code block, you can use the variable a_file as the stream object returned from the call to `open()`. All the regular stream object methods are available — `seek()`, `read()`, whatever you need. When the `with` block ends, even if you “exit” it via an unhandled exception, Python calls `a_file.close()` _**automatically**_.
+
+In technical terms, the `with` statement creates a _**runtime context**_. In these examples, the stream object acts as a context manager. Python creates the stream object `a_file` and tells it that it is entering a runtime context. When the `with` code block is completed, Python tells the stream object that it is exiting the runtime context, and the stream object calls its own `close()` method.
+
+There’s nothing file-specific about the `with` statement; it’s just a generic framework for creating runtime contexts and telling objects that they’re entering and exiting a runtime context. The behavior is defined in the stream object, not in the `with` statement.
+
+#### 11.2.6. READING DATA ONE LINE AT A TIME
+
+<pre class="prettyprint linenums">
+line_number = 0
+with open('examples/favorite-people.txt', encoding='utf-8') as a_file: 
+    for a_line in a_file: 
+    line_number += 1
+    print('{:>4} {}'.format(line_number, a_line.rstrip())) 
+</pre>
+
+To read a file one line at a time, use a `for` loop. That’s it. Besides having explicit methods like `read()`, the stream object is also an iterator which spits out a single line every time you ask for a value.
+
+- The format specifier `{:>4}` means “print this argument right-justified within 4 spaces.”
+- The `rstrip()` string method removes the trailing whitespace, including the carriage return characters.
+
+### 11.3. WRITING TO TEXT FILES
+
+There are two file modes for writing:
+
+- “Write” mode will overwrite the file. Pass `mode='w'` to the `open()` function.
+- “Append” mode will add data to the end of the file. Pass `mode='a'` to the `open()` function.
+
+### 11.4. BINARY FILES
+
+Not all files contain text. Some of them contain pictures of my dog.
+
+<pre class="prettyprint linenums">
+&gt;&gt;&gt; an_image = open('examples/beauregard.jpg', mode='rb') 
+&gt;&gt;&gt; an_image.mode 
+'rb'
+&gt;&gt;&gt; an_image.name 
+'examples/beauregard.jpg'
+&gt;&gt;&gt; an_image.encoding 
+Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+AttributeError: '_io.BufferedReader' object has no attribute 'encoding'
+</pre>
+
+- Opening a file in binary mode is simple but subtle. The only difference from opening it in text mode is that the `mode` parameter contains a 'b' character.
+- A binary stream object has no `encoding` attribute
+
+<pre class="prettyprint linenums">
+&gt;&gt;&gt; data = an_image.read(3) 
+&gt;&gt;&gt; data
+b'\xff\xd8\xff'
+</pre>
+
+- You’re reading bytes, not strings. Since you opened the file in binary mode, the `read()` method takes the number of bytes to read, not the number of characters.
+
+### 11.5. STREAM OBJECTS FROM NON-FILE SOURCES
+
+
+
+
+
+
+
+
+
+
