@@ -1388,3 +1388,131 @@ The `eval()` function isn’t limited to boolean expressions. It can handle any 
 
 ## CHAPTER 9. UNIT TESTING
 
+Python has a framework for unit testing, the appropriately-named `unittest` module.
+
+Tests run in isolation, separate from any other test cases (even if they test the same functions). Each test case is an island.
+
+### 9.2. A SINGLE QUESTION
+
+<pre class="prettyprint linenums">
+import roman1
+import unittest
+
+class KnownValues(unittest.TestCase):
+    def test_to_roman_known_values(self):
+	     ......
+		 self.assertEqual(numeral, result)
+	
+if __name__ == '__main__':
+    unittest.main()
+</pre>
+
+A test method takes no parameters, returns no value, and must have a name beginning with the four letters `test`. 
+
+- If a test method exits normally without raising an exception, the test is considered passed; 
+- if the method raises an exception, the test is considered failed.
+
+TDD: Write a test that fails, then code until it passes. (Still remember `pass`?)
+
+Running the script runs `unittest.main()`, which runs each test case. There is no required organization of these test classes; they can each contain a single test method, or you can have one class that contains multiple test methods. The only requirement is that each test class must inherit from `unittest.TestCase`.
+
+For each test case, the `unittest` module will print out the `docstring` of the method and whether that test passed or failed.
+
+### 9.3. “HALT AND CATCH FIRE”
+
+<pre class="prettyprint linenums">
+class OutOfRangeError(ValueError): 
+    pass
+
+class ToRomanBadInput(unittest.TestCase):
+    def test_too_large(self): 
+        '''to_roman should fail with large input'''
+        self.assertRaises(roman2.OutOfRangeError, roman2.to_roman, 4000)
+</pre>
+
+A unit test actually has three return values: `pass`, `fail`, and `error`. 
+
+- `Pass`, of course, means that the test passed — the code did what you expected. 
+- `Fail` means it executed the code but the result was not what you expected. 
+- `Error` means that the code didn’t even execute properly.
+
+### 9.4.MORE HALTING,MORE FIRE
+
+<pre class="prettyprint linenums">
+if not (0 < n < 4000): 
+    raise OutOfRangeError('number out of range (must be 1..3999)')
+</pre>
+
+This is a nice Pythonic shortcut: multiple comparisons at once. This is equivalent to `if not ((0 < n) and (n < 4000))`, but it’s much easier to read.
+
+### 9.5. AND ONEMORE THING…
+
+<pre class="prettyprint linenums">
+if not isinstance(n, int): 
+    raise NotIntegerError('non-integers can not be converted')
+</pre>
+
+The built-in `isinstance()` function tests whether a variable is a particular type (or, technically, any descendant type).
+
+## CHAPTER 10. REFACTORING
+
+### 10.1. DIVING IN
+
+Like it or not, bugs happen. Despite your best efforts to write comprehensive unit tests, bugs happen. What do I mean by “bug”? A bug is a test case you haven’t written yet.
+
+<pre class="prettyprint linenums">
+if not s: 
+    raise InvalidRomanNumeralError('Input can not be blank')
+if not re.search(romanNumeralPattern, s):
+    raise InvalidRomanNumeralError('Invalid Roman numeral: {}'.format(s))
+</pre>
+
+- 测试 blank string 用 `if not s`
+- Starting in Python 3.1, you can skip the numbers when using positional indexes in a format specifier. That is, instead of using the format specifier `{0}` to refer to the first parameter to the `format()` method, you can simply use `{}` and Python will fill in the proper positional index for you. This works for any number of arguments; the first `{}` is `{0}`, the second `{}` is `{1}`, and so forth.
+
+Coding this way (i.e. TDD, even when fixing bugs) does not make fixing bugs any easier. Simple bugs require simple test cases; complex bugs will require complex test cases. In a testing-centric environment, it may seem like it takes longer to fix a bug, since you need to articulate in code exactly what the bug is (to write the test case), then fix the bug itself. Then if the test case doesn’t pass right away, you need to figure out whether the fix was wrong, or whether the test case itself has a bug in it. However, in the long run, this back-and-forth between test code and code tested pays for itself, because it makes it more likely that bugs are fixed correctly the first time. Also, since you can easily re-run all the test cases along with your new one, you are much less likely to break old code when fixing new code. Today’s unit test is tomorrow’s regression test.
+
+### 10.2. HANDLING CHANGING REQUIREMENTS
+
+Comprehensive unit testing means never having to rely on a programmer who says “Trust me.”
+
+### 10.3. REFACTORING
+
+<pre class="prettyprint linenums">
+# XXX.py
+
+def ......
+
+build_lookup_tables()
+</pre>
+
+- `build_lookup_tables()` gets called when the module is imported. It is important to understand that modules are ONLY imported once, then cached. If you import an already-imported module, it does nothing. So this code will only get called the first time you import this module.
+
+## CHAPTER 11. FILES
+
+### 11.2. READING FROM TEXT FILES
+
+<pre class="prettyprint linenums">
+a_file = open('examples/chinese.txt', encoding='utf-8')
+</pre>
+
+- The directory path uses a forward slash. It just works, no matter what the OS is.
+- The above path is a relative one.
+
+### 11.2.1. CHARACTER ENCODING REARS ITS UGLY HEAD
+
+Bytes are bytes; characters are an abstraction. A string is a sequence of Unicode characters. But a file on disk is not a sequence of Unicode characters; a file on disk is a sequence of bytes. So if you read a “text file” from disk, how does Python convert that sequence of bytes into a sequence of characters? It decodes the bytes according to a specific character encoding algorithm and returns a sequence of Unicode characters (otherwise known as a string).
+
+### 11.2.2. STREAM OBJECTS
+
+The `open()` function returns a `stream` object.
+
+<pre class="prettyprint linenums">
+&gt;&gt;&gt; a_file = open('examples/chinese.txt', encoding='utf-8')
+&gt;&gt;&gt; a_file.name
+'examples/chinese.txt'
+&gt;&gt;&gt; a_file.encoding
+'utf-8'
+&gt;&gt;&gt; a_file.mode
+'r'
+</pre>
