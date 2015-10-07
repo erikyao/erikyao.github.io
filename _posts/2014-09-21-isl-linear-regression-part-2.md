@@ -266,7 +266,7 @@ $$
 \end{equation} 
 $$
 
-But it is still a linear model! Because we can treat \\ X_1 = X \\ and \\( X_2 = X\^2 \\)
+But it is still a linear model! Because we can treat \\( X_1 = X \\) and \\( X_2 = X\^2 \\)
 
 ### <a name="Potential-Problems"></a>3.3 Potential Problems
 
