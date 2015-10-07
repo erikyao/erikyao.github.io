@@ -7,7 +7,107 @@ tags: [Python-101, Book]
 ---
 {% include JB/setup %}
 
-## CHAPTER 1. YOUR FIRST PYTHON PROGRAM
+ToC:
+
+- [CHAPTER 1. YOUR FIRST PYTHON PROGRAM](#CHAPTER-1--YOUR-FIRST-PYTHON-PROGRAM)
+	- [1.4. THE `import` SEARCH PATH](#1-4--THE-import-SEARCH-PATH)
+	- [1.5. EVERYTHING IS AN OBJECT](#1-5--EVERYTHING-IS-AN-OBJECT)
+	- [1.7. EXCEPTIONS](#1-7--EXCEPTIONS)
+	- [1.10. RUNNING SCRIPTS](#1-10--RUNNING-SCRIPTS)
+- [CHAPTER 2. NATIVE DATATYPES](#CHAPTER-2--NATIVE-DATATYPES)
+	- [2.1. DIVING IN](#2-1--DIVING-IN)
+	- [2.2. BOOLEANS](#2-2--BOOLEANS)
+	- [2.3. NUMBERS](#2-3--NUMBERS)
+	- [2.4. LISTS](#2-4--LISTS)
+	- [2.5. TUPLES](#2-5--TUPLES)
+	- [2.6. SETS](#2-6--SETS)
+	- [2.7. DICTIONARIES](#2-7--DICTIONARIES)
+	- [2.8. None](#2-8--None)
+- [CHAPTER 3. COMPREHENSIONS](#CHAPTER-3--COMPREHENSIONS)
+	- [3.2. WORKINGWITH FILES AND DIRECTORIES](#3-2--WORKINGWITH-FILES-AND-DIRECTORIES)
+	- [3.3. LIST COMPREHENSIONS](#3-3--LIST-COMPREHENSIONS)
+	- [3.4. DICTIONARY COMPREHENSIONS](#3-4--DICTIONARY-COMPREHENSIONS)
+	- [3.5. SET COMPREHENSIONS](#3-5--SET-COMPREHENSIONS)
+- [CHAPTER 4. STRINGS](#CHAPTER-4--STRINGS)
+	- [4.1. SOME BORING STUFF YOU NEED TO UNDERSTAND BEFORE YOU CAN DIVE IN](#4-1--SOME-BORING-STUFF-YOU-NEED-TO-UNDERSTAND-BEFORE-YOU-CAN-DIVE-IN)
+	- [4.2. UNICODE](#4-2--UNICODE)
+	- [4.3. DIVING IN](#4-3--DIVING-IN)
+	- [4.4. FORMATTING STRINGS](#4-4--FORMATTING-STRINGS)
+		- [4.4.1. COMPOUND FIELD NAMES](#4-4-1--COMPOUND-FIELD-NAMES)
+		- [4.4.2. FORMAT SPECIFIERS](#4-4-2--FORMAT-SPECIFIERS)
+	- [4.5. OTHER COMMON STRING METHODS](#4-5--OTHER-COMMON-STRING-METHODS)
+	- [4.6. STRINGS VS. BYTES](#4-6--STRINGS-VS--BYTES)
+	- [4.7. POSTSCRIPT: CHARACTER ENCODING OF PYTHON SOURCE CODE](#4-7--POSTSCRIPT-CHARACTER-ENCODING-OF-PYTHON-SOURCE-CODE)
+- [CHAPTER 5. REGULAR EXPRESSIONS (略)](#CHAPTER-5--REGULAR-EXPRESSIONS)
+- [CHAPTER 6. CLOSURES & GENERATORS](#CHAPTER-6--CLOSURES-&-GENERATORS)
+	- [6.1. DIVING IN](#6-1--DIVING-IN)
+	- [6.2. I KNOW, LET’S USE REGULAR EXPRESSIONS!](#6-2--I-KNOW-LET’S-USE-REGULAR-EXPRESSIONS!)
+	- [6.3. A LIST OF FUNCTIONS](#6-3--A-LIST-OF-FUNCTIONS)
+	- [6.4. A LIST OF PATTERNS](#6-4--A-LIST-OF-PATTERNS)
+	- [6.5. A FILE OF PATTERNS](#6-5--A-FILE-OF-PATTERNS)
+	- [6.6. GENERATORS](#6-6--GENERATORS)
+		- [6.6.1. A FIBONACCI GENERATOR](#6-6-1--A-FIBONACCI-GENERATOR)
+		- [6.6.2. A PLURAL RULE GENERATOR](#6-6-2--A-PLURAL-RULE-GENERATOR)
+- [CHAPTER 7. CLASSES & ITERATORS](#CHAPTER-7--CLASSES-&-ITERATORS)
+	- [7.1. DIVING IN](#7-1--DIVING-IN)
+	- [7.2. DEFINING CLASSES](#7-2--DEFINING-CLASSES)
+	- [7.3. INSTANTIATING CLASSES](#7-3--INSTANTIATING-CLASSES)
+	- [7.4. INSTANCE VARIABLES](#7-4--INSTANCE-VARIABLES)
+	- [7.5. A FIBONACCI ITERATOR](#7-5--A-FIBONACCI-ITERATOR)
+	- [7.6. A PLURAL RULE ITERATOR](#7-6--A-PLURAL-RULE-ITERATOR)
+- [CHAPTER 8. ADVANCED ITERATORS](#CHAPTER-8--ADVANCED-ITERATORS)
+	- [8.3. FINDING THE UNIQUE ITEMS IN A SEQUENCE](#8-3--FINDING-THE-UNIQUE-ITEMS-IN-A-SEQUENCE)
+	- [8.4. MAKING ASSERTIONS](#8-4--MAKING-ASSERTIONS)
+	- [8.5. GENERATOR EXPRESSIONS](#8-5--GENERATOR-EXPRESSIONS)
+	- [8.6. CALCULATING PERMUTATIONS… THE LAZYWAY!](#8-6--CALCULATING-PERMUTATIONS-THE-LAZYWAY!)
+	- [8.7. OTHER FUN STUFF IN THE `itertools` MODULE](#8-7--OTHER-FUN-STUFF-IN-THE-itertools-MODULE)
+	- [8.8. A NEW KIND OF STRINGMANIPULATION](#8-8--A-NEW-KIND-OF-STRINGMANIPULATION)
+	- [8.9. EVALUATING ARBITRARY STRINGS AS PYTHON EXPRESSIONS](#8-9--EVALUATING-ARBITRARY-STRINGS-AS-PYTHON-EXPRESSIONS)
+	- [8.10. PUTTING IT ALL TOGETHER （略）](#8-10--PUTTING-IT-ALL-TOGETHER-（略）)
+- [CHAPTER 9. UNIT TESTING](#CHAPTER-9--UNIT-TESTING)
+	- [9.2. A SINGLE QUESTION](#9-2--A-SINGLE-QUESTION)
+	- [9.3. “HALT AND CATCH FIRE”](#9-3--“HALT-AND-CATCH-FIRE”)
+	- [9.4. MORE HALTING,MORE FIRE](#9-4--MORE-HALTINGMORE-FIRE)
+	- [9.5. AND ONEMORE THING…](#9-5--AND-ONEMORE-THING)
+- [CHAPTER 10. REFACTORING](#CHAPTER-10--REFACTORING)
+	- [10.1. DIVING IN](#10-1--DIVING-IN)
+	- [10.2. HANDLING CHANGING REQUIREMENTS](#10-2--HANDLING-CHANGING-REQUIREMENTS)
+	- [10.3. REFACTORING](#10-3--REFACTORING)
+- [CHAPTER 11. FILES](#CHAPTER-11--FILES)
+	- [11.2. READING FROM TEXT FILES](#11-2--READING-FROM-TEXT-FILES)
+		- [11.2.1. CHARACTER ENCODING REARS ITS UGLY HEAD](#11-2-1--CHARACTER-ENCODING-REARS-ITS-UGLY-HEAD)
+		- [11.2.2. STREAM OBJECTS](#11-2-2--STREAM-OBJECTS)
+		- [11.2.3. READING DATA FROM A TEXT FILE](#11-2-3--READING-DATA-FROM-A-TEXT-FILE)
+		- [11.2.4. CLOSING FILES](#11-2-4--CLOSING-FILES)
+		- [11.2.5. CLOSING FILES AUTOMATICALLY](#11-2-5--CLOSING-FILES-AUTOMATICALLY)
+		- [11.2.6. READING DATA ONE LINE AT A TIME](#11-2-6--READING-DATA-ONE-LINE-AT-A-TIME)
+	- [11.3. WRITING TO TEXT FILES](#11-3--WRITING-TO-TEXT-FILES)
+	- [11.4. BINARY FILES](#11-4--BINARY-FILES)
+	- [11.5. STREAM OBJECTS FROM NON-FILE SOURCES](#11-5--STREAM-OBJECTS-FROM-NON-FILE-SOURCES)
+		- [11.5.1. HANDLING COMPRESSED FILES (略)](#11-5-1--HANDLING-COMPRESSED-FILES)
+	- [11.6. STANDARD INPUT, OUTPUT, AND ERROR](#11-6--STANDARD-INPUT-OUTPUT-AND-ERROR)
+		- [11.6.1. REDIRECTING STANDARD OUTPUT](#11-6-1--REDIRECTING-STANDARD-OUTPUT)
+- [CHAPTER 12. XML (略)](#CHAPTER-12--XML)
+- [CHAPTER 13. SERIALIZING PYTHON OBJECTS](#CHAPTER-13--SERIALIZING-PYTHON-OBJECTS)
+	- [13.1. DIVING IN](#13-1--DIVING-IN)
+	- [13.2. SAVING DATA TO A PICKLE FILE](#13-2--SAVING-DATA-TO-A-PICKLE-FILE)
+	- [13.3. LOADING DATA FROM A PICKLE FILE](#13-3--LOADING-DATA-FROM-A-PICKLE-FILE)
+	- [13.4. PICKLINGWITHOUT A FILE](#13-4--PICKLINGWITHOUT-A-FILE)
+	- [13.6. DEBUGGING PICKLE FILES (略)](#13-6--DEBUGGING-PICKLE-FILES)
+	- [13.7. SERIALIZING PYTHON OBJECTS TO BE READ BY OTHER LANGUAGES](#13-7--SERIALIZING-PYTHON-OBJECTS-TO-BE-READ-BY-OTHER-LANGUAGES)
+	- [13.8. SAVING DATA TO A JSON FILE (略)](#13-8--SAVING-DATA-TO-A-JSON-FILE)
+	- [13.9. MAPPING OF PYTHON DATATYPES TO JSON (略)](#13-9--MAPPING-OF-PYTHON-DATATYPES-TO-JSON)
+	- [13.10. SERIALIZING DATATYPES UNSUPPORTED BY JSON (略)](#13-10--SERIALIZING-DATATYPES-UNSUPPORTED-BY-JSON)
+	- [13.11. LOADING DATA FROM A JSON FILE (略)](#13-11--LOADING-DATA-FROM-A-JSON-FILE)
+- [CHAPTER 14. HTTPWEB SERVICES (略)](#CHAPTER-14--HTTPWEB-SERVICES)
+- [CHAPTER 15. CASE STUDY: PORTING `chardet` TO PYTHON 3 (略)](#CHAPTER-15--CASE-STUDY-PORTING-chardet-TO-PYTHON-3)
+- [CHAPTER 16. PACKAGING PYTHON LIBRARIES (略)](#CHAPTER-16--PACKAGING-PYTHON-LIBRARIES)
+- [CHAPTER 17. PORTING CODE TO PYTHON 3 WITH `2to3` (略)](#CHAPTER-17--PORTING-CODE-TO-PYTHON-3-WITH-2to3)
+- [CHAPTER 18. SPECIAL METHOD NAMES (略)](#CHAPTER-18--SPECIAL-METHOD-NAMES)
+
+-----
+
+## CHAPTER 1. YOUR FIRST PYTHON PROGRAM <a name="CHAPTER-1--YOUR-FIRST-PYTHON-PROGRAM"></a>
 
 <pre class="prettyprint linenums">
 # humansize.py
@@ -60,7 +160,7 @@ if __name__ == '__main__':
 	- `docstring`s can be turned into actual documentation. 
 	- 类似于 JavaDoc，不同于一般的 comment
 	
-### 1.4. THE `import` SEARCH PATH
+### 1.4. THE `import` SEARCH PATH <a name="1-4--THE-import-SEARCH-PATH"></a>
 
 Python looks in all the directories defined in `sys.path` (in its order) when you try to import a module.
 
@@ -76,7 +176,7 @@ Python looks in all the directories defined in `sys.path` (in its order) when yo
 
 Not all modules are stored as .py files. Some are built-in modules; they are actually baked right into Python itself. Built-in modules behave just like regular modules, but their Python source code is not available, because they are not written in Python! (Like Python itself, these built-in modules are written in C.)
 
-### 1.5. EVERYTHING IS AN OBJECT
+### 1.5. EVERYTHING IS AN OBJECT <a name="1-5--EVERYTHING-IS-AN-OBJECT"></a>
 
 <pre class="prettyprint linenums">
 &gt;&gt;&gt; import humansize
@@ -106,7 +206,7 @@ You may have heard the term “first-class object” in other programming contex
 - Modules are first-class objects. You can pass an entire module as an argument to a function. 
 - Classes are first-class objects, and individual instances of a class are also first-class objects.
 
-### 1.7. EXCEPTIONS
+### 1.7. EXCEPTIONS <a name="1-7--EXCEPTIONS"></a>
 
 Unlike Java, Python functions don’t declare which exceptions they might raise. It’s up to you to determine what possible exceptions you need to catch.
 
@@ -121,7 +221,7 @@ except ImportError:
 
 By the end of this `try-except` block, you have imported some module and named it `etree`. Since both modules implement a common API, the rest of your code doesn’t need to keep checking which module got imported. And since the module that did get imported is always called `etree`, the rest of your code doesn’t need to be littered with if statements to call differently-named modules.
 
-### 1.10. RUNNING SCRIPTS
+### 1.10. RUNNING SCRIPTS <a name="1-10--RUNNING-SCRIPTS"></a>
 
 <pre class="prettyprint linenums">
 if __name__ == '__main__':
@@ -134,9 +234,9 @@ So what makes this if statement special? Well, modules are objects, and all modu
 
 But you can also run the module directly as a standalone program, in which case `__name__` will be a special default value, `__main__`. Python will evaluate this if statement, find a true expression, and execute the if code block.
 
-## CHAPTER 2. NATIVE DATATYPES
+## CHAPTER 2. NATIVE DATATYPES <a name="CHAPTER-2--NATIVE-DATATYPES"></a>
 
-### 2.1. DIVING IN
+### 2.1. DIVING IN <a name="2-1--DIVING-IN"></a>
 
 Python has many native datatypes:
 
@@ -146,13 +246,13 @@ Python has many native datatypes:
 - `Sets` are unordered bags of values.
 - `Dictionaries` are unordered bags of key-value pairs.
 
-### 2.2. BOOLEANS
+### 2.2. BOOLEANS <a name="2-2--BOOLEANS"></a>
 
 In certain places (like if statements), Python expects an expression to evaluate to a boolean value. These places are called **boolean contexts**. You can use virtually any expression in a boolean context, and Python will try to determine its truth value. Different datatypes have different rules about which values are true or false in a boolean context.
 
 Due to some legacy issues left over from Python 2, booleans can be treated as numbers. `True` is 1; `False` is 0. 
 
-### 2.3. NUMBERS
+### 2.3. NUMBERS <a name="2-3--NUMBERS"></a>
 
 Python supports both integers and floating point numbers. There’s no type declaration to distinguish them; Python tells them apart by the presence or absence of a decimal point.
 
@@ -210,7 +310,7 @@ Fraction(3, 2)
 
 - Python 2 had separate types for `int` and `long`.
 
-### 2.4. LISTS
+### 2.4. LISTS <a name="2-4--LISTS"></a>
 
 A better analogy would be to the `ArrayList` class, which can hold arbitrary objects and can expand dynamically as new items are added.
 
@@ -317,7 +417,7 @@ if ['a']: # true
 	- You can pop arbitrary items from a list. Just pass a positional index to the `pop()` method.
 - Empty lists are false; all other lists are true.
 
-### 2.5. TUPLES
+### 2.5. TUPLES <a name="2-5--TUPLES"></a>
 
 A tuple is an immutable list. A tuple can not be changed in any way once it is created.
 
@@ -355,7 +455,7 @@ True
 - Here’s a cool programming shortcut: in Python, you can use a tuple to assign multiple values at once.
 	- Technically, the `range()` function returns an iterator, not a list or a tuple.
 	
-### 2.6. SETS
+### 2.6. SETS <a name="2-6--SETS"></a>
 
 A set is an unordered “bag” of unique values. A single set can contain values of any immutable datatype. Once you have two sets, you can do standard set operations like union, intersection, and set difference.
 
@@ -425,7 +525,7 @@ KeyError: 21
 - Any two sets that contain all the same values (even with difference orders) are considered equal.
 - An empty set is false. Any set with at least one item is true.
 
-### 2.7. DICTIONARIES
+### 2.7. DICTIONARIES <a name="2-7--DICTIONARIES"></a>
 
 A dictionary is an unordered set of key-value pairs.
 
@@ -447,7 +547,7 @@ A dictionary is an unordered set of key-value pairs.
 
 - An empty dictionary is false. Any dictionary with at least one key-value pair is true.
 
-### 2.8. None
+### 2.8. None <a name="2-8--None"></a>
 
 `None` is a special constant in Python. 
 
@@ -461,9 +561,9 @@ A dictionary is an unordered set of key-value pairs.
 - You can assign `None` to any variable, but you can not create other `NoneType` objects. 
 - All variables whose value is `None` are equal to each other.
 
-## CHAPTER 3. COMPREHENSIONS
+## CHAPTER 3. COMPREHENSIONS <a name="CHAPTER-3--COMPREHENSIONS"></a>
 
-### 3.2. WORKINGWITH FILES AND DIRECTORIES
+### 3.2. WORKINGWITH FILES AND DIRECTORIES <a name="3-2--WORKINGWITH-FILES-AND-DIRECTORIES"></a>
 
 Python 3 comes with a module called `os`, which stands for “operating system.” The os module contains a plethora of functions to get information on — and in some cases, to manipulate — local directories, files, processes, and environment variables. Python does its best to offer a unified API across all supported operating systems so your programs can run on any computer with as little platform-specific code as possible.
 
@@ -566,7 +666,7 @@ tm_min=25, tm_sec=44, tm_wday=0, tm_yday=194, tm_isdst=1)
 
 - Calling the `os.stat()` function returns an object that contains several different types of metadata about the file.
 
-### 3.3. LIST COMPREHENSIONS
+### 3.3. LIST COMPREHENSIONS <a name="3-3--LIST-COMPREHENSIONS"></a>
 
 A list comprehension provides a compact way of mapping a list into another list by applying a function to each of the elements of the list.
 
@@ -625,7 +725,7 @@ There’s no limit to how complex a list comprehension can be.
 ('3.0 KiB', 'feed.xml')]
 </pre>
 
-### 3.4. DICTIONARY COMPREHENSIONS
+### 3.4. DICTIONARY COMPREHENSIONS <a name="3-4--DICTIONARY-COMPREHENSIONS"></a>
 
 <pre class="prettyprint linenums">
 &gt;&gt;&gt; import os, glob
@@ -667,7 +767,7 @@ Here’s a trick with dictionary comprehensions that might be useful someday: sw
 
 Of course, this only works if the values of the dictionary are immutable, like strings or tuples. If you try this with a dictionary that contains lists, it will fail most spectacularly. 
 
-### 3.5. SET COMPREHENSIONS
+### 3.5. SET COMPREHENSIONS <a name="3-5--SET-COMPREHENSIONS"></a>
 
 <pre class="prettyprint linenums">
 &gt;&gt;&gt; a_set = set(range(10))
@@ -681,17 +781,17 @@ Of course, this only works if the values of the dictionary are immutable, like s
 {32, 1, 2, 4, 8, 64, 128, 256, 16, 512}
 </pre>
 
-## CHAPTER 4. STRINGS
+## CHAPTER 4. STRINGS <a name="CHAPTER-4--STRINGS"></a>
 
-### 4.1. SOME BORING STUFF YOU NEED TO UNDERSTAND BEFORE YOU CAN DIVE IN
-
-科普向。写得很好。
-
-### 4.2. UNICODE
+### 4.1. SOME BORING STUFF YOU NEED TO UNDERSTAND BEFORE YOU CAN DIVE IN <a name="4-1--SOME-BORING-STUFF-YOU-NEED-TO-UNDERSTAND-BEFORE-YOU-CAN-DIVE-IN"></a>
 
 科普向。写得很好。
 
-### 4.3. DIVING IN
+### 4.2. UNICODE <a name="4-2--UNICODE"></a>
+
+科普向。写得很好。
+
+### 4.3. DIVING IN <a name="4-3--DIVING-IN"></a>
 
 In Python 3, all strings are sequences of Unicode characters. There is no such thing as a Python string encoded in UTF-8, or a Python string encoded as CP-1252. “Is this string UTF-8 ?” is an invalid question. UTF-8 is a way of encoding characters as a sequence of bytes. Bytes are not characters; bytes are bytes. Characters are an abstraction. A string is a sequence of those abstractions.
 
@@ -707,7 +807,7 @@ To create a string, enclose it in quotes. Python strings can be defined with eit
 '深入 Python 3'
 </pre>
 
-### 4.4. FORMATTING STRINGS
+### 4.4. FORMATTING STRINGS <a name="4-4--FORMATTING-STRINGS"></a>
 
 Let’s take another look at humansize.py:
 
@@ -731,7 +831,7 @@ Python 3 supports formatting values into strings. Although this can include very
 - Second, the whole expression evaluates to a string. 
 - Third, `{0}` and `{1}` are replacement fields, which are replaced by the arguments passed to the `format()` method.
 
-#### 4.4.1. COMPOUND FIELD NAMES
+#### 4.4.1. COMPOUND FIELD NAMES <a name="4-4-1--COMPOUND-FIELD-NAMES"></a>
 
 The previous example shows the simplest case, where the replacement fields are simply integers. Integer replacement fields are treated as positional indices into the argument list of the `format()` method. That means that `{0}` is replaced by the first argument (`username` in this case), `{1}` is replaced by the second argument (`password`), &c. But replacement fields are much more powerful than that.
 
@@ -773,13 +873,13 @@ Just to blow your mind, here’s an example that combines all of the above:
 - `sys.modules['humansize'].SUFFIXES[1000]` is a list of `SI` suffixes: `['KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']`. So the replacement field `{0.modules[humansize].SUFFIXES[1000]}` refers to that list.
 - `sys.modules['humansize'].SUFFIXES[1000][0]` is the first item of the list of SI suffixes: 'KB'. Therefore, the complete replacement field `{0.modules[humansize].SUFFIXES[1000][0]}` is replaced by the two-character string 'KB'.
 
-#### 4.4.2. FORMAT SPECIFIERS
+#### 4.4.2. FORMAT SPECIFIERS <a name="4-4-2--FORMAT-SPECIFIERS"></a>
 
 But what is `{0:.1f}`? It’s two things: `{0}`, which you recognize, and `:.1f`, which defines the format specifier.
 
 Within a replacement field, a colon (`:`) marks the start of the format specifier. The format specifier `.1` means “round to the nearest tenth” (i.e. display only one digit after the decimal point). The format specifier `f` means “fixed-point number” (as opposed to exponential notation or some other decimal representation).
 
-### 4.5. OTHER COMMON STRING METHODS
+### 4.5. OTHER COMMON STRING METHODS <a name="4-5--OTHER-COMMON-STRING-METHODS"></a>
 
 Let’s say you have a list of key-value pairs and you want to split them up and make a dictionary:
 
@@ -796,7 +896,7 @@ Let’s say you have a list of key-value pairs and you want to split them up and
 {'password': 'PapayaWhip', 'user': 'pilgrim', 'database': 'master'}
 </pre>
 
-### 4.6. STRINGS VS. BYTES
+### 4.6. STRINGS VS. BYTES <a name="4-6--STRINGS-VS--BYTES"></a>
 
 Bytes are bytes; characters are an abstraction. An immutable sequence of Unicode characters is called a `string`. An immutable sequence of numbers-between-0-and-255 is called a `bytes` object.
 
@@ -839,7 +939,7 @@ The one thing you can never do is mix bytes and strings.
 
 And here is the link between `string`s and `bytes`: `bytes` objects have a `decode()` method that takes a character encoding and returns a `string`, and `string`s have an `encode()` method that takes a character encoding and returns a `bytes` object.
 
-### 4.7. POSTSCRIPT: CHARACTER ENCODING OF PYTHON SOURCE CODE
+### 4.7. POSTSCRIPT: CHARACTER ENCODING OF PYTHON SOURCE CODE <a name="4-7--POSTSCRIPT-CHARACTER-ENCODING-OF-PYTHON-SOURCE-CODE"></a>
 
 In Python 2, the default encoding for .py files was ASCII. In Python 3, the default encoding is UTF-8.
 
@@ -856,11 +956,11 @@ Technically, the character encoding override can also be on the second line, if 
 # -*- coding: windows-1252 -*-
 </pre>
 
-## CHAPTER 5. REGULAR EXPRESSIONS (略)
+## CHAPTER 5. REGULAR EXPRESSIONS (略) <a name="CHAPTER-5--REGULAR-EXPRESSIONS"></a>
 
-## CHAPTER 6. CLOSURES & GENERATORS
+## CHAPTER 6. CLOSURES & GENERATORS <a name="CHAPTER-6--CLOSURES-&-GENERATORS"></a>
 
-### 6.1. DIVING IN
+### 6.1. DIVING IN <a name="6-1--DIVING-IN"></a>
 
 first, let’s talk about how to make plural nouns. If you grew up in an English-speaking country or learned English in a formal school setting, you’re probably familiar with the basic rules:
 
@@ -873,7 +973,7 @@ first, let’s talk about how to make plural nouns. If you grew up in an English
 
 Let’s design a Python library that automatically pluralizes English nouns. We’ll start with just these four rules.
 
-### 6.2. I KNOW, LET’S USE REGULAR EXPRESSIONS!
+### 6.2. I KNOW, LET’S USE REGULAR EXPRESSIONS! <a name="6-2--I-KNOW-LET’S-USE-REGULAR-EXPRESSIONS!"></a>
 
 <pre class="prettyprint linenums">
 def plural(noun):
@@ -887,7 +987,7 @@ def plural(noun):
         return noun + 's'
 </pre>
 
-### 6.3. A LIST OF FUNCTIONS
+### 6.3. A LIST OF FUNCTIONS <a name="6-3--A-LIST-OF-FUNCTIONS"></a>
 
 <pre class="prettyprint linenums">
 def match_sxz(noun):
@@ -921,7 +1021,7 @@ def plural(noun):
 
 The reason this technique works is that everything in Python is an object, including functions. The rules data structure contains functions — not names of functions, but actual function objects. When they get assigned in the `for` loop, then `matches_rule` and `apply_rule` are actual functions that you can call.
 
-### 6.4. A LIST OF PATTERNS
+### 6.4. A LIST OF PATTERNS <a name="6-4--A-LIST-OF-PATTERNS"></a>
 
 Defining separate named functions for each match and apply rule isn’t really necessary. You never call them directly; you add them to the `rules` sequence and call them through there. Furthermore, each function follows one of two patterns. All the match functions call `re.search()`, and all the apply functions call `re.sub()`. Let’s factor out the patterns so that defining new rules can be easier.
 
@@ -964,7 +1064,7 @@ def plural(noun):
             return apply_rule(noun)
 </pre>
 
-### 6.5. A FILE OF PATTERNS
+### 6.5. A FILE OF PATTERNS <a name="6-5--A-FILE-OF-PATTERNS"></a>
 
 First, let’s create a text file that contains the rules you want. No fancy data structures, just whitespace-delimited strings in three columns. Let’s call it `plural4-rules.txt`.
 
@@ -1001,7 +1101,7 @@ with open('plural4-rules.txt', encoding='utf-8') as pattern_file:
 
 The improvement here is that you’ve completely separated the pluralization rules into an external file, so it can be maintained separately from the code that uses it. Code is code, data is data, and life is good.
 
-### 6.6. GENERATORS
+### 6.6. GENERATORS <a name="6-6--GENERATORS"></a>
 
 Let’s look at an interactive example first.
 
@@ -1035,7 +1135,7 @@ incrementing x
 	
 Since `make_counter` sets up an infinite loop, you could theoretically do this forever, and it would just keep incrementing `x` and spitting out values. But let’s look at more productive uses of generators instead.
 
-#### 6.6.1. A FIBONACCI GENERATOR
+#### 6.6.1. A FIBONACCI GENERATOR <a name="6-6-1--A-FIBONACCI-GENERATOR"></a>
 
 <pre class="prettyprint linenums">
 def fib(max):
@@ -1054,7 +1154,7 @@ def fib(max):
 [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987]
 </pre>
 
-#### 6.6.2. A PLURAL RULE GENERATOR
+#### 6.6.2. A PLURAL RULE GENERATOR <a name="6-6-2--A-PLURAL-RULE-GENERATOR"></a>
 
 <pre class="prettyprint linenums">
 def rules(rules_filename):
@@ -1077,9 +1177,9 @@ What have you lost? Performance! Every time you call the `plural()` function, th
 
 What if you could have the best of both worlds: minimal startup cost (don’t execute any code on import)(import 后不立即 parse rules) and maximum performance (don’t build the same functions over and over again). Oh, and you still want to keep the rules in a separate file (because code is code and data is data), just as long as you never have to read the same line twice. To do that, you’ll need to build your own iterator.
 
-## CHAPTER 7. CLASSES & ITERATORS
+## CHAPTER 7. CLASSES & ITERATORS <a name="CHAPTER-7--CLASSES-&-ITERATORS"></a>
 
-### 7.1. DIVING IN
+### 7.1. DIVING IN <a name="7-1--DIVING-IN"></a>
 
 Comprehensions are just a simple form of iterators. Generators are just a simple form of iterators. A function that `yield`s values is a nice, compact way of building an iterator without building an iterator. Let me show you what I mean by that.
 
@@ -1107,7 +1207,7 @@ class Fib:
 
 Let’s take that one line at a time. `class Fib:`. Then what's a class?
 
-### 7.2. DEFINING CLASSES
+### 7.2. DEFINING CLASSES <a name="7-2--DEFINING-CLASSES"></a>
 
 Python is fully object-oriented: you can define your own classes, inherit from your own or built-in classes, and instantiate the classes you’ve defined.
 
@@ -1126,7 +1226,7 @@ The first argument of every class method, including the `__init__()` method, is 
 
 In the `__init__()` method, `self` refers to the newly created object; in other class methods, it refers to the instance whose method was called. Although you need to specify self explicitly when defining the method, you do not specify it when calling the method; Python will add it for you automatically.
 
-### 7.3. INSTANTIATING CLASSES
+### 7.3. INSTANTIATING CLASSES <a name="7-3--INSTANTIATING-CLASSES"></a>
 
 Instantiating classes in Python is straightforward. To instantiate a class, simply call the class as if it were a function, passing the arguments that the `__init__()` method requires. The return value will be the newly created object.
 
@@ -1134,11 +1234,11 @@ Every class instance has a built-in attribute, `__class__`, which is the object�
 
 You can access the instance’s `docstring` just as with a function or a module, by the attribute `__doc__`. All instances of a class share the same `docstring`.
 
-### 7.4. INSTANCE VARIABLES
+### 7.4. INSTANCE VARIABLES <a name="7-4--INSTANCE-VARIABLES"></a>
 
 I.e. `self.max`, like `this.foo` in Java.
 
-### 7.5. A FIBONACCI ITERATOR
+### 7.5. A FIBONACCI ITERATOR <a name="7-5--A-FIBONACCI-ITERATOR"></a>
 
 All three of these class methods, `__init__()`, `__iter__()`, and `__next__(0`), begin and end with a pair of underscore (`_`) characters. Why is that? There’s nothing magical about it, but it usually indicates that these are “special methods.” The only thing “special” about special methods is that they aren’t called directly; Python calls them when you use some other syntax on the class or an instance of the class.
 
@@ -1165,7 +1265,7 @@ Here’s what happens:
 - Secretly, and quite cleverly, the for loop calls iter(`fib_inst`), which returns an iterator object. Call this `fib_iter`. In this case, `fib_iter == fib_inst`, because the `__iter__()` method returns `self`, but the `for` loop doesn’t know (or care) about that.
 - To “loop through” the iterator, the `for` loop calls `next(fib_iter)`, which calls the `__next__()` method on the `fib_iter` object, which does the next-Fibonacci-number calculations and returns a value. The `for` loop takes this value and assigns it to `n`, then executes the body of the `for` loop for that value of `n`.
 
-### 7.6. A PLURAL RULE ITERATOR
+### 7.6. A PLURAL RULE ITERATOR <a name="7-6--A-PLURAL-RULE-ITERATOR"></a>
 
 <pre class="prettyprint linenums">
 class LazyRules:
@@ -1221,9 +1321,9 @@ Putting it all together, here’s what happens when:
 
 书上还讨论了这种写法的优势（Minimal startup cost / Maximum performance / Separation of code and data）和劣势（主要是 opened file 一直悬在那里），值得一看。
 
-## CHAPTER 8. ADVANCED ITERATORS
+## CHAPTER 8. ADVANCED ITERATORS <a name="CHAPTER-8--ADVANCED-ITERATORS"></a>
 
-### 8.3. FINDING THE UNIQUE ITEMS IN A SEQUENCE
+### 8.3. FINDING THE UNIQUE ITEMS IN A SEQUENCE <a name="8-3--FINDING-THE-UNIQUE-ITEMS-IN-A-SEQUENCE"></a>
 
 <pre class="prettyprint linenums">
 &gt;&gt;&gt; a_list = ['The', 'sixth', 'sick', "sheik's", 'sixth', "sheep's", 'sick']
@@ -1239,7 +1339,7 @@ Putting it all together, here’s what happens when:
 {'E', 'D', 'M', 'O', 'N', 'S', 'R', 'Y'}
 </pre>
 
-### 8.4. MAKING ASSERTIONS
+### 8.4. MAKING ASSERTIONS <a name="8-4--MAKING-ASSERTIONS"></a>
 
 <pre class="prettyprint linenums">
 &gt;&gt;&gt; assert 1 + 1 == 2 
@@ -1266,7 +1366,7 @@ if len(unique_characters) &gt; 10:
     raise AssertionError('Too many letters')
 </pre>
 
-### 8.5. GENERATOR EXPRESSIONS
+### 8.5. GENERATOR EXPRESSIONS <a name="8-5--GENERATOR-EXPRESSIONS"></a>
 
 <pre class="prettyprint linenums">
 # Generator expression
@@ -1296,7 +1396,7 @@ def times2(range):
 times2(range(256))
 </pre>
 
-### 8.6. CALCULATING PERMUTATIONS… THE LAZYWAY!
+### 8.6. CALCULATING PERMUTATIONS… THE LAZYWAY! <a name="8-6--CALCULATING-PERMUTATIONS-THE-LAZYWAY!"></a>
 
 <pre class="prettyprint linenums">
 # [1, 2, 3] 三个选两个做排列组合
@@ -1329,7 +1429,7 @@ The `permutations()` function doesn’t have to take a list. It can take any seq
 ('A', 'B', 'C')
 </pre>
 
-### 8.7. OTHER FUN STUFF IN THE `itertools` MODULE
+### 8.7. OTHER FUN STUFF IN THE `itertools` MODULE <a name="8-7--OTHER-FUN-STUFF-IN-THE-itertools-MODULE"></a>
 
 <pre class="prettyprint linenums">
 &gt;&gt;&gt; import itertools
@@ -1357,7 +1457,7 @@ The `permutations()` function doesn’t have to take a list. It can take any seq
 [(0, 10), (1, 11), (2, 12), (None, 13)]
 </pre>
 
-### 8.8. A NEW KIND OF STRINGMANIPULATION
+### 8.8. A NEW KIND OF STRINGMANIPULATION <a name="8-8--A-NEW-KIND-OF-STRINGMANIPULATION"></a>
 
 <pre class="prettyprint linenums">
 &gt;&gt;&gt; translation_table = {ord('A'): ord('O')} 
@@ -1369,7 +1469,7 @@ The `permutations()` function doesn’t have to take a list. It can take any seq
 
 更多内容见书上。
 
-### 8.9. EVALUATING ARBITRARY STRINGS AS PYTHON EXPRESSIONS
+### 8.9. EVALUATING ARBITRARY STRINGS AS PYTHON EXPRESSIONS <a name="8-9--EVALUATING-ARBITRARY-STRINGS-AS-PYTHON-EXPRESSIONS"></a>
 
 <pre class="prettyprint linenums">
 &gt;&gt;&gt; eval('1 + 1 == 2')
@@ -1384,15 +1484,15 @@ The `eval()` function isn’t limited to boolean expressions. It can handle any 
 
 更多内容见书上。
 
-### 8.10. PUTTING IT ALL TOGETHER （略）
+### 8.10. PUTTING IT ALL TOGETHER （略） <a name="8-10--PUTTING-IT-ALL-TOGETHER-（略）"></a>
 
-## CHAPTER 9. UNIT TESTING
+## CHAPTER 9. UNIT TESTING <a name="CHAPTER-9--UNIT-TESTING"></a>
 
 Python has a framework for unit testing, the appropriately-named `unittest` module.
 
 Tests run in isolation, separate from any other test cases (even if they test the same functions). Each test case is an island.
 
-### 9.2. A SINGLE QUESTION
+### 9.2. A SINGLE QUESTION <a name="9-2--A-SINGLE-QUESTION"></a>
 
 <pre class="prettyprint linenums">
 import roman1
@@ -1418,7 +1518,7 @@ Running the script runs `unittest.main()`, which runs each test case. There is n
 
 For each test case, the `unittest` module will print out the `docstring` of the method and whether that test passed or failed.
 
-### 9.3. “HALT AND CATCH FIRE”
+### 9.3. “HALT AND CATCH FIRE” <a name="9-3--“HALT-AND-CATCH-FIRE”"></a>
 
 <pre class="prettyprint linenums">
 class OutOfRangeError(ValueError): 
@@ -1436,7 +1536,7 @@ A unit test actually has three return values: `pass`, `fail`, and `error`.
 - `Fail` means it executed the code but the result was not what you expected. 
 - `Error` means that the code didn’t even execute properly.
 
-### 9.4. MORE HALTING,MORE FIRE
+### 9.4. MORE HALTING,MORE FIRE <a name="9-4--MORE-HALTINGMORE-FIRE"></a>
 
 <pre class="prettyprint linenums">
 if not (0 < n < 4000): 
@@ -1445,7 +1545,7 @@ if not (0 < n < 4000):
 
 This is a nice Pythonic shortcut: multiple comparisons at once. This is equivalent to `if not ((0 < n) and (n < 4000))`, but it’s much easier to read.
 
-### 9.5. AND ONEMORE THING…
+### 9.5. AND ONEMORE THING… <a name="9-5--AND-ONEMORE-THING"></a>
 
 <pre class="prettyprint linenums">
 if not isinstance(n, int): 
@@ -1454,9 +1554,9 @@ if not isinstance(n, int):
 
 The built-in `isinstance()` function tests whether a variable is a particular type (or, technically, any descendant type).
 
-## CHAPTER 10. REFACTORING
+## CHAPTER 10. REFACTORING <a name="CHAPTER-10--REFACTORING"></a>
 
-### 10.1. DIVING IN
+### 10.1. DIVING IN <a name="10-1--DIVING-IN"></a>
 
 Like it or not, bugs happen. Despite your best efforts to write comprehensive unit tests, bugs happen. What do I mean by “bug”? A bug is a test case you haven’t written yet.
 
@@ -1472,11 +1572,11 @@ if not re.search(romanNumeralPattern, s):
 
 Coding this way (i.e. TDD, even when fixing bugs) does not make fixing bugs any easier. Simple bugs require simple test cases; complex bugs will require complex test cases. In a testing-centric environment, it may seem like it takes longer to fix a bug, since you need to articulate in code exactly what the bug is (to write the test case), then fix the bug itself. Then if the test case doesn’t pass right away, you need to figure out whether the fix was wrong, or whether the test case itself has a bug in it. However, in the long run, this back-and-forth between test code and code tested pays for itself, because it makes it more likely that bugs are fixed correctly the first time. Also, since you can easily re-run all the test cases along with your new one, you are much less likely to break old code when fixing new code. Today’s unit test is tomorrow’s regression test.
 
-### 10.2. HANDLING CHANGING REQUIREMENTS
+### 10.2. HANDLING CHANGING REQUIREMENTS <a name="10-2--HANDLING-CHANGING-REQUIREMENTS"></a>
 
 Comprehensive unit testing means never having to rely on a programmer who says “Trust me.”
 
-### 10.3. REFACTORING
+### 10.3. REFACTORING <a name="10-3--REFACTORING"></a>
 
 <pre class="prettyprint linenums">
 # XXX.py
@@ -1488,9 +1588,9 @@ build_lookup_tables()
 
 - `build_lookup_tables()` gets called when the module is imported. It is important to understand that modules are ONLY imported once, then cached. If you import an already-imported module, it does nothing. So this code will only get called the first time you import this module.
 
-## CHAPTER 11. FILES
+## CHAPTER 11. FILES <a name="CHAPTER-11--FILES"></a>
 
-### 11.2. READING FROM TEXT FILES
+### 11.2. READING FROM TEXT FILES <a name="11-2--READING-FROM-TEXT-FILES"></a>
 
 <pre class="prettyprint linenums">
 a_file = open('examples/chinese.txt', encoding='utf-8')
@@ -1499,11 +1599,11 @@ a_file = open('examples/chinese.txt', encoding='utf-8')
 - The directory path uses a forward slash. It just works, no matter what the OS is.
 - The above path is a relative one.
 
-#### 11.2.1. CHARACTER ENCODING REARS ITS UGLY HEAD
+#### 11.2.1. CHARACTER ENCODING REARS ITS UGLY HEAD <a name="11-2-1--CHARACTER-ENCODING-REARS-ITS-UGLY-HEAD"></a>
 
 Bytes are bytes; characters are an abstraction. A string is a sequence of Unicode characters. But a file on disk is not a sequence of Unicode characters; a file on disk is a sequence of bytes. So if you read a “text file” from disk, how does Python convert that sequence of bytes into a sequence of characters? It decodes the bytes according to a specific character encoding algorithm and returns a sequence of Unicode characters (otherwise known as a string).
 
-#### 11.2.2. STREAM OBJECTS
+#### 11.2.2. STREAM OBJECTS <a name="11-2-2--STREAM-OBJECTS"></a>
 
 The `open()` function returns a `stream` object.
 
@@ -1517,7 +1617,7 @@ The `open()` function returns a `stream` object.
 'r'
 </pre>
 
-#### 11.2.3. READING DATA FROM A TEXT FILE
+#### 11.2.3. READING DATA FROM A TEXT FILE <a name="11-2-3--READING-DATA-FROM-A-TEXT-FILE"></a>
 
 <pre class="prettyprint linenums">
 &gt;&gt;&gt; a_file = open('examples/chinese.txt', encoding='utf-8')
@@ -1529,7 +1629,7 @@ The `open()` function returns a `stream` object.
 
 Python does not consider reading past end-of-file to be an error; it simply returns an empty string.
 
-#### 11.2.4. CLOSING FILES
+#### 11.2.4. CLOSING FILES <a name="11-2-4--CLOSING-FILES"></a>
 
 <pre class="prettyprint linenums">
 &gt;&gt;&gt; a_file.close()
@@ -1537,7 +1637,7 @@ Python does not consider reading past end-of-file to be an error; it simply retu
 True
 </pre>
 
-#### 11.2.5. CLOSING FILES AUTOMATICALLY
+#### 11.2.5. CLOSING FILES AUTOMATICALLY <a name="11-2-5--CLOSING-FILES-AUTOMATICALLY"></a>
 
 <pre class="prettyprint linenums">
 with open('examples/chinese.txt', encoding='utf-8') as a_file:
@@ -1552,7 +1652,7 @@ In technical terms, the `with` statement creates a _**runtime context**_. In the
 
 There’s nothing file-specific about the `with` statement; it’s just a generic framework for creating runtime contexts and telling objects that they’re entering and exiting a runtime context. The behavior is defined in the stream object, not in the `with` statement.
 
-#### 11.2.6. READING DATA ONE LINE AT A TIME
+#### 11.2.6. READING DATA ONE LINE AT A TIME <a name="11-2-6--READING-DATA-ONE-LINE-AT-A-TIME"></a>
 
 <pre class="prettyprint linenums">
 line_number = 0
@@ -1567,14 +1667,14 @@ To read a file one line at a time, use a `for` loop. That’s it. Besides having
 - The format specifier `{:>4}` means “print this argument right-justified within 4 spaces.”
 - The `rstrip()` string method removes the trailing whitespace, including the carriage return characters.
 
-### 11.3. WRITING TO TEXT FILES
+### 11.3. WRITING TO TEXT FILES <a name="11-3--WRITING-TO-TEXT-FILES"></a>
 
 There are two file modes for writing:
 
 - “Write” mode will overwrite the file. Pass `mode='w'` to the `open()` function.
 - “Append” mode will add data to the end of the file. Pass `mode='a'` to the `open()` function.
 
-### 11.4. BINARY FILES
+### 11.4. BINARY FILES <a name="11-4--BINARY-FILES"></a>
 
 Not all files contain text. Some of them contain pictures of my dog.
 
@@ -1601,14 +1701,116 @@ b'\xff\xd8\xff'
 
 - You’re reading bytes, not strings. Since you opened the file in binary mode, the `read()` method takes the number of bytes to read, not the number of characters.
 
-### 11.5. STREAM OBJECTS FROM NON-FILE SOURCES
+### 11.5. STREAM OBJECTS FROM NON-FILE SOURCES <a name="11-5--STREAM-OBJECTS-FROM-NON-FILE-SOURCES"></a>
 
+In the simplest case, a stream object is anything with a `read()` method which takes an optional `size` parameter and returns a string. 
 
+- When called with no `size` parameter, the `read()` method should read everything there is to read from the input source and return all the data as a single value. 
+- When called with a `size` parameter, it reads that much from the input source and returns that much data. When called again, it picks up where it left off and returns the next chunk of data.
 
+You’re not limiting yourself to real files. The input source that’s being “read” could be anything: a web page, a string in memory, even the output of another program.
 
+<pre class="prettyprint linenums">
+&gt;&gt;&gt; a_string = 'PapayaWhip is the new black.'
+&gt;&gt;&gt; import io 
+&gt;&gt;&gt; a_file = io.StringIO(a_string) 
+&gt;&gt;&gt; a_file.read() 
+'PapayaWhip is the new black.'
+</pre>
 
+- `io.StringIO` lets you treat a string as a text file. 
+- There’s also a `io.BytesIO` class, which lets you treat a byte array as a binary file.
 
+#### 11.5.1. HANDLING COMPRESSED FILES (略) <a name="11-5-1--HANDLING-COMPRESSED-FILES"></a>
 
+### 11.6. STANDARD INPUT, OUTPUT, AND ERROR <a name="11-6--STANDARD-INPUT-OUTPUT-AND-ERROR"></a>
 
+By default, both of these pipes, `stdout` and `stderr`, are just connected to the terminal window where you are working. 
 
+In the graphical Python Shell, the `stdout` and `stderr` pipes default to your “Interactive Window”.
+
+<pre class="prettyprint linenums">
+&gt;&gt;&gt; for i in range(3):
+... sys.stdout.write('is the') 
+is theis theis the
+</pre>
+
+`stdout` is defined in the `sys` module, and it is a stream object. Calling its `write()` function will print out whatever string you give it. 
+
+- In fact, this is what the print function really does; it adds a carriage return to the end of the string you’re printing, and calls `sys.stdout.write`.
+
+`sys.stdout` and `sys.stderr` are stream objects, but they are write-only. Attempting to call their `read()` method will always raise an `IOError`.
+
+#### 11.6.1. REDIRECTING STANDARD OUTPUT <a name="11-6-1--REDIRECTING-STANDARD-OUTPUT"></a>
+
+`sys.stdout` and `sys.stderr` are not constants; they’re variables. That means you can assign them a new value — any other stream object — to redirect their output.
+
+Any class can be a context manager by defining two special methods: `__enter__()` and `__exit__()`.（书上是一个 redirect + with 的例子）
+
+## CHAPTER 12. XML (略) <a name="CHAPTER-12--XML"></a>
+
+## CHAPTER 13. SERIALIZING PYTHON OBJECTS <a name="CHAPTER-13--SERIALIZING-PYTHON-OBJECTS"></a>
+
+### 13.1. DIVING IN <a name="13-1--DIVING-IN"></a>
+
+On the surface, the concept of serialization is simple. You have a data structure in memory that you want to save, reuse, or send to someone else. How would you do that? Well, that depends on how you want to save it, how you want to reuse it, and to whom you want to send it. Many games allow you to save your progress when you quit the game and pick up where you left off when you relaunch the game. In this case, a data structure that captures “your progress so far” needs to be stored on disk when you quit, then loaded from disk when you relaunch. The data is only meant to be used by the same program that created it, never sent over a network, and never read by anything other than the program that created it. Therefore, the interoperability issues are limited to ensuring that later versions of the program can read data written by earlier versions.
+
+For cases like this, the `pickle` module is ideal. It’s part of the Python standard library, so it’s always available. It’s fast; the bulk of it is written in C, like the Python interpreter itself. It can store arbitrarily complex Python data structures.
+
+### 13.2. SAVING DATA TO A PICKLE FILE <a name="13-2--SAVING-DATA-TO-A-PICKLE-FILE"></a>
+
+<pre class="prettyprint linenums">
+&gt;&gt;&gt; import pickle
+&gt;&gt;&gt; with open('entry.pickle', 'wb') as f: 
+... pickle.dump(entry, f)
+</pre>
+
+- To do this, it serializes the data structure using a data format called “the pickle protocol.”
+- Not every Python data structure can be serialized by the `pickle` module. The pickle protocol has changed several times as new data types have been added to the Python language, but there are still limitations.
+- As a result of these changes, there is no guarantee of compatibility between different versions of Python itself. Newer versions of Python support the older serialization formats, but older versions of Python do not support newer formats (since they don’t support the newer data types).
+- The latest version of the `pickle` protocol is a binary format. Be sure to open your pickle files in binary mode, or the data will get corrupted during writing.
+
+### 13.3. LOADING DATA FROM A PICKLE FILE <a name="13-3--LOADING-DATA-FROM-A-PICKLE-FILE"></a>
+
+<pre class="prettyprint linenums">
+&gt;&gt;&gt; import pickle
+&gt;&gt;&gt; with open('entry.pickle', 'rb') as f: 
+... entry = pickle.load(f)
+</pre>
+
+### 13.4. PICKLINGWITHOUT A FILE <a name="13-4--PICKLINGWITHOUT-A-FILE"></a>
+
+You can also serialize to a `bytes` object in memory.
+
+<pre class="prettyprint linenums">
+&gt;&gt;&gt; b = pickle.dumps(entry) 
+&gt;&gt;&gt; type(b) 
+&lt;class 'bytes'&gt;
+</pre>
+
+### 13.6. DEBUGGING PICKLE FILES (略) <a name="13-6--DEBUGGING-PICKLE-FILES"></a>
+
+### 13.7. SERIALIZING PYTHON OBJECTS TO BE READ BY OTHER LANGUAGES <a name="13-7--SERIALIZING-PYTHON-OBJECTS-TO-BE-READ-BY-OTHER-LANGUAGES"></a>
+
+主要是用 JSON. The JSON data format is text-based, not binary.
+
+其余看书。
+
+### 13.8. SAVING DATA TO A JSON FILE (略) <a name="13-8--SAVING-DATA-TO-A-JSON-FILE"></a>
+
+### 13.9. MAPPING OF PYTHON DATATYPES TO JSON (略) <a name="13-9--MAPPING-OF-PYTHON-DATATYPES-TO-JSON"></a>
+ 
+### 13.10. SERIALIZING DATATYPES UNSUPPORTED BY JSON (略) <a name="13-10--SERIALIZING-DATATYPES-UNSUPPORTED-BY-JSON"></a>
+
+### 13.11. LOADING DATA FROM A JSON FILE (略) <a name="13-11--LOADING-DATA-FROM-A-JSON-FILE"></a>
+
+## CHAPTER 14. HTTPWEB SERVICES (略) <a name="CHAPTER-14--HTTPWEB-SERVICES"></a>
+
+## CHAPTER 15. CASE STUDY: PORTING `chardet` TO PYTHON 3 (略) <a name="CHAPTER-15--CASE-STUDY-PORTING-chardet-TO-PYTHON-3"></a>
+
+## CHAPTER 16. PACKAGING PYTHON LIBRARIES (略) <a name="CHAPTER-16--PACKAGING-PYTHON-LIBRARIES"></a>
+
+## CHAPTER 17. PORTING CODE TO PYTHON 3 WITH `2to3` (略) <a name="CHAPTER-17--PORTING-CODE-TO-PYTHON-3-WITH-2to3"></a>
+
+## CHAPTER 18. SPECIAL METHOD NAMES (略) <a name="CHAPTER-18--SPECIAL-METHOD-NAMES"></a>
 
