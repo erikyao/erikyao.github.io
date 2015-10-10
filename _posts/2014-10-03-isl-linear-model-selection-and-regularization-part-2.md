@@ -185,7 +185,7 @@ The top row of each plot contains a black square for each variable selected acco
 	> train = sample(c(TRUE,FALSE), nrow(Hitters), rep=TRUE)
 	> test = (!train)
 	
-	> regfit.best = regsubsets(Salary~., data=Hitters[train,], nvmax =19)
+	> regfit.best = regsubsets(Salary~., data=Hitters[train,], nvmax=19)
 	
 We first make a **model matrix** from the test data.
 
@@ -251,7 +251,7 @@ Function `glmnet()` in `glmnet` package can be used to fit ridge regression mode
 
 The syntax is slightly different as we must pass in an `x` matrix as well as a `y` vector, and we do not use the `y ~ x` syntax. Before proceeding, ensure that the missing values have been removed from the data.
 
-	> x = model.matrix(Salary~.,Hitters )[,-1]
+	> x = model.matrix(Salary~.,Hitters)[,-1]
 	> y = Hitters$Salary
 	
 The `model.matrix()` function is particularly useful for creating `x`; not only does it produce a matrix corresponding to the 19 predictors but it also automatically transforms any qualitative variables into dummy variables. The latter property is important because `glmnet()` can only take numerical, quantitative inputs.
@@ -264,7 +264,7 @@ The `glmnet()` function has an `alpha` argument that determines what type of mod
 	> grid = 10^seq(10, -2, length=100)
 	> ridge.mod = glmnet(x, y, alpha=0, lambda=grid)
 	
-	> dim(coef(ridge.mod ))
+	> dim(coef(ridge.mod))
 	[1] 20 100
 	## 20 = 19 predictor + 1 intercept
 	## 100 = length(lambda)
@@ -299,7 +299,7 @@ We now split the samples into a training set and a test set in order to estimate
 	
 Next we fit a ridge regression model on the training set, and evaluate its MSE on the test set, using \\( \lambda = 4 \\). Note that this time we get predictions by replacing `type="coefficients"` with the `newx` argument in `predict()`.
 
-	> ridge.mod = glmnet(x[train ,], y[train], alpha=0, lambda=grid, thresh =1e-12)
+	> ridge.mod = glmnet(x[train,], y[train], alpha=0, lambda=grid, thresh=1e-12)
 	> ridge.pred = predict(ridge.mod, s=4, newx=x[test,])
 	> mean((ridge.pred - y[test])^2)
 	[1] 101037
@@ -311,7 +311,7 @@ We now check whether there is any benefit to performing ridge regression with \\
 	[1] 114783
 	
 	> lm(y~x, subset=train)
-	> predict(ridge.mod, s=0, exact=T, type="coefficients")[1:20 ,]
+	> predict(ridge.mod, s=0, exact=T, type="coefficients")[1:20,]
 	
 In general, if we want to fit a (unpenalized) least squares model, then we should use the `lm()` function, since that function provides more useful outputs, such as standard errors and p-values for the coefficients.
 	

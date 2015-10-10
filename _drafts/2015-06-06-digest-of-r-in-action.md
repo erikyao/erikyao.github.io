@@ -342,7 +342,7 @@ mystats &lt;- function(x, parameter1=TRUE, parameter2=FALSE, ...) {
 ### 矩阵转置（Transpose）
 
 <pre class="prettyprint linenums">
-cars <- mtcars[1:5,1:4]
+cars &lt;- mtcars[1:5,1:4]
 t(cars)
 </pre>
 
