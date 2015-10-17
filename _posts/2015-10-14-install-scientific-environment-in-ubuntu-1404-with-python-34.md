@@ -37,27 +37,31 @@ python3 -m venv --clear --without-pip venv/ipython-notebook
 # activate virtual env and install pip
 source venv/ipython-notebook/bin/activate
 
-# THIS IS IMPORTANT:
 # (1) DO NOT switch to `easy_install pip` in the middle of the installation flow
-# (2) just `python`; no need to `python3`, although `pip` and `pip3` are different
 wget https://bootstrap.pypa.io/get-pip.py
-python get-pip.py
+python3 get-pip.py
 rm get-pip.py
 
 # install scientific packages
-pip install numpy sympy matplotlib scipy pandas
+sudo -H pip3 install numpy sympy matplotlib scipy pandas
 
 # install ipython notebook and dependencies
-pip install ipython pyzmq jinja2 pygments bokeh
+sudo -H pip3 install ipython pyzmq jinja2 pygments bokeh
 
 # install latest dev scikit-learn and build it
-# pip install cython https://github.com/scikit-learn/scikit-learn/archive/master.zip
+# sudo -H pip3 install cython https://github.com/scikit-learn/scikit-learn/archive/master.zip
 
 # You don't have to use the latest version of scikit-learn
-pip install cython scikit-learn
+sudo -H pip3 install cython scikit-learn
 
 # install prettyplotlib by Olga Botvinnik for beauty plots
-pip install brewer2mpl prettyplotlib
+sudo -H pip3 brewer2mpl prettyplotlib
+
+# install ipython and notebook
+sudo -H pip3 install ipython[notebook]
+
+# start notebook. current folder will be your workspace
+ipython notebook
 
 # deactivate venv, complementary to `source venv/ipython-notebook/bin/activate`
 deactivate
