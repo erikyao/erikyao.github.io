@@ -61,7 +61,7 @@ sudo -H pip3 brewer2mpl prettyplotlib
 sudo -H pip3 install ipython[notebook]
 
 # start notebook. current folder will be your workspace
-ipython notebook
+sudo ipython notebook
 
 # deactivate venv, complementary to `source venv/ipython-notebook/bin/activate`
 deactivate
