@@ -26,6 +26,9 @@ apt-get install -y libblas-dev liblapack-dev gfortran
 # install dependencies for matplotlib
 apt-get install -y libfreetype6-dev libpng-dev
 
+# install numpy
+apt-get install python3-numpy
+
 # exit from `sudo su`
 exit
 
@@ -55,10 +58,12 @@ sudo -H pip3 install ipython pyzmq jinja2 pygments bokeh
 sudo -H pip3 install cython scikit-learn
 
 # install prettyplotlib by Olga Botvinnik for beauty plots
-sudo -H pip3 brewer2mpl prettyplotlib
+sudo -H pip3 install brewer2mpl prettyplotlib
 
-# install ipython and notebook
+# install ipython and notebook, jupyter and patsy
 sudo -H pip3 install ipython[notebook]
+sudo -H pip3 install jupyter
+sudo -H pip3 install patsy
 
 # start notebook. current folder will be your workspace
 sudo ipython notebook
