@@ -248,7 +248,7 @@ The key insight is that neither of these two subarrays can be too large. The `mo
 
 For purposes of illustration, imagine that we sort every column from top down, and then we sort the columns by their middle element. (Let me emphasize that the algorithm does not actually do this!) In this arrangement, the median-of-medians is the element closest to the center of the grid.
 
-![](https://bn1304files.storage.live.com/y3psWlMZUyUSJyjU3vGJ-9CuYcdhe7wdeM2r-cUW3dwqSctUdLvAOVk1VwVNm-76w9oC0zbur089bHEeBQm31aeAVwLdzUx8t93VX-OiJ5px5JG7EQbLujVuaOGpcsS8BoN/Mom.PNG?psid=1&width=417&height=155&cropMode=center)
+![](https://farm6.staticflickr.com/5782/22649820525_c62493920d_o.png)
 
 We conclude that the worst-case running time of the algorithm obeys the following recurrence:
 
