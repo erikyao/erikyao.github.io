@@ -75,7 +75,7 @@ $$
 
 ### 2.3 Training MSE 是一种 Training Error，Test MSE 是一种 Test Error
 
-training error 并没有具体的定义，在 linear regression 里可以是 squared error \\( (y_i - \hat{f}(x\_i))\^2 \\) 形式，也可以是 absolute error  \\( |y_i - \hat{f}(x\_i)| \\) 形式（参这个 [Cross Validation 讲义](http://math.arizona.edu/~hzhang/math574m/2014Lect_CV.pdf)）。Ng 的课上是直接把 \\( J(\theta) \\) 当做 training error，在 sample size \\( n \\) 一定的情况下也没什么不妥。在 logistic regression 里估计应该是用 error rate 之类的了。
+training error 并没有具体的定义，在 linear regression 里可以是 squared error \\( (y_i - \hat{f}(x\_i))\^2 \\) 形式，也可以是 absolute error  \\( |y_i - \hat{f}(x\_i)| \\) 形式（参这个 [Cross Validation 讲义](http://math.arizona.edu/~hzhang/math574m/2015Lect14_CV.pdf)）。Ng 的课上是直接把 \\( J(\theta) \\) 当做 training error，在 sample size \\( n \\) 一定的情况下也没什么不妥。在 logistic regression 里估计应该是用 error rate 之类的了。
 
 Training MSE 其实还是个挺常用的 Training Error。你在看到 MSE 前面加了 "Training" 修饰的时候要反应过来这说的应该是 Training Error 的问题（比如 "overfitting 导致 low training MSE" 这样的陈述），但是不要把这个两个概念等同起来。
 
