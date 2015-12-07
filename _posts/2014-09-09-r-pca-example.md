@@ -88,3 +88,31 @@ image(t(faceData)[, nrow(faceData):1], main = "(d)") ## Original data
 </pre>
 
 ![](https://wxdjqa.bn1304.livefilestore.com/y2pbqczh5gd_g3R3_pqvG-XA_4RPWKVkQYXTjEZoFiPhyzAII5BdnuY9uinJOYwYaFsSeQgIazLGe3aE3pCNfj5bfaMnhdrGCqL9jmF4Bm4IFw/4%20faces.png?psid=1)
+
+-> _~~~~~~~~~~ 2015-12-06 补充：开始 ~~~~~~~~~~*_ <-
+
+以下参考 [Running PCA and SVD in R](http://genomicsclass.github.io/book/pages/pca_svd.html)。
+
+<pre class="prettyprint linenums">
+x <- t(e)
+pc &lt;- prcomp(x)
+names(pc)
+## [1] "sdev"     "rotation" "center"   "scale"    "x"
+
+## `pc$x[, 1]` is PC1;
+## `pc$x[, 2]` is PC2;
+## 依此类推
+
+## pc$x[, 1] == udv$u[, 1];
+## pc$x[, 2] == udv$u[, 2];
+## 依此类推
+
+## `pc$rotation` is the rotation matrix
+## pc$rotation == udv$v
+
+## `pc$sdev` 是 sample standard deviations
+	## 更准确地说，`pc$sdev` 是 unbiased estimates of standard deviations，所以带了一个 (n-1) 的 correction
+## pc$sdev^2 == sv$d^2/(ncol(e) - 1)
+</pre>
+
+-> _~~~~~~~~~~ 2015-12-06 补充：结束 ~~~~~~~~~~*_ <-
