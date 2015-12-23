@@ -7,6 +7,10 @@ tags: [Database-101]
 ---
 {% include JB/setup %}
 
+[Dirty_Read]: https://farm6.staticflickr.com/5656/23624880920_95574a7d25_o_d.png
+[Nonrepeatable_Read]: https://farm6.staticflickr.com/5664/23552710379_1c571a15dc_o_d.png
+[Phantom_Read]: https://farm6.staticflickr.com/5786/23292345284_40e94b9ea8_o_d.png
+
 　　参考 [Isolation (database systems)](http://en.wikipedia.org/wiki/Isolation_%28database_systems%29#Read_phenomena)
 
 ---
@@ -26,7 +30,7 @@ tags: [Database-101]
 
 　　Transaction 1 可以查看 Transaction 2 未提交的操作结果，这会导致 Dirty Read 的问题，如下图所示：
 
-![](https://wxet4g.bn1302.livefilestore.com/y2pBrwlTJ9uhagsjWMFovD3FqiRnGNUO7_w0DmTHmTc7JZHIloJMJTvd8TJXcalHACGhNJRF3AjTym7GnDVU7SLFJ2rXn11L89lobfDgB1_Yi0/Dirty%20Read.png?psid=1)
+![][Dirty_Read]
 
 Transaction 1 的执行的第二个 query 会读到 Transaction 2 中 update 的结果，如果 Transaction 2 rollback 的话，这个读到的数据明显是错误的。
 
@@ -40,7 +44,7 @@ Transaction 1 的执行的第二个 query 会读到 Transaction 2 中 update 的
 
 　　但这样也会有问题：Nonrepeatable Read，即可能执行同一 query 两次而出现不同的结果，我们认为这是不符合一致性原则的。  
 
-![](https://wxet4g.bn1304.livefilestore.com/y2pfwcDEtpnU8LvpUEND715nFyYMdwl89f0hLw680o2Y2TnIrPGbU2BGKdX19Ls5HrD5_mN44V-N040j5LHTFO1YIzqAn2aXQIgJ641jN9uyo0/Nonrepeatable%20Read.png?psid=1)
+![][Nonrepeatable_Read]
 
 ---
 
@@ -52,7 +56,7 @@ Transaction 1 的执行的第二个 query 会读到 Transaction 2 中 update 的
 
 　　不过会有新的问题：Phantom Read。
 
-![](https://wxet4g.bn1303.livefilestore.com/y2putLwKZX0iBoFmYG3g4zfmnSNHhle7OjndVNGY2PQ19u5fZQjdtbiLtwbztcbrgSbcWON3ydC5Zt3y0-ICYYEBwPbeHpQFSDi-yp2YQXD4jY/Phantom%20Read.png?psid=1)
+![][Phantom_Read]
 
 当 Transaction 1 执行一个 range query（范围查询，如 like, between 等）时，只会为涉及到的 row 加 read lock，如果插入一个新 row 在 range 之内，第二次 range query 还是会被读出。
 

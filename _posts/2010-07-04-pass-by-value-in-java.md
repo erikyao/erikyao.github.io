@@ -7,6 +7,11 @@ tags: [Java-101]
 ---
 {% include JB/setup %}
 
+[1]: https://farm2.staticflickr.com/1558/23624880720_3cf08752b9_o_d.png
+[2]: https://farm2.staticflickr.com/1477/23552710069_3891f8d3c7_o_d.png
+[3]: https://farm2.staticflickr.com/1720/23292345074_b707c469d9_o_d.png
+[4]: https://farm6.staticflickr.com/5797/23838061301_a52e87df52_o_d.png
+
 　　所谓的值传递 (pass-by-value) 指的是：传递给方法的是参数值的一个 copy。Java 方法使用的永远是值传递 (很多地方说到的“引用传递”其实也可以看做是值传递，概念搞多了反而还不好理解，干脆说死一点，Java 就只使用值传递)。  
 
 　　通过例子来看：
@@ -27,7 +32,8 @@ public class Test {
 </pre>
 
 　　值传递的示意图如下：
-　　![](https://t7slng.bn1304.livefilestore.com/y2pPjUFFDM2GBAkNZP3obdL0cxcObiSclcwSV4VWenY2s1cV5oRFXTQJj-u4_MAWnzrvrkLIPJzlrpAj5TT0IcU6a7IOFz22Uc79UgVdmn2zp0/1.png)
+
+![][1]
 
 
 　　由于 String 是 immutable class，即：String 对象一旦创建，就不可修改。所以应该这么理解：
@@ -65,7 +71,7 @@ public class Test {
 } 
 </pre>
 
-![](https://hec1wq.bn1303.livefilestore.com/y2p6ZBcjv_rei2CCCfQNYu7bw85aVURnuxF8PPZfKeGK_BNe6b5J5zw9b-OJRTFYqDLOXnTrUqf4CCfZXNpb0aQmhPV2Y6RYxFLW-O73UTa4Ow/2.png?psid=1)
+![][2]
 
 <br/>
 
@@ -100,11 +106,11 @@ _2011.10.23补充：_
 
 　　基本类型的情况有一点特殊。基本类型和 reference 都是在栈上的值，只是 reference 存的是堆上对象的地址值，而基本类型存的是本身的值。如下图所示：
 
-![](https://t7tbhw.bn1303.livefilestore.com/y2pAoCVZHcmBCj3Bkkl4bbxdguLdaZaX3dfHeZ3M6NcTrfgGh-CPC2ujnBt5jn20AK4ypRcqeoIms223TgfNLtvzdEQuOWsf1wcwUOwTh3OH5E/3.png?psid=1)
+![][3]
 
 　　当 (i, j) 作为参数传入时，j 会被原样 copy 一份，这份 copy 仍然指向 Integer(10)；i 也会被原样 copy 一份，值仍然为 5。如下图所示：
 
-![](https://hec1wq.bn1304.livefilestore.com/y2pwWGugzZOy0PCKjqUJbTnslFuIEYLjxBqHQGEztvXpNbDU10B3ngiNzyk0IDO8W_VWHCwdDrik5saHpMma_a4fIbDiZ4q0ChWIHZmJcCytSs/4.png?psid=1)
+![][4]
 
 　　所以此时在方法里 i = xxx 或者 j = new Integer(xxx)，其实对 (i, j) 并没有什么影响：
 

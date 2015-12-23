@@ -112,7 +112,7 @@ public class UserDAOProxy implements UserDAO {
 
 这样，Proxy.newProxyInstance(userDAO.getClass().getClassLoader(), userDAO.getClass().getInterfaces(), li) 也就相当于 new UserDAOProxy(li)。userDAOProxy 的 save() 方法的实际过程是：
 
-![](https://eovqra.bn1.livefilestore.com/y2psdMa3VIkfLxJVKzL7OljPH8_04W32ozs_rNo70aCujoHjUlwauQag5x6AE7jPtVMrobEvNG0wvEJAIjGrXNL6EIkk78R0zG6dKwcNCcg4V8/251a2192-7c96-3baa-838c-5a0aef24de8e.png?psid=1)
+![](https://farm2.staticflickr.com/1524/23920547275_da4272d983_o_d.png)
 
 Spring AOP 为系统添加业务逻辑的动态代理方法大抵就是这样。  
 
