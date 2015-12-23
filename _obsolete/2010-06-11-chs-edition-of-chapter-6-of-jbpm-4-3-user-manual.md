@@ -19,6 +19,6 @@ tags: [Doc, jbpm-101]
 
 　　本文只是用户手册中的第六章，不是全部的翻译。  
 
-* Download ①: [docx edition](https://eovctg.bn1.livefilestore.com/y2mesAhLwoyudW7LDSWz_Fkwiy9Lp7bU07Ax3MUURtclofKUAVEw4bIQArbmL4mj3GyKi-8jF_RgpRubyrkw97f5FJPkJ4dVjKqEtMB1-MleVs/jBPM-4.3-jpdl.docx?download&psid=1)  
-* Download ②: [pdf edition](https://eovctg.bn1301.livefilestore.com/y2m_-1dlbeUZBnIIgu_TwVGUORfS-NIXo3bZRFMNzd0kJu0ZKl7dZOolCEVqY4cUl3lM0TSdVksQlCd1X8yIp1jZ1wm77cPAbXexfaJuUSP_pg/jBPM-4.3-jpdl.pdf?download&psid=1)
+* Download ①: [docx edition](https://wxdkqa.bn1304.livefilestore.com/y3mA_O7QmYmIx4jy0p66G7LgvGlbkcmQAC5w6Cp_juOg1rVVMqn3r2SU1UHGCcGNOvRmIlDO61vPW4-mdnaff-JRfIZb8x8vkxqlX4A48OKo7A/2010-06-11-chs-edition-of-chapter-6-of-jbpm-4-3-user-manual-jpdl.docx?download&psid=1)  
+* Download ②: [pdf edition](https://wxdkqa.bn1304.livefilestore.com/y3mx-E1nRwdCF48vIbAjgQrgO1XiStLrjMd0OKvOZhKG7xjT8u95ekmovluq27vapZv-BUnAmWUuikfmZZSEFPo8yLyF6FNgykRGgdTzwBgcgeQvEXhX8vB_WuBEia2wd95/2010-06-11-chs-edition-of-chapter-6-of-jbpm-4-3-user-manual-jpdl.pdf?psid=1)
 
