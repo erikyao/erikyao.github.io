@@ -9,6 +9,8 @@ tags: [Algorithm-101]
 
 Digest of [Jeff Erickson](http://web.engr.illinois.edu/~jeffe/)'s [lecture notes](http://web.engr.illinois.edu/~jeffe/teaching/algorithms/) on [Recursion](http://web.engr.illinois.edu/~jeffe/teaching/algorithms/all-recursion.pdf).
 
+[Mom]: https://farm2.staticflickr.com/1630/23552708229_4d851c377f_o_d.png
+
 -----
 
 ## 1. Recursion
@@ -248,7 +250,7 @@ The key insight is that neither of these two subarrays can be too large. The `mo
 
 For purposes of illustration, imagine that we sort every column from top down, and then we sort the columns by their middle element. (Let me emphasize that the algorithm does not actually do this!) In this arrangement, the median-of-medians is the element closest to the center of the grid.
 
-![](https://farm6.staticflickr.com/5782/22649820525_c62493920d_o.png)
+![][Mom]
 
 We conclude that the worst-case running time of the algorithm obeys the following recurrence:
 

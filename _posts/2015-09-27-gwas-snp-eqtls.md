@@ -7,6 +7,9 @@ tags: [Biology-101]
 ---
 {% include JB/setup %}
 
+[figure-1]: https://farm2.staticflickr.com/1525/23812247122_9a9482886a_o_d.png
+[figure-2]: https://farm6.staticflickr.com/5788/23812247112_aea92c4e5c_o_d.png
+
 参考：
 
 - [Wikipedia - Single-nucleotide polymorphism](https://en.wikipedia.org/wiki/Single-nucleotide_polymorphism)
@@ -71,9 +74,9 @@ This challenge hinders the extraction of new biological knowledge and specific m
 	- Studies so far indicate that most of the regulatory control takes place locally, in the vicinity of genes. Numerous genes were detected to have cis eQTLs.
 	- Finding trans eQTLs has been less successful so far, mainly because interrogating the whole-genome for potential regulatory effects is a daunting statistical and computational task.
 	
-![](https://farm6.staticflickr.com/5636/22027043164_4e29b6f2d8_o.png)
+![][figure-1]
 
-![](https://farm6.staticflickr.com/5760/22649817385_a592231226_o.png)
+![][figure-2]
 
 ## SNP 与 eQTLs 的关系
 
