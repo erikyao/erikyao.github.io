@@ -28,7 +28,7 @@ auto fcn(It beg, It end) -&gt; decltype(*beg) {
 
 - Type Transformation Template 并没有要求只能在 template function 中使用
 
-![](https://im6dcq.bn1304.livefilestore.com/y2psrcscio-8KkaBTfG_LuBNt1_RCBwMT0PuCmCYSypqvyJ60n_Iz9Yg8ph5kJwFm46H3tyulHQTslvpaVw0fZm1M8wphsD2lk3VIc_TqAftZVO6E59emAMyDgRBK25KBPr9nVdiINj2UYcpM0zpR5Et27IrrwHhiIfhl0NXA-A9Vo/Standard%20Type%20Transformation%20Templates.png?psid=1)
+![](https://farm2.staticflickr.com/1611/23838059871_57765689bd_o_d.png)
 
 具体到我们这个场景，使用 `remove_reference` 就好了，transform 之后的新类型保存在一个 public member `type` 中：
 

@@ -26,6 +26,8 @@ tags: [Cpp-101, C++11]
 	- [2.6 Virtual Functions in a Derived Class](#virtual-in-derived)
 	- [2.7 Calling Base's virtual function](#call-base)
 	
+[late_binding]: https://farm2.staticflickr.com/1511/23812247752_b64dc0ee81_o_d.png
+	
 -----
 
 ## <a name="inheritance"></a>1. Inheritance
@@ -38,10 +40,10 @@ private:
 	int i;
 public:
 	Base(int i) {
-		this->i = i;
+		this-&gt;i = i;
 	}
 	void setI(int i) {
-		this->i = i;
+		this-&gt;i = i;
 	}
 };
 
@@ -50,10 +52,10 @@ private:
 	int i;
 public:
 	Part(int i) {
-		this->i = i;
+		this-&gt;i = i;
 	}
 	void setI(int i) {
-		this->i = i;
+		this-&gt;i = i;
 	}
 };
 
@@ -68,7 +70,7 @@ public:
 		Base::setI(ii); // java 里就是 super.setI(ii);
 	}
 	Ext(int ii) : Base(ii), p(ii) { // java 里就是 super(ii);
-		this->i = ii;
+		this-&gt;i = ii;
 	}
 	Ext(const Ext& ext) : Base(ext), i(ext.i), p(ext.i) {
 		// 如果自己写 copy-constructor 的话，需要显式调用 Base 的 copy-constructor
@@ -303,8 +305,8 @@ public:
 
 Late binding occurs: 
 
-- only with virtual functions, 
-- and only when you’re using an address (i.e. pointer or reference) of the base class.
+- only with virtual functions, AND
+- only when you’re using an address (i.e. pointer or reference) of the base class.
 - 换言之，你只能通过 pointer 或者 reference 来调用 virtual function 才能实现多态。
 
 注意 virtual function 在父类中是可以有实现的，而且实现不需要写 `virtual` 关键字，只要声明的时候有就可以了。
@@ -329,7 +331,7 @@ The redefinition of a virtual function in a derived class is usually called over
 
 Typical compilers create a single table (called the **VTABLE**) for each class that contains virtual functions. The compiler places the addresses of the virtual functions for that particular class in the **VTABLE**. In each class with virtual functions, it secretly places a pointer, called the _vpointer_ (abbreviated as **VPTR**), which points to the **VTABLE** for that object. When you make a virtual function call through a base-class pointer (that is, when you make a polymorphic call), the compiler quietly inserts code to fetch the **VPTR** and look up the function address in the **VTABLE**, thus calling the correct function and causing late binding to take place.
 
-![](https://gm5g2q.bn1304.livefilestore.com/y2paz-4ObABSqWpBPQG934_9xPJdkNwNZU-9LsKaJS320bNvUiQl2YfFQtjAqhgwyW3y5RwVRLgqQ8dVcxzxnR2_hP13F4ZLtnD7VAAn1Nfsa1zrTl1pYATekRYGFjNp92KmLTFRPeBxC2nFy5frvk9-g/late%20binding.png?psid=1)
+![][late_binding]
 
 ### <a name="abstract-class"></a>2.2 Abstract class
 
@@ -445,9 +447,7 @@ int main() {
 - [When to use virtual destructors?](http://stackoverflow.com/a/461224)
 - [FAQ: When should my destructor be virtual?](http://isocpp.org/wiki/faq/virtual-functions#virtual-dtors)
 
-As a guideline, any time you have a virtual function in a class, you
-should immediately add a virtual destructor (even if it does
-nothing). i.e. 如果要用多态，保险起见父类请一定要把 destructor 设置成 virtual。
+As a guideline, any time you have a virtual function in a class, you should immediately add a virtual destructor (even if it does nothing). i.e. 如果要用多态，保险起见父类请一定要把 destructor 设置成 virtual。
 
 #### <a name="pure-virtual-destructors"></a>Pure virtual destructors
 

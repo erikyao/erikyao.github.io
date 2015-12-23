@@ -7,6 +7,18 @@ tags: [R-101, Book]
 ---
 {% include JB/setup %}
 
+[figure-06-02]: https://farm2.staticflickr.com/1719/23812247562_7db87956f3_o_d.png
+[figure-06-05]: https://farm2.staticflickr.com/1576/23293776153_024b62491f_o_d.png
+[figure-06-06]: https://farm2.staticflickr.com/1707/23292343914_f0636f7c4a_o_d.png
+[figure-06-07]: https://farm6.staticflickr.com/5761/23292343904_37de42f0a6_o_d.png
+[figure-06-08]: https://farm2.staticflickr.com/1571/23920545955_2b491fb267_o_d.png
+[figure-06-09]: https://farm6.staticflickr.com/5675/23920545935_e47b919cce_o_d.png
+[figure-06-10]: https://farm2.staticflickr.com/1682/23624879260_f9c6d25ced_o_d.png
+[figure-06-13]: https://farm2.staticflickr.com/1485/23293776043_a9811405b1_o_d.png
+[figure-06-15]: https://farm6.staticflickr.com/5778/23552708619_9c18684ac4_o_d.png
+[figure-06-16]: https://farm6.staticflickr.com/5823/23920545895_d60eb8a5b2_o_d.png
+[figure-06-17]: https://farm2.staticflickr.com/1653/23920545885_35ee010448_o_d.png
+
 TODO: 直接在 toc 里分 part 1234
 
 ## 1. Introduction to R
@@ -415,8 +427,7 @@ barplot(counts,
 		legend=rownames(counts), beside=TRUE) # grouped bar plot
 </pre>
 
-![](https://bn1304files.storage.live.com/y2pTS388t_OXES585DZrJqf2qPS0-nnxomtEq03NSJ0gkK8WNUjrGDnIZEaZPoFlIgxVGE-lbcpEflknb924vle74Xch-DRr-EYjsVWa1J9l6jwehzrR58RRAcKZ65D0oeZ/figure-06-02.png.jpg?psid=1)
-
+![][figure-06-02]
 
 #### 6.1.5 Spinograms
 
@@ -430,7 +441,7 @@ attach(Arthritis)
 detach(Arthritis)
 </pre>
 
-![](https://bn1304files.storage.live.com/y2pi4JFFohhRuWfl36PjdXhq4DRi_uP173rwpRd2BLeypiUdpT5Pf3Tq-tEjI6I_QbQwxHRzB4r5dby2MdptsHIVo23PNVPCN_2v-gLoi71y5rg7okmSsJieZ-mJsH-1fb4/figure-06-05.png.jpg?psid=1)
+![][figure-06-05]
 
 ### 6.2 Pie Charts
 
@@ -464,7 +475,7 @@ pie(mytable, labels = lbls3,
 
 - `rainbow(length(lbls2))` resolves to `rainbow(5)`, providing five colors for the graph
 
-![](https://bn1304files.storage.live.com/y2pIR294_PKwxkfO283rJ9rXq3P99lD8DCKtpEIVej16t7W5opIdlTg2Lq68LWsoRpKN0zTrWom_6gwtJMYItF1_y3ijcOB42ahRI-NR2StN2rec8TpR_uH4VnTK257IPnF/figure-06-06.png.jpg?psid=1)
+![][figure-06-06]
 
 #### Digress: Fan Plot
 
@@ -475,7 +486,7 @@ lbls &lt;- c("US", "UK", "Australia", "Germany", "France")
 fan.plot(slices, labels = lbls, main="Fan Plot")
 </pre>
 
-![](https://bn1304files.storage.live.com/y2pXYHw_kgMSa8qVRXUSpht14se0dpTtNjG5DITjoc1qXyBfMEQ0sEaOzVljSJ_bxQMEKA3UdwPp_lp2Ejvlt-OtEEqzqLcmZ071WHNsWOBsQnvCbxfdPO9O8VWyIOw1m0n/figure-06-07.png.jpg?psid=1)
+![][figure-06-07]
 
 ### 6.3 Histograms
 
@@ -533,7 +544,7 @@ box()
 	- `diff(h$mids[1:2])*length(x)` 表示的就是所有 hist 柱的面积（cell-width × cell-height）
 - 我们为什么要把 `yfit` 乘以这个面积？因为正常情况下 area under f(x) 是 1，与我们 histogram 的比例不符，所以我们乘一个标量使 normal curve 和 histogram 在同一个 scale 上。 
 
-![](https://bn1304files.storage.live.com/y2pvbgV5qT5NrBRmHVT6309dblFD1lRovbs7sxL4D0_NMU8LS5wUfu_Hwhs4Fu-sdxK4o5v4Oj6RYiJKABseIK4TQLt6D6hEWQB54K-8CH3ptM2h6tK2QffQN8NkZuc0xRK/figure-06-08.png.jpg?psid=1)
+![][figure-06-08]
 
 ### 6.4 Kernel Density Plots
 
@@ -553,7 +564,7 @@ polygon(d, col="red", border="blue")
 rug(mtcars$mpg, col="brown")
 </pre>
 
-![](https://bn1304files.storage.live.com/y2pYuB2B6Be18Sp-2nSzOmfYe1G81ADb8j8j4XG4diDYC1ZBuaqv3Hx65VtA0GyGRo9t2_tyweuvADp9-Qyr7uVei_5-LQxso03I-5OfP_GAVqZK0EPhlW204i3f7orSElC/figure-06-09.png.jpg?psid=1)
+![][figure-06-09]
 
 The `sm.density.compare()` function in the `sm` package allows you to superimpose the kernel density plots of two or more groups. The format is `sm.density.compare(x, factor)` where `x` is a numeric vector and `factor` is a grouping variable.
 
@@ -573,7 +584,7 @@ detach(mtcars)
 
 - The `locator(1)` option indicates that you’ll place the legend interactively by clicking on the graph where you want the legend to appear.
 
-![](https://bn1304files.storage.live.com/y2pkINGwBuiOkxpvJUI0qwvH9Q_JBokIQisf-n_8O1suwZ9Jvih33oCSqjPaQ8kWjE8Ns0GYCygcI16Lv7ccM669WxFoUWUA70mA_57NXW3GjHih29MH_aJzFoytpjPrVUH/figure-06-10.png.jpg?psid=1)
+![][figure-06-10]
 
 - 这个图的意义就在于体现了 "一般来讲"：一般来说，8 缸比 6 缸费油，6 缸比 4 缸费油，而且 4 缸有一撮是极其省油。
 
@@ -603,7 +614,7 @@ boxplot(mpg ~ cyl, data=mtcars,
 		ylab="Miles Per Gallon")
 </pre>
 
-![](https://bn1304files.storage.live.com/y2p8HRwH4rQCrgFsxXaDl9ZhxMETSQXCGweIbUSmGyGOY1nn_kbgsqGsurSX-OYD23MsuxUG6jAE_Ens1TIJKoODHb35De4BWgU1HnEL3lW1o117vR55RGk3z_suyoxtfPQ/figure-06-13.png.jpg?psid=1)
+![][figure-06-13]
 
 #### 6.5.2 Violin plots
 
@@ -621,7 +632,7 @@ vioplot(x1, x2, x3,
 title("Violin Plots of Miles Per Gallon")
 </pre>
 
-![](https://bn1304files.storage.live.com/y2pUF9PJipomx39LYdqGRsquA3i0FOWzkKuyp4Xci1EpJIDRC4Xy8F1v8sV8D1_FOYFjCtBa4DiAwTp8RR-QCpltcfd8XEDOZ-WlAf33dC1O3tssSkDbXDVDpiP0HS312uu/figure-06-15.png.jpg?psid=1)
+![][figure-06-15]
 
 Violin plots are basically kernel density plots superimposed in a mirror image fashion over box plots. Here, the white dot is the median, the black boxes range from the lower to the upper quartile, and the thin black lines represent the whiskers.
 
@@ -633,7 +644,7 @@ dotchart(mtcars$mpg, labels=row.names(mtcars), cex=.7,
 		xlab="Miles Per Gallon")
 </pre>
 
-![](https://bn1304files.storage.live.com/y2pgHFlj8vk7rufCanSRWHwWm6LdRNTQTluMWnUgPBqchdibFMaY9PUlt2qskXkZSaT8OriWkh2uys0UiMYXp_z6BTRgmB0YdZtBL57-9LkC3xwVnB1u_K8KASawgzgmPIL/figure-06-16.png.jpg?psid=1)
+![][figure-06-16]
 
 <pre class="prettyprint linenums">
 x &lt;- mtcars[order(mtcars$mpg),]
@@ -652,7 +663,7 @@ dotchart(x$mpg,
 		xlab = "Miles Per Gallon")
 </pre>
 
-![](https://bn1304files.storage.live.com/y2pNfZOMpoa9OIw0e2X-m-gVn1-mvHzrLC_3LU3euRqe0S1OjRKynTPpLj-pmP1dJ-4gBhD2Fv8EoRzJc3LR8ZEU8unfcYcv5fzgnmUH3yGW1jFqy_duKoKM77TeN8eDyYY/figure-06-17.png.jpg?psid=1)
+![][figure-06-17]
 
 ## 7. Basic Statistics
 

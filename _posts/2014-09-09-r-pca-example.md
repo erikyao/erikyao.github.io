@@ -7,6 +7,9 @@ tags: [ML-101, R-101, PCA]
 ---
 {% include JB/setup %}
 
+[4_faces]: https://farm6.staticflickr.com/5788/23292344324_63f5375fa3_o_d.png
+[variance_explained]: https://farm6.staticflickr.com/5761/23292344304_ddcff38623_o_d.png
+
 ## 0. More Math Definitions
 
 If _X_ is a matrix with each variable in a column and each observation in a row then the `SVD` is a "matrix decomposition" that decomposes the original matrix into 3 separate matrices as
@@ -24,7 +27,7 @@ where the columns of `U` are orthogonal ([ɔ:'θɒgənl], 正交的) (`U` a.k.a 
 
 ## 1. 题外话: Impute Missing Data before PCA
 
-比如可以使用 [Bioconductor 的 {impute} 包]()。安装方法：
+比如可以使用 [Bioconductor 的 {impute} 包](https://bioconductor.org/packages/release/bioc/html/impute.html)。安装方法：
 
 <pre class="prettyprint linenums">
 source("http://bioconductor.org/biocLite.R")
@@ -57,7 +60,7 @@ udv &lt;- svd(scale(faceData))
 plot(udv$d^2/sum(udv$d^2), pch = 19, xlab = "Singular vector", ylab = "Variance explained")
 </pre>
 
-![](https://wxdjqa.bn1304.livefilestore.com/y2pxpEhY_mNzY9sn0kSPw51SzzMKGtH9IOI1WuNQgCe6TflMATSN2T6AhqBo04pHmRsYbVxCcILsjGuX-O7TJcO4Xl337EqQWST8LnuU51Tb6A/variance%20explained.png?psid=1)
+![][variance_explained]
 
 注意这里和 [Machine Learning: Dimensionality Reduction](http://erikyao.github.io/machine-learning/2014/09/06/machine-learning-dimensionality-reduction/) 那篇不同，这里是直接把 _X_ 拿来分解了，然后再计算的协方差。
 
@@ -87,7 +90,7 @@ image(t(approx10)[, nrow(approx10):1], main = "(c)")
 image(t(faceData)[, nrow(faceData):1], main = "(d)") ## Original data
 </pre>
 
-![](https://wxdjqa.bn1304.livefilestore.com/y2pbqczh5gd_g3R3_pqvG-XA_4RPWKVkQYXTjEZoFiPhyzAII5BdnuY9uinJOYwYaFsSeQgIazLGe3aE3pCNfj5bfaMnhdrGCqL9jmF4Bm4IFw/4%20faces.png?psid=1)
+![][4_faces]
 
 -> _~~~~~~~~~~ 2015-12-06 补充：开始 ~~~~~~~~~~*_ <-
 

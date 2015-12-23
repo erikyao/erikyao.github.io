@@ -65,7 +65,7 @@ Given variable \\( A \\) (which has \\( r \\) levels), and variable \\( B \\) (w
 
 ## Example
 
-![](https://bn1304files.storage.live.com/y2p9hVJduauRqjkTVOhIQiKAgyf8QZcdj1tomlskE4F2ajNvluHeUKiLL1lGd0tCwiEv6HmWwsIbrgriyCaFB1Qlm2gp1Izv1eTBG3hDn-n0KfWhmJtKBOCr7G63mrQyQLj/problem.png.jpg?psid=1)
+![](https://farm2.staticflickr.com/1602/23812247442_27aa358c50_o_d.png)
 
 **Question:** Is there a gender gap? Do the men's voting preferences differ significantly from the women's preferences?
 

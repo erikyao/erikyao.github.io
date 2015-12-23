@@ -112,7 +112,7 @@ Reference^([2]) 的例子见 [C++: pass-by-value / pass-by-pointer / pass-by-ref
 
 de- 确实也有 reversal 的意思（"解除" 也可以理解为 "逆操作" 啊），不过这个解读我觉得有点绕，还不好解释 dereference 的 verb（解释成 to get the dereference to sth？）
 
-另外看到 [[3]](#ref3) 这篇文章让我确信：不看中文版是对的……
+另外看到 [[3]](#ref3) 这篇文章让我确信：中文版，呵呵……
 
 ## 3. dereference 第三种解读
 
@@ -125,6 +125,6 @@ de- 确实也有 reversal 的意思（"解除" 也可以理解为 "逆操作" �
 
 画个表阐述下：
 
-![](https://iw77tq.bn1304.livefilestore.com/y2pVn8hWKmqOpXMXsld1ZCIxUNh8CE_VL3yCIAvCFoIIoksVQKYZnZx8oy1W1UMt2nqcQZvpBr3tP-cowohqoJ6YVupre2yYEruAmWgS0kn3FDu63vqiZQ45tASKj2-zvf5NTnIx5Nbf0gpEncRulKYpA/dereference.png?psid=1)
+![](https://farm6.staticflickr.com/5733/23812247862_f7c2503510_o_d.png)
 
 红蓝 CP，表示 "反操作" 关系的同时也表示这三个操作其实是联系非常紧密的；而 reference^([2]) 的 `int &ra = a;` 操作和这三个并没有太大关系，用灰色表示不相关。

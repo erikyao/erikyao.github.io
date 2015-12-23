@@ -132,6 +132,6 @@ If \\( \alpha = 2 \\) and \\( \beta = 1 \\), then \\( B(\alpha, \beta) = \frac{1
 &gt; abline(h=1.5, v=0.75)
 </pre>
 
-->![](https://wxf3bq.bn1304.livefilestore.com/y2pd_CeOs7kFaBJXS_arpFnJb8tk8F_zGkeVc-XFwxenYMI9LDNI2mA3qHAwJ1s1FC-IBx6loHlKiPaghqkec5baMq4BvjzMDj9hmNK6HirdIE/f-x-2x.png?psid=1)<-
+->![](https://farm6.staticflickr.com/5684/23552709119_86e55bfc5a_o_d.png)<-
 
 ->\\( F(0.75) = \frac{1.5 \times 0.75}{2} = 0.5625 \\)<-

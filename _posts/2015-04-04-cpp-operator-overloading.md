@@ -9,6 +9,8 @@ tags: [Cpp-101]
 
 整理自：_Thinking in C++_
 
+[Basic_guidelines]: https://farm2.staticflickr.com/1528/23838060001_564e45f95b_o_d.png
+
 -----
 
 ## 目录
@@ -182,7 +184,7 @@ class IntArray {
 
 除了这一点外，书上给了个 basic guidelines：
 
-![](https://jg5g2q.bn1304.livefilestore.com/y2p7PqCqz2ZIaby6DyoAfN3XH7eZMfgH_TQGHFGSL0E1QHXXSvQhuib4oJB5E0s1FnJBoTl5GqLn97HWZxe_l536QtKtLepriCghbiXLSfnMfDR_OnQ_mIHIFDbqlqxCYN8J6mGfBXcCwJnz902ZG9uTw/Basic%20guidelines.png?psid=1)
+![][Basic_guidelines]
 
 至于为什么 `operator=` 必须是 member function，stackoverflow 上[有一个解释](http://stackoverflow.com/a/3933864)，大意是说：`operator=` 就像 constructor 一样，系统会默认给你生成一个，而且是 member function 的形式，我们记为 opA。如果你再写一个 non-member 的 `operator=` 的话——我们记为 opB——那么在 opB 的代码之前，`operator=` 执行的是 opA 的逻辑，opB 的代码之后，`operator=` 执行的是 opB 的逻辑。Bjarne 觉得自己无法接受这一点，于是就强制 `operator=` 必须是 member function。
 

@@ -39,7 +39,7 @@ plot(1:n, means, type = "l", lwd = 2, frame = FALSE, ylab = "cumulative means", 
 abline(h = 0)
 </pre>
 
-![](https://wxdqhw.bn1304.livefilestore.com/y2pmbJxA0ViBT3ESSE0TigyL0zdy8GWMCx49NBP5DFDePBu1VlN8CAMQZ9ZqPQXWZkUUreyAVObXMAVo9wIFDluSfqNYvXQWDhHbM8O-0hl4Vo/1.1-simulation.png?psid=1)
+![](https://farm2.staticflickr.com/1573/23920546385_2ea1a2edd5_o_d.png)
 
 ### 1.3 Consistency and Bias of an estimator
 

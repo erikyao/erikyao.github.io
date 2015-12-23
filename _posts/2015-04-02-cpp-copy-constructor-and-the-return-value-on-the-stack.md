@@ -12,6 +12,10 @@ tags: [Cpp-101, copy-constructor]
 - _Thinking in C++_
 - [LearnCpp: 7.9 — The stack and the heap](http://www.learncpp.com/cpp-tutorial/79-the-stack-and-the-heap/)
 
+[function_frame_1]: https://farm2.staticflickr.com/1608/23894467526_f92a9b7358_o_d.png
+[function_frame_2]: https://farm6.staticflickr.com/5790/23293776353_b73a3a58b8_o_d.png
+[function_frame_3]: https://farm2.staticflickr.com/1523/23920546245_3901a22e4c_o_d.png
+
 -----
 
 ## 1. copy-constructor 你能想到的最常见的用法就是 copy-by-value 时 copy 参数
@@ -148,7 +152,7 @@ output: (序号是我自己加的)
 
 结合书上 P503 的图和 "The answer is to push the address of the return value’s destination on the stack as one of the function arguments" 这句话，以及后续的实验，可以得到一个简略的 function frame 结构（区域划分基本正确，但是细节上与实验的观察结果不是完全吻合，下面实验会超详细展开）：
 
-![](https://im5g2q.bn1304.livefilestore.com/y2pKJkvadnNjel6UiBfU0o6IMomdFNZQvWZMXaxK6u1EauhRHotMQ9cIUgcV2gUo5kSAiS6word9WgLEwPuc-broIYgbb0Vdrldlc2plv1eajLWt9s7BG_DTEmw7X7Plk5UaVgyqaI9z9qT_3x7H8tYjg/function%20frame%201.png?psid=1)
+![][function_frame_1]
 
 另外 [LearnCpp: 7.9 — The stack and the heap](http://www.learncpp.com/cpp-tutorial/79-the-stack-and-the-heap/) 的内容有一点要强调下，那就是 "The function’s return value is copied into the placeholder." 不一定每次都会发生，从下面实验的结果来看，如果是 return an argument 就有 copy，如果是 return a local variable 就没有 copy，因为 compiler 会非常机智地把要 return 的 local variable 直接分配到 return value placeholder 上。
 
@@ -274,7 +278,7 @@ output: (序号是我自己加的；配色与之前不同，这里同组的 vari
 
 function frame 的区域如图：
 
-![](https://im5g2q.bn1304.livefilestore.com/y2p8Mr3X2r_VMtl_He7CDj3iHX1qCrvEB-Z307hPgas-vv13SX6RGr-2Zqm1cEEKk0Sxj2vgJo_3ihV2xkFrfhXmoryvmonLYOHhPR6DzdnXuEtiiXXv0E5CpIWZ49RCUTfRDLmdgvUKP-i3GTGmSmQsA/function%20frame%202.png?psid=1)
+![][function_frame_2]
 
 - 第一个问题就是 main 的 local variable（对 `foo()` 函数而言就是 outer variable）横在中间
 - 然后 **stack frame** 这个栈顶指针我不知道是如何运作的
@@ -315,7 +319,7 @@ function frame 的区域如图：
 
 function frame 的区域如图：
 
-![](https://im5g2q.bn1304.livefilestore.com/y2pQod6gLxI9wie0Q2aBphyAdvOIal2Jc39K3asSk0vZJUU7TYuPScgJbRdqh6RDEcIWyeaN4xVVNQJ0rwWpk6rUaLzHaMTlG9TmI-uZdrG2ss9QhmlKC0Jv8IhegDEaCjdeHRV0V20g126RCqWk9FyfQ/function%20frame%203.png?psid=1) 
+![][function_frame_3]
 
 我们看到编译器是把 `newT2` 直接分配到了 return variable placeholder 上！这样就省掉了一次 copy-construct，真是太机智了！（编译器：嘁，老子看得到你的代码，知道你要 `return newT2;`，有什么好奇怪的……
 

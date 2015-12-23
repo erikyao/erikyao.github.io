@@ -13,6 +13,8 @@ tags: [Cpp-101, const]
 * [MSDN: Constant Member Functions](https://msdn.microsoft.com/zh-cn/library/6ke686zh.aspx)
 * [MSDN: Mutable Data Members (C++)](https://msdn.microsoft.com/en-us/library/4h2h0ktk.aspx)
 
+[const-function]: https://farm6.staticflickr.com/5724/23894467506_9fdc7f0b45_o_d.png
+
 -----
 
 ## 目录
@@ -127,7 +129,7 @@ private:
 	* 但是并没有说 non-const object 就只能 call non-const member function
 	* 简单说就是这样：
 
--> ![](https://g277tq.bn1304.livefilestore.com/y2pfxAAcZSE1AlgCcltA6PFKYYjVi7dxYatEvBxNcybRTPCqUFgHHyI8x2dQJ_1MAhJ4avArJp2iGKez8D3rvBaxKRRgRigsxYIJyBCSmDIbpEAZWJF6DIJu9ulZEYeNfDQKiBahRtvQYGCP1o5SQPi3w/const-function.png?psid=1) <-
+-> ![][const-function] <-
 
 A const member function 
 	

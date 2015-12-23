@@ -7,6 +7,8 @@ tags: [Cpp-101, const]
 ---
 {% include JB/setup %}
 
+[linkage]: https://farm2.staticflickr.com/1595/23552708989_a3cd413238_o_d.png
+
 整理自：
 
 * _Thinking in C++_
@@ -534,7 +536,7 @@ _~~~~~~~~~~ 2015-05-19 补充完毕 ~~~~~~~~~~_
 
 ## <a name="summary"></a>5. Summary
 
-![](https://jm77tq.bn1304.livefilestore.com/y2pJmNAJWQy0-D_pSoFtPxCvVZWWfQxXMcE-2M29anmP5zTEjHHVCGME4Fzmy2UHlwiu0zO662nSkL737rhpwrIr4OJZPGbNSppDmeeY8UGoQF2JmekMzF9aWYF0v_1S93uycOcPvrj5yw63nCRge7vPA/Linkage.png?psid=1)
+![][linkage]
 
 * "common" 指 non-static + non-extern
 

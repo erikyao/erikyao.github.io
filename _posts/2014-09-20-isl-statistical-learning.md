@@ -35,6 +35,8 @@ tags: [ML-101]
 	- [2.3.2 K-Nearest Neighbors](#K-Nearest-Neighbors)
 
 ### 3. [Lab: Introduction to R](#Lab)
+
+[trade-off]: https://farm2.staticflickr.com/1647/23894467586_88c19382ff_o_d.png
 		
 -----
 	
@@ -184,7 +186,7 @@ Others are considerably more flexible because they can generate a much wider ran
 
 * E.g. spline
 
-![](https://ibmcpg.bn1304.livefilestore.com/y2p1nma-oDwQ68AM_fqu7ZVQIpFfQwVgnyteAhyHqXHHRjO6iTMBmUbKDg7fMhJhbp2BO5mZ1ye3kQT6EOqqUm17qyQKyOw0RLr9KyaRJrmxtQ/trade-off.png?psid=1)
+![][trade-off]
 
 * The _lasso_, discussed in Chapter 6, relies upon the linear model but uses an alternative fitting procedure for estimating the coefficients \\( \beta\_0, \beta\_1, \cdots, \beta\_p \\). The new procedure is more restrictive in estimating the coefficients, and sets a number of them to exactly zero. Hence in this sense the lasso is a less flexible approach than linear regression. It is also more interpretable than linear regression, because in the final model the response variable will only be related to a small subset of the predictors — namely, those with non-zero coefficient estimates.
 * _Generalized additive models_ (GAMs), discussed in Chapter 7, instead extend the linear model to allow for certain non-linear relationships. Consequently, GAMs are more flexible than linear regression. They are also somewhat less interpretable than linear regression, because the relationship between each predictor and the response is now modeled using a curve.

@@ -7,12 +7,18 @@ tags: [R-101]
 ---
 {% include JB/setup %}
 
-coursera 课程总结。  
-Chapter 1 摘自 [How to share data with a statistician](https://github.com/jtleek/datasharing)。  
-Section 3.4 部分参考 [Reshaping data with the `reshape` package](http://had.co.nz/reshape/introduction.pdf)。  
-部分内容参考 [Data Summarization and Manipulation](http://www.biostat.jhsph.edu/~ajaffe/lec_winterR/Lecture%202.pdf) 和 [Lists and Data Cleaning](http://www.biostat.jhsph.edu/~ajaffe/lec_winterR/Lecture%203.pdf)。  
+[Boxplot]: https://farm2.staticflickr.com/1576/23838060281_5e73191cf4_o_d.png
+[Percentiles]: https://farm2.staticflickr.com/1538/23894467706_54741da322_o_d.png
+[Quartile_and_IQR]: https://farm2.staticflickr.com/1682/23624879870_858091eff7_o_d.png
 
-部分补充来自 _R Cookbook_。
+coursera 课程总结。
+  
+- Chapter 1 摘自 [How to share data with a statistician](https://github.com/jtleek/datasharing)。  
+- Section 3.4 部分参考 [Reshaping data with the `reshape` package](http://had.co.nz/reshape/introduction.pdf)。  
+- 部分内容参考 
+	- [Data Summarization and Manipulation](http://www.biostat.jhsph.edu/~ajaffe/lec_winterR/Lecture%202.pdf)
+	- [Lists and Data Cleaning](http://www.biostat.jhsph.edu/~ajaffe/lec_winterR/Lecture%203.pdf)。  
+	- _R Cookbook_。
 
 -----
 
@@ -697,7 +703,7 @@ str(restData)
 
 <a name="quartile"></a>注意 summary 这里的 "Qu" 指的是 quartile [ˈkwɔ:taɪl] 而不是 quantile ['kwɒntaɪl]:
 
-->![](https://vgk8nq.bn1304.livefilestore.com/y2p8ZOEz83NFz3dodidirF0W1RGUWITGyjCo0LvvLLa9V-BaZ7yp1ip-RyNIL36a29MS0Rnz52lk9q-GU7EkA8nN6BKzTmHzX2AQ3Os2jNEuac/Quartile%20and%20IQR.png?psid=1)<-
+->![][Quartile_and_IQR]<-
 
 ->图片来源：[Lecture 2: Descriptive Statistics and Exploratory Data Analysis](http://www.gs.washington.edu/academics/courses/akey/56008/lecture/lecture2.pdf)<-
 
@@ -711,7 +717,7 @@ quartile \\( Q_3 \\)
 
 <a name="boxplot"></a>这里顺带再图示一下 boxplot 的意思：
 
-->![](https://vgk8nq.bn1304.livefilestore.com/y2p8VYepFrcQWRkoMJStQ-eyZxUBIHD1DHtQGveBh3aY489MBceP1gQQGvHMSS_Dxmtbo1E3YZ4OVgAv_U9syRZm6JlDcYm-JI6Diz3Bt3vjdE/Boxplot.png?psid=1)<-
+->![]([Boxplot]<-
 
 ->图片来源：[Lecture 2: Descriptive Statistics and Exploratory Data Analysis](http://www.gs.washington.edu/academics/courses/akey/56008/lecture/lecture2.pdf)<-
 
@@ -728,7 +734,7 @@ quartile \\( Q_3 \\)
 
 <a name="nth-quantile"></a>最后注意一种表达方式：quantile a.k.a percentile，在 Week 3 Quiz 的 Question 2 中问到了 "What are the 30^th and 80^th quantiles of the resulting data?"，其实就是 \\( u\_{30\%} \\) 和 \\( u\_{80\%} \\)，当然我更习惯写成 \\( u\_{0.30} \\) 和 \\( u\_{0.80} \\)
 
-->![](https://vgk8nq.bn1304.livefilestore.com/y2psMjVKpAdVl3QcgksFlcl1dcA9ufdd7xD5Bpb1KqQnQXdkidVssRG0ry8gYr6dGPrgCE2jrwHcd6ph-dVZQURimL8aphd7uLp-w5Bii35AlQ/Percentiles.png?psid=1)<-
+->![][Percentiles]<-
 
 ->图片来源：[Lecture 2: Descriptive Statistics and Exploratory Data Analysis](http://www.gs.washington.edu/academics/courses/akey/56008/lecture/lecture2.pdf)<-
 
