@@ -17,6 +17,6 @@ tags: [Java-101]
 
 　　按这种理解，我们可以画这么一幅图（不一定是真实的情况，只是反映我的理解）：
 
-![](https://ujaeew.bn1302.livefilestore.com/y2p5bb7o9rsnB5ee1RdGykM7CyPvpVFK-bpHoibEs_Y4tbt4cjjEyQelniMQa_0o8rsG6IH52krN8qGlEfZ0DtghelJHPNEU2FNw0nlB4s1Iwg/Image.png?psid=1)
+![](https://farm2.staticflickr.com/1454/23293777983_35772057d0_o_d.png)
 
 　　另外还有：如果 Base 类对象引用 baseRef 指向一个 Ext 类对象，那么 `baseRef instanceof Ext == true`，因为 baseRef 的确指向了一个 Ext 对象；但 baseRef 并不能访问 Ext 对象中新字段和新方法，相当于 baseRef 只能访问这个 Ext 对象中内嵌的 Base 对象。

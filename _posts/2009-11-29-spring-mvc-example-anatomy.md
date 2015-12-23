@@ -9,7 +9,7 @@ tags: [SpringMVC-101]
 
 　　例子来自 [Developing a Spring Framework MVC application step-by-step](http://docs.spring.io/docs/Spring-MVC-step-by-step/) ，版本是 spring-framework-2.5.6.SEC01
 
-![](https://vglspw.bn1302.livefilestore.com/y2pOqlFuqZyXLFlJfv0gXblKqxagQbcr7q7m0Ok6K3IrlR5ASHfxU8KdC4B4SbgdqbGQ7FBWXvm_oPdllMV58coth-82QQ37kv7lwqXng5L-_o/e52c303a-e30c-34e1-a55a-b707d881a99a.png?psid=1)
+![](https://farm6.staticflickr.com/5754/23624881030_43a4c82b85_o_d.png)
 
 ## 1. DispatchServlet 接过浏览器的 /hello.htm请求
 
@@ -106,7 +106,7 @@ public static final String VIEW_RESOLVER_BEAN_NAME = "viewResolver";
 public static final String MESSAGE_SOURCE_BEAN_NAME = "messageSource";  
 </pre>
 
-　　另外，bean name和bean id 的区别：
+　　另外，bean name 和 bean id 的区别：
 
 > Either one would work. It depends on your needs:
 > If your bean identifier contains special character(s) for example (/viewSummary.html), it (the slash) won't be allowed as the bean id, because it's not a valid XML ID. In such cases you could skip defining the bean id and supply the bean name instead.
