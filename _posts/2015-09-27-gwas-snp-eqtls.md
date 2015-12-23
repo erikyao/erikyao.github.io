@@ -1,6 +1,6 @@
 ---
 layout: post-mathjax
-title: "GWAS / SNP / eQLTs"
+title: "GWAS / SNP / eQTLs"
 description: ""
 category: Biology
 tags: [Biology-101]
