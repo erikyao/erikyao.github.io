@@ -1,11 +1,15 @@
 ---
 layout: post
-title: "Digest of <i>Seamless R and C++ Integration with Rcpp</i>"
+title: "Digest of <i>Seamless R and C++ Integration with Rcpp</i> (待修改)"
 description: ""
 category: R
 tags: [Rcpp, Book]
 ---
 {% include JB/setup %}
+
+Rcpp 初体验。请结合 [Rcpp Hierarchy](/r/2015/07/17/rcpp-hierarchy/) 做进一步的理解。本文待修改。
+
+-----
 
 ## Chapter 1. A Gentle Introduction to Rcpp
 
