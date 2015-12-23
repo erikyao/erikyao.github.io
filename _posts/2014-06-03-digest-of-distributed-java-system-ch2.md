@@ -3,7 +3,7 @@ layout: post
 title: "《分布式 Java 应用：基础与实践》第二章总结：SOA 扫盲"
 description: ""
 category: Java
-tags: [Book, Java-DistributedSystem]
+tags: [Book, Java-DistributedSystem, SOA]
 ---
 {% include JB/setup %}
 
@@ -18,4 +18,8 @@ tags: [Book, Java-DistributedSystem]
 
 　　SOA 也不关心具体交互的通信方式，这是 SOA 框架实现的问题。所以说，SOA 就是一种想法（包括后续的一些要求，比如 QoS），没有涉及到具体的实现细节。
 
-![](https://7atftq.bn1.livefilestore.com/y2pT13H51hWXMUJGWZJ2Swhb42h4vFgvuBPxe9Hy3qQB7mz1jC-kC9yCzP5vsWqw7PZpytRZxcbqrBMdK8QiznGw1j0n3gVpExXKWMe_cpMxp8/SOA%E6%A6%82%E5%BF%B5.png?psid=1)
+- SOA：是一种思想
+	- SCA：行业标准，SOA 的一种设计方案
+		- Tuscany：基于 SCA 的 SOA 实现
+	- ESB：另外一套 SOA 设计方案
+		- Mule：基于 ESB 的 SOA 实现
