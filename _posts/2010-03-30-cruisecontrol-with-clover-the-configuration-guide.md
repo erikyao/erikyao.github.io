@@ -7,5 +7,5 @@ tags: [Config-Ant, Config-Clover, Config-CruiseControl, Doc]
 ---
 {% include JB/setup %}
 
-* Download ①: [docx edition](https://wxfjyw.bn1302.livefilestore.com/y2msHQFqnQkWzqJLAouqHJGZDPVQy1YoT2Z4DrIqJdDsYFyjeOMELjiZeivg_Lu29AVg_uigKwvade3FvRC_owMpK2UFXAKF6ZcSa050jQ0UoE/CruiseControl_with_Clover_the_Configuration_Guide_v0.1.docx?download&psid=1)  
-* Download ②: [pdf edition](https://wxdrhw.bn1303.livefilestore.com/y2mZ3D4dM2Zkfavdjo0q_dlN3vDo3PD3KNsO9tf9N5OUe6XTfNKZrLAduzjI2ETF6m-_TI3TTOg5sYxuwDG4gn3N14JAvWSYURNcJwBu186840/CruiseControl_with_Clover_the_Configuration_Guide_v0.1.pdf?download&psid=1)
+* Download ①: [docx edition](https://wxdkqa.bn1304.livefilestore.com/y3m09Tvc1T29YtRSqGCuAAxgGrnj--AkKGeQtOTaqxxt1KaWnUAdQLlr5AL7LKuFxMnSP4GvhEdyN9Cf4f3ekSBoRvAnGOElslcCkhK1a9HIgs/2010-03-30-cruisecontrol-with-clover-the-configuration-guide_v0.1.docx?download&psid=1)  
+* Download ②: [pdf edition](https://wxdrhw.bn1304.livefilestore.com/y3mtW2ewS_CrOBmozi3U1KN-NuEO-ya5gbE5bJu1Le7r8HztF_1YbPaeJbEJ3lnxxCo8_fuGqsm_u_YXTiVjcYqMTsM0ZjS47YHhs_tDK4r33vkjiITqYRl3GiYlbqix9sQ/2010-03-30-cruisecontrol-with-clover-the-configuration-guide_v0.1.pdf?psid=1)
