@@ -13,7 +13,7 @@ tags: [Database-101]
 
 　　一个 disk drive 包括两个移动部件：disk assembly (磁盘组合) 和 head assembly (磁头组合)。disk assembly 是盘片 (platter) 的集合，一个盘片有2个盘面 (side)。head assembly 是磁头 (head) 的集合，一个盘面一个磁头。
 
-->![](https://vgk2vg.bn1304.livefilestore.com/y2pcZkp4B-hvor1MJnDCagnhrSWWl2ay-76yeTVbCMk6xhVH_XrO6RBjshIosKTP4L1K2r2DnyP1YVGj7APuxnTQEFWANVzVIng-jKUZJuq_ow/disk%20driver.png?psid=1)<-
+->![](https://farm6.staticflickr.com/5785/23293777963_ae66d9267b_o_d.png)<-
 
 ## (1) Tracks (磁道)
 
@@ -29,7 +29,7 @@ tags: [Database-101]
 
 　　可以简单地认为扇区的分布是均匀的，如下图所示，这时每个磁道的扇区数相等。不过这么一来不同磁道上的扇区面积不等，若要求每个扇区保存的数据容量相同的话，那么不同磁道上扇区的数据密度就会相差非常大。所以一般的做法是内圈 (比如内1/3) 磁道的扇区数最少，中圈 (比如中1/3) 的稍多，外圈 (比如外1/3) 的磁道数最多。
 
-->![](https://vgk2vg.bn1302.livefilestore.com/y2pqUIUhRIaWORIjlsFIRIF-KXLDafc23FhcUKRjlopY5AuBsvJWTS7oeVHVMfMnihGiwSwvn_5MLvWwvZjjUzIxpKKNE2iRMiDNmFcCc4OhkA/sector.gif?psid=1)<-
+->![](https://farm6.staticflickr.com/5811/23920547675_c69cb86fba_o_d.gif)<-
 
 ## (3) Cylinder (柱面)
 
