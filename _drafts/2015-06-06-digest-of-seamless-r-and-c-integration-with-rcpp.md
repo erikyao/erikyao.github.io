@@ -307,7 +307,7 @@ Another useful point to note is that because the second argument `y` is never in
 The `Function` class can also be used to access R functions directly. In the example below, we draw five random numbers from a t-distribution with three degrees of freedom. As we are accessing the random number generators, we need to ensure that it is in a proper state. The `RNGScope` class ensures this by initializing the random number generator by calling the `GetRNGState()` function from the class constructor, and by restoring the initial state via `PutRNGState()` via its destructor.
 
 <pre class="prettyprint linenums">
-src <- '
+src &lt;- '
 	RNGScope scp;
 	Rcpp::Function rt("rt");
 	return rt(5, 3);
