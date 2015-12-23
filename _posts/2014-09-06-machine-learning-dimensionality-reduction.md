@@ -25,23 +25,23 @@ Principal Component Analysis (主成分分析), abbreviated as PCA, is the algor
 
 那么如何判断 "投影点能够代替 \\( x_1 \\) 和 \\( x_2 \\)" 呢？这个是通过计算替换前后的 variance 来确定的。如果替换后的 variance 没有太大损失，就可以认为是一个有效替换。那么问题就转化成 "寻找一个替换，使替换后的 variance 最大"。   
 
-经过进一步推导（这里就不深入了），问题进一步转化为：Find a direction (a vector \\( u\^{(1)} \in R\^2 \\)) onto which to project the data so as to minimize the projection error. 
-	
+经过进一步推导（这里就不深入了），问题进一步转化为：Find a direction (a vector \\( u\^{(1)} \in R\^2 \\)) onto which to project the data so as to minimize the projection error.
+
 ### 2.2 Reduce from n-dimension to k-dimension
-	
+
 同理，Find k vectors \\( u\^{(1)}, u\^{(2)}, ..., u\^{(k)} \in R\^n \\) onto which to project the data so as to minimize the projection error.
-	
+
 ## 3. PCA: Algorithm
-	
+
 ### 3.1 Data preprocessing
 
 Given training set \\( x\^{(1)}, ..., x\^{(m)} \\), the preprocessing goes like mean normalization:
- 
-* calculate \\( \mu_j =  \frac{1}{m} \sum_{i=1}\^m { x_j\^{(i)} } \\)
-* replace each \\( x_j\^{(i)} \\) with \\( x_j\^{(i)} - \mu_j \\) 
 
-If there are different features on different scales (e.g. \\( x_1 \\) = size of house, \\( x_2 \\) = number of bedrooms), scale features to have comparable range of values. 
-	
+* calculate \\( \mu_j =  \frac{1}{m} \sum_{i=1}\^m { x_j\^{(i)} } \\)
+* replace each \\( x_j\^{(i)} \\) with \\( x_j\^{(i)} - \mu_j \\)
+
+If there are different features on different scales (e.g. \\( x_1 \\) = size of house, \\( x_2 \\) = number of bedrooms), scale features to have comparable range of values.
+
 ### 3.2 PCA algorithm and implementation in Octave
 
 Suppose we are reducing data from n-dimensions to k-dimensions
@@ -58,11 +58,11 @@ Non-vectorized formula is \\( \Sigma =  \frac{1}{m}  \sum_{i=1}\^n { x\^{(i)}*(x
 
 \\( \therefore \\) Vectorized formula is \\( \Sigma = \frac{1}{m} X\^T X \\)
 
-#### Step 2: Compute eigenvectors (['aɪ(d)gənvektə], 特征向量) of convariance matrix
+#### Step 2: Compute eigenvectors (['aɪ(d)gənvektə], 特征向量) of covariance matrix
 
-`[U, S, V] = svd(Σ)`, svd for Singular Value Decomposition (奇异值分解). `eig(Σ)` also works but less stable.  
+`[U, S, V] = svd(Σ)`, `svd` for Singular Value Decomposition (奇异值分解). `eig(Σ)` also works but less stable.  
 
-Convariance matrix always sstisfies a property called "symmetric positive semidefinite" (对称半正定矩阵), so `svd` == `eig`.  
+Covariance matrix always satisfies a property called "symmetric positive semidefinite" (对称半正定矩阵), so `svd` == `eig`.  
 
 The structure of `U` in `[U, S, V]` is:
 
@@ -80,7 +80,7 @@ In Octave, use `U_reduce = U(:, 1:k)`.
 
 The new dimension \\( z^{(i)} = (U_{reduce})\^T*x\^{(i)} \\) (size = (kxn) * (nx1) = kx1)
 
-Vecterized formula is \\( Z = X*U_{reduce} \\) (size = (mxn) * (nxk) = mxk)
+Vectorized formula is \\( Z = X*U_{reduce} \\) (size = (mxn) * (nxk) = mxk)
 
 The structure of Z is:
 
@@ -115,9 +115,9 @@ Typically, choose k to be smallest value that satisfy \\( \frac{ASPE}{TV} <= 0.0
 我们利用 `[U, S, V] = svd(Σ)` 的 S 来方便我们的计算，S 是一个 nxn 的 diagonal:
 
 \\( S = \begin{vmatrix}
-s\_{11} &  &  & \\\\ 
- & s\_{22} &  & \\\\ 
- &  & ... & \\\\ 
+s\_{11} &  &  & \\\\
+ & s\_{22} &  & \\\\
+ &  & ... & \\\\
  &  &  & s\_{nn}
 \end{vmatrix} \\)
 
@@ -130,10 +130,10 @@ For a given k, \\( \frac{ASPE}{TV} = 1 - \frac{\sum\_{i=1}\^k {s\_{ii}}} {\sum\_
 ### 6.1 Good use of PCA
 
 Application of PCA:
- 
+
 * Compression
-	* Reduce memory/disk needed to store data 
-	* Speed up learning algorithm 
+	* Reduce memory/disk needed to store data
+	* Speed up learning algorithm
 		* choose k by xx% of variance retaining
 * Visualization
 	* choose k=2 or k=3
@@ -145,11 +145,11 @@ Suppose we have \\( (x\^{(1)}, y\^{(1)}), ..., (x\^{(m)}, y\^{(m)}) \\) and n=10
 ### 6.2 Bad use of PCA
 
 * To prevent overfitting
-	* Use PCA to reduce the number of features, thus, fewer features, less likely to overfit. 
-	
-This is bad use because PCA is not a good way to address overfilng. Use regularization instead. 
+	* Use PCA to reduce the number of features, thus, fewer features, less likely to overfit.
+
+This is bad use because PCA is not a good way to address overfitting. Use regularization instead.
 
 ### 6.3 Implementation tips
 
 * Note 1: The mapping \\( x\^{(i)} \rightarrow z\^{(i)} \\) should be **defined** by running PCA **only** on the training set. But this mapping can be **applied** as well to the examples \\( x\_{cv}\^{(i)} \\) and \\( x\_{test}\^{(i)} \\) in the cross validation and test sets.  
-* Note 2: Before implemen1ng PCA, first try running whatever you want to do with the original/raw data \\( x\^{(i)} \\). Only if that does not do what you want, then implement PCA and consider using \\( z\^{(i)} \\). 
+* Note 2: Before implemen1ng PCA, first try running whatever you want to do with the original/raw data \\( x\^{(i)} \\). Only if that does not do what you want, then implement PCA and consider using \\( z\^{(i)} \\).

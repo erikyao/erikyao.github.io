@@ -19,11 +19,11 @@ tags: [ML-101, LDA]
 
 ### 3. [Logistic Regression](#Logistic-Regression)
 
-- [3.1 The Logistic Model](#LgR-Model) 
-- [3.2 Estimating the Regression Coefficients](#Est-Coef) 
-- [3.3 Making Predictions](#Making-Predictions) 
-- [3.4 Multiple Logistic Regression](#MLgR) 
-- [3.5 Logistic Regression for >2 Response Classes](#LgR-for-multi-resp) 
+- [3.1 The Logistic Model](#LgR-Model)
+- [3.2 Estimating the Regression Coefficients](#Est-Coef)
+- [3.3 Making Predictions](#Making-Predictions)
+- [3.4 Multiple Logistic Regression](#MLgR)
+- [3.5 Logistic Regression for >2 Response Classes](#LgR-for-multi-resp)
 
 ### 4. [Linear Discriminant Analysis](#LDA)
 
@@ -42,17 +42,17 @@ tags: [ML-101, LDA]
 - [6.4 Quadratic Discriminant Analysis](#Lab-QDA)
 - [6.5 K-Nearest Neighbors](#Lab-KNN)
 - [6.6 An Application to Caravan Insurance Data](#Lab-Caravan)
-		
+
 -----
 
 The process of predicting qualitative responses is known as **classification**. Predicting a qualitative response for an observation can also be referred to as **classifying** that observation. Classification techniques are also known as **classifiers**.
 
-In this chapter we discuss three of the most widely-used classifiers: 
+In this chapter we discuss three of the most widely-used classifiers:
 
 * logistic regression
 * linear discriminant analysis
 * K-nearest neighbors
-	
+
 ## <a name="Overview"></a>1. An Overview of Classification
 
 P128
@@ -61,12 +61,12 @@ P128
 
 P129
 
-The codings of response would produce fundamentally different linear models that would ultimately lead to different sets of predictions on test observations. And the difference of responses does not make any sense. 
+The codings of response would produce fundamentally different linear models that would ultimately lead to different sets of predictions on test observations. And the difference of responses does not make any sense.
 
 Curiously, it turns out that the classifications that we get if we use linear regression to predict a binary response will be the same as for the linear discriminant analysis (LDA) procedure.
 
 ## <a name="Logistic-Regression"></a>3. Logistic Regression
- 
+
 Rather than modeling this response \\( Y \\) directly, logistic regression models the probability that \\( Y \\) belongs to a particular category.
 
 ### <a name="LgR-Model"></a>3.1 The Logistic Model
@@ -81,7 +81,7 @@ $$
 \begin{equation}
 	p(X) = \beta\_0 + \beta\_1 X
 	\tag{3.1}
-\end{equation} 
+\end{equation}
 $$
 
 the main problem we would have is that the probablity may fall out of range [0,1].
@@ -93,7 +93,7 @@ $$
 	p(X) = \frac{e\^{\beta\_0 + \beta\_1 X}}{1+e\^{\beta\_0 + \beta\_1 X}}
 	\tag{3.2}
 	\label{eq3.2}
-\end{equation} 
+\end{equation}
 $$
 
 To fit the model \\( (\ref{eq3.2}) \\), we use a method called **maximum likelihood**, which we will discuss later.
@@ -105,7 +105,7 @@ $$
 	\frac{p(X)}{1-p(X)} = e\^{\beta\_0 + \beta\_1 X}
 	\tag{3.3}
 	\label{eq3.3}
-\end{equation} 
+\end{equation}
 $$
 
 The quantity \\( p(X)/[1−p(X)] \\) is called the **odds**, and can take on any value between 0 and \\( \infty \\).
@@ -120,7 +120,7 @@ $$
 	log \left \( \frac{p(X)}{1-p(X)} \right \) = \beta\_0 + \beta\_1 X
 	\tag{3.4}
 	\label{eq3.4}
-\end{equation} 
+\end{equation}
 $$
 
 The left-hand side is called the log-odds or logit. We see that the logistic regression model \\( (\ref{eq3.2}) \\) has a logit that is linear in X.
@@ -135,15 +135,15 @@ Therefore increasing \\( X \\) by one unit changes the log odds by \\( \beta\_1 
 
 Although we could use (non-linear) least squares to fit the model \\( (\ref{eq3.4}) \\), the more general method of **maximum likelihood** is preferred, since it has better statistical properties.
 
-The basic intuition behind using maximum likelihood to fit a logistic regression model is as follows: we seek estimates for \\( \beta\_0 \\) and \\( \beta\_1 \\) such that the predicted probability \\( \hat{p}(x\_i) \\), using \\( (\ref{eq3.2}) \\), corresponds as closely as possible to the \\( y\_i \\). In other words, we try to find \\( \hat{\beta}\_0 \\) and \\( \hat{\beta}\_1 \\) such that plugging these estimates into the model for \\( p(X) \\), given in \\( (\ref{eq3.2}) \\), yields a number close to 1 for all \\( x_i \\) whose \\( y_i = yes \\), and a number close to 0 for all \\( x_j \\) whose \\( y_j = no \\). 
+The basic intuition behind using maximum likelihood to fit a logistic regression model is as follows: we seek estimates for \\( \beta\_0 \\) and \\( \beta\_1 \\) such that the predicted probability \\( \hat{p}(x\_i) \\), using \\( (\ref{eq3.2}) \\), corresponds as closely as possible to the \\( y\_i \\). In other words, we try to find \\( \hat{\beta}\_0 \\) and \\( \hat{\beta}\_1 \\) such that plugging these estimates into the model for \\( p(X) \\), given in \\( (\ref{eq3.2}) \\), yields a number close to 1 for all \\( x_i \\) whose \\( y_i = yes \\), and a number close to 0 for all \\( x_j \\) whose \\( y_j = no \\).
 
 This intuition can be formalized using a mathematical equation called a **likelihood function**:
 
 $$
 \begin{equation}
-	\ell(\beta\_0, \beta\_1) = \prod\_{i:y\_i=1}{p(x\_i)} \prod\_{i':y\_{i'}=0}{(1-p(x\_{i'}))} 
+	\ell(\beta\_0, \beta\_1) = \prod\_{i:y\_i=1}{p(x\_i)} \prod\_{i':y\_{i'}=0}{(1-p(x\_{i'}))}
 	\tag{3.5}
-\end{equation} 
+\end{equation}
 $$
 
 The estimates \\( \hat{\beta}\_0 \\) and \\( \hat{\beta}\_1 \\) are chosen to maximize this likelihood function.
@@ -155,7 +155,7 @@ We use z-statistics to perform the hypothesis tests on the coefficients. Take \\
 $$
 \begin{equation}
 	z = \frac{\hat{\beta}\_1 - 0}{SE(\hat{\beta}\_1)}
-\end{equation} 
+\end{equation}
 $$
 
 Then a large absolute value of the z-statistic and a vitual value 0 of p-value indicate evidence to reject the null hypothesis \\( H\_0 : \beta\_1 = 0 \\).
@@ -173,7 +173,7 @@ $$
 	log \left \( \frac{p(X)}{1-p(X)} \right \) = \beta\_0 + \beta\_1 X\_1 + \cdots + \beta\_p X\_p
 	\tag{3.6}
 	\label{eq3.6}
-\end{equation} 
+\end{equation}
 $$
 
 Equation \\( (\ref{eq3.6}) \\) can be rewritten as
@@ -183,7 +183,7 @@ $$
 	p(X) = \frac{e\^{\beta\_0 + \beta\_1 X\_1 + \cdots + \beta\_p X\_p}}{1+e\^{\beta\_0 + \beta\_1 X\_1 + \cdots + \beta\_p X\_p}}
 	\tag{3.7}
 	\label{eq3.7}
-\end{equation} 
+\end{equation}
 $$
 
 Still we use the maximum likelihood method to estimate \\( \beta\_0, \beta\_1, \cdots, \beta\_p  \\).
@@ -212,7 +212,7 @@ $$
 \begin{equation}
 	Pr(Y=k|X=x) = \frac{\pi\_k f\_k(X)}{\sum\_{l=1}\^{K}{\pi\_l f\_l(X)}}
 	\tag{4.1}
-\end{equation} 
+\end{equation}
 $$
 
 In accordance with our earlier notation, we will use the abbreviation \\( p\_k(X) = Pr(Y = k|X) \\). We refer to \\( p\_k(X) \\) as the **posterior** probability that an observation \\( X = x \\) belongs to the k^th class. That is, it is the probability that the observation belongs to the k^th class, given the predictor value for that observation.
@@ -242,7 +242,7 @@ P145 起又是 True Positive、Sensitivity 那一套，就不赘述了。
 
 P145 结尾解释了 why may LDA have a low sensitivity sometimes：
 
-> LDA is trying to approximate the Bayes classifier, which has the lowest total error rate out of all classifiers (if the Gaussian model is correct). That is, the Bayes classifier will yield the smallest possible total number of misclassified observations, irrespective of which class the errors come from. That is, some misclassifications will result from incorrectly assigning a customer who does not default to the default class, and others will result from incorrectly assigning a customer who defaults to the non-default class. 
+> LDA is trying to approximate the Bayes classifier, which has the lowest total error rate out of all classifiers (if the Gaussian model is correct). That is, the Bayes classifier will yield the smallest possible total number of misclassified observations, irrespective of which class the errors come from. That is, some misclassifications will result from incorrectly assigning a customer who does not default to the default class, and others will result from incorrectly assigning a customer who defaults to the non-default class.
 
 换句话说就是，LDA 只能尽量让 \\( P(+|D\^c) + P(-|D) \\) 最小，也就是让 \\( P(-|D\^c) + P(+|D) \\) 最大。而 \\( P(-|D\^c) + P(+|D) \\) 实际就是 \\( Specificity + Sensitivity \\)。所以 low sensitivity 是完全可能的。
 
@@ -281,7 +281,7 @@ Roughly speaking, LDA tends to be a better bet than QDA if there are relatively 
 logistic regression vs LDA
 
 * Both produce linear decision boundaries.
-* The only difference between the two approaches lies in the fact that 
+* The only difference between the two approaches lies in the fact that
 	* logistic regression performs estimation using maximum likelihood
 	* whereas LDA uses the estimated mean and variance from a normal distribution
 * Since logistic regression and LDA differ only in their fitting procedures, one might expect the two approaches to give similar results. The performance fluctuates basically due to whether these Gaussian assumptions are met or not.
@@ -302,11 +302,11 @@ QDA:
 
 P153-154 设计了 6 个 Scenario 来测试这些方法的 performance。
 
-* When the true decision boundaries are linear, then the LDA and logistic regression approaches will tend to perform well. 
-* When the boundaries are moderately non-linear, QDA may give better results. 
-* Finally, for much more complicated decision boundaries, a non-parametric approach such as KNN can be superior. 
+* When the true decision boundaries are linear, then the LDA and logistic regression approaches will tend to perform well.
+* When the boundaries are moderately non-linear, QDA may give better results.
+* Finally, for much more complicated decision boundaries, a non-parametric approach such as KNN can be superior.
 	* But the level of smoothness for a non-parametric approach must be chosen carefully.
-	
+
 最后还提到了加 transformation 越是可行的，但是 performance 需要重新测。If we added all possible quadratic terms and cross-products to LDA, the form of the model would be the same as the QDA model, although the parameter estimates would be different. This device allows us to move somewhere between an LDA and a QDA model.
 
 ## <a name="Lab"></a>6. Lab: Logistic Regression, LDA, QDA, and KNN
@@ -321,15 +321,15 @@ P153-154 设计了 6 个 Scenario 来测试这些方法的 performance。
 	[1] 1250 9
 	> summary(Smarket)
 	> cor(Smarket [,-9]) ## matrix of pairwise correlations, except the qualitative one
-	
+
 Next, we will fit a logistic regression model in order to predict `Direction` using `Lag1` through `Lag5` and `Volume`. The `glm()` function fits **generalized linear models**, a class of models that includes logistic regression. The syntax of the `glm()` function is similar to that of `lm()`, except that we must pass in the argument `family=binomial` in order to tell R to run a logistic regression rather than some other type of generalized linear model.
 
-	> glm.fit = glm(Direction~Lag1+Lag2+Lag3+Lag4+Lag5+Volume, data=Smarket, family=binomial) 
+	> glm.fit = glm(Direction~Lag1+Lag2+Lag3+Lag4+Lag5+Volume, data=Smarket, family=binomial)
 	> summary(glm.fit)
-	
+
 	> coef(glm.fit)
 	> summary(glm.fit)$coef
-	
+
 The `predict()` function can be used to predict the probability that the market will go up, given values of the predictors. The t`ype="response"` option tells R to output probabilities of the form \\( P(Y = 1|X) \\), as opposed to other information such as the logit. If no data set is supplied to the `predict()` function, then the probabilities are computed for the training data that was used to fit the logistic regression model.
 
 	> glm.probs = predict(glm.fit, type="response")
@@ -343,12 +343,12 @@ We know that these values correspond to the probability of the market going up, 
 		 Up
 	Down  0
 	Up    1
-	
+
 In order to make a prediction, we must convert these predicted probabilities into class labels, `Up` or `Down`.
 
 	> glm.pred = rep("Down", 1250) ## n = 1250
 	> glm.pred[glm.probs>.5] = "Up"
-	
+
 Given these predictions, the `table()` function can be used to produce a confusion matrix.
 
 	> table(glm.pred, Smarket$Direction)
@@ -356,45 +356,70 @@ Given these predictions, the `table()` function can be used to produce a confusi
 	glm.pred 	Down  Up
 	Down 		 145 141
 	Up 			 457 507
-	
+
 	> (507+145)/1250
 	[1] 0.5216
 	> mean(glm.pred == Smarket$Direction)
 	[1] 0.5216
 
+-> ~~~~~~~~~~ 2015.11.09 P.S. Start ~~~~~~~~~~ <-
+
+You can also use `confusionMatrix(prediction, reference)` function in `caret` package, e.g.
+
+	> library("caret")
+	> lvs <- c("normal", "abnormal")
+	> truth <- factor(rep(lvs, times = c(86, 258)), levels = rev(lvs))
+	> pred <- factor(c(rep(lvs, times = c(54, 32)), rep(lvs, times = c(27, 231))), levels = rev(lvs))
+	> xtab <- table(pred, truth)
+	> confusionMatrix(xtab)
+	Confusion Matrix and Statistics
+
+	  			truth
+	pred       abnormal normal
+	abnormal      231     32
+	normal         27     54
+
+		   Accuracy : 0.8285
+		   ......
+	> confusionMatrix(pred, truth) # ditto
+
+See [confusionMatrix {caret}](http://www.inside-r.org/node/86995) for more.
+
+-> ~~~~~~~~~~ 2015.11.09 P.S. End ~~~~~~~~~~ <-
+
 P159 起就是在说做 training set 的事情，只用注意一个 `glm()` 的 `subset` 参数用法就可以了：
 
 	> train = (Smarket$Year<2005)
 	> glm.fit = glm(Direction~Lag1+Lag2+Lag3+Lag4+Lag5+Volume, data=Smarket, family=binomial, subset=train)
-	
+
 ### <a name="Lab-LDA"></a>6.3 Linear Discriminant Analysis
 
 We fit a LDA model using the `lda()` function, which is part of the `MASS` library. Notice that the  syntax for the `lda()` function is identical to that of `lm()`.
 
 	> library(MASS)
 	> lda.fit=lda(Direction~Lag1+Lag2, data=Smarket, subset=train)
-	
+
 	> lda.fit
 	Call:
 	lda(Direction ~ Lag1 + Lag2, data = Smarket, subset = train)
-	
+
 	Prior probabilities of groups :
 	 Down 	  Up
 	0.492  0.508
-	
+
 	Group means :
 			Lag1    Lag2
 	Down  0.0428  0.0339
 	Up   -0.0395 -0.0313
-	
+
 	Coefficients of linear discriminants:
 			LD1
 	Lag1 -0.642
 	Lag2 -0.514
-	
+
 	> plot(lda.fit)
-	
-The LDA output indicates that \\( \hat{\pi}\_1 = 0.492 \\) and \\( \hat{\pi}\_1 = 0.508 \\); in other words, 49.2% of the training observations correspond to days during which the market went down. 
+
+The LDA output indicates that \\( \hat{\pi}\_1 = 0.492 \\) and \\( \hat{\pi}\_1 = 0.508 \\); in other words, 49.2% of the training observations correspond to days during which the market went down.
 
 It also provides the group means; these are the average of each predictor within each class, and are used by LDA as estimates of \\( \mu_k \\).
 
@@ -406,7 +431,7 @@ The `predict()` function returns a list with three elements.
 
 * `class`, contains LDA’s predictions.
 * `posterior`, is a matrix whose k^th column contains the posterior probability that the corresponding observation belongs to the k^th
-class, i.e the \\( p\_k(X) = Pr(Y = k|X = x) \\). 
+class, i.e the \\( p\_k(X) = Pr(Y = k|X = x) \\).
 * `x`, contains the linear discriminants.
 
 <!-- -->
@@ -414,11 +439,11 @@ class, i.e the \\( p\_k(X) = Pr(Y = k|X = x) \\).
 	> train = (Smarket$Year<2005)
 	> Smarket.2005 = Smarket[!train,]
 	> Direction.2005 = Smarket$Direction[!train]
-	
+
 	> lda.pred = predict(lda.fit, Smarket.2005)
 	> names(lda.pred)
 	[1] "class" "posterior " "x"
-	
+
 	> lda.class = lda.pred$class
 	> table(lda.class, Direction.2005)
 				Direction.2005
@@ -427,23 +452,23 @@ class, i.e the \\( p\_k(X) = Pr(Y = k|X = x) \\).
 	Up 			  76 106
 	> mean(lda.class == Direction.2005)
 	[1] 0.56
-	
+
 	> sum(lda.pred$posterior[,1] >= .5)
 	[1] 70
 	> sum(lda.pred$posterior[,1] < .5)
 	[1] 182
-	
+
 Notice that the posterior probability output by the model corresponds to the probability of `down`. So you'd better take a peek before performing further tasks.
 
 	> lda.pred$posterior[1:20 ,1]
 	> lda.class[1:20]
-	
+
 ### <a name="Lab-QDA"></a>6.4 Quadratic Discriminant Analysis
 
 QDA is implemented in R using the `qda()` function, which is also part of the `MASS` library. The syntax is identical to that of `lda()`.
 
 	> qda.fit = qda(Direction~Lag1+Lag2, data=Smarket, subset=train)
-	
+
 The `predict()` function works in exactly the same fashion as for LDA.
 
 	> qda.class = predict(qda.fit, Smarket.2005)$class
@@ -454,7 +479,7 @@ The `predict()` function works in exactly the same fashion as for LDA.
 	Up 			  81 121
 	> mean(qda.class == Direction.2005)
 	[1] 0.599
-	
+
 ### <a name="Lab-KNN"></a>6.5 K-Nearest Neighbors
 
 `knn()` function is part of the `class` library. Rather than a two-step approach in which we first fit the model and then we use the model to make predictions, `knn()` forms predictions using a single command. The function requires four inputs.
@@ -470,7 +495,7 @@ The `predict()` function works in exactly the same fashion as for LDA.
 	> train.X = cbind(Smarket$Lag1, Smarket$Lag2)[train,]
 	> test.X = cbind(Smarket$Lag1, Smarket$Lag2)[!train,]
 	> train.Direction = Smarket$Direction[train]
-	
+
 We set a random seed before we apply `knn()` because if several observations are tied as nearest neighbors, then R will randomly break the tie. Therefore, a seed must be set in order to ensure reproducibility of results.
 
 	> set.seed(1)
@@ -482,7 +507,7 @@ We set a random seed before we apply `knn()` because if several observations are
 	Up 			  68 83
 	> (83+43)/252
 	[1] 0.5
-	
+
 The results using \\( K = 1 \\) are not very good, since only 50% of the observations are correctly predicted. We repeat the analysis using \\( K = 2,3,\cdots \\) for improvements.
 
 ### <a name="Lab-Caravan"></a>6.6 An Application to Caravan Insurance Data
@@ -490,7 +515,7 @@ The results using \\( K = 1 \\) are not very good, since only 50% of the observa
 P165，一个具体的例子，业务分析值得一看。技术上需要注意的一个地方是: The `scale()` function standardize the data so that all  variables are given a mean of zero and a standard deviation of one.
 
 	## exclude column 86 because that is the qualitative Purchase variable
-	> standardized.X = scale(Caravan[,-86]) 
+	> standardized.X = scale(Caravan[,-86])
 	> var(Caravan[,1])
 	[1] 165
 	> var(Caravan[,2])
