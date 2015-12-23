@@ -14,6 +14,9 @@ tags: [Math-Statistics]
 - [Parametric vs. non-parametric tests](http://changingminds.org/explanations/research/analysis/parametric_non-parametric.htm)
 - [Levels of Measurement](http://www.socialresearchmethods.net/kb/measlevl.php)
 
+[alternative_tests]: https://farm2.staticflickr.com/1593/23624879030_b2f47642f3_o_d.png
+[measlev2]: https://farm6.staticflickr.com/5720/23812247272_50540d0b8d_o_d.gif
+
 ----- 
 
 我们先看下 Handbook 怎么说：
@@ -38,10 +41,10 @@ The distinction employed in this book for categorizing a procedure as a parametr
 	- In a ratio scale, numbers can be compared as multiples of one another. Thus one person can be twice as tall as another person. Important also, the number zero has meaning.
 	- Interval and ratio data measure quantities and hence are **quantitative**.
 	
-![](https://bn1304files.storage.live.com/y2pHrl4VIkr6ip66vI6XRMERWY4Yrfvl6HNyTsb_7SqwhAMtvdPzBVsFISgmzEMtFpo3qmXHWyLk7E1nHoanvcbx2mlspr0AG_pu6-BvxRla5_LEaEXcCjUCrXxwF1Ig_HWqOyHj647jFdHvVqx18cgJg/measlev2.gif?psid=1&width=400&height=268&cropMode=center)
+![][measlev2]
 
 Although the appropriateness of employing level of measurement as a criterion in this context has been debated, its usage provides a reasonably simple and straightforward schema for categorization that facilitates the decision-making process for selecting an appropriate statistical test.
 
 -----
 
-![](https://bn1304files.storage.live.com/y2pKG9ZnrjLGQycgGKW7uUQxDKxHwacHMuEPjAy1Kgax4IBvrbbHnbF1VGYWygzrGUtGkcMAx4KuGsKmjuOJPY0_RUgHDZuokIXMvnwpBUkd0iholv3BHqzAhYSODzRvU2KQih-YbUdXkio_FOFLL51hQ/alternative%20tests.png?psid=1&width=1080&height=337&cropMode=center)
+![][alternative_tests]

@@ -12,6 +12,10 @@ tags: [Math-Statistics]
 
 - McNemar: [mæk nə mar]
 
+[table-20-01]: https://farm6.staticflickr.com/5799/23894466946_125667e84b_o_d.png
+[table-20-02]: https://farm2.staticflickr.com/1557/23812247342_3961cf5e86_o_d.png
+[table-20-03]: https://farm2.staticflickr.com/1709/23920545715_09e6dc8760_o_d.png
+
 ## 1. Overview
 
 The McNemar test can be employed to evaluate:
@@ -27,7 +31,7 @@ The McNemar test can be employed to evaluate:
 
 The 2 × 2 table depicted in Table 20.1 summarizes the McNemar test model.
 
-![](https://bn1304files.storage.live.com/y2pM0hDXp3ub8EZv-jSlxyaCpv5Cc52Yr_QqozI7sHJrsZP7OVlefv_QS6qEJpyMk1mDQU5HzqP8adNYGkxV-ERcHlzCc2gj3UvCutSu0Ar1iDVYQSa-TpprkBbMZQQD8Ss/table-20-01.png.jpg?psid=1)
+![][table-20-01]
 
 The McNemar test is based on the following assumptions: 
 
@@ -48,7 +52,7 @@ Do the data indicate the drug was effective?
 - enuresis: [ˌenjʊəˈri:sɪs]
 - placebo: [pləˈsi:bəʊ], a dummy medicine containing no active ingredients, 安慰剂, 无效对照剂
 
-![](https://bn1304files.storage.live.com/y2p8cyb_KWiOmxe49R0n_TimiiZGEGUFvKQWM_o8UY3PI7cIuF_qrvwOGPz80lOti2JUwQ1D_FikQi433Bxvz3kkGDsAE4R8jV4rHbF54G71AglCAlHV2MBBR2JE7MhlRsr/table-20-02.png.jpg?psid=1)
+![][table-20-02]
 
 ### 2.2 Example of Before–after Design
 
@@ -56,7 +60,7 @@ A researcher conducts a study to investigate whether or not a weekly television 
 
 Do the data indicate that a shift in attitude toward animal research occurred after subjects viewed the television series?
 
-![](https://bn1304files.storage.live.com/y2p--ycDm5je79mhpIWPmtLmvSrf0Mfj12enIv4GwxBkbUBekhp4LXRjU-lTCh9dGQNm8INSyU-LXhPbjGLw2YRSD10rWX4ZZrCnoRYLLCrwLYOgCp6vNd5i4NA59h_4Kn9/table-20-03.png.jpg?psid=1)
+![][table-20-03]
 
 ## 3. Null versus Alternative Hypotheses
 

@@ -7,6 +7,11 @@ tags: [Book, Rcpp]
 ---
 {% include JB/setup %}
 
+[curve-demo-1]: https://farm6.staticflickr.com/5650/23292343704_0917e5ef3b_o_d.png
+[lapply]: https://farm2.staticflickr.com/1625/23920545705_e466826c92_o_d.png
+[roll-mean-1]: https://farm6.staticflickr.com/5808/23812247222_c884f5ff53_o_d.png
+[search-path]: https://farm6.staticflickr.com/5806/23552708399_86ce622bb0_o_d.png
+
 ## ToC
 
 - Part I. Foundations
@@ -1741,7 +1746,7 @@ as.environment("package:stats")
 
 `globalenv()`, `baseenv()`, the environments on the search path, and `emptyenv()` are connected as shown below. Each time you load a new package with `library()` it is inserted between the global environment and the package that was previously at the button of the search path.
 
-![](https://bn1304files.storage.live.com/y2paDxi_WfNFTQ9xXQtAVxRr6zPercTFWVIJT_EyivI021YrrLN-Uof4UXsBtr210-6UT1o5LL6KXg_wNAsb79pwZdms6cVan-e_1Ows8uF168eVh8DAuBykoMrrkr--j2ruAugb4MBDUqbNGGMg5Vf_g/search-path.png?psid=1&width=974&height=292&cropMode=center)
+![][search-path]
 
 To create an environment manually, use `new.env()`:
 
@@ -2392,7 +2397,7 @@ The complement to a closure is a functional, a function that takes a function as
 	- Remember that data frames are also lists.
 - Also returns a list.
 
-![](https://bn1304files.storage.live.com/y2pcOQaOuXauc4Rzzoib0N-9RQlIoVsNXZfXQ_Ybd4vVYdXD2MOMRvXbm6BwN-ErtfMJ597-VVyMRJ_6OlN3iyuC_qpulP6HTyEfj866KIYRjL5JGsOhlE4HXOD46kYopwVOSjeLEsUkNfP1q1JRSq5Gg/lapply.png?psid=1&width=483&height=409&cropMode=center)
+![][lapply]
 
 #### Looping patterns <a name="Looping-patterns"></a>
 
@@ -2540,7 +2545,7 @@ lines(rollmean(x, 5), col = "blue", lwd = 2)
 lines(rollmean(x, 10), col = "red", lwd = 2)
 </pre>
 
-![](https://bn1304files.storage.live.com/y2pegpvUuwawocr6Di3yX_DDDVaZPnTFVIxvvUtBaZFBDHfQemjby062bbzJXHgm7tlTrs8NewhXSzL3Op1C7vWHzHf_gS1O9gNe2K0440duRoJ9VGKjBU39UlVvuHMYegKz8xF0FmjNK_rBR3KglD0JQ/roll-mean-1.png?psid=1&width=576&height=384&cropMode=center)
+![][roll-mean-1]
 
 But if the noise was more variable, you might worry that your rolling mean was too sensitive to outliers. Instead, you might want to compute a rolling median. 此时我们就可以重构一下，把 `mean` 和 `median` 作为参数传给我们自己的 apply 函数：
 
@@ -3893,7 +3898,7 @@ One useful application of `make_function()` is in functions like `curve()`. `cur
 curve(sin(exp(4 * x)), n = 1000)
 </pre>
 
-![](https://sn3301files.storage.live.com/y2pggOP-GlagR7v6DMjr0AlX4FQluj8dvNJ3Sfgs0NTt1kEbW1KSDE9Boaf-XLrkwVHZLq9p3YeZljfFb-obFDtG3YIC1sqXkGuQkjE8wVKXZ0RhYyycHYfWX4wQjv-zDqmz2rkQdBjZg3Vj27Z2Aj0nA/curve-demo-1.png?psid=1&width=672&height=480&cropMode=center)
+![][curve-demo-1]
 
 Here `x` is a pronoun (代词). `x` doesn’t represent a single concrete value, but is instead a placeholder that varies over the range of the plot. One way to implement `curve()` would be with `make_function()`:
 

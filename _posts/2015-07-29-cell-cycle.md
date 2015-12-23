@@ -7,6 +7,9 @@ tags: [Biology-101]
 ---
 {% include JB/setup %}
 
+[Phases]: https://farm6.staticflickr.com/5754/23292343584_1fbfa3ec11_o_d.png
+[Schematic]: https://farm6.staticflickr.com/5748/23894466776_604e7b332e_o_d.png
+
 总结自；
 
 - [Wikipedia - Cell cycle](https://en.wikipedia.org/wiki/Cell_cycle)
@@ -21,8 +24,7 @@ tags: [Biology-101]
 
 以下这个 Cell Cycle 只针对 somatic cells。somatic cells 都是有丝分裂，而 germ cells 是减数分裂 (Meiosis)，所以不在本文的讨论范围内。
 
-![](https://bn1304files.storage.live.com/y3pI36zQ7VoYM3Hwi3J_OKa4rNWkEOxEaOOL0eslL0WRw3xhgLFACBc_EoaH2zXMNWZwPZz47Y8x76EQUYjcplLydG5GtTuKp1n_igwbt4uoLF3iGFf48cZVP829pKMdFYQpNTXWH_VhNPBuZNEveXe0A/Cell-Cycle-Phases.png?psid=1&width=812&height=349&cropMode=center)
-
+![][Phases]
 
 - **Cell Cycle** (细胞周期)
 	- **Interphase** (分裂间期)
@@ -47,7 +49,7 @@ tags: [Biology-101]
 - The division of somatic cells and single celled organisms results in the production of two identical **daughter cells**.
 - The word "post-mitotic" is sometimes used to refer to both quiescent and senescent cells. 不一定就是指 \\( G\_0 \\)。
 
-->![](https://byfiles.storage.live.com/y3pcYFWk2tK6Mrd12r4LwzpFpwGrhtF0aohnFxpvZdjFdBrzQ0M6QJg_pbESKSLKz-jyX4e2-K9MumNEpfF6xbQniOmbN_Z_1itDBoch32GwR7W-dwCfIzxgKkgGUUAQCwzURNEOSfXtop6yJlE1v4QZg/Schematic-of-the-cell-cycle.png?psid=1&width=324&height=410&cropMode=center)<-
+->![][Schematic]<-
 
 The cycle has checkpoints (also called restriction points), which allow certain genes to check for mistakes and halt the cycle for repairs if something goes wrong.
 

@@ -7,6 +7,9 @@ tags: [Biology-101]
 ---
 {% include JB/setup %}
 
+[figure-01]: https://farm6.staticflickr.com/5752/23894466826_d9bfb6fcd3_o_d.png
+[figure-02]: https://farm6.staticflickr.com/5709/23812247172_d675a1b682_o_d.png
+
 ## 1. What Is Life?
 
 Another approach to defining “life” is to recognize its fundamental interrelatedness. All living things are related to each other. Any pair of organisms, no matter how different, have a common ancestor sometime in the distant past. Organisms came to differ from each other, and to reach modern levels of complexity through evolution.
@@ -43,7 +46,7 @@ Since Aristotle, scholars have tried to group these myriad ([ˈmɪriəd], 大量
 
 Here I will follow _Woese, Kandler & Wheelis (1990)_, although some aspects of their taxonomy are controversial. They developed their classification of organisms by using distances based on sequence divergence in a ubiquitous piece of genetic sequence as shown in Figure 1.
 
-![](https://bn1304files.storage.live.com/y3pG_a76LanBU0Kl8f5NfN5ykByNH20sSP41pmlZAwAvn8qjvYR5-b8Ap-u-Le58Mapu9GkLIhyZFPjt1dGaJdEo1KlEnezXmEbJDUeZgoHAocH7DWCDJFEuDsQpdx9v_jD1JLbEOVeXs4EjrPpkzFzJw/figure-01.png?psid=1&width=548&height=454&cropMode=center)
+![][figure-01]
 
 - elide: [iˈlaɪd], to omit; to suppress or alter (as a vowel or syllable); to strike out (as a written word)
 
@@ -153,7 +156,7 @@ Despite their radical differences in function, all proteins are made of the same
 
 as shown in Figure 2.
 
-![](https://bn1304files.storage.live.com/y3pVATuFIYAGf9mxqF0ZQeV3_0tSflG6XOu48LbjbiakbxrpTVDf9iU_TS41SXYUKHdpZB72F5UcenaR3RE_efmLXxRJ_-vWhy42YUzPYSQ5ibSDOszKYcqWTbxXEv5AANrEpVnU7bMvt2YKwrRABU4FA/figure-02.png?psid=1&width=585&height=334&cropMode=center)
+![][figure-02]
 
 Under biological conditions the amino end of the molecule is positively charged, and the carboxyl end is negatively charged. Chains of amino acids are assembled by a reaction that occurs between the nitrogen atom at the amino end of one amino acid and the carbon atom at the carboxyl end of another, bonding the two amino acids and releasing a molecule of water. The linkage is called a peptide bond, and long chains of amino acids can be strung together into polymers, called polypeptides.
 
