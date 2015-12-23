@@ -7,6 +7,10 @@ tags: [Book, Java-InnerClass, Java-Exception, Java-Concurrent, Java-Collection, 
 ---
 {% include JB/setup %}
 
+[item_22_object_adapter_pattern]: https://farm6.staticflickr.com/5732/23552709759_9134c3618d_o_d.png
+[item_22_class_adapter_pattern]: https://farm2.staticflickr.com/1529/23894468486_6238760336_o_d.png
+[item_67_Observer]: https://farm2.staticflickr.com/1579/23552709749_56342049ce_o_d.png
+
 ## 目录
   
 ### [chapter 2. Creating and Destroying Objects](#ch2)
@@ -212,11 +216,11 @@ construtor 参数列表很长时，一般有两种常规做法：
 	> <br>`obj.setArg1(arg1);`  
 	> <br>`obj.setArg2(arg2);`  
   
-	缺点一：JavaBean在构造的过程中，自身的状态不一定正确（setter没执行完就被拿去使用）  
+	缺点一：JavaBean 在构造的过程中，自身的状态不一定正确（setter 没执行完就被拿去使用）  
 	  
-	缺点二：construtor不能做状态检验  
+	缺点二：construtor 不能做状态检验  
   
-	缺点三：JavaBean很难做成不可变类（why? see item 15）  
+	缺点三：JavaBean 很难做成不可变类（why? see item 15）  
   
 救星是 <a name="dp_builder"></a>Builder 模式。Builder 模式可以简单理解为 setter 的一个变种，它是一个链式的 setter。  
   
@@ -298,7 +302,7 @@ public class singlton {
   
 如果为了防止通过反射来访问 construtor，可以在 construtor 中直接抛异常（好贱啊……）。  
   
-为了防止 反序列化 重新生成一个新的 INSTANCE，需要做到：  
+为了防止 **反序列化** 重新生成一个新的 INSTANCE，需要做到：  
   
 1. 将 INSTANCE 标记为 transient（transient 关键字可以将字段 mark 为“hi，这个家伙是不参与序列化的，忽略它吧~”）  
 2. 覆写 [readResolve](#readResolve) 方法，直接返回 INSTANCE  
@@ -315,7 +319,7 @@ public enum Singleton {
 }  
 </pre>
   
-enum singleton 的优点：<a name="enum_serialize" href="http://docs.oracle.com/javase/1.5.0/docs/guide/serialization/spec/serial-arch.html#enum">JVM 无偿提供的序列化机制，绝对防止 *反序列化* 生成新的 INSTANCE</a>，原因是：
+enum singleton 的优点：<a name="enum_serialize" href="http://docs.oracle.com/javase/1.5.0/docs/guide/serialization/spec/serial-arch.html#enum">JVM 无偿提供的序列化机制，绝对防止 **反序列化** 生成新的 INSTANCE</a>，原因是：
 
 > The serialized form of an enum constant consists solely of its name; field values of the constant are not present in the form. To serialize an enum constant, ObjectOutputStream writes the value returned by the enum constant's name method. To deserialize an enum constant, ObjectInputStream reads the constant name from the stream; the deserialized constant is then obtained by calling the java.lang.Enum.valueOf method, passing the constant's enum type along with the received constant name as arguments.
   
@@ -378,7 +382,9 @@ public Object serialize() throws IOException, ClassNotFoundException {
   
 1. 自己管理的内存。比如自己实现的 stack。解决方案是：及时的 dereference  
 2. 缓存。缓存中的对象可能被遗忘。解决方案：  
-	- WeakHashMap: 当 WeakHashMap 的 keyObject 被 GC 之后，对应的 WeakHashMap entry 也被删除。see [Understanding Weak References](http://weblogs.java.net/blog/enicholas/archive/2006/05/understanding_w.html "Understanding Weak References")、[WeakHashMap is not a cache! ](http://www.codeinstructions.com/2008/09/weakhashmap-is-not-cache-understanding.html "WeakHashMap is not a cache! ")  
+	- WeakHashMap: 当 WeakHashMap 的 keyObject 被 GC 之后，对应的 WeakHashMap entry 也被删除。see: 
+		- [Understanding Weak References](http://weblogs.java.net/blog/enicholas/archive/2006/05/understanding_w.html "Understanding Weak References")
+		- [WeakHashMap is not a cache!](http://www.codeinstructions.com/2008/09/weakhashmap-is-not-cache-understanding.html "WeakHashMap is not a cache!")  
 	- 起一个线程定时清除。`LinkedHashMap#removeEldestEntry()` will be your good friend.  
 3. 监听器和其他回调（待学习）  
   
@@ -502,7 +508,7 @@ _注_：工作经验告诉我们：如果自定义的 PO（的对象）会作为
   
 ### <a name="item13"></a>item 13. 关于 public class 的 public 字段
   
-根据1）是否final；2）是否可变，有以下四种情况：  
+根据 1）是否final；2）是否可变，有以下四种情况：  
   
 1. public non-final mutable obj：obj 可变，且可以指向不同的对象。过于 open，且 non-thread-safe  
 2. public non-final immutable obj：obj 不可变，但可以指向不同的对象。过于 open  
@@ -629,9 +635,9 @@ True Delegation 有被运用在 State Pattern 里。
 而根据 adapter 与 otherImpl 是继承还是组合，又可以分成两种 adapter pattern：
 
 * if adapter has otherImpl as a member，这是 object adapter pattern
-	![](https://7aspbg.bn1.livefilestore.com/y2pJjZiwKP7_VLwWb5z5jhh2ryhhi4cGu15pBBylGY3s7VQllfFkHThSJTAUcQ57IhZYtlNqixUksf25tY7ceep3x_eVBM-z7h5aGK2osF2foY/500px-Adapter%28Object%29_pattern_in_LePUS3.png?psid=1)
+	![][item_22_object_adapter_pattern]
 * if adapter extends otherImpl，这是 class adapter pattern
-	![](https://7aspbg.bn1.livefilestore.com/y2pCTliu0wSOw7BD4eXCVdGk35npSyQbA4BtngBcGA2mcQYSrxaJ4Kno4VoQPMVnQmaNPoVFTqdUR_Bd4yjXEdJDP6I7tskZdknOG0mcLXxNYg/500px-Adapter%28Class%29_pattern_in_LePUS3.png?psid=1)
+	![][item_22_class_adapter_pattern]
 
 用非静态内部类来实现 adapter 的一个例子是：
 
@@ -647,7 +653,7 @@ public class MySet&lt;E&gt; extends AbstractSet&lt;E&gt; {
 }
 </pre>
 
-这里 client 是 MySet，Inf 是 Iterator<E>（target），otherImpl 是原有的 iterator 实现（adaptee），adapter 是 MyInterator，这明显是 class adapter pattern，MyIterator 可以通过 .this 访问到原有的 iterator。
+这里 client 是 MySet，Inf 是 Iterator&lt;E&gt;（target），otherImpl 是原有的 iterator 实现（adaptee），adapter 是 MyInterator，这明显是 class adapter pattern，MyIterator 可以通过 .this 访问到原有的 iterator。
 
 至于为什么说要优先考虑静态内部类，这是因为非静态内部类的每个实例都有一个 .this，消耗更大，而且会导致外围类在符合 GC 条件时仍然得以保留。
 
@@ -735,7 +741,7 @@ listS instanceof List&lt;String&gt; // error
 
 > Type erasure is a mapping from types (possibly including parameterized types and type variables) to types (that are never parameterized types or type variables). We write |T| for the erasure of type T. The erasure mapping is defined as follows.  
 
->* The erasure of a parameterized type G<T1, ... ,Tn> is |G|.  
+>* The erasure of a parameterized type G&lt;T1, ... ,Tn&gt; is |G|.  
 >* The erasure of a nested type T.C is |T|.C.  
 >* The erasure of an array type T[] is |T|[].  
 >* The erasure of a type variable is the erasure of its leftmost bound.  
@@ -894,7 +900,7 @@ public enum Operation {
 
 	abstract double apply(double x, double y);
 	
-	private static final Map<String, Operation> symbolMap = new HashMap<String, Operation>();
+	private static final Map&lt;String, Operation&gt; symbolMap = new HashMap&lt;String, Operation&gt;();
 	
 	static {
 		for (Operation op : Operation.values()) {
@@ -947,7 +953,7 @@ public class Period {
 }
 </pre>
 
-如果我们 `Date start = new Date(); Date end = new Date(); Period p = new Period(start, end);` 然后 `end.setYear(78)`，这样就破坏了 p。  
+如果我们 `Date start = new Date(); Date end = new Date(); Period p = new Period(start, end);` 然后 `end.setYear(78)`，这样就破坏了 `p`。  
 
 这时我们可以使用 Defensive Copy：
 
@@ -963,7 +969,7 @@ public class Period {
 }
 </pre>
 
-但是 `p.getEnd().setYear(78);` 也可以破坏 p，我们对 getter 也可以用 Defensive Copy：
+但是 `p.getEnd().setYear(78);` 也可以破坏 `p`，我们对 getter 也可以用 Defensive Copy：
 
 <pre class="prettyprint linenums">
 public class Period {
@@ -1103,7 +1109,7 @@ public boolean addLot(Lot l) {
 	* removeObserver
 3. addLot 时需要可能需要 notify List&lt;Observer&gt; 里的所有 Observer
 
-![](https://hedjpw.bn1.livefilestore.com/y2puXvvEyYTXaJkDKyoCH_SngMsvzb96L30ytHe0BgVn8DF2S1ne8tinJaW1D_GkggRdgvlFl9symsySPsAmgqpqaou19KUAZuUtQu9XBOOzNs/800px-Observer.svg.png?psid=1)
+![][item_67_Observer]
 
 Observer 模式通常被用在 Event Handling 方面。
 

@@ -7,7 +7,7 @@ tags: [Network-101]
 ---
 {% include JB/setup %}
 
-![](https://ujcyqa.bn1.livefilestore.com/y2pxPVylL25zMMg-GVF2hdawkzAgRVRkypQZpgZbsYoSpJbnqXCpXqjDBJVM7mrpjb3LzjHI-hdC96n93B9QRz81P5Fn4IJZGdhd_D6HdrKj2c/Image.png?psid=1)
+![](https://farm6.staticflickr.com/5733/23552709929_21a00cabcb_o_d.png)
 
 　　TCP 协议采用三次握手建立一个连接。  
  

@@ -7,6 +7,19 @@ tags: [Book, Java-DesignPattern]
 ---
 {% include JB/setup %}
 
+[active_object_sequence]: https://farm2.staticflickr.com/1545/23293777163_46ab6095ab_o_d.png
+[acyclic_visitor_pattern]: https://farm2.staticflickr.com/1620/23552709709_e3771dc04c_o_d.png
+[bridge_pattern_example]: https://farm2.staticflickr.com/1642/23812248442_07cd5f2b2d_o_d.png
+[bridge_UML_class_diagram]: https://farm6.staticflickr.com/5685/23293777103_b0e9f672ca_o_d.png
+[command_pattern]: https://farm2.staticflickr.com/1674/23624880250_bf05132ca4_o_d.png
+[facade_pattern]: https://farm2.staticflickr.com/1561/23920546825_1b79c0d298_o_d.png
+[mediator_pattern]: https://farm2.staticflickr.com/1509/23292344694_afcc9de4dc_o_d.gif
+[proxy_pattern]: https://farm2.staticflickr.com/1472/23293776973_a0e319beed_o_d.png
+[state_diagram]: https://farm2.staticflickr.com/1607/23894468176_36fb300989_o_d.png
+[Turnstile_class]: https://farm6.staticflickr.com/5761/23552709639_a58204476b_o_d.png
+[Turnstile_seq]: https://farm2.staticflickr.com/1587/23838060571_1e7eddc8b7_o_d.png
+[visitor_pattern]: https://farm6.staticflickr.com/5702/23894468116_48f9685360_o_d.png
+
 ## 目录   
 
 - Part 1. 敏捷开发  
@@ -206,7 +219,7 @@ tags: [Book, Java-DesignPattern]
 1. Never forget，过程是混乱的——过程中只要有人参与就都是这样  
 2. “画” 出我们可能会遇到的输入，不管用什么形式。把这个输入作为第一组完整的测试数据  
 3. UML 出可能的类，但不一定要完全按照 UML 来 code。UML 只是提供一种可能的思路，不要一上来就定义很多的类，多定义类的行为  
-4. 从完整输入的合法子集入手，构造 Test Unit。完整输入的合法子集，指不一定要覆盖到所有可能的输入项，选一个简单的有实际意义的子集即可，比如完整输入是`(String, String, Object)`，那么`(String, String, null)` 是一种可能的情况，那么它就是一个合法子集。逐步复杂这个合法子集到完整输入，一路复杂 Test Case 和实现  
+4. 从完整输入的合法子集入手，构造 Test Unit。完整输入的合法子集，指不一定要覆盖到所有可能的输入项，选一个简单的有实际意义的子集即可，比如完整输入是 `(String, String, Object)`，那么 `(String, String, null)` 是一种可能的情况，那么它就是一个合法子集。逐步复杂这个合法子集到完整输入，一路复杂 Test Case 和实现  
 5. 最初设计的类之间不要有双向依赖。所谓依赖不一定是组合关系，也可以是信息的依赖，比如 `ClazzA#methodA()` 的参数需要 `ClazzB` 的信息，`ClazzB#methodB()` 的实现需要 `ClazzA` 的协助，这样也构成互相依赖  
 6. 参数检查和异常：看涉及的接口被谁使用，如果是供外部调用，需要加防护；如果是内部调用，可以等到出现问题再加防护。但就目前的进度而言（初步设计），可以不考虑，等到加了异常 Test Case 时你自然会加  
 7. 不要过早考虑 SRP 之类的原则，让原型跑起来再说  
@@ -379,7 +392,7 @@ ISP, Interface Segregation Principle
 
 > Using command objects makes it easier to construct general components that need to delegate, sequence or execute method calls at a time of their choosing without the need to know the class of the method or the method parameters. Using an invoker object allows bookkeeping about command executions to be conveniently performed, as well as implementing different modes for commands, which are managed by the invoker object, without the need for the client to be aware of the existence of bookkeeping or modes.  
 
-![](https://hecftw.bn1.livefilestore.com/y2pL_wXtJjNukCj9XNH9bcbF40hCdkJy7cAz19tAtUNFApXkRPUa_t3q9n4Ug-JjuFkHoyszRqwec7ACWDGDPZpngXDTfF5ee_9iGoYYhHveYk/command%20pattern.png?psid=1)
+![][command_pattern]
   
 最基本的 Command 接口，没有任何变量，只封装了一个 `void do()`。有人认为它不符合面向对象的思想，因为它具有功能分解的味道：它只是把函数提升到了类的层面，它关注的仍然是函数而不是类。但是，我们使用起来可以不管这些。  
   
@@ -421,7 +434,7 @@ Active Object 的组成：Proxy 实现外部的访问接口，在客户线程中
   
 下面的图说明了一个调用过程中的三个阶段：    
    
-![Active Object Sequence](https://vgjveg.bn1.livefilestore.com/y2p_ZRj4u79fvTV91_h3QtQQMQ0H58k3mV9FQW2iD4m5tZx7l-vXe3AxYhl_ord-F0zPtTYj0g4tqXaNztAv8pJqknVVujPvZAk7hS5aaB7I4E/Active%20Object%20Sequence.png?psid=1)  
+![Active Object Sequence][active_object_sequence]
 
 注×：[原作 pdf](http://www.cs.wustl.edu/~schmidt/PDF/Act-Obj.pdf) 的图中，“enqueue(M1)” 的位置有误，入队操作应该在返回Future之前。[崔超的翻译](http://blog.csdn.net/cuichaox/article/details/1414305) 中已经更正。黄色表现客户线程空间，绿色表示调度者线程空间。  
   
@@ -455,7 +468,7 @@ Active Object 的组成：Proxy 实现外部的访问接口，在客户线程中
 
 Strategy 与 Template 最大的不同就是：Template 是继承抽象类，Strategy 是实现接口。比如每个人都要 “交个人所得税”（这是接口），但是 “在美国交个人所得税”（实现算法1）和 “在中国交个人所得税”（实现算法2）就有不同的算税方法。
 
-[定义是](Strategy_pattern)：
+[定义是](https://en.wikipedia.org/wiki/Strategy_pattern)：
 
 > In computer programming, the strategy pattern (also known as the policy pattern) is a software design pattern that enables an algorithm's behavior **to be selected at runtime**.
 > <br/>
@@ -479,7 +492,7 @@ facade [fəˈsɑ:d] 的意思是 the face of a building, especially the front。
 
 不像其他的模式有特殊的继承或者组合，facade 没有固定的结构，它的宗旨就是隐藏底层过于细节的实现或者设计得很烂的实现，提供一个统一的接口给上层。其实按这么说来，我们的 service 基本就是个 facade 了，因为 service 包装了过于细节的 dao 操作，然后提供统一的接口给了 controller。  
 
-![](https://hecftw.bn1.livefilestore.com/y2pOxPe3K6OcPV3Gngh77OjljqgA_DnWs_fr8qCSHr5U0i0D5kDTwon2HycIevGcI0rnSUGFekWiFqMZrKzseMO1GrW59FaUqcKX9z0i-IzHo8/Facade_pattern.png?psid=1)
+![][facade_pattern]
 
 是不是感觉这模式没啥了不起的？一般人都想得到好伐，就是一种思想而已。
 
@@ -493,7 +506,7 @@ mediator 与 facade 不同，不管有没有 mediator，client 的访问方式�
 
 如果是这个结构的话，那 mediator 应该要包含 dialog_1、dialog_2、dialog_3、dialog_4 这 4 个成员，同时 button_1 和 button_2 各自要包含一个 mediator 成员。而且这个 mediator 并不会影响 client 调用 `button_1.onclick()` 和 `button_2.onclick()`，client 根本就不知道有 mediator 这回事。  
 
-![](https://hecftw.bn1.livefilestore.com/y2p31CfCb__wo1O0RPf4fJXn6EOmL240VCLMvk0K6cHkesnaySC_qXFiq2WzB5YFWMlvtXtG_pT8mcHbgb7wCcCeX11kQxy56YSnib4KZtfZsU/mediator_pattern.gif?psid=1)
+![][mediator_pattern]
 
 这个图和我们的例子稍有点不符，想象成 "Colleague 是 Dialog 超类，ConcreteColleague 是 Dialog_N，单个 Dialog_X 都需要和其余所有的 Dialog_Y 交互" 就可以了。  
 
@@ -767,7 +780,7 @@ public class CompositeShape implements Shape {
 > <br/>
 > ……The bridge pattern is useful when both the class as well as what it does vary often. The class itself can be thought of as the implementation and what the class can do as the abstraction. The bridge pattern can also be thought of as two layers of abstraction.
 
-![](https://hecftw.bn1.livefilestore.com/y2pXUvYXSgcctMkNRP1t_qxuovxeBmVjEpXvtVx8rCSDASg0VXn34VZxzkBDl8Tq60MeJyzqJx3y8Vi1tEWdurj38y_TU2wsR6o4m-iBRn3IiM/Bridge_UML_class_diagram.svg.png?psid=1)
+![][bridge_UML_class_diagram]
 
 [Stack Overflow](http://stackoverflow.com/questions/319728/when-do-you-use-the-bridge-pattern) 有说：
 
@@ -779,7 +792,7 @@ Stack Overflow 还举了个例子：
 
 > Say you must implement a hierarchy of colored shapes. You wouldn't subclass Shape with Rectangle and Circle and then subclass Rectangle with RedRectangle, BlueRectangle and GreenRectangle and the same for Circle, would you? You would prefer to say that each Shape has a Color and to implement a hierarchy of colors, and that is the Bridge Pattern.
 
-![](https://hecftw.bn1.livefilestore.com/y2pBwyoJ3ysBlId86E_MAkbIJMO-ngghtkFAuf2RyPJV8tqqMiiQA4Y4aF-A9VriHrtcnFDKb1bTpF7gopKKeHHFpJU8YiJ8muv-WW13SXeSkY/bridge_pattern_example.png?psid=1)
+![][bridge_pattern_example]
 
 Bridge 模式和 [Adapter 模式](http://erikyao.github.io/java/2014/06/04/digest-of-effective-java/#dp_adapter) 是有一点像，不同之处在于：
 
@@ -807,7 +820,7 @@ Bridge 模式和 [Adapter 模式](http://erikyao.github.io/java/2014/06/04/diges
 
 26.1.3 节的内容最多，但是我不是很理解它这个例子，无法把它联系到我们的 Service / DAO 结构上。下面单独说一下 Proxy 模式。
 
-![](https://hecftw.bn1.livefilestore.com/y2pvqKZiQ8v41szml1XVAdKcD-3v10uOfPnfJqBtFEhaTFXbvcjjE3Li37U3_ak4_fz6gyUCWjxeL6Pk7Xjmlo5RqOkzC-rgjkhe-QQufJRxzM/Proxy_pattern_diagram.svg.png?psid=1)
+![][proxy_pattern]
 
 其实本身是很简单的，而且尼玛巨像 Decorator 有没有？[Stack Overflow](http://stackoverflow.com/questions/18618779/differences-between-proxy-and-decorator-pattern) 上提到了这两者的区别：
 
@@ -861,7 +874,7 @@ Bridge 模式和 [Adapter 模式](http://erikyao.github.io/java/2014/06/04/diges
 
 我觉得书上的图比 wiki 来的好：
 
-![](https://hecftw.bn1.livefilestore.com/y2pH7FL6i0iqKbAOGyX1XcCg3RXXl-1YSJzRfUZUdtllksn8slLASyMXaYEeoUYidS0hry-9TjdDpquEtfK8fhTavXx7vSgSInvOPNtVA-WWxo/visitor_pattern.png?psid=1)
+![][visitor_pattern]
 
 简化的代码是：
 
@@ -955,7 +968,7 @@ Double Dispatch 可以简单理解成 `infA.do(InfB infB)`， 就是在 infA 和
 
 注意到上面的类图里是有依赖环的，而且还有这么一个问题：如果我有一个 Modem 子类不需要这个 `setConfigString()` 功能咋办？这时可以用 Acyclic Visitor 模式：
 
-![](https://hecftw.bn1.livefilestore.com/y2pevUHj1wE97dvq_L0_Yqb2HJrYuIGyLBPRfSt6RhRCHUVS6TkHHelLmDykSSZzizF9EJ0MortPaoUO5DZxzu1w0kTNrZUCAgGj-b26fXMcWM/acyclic_visitor_pattern.png?psid=1)
+![][acyclic_visitor_pattern]
 
 具体的变化是：
 
@@ -1013,7 +1026,7 @@ Double Dispatch 可以简单理解成 `infA.do(InfB infB)`， 就是在 infA 和
 
 类图如下：
 
-![](https://hecftw.bn1.livefilestore.com/y2puv22haqudJvzCRwLLxb4YO6x3_63ZJHtWafG9U_0SCzAg29n5ydn4uohdG8Mrasv34aX8Eoe5_skWtg9_TnBgCXrdDGW22kr56-fXCdV5O0/TurnStile.png?psid=1)
+![][Turnstile_class]
 
 实现要点：
 
@@ -1023,7 +1036,7 @@ Double Dispatch 可以简单理解成 `infA.do(InfB infB)`， 就是在 infA 和
 
 画个时序图看看：
 
-![](https://hecftw.bn1.livefilestore.com/y2pNUY3K69H93hCskrw-9gtwiva6trtVJJO8EOLdkJEUOBJnkoaT9G62D8kR-weQYR6zCMaYyIneUF2Hj_hIWq-A8RY5xmowXq3Ffp5FQCWHwQ/Turnstile_seq.png?psid=1)
+![][Turnstile_seq]
 
 代码如下：
 
@@ -1193,7 +1206,7 @@ UML 没啥好讲的，记录下小知识点：
 
 状态图的示例讲得很好，特别记录一下。
 
-![](https://public.bn1.livefilestore.com/y2pKdjo90bTY8NSpCSWyflVAtKyiqBoNk7DkISkcZPYAnfYPWlCHlj1OoEZi1Kk4LPXKfv2v94XyFEZj4iD2MH_oZ78F6DdUOSSvlIUjYXdWpM/State_Diagram.png?psid=1)
+![][state_diagram]
 
 * `[A]-Y->[S]`: 会触发 [S] 内部初始节点到 [C] 的迁移，和直接 `[A]-V->[C]` 的过程是不同的
 * `[B]-Q`: [S] 状态终止，激发 [S]->[A] 的未标注迁移，最后到达 [A]（这应该是默认行为，自动找未标注的迁移）

@@ -7,6 +7,9 @@ tags: [R-101]
 ---
 {% include JB/setup %}
 
+[正态分布的区间特性]: https://farm6.staticflickr.com/5686/23552709249_feabd51978_o_d.png
+[随机变量_X]: https://farm2.staticflickr.com/1711/23293776583_a720234a9c_o_d.jpg
+
 ## 感性复习：如何理解钟形曲线
 
 `P(X = x)` 表示随机变量 X = x 的概率，`F(x) = P(X <= x)` 称为随机变量 X 的 **分布函数**。若 `F(x)` 可微，则 `f(x) = F'(x)` 称为随机变量 X 的 **概率密度函数**，简称为 **概率密度**。
@@ -24,7 +27,7 @@ tags: [R-101]
 
 对于连续型随机变量 X，我们倒腾半天搞出 `F(x)` 和 `f(x)` 就是为了描述 X 的特征。那么对于离散型随机变量 X 的特征，我们更多是根据 `P(X = x)` 这个函数本身的特征来描述。如果 X 具有某些特定的特征，我们称 X 满足某某分布。
 
-![](https://vgjqyw.bn1.livefilestore.com/y2pBLvG_pmMWFOcYvM1sWr8MiYyxImPTXyinYyIJ-9760jJ0Z2giIpGff6VL9fezu2WAO85HVhbF7nweCCcrVUT5NZPQKJq2_BidYfNqGXOtAM/%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%20X.jpg?psid=1)
+![][随机变量_X]
 
 ## 新知识：分位数 Quantile ['kwɒntaɪl]
 
@@ -37,7 +40,7 @@ tags: [R-101]
 
 ## 正态分布的一些区间特性
 
-->![](https://vgjqyw.bn1304.livefilestore.com/y2p3lLUJ707PJF_Ws-NdcGYNNIojGgM8tAVN31zQTABkvuGaIz5YpvhszJ1YMRCEdhJv1HW3Le8FQSsauEWCnxqq4-GRbzWdb0QuMLJ6I5OT0I/%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E7%9A%84%E5%8C%BA%E9%97%B4%E7%89%B9%E6%80%A7.png?psid=1)<-
+->![][正态分布的区间特性]<-
 
 ->图片来源：[Lecture 2: Descriptive Statistics and Exploratory Data Analysis](http://www.gs.washington.edu/academics/courses/akey/56008/lecture/lecture2.pdf)<-
 

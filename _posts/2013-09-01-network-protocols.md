@@ -17,4 +17,4 @@ tags: [Network-101]
 * 语义：用来说明通信双方应当怎么做；用于协调与差错处理的控制信息。
 * 时序：详细说明事件的先后顺序；速度匹配和排序等
 
-![](https://ujbuqa.bn1.livefilestore.com/y2p4trXYJvjvS9UI5-wWIhJfgs01XcmkIb-R-Hn8gTFe4tfLTqrFl9lkm7wnDjnVmOeMw3ychghabpmSShQ8arvl75XVZg4dmz_48gtgwLI-p0/Image.png?psid=1)
+![](https://farm2.staticflickr.com/1643/23812248792_0ee197a130_o_d.png)

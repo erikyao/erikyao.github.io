@@ -7,6 +7,8 @@ tags: [Book, Java-Concurrent]
 ---
 {% include JB/setup %}
 
+[Semaphore]: https://farm6.staticflickr.com/5642/23838060971_d285378e3f_o_d.png
+
 ### XxxBlockingQueue
 
 * ArrayBlockingQueue: 基于数组的，FIFO 的，线程安全的 Queue
@@ -72,7 +74,7 @@ public FooConnection getConnection(String key) throws InterruptedException, Exec
 
 　　原意是 “臂板信号系统”，就是这种铁路上用的。  
 
-->![](https://7atftq.bn1.livefilestore.com/y2pEhkFoMyL6Mf8GUTCEN9DdnASBVoozkF2fzp-e4B40QYrkjJ9tAibAjn6ux_XHCZ0tfxRt-UJsGcIA_fPdbca-VK7YAB17W9W-A3YEjImFQs/Semaphore.png?psid=1)<-
+->![][Semaphore]<-
 
 　　可以类比于 “地铁口的闸机” 或者 “收费站的栏杆”，是一种准入机制。同时，Semaphore 可以带数量限制，比如面试时是 5 个 5 个一组，那么 HR 那里就有一个 Semaphore(5)，每次最多只能放 5 个人进来。
 
@@ -130,9 +132,6 @@ public FooConnection getConnection(String key) throws InterruptedException, Exec
 5. 注意 3. 中的 "<font color="red">another</font>"。如果是同一个线程内，writeLock.lock() 成功后再 readLock.lock()，同一个线程不算是 "<font color="red">another</font> thread"，所以不会引起 blocking，线程同时获取到 writeLock 和 readLock。此时如果再 writeLock.unlock() 一下，我们就称为 “writeLock 降级（downgrade）为 readLock”
 6. 与 5. 同理，4. 中也说的是 "<font color="red">another</font>"，但是 but somehow，在同一线程内，readLock.lock() 成功后再 writeLock.lock() 是不会成功的，而且会造成死锁。称为 “readLock 不可升级（upgrade）为 writeLock”
 7. 适用于 “读多写少” 的场景
-
-
-
 
 ### CopyOnWriteArrayList
 

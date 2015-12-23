@@ -15,6 +15,9 @@ tags: [Book, JVM]
 	* [1.2 加载（ClassLoader）](#classloader)
 	* [1.3 执行](#exe)
 
+[JVM]: https://farm2.staticflickr.com/1574/23812248622_971a1f1af9_o_d.png
+[javac-flow]: https://farm6.staticflickr.com/5707/23292344914_0c82d3db96_o_d.png
+
 ----------  
   
 ----------  
@@ -25,9 +28,12 @@ tags: [Book, JVM]
   
 ----------  
 
-![](https://public.bn1.livefilestore.com/y2pPk45dZgSAzPrGZsdiVIPp7eg6LoM6wyWi0pcY-7T10AGuGRd8OLG2MUstNIUhsXElTOUmQTKlekZjXCtz3dU9MkF9Tytuxo27d9IRZv_Et8/JVM.png?psid=1)
+![][JVM]
 
-参考 [Understanding JVM Internals](http://www.cubrid.org/blog/dev-platform/understanding-jvm-internals/) 的 figure 4 和 [The Java Virtual Machine --by Bill Venners](http://www.artima.com/insidejvm/ed2/jvm2.html) 的 figure 5-1
+参考了：
+
+- [Understanding JVM Internals](http://www.cubrid.org/blog/dev-platform/understanding-jvm-internals/) 的 figure 4 
+- [The Java Virtual Machine --by Bill Venners](http://www.artima.com/insidejvm/ed2/jvm2.html) 的 figure 5-1
 
 ----------  
   
@@ -41,11 +47,14 @@ tags: [Book, JVM]
 
 ### <a name="javac"></a>1.1 编译（javac）
 
-以下综合自书上、[Compilation Overview](http://openjdk.java.net/groups/compiler/doc/compilation-overview/) 和 [The Hacker’s Guide to Javac](http://scg.unibe.ch/archive/projects/Erni08b.pdf)。  
+以下还参考了：
+
+- [Compilation Overview](http://openjdk.java.net/groups/compiler/doc/compilation-overview/)
+- [The Hacker’s Guide to Javac](http://scg.unibe.ch/archive/projects/Erni08b.pdf)。  
 
 The process of compiling a set of source files into a corresponding set of class files is not a simple one, but can be generally divided into three stages. Different parts of source files may proceed through the process at different rates, on an "as needed" basis.  
 
-![](https://public.bn1.livefilestore.com/y2pXrOpuqSiDm3H8kdHZHGamWVqp-qxVyMVYgAgVd397JZ1xG4hnTxpoGAA7eHV_wFULL8L6gr71Ri4_KMBF3Lc4ajObgCvb6fGn3IeN0zRMrk/javac-flow.png?psid=1)
+![][javac-flow]
 
 #### 1.1.1 Parse & Enter
 
@@ -56,11 +65,15 @@ Parse 过程包括：
 
 Enter 过程接收 AST，将 symbol 输入到 symbol table。The output from this phase is a _To Do_ list, containing trees that need to be analyzed and have class files generated.
 
-鉴于编译原理的知识已经忘得差不多了，这里补习一下（来自 [what is the difference between token and lexeme?](http://stackoverflow.com/questions/14954721/what-is-the-difference-between-token-and-lexeme) 和 [In compiler construction, is a symbol the same as a token?](http://stackoverflow.com/questions/6872865/in-compiler-construction-is-a-symbol-the-same-as-a-token)）：
+鉴于编译原理的知识已经忘得差不多了，这里可以补习一下：
+
+- [what is the difference between token and lexeme?](http://stackoverflow.com/questions/14954721/what-is-the-difference-between-token-and-lexeme) 
+- [In compiler construction, is a symbol the same as a token?](http://stackoverflow.com/questions/6872865/in-compiler-construction-is-a-symbol-the-same-as-a-token)）
 
 > A token is a pair consisting of a token name and an optional attribute value. The token name is an abstract symbol representing a kind of lexical unit, e.g., a particular keyword, or sequence of input characters denoting an identifier. The token names are the input symbols that the parser processes.  
 
 <!-- -->
+
 > A token (name) is not necessarily a symbol in the symbol table. For example, if a token (name) is a reserved word, then it is not entered in the symbol table. If a token (name) is an identifier, then it will likely be entered in the symbol table.
 
 #### 1.1.2 Annotation Processing

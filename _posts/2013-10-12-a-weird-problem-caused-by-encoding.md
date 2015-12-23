@@ -11,9 +11,9 @@ tags: [JSP-101]
 
 　　而且总是 `var operation` 那一行出错，`var message` 那一行是不出错的。  
 
-　　试了千百遍，又发现：自己手动输入的代码是没有问题的，只有copy 的代码出问题，换了下编码，真相大白：尼玛的等号什么时候也这么坑爹了！
+　　试了千百遍，又发现：自己手动输入的代码是没有问题的，只有 copy 的代码出问题，换了下编码，真相大白：尼玛的等号什么时候也这么坑爹了！
 
 - UTF-8下
-![](https://hefufa.bn1.livefilestore.com/y2pNFVKQc6X-9opCDE7U3CmbOBaFLnFv3Ew3Jz5VSB6FqQsq1U6Ouo1TTnKhuiiyhZuvz6H61_j2Gkv0-tj_w2VSaGarI6oFMeUt1uDItXn3E8/%E6%9C%AA%E5%91%BD%E5%90%8D.png?psid=1)
+![](https://farm2.staticflickr.com/1534/23838061111_19b03da132_o_d.png)
 - GBK下 
-![](https://fqcs5w.bn1302.livefilestore.com/y2p0Tdbl35fYSp0Pvvgmpnc9l_hD_Eyq02ibhQb9i-_MH1GMNA9Y5_rnv1awnb4upH7i_utn8-Zr5_bq405jPdMLlyC0Tt8tAE7WAt4KRA_em8/%E6%9C%AA%E5%91%BD%E5%90%8D2.png?psid=1)
+![](https://farm6.staticflickr.com/5649/23293777293_974b35a13d_o_d.png)
