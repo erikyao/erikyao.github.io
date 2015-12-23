@@ -9,6 +9,7 @@ tags: [ML-101, R-101, PCA]
 
 [4_faces]: https://farm6.staticflickr.com/5788/23292344324_63f5375fa3_o_d.png
 [variance_explained]: https://farm6.staticflickr.com/5761/23292344304_ddcff38623_o_d.png
+[face.rda]: https://wxdkqa.bn1304.livefilestore.com/y3mPHUkhk8q9P2iyyabsYdgoCs8L-3IDHzDGwOyHYXT0mVwa2c1FcrQfLX1IhsFwUKhUh6LA5mI79ob3nx8LSe9JI-pz1s9yA-TjqzCBOjnPMDupCFzzRdIMn8Rhhmw61Mk/2014-09-09-r-pca-example.face.rda?download&psid=1
 
 ## 0. More Math Definitions
 
@@ -44,7 +45,7 @@ Knn, or k-nearest-neighbors, is a policy that take the k (10 by default in the c
 
 ## 2. Face Example
 
-Load the .rda file [face.rda](https://wxezkq.bn1304.livefilestore.com/y2m7lZfcWIPkhecZDvJSuTOZpP1c_v9nTMGJInjwBrmFvKSpyezQUp2AvJYU_XzuMa2-kx48lgK2iT57XdSHyDsPuU3k2dtt_SB5MTOlQGOflg/face.rda?download&psid=1).
+Load the .rda file [face.rda][face.rda].
 
 <pre class="prettyprint linenums">
 load("face.rda")
