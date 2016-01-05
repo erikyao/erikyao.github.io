@@ -69,7 +69,7 @@ password=baz
 sudo mount.cifs //2.2.22.223/foo /mnt -o credentials=~/Documents/cifs_credentials,nounix,sec=ntlmssp,noperm,rw
 </pre>
 
-### 1.3 Error Log 
+### 1.3 Error Log
 
 <pre class="prettyprint linenums">
 tail -100 /var/log/syslog
@@ -96,7 +96,7 @@ sudo apt-get install ssmtp
 # Make this empty to disable rewriting.
 root=bot@gmail.com
 
-# The place where the mail goes. The actual machine name is required no 
+# The place where the mail goes. The actual machine name is required no
 # MX records are consulted. Commonly mailhosts are named mail.domain.com
 mailhub=smtp.gmail.com:587
 
@@ -148,6 +148,26 @@ sudo apt-get install mailutils
 
 echo "BODY" | mail -s "SUBJECT" a "From: bot &lt;bot@gmail.com&gt;" toaddr@somewhere.com
 </pre>
+
+-> _~~~~~~~~~~ 2016/01/04 P.S. Start ~~~~~~~~~~_ <-
+
+Today I met a problem when testing `echo "BODY" | mail -s "SUBJECT" toaddr@somewhere.com`:
+
+<pre class="prettyprint linenums">
+mail: cannot send message: Process exited with a non-zero status
+</pre>
+
+I checked the log, commanding `tail /var/log/mail.err`:
+
+<pre class="prettyprint linenums">
+Jan  4 16:38:12 <hostname> sSMTP[23511]: Authorization failed (534 5.7.14  https://support.google.com/mail/answer/78754 blahblahblah - gsmtp)
+</pre>
+
+As [how to fix “send-mail: Authorization failed 534 5.7.14”](http://serverfault.com/a/672182) suggested, the solution is:
+
+> Log into your google email account and then go to this link: https://www.google.com/settings/security/lesssecureapps and set "Access for less secure apps" to ON.
+
+-> _~~~~~~~~~~ 2016/01/04 P.S. End ~~~~~~~~~~_ <-
 
 ## 3. Shell Techniques
 
@@ -205,6 +225,6 @@ However, if put the script under `sudo crontab -e`, you don't have to bother wit
 
 If you run `mount.cifs` inside a cron task, you will probably get this weird error. Actually it has nothing to do with the key nor the expiration.
 
-According to [weird cron job issue](http://forums.fedoraforum.org/showthread.php?t=198661), `crontab` could not locate your commands in PATH under some conditions, so a easy solution is to use the full path of the command, like `/sbin/mount.cifs` for `mount.cifs`, in you script. 
+According to [weird cron job issue](http://forums.fedoraforum.org/showthread.php?t=198661), `crontab` could not locate your commands in PATH under some conditions, so a easy solution is to use the full path of the command, like `/sbin/mount.cifs` for `mount.cifs`, in you script.
 
 You can obtain the full paths by `whereis <command>`.
