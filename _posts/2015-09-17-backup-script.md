@@ -165,7 +165,7 @@ Jan  4 16:38:12 <hostname> sSMTP[23511]: Authorization failed (534 5.7.14  https
 
 As [how to fix “send-mail: Authorization failed 534 5.7.14”](http://serverfault.com/a/672182) suggested, the solution is:
 
-> Log into your google email account and then go to this link: https://www.google.com/settings/security/lesssecureapps and set "Access for less secure apps" to ON.
+> Log into your google email account and then go to this link: [https://www.google.com/settings/security/lesssecureapps](https://www.google.com/settings/security/lesssecureapps) and set "Access for less secure apps" to ON.
 
 -> _~~~~~~~~~~ 2016/01/04 P.S. End ~~~~~~~~~~_ <-
 
