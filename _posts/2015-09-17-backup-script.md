@@ -18,6 +18,7 @@ tags: [Shell]
 - [How set the From email address for mailx command?](http://stackoverflow.com/questions/1296979/how-set-the-from-email-address-for-mailx-command)
 - [How to mount remote Windows shares](https://wiki.centos.org/TipsAndTricks/WindowsShares)
 - [weird cron job issue](http://forums.fedoraforum.org/showthread.php?t=198661)
+- [How to append a string to each element of a Bash array?](http://stackoverflow.com/a/13216833)
 
 -----
 
@@ -169,9 +170,25 @@ As [how to fix “send-mail: Authorization failed 534 5.7.14”](http://serverfa
 
 -> _~~~~~~~~~~ 2016/01/04 P.S. End ~~~~~~~~~~_ <-
 
-## 3. Shell Techniques
+## 3. Encrytion
 
-### 3.1 Exit code of the last command
+Easy. Use `openssl`.
+
+<pre class="prettyprint linenums">
+// encrypt
+openssl enc -aes-256-cbc -salt -in file.txt -out file.txt.enc -k PASS
+
+// decrypt
+openssl enc -aes-256-cbc -d -in file.txt.enc -out file.txt -k PASS
+</pre>
+
+Use `-k` option if you don't want to input password interactively.
+
+For more ciphers, just `openssl --help`.
+
+## 4. Shell Techniques
+
+### 4.1 Exit code of the last command
 
 exit code 我们可以用 `echo $?` 获取，为 0 时表示 last command 执行成功；非 0 表示出了问题。
 
@@ -197,13 +214,52 @@ else
 fi
 </pre>
 
-### 3.2 A command that always fails
+### 4.2 A command that always fails
 
 `false` 命令必定会失败，所以可以用来测试命令出错的情况。
 
-## 4. Traps
+### 4.3 For every element in array
 
-### 4.1 mount & /etc/fstab
+<pre class="prettyprint linenums">
+mail_to_addr=('johndoe@foo.bar' 'janedoe@baz.qux')
+
+for addr in "${mail_to_addr[@]}"; do
+	echo ${addr}
+done
+</pre>
+
+### 4.4 You can output an array as is
+
+E.g. If you want to make up a command like `tar -cpzf test.tar.gz --one-file-system /foo /bar`, you can write:
+
+<pre class="prettyprint linenums">
+tar_targets=('/foo' '/bar')
+
+tar -cpzf test.tar.gz --one-file-system ${tar_targets[@]}
+</pre>
+
+### 4.5 Add prefix or suffix to every element of an array
+
+<pre class="prettyprint linenums">
+array=( "${array[@]/%/\_suffix}" )
+
+array=( "${array[@]/#/prefix\_}" )
+</pre>
+
+A typical use is to generate multiple `--exclude` parameters for `tar`:
+
+<pre class="prettyprint linenums">
+tar_exclude=('/foo' '/bar')
+tar_exclude=( "${tar_exclude[@]/#/--exclude=}" )
+
+tar -cpzf test.tar.gz --one-file-system ${tar_targets[@]} ${tar_exclude[@]}
+</pre>
+
+The script above would generate `--exclude=/foo --exclude=/bar`.
+
+## 5. Traps
+
+### 5.1 mount & /etc/fstab
 
 If you `mount.cifs` without `sudo`, you'll probably get the error log like:
 
@@ -221,7 +277,7 @@ in which, `uid=1000` is fixed and can be obtained by command `id <usename>`, and
 
 However, if put the script under `sudo crontab -e`, you don't have to bother with `/etc/fstab`.
 
-### 4.2 mount error(127): Key has expired
+### 5.2 mount error(127): Key has expired
 
 If you run `mount.cifs` inside a cron task, you will probably get this weird error. Actually it has nothing to do with the key nor the expiration.
 
