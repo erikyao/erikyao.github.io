@@ -175,10 +175,10 @@ As [how to fix “send-mail: Authorization failed 534 5.7.14”](http://serverfa
 Easy. Use `openssl`.
 
 <pre class="prettyprint linenums">
-// encrypt
+# encrypt
 openssl enc -aes-256-cbc -salt -in file.txt -out file.txt.enc -k PASS
 
-// decrypt
+# decrypt
 openssl enc -aes-256-cbc -d -in file.txt.enc -out file.txt -k PASS
 </pre>
 
@@ -241,9 +241,9 @@ tar -cpzf test.tar.gz --one-file-system ${tar_targets[@]}
 ### 4.5 Add prefix or suffix to every element of an array
 
 <pre class="prettyprint linenums">
-array=( "${array[@]/%/\_suffix}" )
+array=( "${array[@]/%/_suffix}" )
 
-array=( "${array[@]/#/prefix\_}" )
+array=( "${array[@]/#/prefix_}" )
 </pre>
 
 A typical use is to generate multiple `--exclude` parameters for `tar`:
