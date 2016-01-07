@@ -19,6 +19,7 @@ tags: [Shell]
 - [How to mount remote Windows shares](https://wiki.centos.org/TipsAndTricks/WindowsShares)
 - [weird cron job issue](http://forums.fedoraforum.org/showthread.php?t=198661)
 - [How to append a string to each element of a Bash array?](http://stackoverflow.com/a/13216833)
+- [Stop cron sending mail for backup script?](http://unix.stackexchange.com/a/84340)
 
 -----
 
@@ -186,9 +187,23 @@ Use `-k` option if you don't want to input password interactively.
 
 For more ciphers, just `openssl --help`.
 
-## 4. Shell Techniques
+## 4. Disable cron's email notification
 
-### 4.1 Exit code of the last command
+> When executing commands, any output is mailed to the owner of the crontab (or to the user specified in the MAILTO environment variable in the crontab, if such exists).
+
+So, we need to 'silent' our cron task. One way is to use the "quite mode" if there is an option for the command; the second one is to redirect the output, e.g. to a log file.
+
+A typical configuration would look like:
+
+<pre class="prettyprint linenums">
+* * * * * myjob.sh >> /var/log/myjob.log 2>&1
+</pre>
+
+`2>&1` means to combine `stdout` and `stderr` into the `stdout` stream, so you'll see both `stdout` and `stderr` in your log file.
+
+## 5. Shell Techniques
+
+### 5.1 Exit code of the last command
 
 exit code 我们可以用 `echo $?` 获取，为 0 时表示 last command 执行成功；非 0 表示出了问题。
 
@@ -214,11 +229,11 @@ else
 fi
 </pre>
 
-### 4.2 A command that always fails
+### 5.2 A command that always fails
 
 `false` 命令必定会失败，所以可以用来测试命令出错的情况。
 
-### 4.3 For every element in array
+### 5.3 For every element in array
 
 <pre class="prettyprint linenums">
 mail_to_addr=('johndoe@foo.bar' 'janedoe@baz.qux')
@@ -228,7 +243,7 @@ for addr in "${mail_to_addr[@]}"; do
 done
 </pre>
 
-### 4.4 You can output an array as is
+### 5.4 You can output an array as is
 
 E.g. If you want to make up a command like `tar -cpzf test.tar.gz --one-file-system /foo /bar`, you can write:
 
@@ -238,7 +253,7 @@ tar_targets=('/foo' '/bar')
 tar -cpzf test.tar.gz --one-file-system ${tar_targets[@]}
 </pre>
 
-### 4.5 Add prefix or suffix to every element of an array
+### 5.5 Add prefix or suffix to every element of an array
 
 <pre class="prettyprint linenums">
 array=( "${array[@]/%/_suffix}" )
@@ -257,9 +272,9 @@ tar -cpzf test.tar.gz --one-file-system ${tar_targets[@]} ${tar_exclude[@]}
 
 The script above would generate `--exclude=/foo --exclude=/bar`.
 
-## 5. Traps
+## 6. Traps
 
-### 5.1 mount & /etc/fstab
+### 6.1 mount & /etc/fstab
 
 If you `mount.cifs` without `sudo`, you'll probably get the error log like:
 
@@ -277,7 +292,7 @@ in which, `uid=1000` is fixed and can be obtained by command `id <usename>`, and
 
 However, if put the script under `sudo crontab -e`, you don't have to bother with `/etc/fstab`.
 
-### 5.2 mount error(127): Key has expired
+### 6.2 mount error(127): Key has expired
 
 If you run `mount.cifs` inside a cron task, you will probably get this weird error. Actually it has nothing to do with the key nor the expiration.
 
