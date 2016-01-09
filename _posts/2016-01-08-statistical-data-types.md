@@ -10,7 +10,7 @@ tags: [Math-Statistics]
 [1]: https://farm2.staticflickr.com/1633/24254040286_610d54c7f9_o_d.png
 [2]: https://farm2.staticflickr.com/1638/23912339669_22690ebc0c_o_d.png
 
-Today I feel it necessary to master some stats terms for better discussions of machine learning problems. 其实我在 [Parametric vs. non-parametric tests](http://erikyao.github.io/math/2015/06/20/parametric-vs-non-parametric-tests/) 里有讲，这里总结一下好了。
+Today I feel it necessary to master some stats terms for better discussions of machine learning problems. 
 
 However, the concepts are not that unified nor intuitive. Here I'd rather list some examples to illustrate.
 
@@ -20,6 +20,8 @@ The following note is summarized from
 - [Quantitative and Qualitative Data](http://www.abs.gov.au/websitedbs/a3121120.nsf/home/statistical+language+-+quantitative+and+qualitative+data)
 - [Scales of Measurement: Nominal, Ordinal, Interval, Ratio](https://communitymedicine4asses.wordpress.com/2013/01/13/scales-of-measurement-nominal-ordinal-interval-ratio/)
 - [What is the difference between ordinal, interval and ratio variables? Why should I care?](http://www.graphpad.com/support/faqid/1089/)
+
+-----
 
 There are two types of data:
 
@@ -33,11 +35,11 @@ There are two types of data:
 Divided further:
 
 - Qualitative (categorized)
-	– Ordinal
-	– Nominal / Categorical
+	- Ordinal
+	- Nominal / Categorical
 - Quantitative (measured / numeric)
-	– Ratio
-	– Interval
+	- Ratio
+	- Interval
 
 ## 1. Nominal / Categorical
 
@@ -113,4 +115,4 @@ E.g.
 ![][1]
 ![][2]
 
-另可参考 [Parametric vs. non-parametric tests](/2015/06/20/parametric-vs-non-parametric-tests/)
+另可参考 [Parametric vs. non-parametric tests](/math/2015/06/20/parametric-vs-non-parametric-models/).
