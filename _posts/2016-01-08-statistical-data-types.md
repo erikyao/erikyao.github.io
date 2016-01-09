@@ -115,4 +115,4 @@ E.g.
 ![][1]
 ![][2]
 
-另可参考 [Parametric vs. non-parametric tests](/math/2015/06/20/parametric-vs-non-parametric-models/).
+另可参考 [Parametric vs. non-parametric tests](/math/2015/06/20/parametric-vs-non-parametric-tests/).
