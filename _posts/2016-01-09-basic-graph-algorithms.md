@@ -18,10 +18,24 @@ tags: [Algorithm-101]
 - [COMPSCI 330: Design and Analysis of Algorithms - Lecture #5](https://www.cs.duke.edu/courses/fall14/cps130/notes/scribe5.pdf)
 - [DFS Edge Classification](http://courses.csail.mit.edu/6.006/spring11/rec/rec13.pdf)
 - [Lecture 8: DFS and Topological Sort](http://home.cse.ust.hk/faculty/golin/COMP271Sp03/Notes/MyL08.pdf)
+- [Lecture 21: Shortest Paths](http://jeffe.cs.illinois.edu/teaching/algorithms/notes/21-sssp.pdf)
 
 -----
 
-## 1. Definition
+ToC:
+
+- [1. Definition](#1-definition)
+- [2. Traversing Connected Graphs](#2-traversing-connected-graphs)
+- [3. More on DFS](#3-more-on-dfs)
+- [4. Preorder and Postorder Labeling](#4-preorder-and-postorder-labeling)
+- [5. Acyclicity in Directed Graphs](#5-acyclicity-in-directed-graphs)
+- [6. Topological Sort](#6-topological-sort)
+- [7. Strongly Connected Components (SCC)](#7-scc)
+- [8. Shortest Paths](#8-shortest-paths)
+
+-----
+
+## <href name="1-definition"></href>1. Definition
 
 _**Simple Graph:**_
 
@@ -100,7 +114,7 @@ _**Walk**_, _**Path**_, _**Cycle**_ and _**Connectivity**_:
 	
 Any vertex in a DAG that has no incoming vertices is called a _**source**_; any vertex with no outgoing edges is called a _**sink**_. Every DAG has at least one source and one sink, but may have more than one of each. For example, in the graph with `n` vertices but no edges, every vertex is a source and every vertex is a sink.
 	
-## 2. Traversing Connected Graphs
+## <a name="2-traversing-connected-graphs"></a>2. Traversing Connected Graphs
 
 To keep things simple, we'll consider only undirected graphs here, although the algorithms also work for directed graphs with minimal changes.
 
@@ -165,7 +179,7 @@ For any node `v`, the path of parent edges `(v, parent(v), parent(parent(v)), . 
 
 题外话：If \\( G \\) is not connected, then `Traverse(s)` only visits the nodes in the connected component of the start vertex `s`. If we want to visit all the nodes in every component, run `Traverse` on every node. (Let's call it `TraverseAll`.) Since `Traverse` computes a spanning tree of one component, `TraverseAll` computes a spanning forest of \\( G \\).
 
-## 3. More on DFS
+## <a name="3-more-on-dfs"></a>3. More on DFS
 
 首先补充两个概念。Graph 里我们说 predecessor 和 successor，Tree 里面我们用 ancestor 和 descendant；不仅如此，我们还有 proper ancestor 和 proper descendant:
 
@@ -186,7 +200,7 @@ _**Lemma 2.**_ For every edge `vw` in \\( G \\), either `v` is an ancestor of `w
 
 _**Proof:**_ Assume without loss of generality that `v` is marked before `w`. Then `w` is unmarked when `DFS(v)` is invoked, but marked when `DFS(v)` returns, so the previous lemma implies that `w` is a proper descendant of `v` in \\( T \\).
 
-## 4. Preorder and Postorder Labeling
+## <a name="4-preorder-and-postorder-labeling"></a>4. Preorder and Postorder Labeling
 
 <pre class="prettyprint linenums">
 PrePostLabel(G):
@@ -242,7 +256,7 @@ Consider `a` and `b`, where `b` is marked after `a`. Then we must have `prev(a) 
 
 Thus, for any two vertices `a` and `b`, the intervals `[pre(a), post(b)]` and `[pre(b), post(b)]` are either disjoint or nested; in particular, if `ab` is an edge, _**Lemma 2**_ implies that the intervals must be nested.
 
-## 5. Acyclicity in Directed Graphs
+## <a name="5-acyclicity-in-directed-graphs"></a>5. Acyclicity in Directed Graphs
 
 Lemma 2 implies that any depth-first spanning tree \\( T \\) divides the edges of \\( G \\) into two classes: _**tree edges**_, which appear in \\( T \\), and _**back(ward) edges**_, which connect some node in \\( T \\) to one of its ancestors.
 
@@ -278,7 +292,7 @@ We call an edge `a → b` in \\( G \\) (注意范围，是 \\( G \\) 中的 edge
 
 _**obs:**_ There is a backward edge in \\( G \backslash T \\) \\( \iff \\) \\( \exists \\) a directed cycle in \\( G \\).
 
-## 6. Topological Sort
+## <a name="6-topological-sort"></a>6. Topological Sort
 
 A topological ordering of a directed graph \\( G \\) is a total order \\( \prec \\) on the vertices such that \\( a \prec b \\) for every edge `a → b`. Less formally, a topological ordering arranges the vertices along a horizontal line so that all edges point from left to right. 
 
@@ -321,7 +335,7 @@ DFSAll(G)
 
 _**RT:**_ 所以 Topological Sort 的时间复杂度和 `DFSAll` 是一样的，都是 \\( O(V+E) \\)
 
-## 7. Strongly Connected Components (SCC)
+## <a name="7-scc"></a>7. Strongly Connected Components (SCC)
 
 In a directed graph \\( G = (V,E) \\), vertex `a` is _**connected**_ to vertex `b` if there exists a path `a → b`.
 
@@ -369,7 +383,7 @@ Actually you even don't have to repeat the "find-remove" procedure. The Kosaraju
 - Step 2: `DFSAll(G)` in the order above
 	- each call to `DFS` in the loop of `DFSAll(G)` visits exactly one strong component of \\( G \\)
 	
-## 8. Shortest Paths
+## <a name="8-shortest-paths"></a>8. Shortest Paths
 
 Given a weighted directed graph \\( G = (V,E,w) \\), a source vertex `s` and a target vertex `t`, find the shortest `s → t` regarding `w`.
 
@@ -398,4 +412,57 @@ relax(a → b)
 
 If no edge in \\( G \\) is tense, then for every vertex `x`, `dist(x)` is the length of the predecessor path `s → ... → pred(pred(x)) → pred(x) → x`, which is, at the same time, the shortest \\( s \rightsquigarrow x \\) path.
 
-### To Be Continued...
+<pre class="prettyprint linenums">
+InitSSSP(s):
+	dist(s) <- 0
+	pred(s) <- NULL
+	for all vertices v != s
+		dist(v) <- ∞
+		pred(v) <- NULL
+
+GenericSSSP(s):
+	InitSSSP(s)
+	put s in the bag
+
+	while the bag is not empty
+		take u from the bag
+		for all edges u → v
+			if u → v is tense
+				Relax(u → v)
+				put v in the bag
+</pre>
+
+Just as with graph traversal, different “bag” data structures for the give us different algorithms. There are three obvious choices to try: a stack, a queue, and a priority queue. Unfortunately, if we use a stack, the resulting algorithm performs \\( O(2\^V) \\) relaxation steps in the worst case!  The other two possibilities are much more efficient.
+
+### 8.1 Dijkstra’s Algorithm
+
+If we implement the bag using a priority queue, where the priority of a vertex `v` is its tentative distance `dist(v)`, we obtain Dijkstra’s Algorithm
+
+- A priority queue is different from a "normal" queue, because instead of being a "first-in-first-out" data structure, values come out in order by priority.
+- This means every time we "take `u` from the bag", we take the one with minimal `dist(x)`.
+	- 其实可以看做是一种 greedy algorithm
+
+Dijkstra’s algorithm is particularly well-behaved if the graph has _**NO negative-weight edges**_. In this case, it’s not hard to show (by induction, of course) that the vertices are scanned in increasing order of their shortest-path distance from `s`. It follows that each vertex is scanned at most once, and thus that each edge is relaxed at most once.
+
+Since the priority of each vertex in the priority queue is its tentative distance from `s`, the algorithm performs a `decreasePriority` operation every time an edge is relaxed. Thus, the algorithm performs at most \\( E \\) `decreasePriority`. Similarly, there are at most \\( V \\) `enqueue` and `getMinPriority` operations. Thus, if we implement the priority queue with a Fibonacci heap, the total running time of Dijkstra’s algorithm is \\( O(E + V \log V) \\); if we use a regular binary heap, the running time is \\( O(E \log V) \\).
+
+### 8.2 Shimbel’s Algorithm
+
+If we replace the heap in Dijkstra’s algorithm with a FIFO queue, we obtain Shimbel’s Algorithm. Shimbel’s algorithm is efficient even if there are negative edges, and it can be used to quickly detect the presence of negative cycles. If there are no negative edges, however, Dijkstra’s algorithm is faster.
+
+<pre class="prettyprint linenums">
+ShimbelSSSP(s):
+	InitSSSP(s)
+	repeat V times: // 其实 repeat (V-1) 次就够了
+		for every edge u → v
+			if u → v is tense
+				Relax(u → v)
+</pre>
+
+A simple inductive argument implies the following invariant for every repeat index `i` and vertex `v`: After `i` phases of the algorithm, `dist(v)` is at most the length of the shortest walk from `s` to `v` consisting of at most `i` edges.
+
+Repeat \\( V-1 \\) 次的考虑是，从 `s` 到某个 `t` 的路径最多有 \\( V \\) 个 vertex，thus \\( V-1 \\) 条 edge，所以至多可能需要 `relax` \\( V-1 \\) 次。不 repeat \\( E \\) 次的原因是，不是那么 sparse 的图，一般都是 \\( E > V \\)，你从 `s` 到某个 `t` 的路径一般不会把 \\( E \\) 条 edge 全占了。
+
+更多的解释见：[Bellman-Ford algorithm - Why can edges be updated out of order?](http://cs.stackexchange.com/a/6914)。
+
+In each phase, we scan each vertex at most once, so we relax each edge at most once, so the running time of a single phase is \\( O(E) \\). Thus, the overall running time of Shimbel’s algorithm is \\( O(VE) \\).
