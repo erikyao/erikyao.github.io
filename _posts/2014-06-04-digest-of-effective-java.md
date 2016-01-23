@@ -12,9 +12,9 @@ tags: [Book, Java-InnerClass, Java-Exception, Java-Concurrent, Java-Collection, 
 [item_67_Observer]: https://farm2.staticflickr.com/1579/23552709749_56342049ce_o_d.png
 
 ## 目录
-  
+
 ### [chapter 2. Creating and Destroying Objects](#ch2)
-  
+
 - [item 1. 考虑用 static factory 方法代替 constructor](#item1)   
 	- [Service Provide Framework](#service_provider_framework)  
 - [item 2. constructor 参数列表很长时考虑用 Builder 模式](#item2)   
@@ -28,17 +28,17 @@ tags: [Book, Java-InnerClass, Java-Exception, Java-Concurrent, Java-Collection, 
 - [item 6. 消除过期引用](#item6)  
 	- [Understanding Weak References](#weakReference)  
 - item 7. 避免使用 finalize()
-  
+
 ### [chapter 3. Methods Common to All Objects](#ch3)
-  
+
 - [item 8. 严格的 equals(Object) 方法](#item8)  
 - [item 9. 覆写 equals(Object) 时请一并覆写 hashCode()](#item9)  
-- item 10. 请始终覆写 toString() 
+- item 10. 请始终覆写 toString()
 - item 11. 如何覆写 clone()
 - [item 12. 如何覆写 compareTo()](#item12)  
-  
+
 ### [chapter 4. Classes and Interfaces](#ch4)
-  
+
 - [item 13. 关于 public class 的 public 字段](#item13)  
 - [item 14. Use getter/setter in public class](#item14)  
 - item 15. 如何写一个不可变类（不可变类对象一定是线程安全的）  
@@ -135,95 +135,95 @@ tags: [Book, Java-InnerClass, Java-Exception, Java-Concurrent, Java-Collection, 
 - item 76. 如何 defensively 实现 readObject 方法（高级内容，请看书）
 - item 77. 单例类如何安全地实现 Serializable 以及这么搞不如把单例类设计成 enum（高级内容，请看书）
 - item 78. 考虑用 serialization proxy 内部类来降低序列化的风险（高级内容，请看书）
-  
+
 ----------  
-  
+
 ----------  
 
 ## <a name="ch2"></a>chapter 2. Creating and Destroying Objects
-  
+
 ----------  
-  
+
 ----------  
-  
+
 ### <a name="item1"></a>item 1. 考虑用 static factory 方法代替 constructor  
-  
+
 好处1：语义更清晰，参数列表更短    
-  
+
 - `CustomLPaper.aNewTemporaryOne()` 比 `new CustomLPaper(isTemporary = true)` 意义更清晰  
 - 不需要再为 constructor 的参数列表写 javadoc  
 - 如果定义了 `public static HashSet<K> newInstance()`，可以直接写 `Set<String> set = HashSet.newInstance()`，比 `Set<String> set = new HashSet<String>()` 来得方便  
-  
+
 好处2：不用每次都 new 对象    
-  
+
 - 比如 enum、singleton  
-  
+
 好处3：可以用 Base 的 static factory 方法返回 Ext 对象    
-  
+
 - 可以隐藏 Ext 类  
 - Ext 也可以设计成 interface，此时在设计 Base 的 static factory 方法时，可以不关心 Ext 的具体实现，比如 `List Collections.unmodifiableList()`  
 - 可以实现 Service Provide Framework （参考实现有JDBC）   
 - 可以方便改造成 adapter 模式  
-  
+
 ### <a name="service_provider_framework"></a>Service Provide Framework
-  
+
 组件1：Service Interface  
-  
+
 - 可以理解为一个 PO，调用者拿到这个 PO 可以实现他想要的功能  
 - 如 JDBC 的 Connection  
-  
+
 组件2：Provider Registration API  
-  
+
 - 可以理解为 Service 层的一个方法，调用者通过将配置信息传参给这个方法，framework 根据配置确认可以提供这个类型的 Service Interface  
 - 如 `DriverManager.registerDriver(new com.mysql.jdbc.Driver()) `  
 - 题外话：如果是直接调用 `class.forName('com.mysql.jdbc.Driver')`，那么会 `new com.mysql.jdbc.Driver()`，而 `com.mysql.jdbc.Driver` 有一个 static initializer 会调用 `DriverManager.registerDriver(new Driver())`  
-  
+
 组件3：Service Access API  
-  
+
 - 可以理解为 Service 层的一个方法，通过 Service Provider Interface 或者 反射 来获取 Service Interface  
 - 如 `DriverManager.getConnection("jdbc:mysql://192.168.194.4:3306/letterpaper?user=user&password=password")`  
-  
+
 组件4 (option)：Service Proveider Interface (SPI)  
-  
+
 - 可以理解为一个高级的 PO，负责生成 Service Interface  
 - 其实我更倾向于称其为 Service Interface Provider，与组件1对应嘛 =。=  
 - 像上述 `getConnection` 方法，接受了一个字符串参数，包含了 Service Interface 的名称（"mysql"），如果不用 反射 的话，可以用类似 `Map<String, ConnectionProvider>` 的结构来存一个 `<"mysql", MySQLConnectionProvider>`，然后用 `MySQLConnectionProvider` 来生成 Connection  
 - JDBC 中，SPI 实际是 `interface java.sql.Driver`，具体到上述例子中就是 `com.mysql.jdbc.Driver`  
-  
+
 很明显，组件3 Service Access API 是一个 static factory 方法  
-  
+
 ----------  
-  
+
 ### <a name="item2"></a>item 2. constructor 参数列表很长时考虑用 Builder 模式
-  
+
 construtor 参数列表很长时，一般有两种常规做法：  
-  
+
 1. telescoping constructor 层叠构造器  
-  
+
 	形如：  
 	> `constructor(arg1, arg2)`  
 	> <br>`constructor(arg1, arg2, arg3)`  
 	> <br>`constructor(arg1, arg2, arg3, arg4)`  
-	  
+
 	缺点一：does not scale well，参数列表一长，写起来没完……  
-	  
+
 	缺点二：参数顺序的错误很难发现  
-  
+
 2. JavaBean  
-  
+
 	形如：  
 	> `obj = new constructor();`  
 	> <br>`obj.setArg1(arg1);`  
 	> <br>`obj.setArg2(arg2);`  
-  
+
 	缺点一：JavaBean 在构造的过程中，自身的状态不一定正确（setter 没执行完就被拿去使用）  
-	  
+
 	缺点二：construtor 不能做状态检验  
-  
+
 	缺点三：JavaBean 很难做成不可变类（why? see item 15）  
-  
+
 救星是 <a name="dp_builder"></a>Builder 模式。Builder 模式可以简单理解为 setter 的一个变种，它是一个链式的 setter。  
-  
+
 比如 `LPaper(docId, font, bgColor)`，对应的有 `LPaperBuilder(docId, font, bgColor)`  
 
 <pre class="prettyprint linenums">
@@ -244,12 +244,12 @@ LPaperBuilder {
 
 LPaper lp = LPaperBuilder.docId(1003401).font("SimHei").bgColor("red").build();  
 </pre>
-  
+
 进行状态检验的时机：  
-  
+
 - build 过程中，Builder 的字段 copy 到目标对象后，在 对象域 而不是 Builder 域中做状态检验（why? see [item 39](#item39)）  
 - 类似层叠构造器的一种变种，比如有两个字段需要满足一个特定状态，可以定义一个包含两参数的方法：  
-  
+
 <pre class="prettyprint linenums">
 LPaperBuilder init(arg1, arg2) {  
 	// code checking arg1 and arg2 goes here   
@@ -262,23 +262,23 @@ LPaperBuilder init(arg1, arg2) {
 	}  
 }  
 </pre>
-		
+
 该方法的好处是：不用等到 build 时才发现问题。  
-  
+
 注意，此时 目标对象 可以是 **不可变** 的，因为可以没有setter。  
-  
+
 另外，Builder 很适合 抽象工厂（Abstract Factory）。可以定义一个  
-  
+
 <pre class="prettyprint linenums">
 public interface Builder<T> {  
 	public T build();  
 }  
 </pre>
-	
+
 抽象工厂持有一组这样的 Builder 实现，就可以方便生产类型的对象。  
-  
+
 ### <a name="item3"></a>item 3. 用 private constructor 或者 enum 来强化 singleton
-  
+
 一般的 singleton 写法有两种：  
 
 <pre class="prettyprint linenums">
@@ -288,7 +288,7 @@ public class singlton {
 	...  
 }  
 </pre>  
-	
+
 <pre class="prettyprint linenums">
 public class singlton {  
 	private static final Singleton INSTANCE = new Singleton();  
@@ -299,33 +299,33 @@ public class singlton {
 	...  
 }  
 </pre>
-  
+
 如果为了防止通过反射来访问 construtor，可以在 construtor 中直接抛异常（好贱啊……）。  
-  
+
 为了防止 **反序列化** 重新生成一个新的 INSTANCE，需要做到：  
-  
+
 1. 将 INSTANCE 标记为 transient（transient 关键字可以将字段 mark 为“hi，这个家伙是不参与序列化的，忽略它吧~”）  
 2. 覆写 [readResolve](#readResolve) 方法，直接返回 INSTANCE  
-  
+
 随着 Java 1.5 引入 enum，现在 singleton 也能用 enum 实现了：  
 
 <pre class="prettyprint linenums">
 public enum Singleton {  
 	INSTANCE;  
-	  
+
 	// fields all go in constructor  
 	// method goes here just like other classes  
 	...  
 }  
 </pre>
-  
+
 enum singleton 的优点：<a name="enum_serialize" href="http://docs.oracle.com/javase/1.5.0/docs/guide/serialization/spec/serial-arch.html#enum">JVM 无偿提供的序列化机制，绝对防止 **反序列化** 生成新的 INSTANCE</a>，原因是：
 
 > The serialized form of an enum constant consists solely of its name; field values of the constant are not present in the form. To serialize an enum constant, ObjectOutputStream writes the value returned by the enum constant's name method. To deserialize an enum constant, ObjectInputStream reads the constant name from the stream; the deserialized constant is then obtained by calling the java.lang.Enum.valueOf method, passing the constant's enum type along with the received constant name as arguments.
-  
+
 ### <a name="readResolve"></a>readResolve 方法与序列化
-  
-一个常见的 `序列化` 与 `反序列化` 的调用类似于： 
+
+一个常见的 `序列化` 与 `反序列化` 的调用类似于：
 
 <pre class="prettyprint linenums">
 public Object serialize() throws IOException, ClassNotFoundException {    
@@ -333,125 +333,125 @@ public Object serialize() throws IOException, ClassNotFoundException {
 	ByteArrayOutputStream baos = new ByteArrayOutputStream();    
 	ObjectOutputStream oos = new ObjectOutputStream(baos);    
 	oos.writeObject(this);    
-	  
+
 	// 反序列化  
 	ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());    
 	ObjectInputStream ois = new ObjectInputStream(bais);    
 	return ois.readObject();    
 }    
-</pre> 
-	  
+</pre>
+
 `序列化` 和 `反序列化`实际涉及到方法有4个，依次为：  
-  
+
 1. `Object writeReplace()`：替换参与 序列化 的对象，即可以让 `this` 以外的对象来 “狸猫换太子”  
 2. `void ObjectOutputStream.writeObject(Object obj)`：JVM 自带的 `序列化io` 实现  
 3. `Object ObjectInputStream.readObject()`：JVM 自带的 `序列化io` 实现  
 4. `Object readResolve()`：直接提供 `反序列化` 的结果，可以是 readObject 的结果，也可以不是  
-  
+
 题外话，<a name="readObject_writeObject" href="http://www.javablogging.com/what-are-writeobject-and-readobject-customizing-the-serialization-process/">What are writeObject and readObject? Customizing the serialization process</a>  
-  
+
 ----------  
-  
-### <a name="#item4"></a>item 4. 用 private constructor 来强化 util 类
-  
+
+### <a name="item4"></a>item 4. 用 private constructor 来强化 util 类
+
 方法在 [item 3](#item3) 中已经说了，private construtor，保险点再加一个异常。最好加注释说明一下。  
-  
+
 ----------  
-  
-### <a name="#item5"></a>item 5. 避免创建不必要的对象
-  
+
+### <a name="item5"></a>item 5. 避免创建不必要的对象
+
 典型的例子是方法中每次都创建的 日期对象，完全可以在定义为 static field；但也没有必要用懒加载，把事情搞复杂了。  
-  
+
 避免自动装箱（autoboxing）：比如 `Long l = 0L; l++;` 因为 l 声明为 Long 对象，所以每次 \++ 都会创建一个 Long 对象（详见 item 49）。  
-  
+
 [item 39. defensive copy](#item39) 的场合与本 item 不同：当重用对象的代价远大于创建新对象的时候，请使用 defensive copy；与本 item 并不矛盾。  
-  
+
 ----------  
-  
-### <a name="#item6"></a>item 6. 消除过期引用
-  
+
+### <a name="item6"></a>item 6. 消除过期引用
+
 过期引用，obsolete reference，is simply a reference that will never be dereferenced again。  
-  
+
 比如说你自定义一个 stack，然后 pop 操作只是 `top--`，那么 `stack[top+1]`，i.e. 原 top 元素就可能成为一个 obsolete reference。  
-  
+
 内存泄露也可称为 unintentional object retension，无意识的对象保留。如果一个对象被保留，那么它引用的对象也会被保留。  
-  
+
 避免产生 obsolete reference 的一个最简单的做法是 `object = null;`（this is a kind of **dereference**），但刻意去做这件事情显得很别扭。最好的方法是：让引用对象结束生命周期。这要求你在最紧凑的作用域内定义变量。  
-  
+
 内存泄露来源：  
-  
+
 1. 自己管理的内存。比如自己实现的 stack。解决方案是：及时的 dereference  
 2. 缓存。缓存中的对象可能被遗忘。解决方案：  
-	- WeakHashMap: 当 WeakHashMap 的 keyObject 被 GC 之后，对应的 WeakHashMap entry 也被删除。see: 
+	- WeakHashMap: 当 WeakHashMap 的 keyObject 被 GC 之后，对应的 WeakHashMap entry 也被删除。see:
 		- [Understanding Weak References](http://weblogs.java.net/blog/enicholas/archive/2006/05/understanding_w.html "Understanding Weak References")
 		- [WeakHashMap is not a cache!](http://www.codeinstructions.com/2008/09/weakhashmap-is-not-cache-understanding.html "WeakHashMap is not a cache!")  
 	- 起一个线程定时清除。`LinkedHashMap#removeEldestEntry()` will be your good friend.  
 3. 监听器和其他回调（待学习）  
-  
+
 ### <a name="weakReference"></a>Understanding Weak References
-  
+
 #### Reference 有四种强度：Strong / Weak / Soft / Phantom
-  
+
 #### 1. Strong Reference
-  
+
 我们说一个 reference 是 Strong 的，表示在定义 reference 的定义域内，这个 reference 指向的 object 是无法被 GC 的，这个 object 有被称为 strongly reachable （if an object is reachable via a chain of strong references (strongly reachable), it is not eligible for garbage collection）。  
-  
+
 #### 2. Weak Reference
-  
+
 A weak reference, simply put, is a reference that isn't strong enough to force an object to remain in memory.  
-  
+
 You create a weak reference like this:  
-  
+
 > `WeakReference<Widget> weakWidget = new WeakReference<Widget>(widget);`  
-  
+
 and then elsewhere in the code you can use `weakWidget.get()` to get the actual Widget object. Of course the weak reference isn't strong enough to prevent garbage collection, so you may find (**IF** there are no strong references to the widget) `that weakWidget.get()` suddenly starts returning null.  
-  
+
 #### ReferenceQueue
-  
+
 >  `ReferenceQueue<Widget> refQueue = new ReferenceQueue<Widget>();`  
-  
+
 > `WeakReference<Widget> weakWidget = new WeakReference<Widget>(widget, refQueue);`  
-  
+
 WeakReferences are enqueued as soon as the object to which they point becomes weakly reachable. ReferenceQueue 是 WeakHashMap 的重要组成部分。  
-  
-  
+
+
 #### 3. Soft Reference
-  
+
 An object which is only weakly reachable (the strongest references to it are WeakReferences) will be discarded at the next garbage collection cycle, but an object which is softly reachable 相对比较坚挺，不会那么快被 GC. 除此之外，soft reference 与 weak reference 并无差别。  
-  
+
 实际上，只要内存够用，softly-reachable object 是不会被 GC 的。所以 soft reference 是做 cache 的好材料，因为 GCer 会帮你判断内存是否不够用而要进行 GC。  
-  
+
 #### 4. Phantom Reference
-  
+
 与 object 几乎没有关联，`get()` 方法永远返回 null。唯一的用户是用来 keeping track of when it gets enqueued into a ReferenceQueue, as at that point you know the object to which it pointed is dead.  
-  
+
 **IMPORTANT**: The difference is in exactly when the enqueuing happens. WeakReferences are enqueued as soon as the object to which they point becomes weakly reachable. This is before finalization or garbage collection has actually happened; in theory the object could even be "resurrected" by an unorthodox `finalize()` method, but the WeakReference would remain dead. PhantomReferences are enqueued only when the object is physically removed from memory, and the `get()` method always returns null specifically to prevent you from being able to "resurrect" an almost-dead object.  
-  
+
 Phantom Reference 的两大用处：  
-  
+
 1. 准确告知 object 被 GC  
 2. 可以杜绝在 `finalize()` 中使 object 复活（复活的方法比如重新创建一个 Strong Reference）  
-  
+
 ----------  
 
 ----------
-  
+
 ## <a name="ch3"></a>chapter 3. Methods Common to All Objects
-  
+
 ----------  
-  
+
 ----------  
-  
+
 ### <a name="item8"></a>item 8. 严格的 equals(Object) 方法
-  
+
 水深，多读书。  
-  
+
 明确一点，当有子类出现时，父类的 equals 和子类的 equals 关系就很微妙。  
-  
+
 假设有一个非 abstract 的父类，有两个字段，有一个子类A，加了一个字段a。此时子类A如果用父类的 equals，那么子类间的比较会漏掉字段 a 的比较。如果子类A自己写一个 equals 比较三个字段，那么子类A和父类的比较就很麻烦，需要慎重处理。因为要确保`子类对象.equals(父类对象) == 父类对象.equals(子类对象)`，如果你一定要做这样的比较的话。建议的做法是：约定哪些字段是需要比较的，哪些字段不需要比较；如果需要比较的字段都相等，可以判定两个对象相等。  
-  
+
 如果你在 equals 里限定 `o.getClass() == this.getClass()`，那么又违反了 Liskov 置换原则。考虑一个子类B，没有加字段，那么它和父类的比较，不需要限定 class 相等。所以，还是用 instanceof 比较科学，注意，`(子类对象 instanceof 父类) == true`。  
-  
+
 用组合代替继承的话，equals 也有新的写法，如下：  
 
 <pre class="prettyprint linenums">
@@ -475,62 +475,62 @@ class Ext {
 	}  
 }  
 </pre>
-  
+
 float 的比较请用 `Float.compare()`，double 的比较请用 `Double.compare()`。  
-  
+
 ----------  
 
 ### <a name="item9"></a>item 9. 覆写 equals(Object) 时请一并覆写 hashCode()
-  
+
 just read the book  
-  
+
 _注_：工作经验告诉我们：如果自定义的 PO（的对象）会作为 HashMap 的 key，或是存放到 HashSet，请务必覆写 hashcode 和 equals 方法；用 eclipse 自己生成的那个就好了，绝对写得比你好  
-  
+
 ----------  
-  
+
 ### <a name="item12"></a>item 12. 如何覆写 compareTo()
-  
+
 比 `equals()` 简单点，`compareTo()` 不需要考虑子类父类的关系（考虑了也没啥意义，你会拿不同 class 的对象来排序么？），如果两个对象的 class 不同，直接让类型转换抛出 ClassCastException 好了。  
-  
+
 需要保证的一点：如果 `x.compareTo(y) == 0`，那么 `x.equals(y) == true`。  
-  
+
 如果父类实现了 Comparable，子类想加一个字段，最好是使用组合而不是继承（考虑 `Base b1 = new Base(); Base b2 = new Ext(); list.add(b1); list.add(b2);` 的情况，此时 `list.sort()` 是要抛 ClassCastException 的。  
-  
+
 ----------  
-  
+
 ----------  
-  
+
 ## <a name="ch4"></a>chapter 4. Classes and Interfaces
-  
+
 ----------  
-  
+
 ----------  
-  
+
 ### <a name="item13"></a>item 13. 关于 public class 的 public 字段
-  
+
 根据 1）是否final；2）是否可变，有以下四种情况：  
-  
+
 1. public non-final mutable obj：obj 可变，且可以指向不同的对象。过于 open，且 non-thread-safe  
 2. public non-final immutable obj：obj 不可变，但可以指向不同的对象。过于 open  
 3. public final mutable obj：obj 可变，但不能指向另一个对象。过于 open，且 non-thread-safe  
 4. public final immutale obj：obj 不可变，且不能指向另一个对象。OK, and it's coomon to use as static constant  
-  
+
 按理来说，任何的 public 域都是不允许的，都是过于 open 的。public static final immutable 也不意外。但是，public static final immutable 过于 open 没有什么关系，而且，可以说它就是需要过于 open 才好被拿来用的。所以，除了 public static final immutable 外，public class 不应该有其他的 public 字段。  
-  
+
 注意：  
-  
+
 1. “过于 open” 是 [item 14. Use getter/setter in public class](#item14) 的内容  
 2. 基本类型和 String 是 immutable 的  
 3. 没有限定长度的数组引用是 mutable 的  
-  
+
 ----------  
-  
+
 ### <a name="item14"></a>item 14. Use getter/setter in public class  
-  
+
 如果是包级私有类，或是私有嵌套类，你用 public 字段不用 getter/setter 是无所谓的。  
-  
+
 如果是 public class，应该用 getter/setter，原因有：  
-  
+
 1. field access can't be proxied  
 2. you may want to have some event notification  
 3. you may want to guard against race conditions  
@@ -538,7 +538,7 @@ _注_：工作经验告诉我们：如果自定义的 PO（的对象）会作为
 5. theoretically, direct access breaks encapsulation. (If we are pedantic, setter and getter for all fields also breaks encapsulation though)  
 6. you may want to perform some extra logic inside the setter or getter, but that is rarely advisable, since consumers expect this to follow the convention - i.e. being a simple getter/setter.  
 7. you can specify only a setter or only a getter, thus achieving read-only, or write-only access.  
-  
+
 -----
 
 ### <a name="item16"></a>item 16. 组合优于继承
@@ -579,7 +579,7 @@ public class ForwardingSet<E> implements Set<E> {
 
 <a name="true_delegation"></a>严格来说 forwarding class 不算是委托（delegation）（唔……[a simple delegation example](/java/2009/10/31/a-simple-delegation-example/)），真正意义上的 delegation 应该是这样的（参 [Delegates - find out what constitutes true delegation](http://www.javaworld.com/article/2077357/learn-java/delegates.html)）：
 
-> Think of true delegation this way: Something sends a request to object1. object1 then forwards the request and itself to object2 -- the delegate. object2 processes the request and does some work. 
+> Think of true delegation this way: Something sends a request to object1. object1 then forwards the request and itself to object2 -- the delegate. object2 processes the request and does some work.
 
 感觉像是这样的：
 
@@ -757,7 +757,7 @@ listS instanceof List&lt;String&gt; // error
 >* It is a parameterized type in which all type arguments are unbounded wildcards.
 >* It is a raw type.
 >* It is a primitive type.
->* It is an array type whose component type is reifiable. 
+>* It is an array type whose component type is reifiable.
 
 
 注意下这个逻辑，因为泛型是 "some type information is erased during compilation"，所以为了确保能正确的 erase，compilation 会做严格的类型检查。而 Array 是 reified，所以是到 runtime 才类型检查，下面看个例子：
@@ -771,7 +771,7 @@ List&lt;Object&gt; objectList = new ArrayList&lt;Long&gt;(); // invariant; 编�
 
 因为两者的 type 有本质区别，所以泛型数组是不允许的，比如 List&lt;Object&gt;[]、List&lt;E&gt;[] 这样都是不合法的，唯一的例外是 List&lt;?&gt;[]，因为 List&lt;?&gt; 是 Reifiable Types。  
 
-_注意_：E[] 是合法的，但是 `E[] elements = new E[5]` 是非法的，需要 cast 一下 `E[] elements = new (E[]) new Object[5]`。 
+_注意_：E[] 是合法的，但是 `E[] elements = new E[5]` 是非法的，需要 cast 一下 `E[] elements = new (E[]) new Object[5]`。
 
 还有一个很好的例子请看书。
 
@@ -796,7 +796,7 @@ _注意_：E[] 是合法的，但是 `E[] elements = new E[5]` 是非法的，�
 <pre class="prettyprint linenums">
 public enum Operation {
 	PLUS, MINUS, TIMES, DIVIDE;
-	
+
 	double apply(double x, double y) {
 		switch (this) {
 			case PLUS: return x + y;
@@ -806,7 +806,7 @@ public enum Operation {
 			default :  throw new AssertionError("Unknown op: " + this);
 		}
 	}
-	
+
 	public static void main(String[] args) {
 		double x = 3.0;
 		double y = 2.0;
@@ -824,16 +824,16 @@ public enum Operation {
 	},
 	MINUS {
 		double apply(double x, double y) { return x - y; }
-	}, 
+	},
 	TIMES {
 		double apply(double x, double y) { return x * y; }
-	}, 
+	},
 	DIVIDE {
 		double apply(double x, double y) { return x / y; }
-	}; 
-	
+	};
+
 	abstract double apply(double x, double y); // 必须写在 enum 常量声明完之后
-	
+
 	public static void main(String[] args) {
 		double x = 3.0;
 		double y = 2.0;
@@ -851,22 +851,22 @@ public enum Operation {
 	},
 	MINUS("-") {
 		double apply(double x, double y) { return x - y; }
-	}, 
+	},
 	TIMES("*") {
 		double apply(double x, double y) { return x * y; }
-	}, 
+	},
 	DIVIDE("/") {
 		double apply(double x, double y) { return x / y; }
-	}; 
-	
+	};
+
 	private final String symbol;
-	
+
 	private Operation(String symbol) {
 		this.symbol = symbol;
 	}
 
 	abstract double apply(double x, double y);
-	
+
 	public static void main(String[] args) {
 		double x = 3.0;
 		double y = 2.0;
@@ -884,34 +884,34 @@ public enum Operation {
 	},
 	MINUS("-") {
 		double apply(double x, double y) { return x - y; }
-	}, 
+	},
 	TIMES("*") {
 		double apply(double x, double y) { return x * y; }
-	}, 
+	},
 	DIVIDE("/") {
 		double apply(double x, double y) { return x / y; }
-	}; 
-	
+	};
+
 	private final String symbol;
-	
+
 	private Operation(String symbol) {
 		this.symbol = symbol;
 	}
 
 	abstract double apply(double x, double y);
-	
+
 	private static final Map&lt;String, Operation&gt; symbolMap = new HashMap&lt;String, Operation&gt;();
-	
+
 	static {
 		for (Operation op : Operation.values()) {
 			symbolMap.put(op.getSymbol(), op);
 		}
 	}
-	
+
 	public Operation fromString(String symbol) {
 		return symbolMap.get(symbol);
 	}
-	
+
 	public String getSymbol() {
 		return symbol;
 	}
@@ -924,7 +924,7 @@ public enum Operation {
 }
 </pre>
 
-避免了 switch-case 和土鳖的 String.equals()。 
+避免了 switch-case 和土鳖的 String.equals()。
 
 #### <a name="strategy_enum"></a>嵌套策略枚举
 
@@ -961,7 +961,7 @@ public class Period {
 public class Period {
 	private final Date start;
 	private final Date end;
-	
+
 	public Period(Date start, Date end) {
 		this.start = new Date(start);
 		this.end = new Date(end);
@@ -975,12 +975,12 @@ public class Period {
 public class Period {
 	private final Date start;
 	private final Date end;
-	
+
 	public Period(Date start, Date end) {
 		this.start = new Date(start);
 		this.end = new Date(end);
 	}
-	
+
 	public Date getEnd() {
 		return new Date(end);
 	}
@@ -999,7 +999,7 @@ public class Period {
 
 ### <a name="item58"></a>item 58. 如何区别使用 checked exception / runtime exception / error
 
-Throwable: 
+Throwable:
 
 * checked exception
 * unchecked exception:
@@ -1026,7 +1026,7 @@ _注_：感觉在实际工作中，很少抛 RuntimeException，其实主要是�
 try {
 	obj.action(args);
 } catch (CheckedException e) {
-	// handle exception 
+	// handle exception
 }
 </pre>
 
