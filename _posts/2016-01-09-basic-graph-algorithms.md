@@ -19,6 +19,8 @@ tags: [Algorithm-101]
 - [DFS Edge Classification](http://courses.csail.mit.edu/6.006/spring11/rec/rec13.pdf)
 - [Lecture 8: DFS and Topological Sort](http://home.cse.ust.hk/faculty/golin/COMP271Sp03/Notes/MyL08.pdf)
 - [Lecture 21: Shortest Paths](http://jeffe.cs.illinois.edu/teaching/algorithms/notes/21-sssp.pdf)
+- [Lecture 20: Minimum Spanning Trees](http://jeffe.cs.illinois.edu/teaching/algorithms/notes/20-mst.pdf)
+- [Math 575 - Problem Set 9](http://people.math.sc.edu/sumner/math575spring2009/problemsets/Math575ProblemSet9.pdf)
 
 -----
 
@@ -387,9 +389,11 @@ Actually you even don't have to repeat the "find-remove" procedure. The Kosaraju
 
 Given a weighted directed graph \\( G = (V,E,w) \\), a source vertex `s` and a target vertex `t`, find the shortest `s → t` regarding `w`.
 
-A more general problem is called _\\( single source shortest path \\)_ or _**SSSP**_: find the shortest path from `s` to every other vertex in \\( G \\).
+A more general problem is called _**single source shortest path**_ or _**SSSP**_: find the shortest path from `s` to every other vertex in \\( G \\).
 
 _**N.B.**_ Throughout this post, we will explicitly consider only directed graphs. All of the algorithms described in this lecture also work for undirected graphs with some minor modifications, but only if negative edges are prohibited. On the other hand, it's OK for directed graphs to have negative edges in this problem. However, negative cycles, which make this problem meaningless, are prohibited.
+
+### 8.1 The Only SSSP Algorithm
 
 Let's define:
 
@@ -434,7 +438,7 @@ GenericSSSP(s):
 
 Just as with graph traversal, different “bag” data structures for the give us different algorithms. There are three obvious choices to try: a stack, a queue, and a priority queue. Unfortunately, if we use a stack, the resulting algorithm performs \\( O(2\^V) \\) relaxation steps in the worst case!  The other two possibilities are much more efficient.
 
-### 8.1 Dijkstra’s Algorithm
+### 8.2 Dijkstra’s Algorithm
 
 If we implement the bag using a priority queue, where the priority of a vertex `v` is its tentative distance `dist(v)`, we obtain Dijkstra’s Algorithm
 
@@ -446,7 +450,7 @@ Dijkstra’s algorithm is particularly well-behaved if the graph has _**NO negat
 
 Since the priority of each vertex in the priority queue is its tentative distance from `s`, the algorithm performs a `decreasePriority` operation every time an edge is relaxed. Thus, the algorithm performs at most \\( E \\) `decreasePriority`. Similarly, there are at most \\( V \\) `enqueue` and `getMinPriority` operations. Thus, if we implement the priority queue with a Fibonacci heap, the total running time of Dijkstra’s algorithm is \\( O(E + V \log V) \\); if we use a regular binary heap, the running time is \\( O(E \log V) \\).
 
-### 8.2 Shimbel’s Algorithm
+### 8.3 Shimbel’s Algorithm
 
 If we replace the heap in Dijkstra’s algorithm with a FIFO queue, we obtain Shimbel’s Algorithm. Shimbel’s algorithm is efficient even if there are negative edges, and it can be used to quickly detect the presence of negative cycles. If there are no negative edges, however, Dijkstra’s algorithm is faster.
 
@@ -466,3 +470,90 @@ Repeat \\( V-1 \\) 次的考虑是，从 `s` 到某个 `t` 的路径最多有 \\
 更多的解释见：[Bellman-Ford algorithm - Why can edges be updated out of order?](http://cs.stackexchange.com/a/6914)。
 
 In each phase, we scan each vertex at most once, so we relax each edge at most once, so the running time of a single phase is \\( O(E) \\). Thus, the overall running time of Shimbel’s algorithm is \\( O(VE) \\).
+
+## <a name="9-minimum-spanning-trees"></a>9. Minimum Spanning Trees
+
+和 Shortest Path 一样，MST 的 minimum 指的也是 tree 的各个 edges 的 weight 之和，\\( w(T)=\sum\_{e \in T}{w(e)} \\)最小。所以也可以理解为 lightest spanning tree。
+
+_**P.S.**_ 注意用词：
+
+- minimum 是可以用作形容词的，which is a quantitative representation of the smallest amount needed
+- minimal is a qualitative characteristic. 虽然有的时候也用来表示定量。
+
+To keep things simple, I’ll assume that all the edge weights are distinct: \\( w(e) \neq w(e') \\) for any pair of edges \\( e \\) and \\( e' \\). Distinct weights guarantee that the minimum spanning tree of the graph is unique. For example, if all the edges have weight 1, then every spanning tree is a minimum spanning tree with weight \\( V − 1 \\).
+
+### 9.1 The Only MST Algorithm
+
+The generic minimum spanning tree algorithm MAINTAINS an acyclic subgraph \\( F \\) of the input graph \\( G=(V,E) \\), which we will call an _intermediate spanning forest_. \\( F \\) is a subgraph of the minimum spanning tree of \\( G \\), and every component of \\( F \\) is a minimum spanning tree of its vertices. Initially, \\( F \\) consists of \\( n \\) one-node trees. The generic algorithm merges trees together by adding certain edges between them. When the algorithm halts, \\( F \\) consists of a single \\( n \\)-node tree, which must be the minimum spanning tree. Obviously, we have to be careful about which edges we add to the evolving forest, since not every edge is in the minimum spanning tree.
+
+The intermediate spanning forest \\( F=(V, E\_F) \\) induces two special types of edges \\( e \in E \backslash E\_F \\)（注意 \\( F \\) 在算法执行的过程中是不断进化的，以下的描述是针对某一个特定阶段的 \\( F \\)；另外 \\( e \in E \backslash E\_F \\) 说明在当前阶段 \\( e \\) 不属于 \\( F \\)，但可能在下一阶段被添加到 \\( F \\)）:
+
+- \\( e \\) is _**USELESS**_ if both its endpoints are in the same component of \\( F \\).
+	- 举个简单的例子：\\( F \\) 有一个 component 是一个 triangle `ABC`，但是只走了 `A → B` 和 `B → C` 两条边，那么剩下的 `A → C` 就是条 useless edge。
+- For each component of \\( F \\), we associate a _**SAFE**_ edge—the minimum-weight edge with exactly one endpoint in that component.
+	- Different components might or might not have different safe edges.
+	- 算法的执行过程就是不断地给 \\( F \\) 添加 safe edges，使其从 forest 变成 tree。
+-  Some edges are neither safe nor useless—we call these edges _undecided_.
+
+_**Lemma 1.**_ MST contains every safe edge.
+
+注意 safe edges 是 \\( F \\) 演化过程中的产物，如果 \\( F \\) 已经是 MST 了，\\( E \backslash E\_F \\) 中应该不会再有 safe edge 了。所以这里的 safe edges 说的是演化过程中的 safe edge。
+
+_**Proof:**_ In fact we prove the following stronger statement: For any subset \\( S \subset V \\), the minimum-weight edge with exactly one endpoint in \\( S \\) is in the MST. We prove this claim using a greedy exchange argument.
+
+Let \\( e\_s \\) be a minimum-weight edge with exactly one endpoint in \\( S \\). Let \\( T \\) be the MST. Suppose \\( e\_s \\) 不在 \\( T \\) 中。
+
+注意不可能有 \\( S = V \\)，否则不可能有 edge with only one endpoint in \\( S \\)。所以 \\( T \\) 至少有一个 vertex 在 \\( S \\) 外部。
+
+而 \\( e\_s \\) 只有一个 endpoint 在 \\( S \\) 里，所以另一个一定在 \\( S \\) 外部且在 \\( T \\) 中。类似于 Lemma 2，\\( T + e\_s \\) 一定有一个 cycle。Let \\( C \\) be this cycle. \\( C \\) must contain an edge other than \\( e\_s \\) that has exactly one endpoint in \\( S \\)（你 cycle 有一条 edge 跳出了 \\( S \\)，必然还会有一条跳回 \\( S \\)）. Let this edge be \\( e \\).
+
+\\( w(e) > w(e\_s) \Longrightarrow w(T + e\_s - e) < w(T) \Longrightarrow (T + e\_s - e) \text{ is lighter than MST. } \\) Contradiction.
+
+_**Lemma 2.**_ MST contains no useless edge.
+
+_**Proof:**_ Adding any useless edge to F would introduce a cycle.
+
+注意 useless edge 的 endpoints 是在一个 component 中的，而 component 又是 connected 的，所以这两个 endpoints 一定是连通的，你再把这两个 endpoints 连接起来，一定会有 cycle。
+
+Our generic minimum spanning tree algorithm repeatedly adds one or more safe edges to the evolving forest \\( F \\). Whenever we add new edges to \\( F \\), some undecided edges become safe, and others become useless. To specify a particular algorithm, we must decide which safe edges to add, and we must describe how to identify new safe and new useless edges, at each iteration of our generic template.
+
+### 9.2 Borvka’s Algorithm
+
+The Borvka algorithm can be summarized in one line:
+
+> Borvka: Add ALL the safe edges and recurse.
+
+We can find all the safe edge in the graph in \\( O(E) \\) time as follows. First, we count the components of \\( F \\) using whatever-first search, using the standard wrapper function (See [4. Preorder and Postorder Labeling](#4-preorder-and-postorder-labeling)). As we count, we label every vertex with its component number; that is, every vertex in the first traversed component gets label 1, every vertex in the second component gets label 2, and so on.
+
+<pre class="prettyprint linenums">
+Borvka(G):
+	F = (V, Ef)
+	Ef &lt;- Φ // 空集
+	
+	while F is not connected
+		S &lt;- all safe edges
+		Ef &lt;- Ef + S
+			
+	return F
+</pre>
+
+_**RT:**_
+
+- To find all safe edges, just examine every edge (check with \\( F \\)). \\( \Longrightarrow O(E) \\)
+- To test whether \\( F \\) is connected, actually you can just count the # of edges, using the [conclusion](http://mathworld.wolfram.com/Forest.html):
+	- A forest with \\( k \\) components and \\( n \\) nodes has \\( n-k \\) graph edges.
+		- I proved a related observation in homework 1--If a connected graph with \\( n \\) vertices has \\( n-1 \\) edges, it’s a tree.
+	- \\( \Longrightarrow O(1) \\)
+- \# of iterations of the while-loop?
+	- Each iteration reduces the number of components of \\( F \\) by at least a factor of two—the worst case occurs when the components coalesce in pairs. 
+		- _coalesce:_ [ˌkoʊəˈles], (of separate elements) To join into a single mass or whole.
+		- 最差的情况是 component 两两合并，比如 `A` 合并 `B`、`C` 合并 `D`...
+		- 最好的情况应该是类似一个链式反应，比如 `A` 合并 `B`、然后接着合并 `C`、接着合并 `D`...
+	- Since \\( F \\) initially has \\( V \\) components, the while loop iterates at most \\( O(\log V) \\) times.
+- In total, \\( O(E \log V) \\).
+
+In short, if you ever need to implement a minimum-spanning-tree algorithm, use Borvka. On the other hand, if you want to _**prove things**_ about minimum spanning trees effectively, you really need to know the next two algorithms as well.
+
+### 9.3 Prim's Algorithm
+
+### TBC

@@ -174,3 +174,33 @@ _**Conditional Independence of Random Variables:**_
 还是考虑前面 \\( n \\) 个 binary RV 的例子。如果要画真值表，我们需要 \\( 2\^n \\) 个 parameter，但是我们也可以用类似伯努利的形式来展现，比如 \\( P(x\_1,\dots,x\_n) = \prod\_{i}{\theta\_{x\_i}} \\), 这时候我们只需要 \\( n \\) 个 parameter 了。我们称 "the space of all joint distributions specified in the factorized way above is an \\( n \\)-dimensional _**manifold**_ in \\( R\^{2\^n} \\)."
 
 A key concept here is the notion of _**independent parameters**_ — parameters whose values are not determined by others. For example, when specifying an arbitrary multinomial distribution over a \\( k \\) dimensional space, we have \\( k − 1 \\) independent parameters: the last probability is fully determined by the first \\( k − 1 \\) ones. In the case where we have an arbitrary joint distribution over \\( n \\) binary random variables, the number of independent parameters is \\( 2\^n − 1 \\). On the other hand, the number of independent parameters for distributions represented as \\( n \\) independent binomial coin tosses is \\( n \\). _**Therefore, the two spaces of distributions cannot be the same**_.
+
+### P48: 3.1.3 The Naive Bayes Model
+
+### P50: 3.2 Bayesian Networks
+
+### P54: 3.2.1.2 Reasoning Patterns
+
+### P56: 3.2.2 Basic Independencies in Bayesian Networks
+
+### P61: 3.2.3.1 I-map - Example 3.1
+
+### P61: 3.2.3.2 I-Map to Factorization
+
+### P62: Definition 3.4: How to factorize! IMPORTANT! 
+
+chain rule for Bayesian networks!
+
+### P63: 3.2.3.3 Factorization to I-Map
+
+### P69: 3.3.1 D-separation
+
+	P72： Definition 3.7
+	
+### P296: Variable Elimination
+
+### P298: Algorithm 9.1 Sum-product variable elimination algorithm
+
+	P299: The basic idea in the algorithm is that we sum out variables one at a time. When we sum out any variable, we multiply all the factors that mention that variable, generating a product factor.
+	
+	P300: Example 9.1
