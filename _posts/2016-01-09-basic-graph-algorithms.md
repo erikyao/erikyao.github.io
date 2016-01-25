@@ -8,6 +8,8 @@ tags: [Algorithm-101]
 {% include JB/setup %}
 
 [edge_types]: https://farm2.staticflickr.com/1521/24260605262_83a3b5a6b7_o_d.png
+[Prim]: https://farm2.staticflickr.com/1676/24313784510_251a0a69f3_o_d.png
+[Kruskal]: https://farm2.staticflickr.com/1549/24314202720_46d5257df4_o_d.png
 
 参考：
 
@@ -34,6 +36,7 @@ ToC:
 - [6. Topological Sort](#6-topological-sort)
 - [7. Strongly Connected Components (SCC)](#7-scc)
 - [8. Shortest Paths](#8-shortest-paths)
+- [9. Minimum Spanning Trees](#9-minimum-spanning-trees)
 
 -----
 
@@ -556,4 +559,45 @@ In short, if you ever need to implement a minimum-spanning-tree algorithm, use B
 
 ### 9.3 Prim's Algorithm
 
-### TBC
+Initially, \\( T \\) consists of an arbitrary vertex of the graph. The algorithm repeats the following step until \\( T \\) spans the whole graph:
+
+> Jarník: Repeatedly add T’s safe edge to T.
+
+<pre class="prettyprint linenums">
+Prim(G):
+	T &lt;- {v} // 任意的 vertex
+	
+	while |T| &lt; |V|
+		e &lt;- a safe edge with one endpoint in T
+		T &lt;- T + e
+			
+	return T
+</pre>
+
+![][Prim]
+
+To implement Jarník’s algorithm, we keep all the edges adjacent to \\( T \\) in a priority queue. When we pull the minimum-weight edge out of the priority queue, we first check whether both of its endpoints are in \\( T \\). If not, we add the edge to \\( T \\) and then add the new neighboring edges to the priority queue. In other words, Jarník’s algorithm is another instance of the generic graph traversal algorithm we saw last time, using a priority queue as the “bag”! If we implement the algorithm this way, the algorithm runs in \\( O(E \log E) = O(E \log V) \\) time (because \\( E = V\^2 \\) at most).
+
+Similar to Dijkstra’s algorithm, if we implement the priority queue with a Fibonacci heap, the total running time would be \\( O(E + V \log V) \\).
+
+### 9.4 Kruskal’s Algorithm
+
+> Kruskal: Scan all edges in increasing weight order; if an edge is safe, add it to F.
+
+<pre class="prettyprint linenums">
+Kruskal(G):
+	sort E w.r.t w
+	
+	F = (V, Ef)
+	Ef &lt;- Φ // 空集
+	
+	for i &lt;- 1 to E
+		if E[i] is not useless
+			Ef &lt;- Ef + E[i]
+			
+	return F
+</pre>
+
+![][Kruskal]
+
+_**RT:**_ \\( O(E \log E) = O(E \log V) \\), dominated by the sorting.
