@@ -195,7 +195,106 @@ chain rule for Bayesian networks!
 
 ### P69: 3.3.1 D-separation
 
-	P72： Definition 3.7
+	P72: Definition 3.7
+	
+## 4. Undirected Graphical Models
+
+MRFs: Markov Random Fields
+
+- Markov networks are typically called MRFs in computer vision community
+
+CRF: Conditional Random Field
+
+CPD: Conditional Probability Distribution
+
+### P104: Definition 4.1 Factor
+
+简单说，factor 就是真值表里数据的那一栏，比如 \\( Factor(T,F) = x\_1 \\)，那么 \\( P(T,F) = \frac{x\_1}{X} \\)。但是 factor 更精确的定义是一个函数，\\( (T,F) \mapsto x\_1 \\) 只是其中的一个取值。对 factor 这个函数而言，所有可能的变量输入，比如 \\( \left \\{ (T,T),(T,F),(F,F),(F,T) \right \\} \\) 称为 factor 的 scope
+
+### P107: Definition 4.2 Factor Product
+
+clique: 
+
+- /ˈklɪk/
+- In the social sciences, a clique is a group of people who interact with each other more regularly and intensely than others in the same setting.
+
+### P111: Factor reduction
+
+比如我们把 \\( Factor(A,B,C) \\) reduce 到 \\( Factor(A,B,c\_1) \\)，我们称 reduced to the _**context**_ \\( C=c\_1 \\).
+
+### P112: Factor reduction 的图示
+
+其实 reduce 到某个 context，就是简单地把那个 vertex 从图里拿掉。
+
+### 4.3 Markov Network Independencies
+
+#### P114: Definition 4.8
+
+Let \\( H \\) be a Markov network structure, and let \\( X\_1,\dots,X\_k \\) be a path in \\( H \\). Let \\( Z \subseteq X \\) be a set of observed variables. The path \\( X\_1,\dots,X\_k \\) is _**active**_ given \\( Z \\) if none of the \\( X\_i \\) in \\( X\_1,\dots,X\_k \\) is in \\( Z \\).
+
+active 的概念见 P108，就是 D-separation 的那个。
+
+#### P115: Definition 4.9: separation
+
+简化版本的定义：We say a set of node \\( Z \\) separates \\( X \\) and \\( Y \\) in a Markov network structure \\( H \\), if there is no active path between any node \\( x \in X \\) and \\( y \in Y \\) given \\( Z \\).
+
+#### P117: Theorem 4.3
+
+If \\( X \\) and \\( Y \\) are not separated given \\( Z \\) in \\( H \\), then \\( X \\) and \\( Y \\) are _**dependent**_ given \\( Z \\) in some distribution \\( P \\) that factorizes over \\( H \\).
+
+举个例子，比如 \\( X\_1 - X\_2 - X\_3 - X\_4 - X\_1 \\):
+
+- \\( X\_1 - X\_2 \\) is active given \\( \left \\{ X\_3, X\_4 \right \\} \\)
+	- \\( \Rightarrow \\) \\( X\_1 \\) and \\( X\_2 \\) is not separated by \\( \left \\{ X\_3, X\_4 \right \\} \\)
+		- \\( \Rightarrow \\) \\( X\_1 \\) and \\( X\_2 \\) is dependent given \\( \left \\{ X\_3, X\_4 \right \\} \\)
+			- \\( \Rightarrow \\) we don't have \\( X\_1 \bot X\_2 | X\_3, X\_4 \\)
+- There is no active path between \\( X\_1 \\) and \\( X\_3 \\) given \\( \left \\{ X\_2, X\_4 \right \\} \\) because neither \\( X\_1 - X\_2 - X\_3 \\) nor \\( X\_1 - X\_4 - X\_3 \\) is active given \\( \left \\{ X\_2, X\_4 \right \\} \\).
+	- \\( \Rightarrow \\) \\( X\_1 \\) and \\( X\_3 \\) is separated by \\( \left \\{ X\_2, X\_4 \right \\} \\)
+		- \\( \Rightarrow \\) \\( X\_1 \\) and \\( X\_3 \\) is independent given \\( \left \\{ X\_2, X\_4 \right \\} \\)
+			- \\( \Rightarrow \\) we have \\( X\_1 \bot X\_3 | X\_2, X\_4 \\)
+			
+#### P118 Definition 4.10
+
+\\( X\_i \bot X\_j \mid \chi - \left \\{ X\_i,X\_j \right \\} \\) if \\( X\_i - X\_j \notin H \\).
+
+#### P118 Definition 4.11
+
+\\( X\_i \bot \chi - \left \\{ X\_i \right \\} - nbr(X\_i) \mid nbr(X\_i) \\).
+
+#### P123 Definition 4.13: Factor Graph
+
+FG:
+
+- variable node: 圆圈
+- factor node: 方块
+- edge 一定是一边 variable node 一边 factor node
+- factor node 的 scope 一定是它的两个 neighbor
+- 这些 factor nodes 所呈现的一个 distribution，我们称其 factorizes over this FG 
+
+### 4.5 Bayesian Networks and Markov Networks
+
+#### P134 Definition 4.16: Moralized Graph
+
+#### P139 
+
+所谓 chord，就是把 graph 的 loop 想象成一个圆，连接两个不连续节点的 edge 我们成为 chord。
+
+比如 \\( X\_1 - X\_2 - X\_3 - X\_4 \\) 这个环，我们若是加一条 \\( X\_1 - X\_3 \\) 或是 \\( X\_2 - X\_4 \\)，这条边就是 chord。
+
+triangle 不可能有 chord，所以 chord 至少要有 4 条边的 loop 才会有。
+
+#### P140 Definition 4.17: Clique Tree
+
+### 4.6 Partially Directed Models
+
+#### 4.6.1 CRF: Conditional Random Fields
+
+P146 HMM: hidden Markov model
+
+## 5 Local Probabilistic Models
+
+	
+## 9. Exact Inference: Variable Elimination
 	
 ### P296: Variable Elimination
 
