@@ -293,6 +293,30 @@ P146 HMM: hidden Markov model
 
 ## 5 Local Probabilistic Models
 
+CPT: conditional probability tables
+
+### P164 Definition 5.2: Tree-CPD
+
+- rooted tree
+- leaf t-node / interior t-node
+- leaf t-node associates with a distribution \\( P(X) \\)
+- iterior t-node associates with a variable \\( Z \in parent(X) \\)
+- a branch is a path from root to a leaf
+- branch 上的所有 \\( Z=z\_i \\) 的 assignment 我们称为 parent context
+
+### P175 5.4.1 The Noisy-Or Model
+
+P185 
+
+Let \\( P(Y | X\_1, \dots, X\_k) \\) be a noisy-or CPD. Then for each \\( i \neq j \\), \\( X\_i \\) is independent of \\( X\_j \\) given \\( Y = y\_0 \\).
+
+### P179 Definition 5.9: logistic CPD
+
+### P190 Definition 5.15: Conditional Linear Gaussian (CLG) CPD
+
+### P191 Definition 5.17: Conditional Bayesian Network
+
+The conditional random field (CRF)of section 4.6.1 is the undirected analogue of this definition.
 	
 ## 9. Exact Inference: Variable Elimination
 	
@@ -303,3 +327,39 @@ P146 HMM: hidden Markov model
 	P299: The basic idea in the algorithm is that we sum out variables one at a time. When we sum out any variable, we multiply all the factors that mention that variable, generating a product factor.
 	
 	P300: Example 9.1
+	
+## 10. Exact Inference: Clique Trees
+
+### P346 
+
+Figure 10.1 Cluster tree for the VE execution in table 9.1
+
+### P347 Running Intersection Property
+
+Let \\( T \\) be a cluster tree over a set of factors \\( \Phi \\). We say that \\( T \\) has the _**running intersection property**_ if \\( \forall \\) variable \\( X \\) that \\( X \in C\_a \\) and \\( X \in C\_z \\), \\( X \\) also \\( \in \\) every \\( C\_i \\) that lies in the unique path between \\( C\_a \\) and \\( C\_z \\).
+
+Let \\( T \\) be a cluster tree induced by a variable elimination algorithm over some set of factors \\( \Phi \\). Then \\( T \\) satisfies the running intersection property.
+
+### P348 
+
+Proposition 10.1
+
+Definition 10.3: Clique Tree
+
+A cluster tree that satisfies the running intersection property is called a _**clique tree**_ (sometimes also called a junction tree or a join tree). In the case of a clique tree, the clusters are also called cliques.
+
+### P349 10.2.1.1: An Example
+
+Figure 10.3 Two different message propagations with different root cliques in the Student clique tree
+
+IMPORTANT!
+
+### P356 Definition 10.4
+
+\\( C\_i \\) is ready to transmit to a neighbor \\( C\_j \\) when \\( C\_i \\) has messages from all of its neighbors except from \\( C\_j \\).
+
+When \\( C\_i \\) is ready to transmit to \\( C\_j \\), it can compute the message \\( \theta\_{i→j}(S\_{i,j}) \\) by multiplying its initial potential with all of its incoming messages except the one from \\( C\_j \\), and then eliminate the variables in \\( C\_i − S\_{i,j} \\). In effect, this algorithm uses yet another layer of dynamic programming to avoid recomputing the same message multiple times.
+
+sum-product belief propagation
+
+
