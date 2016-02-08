@@ -35,8 +35,16 @@ ToC:
 - [5. Acyclicity in Directed Graphs](#5-acyclicity-in-directed-graphs)
 - [6. Topological Sort](#6-topological-sort)
 - [7. Strongly Connected Components (SCC)](#7-scc)
-- [8. Shortest Paths](#8-shortest-paths)
-- [9. Minimum Spanning Trees](#9-minimum-spanning-trees)
+- [8. Shortest Paths / Single Source Shortest Paths (SSSP)](#8-shortest-paths)
+	- [8.1 The Only SSSP Algorithm](#8-1-the-only-sssp-alg)
+	- [8.2 Dijkstra’s Algorithm](#8-2-dijkstra-alg)
+	- [8.3 Shimbel’s Algorithm](#8-3-shimbel-alg)
+- [9. All-Pairs Shortest Paths (APSP)](#9-all-pairs-shortest-paths)
+- [10. Minimum Spanning Trees (MST)](#10-minimum-spanning-trees)
+	- [10.1 The Only MST Algorithm](#10-1-the-only-mst-alg)
+	- [10.2 Borvka’s Algorithm](#10-2-borvka-alg)
+	- [10.3 Prim's Algorithm](#10-3-prim-alg)
+	- [10.4 Kruskal’s Algorithm](#10-4-kruskal-alg)
 
 -----
 
@@ -396,7 +404,7 @@ A more general problem is called _**single source shortest path**_ or _**SSSP**_
 
 _**N.B.**_ Throughout this post, we will explicitly consider only directed graphs. All of the algorithms described in this lecture also work for undirected graphs with some minor modifications, but only if negative edges are prohibited. On the other hand, it's OK for directed graphs to have negative edges in this problem. However, negative cycles, which make this problem meaningless, are prohibited.
 
-### 8.1 The Only SSSP Algorithm
+### <a name="8-1-the-only-sssp-alg"></a>8.1 The Only SSSP Algorithm
 
 Let's define:
 
@@ -441,7 +449,7 @@ GenericSSSP(s):
 
 Just as with graph traversal, different “bag” data structures for the give us different algorithms. There are three obvious choices to try: a stack, a queue, and a priority queue. Unfortunately, if we use a stack, the resulting algorithm performs \\( O(2\^V) \\) relaxation steps in the worst case!  The other two possibilities are much more efficient.
 
-### 8.2 Dijkstra’s Algorithm
+### <a name="8-2-dijkstra-alg"></a>8.2 Dijkstra’s Algorithm
 
 If we implement the bag using a priority queue, where the priority of a vertex `v` is its tentative distance `dist(v)`, we obtain Dijkstra’s Algorithm
 
@@ -453,7 +461,7 @@ Dijkstra’s algorithm is particularly well-behaved if the graph has _**NO negat
 
 Since the priority of each vertex in the priority queue is its tentative distance from `s`, the algorithm performs a `decreasePriority` operation every time an edge is relaxed. Thus, the algorithm performs at most \\( E \\) `decreasePriority`. Similarly, there are at most \\( V \\) `enqueue` and `getMinPriority` operations. Thus, if we implement the priority queue with a Fibonacci heap, the total running time of Dijkstra’s algorithm is \\( O(E + V \log V) \\); if we use a regular binary heap, the running time is \\( O(E \log V) \\).
 
-### 8.3 Shimbel’s Algorithm
+### <a name="8-3-shimbel-alg"></a>8.3 Shimbel’s Algorithm
 
 If we replace the heap in Dijkstra’s algorithm with a FIFO queue, we obtain Shimbel’s Algorithm. Shimbel’s algorithm is efficient even if there are negative edges, and it can be used to quickly detect the presence of negative cycles. If there are no negative edges, however, Dijkstra’s algorithm is faster.
 
@@ -474,7 +482,79 @@ Repeat \\( V-1 \\) 次的考虑是，从 `s` 到某个 `t` 的路径最多有 \\
 
 In each phase, we scan each vertex at most once, so we relax each edge at most once, so the running time of a single phase is \\( O(E) \\). Thus, the overall running time of Shimbel’s algorithm is \\( O(VE) \\).
 
-## <a name="9-minimum-spanning-trees"></a>9. Minimum Spanning Trees
+## <a name="9-all-pairs-shortest-paths"></a>9. All-Pairs Shortest Paths (APSP)
+
+- `dist(u, v)` is the length of the shortest \\( s \rightsquigarrow b \\) path.
+- `pred(u, v)` is the second-to-last vertex on the shortest \\( s \rightsquigarrow b \\) path, i.e. the vertex before `v` on the path.
+
+The output of our shortest path algorithms will be a pair of \\( V \times V \\) arrays encoding all \\( V\^2 \\) distances and predecessors.
+
+### 9.1 Intuition 1: Run SSSP for every vertex
+
+- Shimbel’s: \\( V \cdot \Theta(VE) = \Theta(V\^2E) = O(V\^4) \\) 
+- Dijkstra’s: \\( V \cdot \Theta(E + V \log V) = \Theta(VE + V\^2 \log V) = O(V\^3) \\) 
+
+For graphs with negative edge weights, Dijkstra’s algorithm can take exponential time, so we can’t get this improvement directly.
+
+### 9.2 Johnson’s Algorithm
+
+Johnson's 的出发点很简单：How to get rid of negative edges while keeping the SP? 解决了这个问题，就可以 run Dijkstra’s for every vertex 了。
+
+这里我们做一个 reweighting：\\( w'(u \rightarrow v) = c(u) + w(u \rightarrow v) − c(v) \\). 所以:
+
+$$
+\begin{align}
+	w'(a \rightsquigarrow z) &= c(a) + w(a \rightarrow b) − c(b) \\\\
+						&+ c(b) + w(b \rightarrow c) - c(c) \\\\
+						&+ \dots \\\\
+						&+ c(y) + w(y \rightarrow z) - c(z) \\\\
+						&= c(a) + w(a \rightsquigarrow z) - c(z)
+\end{align}
+$$
+
+所以这么 rewighting 并不会影响我们找最小的 \\( w(a \rightsquigarrow z) \\)。现在问题转化为：如何确保 \\( w'(u \rightarrow v) \\) 为 non-negative？
+
+你有没有觉得 \\( w'(u \rightarrow v) \\) 这个形式很像我们之前的 [`is_tense(a → b)`](#8-1-the-only-sssp-alg)? 所以我们跑一遍 Shimbel，让 \\( c(u) = dist(u) \\)，确保每条边都有被 relax 到，这样就能确保 \\( w'(u \rightarrow v) \\) 为 non-negative。
+
+至于为什么是 Shimbel 而不是 Dijkstra？Because Shimbel doesn’t care if the edge weights are negative.
+
+<pre class="prettyprint linenums">
+JohnsonAPSP(G=(V,E), w) 
+	// Step 1: O(V)
+	add a source s, connect it to all v ∈ V, with edge length 0
+	
+	// Step 2: O(EV)
+	c[] <- Shimbel(G+s)
+	
+	// Step 3: O(E). Reweighting
+	for all u → v ∈ E:
+		w'(u → v) = c(u) + w(u → v) − c(v)
+		
+	// Step 4: O(VE + V^2 log V). Dijkstra for every vertex
+	for all v ∈ V:
+		Dijkstra(v)
+	
+	// Step 5: O(E). Recover from reweighting
+	for all u → v ∈ E:
+		dist(u,v) = dist(u,v) + c(v) − c(u)
+</pre>
+
+_**RT:**_ \\( V \cdot \Theta(E + V \log V) = \Theta(VE + V\^2 \log V) \\)
+
+### 9.2 Intuition 2: Dynamic Programming
+
+$$
+\begin{equation}
+    dist(u,v) =
+    \begin{cases}
+        0 & \text{if } u = v \\\\
+        \underset{x \rightarrow v}{\operatorname{min}} (dist(u,x) + w(x \rightarrow v)) & \text{otherwise}
+    \end{cases}
+\end{equation}
+$$
+
+
+## <a name="10-minimum-spanning-trees"></a>10. Minimum Spanning Trees
 
 和 Shortest Path 一样，MST 的 minimum 指的也是 tree 的各个 edges 的 weight 之和，\\( w(T)=\sum\_{e \in T}{w(e)} \\)最小。所以也可以理解为 lightest spanning tree。
 
@@ -485,7 +565,7 @@ _**P.S.**_ 注意用词：
 
 To keep things simple, I’ll assume that all the edge weights are distinct: \\( w(e) \neq w(e') \\) for any pair of edges \\( e \\) and \\( e' \\). Distinct weights guarantee that the minimum spanning tree of the graph is unique. For example, if all the edges have weight 1, then every spanning tree is a minimum spanning tree with weight \\( V − 1 \\).
 
-### 9.1 The Only MST Algorithm
+### <a name="10-1-the-only-mst-alg"></a>10.1 The Only MST Algorithm
 
 The generic minimum spanning tree algorithm MAINTAINS an acyclic subgraph \\( F \\) of the input graph \\( G=(V,E) \\), which we will call an _intermediate spanning forest_. \\( F \\) is a subgraph of the minimum spanning tree of \\( G \\), and every component of \\( F \\) is a minimum spanning tree of its vertices. Initially, \\( F \\) consists of \\( n \\) one-node trees. The generic algorithm merges trees together by adding certain edges between them. When the algorithm halts, \\( F \\) consists of a single \\( n \\)-node tree, which must be the minimum spanning tree. Obviously, we have to be careful about which edges we add to the evolving forest, since not every edge is in the minimum spanning tree.
 
@@ -520,7 +600,7 @@ _**Proof:**_ Adding any useless edge to F would introduce a cycle.
 
 Our generic minimum spanning tree algorithm repeatedly adds one or more safe edges to the evolving forest \\( F \\). Whenever we add new edges to \\( F \\), some undecided edges become safe, and others become useless. To specify a particular algorithm, we must decide which safe edges to add, and we must describe how to identify new safe and new useless edges, at each iteration of our generic template.
 
-### 9.2 Borvka’s Algorithm
+### <a name="10-2-borvka-alg"></a>10.2 Borvka’s Algorithm
 
 The Borvka algorithm can be summarized in one line:
 
@@ -557,7 +637,7 @@ _**RT:**_
 
 In short, if you ever need to implement a minimum-spanning-tree algorithm, use Borvka. On the other hand, if you want to _**prove things**_ about minimum spanning trees effectively, you really need to know the next two algorithms as well.
 
-### 9.3 Prim's Algorithm
+### <a name="10-3-prim-alg"></a>10.3 Prim's Algorithm
 
 Initially, \\( T \\) consists of an arbitrary vertex of the graph. The algorithm repeats the following step until \\( T \\) spans the whole graph:
 
@@ -580,7 +660,7 @@ To implement Jarník’s algorithm, we keep all the edges adjacent to \\( T \\) 
 
 Similar to Dijkstra’s algorithm, if we implement the priority queue with a Fibonacci heap, the total running time would be \\( O(E + V \log V) \\).
 
-### 9.4 Kruskal’s Algorithm
+### <a name="10-4-kruskal-alg"></a>10.4 Kruskal’s Algorithm
 
 > Kruskal: Scan all edges in increasing weight order; if an edge is safe, add it to F.
 
@@ -601,3 +681,4 @@ Kruskal(G):
 ![][Kruskal]
 
 _**RT:**_ \\( O(E \log E) = O(E \log V) \\), dominated by the sorting.
+
