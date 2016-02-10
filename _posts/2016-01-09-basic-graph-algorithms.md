@@ -45,6 +45,7 @@ ToC:
 	- [10.2 Borvka’s Algorithm](#10-2-borvka-alg)
 	- [10.3 Prim's Algorithm](#10-3-prim-alg)
 	- [10.4 Kruskal’s Algorithm](#10-4-kruskal-alg)
+- [11. Matroids](#11-matroids)
 
 -----
 
@@ -519,7 +520,7 @@ $$
 至于为什么是 Shimbel 而不是 Dijkstra？Because Shimbel doesn’t care if the edge weights are negative.
 
 <pre class="prettyprint linenums">
-JohnsonAPSP(G=(V,E), w) 
+JohnsonAPSP(G=(V,E), w):
 	// Step 1: O(V)
 	add a source s, connect it to all v ∈ V, with edge length 0
 	
@@ -528,7 +529,7 @@ JohnsonAPSP(G=(V,E), w)
 	
 	// Step 3: O(E). Reweighting
 	for all u → v ∈ E:
-		w'(u → v) = c(u) + w(u → v) − c(v)
+		w(u → v) = c(u) + w(u → v) − c(v)
 		
 	// Step 4: O(VE + V^2 log V). Dijkstra for every vertex
 	for all v ∈ V:
@@ -541,7 +542,7 @@ JohnsonAPSP(G=(V,E), w)
 
 _**RT:**_ \\( V \cdot \Theta(E + V \log V) = \Theta(VE + V\^2 \log V) \\)
 
-### 9.2 Intuition 2: Dynamic Programming
+### 9.3 Intuition 2: Dynamic Programming
 
 $$
 \begin{equation}
@@ -553,6 +554,127 @@ $$
 \end{equation}
 $$
 
+Unfortunately, this recurrence doesn’t work! To compute `dist(u,v)`, we may need to compute `dist(u,x)` for every other vertex `x`. But to compute `dist(u,x)`, we may need to compute `dist(u,v)`. We’re stuck in an infinite loop.
+
+To avoid this circular dependency, __*we need an additional parameter that decreases at each recursion*__, eventually reaching zero at the base case. One possibility is to include the number of edges in the shortest path as this third magic parameter, just as we did in the dynamic programming formulation of Shimbel’s algorithm. Let `dist(u,v,k)` denote the length of the shortest path from `u` to `v` that uses at most `k` edges. Since we know that the shortest path between any two vertices has at most `V−1` vertices, `dist(u,v,V−1)` is the actual shortest-path distance. As in the single-source setting, we have the following recurrence:
+
+$$
+\begin{equation}
+    dist(u,v,k) =
+    \begin{cases}
+        0 & \text{if } u = v \\\\
+        \infty & \text{if } k = 0 \text{ if } u \neq v \\\\
+		\underset{x \rightarrow v}{\operatorname{min}} (dist(u,x,k-1) + w(x \rightarrow v)) & \text{otherwise}
+    \end{cases}
+\end{equation}
+$$
+
+<pre class="prettyprint linenums">
+DP_APSP(V, E, w):
+	for all u ∈ V:
+		for all v ∈ V:
+			if u = v
+				dist[u,v,0] = 0
+			else 
+				dist[u,v,0] = ∞
+	
+	for k = 1 to V-1
+		for all v ∈ V:
+			dist[u,u,k] = 0
+			for all u ∈ V and u ≠ v
+				dist[u,u,k] = ∞
+				// for all x → v ∈ E: 
+					// ...
+				// Equivalently
+				for all x ∈ V: 
+					if x → v ∈ E:
+						if dist[u,v,k] > dist[u,x,k−1] + w(x → v)
+							dist[u,v,k] = dist[u,x,k−1] + w(x → v)
+</pre>
+
+_**RT:**_ \\( O(V\^4) \\)
+
+_**Improvement: Shimbel APSP**_
+
+Just as in the dynamic programming development of Shimbel’s single-source algorithm, we don’t actually need the inner loop over vertices `v`, and we only need a two-dimensional table. After the `k`\^th iteration of the main loop in the following algorithm, `dist[u,v]` lies between the true shortest path distance from `u` to `v` and the value `dist[u,v,k]` computed in the previous algorithm.
+
+<pre class="prettyprint linenums">
+Shimbel_APSP(V, E, w):
+	for all u ∈ V:
+		for all v ∈ V:
+			if u = v
+				dist[u,v] = 0
+			else 
+				dist[u,v] = ∞
+	
+	for k = 1 to V-1
+		for all v ∈ V:
+			// for all x → v ∈ E: 
+				// ...
+			// Equivalently
+			for all x ∈ V: 
+				if x → v ∈ E:
+					if dist[u,v] > dist[u,x] + w(x → v):
+						dist[u,v] = dist[u,x] + w(x → v)
+</pre>
+
+_**RT:**_ \\( O(V\^2 E) \\)
+
+### 9.4 Intuition 3: DP + Divide and Conquer
+
+$$
+\begin{equation}
+    dist(u,v,k) =
+    \begin{cases}
+        0 & \text{if } u = v \\\\
+        \infty & \text{if } k = 0 \text{ if } u \neq v \\\\
+		\underset{x \rightarrow v}{\operatorname{min}} (dist(u,x,\frac{k}{2}) + (dist(x,v,\frac{k}{2})) & \text{otherwise}
+    \end{cases}
+\end{equation}
+$$
+
+<pre class="prettyprint linenums">
+DC_DP_APSP(V, E, w):
+	for all u ∈ V:
+		for all v ∈ V:
+			dist[u,v,0] = w(u → v)
+	
+	for k = 1 to (log V)
+		for all v ∈ V:
+			for all u ∈ V:
+				dist[u,u,k] = ∞
+				for all x ∈ V: 
+					if dist[u,v,k] > dist[u,x,k−1] + dist[x,v,k−1]:
+						dist[u,v,k] = dist[u,x,k−1] + dist[x,v,k−1]
+</pre>
+
+_**RT:**_ \\( O(V\^3 \log V) \\)
+
+_**Improvement: Shimbel Version reduces the size of DP table**_
+
+<pre class="prettyprint linenums">
+DC_Shimbel_APSP(V, E, w):
+	for all u ∈ V:
+		for all v ∈ V:
+			dist[u,v] = w(u → v)
+	
+	for k = 1 to (log V)
+		for all v ∈ V:
+			for all u ∈ V:
+				for all x ∈ V: 
+					if dist[u,v] > dist[u,x] + dist[x,v]:
+						dist[u,v] = dist[u,x] + dist[x,v]
+</pre>
+
+_**RT:**_ \\( O(V\^3 \log V) \\)
+
+### 9.5 Floyd-Warshall: an \\( O(V\^3) \\) DP Alg
+
+待续
+
+### 9.6 APSP in unweighted undirected graphs: Seidel's Alg
+
+待续
 
 ## <a name="10-minimum-spanning-trees"></a>10. Minimum Spanning Trees
 
@@ -682,3 +804,4 @@ Kruskal(G):
 
 _**RT:**_ \\( O(E \log E) = O(E \log V) \\), dominated by the sorting.
 
+## <href name="11-matroids"></href>11. Matroids
