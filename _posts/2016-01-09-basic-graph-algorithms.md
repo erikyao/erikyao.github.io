@@ -10,6 +10,7 @@ tags: [Algorithm-101]
 [edge_types]: https://farm2.staticflickr.com/1521/24260605262_83a3b5a6b7_o_d.png
 [Prim]: https://farm2.staticflickr.com/1676/24313784510_251a0a69f3_o_d.png
 [Kruskal]: https://farm2.staticflickr.com/1549/24314202720_46d5257df4_o_d.png
+[Alternating_Path]: https://farm2.staticflickr.com/1698/24582419389_f2308538e0_o_d.png
 
 参考：
 
@@ -46,10 +47,11 @@ ToC:
 	- [10.3 Prim's Algorithm](#10-3-prim-alg)
 	- [10.4 Kruskal’s Algorithm](#10-4-kruskal-alg)
 - [11. Matroids](#11-matroids)
+- [12. Matching](#12-matching)
 
 -----
 
-## <href name="1-definition"></href>1. Definition
+## <a name="1-definition"></a>1. Definition
 
 _**Simple Graph:**_
 
@@ -804,4 +806,137 @@ Kruskal(G):
 
 _**RT:**_ \\( O(E \log E) = O(E \log V) \\), dominated by the sorting.
 
-## <href name="11-matroids"></href>11. Matroids
+## <a name="11-matroids"></a>11. Matroids (待续)
+
+### 11.1 Definitions (待续)
+
+A matroid \\( M \\) is a finite collection of finite sets that satisfies three axioms:
+
+- **Non-emptiness:** The empty set \\( \emptyset \\) is in \\( M \\). (Thus, \\( M \\) is not itself empty.)
+- **Heredity:** If a set \\( X \\) is an element of \\( M \\), then any subset of \\( X \\) is also in \\( M \\).
+- **Exchange:** (a.k.a **Augmentation**) If \\( X \\) and \\( Y \\) are two sets in \\( M \\) where \\( |X| > |Y| \\), then there \\( \exists \\) an element \\( x \in X \setminus Y \\) such that \\( Y \cup \\{x\\} \\) is in \\( M \\).
+
+<!-- -->
+
+- The sets in \\( M \\) are typically called _**independent sets**_. 
+	- Therefore, the three axioms can also be stated as:
+		- **Non-emptiness**: The empty set \\( \emptyset \\) is independent.
+		- **Heredity**: If a set \\( X \\) is independent, then any subset of \\( X \\) is also independent.
+		- **Exchange** (a.k.a **Augmentation**): If \\( X \\) and \\( Y \\) are two independent sets where \\( |X| > |Y| \\), then there \\( \exists \\) an element \\( x \in X \setminus Y \\) such that \\( Y \cup \\{x\\} \\) is also independent.
+- The union of all sets in \\( M \\) is called the _**ground set**_.
+	- In set theory, a collection, \\( F \\), of subsets of a given set \\( S \\) is called a _**family**_ of subsets of \\( S \\).
+	- Therefore, a matroid is a family of subsets of its ground set.
+	
+<!-- -->
+
+- A maximal independent set is called a _**basis**_.
+	- "Maximal" means it is not a proper subset of any other independent set. E.g.
+		- Ground set \\( U = \\{ 1,2,3 \\} \\)
+		- \\( M = \\{ \text{subsets of } U \text{ of size at most 2} \\} = \\{ \emptyset, \\{ 1 \\}, \\{ 2 \\}, \\{ 3 \\}, \\{ 1,2 \\}, \\{ 1,3 \\}, \\{ 2,3 \\} \\} \\)
+		- \\( \\{ 1,2 \\} \\), \\( \\{ 1,3 \\} \\) and \\( \\{ 2,3 \\} \\) are all bases.
+	- The exchange property implies that every basis of a matroid has the same cardinality (i.e. size).
+	- The _**rank**_ of a matroid is the size of its bases.
+- A subset of the ground set that is not in \\( M \\) is a _**dependent set**_.
+	- E.g. ground set \\( U = \\{ 1,2,3 \\} \\) itself is a dependent set above.
+- A dependent set is called a _**circuit**_ if any of its proper subset is independent.
+	- E.g. ground set \\( U = \\{ 1,2,3 \\} \\) itself is a circuit above.
+	
+Here are several other examples of matroids; some of these we will see again later.
+
+- **Linear matroid:** Let \\( A \\) be any \\( n \times m \\) matrix. A subset \\( I \subseteq \\{ 1, 2, \dots, n \\} \\) is independent if and only if the corresponding subset of columns of \\( A \\) is linearly independent.
+- **Uniform matroid \\( U\_{k,n} \\):** A subset \\( X \subseteq \\{ 1, 2, \dots, n \\} \\) is independent if and only if \\( |X| \leq k \\). Any subset of \\( \\{ 1, 2, \dots, n \\} \\) of size \\( k \\) is a basis; any subset of size \\( k + 1 \\) is a circuit.
+- **Matching matroid:** Let \\( G = (V, E) \\) be an arbitrary undirected graph. A subset \\( I \subseteq V \\) is independent if there is a matching in \\( G \\) that covers \\( I \\).
+
+_**TODO:**_ Lecture note 和笔记本上还有些例子待补充。
+
+### 11.2 Matroid Optimization Problem (待续)
+
+Now suppose each element of the ground set of a matroid \\( M \\) is given an arbitrary non-negative weight， i.e. \\( w: U \rightarrow R\^{+} \\). The matroid optimization problem is to compute a basis with maximum total weight. For example, if \\( M \\) is the cycle matroid for a graph \\( G \\), the matroid optimization problem asks us to find the maximum spanning tree of \\( G \\).
+
+There goes a greedy alg:
+
+<pre class="prettyprint linenums">
+// Given ground set U and matroid I
+GreedyMatroidOPT(U, I, w):
+	B = Φ // 空集
+	
+	// O(n log n)
+	sort U w.r.t w in decreasing order
+	
+	// O(n)
+	for each u ∈ U:
+		// F(n)
+		if B + {u} ∈ I: // i.e. B + {u} is independent
+			B = B + {u}
+			
+	return B
+</pre>
+
+有没有觉得很像 [Kruskal’s Algorithm](#10-4-kruskal-alg)？
+
+_**RT:**_ \\( O(n \log n) + n F(n) \\). \\( F(n) \\) 应该是 depends on 具体的应用。
+
+_**TODO:**_ 补充 proof
+
+## <a name="12-matching"></a>12. Matching (待续)
+
+### 12.1 The Maximum Matching Problem
+
+Let \\( G = (V, E) \\) be an undirected graph. A set \\( M \subseteq E \\) is a _**matching**_ if no pair of edges in \\( M \\) have a common vertex. 
+
+A vertex \\( v \\) is _**matched**_ if it is contained in an edge of \\( M \\), and _**unmatched**_ (or _**free**_) otherwise. 
+
+In the maximum matching problem we are asked to find a matching \\( M \\) of maximum size.
+
+### 12.2 Alternating and Augmenting Paths (待续)
+
+Let \\( G = (V, E) \\) be a graph and let \\( M \\) be a matching in \\( G \\). A path \\( P \\) is said to be an _**alternating path**_ with respect to \\( M \\) if and only if among every two consecutive edges along the path, exactly one belongs to \\( M \\). 我们也可以简称 P is \\( M \\)-alternating.
+
+E.g.
+
+\\( \in M \\)	\\( \notin M \\)	\\( \in M \\)
+ 
+|=======|--------|========|
+
+If A and B are sets, we let \\( A \oplus B = (A − B) \cup (B − A) \\) be their _**symmetric difference**_. 其实就是异或（XOR）。
+
+An _**augmenting path**_ \\( P \\) with respect to a matching \\( M \\) is an alternating path that starts and ends in unmatched vertices, i.e. \\( P \\)'s endpoints are distinct free vertices. 我们也可以简称 P is \\( M \\)-augmenting.
+
+_**Lemma 2.3**_ If \\( M \\) is a matching and \\( P \\) is an alternating path with respect to \\( M \\), where each endpoint of \\( P \\) is either unmatched by \\( M \\) or not, then \\( M \oplus P \\) is also a matching.
+
+这里你要把 \\( P \\) 看做 edge 的集合，因为 path 用到了所有的边，所以 \\( P = E \\)。而 matching 不可能用到所有的边，所以 \\( M \subset E \\)，也就是 \\( |M| < |E| \\)。所以 \\( M \oplus P = M \oplus E = E \setminus M \\)。
+
+下面有三条 alternating paths，粗线条的是 matching：
+
+![][Alternating_Path]
+
+- **CASE 1:** If \\( P \\) starts and ends in vertices unmatched by M (i.e. P is \\( M \\)-augmenting) (e.g., the top path in figure), then \\( |M \oplus P| = |M| + 1 \\), i.e., \\( M \oplus P \\) is a larger matching. 
+- **CASE 2:** If \\( P \\) starts with an edge that does not belong to \\( M \\) and ends with an edge of \\( M \\) (e.g., the middle path in figure), then \\( |M \oplus P| = |M| \\). 
+- **CASE 3:** If \\( P \\) starts and ends with edges of \\( M \\) (see the bottom path in figure 2), then \\( |M \oplus P| = |M| − 1 \\).
+
+_**TODO:**_ proof of CASE 1
+
+_**Lemma 2.5**_ (待续)
+
+_**Lemma 2.6**_ (待续)
+
+_**Theorem 2.7**_ Let \\( G = (V, E) \\) be an undirected graph and let \\( M \\) be a matching in \\( G \\). Then, \\( M \\) is a maximum matching in \\( G \\) if and only if there is no \\( M \\)-augmenting paths in G.
+
+_**TODO:**_ proof
+
+Theorem 2.7 suggests the following simple algorithm for finding a maximum matching:
+
+<pre class="prettyprint linenums">
+MaxMatching(G):
+	M = Φ // 空集
+	
+	while exists an M-aug path P:
+		M = M &#8853; P
+			
+	return M
+</pre>
+
+- The `while` loop would take \\( \frac{V}{2} \\) iteration.
+- For bipartite graphs, `AltBFS` alg takes \\( O(E) \\) time to find an M-aug path.
+
+_**TODO:**_ bipartite graphs & `AltBFS` alg
