@@ -60,7 +60,7 @@ _**Simple Graph:**_
 	- parallel edges: multiple edges with the same endpoints 
 		- 注意 endpoint 表示的是**端点**，可以是起点也可以是终点，并不一定是终点 (ending point)
 		- parallel edges 简单说就是你有两条 `{u, v}` 或 `u → v`
-- non-simple graphs are sometimes called multigraphs. 
+- Non-simple graphs are sometimes called multigraphs. 
 - Despite the formal definitional gap, most algorithms for simple graphs extend to non-simple graphs with little or no modification.
 
 The definition of a graph as a pair of sets, \\( (V, E) \\) forbids graphs with loops and/or parallel edges. 也就是说，用 \\( (V, E) \\) 表示的图都**默认**是 simple graph。
@@ -390,10 +390,11 @@ Strong connectivity of vertices in a directed graph can be thought of as an equi
 - _**Transitivity:**_ if `a ~ b` and `b ~ c`, then `a ~ c`.
 - _**Symmetry:**_ if `a ~ b`, then `b ~ a`.
 
-In a directed graph \\( G = (V,E) \\), a Strongly Connected Component (SCC) is a maximal subgraph
-\\( S = (V\_s, E\_s) \\) s.t. \\( \forall \\) two vertices \\( a, b \in V_s \\), \\( a \sim b \\).
+In a directed graph \\( G = (V,E) \\), a Strongly Connected Component (SCC) is a maximal subgraph \\( S = (V\_s, E\_s) \\) s.t. \\( \forall \\) two vertices \\( a, b \in V_s \\), \\( a \sim b \\).
 
-_**N.B.**_ 注意这里 maximal 并不是 SCC 的特殊要求，而是因为 component 本身就是 maximal subgraph。
+- 注意这里 maximal 并不是 SCC 的特殊要求，而是因为 component 本身就是 maximal subgraph。
+- Undirected graph 的 component 在平面上很好认，一定是一个独立且完整的 subgraph，比如一整段的 path 或是一整个 cycle。
+- SCC 则不同，独立的一整段 path 或是一个 cycle 可能只有一部分是 strongly connected 的，但是这一部分也符合 SCC 的定义，也可以是 SCC。
 
 We can see SCCs as equivalence classes of `~`.
 
@@ -410,6 +411,13 @@ So we can come up with an idea to find all SCC in \\( G \\):
 
 所以问题转换为 to find a sink SCC。又因为，只要找到了一个 sink SCC 的 vertex，就能 `DFS` 得到 sink SCC，所以问题进一步转换为 to find a vertex in a sink SCC。
 
+- Digress: How to find a SCC given a vertex `v` in graph \\( G \\), i.e. to find a SCC of \\( G \\) containing `v`?
+	- `DFS(v,G)` \\( \Rightarrow Reach(v,G) = \\{ \text{vertices that } v \text{ can reach in } G \\} \\)
+	- `DFS(v,rev(G))` \\( \Rightarrow Reach\^{-1}(v,G) = \\{ \text{vertices that can reach } v \text{ in } G \\} \\)
+	- \\( SCC(v,G) = Reach(v,G) \cap Reach\^{-1}(v, G) \\)
+	
+<!-- -->
+
 _**Lemma 4.**_ The vertex with largest finishing time (i.e. `post(x)`) lies in a source SCC of G.
 
 _**Lemma 5.**_ For any edge `a → b` in \\( G \\), if `post(a) < post(b)`, then `a` and `b` are strongly connected in \\( G \\). (hint: backward edges)
@@ -418,7 +426,7 @@ It is easy to check that any directed \\( G \\) has exactly the same strong comp
 
 Actually you even don't have to repeat the "find-remove" procedure. The Kosaraju algorithm could find all SCCs this way: 
 
-- Step 1: `DFSAll(rev(G))`; output vertices in the reverse (descendant) order of finishing time
+- Step 1: `DFSAll(rev(G))` outputs vertices in the reverse (descendant) order of finishing time
 	- source → sink order in \\( rev(G) \\)
 	- sink → source order in \\( G \\)
 - Step 2: `DFSAll(G)` in the order above
