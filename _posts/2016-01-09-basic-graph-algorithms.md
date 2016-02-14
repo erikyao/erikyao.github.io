@@ -426,12 +426,17 @@ It is easy to check that any directed \\( G \\) has exactly the same strong comp
 
 Actually you even don't have to repeat the "find-remove" procedure. The Kosaraju algorithm could find all SCCs this way: 
 
-- Step 1: `DFSAll(rev(G))` outputs vertices in the reverse (descendant) order of finishing time
+- Step 1: `DFSAll(rev(G))` outputs vertices in the reverse (descendant) order of finishing time. Suppose the order is `a → b ... → z`:
 	- source → sink order in \\( rev(G) \\)
+		- i.e `post(a) > post(b) > ... > post(z)` in \\( rev(G) \\).
 	- sink → source order in \\( G \\)
+		- i.e. `post(a) < post(b) < ... < post(z)` in \\( G \\).
 - Step 2: `DFSAll(G)` in the order above
-	- each call to `DFS` in the loop of `DFSAll(G)` visits exactly one strong component of \\( G \\)
-	
+	- Each call to `DFS` in the loop of `DFSAll(G)` visits exactly one strong component of \\( G \\):
+		- If `a` cannot reach any vertex, then `a` is an SCC itself.
+			- Enter the next iteration in `DFSALL(G)` calling `DFS`.
+		- If `a` can reach a vertex `i`, because `post(a) > post(i)`, then `a` and `i` are strongly connected. 
+			- The current iteration in `DFSALL(G)` calling `DFS` goes further and will find an SCC at last.
 ## <a name="8-shortest-paths"></a>8. Shortest Paths
 
 Given a weighted directed graph \\( G = (V,E,w) \\), a source vertex `s` and a target vertex `t`, find the shortest `s → t` regarding `w`.
