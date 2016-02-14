@@ -282,7 +282,7 @@ We call an edge `a → b` in \\( G \\) (注意范围，是 \\( G \\) 中的 edge
 
 - a _**tree edge**_ if `a → b` is an edge in \\( T \\)
 	- 意思即是 \\( T \\) 中所有的 edge 都叫 \\( G \\) 的 tree edge
-- if `a → b` is an edge in \\( G \backslash T \\)):
+- if `a → b` is an edge in \\( G \backslash T \\):
 	- a _**forward edge**_ if `a` is an ancestor of `b` in \\( T \\)
 		- 注意 ancestor 是在 \\( T \\) 中判断的，所以简单说就是在 \\( G \backslash T \\) 是 `a → b` 且在 \\( T \\) 中有 `a → ... → b`
 	- a _**back(ward) edge**_ if `a` is an descendant of `b` in \\( T \\)
