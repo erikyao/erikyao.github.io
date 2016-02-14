@@ -212,7 +212,7 @@ Suppose \\( G \\) is a connected undirected graph, \\( T \\) is a depth-first sp
 
 _**Lemma 1.**_ For any node `v`, the vertices that are marked during the execution of `DFS(v)` are the proper descendants of `v` in \\( T \\).
 
-_**Lemma 2.**_ For every edge `v → w` in \\( G \\), either `v` is an ancestor of `w` in \\( T \\), or `v` is a descendant of `w` in \\( T \\).
+_**Lemma 2.**_ For every edge `vw` in \\( G \\), either `v` is an ancestor of `w` in \\( T \\), or `v` is a descendant of `w` in \\( T \\).
 
 _**Proof:**_ Assume without loss of generality that `v` is marked before `w`. Then `w` is unmarked when `DFS(v)` is invoked, but marked when `DFS(v)` returns, so the previous lemma implies that `w` is a proper descendant of `v` in \\( T \\).
 
@@ -270,7 +270,7 @@ _**N.B.**_ 其实这里我觉得把 `prev(a)` 看做 "start time of accessing a"
 
 Consider `a` and `b`, where `b` is marked after `a`. Then we must have `prev(a) < prev(b)`. Moreover, _**Lemma 1**_ implies that if `b` is a descendant of `a`, then `post(a) > post(b)`, and otherwise ("otherwise" 并不是是指 "`b` is an ancestor of `a`"，而是指 "`b` is not a descendant of `a`"，再结合 "`b` is marked after `a`" 这个事实，只有一种可能是 "`a` 和 `b` 属于不同的 components"), `prev(b) > post(a)` (此时 `a` component 遍历完了才轮到 `b`，`prev(b)` 的赋值必定在 `post(a)` 之后)。
 
-Thus, for any two vertices `a` and `b`, the intervals `[prev(a), post(a)]` and `[prev(b), post(b)]` are either disjoint or nested; in particular, if `a → b` is an edge, _**Lemma 2**_ implies that the intervals must be nested.
+Thus, for any two vertices `a` and `b`, the intervals `[prev(a), post(a)]` and `[prev(b), post(b)]` are either disjoint or nested; in particular, if `ab` is an edge, _**Lemma 2**_ implies that the intervals must be nested.
 
 ## <a name="5-acyclicity-in-directed-graphs"></a>5. Acyclicity in Directed Graphs
 
