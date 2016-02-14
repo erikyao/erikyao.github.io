@@ -53,7 +53,7 @@ If _**X**_ and _**Y**_ are independent, \\( Cov(X, Y) = 0 \\)
 
 ## 3. Standard Error of the Mean
 
-If \\( X_1, X_2 , \ldots, X_n \\) are n independent observations from a population that has a mean \\( \mu \\) and standard deviation \\( \sigma \\), \\( bar{X} = \frac{1}{n} \sum\_n {x_i} \\) is itself a random variable, and satisfy 
+If \\( X_1, X_2 , \ldots, X_n \\) are n independent observations from a population that has a mean \\( \mu \\) and standard deviation \\( \sigma \\), \\( \bar{X} = \frac{1}{n} \sum\_n {x_i} \\) is itself a random variable, and satisfy 
 
 * \\( E[\bar{X}] = \mu \\)
 * \\( Var(\bar{X}) = \frac{\sigma\^2}{n} \\)
