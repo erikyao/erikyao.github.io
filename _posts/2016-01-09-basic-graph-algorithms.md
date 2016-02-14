@@ -276,20 +276,20 @@ Thus, for any two vertices `a` and `b`, the intervals `[prev(a), post(a)]` and `
 
 Lemma 2 implies that any depth-first spanning tree \\( T \\) divides the edges of \\( G \\) into two classes: _**tree edges**_, which appear in \\( T \\), and _**back(ward) edges**_, which connect some node in \\( T \\) to one of its ancestors.
 
-其实这里可以进一步细分。考虑到 \\( T \subseteq G \\) (\\( T \\) 是 \\( G \\) 的 subgraph)，这样至少有两个部分：\\( T \\) 和 \\( G \backslash T \\)。
+其实这里可以进一步细分。考虑到 \\( T \subseteq G \\) (\\( T \\) 是 \\( G \\) 的 subgraph)，这样至少有两个部分：\\( T \\) 和 \\( G \setminus T \\)。
 
-We call an edge `a → b` in \\( G \\) (注意范围，是 \\( G \\) 中的 edge，并不限定在 \\( T \\) 中)
+We call an edge `a → b` in \\( G \\) (注意范围，是 \\( G \\) 中的 edge，并不限定在 \\( T \\) 中):
 
-- a _**tree edge**_ if `a → b` is an edge in \\( T \\)
+- if `a → b` is an edge in \\( T \\), a _**tree edge**_.
 	- 意思即是 \\( T \\) 中所有的 edge 都叫 \\( G \\) 的 tree edge
-- if `a → b` is an edge in \\( G \backslash T \\):
+- if `a → b` is an edge in \\( G \setminus T \\):
 	- a _**forward edge**_ if `a` is an ancestor of `b` in \\( T \\)
-		- 注意 ancestor 是在 \\( T \\) 中判断的，所以简单说就是在 \\( G \backslash T \\) 是 `a → b` 且在 \\( T \\) 中有 `a → ... → b`
+		- 注意 ancestor 是在 \\( T \\) 中判断的，所以简单说就是在 \\( G \setminus T \\) 是 `a → b` 且在 \\( T \\) 中有 `a → ... → b`
 	- a _**back(ward) edge**_ if `a` is an descendant of `b` in \\( T \\)
-		- 注意 descendant 是在 \\( T \\) 中判断的，所以简单说就是在 \\( G \backslash T \\) 是 `a → b` 但在 \\( T \\) 中是 `b → ... → a`
+		- 注意 descendant 是在 \\( T \\) 中判断的，所以简单说就是在 \\( G \setminus T \\) 是 `a → b` 但在 \\( T \\) 中是 `b → ... → a`
 		- 这样就发现了一个 cycle
 	- a _**cross edge**_ otherwise
-		- 简单说就是在 \\( G \backslash T \\) 是 `a → b` 但在 \\( T \\) 中 `a` 既不是 `b` 的 ancestor 也不是 descendant
+		- 简单说就是在 \\( G \setminus T \\) 是 `a → b` 但在 \\( T \\) 中 `a` 既不是 `b` 的 ancestor 也不是 descendant
 		
 我觉得还是举个例子说明下比较好：
 
@@ -306,7 +306,7 @@ We call an edge `a → b` in \\( G \\) (注意范围，是 \\( G \\) 中的 edge
 | back(ward)                        | `a` is an descendant of `b`                      | prev(b) < prev(a) < post(a) < post(b)                   |
 | cross                             | `a` is neither an ancestor nor descendant of `b` | prev(a) < post(a) < prev(b) < post(b), 假设 `a` 先访问到 |
 
-_**obs:**_ There is a backward edge in \\( G \backslash T \\) \\( \iff \\) \\( \exists \\) a directed cycle in \\( G \\).
+_**obs:**_ There is a backward edge in \\( G \setminus T \\) \\( \iff \\) \\( \exists \\) a directed cycle in \\( G \\).
 
 ## <a name="6-topological-sort"></a>6. Topological Sort
 
@@ -693,7 +693,7 @@ To keep things simple, I’ll assume that all the edge weights are distinct: \\(
 
 The generic minimum spanning tree algorithm MAINTAINS an acyclic subgraph \\( F \\) of the input graph \\( G=(V,E) \\), which we will call an _intermediate spanning forest_. \\( F \\) is a subgraph of the minimum spanning tree of \\( G \\), and every component of \\( F \\) is a minimum spanning tree of its vertices. Initially, \\( F \\) consists of \\( n \\) one-node trees. The generic algorithm merges trees together by adding certain edges between them. When the algorithm halts, \\( F \\) consists of a single \\( n \\)-node tree, which must be the minimum spanning tree. Obviously, we have to be careful about which edges we add to the evolving forest, since not every edge is in the minimum spanning tree.
 
-The intermediate spanning forest \\( F=(V, E\_F) \\) induces two special types of edges \\( e \in E \backslash E\_F \\)（注意 \\( F \\) 在算法执行的过程中是不断进化的，以下的描述是针对某一个特定阶段的 \\( F \\)；另外 \\( e \in E \backslash E\_F \\) 说明在当前阶段 \\( e \\) 不属于 \\( F \\)，但可能在下一阶段被添加到 \\( F \\)）:
+The intermediate spanning forest \\( F=(V, E\_F) \\) induces two special types of edges \\( e \in E \setminus E\_F \\)（注意 \\( F \\) 在算法执行的过程中是不断进化的，以下的描述是针对某一个特定阶段的 \\( F \\)；另外 \\( e \in E \setminus E\_F \\) 说明在当前阶段 \\( e \\) 不属于 \\( F \\)，但可能在下一阶段被添加到 \\( F \\)）:
 
 - \\( e \\) is _**USELESS**_ if both its endpoints are in the same component of \\( F \\).
 	- 举个简单的例子：\\( F \\) 有一个 component 是一个 triangle `ABC`，但是只走了 `A → B` 和 `B → C` 两条边，那么剩下的 `A → C` 就是条 useless edge。
@@ -704,7 +704,7 @@ The intermediate spanning forest \\( F=(V, E\_F) \\) induces two special types o
 
 _**Lemma 1.**_ MST contains every safe edge.
 
-注意 safe edges 是 \\( F \\) 演化过程中的产物，如果 \\( F \\) 已经是 MST 了，\\( E \backslash E\_F \\) 中应该不会再有 safe edge 了。所以这里的 safe edges 说的是演化过程中的 safe edge。
+注意 safe edges 是 \\( F \\) 演化过程中的产物，如果 \\( F \\) 已经是 MST 了，\\( E \setminus E\_F \\) 中应该不会再有 safe edge 了。所以这里的 safe edges 说的是演化过程中的 safe edge。
 
 _**Proof:**_ In fact we prove the following stronger statement: For any subset \\( S \subset V \\), the minimum-weight edge with exactly one endpoint in \\( S \\) is in the MST. We prove this claim using a greedy exchange argument.
 
