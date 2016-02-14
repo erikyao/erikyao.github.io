@@ -308,6 +308,29 @@ We call an edge `a → b` in \\( G \\) (注意范围，是 \\( G \\) 中的 edge
 
 _**obs:**_ There is a backward edge in \\( G \setminus T \\) \\( \iff \\) \\( \exists \\) a directed cycle in \\( G \\).
 
+除了这个算法外，书上还提供了一个在 `DFS` 的过程中 detect cycle 的算法：
+
+<pre class="prettyprint linenums">
+IsAcyclic(G):
+	add a source vertex s
+	for all vertices v &ne; s
+		add edge s → v
+		status(v) &lt;- New
+
+	return IsAcyclicDFS(s)
+	
+IsAcyclicDFS(v):
+	status(v) &lt;- Active
+	for each edge v → w
+		if status(w) == Active
+			return False
+		else if status(w) == New
+			if IsAcyclicDFS(w) == False
+				return False
+	status(v) &lt;- Done
+	return True
+</pre>
+
 ## <a name="6-topological-sort"></a>6. Topological Sort
 
 A topological ordering of a directed graph \\( G \\) is a total order \\( \prec \\) on the vertices such that \\( a \prec b \\) for every edge `a → b`. Less formally, a topological ordering arranges the vertices along a horizontal line so that all edges point from left to right. 
@@ -341,7 +364,9 @@ DFSAll(G)
 			DFS(v)
 </pre>
 
-从最后的结果来看，finishing time, i.e. \\( post(x\_i) \\) 的顺序并不会因为 `for each vertex v` 的遍历顺序而改变。考虑个简单的图 `a → b → c`：
+从最后的结果来看，finishing time, i.e. \\( post(x\_i) \\) 的顺序并不会因为 `for each vertex v` 的遍历顺序而改变。也就是说，`DFSALL(G)` 和 `DFS(source)` 从结果上来看本质是一样的，而且都是 \\( O(V+E) \\)。
+
+考虑个简单的图 `a → b → c`：
 
 - 假设 `DFSAll(G)` 的顺序是 `c`、`b`、`a`，得到的结果是 `post(c)=1`、`post(b)=3`、`post(a)=5`
 - 假设 `DFSAll(G)` 的顺序是 `b` (所以包括了 `c`)、`a`，得到的结果是 `post(c)=2`、`post(b)=3`、`post(a)=5`
@@ -361,9 +386,9 @@ If `a` is strongly connected to `b`, we write `a ~ b`.
 
 Strong connectivity of vertices in a directed graph can be thought of as an equivalence relation of `~`.
 
-- Reflexivity: `a ~ a`, i.e. `a` is strongly conneted to itself.
-- Transitivity: if `a ~ b` and `b ~ c`, then `a ~ c`.
-- Symmetry: if `a ~ b`, then `b ~ a`.
+- _**Reflexivity:**_ `a ~ a`, i.e. `a` is strongly conneted to itself.
+- _**Transitivity:**_ if `a ~ b` and `b ~ c`, then `a ~ c`.
+- _**Symmetry:**_ if `a ~ b`, then `b ~ a`.
 
 In a directed graph \\( G = (V,E) \\), a Strongly Connected Component (SCC) is a maximal subgraph
 \\( S = (V\_s, E\_s) \\) s.t. \\( \forall \\) two vertices \\( a, b \in V_s \\), \\( a \sim b \\).
