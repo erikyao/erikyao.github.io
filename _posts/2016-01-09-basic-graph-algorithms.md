@@ -11,6 +11,8 @@ tags: [Algorithm-101]
 [Prim]: https://farm2.staticflickr.com/1676/24313784510_251a0a69f3_o_d.png
 [Kruskal]: https://farm2.staticflickr.com/1549/24314202720_46d5257df4_o_d.png
 [Alternating_Path]: https://farm2.staticflickr.com/1698/24582419389_f2308538e0_o_d.png
+[perfect_bipartite_matching]: https://farm2.staticflickr.com/1519/24963603071_125e5a9695_o_d.png
+[Tutte_matrix]: https://farm2.staticflickr.com/1517/25056902185_53078b7d1e_o_d.png
 
 参考：
 
@@ -48,6 +50,8 @@ ToC:
 	- [10.4 Kruskal’s Algorithm](#10-4-kruskal-alg)
 - [11. Matroids](#11-matroids)
 - [12. Matching](#12-matching)
+- [13. Testing Polynomial Identity](#13-testing-polynomial-identity)
+- [14. Eulerian Graph](#14-eulerian-graph)
 
 -----
 
@@ -978,3 +982,107 @@ MaxMatching(G):
 - For bipartite graphs, `AltBFS` alg takes \\( O(E) \\) time to find an M-aug path.
 
 _**TODO:**_ bipartite graphs & `AltBFS` alg
+
+## <a name="13-testing-polynomial-identity"></a>13. Testing Polynomial Identity (待续)
+
+### 13.1 The Schwartz-Zippel Algorithm (待续)
+
+检测两个 polynomial \\( Q \\) 和 \\( R \\) 是否相等，等价于检测 polynomial \\( P = Q - R \\) 是否恒为 0，i.e. 是否有 \\( P \equiv 0 \\).
+
+首先来看 polynomial degree 的概念：
+
+> The degree of a polynomial is the _**highest degree of its terms**_ when the polynomial is expressed in its canonical form consisting of a linear combination of monomials. _**The degree of a term**_ is the sum of the exponents (指数) of the variables that appear in it.
+
+比如 \\( x\_1\^2 x\_2 + x\_3 x\_4 x\_5\^{10} + x\_2\^{11} x\_3\^{12} \\)，它有三个 terms：
+
+- term \\( x\_1\^2 x\_2 \\) 的 degree 是 2 + 1 = 3
+- term \\( x\_3 x\_4 x\_5\^{10} \\) 的 degree 是 1 + 1 + 10 = 12
+- term \\( x\_2\^{11} x\_3\^{12} \\) 的 degree 是 11 + 12 = 23
+- 所以 polynomial 的 degree 等于 \\( \max \\{ 3,12,23 \\} = 23 \\)
+
+The idea of the algorithm is very simple: assign values \\( r\_1, \dots, r\_n \\) chosen independently and uniformly at random from a finite set \\( S \\) to \\( x\_1, \dots, x\_n \\). Test if \\( P(r\_1, \dots, r\_n) = 0 \\).
+
+_**Claim 2.1**_ If \\( P \not\equiv 0 \\), then \\( Pr[P(r\_1, \dots, r\_n) = 0] ≤ \frac{d}{|S|} \\) where \\( d \\) is the degree of \\( P \\).
+
+假设我们有 \\( |S| = 10d \\)，那么 \\( Pr[P(r\_1, \dots, r\_n) = 0] \leq \frac{1}{10} \\)。我跑它个 \\( n \\) 次，它全为 0 的概率应该 \\( \leq (\frac{1}{10})\^n \\).
+
+_**TODO:**_ 补充证明
+
+### Digress: Permutation / Matrix Determinant (行列式)
+
+_**onto function:**_ A function \\( f: A \rightarrow B \\) is called onto if \\( \forall b \in B \\), \\( \exists a \in A \\) such that \\( f(a) = b \\), i.e. all elements in \\( B \\) are used. Such functions are also referred to as _**surjective**_ (满射).
+
+_**one-to-one function:**_ A function \\( f: A \rightarrow B \\) is called one-to-one if whenever \\( f(a) = f(b) \\) then \\( a = b \\). No element of \\( B \\) is the image of more than one element in \\( A \\). Such functions are also referred to as injective (单射).
+
+_**bijection:**_ A functions that is both one-to-one and onto. Such functions are also referred to as bijective (双射).
+
+A _**permutation**_ of a set \\( X \\) is a bijection \\( \pi: X \rightarrow X \\). E.g. \\( \\{ 1,2,3 \\} \rightarrow \\{ 3,1,2 \\} \\)
+
+- \\( \pi(1) = 3 \\)
+- \\( \pi(2) = 1 \\)
+- \\( \pi(3) = 2 \\)
+
+\\( \\{ 1,2,3 \\} \rightarrow \\{ 3,1,2 \\} \\) 至少需要 2 _**swaps**_。 一次 swap 只能交换两个 elements。假设一个 permutation 变化至少需要 \\( k \\) swaps，那么 _**sign of permutation**_ \\( sign(\pi) = (-1)\^k \\).
+
+_**TODO:**_ Prove that sign is well defined, i.e. 对同一个 \\( \pi \\)，这个定义不可能产生不同的 \\( sign(\pi) \\)。
+
+Given an \\( n \times n \\) matrix \\( A = [a\_{i,j}] \\), \\( Det(A) = \sum\_{\pi}{sign(\pi) \cdot a\_{1,\pi(1)} \cdot a\_{2,\pi(2)} \dots \cdot a\_{n,\pi(n)}} \\).
+
+E.g. \\( n = 2 \\), \\( Det(A) = 1 \cdot a\_{11} \cdot a\_{22} + (-1) \cdot a\_{12} \cdot a\_{21} \\).
+
+- \\( \pi\_1: \\{ 1,2 \\} \rightarrow \\{ 1,2 \\} \\); \\( sign(\pi\_1) = 1 \\)
+- \\( \pi\_2: \\{ 1,2 \\} \rightarrow \\{ 2,1 \\} \\); \\( sign(\pi\_2) = -1 \\)
+
+### 13.2 Application to Bipartite Matching
+
+Although bipartite matching is easy to solve in deterministic polynomial time using flow techniques, it remains an important open question whether there exists an efficient parallel deterministic algorithm for this problem.
+
+Bipartite matching is the following problem: Given a bipartite graph \\( G = (V\_1, V\_2, E) \\), where \\( |V\_1| = |V\_2| = n \\), and all edges connect vertices in \\( V\_1 \\) to vertices in \\( V\_2 \\), does \\( G \\) contain a perfect matching, that is, a subset of exactly n edges such that each vertex is contained in exactly one edge?
+
+_**Definition 2.2 (Tutte matrix)**_ The Tutte matrix \\( A\_G \\) corresponding to the graph \\( G \\) is an \\( n \times n \\) matrix \\( [a\_{ij}] \\) such that \\( a\_{ij} \\) is a variable \\( x\_{ij} \\) if \\( (i,j) \in E \\), and \\( 0 \\) otherwise.
+
+_**Claim 2.3**_ \\( G \\) contains a perfect matching if and only if \\( Det(A\_G) \not\equiv 0 \\).
+
+而且这个 perfect matching 可以被 \\( Det(A\_G) \\) 确定，比如：
+
+![][perfect_bipartite_matching]
+
+![][Tutte_matrix]
+
+\\( Det(A) = - x\_{11} \cdot x\_{23} \cdot x\_{32} \\). 根据 \\( x\_{ij} \\) 的下标，我们可以看出 \\( \\{ (p\_1, q\_1), (p\_2, q\_3), (p\_3, q\_2) \\} \\) 是一个 perfect matching。
+
+## <a name="14-eulerian-graph"></a>14. Eulerian Graph
+
+_**Eulerian path:**_ a path, \\( e\_1 e\_2 \cdots e\_E \\), which contains each edge exactly once.
+
+_**Eulerian cycle:**_ a closed Eulerian path.
+
+_**Eulerian Graph:**_ \\( G \\) is Eulerian if it has an Eulerian cycle.
+
+_**Thm:**_ \\( G \\) is Eulerian \\( \iff \\) \\( G \\) is connected and the degrees of all vertices are even.
+
+[_**Proof:**_](http://www.math.uri.edu/~eaton/Euler.pdf) Suppose every degree is even. We will show that there is an Euler cycle by induction on the number of edges in the graph. 
+
+The base case is for a graph \\( G \\) with two vertices with two edges between them. This graph is obviously Eulerian.
+
+Now suppose we have a graph \\( G \\) on \\( m > 2 \\) edges. We start at an arbitrary vertex \\( v \\) and follow edges, arbitrarily selecting one after another until we return to \\( v \\). Call this path \\( W \\). We know that we will return to \\( v \\) eventually because every time we encounter a vertex other than \\( v \\) we are listing one edge adjacent to it. There are an even number of edges adjacent to every vertex, so there will always be a suitable unused edge to list next. So this process will always lead us back to \\( v \\).
+
+Let \\( E\_W \\) be the edges of \\( W \\). The graph \\( G − E\_W \\) has components \\( C\_1, C\_2, \cdots, C\_k \\). These each satisfy the induction hypothesis: connected, less than \\( m \\) edges, and every degree is even. We know that every degree is even in \\( G − E\_W \\), because when we removed \\( W \\), we removed an even number of edges from those vertices listed in the cycle. By induction, each component has an Eulerian cycle, call them \\( E\_1, E\_2, \cdots, E\_k \\).
+
+Since \\( G \\) is connected, there is a vertex \\( a\_i \\) in each component \\( C\_i \\) on both \\( W \\) and \\( E\_i \\). Without loss of generality, assume that as we follow \\( W \\), the vertices \\( a\_1, a\_2, \cdots, a\_k \\) are encountered in that order. 
+
+We describe an Euler cycle in \\( G \\) like this: 
+
+- Starting at \\( v \\); 
+- Follow \\( W \\) until reaching \\( a\_1 \\), follow the entire \\( E\_1 \\) ending back at \\( a\_1 \\); 
+	- follow \\( W \\) until reaching \\( a\_2 \\), follow the entire \\( E\_2 \\), ending back at \\( a\_2 \\) and so on; 
+		- follow \\( W \\) until reaching \\( a\_k \\), and follow the entire \\( E\_k \\), ending back at \\( a\_k \\). 
+- Finish off \\( W \\), ending at \\( v \\).
+
+[_**Thm:**_](https://proofwiki.org/wiki/Odd_Order_Complete_Graph_is_Eulerian) Odd-order complete graph is Eulerian.
+
+- Let \\( K\_n \\) be the complete graph of \\( n \\) vertices.
+- Then \\( K\_n \\) is Eulerian if and only if \\( n \\) is odd.
+- If \\( n \\) is even, then \\( K\_n \\) is traversable iff \\( n=2 \\).
+	- If a graph is not traversable, it cannot be Eulerian.
+
