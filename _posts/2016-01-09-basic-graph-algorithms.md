@@ -52,6 +52,7 @@ ToC:
 - [12. Matching](#12-matching)
 - [13. Testing Polynomial Identity](#13-testing-polynomial-identity)
 - [14. Eulerian Graph](#14-eulerian-graph)
+- [15. Hamiltonian Path](#15-hamiltonian-path)
 
 -----
 
@@ -441,6 +442,7 @@ Actually you even don't have to repeat the "find-remove" procedure. The Kosaraju
 			- Enter the next iteration in `DFSALL(G)` calling `DFS`.
 		- If `a` can reach a vertex `i`, because `post(a) > post(i)`, then `a` and `i` are strongly connected. 
 			- The current iteration in `DFSALL(G)` calling `DFS` goes further and will find an SCC at last.
+
 ## <a name="8-shortest-paths"></a>8. Shortest Paths
 
 Given a weighted directed graph \\( G = (V,E,w) \\), a source vertex `s` and a target vertex `t`, find the shortest `s → t` regarding `w`.
@@ -623,10 +625,10 @@ DP_APSP(V, E, w):
 				dist[u,v,0] = ∞
 	
 	for k = 1 to V-1
-		for all v ∈ V:
+		for all u ∈ V:
 			dist[u,u,k] = 0
-			for all u ∈ V and u ≠ v
-				dist[u,u,k] = ∞
+			for all v ∈ V and v ≠ u
+				dist[u,v,k] = ∞
 				// for all x → v ∈ E: 
 					// ...
 				// Equivalently
@@ -652,7 +654,7 @@ Shimbel_APSP(V, E, w):
 				dist[u,v] = ∞
 	
 	for k = 1 to V-1
-		for all v ∈ V:
+		for all u ∈ V:
 			// for all x → v ∈ E: 
 				// ...
 			// Equivalently
@@ -684,8 +686,8 @@ DC_DP_APSP(V, E, w):
 			dist[u,v,0] = w(u → v)
 	
 	for k = 1 to (log V)
-		for all v ∈ V:
-			for all u ∈ V:
+		for all u ∈ V:
+			for all v ∈ V:
 				dist[u,u,k] = ∞
 				for all x ∈ V: 
 					if dist[u,v,k] > dist[u,x,k−1] + dist[x,v,k−1]:
@@ -703,8 +705,8 @@ DC_Shimbel_APSP(V, E, w):
 			dist[u,v] = w(u → v)
 	
 	for k = 1 to (log V)
-		for all v ∈ V:
-			for all u ∈ V:
+		for all u ∈ V:
+			for all v ∈ V:
 				for all x ∈ V: 
 					if dist[u,v] > dist[u,x] + dist[x,v]:
 						dist[u,v] = dist[u,x] + dist[x,v]
@@ -714,7 +716,53 @@ _**RT:**_ \\( O(V\^3 \log V) \\)
 
 ### 9.5 Floyd-Warshall: an \\( O(V\^3) \\) DP Alg
 
-待续
+All the DP algs above are still a factor of O(log V) slower than Johnson’s algorithm. Here we come up to a faster one.
+
+Number the vertices arbitrarily from 1 to \\( V \\).
+
+$$
+\begin{equation}
+    dist(u,v,r) =
+    \begin{cases}
+		\infty & \text{if } r = 0, u \rightarrow v \not\in E \\\\
+        w(u \rightarrow v) & \text{if } r = 0, u \rightarrow v \in E \\\\
+		min 
+			\begin{cases} 
+				dist[u,v,r-1] & \text{not using } r \\\\
+				dist[u,r,r-1] + dist[r,v,r-1] & \text{using } r \text{ in the middle of } u \rightsquigarrow v
+			\end{cases} & \text{otherwise}
+    \end{cases}
+\end{equation}
+$$
+
+<pre class="prettyprint linenums">
+FloydWarshall(V, E, w):
+	for all u ∈ V:
+		for all v ∈ V:
+			dist[u,v,0] = w(u → v)
+	
+	for r = 1 to V
+		for all u ∈ V:
+			for all v ∈ V:
+				dist[u,v,r-1] = min(dist[u,v,r-1], dist[u,r,r-1] + dist[r,v,r-1])
+</pre>
+
+Just like our earlier algorithms, we can simplify the algorithm by removing the third dimension of the memoization table. Also, because the vertex numbering was chosen arbitrarily, there’s no reason to refer to it explicitly in the pseudocode.
+
+<pre class="prettyprint linenums">
+FloydWarshall(V, E, w):
+	for all u ∈ V:
+		for all v ∈ V:
+			dist[u,v] = w(u → v)
+	
+	for all r ∈ V:
+		for all u ∈ V:
+			for all v ∈ V:
+				if dist[u,v] > dist[u,r] + dist[r,v]
+					dist[u,v] = dist[u,r] + dist[r,v]
+</pre>
+
+_**RT:**_ \\( O(V\^3) \\) for 3 for-loops over \\( V \\).
 
 ### 9.6 APSP in unweighted undirected graphs: Seidel's Alg
 
@@ -893,7 +941,7 @@ _**TODO:**_ Lecture note 和笔记本上还有些例子待补充。
 
 ### 11.2 Matroid Optimization Problem (待续)
 
-Now suppose each element of the ground set of a matroid \\( M \\) is given an arbitrary non-negative weight， i.e. \\( w: U \rightarrow R\^{+} \\). The matroid optimization problem is to compute a basis with maximum total weight. For example, if \\( M \\) is the cycle matroid for a graph \\( G \\), the matroid optimization problem asks us to find the maximum spanning tree of \\( G \\).
+Now suppose each element of the ground set of a matroid \\( M \\) is given an arbitrary non-negative weight, i.e. \\( w: U \rightarrow R\^{+} \\). The matroid optimization problem is to compute a basis with maximum total weight. For example, if \\( M \\) is the cycle matroid for a graph \\( G \\), the matroid optimization problem asks us to find the maximum spanning tree of \\( G \\).
 
 There goes a greedy alg:
 
@@ -958,9 +1006,11 @@ _**Lemma 2.3**_ If \\( M \\) is a matching and \\( P \\) is an alternating path 
 
 _**TODO:**_ proof of CASE 1
 
-_**Lemma 2.5**_ (待续)
+_**Lemma 2.5**_ Let \\( G = (V, E) \\) be an undirected graph and let \\( M\_1 \\) and \\( M\_2 \\) be matchings in \\( G \\). Then, the subgraph \\( (V, M1 \oplus M2) \\) is composed of isolated vertices, alternating paths and alternating cycles with respect to both \\( M\_1 \\) and \\( M\_2 \\).
 
-_**Lemma 2.6**_ (待续)
+_**Lemma 2.6**_ Let \\( G = (V, E) \\) be an undirected graph and let \\( M \\) and \\( M' \\) be matchings in \\( G \\) such that \\( |M'| = |M| + k \\), where \\( k \geq 1 \\). Then, there are at least \\( k \\) vertex-disjoint augmenting paths in \\( G \\) with respect to \\( M \\). At least one of these augmenting paths is of length at most \\( \frac{n}{k} − 1 \\).
+
+_**TODO:**_ proof
 
 _**Theorem 2.7**_ Let \\( G = (V, E) \\) be an undirected graph and let \\( M \\) be a matching in \\( G \\). Then, \\( M \\) is a maximum matching in \\( G \\) if and only if there is no \\( M \\)-augmenting paths in G.
 
@@ -979,7 +1029,7 @@ MaxMatching(G):
 </pre>
 
 - The `while` loop would take \\( \frac{V}{2} \\) iteration.
-- For bipartite graphs, `AltBFS` alg takes \\( O(E) \\) time to find an M-aug path.
+- For bipartite graphs, `AltBFS` alg takes \\( O(E) \\) time to find an \\( M \\)-aug path.
 
 _**TODO:**_ bipartite graphs & `AltBFS` alg
 
@@ -1086,3 +1136,46 @@ We describe an Euler cycle in \\( G \\) like this:
 - If \\( n \\) is even, then \\( K\_n \\) is traversable iff \\( n=2 \\).
 	- If a graph is not traversable, it cannot be Eulerian.
 
+## <a name="15-hamiltonian-path"></a>15. Hamiltonian Path
+
+_**Hamiltonian path:**_ a simple path that contains all vertices.
+
+_**Hamiltonian cycle:**_ a simple cycle that contains all vertices.
+
+- "simple" means "containing each edge exactly once".
+
+Hamiltonian path/cycle problems are of determining whether a Hamiltonian path/cycle exists in a given graph (whether directed or undirected). Both problems are NP-complete.
+
+There is a simple relation between the problems of finding a Hamiltonian path and a Hamiltonian cycle. 
+
+- In one direction, the Hamiltonian path problem for graph \\( G \\) is equivalent to the Hamiltonian cycle problem in a graph \\( H \\) obtained from \\( G \\) by adding a new vertex and connecting it to all vertices of \\( G \\). Thus, finding a Hamiltonian path cannot be significantly slower (in the worst case, as a function of the number of vertices) than finding a Hamiltonian cycle. 
+- In the other direction, the Hamiltonian cycle problem for a graph \\( G \\) is equivalent to the Hamiltonian path problem in the graph \\( H \\) obtained by copying one vertex \\( v \\) of \\( G \\), \\( v' \\), that is, letting \\( v' \\) have the same neighbourhood as \\( v \\), and by adding two dummy vertices of degree one, and connecting them with \\( v \\) and \\( v' \\), respectively.
+	- The Hamiltonian cycle problem is also a special case of TSP (travelling salesman problem).
+	
+A brute-force alg: try every permutation of vertices (that's \\( O(V!) \\)), see if there is any Hamiltonian cycle.
+
+An \\( O(V\^2 2\^V) \\) DP alg: `BellmanHeldKarp`. (已知 \\( V\^2 2\^V \ll V! \\))
+
+\\( V = \\{ v\_1, \dots, v\_n \\}, n = |V|, S \subseteq V \\)
+
+$$
+\begin{equation}
+    H(v\_i,S) =
+    \begin{cases}
+        True & \exists \text{ a Hamiltonia path from } v\_1 \text{ to } v\_i \text{ with all vertices in } S \\\\
+        False & \text{otherwise}
+    \end{cases}
+\end{equation}
+$$
+
+\\( H(v\_n,V) \\) is our aim.
+
+\\( H(v\_i,S) = \exists j \text{ s.t. } H(v\_j,S \setminus \\{ v\_i \\}) \text { & } (v\_i, v\_j) \in E \\)
+
+Base Case: \\( H(v\_1, \\{ v\_1 \\}) = True \\)
+
+\\( \exists \\) a Hamiltonia cycle if \\( \exists j \text{ s.t. } H(v\_j,V) = True \text { & } (v\_1, v\_j) \in E \\)
+
+_**DP table:**_ (# of \\( v\_i \\)) \\( \times \\) \\( |S| \\) = \\( V \times 2\^V \\)
+
+_**RT:**_ time to fill a cell \\( \times \\) DP table size = \\( V \times V \times 2\^V = V\^2 2^V \\)
