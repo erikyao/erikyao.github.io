@@ -342,7 +342,7 @@ A topological ordering of a directed graph \\( G \\) is a total order \\( \prec 
 
 A topological ordering is clearly impossible if the graph \\( G \\) has a directed cycle—the rightmost vertex of the cycle would have an edge pointing to the left! On the other hand, every DAG has a topological order.
 
-_**Idea:**_ Run `DFS` on every vertex \\( x\_i \\) of \\( x\_1,\dots,x\_V \\) and sort the verices by \\( post(x\_i) \\) in reverse order.
+_**Idea:**_ Run `DFS` on every vertex \\( x\_i \\) of \\( x\_1,\dots,x\_V \\) and sort the vertices by \\( post(x\_i) \\) in reverse order.
 
 _**Correctness of the Idea:**_ By _**Lemma 2**_, for every edge `a → b` in a DAG, the finishing time of is `a` greater than that of `b`, as there are NO back edges (because DAG has no cycle) and the remaining three classes of edges have this property.
 
