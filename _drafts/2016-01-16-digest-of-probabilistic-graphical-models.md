@@ -362,4 +362,44 @@ When \\( C\_i \\) is ready to transmit to \\( C\_j \\), it can compute the messa
 
 sum-product belief propagation
 
+## 12. Particle-Based Approximate Inference
 
+### 12.1 Forward Sampling
+
+#### 12.1.1 Sampling from a Bayesian Network
+
+P490 时间复杂度分析
+
+#### 12.1.2 Analysis of Error
+
+P490
+
+#### 12.1.3 Conditional Probability Queries
+
+P491
+
+### 12.2 Likelihood Weighting and Importance Sampling
+
+That is, when we come to sampling a node \\( X\_i \\) whose value has been observed, we simply set it to its observed value.
+
+This process generates a weighted particle.
+
+It turns out that LW is a special case of a very general approach called importance sampling.
+
+### 12.3 Markov Chain Monte Carlo Methods
+
+MCMC sampling approach generates a sequence of samples. This sequence is constructed so that, although the first sample may be generated from the prior, successive samples are generated from distributions that provably get closer and closer to the desired posterior.
+
+A key question is, of course, how many iterations we should perform before we can collect a sample as being (almost) generated from the posterior.
+
+P511 kernel!!
+
+P512 公式推导
+
+Note that standard Gibbs sampling is a special case of block Gibbs sampling, with the blocks corresponding to individual variables.
+
+#### 12.3.5 Using a Markov Chain
+
+P518
+
+How do we use this chain to answer queries? A naive answer is straightforward. We run the chain using the algorithm of algorithm 12.5 until it converges to the stationary distribution (or close to it). We then collect a sample from π. We repeat this process once for each particle we want to collect. The result is a data set D consisting of independent particles, each of which is sampled (approximately) from the stationary distribution π. The analysis of section 12.1 is applicable to this setting, so we can provide tight bounds on the number of samples required to get estimators of a certain quality. Unfortunately, matters are not so straightforward, as we now discuss.
