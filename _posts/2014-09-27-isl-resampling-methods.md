@@ -104,7 +104,7 @@ $$
 \end{equation} 
 $$
 
-where \\( h_i \\) is the [leverage-statistic](http://erikyao.github.io/machine-learning/2014/09/21/machine-learning-linear-regression-part-2/#High-Leverage-Points). The leverage lies between \\( 1/n \\) and 1, and reflects the amount that an observation influences its own fit. Hence the residuals for high-leverage points are inflated (inflate = enlarge) in this formula.
+where \\( h_i \\) is the [leverage-statistic](http://erikyao.github.io/machine-learning/2014/09/21/machine-learning-linear-regression-part-2#High-Leverage-Points). The leverage lies between \\( 1/n \\) and 1, and reflects the amount that an observation influences its own fit. Hence the residuals for high-leverage points are inflated (inflate = enlarge) in this formula.
 
 ### <a name="k-fold"></a>1.3 k-Fold Cross-Validation
 

@@ -49,4 +49,4 @@ _2015-03-25 更新：_
 
 > The `extern` keyword declares a variable or function and specifies that it has external linkage (its name is visible from files other than the one in which it's defined). When modifying a variable, `extern` specifies that the variable has static duration (it is allocated when the program begins and deallocated when the program ends). The variable or function may be defined in another source file, or later in the same file.
 
-所以 “This is only a declaration; it’s defined elsewhere.” 只是 `extern` 的功能之一。更多内容请参 [extern: forcing const into external linkage](/c++/2015/03/18/cpp-auto-register-static-const-volatile-linkage-scope/#extern).
+所以 “This is only a declaration; it’s defined elsewhere.” 只是 `extern` 的功能之一。更多内容请参 [extern: forcing const into external linkage](/c++/2015/03/18/cpp-auto-register-static-const-volatile-linkage-scope#extern).

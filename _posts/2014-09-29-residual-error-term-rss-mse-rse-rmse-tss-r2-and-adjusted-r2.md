@@ -54,7 +54,7 @@ The least squares approach chooses coefficients that minimize the RSS. 所以说
 
 ### 2.2 \\( MSE = \frac{1}{n} RSS \\)?
 
-我们在 Statistical Learning 的 [2.1 Measuring the Quality of Fit](http://erikyao.github.io/machine-learning/2014/09/20/isl-statistical-learning/#Measuring-the-Quality-of-Fit) 有说：In the regression setting, the most commonly-used measure is the **Mean Squared Error (MSE)**
+我们在 Statistical Learning 的 [2.1 Measuring the Quality of Fit](http://erikyao.github.io/machine-learning/2014/09/20/isl-statistical-learning#Measuring-the-Quality-of-Fit) 有说：In the regression setting, the most commonly-used measure is the **Mean Squared Error (MSE)**
 
 $$
 \begin{equation}
@@ -114,7 +114,7 @@ $$
 \end{equation}
 $$
 
-但是 [书上](http://erikyao.github.io/machine-learning/2014/09/21/isl-linear-regression-part-1/#RSE) simple linear regression 里用的却是 
+但是 [书上](http://erikyao.github.io/machine-learning/2014/09/21/isl-linear-regression-part-1#RSE) simple linear regression 里用的却是 
 
 $$
 \begin{equation}

@@ -80,7 +80,7 @@ In this chapter, we discuss three important alternatives.
 	
 ## <a name="SS"></a>1. Subset Selection
 
-这里说的其实就是 Linear Regression - Part 1 那篇的 [2.4 Question 2: How to Decide on Important Variables? Or, do all the predictors help to explain \\( Y \\), or is only a subset of the predictors useful?](http://erikyao.github.io/machine-learning/2014/09/21/isl-linear-regression-part-1/#Mlr-Q2)
+这里说的其实就是 Linear Regression - Part 1 那篇的 [2.4 Question 2: How to Decide on Important Variables? Or, do all the predictors help to explain \\( Y \\), or is only a subset of the predictors useful?](http://erikyao.github.io/machine-learning/2014/09/21/isl-linear-regression-part-1#Mlr-Q2)
 
 ### <a name="BSS"></a>1.1 Best Subset Selection
 
@@ -190,7 +190,7 @@ $$
 \end{equation} 
 $$
 
-where \\( \hat{\sigma}\^2 \\) is an estimate of \\( \sigma\^2 \\), the variance of the error \\( \epsilon \\) in \\( (\ref{eq1.1}) \\). The MSE from the full model is often used to estimate \\( \sigma\^2 \\) (参 Statistical Learning [章节 2.2 The Bias-Variance Trade-Off 的公式 (2.2)](http://erikyao.github.io/machine-learning/2014/09/20/isl-statistical-learning/#mjx-eqn-eq2.2)。full model 下 training MSE 应该很小，所以能贴近 \\( \sigma\^2 \\)，i.e. \\( Var(\epsilon) \\)，i.e. the irreducible error).
+where \\( \hat{\sigma}\^2 \\) is an estimate of \\( \sigma\^2 \\), the variance of the error \\( \epsilon \\) in \\( (\ref{eq1.1}) \\). The MSE from the full model is often used to estimate \\( \sigma\^2 \\) (参 Statistical Learning [章节 2.2 The Bias-Variance Trade-Off 的公式 (2.2)](http://erikyao.github.io/machine-learning/2014/09/20/isl-statistical-learning#mjx-eqn-eq2.2)。full model 下 training MSE 应该很小，所以能贴近 \\( \sigma\^2 \\)，i.e. \\( Var(\epsilon) \\)，i.e. the irreducible error).
 
 Essentially, the \\( C\_p \\) statistic adds a penalty of \\( 2d\hat{\sigma}\^2 \\) to the training RSS in order to adjust for the fact that the training error tends to underestimate the test error. Clearly, the penalty increases as the number of predictors in the model increases; this is intended to adjust for the corresponding decrease in training RSS.
 
