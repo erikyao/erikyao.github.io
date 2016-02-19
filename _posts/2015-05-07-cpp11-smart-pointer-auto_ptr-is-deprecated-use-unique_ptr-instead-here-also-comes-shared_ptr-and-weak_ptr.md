@@ -7,7 +7,7 @@ tags: [Cpp-101, C++11]
 ---
 {% include JB/setup %}
 
-我们在 [C++ Exception Handling / auto_ptr](/c++/2015/04/13/cpp-exception-handling/#auto_ptr) 里介绍了 RAII wrapper for pointers--`auto_ptr`，然后 C++11 又 deprecated 了……对应的 replacement 是 unique_ptr。顺带还推出了 shared_ptr 和 weak_ptr，它们的特性是：
+我们在 [C++ Exception Handling / auto_ptr](/c++/2015/04/13/cpp-exception-handling#auto_ptr) 里介绍了 RAII wrapper for pointers--`auto_ptr`，然后 C++11 又 deprecated 了……对应的 replacement 是 unique_ptr。顺带还推出了 shared_ptr 和 weak_ptr，它们的特性是：
 
 - `shared_ptr` allows multiple pointers to refer to the same object.
 	- `shared_ptrs` automatically destroy their objects and free the associated memory when its reference count gets 0.
@@ -17,4 +17,4 @@ tags: [Cpp-101, C++11]
 - `weak_ptr` is a weak reference to an object managed by a `shared_ptr`.
 	- Binding a `weak_ptr` to a `shared_ptr` does not change the reference count of that shared_ptr. Once the last `shared_ptr` pointing to the object goes away, the object itself will be deleted, even if there are `weak_ptr`s pointing to it—hence the name `weak_ptr`, which captures the idea that a `weak_ptr` shares its object “weakly.”
 	- Because the object might no longer exist, we cannot use a `weak_ptr` to access its object directly. To access that object, we must call `lock()` function to check whether the object to which the `weak_ptr` points still exists. If so, `lock()` returns a `shared_ptr` to the shared object.
-	- 参 [Understanding Weak References](/java/2014/06/04/digest-of-effective-java/#weakReference)
+	- 参 [Understanding Weak References](/java/2014/06/04/digest-of-effective-java#weakReference)

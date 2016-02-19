@@ -44,7 +44,7 @@ tags: [R-101]
 
 ->图片来源：[Lecture 2: Descriptive Statistics and Exploratory Data Analysis](http://www.gs.washington.edu/academics/courses/akey/56008/lecture/lecture2.pdf)<-
 
-其实还有，根据 [quartile](http://erikyao.github.io/r/2014/08/02/r-getting-and-cleaning-data/#quartile) 这一节 IQR 的定义，50% of the observations 是在 [Ave - 0.5\*IQR, Ave + 0.5\*IQR] 这个区间内的。
+其实还有，根据 [quartile](http://erikyao.github.io/r/2014/08/02/r-getting-and-cleaning-data#quartile) 这一节 IQR 的定义，50% of the observations 是在 [Ave - 0.5\*IQR, Ave + 0.5\*IQR] 这个区间内的。
 
 -----
 

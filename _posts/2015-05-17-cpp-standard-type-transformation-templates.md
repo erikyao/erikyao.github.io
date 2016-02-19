@@ -11,7 +11,7 @@ tags: [Cpp-101]
 
 -----
 
-前面在 [C++: 6 things you must know about functions](/c++/2015/05/03/cpp-things-you-must-know-about-functions/#thing4) 的 Trailing Return Type 小节我们介绍了一个例子：
+前面在 [C++: 6 things you must know about functions](/c++/2015/05/03/cpp-things-you-must-know-about-functions#thing4) 的 Trailing Return Type 小节我们介绍了一个例子：
 
 <pre class="prettyprint linenums">
 // a trailing return lets us declare the return type after the parameter list is seen

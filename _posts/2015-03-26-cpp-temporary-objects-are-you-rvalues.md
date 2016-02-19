@@ -98,7 +98,7 @@ TEST 4 是我后来加的，是不是又瞎了狗眼了！总结下：
 TEST 4 是我后来加的，是不是又瞎了狗眼了！总结下：
 
 * 我相信对 temporary object 还是不能做取址操作的，但 `f7(f5());` 和 `f10(f5());` 编译出错并不是因为 "pass-by-reference 实际上也要对参数做取址操作"，而是因为 temporary object 是 const
-* [不能把 `const T` 或者 `const T&` 实参传给一个 `T&` 形参](/c++/2015/03/28/cpp-const-reference/#rules)，所以 `f7(f5());` 和 `f10(f5());` 出错是因为 `f7(X& x)` 和 `f10(X& x)` 无法接收身为 const 的 temporary object
+* [不能把 `const T` 或者 `const T&` 实参传给一个 `T&` 形参](/c++/2015/03/28/cpp-const-reference#rules)，所以 `f7(f5());` 和 `f10(f5());` 出错是因为 `f7(X& x)` 和 `f10(X& x)` 无法接收身为 const 的 temporary object
 	* 至于 temporary object 是 `const X` 还是 `const X&`，这里已经不重要了，反正这两者都不能被 `f7(X& x)` 和 `f10(X& x)` 接收
 
 书上最后还补了一句：把函数设计成接收 reference to const，i.e. `bar(const T*)` 这种形式是 best practice。The efficiency savings can be substantial for such a simple habit: to pass an argument by value requires a constructor and destructor call, but if you’re not going to modify the argument then passing by const reference only needs an address pushed on the stack.

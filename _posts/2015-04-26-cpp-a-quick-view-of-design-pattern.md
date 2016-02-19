@@ -28,7 +28,7 @@ tags: [Cpp-101]
 	- [Chain of Responsibility](#CoR)
 	- **Observer:** what if a group of objects needs to update themselves when some other object changes state?
 	- [Multiple Dispatching (另起一篇)](/c++/2015/04/26/cpp-double-dispatch/)
-	- [Visitor (参考另一篇)](/java/2014/06/24/digest-of-agile-software-development-ppp/#ch28)
+	- [Visitor (参考另一篇)](/java/2014/06/24/digest-of-agile-software-development-ppp#ch28)
 	
 ## <a name="Singleton"></a>1. Singleton
 

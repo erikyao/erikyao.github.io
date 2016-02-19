@@ -9,11 +9,11 @@ tags: [Rcpp]
 
 ## 1. The C beneath R 
 
-我们在 [Digest of Advanced R](/r/2015/07/08/digest-of-advanced-r) 的 [13.4 Implementation performance](/r/2015/07/08/digest-of-advanced-r/#13-4-Implementation-performance) 讲过：
+我们在 [Digest of Advanced R](/r/2015/07/08/digest-of-advanced-r) 的 [13.4 Implementation performance](/r/2015/07/08/digest-of-advanced-r#13-4-Implementation-performance) 讲过：
 
 > R is over 20 years old. It contains nearly 800,000 lines of code (about 45% C, 19% R, and 17% Fortran).
 
-而 R 中的 C 的代表就是 `SEXP` 那一套，具体可以参 [17.2 R's C data structures](http://erikyao.github.io/r/2015/07/08/digest-of-advanced-r/#17-2-R's-C-data-structures)。
+而 R 中的 C 的代表就是 `SEXP` 那一套，具体可以参 [17.2 R's C data structures](http://erikyao.github.io/r/2015/07/08/digest-of-advanced-r#17-2-R's-C-data-structures)。
 
 ## 2. Related R APIs
 
@@ -34,7 +34,7 @@ _Seamless R and C++ Integration with Rcpp_ 的 _2.3 The R Applicataion Programmi
 
 ## 3. 结合 1 和 2 可以做到在 R 中调用 C 函数
 
-结合 [Digest of Advanced R](/r/2015/07/08/digest-of-advanced-r) 的 [17.1 Calling C functions from R](/r/2015/07/08/digest-of-advanced-r/#17-1-Calling-C-functions-from-R) 和 _Seamless R and C++ Integration with Rcpp_ 的 _2.4 A First Compilation with Rcpp_ 小节，我们可以得到一个完整点的例子：
+结合 [Digest of Advanced R](/r/2015/07/08/digest-of-advanced-r) 的 [17.1 Calling C functions from R](/r/2015/07/08/digest-of-advanced-r#17-1-Calling-C-functions-from-R) 和 _Seamless R and C++ Integration with Rcpp_ 的 _2.4 A First Compilation with Rcpp_ 小节，我们可以得到一个完整点的例子：
 
 <pre class="prettyprint linenums">
 // In C ----------------------------------------
@@ -117,7 +117,7 @@ add &lt;- cfunction(signature(a="numeric", b="numeric"), body=code)
 - C++ 文件里写 Rcpp Attributes (比如 `[[Rcpp::export]]`)，然后 R 里执行 `sourceCpp()`
 	- 这么搞其实又回到第 3 节的 "C文件 + R文件" 模式上去了。
 	
-具体的例子参考 [Digest of Advanced R](/r/2015/07/08/digest-of-advanced-r) 的 [16. High performance functions with Rcpp](/r/2015/07/08/digest-of-advanced-r/#16--High-performance-functions-with-Rcpp)。
+具体的例子参考 [Digest of Advanced R](/r/2015/07/08/digest-of-advanced-r) 的 [16. High performance functions with Rcpp](/r/2015/07/08/digest-of-advanced-r#16--High-performance-functions-with-Rcpp)。
 
 注意这两种用法的实现方法是不同的：
 

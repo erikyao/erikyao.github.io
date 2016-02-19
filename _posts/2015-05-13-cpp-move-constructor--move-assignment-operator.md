@@ -104,7 +104,7 @@ Move constructor、move `operator=` 和 copy-constructor、`operator=` 的格式
 
 Because a move operation executes by “stealing” resources, it ordinarily does not itself allocate any resources. As a result, move operations ordinarily will not throw any exceptions. One way inform the library is to specify `noexcept`, which was introduced by the new standard, on our move constructor. 
 
-- `noecept` 应该就是 `throw()` 的意思，这里不展开。参 [Declaring a throw](/c++/2015/04/13/cpp-exception-handling/#exception-specification)
+- `noecept` 应该就是 `throw()` 的意思，这里不展开。参 [Declaring a throw](/c++/2015/04/13/cpp-exception-handling#exception-specification)
 
 为什么一定要声明不抛出异常呢？
 

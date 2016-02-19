@@ -13,7 +13,7 @@ tags: [Cpp-101]
 
 ## 1. Intro
 
-在 [C++: Generic Algorithm Examples](/c++/2015/04/21/cpp-generic-algorithm-examples/#ga2) 我们写过一个叫做 `gt15(int x)` 的函数，如果能把这个函数封装成一个对象 `Gt(15)` 明显会更灵活。这样的对象我们称为 function object，而实现的手段就是重载 `operator()` (function call operator):
+在 [C++: Generic Algorithm Examples](/c++/2015/04/21/cpp-generic-algorithm-examples#ga2) 我们写过一个叫做 `gt15(int x)` 的函数，如果能把这个函数封装成一个对象 `Gt(15)` 明显会更灵活。这样的对象我们称为 function object，而实现的手段就是重载 `operator()` (function call operator):
 
 <pre class="prettyprint linenums">
 #include &lt;iostream&gt;
@@ -50,7 +50,7 @@ template &lt;class T&gt; struct greater : binary_function &lt;T,T,bool&gt; {
 };
 </pre>
 
-首先它是一个 struct；然后它不像我们的 Gt 可以初始化一个参数，而且只能像 `greater<int>(15, 20)` 这样传两个参数进去才能用。这个 greater 无法直接用于 [C++: Generic Algorithm Examples](/c++/2015/04/21/cpp-generic-algorithm-examples/#ga2) 的场景，所以我们需要进一步封装：
+首先它是一个 struct；然后它不像我们的 Gt 可以初始化一个参数，而且只能像 `greater<int>(15, 20)` 这样传两个参数进去才能用。这个 greater 无法直接用于 [C++: Generic Algorithm Examples](/c++/2015/04/21/cpp-generic-algorithm-examples#ga2) 的场景，所以我们需要进一步封装：
 
 <pre class="prettyprint linenums">
 bind2nd(greater&lt;int&gt;(), 15));
@@ -64,7 +64,7 @@ bind2nd(greater&lt;int&gt;(), 15));
 
 同理还有 `bind1st`。
 
-这样 [C++: Generic Algorithm Examples](/c++/2015/04/21/cpp-generic-algorithm-examples/#ga2) 里的例子就可以重写成：
+这样 [C++: Generic Algorithm Examples](/c++/2015/04/21/cpp-generic-algorithm-examples#ga2) 里的例子就可以重写成：
 
 <pre class="prettyprint linenums">
 #include &lt;algorithm&gt;
