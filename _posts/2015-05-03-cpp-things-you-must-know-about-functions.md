@@ -50,7 +50,7 @@ int main() {
 - 如果你是 return string，那 temporary 就占 return value placeholder；
 - 如果是 return string reference，那这个 temporary 的 reference 就占 return value placeholder，但是 temporary 会被销毁。
 
-return value placeholder 请参见 [C++: Copy-constructor and the return value on the stack](/c++/2015/04/02/cpp-copy-constructor-and-the-return-value-on-the-stack/) 
+return value placeholder 请参见 [C++: Copy-constructor and the return value on the stack](/c++/2015/04/02/cpp-copy-constructor-and-the-return-value-on-the-stack) 
 
 ## <a name="thing2"></a>Reference Returns Are Lvalues
 

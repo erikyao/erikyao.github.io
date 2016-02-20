@@ -7,7 +7,7 @@ tags: [ML-101]
 ---
 {% include JB/setup %}
 
-摘自 [Six Types Of Analyses Every Data Scientist Should Know](http://datascientistinsights.com/2013/01/29/six-types-of-analyses-every-data-scientist-should-know/) 和 [Types of Questions](https://class.coursera.org/datascitoolbox-005/lecture/57)；两者内容基本相同。
+摘自 [Six Types Of Analyses Every Data Scientist Should Know](http://datascientistinsights.com/2013/01/29/six-types-of-analyses-every-data-scientist-should-know) 和 [Types of Questions](https://class.coursera.org/datascitoolbox-005/lecture/57)；两者内容基本相同。
 
 -----
 

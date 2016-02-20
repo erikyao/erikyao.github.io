@@ -34,7 +34,7 @@ long l = static_cast&lt;long&gt;(i);
 
 ## 0. Overview
 
-那明明 `(float)200` 就可以搞定的事，我为啥要 `static_cast<long>(200)` 搞这么复杂？事实证明，C++ 也不是吃饱了撑着才搞这些，是有目的的。感谢 [独酌逸醉](http://www.cnblogs.com/chinazhangjie/) 的这篇 [C++类型转换运算符(Type Conversion Operators)](http://www.cnblogs.com/chinazhangjie/archive/2010/08/19/1803051.html)，解释得很清楚：
+那明明 `(float)200` 就可以搞定的事，我为啥要 `static_cast<long>(200)` 搞这么复杂？事实证明，C++ 也不是吃饱了撑着才搞这些，是有目的的。感谢 [独酌逸醉](http://www.cnblogs.com/chinazhangjie) 的这篇 [C++类型转换运算符(Type Conversion Operators)](http://www.cnblogs.com/chinazhangjie/archive/2010/08/19/1803051.html)，解释得很清楚：
 
 > 这些操作符取代了以往小圆括号所代表的旧式转型，能够清楚阐明转型的目的。小圆括号转型可替换 `dynamic_cast` 之外的其他三种转型，也因此你运用它时，你无法明确显示用它的确切理由。  
 > <br/>

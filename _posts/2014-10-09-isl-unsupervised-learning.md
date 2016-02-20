@@ -176,7 +176,7 @@ $$
 \end{equation} 
 $$
 
-老实说这个我没有推导出来，建议结合 Ng 课的笔记 [Machine Learning: Dimensionality Reduction](http://erikyao.github.io/machine-learning/2014/09/06/machine-learning-dimensionality-reduction/) 再推导试试。可以肯定的是：
+老实说这个我没有推导出来，建议结合 Ng 课的笔记 [Machine Learning: Dimensionality Reduction](/machine-learning/2014/09/06/machine-learning-dimensionality-reduction) 再推导试试。可以肯定的是：
 
 * loading vector 是 `[U, S, V] = svd(Σ)` 的 `U` 的 1 行
 * score \\( z\_{i1} \\) 应该是 \\( z\^{(i)} \\) 的第一个元素

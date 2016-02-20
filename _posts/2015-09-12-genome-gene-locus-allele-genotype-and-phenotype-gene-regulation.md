@@ -34,7 +34,7 @@ DNA 的宏观物理结构是 Chromosome (染色体)：
 		- DNA double helix is packaged by histones to form a complex called _**chromatin**_. 
 		- The chromatin undergoes further condensation to form the _**chromosome**_. 
 		- So while the chromatin is a lower order of DNA organization; chromosomes are the higher order of DNA organization.
-	- 在 [Cell Cycle](/biology/2015/07/29/cell-cycle/) 的 S phase，一条 Chromatin 会分裂成两条 Chromatids (['krəʊmətɪd], 染色单体)
+	- 在 [Cell Cycle](/biology/2015/07/29/cell-cycle) 的 S phase，一条 Chromatin 会分裂成两条 Chromatids (['krəʊmətɪd], 染色单体)
 		- Every chromatid has a short _**p-arm**_ ("p" for "petit") and a long _**q-arm**_ ("q" for "queue")
 		- Every 2 chromatids are connected by a _**centromere**_.
 		- 我们在研究单条 Chromosome 的时候仍然会使用 p-arm、q-arm 和 centromere 来细分单条 Chromosome 的结构

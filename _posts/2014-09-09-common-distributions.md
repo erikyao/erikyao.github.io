@@ -9,7 +9,7 @@ tags: [Math-Statistics]
 
 总结自 Coursera lecture [Statistical Inference](https://class.coursera.org/statinference-005/lecture) section [06 Common distributions](https://class.coursera.org/statinference-005/lecture/165)。  
 
-部分参考 [The Poisson Distribution](http://www.umass.edu/wsp/resources/poisson/)
+部分参考 [The Poisson Distribution](http://www.umass.edu/wsp/resources/poisson)
 
 -----
 

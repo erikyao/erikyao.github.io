@@ -7,7 +7,7 @@ tags: [ML-101, Bayes]
 ---
 {% include JB/setup %}
 
-首先感谢 [张洋](http://leoo2sk.cnblogs.com/) 先生的这篇 [算法杂货铺——分类算法之朴素贝叶斯分类(Naive Bayesian classification)](http://www.cnblogs.com/leoo2sk/archive/2010/09/17/naive-bayesian-classifier.html)，写的非常清楚明白。本文以此为基础做些总结。
+首先感谢 [张洋](http://leoo2sk.cnblogs.com) 先生的这篇 [算法杂货铺——分类算法之朴素贝叶斯分类(Naive Bayesian classification)](http://www.cnblogs.com/leoo2sk/archive/2010/09/17/naive-bayesian-classifier.html)，写的非常清楚明白。本文以此为基础做些总结。
 
 Bayes Classifier 在 ISL 里零零散散提到一些，不正式写一下总觉得有点不痛快。
 
@@ -34,7 +34,7 @@ $$
 
 ## 2. Naive Bayes classifier
 
-按 [张洋](http://leoo2sk.cnblogs.com/) 先生的文章，Bayes classifier 的定义可以这么写：
+按 [张洋](http://leoo2sk.cnblogs.com) 先生的文章，Bayes classifier 的定义可以这么写：
 
 * 设 \\( x\^{(i)} = \\{ x\^{(i)}\_1,x\^{(i)}\_2,\cdots,x\^{(i)}\_n \\} \\)为一个 test point，\\( x\^{(i)}\_j \\) 表示 \\( x\^{(i)} \\) 的 \\( j\^{th} \\) feature 的值。
 * class (label) 集合 \\( C = \\{ y\_1,y\_2,\cdots,y\_K \\} \\)

@@ -11,15 +11,16 @@ tags: [Database-101]
 
 ### 1.1. 让数据库做擅长的事——存储，尽量不让数据库做运算，例如：
 
-    md5() / order by rand()
+- `md5()`
+- `order by rand()`
 
 ### 1.2. 评估：软硬件配置 / 操作类型（读为主或写为主或兼而有之）/ 访问量
 
 ### 1.3. 适当增加冗余
 
-　　比如 `table_with_3_fields` 经常与 `table_with_17_fields` 做联结，不如直接和合并成一个 `table_with_20_fields`。`table_with_3_fields` 的数据冗余点也无所谓。  
+比如 `table_with_3_fields` 经常与 `table_with_17_fields` 做联结，不如直接和合并成一个 `table_with_20_fields`。`table_with_3_fields` 的数据冗余点也无所谓。  
 
-　　但要控制字段数目，一般保持在 20-50 即可.
+但要控制字段数目，一般保持在 20-50 即可.
 
 ## 2. innodb 事务 & 锁 ##
 
@@ -34,7 +35,7 @@ tags: [Database-101]
 | 可重复读（Repeatable Read）  | × 不可能           | × 不可能                         | √ 可能               |
 | 可串行化（Serializable ）    | × 不可能           | × 不可能                         | × 不可能             |
 
-参见 [Isolation](/database/2009/12/25/isolation/)
+参见 [Isolation](/database/2009/12/25/isolation)
 
 简而言之：
 
@@ -95,8 +96,8 @@ innodb 的默认隔离级别是 Repeatable Read，但是实际上是可以防止
 
 ### 关于时间 ###
 
-- 年，YEAR类型
-- 日期，DATE类型
+- 年，YEAR 类型
+- 日期，DATE 类型
 - 时间（精确到秒）建议使用 TIMESTAMP 类型，而非 DATETIME 类型。精度更高可以考虑使用 BIGINT 存储 UNIX TIMESTAMP。
 
 ### 关于 ip ###
@@ -112,7 +113,7 @@ innodb 的默认隔离级别是 Repeatable Read，但是实际上是可以防止
 
 - 应尽量避免使用 null，因为：
 	1. 很难进行查询优化；
-	2. NULL列加索引，需要额外空间
+	2. NULL 列加索引，需要额外空间
 - 可利用 0、空串等设置默认值 ('' ≠ NULL)
 
 ### 关于大对象 ###
@@ -130,10 +131,10 @@ innodb 的默认隔离级别是 Repeatable Read，但是实际上是可以防止
 - VARCHAR 理论最大存储 65535 _**字节**_，实际存储量为 65532 字节（有3字节 VARCHAR 自己要用）。如果超过，根据 SQL_MODE 设置，有报错或自动转为 TEXT 类型等处理方式
 - 其实 65535 是指 _**单行记录内所有 VARCHAR 字段字节数的上限**_ 是65535
 - VARCHAR(N) 中 N 指字符长度
-    - 若是 ascii，每个字符1字节，最大可以有 VARCHAR(65532)
-    - 若是 gbk，每个字符2字节，最大可以有 VARCHAR(32766)
-    - 若是 utf8，每个字符3字节，最大可以有 VARCHAR(21844)
-- 对于InnoDB引擎，实际中就算是 TEXT/BLOB 也有可能不进行溢出；反之，即使是VARCHAR也可能发生溢出，进入LOB页
+    - 若是 ascii，每个字符 1 字节，最大可以有 VARCHAR(65532)
+    - 若是 gbk，每个字符 2 字节，最大可以有 VARCHAR(32766)
+    - 若是 utf8，每个字符 3 字节，最大可以有 VARCHAR(21844)
+- 对于 InnoDB 引擎，实际中就算是 TEXT/BLOB 也有可能不进行溢出；反之，即使是 VARCHAR 也可能发生溢出，进入 LOB 页
 
 ## 4. 索引 ##
 
@@ -297,7 +298,7 @@ innodb 的默认隔离级别是 Repeatable Read，但是实际上是可以防止
 	> - count(1) = count(100)
 	> - count(*) != count(col)
 
-- 将大SQL语句拆分为多个小SQL
+- 将大 SQL 语句拆分为多个小 SQL
     
     > - 简单 SQL 的缓存命中率更高
     > - 减少锁表时间，特别是MyISAM

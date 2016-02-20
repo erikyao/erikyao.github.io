@@ -50,7 +50,7 @@ Here I will follow _Woese, Kandler & Wheelis (1990)_, although some aspects of t
 
 - elide: [iˈlaɪd], to omit; to suppress or alter (as a vowel or syllable); to strike out (as a written word)
 
-更多内容参考 [Taxonomic Ranks](/biology/2015/07/28/taxonomic-ranks/).
+更多内容参考 [Taxonomic Ranks](/biology/2015/07/28/taxonomic-ranks).
 
 ### Evolutionary Time and Relatedness
 
@@ -70,7 +70,7 @@ An important difference between multicellular organisms and a colony of unicellu
 - All the other kinds of cells in the body are somatic. E.g. skin cells, or nerve cells, and blood cells.
 - Both kinds of cells divide (细胞分裂) and create more of the same kind of cell, but only germ cells make new organisms. 
 
-更多内容参考 [Cell Cycle](/biology/2015/07/29/cell-cycle/).
+更多内容参考 [Cell Cycle](/biology/2015/07/29/cell-cycle).
 
 Multicellular organisms all begin their lives from a single cell, a fertilized egg. From that single cell, all of the specialized cells arise through a process called cellular differentiation (细胞分化).
 
@@ -101,7 +101,7 @@ The composition of cells:
 - Mitochondria and Chroloplasts
 - Other Parts of Cells
 
-更多内容参考 [Eukaryotic Cell Structure](/biology/2015/07/30/eukaryotic-cell-structure/).
+更多内容参考 [Eukaryotic Cell Structure](/biology/2015/07/30/eukaryotic-cell-structure).
 
 ## 3. Life as a Biochemical Process
 

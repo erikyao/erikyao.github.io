@@ -9,17 +9,17 @@ tags: [Java-101]
 
 　　overload: 重载，指在同一个 class 中有多个 **同名** function 的现象。  
 
-　　override: 覆写，指 ext class 中重写base class中的 **同签名** function 的行为。  
+　　override: 覆写，指 ext class 中重写 base class 中的 **同签名** function 的行为。  
 
-　　注意，如果 ext class 继承了 base class ——假设 base class 中一个 **非private非final的** work(arg list 1)方法—— ext class 中同样也会有 work(arg list 1) 方法。  
+　　注意，如果 ext class 继承了 base class ——假设 base class 中一个 **非 private 非 final 的** `work(arg list 1)` 方法—— ext class 中同样也会有 `work(arg list 1)` 方法。  
 
-　　此时如果在 ext class 中再添加一个同名 function，如 work(arg list 2)，则是重载行为。  
+　　此时如果在 ext class 中再添加一个同名 function，如 `work(arg list 2)`，则是重载行为。  
 
-　　如果添加一个同签名 function，即work(arg list 1)，则是覆写行为。  
+　　如果添加一个同签名 function，即 `work(arg list 1)`，则是覆写行为。  
 
-　　方法名与参数列表合称方法签名，是方法的唯一标识。return type不属于方法签名。(3月27日补充：虽然如此，覆写对return type还是有要求的，more details see [关于覆写方法的return type](/java/2009/03/27/return-type-of-overridden-method/))
+　　方法名与参数列表合称方法签名，是方法的唯一标识。return type 不属于方法签名。(3月27日补充：虽然如此，覆写对 return type 还是有要求的，more details see [关于覆写方法的return type](/java/2009/03/27/return-type-of-overridden-method))
 
-　　如果base class中的work(arg list 1)方法是private或是final的，那么ext class中是不会有work(arg list 1)方法的，所以无论是添加work(arg list 1)方法或是work(arg list 2)方法，是既不算重载也不算覆写的。
+　　如果 base class 中的 `work(arg list 1)` 方法是 private 或是 final 的，那么 ext class 中是不会有 `work(arg list 1)` 方法的，所以无论是添加 `work(arg list 1)` 方法或是 `work(arg list 2)` 方法，是既不算重载也不算覆写的。
 
 _P.S._ 重载并不要求有继承，同一个类中也可以有重载行为
 

@@ -10,7 +10,7 @@ tags: [Cpp-101, copy-constructor]
 整理自：
 
 - _Thinking in C++_
-- [LearnCpp: 7.9 — The stack and the heap](http://www.learncpp.com/cpp-tutorial/79-the-stack-and-the-heap/)
+- [LearnCpp: 7.9 — The stack and the heap](http://www.learncpp.com/cpp-tutorial/79-the-stack-and-the-heap)
 
 [function_frame_1]: https://farm2.staticflickr.com/1608/23894467526_f92a9b7358_o_d.png
 [function_frame_2]: https://farm6.staticflickr.com/5790/23293776353_b73a3a58b8_o_d.png
@@ -131,7 +131,7 @@ output: (序号是我自己加的)
 
 ## 3. Return value on the stack
 
-书上从 P503 开始就在讲函数调用时 stack 的情况，讲了 stack 运作规则的设计考虑了 Re-entrancy、ISR、recursion 等因素。但是其实还是 [LearnCpp: 7.9 — The stack and the heap](http://www.learncpp.com/cpp-tutorial/79-the-stack-and-the-heap/) 说得干脆：
+书上从 P503 开始就在讲函数调用时 stack 的情况，讲了 stack 运作规则的设计考虑了 Re-entrancy、ISR、recursion 等因素。但是其实还是 [LearnCpp: 7.9 — The stack and the heap](http://www.learncpp.com/cpp-tutorial/79-the-stack-and-the-heap) 说得干脆：
 
 > Here is the sequence of steps that takes place when a function is called:  
 > <br/>
@@ -154,7 +154,7 @@ output: (序号是我自己加的)
 
 ![][function_frame_1]
 
-另外 [LearnCpp: 7.9 — The stack and the heap](http://www.learncpp.com/cpp-tutorial/79-the-stack-and-the-heap/) 的内容有一点要强调下，那就是 "The function’s return value is copied into the placeholder." 不一定每次都会发生，从下面实验的结果来看，如果是 return an argument 就有 copy，如果是 return a local variable 就没有 copy，因为 compiler 会非常机智地把要 return 的 local variable 直接分配到 return value placeholder 上。
+另外 [LearnCpp: 7.9 — The stack and the heap](http://www.learncpp.com/cpp-tutorial/79-the-stack-and-the-heap) 的内容有一点要强调下，那就是 "The function’s return value is copied into the placeholder." 不一定每次都会发生，从下面实验的结果来看，如果是 return an argument 就有 copy，如果是 return a local variable 就没有 copy，因为 compiler 会非常机智地把要 return 的 local variable 直接分配到 return value placeholder 上。
 
 ## 4. 大实验二
 

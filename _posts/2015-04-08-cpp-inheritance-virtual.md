@@ -387,7 +387,7 @@ int main() {
 
 In addition, many compilers recognize that a virtual function call is being made inside a constructor, and perform early binding because they know that late-binding will produce a call only to the local function.
 
-这和 java 的情况有点不同，参考 [warning: 在构造器中请谨慎使用被覆写方法](http://erikyao.github.io/java/2009/03/27/using-overridden-method-in-constructor-is-dangerous/)。
+这和 java 的情况有点不同，参考 [warning: 在构造器中请谨慎使用被覆写方法](/java/2009/03/27/using-overridden-method-in-constructor-is-dangerous)。
 
 ### <a name="virtual-destructors"></a>2.5 Virtual destructors
 

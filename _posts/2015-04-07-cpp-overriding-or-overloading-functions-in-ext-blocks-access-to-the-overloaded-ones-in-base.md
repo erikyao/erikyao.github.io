@@ -196,7 +196,7 @@ int main() {
 
 If you’re returning a pointer or a reference to a base class, then the overridden version of the function may return a pointer or reference to a class derived from what the base returns.
 
-可参考 java 版本的 [关于覆写方法的 return type](/java/2009/03/27/return-type-of-overridden-method/)。
+可参考 java 版本的 [关于覆写方法的 return type](/java/2009/03/27/return-type-of-overridden-method)。
 
 -----
 

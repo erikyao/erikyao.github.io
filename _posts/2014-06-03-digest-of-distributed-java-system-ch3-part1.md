@@ -32,7 +32,7 @@ tags: [Book, JVM]
 
 参考了：
 
-- [Understanding JVM Internals](http://www.cubrid.org/blog/dev-platform/understanding-jvm-internals/) 的 figure 4 
+- [Understanding JVM Internals](http://www.cubrid.org/blog/dev-platform/understanding-jvm-internals) 的 figure 4 
 - [The Java Virtual Machine --by Bill Venners](http://www.artima.com/insidejvm/ed2/jvm2.html) 的 figure 5-1
 
 ----------  
@@ -49,7 +49,7 @@ tags: [Book, JVM]
 
 以下还参考了：
 
-- [Compilation Overview](http://openjdk.java.net/groups/compiler/doc/compilation-overview/)
+- [Compilation Overview](http://openjdk.java.net/groups/compiler/doc/compilation-overview)
 - [The Hacker’s Guide to Javac](http://scg.unibe.ch/archive/projects/Erni08b.pdf)。  
 
 The process of compiling a set of source files into a corresponding set of class files is not a simple one, but can be generally divided into three stages. Different parts of source files may proceed through the process at different rates, on an "as needed" basis.  

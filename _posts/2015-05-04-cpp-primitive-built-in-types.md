@@ -53,7 +53,7 @@ long double,	extended-precision floating-point,	10 significant digits
 | double      | double-precision floating-point   | 10 significant digits |
 | long double | extended-precision floating-point | 10 significant digits |
 
-The size of—that is, the number of bits in—the arithmetic types varies across machines. The standard guarantees minimum sizes as listed in Table 2.1. However, compilers are allowed to use larger sizes for these types. Because the number of bits varies, the largest (or smallest) value that a type can represent also varies. 比如 int 在 32-bit 系统的 Visual Studio 2008 下就是 32 bits 长的。规范只规定了诸如 "int: Not smaller than short. At least 16 bits." 这样的大规范，不同的机器、不同的编译器可以有不同的 type size。（源出：[Variables and types](http://www.cplusplus.com/doc/tutorial/variables/)）
+The size of—that is, the number of bits in—the arithmetic types varies across machines. The standard guarantees minimum sizes as listed in Table 2.1. However, compilers are allowed to use larger sizes for these types. Because the number of bits varies, the largest (or smallest) value that a type can represent also varies. 比如 int 在 32-bit 系统的 Visual Studio 2008 下就是 32 bits 长的。规范只规定了诸如 "int: Not smaller than short. At least 16 bits." 这样的大规范，不同的机器、不同的编译器可以有不同的 type size。（源出：[Variables and types](http://www.cplusplus.com/doc/tutorial/variables)）
 
 也有些类型是定长的，比如 `__int32` 一定是 32 bits，具体见 [Data Type Ranges](https://msdn.microsoft.com/zh-cn/library/s3f49ktz.aspx) 和 [What does the C++ standard state the size of int, long type to be?](http://stackoverflow.com/questions/589575/what-does-the-c-standard-state-the-size-of-int-long-type-to-be)。
 

@@ -577,7 +577,7 @@ public class ForwardingSet<E> implements Set<E> {
 
 这个 extends ForwardingSet 的类我们又称为 wrapper class，而且是一个非常经典的 <a name="dp_decorator"></a>Decorator 模式 实现, who wrapped Set<E> and decorate it with "addCount" feature。
 
-<a name="true_delegation"></a>严格来说 forwarding class 不算是委托（delegation）（唔……[a simple delegation example](/java/2009/10/31/a-simple-delegation-example/)），真正意义上的 delegation 应该是这样的（参 [Delegates - find out what constitutes true delegation](http://www.javaworld.com/article/2077357/learn-java/delegates.html)）：
+<a name="true_delegation"></a>严格来说 forwarding class 不算是委托（delegation）（唔……[a simple delegation example](/java/2009/10/31/a-simple-delegation-example)），真正意义上的 delegation 应该是这样的（参 [Delegates - find out what constitutes true delegation](http://www.javaworld.com/article/2077357/learn-java/delegates.html)）：
 
 > Think of true delegation this way: Something sends a request to object1. object1 then forwards the request and itself to object2 -- the delegate. object2 processes the request and does some work.
 

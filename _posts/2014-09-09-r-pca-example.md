@@ -63,7 +63,7 @@ plot(udv$d^2/sum(udv$d^2), pch = 19, xlab = "Singular vector", ylab = "Variance 
 
 ![][variance_explained]
 
-注意这里和 [Machine Learning: Dimensionality Reduction](http://erikyao.github.io/machine-learning/2014/09/06/machine-learning-dimensionality-reduction/) 那篇不同，这里是直接把 _X_ 拿来分解了，然后再计算的协方差。
+注意这里和 [Machine Learning: Dimensionality Reduction](/machine-learning/2014/09/06/machine-learning-dimensionality-reduction) 那篇不同，这里是直接把 _X_ 拿来分解了，然后再计算的协方差。
 
 ## 4. Create Approximations
 

@@ -308,9 +308,9 @@ SRP 说的是修改实现的原则；OCP 说：有新需求来的时候，应该
   
 书中另外一个例子也很说明问题，父类可以接受任何类型，但是引入的子类只能接受某个特定类型，这个继承关系就违反了 LSP。  
   
-检查是否违反了LSP有两个常见的方法：
+检查是否违反了 LSP 有两个常见的方法：
   
-1. 子类中有退化方法，即父类的方法在子类中没有用处。一般的做法是子类覆写了某个父类的方法，但是是个空实现或是抛出 NotImpelmentedException 之类的。有退化方法不一定代表违反了 LSP，但应引起注意  
+1. 子类中有退化方法，即父类的方法在子类中没有用处。一般的做法是子类覆写了某个父类的方法，但是是个空实现或是抛出 `NotImpelmentedException` 之类的。有退化方法不一定代表违反了 LSP，但应引起注意  
 2. 子类的方法声明抛出了父类没有声明的异常，一定是违反了 LSP  
   
 按理来说，接口和接口实现的关系也是要满足 LSP 的，但是感觉接口实现受编译器的限制比子类要大，违反 LSP 难度略大。但是在开发中需要警惕因为接口实现而去修改接口的做法。  
@@ -359,9 +359,9 @@ DIP 是框架（framework）设计的核心原则。框架提供给开发者的�
   
 SRP 说的是修改实现的原则；OCP 说：有新需求来的时候，应该只是添加子类或是接口实现（Open），不应该去修改原有类的实现（Closed）；LSP 则告诉你：怎样的子类和接口实现才是合格的子类和接口实现；DIP 说：依赖关系都应该终止于抽象类或是接口。ISP 则是说：依赖于抽象是没错，但是这个抽象不能太胖。  
   
-比如说，一个接口有10个方法，但是，当你因为新的需求想添加一个新的实现类的时候，发现只用实现7个方法就可以了，另外3个方法只能给出退化（degenerated）实现了（退化实现还有可能违反 LSP），那么我们可以说这个接口被三个不需要的方法污染了，也就是太胖了。  
+比如说，一个接口有 10 个方法，但是，当你因为新的需求想添加一个新的实现类的时候，发现只用实现 7 个方法就可以了，另外 3 个方法只能给出退化（degenerated）实现了（退化实现还有可能违反 LSP），那么我们可以说这个接口被三个不需要的方法污染了，也就是太胖了。  
   
-一个接口并不是生而就胖的，反而可以认为是客户端太刁钻了。试想，上面那个10个方法的接口，在新客户端出现之前，不是也工作得很好么？是因为新的客户端出现了，才显得胖。新客户端的引入，迫使我们对客户端进行整理，对客户端分类的过程也就是分离接口的过程。  
+一个接口并不是生而就胖的，反而可以认为是客户端太刁钻了。试想，上面那个 10 个方法的接口，在新客户端出现之前，不是也工作得很好么？是因为新的客户端出现了，才显得胖。新客户端的引入，迫使我们对客户端进行整理，对客户端分类的过程也就是分离接口的过程。  
   
 ISP, Interface Segregation Principle  
   
@@ -561,7 +561,7 @@ Monostate 比 Singleton 好的一个地方就是继承，因为 Monostate 的子
 
 null object 在实现上比空列表要复杂一点，它是正常业务类的 sibling，这要求正常的业务类有一个父类或是接口，比如 LP，正常的业务类是 CustomLP，那么对应的 null object 类就是 NullCustomLP。  
 
-此时，可以给 LP 定一个方法，比如 isNull() 或是 isUsable() 之类的，给上层调用代码判断一下这个 LP 到底是 CustomLP 还是 NullCustomLP。  
+此时，可以给 LP 定一个方法，比如 `isNull()` 或是 `isUsable()` 之类的，给上层调用代码判断一下这个 LP 到底是 CustomLP 还是 NullCustomLP。  
 
 然后 NullCustomLP 可以设计成单例，或是设计成 LP 的内部类（接口也可以有内部类，所以 LP 是接口也无所谓）然后通过 LP 的一个 public static field 暴露出来，比如 `LP.NULL`。
 
@@ -582,7 +582,7 @@ null object 在实现上比空列表要复杂一点，它是正常业务类的 s
 > <br/>
 > 应用设计不应该依赖于任何特定类型的数据库（19章第7节）
 
-这一段要与 [设计 PO 的一些经验](/as-a-coder/2013/05/25/on-the-design-of-po/) 连起来看。其实我们考虑从 DB 入手很多情况下是出于：
+这一段要与 [设计 PO 的一些经验](/as-a-coder/2013/05/25/on-the-design-of-po) 连起来看。其实我们考虑从 DB 入手很多情况下是出于：
 
 1. 对一表多对象、Transaction 管理等知识的不足
 2. 总有表字段会遗漏或者后期需求要加 field 会干扰你的设计
@@ -950,13 +950,13 @@ _Thinking in C++, Volume 2_ 的说法是：
 
 另外注意几点：
 
-1. `UnixModemConfigurator` 里<del>并没有用 Modem 的多态</del>（并不是你想用就能用，因为方法参数根本就不支持多态！参 [C++ double dispatch: 函数参数并不支持多态](/c++/2015/04/26/cpp-double-dispatch/)），也没有 if-else 判断子类型，而是每个 Modem 子类单独写了一个 `visit` 方法，这样如果有 N 个 Modem 子类就要写 N 个 `visit` 重载方法。这必然是比 if-else 判断子类型来得要好。
+1. `UnixModemConfigurator` 里<del>并没有用 Modem 的多态</del>（并不是你想用就能用，因为方法参数根本就不支持多态！参 [C++ double dispatch: 函数参数并不支持多态](/c++/2015/04/26/cpp-double-dispatch)），也没有 if-else 判断子类型，而是每个 Modem 子类单独写了一个 `visit` 方法，这样如果有 N 个 Modem 子类就要写 N 个 `visit` 重载方法。这必然是比 if-else 判断子类型来得要好。
 2. 我自然是可以定义多个 `ModemVistor` 实现，都让 Modem 去 `accept`。
 3. 感觉这 Visitor 模式有点像 AOP 的横切面概念。
 
 ### <a name="double_dispatch"></a>Double Dispatch
 
-Visitor 模式用到了 Double Dispatch，也叫 Dual Dispatch，也就是 N == 2 的 Multiple Dispatch。按这篇 [Visitor Pattern](http://www.cs.wustl.edu/~cytron/cacweb/Tutorial/Visitor/) 的说法：
+Visitor 模式用到了 Double Dispatch，也叫 Dual Dispatch，也就是 N == 2 的 Multiple Dispatch。按这篇 [Visitor Pattern](http://www.cs.wustl.edu/~cytron/cacweb/Tutorial/Visitor) 的说法：
 
 > Multiple Dispatch is a concept that allows method dispatch to be based not only on the receiving object but also on the parameters of the method's invocation.
 

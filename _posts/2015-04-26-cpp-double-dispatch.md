@@ -11,7 +11,7 @@ tags: [Cpp-101]
 
 - [Double Dispatch Example](http://c2.com/cgi/wiki?DoubleDispatchExample)
 - [Polymorphism by function parameter](http://stackoverflow.com/questions/2169460/polymorphism-by-function-parameter)
-- [Single, Double And Multiple Dispatch](http://ifacethoughts.net/2006/07/29/single-double-and-multiple-dispatch/)
+- [Single, Double And Multiple Dispatch](http://ifacethoughts.net/2006/07/29/single-double-and-multiple-dispatch)
 
 -----
 

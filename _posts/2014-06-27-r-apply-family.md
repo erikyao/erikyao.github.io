@@ -7,7 +7,7 @@ tags: [R-101]
 ---
 {% include JB/setup %}
 
-参考资料：[A brief introduction to “apply” in R](http://nsaunders.wordpress.com/2010/08/20/a-brief-introduction-to-apply-in-r/)
+参考资料：[A brief introduction to “apply” in R](http://nsaunders.wordpress.com/2010/08/20/a-brief-introduction-to-apply-in-r)
 
 部分更新内容来自 _R Cookbook_。
 

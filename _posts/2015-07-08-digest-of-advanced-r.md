@@ -4179,7 +4179,7 @@ To understand R’s performance, it helps to think about R both a) as a language
 - The language is abstract: it defines what R code means and how it should work. 
 	- I’ll call the language **R-language**.
 - The implementation is concrete: it reads R code and computes a result.
-	- The most popular implementation is the one from [r-project.org](http://r-project.org/). 
+	- The most popular implementation is the one from [r-project.org](http://r-project.org). 
 	- I’ll call that implementation **GNU-R**.
 	- There are alternative R implementations like **pqR** (pretty quick R), **Renjin**, **FastR** and **Riposte**
 	
@@ -4476,12 +4476,12 @@ Before you start experimenting, you should have a target speed that defines when
 
 If your bottleneck is a function in a package, it’s worth looking at other packages that do the same thing. Two good places to start are:
 
-- [CRAN task views](http://cran.rstudio.com/web/views/). If there’s a CRAN task view related to your problem domain, it’s worth looking at the packages listed there.
+- [CRAN task views](http://cran.rstudio.com/web/views). If there’s a CRAN task view related to your problem domain, it’s worth looking at the packages listed there.
 - Reverse dependencies of Rcpp, as listed on its [CRAN page](http://cran.r-project.org/web/packages/Rcpp). Since these packages use C++, it’s possible to find a solution to your bottleneck written in a higher performance language.
 
 Otherwise, the challenge is describing your bottleneck in a way that helps you find related problems and solutions. Knowing the name of the problem or its synonyms will make this search much easier.
 
-It’s often helpful to restrict your search to R related pages. For Google, try [rseek](http://www.rseek.org/). For stackoverflow, restrict your search by including the R tag, `[R]`, in your search.
+It’s often helpful to restrict your search to R related pages. For Google, try [rseek](http://www.rseek.org). For stackoverflow, restrict your search by including the R tag, `[R]`, in your search.
 
 As discussed above, record all solutions that you find, not just those that immediately appear to be faster. Some solutions might be initially slower, but because they are easier to optimise they end up being faster. You may also be able to combine the fastest parts from different approaches.
 

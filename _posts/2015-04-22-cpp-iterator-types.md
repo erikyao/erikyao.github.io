@@ -11,7 +11,7 @@ tags: [Cpp-101]
 
 - _Thinking in C++, Volume 2_
 - [Apache C++ Standard Library User's Guide: 2.2 Varieties of Iterators](https://stdcxx.apache.org/doc/stdlibug/2-2.html)
-- [&lt;iterator&gt;](http://www.cplusplus.com/reference/iterator/)
+- [&lt;iterator&gt;](http://www.cplusplus.com/reference/iterator)
 - [SGI: Iterators](http://www.sgi.com/tech/stl/Iterators.html)
 - [C++ concepts: Iterator](http://en.cppreference.com/w/cpp/concept/Iterator)
 

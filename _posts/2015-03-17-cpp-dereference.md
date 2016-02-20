@@ -10,10 +10,10 @@ tags: [Cpp-101]
 整理自：
 
 * [1]<a name="ref1"></a> _Thinking in C++_。
-* [2]<a name="ref2"></a> [Pointers](http://www.cplusplus.com/doc/tutorial/pointers/)
+* [2]<a name="ref2"></a> [Pointers](http://www.cplusplus.com/doc/tutorial/pointers)
 * [3]<a name="ref3"></a> [dereference的一种新译法：用引](http://hax.iteye.com/blog/159332)
 * [4]<a name="ref4"></a> [C++ pointers – reference and dereference operators](http://www.codingunit.com/cplusplus-tutorial-pointers-reference-and-dereference-operators)
-* [5]<a name="ref5"></a> [Pointer Basics](http://cslibrary.stanford.edu/106/)
+* [5]<a name="ref5"></a> [Pointer Basics](http://cslibrary.stanford.edu/106)
 
 其实 dereference 是个很简单的概念，只是这个单词的逻辑意义有点难搞，加上 reference 这个概念又来搅和……
 
@@ -80,7 +80,7 @@ To access a variable through a pointer, you **dereference** the pointer using th
 
 Now a contains the value 100 instead of 47.
 
-Reference^([2]) 的例子见 [C++: pass-by-value / pass-by-pointer / pass-by-reference](/c++/2015/03/16/cpp-pass-by-value--pass-by-pointer--pass-by-reference/)
+Reference^([2]) 的例子见 [C++: pass-by-value / pass-by-pointer / pass-by-reference](/c++/2015/03/16/cpp-pass-by-value--pass-by-pointer--pass-by-reference)
 
 ## 1. dereference 第一种解读
 

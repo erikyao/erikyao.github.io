@@ -10,7 +10,7 @@ tags: [Math-Statistics]
 参考资料：
 
 - [Wikipedia: Student's t-test](https://en.wikipedia.org/wiki/Student's_t-test)
-- [statwing: T-Test (Independent Samples)](http://docs.statwing.com/examples-and-definitions/t-test/)
+- [statwing: T-Test (Independent Samples)](http://docs.statwing.com/examples-and-definitions/t-test)
 - [lærd: Independent T-Test for Two Samples](https://statistics.laerd.com/statistical-guides/independent-t-test-statistical-guide.php)
 - [lærd: Dependent T-Test for Paired Samples (cont...)](https://statistics.laerd.com/statistical-guides/dependent-t-test-statistical-guide-3.php)
 

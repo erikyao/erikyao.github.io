@@ -21,4 +21,4 @@ segregated (['segrigeitid], 种族隔离的) locator：如果不想把所有的 
 
 -----
 
-如果要深入研究的话，先看下这篇 [Service Locator is an Anti-Pattern](http://blog.ploeh.dk/2010/02/03/ServiceLocatorisanAnti-Pattern/).
+如果要深入研究的话，先看下这篇 [Service Locator is an Anti-Pattern](http://blog.ploeh.dk/2010/02/03/ServiceLocatorisanAnti-Pattern).

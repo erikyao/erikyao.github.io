@@ -686,7 +686,7 @@ str(restData)
     9  11  12 
 </pre>
 
-这里使用的应该是下侧分位数，参照 [R Generating Random Numbers and Random Sampling](http://erikyao.github.io/r/2014/07/08/r-generating-random-numbers-and-random-sampling/) 中 "新知识：分位数 Quantile" 小节，输出的意思是：
+这里使用的应该是下侧分位数，参照 [R Generating Random Numbers and Random Sampling](/r/2014/07/08/r-generating-random-numbers-and-random-sampling) 中 "新知识：分位数 Quantile" 小节，输出的意思是：
 
 * \\( u_{0.00} \\) = 1，表示 P(restData$councilDistrict <= 1) = 0.00
 * \\( u_{0.25} \\) = 2，表示 P(restData$councilDistrict <= 2) = 0.25
@@ -1332,7 +1332,7 @@ Using D as value column: use value.var to override.
 
 #### <a name="calculate-on-groups"></a>3.4.3 Calculate on groups
 
-这一小节 slide 上是叫 "Averaging Values"，但是给的例子又是 sum 操作……其实就是这篇 [A quick primer on split-apply-combine problems](http://www.r-bloggers.com/a-quick-primer-on-split-apply-combine-problems/) 里说的 split-apply-combine problems，也就是：
+这一小节 slide 上是叫 "Averaging Values"，但是给的例子又是 sum 操作……其实就是这篇 [A quick primer on split-apply-combine problems](http://www.r-bloggers.com/a-quick-primer-on-split-apply-combine-problems) 里说的 split-apply-combine problems，也就是：
 
 > I want to calculate some statistic for lots of different groups.
 
@@ -1424,7 +1424,7 @@ solutions = read.csv("./data/solutions.csv")
 mergedData = merge(reviews, solutions, by.x="solution_id", by.y="id", all=TRUE)
 </pre>
 
-这个学过数据库的应该很了解了（参 [join](http://erikyao.github.io/sql/2010/04/03/sql-join/)）：
+这个学过数据库的应该很了解了（参 [join](/sql/2010/04/03/sql-join)）：
 	
 * all=TRUE 表示 all.x=TRUE & all.y=TRUE
 	* all.x=TRUE 表示 x 中的所有 row （包括不匹配的）都会进入 merge 后的表，对应的 y 的 column 值被填成 NA。其实就是 Left Out Join
@@ -1731,7 +1731,7 @@ Regular Expression has 2 components:
 * %y = 2-digit year 
 * %Y = 4-digit year
 
-For more format, click [Date Formats in R](http://www.r-bloggers.com/date-formats-in-r/).  
+For more format, click [Date Formats in R](http://www.r-bloggers.com/date-formats-in-r).  
 
 <pre class="prettyprint linenums">
 &gt; Sys.setlocale("LC_TIME", "C");

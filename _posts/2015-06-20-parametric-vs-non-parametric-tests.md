@@ -29,7 +29,7 @@ The distinction employed in this book for categorizing a procedure as a parametr
 - While those tests that evaluate _**interval**_ data or _**ratio**_ data are categorized as _**parametric tests**_.
 	- Interval and ratio data measure quantities and hence are **quantitative**.
 	
-关于 Qualitative / Quantitative 请参考 [Statistical Data Types](/math/2016/01/08/statistical-data-types/).
+关于 Qualitative / Quantitative 请参考 [Statistical Data Types](/math/2016/01/08/statistical-data-types).
 
 Although the appropriateness of employing level of measurement as a criterion in this context has been debated, its usage provides a reasonably simple and straightforward schema for categorization that facilitates the decision-making process for selecting an appropriate statistical test.
 

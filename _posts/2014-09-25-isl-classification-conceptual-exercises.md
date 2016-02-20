@@ -9,7 +9,7 @@ tags: [ML-101]
 
 Exercises of Chapter 4, An Introduction to Statistical Learning.
 
-Thanks to [An Introduction to Statistical Learning Unofficial Solutions](http://blog.princehonest.com/stat-learning/).
+Thanks to [An Introduction to Statistical Learning Unofficial Solutions](http://blog.princehonest.com/stat-learning).
 
 主要是摸摸思路，学习下论证目标的转换手法。
 

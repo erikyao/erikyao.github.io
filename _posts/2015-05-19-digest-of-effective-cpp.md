@@ -899,7 +899,7 @@ private:
 
 #### <a name="digress-new-stdnothrow-xxx"></a>Digress: new (std::nothrow) Xxx
 
-[std::nothrow](http://www.cplusplus.com/reference/new/nothrow/) 有云：
+[std::nothrow](http://www.cplusplus.com/reference/new/nothrow) 有云：
 
 > In C++, the `operator new` function can be overloaded to take more than one parameter: The first parameter passed to the `operator new` function is always the size of the storage to be allocated, but additional arguments can be passed to this function by enclosing them in parentheses in the new-expression.
 

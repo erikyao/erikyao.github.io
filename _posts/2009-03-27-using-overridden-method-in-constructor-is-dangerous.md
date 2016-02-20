@@ -49,19 +49,17 @@ public class PolyConstructors {
 */ 
 </pre>
 
-　　根据 [class loading: an example](/java/2009/03/25/class-loading-an-example/)，调用 RoundGlyph 的构造器时，会先调用 Glyph 的构造器。Glyph 的构造器里调用了一个被覆写方法 draw()。这里我们惊奇地发现：虽然 RoundGlyph 对象还没有创建完毕，但 Glyph 的构造器却实际调用了 RoundGlyph 的 draw() 方法 (覆写方法)，而且 radius == 0。  
+根据 [class loading: an example](/java/2009/03/25/class-loading-an-example)，调用 RoundGlyph 的构造器时，会先调用 Glyph 的构造器。Glyph 的构造器里调用了一个被覆写方法 `draw()`。这里我们惊奇地发现：虽然 RoundGlyph 对象还没有创建完毕，但 Glyph 的构造器却实际调用了 RoundGlyph 的 `draw()` 方法 (覆写方法)，而且 radius == 0。  
 
-　　而 JVM-Spec $2.17.6 Creation of New Class Instances 最后一段有：
+而 JVM-Spec $2.17.6 Creation of New Class Instances 最后一段有：
 
 > If methods are invoked that are overridden in subclasses in the object being initialized, then these overriding methods are used, even before the new object is completely created.
 
-　　由此，我们可以对 [class loading: an example](/java/2009/03/25/class-loading-an-example/) 做一些补充，即在调用 ext class 的 constructor 时，会有如下的过程：
+由此，我们可以对 [class loading: an example](/java/2009/03/25/class-loading-an-example) 做一些补充，即在调用 ext class 的 constructor 时，会有如下的过程：
 
 1. 将分配给该 ext class object 的内存空间全部初始化为 0x00 (即用 0x00 填满该段内存空间)；
-1. 调用 base class 的 constructor。如果 base class 的 constructor 有使用被覆写方法的话，则实际调用 ext class 中的覆写方法。由于上一个步骤的原因，此时 ext class 中各 field 均为0；
+1. 调用 base class 的 constructor。如果 base class 的 constructor 有使用被覆写方法的话，则实际调用 ext class 中的覆写方法。由于上一个步骤的原因，此时 ext class 中各 field 均为 0；
 1. base class 的 constructor 调用完毕后后，开始初始化 (包括默认初始化) ext class 的 member；
 1. 调用 ext class 的 constructor。
 
-<br/> 
-
-_2009年09月04日归纳_：[class loading: further discussion involving steps of instance creation](/java/2009/09/04/class-loading-further-discussion-involving-steps-of-instance-creation/)
+_2009年09月04日归纳_：[class loading: further discussion involving steps of instance creation](/java/2009/09/04/class-loading-further-discussion-involving-steps-of-instance-creation)

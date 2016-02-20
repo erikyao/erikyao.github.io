@@ -50,7 +50,7 @@ wiki 上 [Lexical scoping vs. dynamic scoping](http://en.wikipedia.org/wiki/Scop
 
 > In lexical scoping (or lexical scope; also called static scoping or static scope), if a variable name's scope is a certain function, then its scope is the program text of the function definition: within that text, the variable name exists, and is bound to the variable's value, but outside that text, the variable name does not exist. By contrast, in dynamic scoping (or dynamic scope), if a variable name's scope is a certain function, then its scope is the time-period during which the function is executing: while the function is running, the variable name exists, and is bound to its variable, but after the function returns, the variable name does not exist. This means that if function f invokes a separately defined function g, then under lexical scoping, function g does not have access to f's local variables (since the text of g is not inside the text of f), while under dynamic scoping, function g does have access to f's local variables (since the invocation of g is inside the invocation of f).
 
-至于 lexical 的意思，这篇 [What is lexical scoping?](http://ericlippert.com/2013/05/20/what-is-lexical-scoping/) 有说：
+至于 lexical 的意思，这篇 [What is lexical scoping?](http://ericlippert.com/2013/05/20/what-is-lexical-scoping) 有说：
 
 > The word “lexical” means, in a broad sense “relating to text”
 

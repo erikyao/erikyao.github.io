@@ -152,7 +152,7 @@ The compiler will synthesize a move constructor or a move-assignment operator on
 
 - The compiler can move members of built-in type. It can also move members of a class type if the member’s class has the corresponding move operation.
 
-If the class defines either a move constructor and/or a move-assignment operator, then the synthesized copy constructor and copy-assignment operator for that class will be defined as `=delete`. 更多 `=delete` 规则参 [C++: The Rule of Three/Five](/c++/2015/05/13/cpp-the-rule-of-threefive/)。
+If the class defines either a move constructor and/or a move-assignment operator, then the synthesized copy constructor and copy-assignment operator for that class will be defined as `=delete`. 更多 `=delete` 规则参 [C++: The Rule of Three/Five](/c++/2015/05/13/cpp-the-rule-of-threefive)。
 
 ### <a name="25-rvalues-are-moved-lvalues-are-copied"></a>2.5 Rvalues Are Moved, Lvalues Are Copied...
 

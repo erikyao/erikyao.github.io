@@ -10,11 +10,11 @@ tags: [Cpp-101, C++11]
 整理自：
 
 - _C++ Primer, 5th Edition_
-- [std::bind](http://www.cplusplus.com/reference/functional/bind/)
+- [std::bind](http://www.cplusplus.com/reference/functional/bind)
 
 -----
 
-在 [C++: function object](/c++/2015/04/21/cpp-function-object/) 里我们提到了 `bind1st()` 和 `bind2nd()`，C++11 里已经 deprecated 了，我们看下新标准的 `bind()` 的用法：
+在 [C++: function object](/c++/2015/04/21/cpp-function-object) 里我们提到了 `bind1st()` 和 `bind2nd()`，C++11 里已经 deprecated 了，我们看下新标准的 `bind()` 的用法：
 
 <pre class="prettyprint linenums">
 #include &lt;iostream&gt;     // for std::cout

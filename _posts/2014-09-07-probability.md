@@ -123,7 +123,7 @@ we can rewrite \\( B(\alpha, \beta) = \frac{\Gamma(\alpha) \Gamma(\beta)}{\Gamma
 
 If \\( \alpha = 2 \\) and \\( \beta = 1 \\), then \\( B(\alpha, \beta) = \frac{1!\times0!}{2!} = 0.5 \\) or \\( B(\alpha, \beta) = \int_{0}^{1} t \cdot dt = \frac{1}{2}t\^2 |\_{0}\^{1} = 0.5 \\), therefore \\( f(x) = 2x \\) and \\( F(x) = x\^2 \\).  
 
-我们在 R 中执行 `pbeta(0.75, 2, 1)` 会得到 0.5625。根据 [R Generating Random Numbers and Random Sampling](http://erikyao.github.io/r/2014/07/08/r-generating-random-numbers-and-random-sampling/) 里总结的规律，p 开头的都是求 CDF，i.e. \\( F(x) \\)，所以这里 `pbeta(0.75, 2, 1)` 的意义就是：当 \\( \alpha = 2 \\) and \\( \beta = 1 \\) 时，求 \\( F(0.75) \\)。最终得到 \\( F(0.75) = 0.5625 \\)。这和我们用 \\( f(x) \\) 的面积来算的结果是一致的：
+我们在 R 中执行 `pbeta(0.75, 2, 1)` 会得到 0.5625。根据 [R Generating Random Numbers and Random Sampling](/r/2014/07/08/r-generating-random-numbers-and-random-sampling) 里总结的规律，p 开头的都是求 CDF，i.e. \\( F(x) \\)，所以这里 `pbeta(0.75, 2, 1)` 的意义就是：当 \\( \alpha = 2 \\) and \\( \beta = 1 \\) 时，求 \\( F(0.75) \\)。最终得到 \\( F(0.75) = 0.5625 \\)。这和我们用 \\( f(x) \\) 的面积来算的结果是一致的：
 
 <pre class="prettyprint linenums">
 &gt; x &lt;- c(0, 1, 1, 1.5)

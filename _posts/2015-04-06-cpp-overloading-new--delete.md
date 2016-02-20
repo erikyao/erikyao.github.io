@@ -120,7 +120,7 @@ T* pt = new(...) X(1024);
 
 关于 placement new，可以参阅：
 
-- [深入探究C++的new/delete操作符](http://kelvinh.github.io/blog/2014/04/19/research-on-operator-new-and-delete/)
+- [深入探究 C++ 的 new/delete 操作符](http://kelvinh.github.io/blog/2014/04/19/research-on-operator-new-and-delete)
 - [What uses are there for “placement new”?](http://stackoverflow.com/questions/222557/what-uses-are-there-for-placement-new)
 - [FAQ: What is “placement new” and why would I use it?](http://isocpp.org/wiki/faq/dtors#placement-new)
 	- [FAQ: Is there a placement delete?](http://isocpp.org/wiki/faq/dtors#placement-delete)

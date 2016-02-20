@@ -18,7 +18,7 @@ tags: [Cpp-101, C++11]
 
 ## Intro
 
-我们在 [C++: function object](/c++/2015/04/21/cpp-function-object/) 里已经见识过了 function object 了。而实际上可以称为 callable expression 的技术有 4 种：
+我们在 [C++: function object](/c++/2015/04/21/cpp-function-object) 里已经见识过了 function object 了。而实际上可以称为 callable expression 的技术有 4 种：
 
 - function
 - function pointer
@@ -33,7 +33,7 @@ tags: [Cpp-101, C++11]
 [capture-list] { function-body } 					// If parameter-list is void, you can omit the parenthese
 </pre>
 
-`-> returnType` 就是 [C++: 6 things you must know about functions](/c++/2015/05/03/cpp-things-you-must-know-about-functions/) 里提到的 Trailing Return Type。不写的话，编译器会根据 return 语句来推断 returnType。By default, if a lambda body contains any statements other than a return（这句的意思是：如果 body 除了 return 外还包含了其他的语句）, that lambda is assumed to return void.
+`-> returnType` 就是 [C++: 6 things you must know about functions](/c++/2015/05/03/cpp-things-you-must-know-about-functions) 里提到的 Trailing Return Type。不写的话，编译器会根据 return 语句来推断 returnType。By default, if a lambda body contains any statements other than a return（这句的意思是：如果 body 除了 return 外还包含了其他的语句）, that lambda is assumed to return void.
 
 `capture-list` defines what from the outside of the lambda should be available inside the function body and how. It can be either:
 
@@ -48,7 +48,7 @@ tags: [Cpp-101, C++11]
 	- all by value except `x` by reference: `[=,&x]`
 	- etc.
 	
-我们照搬 [C++: function object](/c++/2015/04/21/cpp-function-object/) 里 `gt15` 的例子，用 1) function, 2) function object, 3) standard function object, 4) lambda 这四种方法实现，对比下效果：
+我们照搬 [C++: function object](/c++/2015/04/21/cpp-function-object) 里 `gt15` 的例子，用 1) function, 2) function object, 3) standard function object, 4) lambda 这四种方法实现，对比下效果：
 
 <pre class="prettyprint linenums">
 #include &lt;algorithm&gt;

@@ -41,7 +41,7 @@ tags: [ML-101, Bayes]
 
 ### 1.3 Bayes' theorem 的变形
 
-不禁想吐槽一下，在 [Conditional Probability](http://erikyao.github.io/math/2014/09/08/conditional-probability/) 里你就没有发现能把 \\( P(B|A) = \frac{P(B \cap A)}{P(A)} \\) 用到贝叶斯公式里么……
+不禁想吐槽一下，在 [Conditional Probability](/math/2014/09/08/conditional-probability) 里你就没有发现能把 \\( P(B|A) = \frac{P(B \cap A)}{P(A)} \\) 用到贝叶斯公式里么……
 
 我们只变化贝叶斯公式的分母部分：
 
@@ -60,7 +60,7 @@ $$
 * B: 袋子里黑白球的比例是 blah blah blah
 * A：在不知道袋子里面黑白球比例的情况下，摸了 xxx 个球，yyy 个白的，zzz 个黑的
 
-再根据这篇 [Understand Bayes Theorem (prior/likelihood/posterior/evidence)](http://www.lichun.cc/blog/2013/07/understand-bayes-theorem-prior-likelihood-posterior-evidence/)，有：
+再根据这篇 [Understand Bayes Theorem (prior/likelihood/posterior/evidence)](http://www.lichun.cc/blog/2013/07/understand-bayes-theorem-prior-likelihood-posterior-evidence)，有：
 
 * \\( p(B|A) \\) is **posterior** (probablity) distribution
 	* the probablity of \\( B \\) posterior to (after) the observation of \\( A \\)

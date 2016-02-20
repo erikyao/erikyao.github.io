@@ -114,4 +114,4 @@ public class InitializerTest {
 
 <br/> 
 
-_2009年09月04日归纳_：[class loading: further discussion involving steps of instance creation](/java/2009/09/04/class-loading-further-discussion-involving-steps-of-instance-creation/)
+_2009年09月04日归纳_：[class loading: further discussion involving steps of instance creation](/java/2009/09/04/class-loading-further-discussion-involving-steps-of-instance-creation)

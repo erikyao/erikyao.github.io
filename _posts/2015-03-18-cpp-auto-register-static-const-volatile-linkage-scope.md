@@ -12,7 +12,7 @@ tags: [Cpp-101, const]
 整理自：
 
 * _Thinking in C++_
-* [C++ Tutorial](http://www.tutorialspoint.com/cplusplus/)
+* [C++ Tutorial](http://www.tutorialspoint.com/cplusplus)
 	* [C++ Variable Scope](http://www.tutorialspoint.com/cplusplus/cpp_variable_scope.htm)
 	* [Storage Classes in C++](http://www.tutorialspoint.com/cplusplus/cpp_storage_classes.htm)
 	* [C++ Modifier Types](http://www.tutorialspoint.com/cplusplus/cpp_modifier_types.htm)
@@ -58,7 +58,7 @@ _Thinking in C++_ 的路线是：
 	* [`auto`](#auto)
 	* [`register`](#register)
 	* [`static`](#static)
-	* `extern`: 参 [C++: declarations vs. definitions / extern](/c++/2015/03/15/cpp-declarations-vs-definitions-extern/)
+	* `extern`: 参 [C++: declarations vs. definitions / extern](/c++/2015/03/15/cpp-declarations-vs-definitions-extern)
 	* `mutable`: not covered here
 1. [Type Qualifiers](#type-qualifiers)
 	* [`const`](#const)
@@ -216,7 +216,7 @@ Static global variables (我造的这个词；姑且这么用) are extant throug
 
 #### 4.1.3 <a name="extern"></a>extern: forcing const into external linkage
 
-注意我们在 [C++: declarations vs. definitions / extern](/c++/2015/03/15/cpp-declarations-vs-definitions-extern/) 说的 “This is only a declaration; it’s defined elsewhere.” 只是 `extern` 的功能之一。
+注意我们在 [C++: declarations vs. definitions / extern](/c++/2015/03/15/cpp-declarations-vs-definitions-extern) 说的 “This is only a declaration; it’s defined elsewhere.” 只是 `extern` 的功能之一。
 
 我们来看下 `extern` 用法的标准解释（来自 [MSDN: Using extern to Specify Linkage](https://msdn.microsoft.com/en-us/library/0603949d.aspx)）：
 
@@ -469,7 +469,7 @@ int main(int argc, char* argv[]) {
 	
 -> _~~~~~~~~~~ 2015-07-19 更新开始 ~~~~~~~~~~_ <-
 
-感谢 [chetui](https://disqus.com/by/chetui/) 的评论！
+感谢 [chetui](https://disqus.com/by/chetui) 的评论！
 
 > Case 10: 会生成两个.o:   
 >   MyLib.h 和 MyLib.cpp 编译成 MyLib.o，  
@@ -524,7 +524,7 @@ Use this keyword when you read some value outside the control of your code, such
 
 You can also create `const volatile` objects, which can’t be changed by the client programmer but instead change through some outside agency.
 
-As with `const`, you can use `volatile` for data members, member functions, and objects themselves. You can only call volatile member functions for volatile objects. 鉴于 The syntax of `volatile` is identical to that for `const`，所以 volatile object / member / member function 的语法请参考 [C++: const object / const member & const member function / mutable](/c++/2015/03/29/cpp-const-object--const-member--const-member-function--mutable/)。
+As with `const`, you can use `volatile` for data members, member functions, and objects themselves. You can only call volatile member functions for volatile objects. 鉴于 The syntax of `volatile` is identical to that for `const`，所以 volatile object / member / member function 的语法请参考 [C++: const object / const member & const member function / mutable](/c++/2015/03/29/cpp-const-object--const-member--const-member-function--mutable)。
 
 _~~~~~~~~~~ 2015-05-19 补充；来自 C++ Primer, 5th Edition ~~~~~~~~~~_
 

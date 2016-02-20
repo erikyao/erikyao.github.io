@@ -260,7 +260,7 @@ The **ROC curve** is a popular graphic for simultaneously displaying the TP and 
 
 * FP (false positive) rate, i.e. 1 - Specificity, is x-axis of ROC
 * TP (true positive) rate, i.e. Sensitivity, is y-axis of ROC
-* 忘记概念的话请自觉查看 [Conditional Probability](http://erikyao.github.io/math/2014/09/08/conditional-probability/)
+* 忘记概念的话请自觉查看 [Conditional Probability](/math/2014/09/08/conditional-probability)
 
 The overall performance of a classifier, summarized over all possible thresholds, is given by the _area under the (ROC) curve_ (**AUC**).
 
