@@ -8,6 +8,7 @@ exclude: [".rvmrc", ".rbenv-version", "README.md", "Rakefile", "changelog.md", "
 # markdown: rdiscount
 
 markdown: kramdown
+mathjax: true
 
 kramdown:
   # GLM for Github Flavored Markdown
