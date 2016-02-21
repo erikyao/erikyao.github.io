@@ -74,13 +74,13 @@ Cross-validation is a refinement of the validation set approach that addresses t
 
 P178
 
-简单说就是每次只留一个 \\( (x\_i, y\_i) \\) 作为 validation set，其余的 \\( n-1 \\) 个作为 training set。比如第一次留 \\( (x\_1, y\_1) \\)，得到 \\( model_1 \\)，计算得 \\( MSE_1 \\)。如此 repeat \\( n \\) 次。
+简单说就是每次只留一个 $$ (x_i, y_i) $$ 作为 validation set，其余的 $$ n-1 $$ 个作为 training set。比如第一次留 $$ (x_1, y_1) $$，得到 $$ model_1 $$，计算得 $$ MSE_1 $$。如此 repeat $$ n $$ 次。
 
-The LOOCV estimate for the test MSE is the average of these \\( n \\) test error estimates:
+The LOOCV estimate for the test MSE is the average of these $$ n $$ test error estimates:
 
 $$
 \begin{equation}
-	CV\_{(n)} = \frac{1}{n} \sum\_{i=1}\^{n}{MSE\_i} = \frac{1}{n} \sum\_{i=1}\^{n}{(y\_i - \hat{y}\_i)\^2}
+	CV_{(n)} = \frac{1}{n} \sum_{i=1}^{n}{MSE_i} = \frac{1}{n} \sum_{i=1}^{n}{(y_i - \hat{y}_i)^2}
 	\tag{1.1}
 \end{equation} 
 $$
@@ -93,33 +93,33 @@ LOOCV's advantages over the validation set approach:
 	* due to randomness in the training/validation set splits, validation set approach may yields quite different results.
 	* LOOCV's always yields the same results.
 	
-LOOCV can be very time consuming if \\( n \\) is large, and if
-each individual model is slow to fit. With least squares linear or polynomial regression, there is an amazing shortcut to compute \\( CV\_{(n)} \\) with only one model fit, as
+LOOCV can be very time consuming if $$ n $$ is large, and if
+each individual model is slow to fit. With least squares linear or polynomial regression, there is an amazing shortcut to compute $$ CV_{(n)} $$ with only one model fit, as
 
 $$
 \begin{equation}
-	CV\_{(n)} = \frac{1}{n} \sum\_{i=1}\^{n}{\left \( \frac{y\_i - \hat{y}\_i}{1 - h\_i} \right \)\^2 }
+	CV_{(n)} = \frac{1}{n} \sum_{i=1}^{n}{\left ( \frac{y_i - \hat{y}_i}{1 - h_i} \right )^2 }
 	\tag{1.2}
 	\label{eq1.2}
 \end{equation} 
 $$
 
-where \\( h_i \\) is the [leverage-statistic](http://erikyao.github.io/machine-learning/2014/09/21/machine-learning-linear-regression-part-2#High-Leverage-Points). The leverage lies between \\( 1/n \\) and 1, and reflects the amount that an observation influences its own fit. Hence the residuals for high-leverage points are inflated (inflate = enlarge) in this formula.
+where $$ h_i $$ is the [leverage-statistic](http://erikyao.github.io/machine-learning/2014/09/21/machine-learning-linear-regression-part-2#High-Leverage-Points). The leverage lies between $$ 1/n $$ and 1, and reflects the amount that an observation influences its own fit. Hence the residuals for high-leverage points are inflated (inflate = enlarge) in this formula.
 
 ### <a name="k-fold"></a>1.3 k-Fold Cross-Validation
 
-This approach involves randomly dividing the set of observations into \\( k \\) groups, or folds, of approximately equal size. On the i^th loop, keep the i^th fold as a validation set, and the model is fit on the remaining \\( k-1 \\) folds. Repeat this procedure \\( k \\) times.
+This approach involves randomly dividing the set of observations into $$ k $$ groups, or folds, of approximately equal size. On the $$i^{th}$$ loop, keep the $$i^{th}$$ fold as a validation set, and the model is fit on the remaining $$ k-1 $$ folds. Repeat this procedure $$ k $$ times.
 
-The k-fold CV estimate is computed by averaging these values, 
+The $$k$$-fold CV estimate is computed by averaging these values, 
 
 $$
 \begin{equation}
-	CV\_{(k)} = \frac{1}{k} \sum\_{i=1}\^{k}{MSE\_i} = \frac{1}{k} \sum\_{i=1}\^{k}{(y\_i - \hat{y}\_i)\^2}
+	CV_{(k)} = \frac{1}{k} \sum_{i=1}^{k}{MSE_i} = \frac{1}{k} \sum_{i=1}^{k}{(y_i - \hat{y}_i)^2}
 	\tag{1.3}
 \end{equation} 
 $$
 
-It is not hard to see that LOOCV is a special case of k-fold CV in which \\( k \\) is set to equal \\( n \\). In practice, one typically performs k-fold CV using \\( k = 5 \\) or \\( k = 10 \\).
+It is not hard to see that LOOCV is a special case of $$k$$-fold CV in which $$ k $$ is set to equal $$ n $$. In practice, one typically performs $$k$$-fold CV using $$ k = 5 $$ or $$ k = 10 $$.
 
 The most obvious advantage over LOOCV is computational.
 
@@ -128,16 +128,16 @@ The most obvious advantage over LOOCV is computational.
 On bias:
 
 * LOOCV 的 training set 的比例最大，所以 LOOCV will give approximately unbiased estimates of the test error
-* k-fold (\\( k < n \\))的 bias 略高
+* k-fold ($$ k < n $$)的 bias 略高
 * Validation Set Approach 自然是 bias 最高
 
-On variance: It turns out that LOOCV has higher variance than does k-fold CV with \\( k < n \\). Why? 
+On variance: It turns out that LOOCV has higher variance than does k-fold CV with $$ k < n $$. Why? 
 
-* When we perform LOOCV, we are in effect averaging the outputs of \\( n \\) fitted models, each of which is trained on an almost identical set of observations; therefore, these outputs are highly (positively) correlated with each other. 
-* In contrast, when we perform k-fold CV with \\( k < n \\), we are averaging the outputs of \\( k \\) fitted models that are somewhat less correlated with each other, since the overlap between the training sets in each model is smaller. 
-*  Since the mean of many highly correlated quantities has higher variance, the test error estimate resulting from LOOCV tends to have higher variance than the one from k-fold CV.
+* When we perform LOOCV, we are in effect averaging the outputs of $$ n $$ fitted models, each of which is trained on an almost identical set of observations; therefore, these outputs are highly (positively) correlated with each other. 
+* In contrast, when we perform k-fold CV with $$ k < n $$, we are averaging the outputs of $$ k $$ fitted models that are somewhat less correlated with each other, since the overlap between the training sets in each model is smaller. 
+*  Since the mean of many highly correlated quantities has higher variance, the test error estimate resulting from LOOCV tends to have higher variance than the one from $$k$$-fold CV.
 
-\\( k = 5 \\) or \\( k = 10 \\) been shown empirically to yield test error rate estimates that suffer neither from excessively high bias nor from very high variance.
+$$ k = 5 $$ or $$ k = 10 $$ been shown empirically to yield test error rate estimates that suffer neither from excessively high bias nor from very high variance.
 
 ### <a name="CV-on-classification"></a>1.5 Cross-Validation on Classification Problems
 
@@ -145,12 +145,12 @@ Cross-validation works the same way on classification problems, except that rath
 
 $$
 \begin{equation}
-	CV\_{(n)} = \frac{1}{n} \sum\_{i=1}\^{n}{Err\_i}
+	CV_{(n)} = \frac{1}{n} \sum_{i=1}^{n}{Err_i}
 	\tag{1.4}
 \end{equation} 
 $$
 
-P185-186 是一个借助 CV 来选择 Order of Polynomials 的例子，其实挺简单的，用 \\( k = 5 \\) or \\( k = 10 \\) 来 estimate 不同 order 的 Polynomial model 的 test error rate，选最小的 test error rate estimate 对应的 order 即可。
+P185-186 是一个借助 CV 来选择 Order of Polynomials 的例子，其实挺简单的，用 $$ k = 5 $$ or $$ k = 10 $$ 来 estimate 不同 order 的 Polynomial model 的 test error rate，选最小的 test error rate estimate 对应的 order 即可。
 
 ## <a name="Bootstrap"></a>2. The Bootstrap
 
@@ -175,7 +175,7 @@ The bootstrap is a statistical tool to quantify the uncertainty associated with 
 
 在实验时，我们常用的一种手段是：
 
-1. 自己制定一个或者多个 parameter，比如 \\( \mu=0 \\)
+1. 自己制定一个或者多个 parameter，比如 $$ \mu=0 $$
 2. 按 parameter 来 generate samples
 3. 在这些 sample 上做 estimate，看是否接近 parameter
 
@@ -185,9 +185,9 @@ The bootstrap approach allows us to emulate the process of obtaining new sample 
 
 P189 阐述了 bootstrap 的做法，其实挺简单：
 
-1. 假设原 data set 有 \\( n \\) 个 observation
-2. Randomly select \\( n \\) observations from the data set to produce a bootstrap data set. This sampling is performed with **replacement**, which means that the same observation can occur more than once in the bootstrap data set.
-3. 假设生成了 \\( B \\) 个 bootstrap data set，我们就在这 \\( B \\) 个 bootstrap data set 上做 estimate
+1. 假设原 data set 有 $$ n $$ 个 observation
+2. Randomly select $$ n $$ observations from the data set to produce a bootstrap data set. This sampling is performed with **replacement**, which means that the same observation can occur more than once in the bootstrap data set.
+3. 假设生成了 $$ B $$ 个 bootstrap data set，我们就在这 $$ B $$ 个 bootstrap data set 上做 estimate
 
 ## <a name="Lab"></a>3. Lab: Cross-Validation and the Bootstrap
 
@@ -233,7 +233,7 @@ The `cv.glm()` function is part of the `boot` library.
 	> cv.error.10
 	[1] 24.21 19.19 19.31 19.34 18.88 19.02 18.90 19.71 18.95 19.50
 	
-In principle, the computation time for LOOCV for a least squares linear model should be faster than for k-fold CV, due to the availability of the formula \\( (\ref{eq1.2}) \\) for LOOCV; however, unfortunately the `cv.glm()` function does not make use of this formula.
+In principle, the computation time for LOOCV for a least squares linear model should be faster than for $$k$$-fold CV, due to the availability of the formula $$ (\ref{eq1.2}) $$ for LOOCV; however, unfortunately the `cv.glm()` function does not make use of this formula.
 
 ### <a name="Lab-Bootstrap"></a>3.4 The Bootstrap
 
@@ -246,7 +246,7 @@ Performing a bootstrap analysis in R entails only two steps.
 
 We use the `Portfolio` data set in the `ISLR` package here.
 
-we first create a function, `alpha.fn()`, which takes as input the \\( (X, Y) \\) data as well as a vector indicating which observations should be used to estimate \\( \alpha \\). The function then return the estimate for \\( \alpha \\) based on the selected observations.
+we first create a function, `alpha.fn()`, which takes as input the $$ (X, Y) $$ data as well as a vector indicating which observations should be used to estimate $$ \alpha $$. The function then return the estimate for $$ \alpha $$ based on the selected observations.
 
 	> alpha.fn = function(data, index){
 	+ X=data$X[index]
@@ -260,7 +260,7 @@ we first create a function, `alpha.fn()`, which takes as input the \\( (X, Y) \\
 	> alpha.fn(Portfolio, sample(100,100,replace=T)) ## nrow(Portfolio) = 100
 	[1] 0.596
 	
-We can implement a bootstrap analysis by performing this command many times, recording all of the corresponding estimates for \\( \alpha \\), and computing the resulting standard deviation. However, the boot() function automates this approach.
+We can implement a bootstrap analysis by performing this command many times, recording all of the corresponding estimates for $$ \alpha $$, and computing the resulting standard deviation. However, the boot() function automates this approach.
 
 	> boot(Portfolio, alpha.fn, R=1000) # R = 1000 is the number of bootstrap replicates, i.e. the B number mentioned in Section 2
 	

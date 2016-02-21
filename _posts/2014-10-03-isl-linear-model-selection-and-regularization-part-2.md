@@ -53,10 +53,10 @@ P230-236
 	
 ### <a name="PLS"></a>3.2 Partial Least Squares
 
-PCA involves identifying linear combinations, or directions, that best represent the predictors \\( X\_1, \cdots, X\_p\\). These directions are identified in an unsupervised way, since 
+PCA involves identifying linear combinations, or directions, that best represent the predictors $$ X_1, \cdots, X_p$$. These directions are identified in an unsupervised way, since 
 
-* the response \\( Y \\) is not used to help determine the principal component directions
-* or we can say the response \\( Y \\) does not supervise the identification of the principal components. 
+* the response $$ Y $$ is not used to help determine the principal component directions
+* or we can say the response $$ Y $$ does not supervise the identification of the principal components. 
 
 PLS is a supervised alternative to partial least PCA. Roughly speaking, the PLS approach attempts to find directions that help explain both the response and the predictors.
 
@@ -76,9 +76,9 @@ Throughout most of the field's history, the bulk of scientific problems requirin
 
 We examine least squares regression here, but the same concepts apply to logistic regression, linear discriminant analysis, and other classical statistical approaches.
 
-The problem is simple: when \\( p > n \\) or \\( p \approx n \\), a simple least squares regression line is too flexible and hence overfits the data.
+The problem is simple: when $$ p > n $$ or $$ p \approx n $$, a simple least squares regression line is too flexible and hence overfits the data.
 
-We saw a number of approaches for adjusting the training set RSS or R^2 in order to account for the number of variables used to fit a least squares model. Unfortunately, the \\( C_p \\), AIC, and BIC approaches are not appropriate in the high-dimensional setting, because estimating \\( \hat{\sigma}\^2 \\) is problematic.
+We saw a number of approaches for adjusting the training set RSS or $$R^2$$ in order to account for the number of variables used to fit a least squares model. Unfortunately, the $$ C_p $$, AIC, and BIC approaches are not appropriate in the high-dimensional setting, because estimating $$ \hat{\sigma}^2 $$ is problematic.
 
 Clearly, alternative approaches that are better-suited to the high-dimensional setting are required.
 
@@ -122,7 +122,7 @@ By default, `regsubsets()` only reports results up to the best eight-variable mo
 	> regfit.full = regsubsets(Salary~., data=Hitters, nvmax=19)
 	> reg.summary = summary(regfit.full)
 	
-The `summary()` function also returns R^2, RSS, adjusted R^2, \\( C_p \\), and BIC.
+The `summary()` function also returns R^2, RSS, adjusted R^2, $$ C_p $$, and BIC.
 
 	> names(reg.summary)
 	[1] "which" "rsq" "rss" "adjr2" "cp" "bic"
@@ -132,7 +132,7 @@ The `summary()` function also returns R^2, RSS, adjusted R^2, \\( C_p \\), and B
 	[10] 0.540 0.543 0.544 0.544 0.545 0.545 0.546 0.546 0.546
 	[19] 0.546
 	
-Plotting RSS, adjusted R^2, \\( C_p \\), and BIC for all of the models at once will help us decide which model to select. Note the `type="l"` option tells R to connect the plotted points with lines.
+Plotting RSS, adjusted R^2, $$ C_p $$, and BIC for all of the models at once will help us decide which model to select. Note the `type="l"` option tells R to connect the plotted points with lines.
 
 	> par(mfrow=c(2,2))
 	> plot(reg.summary$rss, xlab="Number of Variables", ylab="RSS", type="l")
@@ -144,7 +144,7 @@ We will now plot a red dot to indicate the model with the largest adjusted R^2 s
 	[1] 11
 	> points(11, reg.summary$adjr2[11], col="red", cex=2, pch=20)
 	
-And similarly for \\( C_p \\), and BIC, we can plot like this
+And similarly for $$ C_p $$, and BIC, we can plot like this
 
 	> plot(reg.summary$cp, xlab="Number of Variables", ylab="Cp", type=’l’)
 	> which.min(reg.summary$cp)
@@ -156,7 +156,7 @@ And similarly for \\( C_p \\), and BIC, we can plot like this
 	[1] 6
 	> points (6, reg.summary$bic[6], col="red", cex=2, pch=20)
 	
-The `regsubsets()` function has a built-in `plot()` command which can be used to display the selected variables for the best model with a given number of predictors, ranked according to the BIC, \\( C_p \\), adjusted R^2, or AIC. To find out more about this function, type `?plot.regsubsets`.
+The `regsubsets()` function has a built-in `plot()` command which can be used to display the selected variables for the best model with a given number of predictors, ranked according to the BIC, $$ C_p $$, adjusted R^2, or AIC. To find out more about this function, type `?plot.regsubsets`.
 	
 	> plot(regfit.full, scale="r2")
 	> plot(regfit.full, scale="adjr2")
@@ -269,11 +269,11 @@ The `glmnet()` function has an `alpha` argument that determines what type of mod
 	## 20 = 19 predictor + 1 intercept
 	## 100 = length(lambda)
 	
-By default the `glmnet()` function performs ridge regression for an automatically selected range of \\( \lambda \\) values. However, here we have chosen to implement the function over a grid of values ranging from \\( \lambda = 10\^{10} \\) to \\( \lambda = 10\^{-2}\\), essentially covering the full range of scenarios from the null model containing only the intercept, to the least squares fit.
+By default the `glmnet()` function performs ridge regression for an automatically selected range of $$ \lambda $$ values. However, here we have chosen to implement the function over a grid of values ranging from $$ \lambda = 10^{10} $$ to $$ \lambda = 10^{-2}$$, essentially covering the full range of scenarios from the null model containing only the intercept, to the least squares fit.
 
 Note that by default, the `glmnet()` function standardizes the variables so that they are on the same scale. To turn off this default setting, use the argument `standardize=FALSE`.
 
-We expect the coefficient estimates to be much smaller, in terms of \\( \ell_2 \\) norm, when a large value of \\( \lambda \\) is used, as compared to when a small value of \\( \lambda \\) is used. We compare the cases when \\( \lambda = 11498 \\) and \\( \lambda = 705 \\) below.
+We expect the coefficient estimates to be much smaller, in terms of $$ \ell_2 $$ norm, when a large value of $$ \lambda $$ is used, as compared to when a small value of $$ \lambda $$ is used. We compare the cases when $$ \lambda = 11498 $$ and $$ \lambda = 705 $$ below.
 
 	> ridge.mod$lambda[50]
 	[1] 11498
@@ -287,7 +287,7 @@ We expect the coefficient estimates to be much smaller, in terms of \\( \ell_2 \
 	> sqrt(sum(coef(ridge.mod)[-1 ,60]^2))
 	[1] 57.1
 	
-We can use the `predict()` function for a number of purposes. For instance, we can obtain the ridge regression coefficients for a new value of \\( \lambda \\), say 50:
+We can use the `predict()` function for a number of purposes. For instance, we can obtain the ridge regression coefficients for a new value of $$ \lambda $$, say 50:
 
 	> predict(ridge.mod, s=50, type="coefficients")[1:20,]
 	
@@ -297,14 +297,14 @@ We now split the samples into a training set and a test set in order to estimate
 	> train=sample(1:nrow(x), nrow(x)/2)
 	> test=(-train)
 	
-Next we fit a ridge regression model on the training set, and evaluate its MSE on the test set, using \\( \lambda = 4 \\). Note that this time we get predictions by replacing `type="coefficients"` with the `newx` argument in `predict()`.
+Next we fit a ridge regression model on the training set, and evaluate its MSE on the test set, using $$ \lambda = 4 $$. Note that this time we get predictions by replacing `type="coefficients"` with the `newx` argument in `predict()`.
 
 	> ridge.mod = glmnet(x[train,], y[train], alpha=0, lambda=grid, thresh=1e-12)
 	> ridge.pred = predict(ridge.mod, s=4, newx=x[test,])
 	> mean((ridge.pred - y[test])^2)
 	[1] 101037
 
-We now check whether there is any benefit to performing ridge regression with \\( \lambda = 4 \\) instead of just performing least squares regression. Recall that least squares is simply ridge regression with \\( \lambda = 0 \\)
+We now check whether there is any benefit to performing ridge regression with $$ \lambda = 4 $$ instead of just performing least squares regression. Recall that least squares is simply ridge regression with $$ \lambda = 0 $$
 
 	> ridge.pred = predict(ridge.mod, s=0, newx=x[test,], exact=T) ## to yield the exact least squares coefficients not the approximate ones
 	> mean((ridge.pred - y[test])^2)
@@ -315,7 +315,7 @@ We now check whether there is any benefit to performing ridge regression with \\
 	
 In general, if we want to fit a (unpenalized) least squares model, then we should use the `lm()` function, since that function provides more useful outputs, such as standard errors and p-values for the coefficients.
 	
-It would be better to use cross-validation to choose the tuning parameter \\( \lambda \\). We can do this using the built-in cross-validation function, `cv.glmnet()`. By default, the function performs 10-fold cross-validation, though this can be changed using the argument `nfolds`. Note that we set a random seed first so our results will be reproducible, since the choice of the cross-validation folds is random.
+It would be better to use cross-validation to choose the tuning parameter $$ \lambda $$. We can do this using the built-in cross-validation function, `cv.glmnet()`. By default, the function performs 10-fold cross-validation, though this can be changed using the argument `nfolds`. Note that we set a random seed first so our results will be reproducible, since the choice of the cross-validation folds is random.
 
 	> set.seed(1)
 	> cv.out = cv.glmnet(x[train,], y[train], alpha=0)
@@ -328,7 +328,7 @@ It would be better to use cross-validation to choose the tuning parameter \\( \l
 	> mean((ridge.pred - y[test])^2)
 	[1] 96016
 	
-Finally, we refit our ridge regression model on the full data set, using the value of \\( \lambda \\) chosen by cross-validation, and examine the coefficient estimates.
+Finally, we refit our ridge regression model on the full data set, using the value of $$ \lambda $$ chosen by cross-validation, and examine the coefficient estimates.
 	
 	> out = glmnet(x, y, alpha=0)
 	> predict(out, type="coefficients", s=bestlam)[1:20,]
@@ -375,7 +375,7 @@ One can also plot the cross-validation scores using the `validationplot()` funct
 
 	> validationplot(pcr.fit, val.type="MSEP")
 	
-We see that the smallest cross-validation error occurs when \\( M = 16 \\) components are used.
+We see that the smallest cross-validation error occurs when $$ M = 16 $$ components are used.
 
 We now perform PCR on the training data and evaluate its test set performance.
 
@@ -383,13 +383,13 @@ We now perform PCR on the training data and evaluate its test set performance.
 	> pcr.fit = pcr(Salary~., data=Hitters, subset=train, scale=TRUE, validation="CV")
 	> validationplot(pcr.fit, val.type="MSEP")
 	
-Now we find that the lowest cross-validation error occurs when \\( M = 7 \\) component are used. We compute the test MSE as follows.
+Now we find that the lowest cross-validation error occurs when $$ M = 7 $$ component are used. We compute the test MSE as follows.
 
 	> pcr.pred = predict(pcr.fit, x[test,], ncomp=7)
 	> mean((pcr.pred - y[test])^2)
 	[1] 96556
 	
-Finally, we fit PCR on the full data set, using \\( M = 7 \\), the number of components identified by cross-validation.
+Finally, we fit PCR on the full data set, using $$ M = 7 $$, the number of components identified by cross-validation.
 	
 	> pcr.fit = pcr(y~x, scale=TRUE, ncomp=7)
 	> summary(pcr.fit)

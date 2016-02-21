@@ -521,7 +521,7 @@ mediator 与 facade 不同，不管有没有 mediator，client 的访问方式�
 >* Participant (Colleague) - defines an interface for the participants.  
 >* HumanParticipant, Bot (ConcreteColleague) - implements participants; the participant can be a human or a bot, each one having a distinct implementation but implementing the same interface. Each participant will keep only a reference to the mediator.
 
-还有一个类比就是塔台，飞机\_X 不需要向其余所有的 飞机\_Y 通告飞行高度，它只需要向 mediator 塔台通报就可以了。  
+还有一个类比就是塔台，“飞机甲” 不需要向其余的 “飞机乙丙丁” 通告飞行高度，它只需要向塔台（mediator）通报就可以了。  
 
 ----------  
   

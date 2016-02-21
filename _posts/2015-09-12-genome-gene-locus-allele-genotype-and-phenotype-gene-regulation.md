@@ -41,7 +41,7 @@ DNA 的宏观物理结构是 Chromosome (染色体)：
 - Chromosome 按功能分类可以分为 Allosome (['ælʊsəʊm], 性染色体) / Autosome (['ɔ:təsəʊm], 常染色体)
 	- 人体的 Autosome 是按长度从长到短编号的，最长的是 1 号，最短的是 22 号
 	- For a specific chromosome, say _Chromosome 18_, we can specify it by _**maternal**_ chromosome 18 and _**paternal**_ chromosome 18 to indicate from which parent it is inherited.
-	- 我自己姑且造一个记号：\\( m\_is \\) 表示 maternal chromosome \\( i \\) 的 single strand，\\( m\_is' \\) 表示 maternal chromosome \\( i \\) 的 complementary strand；同理有 \\( p\_is \\) 和 \\( p\_is' \\)
+	- 我自己姑且造一个记号：$$ m_is $$ 表示 maternal chromosome $$ i $$ 的 single strand，$$ m_is' $$ 表示 maternal chromosome $$ i $$ 的 complementary strand；同理有 $$ p_is $$ 和 $$ p_is' $$
 
 DNA 的微观物理结构是 Double strands 或者叫 Double helix：
 	
@@ -79,9 +79,9 @@ _**Each person has the same set of genes**_ - about 20,000 in all. The differenc
 
 A _**locus**_ is the specific physical location of a gene or other DNA sequence on a chromosome, like a genetic street address.
 
-从上面两端来看，gene 更像是一个 "表示位置" 的、universal 的概念，类似 locus。比如假定 7 号 chromosome 的 \\( s\_{100-200} \\) 是一个 gene，那么全世界所有人的 7 号 chromosome 的 \\( s\_{100-200} \\) 都是 gene，只是 expression 有差异而已。
+从上面两端来看，gene 更像是一个 "表示位置" 的、universal 的概念，类似 locus。比如假定 7 号 chromosome 的 $$ s_{100-200} $$ 是一个 gene，那么全世界所有人的 7 号 chromosome 的 $$ s_{100-200} $$ 都是 gene，只是 expression 有差异而已。
 
-如果我们单看一个个体，因为我们的 chromosome 是成对的，所以如果 7 号 chromosome 的 \\( s\_{100-200} \\) 是一个 gene，那么 \\( m\_7s\_{100-200} \\) 和 \\( p\_7s\_{100-200} \\) 都是 gene，这就成了 "2 versions of a gene"，换言之，2 alleles。
+如果我们单看一个个体，因为我们的 chromosome 是成对的，所以如果 7 号 chromosome 的 $$ s_{100-200} $$ 是一个 gene，那么 $$ m_7s_{100-200} $$ 和 $$ p_7s_{100-200} $$ 都是 gene，这就成了 "2 versions of a gene"，换言之，2 alleles。
 
 Each pair of alleles represents the _**genotype**_ of a specific gene. Genotypes are described 
 

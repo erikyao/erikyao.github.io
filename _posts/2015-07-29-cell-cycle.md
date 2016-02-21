@@ -28,28 +28,28 @@ tags: [Biology-101]
 
 - **Cell Cycle** (细胞周期)
 	- **Interphase** (分裂间期)
-		- \\( G\_1 \\) **phase** (Gap 1 | DNA 合成前期)
-		- **S phase** (Synthesis | DNA 合成期)
-		- \\( G\_2 \\) **phase** (Gap 2 | DNA 合成后期)
-	- **Mitosis** (分裂期 | 有丝分裂)
+		- $$ G_1 $$ **phase** (Gap 1 \| DNA 合成前期)
+		- **S phase** (Synthesis \| DNA 合成期)
+		- $$ G_2 $$ **phase** (Gap 2 \| DNA 合成后期)
+	- **Mitosis** (分裂期 \| 有丝分裂)
 		- **Prophase** (前期)
 		- **Prometaphase** (前中期)
 		- **Metaphase** (中期)
 		- **Anaphase** (后期)
 		- **Telophase** (末期)
-	- cell cycle 的 4 stages 指 \\( G\_1 \\) => S => \\( G\_2 \\) => Mitosis
-- 细胞进入 \\( G\_1 \\) 期可能出现三种情况: 
-	- 增殖：细胞能及时从 \\( G\_1 \\) 期进入 S 期，并保持旺盛的分裂能力
+	- cell cycle 的 4 stages 指 $$ G_1 $$ => S => $$ G_2 $$ => Mitosis
+- 细胞进入 $$ G_1 $$ 期可能出现三种情况: 
+	- 增殖：细胞能及时从 $$ G_1 $$ 期进入 S 期，并保持旺盛的分裂能力
 		- 如消化道上皮细胞及骨髓细胞
-	- 暂不增殖或休止：细胞进入 \\( G\_1 \\) 期后不立即转入 S 期，但在某些刺激下，这些细胞又可以继续增值
+	- 暂不增殖或休止：细胞进入 $$ G_1 $$ 期后不立即转入 S 期，但在某些刺激下，这些细胞又可以继续增值
 		- 如骨髓干细胞和处于不利状态下的癌细胞
-		- 这个阶段我们又称为 \\( G\_0 \\) **phase**
-	- 永不增殖：细胞进入 \\( G\_1 \\) 期后，失去分裂能力，终身处于 \\( G\_1 \\) 期，直至死亡
+		- 这个阶段我们又称为 $$ G_0 $$ **phase**
+	- 永不增殖：细胞进入 $$ G_1 $$ 期后，失去分裂能力，终身处于 $$ G_1 $$ 期，直至死亡
 		- 如高度分化的神经细胞、肌细胞及成熟的红细胞
 - The division of somatic cells and single celled organisms results in the production of two identical **daughter cells**.
-- The word "post-mitotic" is sometimes used to refer to both quiescent and senescent cells. 不一定就是指 \\( G\_0 \\)。
+- The word "post-mitotic" is sometimes used to refer to both quiescent and senescent cells. 不一定就是指 $$ G_0 $$。
 
-->![][Schematic]<-
+![][Schematic]
 
 The cycle has checkpoints (also called restriction points), which allow certain genes to check for mistakes and halt the cycle for repairs if something goes wrong.
 

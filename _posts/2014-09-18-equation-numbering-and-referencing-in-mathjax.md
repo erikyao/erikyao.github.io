@@ -22,7 +22,7 @@ See [Automatic Equation Numbering](http://docs.mathjax.org/en/latest/tex.html#te
 那我们用 `\tag{}` 就好了。比如：
 
 	\begin{equation}
-		Y \approx \beta\_0 + \beta\_1 X
+		Y \approx \beta_0 + \beta_1 X
 		\tag{1.1}
 	\end{equation}
 
@@ -30,7 +30,7 @@ See [Automatic Equation Numbering](http://docs.mathjax.org/en/latest/tex.html#te
 
 $$
 \begin{equation}
-	Y \approx \beta\_0 + \beta\_1 X
+	Y \approx \beta_0 + \beta_1 X
 	\tag{1.1}
 \end{equation} 
 $$
@@ -45,7 +45,7 @@ $$
 比如：  
 
 	\begin{equation}
-		Y \approx \beta\_0 + \beta\_1 X
+		Y \approx \beta_0 + \beta_1 X
 		\tag{1.1}
 		\label{eq1.1}
 	\end{equation}
@@ -54,7 +54,7 @@ $$
 
 $$
 \begin{equation}
-	Y \approx \beta\_0 + \beta\_1 X
+	Y \approx \beta_0 + \beta_1 X
 	\tag{1.1}
 	\label{eq1.1}
 \end{equation} 
@@ -62,8 +62,8 @@ $$
 
 但是现在可以通过 `\ref{}` 来生成一个 Anchor：  
 
-	According to \\( \ref{eq1.1} \\), we have ...
+	According to $$ \ref{eq1.1} $$, we have ...
 	
 效果是：  
 
-According to \\( \ref{eq1.1} \\), we have ...
+According to $$ \ref{eq1.1} $$, we have ...

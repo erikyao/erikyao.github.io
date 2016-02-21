@@ -688,12 +688,12 @@ str(restData)
 
 这里使用的应该是下侧分位数，参照 [R Generating Random Numbers and Random Sampling](/r/2014/07/08/r-generating-random-numbers-and-random-sampling) 中 "新知识：分位数 Quantile" 小节，输出的意思是：
 
-* \\( u_{0.00} \\) = 1，表示 P(restData$councilDistrict <= 1) = 0.00
-* \\( u_{0.25} \\) = 2，表示 P(restData$councilDistrict <= 2) = 0.25
+* $$ u_{0.00} $$ = 1，表示 P(restData$councilDistrict <= 1) = 0.00
+* $$ u_{0.25} $$ = 2，表示 P(restData$councilDistrict <= 2) = 0.25
 * ......
-* \\( u_{1.00} \\) = 14，表示 P(restData$councilDistrict <= 14) = 1.00
+* $$ u_{1.00} $$ = 14，表示 P(restData$councilDistrict <= 14) = 1.00
 
-当然这里要注意边界值没有那么严格，`restData$councilDistrict` 是有很多值为 1 的，理论上 \\( u\_{0.00} \\) 不应该是 1。所以这里 \\( u\_{0.00} \\) 最好理解为 min 值，\\( u_{1.00} \\) 理解为 max 值，这和 `summary` 的结果是一致的：
+当然这里要注意边界值没有那么严格，`restData$councilDistrict` 是有很多值为 1 的，理论上 $$ u_{0.00} $$ 不应该是 1。所以这里 $$ u_{0.00} $$ 最好理解为 min 值，$$ u_{1.00} $$ 理解为 max 值，这和 `summary` 的结果是一致的：
 
 <pre class="prettyprint linenums">
 &gt; summary(restData$councilDistrict)
@@ -703,40 +703,40 @@ str(restData)
 
 <a name="quartile"></a>注意 summary 这里的 "Qu" 指的是 quartile [ˈkwɔ:taɪl] 而不是 quantile ['kwɒntaɪl]:
 
-->![][Quartile_and_IQR]<-
+![][Quartile_and_IQR]
 
-->图片来源：[Lecture 2: Descriptive Statistics and Exploratory Data Analysis](http://www.gs.washington.edu/academics/courses/akey/56008/lecture/lecture2.pdf)<-
+图片来源：[Lecture 2: Descriptive Statistics and Exploratory Data Analysis](http://www.gs.washington.edu/academics/courses/akey/56008/lecture/lecture2.pdf)
 
-* The first quartile, \\( Q_1 \\), is the value for which 25% of the
+* The first quartile, $$ Q_1 $$, is the value for which 25% of the
 observations are smaller and 75% are larger
-* \\( Q_2 \\) is the same as the median (50% are smaller, 50% are
+* $$ Q_2 $$ is the same as the median (50% are smaller, 50% are
 larger)
 * Only 25% of the observations are greater than the third
-quartile \\( Q_3 \\)
-* IQR, interquartile range, is the difference between the third and the first quartiles, i.e. \\( IQR = Q_3 - Q_1 \\)
+quartile $$ Q_3 $$
+* IQR, interquartile range, is the difference between the third and the first quartiles, i.e. $$ IQR = Q_3 - Q_1 $$
 
 <a name="boxplot"></a>这里顺带再图示一下 boxplot 的意思：
 
-->![]([Boxplot]<-
+![][Boxplot]
 
-->图片来源：[Lecture 2: Descriptive Statistics and Exploratory Data Analysis](http://www.gs.washington.edu/academics/courses/akey/56008/lecture/lecture2.pdf)<-
+图片来源：[Lecture 2: Descriptive Statistics and Exploratory Data Analysis](http://www.gs.washington.edu/academics/courses/akey/56008/lecture/lecture2.pdf)
 
 是不是很清楚？简直一目了然。  
 
 另外还有几个别名也提一下：
 
-* minimum 到 \\( Q_1 \\) 的区域也叫 lower whisker
-* \\( Q_3 \\) 到 maximum 的区域也叫 upper whisker
+* minimum 到 $$ Q_1 $$ 的区域也叫 lower whisker
+* $$ Q_3 $$ 到 maximum 的区域也叫 upper whisker
 * minimum 也叫 lower whisker end
 * maximum 也叫 upper whisker end
-* \\( Q_1 \\) 也叫 lower hinge [hɪndʒ]
-* \\( Q_3 \\) 也叫 upper hinge
+* $$ Q_1 $$ 也叫 lower hinge [hɪndʒ]
+* $$ Q_3 $$ 也叫 upper hinge
 
-<a name="nth-quantile"></a>最后注意一种表达方式：quantile a.k.a percentile，在 Week 3 Quiz 的 Question 2 中问到了 "What are the 30^th and 80^th quantiles of the resulting data?"，其实就是 \\( u\_{30\%} \\) 和 \\( u\_{80\%} \\)，当然我更习惯写成 \\( u\_{0.30} \\) 和 \\( u\_{0.80} \\)
+<a name="nth-quantile"></a>最后注意一种表达方式：quantile a.k.a percentile，在 Week 3 Quiz 的 Question 2 中问到了 "What are the 30^th and 80^th quantiles of the resulting data?"，其实就是 $$ u_{30\%} $$ 和 $$ u_{80\%} $$，当然我更习惯写成 $$ u_{0.30} $$ 和 $$ u_{0.80} $$
 
-->![][Percentiles]<-
+![][Percentiles]
 
-->图片来源：[Lecture 2: Descriptive Statistics and Exploratory Data Analysis](http://www.gs.washington.edu/academics/courses/akey/56008/lecture/lecture2.pdf)<-
+图片来源：[Lecture 2: Descriptive Statistics and Exploratory Data Analysis](http://www.gs.washington.edu/academics/courses/akey/56008/lecture/lecture2.pdf)
 
 #### <a name="table"></a>3.2.3 `table`
 
@@ -955,9 +955,9 @@ data[, c(1:2,ncol(data),3:(ncol(data)-1))] ## move last column to third
 * `round(x, digits=n)`: rounds to 'n' decimal places (default 0) (保留 n 位小数). e.g. round(3.475, digits=2) == 3.48
 * `signif(x, digits=n)`: rounds to 'n' significant digits (保留 n 位有效数字). e.g. signif(3.475, digits=2) == 3.5
 * `cos(x)`, `sin(x)` etc.
-* `log(x)`: natural logarithm, i.e. \\( \log_e x \\), a.k.a \\( \ln x \\)
-* `log2(x)`: \\( \log_2 x \\)
-* `log10(x)`: \\( \log_{10} x \\), a.k.a \\( \lg x \\)
+* `log(x)`: natural logarithm, i.e. $$ \log_e x $$, a.k.a $$ \ln x $$
+* `log2(x)`: $$ \log_2 x $$
+* `log10(x)`: $$ \log_{10} x $$, a.k.a $$ \lg x $$
 * `exp(x)`: exponentiating x, i.e. e^x
 * `sd(x)`: takes the standard deviation of x
 * `range(x)`: displays the range; same as `c(min(x), max(x))`
@@ -1073,12 +1073,12 @@ Levels: [1,2] (2,9] (9,11] (11,14]
     397     293     449     188  
 </pre>
 
-cut 简单说就是按 breaks 的区间来分组：
+`cut` 简单说就是按 `breaks` 的区间来分组：
 	
-* 如果 breaks = n，那就是分 n 个组
-* 如果 breaks = c(x, y, z)，那就是分 (x, y], (y, z] 这么两个组，依此类推
+* 如果 `breaks = n`，那就是分 n 个组
+* 如果 `breaks = c(x, y, z)`，那就是分 (x, y], (y, z] 这么两个组，依此类推
 
-这里我们 `breaks=quantile()`，所以分组是 (1, 2]、(2, 9]、(9, 11]、(11, 14]，然后我们加了一个 `include.lowest=TRUE`，于是第一个分组就变成了 [1, 2]。这么做也是因为 [quantile](#quantile) 里说过 "理论上 \\( u\_{0.00} \\) 不应该是 1"，不设置 `include.lowest=TRUE` 的话，`restData$councilDistrict == 1` 的 row 的 councilDistrictGroup 就是 NA。
+这里我们 `breaks=quantile()`，所以分组是 (1, 2]、(2, 9]、(9, 11]、(11, 14]，然后我们加了一个 `include.lowest=TRUE`，于是第一个分组就变成了 [1, 2]。这么做也是因为 [quantile](#quantile) 里说过 "理论上 $$ u_{0.00} $$ 不应该是 1"，不设置 `include.lowest=TRUE` 的话，`restData$councilDistrict == 1` 的 row 的 councilDistrictGroup 就是 NA。
 
 你应该已经注意到了，`cut` 得到的结果是一个 factor，其实还可以指定 `labels=c("low", "below median", ...)` 来设置这个 factor 的 levels（注意 quantile 产生了 5 个值，但是只有 4 个区间，所以 labels 的长度也是 4）。如果直接设置 `labels=FALSE`，那么 `cut` 得到的结果就不再是一个 factor，而是一个 vector，若属于第一个分组，那么值就为 1，依此类推。
 

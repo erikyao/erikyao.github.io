@@ -81,19 +81,19 @@ P304-306，主要是通过例子介绍了些概念。
 
 We now discuss the process of building a regression tree. Roughly speaking, there are two steps.
 
-1. We divide the predictor space — that is, the set of possible values for \\( X\_1, X\_2, \cdots, X\_p \\) — into \\( J \\) distinct and non-overlapping regions, \\( R\_1, R\_2, \cdots, R\_J \\).
-2. For every observation that falls into the region \\( R\_j \\), we make the same prediction, which is simply the mean of the response values for the training observations in \\( R\_j \\).
+1. We divide the predictor space — that is, the set of possible values for $$ X_1, X_2, \cdots, X_p $$ — into $$ J $$ distinct and non-overlapping regions, $$ R_1, R_2, \cdots, R_J $$.
+2. For every observation that falls into the region $$ R_j $$, we make the same prediction, which is simply the mean of the response values for the training observations in $$ R_j $$.
 
-We now elaborate on Step 1 above. How do we construct the regions \\( R\_1, R\_2, \cdots, R\_J \\)? In theory, the regions could have any shape. However, we choose to divide the predictor space into high-dimensional rectangles, or **boxes**, for simplicity and for ease of interpretation of the resulting predictive model. The goal is to find boxes \\( R\_1, R\_2, \cdots, R\_J \\) that minimize the RSS, given by
+We now elaborate on Step 1 above. How do we construct the regions $$ R_1, R_2, \cdots, R_J $$? In theory, the regions could have any shape. However, we choose to divide the predictor space into high-dimensional rectangles, or **boxes**, for simplicity and for ease of interpretation of the resulting predictive model. The goal is to find boxes $$ R_1, R_2, \cdots, R_J $$ that minimize the RSS, given by
 
 $$
 \begin{equation}
-	\sum\_{j=1}\^{J}{\sum\_{i \in R\_j}{(y\_i - \hat{y}\_{R\_j})\^2}}
+	\sum_{j=1}^{J}{\sum_{i \in R_j}{(y_i - \hat{y}_{R_j})^2}}
 	\tag{1.1}
 \end{equation} 
 $$
 
-where \\( \hat{y}\_{R\_j} \\) is the mean response for the training observations within the j^th box.
+where $$ \hat{y}_{R_j} $$ is the mean response for the training observations within the j^th box.
 
 Unfortunately, it is computationally infeasible to consider every possible partition of the feature space into J boxes. For this reason, we take a _top-down_, _greedy_ approach that is known as **recursive binary splitting**.
 
@@ -112,7 +112,7 @@ One possible alternative is to build the tree only so long as the decrease in th
 
 Therefore, a better strategy is to grow a very large tree, and then **prune** it back in order to obtain a **subtree**. 首先肯定能想到是用 CV，但是 However, estimating the cross-validation error for every possible subtree would be too cumbersome.
 
-所以我们改用 **cost complexity pruning**, a.k.a **weakest link pruning**. 具体的算法见 P309。简单说就是 pruning 也要 min 一个 loss function + penalty term，然后这个 penalty term 是 \\( \alpha |T| \\)，其中 \\( |T| \\) 是 subtree 的 size，这样就约束了 subtree 的 size。这个 \\( \alpha \\) 和 \\( \lambda \\) 一样，也是要 CV 来调的，这些基本都是固定套路了。 
+所以我们改用 **cost complexity pruning**, a.k.a **weakest link pruning**. 具体的算法见 P309。简单说就是 pruning 也要 min 一个 loss function + penalty term，然后这个 penalty term 是 $$ \alpha \lvert T \rvert $$，其中 $$ \lvert T \rvert $$ 是 subtree 的 size，这样就约束了 subtree 的 size。这个 $$ \alpha $$ 和 $$ \lambda $$ 一样，也是要 CV 来调的，这些基本都是固定套路了。 
 
 ### <a name="Class-Tree"></a>1.2 Classification Trees
 
@@ -122,36 +122,36 @@ In the classification setting, RSS cannot be used as a criterion for making the 
 
 $$
 \begin{equation}
-	E = 1 - \max\_k(\hat{p}\_{mk})
+	E = 1 - \max_k(\hat{p}_{mk})
 	\tag{1.2}
 \end{equation} 
 $$
 
-Here \\( \hat{p}\_{mk} \\) represents the proportion of training observations in the m^th region that are from the k^th class. 换言之，\\( \arg \max_k(\hat{p}\_{mk}) \\) 就是 m^th region 的 most commonly occurring class.
+Here $$ \hat{p}_{mk} $$ represents the proportion of training observations in the m^th region that are from the $$k^{th}$$ class. 换言之，$$ \arg \max_k(\hat{p}_{mk}) $$ 就是 $$m^{th}$$ region 的 most commonly occurring class.
 
 However, it turns out that classification error rate is not sufficiently sensitive for tree-growing, and in practice two other measures are preferable.
 
-One is the **Gini index**, a measure of total variance across the \\( K \\) classes, defined by
+One is the **Gini index**, a measure of total variance across the $$ K $$ classes, defined by
 
 $$
 \begin{equation}
-	G = \sum\_{k=1}\^{K}{\hat{p}\_{mk}(1 - \hat{p}\_{mk})}
+	G = \sum_{k=1}^{K}{\hat{p}_{mk}(1 - \hat{p}_{mk})}
 	\tag{1.3}
 \end{equation} 
 $$
 
-It is not hard to see that the Gini index takes on a small value if all of the \\( \hat{p}\_{mk} \\)’s are close to 0 or 1. For this reason the Gini index is referred to as a measure of node **purity** — a small value indicates that a node contains predominantly observations from a single class.
+It is not hard to see that the Gini index takes on a small value if all of the $$ \hat{p}_{mk} $$’s are close to 0 or 1. For this reason the Gini index is referred to as a measure of node **purity** — a small value indicates that a node contains predominantly observations from a single class.
 
 An alternative to the Gini index is **cross-entropy**, given by
 
 $$
 \begin{equation}
-	D = - \sum\_{k=1}\^{K}{\hat{p}\_{mk}(\log \hat{p}\_{mk})}
+	D = - \sum_{k=1}^{K}{\hat{p}_{mk}(\log \hat{p}_{mk})}
 	\tag{1.4}
 \end{equation} 
 $$
 
-Similarly, the cross-entropy will take on a value near 0 if the \\( \hat{p}\_{mk} \\)’s are all near 0 or near 1.
+Similarly, the cross-entropy will take on a value near 0 if the $$ \hat{p}_{mk} $$’s are all near 0 or near 1.
 
 Any of these three approaches might be used when pruning the tree, but the classification error rate is preferable if prediction accuracy of the final pruned tree is the goal.
 
@@ -194,7 +194,7 @@ set, and average the resulting predictions.
 
 如果是 classification 问题，那么可以 For a given test observation, we can record the class predicted by each of the B trees, and take a **majority vote**: the overall prediction is the most commonly occurring class among the B predictions.
 
-The number of trees \\( B \\) is not a critical parameter with bagging; using a very large value of \\( B \\) will not lead to overfitting. In practice we use a value of \\( B \\) sufficiently large that the error has settled down. Using \\( B=100 \\) is sufficient to achieve good performance in this example.
+The number of trees $$ B $$ is not a critical parameter with bagging; using a very large value of $$ B $$ will not lead to overfitting. In practice we use a value of $$ B $$ sufficiently large that the error has settled down. Using $$ B=100 $$ is sufficient to achieve good performance in this example.
 
 #### <a name="OOG"></a>Out-of-Bag Error Estimation
 
@@ -202,7 +202,7 @@ One can show that on average, each bagged tree makes use of around 2/3 of the ob
 
 所以这剩下的 OOB observations 就可以拿来测 test error.
 
-It can be shown that with \\( B \\) sufficiently large, OOB error is virtually equivalent to leave-one-out cross-validation error.
+It can be shown that with $$ B $$ sufficiently large, OOB error is virtually equivalent to leave-one-out cross-validation error.
 
 #### <a name="VIM"></a>Variable Importance Measures
 
@@ -212,15 +212,15 @@ Although the collection of bagged trees is much more difficult to interpret than
 
 ### <a name="Random-Forests"></a>2.2 Random Forests
 
-RF 是 bagging 的升级版。RF 的区别在于：在确定 split, i.e. internal nodes 的时候，我们不是像  bagging 那样全盘考察所有 \\( p \\) 个 predictors，而是只考察一个 **random sample of \\( m \\) 个 predictors**。random 就 random 在这里。
+RF 是 bagging 的升级版。RF 的区别在于：在确定 split, i.e. internal nodes 的时候，我们不是像  bagging 那样全盘考察所有 $$ p $$ 个 predictors，而是只考察一个 **random sample of $$ m $$ 个 predictors**。random 就 random 在这里。
 
-如果 \\( m = p \\)，那就成了 bagging；RF 一般取 \\( m \approx \sqrt{p} \\).
+如果 $$ m = p $$，那就成了 bagging；RF 一般取 $$ m \approx \sqrt{p} $$.
 
 这么做的理由是：Suppose that there is one very strong predictor in the data set, along with a number of other moderately strong predictors. Then in the collection of bagged trees, most or all of the trees will use this strong predictor in the top split. Consequently, all of the bagged trees will look quite similar to each other. Hence the predictions from the bagged trees will be highly correlated. Unfortunately, averaging many highly correlated quantities does not lead to as large of a reduction in variance as averaging many uncorrelated quantities. In particular, this means that bagging will not lead to a substantial reduction in variance over a single tree in this setting.
  
 我们也称 RF 的这个做法为 **decorrelating** the trees, thereby making the average of the resulting trees less variable and hence more reliable.
 
-As with bagging, random forests will not overfit if we increase \\( B \\), so in practice we use a value of \\( B \\) sufficiently large for the error rate to have settled down.
+As with bagging, random forests will not overfit if we increase $$ B $$, so in practice we use a value of $$ B $$ sufficiently large for the error rate to have settled down.
 
 ### <a name="Boosting"></a>2.3 Boosting
 
@@ -236,9 +236,9 @@ boost: [bu:st]
 
 算法简单说就是：
 
-1. 先正常建一棵树（有一个限制是：splits 数 \\( d \\) 固定）
-	* \\( d \\) 也被称为 depth
-2. 把 residual 当做 response 再建一棵树（仍然是 \\( d \\) 个 split）
+1. 先正常建一棵树（有一个限制是：splits 数 $$ d $$ 固定）
+	* $$ d $$ 也被称为 depth
+2. 把 residual 当做 response 再建一棵树（仍然是 $$ d $$ 个 split）
 3. 将两棵树叠加
 4. 重复 2 和 3 直至达成某条件
 
@@ -265,13 +265,13 @@ We see that the training error rate is 9 %. For classification trees, the devian
 
 $$
 \begin{equation}
-	\text{deviance} = -2 \sum\_{m}{\sum\_{k}{n\_{mk}(\log \hat{p}\_{mk})}}
+	\text{deviance} = -2 \sum_{m}{\sum_{k}{n_{mk}(\log \hat{p}_{mk})}}
 \end{equation} 
 $$
 
-where \\( n\_{mk} \\) is the number of observations in the m^th terminal node that belong to the k^th class. A small deviance indicates a tree that provides a good fit to the (training) data.
+where $$ n_{mk} $$ is the number of observations in the m^th terminal node that belong to the k^th class. A small deviance indicates a tree that provides a good fit to the (training) data.
 
-The **residual mean deviance** reported is simply the \\( \frac{\text{deviance}}{n−|T\_0|} \\), where \\( n \\) is the number of observations and \\( |T\_0| \\) is the number of terminal nodes.
+The **residual mean deviance** reported is simply the $$ \frac{\text{deviance}}{n− \lvert T_0 \rvert} $$, where $$ n $$ is the number of observations and $$ \lvert T_0 \rvert $$ is the number of terminal nodes.
 
 	> plot(tree.carseats)
 	> text(tree.carseats, pretty=0)
@@ -298,7 +298,7 @@ To estimate the test error, the `predict()` function can be used. In the case of
 	> (86+57)/200
 	[1] 0.715
 	
-Next, we consider whether pruning the tree might lead to improved results. The function `cv.tree()` performs cross-validation in order to determine the optimal level of tree complexity; cost complexity pruning is used in order to select a sequence of trees for consideration. We use the argument `FUN=prune.misclass` in order to indicate that we want the classification error rate to guide the cross-validation and pruning process, rather than the default for the `cv.tree()` function, which is deviance. The `cv.tree()` function reports the number of terminal nodes of each tree considered (size) as well as the corresponding error rate and the value of the cost-complexity parameter used (k, which corresponds to \\( \alpha \\)).
+Next, we consider whether pruning the tree might lead to improved results. The function `cv.tree()` performs cross-validation in order to determine the optimal level of tree complexity; cost complexity pruning is used in order to select a sequence of trees for consideration. We use the argument `FUN=prune.misclass` in order to indicate that we want the classification error rate to guide the cross-validation and pruning process, rather than the default for the `cv.tree()` function, which is deviance. The `cv.tree()` function reports the number of terminal nodes of each tree considered (size) as well as the corresponding error rate and the value of the cost-complexity parameter used (k, which corresponds to $$ \alpha $$).
 
 	> set.seed(3)
 	> cv.carseats = cv.tree(tree.carseats, FUN=prune.misclass)
@@ -387,7 +387,7 @@ We could change the number of trees grown by randomForest() using the ntree argu
 	> mean((yhat.bag-boston.test)^2)
 	[1] 13.31
 	
-By default, `randomForest()` uses \\( p/3 \\) variables when building a random forest of regression trees, and \\( \sqrt{p} \\) variables when building a random forest of classification trees. Here we use `mtry=6`.
+By default, `randomForest()` uses $$ p/3 $$ variables when building a random forest of regression trees, and $$ \sqrt{p} $$ variables when building a random forest of classification trees. Here we use `mtry=6`.
 
 	> set.seed(1)
 	> rf.boston = randomForest(medv~., data=Boston, subset=train, mtry=6, importance=TRUE)
@@ -442,7 +442,7 @@ We now use the boosted model to predict `medv` on the test set:
 	> mean((yhat.boost-boston.test)^2)
 	[1] 11.8
 	
-If we want to, we can perform boosting with a different value of the shrinkage parameter \\( \lambda \\). The default value is 0.001. Here we take \\( \lambda=0.2 \\).
+If we want to, we can perform boosting with a different value of the shrinkage parameter $$ \lambda $$. The default value is 0.001. Here we take $$ \lambda=0.2 $$.
 
 	> boost.boston = gbm(medv~., data=Boston[train,], distribution="gaussian", n.trees=5000, interaction.depth=4, shrinkage=0.2, verbose=F)
 	> yhat.boost = predict(boost.boston, newdata=Boston[-train,], n.trees =5000)

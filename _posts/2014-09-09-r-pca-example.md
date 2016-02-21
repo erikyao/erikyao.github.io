@@ -13,15 +13,17 @@ tags: [ML-101, R-101, PCA]
 
 ## 0. More Math Definitions
 
-If _X_ is a matrix with each variable in a column and each observation in a row then the `SVD` is a "matrix decomposition" that decomposes the original matrix into 3 separate matrices as
+If $$X$$ is a matrix with each variable in a column and each observation in a row then the `SVD` is a "matrix decomposition" that decomposes the original matrix into 3 separate matrices as
 
-->\\( X = U\*D\*V\^T \\)<-
-<!-- -->
-->(Octave 里是 `[U, S, V] = svd(X)`，\\( X = U\*S\*V\^T \\)，只是记号不同而已)<-
+$$ 
+	X = U*D*V^T 
+$$
+
+_**P.S.**_ Octave 里是 `[U, S, V] = svd(X)`，$$ X = U*S*V^T $$，只是记号不同而已)
 	
 where the columns of `U` are orthogonal ([ɔ:'θɒgənl], 正交的) (`U` a.k.a **left singular vectors**), the columns of `V` are orthogonal (`V` a.k.a **right singular vectors**) and `D` is a diagonal matrix (`D` a.k.a **singular values**).
 
-* 注：如果向量 _x_ 和 _y_ 的点积为 0，i.e. \\( x*y\^T = 0 \\)，则称 _x_ 和 _y_ 正交。上面说 "columns of `U` are orthogonal" 意思是 "`U` 的 columns （转置后）是两两正交的"，用 Octave 的写法就是 `U(:,i)' * U(:,j) = 0`。
+* 注：如果向量 $$x$$ 和 $$y$$ 的点积为 0，i.e. $$ x*y^T = 0 $$，则称 $$x$$ 和 $$y$$ 正交。上面说 "columns of `U` are orthogonal" 意思是 "`U` 的 columns （转置后）是两两正交的"，用 Octave 的写法就是 `U(:,i)' * U(:,j) = 0`。
 * 注2：`U` 的 column（转置后）还是个单位向量，i.e. `U(:,i)' * U(:,i) = 1`
 * 注3：结合 注1 和 注2，有 `U' * U = U * U' = I`
 * 注4：其实 `V` 就是 `U'`，i.e. `U * V = I`
@@ -119,4 +121,4 @@ names(pc)
 ## pc$sdev^2 == sv$d^2/(ncol(e) - 1)
 </pre>
 
--> _~~~~~~~~~~ 2015-12-06 补充：结束 ~~~~~~~~~~*_ <-
+-> _~~~~~~~~~~ 2015-12-06 补充：结束 ~~~~~~~~~~_ <-

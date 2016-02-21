@@ -512,7 +512,7 @@ You can subset higher-dimensional structures in three ways:
 - With a matrix.
 	- 以 matrix 为例就是 `m[indices]`
 	- indices 是一个 2-column 的 matrix，每一 row 表示一个下标
-		- 比如 \\( \begin{bmatrix}1 & 1 \\\\3 & 1\\\\4 & 2 \end{bmatrix} \\) 就可以取到 `m[1,1]`, `m[3,1]`, `m[4,2]` 这三个元素
+		- 比如 $$ \begin{bmatrix}1 & 1 \\ 3 & 1 \\ 4 & 2 \end{bmatrix} $$ 就可以取到 `m[1,1]`, `m[3,1]`, `m[4,2]` 这三个元素
 		
 如果是 array 的话，上面这三种方法都需要扩展维数。
 
@@ -2804,10 +2804,10 @@ Position(is.factor, df)
 
 In this section we'll use some of R's built-in mathematical functionals. There are three functionals that work with functions to return single numeric values:
 
-* `integrate(f, lower, upper)` calculates the area under the curve defined by `f()`, within \\( [lower, upper] \\)
+* `integrate(f, lower, upper)` calculates the area under the curve defined by `f()`, within $$ [lower, upper] $$
 	- i.e. 积分
-* `uniroot(f, interval)` returns \\( x \\) where \\( x \in interval \\) and \\( f(x) = 0 \\)
-* `optimise(f, interval)` finds the \\( x \\) of lowest (or highest) value of \\( f(x) \\)
+* `uniroot(f, interval)` returns $$ x $$ where $$ x \in interval $$ and $$ f(x) = 0 $$
+* `optimise(f, interval)` finds the $$ x $$ of lowest (or highest) value of $$ f(x) $$
 
 <pre class="prettyprint linenums">
 integrate(sin, 0, pi)
@@ -2818,7 +2818,7 @@ str(optimise(sin, c(0, pi), maximum = TRUE))
 
 In statistics, optimisation is often used for maximum likelihood estimation (MLE). In MLE, we have two sets of parameters: the data, which is fixed for a given problem, and the parameters, which vary as we try to find the maximum. These two sets of parameters make the problem well suited for closures. Combining closures with optimisation gives rise to the following approach to solving MLE problems. 
 
-The following example shows how we might find the maximum likelihood estimate for \\( \lambda \\), if our data come from a Poisson distribution. First, we create a function factory that, given a dataset, returns a function that computes the negative log likelihood (NLL) for parameter `lambda`. In R, it's common to work with the negative since `optimise()` defaults to finding the minimum. 
+The following example shows how we might find the maximum likelihood estimate for $$ \lambda $$, if our data come from a Poisson distribution. First, we create a function factory that, given a dataset, returns a function that computes the negative log likelihood (NLL) for parameter `lambda`. In R, it's common to work with the negative since `optimise()` defaults to finding the minimum. 
 
 <pre class="prettyprint linenums">
 poisson_nll &lt;- function(x) {

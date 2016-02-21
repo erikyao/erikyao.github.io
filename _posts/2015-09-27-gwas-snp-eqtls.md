@@ -92,10 +92,10 @@ eSNP: expression SNP, i.e. variations which affect the gene expression, by means
 
 把 rSNP 和 eSNP 看做两个集合，它们有交集，但不存在包含关系：
 
-- \\( rSNP \cap eSNP \\): variations which affect the ability of a TF to bind to DNA thus affecting gene expression.
-- \\( rSNP - eSNP \\): variations which affect the ability of a TF to bind to DNA, but not affect gene expression.
+- $$ rSNP \cap eSNP $$: variations which affect the ability of a TF to bind to DNA thus affecting gene expression.
+- $$ rSNP - eSNP $$: variations which affect the ability of a TF to bind to DNA, but not affect gene expression.
 	- 影响了 TF binding 并不代表一定会有 expression 的变化
-- \\( eSNP - rSNP \\): variations which affect the gene expression, but not by affecting TF binding.
+- $$ eSNP - rSNP $$: variations which affect the gene expression, but not by affecting TF binding.
 	- eSNP 的定义说了，影响 expression 不一定只有影响 TF binding 这么一种方式
 
 

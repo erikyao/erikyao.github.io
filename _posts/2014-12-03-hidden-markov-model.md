@@ -33,9 +33,9 @@ When considering the weather, the Markov assumption presumes that today's weathe
 
 ### 2.3 Markov Process
 
-A **Markov process** is a process which moves from state to state depending (only) on the previous \\( n \\) states. The process is called an **order \\( n \\) model** accordingly. The simplest Markov process is a 1^st order process. Notice this is not the same as a deterministic system, since we expect the choice to be made probabalistically, not deterministically.
+A **Markov process** is a process which moves from state to state depending (only) on the previous $$ n $$ states. The process is called an **order $$ n $$ model** accordingly. The simplest Markov process is a 1^st order process. Notice this is not the same as a deterministic system, since we expect the choice to be made probabalistically, not deterministically.
 
-Notice that for a 1^st order process with \\( M \\) states, there are \\( M\^2 \\) transitions between states since it is possible for any one state to follow another. Associated with each transition is a probability called the state transition probability - this is the probability of moving from one state to another. These \\( M\^2 \\) probabilities may be collected together in an obvious way into a _state transition matrix_. Notice that these probabilities do not vary in time - this is an important (if often unrealistic) assumption.
+Notice that for a 1^st order process with $$ M $$ states, there are $$ M^2 $$ transitions between states since it is possible for any one state to follow another. Associated with each transition is a probability called the state transition probability - this is the probability of moving from one state to another. These $$ M^2 $$ probabilities may be collected together in an obvious way into a _state transition matrix_. Notice that these probabilities do not vary in time - this is an important (if often unrealistic) assumption.
 
 E.g. 
 
@@ -50,7 +50,7 @@ E.g.
 
 An important point about the assumption is that the state transition probabilites do not vary in time - the matrix is fixed throughout the life of the system.
 
-To initialise such a system, we need to state what the weather was (or probably was) on the day after creation; we define this in a vector of initial probabilities, called the \\( \Pi \\) vector.
+To initialise such a system, we need to state what the weather was (or probably was) on the day after creation; we define this in a vector of initial probabilities, called the $$ \Pi $$ vector.
 
 E.g. 
 
@@ -63,7 +63,7 @@ E.g.
 We have now defined a 1^st order Markov process consisting of :
 
 * states: Three in this case - sunny, cloudy, rainy.
-* \\( \Pi \\) vector: Defining the probability of the system being in each of the states at time 0.
+* $$ \Pi $$ vector: Defining the probability of the system being in each of the states at time 0.
 * state transition matrix: The probability of the weather given the previous day's weather. (the 3x3 matrix above) 
 
 总结一下：
@@ -100,38 +100,38 @@ E.g.
 
 \- that is, if it is rainy today, there is a probability of 0.6 that the cat has washed her head behind her ear.
 
-* 我们用 \\( X \\) 表示 hidden state
-	* \\( x\_i \\) 表示系统处于 i^th hidden state
-	* \\( x\_{i\_t} \\) 表示在 t 时间，系统处于 i^th hidden state
-* 我们用 \\( Y \\) 表示 observation
-	* \\( y\_i \\) 表示观测到 i^th observation
-* \\( a\_{ij} = P(x\_{i\_t}|x\_{j\_{t-1}}) \\) 表示从 j^th hidden state 迁移到 i^th hidden state 的概率
-* \\( b\_{ij} = P(y\_i|x\_j) \\)，表示在 j^th hidden state 状态下观测到 i^th observation 的概率
+* 我们用 $$ X $$ 表示 hidden state
+	* $$ x_i $$ 表示系统处于 i^th hidden state
+	* $$ x_{i_t} $$ 表示在 t 时间，系统处于 $$i^{th}$$ hidden state
+* 我们用 $$ Y $$ 表示 observation
+	* $$ y_i $$ 表示观测到 i^th observation
+* $$ a_{ij} = P(x_{i_t} \vert x_{j_{t-1}}) $$ 表示从 $$j^{th}$$ hidden state 迁移到 $$i^{th}$$ hidden state 的概率
+* $$ b_{ij} = P(y_i \vert x_j) $$，表示在 $$j^{th}$$ hidden state 状态下观测到 $$i^{th}$$ observation 的概率
 
-We define a hidden Markov model as a triple \\( (\Pi,A,B) \\), where:
+We define a hidden Markov model as a triple $$ (\Pi,A,B) $$, where:
 
-* \\( \Pi = (\pi\_i) \\) is the vector of the initial state probabilities
-* \\( A = (a\_{ij}) \\) is the state transition matrix
-* \\( B = (b\_{ij}) \\) is the confusion matrix
+* $$ \Pi = (\pi_i) $$ is the vector of the initial state probabilities
+* $$ A = (a_{ij}) $$ is the state transition matrix
+* $$ B = (b_{ij}) $$ is the confusion matrix
 
-Each probability in the state transition matrix and in the confusion matrix is time independent - that is, the matrices do not change in time as the system evolves (所以 \\( x\_{i\_t} \\) 的 t 我们可以省略不考虑). In practice, this is one of the most unrealistic assumptions of Markov models about real processes.
+Each probability in the state transition matrix and in the confusion matrix is time independent - that is, the matrices do not change in time as the system evolves (所以 $$ x_{i_t} $$ 的 t 我们可以省略不考虑). In practice, this is one of the most unrealistic assumptions of Markov models about real processes.
 
 ### 3.2 Usages
 
 Once a system can be described as an HMM, 3 problems can be solved. The first two are pattern recognition problems: 
 
 * Finding the probability of an observed sequence given a HMM (evaluation). 
-	* I.e. given \\( Y\_1 Y\_2 \cdots Y\_n \\), to calculate \\( P(Y\_1 Y\_2 \cdots Y\_n) \\) 
-		* E.g. \\( \begin{align} P(wash,sneeze) &= P(wash,sneeze | sun,sun) + P(wash,sneeze | sun,cloud) \\\\ &+ \cdots + P(wash,sneeze | rain,rain) \end{align} \\)
+	* I.e. given $$ Y_1 Y_2 \cdots Y_n $$, to calculate $$ P(Y_1 Y_2 \cdots Y_n) $$ 
+		* E.g. $$ \begin{align} P(wash,sneeze) &= P(wash,sneeze \vert sun,sun) + P(wash,sneeze \vert sun,cloud) \\ &+ \cdots + P(wash,sneeze \vert rain,rain) \end{align} $$
 	* 已知模型参数，计算某一特定 observation 序列的概率
 	* 通常使用 forward 算法解决
 * Finding the sequence of hidden states that most probably generated an observed sequence (decoding). 
-	* I.e. given \\( Y\_1 Y\_2 \cdots Y\_n \\), to find \\( \arg\_{X\_1 X\_2 \cdots X\_n} \max{P(Y\_1 Y\_2 \cdots Y\_n|X\_1 X\_2 \cdots X\_n)} \\)
-		* E.g. \\( \max{(P(wash,sneeze | sun,sun), \cdots, P(wash,sneeze | rain,rain))} \\)
+	* I.e. given $$ Y_1 Y_2 \cdots Y_n $$, to find $$ \arg_{X_1 X_2 \cdots X_n} \max{P(Y_1 Y_2 \cdots Y_n \vert X_1 X_2 \cdots X_n)} $$
+		* E.g. $$ \max{(P(wash,sneeze \vert sun,sun), \cdots, P(wash,sneeze \vert rain,rain))} $$
 	* 已知模型参数，寻找最可能产生某一特定 observation 序列的 hidden state 序列
 	* 通常使用 Viterbi 算法解决
 * Generating a HMM given a sequence of observations (learning)
-	* 已知 observation 序列和 state 集合，寻找最可能的 \\( \Pi \\) vector, state transition matrix 以及 confusion matrix
+	* 已知 observation 序列和 state 集合，寻找最可能的 $$ \Pi $$ vector, state transition matrix 以及 confusion matrix
 	* 通常使用 forward-backward 算法、Baum-Welch 算法以及 Reversed Viterbi 算法解决
 
 具体的算法就不展开了。
