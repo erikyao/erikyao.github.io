@@ -5,7 +5,14 @@ permalink: /:categories/:year/:month/:day/:title
 exclude: [".rvmrc", ".rbenv-version", "README.md", "Rakefile", "changelog.md", "*.bak"]
 # pygments: true
 
-markdown: rdiscount
+# markdown: rdiscount
+
+markdown: kramdown
+
+kramdown:
+  # GLM for Github Flavored Markdown
+  input: Markdown 
+  syntax_highlighter: rouge
 
 # paginate: 11
 # paginate_path: "posts/page:num"
