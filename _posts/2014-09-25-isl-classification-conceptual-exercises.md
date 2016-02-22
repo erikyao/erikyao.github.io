@@ -30,7 +30,7 @@ $$
 
 while the discriminant function is given by 
 
-$ 
+$$
 	\delta_k(x) = x \frac {\mu_k} {\sigma^2} - \frac {\mu_k^2} {2 \sigma^2} + \log(\pi_k) 
 $$
 
@@ -56,7 +56,7 @@ Multipy this inequality by the positive constant
 
 $$
 	c = \frac { \frac {1} {\sqrt{2 \pi} \sigma} \exp(- \frac {1} {2 \sigma^2} x^2) } {\sum { \pi_l \frac {1} {\sqrt{2 \pi} \sigma} \exp(- \frac {1} {2 \sigma^2} (x - \mu_l)^2) }} 
-$	
+$$
 
 and we have that 
 
