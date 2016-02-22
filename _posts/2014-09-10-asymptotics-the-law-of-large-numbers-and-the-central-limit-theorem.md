@@ -24,8 +24,10 @@ There are many variations on the LLN; we are using a particularly lazy version h
 The law of large numbers states that if $ X_1,\ldots X_n $ are iid from a population with mean $ \mu $ and variance $ \sigma^2 $, then $ \overline{X} $, the sample average of the _**n**_ observations, converges in probability to $ \mu $, i.e. 
 
 $$
-	\overline{X}=\frac1n(X_1+\cdots+X_n) \newline
-	\overline{X} \to \mu \qquad\textrm{for}\qquad n \to \infty 
+\begin{align}
+	\overline{X}=\frac{1}{n}(X_1+\cdots+X_n) \newline
+	\overline{X} \to \mu \text{ when } n \to \infty
+\end{align}
 $$
 
 Or more generally, the average of the results obtained from a large number of trials (i.e. _**n**_, since we get an observation per trial) should be close to the expected value, and will tend to become closer as more trials are performed. 
@@ -59,7 +61,7 @@ abline(h = 0)
 CLT says 
 
 $$
-	\overline{X} \to \sim \mbox{N}(\mu, \frac{\sigma^2}{n}) \qquad\textrm{for}\qquad n \to \infty
+	\overline{X} \to \sim \mbox{N}(\mu, \frac{\sigma^2}{n}) \text{ when } n \to \infty
 $$
 
 In another word
@@ -68,7 +70,7 @@ $$
 \begin{align}
 	\frac{\overline X - \mu}{\sigma / \sqrt{n}} 
 		&= \frac{\mbox{Estimate} - \mbox{Mean of estimate}}{\mbox{Std. Err. of estimate}} \newline
-		& \to \sim \mbox{N}(0,1) \qquad\textrm{for}\qquad n \to \infty
+		& \to \sim \mbox{N}(0,1) \text{ when } n \to \infty
 \end{align}
 $$
 

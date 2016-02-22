@@ -15,8 +15,8 @@ tags: [Math-Statistics]
 
 | Symbol         | Definition                                                             | Example                                                   |
 |----------------|------------------------------------------------------------------------|-----------------------------------------------------------|
-| $ \Omega $ | The sample space, the collection of possible outcomes of an experiment | Die roll, $ \Omega = \left \{ 1,2,3,4,5,6 \right \} $ |
-| $ E $      | An event, a subset of sample space                                     | Die roll is even, $ E = \left \{ 2,4,6 \right \} $    |
+| $ \Omega $ | The sample space, the collection of possible outcomes of an experiment | Die roll, $ \Omega = \lbrace 1,2,3,4,5,6 \brace $ |
+| $ E $      | An event, a subset of sample space                                     | Die roll is even, $ E = \lbrace 2,4,6 \rbrace $    |
 | $ \omega $ | An elementary or simple event, a particular result of an experiment    | Die roll is a four, $ \omega = 4 $                    |
 | $ \phi $   | The null event or the empty set                                        | |
 
