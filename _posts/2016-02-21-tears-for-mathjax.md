@@ -70,7 +70,7 @@ local build 对 `$ ... $` 和 `$$ ... $$` 识别得很好！你在一行文字�
 - `\bigg \lbrace`: XXL
 - `\Bigg \lbrace`: XXXL
 
-顺便说下 `\left (` 和 `left [` 都不需要 escape，暂时可以放心使用。哪天出了问题再统一换掉……
+顺便说下 `\left (` 和 `\left [` 都不需要 escape，暂时可以放心使用。哪天出了问题再统一换掉……
 
 ## 6. 请替换 `|` 为 `\vert`、`\lvert` 和 `\rvert`
 
