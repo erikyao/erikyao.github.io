@@ -90,7 +90,7 @@ _**Subgraph:**_
 
 _**Walk**_, _**Path**_, _**Cycle**_ and _**Connectivity**_:
 
-- A walk is a sequence of vertices, $ v_1, v_2, \dots, v_k $, s.t. $ \forall 1 \le i \le k $, $ \left \{ v_i, v_{i+1} \right \} \in E $.
+- A walk is a sequence of vertices, $ v_1, v_2, \dots, v_k $, s.t. $ \forall 1 \le i \le k $, $ \lbrace v_i, v_{i+1} \rbrace \in E $.
 	- $ v_1 $ and $ v_k $ are the _**endpoints**_ of the walk; while
 	- $ v_2, v_3, \dots, v_{k-1} $ are _**internal vertices**_.
 - A walk is _**closed**_ if $ v_k == v_1 $, and _**open**_ if $ v_k \neq v_1 $.
@@ -417,8 +417,8 @@ So we can come up with an idea to find all SCC in $ G $:
 所以问题转换为 to find a sink SCC。又因为，只要找到了一个 sink SCC 的 vertex，就能 `DFS` 得到 sink SCC，所以问题进一步转换为 to find a vertex in a sink SCC。
 
 - Digress: How to find a SCC given a vertex `v` in graph $ G $, i.e. to find a SCC of $ G $ containing `v`?
-	- `DFS(v,G)` $ \Rightarrow Reach(v,G) = \{ \text{vertices that } v \text{ can reach in } G \} $
-	- `DFS(v,rev(G))` $ \Rightarrow Reach^{-1}(v,G) = \{ \text{vertices that can reach } v \text{ in } G \} $
+	- `DFS(v,G)` $ \Rightarrow Reach(v,G) = \lbrace \text{vertices that } v \text{ can reach in } G \rbrace $
+	- `DFS(v,rev(G))` $ \Rightarrow Reach^{-1}(v,G) = \lbrace \text{vertices that can reach } v \text{ in } G \rbrace $
 	- Then $ SCC(v,G) = Reach(v,G) \cap Reach^{-1}(v, G) $
 	
 <!-- -->
@@ -907,7 +907,7 @@ A matroid $ M $ is a finite collection of finite sets that satisfies three axiom
 
 - **Non-emptiness:** The empty set $ \emptyset $ is in $ M $. (Thus, $ M $ is not itself empty.)
 - **Heredity:** If a set $ X $ is an element of $ M $, then any subset of $ X $ is also in $ M $.
-- **Exchange:** (a.k.a **Augmentation**) If $ X $ and $ Y $ are two sets in $ M $ where $ \lvert X \rvert > \lvert Y \rvert $, then there $ \exists $ an element $ x \in X \setminus Y $ such that $ Y \cup \{x\} $ is in $ M $.
+- **Exchange:** (a.k.a **Augmentation**) If $ X $ and $ Y $ are two sets in $ M $ where $ \lvert X \rvert > \lvert Y \rvert $, then there $ \exists $ an element $ x \in X \setminus Y $ such that $ Y \cup \lbracex\rbrace $ is in $ M $.
 
 <!-- -->
 
@@ -915,7 +915,7 @@ A matroid $ M $ is a finite collection of finite sets that satisfies three axiom
 	- Therefore, the three axioms can also be stated as:
 		- **Non-emptiness**: The empty set $ \emptyset $ is independent.
 		- **Heredity**: If a set $ X $ is independent, then any subset of $ X $ is also independent.
-		- **Exchange** (a.k.a **Augmentation**): If $ X $ and $ Y $ are two independent sets where $ \lvert X \rvert > \lvert Y \rvert $, then there $ \exists $ an element $ x \in X \setminus Y $ such that $ Y \cup \{x\} $ is also independent.
+		- **Exchange** (a.k.a **Augmentation**): If $ X $ and $ Y $ are two independent sets where $ \lvert X \rvert > \lvert Y \rvert $, then there $ \exists $ an element $ x \in X \setminus Y $ such that $ Y \cup \lbracex\rbrace $ is also independent.
 - The union of all sets in $ M $ is called the _**ground set**_.
 	- In set theory, a collection, $ F $, of subsets of a given set $ S $ is called a _**family**_ of subsets of $ S $.
 	- Therefore, a matroid is a family of subsets of its ground set.
@@ -924,20 +924,20 @@ A matroid $ M $ is a finite collection of finite sets that satisfies three axiom
 
 - A maximal independent set is called a _**basis**_.
 	- "Maximal" means it is not a proper subset of any other independent set. E.g.
-		- Ground set $ U = \{ 1,2,3 \} $
-		- $ M = \{ \text{subsets of } U \text{ of size at most 2} \} = \{ \emptyset, \{ 1 \}, \{ 2 \}, \{ 3 \}, \{ 1,2 \}, \{ 1,3 \}, \{ 2,3 \} \} $
-		- $ \{ 1,2 \} $, $ \{ 1,3 \} $ and $ \{ 2,3 \} $ are all bases.
+		- Ground set $ U = \lbrace 1,2,3 \rbrace $
+		- $ M = \lbrace \text{subsets of } U \text{ of size at most 2} \rbrace = \lbrace \emptyset, \lbrace 1 \rbrace, \lbrace 2 \rbrace, \lbrace 3 \rbrace, \lbrace 1,2 \rbrace, \lbrace 1,3 \rbrace, \lbrace 2,3 \rbrace \rbrace $
+		- $ \lbrace 1,2 \rbrace $, $ \lbrace 1,3 \rbrace $ and $ \lbrace 2,3 \rbrace $ are all bases.
 	- The exchange property implies that every basis of a matroid has the same cardinality (i.e. size).
 	- The _**rank**_ of a matroid is the size of its bases.
 - A subset of the ground set that is not in $ M $ is a _**dependent set**_.
-	- E.g. ground set $ U = \{ 1,2,3 \} $ itself is a dependent set above.
+	- E.g. ground set $ U = \lbrace 1,2,3 \rbrace $ itself is a dependent set above.
 - A dependent set is called a _**circuit**_ if any of its proper subset is independent.
-	- E.g. ground set $ U = \{ 1,2,3 \} $ itself is a circuit above.
+	- E.g. ground set $ U = \lbrace 1,2,3 \rbrace $ itself is a circuit above.
 	
 Here are several other examples of matroids; some of these we will see again later.
 
-- **Linear matroid:** Let $ A $ be any $ n \times m $ matrix. A subset $ I \subseteq \{ 1, 2, \dots, n \} $ is independent if and only if the corresponding subset of columns of $ A $ is linearly independent.
-- **Uniform matroid $ U_{k,n} $:** A subset $ X \subseteq \{ 1, 2, \dots, n \} $ is independent if and only if $ \lvert X \rvert \leq k $. Any subset of $ \{ 1, 2, \dots, n \} $ of size $ k $ is a basis; any subset of size $ k + 1 $ is a circuit.
+- **Linear matroid:** Let $ A $ be any $ n \times m $ matrix. A subset $ I \subseteq \lbrace 1, 2, \dots, n \rbrace $ is independent if and only if the corresponding subset of columns of $ A $ is linearly independent.
+- **Uniform matroid $ U_{k,n} $:** A subset $ X \subseteq \lbrace 1, 2, \dots, n \rbrace $ is independent if and only if $ \lvert X \rvert \leq k $. Any subset of $ \lbrace 1, 2, \dots, n \rbrace $ of size $ k $ is a basis; any subset of size $ k + 1 $ is a circuit.
 - **Matching matroid:** Let $ G = (V, E) $ be an arbitrary undirected graph. A subset $ I \subseteq V $ is independent if there is a matching in $ G $ that covers $ I $.
 
 _**TODO:**_ Lecture note 和笔记本上还有些例子待补充。
@@ -1054,7 +1054,7 @@ _**TODO:**_ bipartite graphs & `AltBFS` alg
 - term $ x_1^2 x_2 $ 的 degree 是 2 + 1 = 3
 - term $ x_3 x_4 x_5^{10} $ 的 degree 是 1 + 1 + 10 = 12
 - term $ x_2^{11} x_3^{12} $ 的 degree 是 11 + 12 = 23
-- 所以 polynomial 的 degree 等于 $ \max \{ 3,12,23 \} = 23 $
+- 所以 polynomial 的 degree 等于 $ \max \lbrace 3,12,23 \rbrace = 23 $
 
 The idea of the algorithm is very simple: assign values $ r_1, \dots, r_n $ chosen independently and uniformly at random from a finite set $ S $ to $ x_1, \dots, x_n $. Test if $ P(r_1, \dots, r_n) = 0 $.
 
@@ -1072,13 +1072,13 @@ _**one-to-one function:**_ A function $ f: A \rightarrow B $ is called one-to-on
 
 _**bijection:**_ A functions that is both one-to-one and onto. Such functions are also referred to as bijective (双射).
 
-A _**permutation**_ of a set $ X $ is a bijection $ \pi: X \rightarrow X $. E.g. $ \{ 1,2,3 \} \rightarrow \{ 3,1,2 \} $
+A _**permutation**_ of a set $ X $ is a bijection $ \pi: X \rightarrow X $. E.g. $ \lbrace 1,2,3 \rbrace \rightarrow \lbrace 3,1,2 \rbrace $
 
 - <!-- -->$ \pi(1) = 3 $
 - <!-- -->$ \pi(2) = 1 $
 - <!-- -->$ \pi(3) = 2 $
 
-$ \{ 1,2,3 \} \rightarrow \{ 3,1,2 \} $ 至少需要 2 _**swaps**_。 一次 swap 只能交换两个 elements。假设一个 permutation 变化至少需要 $ k $ swaps，那么 _**sign of permutation**_ $ sign(\pi) = (-1)^k $.
+$ \lbrace 1,2,3 \rbrace \rightarrow \lbrace 3,1,2 \rbrace $ 至少需要 2 _**swaps**_。 一次 swap 只能交换两个 elements。假设一个 permutation 变化至少需要 $ k $ swaps，那么 _**sign of permutation**_ $ sign(\pi) = (-1)^k $.
 
 _**TODO:**_ Prove that sign is well defined, i.e. 对同一个 $ \pi $，这个定义不可能产生不同的 $ sign(\pi) $。
 
@@ -1086,8 +1086,8 @@ Given an $ n \times n $ matrix $ A = [a_{i,j}] $, $ Det(A) = \sum_{\pi}{sign(\pi
 
 E.g. $ n = 2 $, $ Det(A) = 1 \cdot a_{11} \cdot a_{22} + (-1) \cdot a_{12} \cdot a_{21} $.
 
-- $ \pi_1: \{ 1,2 \} \rightarrow \{ 1,2 \} $; $ sign(\pi_1) = 1 $
-- $ \pi_2: \{ 1,2 \} \rightarrow \{ 2,1 \} $; $ sign(\pi_2) = -1 $
+- $ \pi_1: \lbrace 1,2 \rbrace \rightarrow \lbrace 1,2 \rbrace $; $ sign(\pi_1) = 1 $
+- $ \pi_2: \lbrace 1,2 \rbrace \rightarrow \lbrace 2,1 \rbrace $; $ sign(\pi_2) = -1 $
 
 ### 13.2 Application to Bipartite Matching
 
@@ -1105,7 +1105,7 @@ _**Claim 2.3**_ $ G $ contains a perfect matching if and only if $ Det(A_G) \not
 
 ![][Tutte_matrix]
 
-$ Det(A) = - x_{11} \cdot x_{23} \cdot x_{32} $. 根据 $ x_{ij} $ 的下标，我们可以看出 $ \{ (p_1, q_1), (p_2, q_3), (p_3, q_2) \} $ 是一个 perfect matching。
+$ Det(A) = - x_{11} \cdot x_{23} \cdot x_{32} $. 根据 $ x_{ij} $ 的下标，我们可以看出 $ \lbrace (p_1, q_1), (p_2, q_3), (p_3, q_2) \rbrace $ 是一个 perfect matching。
 
 ## <a name="14-eulerian-graph"></a>14. Eulerian Graph
 
@@ -1162,7 +1162,7 @@ A brute-force alg: try every permutation of vertices (that's $ O(V!) $), see if 
 
 An $ O(V^2 2^V) $ DP alg: `BellmanHeldKarp`. (已知 $ V^2 2^V \ll V! $)
 
-$ V = \{ v_1, \dots, v_n \}, n = |V|, S \subseteq V $
+$ V = \lbrace v_1, \dots, v_n \rbrace, n = \vert V \vert, S \subseteq V $
 
 $$
 \begin{equation}
@@ -1176,9 +1176,9 @@ $$
 
 $ H(v_n,V) $ is our aim.
 
-$ H(v_i,S) = \exists j \text{ s.t. } H(v_j,S \setminus \{ v_i \}) \text { & } (v_i, v_j) \in E $
+$ H(v_i,S) = \exists j \text{ s.t. } H(v_j,S \setminus \lbrace v_i \rbrace) \text { & } (v_i, v_j) \in E $
 
-Base Case: $ H(v_1, \{ v_1 \}) = True $
+Base Case: $ H(v_1, \lbrace v_1 \rbrace) = True $
 
 $ \exists $ a Hamiltonia cycle if $ \exists j \text{ s.t. } H(v_j,V) = True \text { & } (v_1, v_j) \in E $
 
