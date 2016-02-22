@@ -72,7 +72,7 @@ Principal component analysis (PCA) refers to the process by which principal comp
 
 ### <a name="PC"></a>2.1 What Are Principal Components?
 
-The **$ 1^{st} $ principal component** of a set of features $$ X_1,X_2,\cdots,X_p $$ is the normalized linear combination of the features
+The $ 1^{st} $ **principal component** of a set of features $$ X_1,X_2,\cdots,X_p $$ is the normalized linear combination of the features
 
 $$
 \begin{equation}
