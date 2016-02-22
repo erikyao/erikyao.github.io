@@ -223,7 +223,7 @@ Recall from Chapter 3 that
 $$
 \begin{align}
 	R^2 = 1 - \frac{RSS}{TSS} \newline
-	TSS = \sum{(y_i − \bar y)^2}
+	TSS = \sum{(y_i - \bar y)^2}
 \end{align} 
 $$
 
@@ -297,7 +297,7 @@ The $ \ell_1 $ penalty has the effect of forcing some of the coefficient estimat
 
 As a result, models generated from the lasso are generally much easier to interpret than those produced by ridge regression. We say that the lasso yields **sparse** models — that is, models that involve only a subset of the variables.
 
-P220 介绍了 Another Formulation for Ridge Regression and the Lasso，其实就是引入了一个 budget $ s $，它的值是随 $ \lambda $ 变化的。然后可以把条件 "$ \text{minimize } \left \{ J(\theta) = RSS + \lambda \sum_{j=1}^{p}{\lvert \beta_j \rvert} \right \} $" 写成
+P220 介绍了 Another Formulation for Ridge Regression and the Lasso，其实就是引入了一个 budget $ s $，它的值是随 $ \lambda $ 变化的。然后可以把条件 "$ \text{minimize } \lbrace J(\theta) = RSS + \lambda \sum_{j=1}^{p}{\lvert \beta_j \rvert} \rbrace $" 写成
 
 $$
 \begin{equation}
