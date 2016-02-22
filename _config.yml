@@ -11,8 +11,9 @@ markdown: kramdown
 mathjax: true
 
 kramdown:
-  # GLM for Github Flavored Markdown
-  input: Markdown 
+  # GFM for Github Flavored Markdown
+  input: GFM
+  # input: Markdown 
   syntax_highlighter: rouge
 
 # paginate: 11
