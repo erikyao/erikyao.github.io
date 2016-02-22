@@ -31,8 +31,8 @@ A t-test is a statistical hypothesis test in which the test statistic follows a 
 
 Giving a sample, we test
 
-- $$ H_0 $$: the underlying population mean is equal to a specified value $$ \mu_0 $$
-- $$ H_a $$: the underlying population mean is not equal to a specified value $$ \mu_0 $$
+- $ H_0 $: the underlying population mean is equal to a specified value $ \mu_0 $
+- $ H_a $: the underlying population mean is not equal to a specified value $ \mu_0 $
 
 We use the statistic
 
@@ -40,9 +40,9 @@ $$
 	t = \frac{\overline{x} - \mu_0}{s/\sqrt{n}} 
 $$
 
-where $$ \overline{x} $$ is the sample mean, $$ s $$ is the sample standard deviation of the sample and $$ n $$ is the sample size. The degrees of freedom used in this test are $$ n − 1 $$. 
+where $ \overline{x} $ is the sample mean, $ s $ is the sample standard deviation of the sample and $ n $ is the sample size. The degrees of freedom used in this test are $ n − 1 $. 
 
-Although the parent population does not need to be normally distributed, the distribution of the population of sample means, $$ \overline {x} $$, is assumed to be normal. By the central limit theorem, if the sampling of the parent population is independent then the sample means will be approximately normal. (The degree of approximation will depend on how close the parent population is to a normal distribution and the sample size, $$ n $$.)
+Although the parent population does not need to be normally distributed, the distribution of the population of sample means, $ \overline {x} $, is assumed to be normal. By the central limit theorem, if the sampling of the parent population is independent then the sample means will be approximately normal. (The degree of approximation will depend on how close the parent population is to a normal distribution and the sample size, $ n $.)
 
 ## 2. Slope of a regression line
 
@@ -52,19 +52,19 @@ $$
 	Y = \alpha + \beta x + \varepsilon
 $$
 	
-where $$ x $$ is known, $$ \alpha $$ and $$ \beta $$ are unknown, and $$ \varepsilon $$ is a normally distributed random variable with mean 0 and unknown variance $$ \sigma^2 $$, and $$ Y $$ is the outcome of interest. 
+where $ x $ is known, $ \alpha $ and $ \beta $ are unknown, and $ \varepsilon $ is a normally distributed random variable with mean 0 and unknown variance $ \sigma^2 $, and $ Y $ is the outcome of interest. 
 
 We want to test
 
-- $$ H_0 $$: the slope $$ \beta $$ is equal to some specified value $$ \beta_0 $$ 
-- $$ H_a $$: the slope $$ \beta $$ is not equal to some specified value $$ \beta_0 $$ 
+- $ H_0 $: the slope $ \beta $ is equal to some specified value $ \beta_0 $ 
+- $ H_a $: the slope $ \beta $ is not equal to some specified value $ \beta_0 $ 
 
-$$ \beta_0 $$ is often taken to be 0, in which case the null hypothesis is that $$ x $$ and $$ y $$ are independent.
+$ \beta_0 $ is often taken to be 0, in which case the null hypothesis is that $ x $ and $ y $ are independent.
 
 ## 3. Independent two-sample t-test
 
-- $$ H_0 $$: $$ \mu_1 = \mu_2 $$ (The population means from the two unrelated (i.e. independent) groups are equal.)
-- $$ H_a $$: $$ \mu_1 \neq \mu_2 $$ (The population means from the two unrelated (i.e. independent) groups are not equal.)
+- $ H_0 $: $ \mu_1 = \mu_2 $ (The population means from the two unrelated (i.e. independent) groups are equal.)
+- $ H_a $: $ \mu_1 \neq \mu_2 $ (The population means from the two unrelated (i.e. independent) groups are not equal.)
 
 计算方法根据以下指标有所不同：
 
@@ -81,5 +81,5 @@ This test is used when the samples are dependent; that is,
 
 <!-- -->
 
-- $$ H_0 $$: $$ \mu_1 = \mu_2 $$ (The population means from the two related (i.e. dependent) groups are equal.)
-- $$ H_a $$: $$ \mu_1 \neq \mu_2 $$ (The population means from the two related (i.e. dependent) groups are not equal.)
+- $ H_0 $: $ \mu_1 = \mu_2 $ (The population means from the two related (i.e. dependent) groups are equal.)
+- $ H_a $: $ \mu_1 \neq \mu_2 $ (The population means from the two related (i.e. dependent) groups are not equal.)

@@ -74,7 +74,7 @@ Statistical hypothesis testing is sometimes called **confirmatory data analysis*
 
 简单说，Statistical hypothesis testing 就是指 
 
-1. 提出 $$ H_0 $$, $$ H_a $$
+1. 提出 $ H_0 $, $ H_a $
 2. 建立 test statistic
 3. 计算是否应该 reject hypothesis
 
@@ -92,12 +92,12 @@ A t-test is a statistical hypothesis test in which the test statistic follows a 
 
 以 t-test 为例。  
 
-在使用 t-test 时，如果 we assume $$ H_0 $$ is true，然后我们用的是一个 t-statistic following a Student's t distribution，这时，我们手头上不是有一个 sample 嘛，我们用这个 sample 来算一下这个 t-statistic 的具体值，称为 t-value.  
+在使用 t-test 时，如果 we assume $ H_0 $ is true，然后我们用的是一个 t-statistic following a Student's t distribution，这时，我们手头上不是有一个 sample 嘛，我们用这个 sample 来算一下这个 t-statistic 的具体值，称为 t-value.  
 
 然后 p-value 就可以用来 answers this question: If my null hypothesis were true, what is the probability of getting a t-value at least as big as mine?  
 
-也就是 $$ \text{p-value} = P(\text{t-statistic} \geq \lvert \text{t-value} \rvert \mid H_0 = true) $$. Obviously, the lower this value is, the less likely it is that you would find a difference like yours by chance.  
+也就是 $ \text{p-value} = P(\text{t-statistic} \geq \lvert \text{t-value} \rvert \mid H_0 = true) $. Obviously, the lower this value is, the less likely it is that you would find a difference like yours by chance.  
 
-结合分位数的概念来看，当 p-value 越小时，t-value 越靠近 tail，说明在 $$ H_0 = true $$ 时取到这个 sample 对应的 t-value 的几率越小，于是我们越有信心来 reject $$ H_0 $$。
+结合分位数的概念来看，当 p-value 越小时，t-value 越靠近 tail，说明在 $ H_0 = true $ 时取到这个 sample 对应的 t-value 的几率越小，于是我们越有信心来 reject $ H_0 $。
 
-一般我们会给 p-value 取个阈值，常用的是 0.05，当 p-value < 0.05 时我们判定 reject $$ H_0 $$。这个阈值我们称为 Significance Level。
+一般我们会给 p-value 取个阈值，常用的是 0.05，当 p-value < 0.05 时我们判定 reject $ H_0 $。这个阈值我们称为 Significance Level。

@@ -40,7 +40,7 @@ alternative splicing 也不止 "漏掉 exon" 这么一种形式，具体可以�
 * features derived from the exon and intron lengths, and
 * features based on the pre-mRNA sequence.
 
-在后面的 combined kernel $$ (\ref{eq3}) $$ 中你可以看到他真的做到了。
+在后面的 combined kernel $ (\ref{eq3}) $ 中你可以看到他真的做到了。
 
 ## 2. Methods
 
@@ -73,27 +73,27 @@ $$
 \end{align}
 $$
 
-* $$ I(true) = 1 $$ and $$ I(false) = 0 $$
-* $$ u_{k,l}(s) $$ is the oligomer (['ɒlɪgəʊmə], 低聚物) of length $$ k $$ starting at position $$ l $$ of the sequence $$ s $$. 其实就是 $$ k $$-mer
-* $$ \beta_d = \frac{2(d-k+1)}{d(d+1)} $$
+* $ I(true) = 1 $ and $ I(false) = 0 $
+* $ u_{k,l}(s) $ is the oligomer (['ɒlɪgəʊmə], 低聚物) of length $ k $ starting at position $ l $ of the sequence $ s $. 其实就是 $ k $-mer
+* $ \beta_d = \frac{2(d-k+1)}{d(d+1)} $
 
 这个 kernel 要求严格对齐，不能处理错位（shift）的情况，于是作者提出了 WD kernel with shifts in order to find sequence motifs which are less precisely localized:
 
 $$
 \begin{align}
-	K(s_i, s_j) &= \sum_{k=1}^{d}{\beta_d \sum_{l=1}^{L-k+1}{\gamma_l \sum_{s=0; \, s+l \leq L}^{S(l)}{\delta_s \, \mu_{k,l,s,s_i, s_j}}}} \\
+	K(s_i, s_j) &= \sum_{k=1}^{d}{\beta_d \sum_{l=1}^{L-k+1}{\gamma_l \sum_{s=0; \, s+l \leq L}^{S(l)}{\delta_s \, \mu_{k,l,s,s_i, s_j}}}} \newline
 	\mu_{k,l,s,s_i, s_j} &= I(u_{k,l+s}(s_i) = u_{k,l}(s_j)) + I(u_{k,l}(s_i) = u_{k,l+s}(s_j))
 	\tag{2}
 	\label{eq2}
 \end{align}
 $$
 
-* $$ l $$ 是 position cursor，表示当前位置
-* $$ s $$ 是 shift 长度
-* $$ \mu $$ 右半部分的意思是：先把 $$ s_i $$ shift 几位与 $$ s_j $$ 比一比，再把 $$ s_j $$ shift 几位与 $$ s_i $$ 比一比
-* $$ \delta_s = \frac{1}{2(s+1)} $$ is the weight assigned to shifts (in either direction) of extent $$ s $$
-* $$ S(l) $$ determines the shift range at position $$ l $$ 
-* $$ \gamma_l $$ is a weighting over the position in the sequence. `2.3.3 MKL for interpretation` 会 KWSK。
+* $ l $ 是 position cursor，表示当前位置
+* $ s $ 是 shift 长度
+* $ \mu $ 右半部分的意思是：先把 $ s_i $ shift 几位与 $ s_j $ 比一比，再把 $ s_j $ shift 几位与 $ s_i $ 比一比
+* $ \delta_s = \frac{1}{2(s+1)} $ is the weight assigned to shifts (in either direction) of extent $ s $
+* $ S(l) $ determines the shift range at position $ l $ 
+* $ \gamma_l $ is a weighting over the position in the sequence. `2.3.3 MKL for interpretation` 会 KWSK。
 
 接下来证明这个 kernel 是 valid kernel，结合 Ng 的 Note 看看就好。
 
@@ -107,7 +107,7 @@ $$
 
 第二段有：
 
-> We define a 201 nt window of (−100,+100) around the acceptor and donor splice sites, respectively, and extract a pair of subsequences, $$ s_{1,i} $$ and  $$ s_{2,i} $$, for each exon $$ e_i $$, $$ i = 1, \cdots, N $$.
+> We define a 201 nt window of (−100,+100) around the acceptor and donor splice sites, respectively, and extract a pair of subsequences, $ s_{1,i} $ and  $ s_{2,i} $, for each exon $ e_i $, $ i = 1, \cdots, N $.
 
 也就是说，对每一个 exon，我们一头一尾产生两个 sequence。比较两个 exon 时，头与头比较、尾与尾比较。这样就达成了：
 
@@ -123,12 +123,12 @@ $$
 \end{align}
 $$
 
-最后那一项是一个 linear kernel，$$ \sigma $$ is a scaling factor and $$ f_i $$ is a feature vector consisting of 4 subvectors:
+最后那一项是一个 linear kernel，$ \sigma $ is a scaling factor and $ f_i $ is a feature vector consisting of 4 subvectors:
 
-* $$ f_{i}^{el} $$ characterizing the exon length $$ l(e_i) $$
-* $$ f_{i}^{ilu} $$ characterizing the upstream intron length of $$ e_i $$
-* $$ f_{i}^{ild} $$ characterizing the downstream intron length of $$ e_i $$
-* $$ f_{i}^{stp} $$ characterizing in which of the three frames of the exon stop codons appear
+* $ f_{i}^{el} $ characterizing the exon length $ l(e_i) $
+* $ f_{i}^{ilu} $ characterizing the upstream intron length of $ e_i $
+* $ f_{i}^{ild} $ characterizing the downstream intron length of $ e_i $
+* $ f_{i}^{stp} $ characterizing in which of the three frames of the exon stop codons appear
 
 后面就不展开了。
 
@@ -138,11 +138,11 @@ $$
 
 #### 2.3.3 MKL for interpretation
 
-MKL 指 Multiple Kernel Learning，它的思想是这样的：如果我们有一个 linear combined kernel，比如 $$ K(x,x') = \beta_1 K_1(x,x') + \cdots + \beta_n K_n(x,x') $$，那我们是不是可以把 sub-kernel 看做 feature 来跑 learning？
+MKL 指 Multiple Kernel Learning，它的思想是这样的：如果我们有一个 linear combined kernel，比如 $ K(x,x') = \beta_1 K_1(x,x') + \cdots + \beta_n K_n(x,x') $，那我们是不是可以把 sub-kernel 看做 feature 来跑 learning？
 
-而且 MKL 还可以这么用：比如我有 $$ K_1 $$ 和 $$ K_2 $$，我不知道该用哪个，于是我直接 $$ K(x,x') = \beta_1 K_1(x,x') + \beta_2 K_2(x,x') $$，如果跑出来 $$ \beta_1 = 0 $$，说明该用 $$ K_2 $$；反之同理。如果 $$ \beta_1 $$ 和 $$ \beta_2 $$ 都不为 0，那我也可以宣布 "我发明了一个新 kernel 综合了 $$ K_1 $$ 和 $$ K_2 $$ 的优点"，尼玛简直稳赚不赔。
+而且 MKL 还可以这么用：比如我有 $ K_1 $ 和 $ K_2 $，我不知道该用哪个，于是我直接 $ K(x,x') = \beta_1 K_1(x,x') + \beta_2 K_2(x,x') $，如果跑出来 $ \beta_1 = 0 $，说明该用 $ K_2 $；反之同理。如果 $ \beta_1 $ 和 $ \beta_2 $ 都不为 0，那我也可以宣布 "我发明了一个新 kernel 综合了 $ K_1 $ 和 $ K_2 $ 的优点"，尼玛简直稳赚不赔。
 
-我们这里讨论 MKL 是为了计算 $$ (\ref{eq2}) $$ 的 $$ \gamma_l $$。这里是把 $$ \gamma_l $$ 看成 coefficient，把剩余的部分看做了 feature。计算的结果在 `3.1.2`。
+我们这里讨论 MKL 是为了计算 $ (\ref{eq2}) $ 的 $ \gamma_l $。这里是把 $ \gamma_l $ 看成 coefficient，把剩余的部分看做了 feature。计算的结果在 `3.1.2`。
 
 ### 2.4 Finding skipped exons within introns
 
@@ -164,9 +164,9 @@ MKL 指 Multiple Kernel Learning，它的思想是这样的：如果我们有一
 
 #### 3.1.2 Understanding the SVM classifier
 
-前面我们通过 KML 计算出了 $$ \gamma_l $$。
+前面我们通过 KML 计算出了 $ \gamma_l $。
 
-$$ \gamma_l $$ 持续走高的区域，说明是 particularly important for discrimination，这个结论引出得很好。
+$ \gamma_l $ 持续走高的区域，说明是 particularly important for discrimination，这个结论引出得很好。
 
 然后针对这几个区域，统计 hexamer 的 frequency，可以得到潜在的 motif。
 

@@ -23,8 +23,8 @@ Fisher's Exact Test is named after its inventor, Sir R. A. Fisher, and is one of
 
 Fisher's Exact Test 的 hypotheses 以及用途和 [Chi-Square Test](/math/2015/06/09/chi-square-test) 完全一致，都是 to test whether two categorical variables are independent.
 
-- $$ H_0 $$: variable $$ A $$ and variable $$ B $$ are independent. 
-- $$ H_a $$: variable $$ A $$ and variable $$ B $$ are not independent.
+- $ H_0 $: variable $ A $ and variable $ B $ are independent. 
+- $ H_a $: variable $ A $ and variable $ B $ are not independent.
 
 两者的第一个区别在于：
 
@@ -41,7 +41,7 @@ $$
 p = \frac{ {a+b \choose a} {c+d \choose c} }{ {n \choose a+c} } = \frac{(a+b)! (c+d)! (a+c)!(b+d)!}{a!b!c!d!n!}
 $$
 
-- 因为 $$ a+c = n - (b+d) $$，所以分母写 $$ {n \choose a+c} $$ 或者 $$ {n \choose b+d} $$ 是一样的。
+- 因为 $ a+c = n - (b+d) $，所以分母写 $ {n \choose a+c} $ 或者 $ {n \choose b+d} $ 是一样的。
 
 To generate a significance level, we need consider only the cases where the marginal totals are the same as in the observed table, and among those, only the cases where the arrangement is as extreme as the observed arrangement, or more so. ([Barnard's test](http://en.wikipedia.org/wiki/Barnard%27s_test) relaxes this constraint on one set of the marginal totals.)
 
@@ -55,13 +55,13 @@ To generate a significance level, we need consider only the cases where the marg
 
 考虑分布的对称性，相反的反向应该也有两种情况，我们用矩阵来简单表示下：
 
-- 已知的情况：$$ \begin{bmatrix}1 & 9 \\11 & 3 \end{bmatrix} $$, 计算得 $$ p_1 = 0.001346076 $$
-- 正方向更极端的情况：$$ \begin{bmatrix}0 & 10 \\12 & 2 \end{bmatrix} $$, 计算得 $$ p_2 = 0.000033652 $$ 
-- 反方向同样极端的情况：$$ \begin{bmatrix}9 & 1 \\3 & 11 \end{bmatrix} $$, 计算得 $$ p_3 = p_1 = 0.001346076 $$
-- 反方向更极端的情况：$$ \begin{bmatrix}10 & 0 \\2 & 12 \end{bmatrix} $$, 计算得 $$ p_4 = p_2 =0.000033652 $$ 
+- 已知的情况：$ \begin{bmatrix}1 & 9 \newline 11 & 3 \end{bmatrix} $, 计算得 $ p_1 = 0.001346076 $
+- 正方向更极端的情况：$ \begin{bmatrix}0 & 10 \newline 12 & 2 \end{bmatrix} $, 计算得 $ p_2 = 0.000033652 $ 
+- 反方向同样极端的情况：$ \begin{bmatrix}9 & 1 \newline 3 & 11 \end{bmatrix} $, 计算得 $ p_3 = p_1 = 0.001346076 $
+- 反方向更极端的情况：$ \begin{bmatrix}10 & 0 \newline 2 & 12 \end{bmatrix} $, 计算得 $ p_4 = p_2 =0.000033652 $ 
 
 <!-- -->
 
-- 如果我们只考虑正方向的两种情况，则我们做的是 one-tailed test，得到的 $$ \operatorname{p-value} = p_1 + p_2 = 0.001379728 $$ 也称为 one-tailed p-value 或者 1-sided p-value。
-- 如果我们正反两个方向都考虑，则我们做的是 two-tailed test，得到的 $$ \operatorname{p-value} = p_1 + p_2 + p_3 + p_4 = 0.002759456 $$ 也称为 two-tailed p-value 或者 2-sided p-value。
+- 如果我们只考虑正方向的两种情况，则我们做的是 one-tailed test，得到的 $ \operatorname{p-value} = p_1 + p_2 = 0.001379728 $ 也称为 one-tailed p-value 或者 1-sided p-value。
+- 如果我们正反两个方向都考虑，则我们做的是 two-tailed test，得到的 $ \operatorname{p-value} = p_1 + p_2 + p_3 + p_4 = 0.002759456 $ 也称为 two-tailed p-value 或者 2-sided p-value。
 - 一般情况下我们都应该做 two-tailed test，除非有客观的理由（比如反方向的情况是不存在的）

@@ -32,7 +32,7 @@ tags: [ML-101, Spline, GAM]
 ### 5. [Smoothing Splines](#Smoothing-Splines)
 
 - [5.1 An Overview of Smoothing Splines](#SS-Overview)
-- [5.2 Choosing the Smoothing Parameter $$ \lambda $$](#Choose-S-Parameter)
+- [5.2 Choosing the Smoothing Parameter $ \lambda $](#Choose-S-Parameter)
 
 ### 6. [Local Regression](#Local-Regression)
 
@@ -53,10 +53,10 @@ tags: [ML-101, Spline, GAM]
 
 Methods in this chapter:
 
-* **Polynomial regression**. For example, a cubic regression uses three variables, $$ X $$, $$ X^2 $$, and $$ X^3 $$, as predictors.
-* **Step functions** cut the range of a variable into $$ K $$ distinct regions in order to produce a qualitative variable. This has the effect of fitting a piecewise constant function.
+* **Polynomial regression**. For example, a cubic regression uses three variables, $ X $, $ X^2 $, and $ X^3 $, as predictors.
+* **Step functions** cut the range of a variable into $ K $ distinct regions in order to produce a qualitative variable. This has the effect of fitting a piecewise constant function.
 * **Regression splines** are more flexible than polynomials and step functions, and in fact are an extension of the two. 
-	* They involve dividing the range of $$ X $$ into $$ K $$ distinct regions. Within each region, a polynomial function is fit to the data. 
+	* They involve dividing the range of $ X $ into $ K $ distinct regions. Within each region, a polynomial function is fit to the data. 
 	* However, these polynomials are constrained so that they join smoothly at the region boundaries, or **knots**. Provided that the interval is divided into enough regions, this can produce an extremely flexible fit. 
 * **Smoothing splines** are similar to regression splines, but arise in a slightly different situation. Smoothing splines result from minimizing a RSS criterion subject to a smoothness penalty.
 * **Local regression** is similar to splines, but differs in an important way. The regions are allowed to overlap, and indeed they do so in a very smooth way. 
@@ -73,23 +73,23 @@ $$
 \end{equation} 
 $$
 
-where $$ \epsilon_i $$ is the error term.
+where $ \epsilon_i $ is the error term.
 
 Notice that the coefficients can be easily estimated using least squares linear regression. 
 
-Generally speaking, it is unusual to use $$ d $$ greater than 3 or 4 because for large values of $$ d $$, the polynomial curve can become overly flexible and can take on some very strange shapes. This is especially true near the boundary of the $$ X $$ variable. 
+Generally speaking, it is unusual to use $ d $ greater than 3 or 4 because for large values of $ d $, the polynomial curve can become overly flexible and can take on some very strange shapes. This is especially true near the boundary of the $ X $ variable. 
 
 P268
 
 ## <a name="Step-Functions"></a>2. Step Functions
 
-简单说就是把 $$ X $$ 分段，我们称为 break the range of $$ X $$ into **bins**。分段的结果是多个 dummy variable (binary factor)，我们以这多个 dummy variable 为 predictor 来 regression。
+简单说就是把 $ X $ 分段，我们称为 break the range of $ X $ into **bins**。分段的结果是多个 dummy variable (binary factor)，我们以这多个 dummy variable 为 predictor 来 regression。
 
 具体见 P268-270
 
 ## <a name="Basis-Functions"></a>3. Basis Functions
 
-Polynomial and piecewise-constant regression (i.e. Step Functions) models are in fact special cases of a basis function approach. The idea is to have at hand a family of functions or transformations, $$ b_1(X), b_2(X), \cdots, b_K(X) $$, that can be applied to a variable $$ X $$. Then we fit the model
+Polynomial and piecewise-constant regression (i.e. Step Functions) models are in fact special cases of a basis function approach. The idea is to have at hand a family of functions or transformations, $ b_1(X), b_2(X), \cdots, b_K(X) $, that can be applied to a variable $ X $. Then we fit the model
 
 $$
 \begin{equation}
@@ -97,13 +97,13 @@ $$
 	\tag{3.1}
 	\label{eq3.1}
 \end{equation} 
-$$	
+$	
 
-Note that the basis functions $$ b_1(), b_2(), \cdots, b_K() $$ are fixed and known. In other words, we choose the functions ahead of time.
+Note that the basis functions $ b_1(), b_2(), \cdots, b_K() $ are fixed and known. In other words, we choose the functions ahead of time.
 
-We can think of $$ (\ref{eq3.1}) $$ as a standard linear model with predictors $$ b_1(x_i), b_2(x_i), \cdots, b_K(x_i) $$. Hence, we can use least squares to estimate the unknown regression coefficients. Importantly, this means that all of the inference tools for linear models that are discussed in Chapter 3, such as standard errors for the coefficient estimates and F-statistics for the model’s overall significance, are available in this setting.
+We can think of $ (\ref{eq3.1}) $ as a standard linear model with predictors $ b_1(x_i), b_2(x_i), \cdots, b_K(x_i) $. Hence, we can use least squares to estimate the unknown regression coefficients. Importantly, this means that all of the inference tools for linear models that are discussed in Chapter 3, such as standard errors for the coefficient estimates and F-statistics for the model’s overall significance, are available in this setting.
 
-Many alternatives for $$ b_1(), b_2(), \cdots, b_K() $$ are possible. For instance, we can use wavelets or Fourier series to construct basis functions. In the next section, we investigate a very common choice for a basis function: regression splines.
+Many alternatives for $ b_1(), b_2(), \cdots, b_K() $ are possible. For instance, we can use wavelets or Fourier series to construct basis functions. In the next section, we investigate a very common choice for a basis function: regression splines.
 
 ## <a name="Regression-Splines"></a>4. Regression Splines
 
@@ -115,30 +115,30 @@ $$
 \begin{equation}
 	y_i = 
 	\begin{cases}
-		\beta_{01} + \beta_{11} x_i + \beta_{21} x_i^2 + \beta_{31} x_i^3 + \epsilon_i & \text{if } x_i < c \\\\ 
+		\beta_{01} + \beta_{11} x_i + \beta_{21} x_i^2 + \beta_{31} x_i^3 + \epsilon_i & \text{if } x_i < c \newline 
 		\beta_{02} + \beta_{12} x_i + \beta_{22} x_i^2 + \beta_{32} x_i^3 + \epsilon_i & \text{if } x_i \geq c
 	\end{cases} 
 \end{equation} 
-$$	
+$$
 
-The points where the coefficients change are called knots, in this case, $$ c $$.
+The points where the coefficients change are called knots, in this case, $ c $.
 
-Using more knots leads to a more flexible piecewise polynomial. In general, if we place $$ K $$ different knots throughout the range of $$ X $$, then we will end up fitting $$ K + 1 $$ different polynomials. And cubic polynomial is not necessary here, for example, we can instead fit piecewise linear functions.
+Using more knots leads to a more flexible piecewise polynomial. In general, if we place $ K $ different knots throughout the range of $ X $, then we will end up fitting $ K + 1 $ different polynomials. And cubic polynomial is not necessary here, for example, we can instead fit piecewise linear functions.
 
 ### <a name="Constraints-and-Splines"></a>4.2 Constraints and Splines
 
 The curve of piecewise polynomials may be discontinuous, which is a sign of overfitting. To remedy this problem, we can fit a piecewise polynomial under a **constraint** that the fitted curve must be continuous. In other
-words, there cannot be a jump when $$ X = c $$.
+words, there cannot be a jump when $ X = c $.
 
 P272 举的例子实际施加了三个 constraint：
 
-* the piecewise polynomials is continuous at $$ X = c $$ 
-	* 假设 $$ x < c $$ 时 $$ y = f_1(x) $$，$$ x \geq c $$ 时 $$ y = f_2(x) $$
-	* 要证明 continuous at $$ X = c $$，等价于证明 $$ f_1(c) = f_2(c) $$
-* the $$1^{st}$$ derivatives (一阶导数) of the piecewise polynomials are continuous at $$ X = c $$ 
-	* 等价于证明 $$ f'_1(c) = f'_2(c) $$
-* the $$2^{nd}$$ derivatives (二阶导数) of the piecewise polynomials are continuous at $$ X = c $$ 
-	* 等价于证明 $$ f''_1(c) = f''_2(c) $$
+* the piecewise polynomials is continuous at $ X = c $ 
+	* 假设 $ x < c $ 时 $ y = f_1(x) $，$ x \geq c $ 时 $ y = f_2(x) $
+	* 要证明 continuous at $ X = c $，等价于证明 $ f_1(c) = f_2(c) $
+* the $1^{st}$ derivatives (一阶导数) of the piecewise polynomials are continuous at $ X = c $ 
+	* 等价于证明 $ f'_1(c) = f'_2(c) $
+* the $2^{nd}$ derivatives (二阶导数) of the piecewise polynomials are continuous at $ X = c $ 
+	* 等价于证明 $ f''_1(c) = f''_2(c) $
 * （具体怎么施加 constraint 书上没有说）
 
 这么做可以降低 degree of freedom：
@@ -149,51 +149,51 @@ P272 举的例子实际施加了三个 constraint：
 
 这了一来得到的 curve 就是 **cubic spline**。Cubic splines are popular because most human eyes cannot detect the discontinuity at the knots. 
 
-In general, a cubic spline with $$ K $$ knots uses a total of $$ 4 + K $$ degrees of freedom.
+In general, a cubic spline with $ K $ knots uses a total of $ 4 + K $ degrees of freedom.
 
-More generally, a degree-$$ d $$ spline is that it is a piecewise degree-$$ d $$ polynomial, with continuity in derivatives up to degree $$ d - 1$$ at each knot. 这句话我给翻译一下：
+More generally, a degree-$ d $ spline is that it is a piecewise degree-$ d $ polynomial, with continuity in derivatives up to degree $ d - 1$ at each knot. 这句话我给翻译一下：
 
-* 我们起手有一个 $$ d $$ 阶的 piecewise polynomial（knot 的数量和划分在这里没有限制）
-* 如果在所有的 knot 上，这个 piecewise polynomial 本身连续，而且其 1 阶、2 阶、……、$$ d-1 $$ 阶导数都连续，则我们可以称这个 $$ d $$ 阶的 piecewise polynomial 为一个 $$ d $$ 阶的 spline
+* 我们起手有一个 $ d $ 阶的 piecewise polynomial（knot 的数量和划分在这里没有限制）
+* 如果在所有的 knot 上，这个 piecewise polynomial 本身连续，而且其 1 阶、2 阶、……、$ d-1 $ 阶导数都连续，则我们可以称这个 $ d $ 阶的 piecewise polynomial 为一个 $ d $ 阶的 spline
 
 ### <a name="Spline-Basis-Rep"></a>4.3 The Spline Basis Representation
 
-Generally, a cubic spline with $$ K $$ knots can be modeled as
+Generally, a cubic spline with $ K $ knots can be modeled as
 
 $$
 \begin{equation}
 	y_i = \beta_0 + \beta_1 b_1(x_i) + \beta_2 b_2(x_i) + \cdots + \beta_{K+3} b_{K+3}(x_i) + \epsilon_i
 	\tag{4.1}
 \end{equation} 
-$$	
+$$
 
-To be specific, a more direct way to represent a cubic spline is to start off with a basis for a cubic polynomial — namely, $$ x, x^2, x^3 $$ — and then add one **truncated power basis** function per knot. A truncated power basis function is defined as
+To be specific, a more direct way to represent a cubic spline is to start off with a basis for a cubic polynomial — namely, $ x, x^2, x^3 $ — and then add one **truncated power basis** function per knot. A truncated power basis function is defined as
 
 $$
 \begin{equation}
 	h(x, \xi) = (x - \xi)_{+}^3 = 
 	\begin{cases}
-		(x - \xi)^3 & \text{if } x > \xi \\\\ 
+		(x - \xi)^3 & \text{if } x > \xi \newline 
 		0 & \text{otherwise}
 	\end{cases} 
 	\tag{4.2}
 \end{equation} 
-$$	
+$$
 
-where $$ \xi $$ is the knot. One can show that adding a term of the form $$ \beta_4 h(x, \xi) $$ to a cubic polynomial will lead to a discontinuity in only the 3^rd derivative at $$ \xi $$; the function will remain continuous, with continuous 1^st and 2^nd derivatives, at each of the knots.
+where $ \xi $ is the knot. One can show that adding a term of the form $ \beta_4 h(x, \xi) $ to a cubic polynomial will lead to a discontinuity in only the 3^rd derivative at $ \xi $; the function will remain continuous, with continuous 1^st and 2^nd derivatives, at each of the knots.
 
-Now the cubic spline with $$ K $$ knots can be written as
+Now the cubic spline with $ K $ knots can be written as
 
 $$
 \begin{align}
 	Y = 
-	& \beta_0 + \beta_1 X + \beta_2 X^2 + \beta_3 X^3 + \\\\
+	& \beta_0 + \beta_1 X + \beta_2 X^2 + \beta_3 X^3 + \newline
 	& \beta_4 h(X, \xi_1) + \cdots + \beta_{K+3} h(X, \xi_K) + \epsilon
 	\tag{4.3}
 \end{align} 
-$$	
+$$
 
-with $$ K+4 $$ degrees of freedom. 
+with $ K+4 $ degrees of freedom. 
 
 A **natural spline** is a regression spline with additional boundary constraints: the function is required to be linear at the boundary (in the region where X is smaller than the smallest knot, or larger than the largest knot). This additional constraint means that natural splines generally produce more stable estimates at the boundaries.
 
@@ -211,7 +211,7 @@ P276
 
 ### <a name="SS-Overview"></a>5.1 An Overview of Smoothing Splines
 
-首先提出了 smooth 的意义：我们想要的是 min RSS，但其实定义一个非常扭曲的分段函数 g，让所有的 $$ x_i $$ 都有 $$ g(x_i) = y_i $$ 可以很容易让 RSS = 0，但这种极端 overfitting 没有任何实用价值。于是我们提出了一个新的要求：What we really want is a function g that makes RSS small, but that is also **smooth**.
+首先提出了 smooth 的意义：我们想要的是 min RSS，但其实定义一个非常扭曲的分段函数 g，让所有的 $ x_i $ 都有 $ g(x_i) = y_i $ 可以很容易让 RSS = 0，但这种极端 overfitting 没有任何实用价值。于是我们提出了一个新的要求：What we really want is a function g that makes RSS small, but that is also **smooth**.
 
 How might we ensure that g is smooth? There are a number of ways to do this. A natural approach is to find the function g that minimizes
 
@@ -221,31 +221,31 @@ $$
 	\tag{5.1}
 	\label{eq5.1}
 \end{equation} 
-$$	
+$$
 
-where $$ \lambda $$ is a nonnegative **tuning parameter**. The function g that minimizes $$ (\ref{eq5.1}) $$ is known as a **smoothing spline**.
+where $ \lambda $ is a nonnegative **tuning parameter**. The function g that minimizes $ (\ref{eq5.1}) $ is known as a **smoothing spline**.
 
-* $$ \sum_{i=1}^n {(y_i - g(x_i))^2} $$ is a **loss funtion**
-* $$ \lambda \int {g''(t)^2 \, dt} $$ is a **penalty term**
+* $ \sum_{i=1}^n {(y_i - g(x_i))^2} $ is a **loss funtion**
+* $ \lambda \int {g''(t)^2 \, dt} $ is a **penalty term**
 
-Broadly speaking, the 2^nd derivative of a function is a measure of its **roughness**: it is large in absolute value if $$ g(t) $$ is very wiggly near $$ t $$, and it is close to zero otherwise. (E.g. The 2^nd derivative of a straight line, which is perfectly smooth, is zero.)
+Broadly speaking, the 2^nd derivative of a function is a measure of its **roughness**: it is large in absolute value if $ g(t) $ is very wiggly near $ t $, and it is close to zero otherwise. (E.g. The 2^nd derivative of a straight line, which is perfectly smooth, is zero.)
 
-If g is very smooth, then $$ g'(t) $$ will be close to constant and $$ \int {g''(t)^2 \, dt} $$ will take on a small value. Therefore, the penalty term encourages g to be smooth. The larger the value of $$ \lambda $$, the smoother g will be.
+If g is very smooth, then $ g'(t) $ will be close to constant and $ \int {g''(t)^2 \, dt} $ will take on a small value. Therefore, the penalty term encourages g to be smooth. The larger the value of $ \lambda $, the smoother g will be.
 
-When $$ \lambda = 0 $$, then the penalty term has no effect, and so the function g will be very jumpy and will exactly interpolate (穿插) the training observations. When $$ \lambda \to \infty $$, g will be perfectly smooth — it will just be a straight line that passes as closely as possible to the training points.
+When $ \lambda = 0 $, then the penalty term has no effect, and so the function g will be very jumpy and will exactly interpolate (穿插) the training observations. When $ \lambda \to \infty $, g will be perfectly smooth — it will just be a straight line that passes as closely as possible to the training points.
 
-The function g that minimizes $$ (\ref{eq5.1}) $$ can be shown to have some special properties:
+The function g that minimizes $ (\ref{eq5.1}) $ can be shown to have some special properties:
 
-* It is a piecewise cubic polynomial with knots at the unique values of $$ x_1, \cdots, x_n $$,
+* It is a piecewise cubic polynomial with knots at the unique values of $ x_1, \cdots, x_n $,
 * and has continuous 1^st and 2^nd derivatives at each knot.
 * Furthermore, it is linear in the region outside of the extreme knots.
-* In other words, the function g that minimizes $$ (\ref{eq5.1}) $$ is a natural cubic spline with knots at $$ x_1, \cdots, x_n $$.
+* In other words, the function g that minimizes $ (\ref{eq5.1}) $ is a natural cubic spline with knots at $ x_1, \cdots, x_n $.
 
-### <a name="Choose-S-Parameter"></a>5.2 Choosing the Smoothing Parameter $$ \lambda $$
+### <a name="Choose-S-Parameter"></a>5.2 Choosing the Smoothing Parameter $ \lambda $
 
-The tuning parameter $$ \lambda $$ controls the roughness of the smoothing spline, and hence the **effective degrees of freedom**. It is possible to show that as $$ \lambda $$ increases from 0 to $$ \infty $$, the effective degrees of freedom, which we write $$ df_{\lambda} $$ decrease from $$ n $$ to 2.
+The tuning parameter $ \lambda $ controls the roughness of the smoothing spline, and hence the **effective degrees of freedom**. It is possible to show that as $ \lambda $ increases from 0 to $ \infty $, the effective degrees of freedom, which we write $ df_{\lambda} $ decrease from $ n $ to 2.
 
-Usually, degrees of freedom refer to the number of free parameters, such as the number of coefficients fit in a polynomial or cubic spline. Although a smoothing spline has $$ n $$ parameters and hence $$ n $$ nominal degrees of freedom, these $$ n $$ parameters are heavily constrained or shrunk down.
+Usually, degrees of freedom refer to the number of free parameters, such as the number of coefficients fit in a polynomial or cubic spline. Although a smoothing spline has $ n $ parameters and hence $ n $ nominal degrees of freedom, these $ n $ parameters are heavily constrained or shrunk down.
 
 The definition of effective degrees of freedom is somewhat technical. We can write
 
@@ -254,20 +254,20 @@ $$
 	\hat{g}_{\lambda} = S_{\lambda} y
 	\tag{5.2}
 \end{equation} 
-$$	
+$$
 
-where $$ \hat{g}_{\lambda} $$ is a $$ n $$-vector containing the fitted values of the smoothing spline at the training points $$ x_1, \cdots, x_n $$, for a particular choice of $$ \lambda $$ (你可以把 $$ \hat{g} $$ 理解成 $$ \hat{y} $$). $$ S_{\lambda} $$ is a $$ n \times n $$ matrix. Then the effective degrees of freedom is defined to be
+where $ \hat{g}_{\lambda} $ is a $ n $-vector containing the fitted values of the smoothing spline at the training points $ x_1, \cdots, x_n $, for a particular choice of $ \lambda $ (你可以把 $ \hat{g} $ 理解成 $ \hat{y} $). $ S_{\lambda} $ is a $ n \times n $ matrix. Then the effective degrees of freedom is defined to be
 
 $$
 \begin{equation}
 	df_{\lambda} = \sum_{i=1}^{n} {S_{\lambda}}_{ii}
 	\tag{5.3}
 \end{equation} 
-$$	
+$$
 
-the sum of the diagonal elements of the matrix $$ S_{\lambda} $$.
+the sum of the diagonal elements of the matrix $ S_{\lambda} $.
 
-In fitting a smoothing spline, we do not need to select the number or location of the knots — there will be a knot at each training observation, $$ x_1, \cdots, x_n $$. Instead, we have another problem: we need to choose the value of $$ \lambda $$. It should come as no surprise that one possible solution to this problem is cross-validation.
+In fitting a smoothing spline, we do not need to select the number or location of the knots — there will be a knot at each training observation, $ x_1, \cdots, x_n $. Instead, we have another problem: we need to choose the value of $ \lambda $. It should come as no surprise that one possible solution to this problem is cross-validation.
 
 It turns out that the LOOCV error can be computed very efficiently for smoothing splines, with essentially the same cost as computing a single fit, using the following formula:
 
@@ -276,9 +276,9 @@ $$
 	RSS_{cv}(\lambda) = \sum_{i=1}^{n} { \left ( y_i - \hat{g}_{\lambda}^{(-i)}(x_i) \right )}^2 = \sum_{i=1}^{n}{\left [ \frac{y_i - \hat{g}_{\lambda}(x_i)}{1-{S_{\lambda}}_{ii}} \right ]^2}
 	\tag{5.4}
 \end{equation} 
-$$	
+$$
 
-The notation $$ \hat{g}_{\lambda}^{(-i)}(x_i) $$ indicates the fitted value for this smoothing spline evaluated at $$ x_i $$, where the fit uses all of the training observations except for the i^th observation $$ (x_i, y_i) $$.
+The notation $ \hat{g}_{\lambda}^{(-i)}(x_i) $ indicates the fitted value for this smoothing spline evaluated at $ x_i $, where the fit uses all of the training observations except for the i^th observation $ (x_i, y_i) $.
 
 This formula is quite similar to the one we met in Chapter 5
 
@@ -292,11 +292,11 @@ A model with less effective degrees of freedom is considered as a simpler model,
 
 ## <a name="Local-Regression"></a>6. Local Regression
 
-Local regression is a different approach for fitting flexible non-linear functions, which involves computing the fit at a target point $$ x_0 $$ using only the nearby training observations.
+Local regression is a different approach for fitting flexible non-linear functions, which involves computing the fit at a target point $ x_0 $ using only the nearby training observations.
 
 简单说一下，这个和 KNN 很像。
 
-首先你有 $$ n $$ 个 training 点，这时来了个 test point $$ x_0 $$ 要预测。先选定一个 $$ k $$ 值，表示 "$$ x_0 $$ 周围最近的 $$ k $$ 个 training point 划为 neighborhood"，然后这个 fraction $$ s = \frac{k}{n} $$ 我们称为 span。接着给这 $$ k $$ 个 neighbor 赋一个 weight $$ K_{i0} = K(x_i, x_0) $$，越近的点 weight 越大。然后在这 $$ k $$ 个点上（或者你把 neighborhood 之外的点统一按 weight = 0 处理，这样在所有 $$ n $$ 个点上实施也是一样的）跑一个 weighted least squares regression，也就是 find $$ \hat{\beta}_0 $$ and $$ \hat{\beta}_1 $$ that minimize
+首先你有 $ n $ 个 training 点，这时来了个 test point $ x_0 $ 要预测。先选定一个 $ k $ 值，表示 "$ x_0 $ 周围最近的 $ k $ 个 training point 划为 neighborhood"，然后这个 fraction $ s = \frac{k}{n} $ 我们称为 span。接着给这 $ k $ 个 neighbor 赋一个 weight $ K_{i0} = K(x_i, x_0) $，越近的点 weight 越大。然后在这 $ k $ 个点上（或者你把 neighborhood 之外的点统一按 weight = 0 处理，这样在所有 $ n $ 个点上实施也是一样的）跑一个 weighted least squares regression，也就是 find $ \hat{\beta}_0 $ and $ \hat{\beta}_1 $ that minimize
 
 $$
 \begin{equation}
@@ -305,7 +305,7 @@ $$
 \end{equation} 
 $$
 
-然后就有 $$ \hat{y}_0 = \hat{\beta}_0 + \hat{\beta}_1 x_0 $$
+然后就有 $ \hat{y}_0 = \hat{\beta}_0 + \hat{\beta}_1 x_0 $
 
 注意几个问题：
 
@@ -323,7 +323,7 @@ GAMs is a general framework for：
 
 ### <a name="GAMs-Reg"></a>7.1 GAMs for Regression Problems
 
-与 $$ (\ref{eq3.1}) $$ 的 Basic Functiion 的形式很像。
+与 $ (\ref{eq3.1}) $ 的 Basic Functiion 的形式很像。
 
 A natural way to extend the multiple linear regression model 
 
@@ -333,7 +333,7 @@ $$
 \end{equation} 
 $$
 
-in order to allow for non-linear relationships between each feature and the response is to replace each linear component $$ \beta_{j} x_{ij} $$ with a (smooth) nonlinear function $$ f_{j}(x_{ij}) $$. We would then write the model as 
+in order to allow for non-linear relationships between each feature and the response is to replace each linear component $ \beta_{j} x_{ij} $ with a (smooth) nonlinear function $ f_{j}(x_{ij}) $. We would then write the model as 
 
 $$
 \begin{equation}
@@ -344,11 +344,11 @@ $$
 
 This is an example of a GAM.
 
-It is called an additive model because we calculate a separate $$ f_j $$ for each $$ X_j $$, and then add together all of their contributions.
+It is called an additive model because we calculate a separate $ f_j $ for each $ X_j $, and then add together all of their contributions.
 
 Pros and Cons of GAMs 在 P285。
 
-Because the model is additive, we can still examine the effect of each $$ X_j $$ on $$ Y $$ individually while holding all of the other variables fixed. Hence if we are interested in inference, GAMs provide a useful representation. 很简单的一个变换，比如我们有 $$ X_1, X_2, X_3 $$，我们把 $$ r_i = y_i - f_1(x_{i1}) - f_2(x_{i2}) $$ 称为 $$ X_3 $$ 的 i^th **partial residual**，这个就可以直接作为 $$ f_3(x_{i3}) $$ 的 response 来调 $$ f_3 $$ 的 model。
+Because the model is additive, we can still examine the effect of each $ X_j $ on $ Y $ individually while holding all of the other variables fixed. Hence if we are interested in inference, GAMs provide a useful representation. 很简单的一个变换，比如我们有 $ X_1, X_2, X_3 $，我们把 $ r_i = y_i - f_1(x_{i1}) - f_2(x_{i2}) $ 称为 $ X_3 $ 的 i^th **partial residual**，这个就可以直接作为 $ f_3(x_{i3}) $ 的 response 来调 $ f_3 $ 的 model。
 
 For fully general models, we have to look for even more flexible approaches such as randomforests and boosting. GAMs provide a useful compromise between linear and fully nonparametric models.
 
@@ -356,7 +356,7 @@ For fully general models, we have to look for even more flexible approaches such
 
 P286
 
-其实和 "把 logistic regression 从 Simple 扩展到 Multiple" 的思路一样，我们把 logit $$ \log \left \( \frac{p(X)}{1-p(X)} \right \) = \beta_0 + \cdots $$ 右边的部分变成 GAMs 就可以了。
+其实和 "把 logistic regression 从 Simple 扩展到 Multiple" 的思路一样，我们把 logit $ \log \left ( \frac{p(X)}{1-p(X)} \right ) = \beta_0 + \cdots $ 右边的部分变成 GAMs 就可以了。
 
 ## <a name="Lab"></a>8. Lab: Non-linear Modeling
 
@@ -406,10 +406,10 @@ The fitted values obtained in either orthogonal or raw polynomial are identical:
 	
 In performing a polynomial regression we must decide on the degree of the polynomial to use. One way to do this is by using hypothesis tests. We now fit models ranging from linear to a degree-5 polynomial and seek to determine the simplest model which is sufficient to explain the relationship. We use the `anova()` function, which performs an **analysis of variance** (ANOVA, using an F-test) in order to test 
 
-* $$ h_0 $$: a model $$ M_1 $$ is sufficient to explain the data
-* $$ h_a $$: a more complex model $$ M_2 $$ is required
+* $ h_0 $: a model $ M_1 $ is sufficient to explain the data
+* $ h_a $: a more complex model $ M_2 $ is required
 
-In order to use the `anova()` function, $$ M_1 $$ and $$ M_2 $$ must be **nested** models: the predictors in $$ M_1 $$ must be a subset of the predictors in $$ M_2 $$.
+In order to use the `anova()` function, $ M_1 $ and $ M_2 $ must be **nested** models: the predictors in $ M_1 $ must be a subset of the predictors in $ M_2 $.
 
 	> fit.1 = lm(wage~age, data=Wage)
 	> fit.2 = lm(wage~poly(age,2), data=Wage)
@@ -461,9 +461,9 @@ $$
 \end{equation} 
 $$
 
-and the predictions, standard errors etc. given are of the form $$ X \hat{\beta} $$.
+and the predictions, standard errors etc. given are of the form $ X \hat{\beta} $.
 
-In order to obtain confidence intervals for $$ Pr(Y = 1 \vert X) $$, we use the transformation
+In order to obtain confidence intervals for $ Pr(Y = 1 \vert X) $, we use the transformation
 
 $$
 \begin{equation}
@@ -579,9 +579,9 @@ The generic `plot()` function recognizes that `gam.m3` is an object of class `ga
 	
 In these plots, the function of `year` looks rather linear. We can perform a series of ANOVA tests in order to determine which of these three models is best: 
 
-* a GAM that excludes year ($$ M_1 $$)
-* a GAM that uses a linear function of `year` ($$ M_2 $$)
-* a GAM that uses a spline function of `year` ($$ M_3 $$).
+* a GAM that excludes year ($ M_1 $)
+* a GAM that uses a linear function of `year` ($ M_2 $)
+* a GAM that uses a spline function of `year` ($ M_3 $).
 
 <!-- -->
 
@@ -589,7 +589,7 @@ In these plots, the function of `year` looks rather linear. We can perform a ser
 	> gam.m2 = gam(wage~year+s(age,5)+education, data=Wage)
 	> anova(gam.m1, gam.m2, gam.m3, test="F")
 	
-We find that there is compelling evidence that a GAM with a linear function of `year` is better than a GAM that does not include `year` at all (p-value=0.00014). However, there is no evidence that a non-linear function of `year` is needed (p-value=0.349). In other words, based on the results of this ANOVA, $$ M_2 $$ is preferred.
+We find that there is compelling evidence that a GAM with a linear function of `year` is better than a GAM that does not include `year` at all (p-value=0.00014). However, there is no evidence that a non-linear function of `year` is needed (p-value=0.349). In other words, based on the results of this ANOVA, $ M_2 $ is preferred.
 
 We can also use p-value in `summary()` to determine whether the spline is necessary to fit the model.
 

@@ -18,9 +18,9 @@ tags: [Math-Statistics]
 ### 1.1 Definition
 
 - Bernoulli random variables take a binary outcome, i.e. the value 1 or 0, with probabilities of _**p**_ and _**1-p**_ respectively
-- The PMF for a Bernoulli random variable $$ X $$  is $$ P(X=x) = p^x (1-p)^{1-x} $$
-- The mean of a Bernoulli random variable is $$ \mu = p $$ and the variance is $$ \sigma^2 = p(1-p) $$
-- If we let $$ X $$  be a Bernoulli random variable, it is typical to call $$ X=1 $$ as a "success" and $$ X=0 $$ as a "failure"
+- The PMF for a Bernoulli random variable $ X $  is $ P(X=x) = p^x (1-p)^{1-x} $
+- The mean of a Bernoulli random variable is $ \mu = p $ and the variance is $ \sigma^2 = p(1-p) $
+- If we let $ X $  be a Bernoulli random variable, it is typical to call $ X=1 $ as a "success" and $ X=0 $ as a "failure"
 
 ### 1.2 Binomial trials
 
@@ -32,7 +32,7 @@ iid is short for Independent and Identical Distributed
 Binomial random variables:
 
 - The **binomial random variables** are obtained as the sum of iid Bernoulli trials
-- In specific, let $$ X_1,\ldots,X_n$$ be iid $$ Bernoulli(p) $$; then $$ X = \sum_{i=1}^n X_i $$ is a binomial random variable
+- In specific, let $ X_1,\ldots,X_n$ be iid $ Bernoulli(p) $; then $ X = \sum_{i=1}^n X_i $ is a binomial random variable
 - The binomial mass function is
 
 $$
@@ -41,11 +41,11 @@ $$
 
 ### 1.3 The "Choose" notation
 
-Recall that the notation $$ {n \choose x} = \frac{n!}{x!(n-x)!} $$ (read "n choose x") (BTW, $$ n! $$ reads "n factorial") counts the number of ways of selecting $$ x $$ items out of $$ n $$ without replacement disregarding the order of the items, i.e. $$ C_n^x $$. Specially, 
+Recall that the notation $ {n \choose x} = \frac{n!}{x!(n-x)!} $ (read "n choose x") (BTW, $ n! $ reads "n factorial") counts the number of ways of selecting $ x $ items out of $ n $ without replacement disregarding the order of the items, i.e. $ C_n^x $. Specially, 
 
-$$ 
+$ 
 	{n \choose 0} = {n \choose n} =  1
-$$ 
+$ 
 
 ### 1.4 Exercise
 
@@ -68,21 +68,21 @@ pbinom(6, size = 8, prob = .5, lower.tail = FALSE) ## if lower.tail=TRUE (defaul
 
 ### 2.1 Definition
 
-- A random variable is said to follow a **normal** or **Gaussian** distribution with mean $$ \mu $$ and variance $$ \sigma^2 $$ if the associated density is
-  $$
+- A random variable is said to follow a **normal** or **Gaussian** distribution with mean $ \mu $ and variance $ \sigma^2 $ if the associated density is
+  $
 	f(x) = \frac{1}{\sqrt{2 \pi \sigma^2} } e^{ - \frac{(x-\mu)^2}{2 \sigma^2} }
-  $$
-  If $$ X $$  is an RV (random variable) with this density, then $$ E[X] = \mu $$ and $$ Var(X) = \sigma^2 $$
-- We write $$ X\sim \mbox{N}(\mu, \sigma^2) $$
-- When $$ \mu = 0 $$ and $$ \sigma = 1 $$, the resulting distribution is called **the standard normal distribution**
-- The standard normal density function is labeled $$ \phi(x) = \frac{1}{\sqrt{2 \pi} } e^{ - \frac{x^2}{2} } $$
-- Standard normal RVs are often labeled $$ Z $$
+  $
+  If $ X $ is an RV (random variable) with this density, then $ E[X] = \mu $ and $ Var(X) = \sigma^2 $
+- We write $ X\sim \mbox{N}(\mu, \sigma^2) $
+- When $ \mu = 0 $ and $ \sigma = 1 $, the resulting distribution is called **the standard normal distribution**
+- The standard normal density function is labeled $ \phi(x) = \frac{1}{\sqrt{2 \pi} } e^{ - \frac{x^2}{2} } $
+- Standard normal RVs are often labeled $ Z $
 
 ### 2.2 Facts about the normal density
 
-- If $$ X \sim \mbox{N}(\mu,\sigma^2) $$, then $$ Z = \frac{X - \mu}{\sigma} \sim \mbox{N}(0,1) $$ i.e. $$ Z $$ is standard normal
-- If $$ Z $$ is standard normal, then $$X = \mu + \sigma Z \sim \mbox{N}(\mu, \sigma^2)$$
-- The non-standard normal density is $$\frac{\phi(\frac{x - \mu}{\sigma})}{\sigma}$$
+- If $ X \sim \mbox{N}(\mu,\sigma^2) $, then $ Z = \frac{X - \mu}{\sigma} \sim \mbox{N}(0,1) $ i.e. $ Z $ is standard normal
+- If $ Z $ is standard normal, then $X = \mu + \sigma Z \sim \mbox{N}(\mu, \sigma^2)$
+- The non-standard normal density is $\frac{\phi(\frac{x - \mu}{\sigma})}{\sigma}$
 
 <!-- -->
 
@@ -101,31 +101,31 @@ pbinom(6, size = 8, prob = .5, lower.tail = FALSE) ## if lower.tail=TRUE (defaul
 
 ### 2.4 Exercise
 
-#### 2.4.1 What is the 95^th percentile of a $$ N(\mu, \sigma^2) $$ distribution? 
+#### 2.4.1 What is the 95^th percentile of a $ N(\mu, \sigma^2) $ distribution? 
 
 - Quick answer in R `qnorm(.95, mean = mu, sd = sd)`
-- We want the point $$ x_0 $$ so that $$ P(X \leq x_0) = .95 $$
+- We want the point $ x_0 $ so that $ P(X \leq x_0) = .95 $
 
 $$
 \begin{eqnarray*}
 	P(X \leq x_0) 
-		& = P \left ( \frac{X - \mu}{\sigma} \leq \frac{x_0 - \mu}{\sigma} \right ) \\
+		& = P \left ( \frac{X - \mu}{\sigma} \leq \frac{x_0 - \mu}{\sigma} \right ) \newline
 		& = P \left ( Z \leq \frac{x_0 - \mu}{\sigma} \right ) = 0.95
 \end{eqnarray*}
 $$
 
-- Therefore $$\frac{x_0 - \mu}{\sigma} = 1.645$$ or $$ x_0 = \mu + 1.645\sigma  $$
-- In general $$ x_0 = \mu + z_0\sigma $$ where $$ z_0 $$ is the appropriate standard normal quantile
+- Therefore $\frac{x_0 - \mu}{\sigma} = 1.645$ or $ x_0 = \mu + 1.645\sigma  $
+- In general $ x_0 = \mu + z_0\sigma $ where $ z_0 $ is the appropriate standard normal quantile
 
-#### 2.4.2 What is the probability that a $$ \mbox{N}(\mu,\sigma^2) $$ RV is 2 standard deviations above the mean?
+#### 2.4.2 What is the probability that a $ \mbox{N}(\mu,\sigma^2) $ RV is 2 standard deviations above the mean?
 
 - We want to know
 
 $$
 \begin{eqnarray*}
 	P(X > \mu + 2\sigma) 
-		& = P \left ( \frac{X -\mu}{\sigma} > \frac{\mu + 2\sigma - \mu}{\sigma} \right ) \\
-		& = P(Z \geq 2 ) \\ 
+		& = P \left ( \frac{X -\mu}{\sigma} > \frac{\mu + 2\sigma - \mu}{\sigma} \right ) \newline
+		& = P(Z \geq 2 ) \newline 
 		& \approx 2.5\%
 \end{eqnarray*}
 $$
@@ -159,12 +159,11 @@ qnorm(0.75, mean = 1020, sd = 50)
 
 * The Poisson mass function is
 $$
-P(X = x; \lambda) = \frac{\lambda^x e^{-\lambda}}{x!}
+	P(X = x; \lambda) = \frac{\lambda^x e^{-\lambda}}{x!}, \text{ for } x=0,1,\ldots
 $$
-for $$ x=0,1,\ldots $$
-* The mean of this distribution is $$ \mu = \lambda $$
-* The variance of this distribution is $$ \sigma^2 = \lambda $$
-* Notice that $$ x $$ ranges $$ [0,\infty] $$
+* The mean of this distribution is $ \mu = \lambda $
+* The variance of this distribution is $ \sigma^2 = \lambda $
+* Notice that $ x $ ranges $ [0,\infty] $
 
 ### 3.2 Some uses for the Poisson distribution
 
@@ -177,16 +176,16 @@ The Poisson distribution applies when:
 
 such as the number of times a firefly lights up in my garden in a given 5 seconds, some evening, but meaningless to ask how many such events have not occurred.
 
-When $$ n $$ is large and $$ p $$ is small:
+When $ n $ is large and $ p $ is small:
 
 * Poisson distribution can be used to approximate binomials 
 
 ### 3.3 Rates and Poisson random variables
 
 * Poisson random variables are used to model rates
-* If $$ X \sim Poisson(\lambda) $$ on 1 unit interval, then $$ Y \sim Poisson(k\lambda) $$ on $$ k $$ unit intervals.
-  * $$ \lambda = E[\frac{Y}{k}] $$ is the expected count per time unit (i.e. rate)
-  * $$ k $$ means the total monitoring process takes $$ k $$ time units
+* If $ X \sim Poisson(\lambda) $ on 1 unit interval, then $ Y \sim Poisson(k\lambda) $ on $ k $ unit intervals.
+  * $ \lambda = E[\frac{Y}{k}] $ is the expected count per time unit (i.e. rate)
+  * $ k $ means the total monitoring process takes $ k $ time units
   
 ### 3.4 Exercise: Rate
 
@@ -199,13 +198,13 @@ ppois(3, lambda = 2.5 * 4)
 
 ### 3.5 Poisson approximation to the binomial
 
-* When $$ n $$ is large and $$ p $$ is small, the Poisson distribution is an accurate approximation to the binomial distribution
+* When $ n $ is large and $ p $ is small, the Poisson distribution is an accurate approximation to the binomial distribution
 * Notation
-  * <!-- -->$$ X \sim \mbox{Binomial}(n, p) $$
-  * $$ \lambda = n p $$ and
-	  * $$ n $$ gets large 
-	  * $$ p $$ gets small
-	  * $$ \lambda $$ stays constant
+  * <!-- -->$ X \sim \mbox{Binomial}(n, p) $
+  * $ \lambda = n p $ and
+	  * $ n $ gets large 
+	  * $ p $ gets small
+	  * $ \lambda $ stays constant
 
 ### 3.6 Exercise: Poisson approximation to the binomial
 

@@ -27,7 +27,7 @@ tags: [ML-101, NPL]
 
 > 主题就是一个概念、一个方面。它表现为一系列相关的词，能够代表这个主题。比如如果是 "阿里巴巴" 主题，那么 "马云" "电子商务" 等词会很高的频率出现，而设计到 "腾讯" 主题，那么"马化腾" "QQ" 等词会以较高的频率出现。  
 > <br/>
-> 如果用数学来描述一下的话，主题就是词汇表上词语的条件概率分布，与主题越密切相关的词，条件概率 $$ p(w \vert z) $$ (表示在给定主题 $$ z $$ 的情况下词语 $$ w $$ 出现的概率) 越大。  
+> 如果用数学来描述一下的话，主题就是词汇表上词语的条件概率分布，与主题越密切相关的词，条件概率 $ p(w \vert z) $ (表示在给定主题 $ z $ 的情况下词语 $ w $ 出现的概率) 越大。  
 > <br/>
 > 主题就像一个桶，装了出现频率很高的词语，这些词语和主题有很强的相关性，或者说这些词语定义了这个主题。同时，一个词语，可能来自于这个桶，也可能来自那个桶，比如 "电子商务" 可以来自 "阿里巴巴" 主题，也可以来自 "京东" 主题，所以一段文字往往包含多个主题，也就是说，一段文字不只有一个主题。
 
@@ -35,12 +35,12 @@ tags: [ML-101, NPL]
 
 我们定义：
 
-* $$ d $$ 表示 document
-* $$ w $$ 表示 word
-* $$ z $$ 表示 topic
-* $$ P(w \vert d) $$ 表示词语 $$ w $$ 在文档 $$ d $$ 中出现的概率
-* $$ P(w \vert z) $$ 表示在给定主题 $$ z $$ 的情况下词语 $$ w $$ 出现的概率
-* $$ P(z \vert d) $$ 表示文档 $$ d $$ 中每个主题 $$ z $$ 出现的概率
+* $ d $ 表示 document
+* $ w $ 表示 word
+* $ z $ 表示 topic
+* $ P(w \vert d) $ 表示词语 $ w $ 在文档 $ d $ 中出现的概率
+* $ P(w \vert z) $ 表示在给定主题 $ z $ 的情况下词语 $ w $ 出现的概率
+* $ P(z \vert d) $ 表示文档 $ d $ 中每个主题 $ z $ 出现的概率
 
 于是有：
 
@@ -48,7 +48,7 @@ $$
 	P(w \vert d) = \sum_z{P(w \vert z)\,P(z \vert d)}
 $$
 
-所谓 Topic Model 就是利用大量已知的 $$ P(w \vert d) $$ 来训练 $$ P(z \vert d) $$ 以及 $$ P(w \vert z) $$。
+所谓 Topic Model 就是利用大量已知的 $ P(w \vert d) $ 来训练 $ P(z \vert d) $ 以及 $ P(w \vert z) $。
 
 Topic Model 的一种，PLSA (Probabilistic Latent Semantic Analysis)，是使用的 EM 算法来算的。下面我们简单介绍下 PLSA，详细的内容请结合 EM 算法再深入研究。
 
@@ -64,7 +64,7 @@ $$
 	P(d,w) = P(d) P(w \vert d)
 $$
 
-我们称 **Joint Probability** $$ P(d,w) $$ (我觉得可以理解为 $$ P(d \cap w) $$) shows the probability of a word $$ w $$ to be inside a document $$ d $$.
+我们称 **Joint Probability** $ P(d,w) $ (我觉得可以理解为 $ P(d \cap w) $) shows the probability of a word $ w $ to be inside a document $ d $.
 
 前面已经有
 
@@ -72,19 +72,19 @@ $$
 	P(w \vert d) = \sum_z{P(w \vert z)\,P(z \vert d)}
 $$
 
-这个式子我们称为 **Word Distributions** $$ P(w \vert d) $$ are combinations of the **factors** $$ P(w \vert z) $$ and the **mixing weights** $$ P(z \vert d) $$.
+这个式子我们称为 **Word Distributions** $ P(w \vert d) $ are combinations of the **factors** $ P(w \vert z) $ and the **mixing weights** $ P(z \vert d) $.
 
-* $$ p(w \vert d) $$ 又被称为 Multinomial Mixtures (好像发现了什么不得了的东西……有空再研究)
+* $ p(w \vert d) $ 又被称为 Multinomial Mixtures (好像发现了什么不得了的东西……有空再研究)
 
 我们可以做一下变形：
 
 $$
 \begin{align}
 	P(d,w) 
-	&= P(d) P(w \vert d) \\
-	&= P(d) \sum_z{P(w \vert z)\,P(z \vert d)} \\
-	&= \sum_z{P(w \vert z) \cdot P(d)P(z \vert d)} \\
-	&= \sum_z{P(w \vert z) \cdot P(d,z)} \\
+	&= P(d) P(w \vert d) \newline
+	&= P(d) \sum_z{P(w \vert z)\,P(z \vert d)} \newline
+	&= \sum_z{P(w \vert z) \cdot P(d)P(z \vert d)} \newline
+	&= \sum_z{P(w \vert z) \cdot P(d,z)} \newline
 	&= \sum_z{P(w \vert z) \cdot P(z)P(d \vert z)}
 \end{align} 
 $$
@@ -94,10 +94,10 @@ $$
 $$
 \begin{align}
 	\ell(\theta) 
-	&= \sum_{i}{\sum_{j}{n(d_i, w_j) \ln P(w_j  \vert  d_i)}} \\
-	&= \sum_{i}{\sum_{j}{n(d_i, w_j) \ln P(w_j  \vert  z_k) P(z_k  \vert  d_i)}} \\
+	&= \sum_{i}{\sum_{j}{n(d_i, w_j) \ln P(w_j  \vert  d_i)}} \newline
+	&= \sum_{i}{\sum_{j}{n(d_i, w_j) \ln P(w_j  \vert  z_k) P(z_k  \vert  d_i)}} \newline
 	&\geq \sum_{i}{\sum_{j}{n(d_i, w_j)}} \sum_{k}{Q(z_k \vert d_i,w_j) \ln P(w_j  \vert  z_k) P(z_k  \vert  d_i)}
 \end{align} 
 $$
 
-注意这里 $$ P(w_j  \vert  z_k) $$ 被视为一个 parameter，是 $$ \theta $$ 的一部分。因为这里涉及到了 $$ w $$ 和 $$ d $$ 二维，所以 EM 的计算也有两次，有点类似二维的偏微分的感觉。具体就不展开了，需要深入研究的时候再说。
+注意这里 $ P(w_j \vert z_k) $ 被视为一个 parameter，是 $ \theta $ 的一部分。因为这里涉及到了 $ w $ 和 $ d $ 二维，所以 EM 的计算也有两次，有点类似二维的偏微分的感觉。具体就不展开了，需要深入研究的时候再说。

@@ -944,7 +944,7 @@ _**TODO:**_ Lecture note 和笔记本上还有些例子待补充。
 
 ### 11.2 Matroid Optimization Problem (待续)
 
-Now suppose each element of the ground set of a matroid $ M $ is given an arbitrary non-negative weight, i.e. $ w: U \rightarrow R^{+} $. The matroid optimization problem is to compute a basis with maximum total weight. For example, if $ M $ is the cycle matroid for a graph $ G $, the matroid optimization problem asks us to find the maximum spanning tree of $ G $.
+Now suppose each element of the ground set of a matroid $ M $ is given an arbitrary non-negative weight, i.e. $ w: U \rightarrow \mathbb{R}^{+} $. The matroid optimization problem is to compute a basis with maximum total weight. For example, if $ M $ is the cycle matroid for a graph $ G $, the matroid optimization problem asks us to find the maximum spanning tree of $ G $.
 
 There goes a greedy alg:
 

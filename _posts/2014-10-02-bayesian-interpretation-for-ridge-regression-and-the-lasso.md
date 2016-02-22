@@ -41,15 +41,15 @@ tags: [ML-101, Bayes]
 
 ### 1.3 Bayes' theorem 的变形
 
-不禁想吐槽一下，在 [Conditional Probability](/math/2014/09/08/conditional-probability) 里你就没有发现能把 $$ P(B \vert A) = \frac{P(B \cap A)}{P(A)} $$ 用到贝叶斯公式里么……
+不禁想吐槽一下，在 [Conditional Probability](/math/2014/09/08/conditional-probability) 里你就没有发现能把 $ P(B \vert A) = \frac{P(B \cap A)}{P(A)} $ 用到贝叶斯公式里么……
 
 我们只变化贝叶斯公式的分母部分：
 
 $$
 \begin{align}
 	P(B \vert A) 
-	&= \frac{P(A \vert B)P(B)}{P(A \vert B)P(B) + P(A \vert B^c)P(B^c)} \\
-	&= \frac{P(A \vert B)P(B)}{P(A \cap B) + P(A \cap B^c)} \\
+	&= \frac{P(A \vert B)P(B)}{P(A \vert B)P(B) + P(A \vert B^c)P(B^c)} \newline
+	&= \frac{P(A \vert B)P(B)}{P(A \cap B) + P(A \cap B^c)} \newline
 	&= \frac{P(A \vert B)P(B)}{P(A)}
 	\tag{1.1}
 \end{align} 
@@ -62,16 +62,16 @@ $$
 
 再根据这篇 [Understand Bayes Theorem (prior/likelihood/posterior/evidence)](http://www.lichun.cc/blog/2013/07/understand-bayes-theorem-prior-likelihood-posterior-evidence)，有：
 
-* $$ p(B \vert A) $$ is **posterior** (probablity) distribution
-	* the probablity of $$ B $$ posterior to (after) the observation of $$ A $$
-	* 注意我们这里不说 $$ p(B \vert A) $$ 是 posterior probablity。因为严格说来 $$ p(B \vert A) $$ 是一个分布律，是一个概率函数，从定义上说 是一个分布，而不是一个具体的概率值。当然你理解成一个概率值也无可厚非。prior 同。
-* $$ p(A \vert B) $$ is **likelihood**
-	* reversely, when $$ B $$ happened, how likely will $$ A $$ happen?
+* $ p(B \vert A) $ is **posterior** (probablity) distribution
+	* the probablity of $ B $ posterior to (after) the observation of $ A $
+	* 注意我们这里不说 $ p(B \vert A) $ 是 posterior probablity。因为严格说来 $ p(B \vert A) $ 是一个分布律，是一个概率函数，从定义上说 是一个分布，而不是一个具体的概率值。当然你理解成一个概率值也无可厚非。prior 同。
+* $ p(A \vert B) $ is **likelihood**
+	* reversely, when $ B $ happened, how likely will $ A $ happen?
 	* 从 1.4 来看，似乎不能直接叫 likelihood，待调查
-* $$ p(B) $$ is **prior** (probablity) distribution
-	* prior to (before) any observation, what is the chance of $$ B $$?
-* $$ p(A) $$ is the probablity of **evidence**
-	* $$ A $$ 是已经发生的，是事实，是我们推测 $$ B $$ 的 evidence
+* $ p(B) $ is **prior** (probablity) distribution
+	* prior to (before) any observation, what is the chance of $ B $?
+* $ p(A) $ is the probablity of **evidence**
+	* $ A $ 是已经发生的，是事实，是我们推测 $ B $ 的 evidence
 	
 如果忽略掉 evidence 的话（它是个常数），我们可以得到：
 
@@ -82,25 +82,25 @@ $$
 \end{equation} 
 $$
 
-$$ \propto $$ 读作 is proportional to 或 varies as。
+$ \propto $ 读作 is proportional to 或 varies as。
 
-$$ y \propto x $$ simply means that $$ y = kx $$ for some constant $$ k $$. (符号解释摘自 [List of mathematical symbols](http://en.wikipedia.org/wiki/List_of_mathematical_symbols))
+$ y \propto x $ simply means that $ y = kx $ for some constant $ k $. (符号解释摘自 [List of mathematical symbols](http://en.wikipedia.org/wiki/List_of_mathematical_symbols))
 
 ### 1.4 在 regression 中的应用
 
 根据这篇 [Likelihood Function Confusions](http://voteview.com/Likelihood_Function_Confusions.pdf) 讲义，一种常见的形式如：
 
-* $$ Y $$: the observed data
-* $$ \theta $$: the parameters
-* $$ P(Y \vert \theta) $$: the joint distribution of the sample, which is proportional to the likelihood function
-* $$ P(\theta) $$: the prior distribution of the parameters
+* $ Y $: the observed data
+* $ \theta $: the parameters
+* $ P(Y \vert \theta) $: the joint distribution of the sample, which is proportional to the likelihood function
+* $ P(\theta) $: the prior distribution of the parameters
 
 ## 2. Bayesian Interpretation for Ridge Regression and the Lasso
 
 书上的写法有一点奇怪。按照 [Bayesian Interpretations of Regularization](http://www.mit.edu/~9.520/spring09/Classes/class15-bayes.pdf) 这篇讲义的说法：
 
-* $$ p(Y \vert X,\beta) $$ is the joint distribution over outputs $$ Y $$ given inputs $$ X $$ and the parameters $$ \beta $$.
-* The likelihood of any fixed parameter vector $$ \beta $$ is $$ L(\beta \vert X) = p(Y \vert X,\beta) $$
+* $ p(Y \vert X,\beta) $ is the joint distribution over outputs $ Y $ given inputs $ X $ and the parameters $ \beta $.
+* The likelihood of any fixed parameter vector $ \beta $ is $ L(\beta \vert X) = p(Y \vert X,\beta) $
 
 剩下的部分直接看 P226 好了。[Bayesian Interpretations of Regularization](http://www.mit.edu/~9.520/spring09/Classes/class15-bayes.pdf) 这篇讲义上有些推导过程，很有帮助。
 
@@ -110,7 +110,7 @@ We will now derive the Bayesian connection to the lasso and ridge regression dis
 
 ### (a) Question
 
-Suppose that $$ y_i = \beta_0 + \sum_{j=1}^{p}{x_{ij} \beta_j} + \epsilon_i $$ where $$ \epsilon_1, \cdots, \epsilon_n $$ are independent and identically distributed from a $$ N(0, \sigma^2) $$ distribution. Write out the likelihood for the data.
+Suppose that $ y_i = \beta_0 + \sum_{j=1}^{p}{x_{ij} \beta_j} + \epsilon_i $ where $ \epsilon_1, \cdots, \epsilon_n $ are independent and identically distributed from a $ N(0, \sigma^2) $ distribution. Write out the likelihood for the data.
 
 ### (a) Answer
 
@@ -119,52 +119,52 @@ The likelihood for the data is:
 $$
 \begin{align} 
 	L(\theta \vert \beta) 
-	&= p(\beta \vert \theta) \\ 
-	&= p(\beta_1 \vert \theta) \times \cdots \times p(\beta_n \vert \theta) \\ 
-	&= \prod_{i = 1}^{n} p(\beta_i \vert \theta) \\
-	&= \prod_{i = 1}^{n} \frac{ 1 }{ \sigma \sqrt{2\pi} } \exp \left(- \frac{ \left | Y_i - (\beta_0 + \sum_{j = 1}^{p} \beta_j X_{ij}) \right | ^2}{ 2\sigma^2 } \right) \\ 
+	&= p(\beta \vert \theta) \newline 
+	&= p(\beta_1 \vert \theta) \times \cdots \times p(\beta_n \vert \theta) \newline 
+	&= \prod_{i = 1}^{n} p(\beta_i \vert \theta) \newline
+	&= \prod_{i = 1}^{n} \frac{ 1 }{ \sigma \sqrt{2\pi} } \exp \left(- \frac{ \left | Y_i - (\beta_0 + \sum_{j = 1}^{p} \beta_j X_{ij}) \right | ^2}{ 2\sigma^2 } \right) \newline 
 	&= \left( \frac{ 1 }{ \sigma \sqrt{2\pi} } \right)^n \exp \left(- \frac{ 1 }{ 2\sigma^2 } \sum_{i = 1}^{n} \left | Y_i - (\beta_0 + \sum_{j = 1}^{p} \beta_j X_{ij}) \right | ^2 \right) 
 \end{align} 
 $$
 
 ### (b) Question
 
-Assume the following prior for $$ \beta $$: $$ \beta_1, \cdots, \beta_p $$ are independent and identically distributed according to a double-exponential distribution with mean 0 and common scale parameter $$ b $$: i.e. $$ p(\beta) = \frac{1}{2b} exp(− \frac{\lvert \beta \rvert }{b}) $$. Write out the posterior for $$ \beta $$ in this setting.
+Assume the following prior for $ \beta $: $ \beta_1, \cdots, \beta_p $ are independent and identically distributed according to a double-exponential distribution with mean 0 and common scale parameter $ b $: i.e. $ p(\beta) = \frac{1}{2b} exp(− \frac{\lvert \beta \rvert }{b}) $. Write out the posterior for $ \beta $ in this setting.
 
 ### (b) Answer
 
-The posterior with double exponential (Laplace Distribution) with mean 0 and common scale parameter $$ b $$, i.e. $$ p(\beta) = \frac{1}{2b}\exp(- \lvert \beta \rvert / b) $$ is:
+The posterior with double exponential (Laplace Distribution) with mean 0 and common scale parameter $ b $, i.e. $ p(\beta) = \frac{1}{2b}\exp(- \lvert \beta \rvert / b) $ is:
 
-$$ 
+$$
 	f(\beta \vert X, Y) \propto f(Y \vert X, \beta) \, p(\beta \vert X) = f(Y \vert X, \beta) \, p(\beta)
 $$
 
 Substituting our values from (a) and our density function gives us:
 
-$$ 
+$$
 \begin{align} 
-	&f(Y \vert X, \beta) \, p(\beta) \\
-	&= \left( \frac{ 1 }{ \sigma \sqrt{2\pi} } \right)^n \exp \left( - \frac{ 1 }{ 2\sigma^2 } \sum_{i = 1}^{n} \left | Y_i - (\beta_0 + \sum_{j = 1}^{p} \beta_j X_{ij}) \right |^2 \right) \left( \frac{ 1 }{ 2b } \exp(- \frac{\lvert \beta \rvert}{b}) \right) \\ 
+	&f(Y \vert X, \beta) \, p(\beta) \newline
+	&= \left( \frac{ 1 }{ \sigma \sqrt{2\pi} } \right)^n \exp \left( - \frac{ 1 }{ 2\sigma^2 } \sum_{i = 1}^{n} \left | Y_i - (\beta_0 + \sum_{j = 1}^{p} \beta_j X_{ij}) \right |^2 \right) \left( \frac{ 1 }{ 2b } \exp(- \frac{\lvert \beta \rvert}{b}) \right) \newline 
 	&= \left( \frac{ 1 }{ \sigma \sqrt{2\pi} } \right)^n \left( \frac{ 1 }{ 2b } \right) \exp \left( - \frac{ 1 }{ 2\sigma^2 } \sum_{i = 1}^{n} \left | Y_i - (\beta_0 + \sum_{j = 1}^{p} \beta_j X_{ij}) \right |^2 - \frac{ \lvert \beta \rvert }{ b } \right) 
 \end{align} 
 $$
 
 ### (c) Question
 
-Argue that the lasso estimate is the mode for $$ \beta $$ under this posterior distribution.
+Argue that the lasso estimate is the mode for $ \beta $ under this posterior distribution.
 
 ### (c) Answer
 
-Showing that the Lasso estimate for $$ \beta $$ is the mode under this posterior distribution is the same thing as showing that the most likely value for $$ \beta $$ is given by the lasso solution with a certain $$ \lambda $$.
+Showing that the Lasso estimate for $ \beta $ is the mode under this posterior distribution is the same thing as showing that the most likely value for $ \beta $ is given by the lasso solution with a certain $ \lambda $.
 
 We can do this by taking our likelihood and posterior and showing that it can be reduced to the canonical Lasso Equation 6.7 from the book.
 
 Let's start by simplifying it by taking the logarithm of both sides:
 
-$$ 
+$$
 \begin{align} 
-	&\log \left ( f(Y \vert X, \beta) \, p(\beta) \right ) \\ 
-	&= \log \left [ \left ( \frac{ 1 }{ \sigma \sqrt{2\pi} } \right )^n \left ( \frac{ 1 }{ 2b } \right ) \exp \left ( - \frac{ 1 }{ 2\sigma^2 } \sum_{i = 1}^{n} \left | Y_i - (\beta_0 + \sum_{j = 1}^{p} \beta_j X_{ij}) \right |^2 - \frac{ \lvert \beta \rvert }{ b } \right ) \right ] \\ 
+	&\log \left ( f(Y \vert X, \beta) \, p(\beta) \right ) \newline 
+	&= \log \left [ \left ( \frac{ 1 }{ \sigma \sqrt{2\pi} } \right )^n \left ( \frac{ 1 }{ 2b } \right ) \exp \left ( - \frac{ 1 }{ 2\sigma^2 } \sum_{i = 1}^{n} \left | Y_i - (\beta_0 + \sum_{j = 1}^{p} \beta_j X_{ij}) \right |^2 - \frac{ \lvert \beta \rvert }{ b } \right ) \right ] \newline 
 	&= \log \left [ \left ( \frac{ 1 }{ \sigma \sqrt{2\pi} } \right )^n \left ( \frac{ 1 }{ 2b } \right ) \right ] - \left( \frac{ 1 }{ 2\sigma^2 } \sum_{i = 1}^{n} \left | Y_i - (\beta_0 + \sum_{j = 1}^{p} \beta_j X_{ij}) \right |^2 + \frac{ \lvert \beta \rvert }{ b } \right) 
 \end{align} 
 $$
@@ -173,41 +173,41 @@ We want to maximize the posterior, this means:
 
 $$
 \begin{align} 
-	& \arg \max_\beta \, f(\beta \vert X, Y) \\
+	& \arg \max_\beta \, f(\beta \vert X, Y) \newline
 	&= \arg \max_\beta \, \log \left[ \left( \frac{ 1 }{ \sigma \sqrt{2\pi} } \right)^n \left( \frac{ 1 }{ 2b } \right) \right] - \left( \frac{ 1 }{ 2\sigma^2 } \sum_{i = 1}^{n} \left | Y_i - (\beta_0 + \sum_{j = 1}^{p} \beta_j X_{ij}) \right |^2 + \frac{ \lvert \beta \rvert }{ b } \right) 
 \end{align} 
 $$
 
-Since we are taking the difference of two values, the maximum of this value is the equivalent to taking the difference of the second value in terms of $$ \beta $$. This results in:
+Since we are taking the difference of two values, the maximum of this value is the equivalent to taking the difference of the second value in terms of $ \beta $. This results in:
 
-$$ 
+$$
 \begin{align} 
-	&= \arg \min_\beta \, \frac{ 1 }{ 2\sigma^2 } \sum_{i = 1}^{n} \left[ Y_i - (\beta_0 + \sum_{j = 1}^{p} \beta_j X_{ij}) \right]^2 + \frac{ \lvert \beta \rvert }{ b } \\ 
-	&= \arg \min_\beta \, \frac{ 1 }{ 2\sigma^2 } \sum_{i = 1}^{n} \left[ Y_i - (\beta_0 + \sum_{j = 1}^{p} \beta_j X_{ij}) \right]^2 + \frac{ 1 }{ b } \sum_{j = 1}^{p} \lvert \beta_j \rvert \\ 
+	&= \arg \min_\beta \, \frac{ 1 }{ 2\sigma^2 } \sum_{i = 1}^{n} \left[ Y_i - (\beta_0 + \sum_{j = 1}^{p} \beta_j X_{ij}) \right]^2 + \frac{ \lvert \beta \rvert }{ b } \newline 
+	&= \arg \min_\beta \, \frac{ 1 }{ 2\sigma^2 } \sum_{i = 1}^{n} \left[ Y_i - (\beta_0 + \sum_{j = 1}^{p} \beta_j X_{ij}) \right]^2 + \frac{ 1 }{ b } \sum_{j = 1}^{p} \lvert \beta_j \rvert \newline 
 	&= \arg \min_\beta \, \frac{ 1 }{ 2\sigma^2 } \left( \sum_{i = 1}^{n} \left[ Y_i - (\beta_0 + \sum_{j = 1}^{p} \beta_j X_{ij}) \right]^2 + \frac{ 2\sigma^2 }{ b } \sum_{j = 1}^{p} \lvert \beta_j \rvert \right)
 \end{align} 
 $$
 
-By letting $$ \lambda = \frac{2\sigma^2}{b} $$, we can see that we end up with:
+By letting $ \lambda = \frac{2\sigma^2}{b} $, we can see that we end up with:
 
-$$ 
+$$
 \begin{align} 
-	&= \arg \min_\beta \, \sum_{i = 1}^{n} \left[ Y_i - (\beta_0 + \sum_{j = 1}^{p} \beta_j X_{ij}) \right]^2 + \lambda \sum_{j = 1}^{p} \lvert \beta_j \rvert \\ 
+	&= \arg \min_\beta \, \sum_{i = 1}^{n} \left[ Y_i - (\beta_0 + \sum_{j = 1}^{p} \beta_j X_{ij}) \right]^2 + \lambda \sum_{j = 1}^{p} \lvert \beta_j \rvert \newline 
 	&= \arg \min_\beta \, \text{RSS} + \lambda \sum_{j = 1}^{p} \lvert \beta_j \rvert 
 \end{align} 
 $$
 
-which we know is the Lasso from Equation 6.7 in the book. Thus we know that when the posterior comes from a Laplace distribution with mean zero and common scale parameter $$ b $$, the mode for $$ \beta $$ is given by the Lasso solution when $$ \lambda = \frac{2\sigma^2}{b} $$.
+which we know is the Lasso from Equation 6.7 in the book. Thus we know that when the posterior comes from a Laplace distribution with mean zero and common scale parameter $ b $, the mode for $ \beta $ is given by the Lasso solution when $ \lambda = \frac{2\sigma^2}{b} $.
 
 ### (d) Question
 
-Now assume the following prior for $$ \beta $$: $$ \beta_1, \cdots, \beta_p $$ are independent and identically distributed according to a normal distribution with mean zero and variance $$ c $$. Write out the posterior for $$ \beta $$ in this setting.
+Now assume the following prior for $ \beta $: $ \beta_1, \cdots, \beta_p $ are independent and identically distributed according to a normal distribution with mean zero and variance $ c $. Write out the posterior for $ \beta $ in this setting.
 
 ### (d) Answer
 
-The posterior distributed according to Normal distribution with mean 0 and variance $$ c $$ is:
+The posterior distributed according to Normal distribution with mean 0 and variance $ c $ is:
 
-$$ 
+$$
 \begin{align} 
 	f(\beta \vert X, Y) \propto f(Y \vert X, \beta) \, p(\beta \vert X) = f(Y \vert X, \beta) \, p(\beta) 
 \end{align} 
@@ -215,41 +215,41 @@ $$
 
 Our probability distribution function then becomes: 
 
-$$ 
+$$
 \begin{align} 
 	p(\beta) 
-	&= \prod_{i = 1}^{p} p(\beta_i) \\
-	&= \prod_{i = 1}^{p} \frac{ 1 }{ \sqrt{ 2c\pi } } \exp \left( - \frac{ \beta_i^2 }{ 2c } \right) \\
+	&= \prod_{i = 1}^{p} p(\beta_i) \newline
+	&= \prod_{i = 1}^{p} \frac{ 1 }{ \sqrt{ 2c\pi } } \exp \left( - \frac{ \beta_i^2 }{ 2c } \right) \newline
 	&= \left( \frac{ 1 }{ \sqrt{ 2c\pi } } \right)^p \exp \left( - \frac{ 1 }{ 2c } \sum_{i = 1}^{p} \beta_i^2 \right) 
 \end{align} 
 $$
 
 Substituting our values from (a) and our density function gives us:
 
-$$ 
+$$
 \begin{align} 
-	&f(Y \vert X, \beta) \, p(\beta) \\
-	&= \left( \frac{ 1 }{ \sigma \sqrt{2\pi} } \right)^n \exp \left( - \frac{ 1 }{ 2\sigma^2 } \sum_{i = 1}^{n} \left[ Y_i - (\beta_0 + \sum_{j = 1}^{p} \beta_j X_{ij}) \right]^2 \right) \left( \frac{ 1 }{ \sqrt{ 2c\pi } } \right)^p \exp \left( - \frac{ 1 }{ 2c } \sum_{i = 1}^{p} \beta_i^2 \right) \\ 
+	&f(Y \vert X, \beta) \, p(\beta) \newline
+	&= \left( \frac{ 1 }{ \sigma \sqrt{2\pi} } \right)^n \exp \left( - \frac{ 1 }{ 2\sigma^2 } \sum_{i = 1}^{n} \left[ Y_i - (\beta_0 + \sum_{j = 1}^{p} \beta_j X_{ij}) \right]^2 \right) \left( \frac{ 1 }{ \sqrt{ 2c\pi } } \right)^p \exp \left( - \frac{ 1 }{ 2c } \sum_{i = 1}^{p} \beta_i^2 \right) \newline 
 	&= \left( \frac{ 1 }{ \sigma \sqrt{2\pi} } \right)^n \left( \frac{ 1 }{ \sqrt{ 2c\pi } } \right)^p \exp \left( - \frac{ 1 }{ 2\sigma^2 } \sum_{i = 1}^{n} \left[ Y_i - (\beta_0 + \sum_{j = 1}^{p} \beta_j X_{ij}) \right]^2 - \frac{ 1 }{ 2c } \sum_{i = 1}^{p} \beta_i^2 \right) 
 \end{align} 
 $$
 
 ### (e) Question
 
-Argue that the ridge regression estimate is both the mode and the mean for $$ \beta $$ under this posterior distribution.
+Argue that the ridge regression estimate is both the mode and the mean for $ \beta $ under this posterior distribution.
 
 ### (e) Answer
 
-Like from part (c), showing that the Ridge Regression estimate for $$ \beta $$ is the mode and mean under this posterior distribution is the same thing as showing that the most likely value for $$ \beta $$ is given by the lasso solution with a certain $$ \lambda $$.
+Like from part (c), showing that the Ridge Regression estimate for $ \beta $ is the mode and mean under this posterior distribution is the same thing as showing that the most likely value for $ \beta $ is given by the lasso solution with a certain $ \lambda $.
 
 We can do this by taking our likelihood and posterior and showing that it can be reduced to the canonical Ridge Regression Equation 6.5 from the book.
 
 Once again, we can take the logarithm of both sides to simplify it:
 
-$$ 
+$$
 \begin{align} 
-	&\log \left ( f(Y \vert X, \beta) \, p(\beta) \right ) \\
-	&= \left ( \frac{1}{ \sigma \sqrt{2\pi} } \right )^n \left ( \frac{ 1 }{ \sqrt{ 2c\pi } } \right )^p \exp \left ( - \frac{ 1 }{ 2\sigma^2 } \sum_{i = 1}^{n} \left [ Y_i - (\beta_0 + \sum_{j = 1}^{p} \beta_j X_{ij}) \right ]^2 - \frac{ 1 }{ 2c } \sum_{i = 1}^{p} \beta_i^2 \right ) \\ 
+	&\log \left ( f(Y \vert X, \beta) \, p(\beta) \right ) \newline
+	&= \left ( \frac{1}{ \sigma \sqrt{2\pi} } \right )^n \left ( \frac{ 1 }{ \sqrt{ 2c\pi } } \right )^p \exp \left ( - \frac{ 1 }{ 2\sigma^2 } \sum_{i = 1}^{n} \left [ Y_i - (\beta_0 + \sum_{j = 1}^{p} \beta_j X_{ij}) \right ]^2 - \frac{ 1 }{ 2c } \sum_{i = 1}^{p} \beta_i^2 \right ) \newline 
 	&= \log \left [ \left ( \frac{ 1 }{ \sigma \sqrt{2\pi} } \right )^n \left ( \frac{ 1 }{ \sqrt{ 2c\pi } } \right )^p \right ] - \left ( \frac{ 1 }{ 2\sigma^2 } \sum_{i = 1}^{n} \left[ Y_i - (\beta_0 + \sum_{j = 1}^{p} \beta_j X_{ij}) \right ]^2 + \frac{ 1 }{ 2c } \sum_{i = 1}^{p} \beta_i^2 \right ) 
 \end{align} 
 $$
@@ -258,27 +258,27 @@ We want to maximize the posterior, this means:
 
 $$
 \begin{align} 
-	& \arg \max_\beta \, f(\beta \vert X, Y) \\
+	& \arg \max_\beta \, f(\beta \vert X, Y) \newline
 	&= \arg \max_\beta \, \log \left[ \left( \frac{ 1 }{ \sigma \sqrt{2\pi} } \right)^n \left( \frac{ 1 }{ \sqrt{ 2c\pi } } \right)^p \right] - \left( \frac{ 1 }{ 2\sigma^2 } \sum_{i = 1}^{n} \left[ Y_i - (\beta_0 + \sum_{j = 1}^{p} \beta_j X_{ij}) \right]^2 + \frac{ 1 }{ 2c } \sum_{i = 1}^{p} \beta_i^2 \right) 
 \end{align}
 $$
 
-Since we are taking the difference of two values, the maximum of this value is the equivalent to taking the difference of the second value in terms of $$ \beta $$. This results in:
+Since we are taking the difference of two values, the maximum of this value is the equivalent to taking the difference of the second value in terms of $ \beta $. This results in:
 
-$$ 
+$$
 \begin{align} 
-	&= \arg \min_\beta \, \left( \frac{ 1 }{ 2\sigma^2 } \sum_{i = 1}^{n} \left[ Y_i - (\beta_0 + \sum_{j = 1}^{p} \beta_j X_{ij}) \right]^2 + \frac{ 1 }{ 2c } \sum_{i = 1}^{p} \beta_i^2 \right) \\ 
+	&= \arg \min_\beta \, \left( \frac{ 1 }{ 2\sigma^2 } \sum_{i = 1}^{n} \left[ Y_i - (\beta_0 + \sum_{j = 1}^{p} \beta_j X_{ij}) \right]^2 + \frac{ 1 }{ 2c } \sum_{i = 1}^{p} \beta_i^2 \right) \newline 
 	&= \arg \min_\beta \, \left( \frac{ 1 }{ 2\sigma^2 } \right) \left( \sum_{i = 1}^{n} \left[ Y_i - (\beta_0 + \sum_{j = 1}^{p} \beta_j X_{ij}) \right]^2 + \frac{ \sigma^2 }{ c } \sum_{i = 1}^{p} \beta_i^2 \right) 
 \end{align} 
 $$
 
-By letting $$ \lambda = \frac{\sigma^2}{c} $$, we end up with:
+By letting $ \lambda = \frac{\sigma^2}{c} $, we end up with:
 
-$$ 
+$$
 \begin{align} 
-	&= \arg \min_\beta \, \left( \frac{ 1 }{ 2\sigma^2 } \right) \left( \sum_{i = 1}^{n} \left[ Y_i - (\beta_0 + \sum_{j = 1}^{p} \beta_j X_{ij}) \right]^2 + \lambda \sum_{i = 1}^{p} \beta_i^2 \right) \\ 
+	&= \arg \min_\beta \, \left( \frac{ 1 }{ 2\sigma^2 } \right) \left( \sum_{i = 1}^{n} \left[ Y_i - (\beta_0 + \sum_{j = 1}^{p} \beta_j X_{ij}) \right]^2 + \lambda \sum_{i = 1}^{p} \beta_i^2 \right) \newline 
 	&= \arg \min_\beta \, \text{RSS} + \lambda \sum_{i = 1}^{p} \beta_i^2 
 \end{align} 
 $$
 
-which we know is the Ridge Regression from Equation 6.5 in the book. Thus we know that when the posterior comes from a normal distribution with mean zero and variance $$ c $$, the mode for $$ \beta $$ is given by the Ridge Regression solution when $$ \lambda = \frac{\sigma^2}{c} $$. Since the posterior is Gaussian, we also know that it is the posterior mean.
+which we know is the Ridge Regression from Equation 6.5 in the book. Thus we know that when the posterior comes from a normal distribution with mean zero and variance $ c $, the mode for $ \beta $ is given by the Ridge Regression solution when $ \lambda = \frac{\sigma^2}{c} $. Since the posterior is Gaussian, we also know that it is the posterior mean.

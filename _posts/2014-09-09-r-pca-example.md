@@ -13,17 +13,17 @@ tags: [ML-101, R-101, PCA]
 
 ## 0. More Math Definitions
 
-If $$X$$ is a matrix with each variable in a column and each observation in a row then the `SVD` is a "matrix decomposition" that decomposes the original matrix into 3 separate matrices as
+If $X$ is a matrix with each variable in a column and each observation in a row then the `SVD` is a "matrix decomposition" that decomposes the original matrix into 3 separate matrices as
 
-$$ 
+$$
 	X = U*D*V^T 
 $$
 
-_**P.S.**_ Octave 里是 `[U, S, V] = svd(X)`，$$ X = U*S*V^T $$，只是记号不同而已)
+_**P.S.**_ Octave 里是 `[U, S, V] = svd(X)`，$ X = U*S*V^T $，只是记号不同而已)
 	
 where the columns of `U` are orthogonal ([ɔ:'θɒgənl], 正交的) (`U` a.k.a **left singular vectors**), the columns of `V` are orthogonal (`V` a.k.a **right singular vectors**) and `D` is a diagonal matrix (`D` a.k.a **singular values**).
 
-* 注：如果向量 $$x$$ 和 $$y$$ 的点积为 0，i.e. $$ x*y^T = 0 $$，则称 $$x$$ 和 $$y$$ 正交。上面说 "columns of `U` are orthogonal" 意思是 "`U` 的 columns （转置后）是两两正交的"，用 Octave 的写法就是 `U(:,i)' * U(:,j) = 0`。
+* 注：如果向量 $x$ 和 $y$ 的点积为 0，i.e. $ x*y^T = 0 $，则称 $x$ 和 $y$ 正交。上面说 "columns of `U` are orthogonal" 意思是 "`U` 的 columns （转置后）是两两正交的"，用 Octave 的写法就是 `U(:,i)' * U(:,j) = 0`。
 * 注2：`U` 的 column（转置后）还是个单位向量，i.e. `U(:,i)' * U(:,i) = 1`
 * 注3：结合 注1 和 注2，有 `U' * U = U * U' = I`
 * 注4：其实 `V` 就是 `U'`，i.e. `U * V = I`
@@ -65,7 +65,7 @@ plot(udv$d^2/sum(udv$d^2), pch = 19, xlab = "Singular vector", ylab = "Variance 
 
 ![][variance_explained]
 
-注意这里和 [Machine Learning: Dimensionality Reduction](/machine-learning/2014/09/06/machine-learning-dimensionality-reduction) 那篇不同，这里是直接把 _X_ 拿来分解了，然后再计算的协方差。
+注意这里和 [Machine Learning: Dimensionality Reduction](/machine-learning/2014/09/06/machine-learning-dimensionality-reduction) 那篇不同，这里是直接把 $X$ 拿来分解了，然后再计算的协方差。
 
 ## 4. Create Approximations
 
@@ -100,7 +100,7 @@ image(t(faceData)[, nrow(faceData):1], main = "(d)") ## Original data
 以下参考 [Running PCA and SVD in R](http://genomicsclass.github.io/book/pages/pca_svd.html)。
 
 <pre class="prettyprint linenums">
-x <- t(e)
+x &lt;- t(e)
 pc &lt;- prcomp(x)
 names(pc)
 ## [1] "sdev"     "rotation" "center"   "scale"    "x"

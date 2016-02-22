@@ -72,7 +72,7 @@ Principal component analysis (PCA) refers to the process by which principal comp
 
 ### <a name="PC"></a>2.1 What Are Principal Components?
 
-The $ 1^{st} $ **principal component** of a set of features $$ X_1,X_2,\cdots,X_p $$ is the normalized linear combination of the features
+The $ 1^{st} $ **principal component** of a set of features $ X_1,X_2,\cdots,X_p $ is the normalized linear combination of the features
 
 $$
 \begin{equation}
@@ -81,50 +81,50 @@ $$
 \end{equation} 
 $$
 
-that has the largest variance. By _normalized_, we mean that $$ \sum_{j=1}^{p}{\phi_{j1}^2} = 1 $$. We refer to the elements $$ \phi_{11}, \phi_{21}, \cdots, \phi_{p1} $$ as the **loadings** of the $$ 1^{st} $$ principal component.
+that has the largest variance. By _normalized_, we mean that $ \sum_{j=1}^{p}{\phi_{j1}^2} = 1 $. We refer to the elements $ \phi_{11}, \phi_{21}, \cdots, \phi_{p1} $ as the **loadings** of the $ 1^{st} $ principal component.
 
-我们把 $$ X $$ (assuming $$ X $$ is column-centered) 扩到 matrix 形式：
+我们把 $ X $ (assuming $ X $ is column-centered) 扩到 matrix 形式：
 
 $$
 \begin{align}
 	X
-	& = \begin{pmatrix} X_1 & X_2 & \cdots & X_P \end{pmatrix} \\
-	& = \begin{pmatrix} -- (x^{(1)})^T -- \\ -- (x^{(2)})^T -- \\ \cdots \\ -- (x^{(n)})^T -- \end{pmatrix} \\
+	& = \begin{pmatrix} X_1 & X_2 & \cdots & X_P \end{pmatrix} \newline
+	& = \begin{pmatrix} -- (x^{(1)})^T -- \newline -- (x^{(2)})^T -- \newline \cdots \newline -- (x^{(n)})^T -- \end{pmatrix} \newline
 	& = \begin{pmatrix}
-			x_{11} & x_{12} & \cdots & x_{1p} \\ 
-			x_{21} & x_{22} & \cdots & x_{2p} \\  
-			\cdots & \cdots & \cdots & \cdots \\ 
-			x_{n1} & x_{n2} & \cdots & x_{np} \\  
+			x_{11} & x_{12} & \cdots & x_{1p} \newline 
+			x_{21} & x_{22} & \cdots & x_{2p} \newline  
+			\cdots & \cdots & \cdots & \cdots \newline 
+			x_{n1} & x_{n2} & \cdots & x_{np} \newline  
 		\end{pmatrix}
 \end{align} 
 $$
 
-然后我们有 $$ 1^{st} $$ loding vector $$ \phi_1 = \begin{pmatrix} \phi_{11} & \phi_{21} & \cdots & \phi_{p1} \end{pmatrix}^T $$，于是进一步有：
+然后我们有 $ 1^{st} $ loding vector $ \phi_1 = \begin{pmatrix} \phi_{11} & \phi_{21} & \cdots & \phi_{p1} \end{pmatrix}^T $，于是进一步有：
 
 $$
 \begin{align}
 	z_{i1} 
-	& = x_i \cdot \phi_1 \\
+	& = x_i \cdot \phi_1 \newline
 	& = \phi_{11} x_{i1} + \phi_{21} x_{i2} + \cdots + \phi_{p1} x_{ip}
 	\tag{2.2}
 \end{align} 
 $$
 
-We refer to $$ z_{i1} $$ as the **scores** of the $$ 1^{st} $$ principal component for the i^th observation.
+We refer to $ z_{i1} $ as the **scores** of the $ 1^{st} $ principal component for the i^th observation.
 
 optimization problem 的表述见 P376。
 
-There is a nice geometric interpretation for the $$ 1^{st} $$ principal component. The loading vector $$ \phi_1 = (\phi_{11}, \phi_{21}, \cdots, \phi_{p1})^T $$ defines a direction in feature space along which the data vary the most. If we project the $$ n $$ data points $$ x_1, \cdots, x_n $$ onto this direction, the projected values are the principal component scores $$ z_{11}, \cdots, z_{n1} $$ themselves.
+There is a nice geometric interpretation for the $ 1^{st} $ principal component. The loading vector $ \phi_1 = (\phi_{11}, \phi_{21}, \cdots, \phi_{p1})^T $ defines a direction in feature space along which the data vary the most. If we project the $ n $ data points $ x_1, \cdots, x_n $ onto this direction, the projected values are the principal component scores $ z_{11}, \cdots, z_{n1} $ themselves.
 
-The second principal component $$ Z_2 $$ is the linear combination of $$ X_1,X_2,\cdots,X_p $$ that has maximal variance out of all linear combinations that are **uncorrelated** with $$ Z_1 $$.
+The second principal component $ Z_2 $ is the linear combination of $ X_1,X_2,\cdots,X_p $ that has maximal variance out of all linear combinations that are **uncorrelated** with $ Z_1 $.
 
-It turns out that constraining $$ Z_2 $$ to be uncorrelated with $$ Z_1 $$ is equivalent to constraining the direction $$ \phi_2 $$ to be **orthogonal** (perpendicular) to the direction $$ \phi_1 $$.
+It turns out that constraining $ Z_2 $ to be uncorrelated with $ Z_1 $ is equivalent to constraining the direction $ \phi_2 $ to be **orthogonal** (perpendicular) to the direction $ \phi_1 $.
 
 P337 这个 `USArrests` 的例子值得仔细研究下。
 
-* "The principal component score vectors have length $$ n = 50 $$" 这句等于是告诉你有 50 个 observation
+* "The principal component score vectors have length $ n = 50 $" 这句等于是告诉你有 50 个 observation
 	* 根据描述，明显是 50 个州，每个州一行
-* "and the principal component loading vectors have length $$ p = 4 $$" 这句就是告诉你有 4 个 feature
+* "and the principal component loading vectors have length $ p = 4 $" 这句就是告诉你有 4 个 feature
 	* 分别是：`Assault`、`Murder`、`Rape` 和 `UrbanPop`
 	
 biplot 的看法：
@@ -133,17 +133,17 @@ biplot 的看法：
 * axes on the bottom and left 是 scores
 * loading 是针对 feature 的，所以 feature 只用看 loading，不用看 score
 	* 这里其实是把两个 PC 的 loading 杂糅在一起了
-	* <!-- -->$$ \phi_1 = (\phi_{11}, \phi_{21}, \phi_{31}, \phi_{41}) $$
-	* <!-- -->$$ \phi_2 = (\phi_{12}, \phi_{22}, \phi_{32}, \phi_{42}) $$
-	* 4 个 loading vector 分别是 $$ (\phi_{11}, \phi_{12}) $$, $$ (\phi_{21}, \phi_{22}) $$, $$ (\phi_{31}, \phi_{32}) $$, $$ (\phi_{41}, \phi_{42}) $$
-	* `Assault`、`Murder`、`Rape` 的 $$ 1^{st} $$ loading 都比较大，说明 $$ 1^{st} $$ PC roughly corresponds to a measure of overall rates of serious crimes.
+	* <!-- -->$ \phi_1 = (\phi_{11}, \phi_{21}, \phi_{31}, \phi_{41}) $
+	* <!-- -->$ \phi_2 = (\phi_{12}, \phi_{22}, \phi_{32}, \phi_{42}) $
+	* 4 个 loading vector 分别是 $ (\phi_{11}, \phi_{12}) $, $ (\phi_{21}, \phi_{22}) $, $ (\phi_{31}, \phi_{32}) $, $ (\phi_{41}, \phi_{42}) $
+	* `Assault`、`Murder`、`Rape` 的 $ 1^{st} $ loading 都比较大，说明 $ 1^{st} $ PC roughly corresponds to a measure of overall rates of serious crimes.
 		* This also indicates that the crime-related variables are correlated with each other — states with high murder rates tend to have high assault and rape rates.
-	* `UrbanPop` 的 $$ 2^{nd} $$ loading 很大，说明 $$ 2^{nd} $$ PC roughly corresponds to the level of urbanization of the state.
+	* `UrbanPop` 的 $ 2^{nd} $ loading 很大，说明 $ 2^{nd} $ PC roughly corresponds to the level of urbanization of the state.
 * score 是针对 observation 的，所以 observation 只用看 score，不用看 loading
-	* 比如 Kentucky 的 $$ 1^{st} $$ score 是 $$ Z_{k1} $$，$$ 2^{nd} $$ score 是 $$ Z_{k2} $$，那么在 $$ (Z_{k1}, Z_{k2}) $$ 这个点上就会有一个 text 写着 "Kentucky"
+	* 比如 Kentucky 的 $ 1^{st} $ score 是 $ Z_{k1} $，$ 2^{nd} $ score 是 $ Z_{k2} $，那么在 $ (Z_{k1}, Z_{k2}) $ 这个点上就会有一个 text 写着 "Kentucky"
 	* 不要产生 "好像要对着 loading vector 做投影来计算什么值" 这样的错觉
-	* 你仔细想一下，score 其实就是 PCA 之后的新 feature 的值，所以 score 的大小和 $$ X_i $$ 的大小意义是一样的。
-		* 比如 California 的 $$ 1^{st} $$ score 和 $$ 2^{nd} $$ score 都很大，联系 $$ 1^{st} $$ PC 和 $$ 2^{nd} $$ PC 的意义，说明 California has both a high crime rate and a high level of urbanization.
+	* 你仔细想一下，score 其实就是 PCA 之后的新 feature 的值，所以 score 的大小和 $ X_i $ 的大小意义是一样的。
+		* 比如 California 的 $ 1^{st} $ score 和 $ 2^{nd} $ score 都很大，联系 $ 1^{st} $ PC 和 $ 2^{nd} $ PC 的意义，说明 California has both a high crime rate and a high level of urbanization.
 		* Indiana, close to 0 scores on both PCs, has approximately average levels of both crime and urbanization.
 		* Vermont has both a low crime rate and a low level of urbanization.
 
@@ -153,11 +153,11 @@ In the previous section, we describe the PC loading vectors as the directions in
 
 An alternative interpretation is: PCs provide low-dimensional linear surfaces that are closest to the observations.
 
-The $$ 1^{st} $$ PC loading vector has a very special property: it is the line in $$ p $$-dimensional space that is closest to the $$ n $$ observations (using average squared Euclidean distance as a measure of closeness). The appeal of this interpretation is clear: we seek a single dimension of the data that lies as close as possible to all of the data points, since such a line will likely provide a good summary of the data.
+The $ 1^{st} $ PC loading vector has a very special property: it is the line in $ p $-dimensional space that is closest to the $ n $ observations (using average squared Euclidean distance as a measure of closeness). The appeal of this interpretation is clear: we seek a single dimension of the data that lies as close as possible to all of the data points, since such a line will likely provide a good summary of the data.
 
-推广一下就有：The first 2 PCs of a data set span the plane that is closest to the $$ n $$ observations, in terms of average squared Euclidean distance. 进一步推广，The first 3 PCs of a data set span the three-dimensional hyperplane that is closest to the $$ n $$ observations, and so forth.
+推广一下就有：The first 2 PCs of a data set span the plane that is closest to the $ n $ observations, in terms of average squared Euclidean distance. 进一步推广，The first 3 PCs of a data set span the three-dimensional hyperplane that is closest to the $ n $ observations, and so forth.
 
-P380 提到了一个 $$ M $$-dimensional approximation:
+P380 提到了一个 $ M $-dimensional approximation:
 
 $$
 \begin{equation}
@@ -167,7 +167,7 @@ $$
 \end{equation} 
 $$
 
-如果有 $$ M = \min (n-1,p) $$，那么可以肯定有
+如果有 $ M = \min (n-1,p) $，那么可以肯定有
 
 $$
 \begin{equation}
@@ -179,11 +179,11 @@ $$
 老实说这个我没有推导出来，建议结合 Ng 课的笔记 [Machine Learning: Dimensionality Reduction](/machine-learning/2014/09/06/machine-learning-dimensionality-reduction) 再推导试试。可以肯定的是：
 
 * loading vector 是 `[U, S, V] = svd(Σ)` 的 `U` 的 1 行
-* score $$ z_{i1} $$ 应该是 $$ z^{(i)} $$ 的第一个元素
+* score $ z_{i1} $ 应该是 $ z^{(i)} $ 的第一个元素
 
-注意 Ng 的课是 "$$ m $$ observations, $$ n $$ features, $$ K $$ dimension PCA"，我们是 "$$ n $$ observations, $$ p $$ features, $$ M $$ dimension PCA"（好想死……）。
+注意 Ng 的课是 "$ m $ observations, $ n $ features, $ K $ dimension PCA"，我们是 "$ n $ observations, $ p $ features, $ M $ dimension PCA"（好想死……）。
 
-你把 $$ X_{approx} $$ 的元素展开，应该能得到 $$ (\ref{eq2.3}) $$。
+你把 $ X_{approx} $ 的元素展开，应该能得到 $ (\ref{eq2.3}) $。
 
 ### <a name="PCA-More"></a>2.3 More on PCA
 
@@ -203,11 +203,11 @@ a sign flip 对 loading vector 和 score vector 是没有什么影响的，符�
 
 P382-383
 
-这个 Ng 的课上说的很清楚了，P383 有 $$ Var(PC) $$ 的计算公式，然后 $$ PVE = \frac{Var(PC)}{Var(X)} $$。
+这个 Ng 的课上说的很清楚了，P383 有 $ Var(PC) $ 的计算公式，然后 $ PVE = \frac{Var(PC)}{Var(X)} $。
 
 #### <a name="How-Many-PC"></a>Deciding How Many Principal Components to Use
 
-In general, a $$ n \times p $$ data matrix $$ X $$ has $$ \min(n − 1, p)$$ distinct PCs.
+In general, a $ n \times p $ data matrix $ X $ has $ \min(n − 1, p)$ distinct PCs.
 
 P384，讲得不错。
 
@@ -221,8 +221,8 @@ Clustering refers to a very broad set of techniques for finding homogeneous ([ˌ
 
 In this section we focus on perhaps the two best-known clustering approaches: 
 
-* $$K$$-means clustering 
-	* $$K$$ 是事先预定的
+* $K$-means clustering 
+	* $K$ 是事先预定的
 * hierarchical clustering
 	* we do not know in advance how many clusters we want
 	* we end up with a tree-like visual representation of the observations, called a dendrogram (['dendrəgræm], 树状图)
@@ -238,10 +238,10 @@ In this section we focus on perhaps the two best-known clustering approaches:
 
 P386-390，Ng 的课上已经说得很清楚了，这里简单说下：
 
-* 优化目标是 $$ \min \sum{(\text{within-cluster variation})} $$
+* 优化目标是 $ \min \sum{(\text{within-cluster variation})} $
 * 算法是 "不断 update centroid"
 * 因为可能收敛到 local optimum，所以要随机初始化 centroid 跑多次
-* $$ K $$ 值的选择也需要跑多次试验决定
+* $ K $ 值的选择也需要跑多次试验决定
 
 ### <a name="HClust"></a>3.2 Hierarchical Clustering
 
@@ -291,7 +291,7 @@ P396-399，阐述得很详细。
 
 还有一类 dissimilarity measures 是 correlation-based distance, which considers two observations to be similar if their features are highly correlated, even though the observed values may be far apart in terms of Euclidean distance.
 
-It turns out that these two measures are almost equivalent: if each observation has been scaled to have mean 0 and standard deviation 1, and if we let $$ r_{ij} $$ denote the correlation between the i^th and j^th observations, then the quantity $$ 1 - r_{ij} $$ is proportional to the squared Euclidean distance between the i^th and j^th observations.
+It turns out that these two measures are almost equivalent: if each observation has been scaled to have mean 0 and standard deviation 1, and if we let $ r_{ij} $ denote the correlation between the i^th and j^th observations, then the quantity $ 1 - r_{ij} $ is proportional to the squared Euclidean distance between the i^th and j^th observations.
 
 另外是否要做 scaling 也是值得考虑的问题，一般都是按 application 实际情况决定。具体的例子见 P398-399。
 
@@ -365,7 +365,7 @@ The `center` and `scale` components correspond to the means and standard deviati
 	  Murder Assault UrbanPop   Rape
 		4.36   83.34    14.47   9.37
 		
-The `rotation` matrix provides the PC loadings; each column of `pr.out$rotation` contains the corresponding PC loading vector. When we matrix-multiply the $$ X $$ matrix by `pr.out$rotation`, it gives us the coordinates of the data in the rotated coordinate system. These coordinates are the PC scores.
+The `rotation` matrix provides the PC loadings; each column of `pr.out$rotation` contains the corresponding PC loading vector. When we matrix-multiply the $ X $ matrix by `pr.out$rotation`, it gives us the coordinates of the data in the rotated coordinate system. These coordinates are the PC scores.
 
 	> pr.out$rotation
 				PC1    PC2    PC3    PC4
@@ -374,9 +374,9 @@ The `rotation` matrix provides the PC loadings; each column of `pr.out$rotation`
 	UrbanPop -0.278 -0.873 -0.378  0.134
 	Rape 	 -0.543 -0.167  0.818  0.089
 	
-We see that there are 4 distinct PCs. This is to be expected because there are in general $$ \min(n − 1, p) $$ informative PCs in a data set with $$ n $$ observations and $$ p $$ variables.
+We see that there are 4 distinct PCs. This is to be expected because there are in general $ \min(n − 1, p) $ informative PCs in a data set with $ n $ observations and $ p $ variables.
 
-Using the `prcomp()` function, we do not need to explicitly multiply the data by the PC loading vectors in order to obtain the PC score vectors. Rather the $$ 50 \times 4 $$ matrix `x` has as its columns the PC score vectors. That is, the k^th column is the k^th PC score vector.
+Using the `prcomp()` function, we do not need to explicitly multiply the data by the PC loading vectors in order to obtain the PC score vectors. Rather the $ 50 \times 4 $ matrix `x` has as its columns the PC score vectors. That is, the k^th column is the k^th PC score vector.
 	
 	> dim(pr.out$x)
 	[1] 50 4
@@ -428,7 +428,7 @@ The function `kmeans()` performs K-means clustering in R. We begin with a simple
 	> x[1:25,1] = x[1:25,1]+3
 	> x[1:25,2] = x[1:25,2]-4
 	
-We now perform K-means clustering with $$ K = 2 $$.
+We now perform K-means clustering with $ K = 2 $.
 
 	> km.out = kmeans(x, 2, nstart=20) ## 随机初始化 centroid 20 次，应该就是跑 20 次的意思（然后取最优）
 	> km.out
@@ -589,7 +589,7 @@ We can plot the cut on the dendrogram that produces these four clusters:
 	
 The argument `h=139` plots a horizontal line at height 139 on the dendrogram; this is the height that results in four distinct clusters.
 
-We claimed earlier in Section 10.3.2 that K-means clustering and hierarchical clustering with the dendrogram cut to obtain the same number of clusters can yield very different results. How do these `NCI60` hierarchical clustering results compare to what we get if we perform K-means clustering with $$ K = 4 $$?
+We claimed earlier in Section 10.3.2 that K-means clustering and hierarchical clustering with the dendrogram cut to obtain the same number of clusters can yield very different results. How do these `NCI60` hierarchical clustering results compare to what we get if we perform K-means clustering with $ K = 4 $?
 
 	> set.seed(2)
 	> km.out = kmeans(sd.data, 4, nstart=20)

@@ -67,13 +67,13 @@ Curiously, it turns out that the classifications that we get if we use linear re
 
 ## <a name="Logistic-Regression"></a>3. Logistic Regression
 
-Rather than modeling this response $$ Y $$ directly, logistic regression models the probability that $$ Y $$ belongs to a particular category.
+Rather than modeling this response $ Y $ directly, logistic regression models the probability that $ Y $ belongs to a particular category.
 
 ### <a name="LgR-Model"></a>3.1 The Logistic Model
 
-注意下写法：$$ Pr(Y=yes \vert X=x_i) $$ 被简写成 $$ p(x_i) $$。比如对 $$ x_1 = 233 $$ 有 $$ p(233) > 0.5 $$，那么我们就把 $$ x_1 = 233 $$ 归为 $$ y = yes $$.
+注意下写法：$ Pr(Y=yes \vert X=x_i) $ 被简写成 $ p(x_i) $。比如对 $ x_1 = 233 $ 有 $ p(233) > 0.5 $，那么我们就把 $ x_1 = 233 $ 归为 $ y = yes $.
 
-一般我们把 $$ p(x_i) $$ 写成 $$ X $$ 的函数，是 $$ p(X) = f(X) $$ 这样的形式，这个时候再带回 $$ Pr(Y=yes \vert X=x_i) $$ 就有点不好解释了，你自己明白就好。书上还有一种写法是 $$ p(X) = Pr(Y=yes \vert X) $$。
+一般我们把 $ p(x_i) $ 写成 $ X $ 的函数，是 $ p(X) = f(X) $ 这样的形式，这个时候再带回 $ Pr(Y=yes \vert X=x_i) $ 就有点不好解释了，你自己明白就好。书上还有一种写法是 $ p(X) = Pr(Y=yes \vert X) $。
 
 If we use a linear regression model to represent these probabilities as
 
@@ -86,7 +86,7 @@ $$
 
 the main problem we would have is that the probablity may fall out of range [0,1].
 
-To avoid this problem, we must model $$ p(X) $$ using a function that gives outputs between 0 and 1 for all values of $$ X $$. Many functions meet this description. In logistic regression, we use the **logistic function**,
+To avoid this problem, we must model $ p(X) $ using a function that gives outputs between 0 and 1 for all values of $ X $. Many functions meet this description. In logistic regression, we use the **logistic function**,
 
 $$
 \begin{equation}
@@ -96,9 +96,9 @@ $$
 \end{equation}
 $$
 
-To fit the model $$ (\ref{eq3.2}) $$, we use a method called **maximum likelihood**, which we will discuss later.
+To fit the model $ (\ref{eq3.2}) $, we use a method called **maximum likelihood**, which we will discuss later.
 
-After a bit of manipulation of $$ (\ref{eq3.2}) $$, we find that
+After a bit of manipulation of $ (\ref{eq3.2}) $, we find that
 
 $$
 \begin{equation}
@@ -108,12 +108,12 @@ $$
 \end{equation}
 $$
 
-The quantity $$ p(X)/[1−p(X)] $$ is called the **odds**, and can take on any value between 0 and $$ \infty $$.
+The quantity $ p(X)/[1−p(X)] $ is called the **odds**, and can take on any value between 0 and $ \infty $.
 
-* $$ odds \to 0 $$ means extremely low probablity
-* $$ odds \to \infty $$ means extremely high probablity
+* $ odds \to 0 $ means extremely low probablity
+* $ odds \to \infty $ means extremely high probablity
 
-By taking the logarithm of both sides of $$ (\ref{eq3.3}) $$, we arrive at
+By taking the logarithm of both sides of $ (\ref{eq3.3}) $, we arrive at
 
 $$
 \begin{equation}
@@ -123,19 +123,19 @@ $$
 \end{equation}
 $$
 
-The left-hand side is called the log-odds or logit. We see that the logistic regression model $$ (\ref{eq3.2}) $$ has a logit that is linear in X.
+The left-hand side is called the log-odds or logit. We see that the logistic regression model $ (\ref{eq3.2}) $ has a logit that is linear in X.
 
-Therefore increasing $$ X $$ by one unit changes the log odds by $$ \beta_1 $$, or equivalently it multiplies the odds by $$ e^{\beta_1} $$.
+Therefore increasing $ X $ by one unit changes the log odds by $ \beta_1 $, or equivalently it multiplies the odds by $ e^{\beta_1} $.
 
-* If $$ \beta_1 $$ is positive then increasing $$ X $$ will be associated with increasing $$ p(X) $$.
-* If $$ \beta_1 $$ is negative then increasing $$ X $$ will be associated with decreasing
-$$ p(X) $$.
+* If $ \beta_1 $ is positive then increasing $ X $ will be associated with increasing $ p(X) $.
+* If $ \beta_1 $ is negative then increasing $ X $ will be associated with decreasing
+$ p(X) $.
 
 ### <a name="Est-Coef"></a>3.2 Estimating the Regression Coefficients
 
-Although we could use (non-linear) least squares to fit the model $$ (\ref{eq3.4}) $$, the more general method of **maximum likelihood** is preferred, since it has better statistical properties.
+Although we could use (non-linear) least squares to fit the model $ (\ref{eq3.4}) $, the more general method of **maximum likelihood** is preferred, since it has better statistical properties.
 
-The basic intuition behind using maximum likelihood to fit a logistic regression model is as follows: we seek estimates for $$ \beta_0 $$ and $$ \beta_1 $$ such that the predicted probability $$ \hat{p}(x_i) $$, using $$ (\ref{eq3.2}) $$, corresponds as closely as possible to the $$ y_i $$. In other words, we try to find $$ \hat{\beta}_0 $$ and $$ \hat{\beta}_1 $$ such that plugging these estimates into the model for $$ p(X) $$, given in $$ (\ref{eq3.2}) $$, yields a number close to 1 for all $$ x_i $$ whose $$ y_i = yes $$, and a number close to 0 for all $$ x_j $$ whose $$ y_j = no $$.
+The basic intuition behind using maximum likelihood to fit a logistic regression model is as follows: we seek estimates for $ \beta_0 $ and $ \beta_1 $ such that the predicted probability $ \hat{p}(x_i) $, using $ (\ref{eq3.2}) $, corresponds as closely as possible to the $ y_i $. In other words, we try to find $ \hat{\beta}_0 $ and $ \hat{\beta}_1 $ such that plugging these estimates into the model for $ p(X) $, given in $ (\ref{eq3.2}) $, yields a number close to 1 for all $ x_i $ whose $ y_i = yes $, and a number close to 0 for all $ x_j $ whose $ y_j = no $.
 
 This intuition can be formalized using a mathematical equation called a **likelihood function**:
 
@@ -146,11 +146,11 @@ $$
 \end{equation}
 $$
 
-The estimates $$ \hat{\beta}_0 $$ and $$ \hat{\beta}_1 $$ are chosen to maximize this likelihood function.
+The estimates $ \hat{\beta}_0 $ and $ \hat{\beta}_1 $ are chosen to maximize this likelihood function.
 
 Maximum likelihood is a very general approach that is used to fit many of the non-linear models. In the linear regression setting, the least squares approach is in fact a special case of maximum likelihood.
 
-We use z-statistics to perform the hypothesis tests on the coefficients. Take $$ \beta_1 $$ as an example:
+We use z-statistics to perform the hypothesis tests on the coefficients. Take $ \beta_1 $ as an example:
 
 $$
 \begin{equation}
@@ -158,7 +158,7 @@ $$
 \end{equation}
 $$
 
-Then a large absolute value of the z-statistic and a vitual value 0 of p-value indicate evidence to reject the null hypothesis $$ H_0 : \beta_1 = 0 $$.
+Then a large absolute value of the z-statistic and a vitual value 0 of p-value indicate evidence to reject the null hypothesis $ H_0 : \beta_1 = 0 $.
 
 ### <a name="Making-Predictions"></a>3.3 Making Predictions
 
@@ -166,7 +166,7 @@ P134
 
 ### <a name="MLgR"></a>3.4 Multiple Logistic Regression
 
-By analogy with the extension from simple to multiple linear regression, we can generalize $$ (\ref{eq3.4}) $$ as follows:
+By analogy with the extension from simple to multiple linear regression, we can generalize $ (\ref{eq3.4}) $ as follows:
 
 $$
 \begin{equation}
@@ -176,7 +176,7 @@ $$
 \end{equation}
 $$
 
-Equation $$ (\ref{eq3.6}) $$ can be rewritten as
+Equation $ (\ref{eq3.6}) $ can be rewritten as
 
 $$
 \begin{equation}
@@ -186,7 +186,7 @@ $$
 \end{equation}
 $$
 
-Still we use the maximum likelihood method to estimate $$ \beta_0, \beta_1, \cdots, \beta_p  $$.
+Still we use the maximum likelihood method to estimate $ \beta_0, \beta_1, \cdots, \beta_p  $.
 
 As in the linear regression setting, the results obtained using one predictor may be quite different from those obtained using multiple predictors, especially when there is correlation among the predictors. In general, the phenomenon is known as **confounding**. 具体见 P136，例子和阐述都不错。
 
@@ -196,15 +196,15 @@ The two-class logistic regression models discussed in the previous sections have
 
 ## <a name="LDA"></a>4. Linear Discriminant Analysis
 
-Logistic Regression 是直接求的 $$ Pr(Y=k \vert X=x) $$ (model the conditional distribution of the response $$ Y $$, given the predictor(s) $$ X $$)，LDA 是先求 $$ Pr(X=x \vert Y=k) $$ 再用 Bayes' theorem 导成 $$ Pr(Y=k \vert X=x) $$。比 Logistic Regression 的优点是 stability.
+Logistic Regression 是直接求的 $ Pr(Y=k \vert X=x) $ (model the conditional distribution of the response $ Y $, given the predictor(s) $ X $)，LDA 是先求 $ Pr(X=x \vert Y=k) $ 再用 Bayes' theorem 导成 $ Pr(Y=k \vert X=x) $。比 Logistic Regression 的优点是 stability.
 
 ### <a name="Using-Bayes"></a>4.1 Using Bayes’ Theorem for Classification
 
-Suppose that we wish to classify an observation into one of $$ K $$ classes, where $$ K \geq 2 $$.
+Suppose that we wish to classify an observation into one of $ K $ classes, where $ K \geq 2 $.
 
-Let $$ \pi_k $$ represent the overall or **prior** probability that a randomly chosen observation comes from the k^th class, i.e. $$ \pi_k = Pr(Y=k) $$.
+Let $ \pi_k $ represent the overall or **prior** probability that a randomly chosen observation comes from the k^th class, i.e. $ \pi_k = Pr(Y=k) $.
 
-Let $$ f_k(X) \equiv Pr(X = x \vert Y = k) $$ denote the **density function** of $$ X $$ for an observation that comes from the k^th class. In other words, $$ f_k(X) $$ is relatively large if there is a high probability that an observation in the k^th class has $$ X \approx x $$, and $$ f_k(X) $$ is small if it is very unlikely that an observation in the k^th class has $$ X \approx x $$.
+Let $ f_k(X) \equiv Pr(X = x \vert Y = k) $ denote the **density function** of $ X $ for an observation that comes from the k^th class. In other words, $ f_k(X) $ is relatively large if there is a high probability that an observation in the k^th class has $ X \approx x $, and $ f_k(X) $ is small if it is very unlikely that an observation in the k^th class has $ X \approx x $.
 
 Then Bayes' theorem states that
 
@@ -215,24 +215,24 @@ $$
 \end{equation}
 $$
 
-In accordance with our earlier notation, we will use the abbreviation $$ p_k(X) = Pr(Y = k \vert X) $$. We refer to $$ p_k(X) $$ as the **posterior** probability that an observation $$ X = x $$ belongs to the k^th class. That is, it is the probability that the observation belongs to the k^th class, given the predictor value for that observation.
+In accordance with our earlier notation, we will use the abbreviation $ p_k(X) = Pr(Y = k \vert X) $. We refer to $ p_k(X) $ as the **posterior** probability that an observation $ X = x $ belongs to the k^th class. That is, it is the probability that the observation belongs to the k^th class, given the predictor value for that observation.
 
-In general, estimating $$ \pi_k $$ is easy if we have a random sample of $$Y $$s from the population: we simply compute the fraction of the training observations that belong to the k^th class. However, estimating $$ f_k(X) $$ tends to be more challenging, unless we assume some simple forms for these densities. If we can find a way to estimate $$ f_k(X) $$, then we can develop a classifier that approximates the Bayes classifier. Such an approach is the topic of the following sections.
+In general, estimating $ \pi_k $ is easy if we have a random sample of $Y $s from the population: we simply compute the fraction of the training observations that belong to the k^th class. However, estimating $ f_k(X) $ tends to be more challenging, unless we assume some simple forms for these densities. If we can find a way to estimate $ f_k(X) $, then we can develop a classifier that approximates the Bayes classifier. Such an approach is the topic of the following sections.
 
 ### <a name="LDA-p-eq-1"></a>4.2 Linear Discriminant Analysis for p = 1
 
 P139-142。这公式搬过来我手就要断了……
 
-简单说就是为了 estimate $$ f_k(X) $$ 做了两点 assumption：
+简单说就是为了 estimate $ f_k(X) $ 做了两点 assumption：
 
-1. Assume that $$ f_k(x) $$ is normal or Gaussian
-2. Let $$ \sigma_k^2 $$ be the variance parameter for the k^th class. Then assume $$ \sigma_1^2 = \cdots = \sigma_K^2 $$
+1. Assume that $ f_k(x) $ is normal or Gaussian
+2. Let $ \sigma_k^2 $ be the variance parameter for the k^th class. Then assume $ \sigma_1^2 = \cdots = \sigma_K^2 $
 
 然后不停地套公式，用 estimate 代替 paramter……
 
 ### <a name="LDA-p-gt-1"></a>4.3 Linear Discriminant Analysis for p > 1
 
-We now extend the LDA classifier to the case of multiple predictors. To do this, we will assume that $$ X = (X_1, X_2, \cdots, X_p) $$ is drawn from a multivariate Gaussian (or multivariate normal) distribution, with a class-specific mean vector and a common covariance matrix.
+We now extend the LDA classifier to the case of multiple predictors. To do this, we will assume that $ X = (X_1, X_2, \cdots, X_p) $ is drawn from a multivariate Gaussian (or multivariate normal) distribution, with a class-specific mean vector and a common covariance matrix.
 
 The multivariate Gaussian distribution assumes that each individual predictor follows a one-dimensional normal distribution, with some correlation between each pair of predictors.
 
@@ -244,14 +244,14 @@ P145 结尾解释了 why may LDA have a low sensitivity sometimes：
 
 > LDA is trying to approximate the Bayes classifier, which has the lowest total error rate out of all classifiers (if the Gaussian model is correct). That is, the Bayes classifier will yield the smallest possible total number of misclassified observations, irrespective of which class the errors come from. That is, some misclassifications will result from incorrectly assigning a customer who does not default to the default class, and others will result from incorrectly assigning a customer who defaults to the non-default class.
 
-换句话说就是，LDA 只能尽量让 $$ P(+ \vert D^c) + P(- \vert D) $$ 最小，也就是让 $$ P(- \vert D^c) + P(+ \vert D) $$ 最大。而 $$ P(- \vert D^c) + P(+ \vert D) $$ 实际就是 $$ Specificity + Sensitivity $$。所以 low sensitivity 是完全可能的。
+换句话说就是，LDA 只能尽量让 $ P(+ \vert D^c) + P(- \vert D) $ 最小，也就是让 $ P(- \vert D^c) + P(+ \vert D) $ 最大。而 $ P(- \vert D^c) + P(+ \vert D) $ 实际就是 $ Specificity + Sensitivity $。所以 low sensitivity 是完全可能的。
 
-如果我们 lower threshold，比如从 $$p \geq 0.5$$ 降到 $$p \geq 0.2$$ 就归类。这样的后果是：
+如果我们 lower threshold，比如从 $p \geq 0.5$ 降到 $p \geq 0.2$ 就归类。这样的后果是：
 
-* $$ + $$ 的数量上升
-* $$ - $$ 的数量下降
-* $$ P(+ \vert D) = Sensitivity $$ 上升
-* $$ P(- \vert D^c) = Specificity $$ 下降
+* $ + $ 的数量上升
+* $ - $ 的数量下降
+* $ P(+ \vert D) = Sensitivity $ 上升
+* $ P(- \vert D^c) = Specificity $ 下降
 
 所以这是一个 trade-off。How can we decide which threshold value is
 best? Such a decision must be based on _domain knowledge_.
@@ -266,7 +266,7 @@ The overall performance of a classifier, summarized over all possible thresholds
 
 ### <a name="QDA"></a>4.4 Quadratic Discriminant Analysis
 
-LDA assumes that the observations within each class are drawn from a multivariate Gaussian distribution with a classspecific mean vector and a covariance matrix that is common to all $$ K $$ classes.
+LDA assumes that the observations within each class are drawn from a multivariate Gaussian distribution with a classspecific mean vector and a covariance matrix that is common to all $ K $ classes.
 
 Like LDA, the QDA classifier results from assuming that the observations from each class are drawn from a Gaussian distribution, and plugging estimates for the parameters into Bayes’ theorem in order to perform prediction.
 
@@ -274,7 +274,7 @@ However, unlike LDA, QDA assumes that each class has its own covariance matrix.
 
 P149 小幅数学内容。
 
-Roughly speaking, LDA tends to be a better bet than QDA if there are relatively few training observations and so reducing variance is crucial. In contrast, QDA is recommended if the training set is very large, so that the variance of the classifier is not a major concern, or if the assumption of a common covariance matrix for the $$ K $$ classes is clearly untenable.
+Roughly speaking, LDA tends to be a better bet than QDA if there are relatively few training observations and so reducing variance is crucial. In contrast, QDA is recommended if the training set is very large, so that the variance of the classifier is not a major concern, or if the assumption of a common covariance matrix for the $ K $ classes is clearly untenable.
 
 ## <a name="Comparison"></a>5. A Comparison of Classification Methods
 
@@ -330,7 +330,7 @@ Next, we will fit a logistic regression model in order to predict `Direction` us
 	> coef(glm.fit)
 	> summary(glm.fit)$coef
 
-The `predict()` function can be used to predict the probability that the market will go up, given values of the predictors. The t`ype="response"` option tells R to output probabilities of the form $$ P(Y = 1 \vert X) $$, as opposed to other information such as the logit. If no data set is supplied to the `predict()` function, then the probabilities are computed for the training data that was used to fit the logistic regression model.
+The `predict()` function can be used to predict the probability that the market will go up, given values of the predictors. The t`ype="response"` option tells R to output probabilities of the form $ P(Y = 1 \vert X) $, as opposed to other information such as the logit. If no data set is supplied to the `predict()` function, then the probabilities are computed for the training data that was used to fit the logistic regression model.
 
 	> glm.probs = predict(glm.fit, type="response")
 	> glm.probs[1:10]
@@ -419,19 +419,19 @@ We fit a LDA model using the `lda()` function, which is part of the `MASS` libra
 
 	> plot(lda.fit)
 
-The LDA output indicates that $$ \hat{\pi}_1 = 0.492 $$ and $$ \hat{\pi}_1 = 0.508 $$; in other words, 49.2% of the training observations correspond to days during which the market went down.
+The LDA output indicates that $ \hat{\pi}_1 = 0.492 $ and $ \hat{\pi}_1 = 0.508 $; in other words, 49.2% of the training observations correspond to days during which the market went down.
 
-It also provides the group means; these are the average of each predictor within each class, and are used by LDA as estimates of $$ \mu_k $$.
+It also provides the group means; these are the average of each predictor within each class, and are used by LDA as estimates of $ \mu_k $.
 
-The _coefficients of linear discriminants_ output provides the linear combination of Lag1 and Lag2 that are used to form the LDA decision rule, i.e $$ (-0.642*Lag1) + (-0.514*Lag2) $$.
+The _coefficients of linear discriminants_ output provides the linear combination of Lag1 and Lag2 that are used to form the LDA decision rule, i.e $ (-0.642*Lag1) + (-0.514*Lag2) $.
 
-The `plot()` function produces plots of the **linear discriminants**, obtained by computing $$ (-0.642*Lag1) + (-0.514*Lag2) $$ for each of the training observations.
+The `plot()` function produces plots of the **linear discriminants**, obtained by computing $ (-0.642*Lag1) + (-0.514*Lag2) $ for each of the training observations.
 
 The `predict()` function returns a list with three elements.
 
 * `class`, contains LDA’s predictions.
 * `posterior`, is a matrix whose k^th column contains the posterior probability that the corresponding observation belongs to the k^th
-class, i.e the $$ p_k(X) = Pr(Y = k \vert X = x) $$.
+class, i.e the $ p_k(X) = Pr(Y = k \vert X = x) $.
 * `x`, contains the linear discriminants.
 
 <!-- -->
@@ -484,10 +484,10 @@ The `predict()` function works in exactly the same fashion as for LDA.
 
 `knn()` function is part of the `class` library. Rather than a two-step approach in which we first fit the model and then we use the model to make predictions, `knn()` forms predictions using a single command. The function requires four inputs.
 
-* A matrix of training $$ X $$
-* A matrix of testing $$ X $$
-* A vector of training $$ Y $$
-* A value for $$ K $$, the number of nearest neighbors to be used by the classifier.
+* A matrix of training $ X $
+* A matrix of testing $ X $
+* A vector of training $ Y $
+* A value for $ K $, the number of nearest neighbors to be used by the classifier.
 
 <!-- -->
 
@@ -508,7 +508,7 @@ We set a random seed before we apply `knn()` because if several observations are
 	> (83+43)/252
 	[1] 0.5
 
-The results using $$ K = 1 $$ are not very good, since only 50% of the observations are correctly predicted. We repeat the analysis using $$ K = 2,3,\cdots $$ for improvements.
+The results using $ K = 1 $ are not very good, since only 50% of the observations are correctly predicted. We repeat the analysis using $ K = 2,3,\cdots $ for improvements.
 
 ### <a name="Lab-Caravan"></a>6.6 An Application to Caravan Insurance Data
 

@@ -153,19 +153,19 @@ Matrices can be created by column-binding or row-binding with cbind() and rbind(
 ### 3.3 Matrix Operations
 
 * `A * B`: Element-wise multiplication
-* `A %*% B`: Matrix multiplication of $$ A $$ and $$ B $$
-* `t(A)`: Transposition of $$ A $$, i.e. $$ A^t $$
-* `solve(A)`: Inverse of $$ A $$, i.e. $$ A^{-1} $$, where $$ A $$ is a square matrix
-* `det(A)`: Determinant of $$ A $$
-* `matA <- qr(A); matA$rank`: Rank of $$ A $$
+* `A %*% B`: Matrix multiplication of $ A $ and $ B $
+* `t(A)`: Transposition of $ A $, i.e. $ A^t $
+* `solve(A)`: Inverse of $ A $, i.e. $ A^{-1} $, where $ A $ is a square matrix
+* `det(A)`: Determinant of $ A $
+* `matA <- qr(A); matA$rank`: Rank of $ A $
 * `diag(n)`: An n-by-n diagonal (identity) matrix
 
 <!-- -->
 
-- `a <- c(1,2,3); A <- matrix(a)`: 把 vector $$ a $$ 转成一个 matrix
+- `a <- c(1,2,3); A <- matrix(a)`: 把 vector $ a $ 转成一个 matrix
 	- 严格来说，vector 应该看做是 nx1，虽然我总是看成 1xn
 	- 但是不管你看成 nx1 还是 nx1，你什么参数都不加，直接把 vector 转成 matrix 一定会是一个 nx1，所以你也就不用费力气去加个 `t()` 操作了
-- `a <- as.vector(A)`: 把 matrix $$ A $$ 转成一个 vector
+- `a <- as.vector(A)`: 把 matrix $ A $ 转成一个 vector
 	- 从 column 1 开始扫描，逐个元素填到 vector；然后扫描 column 2、column 3……
 	- 如果你想从 row 1 开始扫描，可以用 `as.vector(t(A))`
 
