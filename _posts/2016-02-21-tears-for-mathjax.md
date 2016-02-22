@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Mathjax 血泪史"
+title: "MathJax 血泪史"
 description: ""
 category: jekyll
 tags: [Config-Jekyll]
