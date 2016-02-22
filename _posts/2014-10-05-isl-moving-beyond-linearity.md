@@ -97,7 +97,7 @@ $$
 	\tag{3.1}
 	\label{eq3.1}
 \end{equation} 
-$	
+$$
 
 Note that the basis functions $ b_1(), b_2(), \cdots, b_K() $ are fixed and known. In other words, we choose the functions ahead of time.
 

@@ -114,10 +114,10 @@ $$
 
 If a separating hyperplane exists, we can use it to construct a very natural classifier: a test observation is assigned a class depending on which side of the hyperplane it is located.
 
-假设有一个 test point $ x^* $，我们代入 ($ \ref{eq1.1} $) 得到的值为 $ f(x^*) $。We can also make use of the magnitude of $ f(x^*) $. 
+假设有一个 test point $ x^{*} $，我们代入 ($ \ref{eq1.1} $) 得到的值为 $f(x^{*})$. We can also make use of the magnitude of $f(x^{*})$. 
 
-* If $ f(x^*) $ is far from 0, then this means that $ x^* $ lies far from the hyperplane, and so we can be confident about our class assignment for $ x^* $. 
-* On the other hand, if $ f(x^*) $ is close to zero, then $ x^* $ is located near the hyperplane, and so we are less certain about the class assignment for $ x^* $.
+* If $ f(x^{*}) $ is far from 0, then this means that $ x^{*} $ lies far from the hyperplane, and so we can be confident about our class assignment for $ x^{*} $. 
+* On the other hand, if $ f(x^{*}) $ is close to zero, then $ x^{*} $ is located near the hyperplane, and so we are less certain about the class assignment for $ x^{*} $.
 
 Not surprisingly, a classifier that is based on a separating hyperplane leads to a linear decision boundary.
 
