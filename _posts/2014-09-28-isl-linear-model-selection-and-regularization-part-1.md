@@ -221,10 +221,10 @@ Notice that BIC replaces the $ 2d\hat{\sigma}^2 $ used by Cp with $ log(n)d\hat{
 Recall from Chapter 3 that
 
 $$
-\begin{equation}
+\begin{align}
 	R^2 = 1 - \frac{RSS}{TSS} \newline
 	TSS = \sum{(y_i − \bar y)^2}
-\end{equation} 
+\end{align} 
 $$
 
 Since RSS always decreases as more variables are added to the model, the $R^2$ always increases as more variables are added. For a least squares model with $ d $ variables, the adjusted $R^2$ statistic is calculated as
@@ -301,7 +301,7 @@ P220 介绍了 Another Formulation for Ridge Regression and the Lasso，其实�
 
 $$
 \begin{equation}
-	\text{minimize } \left \{ J(\theta) = RSS \right \} \text{ subject to } \sum_{j=1}^{p}{\lvert \beta_j \rvert} \leq s 
+	\text{minimize } \lbrace J(\theta) = RSS \rbrace \text{ subject to } \sum_{j=1}^{p}{\lvert \beta_j \rvert} \leq s 
 \end{equation} 
 $$
 
