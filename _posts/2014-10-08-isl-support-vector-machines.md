@@ -114,10 +114,10 @@ $$
 
 If a separating hyperplane exists, we can use it to construct a very natural classifier: a test observation is assigned a class depending on which side of the hyperplane it is located.
 
-假设有一个 test point $ x^{*} $，我们代入 ($ \ref{eq1.1} $) 得到的值为 $f(x^{*})$. We can also make use of the magnitude of $f(x^{*})$. 
+假设有一个 test point $ x^{\ast} $，我们代入 ($ \ref{eq1.1} $) 得到的值为 $f(x^{\ast})$. We can also make use of the magnitude of $f(x^{\ast})$. 
 
-* If $ f(x^{*}) $ is far from 0, then this means that $ x^{*} $ lies far from the hyperplane, and so we can be confident about our class assignment for $ x^{*} $. 
-* On the other hand, if $ f(x^{*}) $ is close to zero, then $ x^{*} $ is located near the hyperplane, and so we are less certain about the class assignment for $ x^{*} $.
+* If $ f(x^{\ast}) $ is far from 0, then this means that $ x^{\ast} $ lies far from the hyperplane, and so we can be confident about our class assignment for $ x^{\ast} $. 
+* On the other hand, if $ f(x^{\ast}) $ is close to zero, then $ x^{\ast} $ is located near the hyperplane, and so we are less certain about the class assignment for $ x^{\ast} $.
 
 Not surprisingly, a classifier that is based on a separating hyperplane leads to a linear decision boundary.
 
@@ -172,10 +172,10 @@ P346。在 P343 的公式基础上做了扩展。
 简单说一下。需满足的条件变成了：
 
 $$
-\begin{equation}
-	y_i (\beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_p x_{ip}) \geq M(1-\epsilon_i) \newline
-	\epsilon_i \geq 0, \, \sum_{i=1}^{n}{\epsilon_i} \leq C
-\end{equation} 
+\begin{align}
+	y_i (\beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_p x_{ip}) \geq M(1- \epsilon_i) \newline
+	\epsilon_i \geq 0, \, \sum_{i=1}^{n} \epsilon_i \leq C
+\end{align} 
 $$
 
 * $ M $: the width of the margin
