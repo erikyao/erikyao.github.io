@@ -551,10 +551,10 @@ Johnson's 的出发点很简单：How to get rid of negative edges while keeping
 
 $$
 \begin{align}
-	w'(a \rightsquigarrow z) &= c(a) + w(a \rightarrow b) − c(b) \\
-						&+ c(b) + w(b \rightarrow c) - c(c) \\
-						&+ \dots \\
-						&+ c(y) + w(y \rightarrow z) - c(z) \\
+	w'(a \rightsquigarrow z) &= c(a) + w(a \rightarrow b) − c(b) \newline
+						&+ c(b) + w(b \rightarrow c) - c(c) \newline
+						&+ \dots \newline
+						&+ c(y) + w(y \rightarrow z) - c(z) \newline
 						&= c(a) + w(a \rightsquigarrow z) - c(z)
 \end{align}
 $$
@@ -594,7 +594,7 @@ $$
 \begin{equation}
     dist(u,v) =
     \begin{cases}
-        0 & \text{if } u = v \\
+        0 & \text{if } u = v \newline
         \underset{x \rightarrow v}{\operatorname{min}} (dist(u,x) + w(x \rightarrow v)) & \text{otherwise}
     \end{cases}
 \end{equation}
@@ -608,8 +608,8 @@ $$
 \begin{equation}
     dist(u,v,k) =
     \begin{cases}
-        0 & \text{if } u = v \\
-        \infty & \text{if } k = 0 \text{ if } u \neq v \\
+        0 & \text{if } u = v \newline
+        \infty & \text{if } k = 0 \text{ if } u \neq v \newline
 		\underset{x \rightarrow v}{\operatorname{min}} (dist(u,x,k-1) + w(x \rightarrow v)) & \text{otherwise}
     \end{cases}
 \end{equation}
@@ -672,8 +672,8 @@ $$
 \begin{equation}
     dist(u,v,k) =
     \begin{cases}
-        0 & \text{if } u = v \\
-        \infty & \text{if } k = 0 \text{ if } u \neq v \\
+        0 & \text{if } u = v \newline
+        \infty & \text{if } k = 0 \text{ if } u \neq v \newline
 		\underset{x \rightarrow v}{\operatorname{min}} (dist(u,x,\frac{k}{2}) + (dist(x,v,\frac{k}{2})) & \text{otherwise}
     \end{cases}
 \end{equation}
@@ -724,11 +724,11 @@ $$
 \begin{equation}
     dist(u,v,r) =
     \begin{cases}
-		\infty & \text{if } r = 0, u \rightarrow v \not\in E \\
-        w(u \rightarrow v) & \text{if } r = 0, u \rightarrow v \in E \\
+		\infty & \text{if } r = 0, u \rightarrow v \not\in E \newline
+        w(u \rightarrow v) & \text{if } r = 0, u \rightarrow v \in E \newline
 		min 
 			\begin{cases} 
-				dist[u,v,r-1] & \text{not using } r \\
+				dist[u,v,r-1] & \text{not using } r \newline
 				dist[u,r,r-1] + dist[r,v,r-1] & \text{using } r \text{ in the middle of } u \rightsquigarrow v
 			\end{cases} & \text{otherwise}
     \end{cases}
@@ -989,7 +989,7 @@ E.g.
 
 $ 
 \begin{align}
-	\in M & \notin M \in M \\
+	\in M & \notin M \in M \newline
 	\text{===} & \text{--------} \text{===}
 \end{align}
 $$
@@ -1168,7 +1168,7 @@ $$
 \begin{equation}
     H(v_i,S) =
     \begin{cases}
-        True & \exists \text{ a Hamiltonia path from } v_1 \text{ to } v_i \text{ with all vertices in } S \\
+        True & \exists \text{ a Hamiltonia path from } v_1 \text{ to } v_i \text{ with all vertices in } S \newline
         False & \text{otherwise}
     \end{cases}
 \end{equation}
