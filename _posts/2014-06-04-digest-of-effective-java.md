@@ -557,10 +557,10 @@ _注_：工作经验告诉我们：如果自定义的 PO（的对象）会作为
 为了解决这个问题，我们可以引入一个 forwarding class, who forwards Set<E>'s feature：
 
 <pre class="prettyprint linenums">
-public class ForwardingSet<E> implements Set<E> {
-	private final Set<E> forwardedSet;
+public class ForwardingSet&lt;E&gt; implements Set&lt;E&gt; {
+	private final Set&lt;E&gt; forwardedSet;
 
-	public ForwardingSet(Set<E> forwardedSet) {
+	public ForwardingSet(Set&lt;E&gt; forwardedSet) {
 		this.forwardedSet = forwardedSet;
 	}
 
@@ -568,7 +568,7 @@ public class ForwardingSet<E> implements Set<E> {
 	public boolean contains(Object o) { return forwardedSet.contains(o); }
 	// ......
 	public boolean add(E e) { return forwardedSet.add(e); }
-	public boolean addAll(E eCollection<? extends E> c) { return forwardedSet.addAll(c); }
+	public boolean addAll(E eCollection&lt;? extends E&gt; c) { return forwardedSet.addAll(c); }
 	// .....
 }
 </pre>
