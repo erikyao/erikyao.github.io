@@ -270,7 +270,7 @@ LPaperBuilder init(arg1, arg2) {
 另外，Builder 很适合 抽象工厂（Abstract Factory）。可以定义一个  
 
 <pre class="prettyprint linenums">
-public interface Builder<T> {  
+public interface Builder&lt;T&gt; {  
 	public T build();  
 }  
 </pre>
