@@ -317,7 +317,27 @@ Let \\( P(Y | X\_1, \dots, X\_k) \\) be a noisy-or CPD. Then for each \\( i \neq
 ### P191 Definition 5.17: Conditional Bayesian Network
 
 The conditional random field (CRF)of section 4.6.1 is the undirected analogue of this definition.
-	
+
+## 8. The Exponential Family
+
+global structures
+
+- Bayesian networks 
+- Markov networks
+
+local structures 
+
+- CPDs
+- potentials
+
+### 8.2 Exponential Families
+
+Our discussion so far has focused on the representation of a single distribution (using, say, a Bayesian or Markov network). We now consider families of distributions. Intuitively, a family is a set of distributions that all share the same parametric form and differ only in choice of particular parameters.
+
+We see that an exponential family is a concise representation of a class of probability distributions that share a similar functional form.
+
+In fact, most of the parameterized distributions we encounter in probability textbooks can be represented as exponential families. This includes the Poisson distributions, exponential distributions, geometric distributions, Gamma distributions.
+
 ## 9. Exact Inference: Variable Elimination
 	
 ### P296: Variable Elimination
@@ -403,3 +423,46 @@ Note that standard Gibbs sampling is a special case of block Gibbs sampling, wit
 P518
 
 How do we use this chain to answer queries? A naive answer is straightforward. We run the chain using the algorithm of algorithm 12.5 until it converges to the stationary distribution (or close to it). We then collect a sample from π. We repeat this process once for each particle we want to collect. The result is a data set D consisting of independent particles, each of which is sampled (approximately) from the stationary distribution π. The analysis of section 12.1 is applicable to this setting, so we can provide tight bounds on the number of samples required to get estimators of a certain quality. Unfortunately, matters are not so straightforward, as we now discuss.
+
+## 16. Learning Graphical Models: Overview
+
+### 16.1 Motivation
+
+In most of our discussions so far, our starting point has been a given graphical model. For example, in our discussions of conditional independencies and of inference, we assumed that the model — structure as well as parameters — was part of the input.
+
+There are two approaches to the task of acquiring a model: 
+
+- The first is to construct the network by hand, typically with the help of an expert.
+- The second is to use data to learn a model of the distribution.
+	- a.k.a _**model learning**_
+	
+P698 公式符号定义，IID
+
+### 16.2 Goals of Learning
+
+Our ideal solution is to return a model M~ that precisely captures the distribution P* from which our data were sampled. Unfortunately, this goal is not generally achievable, because of computational reasons and (more importantly) because a limited data
+set provides only a rough approximation of the true underlying distribution. 
+
+In practice, the amount of data we have is rarely sufficient to obtain an accurate representation of a high-dimensional distribution involving many variables. Thus, we have to select M~ so as to construct the “best” approximation to M*. The notion of “best” depends on our goals. Different models will generally embody different trade-offs.
+
+One approximate model may be better according to one performance metric but worse according to another. Therefore, to guide our development of learning algorithms, we must define the goals of our learning task and the corresponding metrics by which different results will be evaluated.
+
+#### 16.2.1 Density Estimation
+
+- expected log-likelihood
+- likelihood of the data D, given a model M, i.e. $ P(D : M) $
+- log-loss 
+
+A graphical model can be used to answer a range of probabilistic inference queries. In this setting, we can formulate our learning goal as one of density estimation: constructing a model M~ such that P~ is “close” to the generating distribution P*.
+
+How do we evaluate the quality of an approximation M~? One commonly used option is to use the relative entropy distance measure. Recall that this measure is zero when P~= P* and positive otherwise. Intuitively, it measures the extent of the compression loss (in bits) of using P~ rather than P*.
+
+_**Problem:**_ we don't know P*. Otherwise we don't have to learn.
+_**Solution:**_ expected log-likelihood. 简单理解就是计算 “p~ 与 p* 的差距”，如果 p~1 到 p* 的差距比 p~2 到 p* 的差距小，我们认为 p~1 是一个较好的 estimation.
+	- 公式见 P699
+	- 优点：Expected log-likelihood encodes our preference for models that assign high probability to instances sampled from P*. Intuitively, the higher the probability that M~ gives to points sampled from the true distribution, the more reflective it is of this distribution. 
+	- 缺点：Although we can use the log-likelihood as a metric for comparing one learned model to another, we cannot evaluate a particular M ˜ in how close it is to the unknown optimum.
+	
+More generally, in our discussion of learning we will be interested in the likelihood of the data D, given a model M, which is $ P(D : M) $, or for convenience using the log-likelihood $ l(D : M) = \log P(D : M) $.
+
+It is also customary to consider the negated form of the log-likelihood, called the log-loss. The log-loss reflects our cost (in bits) per instance of using the model P~. The log-loss is an example of a loss function. A loss function loss(ξ : M) measures the loss that a model M makes on a particular instance ξ. When instances are sampled from some distribution P* , our goal is to find a model that minimizes the expected loss, or the _**risk**_.
