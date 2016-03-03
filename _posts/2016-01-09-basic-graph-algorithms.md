@@ -907,7 +907,7 @@ A matroid $ M $ is a finite collection of finite sets that satisfies three axiom
 
 - **Non-emptiness:** The empty set $ \emptyset $ is in $ M $. (Thus, $ M $ is not itself empty.)
 - **Heredity:** If a set $ X $ is an element of $ M $, then any subset of $ X $ is also in $ M $.
-- **Exchange:** (a.k.a **Augmentation**) If $ X $ and $ Y $ are two sets in $ M $ where $ \lvert X \rvert > \lvert Y \rvert $, then there $ \exists $ an element $ x \in X \setminus Y $ such that $ Y \cup \lbracex\rbrace $ is in $ M $.
+- **Exchange:** (a.k.a **Augmentation**) If $ X $ and $ Y $ are two sets in $ M $ where $ \lvert X \rvert > \lvert Y \rvert $, then there $ \exists $ an element $ x \in X \setminus Y $ such that $ Y \cup \lbrace x \rbrace $ is in $ M $.
 
 <!-- -->
 
@@ -915,7 +915,7 @@ A matroid $ M $ is a finite collection of finite sets that satisfies three axiom
 	- Therefore, the three axioms can also be stated as:
 		- **Non-emptiness**: The empty set $ \emptyset $ is independent.
 		- **Heredity**: If a set $ X $ is independent, then any subset of $ X $ is also independent.
-		- **Exchange** (a.k.a **Augmentation**): If $ X $ and $ Y $ are two independent sets where $ \lvert X \rvert > \lvert Y \rvert $, then there $ \exists $ an element $ x \in X \setminus Y $ such that $ Y \cup \lbracex\rbrace $ is also independent.
+		- **Exchange** (a.k.a **Augmentation**): If $ X $ and $ Y $ are two independent sets where $ \lvert X \rvert > \lvert Y \rvert $, then there $ \exists $ an element $ x \in X \setminus Y $ such that $ Y \cup \lbrace x \rbrace $ is also independent.
 - The union of all sets in $ M $ is called the _**ground set**_.
 	- In set theory, a collection, $ F $, of subsets of a given set $ S $ is called a _**family**_ of subsets of $ S $.
 	- Therefore, a matroid is a family of subsets of its ground set.
