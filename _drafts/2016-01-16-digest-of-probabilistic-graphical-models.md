@@ -440,8 +440,7 @@ P698 公式符号定义，IID
 
 ### 16.2 Goals of Learning
 
-Our ideal solution is to return a model M~ that precisely captures the distribution P* from which our data were sampled. Unfortunately, this goal is not generally achievable, because of computational reasons and (more importantly) because a limited data
-set provides only a rough approximation of the true underlying distribution. 
+Our ideal solution is to return a model M~ that precisely captures the distribution P* from which our data were sampled. Unfortunately, this goal is not generally achievable, because of computational reasons and (more importantly) because a limited data set provides only a rough approximation of the true underlying distribution. 
 
 In practice, the amount of data we have is rarely sufficient to obtain an accurate representation of a high-dimensional distribution involving many variables. Thus, we have to select M~ so as to construct the “best” approximation to M*. The notion of “best” depends on our goals. Different models will generally embody different trade-offs.
 
@@ -466,3 +465,395 @@ _**Solution:**_ expected log-likelihood. 简单理解就是计算 “p~ 与 p* �
 More generally, in our discussion of learning we will be interested in the likelihood of the data D, given a model M, which is $ P(D : M) $, or for convenience using the log-likelihood $ l(D : M) = \log P(D : M) $.
 
 It is also customary to consider the negated form of the log-likelihood, called the log-loss. The log-loss reflects our cost (in bits) per instance of using the model P~. The log-loss is an example of a loss function. A loss function loss(ξ : M) measures the loss that a model M makes on a particular instance ξ. When instances are sampled from some distribution P* , our goal is to find a model that minimizes the expected loss, or the _**risk**_.
+
+#### 16.2.2 Specific Prediction Tasks
+
+P700 
+
+classification
+
+P701 
+
+classification error == 0/1 loss
+
+Hamming loss, instead of using the indicator function I{h(x) != y}, counts the number of variables Y in which h(x) differs from the ground truth y.
+
+confidence of the prediction: conditional likelihood or conditional log-likelihood
+
+#### 16.2.3 Knowledge Discovery
+
+We may hope that an examination of the learned model can reveal some important properties of the domain: what are the direct and indirect dependencies, what characterizes the nature of the dependencies (for example, positive or negative correlation), and so forth.
+
+### 16.3 Learning as Optimization
+
+In many of the cases, we defined a numerical criterion — a loss function — that we would like to optimize. This perspective suggests that the learning task should be viewed as an optimization problem: we have a _**hypothesis space**_, that is, a set of candidate models, and an _**objective function**_, a criterion for quantifying our preference for different models.
+
+#### 16.3.1 Empirical Risk and Overfitting
+
+P703 empirical distribution (大数法则，趋近真实分布 P*，但是大数法则很难满足，所以经常有 overfitting)
+
+Now, assume that we have a distribution over a probability space defined by 100 binary random variables, for a total of 2^100 possible joint assignments. If our data set D contains 1000 instances (most likely distinct from each other), the empirical distribution will give probability 0.001 to each of the assignments that appear in D, and probability 0 to all 2^100 − 1000 other assignments. While this example is obviously extreme, the phenomenon is quite general.
+
+empirical risk == the loss on our training data
+
+我们总在说 overfitting，但其实它的逻辑是 overfit the learned model to the training data
+
+However, our goal is to answer queries about examples that were not in our training set. Thus, for example, in our medical diagnosis example, the patients to which the learned network will be applied are new patients, not the ones on whose data the network was trained. In our image-segmentation example, the model will be applied to new (unsegmented) images, not the (segmented) images on which the model was trained. Thus, it is critical that the network _**generalize**_ to perform well on unseen data.
+
+If our hypothesis space is very limited, even with unlimited data, we may be unable to capture our true target distribution P*, and thereby remain with a suboptimal model. This type of limitation in a hypothesis space introduced inherent error in the result of the learning procedure, which is called _**bias**_, since the learning procedure is limited in how close it can approximate the target distribution.
+
+Conversely, if we select a hypothesis space that is highly expressive, we are more likely to be able to represent correctly the target distribution P*. However, given a small data set, we may not have the ability to select the “right” model among the large number of models in the hypothesis space, many of which may provide equal or perhaps even better loss on our limited (and thereby unrepresentative) training set D. Intuitively, when we have a rich hypothesis space and limited number of samples, small random fluctuations in the choice of D can radically change the properties of the selected model, often resulting in models that have little relationship to P*. As a result, the learning procedure will suffer from a high _**variance**_ — running it on multiple data sets from the same P* will lead to highly variable results.
+
+把 P* 想象成平面上的一个点，hypothesis space 是一个平面图形，data set 表示可以涂色的范围。如果我们的 hypothesis space 包含了 P* 而且 data set 刚好可以 train 到 P*，我们认为 data set 的涂色范围覆盖了 P*:
+
+- 如果 hypothesis space 太小，可能你的平面图形都没有包含到 P*，此时不管怎么涂，都不可能涂到 P*。这种因为 hypothesis space 本身的局限性导致的 error，就是 bias
+- 那么我们搞个大大的 hypothesis space 是不是就好了呢？也不一定，你的 data set 是有限的，所以在一个超大的 hypothesis space 里，data set A 可能只能涂左上角（此时你的最优 model 就是左上角离 P* 最近的那个），data set B 可能只能涂右下角（此时你的最优 model 就是右下角离 P* 最近的那个），随便换一组 data set，得到的 model 差距就会很大。这样的 error 就是 variance
+
+解决 overfitting 的两大途径：
+
+- With limited data, the error introduced by variance may be larger than the potential error introduced by bias. 所以我们 restrict hypothesis space 是一个可以考虑的折衷方案
+- 途径二是 to change our training objective so as to incorporate a soft preference for simpler models. Thus, our learning objective will usually incorporate competing components: some components will tend to move us toward models that fit well with our observed data; others will provide _**regularization**_ that prevents us from taking the specifics of the data to extremes.
+
+How to evaluate the performance of a given model, or a set of models, on unseen data?
+
+- holdout testing
+	- D = D_train + D_test
+	- Because D_test is also sampled from P*, it provides us with an empirical estimate of the risk. Importantly, however, because D_test is disjoint from D_train, we are measuring our loss using instances that were unseen during the training, and not on ones for which we optimized our performance. Thus, this approach provides us with an unbiased estimate of the performance on new instances.
+	- Naturally, the training set performance will be better, but if the difference is very large, we are probably overfitting to the training data and may want to consider a less expressive model class, or some other method for discouraging overfitting.
+- cross validation == repeating rounds of holdout testing
+	- Holdout testing poses a dilemma. To get better estimates of our performance, we want to increase the size of the test set. Such an increase, however, decreases the size of the training set, which results in degradation of quality of the learned model. When we have ample training data, we can find reasonable compromises between these two considerations. When we have few training samples, there is no good compromise, since decreasing either the training or the test set has large ramifications either on the quality of the learned model or the ability to evaluate it.
+	- An alternative solution is to attempt to use available data for both training and testing. Put simply, to repeat rounds of holdout testing. A commonly used procedure is k-fold cross-validation.
+	- 进一步发展成 training set、test set 和 validation set
+
+"Goodness of Fit" tests: After learning the parameters, we have a hypothesis about a distribution that generated the data. Now we can ask whether the data behave as though they were sampled from this distribution. To do this, we compare properties (比如 mean 和 variance？) of the training data set to properties of simulated data sets of the same size that we generate according to the learned distribution. If the training data behave in a manner that deviates significantly from what we observed in the majority of the simulations, we have reason to believe that the data were not generated from the learned distribution.
+
+P709 PAC-bounds
+
+#### 16.3.2 Discriminative versus Generative Training
+
+In the previous discussion, we implicitly assumed that our goal is to get the learned model M~ to be a good approximation to P*. However, as we discussed in section 16.2.2, we often know in advance that we want the model to perform well on a particular task, such as predicting Y from X. The training regime that we described would aim to get M~ close to the overall joint distribution P(Y,X). This type of objective is known as _**generative training**_, because we are training the model to generate all of the variables, both the ones that we care to predict and the features that we use for the prediction. Alternatively, we can train the model _**discriminatively**_, where our goal is to get P~(Y|X) to be close to P*(Y|X). The same model class can be trained in these two different ways, producing different results.
+
+As the simplest example, consider a simple “star” Markov network structure with a single target variable Y connected by edges to each of a set of features X1, . . . , Xn. If we train the model generatively, we are learning a naive Markov model, which, because the network is singly connected, is equivalent to a naive Bayes model. On the other hand, we can train the same network structure discriminatively, to obtain a good fit to P*(Y | X1, . . . , Xn). In this case, as we showed in example 4.20, we are learning a model that is a logistic regression model for Y given its features.
+
+- Generatively learned models can still be used for specific prediction tasks.
+- Discriminative training is usually performed in the context of undirected models. In this setting, we are essentially training a _**conditional random field (CRF)**_, as in section 4.6.1: a model that directly encodes a conditional distribution P(Y|X).
+
+Trade-offs between generative and discriminative training:
+
+- Generally speaking, generative models have a higher bias — they make more assumptions about the form of the distribution.
+	- 但是从另外一个角度来说，hypothesis space 比较小，有助于防止 overfitting
+- Discriminative models make fewer assumptions, they will tend to be less affected by incorrect model assumptions and will often outperform the generatively trained models for larger data sets
+
+P711 Example 16.2 optical character recognition: 256 pixels as features, recognize the letter (A-Z)
+
+- generative model: naive Bayes (or Markov)
+	- 26 models, one for each letter
+	- 256 parameter
+- discriminative model: logistic regression
+	- jointly optimizing all of the approximately 26 × 256 parameters of the multinomial logit distribution, a much higher-dimensional estimation problem
+- Thus, for sparse data, the naive Bayes model may often perform better.
+- However, even in this simple setting, the independence assumption made by the naive Bayes model — that pixels are independent given the image label — is clearly false. Thus, as we get enough data to fit the logistic model reasonably well, we would expect it to perform better.
+
+### 16.4 Learning Tasks
+
+The input of a learning procedure is:
+
+- Some prior knowledge or constraints about M~
+- A set D of data instances {d[1], . . . , d[M]}, which are independent and identically distributed (IID) samples from P*.
+
+The output is: 
+
+- A model M~, which may include the structure, the parameters, or both.
+
+There are many variants of this fairly abstract learning problem; roughly speaking, they vary
+along three axes:
+
+- Axis 1: output
+	- The problem formulation, i.e. the type of graphical model we are trying to learn, depends on our output. E.g. shall we learn a Bayesian network or a Markov network? (Model Constraints)
+- Axis 2&3: input
+	- The constraints that we are given about M~ (Model Constraints)
+	- The extent to which the data in our training set are fully observed (Data Observability)
+	
+#### 16.4.1 Model Constraints
+
+Question: to what extent does our input constrain the hypothesis space, i.e. the class of models that we are allowed to consider as possible outputs of our learning algorithm.
+
+Possible situations:
+
+- At one extreme, we may be given a graph structure, and we have to learn only (some of) the parameters.
+- We may not know the structure, and we have to learn both parameters and structure from the data.
+- Even worse, we may not even know the complete set of variables over which the distribution P* is defined. In other words, we may only observe some subset of the variables in the domain and possibly be unaware of others.
+
+The less prior knowledge we are given, the larger the hypothesis space, and the more possibilities we need to consider when selecting a model.
+
+As we discussed in section 16.3.1, the complexity of the hypothesis space defines several important trade-offs. 
+
+- Statistical trade-off:
+	- If we restrict the hypothesis space too much, it may be unable to represent P* adequately. 
+	- Conversely, if we leave it too flexible, our chances increase of finding a model within the hypothesis space that accidentally has high score but is a poor fit to P*. 
+- Computational trade-off: 
+	- In many cases (although not always), the richer the hypothesis space, the more difficult the search to find a high-scoring model.
+	
+#### 16.4.2 Data Observability
+
+Possible situations:
+
+- _**Complete Data:**_ The data are complete, or fully observed, so that each of our training instances d[m] is a full instantiation to all of the variables in X*.
+- _**Incomplete Data:**_ The data are incomplete, or partially observed, so that, in each training instance, some variables are not observed.
+- _**Hidden Variable:**_ The data contain hidden variable whose value is never observed in any training instance.
+
+When data are unobserved, we must hypothesize possible values for these variables. The greater the extent to which data are missing, the less we are able to hypothesize reliably values for the missing entries.
+
+P713 mixture distribution
+
+P714 Figure 16.1 Introducing a hidden variable in the network can actually greatly simplify the structure!
+
+#### 16.4.3 Taxonomy of Learning Tasks
+
+- For a known structure, parameter estimation is a numerical optimization problem 
+	- For a fixed structure and complete data, the optimization problem is convex
+- When the structure is not given, the problem of structure selection is also formulated as a convex optimization problem, where different network structures are given a score, and we aim to find the network whose score is highest.
+- The problem of dealing with incomplete data is much more significant. Here, the multiple hypotheses regarding the values of the unobserved variables give rise to a combinatorial range of different alternative models, and induce a nonconvex, multimodal optimization problem even in parameter space. The known algorithms generally work by iteratively using the current parameters to fill in values for the missing data, and then using the completion to reestimate the model parameters. This process requires multiple calls to inference as a subroutine, making this process expensive for large networks. The case where the structure is not known is even harder, since we need to combine a discrete search over network structure with nonconvex optimization over parameter space.
+
+## 17. Parameter Estimation
+
+In this chapter, we discuss the problem of estimating parameters for a Bayesian network. We assume that the network structure is fixed and that our data set D consists of fully observed instances of the network variables: D = {ξ[1], . . . , ξ[M]}.
+
+two main approaches:
+
+- maximum likelihood estimation
+- Bayesian approaches
+
+### 17.1 Maximum Likelihood Estimation
+
+#### 17.1.1 The Thumbtack Example
+
+P719 
+
+MLE: maximum likelihood estimator
+
+log-likelihood
+
+confidence interval
+
+#### 17.1.2 The Maximum Likelihood Principle
+
+We then consider how to apply it to the task of learning the parameters of a Bayesian network.
+
+P720 符号定义
+
+parametric model: P(ξ:θ), i.e. given a particular set of parameter values θ and an instance ξ of X, the model assigns a probability (or density) to ξ
+
+parameter space: Θ, 合法的 θ 的取值范围，比如 toss coin 的 Θ = {head, tail} = {0,1}
+
+Example 17.1: multinomial model 的表示法
+
+Example 17.2： Gaussian model
+
+P721
+
+likelihood function: L(θ : D) = \prod_{m} P(ξ[m] : θ)
+
+sufficient statistic
+
+sufficient statistic for multinomial model
+
+sufficient statistic for Gaussian model
+
+P722
+
+Maximum Likelihood Estimation: Given a data set D, choose parameters ˆθ that satisfy L(ˆθ : D) = max L(θ : D), θ∈Θ.
+
+### 17.2 MLE for Bayesian Networks
+
+It turns out that the structure of the Bayesian network allows us to reduce the parameter estimation problem to a set of unrelated problems, each of which can be addressed using the techniques of the previous section
+
+#### 17.2.1 A Simple Example
+
+一个超简单的例子，X → Y。
+
+P723 符号定义。
+
+Parameter 包括：
+
+- P(X=1) P(X=0)
+- P(Y=1|X=1) P(Y=1|X=0) P(Y=0|X=1) P(Y=0|X=0)
+- 改用 θ 表示
+
+Each training instance is a tuple <x[m], y[m]> that describes a particular assignment to X and Y
+
+L(θ : D) = \prod^{M}_{m=1} P(x[m], y[m] : θ) 
+		= \prod^{M}_{m=1} P(x[m] : θ) P(y[m] | x[m] : θ)
+		= {prod^{M}_{m=1} P(x[m] : θ)} {prod^{M}_{m=1} P(y[m] | x[m] : θ)}
+
+That is, the likelihood decomposes into two separate terms, one for each variable. Moreover, each of these terms is a local likelihood function that measures how well the variable is predicted given its parents.
+
+P724 likelihood decomposability
+
+Thus, we can find the maximum likelihood parameters in this CPD by simply counting how many times each of the possible assignments of X and Y appears in the training data. 所以用 Identity 函数就可以了。
+
+#### 17.2.2 Global Likelihood Decomposition
+
+更 general 一点，写成 P(X|Par(X)) 的形式 
+
+#### 17.2.3 Table-CPDs
+
+Based on the preceding discussion, we know that the likelihood of a Bayesian network decomposes into local terms that depend on the parameterization of CPDs. The choice of parameters determines how we can maximize each of the local likelihood functions. We now consider what is perhaps the simplest parameterization of the CPD: a table-CPD.
+
+P726 data fragmentation and overfitting
+
+P727 Naive Bayes Classifier
+
+#### 17.2.4 Gaussian Bayesian Networks *
+
+Global Likelihood Decomposition 仍然适用，只是后面小步骤的计算方法有点变化
+
+P730
+
+Nonparametric Models: where a (conditional) distribution is not defined to be in some particular parametric class with a fixed number of parameters, but rather the complexity of the representation is allowed to grow as we get more data instances. 意思是我们没有假设 CPD 是什么分布然后再去估计参数，而是直接根据 dataset 的值去计算 CPD，比如用 kernel density estimation
+
+kernel density estimation (很有用！)
+
+#### 17.2.5 Maximum Likelihood Estimation as M-Projection *
+
+### 17.3 Bayesian Parameter Estimation
+
+#### 17.3.1 The Thumbtack Example Revisited
+
+Although the MLE approach seems plausible, it can be overly simplistic in many cases. Assume again that we perform the thumbtack experiment and get 3 heads out of 10. It may be quite reasonable to conclude that the parameter θ is 0.3. But what if we do the same experiment with a standard coin, and we also get 3 heads? We would be much less likely to jump to the conclusion that the parameter of the coin is 0.3. Why? Because we have a lot more experience with tossing coins, so we have a lot more prior knowledge about their behavior. Note that we do not want our prior knowledge to be an absolute guide, but rather a reasonable starting assumption that allows us to counterbalance our current set of 10 tosses, under the assumption that they may not be typical. However, if we observe 1,000,000 tosses of the coin, of which 300,000 came out heads, then we may be more willing to conclude that this is a trick coin, one whose parameter is closer to 0.3.
+
+Maximum likelihood allows us to make neither of these distinctions: between a thumbtack and a coin, and between 10 tosses and 1,000,000 tosses of the coin. There is, however, another approach, the one recommended by Bayesian statistics.
+
+##### 17.3.1.1 Joint Probabilistic Model
+
+In this approach, we encode our prior knowledge about θ with a probability distribution; this distribution represents how likely we are a priori to believe the different choices of parameters. Once we quantify our knowledge (or lack thereof) about possible values of θ, we can create a joint distribution over the parameter θ and the data cases that we are about to observe X[1], . . . , X[M]. This joint distribution captures our assumptions about the experiment.
+
+简单说就是从 P(ξ[m] : θ) 变成了 P(ξ[m] | θ)
+
+P(θ) 称为 prior distribution (over θ)
+
+P(θ | x[1], . . . , x[M]) = P(x[1], . . . , x[M] | θ) P(θ) / P(x[1], . . . , x[M]) 称为 posterior distribution (over θ) 
+
+We see that the posterior is (proportional to) a product of the likelihood and the prior.
+
+##### 17.3.1.2 Prediction
+
+Instead of selecting from the posterior a single value for the parameter θ, we use it, in its entirety, for predicting the probability over the next toss.
+
+We introduce the value of the next coin toss x[M + 1] to our network. We can then compute the probability over x[M + 1] given the observations of the first M tosses.
+
+Bayesian estimator 计算方法见 P735
+
+Clearly, as the number of samples grows, the Bayesian estimator and the MLE estimator converge to the same value.
+
+P735 Laplace’s correction 
+
+##### 17.3.1.3 Priors
+
+P735 Beta distribution, Beta hyperparameters, Gamma function
+
+P737
+
+If the prior is a Beta distribution, then the posterior distribution, that is, the prior conditioned on the evidence, is also a Beta distribution. In this case, we say that the Beta  distribution is conjugate to the Bernoulli likelihood function (see definition 17.4).
+
+Suppose we observe 3 heads in 10 tosses:
+
+- Prior 1: Beta(1,1) => P(X[11]=1) = (3+1) / (10+1+1) = 1/3
+- Prior 2: Beta(10,10) => P(X[11]=1) = (3+10) / (10+10+10) = 13/30 => better prediction
+
+#### 17.3.2 Priors and Posteriors
+
+We now turn to examine in more detail the Bayesian approach to dealing with unknown parameters. We start with a discussion of the general principle and deal with the case of Bayesian networks in the next section.
+
+P737 point estimate and belief
+
+P737 marginal likelihood
+
+P738
+
+Since the posterior is a product of the prior and the likelihood, it seems natural to require that the prior also have a form similar to the likelihood. One such prior is the Dirichlet distribution. If we use a Dirichlet prior, then the posterior is also Dirichlet.
+
+P739
+
+Definition 17.4 conjugate prior
+
+Dirichlet priors are conjugate to the multinomial model
+
+We can easily update our beliefs about θ after observing a set of instances D. This update process results in a posterior that combines our prior knowledge and our observations
+
+- We can use the posterior to determine properties of the model at hand. For example, to assess our beliefs that a coin we experimented with is biased toward heads, we might compute the posterior probability that θ > t for some threshold t, say 0.6.
+- Another use of the posterior is to predict the probability of future examples.
+
+Proposition 17.4 Let P(θ) be a Dirichlet distribution with hyperparameters α1, . . . , αk, and α = \sum_{j} αj, then E[θk] = αk / α.
+
+P740
+
+Dirichlet hyperparameters are often called pseudo-counts.
+
+equivalent sample size
+
+mean prediction
+
+improper prior
+
+The difference between the Bayesian estimate and the MLE estimate arises when M is not too large, and α is not close to 0. In these situations, the Bayesian estimate is “biased” toward the prior probability θ', where θ' = {θ_k : k = 1, . . . , K} is a distribution describing the mean prediction of our prior.
+
+P741 Figure 17.5  Example 17.7
+
+This smoothing effect results in more robust estimates when we do not have enough data to reach definite conclusions. In general, it is a bad idea to have extreme estimates (ones where some of the parameters are close to 0), since these might assign too small probability to new instances we later observe. In particular, as we already discussed, probability estimates that are actually 0 are dangerous, since no amount of evidence can change them. Thus, if we are unsure about our estimates, it is better to bias them away from extreme estimates. The MLE estimate, on the other hand, often assigns probability 0 to values that were not observed in the training data
+
+### 17.4 Bayesian Parameter Estimation in Bayesian Networks
+
+We now turn to Bayesian estimation in the context of a Bayesian network.
+
+#### 17.4.1 Parameter Independence and Global Decomposition
+
+##### 17.4.1.1 A Simple Example
+
+In addition, the network structure in figure 17.7 embodies the assumption that the priors for the individual parameters variables are a priori independent. That is, we believe that knowing the value of one parameter tells us nothing about another. 我们称 prior P(θ) 满足 global parameter independence.
+
+- This assumption may not be suitable for all domains.
+
+If we accept global parameter independence, we can conclude that complete data d-separates the parameters for different CPDs. 
+
+θ_X → X[m] → Y [m] ← θ_{Y|X}
+
+=> so that the observation of x[m] blocks the path. Thus, if these two parameter variables are independent a priori, they are also independent a posteriori
+
+=> P(θ_X, θ_{Y|X} | D) = P(θ_X | D) P(θ_{Y|X} | D)
+
+This is the analogous result to the likelihood decomposition for MLE estimation of section 17.2.2.
+
+##### 17.4.1.2 General Networks
+
+P744 marginal likelihood
+
+As we discussed in section 17.2, we can decompose the likelihood into local likelihoods. => 公式1
+
+Moreover, if we assume that we have global parameter independence. => 公式2
+
+Combining these two decompositions, we see that => 公式3，P(X|Par(X)) 的形式 
+
+##### 17.4.1.3 Prediction
+
+#### 17.4.3 Priors for Bayesian Network Learning
+
+#### 17.4.4 MAP Estimation *
+
+MAP: maximum a posteriori estimation. Here, we search for parameters that maximize the posterior probability
+
+P752 Box 17.D — Concept: Representation Independence
+
+### 17.6 Generalization Analysis *
+
+
+
+
+
+
+
+
+
+
+
+
