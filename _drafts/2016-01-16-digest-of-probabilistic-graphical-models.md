@@ -45,29 +45,29 @@ This book describes a general-purpose framework for constructing and using proba
 
 Complex systems are characterized by the presence of multiple interrelated aspects, many of which relate to the reasoning task. 换句话说就是：条件、input 太多；比如诊断一个病，需要做超级多的检查；如果连具体是什么病都没把握，就要做更多的检查。These domains can be characterized in terms of a set of _**random variables**_.
 
-Our task is to reason probabilistically about the values of one or more of the variables, possibly given observations about some others. In order to do so using principled probabilistic reasoning, we need to construct a joint distribution (\\( P(Y,Z) \\)) over the space of possible assignments to some set of random variables \\( \mathcal{X} \\).
+Our task is to reason probabilistically about the values of one or more of the variables, possibly given observations about some others. In order to do so using principled probabilistic reasoning, we need to construct a joint distribution ($ P(Y,Z) $) over the space of possible assignments to some set of random variables $ \mathcal{X} $.
 
 #### 1.2.1 Probabilistic Graphical Models
 
-单单考虑 binary random variable，\\( n \\) 个 RV 就有 \\( 2\^n \\) 个 value 的组合，当 \\( n \\) 很大的时候，the problem appears completely intractable. 
+单单考虑 binary random variable，$ n $ 个 RV 就有 $ 2^n $ 个 value 的组合，当 $ n $ 很大的时候，the problem appears completely intractable. 
 
 This book describes the framework of probabilistic graphical models, which provides a mechanism for exploiting structure in complex distributions to describe them _**compactly**_, and in a way that allows them to be constructed and utilized _**effectively**_. 简单说就是两个目的：简洁、高效！
 
 There is a dual perspective that one can use to interpret the structure of this graph.
 
 - From one perspective, the graph is a compact representation of a set of _**independencies**_ that hold in the distribution.
-	- \\( X \bot Y | Z \\): \\( X \\) is independent of \\( Y \\) given \\( Z \\). \\( X \\), \\( Y \\), \\( Z \\) are subsets of variables. 所以你可以有类似 \\( Y \bot Z,C | D,E \\)。
-	- If \\( X \bot Y | Z \\), then \\( P(X | Z,Y) = P(X | Z) \\), which means the evidence \\( Y \\) is no longer informative in this query.
+	- $ X \bot Y | Z $: $ X $ is independent of $ Y $ given $ Z $. $ X $, $ Y $, $ Z $ are subsets of variables. 所以你可以有类似 $ Y \bot Z,C | D,E $。
+	- If $ X \bot Y | Z $, then $ P(X | Z,Y) = P(X | Z) $, which means the evidence $ Y $ is no longer informative in this query.
 - The other perspective is that the graph defines a skeleton for compactly representing a high-dimensional distribution.
 	- Rather than encode the probability of every possible assignment to all of the variables in our domain, we can “break up” the distribution into smaller _**factors**_, each over a much _**smaller space of possibilities**_. 
 	- We can then define the overall joint distribution as a product of these factors.
-	- 考虑前面 \\( n \\) 个 binary RV 的例子，要求 joint distribution，其实就是要画一个 \\( 2\^n \\) row 的真值表，我们称其为 "requiring \\( 2\^n - 1 \\) parameters" (知道了 \\( 2\^n -1 \\) 个概率，最后一个直接用 1 一减就可以了)。而用 factor 的话就可以减少 parameter 的量。
+	- 考虑前面 $ n $ 个 binary RV 的例子，要求 joint distribution，其实就是要画一个 $ 2^n $ row 的真值表，我们称其为 "requiring $ 2^n - 1 $ parameters" (知道了 $ 2^n -1 $ 个概率，最后一个直接用 1 一减就可以了)。而用 factor 的话就可以减少 parameter 的量。
 	
 It turns out that these two perspectives — the graph as a representation of a set of independencies, and the graph as a skeleton for factorizing a distribution — are, in a deep sense, equivalent. The independence properties of the distribution are precisely what allow it to be represented compactly in a factorized form. Conversely, a particular factorization of the distribution guarantees that certain independencies hold.
 
 #### 1.2.2 Representation, Inference, Learning
 
-还是考虑前面 \\( n \\) 个 binary RV 的例子。In practice, variables tend to interact directly ONLY with very few others. 而 PGM 就是抓住了这一本质，不再需要计算 \\( 2\^n \\) 个概率组合。从另一个角度来说，具有 "interact directly ONLY with very few others" 这一特点的 distribution 也适合用 PGM 来表示。
+还是考虑前面 $ n $ 个 binary RV 的例子。In practice, variables tend to interact directly ONLY with very few others. 而 PGM 就是抓住了这一本质，不再需要计算 $ 2^n $ 个概率组合。从另一个角度来说，具有 "interact directly ONLY with very few others" 这一特点的 distribution 也适合用 PGM 来表示。
 
 而用 PGM 来 encode distribution 的好处在于：
 
@@ -81,17 +81,17 @@ It turns out that these two perspectives — the graph as a representation of a 
 
 When we use the word “probability” in day-to-day life, we refer to a degree of confidence that an event of an uncertain nature will occur.
 
-Formally, we define _**events**_ by event assuming that there is an agreed-upon space of possible outcomes, which we denote by \\( \Omega \\). In addition, we assume that there is a set of measurable events \\( S \\) to which we are willing to assign probabilities.
+Formally, we define _**events**_ by event assuming that there is an agreed-upon space of possible outcomes, which we denote by $ \Omega $. In addition, we assume that there is a set of measurable events $ S $ to which we are willing to assign probabilities.
 
 - 这里的概念有点乱。用我自己的话说：
-	- \\( S \\) 是全集
-	- 如果我们把空集也看做一个 event，那么 \\( \Omega \\) 就是另一个极端的 event (可以理解为 "出现任意 outcome" 的事件)
-		- 我们称空集为 _**empty event**_ \\( \varnothing \\), 然后 the _**trivial event**_ \\( \Omega \\).
-		- 比如 dice，\\( \Omega = \left \\{ 1,2,3,4,5,6 \right \\} \\)
-		- \\( P(\Omega) = 1 \\)
-	- \\( \varnothing \in S \\) and \\( \Omega \in S \\)
-	- \\( S \\) 要满足 union，即 if \\( \alpha, \beta \in S \\), then \\( \alpha \cup \beta \in S \\)
-	- \\( S \\) 要满足 complementation，即 if \\( \alpha \in S \\), then \\( \Omega - \alpha \in S \\)
+	- $ S $ 是全集
+	- 如果我们把空集也看做一个 event，那么 $ \Omega $ 就是另一个极端的 event (可以理解为 "出现任意 outcome" 的事件)
+		- 我们称空集为 _**empty event**_ $ \varnothing $, 然后 the _**trivial event**_ $ \Omega $.
+		- 比如 dice，$ \Omega = \lbrace 1,2,3,4,5,6 \rbrace $
+		- $ P(\Omega) = 1 $
+	- $ \varnothing \in S $ and $ \Omega \in S $
+	- $ S $ 要满足 union，即 if $ \alpha, \beta \in S $, then $ \alpha \cup \beta \in S $
+	- $ S $ 要满足 complementation，即 if $ \alpha \in S $, then $ \Omega - \alpha \in S $
 	
 _**Interpretations for probabilities:**_
 
@@ -104,60 +104,60 @@ _**Interpretations for probabilities:**_
 		
 _**Conditional Probability:**_
 
-- \\( P(\alpha | \beta) = \frac{P(\alpha \cap \beta)}{P(\beta)} \\)
+- $ P(\alpha | \beta) = \frac{P(\alpha \cap \beta)}{P(\beta)} $
 - Chain Rule:
-	- \\( P(\alpha \cap \beta) = P(\alpha) P(\beta | \alpha) \\)
-	- \\( P(\alpha\_1 \cap \dots \cap \alpha\_k) = P(\alpha\_1) P(\alpha\_2 | \alpha\_1) P(\alpha\_3 | \alpha\_1 \cap \alpha\_2) \dots P(\alpha\_k | \alpha\_1 \cap \dots \cap \alpha\_{k-1}) \\)
+	- $ P(\alpha \cap \beta) = P(\alpha) P(\beta | \alpha) $
+	- $ P(\alpha_1 \cap \dots \cap \alpha_k) = P(\alpha_1) P(\alpha_2 | \alpha_1) P(\alpha_3 | \alpha_1 \cap \alpha_2) \dots P(\alpha_k | \alpha_1 \cap \dots \cap \alpha_{k-1}) $
 - Bayes’ Rule:
-	- \\( P(\alpha | \beta) = \frac{P(\beta | \alpha) P(\alpha)}{P(\beta)} \\)
-		- The _**prior**_ is a probability distribution that represents your uncertainty over \\( \theta \\) before you have sampled any data and attempted to estimate it - usually denoted \\( \pi(\theta) \\).
-		- The _**posterior**_ is a probability distribution representing your uncertainty over \\( \theta \\) after you have sampled data - denoted \\( \pi(\theta|X) \\). It is a conditional distribution because it conditions on the observed data.
-		- \\( \pi(\theta|X) = \frac{f(X|\theta)\pi(\theta)}{\sum\_{\theta\_i}{f(X|\theta\_i)\pi(\theta\_i)}} \\) 
-	- \\( P(\alpha | \beta \cap \gamma) = \frac{P(\beta | \alpha \cap \gamma) P(\alpha | \gamma)}{P(\beta | \gamma)} \\)
-		- 即 \\( P(\alpha | \beta \cap \gamma) P(\beta | \gamma) = P(\beta | \alpha \cap \gamma) P(\alpha | \gamma) \\), 两边同时乘以 \\( P(\gamma) \\) 即相等。
-- 简写：\\( P((X = x) \cap (Y = y)) = P(X = x, Y = y) = P(x, y) \\)
+	- $ P(\alpha | \beta) = \frac{P(\beta | \alpha) P(\alpha)}{P(\beta)} $
+		- The _**prior**_ is a probability distribution that represents your uncertainty over $ \theta $ before you have sampled any data and attempted to estimate it - usually denoted $ \pi(\theta) $.
+		- The _**posterior**_ is a probability distribution representing your uncertainty over $ \theta $ after you have sampled data - denoted $ \pi(\theta|X) $. It is a conditional distribution because it conditions on the observed data.
+		- $ \pi(\theta|X) = \frac{f(X|\theta)\pi(\theta)}{\sum_{\theta_i}{f(X|\theta_i)\pi(\theta_i)}} $ 
+	- $ P(\alpha | \beta \cap \gamma) = \frac{P(\beta | \alpha \cap \gamma) P(\alpha | \gamma)}{P(\beta | \gamma)} $
+		- 即 $ P(\alpha | \beta \cap \gamma) P(\beta | \gamma) = P(\beta | \alpha \cap \gamma) P(\alpha | \gamma) $, 两边同时乘以 $ P(\gamma) $ 即相等。
+- 简写：$ P((X = x) \cap (Y = y)) = P(X = x, Y = y) = P(x, y) $
 
 _**Marginal**_ and _**Joint Distribution:**_
 
-- Marginal distribution of \\( X \\) is one over other random variables, denoted by \\( P(X) \\).
-- Joint distribution of \\( X,Y \\) is one involving the values of the two random variables, denoted by \\( P(X,Y) \\)
+- Marginal distribution of $ X $ is one over other random variables, denoted by $ P(X) $.
+- Joint distribution of $ X,Y $ is one involving the values of the two random variables, denoted by $ P(X,Y) $
 - The joint distribution of two random variables has to be consistent with the marginal distribution,
-in that \\( P(x) = \sum\_{y}{P(x, y)} \\).
+in that $ P(x) = \sum_{y}{P(x, y)} $.
 
 _**Independence**_ and _**Conditional Independence:**_
 
-- An event \\( \alpha \\) is independent of event \\( \beta \\) in \\( P \\), denoted \\( P |= (\alpha \bot \beta) \\), if and only if \\( P(\alpha \cap \beta) = P(\alpha) P(\beta) \\).
-	- 我们也可以称 \\( P \\) satisfies \\( (\alpha \bot \beta) \\).
-	- 此时也有 \\( P(\alpha | \beta) = P(\alpha) \\) or \\( P(\beta) = 0 \\).
-- An event \\( \alpha \\) is independent of event \\( \beta \\) given event \\( \gamma \\) in \\( P \\), denoted \\( P |= (\alpha \bot \beta | \gamma) \\), if and only if \\( P(\alpha \cap \beta | \gamma) = P(\alpha | \gamma) P(\beta | \gamma) \\).
-	- 我们也可以称 \\( P \\) satisfies \\( (\alpha \bot \beta | \gamma) \\).
-	- 此时也有 \\( P(\alpha | \beta \cap \gamma) = P(\alpha | \gamma) \\) or \\( P(\beta \cap \gamma) = 0 \\).
+- An event $ \alpha $ is independent of event $ \beta $ in $ P $, denoted $ P |= (\alpha \bot \beta) $, if and only if $ P(\alpha \cap \beta) = P(\alpha) P(\beta) $.
+	- 我们也可以称 $ P $ satisfies $ (\alpha \bot \beta) $.
+	- 此时也有 $ P(\alpha | \beta) = P(\alpha) $ or $ P(\beta) = 0 $.
+- An event $ \alpha $ is independent of event $ \beta $ given event $ \gamma $ in $ P $, denoted $ P |= (\alpha \bot \beta | \gamma) $, if and only if $ P(\alpha \cap \beta | \gamma) = P(\alpha | \gamma) P(\beta | \gamma) $.
+	- 我们也可以称 $ P $ satisfies $ (\alpha \bot \beta | \gamma) $.
+	- 此时也有 $ P(\alpha | \beta \cap \gamma) = P(\alpha | \gamma) $ or $ P(\beta \cap \gamma) = 0 $.
 	
 _**Conditional Independence of Random Variables:**_
 
-- Let \\( X, Y, Z \\) be sets of random variables. We say that \\( X \\) is conditionally independent of \\( Y \\) given \\( Z \\) in a distribution \\( P \\) if \\( P \\) satisfies \\( (X = x \bot Y = y | Z = z) \\) for all values \\( x \in Val(X) \\), \\( y \in Val(Y) \\), and \\( z \in Val(Z) \\). The variables in the set \\( Z \\) are often said to be _**observed**_. If the set \\( Z \\) is empty, then instead of writing \\( (X \bot Y | \varnothing) \\), we write \\( (X \bot Y ) \\) and say that \\( X \\) and \\( Y \\) are _**marginally independent**_.
+- Let $ X, Y, Z $ be sets of random variables. We say that $ X $ is conditionally independent of $ Y $ given $ Z $ in a distribution $ P $ if $ P $ satisfies $ (X = x \bot Y = y | Z = z) $ for all values $ x \in Val(X) $, $ y \in Val(Y) $, and $ z \in Val(Z) $. The variables in the set $ Z $ are often said to be _**observed**_. If the set $ Z $ is empty, then instead of writing $ (X \bot Y | \varnothing) $, we write $ (X \bot Y ) $ and say that $ X $ and $ Y $ are _**marginally independent**_.
 
 <!-- -->
 
 - 以下参考 [Wikipedia - Conditional independence](https://en.wikipedia.org/wiki/Conditional_independence)
-- Let \\( X, Y, Z, W \\) be sets of random variables. Note: below, the comma can be read as an "AND".
+- Let $ X, Y, Z, W $ be sets of random variables. Note: below, the comma can be read as an "AND".
 - _**Symmetry:**_ 
-	- \\( X \bot Y \Rightarrow Y \bot X \\)
-	- \\( X \bot Y | Z \Rightarrow Y \bot X | Z \\)
+	- $ X \bot Y \Rightarrow Y \bot X $
+	- $ X \bot Y | Z \Rightarrow Y \bot X | Z $
 - _**Decomposition:**_ 
-	- \\( X \bot Y,Z \Rightarrow \text{ and } \begin{cases} X \bot Y \\\\ X \bot Z \end{cases} \\)
-		- \\( \text{ and } \\) 表示两个都成立，下同。
-	- \\( X \bot Y,Z | W \Rightarrow \text{ and } \begin{cases} X \bot Y | W \\\\ X \bot Z | W \end{cases} \\)
+	- $ X \bot Y,Z \Rightarrow \text{ and } \begin{cases} X \bot Y \\\\ X \bot Z \end{cases} $
+		- $ \text{ and } $ 表示两个都成立，下同。
+	- $ X \bot Y,Z | W \Rightarrow \text{ and } \begin{cases} X \bot Y | W \\\\ X \bot Z | W \end{cases} $
 - _**Weak union:**_
-	- \\( X \bot Y,Z \Rightarrow \text{ and } \begin{cases} X \bot Y | Z \\\\ X \bot Z | Y \end{cases} \\)
-	- \\( X \bot Y,Z | W \Rightarrow \text{ and } \begin{cases} X \bot Y | Z,W \\\\ X \bot Z | Y,W \end{cases} \\)
+	- $ X \bot Y,Z \Rightarrow \text{ and } \begin{cases} X \bot Y | Z \\\\ X \bot Z | Y \end{cases} $
+	- $ X \bot Y,Z | W \Rightarrow \text{ and } \begin{cases} X \bot Y | Z,W \\\\ X \bot Z | Y,W \end{cases} $
 - _**Contraction:**_
-	- \\( \left \. \begin{align} X \bot Y | Z \\\\ X \bot Z \end{align} \right \\} \text{ and } \Rightarrow X \bot Y,Z \\)
-	- \\( \left \. \begin{align} X \bot Y | Z,W \\\\ X \bot Z | W \end{align} \right \\} \text{ and } \Rightarrow X \bot Y,Z | W \\)
+	- $ \left \. \begin{align} X \bot Y | Z \\\\ X \bot Z \end{align} \rbrace \text{ and } \Rightarrow X \bot Y,Z $
+	- $ \left \. \begin{align} X \bot Y | Z,W \\\\ X \bot Z | W \end{align} \rbrace \text{ and } \Rightarrow X \bot Y,Z | W $
 - _**Contraction-weak-union-decomposition:**_ Putting the above three together, we have
-	- \\( \left \. \begin{align}   X \bot Y | Z \\\\   X \bot Z \end{align} \right \\} \text{ and }  \iff X \bot Y,Z  \Rightarrow \text{ and } \begin{cases}   X \bot Y | Z \\\\   X \bot Z \\\\   X \bot Z | Y \\\\   X \bot Y \\\\ \end{cases} \\) 
-- _**Intersection:**_ For positive distributions, and for mutually disjoint sets \\( X, Y, Z, W \\)
-	- \\( \left \. \begin{align}   X \bot Y | Z,W \\\\   X \bot Z | Y,W \end{align} \right \\} \text{ and } \Rightarrow X \bot Y,Z | W \\)
+	- $ \left \. \begin{align}   X \bot Y | Z \\\\   X \bot Z \end{align} \rbrace \text{ and }  \iff X \bot Y,Z  \Rightarrow \text{ and } \begin{cases}   X \bot Y | Z \\\\   X \bot Z \\\\   X \bot Z | Y \\\\   X \bot Y \\\\ \end{cases} $ 
+- _**Intersection:**_ For positive distributions, and for mutually disjoint sets $ X, Y, Z, W $
+	- $ \left \. \begin{align}   X \bot Y | Z,W \\\\   X \bot Z | Y,W \end{align} \rbrace \text{ and } \Rightarrow X \bot Y,Z | W $
 	
 ### P25 起暂时略过
 
@@ -171,9 +171,9 @@ _**Conditional Independence of Random Variables:**_
 
 ### 3.1 Exploiting Independence Properties
 
-还是考虑前面 \\( n \\) 个 binary RV 的例子。如果要画真值表，我们需要 \\( 2\^n \\) 个 parameter，但是我们也可以用类似伯努利的形式来展现，比如 \\( P(x\_1,\dots,x\_n) = \prod\_{i}{\theta\_{x\_i}} \\), 这时候我们只需要 \\( n \\) 个 parameter 了。我们称 "the space of all joint distributions specified in the factorized way above is an \\( n \\)-dimensional _**manifold**_ in \\( R\^{2\^n} \\)."
+还是考虑前面 $ n $ 个 binary RV 的例子。如果要画真值表，我们需要 $ 2^n $ 个 parameter，但是我们也可以用类似伯努利的形式来展现，比如 $ P(x_1,\dots,x_n) = \prod_{i}{\theta_{x_i}} $, 这时候我们只需要 $ n $ 个 parameter 了。我们称 "the space of all joint distributions specified in the factorized way above is an $ n $-dimensional _**manifold**_ in $ R^{2^n} $."
 
-A key concept here is the notion of _**independent parameters**_ — parameters whose values are not determined by others. For example, when specifying an arbitrary multinomial distribution over a \\( k \\) dimensional space, we have \\( k − 1 \\) independent parameters: the last probability is fully determined by the first \\( k − 1 \\) ones. In the case where we have an arbitrary joint distribution over \\( n \\) binary random variables, the number of independent parameters is \\( 2\^n − 1 \\). On the other hand, the number of independent parameters for distributions represented as \\( n \\) independent binomial coin tosses is \\( n \\). _**Therefore, the two spaces of distributions cannot be the same**_.
+A key concept here is the notion of _**independent parameters**_ — parameters whose values are not determined by others. For example, when specifying an arbitrary multinomial distribution over a $ k $ dimensional space, we have $ k − 1 $ independent parameters: the last probability is fully determined by the first $ k − 1 $ ones. In the case where we have an arbitrary joint distribution over $ n $ binary random variables, the number of independent parameters is $ 2^n − 1 $. On the other hand, the number of independent parameters for distributions represented as $ n $ independent binomial coin tosses is $ n $. _**Therefore, the two spaces of distributions cannot be the same**_.
 
 ### P48: 3.1.3 The Naive Bayes Model
 
@@ -209,7 +209,7 @@ CPD: Conditional Probability Distribution
 
 ### P104: Definition 4.1 Factor
 
-简单说，factor 就是真值表里数据的那一栏，比如 \\( Factor(T,F) = x\_1 \\)，那么 \\( P(T,F) = \frac{x\_1}{X} \\)。但是 factor 更精确的定义是一个函数，\\( (T,F) \mapsto x\_1 \\) 只是其中的一个取值。对 factor 这个函数而言，所有可能的变量输入，比如 \\( \left \\{ (T,T),(T,F),(F,F),(F,T) \right \\} \\) 称为 factor 的 scope
+简单说，factor 就是真值表里数据的那一栏，比如 $ Factor(T,F) = x_1 $，那么 $ P(T,F) = \frac{x_1}{X} $。但是 factor 更精确的定义是一个函数，$ (T,F) \mapsto x_1 $ 只是其中的一个取值。对 factor 这个函数而言，所有可能的变量输入，比如 $ \lbrace (T,T),(T,F),(F,F),(F,T) \rbrace $ 称为 factor 的 scope
 
 ### P107: Definition 4.2 Factor Product
 
@@ -220,7 +220,7 @@ clique:
 
 ### P111: Factor reduction
 
-比如我们把 \\( Factor(A,B,C) \\) reduce 到 \\( Factor(A,B,c\_1) \\)，我们称 reduced to the _**context**_ \\( C=c\_1 \\).
+比如我们把 $ Factor(A,B,C) $ reduce 到 $ Factor(A,B,c_1) $，我们称 reduced to the _**context**_ $ C=c_1 $.
 
 ### P112: Factor reduction 的图示
 
@@ -230,36 +230,36 @@ clique:
 
 #### P114: Definition 4.8
 
-Let \\( H \\) be a Markov network structure, and let \\( X\_1,\dots,X\_k \\) be a path in \\( H \\). Let \\( Z \subseteq X \\) be a set of observed variables. The path \\( X\_1,\dots,X\_k \\) is _**active**_ given \\( Z \\) if none of the \\( X\_i \\) in \\( X\_1,\dots,X\_k \\) is in \\( Z \\).
+Let $ H $ be a Markov network structure, and let $ X_1,\dots,X_k $ be a path in $ H $. Let $ Z \subseteq X $ be a set of observed variables. The path $ X_1,\dots,X_k $ is _**active**_ given $ Z $ if none of the $ X_i $ in $ X_1,\dots,X_k $ is in $ Z $.
 
 active 的概念见 P108，就是 D-separation 的那个。
 
 #### P115: Definition 4.9: separation
 
-简化版本的定义：We say a set of node \\( Z \\) separates \\( X \\) and \\( Y \\) in a Markov network structure \\( H \\), if there is no active path between any node \\( x \in X \\) and \\( y \in Y \\) given \\( Z \\).
+简化版本的定义：We say a set of node $ Z $ separates $ X $ and $ Y $ in a Markov network structure $ H $, if there is no active path between any node $ x \in X $ and $ y \in Y $ given $ Z $.
 
 #### P117: Theorem 4.3
 
-If \\( X \\) and \\( Y \\) are not separated given \\( Z \\) in \\( H \\), then \\( X \\) and \\( Y \\) are _**dependent**_ given \\( Z \\) in some distribution \\( P \\) that factorizes over \\( H \\).
+If $ X $ and $ Y $ are not separated given $ Z $ in $ H $, then $ X $ and $ Y $ are _**dependent**_ given $ Z $ in some distribution $ P $ that factorizes over $ H $.
 
-举个例子，比如 \\( X\_1 - X\_2 - X\_3 - X\_4 - X\_1 \\):
+举个例子，比如 $ X_1 - X_2 - X_3 - X_4 - X_1 $:
 
-- \\( X\_1 - X\_2 \\) is active given \\( \left \\{ X\_3, X\_4 \right \\} \\)
-	- \\( \Rightarrow \\) \\( X\_1 \\) and \\( X\_2 \\) is not separated by \\( \left \\{ X\_3, X\_4 \right \\} \\)
-		- \\( \Rightarrow \\) \\( X\_1 \\) and \\( X\_2 \\) is dependent given \\( \left \\{ X\_3, X\_4 \right \\} \\)
-			- \\( \Rightarrow \\) we don't have \\( X\_1 \bot X\_2 | X\_3, X\_4 \\)
-- There is no active path between \\( X\_1 \\) and \\( X\_3 \\) given \\( \left \\{ X\_2, X\_4 \right \\} \\) because neither \\( X\_1 - X\_2 - X\_3 \\) nor \\( X\_1 - X\_4 - X\_3 \\) is active given \\( \left \\{ X\_2, X\_4 \right \\} \\).
-	- \\( \Rightarrow \\) \\( X\_1 \\) and \\( X\_3 \\) is separated by \\( \left \\{ X\_2, X\_4 \right \\} \\)
-		- \\( \Rightarrow \\) \\( X\_1 \\) and \\( X\_3 \\) is independent given \\( \left \\{ X\_2, X\_4 \right \\} \\)
-			- \\( \Rightarrow \\) we have \\( X\_1 \bot X\_3 | X\_2, X\_4 \\)
+- $ X_1 - X_2 $ is active given $ \lbrace X_3, X_4 \rbrace $
+	- $ \Rightarrow $ $ X_1 $ and $ X_2 $ is not separated by $ \lbrace X_3, X_4 \rbrace $
+		- $ \Rightarrow $ $ X_1 $ and $ X_2 $ is dependent given $ \lbrace X_3, X_4 \rbrace $
+			- $ \Rightarrow $ we don't have $ X_1 \bot X_2 | X_3, X_4 $
+- There is no active path between $ X_1 $ and $ X_3 $ given $ \lbrace X_2, X_4 \rbrace $ because neither $ X_1 - X_2 - X_3 $ nor $ X_1 - X_4 - X_3 $ is active given $ \lbrace X_2, X_4 \rbrace $.
+	- $ \Rightarrow $ $ X_1 $ and $ X_3 $ is separated by $ \lbrace X_2, X_4 \rbrace $
+		- $ \Rightarrow $ $ X_1 $ and $ X_3 $ is independent given $ \lbrace X_2, X_4 \rbrace $
+			- $ \Rightarrow $ we have $ X_1 \bot X_3 | X_2, X_4 $
 			
 #### P118 Definition 4.10
 
-\\( X\_i \bot X\_j \mid \chi - \left \\{ X\_i,X\_j \right \\} \\) if \\( X\_i - X\_j \notin H \\).
+$ X_i \bot X_j \mid \chi - \lbrace X_i,X_j \rbrace $ if $ X_i - X_j \notin H $.
 
 #### P118 Definition 4.11
 
-\\( X\_i \bot \chi - \left \\{ X\_i \right \\} - nbr(X\_i) \mid nbr(X\_i) \\).
+$ X_i \bot \chi - \lbrace X_i \rbrace - nbr(X_i) \mid nbr(X_i) $.
 
 #### P123 Definition 4.13: Factor Graph
 
@@ -279,7 +279,7 @@ FG:
 
 所谓 chord，就是把 graph 的 loop 想象成一个圆，连接两个不连续节点的 edge 我们成为 chord。
 
-比如 \\( X\_1 - X\_2 - X\_3 - X\_4 \\) 这个环，我们若是加一条 \\( X\_1 - X\_3 \\) 或是 \\( X\_2 - X\_4 \\)，这条边就是 chord。
+比如 $ X_1 - X_2 - X_3 - X_4 $ 这个环，我们若是加一条 $ X_1 - X_3 $ 或是 $ X_2 - X_4 $，这条边就是 chord。
 
 triangle 不可能有 chord，所以 chord 至少要有 4 条边的 loop 才会有。
 
@@ -299,16 +299,16 @@ CPT: conditional probability tables
 
 - rooted tree
 - leaf t-node / interior t-node
-- leaf t-node associates with a distribution \\( P(X) \\)
-- iterior t-node associates with a variable \\( Z \in parent(X) \\)
+- leaf t-node associates with a distribution $ P(X) $
+- iterior t-node associates with a variable $ Z \in parent(X) $
 - a branch is a path from root to a leaf
-- branch 上的所有 \\( Z=z\_i \\) 的 assignment 我们称为 parent context
+- branch 上的所有 $ Z=z_i $ 的 assignment 我们称为 parent context
 
 ### P175 5.4.1 The Noisy-Or Model
 
 P185 
 
-Let \\( P(Y | X\_1, \dots, X\_k) \\) be a noisy-or CPD. Then for each \\( i \neq j \\), \\( X\_i \\) is independent of \\( X\_j \\) given \\( Y = y\_0 \\).
+Let $ P(Y | X_1, \dots, X_k) $ be a noisy-or CPD. Then for each $ i \neq j $, $ X_i $ is independent of $ X_j $ given $ Y = y_0 $.
 
 ### P179 Definition 5.9: logistic CPD
 
@@ -356,9 +356,9 @@ Figure 10.1 Cluster tree for the VE execution in table 9.1
 
 ### P347 Running Intersection Property
 
-Let \\( T \\) be a cluster tree over a set of factors \\( \Phi \\). We say that \\( T \\) has the _**running intersection property**_ if \\( \forall \\) variable \\( X \\) that \\( X \in C\_a \\) and \\( X \in C\_z \\), \\( X \\) also \\( \in \\) every \\( C\_i \\) that lies in the unique path between \\( C\_a \\) and \\( C\_z \\).
+Let $ T $ be a cluster tree over a set of factors $ \Phi $. We say that $ T $ has the _**running intersection property**_ if $ \forall $ variable $ X $ that $ X \in C_a $ and $ X \in C_z $, $ X $ also $ \in $ every $ C_i $ that lies in the unique path between $ C_a $ and $ C_z $.
 
-Let \\( T \\) be a cluster tree induced by a variable elimination algorithm over some set of factors \\( \Phi \\). Then \\( T \\) satisfies the running intersection property.
+Let $ T $ be a cluster tree induced by a variable elimination algorithm over some set of factors $ \Phi $. Then $ T $ satisfies the running intersection property.
 
 ### P348 
 
@@ -376,9 +376,9 @@ IMPORTANT!
 
 ### P356 Definition 10.4
 
-\\( C\_i \\) is ready to transmit to a neighbor \\( C\_j \\) when \\( C\_i \\) has messages from all of its neighbors except from \\( C\_j \\).
+$ C_i $ is ready to transmit to a neighbor $ C_j $ when $ C_i $ has messages from all of its neighbors except from $ C_j $.
 
-When \\( C\_i \\) is ready to transmit to \\( C\_j \\), it can compute the message \\( \theta\_{i→j}(S\_{i,j}) \\) by multiplying its initial potential with all of its incoming messages except the one from \\( C\_j \\), and then eliminate the variables in \\( C\_i − S\_{i,j} \\). In effect, this algorithm uses yet another layer of dynamic programming to avoid recomputing the same message multiple times.
+When $ C_i $ is ready to transmit to $ C_j $, it can compute the message $ \theta_{i→j}(S_{i,j}) $ by multiplying its initial potential with all of its incoming messages except the one from $ C_j $, and then eliminate the variables in $ C_i − S_{i,j} $. In effect, this algorithm uses yet another layer of dynamic programming to avoid recomputing the same message multiple times.
 
 sum-product belief propagation
 
@@ -400,7 +400,7 @@ P491
 
 ### 12.2 Likelihood Weighting and Importance Sampling
 
-That is, when we come to sampling a node \\( X\_i \\) whose value has been observed, we simply set it to its observed value.
+That is, when we come to sampling a node $ X_i $ whose value has been observed, we simply set it to its observed value.
 
 This process generates a weighted particle.
 
@@ -846,13 +846,198 @@ P752 Box 17.D — Concept: Representation Independence
 
 ### 17.6 Generalization Analysis *
 
+## 19 Partially Observed Data
 
+### 19.1 Foundations
 
+#### 19.1.1 Likelihood of Data and Observation Models
 
+P851 
 
+observability variable: $ O_X $, which tells us whether we observed the value of X
+observability model
 
+我们可以把 missing $ Y $ 转移为 introducing $ O_X $
 
+#### 19.1.2 Decoupling of Observation Mechanism
 
+P853 MCAR: Missing Completely At Random
+
+P854 MAR: Missing At Random
+
+#### 19.1.3 The Likelihood Function
+
+Under the assumption of MAR, we can continue to use the likelihood function in the same roles.
+
+#### 19.1.4 Identifiability
+
+Another issue that arises in the context of missing data is our ability to identify uniquely a model from the data. 
+
+P861 
+
+identifiable variable
+identifiable model
+
+In other words, a model is identifiable if each choice of parameters implies a different distribution over the observed variables
+
+Nonidentifiability implies that there are parameter settings that are indistinguishable given the data, and therefore cannot be identified from the data. 
+
+- Usually this is a sign that the parameterization is redundant with respect to the actual observations. 
+- Another source of nonidentifiability arises in from hidden variables
+	- This type of unidentifiability exists in any model where we have hidden variables we never observe
+
+P862 
+
+locally identifiable variable
+locally identifiable model
+
+In other words, a model is locally identifiable if each choice of parameters defines a distribution that is different than the distribution of neighboring parameterization in a sufficiently small neighborhood. 
+
+- This definition implies that, from a local perspective, the model is identifiable.
+
+### 19.2 Parameter Estimation
+
+As with complete data, we consider two approaches to estimation, 
+
+- maximum likelihood estimation (MLE), and 
+- Bayesian estimation
+
+P862 IMPORTANT!
+
+MLE for incomplete data:
+
+- As we discussed, in the presence of incomplete data, the likelihood does not decompose. 
+- And so the problem requires optimizing a highly nonlinear and multimodal function over a high-dimensional space (one consisting of parameter assignments to all CPDs). 
+- There are two main classes of methods for performing this optimization:
+	- a generic nonconvex optimization algorithm, such as gradient ascent; and 
+	- expectation maximization, a more specialized approach for optimizing likelihood functions 
+
+#### 19.2.1 Gradient Ascent
+
+P863 概率的偏导计算
+
+#### 19.2.1.2 An Example
+
+P865 一个例题
+
+#### 19.2.1.3 Gradient Ascent Algorithm
+
+### 19.2.2 Expectation Maximization (EM)
+
+#### 19.2.2.1 Intuition
+
+P869 data imputation
+
+The problem with data imputation is that the procedure we use for filling in the missing values introduces a bias that will be reflected in the parameters we learn。
+
+- For example, if we fill all missing values with false, then our estimate will be skewed toward higher (conditional) probability of false. 
+- Similarly, if we use a randomized procedure for filling in values, then the probabilities we estimate will be skewed toward the distribution from which we sample missing values. 
+- Moreover, when we consider learning with hidden variables, it is clear that an imputation procedure will not help us. The values we fill in for the hidden variable are conditionally independent from the values of the other variables, and thus, using the imputed values, we will not learn any dependencies between the hidden variable and the other variables in the network.
+
+A different approach to filling in data takes the perspective that, when learning with missing data, we are actually trying to solve two problems at once: learning the parameters, and hypothesizing values for the unobserved variables in each of the data cases. Each of these tasks is fairly easy when we have the solution to the other. Given complete data, we have the statistics, and we can estimate parameters using the MLE formulas we discussed in chapter 17. Conversely, given a choice of parameters, we can use probabilistic inference to hypothesize the likely values (or the distribution over possible values) for unobserved variables. Unfortunately, because we have neither, the problem is difficult. 
+
+The EM algorithm solves this “chicken and egg” problem using a bootstrap approach. The EM algorithm solves this “chicken and egg” problem using a bootstrap approach. We start out with some arbitrary starting point. This can be either a choice of parameters, or some initial assignment to the hidden variables; these assignments can be either random, or selected using some heuristic approach. Assuming, for concreteness, that we begin with a parameter assignment, the algorithm then repeats two steps. First, we use our current parameters to complete the data, using probabilistic inference. We then treat the completed data as if it were observed and learn a new set of parameters
+
+#### 19.2.2.2 An Example
+
+P870 一个例题
+
+#### 19.2.2.3 The EM Algorithm for Bayesian Networks
+
+P874 General Exponential Family
+
+#### 19.2.2.4 Bayesian Clustering Using EM
+
+The Bayesian clustering paradigm views this task as a learning problem with a single hidden variable C that denotes the category or class from which an instance comes.
+
+class-conditional distribution $ P(x|c) $
+
+Overall, this approach views the data as coming from a mixture distribution and attempts to use the hidden variable to separate out the mixture into its components
+
+#### 19.2.2.5 Theoretical Foundations *
+
+公式演算
+
+#### 19.2.2.6 Hard-Assignment EM
+
+P885 Box 19.B — Case Study: EM in Practice.
+
+### 19.2.3 Comparison: Gradient Ascent versus EM
+
+- Both algorithms are _**local**_ in nature. 
+	- At each iteration they maintain a “current” set of parameters, and use these to find the next set. 
+- Moreover, both perform some version of greedy optimization based on the current point. 
+	- Gradient ascent attempts to progress in the steepest direction from the current point.
+	- EM performs a greedy step in improving its target function given the local parameters.
+- Finally, both algorithms provide a guarantee to converge to local maxima (or, more precisely, to stationary points where the gradient is 0).
+
+更多内容见书上
+
+P888 Box 19.C — Skill: Practical Considerations in Parameter Learning 
+
+IMPORTANT!
+
+- Local Maxima
+- Stopping Criteria
+- Accelerating Convergence
+
+P892 Box 19.D — Case Study: EM for Robot Mapping
+
+### 19.2.4 Approximate Inference *
+
+## 19.3 Bayesian Learning with Incomplete Data *
+
+### 19.3.1 Overview
+
+P898 MAP estimation
+
+### 19.3.2 MCMC Sampling
+
+MCMC sampling 在 12.3 讲的，这里只是讲用来处理 incomplete data 的用法
+
+#### 19.3.2.1 Gibbs Sampling
+
+One of the simplest MCMC strategies for complex multivariable chains is Gibbs sampling.
+
+P900 
+
+Gamma distribution
+Gamma -> Dirichlet
+
+If U ~ Unif([0 : 1]), then −lnU ~ Gamma(1, 1)
+
+#### 19.3.2.2 Collapsed MCMC
+
+#### 19.3.3 Variational Bayesian Learning
+
+### 19.4 Structure Learning
+
+（等看过 18 章再回头看）
+
+### 19.5 Learning Models with Hidden Variables
+
+- When should we consider introducing a hidden variable? 
+- Where in the network should we connect it? 
+- How many values should we allow it to have?
+
+#### 19.5.1 Information Content of Hidden Variables
+
+#### 19.5.2 Determining the Cardinality
+
+##### 19.5.2.1 Model Selection for Cardinality
+
+P928 model selection
+
+##### 19.5.2.2 Dirichlet Processes
+
+P928 Bayesian model averaging
+
+#### 19.5.3 Introducing Hidden Variables
+
+P931 
+
+hierarchical organization
+overlapping organization
 
 
 
