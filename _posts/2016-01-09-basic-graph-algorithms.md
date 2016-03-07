@@ -1115,7 +1115,7 @@ _**Eulerian cycle:**_ a closed Eulerian path.
 
 _**Eulerian Graph:**_ $ G $ is Eulerian if it has an Eulerian cycle.
 
-_**Thm:**_ $ G $ is Eulerian $ \iff $ $ G $ is connected and the degrees of all vertices are even.
+_**Thm:**_ $ G $ is Eulerian $ \Leftarrow $ $ G $ is connected and the degrees of all vertices are even.
 
 [_**Proof:**_](http://www.math.uri.edu/~eaton/Euler.pdf) Suppose every degree is even. We will show that there is an Euler cycle by induction on the number of edges in the graph. 
 
