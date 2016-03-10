@@ -1039,6 +1039,163 @@ P931
 hierarchical organization
 overlapping organization
 
+## 20 Learning Undirected Models
+
+### 20.1 Overview
+
+### 20.2 The Likelihood Function
+
+In this section, we discuss the form of the likelihood function for Markov networks, its properties, and their computational implications.
+
+#### 20.2.1 An Example
+
+P944 A simple example: A-B-C
+
+P945 公式推导
+
+Z is the _**parition function**_ that ensures that the distribution sums up to one
+
+Thus, lnZ(θ) is a function of both φ1 and φ2. As a consequence, it _**couples**_ the two potentials in the likelihood function.
+
+In the case of Bayesian networks, we could estimate each conditional distribution independently of the other ones. Here, however, when we change one of the potentials, say φ1, the partition function changes, possibly changing the value of φ2 that maximizes −lnZ(θ). Indeed, as illustrated in figure 20.1, the log-likelihood function in our simple example shows clear dependencies between the two potentials.
+
+#### 20.2.2 Form of the Likelihood Function
+
+P946 a more general description of the likelihood function
+
+#### 20.2.3 Properties of the Likelihood Function
+
+P947 lnZ(θ) is convex => proof
+
+its complement (−lnZ(θ)) is concave
+
+The sum of a linear function and a concave function is concave => The Markov Network log-likelihood function is concave
+
+- This result implies that the log-likelihood is unimodal and therefore has no local optima. It does not, however, imply the uniqueness of the global optimum.
+- There is a unique globally optimal value for the log-likelihood function, but not necessarily a unique solution.
+	- In general, because the function is concave, we are guaranteed that there is a convex region of continuous global optima.
+
+### 20.3 Maximum (Conditional) Likelihood Parameter Estimation
+
+#### 20.3.1 Maximum Likelihood Estimation
+
+P949 gradient 公式推导
+
+moment matching
+
+Unfortunately, although the function is concave, there is no analytical form for 􀀀 its maximum. Thus, we must resort to iterative methods that search for the global optimum. Most commonly used are the gradient ascent methods reviewed in appendix A.5.2, which iteratively take steps in parameter space to improve the objective
+
+an exact formula for the gradient: the difference between the feature’s empirical count in the data and its expected count relative to our current parameterization θ
+
+- However, this discussion ignores one important aspect: the computation of the expected counts.
+- A full inference step is required at every iteration of the gradient ascent procedure.
+	- Because inference is almost always costly in time and space, the computational cost of parameter estimation in Markov networks is usually high, sometimes prohibitively so. 
+	- In section 20.5 we return to this issue, considering the use of approximate methods that reduce the computational burden.
+
+In practice, standard gradient ascent is not a particularly good algorithm, both because of its slow convergence rate and because of its sensitivity to the step size. 
+
+- Much faster convergence is obtained with second-order methods, which utilize the Hessian to provide a quadratic approximation to the function。
+- To compute the Hessian, we must compute the joint expectation of two features, a task that is often computationally infeasible. Currently, one commonly used solution is the L-BFGS algorithm, a gradient-based algorithm that uses line search to avoid computing the Hessian (see appendix A.5.2 for some background)
+
+#### 20.3.2 Conditionally Trained Models
+
+As we discussed in section 16.3.2, we often want to use a Markov network to perform a particular inference task, where we have a known set of observed variables, or features, X, and a predetermined set of variables, Y , that we want to query. In this case, we may prefer to discriminative use discriminative training, where we train the network as a conditional random field (CRF) that  encodes a conditional distribution P(Y | X).
+
+P951 CRF log-conditional-likelihood 公式
+
+Each of the terms ln P(y[1, . . . , M] | x[1, . . . , M], θ) is a log-likelihood of a Markov network model with a different set of factors — the factors in the original network, reduced by the observation x[1, . . . , M] — and its own partition function. Each term is thereby a concave function, and because the sum of concave functions is concave, we conclude:
+
+> The log conditional likelihood of equation (20.6) is a concave function
+
+- As for corollary 20.1, this result implies that the function has a global optimum and no local optima, but not that the global optimum is unique
+
+Whereas in the unconditional case, each gradient step required only a single execution of inference, when training a CRF, we must (in general) execute inference for every single data case, conditioning on x[m].
+
+Discriminative training can be particularly beneficial in cases where the domain of X is very large or even infinite.
+
+P952 Box 20.A — Concept: Generative and Discriminative Models for Sequence Labeling
+
+IMPORTANT! 很好的一个例子
+
+HMM vs MEMM vs CRF
+
+- In cases where we have many correlated features, discriminative models are probably better; but, if only limited data are available, the stronger bias of the generative model may dominate and allow learning with fewer samples. Among the discriminative models, MEMMs should probably be avoided in cases where many transitions are close to deterministic. In many cases, CRFs are likely to be a safer choice, but the computational cost may be prohibitive for large data sets
+
+#### 20.3.3 Learning with Missing Data
+
+(Skip)
+
+#### 20.3.4 Maximum Entropy and Maximum Likelihood *
+
+We now return to the case of basic maximum likelihood estimation, in order to derive an alternative formulation that provides significant insight. In particular, we now use theorem 20.1 to relate maximum likelihood estimation in log-linear models to another important class or problems examined in statistics: the problem of finding the distribution of maximum entropy subject to a set of constraints.
+
+Maximum Entropy 和 Maximum Likelihood 的解其实是一样的，我们可以认为这两个问题是 duality
+
+### 20.4 Parameter Priors and Regularization
+
+As we discussed in chapter 17, maximum likelihood estimation (MLE) is prone to overfitting to the training data. As for Bayesian networks, we can reduce the effect of overfitting by introducing a prior distribution P(θ) over the model parameters. It is not generally feasible in Markov networks. However, we can aim to perform MAP estimation — to find the parameters MAP estimation that maximize P(θ) P(D|θ).
+
+#### 20.4.1 Local Priors
+
+P958 Gaussian => L2-regularization
+
+P959 Laplacian distribution => L1-regularization
+
+Recall from our discussion in section 17.3 that a prior often serves to pull the distribution toward an “uninformed” one, smoothing out fluctuations in the data
+
+In the Gaussian case, the penalty grows quadratically with the parameter magnitude, implying that an increase in magnitude in a large parameter is penalized more than a similar increase in a small parameter. For example, an increase in θi from 0 to 0.1 is penalized less than an increase from 3 to 3.1
+
+In the Laplacian case, the penalty is linear in the parameter magnitude, so that the penalty growth is invariant over the entire range of parameter values. In the quadratic case, as the parameters get close to 0, the effect of the
+penalty diminishes. Hence, the models that optimize the penalized likelihood tend to have many
+small weights.
+
+The models learned with an L1 penalty tend to be much sparser than those learned with an L2 penalty, with many parameter weights achieving a value of 0. From a structural perspective, this effect gives rise to models with fewer edges and sparser potentials, which are potentially much more tractable
+
+Importantly, both the L1 and L2 regularization terms are concave. 
+
+Moreover, the introduction of these penalty terms serves to reduce or even eliminate multiple (equivalent) optima that arise when the parameterization of the network is redundant.
+
+- The penalty term drives the parameters toward zero, giving rise to the unique optimum θ = 0. 
+- Although one can still construct examples where multiple optima occur, they are very rare in practice.
+
+A prior is simply a reflection of our beliefs.
+
+#### 20.4.2 Global Priors
+
+### 20.5 Learning with Approximate Inference
+
+In many real-life applications the structure of the network does not allow for exact computation of these terms.
+
+The simplest approach for learning in intractable networks is to apply the learning procedure (say, conjugate gradient ascent) using an approximate inference procedure to compute the required queries about the distribution P_θ.
+
+In particular, nonconvergence of the inference method, or convergence to approximate answers, can lead to inaccurate and even oscillating estimates of the gradient, potentially harming convergence of the overall learning algorithm. This type of situation can arise both in particle-based methods (say MCMC sampling) and in global algorithms such as belief propagation. In this section, we describe several methods that better integrate the inference into the learning outer loop in order to reduce problems such as this.
+
+A second approach for dealing with inference-induced costs is to come up with alternative (possibly approximate) objective functions whose optimization does not require (as much) inference. => 20.6
+
+Approximately optimizing the likelihood objective by using an approximate inference algorithm to compute the gradient can often be reformulated as exactly optimizing an approximate objective.
+
+Importantly, while we describe the methods in this section relative to the plain likelihood objective, they apply almost without change to the generalizations and extensions we describe in this chapter: conditional Markov networks; parameter priors and regularization; structure learning; and learning with missing data.
+
+#### 20.5.1 Belief Propagation
+
+##### 20.5.1.1 Pseudo-moment Matching
+
+##### 20.5.1.2 Belief Propagation and Entropy Approximations *
+
+##### 20.5.1.3 Sampling-Based Learning *
+
+P966 importance sampling => 12.2.2
+
+How do we use this approximation? One possible strategy is to iterate between two steps. In one we run a sampling procedure, such as MCMC, to generate samples from the current parameter set θ_t. Then in the second iteration we use some gradient procedure to find θ_{t+1} that improve the approximate log-likelihood based on these samples. We can then regenerate samples and repeat the process. As the samples are regenerated from a new distribution, we can hope that they are generated from a distribution not too far from the one we are currently optimizing, maintaining a reasonable approximation.
+
+#### 20.5.2 MAP-Based Learning *
+
+ξMAP(θ) = argmaxξ P(ξ | θ) is the MAP assignment given the current set of parameters θ. This approach is also called Viterbi training.
+
+P968 Box 20.B — Case Study: CRFs for Protein Structure Prediction
+
+
+
 
 
 
