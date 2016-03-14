@@ -56,8 +56,8 @@ This book describes the framework of probabilistic graphical models, which provi
 There is a dual perspective that one can use to interpret the structure of this graph.
 
 - From one perspective, the graph is a compact representation of a set of _**independencies**_ that hold in the distribution.
-	- $ X \bot Y | Z $: $ X $ is independent of $ Y $ given $ Z $. $ X $, $ Y $, $ Z $ are subsets of variables. 所以你可以有类似 $ Y \bot Z,C | D,E $。
-	- If $ X \bot Y | Z $, then $ P(X | Z,Y) = P(X | Z) $, which means the evidence $ Y $ is no longer informative in this query.
+	- $ X \bot Y \vert Z $: $ X $ is independent of $ Y $ given $ Z $. $ X $, $ Y $, $ Z $ are subsets of variables. 所以你可以有类似 $ Y \bot Z,C \vert D,E $。
+	- If $ X \bot Y \vert Z $, then $ P(X \vert Z,Y) = P(X \vert Z) $, which means the evidence $ Y $ is no longer informative in this query.
 - The other perspective is that the graph defines a skeleton for compactly representing a high-dimensional distribution.
 	- Rather than encode the probability of every possible assignment to all of the variables in our domain, we can “break up” the distribution into smaller _**factors**_, each over a much _**smaller space of possibilities**_. 
 	- We can then define the overall joint distribution as a product of these factors.
