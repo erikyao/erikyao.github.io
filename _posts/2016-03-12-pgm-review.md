@@ -529,8 +529,8 @@ Explanation: We are computing a single sum over some entries in $\psi$, so each 
 Summary
 
 - Complexity of variable elimination linear in
-	– size of the model (# factors, # variables)
-	– size of the largest factor generated
+	- size of the model (# factors, # variables)
+	- size of the largest factor generated
 - Size of factor is exponential in its scope
 - Complexity of algorithm depends heavily on elimination ordering 
 
@@ -547,12 +547,195 @@ Induced Graph
 The induced graph $I_{\Phi,\alpha}$ over factors $\Phi$ and ordering $\alpha$:
 
 - is an undirected graph
-– $ X_i $ and $ X_j $ are connected if they appeared in the same factor in a run of the VE algorithm using $ \alpha $ as the ordering
+- $ X_i $ and $ X_j $ are connected if they appeared in the same factor in a run of the VE algorithm using $ \alpha $ as the ordering
 
 _**Theorem:**_ Every factor produced during VE is a clique in the induced graph.
 
 - clique: a maximal fully connected subgraph
 	- by "maximal" it means you cannot add a node to this clique and keep it fully connected
+
+_**Theorem:**_ Every (maximal) clique in the induced graph is a factor produced during VE
+
+Induced Width:
+
+- The width of an induced graph is the number of nodes in the largest clique in the graph minus 1 
+- Minimal induced width of a graph $ K $ provides a lower bound on best performance of VE to a model factorizing over $ K $
+
+Summary:
+
+- Variable elimination can be viewed as transformations on undirected graph
+	- Elimination connects all node’s current neighbors
+- Cliques in resulting induced graph directly correspond to algorithm’s complexity 
+
+## Inference: Belief Propagation, Part 1 (Week 3)
+
+factor $ \psi_2(B,C) $ sends a message on $B$ to $ \psi_1(A,B) $; factor $ \psi_1(A,B) $ sends a message on $A$ to $ \psi_4(A,D) $
+
+- initialize: $ \delta_{2,1}(B) = 1 $
+- $ \delta_{1,4}(A) = \sum_B \delta_{2,1}(B) \psi_1(A,B) $
+	- $\delta_{2,1}(B)$: incommimg message
+	- $\psi_1(A,B)$: initial belief
+
+待续
+
+## Inference: Belief Propagation, Part 2 (Week 4)
+
+### Clique Trees and VE
+
+Summary
+- A run of variable elimination implicitly defines a correct clique tree
+	- We can “simulate” a run of VE to define cliques and connections between them
+- Cost of variable elimination is ~ the same as passing messages in one direction in tree
+- Clique trees use dynamic programming (storing messages) to compute marginals over all variables at only twice the cost of VE
+
+## Inference: Sampling Methods (Week 5)
+
+### Simple Sampling
+
+Forward Sampling for Querying
+
+- Goal: Estimate $ P(Y=y) $
+- Generate samples from BN
+- Compute fraction where $ Y=y $
+
+Queries with Evidence
+
+- Goal: Estimate P(Y=y \vert E=e)
+- Rejection sampling algorithm
+	- Generate samples from BN
+	- Throw away all those where $ E \neq e $
+	- Compute fraction where $ Y=y $
+- Expected fraction of samples kept ~ $ P(e) $
+- #samples needed grows exponentially with # of observed variables
+
+Forward sampling generally infeasible for MNs
+
+### Markov Chain Monte Carlo
+
+A Markov chain defines a probabilistic transition model $ T(x \rightarrow x') $ over states $ x $:
+
+- $ T(x \rightarrow x') = 0.5 $ 表示有 0.5 的概率从 $ x $ 跳到 $ x' $
+- for all $ x $: $\sum_{x'} T(x \rightarrow x') = 1$
+	- $ x' $ 可以为 $ x $ 本身
+
+Temporal Dynamics: $ P^{(t+1)}(x^{(t+1)} = x')=\sum_x P^{(t)}(x^{(t)} = x)T(x \rightarrow x') $
+
+Stationary Distribution: 
+
+- $ P^{(t)}(x') \approx P^{(t+1)}(x') = \sum_x P^{(t)}(x)T(x \rightarrow x') $
+- $ \pi(x') = \sum_x \pi(x)T(x \rightarrow x') $
+
+Regular Markov Chains
+
+- A Markov chain is regular if there exists k such that, for every x, x’, the probability of getting from x to x’ in exactly k steps is > 0 
+- _**Theorem:**_ A regular Markov chain converges to a unique stationary distribution regardless of start state 
+
+Q: Which of these conditions, when taken together, are sufficient to ensure regularity?
+
+A: (1) At least one state has a self loop with non-zero probability; (2) There exists a path of positive probability between every two states in the graph.
+
+Sufficient conditions for regularity:
+
+- Every two states are connected
+- For every state, there is a self-transition
+
+### Using a Markov Chain
+
+- Goal: compute $ P(x \in S) $
+	- but $ P $ is too hard to sample from directly
+- Construct a Markov chain $ T $ whose unique stationary distribution is $ P $
+- Sample $ x^{(0)} $ from some $ P^{(0)} $
+- For $ t = 0, 1, 2, \dots $
+	- Generate $ x^{(t+1)} $ from $ T(x^{(t)} \rightarrow x’) $
+
+- We only want to use samples that are sampled from a distribution close to $ P $
+- At early iterations, $ P^{(t)} $ is usually far from $ P $
+- Start collecting samples only after the chain has run long enough to “mix” 
+
+- Once the chain mixes, all samples $ x^{(t)} $ are from the stationary distribution $ \pi $
+	- So we can (and should) use all $ x^{(t)} $ for $ t > T_{mix} $
+- However, nearby samples are correlated!
+	- So we shouldn’t overestimate the quality of our estimate by simply counting samples
+- The faster a chain mixes, the less correlated (more useful) the samples are
+
+Pros:
+
+- Very general purpose
+- Often easy to implement
+- Good theoretical guarantees as t→∞
+
+Cons:
+
+- Lots of tunable parameters / design choices
+- Can be quite slow to converge
+- Difficult to tell whether it’s working 
+
+### MCMC for PGMs: The Gibbs Chain
+
+Sample $x_i \sim P_{\Phi}(X_i \vert x_{-i})$
+
+- actually, $x_{-i}$ can be $X_i$'s neighbors only
+
+- If all factors are positive, Gibbs chain is regular
+- However, mixing can still be very slow 
+
+### Metropolis-Hastings Algorithm
+
+Reversible Chains
+
+_**Theorem:**_ If detailed balance holds, and T is regular, then T has a unique stationary distribution $ \pi $
+
+- Proposal distribution: $ Q(x \rightarrow x’) $
+- Acceptance probability: $ A(x \rightarrow x’) $ 
+
+Summary
+
+- MH is a general framework for building Markov chains with a particular stationary distribution
+	- Requires a proposal distribution
+	- Acceptance computed via detailed balance
+- Tremendous flexibility in designing proposal distributions that explore the space quickly
+	- But proposal distribution makes a big difference
+	- and finding a good one is not always easy 
+	
+## Learning: Parameter Estimation in BNs (Week 7)
+
+### Maximum Likelihood Estimation
+
+Maximum Likelihood Estimation
+
+- Goal: find θ∈[0,1] that predicts D well
+- Prediction quality = likelihood of D given θ
+
+### Maximum Likelihood Estimation for Bayesian Networks
+
+### Bayesian Estimation
+
+### Bayesian Prediction
+
+### Bayesian Estimation for Bayesian Networks
+
+## Structure Learning (Week 8)
+
+### Learning Tree Structured Networks
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
