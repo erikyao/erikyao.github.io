@@ -3,7 +3,7 @@ layout: post-mathjax
 title: "A Little on Topic Model"
 description: ""
 category: Machine-Learning
-tags: [ML-101, NPL]
+tags: [ML-101, NLP]
 ---
 {% include JB/setup %}
 
