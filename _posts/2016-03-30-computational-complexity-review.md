@@ -29,7 +29,7 @@ Data types:
 - Programs are also strings and thus strings of bits.
 	- The fact that programs and data are at heart the same thing is what let us build a powerful theory about what is not computable.
 	
-The $i^{th}$ "data":
+"The $i^{th}$ data":
 
 - Integers are 1,2,3...
 - "Data" can also be assigned to 1,2,3...
@@ -240,6 +240,173 @@ Recursive Languages:
 - Example: Every CFL (Context-free language) is a recursive language.
 	- By the CYK algorithm.
 	
+## Decidability @ [Automata](https://class.coursera.org/automata-003/lecture) by Jeff Ullman
+
+Cnetral Ideas:
+
+- TMs can be enumerated, so we can talk about "the $i^{th}$ TM".
+	- Thus possible to diagonalize over TMs, showing a language that cannot be the language of any TM.
+- Establish the principle that a problem is really a language.
+	- Therefore some specific problems do not have TMs.
+	
+Binary-Strings from TM’s:
+
+- We shall restrict ourselves to TM’s with input alphabet $\lbrace 0, 1 \rbrace$.
+- Assign positive integers to the three classes of elements involved in moves:
+	1. States: $q_1$ (start state), $q_2$ (final state), $q_3$, etc. 
+	1. Symbols: $X_1$ (0), $X_2$ (1), $X_3$ (blank), $X_4$, etc.
+	1. Directions: $D_1$ (L) and $D_2$ (R).
+- Suppose $\delta(q_i, X_j) = (q_k, X_l, D_m)$.
+- Represent this rule by string $0^i10^j10^k10^l10^m$. ($0^n$ 表示 $n$ 个连续的 $0$)
+	- Key point: since integers $i, j, \dots$ are all $> 0$, there cannot be two consecutive $1$’s in these strings.
+- Represent a TM by concatenating the codes for each of its moves, separated by $11$ as punctuation.
+	- That is: $\text{Code}_111\text{Code}_211\text{Code}_311\dots$
+	- Note: if bianry string $i$ cannot be parsed as a TM, assume the $i^{th}$ TM accepts nothing.
+
+Diagonalization:
+
+- Table of Acceptance (denoted by $A$):
+	- TM $i=1,2,3,\dots$ $\times$ String $j=1,2,3,\dots$
+	- $A_{ij} = 0$ means the $i^{th}$ TM does not accept the $j^{th}$ string.
+	- $A_{ij} = 1$ otherwise.
+- Construct a 0/1 sequence $D=d_1 d_2 \dots$, where $d_i = \overline{A_{ii}}$
+	- $D$ cannot be a row in $A$.
+	- Question: Let’s suppose $w=10101010\dots$. What does it mean if $w$ appears in the $i^{th}$ row of the table $A$?
+	- Answer: It means the $i^{th}$ TM exactly accepts the $1^{st}, 3^{rd}, 5^{th}, \dots$ binary strings.
+- Let's give a name to this language--the diagonalization language $L_d = \lbrace w \vert w \text{ is the } i^{th} \text{ string, and the } i^{th} \text{ TM does not accept } w \rbrace$.
+- We have shown that $L_d$ is not a recursively enumerable language; i.e., it has no TM.
+	- There are no more TMs than integers.
+	- $L_d$ exists but we cannot always tell whether a given binary string $w$ is in $L_d$.
+
+Problems:
+
+- Informally, a “problem” is a yes/no (the output) question about an infinite set of possible instances (the input).
+	- Example: “Does graph G have a Hamilton cycle (cycle that touches each node exactly once)?
+	- Each undirected graph is an instance of the “Hamilton-cycle problem.”
+- Formally, a problem is a language.
+	- Each string encodes some instance.
+	- The string is in the language if and only if the answer to this instance of the problem is “yes.”
+- Example: A Problem About Turing Machines
+	- We can think of the language $L_d$ as a problem.
+	- 如果 table $A$ 的 string 是 TM 自身的 binary string 的话，这个 problem 就成了 “Does this TM not accept its own code?”
+
+Decidable Problems:
+
+- A problem is _**decidable**_ if there is an algorithm to answer it.
+	- Recall: An “algorithm,” formally, is a TM that halts on all inputs, accepted or not.
+	- Put another way, “decidable problem” = “recursive language.”
+- Otherwise, the problem is undecidable.
+
+Bullseye Picture:
+
+- 最中心的集合：Decidable problems = Recursive languages
+- 外一圈：Recursively enumerable languages
+	- Languages accepted by TMs with no guarantee that they will halt on inputs they never accept 
+	- Recursively enumerable languages $\supset$ Recursive languages
+- 最外层：Not recursively enumerable languages，比如 $L_d$
+	- Languages that have no TM at all.
+	- Recursively enumerable languages 的补集
+	
+Examples: Real-world Undecidable Problems
+
+- Can a particular line of code in a program ever be executed?
+- Is a given context-free grammar ambiguous?
+- Do two given CFG’s generate the same language?
+
+The Universal Language:
+
+- An example of a recursively enumerable, but not recursive language
+- We call it $L_u$, of a universal Turing machine, or call it Universal TM language. 
+- UTM inputs include:
+	- a binary string representing some TM $M$, and 
+	- a binary string $w$ for $M$
+- UTM accepts $<M,w>$ if and only if $M$ accepts $w$.
+- E.g. JVM
+	- JVM takes a coded Java program and input for the program and executes the program on the input.
+
+Designing the UTM:
+
+- Inputs are of the form: $\text{Code--for--}M \, 111 \, w$
+	- Note: A valid TM code never has $111$, so we can split $M$ from $w$.
+	- The UTM must accept its input if and only if $M$ is a valid TM code and $M$ accepts $w$.
+- UTM is a multi-tape machine:
+	- Tape 1 holds the input $\text{Code--for--}M \, 111 \, w$
+		- Tape 1 is never changed, i.e. never overwritten.
+	- Tape 2 represents the current tape of $M$ during the simulation of $M$ with input $w$
+	- Tape 3 holds the state of $M$.
+- Step 1: The UTM checks that $M$ is a valid code for a TM.
+	- E.g., all moves have five components, no two moves have the same state/symbol as first two components.
+	- If $M$ is not valid, its language is empty, so the UTM immediately halts without accepting.
+- Step 2: Assuming the code for $M$ is valid, the UTM next examines $M$ to see how many of its own tape cells it needs to represent one symbol of $M$.
+	- How to do this: we discover the longest block of $0$s representing a tape symbol and add one cell to that for a marker (e.g. $\text{#}$) between symbols of $M$'s tape. 
+	- Thus if say $X_7$ is the highest numbered symbol then we'll use 8 squares to represent one symbol of $M$. 
+		- Symbol $X_i$ will be represented $i$ $0$s and $7-i$ blanks followed by a marker outside. 
+		- For example, here's how we would represent $X_5$: $00000BB\text{#}$. 
+- Step 3: Initialize Tape 2 to represent the tape of $M$ with input $w$, and initialize Tape 3 to hold the start state (always $q_1$ so it is represented by a single $0$).
+- Step 4: Simulate $M$.
+	- Look for a move on Tape 1 that matches the state on Tape 3 and the tape symbol under the head on Tape 2.
+		- If we cannot find one then apparently $M$ halts without accepting $w$ so UTM does so as well.
+	- If found, change the symbol and move the head on Tape 2 and change the State on Tape 3.
+	- If $M$ accepts (i.e. halts), the UTM also accepts (i.e. halts).
+
+**Proof** That $L_u$ is Recursively Enumerable (RE), but not Recursive:
+
+- We designed a TM for $L_u$, so it is surely RE.
+- Proof by contradiction: 
+	- Suppose $L_u$ were recursive, which means we could design a UTM $U$ that always halted.
+	- Then we could also design an algorithm for $L_d$, as follows.
+		- Given input $w$, we can decide if $w \in L_d$ by the following steps.
+			1. Check that $w$ is a valid TM code.
+				- If not, then $w$'s language is empty, so $w \in L_d$.
+			1. If valid, use the hypothetical algorithm to decide whether $w \, 111 \, w$ is $\in L_u$.
+			1. If so, then $w \notin L_d$; else $w \in L_d$.
+	- But we already know there is no algorithm for $L_d$.
+	- Thus, our assumption that there was an algorithm for $L_u$ is wrong.
+	- $L_u$ is RE, but not recursive.
+	
+这个证明需要好好解读与总结：
+
+- 什么是 language? 
+	- TM $M$ 的 language $L_M = \lbrace \text{tape (不算两端的 blank 区域)} \vert \text{TM 能从这个 tape 的起始点一直运行到一个 final state, i.e. halt} \rbrace$
+	- Tape 的本质是什么？是 string 呀
+	- 我们说 TM $M$ accepts a language，那么同样也可以说 TM $M$ accepts a string，然后所有 $M$ accept 的 string 构成了 $M$ 的 language
+- 什么是 algorithm?
+	- algorithm 是个 TM, which always halts on any input regardless of whether that input is accepted or not
+		- always halts 是什么意思？你可以理解为 "always generate an output"
+			- accept 输出 1
+			- reject 输出 0
+		- 明显，infinite loop 不可能是一个 algorithm
+- 什么是 problem?
+	- problem is a language
+- TM accept a language => algorithm accepts a problem
+	- 但是我们一般不这么说，因为我们常用的说法是 algorithm solves a problem
+	- 反过来，a problem is solved by algorithm，也就相当于 "我们可以为 problem 这个 language 找到一个 always halt 的 TM，即找到一个 algorithm"
+		- 能找到 algorithm 的 problem => Decidable Problem, i.e. Recursive language
+		- 能找到 TM (但不保证是 algorithm) 的 problem => Recursively enumerable language
+			- 能找到 TM，但确定不是 algorithm 的 problem => The Universal Language
+		- 连 TM 都找不到的 problem => Not recursively enumerable language
+- $w$ 的两面性
+	- 如果 TM $M$ 的 binary string 是 $w$，那么
+		1. $w$ 可以表示 TM $M$
+		1. $w$ 可以表示一个 plain string
+	- 那么我们可以同时有 "$w$ accepts $w$" 和 "$w$ is accepted by $w$" 这两种逻辑
+- $L_d$ 的两种解读
+	- 首先它是个 language，然后 language 可以看做一个集合；然后 problem 也是 language，所以也把 $L_d$ 抽象成一个问题描述
+	- 貌似默认是把 Acceptance table $A$ 的 string 限定为 TM 的 binary string 的话（相当于是 $w \times w$ 这样的一张表），那么：
+		- $L_d = \lbrace w \vert \text{TM } w \text{ does not accept string } w \rbrace$
+			- 你理解为 string 的集合或者 TM 的集合都行，因为 $w$ 的两面性
+			- 原来的定义是 $L_d = \lbrace w \vert w \text{ is the } i^{th} \text{ string, and the } i^{th} \text{ TM does not accept } w \rbrace$，请自行体会一下是不是可以这么理解
+		- $L_d$ is a problem “Does this TM not accept its own code?”
+- If $w$ is not a valid TM code:
+	- 有点无赖地，我们把这样的 $w$ 看做一种特殊的 TM 
+	- $w$'s language is empty
+		- => $w$ accepts nothing
+			- => $w$ cannot accept $w$
+				- => $w \in L_d$ 
+- $L_u$ 没有 algorithm 意味着什么？
+	- 给定一个 $<M, w>$，没有 algorithm 确定是否有 $M$ accepts $w$
+	- 还是回到 "$w$ accepts $w$" 这个逻辑上，然后我们可以把 $<w, w>$ 写成 $w \, 111 \, w$，所以针对这个输入，没有 algorithm 可以确定是否有 $w$ accepts $w$
+
 -----
 
 - [Tim Gowers - Computational Complexity and Quantum Compuation](http://www.sms.cam.ac.uk/collection/545358;jsessionid=53925A3FEE89D7505565619066A413C8)
