@@ -462,6 +462,23 @@ How a TM can simulate a &lt;name-value&gt; store (a storage system that allow us
 	
 -----
 
+## Turing Machines @ [Erickson §6](http://jeffe.cs.illinois.edu/teaching/algorithms/notes/models/06-turing-machines.pdf)
+
+### 6.1 Why Bother?
+
+Admittedly, Turing machines are a terrible model for thinking about _**fast**_ computation; simple operations that take constant time in the standard random-access model can require arbitrarily many steps on a Turing machine. Worse, seemingly minor variations in the precise definition of “Turing machine” can have significant impact on problem complexity. As a simple example (which will make more sense later), we can reverse a string of n bits in $O(n)$ time using a two-tape Turing machine, but the same task provably requires $\Omega(n^2)$ time on a single-tape machine.
+
+But here we are not interested in finding _**fast**_ algorithms, or indeed in finding algorithms at all, but rather in proving that some problems cannot be solved by _**any**_ computational means. Such a bold claim requires a formal definition of “computation” that is simple enough to support formal argument, but still powerful enough to describe arbitrary algorithms. Turing machines are ideal for this purpose. In particular, Turing machines are powerful enough to simulate other Turing machines, while still simple enough to let us build up this self-simulation from scratch, unlike more complex but efficient models like the standard random-access machine.
+
+(Arguably, self-simulation is even simpler in Church’s $\lambda$-calculus, or in Schönfinkel and Curry’s combinator calculus, which is one of many reasons those models are more common in the design and analysis of programming languages than Turing machines. Those models much more abstract; in particular, they are harder to show equivalent to standard iterative models of computation.)
+
+### 6.2 Formal Definitions
+
+- Three distinct special states $\lbrace \text{start}, \text{accept}, \text{reject} \in Q \rbrace$.
+- A transition function $\delta: (Q \setminus \lbrace \text{start}, \text{reject} \rbrace) \times \Gamma \rightarrow Q \times \Gamma \times \lbrace −1,+1 \rbrace$.
+
+-----
+
 ## Turing Machines @ class
 
 Language:
