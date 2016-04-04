@@ -16,9 +16,9 @@ Questions:
 
 Turing machine:
 
-- In some sense a ultimate automaton.
+- In some sense an ultimate automaton.
 - A formal computing model that can compute anything we can do with computer or with any other realistic model that we might think of as computing.
-- TMs define the class of recursively innumerable languages which thus the largest class of languages about which we can compute anything.
+- TMs define the class of recursively enumerable languages which thus the largest class of languages about which we can compute anything.
 	- There is another smaller class called recursive languages that can be thought of as modeling algorithms--computer programs that answer a particular question and then finish.
 	
 Data types:
@@ -406,6 +406,76 @@ Designing the UTM:
 - $L_u$ 没有 algorithm 意味着什么？
 	- 给定一个 $<M, w>$，没有 algorithm 确定是否有 $M$ accepts $w$
 	- 还是回到 "$w$ accepts $w$" 这个逻辑上，然后我们可以把 $<w, w>$ 写成 $w \, 111 \, w$，所以针对这个输入，没有 algorithm 可以确定是否有 $w$ accepts $w$
+	
+## Extensions and properties of Turing machines @ [Automata](https://class.coursera.org/automata-003/lecture) by Jeff Ullman
+
+### 17.1 Programming Tricks
+
+Programming Trick: Multiple Tracks
+
+- Enable us to leave markers on the tape so TM can find their way back to an important place.
+- If there are $k$ tracks => Treat each symbol as a vector of size $k$
+	- E.g. $k=3$. $\left( \begin{smallmatrix} 0 \newline 0 \newline 0 \end{smallmatrix} \right)$ represents symbol $0$; $\left( \begin{smallmatrix} B \newline B \newline B \end{smallmatrix} \right)$ represents blank; $\left( \begin{smallmatrix} X \newline Y \newline Z \end{smallmatrix} \right)$ represents symbol $[X,Y,Z]$
+	
+Programming Trick: Marking
+
+- $k-1$ tracks for data; 1 track for marks
+- Almost all tape cells hold blank in this mark track, but several hold special symbols (marks) that allow the TM to find particular places on the tape.
+- E.g. $\left( \begin{smallmatrix} B & X & B \newline W & Y & Z \end{smallmatrix} \right)$ represents an unmarked $W$, a marked $Y$ and an unmarked $Z$ ($X$ is a mark)
+
+Programming Trick: Caching in the State
+
+- Treat state as a vector.
+- First component is the “control state,” i.e. the orginal state
+- Other components are used as a cache to hold values the TM needs to remember.
+
+例子待续
+
+### 17.2 Restrictions
+
+Semi-infinite Tape: 待续
+
+### 17.3 Extensions
+
+Multitape TM:
+
+- To simulate a $k$-Tape TM, use $2 \times k$ tracks ($2 \times k$ tracks 仍然视为一个 tape；$k$-Tape 是要有 $k$ 个 head 的)
+- For every 2 tracks simulating 1 tape:
+	- 1 track for tape data
+	- 1 track for tape head (use mark $X$ to indicate the head position)
+- 待续
+
+Nondeterministic TM:
+
+- Allow TM to have more than 1 choice of move at each step for any &lt;state, symbol&gt; pair.
+	- Each choice is a &lt;state,symbol,direction&gt; triple, as for the deterministic TM.
+- Simulating a NTM by a DTM: 待续
+	
+How a TM can simulate a &lt;name-value&gt; store (a storage system that allow us to associate any value with any name):
+
+- Very large &lt;name-value&gt; stores => a significant factor in big-data world, like google's big table.
+- 待续
+
+### 17.4 Closure Properties of Recursive and RE Languages
+
+待续
+	
+-----
+
+## Turing Machines @ class
+
+Language:
+
+- A language is a subset of $\lbrace 0,1 \rbrace^\star$ (actually it could be any subset of $\lbrace 0,1 \rbrace^\star$)
+- A language $L$ is a set of "yes-instances"
+	- $x$ is a "yes-instance" if $x \in L$ 
+- Language $S$ is _**Turing-recognizable**_ (“recursively enumerable / r.e.”) if $\exists$ TM $M$, such that $\forall x$
+	- $x \in S  \Rightarrow M $ accepts $x$
+	- $x \not\in S  \Rightarrow M $ rejects $x$ or runs forever
+- Language $S$ is _**Turing-decidable**_ (“recursive”) if $\exists$ TM $M$, such that $\forall x$
+	- $x \in S  \Rightarrow M $ accepts $x$
+	- $x \not\in S  \Rightarrow M $ rejects $x$
+- If $M$ is a TM, define $L(M) = \lbrace x \vert M \text{ accepts } x \rbrace$
 
 -----
 
