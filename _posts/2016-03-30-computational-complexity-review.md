@@ -7,6 +7,10 @@ tags: []
 ---
 {% include JB/setup %}
 
+[Reduction]: https://farm2.staticflickr.com/1670/25699429983_0e32464a98_o_d.jpg
+[M_Prime]: https://farm2.staticflickr.com/1698/26278452596_b3f4a02ca9_o_d.jpg
+[Picture_of_Reduction]: https://farm2.staticflickr.com/1617/26031609730_046b650ddd_o_d.jpg
+
 ## Turing Machines @ [Automata](https://class.coursera.org/automata-003/lecture) by Jeff Ullman
 
 Questions:
@@ -459,7 +463,92 @@ How a TM can simulate a &lt;name-value&gt; store (a storage system that allow us
 ### 17.4 Closure Properties of Recursive and RE Languages
 
 待续
+
+## Specific undecidable problems
+
+Rice's theorem: tells us that almost every question we can ask about the recursively enumerable languae is undecidable.
+
+Properties of Languages:
+
+- Any set of languages is a _**property**_ of languages.
+	- Example: The infiniteness property is the set of infinite languages.
+	- If a language $L$ "has property infiniteness", it means "L \in \text{ property infiniteness}"
+	- In what follows, we’ll focus on properties of RE languages, because we can’t represent other languages by TM’s.
+- We shall think of a property as a problem about Turing machines.
+	- 我们可以认为 property $P = \lbrace L \vert L \text{ has property } P \rbrace$。从这个角度看，property 是一个关于 languages 的 language；进一步，property 是一个 problem。
+		- 这个 problem 可以描述为：Given a language, does it have property $P$?
+		- 那尽然 property 是一个 problem，我们就可以说 "property is decidable/undecidable"
+	- 又因为 $L$ 可以由 TM 产生，所以我们进一步定义：For any property $P$, we can define a language $L_P$, the set of binary strings for TM $M$ such that $L(M)$ has property $P$.
+		- 简单说就是 $L(M) \in P \Rightarrow M \in L_P$
+		- 我们可以把 $L_P$ 视为这样的一个 problem：Given a code for a TM, does it define a language with that property $P$?
+- There are two (_**trivial**_) properties $P$ for which $L_P$ is decidable.
+	1. The always-false property, which contains no RE languages.
+		- E.g. "this language is not RE."
+		- How do we decide this property? I.e. the algorithm for this property is: Given an input $ w $, ignore it and say no (reject).
+		- Empty language is a RE language.
+	1. The always-true property, which contains every RE language.
+		- E.g. "this language is RE."
+		- How do we decide this property? I.e. the algorithm for this property is: Given an input $ w $, ignore it and say yes (accept).
+- Rice’s Theorem: For every other (i.e. non-trivial) property $P$, $L_P$ is undecidable.
+
+Reductions:
+
+- A reduction from language $ L $ to language $ L' $ is an algorithm (TM that always halts) that takes a string $ w $ and converts it to a string $ x $, with the property that: $ x $ is in $ L' $ if and only if $ w $ is in $ L $.
+- The value of having such a reduction is that it tells us $L$ is no harder than $L'$, at least as far as decidability is concerned.
+- TM’s as Transducers
+	- We have regarded TM’s as acceptors of strings.
+	- But we could just as well visualize TM’s as having an output tape, where a string is written prior to the TM halting.
+- If we reduce $L$ to $L'$, and $L'$ is decidable, then the algorithm for $L$ + the algorithm of the reduction shows that $L$ is also decidable.
+	- Normally used in the contrapositive (逆否命题).
+	- If we know $L$ is not decidable, then $L'$ cannot be decidable.
+- More powerful forms of reduction: if there is an algorithm for $L'$, then there is an algorithm for $L$.
+	- E.g. we reduced $L_d$ to $L_u$
+- More in NP-completeness discussion on Karp vs. Cook reductions
+	- The simple reduction is called a Karp reduction.
+	- More general kinds of reductions are called Cook reductions.
 	
+![][Reduction]
+
+Proof of Rice’s Theorem
+
+- Proof Skeleton
+	- We shall show that for every nontrivial property $ P $ of the RE languages, $ L_P $ is undecidable.
+	- We show how to reduce $ L_u $ to $ L_P $.
+	- Since we know $ L_u $ is undecidable, it follows that $ L_P $ is also undecidable.
+- The Reduction
+	- The input to $L_u$, is a TM $ M $ and an input $ w $ for $M$. Then our reduction algorithm produces the code for a TM $ M' $.
+	- Define property $ P = "M \text{ accepts } w" $.
+		- Thus $L(M')$ has property $ P $ if and only if $ M $ accepts $ w $.
+			- "$L(M')$ has property $ P $" 也就意味着 "$M'$ accepts a language with property $P$"
+		- That is $M' \in L_P$ if and only if $<M,w> \in L_u$.
+	- $ M' $ has two tapes, used for:
+		1. Simulates another TM $ M_L $ on $M'$'s own input, say $x$
+			- The transducer (which in fact is $M$) does not deal with or see $x$
+		1. Simulates $ M $ on $ w $.
+ 			- Note: neither $ M $, $ M_L $, nor $ w $ is input to $ M' $.
+	- Assume that the empty language $ \emptyset $ does not have property $ P $.
+		- If it does, consider the complement of $ P $, say $Q$. $ \emptyset $ then has property $Q$.
+		- If we could prove that $Q$ are undecidable, then $P$ must be undecidable. That is if $L_P$ were a recursive language, then so would be $L_Q$ since the recursive languages are closed under complementation.
+	- Let $ L $ be any language with property $ P $, and let $ M_L $ be a TM that accepts $ L $.
+- Design of $ M' $
+	1. On the second tape, $ M' $ writes $ w $ and then simulate $ M $ on $ w $.
+	1. If $ M $ accepts $ w $, then simulate $ M_L $ on the input $ x $ on the first tape.
+	1. $ M' $ accepts its input $ x $ if and only if $ M_L $ accepts $ x $, i.e. $x \in L$.
+		- If $M$ does not accept $w$, $M'$ never gets to the stage where it simulate $M_L$, and therefore $M'$ accept nothing.
+		- In this case, $M'$ defines an empty language, which does not have property $ P $.
+	1. Suppose $ M $ accepts $ w $.
+		- Then $ M' $ simulates $ M_L $ and therefore accepts $ x $ if and only if $ x $ is in $ L $.
+		- That is, $ L(M) = L $, $ L(M') $ has property $ P $, and $ M' \in L_P $.
+	1. Suppose $ M $ does not accept $ w $.
+		- Then $ M' $ never starts the simulation of $ M_L $, and never accepts its input $ x $.
+		- Thus, $ L(M') = \emptyset $, and $ L(M') $ does not have property $ P $.
+		- That is, $ M' \not \in L_P $.
+	1. Thus, the algorithm that converts $ M $ and $ w $ to $ M' $ is a reduction of $ L_u $ to $ L_P $.
+		- Thus, $ L_P $ is undecidable.
+		
+![][M_Prime]
+![][Picture_of_Reduction]
+
 -----
 
 ## Turing Machines @ [Erickson §6](http://jeffe.cs.illinois.edu/teaching/algorithms/notes/models/06-turing-machines.pdf)
