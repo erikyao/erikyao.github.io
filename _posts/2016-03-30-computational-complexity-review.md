@@ -246,7 +246,7 @@ Recursive Languages:
 	
 ## Decidability @ [Automata](https://class.coursera.org/automata-003/lecture) by Jeff Ullman
 
-Cnetral Ideas:
+Central Ideas:
 
 - TMs can be enumerated, so we can talk about "the $i^{th}$ TM".
 	- Thus possible to diagonalize over TMs, showing a language that cannot be the language of any TM.
@@ -324,7 +324,7 @@ The Universal Language:
 - UTM inputs include:
 	- a binary string representing some TM $M$, and 
 	- a binary string $w$ for $M$
-- UTM accepts $<M,w>$ if and only if $M$ accepts $w$.
+- UTM accepts $\langle M,w \rangle$ if and only if $M$ accepts $w$.
 - E.g. JVM
 	- JVM takes a coded Java program and input for the program and executes the program on the input.
 
@@ -408,8 +408,8 @@ Designing the UTM:
 			- => $w$ cannot accept $w$
 				- => $w \in L_d$ 
 - $L_u$ 没有 algorithm 意味着什么？
-	- 给定一个 $<M, w>$，没有 algorithm 确定是否有 $M$ accepts $w$
-	- 还是回到 "$w$ accepts $w$" 这个逻辑上，然后我们可以把 $<w, w>$ 写成 $w \, 111 \, w$，所以针对这个输入，没有 algorithm 可以确定是否有 $w$ accepts $w$
+	- 给定一个 $\langle M, w \rangle$，没有 algorithm 确定是否有 $M$ accepts $w$
+	- 还是回到 "$w$ accepts $w$" 这个逻辑上，然后我们可以把 $\langle w, w \rangle$ 写成 $w \, 111 \, w$，所以针对这个输入，没有 algorithm 可以确定是否有 $w$ accepts $w$
 	
 ## Extensions and properties of Turing machines @ [Automata](https://class.coursera.org/automata-003/lecture) by Jeff Ullman
 
@@ -520,12 +520,12 @@ Proof of Rice’s Theorem
 	- Define property $ P = "M \text{ accepts } w" $.
 		- Thus $L(M')$ has property $ P $ if and only if $ M $ accepts $ w $.
 			- "$L(M')$ has property $ P $" 也就意味着 "$M'$ accepts a language with property $P$"
-		- That is $M' \in L_P$ if and only if $<M,w> \in L_u$.
+		- That is $M' \in L_P$ if and only if $\langle M,w \rangle \in L_u$.
 	- $ M' $ has two tapes, used for:
 		1. Simulates another TM $ M_L $ on $M'$'s own input, say $x$
 			- The transducer (which in fact is $M$) does not deal with or see $x$
 		1. Simulates $ M $ on $ w $.
- 			- Note: neither $ M $, $ M_L $, nor $ w $ is input to $ M' $.
+			- Note: neither $ M $, $ M_L $, nor $ w $ is input to $ M' $.
 	- Assume that the empty language $ \emptyset $ does not have property $ P $.
 		- If it does, consider the complement of $ P $, say $Q$. $ \emptyset $ then has property $Q$.
 		- If we could prove that $Q$ are undecidable, then $P$ must be undecidable. That is if $L_P$ were a recursive language, then so would be $L_Q$ since the recursive languages are closed under complementation.
@@ -582,6 +582,48 @@ Language:
 	- $x \in S  \Rightarrow M $ accepts $x$
 	- $x \not\in S  \Rightarrow M $ rejects $x$
 - If $M$ is a TM, define $L(M) = \lbrace x \vert M \text{ accepts } x \rbrace$
+
+Programming conventions:
+
+- Programming a TM for real is cruel!
+- Describe a TM “program” in terms of tape modifications & head movements
+- “Mark” cells on the tape (e.g., $a \rightarrow \acute{a}$)
+
+E.g. TM algorithm for $ \text{Palindromes} = \lbrace x \vert x = reverse(x) \rbrace $:
+
+1. “Mark” first char (e.g., $ O \rightarrow \emptyset$), remember that char in internal state
+1. If char to the right is “marked” or blank, then accept; else scan right until blank or a “marked” char
+1. If $ \text{prev char} \neq \text{remembered char} $, reject; else mark it
+1. Scan left to leftmost unmarked char; if no more unmarked chars, accept; else repeat from step #1
+
+Universal Machines:
+
+- TMs can be encoded as strings (“code is data”)
+	- Convention: every string encodes some TM
+	- $\langle M \rangle$: encoding of a TM $M$
+	- $\langle M,x \rangle$: encoding of a TM $M$ and a string $x$
+- $ L_{acc} = \lbrace \langle M,x \rangle \vert M \text{ is a TM that accepts } x \rbrace $ is Turing-recognizable (RE)
+	- $\exists \text{TM } U \text{ that accepts } \langle M,x \rangle \Leftrightarrow \langle M,x \rangle \in L_{acc}$
+- The single TM that recognize $L_{acc}$ can simulate any TM $M$! Thus call it a "universal TM"
+
+Design of Universal TM:
+
+- On input $ \langle M,x \rangle $, use 3 tapes:
+	- one for description of $M$
+	- one for $M$'s work tape contents
+	- one for $M$'s current state
+- Transitions: $\langle \text{state, char, newstate, newchar, direction} \rangle$
+- Legal to say “simulate execution of $ M $ on input $ x $” in our TM pseudocode!
+	– If $ M $ halts on $ x $, the simulation will also halt
+	– “Simulate execution of $ M $ on input $ x $ for $ t $ steps” also possible (always halts)
+	- Can simulate $ t $ steps of a TM in $ O(t \log t) $ steps
+	
+Diagonalization:
+
+- $ L_{acc} = \lbrace \langle M,x \rangle \vert M \text{ is a TM that accepts } x \rbrace $ is not Turing-decidable (“recursive”)
+- Likewise, $ L_{halt} = \lbrace \langle M,x \rangle \vert M \text{ is a TM that halts } x \rbrace $ 
+- 这里的 $L_{acc}$ 即前面 Jeff Ullman 的 $L_u$
+
 
 -----
 
