@@ -7,7 +7,7 @@ tags: [Algorithm-101]
 ---
 {% include JB/setup %}
 
-## Approximation Algorithms @ [Erickson 31](http://jeffe.cs.illinois.edu/teaching/algorithms/notes/31-approx.pdf)
+## Approximation Algorithms @ [Erickson §31](http://jeffe.cs.illinois.edu/teaching/algorithms/notes/31-approx.pdf)
 
 ### 31.1 Load Balancing
 
@@ -169,3 +169,6 @@ $$
 $$
 
 In other words, the first $OPT$ iterations of `GreedyVertexCover` remove at least half the edges of $ G $. Thus, after at most $OPT \cdot \log \vert G \vert \leq 2 \cdot OPT \cdot \log n$ iterations, all the edges of $G$ have been removed, and the algorithm terminates. We conclude that `GreedyVertexCover` computes a vertex cover of size $O(OPT \cdot \log n)$. $\tag*{$\blacksquare$}$
+
+### 31.4 Set Cover and Hitting Set
+
