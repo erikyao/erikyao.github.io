@@ -7,6 +7,8 @@ tags: [Algorithm-101]
 ---
 {% include JB/setup %}
 
+[Set_Cover_and_Hitting_Set]: https://farm2.staticflickr.com/1539/26140812480_d847804b02_o_d.png
+
 ## Approximation Algorithms @ [Erickson §31](http://jeffe.cs.illinois.edu/teaching/algorithms/notes/31-approx.pdf)
 
 ### 31.1 Load Balancing
@@ -171,4 +173,128 @@ $$
 In other words, the first $OPT$ iterations of `GreedyVertexCover` remove at least half the edges of $ G $. Thus, after at most $OPT \cdot \log \vert G \vert \leq 2 \cdot OPT \cdot \log n$ iterations, all the edges of $G$ have been removed, and the algorithm terminates. We conclude that `GreedyVertexCover` computes a vertex cover of size $O(OPT \cdot \log n)$. $\tag*{$\blacksquare$}$
 
 ### 31.4 Set Cover and Hitting Set
+
+The greedy algorithm for vertex cover can be applied almost immediately to two more general problems: set cover and hitting set. 
+
+The input for both of these problems is a set system $ (X,\mathcal{F}) $, where 
+
+- $ X $ is a finite ground set, and 
+- $ \mathcal{F} $ is a family of subsets of $ X $. 
+	- Definition: a collection $ F $ of subsets of a given set $ S $ is called _**a family of subsets**_ of $ S $, or a family of sets over $ S $.
+
+- A set cover of a set system $ (X,\mathcal{F}) $ is a subfamily of sets in $ \mathcal{F} $ whose union is the entire ground set $ X $. 
+- A hitting set for $ (X,\mathcal{F}) $ is a subset of the ground set $ X $ that intersects every set in $ \mathcal{F} $.
+
+An undirected graph can be cast as a set system in two different ways. 
+
+- In one formulation, the ground set $ X $ contains the vertices, and each edge defines a set of two vertices in $ \mathcal{F} $. In this formulation, a vertex cover is a hitting set. 
+- In the other formulation, the edges are the ground set $ X $, the vertices define the family of subsets $ \mathcal{F} $, and a vertex cover is a set cover. 
+
+Here are the natural greedy algorithms for finding a small set cover and finding a small hitting set. `GreedySetCover` finds a set cover whose size is at most $O(\log \vert \mathcal{F} \vert)$ times the size of smallest set cover. `GreedyHittingSet` finds a hitting set whose size is at most $O(\log \vert X \vert)$ times the size of the smallest hitting set.
+
+![][Set_Cover_and_Hitting_Set]
+
+The similarity between these two algorithms is no coincidence. For any set system $ (X,\mathcal{F}) $, there is a _**dual**_ set system $ (\mathcal{F}, X^{\star}) $ defined as follows. 
+
+For any element $ x \in X $ in the ground set, let $ x^{\star} $ denote the subfamily of sets in $ \mathcal{F} $ that contain $ x $:
+
+$$
+	x^{\star} = \lbrace S \vert x \in S, S \in \mathcal{F} \rbrace
+$$
+
+注意这里 $ x^{\star} $ 和 $x$ 是一一对应关系，有一个 $x$ 就有一个 $ x^{\star} $。$ x^{\star} $ 本身并不是一个关于 $x$ 的集合。
+
+Finally, let $ X^{\star} $ denote the collection of all subsets of the form $ x^{\star} $:
+
+$$
+	X^{\star} = \lbrace x^{\star} \vert x \in X \rbrace
+$$
+
+As an example, suppose 
+
+- $ X $ is the set of letters of alphabet
+	- $ X = \lbrace a,b,c,\dots,z \rbrace$
+- $ \mathcal{F} $ is the set of last names of student taking CS 573 this semester 
+	- Assume that there are no duplicated letters in every name and no names longer than 26 letters.
+	- E.g. $ \mathcal{F} = \lbrace \lbrace a,m,y \rbrace , \lbrace b,r,a,n,d,y \rbrace , \dots, \lbrace z,a,c,k \rbrace \rbrace$
+- Then $ X^{\star} $ has 26 elements, each containing the subset of CS 573 students whose last name contains a particular letter of the alphabet. 
+	- For example, $ m^{\star} $ is the set of students whose last names contain the letter $m$.
+		- $ m^{\star} = \lbrace \lbrace a,m,y \rbrace, \lbrace m,i,k,e \rbrace, \dots \rbrace $
+	- $ X^{\star} = \lbrace a^{\star},b^{\star},c^{\star},\dots,z^{\star} \rbrace$
+	
+A set cover for any set system $ (X,\mathcal{F}) $ is also a hitting set for the dual set system $ (\mathcal{F}, X^{\star}) $, and therefore a hitting set for any set system $ (X,\mathcal{F}) $ is isomorphic to a set cover for the dual set system $ (\mathcal{F}, X^{\star}) $.
+
+### 31.5 Vertex Cover, Again
+
+The greedy approach doesn’t always lead to the best approximation algorithms. Consider the following alternate heuristic for vertex cover:
+
+<pre class="prettyprint linenums">
+DumbVertexCover(G):
+	C = Ø
+	while G has at least one edge
+		(u,v) = any edge in G
+		G = G \ {u,v}
+		C = C ∪ {u,v}
+	return C
+</pre>
+
+The minimum vertex cover—in fact, every vertex cover—contains at least one of the two vertices u and v chosen inside the while loop. It follows immediately that `DumbVertexCover` is a 2-approximation algorithm!
+
+待续
+
+-----
+
+## DAA - Chapter 1 - An introduction to approximation algorithms
+
+### 1.1 The whats and whys of approximation algorithms
+
+> An old engineering slogan says, “Fast. Cheap. Reliable. Choose two.”
+
+Similarly, if $P \neq NP$, we can’t simultaneously have algorithms that (1) find optimal solutions (2) in polynomial time (3) for any instance.
+
+- One approach relaxes the “for any instance” requirement, and finds polynomial-time algorithms for special cases of the problem at hand. This is useful if the instances one desires to solve fall into one of these special cases.
+- A more common approach is to relax the requirement of polynomial-time solvability.
+- By far the most common approach, however, is to relax the requirement of finding an optimal solution, and instead settle for a solution that is “good enough,” especially if it can be found in seconds or less.
+
+The approach of this book falls into this third class.
+
+### 1.2 An introduction to the techniques and to linear programming: the set cover problem
+
+### 1.3 A deterministic rounding algorithm
+
+### 1.4 Rounding a dual solution
+
+### 1.5 Constructing a dual solution: the primal-dual method
+
+### 1.6 A greedy algorithm
+
+### 1.7 A randomized rounding algorithm
+
+## DAA - Chapter 2 - Greedy algorithms and local search
+
+local search => locally optimal solution
+
+- A local search algorithm starts with an arbitrary feasible solution to the problem, and then checks if some small, local change to the solution results in an improved objective function. If so, the change is made. When no further change can be made, we have a locally optimal solution, and it is sometimes possible to prove that such locally optimal solutions have value close to that of the optimal solution.
+
+Thus, while both types of algorithm optimize local choices, greedy algorithms are typically _**primal infeasible**_ algorithms: they construct a solution to the problem during the course of the algorithm. Local search algorithms are _**primal feasible**_ algorithms: they always maintain a feasible solution to the problem and modify it during the course of the algorithm.
+
+### 2.1 Scheduling jobs with deadlines on a single machine
+
+General Proof Trick 1: 对求极值的问题，assume $F_{max}(X)$ or $F_{min}(X)$ equals to a certain $x_i$. 然后得到一些性质（比如各种不等式），再根据 $x_i$ 是极值得到其他的 $x_j$ 都要满足某些条件，最终推到需要证明的 $cost_{alg} \leq \alpha \dot OPT$ 公式上。
+
+### 2.2 The $k$-center problem
+
+General Proof Trick 2: 对涉及 partition 的问题，assume optimal solution (不是 optimal cost $OPT$) $S^{\star} = \lbrace j_1,\dots,j_n \rbrace$，greedy solution $S = \lbrace i_1,\dots,i_n \rbrace$. 然后可以从几何意义入手（比如测距离、算 edge 数之类的）
+
+### 2.3 Scheduling jobs on identical parallel machines
+
+### 2.4 The traveling salesman problem
+
+### 2.5 Maximizing float in bank accounts
+
+General Proof Trick 3: 考虑 OPT 分摊到 $n$ 个 $x_i$ 上的平均值，再结合 $x_i$ 的极值得到一些性质
+
+###　2.6 Finding minimum-degree spanning trees
+
+### 2.7 Edge coloring
 
