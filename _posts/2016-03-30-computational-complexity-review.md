@@ -570,6 +570,8 @@ But here we are not interested in finding _**fast**_ algorithms, or indeed in fi
 
 ## Turing Machines @ class
 
+### Languages and UTM
+
 Language:
 
 - A language is a subset of $\lbrace 0,1 \rbrace^\star$ (actually it could be any subset of $\lbrace 0,1 \rbrace^\star$)
@@ -618,13 +620,177 @@ Design of Universal TM:
 	– “Simulate execution of $ M $ on input $ x $ for $ t $ steps” also possible (always halts)
 	- Can simulate $ t $ steps of a TM in $ O(t \log t) $ steps
 	
+### Diagonalization and Reduction
+	
 Diagonalization:
 
 - $ L_{acc} = \lbrace \langle M,x \rangle \vert M \text{ is a TM that accepts } x \rbrace $ is not Turing-decidable (“recursive”)
-- Likewise, $ L_{halt} = \lbrace \langle M,x \rangle \vert M \text{ is a TM that halts } x \rbrace $ 
+	- Likewise, $ L_{halt} = \lbrace \langle M,x \rangle \vert M \text{ is a TM that halts } x \rbrace $ 
 - 这里的 $L_{acc}$ 即前面 Jeff Ullman 的 $L_u$
 
+Reductions:
 
+- Motivation:
+	- Let's not use diagonalization technique every time to prove something undecidable!
+	- Instead, “reduce” one problem to another.
+- What does "Alg decides lang" mean?
+	- Language $L = \lbrace x \vert x \text{ is/satisfies blab blah blah} \rbrace$ is a collection of yes-instances.
+		- An $x$ that is/satisfies "blab blah blah" is a yes-instance.
+	- An algorithm is in nature a TM, so we can say "an algorithm $M$".
+	- If we say "$M$ decides $L$", it means:
+		- $L(M) = L$
+		- Imagine $M$ as a function, 
+			- The datatype of the parameter to $M$ is the the one of the elements of $L$. E.g.
+				- if $L=\lbrace x \vert \dots \rbrace$, elements are $x$'s. Therefore the function signature is $M(x)$;
+				- if $L=\lbrace \langle x,y \rangle \vert \dots \rbrace$, elements are $\langle x,y \rangle$'s. Therefore the function signature is $M(\langle x,y \rangle)$.
+			- $M(x)=\text{yes}$ if $x$ is/satisfies "blab blah blah"
+			- $M(x)=\text{no}$ otherwise
+	- If we say "go find an algorithm for language", it means:
+		- go find an $M$ such that $L(M) = L$
+		- go find an $M$ such that $M(x)=\text{yes}$ if $x$ is/satisfies "blab blah blah"
+- Definition:
+	- We say $L_1 \leq_T L_2$ ("$L_1$ Turing-reduces to $L_2$") if there is an algorithm that decides $ L_1 $ using a (hypothetical) algorithm that decides $ L_2 $.
+- Inference:
+	- CASE 1: implication
+		- Ground Truth: $L_2$ is decidable
+		- Goal: To prove $L_1$ is also decidable
+		- Method: Construct an algorithm $M_1$ for $L_1$ which satisfies $L_1 \leq_T L_2$
+			- $L_2$ is decidable so there must exist an $M_2$ for $L_2$
+			- Call $M_2$ inside $M_1$
+			- In this way we prove that $L_1 \leq_T L_2$ holds.
+	- CASE 2: contrapositive 
+		- Ground Truth: $L_1$ is undecidable
+		- Goal: To prove $L_2$ is also undecidable
+		- Method: Assume $L_2$ is decidable. Under this assumption, show we can construct an algorithm $M_1$ for $L_1$ which satisfies $L_1 \leq_T L_2$, i.e. $L_1 \leq_T L_2$ holds.
+			- In this way we imply that $L_1$ is decidable.
+			- However, we already know that $L_1$ is undecidable.
+			- Therefore the assumption is invalid.
+- E.g. show that $L_{empty} = \lbrace \langle M \rangle \vert M \text{ is a TM and } L(M) = \emptyset \rbrace$ is undecidable.
+	- Choose $ L_{acc} = \lbrace \langle M,x \rangle \vert M \text{ is a TM that accepts } x \rbrace $ as $L_1$
+	- $L_{empty}$ is $L_2$. 
+		- Assume there exists an algorithm $M_{empty}$.
+	- Construct an algorithm $M_{acc}$ using $M_{empty}$:
+		- Signature: $M_{acc}(\langle M,x \rangle)$
+		- For every single pair of input $\langle M_i,x_j \rangle$: 
+			- Construct an TM $M_{ij}^{\star}(z) = \lbrace \text{ignore } z; \text{return } M_i(x_j) \rbrace$
+				- 根据 $ L_{acc} $ 的语义，$ M_i $ 要么 accept $ x_j $，要么 reject
+				- CASE 1: If $ M_i $ accepts $ x_j $, $M_i(x_j)=\text{yes}$.
+					- Therefore $M_{ij}^{\star}(z) = \lbrace \text{ignore } z; \text{return yes} \rbrace$. 
+					- I.e. $M_{ij}^{\star}$ accept every $z$.
+					- I.e. $M_{ij}^{\star}$ accept everything.
+					- I.e. $L(M_{ij}^{\star}) = \Omega$ (全集)
+					- I.e. $\langle M_{ij}^{\star} \rangle \not \in L_{empty}$.
+					- I.e. $M_{empty}(\langle M_{ij}^{\star} \rangle) = \text{no}$.
+				- CASE 2: If $ M_i $ rejects $ x_j $, $M_i(x_j)=\text{no}$.
+					- Therefore $M_{ij}^{\star}(z) = \lbrace \text{ignore } z; \text{return no} \rbrace$. 
+					- I.e. $M_{ij}^{\star}$ rejects every $z$.
+					- I.e. $M_{ij}^{\star}$ accept nothing.
+					- I.e. $L(M_{ij}^{\star}) = \emptyset$
+					- I.e. $\langle M_{ij}^{\star} \rangle \in L_{empty}$.
+					- I.e. $M_{empty}(\langle M_{ij}^{\star} \rangle) = \text{yes}$.
+			- If $M_{empty}(\langle M_{ij}^{\star} \rangle) = \text{yes}$
+				- I.e. $\langle M_{ij}^{\star} \rangle \in L_{empty}$
+				- 一路反推到 CASE 2，我们有 $ M_i $ rejects $ x_j $
+				- 此时我们的 $M_{acc}(\langle M_i,x_j \rangle)$ 要 return no
+			- If $M_{empty}(\langle M_{ij}^{\star} \rangle) = \text{no}$
+				- I.e. $\langle M_{ij}^{\star} \rangle \not \in L_{empty}$
+				- 一路反推到 CASE 1，我们有 $ M_i $ accepts $ x_j $
+				- 此时我们的 $M_{acc}(\langle M_i,x_j \rangle)$ 要 return yes
+	- Now we showed $L_{acc} \leq_T L_{empty}$. We assumed $L_{empty}$ is decidable, so $L_{acc}$ is also decidable, which is against the truth. Therefore the assumption is invalid and $L_{empty}$ is undecidable.
+	- 最难的地方在 "Construct an algorithm $M_{acc}$ using $M_{empty}$" 这一步，请结合 $M_{acc}$ 和 $M_{empty}$ 综合考虑。一般的的套路是：
+		- 根据 $L_1$ 的输入做一个临时变量，然后把这个临时变量当做 $L_2$ 的输入。
+			- 这个临时变量要满足 $M_2$ 的 signature
+			- 如果临时变量是一个 TM，比如上面的 $M_{ij}^{\star}$，在处理自身的输入 $z$ 时要见机行事
+				- 如果能直接 $\text{return }M_i(x_j)$ 或者 $\text{return }!M_i(x_j)$ 无疑是最好的
+				- 如果不能，考虑 $\text{if } M_i(x_j) = \text{yes}, \text{return } function(z)$ 这样的形式
+		- 然后根据 $L_2$ 的输出决定 $L_1$ 的输出。
+
+<pre class="prettyprint linenums">
+// Reduce L_acc to L_empty
+M_acc(&lt;M_i,x_j&gt;) {
+	M*_ij = TurningMachine(z) {
+		return M_i(x_j)
+	}
+	
+	return !M_empty(M*_ij)
+}
+
+// General form of reduction algorithm for L_acc
+M_acc(&lt;M_i,x_j&gt;) {
+	M*_ij = TurningMachine(z) {
+		if(M_i(x_j) = yes) {
+			return f_1(z)
+		} else {
+			return f_2(z)
+		}
+	}
+	
+	return f_3(M_2(M*_ij))
+}
+</pre>
+
+### Rice's Theorem
+
+Rice's Theorem: 待补充。$L_{acc} \leq_T L_P$ 的证明很精彩
+
+### Kolmogorov Complexity (or, “optimal compression is hard!”) @ [Algorithmic Information Theory and Kolmogorov Complexity](http://www.lirmm.fr/~ashen/uppsala-notes.pdf)
+
+Problem: 
+
+- 假设 compress $x$ 得到 $y$，decompress $y$ 得到 $x$
+- 假设有一个 decompression algorithm $U$ that $U(y)=x$
+- $K_U(x) = \min \lbrace \lvert y \rvert \vert U(y)=x \rbrace$
+	- How small $x$ can be compressed?
+	- Here $ \lvert y \rvert $ denotes the length of a binary string $ y $
+- In other words, the _**complexity**_ of $x$ is defined as the length of the shortest description of $x$ if each binary string $y$ is considered as a description of $U(y)$
+
+Optimal decompression algorithm:
+
+- The definition of $K_U$ depends on $U$. 
+- For the trivial decompression algorithm $U(y) = y$ we have $K_U(x) = \vert x \vert$. 
+- One can try to find better decompression algorithms, where “better” means “giving smaller complexities”
+
+_**Definition 1**_ An algorithm $ U $ is _**asymptotically not worse**_ than an algorithm $ V $ if $ K_U(x) \leq K_V(x)+C $ for some constant $ C $ and for all $ x $.
+
+_**Theorem 1**_ There exists an decompression algorithm $ U $ which is asymptotically not worse than any other algorithm $ V $.
+
+Such an algorithm is called _**asymptotically optimal**_ one. 
+
+- The complexity $ K_U $ with respect to an asymptotically optimal $ U $ is called _**Kolmogorov complexity**_.
+- Assume that some asymptotically optimal decompression algorithm $U$ is fixed, the Kolmogorov complexity of a string $ x $ is denoted by $ K(x) $ ($=K_U(x)$).
+	- The complexity $ K(x) $ can be interpreted as the amount of information in $ x $ or the “compressed size” of $ x $.
+	
+The construction of optimal decompression algorithm:
+
+- The idea of the construction is used in the so-called “self-extracting archives”. Assume that we want to send a compressed version of some file to our friend, but we are not sure he has the decompression program. What to do? Of course, we can send the program together with the compressed file. Or we can append the compressed file to the end of the program and get an executable file which will be applied to its own contents during the execution.
+- 待补充。
+
+Basic properties of Kolmogorov complexity:
+
+- 待补充。
+
+Algorithmic properties of $ K $
+
+- 结合 Berry Paradox 补充
+
+Complexity and incompleteness:
+
+- 不懂
+
+Algorithmic properties of $ K $ (continued):
+
+- 不懂
+
+An encodings-free definition of complexity:
+
+- 不懂
+
+Axioms of complexity:
+
+- 不懂
+
+
+				
 -----
 
 - [Tim Gowers - Computational Complexity and Quantum Compuation](http://www.sms.cam.ac.uk/collection/545358;jsessionid=53925A3FEE89D7505565619066A413C8)
