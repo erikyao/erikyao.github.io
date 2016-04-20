@@ -9,5 +9,6 @@ tags: [Biology-101]
 
 - https://www.biostars.org/p/3423/
 - https://www.biostars.org/p/45810/
+- https://en.wikipedia.org/wiki/Upstream_and_downstream_(DNA)
 
 TBC
