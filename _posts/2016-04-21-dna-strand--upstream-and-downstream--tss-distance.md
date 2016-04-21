@@ -1,6 +1,6 @@
 ---
 layout: post-mathjax
-title: "DNA Strand: Positive / Negative / Upstream / Downstream"
+title: "DNA Strand / Upstream and Downstream / TSS Distance"
 description: ""
 category: Biology
 tags: [Biology-101]
@@ -25,7 +25,7 @@ For the diagram:
 
 Rules of Thumb:
 
-- __*TSS*__ = __*T*__ranscription __*S*__tart __*S*__ite
+- __*TSS*__ = Transcription Start Site
 - "TSS distance" are actually "distance to TSS".
 - Upstream is to 5';
     - downstream is to 3'.
@@ -33,10 +33,13 @@ Rules of Thumb:
 - The "+" strand goes along coordinate axis;
     - the "-" strand goes reversely.
 - $g.txStart < g.txEnd$ always holds.
-- For genes on "+" strand, $TSS = txStart$;
-    - for genes on "-" strand, $TSS = txEnd$.
-- For genes on "+" strand, $TSS-dist = chromStart - txStart$;
-    - for genes on "-" strand, $TSS-dist = txEnd - chromStart$.
-- In other words, suppose $\operatorname{strand}(g) =\begin{cases}1 & g \text{ is on "+" strand} \newline -1 & otherwise\end{cases}$ and $\operatorname{TSS}(g) =\begin{cases}g.txStart & g \text{ is on "+" strand} \newline g.txEnd & otherwise\end{cases}$, and we can conclude $\operatorname{TSS-dist}(s,g) = (s.chromStart - \operatorname{TSS}(g)) \times \operatorname{strand}(g)$.
+- For genes on "+" strand, $\operatorname{TSS} = txStart$;
+    - for genes on "-" strand, $\operatorname{TSS} = txEnd$.
+- For genes on "+" strand, $\operatorname{TSS-dist} = chromStart - txStart$;
+    - for genes on "-" strand, $\operatorname{TSS-dist} = txEnd - chromStart$.
+- In other words, suppose
+    - $\operatorname{strand}(g) =\begin{cases}1 & g \text{ is on "+" strand} \newline -1 & otherwise\end{cases}$ and
+    - $\operatorname{TSS}(g) =\begin{cases}g.txStart & g \text{ is on "+" strand} \newline g.txEnd & otherwise\end{cases}$,
+    - and then we can conclude $\operatorname{TSS-dist}(s,g) = (s.chromStart - \operatorname{TSS}(g)) \times \operatorname{strand}(g)$.
 - If $s$ is in the upsteam of $g$, $\operatorname{TSS-dist}(s,g) < 0$, no matter which strand $g$ is on;
     - if $s$ is in the downsteam of $g$, $\operatorname{TSS-dist}(s,g) > 0$
