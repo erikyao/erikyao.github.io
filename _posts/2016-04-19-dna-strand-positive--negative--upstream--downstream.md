@@ -37,6 +37,6 @@ Rules of Thumb:
     - for genes on "-" strand, $TSS = txEnd$.
 - For genes on "+" strand, $TSS-dist = chromStart - txStart$;
     - for genes on "-" strand, $TSS-dist = txEnd - chromStart$.
-- In other words, suppose $strand(g) =\begin{cases}1 & g \text{ is on "+" strand}\\-1 & otherwise\end{cases}$ and $TSS(g) =\begin{cases}g.txStart & g \text{ is on "+" strand}\\g.txEnd & otherwise\end{cases}$, and we can concluse $TSS-dist(s,g) = (s.chromStart - TSS(g)) \times strand(g)$.
-- If $s$ is in the upsteam of $g$, $TSS-dist(s,g) < 0$, no matter which strand $g$ is on;
-    - if $s$ is in the downsteam of $g$, $TSS-dist(s,g) > 0$
+- In other words, suppose $\operatorname{strand}(g) =\begin{cases}1 & g \text{ is on "+" strand} \newline -1 & otherwise\end{cases}$ and $\operatorname{TSS}(g) =\begin{cases}g.txStart & g \text{ is on "+" strand} \newline g.txEnd & otherwise\end{cases}$, and we can conclude $\operatorname{TSS-dist}(s,g) = (s.chromStart - \operatorname{TSS}(g)) \times \operatorname{strand}(g)$.
+- If $s$ is in the upsteam of $g$, $\operatorname{TSS-dist}(s,g) < 0$, no matter which strand $g$ is on;
+    - if $s$ is in the downsteam of $g$, $\operatorname{TSS-dist}(s,g) > 0$
