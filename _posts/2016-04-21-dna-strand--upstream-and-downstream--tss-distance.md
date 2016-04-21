@@ -27,22 +27,22 @@ Summary:
 
 - __*TSS*__ = Transcription Start Site
 - "TSS distance" are actually "distance to TSS".
-- Upstream is to 5';
-    - downstream is to 3'.
-- This designation of "+"/"-" strand is arbitrary.
-- Once fixed, the "+" strand determines the direction of coordinate axis;
+- Upstream is towards $5'$;
+    - downstream is towards $3'$.
+- This designation of $"+"$/$"-"$ strand is arbitrary.
+- Once fixed, the $"+"$ strand determines the direction of coordinate axis;
     - the "-" strand goes reversely.
-- A gene can be on the "+" strand or "-" strand.
-    - The strand that the gene, say $g$, is on is called "$g$'s __*coding strand*__" (a.k.a. its __*sense strand*__).
-    - The other strand is called "$g$'s __*template strand*__" (a.k.a. its __*antisense strand*__)
+- A gene can be on the $"+"$ strand or $"-"$ strand.
+    - The strand that the gene, say $g$, is on is called $g$'s __*coding strand*__ (a.k.a. its __*sense strand*__).
+    - The other strand is called $g$'s __*template strand*__ (a.k.a. its __*antisense strand*__)
 - $g.txStart < g.txEnd$ always holds.
-- For genes on "+" strand, $\operatorname{TSS} = txStart$;
-    - for genes on "-" strand, $\operatorname{TSS} = txEnd$.
-- For genes on "+" strand, $\operatorname{TSS-dist} = chromStart - txStart$;
-    - for genes on "-" strand, $\operatorname{TSS-dist} = txEnd - chromStart$.
-- In other words, suppose
-    - $\operatorname{strand}(g) =\begin{cases}1 & g \text{ is on "+" strand} \newline -1 & otherwise\end{cases}$ and
-    - $\operatorname{TSS}(g) =\begin{cases}g.txStart & g \text{ is on "+" strand} \newline g.txEnd & otherwise\end{cases}$,
-    - and then we can conclude $\operatorname{TSS-dist}(s,g) = (s.chromStart - \operatorname{TSS}(g)) \times \operatorname{strand}(g)$.
-- If $s$ is in the upsteam of $g$, $\operatorname{TSS-dist}(s,g) < 0$, no matter which strand $g$ is on;
-    - if $s$ is in the downsteam of $g$, $\operatorname{TSS-dist}(s,g) > 0$
+- For genes on $"+"$ strand, $\operatorname{TSS}(g) = g.txStart$;
+    - for genes on $"-"$ strand, $\operatorname{TSS}(g) = g.txEnd$.
+- For genes on $"+"$ strand, $\operatorname{TSS-dist}(s,g) = s.chromStart - g.txStart$;
+    - for genes on $"-"$ strand, $\operatorname{TSS-dist}(s,g) = g.txEnd - s.chromStart$.
+- In other words:
+    - Suppose $\operatorname{strand}(g) =\begin{cases}1 & g \text{ is on "+" strand} \newline -1 & otherwise\end{cases}$.
+    - Suppose $\operatorname{TSS}(g) =\begin{cases}g.txStart & g \text{ is on "+" strand} \newline g.txEnd & otherwise\end{cases}$.
+    - $\Rightarrow \operatorname{TSS-dist}(s,g) = (s.chromStart - \operatorname{TSS}(g)) \times \operatorname{strand}(g)$
+- If $s$ is in the upstream of $g$, $\operatorname{TSS-dist}(s,g) < 0$, whichever strand $g$ is on;
+    - if $s$ is in the downstream of $g$, $\operatorname{TSS-dist}(s,g) > 0$
