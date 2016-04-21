@@ -23,15 +23,18 @@ For the diagram:
 - `chromStart` and `chromEnd` are columns from table `snp142` of database `hg19` in UCSC Genome Browser
 - `txStart` and `txEnd` are columns from table `ensGene` of database `hg19` in UCSC Genome Browser
 
-Rules of Thumb:
+Summary:
 
 - __*TSS*__ = Transcription Start Site
 - "TSS distance" are actually "distance to TSS".
 - Upstream is to 5';
     - downstream is to 3'.
-- The direction of coordinate axis is fixed.
-- The "+" strand goes along coordinate axis;
+- This designation of "+"/"-" strand is arbitrary.
+- Once fixed, the "+" strand determines the direction of coordinate axis;
     - the "-" strand goes reversely.
+- A gene can be on the "+" strand or "-" strand.
+    - The strand that the gene, say $g$, is on is called "$g$'s __*coding strand*__" (a.k.a. its __*sense strand*__).
+    - The other strand is called "$g$'s __*template strand*__" (a.k.a. its __*antisense strand*__)
 - $g.txStart < g.txEnd$ always holds.
 - For genes on "+" strand, $\operatorname{TSS} = txStart$;
     - for genes on "-" strand, $\operatorname{TSS} = txEnd$.
