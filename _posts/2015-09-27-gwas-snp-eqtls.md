@@ -97,16 +97,57 @@ eSNP: expression SNP, i.e. variations which affect the gene expression, by means
 	- 影响了 TF binding 并不代表一定会有 expression 的变化
 - $ eSNP - rSNP $: variations which affect the gene expression, but not by affecting TF binding.
 	- eSNP 的定义说了，影响 expression 不一定只有影响 TF binding 这么一种方式
+	
+-----
 
+## Points of view in thread [NEWBIE: What is relation between SNP calling, INDEL calling and Genotype calling?](http://seqanswers.com/forums/showthread.php?t=34144)
 
+Not sure whether they are correct or accurate, but a good start for further understanding.
 
+### SNP and Zygosity
 
+[Zygosity](https://en.wikipedia.org/wiki/Zygosity) ([zaɪˈgɒsɪti]) is the degree of similarity of the alleles for a trait in an organism.
 
+Most eukaryotes have two matching sets of chromosomes; that is, they are _**diploid**_. Diploid organisms have the same loci on each of their two sets of homologous chromosomes, except that the sequences at these loci may differ between the two chromosomes in a matching pair and that a few chromosomes may be mismatched as part of a chromosomal sex-determination system.
 
+- If both alleles of a diploid organism are the same, the organism is _**homozygous**_ ([ˌhoʊməˈzaɪgəs]) at that locus. 
+	- An individual that is _**homozygous-dominant**_ for a particular trait carries two copies of the allele that codes for the dominant trait. This allele, often called the "dominant allele", is normally represented by a capital letter, e.g. `A`. Then the genetype can be represented by `AA`.
+	- An individual that is _**homozygous-recessive**_ for a particular trait carries two copies of the allele that codes for the recessive trait. This allele, often called the "recessive allele", is usually represented by the lowercase form of the letter, e.g. `a`. Then the genetype can be represented by `aa`.
+- If they are different, the organism is _**heterozygous**_ ([ˌhɛtərəˈzaɪgəs]) at that locus. 
+- If one allele is missing, it is _**hemizygous**_ ([ˌhɛmɪˈzaɪgəs]).
+	- hemizygote: [ˌhɛmɪˈzaɪgoʊt], a hemizygous individual
+- If both alleles are missing, it is _**nullizygous**_.
 
+A diploid organism contains two copies of each chromosome. If there is a SNP at a particular position then there are 3 possibilties:
 
+- both chromosomes contain the SNP (homozygous for the SNP) 
+- one chromosome contains the SNP and the other the WT sequence (heterozygous)
+	- WT = _**Wild Type**_
+	- Wild type refers to the phenotype of the typical form of a species as it occurs in nature.
+	- Originally, the wild type was conceptualized as a product of the standard "normal" allele at a locus, in contrast to that produced by a non-standard, "mutant" allele.
+		- SNP 也是 mutation，而 mutation 毕竟是少数
+- neither contain the SNP (homozygous for the WT)
 
+### Haplotype and Linkage Disequilibrium
 
+The SNP's on one chromosome are described as a _**haplotype**_ ([ˈhæpləˌtaɪp]). Put two chromosomes together and you have a genotype. If you sequence multiple individuals, then you can also work out the genotype frequency, such as how many people are heterozygous for a SNP, or the _**MAF**_ (_**minor allele frequency**_, what % of people carry the SNP).
 
+- A haplotype is, in the simplest terms, a specific group of genes or alleles that progeny ([ˈprɒdʒəni], a descendant or offspring) inherited from one parent. There are, however, several specific definitions of the term being used in the field of genetics. 
+	- First, it is a portmanteau ([pɔrtˈmæntoʊ]) word (A word which combines the meaning of two words) for haploid genotype, which is a collection of specific alleles (that is, specific DNA sequences) in a cluster of tightly-linked genes on a chromosome that are likely to be inherited together—that is, they are likely to be conserved as a sequence that survives the descent of many generations of reproduction.
+		- 产生 haplotype 的现象我们又称为 _**[Linkage Disequilibrium](http://bio.classes.ucsc.edu/bio107/Class%20pdfs/W05_lecture15.pdf)**_
+			- Linkage equilibrium occurs when the genotype present at one locus is _**independent**_ of the genotype at a second locus.
+			- Linkage disequilibrium occurs when genotypes at the two loci are _**not independent**_ of another.
+		- Suppose 2 loci are in LD and there are 4 haplotypes $A_1B_1, A_1B_2, A_2B_1, A_2B_2$ from 4 alleles $A_1, A_2, B_1, B_2$.
+			- We can calculate coefficient of LD, $D$, using the frequencies of haplotypes and alleles (有点类似方差的概念. See the link above).
+			- In linkage equilibrium, $D \rightarrow 0$ (可以理解为：方差很小，意味着 frequencies 的差别很小，进一步意味着 alleles 是 randomly inherited)
+	- A second specific meaning of the term haplotype: a set of SNPs on one chromosome that tend to always occur together, i.e., that are associated statistically.
+	- Another specific definition of haplotype: Many human genetic testing companies use the term 'haplotype' to refer to an individual collection of specific mutations within a given genetic segment. 
+		- The term 'haplogroup' refers to the SNP/unique-event polymorphism (UEP) mutations that represent the clade to which a collection of particular human haplotypes belong. (Clade here refers to a set of people sharing a common ancestor.)
 
+### Genotyping 
 
+Genotyping is the process of determining differences in the genetic make-up (genotype) of an individual. (E.g. by sequencing DNA)
+
+### SNP vs SNV
+
+It's probably better to get in the habit of calling them SNVs, small nucleotide variants. "Single" is obviously kind of limiting and "polymorphism" suggests that the variant is common in a population, which not all variants are.
