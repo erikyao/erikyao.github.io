@@ -789,7 +789,116 @@ Axioms of complexity:
 
 - 不懂
 
+### Time/space complexity classes: P & NP @ class
 
+Resource bounds:
+
+- $M$ has (worst case) running time $ T $ if $\forall$ string $x$, $M$ halts after at most $T(\vert x \vert)$ steps.
+- $M$ has (worst case) space usage $ S $ if $\forall$ string $x$, $M$ writes on at most $S(\vert x \vert)$ tape cells.
+
+Basic Complexity Class:
+
+- $ DTIME(f(n)) = \lbrace L \vert L \text{ decided by a (deterministic) TM with running time } O(f(n)) \rbrace $
+	- D for "deterministic"
+	- Formally, $ L \in TIME(f(n)) $ if there is a TM $M$ and a constant $c$ such that 
+		1. $M$ decides $L$, and 
+		1. $M$ runs in time $c \cdot f$; 
+			- i.e., for all $x$ (of length at least 1), $M(x)$ halts in at most $c \cdot f(\lvert x \rvert) $ steps.
+	- E.g. $ DTIME(n^2) = \text{set of all problems that can be solved in quadratic time}$
+- $ DSPACE(f(n)) = \lbrace L \vert L \text{ decided by a TM that uses spaces } O(f(n)) \rbrace $
+- Language / decision problem = set of strings (yes-instances)
+- Complexity class = set of languages
+
+Standard Complexity Classes:
+
+- $P = \text{set of problems that can be solved (by a deterministical TM) in poly time} = \bigcup_{k=1,2,\dots} DTIME(n^k)$ 
+	- 如果把 $P$ 看做 property 的话，$P$ 可以简单描述为 "deterministic poly time"
+		- "deterministic" = "deterministically solvable in time" = "solvable in time by a deterministical TM"
+- $PSPACE = \text{set of problems that can be solved using poly space} = \bigcup_{k=1,2,\dots} DSPACE(n^k)$ 
+- $EXP = \text{set of problems that can be solved by in exponential time} = \bigcup_{k=1,2,\dots} DTIME(2^{n^k})$ 
+- $L = \text{set of problems that can be solved using log space} = DSPACE(\log n)$ 
+
+Translating from “Complexity Theory Speak”:
+
+- Is $X \in PSPACE$?
+	- Can problem $ X $ be solved using polynomial space?
+- Is $PSPACE \subseteq P$?
+	- Can every problem solvable in polynomial space also be solved in polynomial time?
+- This is true: $P \subseteq PSPACE$
+
+Relationships between Complexity Classes:
+
+- $\forall f(n), DTIME(f(n)) \subseteq DSPACE(f(n))$
+	- This follows from the observation that a TM cannot write on more than a constant number of cells per move.
+- If $f(n) = O(g(n))$, then $DTIME(f(n)) subseteq DTIME(g(n))$
+
+Complementation @ [Complement Classes and the Polynomial Time Hierarchy](http://cs.brown.edu/courses/cs159/lect.06.Hierarchy.pdf):
+
+- 这里先声明下，全集可以表示为 $\Omega$、$\sum^{\star}$ 或者 $\lbrace 0,1 \rbrace^{\star}$
+- The complement of a decision problem $ \mathcal{L} $, denoted $co\mathcal{L}$, is the set of “No”-instances of $ \mathcal{L} $.
+	- 一般来说，我们可以认为 $co\mathcal{L} = \overline{\mathcal{L}} = \Omega \setminus \mathcal{L}$
+	- 严格来说，$\mathcal{L} \cup co\mathcal{L} = WF_{\mathcal{L}} \subseteq \Omega $ where $WF_{\mathcal{L}}$ is the set of _**well-formed strings**_ describing “Yes” and “No” instances. That is, $ co\mathcal{L} = WF_{\mathcal{L}} − \mathcal{L} $.
+		- 只是通常会限定 $WF_{\mathcal{L}} = \Omega$
+	- 举个例子:Every positive integer $x>1$ is either composite (合数) or prime (质数)
+		- 如果限定 $ \Omega = WF_{\mathcal{L}} = \lbrace x \vert x \text{ is a positive integer and } x > 1 \rbrace $
+			- $ \mathcal{L} = \lbrace x \vert x \text{ is prime } \rbrace$
+			- $ co\mathcal{L} = \overline{\mathcal{L}} = \lbrace x \vert x \text{ is not prime }\rbrace = \lbrace x \vert x \text{ is composite }\rbrace$
+		- 如果仅限定 $ \Omega = WF_{\mathcal{L}} = \lbrace x \vert x \text{ is a positive integer }\rbrace $
+			- $ co\mathcal{L} = \overline{\mathcal{L}} = \lbrace x \vert x \text{ is not prime }\rbrace \neq \lbrace x \vert x \text{ is composite }\rbrace$
+			- 因为 1 既不是 prime 也不是 composite
+- The complement of a complexity class is the set of complements of languages in the class.
+	- $\mathcal{C} = \lbrace \mathcal{L} \vert \mathcal{L} \text{ has complexity } \mathcal{C} \rbrace$
+	- $co\mathcal{C} = \lbrace co\mathcal{L} \vert \mathcal{L} \in \mathcal{C} \rbrace $
+	- 注意 $co\mathcal{C}$ 和 $\overline{\mathcal{C}}$ 没有半毛钱的关系
+		- $\overline{\mathcal{C}} = \lbrace \mathcal{L} \vert \mathcal{L} \text{ does NOT have complexity } \mathcal{C} \rbrace$
+		- $co\mathcal{C} = \lbrace \mathcal{L} \vert \mathcal{L} \text{'s complement has complexity } \mathcal{C} \rbrace$
+			- $\mathcal{L} \text{'s complement has complexity } \mathcal{C}$ 并不能说明 $\mathcal{L} \text{ has } \mathcal{C} \text{ or not}$
+- _**Theorem 1.**_ $\mathcal{C}_1 \subseteq \mathcal{C}_2 \hspace{1em} \Rightarrow  \hspace{1em} co\mathcal{C}_1 \subseteq co\mathcal{C}_2 $
+- _**Theorem 2.**_ $\mathcal{C}_1 = \mathcal{C}_2 \hspace{1em} \Rightarrow  \hspace{1em} co\mathcal{C}_1 = co\mathcal{C}_2 $
+- Closure under complementation means: $\mathcal{C} = co\mathcal{C}$
+	- We say such class $\mathcal{C}$ are "closed under complementation".
+- _**Theorem 3.**_ If $\mathcal{C}$ is a deterministic time or space complexity class, then $\mathcal{C} = co\mathcal{C}$.
+	- E.g. 
+		- $coTIME(f(n)) = TIME(f(n))$
+		- $coP = P$
+			-  翻译一下：如果 $\mathcal{L}$ can be solved by in poly time $\Rightarrow$ $co\mathcal{L}$ can also be solved by in poly time
+			- vise versa
+		- $coPSPACE = PSPACE$
+	- Why? For any class $\mathcal{C}$ defined by a deterministic TM $M$, just switch accpet/reject behavior and you get a TM $coM$ that decide $co\mathcal{C}$
+		- i.e. $ M(\mathcal{L}) = \text{yes} \hspace{1em} \Rightarrow \hspace{1em} coM(co\mathcal{L}) = \text{yes}$, in the same bound of time or space.
+
+$NP$:
+
+- $NP$ 可以描述为 nondeterministic polynomial time
+	- "nondeterministic" = "nondeterministically solvable in time" = "solvable in time by a nondeterministical TM"
+- _**Definition 1.**_ A problem is assigned to the $NP$ class if it is solvable in polynomial time by a nondeterministic TM.
+	- $NP = \text{set of problems that can be solved by a nondeterministic TM in poly time}
+- _**Definition 2.**_ $NP = \text{set of decision problems } L $, where
+	- $L = \lbrace x \vert \exists w : M(x,w) = 1 \rbrace$
+	- $M$ halts in polynomial time, as a function of $ \lvert x \rvert $ alone.
+	- $x$: instance
+	- $w$: proof / witness / solution
+	- 简单理解就是，我们没有办法直接确定是否有 $x \in L$ (nondeterministic)，只能通过 $(x,w)$ 是否满足 $L$ 的条件来判断这个 $x$ 是否有 $\in L$
+- 举例待补充
+	
+$coNP$
+	
+- _**Definition.**_ $coNP = \text{set of decision problems } L $, where
+	- $L = \lbrace x \vert \not\exists w : M(x,w) = 1 \rbrace$
+	- 等价于 $L = \lbrace x \vert \forall w : M(x,w) = 0 \rbrace$
+	- 等价于 $L = \lbrace x \vert \forall w : M(x,w) = 1 \rbrace$
+	- $M$ halts in polynomial time, as a function of $ \lvert x \rvert $ alone.
+- 举例待补充	
+
+$P$ vs $NP$ vs $coNP$
+
+- _**Theorem 1.**_ $ P \subseteq NP $
+- _**Theorem 2.**_ $ P \subseteq coNP $
+- 证明待补充
+
+Closure Properties of $NP$, $coNP$
+
+- 待补充
 				
 -----
 
