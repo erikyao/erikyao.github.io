@@ -1,11 +1,13 @@
 ---
 layout: post
-title: "Backup Script"
+title: "Scripting Life"
 description: ""
 category: Linux
 tags: [Shell]
 ---
 {% include JB/setup %}
+
+# Backup My Ubuntu
 
 参考：
 
@@ -188,7 +190,7 @@ mail: cannot send message: Process exited with a non-zero status
 I checked the log, commanding `tail /var/log/mail.err`:
 
 <pre class="prettyprint linenums">
-Jan  4 16:38:12 <hostname> sSMTP[23511]: Authorization failed (534 5.7.14  https://support.google.com/mail/answer/78754 blahblahblah - gsmtp)
+Jan  4 16:38:12 &lt;hostname&gt; sSMTP[23511]: Authorization failed (534 5.7.14  https://support.google.com/mail/answer/78754 blahblahblah - gsmtp)
 </pre>
 
 As [how to fix “send-mail: Authorization failed 534 5.7.14”](http://serverfault.com/a/672182) suggested, the solution is:
@@ -298,3 +300,25 @@ tar -cpzf test.tar.gz --one-file-system ${tar_targets[@]} ${tar_exclude[@]}
 
 The script above would generate `--exclude=/foo --exclude=/bar`.
 
+-----
+
+# MySQL Query
+
+References:
+
+- [How do I parse command line arguments in bash?](http://stackoverflow.com/a/14203146)
+- [in bash, how do you break an array in groups of n](http://stackoverflow.com/a/23747768)
+- [Calling functions with xargs within a bash script](http://stackoverflow.com/a/11003457)
+- [what is diff bentween xargs with braces and without in linux](http://superuser.com/a/526354)
+- [Defining a variable with or without export](http://stackoverflow.com/a/1158231)
+- [What does “export” do in shell programming?](http://stackoverflow.com/questions/7411455/what-does-export-do-in-shell-programming)
+- [Replace a Space with a Period in Bash](http://stackoverflow.com/a/5928254)
+- [How can I suppress column header output for a single SQL statement?](http://stackoverflow.com/a/20887040)
+
+## 1. `mysql -A`
+
+From "The MySQL Bible" by Steve Suehring:
+
+> **Speeding startup of the CLI**  
+> <!-- -->  
+> When the CLI starts, it reads in table information to allow for completion, which can sometimes slow the startup. To turn off this default and get a quicker CLI startup, use the `-A` or `--no-auto-rehash` switch. `Adding --no-auto-rehash` to the MySQL configuration file under the [mysql] section makes this quicker startup permanent.
