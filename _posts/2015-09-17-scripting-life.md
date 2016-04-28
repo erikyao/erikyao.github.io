@@ -306,6 +306,7 @@ The script above would generate `--exclude=/foo --exclude=/bar`.
 
 References:
 
+- [xargs Command Tutorial](http://www.softpanorama.org/Tools/xargs.shtml)
 - [How do I parse command line arguments in bash?](http://stackoverflow.com/a/14203146)
 - [in bash, how do you break an array in groups of n](http://stackoverflow.com/a/23747768)
 - [Calling functions with xargs within a bash script](http://stackoverflow.com/a/11003457)
@@ -314,6 +315,7 @@ References:
 - [What does “export” do in shell programming?](http://stackoverflow.com/questions/7411455/what-does-export-do-in-shell-programming)
 - [Replace a Space with a Period in Bash](http://stackoverflow.com/a/5928254)
 - [How can I suppress column header output for a single SQL statement?](http://stackoverflow.com/a/20887040)
+- [Can a Bash script tell what directory it's stored in?](http://stackoverflow.com/questions/59895/can-a-bash-script-tell-what-directory-its-stored-in)
 
 ## 1. `mysql -A`
 
