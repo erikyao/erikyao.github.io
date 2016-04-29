@@ -872,7 +872,7 @@ $NP$:
 - $NP$ 可以描述为 nondeterministic polynomial time
 	- "nondeterministic" = "nondeterministically solvable in time" = "solvable in time by a nondeterministical TM"
 - _**Definition 1.**_ A problem is assigned to the $NP$ class if it is solvable in polynomial time by a nondeterministic TM.
-	- $NP = \text{set of problems that can be solved by a nondeterministic TM in poly time}
+	- $NP = \text{set of problems that can be solved by a nondeterministic TM in poly time}$
 - _**Definition 2.**_ $NP = \text{set of decision problems } L $, where
 	- $L = \lbrace x \vert \exists w : M(x,w) = 1 \rbrace$
 	- $M$ halts in polynomial time, as a function of $ \lvert x \rvert $ alone.
