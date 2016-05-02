@@ -37,7 +37,7 @@ Data frames are used to store <font color="red">tabular</font> data (i.e. a tabl
 * `nrow(df)` 返回行数，`ncol(df)` 返回列数
 * `t(df)` returns the transpose of df. Also works for matrices.
 
--> 以下根据 _R Cookbook_ 更新 <-
+~~~~~~~~~~ 以下根据 _R Cookbook_ 更新 ~~~~~~~~~~
 
 A data frame is a tabular (rectangular) data structure, which means that it has rows and columns. It is _**not**_ implemented by a matrix, however. Rather, _**a data frame is a list**_:
 
@@ -52,7 +52,32 @@ Because a data frame is both a list and a rectangular structure, R provides two 
 * You can use list operators to extract columns from a data frame, such as `dfrm[i]`, `dfrm[[i]]`, or `dfrm$name`.
 * You can use matrix-like notation, such as `dfrm[i,j]`, `dfrm[i,]`, or `dfrm[,j]`.
 
-### 2.1 Combining Row Data into a Data Frame
+### 2.1 Combining Vectors into a Data Frame
+
+比想象中的简单，来自 DataCamp:
+
+	> # Definition of vectors
+	> name <- c("Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune")
+	> type <- c("Terrestrial planet", "Terrestrial planet", "Terrestrial planet", 
+			  "Terrestrial planet", "Gas giant", "Gas giant", "Gas giant", "Gas giant")
+	> diameter <- c(0.382, 0.949, 1, 0.532, 11.209, 9.449, 4.007, 3.883)
+	> rotation <- c(58.64, -243.02, 1, 1.03, 0.41, 0.43, -0.72, 0.67)
+	> rings <- c(FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE)
+	> 
+	> # Create a data frame from the vectors
+	> planets_df <- data.frame(name, type, diameter, rotation, rings)
+	> planets_df
+		 name               type diameter rotation rings
+	1 Mercury Terrestrial planet    0.382    58.64 FALSE
+	2   Venus Terrestrial planet    0.949  -243.02 FALSE
+	3   Earth Terrestrial planet    1.000     1.00 FALSE
+	4    Mars Terrestrial planet    0.532     1.03 FALSE
+	5 Jupiter          Gas giant   11.209     0.41  TRUE
+	6  Saturn          Gas giant    9.449     0.43  TRUE
+	7  Uranus          Gas giant    4.007    -0.72  TRUE
+	8 Neptune          Gas giant    3.883     0.67  TRUE
+
+### 2.2 Combining Row Data into a Data Frame
 
 假设现在有多个 observation，每个 observation 都是一个单行的 data frame，现在想把这些单行的 data frame 合并成一个大的 data frame：
 
@@ -85,7 +110,7 @@ Because a data frame is both a list and a rectangular structure, R provides two 
 * `do.call` 的基本用法可以理解为 `do.call(function, list<args>)`，但它和 apply 一族的逻辑不同，它其实就是把 `list<args>` 全部填充到 `function` 里了。这对不定长参数列表尤其有用，因为你不用一个个的去填参数，比如上面的 `rbind`，你要自己写就是 `rbind(rows[[1]], rows[[2]], rows[[3]])`，太麻烦，`do.call` 就方便多了，不管你参数有多少个，我负责帮你把参数都填进去
 * `Map` 是 apply 一族的，它是 `mapply` 的变体。`Map(as.data.frame, rows)` 的逻辑就是对 `rows` 的每一个元素都执行 `as.data.frame`，返回一个 result list
 
-### 2.2 Preallocating a Data Frame
+### 2.3 Preallocating a Data Frame
 
 Theoretically, you can build a data frame by appending new rows, one by one. That’s OK for small data frames, but building a large data frame in that way can be tortuous. The memory manager in R works poorly when one new row is repeatedly appended to a large data structure. Hence your R code will run very slowly. 我猜是 `rbind` 时 R 会保留 data.frame 的副本，然后重新做一个新的，再 dump 掉副本。
 
@@ -98,10 +123,10 @@ One solution is to preallocate the data frame—assuming you know the required n
 
 	> N = 1000000
 	> dfrm = data.frame(dosage=numeric(N),
-	+ 					lab=factor(N, levels=c("NJ", "IL", "CA")),
-	+ 					response=numeric(N))
+	+ 	lab=factor(N, levels=c("NJ", "IL", "CA")),
+	+ 	response=numeric(N))
 	
-### 2.3 Using `with` function
+### 2.4 Using `with` function
 
 For a data frame called `suburbs` that contains a column called `pop`, here is the naïve way to calculate the z-scores of `pop`:
 
@@ -111,7 +136,7 @@ The `with` function lets you expose the columns of a data frame as distinct vari
 
 	> z <- with(suburbs, (pop - mean(pop)) / sd(pop))
 	
-### 2.4 Using `attach` function
+### 2.5 Using `attach` function
 
 `attach` 本身并没啥难的，这里要说的是：`attach(X)` 会创建一个 `X` 副本，用来简写 `X$var` 的 `var` 其实就是副本的一个 column，对 `var` 的修改不会实施到 `X$var` 上，vise versa。我们来看个例子：
 
@@ -170,6 +195,6 @@ matrix 可以后期指定 dimname：
 	> m <- matrix(1:4, nrow = 2, ncol = 2)
 	> dimnames(m) <- list(c("a", "b"), c("c", "d"))
 	> m
-	c d
+	  c d
 	a 1 3
 	b 2 4
