@@ -51,7 +51,7 @@ $$
 \end{align}
 $$
 
-这样其实有点不好记。另一种表达方式是：如果 $ x^{*} $ 是 support vector 的话，那么 $ f(x^{*}) = w^T x^{*} + b = \pm1 $（这个其实是 functional margin），此时 (geometric) margin 等于 $ \frac{1}{\lvert w \rvert} $。
+这样其实有点不好记。另一种表达方式是：如果 $ x^{\ast} $ 是 support vector 的话，那么 $ f(x^{\ast}) = w^T x^{\ast} + b = \pm1 $（这个其实是 functional margin），此时 (geometric) margin 等于 $ \frac{1}{\lvert w \rvert} $。
 
 顺便说一下记号：
 
