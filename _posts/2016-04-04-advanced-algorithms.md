@@ -8,6 +8,8 @@ tags: [Algorithm-101]
 {% include JB/setup %}
 
 [Set_Cover_and_Hitting_Set]: https://farm2.staticflickr.com/1539/26140812480_d847804b02_o_d.png
+[LP-dual-1]: https://farm8.staticflickr.com/7169/26528138410_82f6dc984f_o_d.png
+[LP-dual-2]: https://farm8.staticflickr.com/7653/26528138420_cdd2bd055b_o_d.png
 
 ## Approximation Algorithms @ [Erickson §31](http://jeffe.cs.illinois.edu/teaching/algorithms/notes/31-approx.pdf)
 
@@ -64,7 +66,7 @@ Job $i$ was assigned to machine $j$ because it had the smallest finishing time, 
 
 $Total[j] − T[i] \leq \frac{1}{m} \sum_{j=1}^{m}Total[j] = \frac{1}{m} \sum_{i=1}^{n}T[i] \leq OPT$
 
-This leads to the conclusion that $Total[j] \leq 2 \cdot OPT$. $\tag*{$\blacksquare$}$
+This leads to the conclusion that $Total[j] \leq 2 \cdot OPT$. $\tag*{$\square$}$
 
 `GreedyLoadBalance` is an _**online**_ algorithm: It assigns jobs to machines in the order that the jobs appear in the input array. Online approximation algorithms are useful in settings where inputs arrive in a stream of unknown length. In this online setting, it may be impossible to compute an optimum solution, even in cases where the _**offline**_ problem (where all inputs are known in advance) can be solved in polynomial time.
 
@@ -92,7 +94,7 @@ $$
 	T[i] \leq T[m+1] \leq T[\max\lbrace k,l \rbrace] = \min \lbrace T[k], T[l] \rbrace \leq \frac{OPT}{2}
 $$
 
-We conclude that the makespan $Total[i]$ is at most $\frac{3 \cdot OPT}{2}$, as claimed. $\tag*{$\blacksquare$}$
+We conclude that the makespan $Total[i]$ is at most $\frac{3 \cdot OPT}{2}$, as claimed. $\tag*{$\square$}$
 
 ### 31.2 Generalities
 
@@ -170,7 +172,7 @@ $$
 \end{align}
 $$
 
-In other words, the first $OPT$ iterations of `GreedyVertexCover` remove at least half the edges of $ G $. Thus, after at most $OPT \cdot \log \vert G \vert \leq 2 \cdot OPT \cdot \log n$ iterations, all the edges of $G$ have been removed, and the algorithm terminates. We conclude that `GreedyVertexCover` computes a vertex cover of size $O(OPT \cdot \log n)$. $\tag*{$\blacksquare$}$
+In other words, the first $OPT$ iterations of `GreedyVertexCover` remove at least half the edges of $ G $. Thus, after at most $OPT \cdot \log \vert G \vert \leq 2 \cdot OPT \cdot \log n$ iterations, all the edges of $G$ have been removed, and the algorithm terminates. We conclude that `GreedyVertexCover` computes a vertex cover of size $O(OPT \cdot \log n)$. $\tag*{$\square$}$
 
 ### 31.4 Set Cover and Hitting Set
 
@@ -280,7 +282,7 @@ Thus, while both types of algorithm optimize local choices, greedy algorithms ar
 
 ### 2.1 Scheduling jobs with deadlines on a single machine
 
-General Proof Trick 1: 对求极值的问题，assume $F_{max}(X)$ or $F_{min}(X)$ equals to a certain $x_i$. 然后得到一些性质（比如各种不等式），再根据 $x_i$ 是极值得到其他的 $x_j$ 都要满足某些条件，最终推到需要证明的 $cost_{alg} \leq \alpha \dot OPT$ 公式上。
+General Proof Trick 1: 对求极值的问题，assume $F_{max}(X)$ or $F_{min}(X)$ equals to a certain $x_i$. 然后得到一些性质（比如各种不等式），再根据 $x_i$ 是极值得到其他的 $x_j$ 都要满足某些条件，最终推到需要证明的 $cost_{alg} \leq \alpha \cdot OPT$ 公式上。
 
 ### 2.2 The $k$-center problem
 
@@ -298,3 +300,493 @@ General Proof Trick 3: 考虑 OPT 分摊到 $n$ 个 $x_i$ 上的平均值，再�
 
 ### 2.7 Edge coloring
 
+-----
+
+## Linear Programming @ [Erickson §26](http://jeffe.cs.illinois.edu/teaching/algorithms/notes/26-lp.pdf)
+
+A linear programming problem asks for a vector $x = (x_1,\dots,x_d) \in \mathbb{R}^d$ that maximizes (or equivalently, minimizes) a given linear function, among all vectors $ x $ that satisfy a given set of linear inequalities. The general form of a linear programming problem is the following:
+
+$$
+\begin{align}
+\text{maximize } 	& \sum_{j=1}^{d} c_j x_j & \newline
+\text{subject to } 	& \sum_{j=1}^{d} a_{ij} x_j \leq b_i & \text{ for each } i=1 \dots p \newline
+					& \sum_{j=1}^{d} a_{ij} x_j = b_i & \text{ for each } i=p+1 \dots p+1 \newline
+					& \sum_{j=1}^{d} a_{ij} x_j \geq b_i & \text{ for each } i=p+q+1 \dots n 
+\end{align}
+$$
+
+Here, the input consists of a matrix $ A = (a_{ij}) \in \mathbb{R}^{n \times d} $, a column vector $ b = (b_1,\dots,b_n) \in \mathbb{R}^n $, and a row vector $ c = \left( \begin{smallmatrix} c_1 \newline \vdots \newline c_d \end{smallmatrix} \right) \in \mathbb{R}^d $.
+
+A linear programming problem is said to be in _**canonical form**_ if it has the following structure:
+
+$$
+\begin{align}
+\text{maximize } 	& \sum_{j=1}^{d} c_j x_j & \newline
+\text{subject to } 	& \sum_{j=1}^{d} a_{ij} x_j \leq b_i & \text{ for each } i=1 \dots n \newline
+					& x_j \geq 0 & \text{ for each } j=1 \dots d
+\end{align}
+$$
+
+We can express this canonical form more compactly as follows.
+
+$$
+\begin{align}
+\text{max } 	& c \cdot x \newline
+\text{s.t. } 	& A x \leq b \newline
+				& x \geq 0
+\end{align}
+$$
+
+Any linear programming problem can be converted into canonical form as follows: 
+
+- For each variable $ x_j $, add the equality constraint $ x_j = x_j^{+} − x_j^{-} $ and the inequalities $ x_j^{+} \geq 0 $ and $ x_j^{-} \geq 0 $. 
+- Replace any equality constraint $ \sum_j a_{ij} x_j = b_i $ with two inequality constraints $ \sum_j a_{ij} x_j \geq b_i $ and $ \sum_j a_{ij} x_j \leq b_i $. 
+- Replace any upper bound $ \sum_j a_{ij} x_j \geq b_i $ with the equivalent lower bound $ \sum_j -a_{ij} x_j = -b_i $.
+
+This conversion potentially double the number of variables and the number of constraints; fortunately, it is rarely necessary in practice.
+
+Another useful format for linear programming problems is _**slack form**_.
+
+$$
+\begin{align}
+\text{max } 	& c \cdot x \newline
+\text{s.t. } 	& A x = b \newline
+				& x \geq 0
+\end{align}
+$$
+
+It’s fairly easy to convert any linear programming problem into slack form. Slack form is especially useful in executing the simplex algorithm.
+
+### 26.1 The Geometry of Linear Programming
+
+A point $x \in \mathbb{R}^d$ is _**feasible**_ with respect to some linear programming problem if it satisfies all the linear constraints. The set of all feasible points is called the feasible region for that linear program. The feasible region has a particularly nice geometric structure that lends some useful intuition to the linear programming algorithms we’ll see later.
+
+- Any linear equation in $ d $ variables ($x = (x_1,\dots,x_d)$) defines a _**hyperplane**_ in $ \mathbb{R}^d $; think of a line when $ d = 2 $, or a plane when $ d = 3 $. 
+- This hyperplane divides $ \mathbb{R}^d $ into two _**halfspaces**_; each halfspace is the set of points that satisfy some linear inequality. 
+- Thus, the set of feasible points is the intersection of several hyperplanes (one for each equality constraint) and halfspaces (one for each inequality constraint) (平面上，hyperplane 就是线，hyperspace 就是面). 
+- The intersection of a finite number of hyperplanes and halfspaces is called a _**polyhedron**_. 
+	- It’s not hard to verify that any halfspace, and therefore any polyhedron, is _**convex**_—if a polyhedron contains two points $ x $ and $ y $, then it contains the entire line segment $ \overline{xy} $.
+
+By rotating $\mathbb{R}^d$ (or choosing a coordinate frame) so that the objective function points downward, we can express any linear programming problem in the following geometric form: 
+
+$$
+\text{Find the lowest point in a given polyhedron.}
+$$
+
+With this geometry in hand, we can easily picture two pathological cases where a given linear programming problem has no solution. 
+
+- The first possibility is that there are no feasible points; in this case the problem is called _**infeasible**_.
+- The second possibility is that there are feasible points at which the objective function is arbitrarily large; in this case, we call the problem _**unbounded**_.
+
+### 26.2 Example 1: Shortest Paths
+
+### 26.3 Example 2: Maximum Flows and Minimum Cuts
+
+### 26.4 Linear Programming Duality
+
+The translation for LP problem $\Pi$ is simplest when the $\Pi$ is in canonical form:
+
+![][LP-dual-1]
+
+We can also write the dual linear program in exactly the same canonical form as the primal, by swapping the coefficient vector $ c $ and the objective vector $ b $, negating both vectors, and replacing the constraint matrix A with its negative transpose.
+
+![][LP-dual-2]
+
+_**The Fundamental Theorem of Linear Programming.**_ A linear program $\Pi$ has an optimal solution $x^{\star}$ if and only if the dual linear program $\amalg$ has an optimal solution $y^{\star}$ such that $ c x^{\star} = y^{\star} A x^{\star} = y^{\star} b $.
+
+The weak form of this theorem is trivial to prove.
+
+_**Weak Duality Theorem.**_ If $ x $ is a feasible solution for a canonical linear program $\Pi$ and $ y $ is a feasible solution for its dual $\amalg$, then $ c x = y A x = y b $.
+
+It immediately follows that if $ c x = y b $, then $ x $ and $ y $ are optimal solutions to their respective linear programs. This is in fact a fairly common way to prove that we have the optimal value for a linear program.
+
+### 26.5 Duality Example
+
+### 26.6 Strong Duality  
+ 
+The Fundamental Theorem can be rephrased in the following form: 
+
+_**Strong Duality Theorem.**_ If $x^{\star}$ is an optimal solution for a canonical linear program $\Pi$, then there is an optimal solution $y^{\star}$ for its dual $\amalg$, such that $ c x^{\star} = y^{\star} A x^{\star} = y^{\star} b $.
+
+证明略
+
+### 26.7 Complementary Slackness
+
+-----
+
+## DAA - Chapter 3 - Rounding data and dynamic programming
+
+Approximation algorithms can be designed using dynamic programming in a variety of ways, many of which involve rounding the input data in some way.
+
+We can then show that by rounding the sizes of the large inputs so that, again, the number of distinct, large input values is polynomial in the input size and an error parameter, we can use dynamic programming to find an optimal solution on just the large inputs. Then this solution must be augmented to a solution for the whole input by dealing with the small inputs in some way.
+
+## DAA - Chapter 4 - Deterministic rounding of linear programs
+
+-----
+
+## [Dealing with NP-hard Optimization Problems](https://resources.mpi-inf.mpg.de/departments/d1/teaching/ss11/OPT/lec23.pdf)
+
+> An old engineering slogan says, “Fast. Cheap. Reliable. Choose two.”
+
+Our goal so far in developing algorithms for optimization problems has been to find algorithms that
+
+- $ (a) $ find the optimal solution;
+- $ (b) $ run in polynomial time;
+- $ (c) $ have property $ (a) $ and $ (b) $ for any input.
+
+We have seen that we can indeed do this for optimization problems that can be formulated as a linear program. For problems that can be formulated as an integer linear program, we are not so lucky. In fact, unless P=NP, we cannot find algorithms that satisfy $ (a) $, $ (b) $ and $ (c) $ for a general integer linear program. Therefore, unless P=NP, we are going to have to focus on developing algorithms that have just two of the three properties (and do the best we can with respect to the other property).
+
+In this lecture, we will illustrate these three approaches using vertex cover as an example.
+
+_**Definition 1.**_ Given an undirected graph $G = (V, E)$, the _**Minimum Vertex Cover (MVC)**_ problem asks for a vertex cover of minimum size, i.e., a set of vertices $S \subseteq V$ of minimum size $\vert S \vert$ such that every edge $e \in E$ has at least one endpoint in $ S $.
+
+The Minimum Vertex Cover problem is known to be NP-hard, so we don’t expect to find a polynomial time algorithm that finds the optimal solution for every possible input.
+
+### 1. To drop requirement (c) $\Rightarrow$ Restricting Input (Structure)
+
+If we drop requirement $ (c) $, and restrict our attention to certain classes of inputs, we can however have algorithms that solve the problem in polynomial time. 
+
+E.g. to restrict the input to bipartite graphs for Minimum Vertex Cover problem.
+
+### 2. To drop requirement (b) $\Rightarrow$ Fixed Parameter Tractability (FPT)
+
+Suppose we drop the requirement that we satisfy property $ (b) $, and we just try to find a minimum vertex cover with a “good” but not polynomial time algorithm.
+
+Suppose that the size of the MVC is a fixed constant $k$, say $k = 2$ or $k = 3$ for some inputs. For such inputs, it is not hard to find a MVC in polynomial time. 
+
+- If we know the value $ k $, we just try all subsets of vertices of size $ k $, and check whether they are a vertex cover. 
+- There are $ n \choose k $ subsets of vertices of size $ k $, and checking each subset takes $ O(m) $ time, where $ n = \vert V \vert, m = \vert E \vert $. 
+- If we don’t know $ k $ in advance, we can find the MVC by checking whether there exists a vertex cover of size $l$ for $l = 0, l = 1, \dots , l = k$. 
+- Therefore, if the minimum vertex cover has size $ k $, we can find it in time $ O \left ( {n \choose 0} + {n \choose 1} + \dots + {n \choose k} \right ) \cdot O(m) = O(kn^km) $.
+
+This is polynomial for fixed k, so for some inputs, this gives a polynomial time algorithm. However, this algorithm is far from practical (according to Kleinberg-Tardos, it will take longer than the age of the universe for an input with $n = 1000, k = 10$). Can we do something smarter?
+
+_**Observation 1.**_ If $ G $ has $ n $ vertices and a vertex cover of size $ k $, then $ G $ has at most $ k(n − 1) $ edges.
+
+_**[Proof](http://web.cs.iastate.edu/~cs511/handout10/FPT_VC.pdf).**_ Each vertex can cover at most $ n − 1 $ edges, so $ k $ vertices can cover at most $ k(n − 1) $ edges. $\tag*{$\square$}$
+
+_**Observation 2.**_ Let $ e = \lbrace u, v \rbrace $ be any edge in $ G $. If $ G $ has a vertex cover of size $ k $, then either $ G \setminus \lbrace u \rbrace $ or $ G \setminus \lbrace v \rbrace $ has a vertex cover of size $ k − 1 $.
+
+These two observations give rise to a simple recursive algorithm for finding a vertex cover of size $ k $ if it exists:
+
+- If G has no edges, return the empty set.
+- If G has more than $ k(\vert V \vert − 1) $ edges, then no vertex cover of size $ k $ exists.
+- Else, let $ e = \lbrace u, v \rbrace $ be an edge of $ G $.
+	– Find a vertex cover of size $ k − 1 $ in $ G \setminus \lbrace u \rbrace $ and in $ G \setminus \lbrace v \rbrace $. 
+	- If neither of those exists, then $ G $ has no vertex cover of size $ k $. 
+	- Else, if $ T $ is a vertex cover of size $ k − 1 $ of $ G \setminus \lbrace u \rbrace $ (respectively, $ G \setminus \lbrace v \rbrace $), then return $ T \cup \lbrace u \rbrace $ (respectively, $ T \cup \lbrace v \rbrace $).
+
+_**Theorem 1.**_ There exists an algorithm to check if a graph has a vertex cover of size $ k $ that runs in $ O(2^kn) $ time.
+
+证明略
+
+Note that this is pretty good: If $ k = O(\log n) $, then this is still a polynomial time algorithm. This is an example of a _**fixed parameter algorithm**_.
+
+_**Definition 2.**_ A problem is _**fixed parameter tractable (FPT)**_ with respect to parameter $ k $ if there is an algorithm with running time at most $ f(k) n^{O(1)} $.
+
+另参：[Vertex Cover is Fixed-Parameter Tractable](http://web.cs.iastate.edu/~cs511/handout10/FPT_VC.pdf)
+
+### 3. To drop requirement (a) $\Rightarrow$ Approximation Algorithms
+
+Another approach for dealing with NP-hardness is dropping the requirement $ (a) $ that the algorithm has to find the optimal solution. This is called a heuristic.
+
+For the minimum vertex cover example, a reasonable heuristic seems to be the following:
+
+- Repeat until $ E $ is empty
+	- Pick a vertex $ v $ with highest degree,
+	- Add $ v $ to $ S $, and remove $ v $ and its incident edges from $ G $.
+	
+Unfortunately, the solution returned by this heuristic can be pretty bad – there exists a family of examples for which the minimum vertex cover has size $ k! $ and the vertex cover found by the heuristic has size $ k! \log k $.
+
+_**Definition 3.**_ For a minimization problem, an $ \alpha $-approximation algorithm is an algorithm that runs in polynomial time and is guaranteed to output a solution of cost at most $ \alpha $ times the value of the optimal solution.
+
+_**One popular approach to developing approximation algorithms is to use linear programming**_. We will see two exemplar algorithms: 
+
+- LP rounding
+	1. Solve LP
+	1. Then round to the ILP solution
+- Primal-dual
+
+#### 3.1 LP rounding
+
+We can formulate the MVC problem as an integer linear program _**(ILP)**_ as follows. We slightly generalize the problem, and allow each vertex to have a nonnegative weight $ w_v \geq 0 $ that is part of the input. The problem in Definition 1 is then just the special case when $ w_v = 1 $ for all $ v \in V $.
+
+For every vertex $ v \in V $ , we introduce a variable $ x_v \in \lbrace 0,1 \rbrace $. We think of $ x_v = 1 $ as representing that $ v \in S $. Then we want to minimize $ \sum_{v \in V} w_v x_v$, subject to the constraint that $ x_u + x_v \geq 1 $ for every $e = \lbrace u,v \rbrace \in E$. Let $OPT_{ILP}$ be the optimal value of this integer linear program (which is the same as the optimal value of the minimum vertex cover problem). 
+
+If we relax this integer program, we get the following _**LP**_:
+
+$$
+\begin{align}
+\text{min } & \sum_{v \in V} w_v x_v \newline
+\text{s.t. } & x_u + x_v \geq 1 & \text{ for each } e = \lbrace u,v \rbrace \in E \newline
+	& x_v \geq 0 & \text{ for } v \in V
+\tag{$P_{VC}$}
+\end{align}
+$$
+
+(Note that we don’t need to require that $ x_v \leq 1 $, because this will automatically be true for any optimal solution!)
+
+_**Theorem 2.**_ There exists a $2$-approximation algorithm for the minimum vertex cover problem. 
+
+_**Proof.**_ Let $ x^{\star} $ be an optimal solution to $P_{VC}$. Note that we can find $ x^{\star} $ in polynomial time. Also, now that $ \sum_{v \in V} w_v x_v^{\star} \leq OPT_{ILP} $, since the optimal integer solution gives a feasible solution to the _**LP**_ with objective value $OPT_{ILP}$. 
+
+注意：
+
+- $P_{VC}$ 是一个 LP 的问题
+- $ x^{\star} $ 是$P_{VC}$ 的 optimal solution，即是 LP 的 optimal solution
+- 但是 MVC 本身应该是一个 ILP 的问题
+- 我们的目的是从 LP 的 solution 出发，rounding 到一个 ILP 的 solution
+- 假设 MVC 的 ILP 的 optimal solution 是 $x'$，那么 $x'$ 一定是满足 $P_{VC}$ 的 LP 约束的，但不一定是 $P_{VC}$ 的最优解，所以 $ OPT_{ILP} = \sum_{v \in V} w_v {x_v}' \geq \sum_{v \in V} w_v x_v^{\star} = OPT_{LP} $
+
+Now, we just round up the variables $ x^{\star} $ that are greater than or equal to $\frac{1}{2}$. Let $x^{\dagger}$ be this rounded solution. Then $x_u^{\dagger} + x_v^{\dagger} \geq 1$ for every $\lbrace u,v \rbrace \in E$, since at least one of $ x_u^{\star} $ and $ x_v^{\star} $ must be at least $\frac{1}{2}$, so $x^{\dagger}$ is a feasible solution to vertex cover problem ($x^{\dagger}$ 确定会是一个 vertex cover，$x^{\star}$ 不一定是因为它不是整数 0 或者 1 的话就没有实际意义；但是，我们也无法保证 $x^{\dagger}$ 是 minimum 的). Also $\sum_{v \in V} w_v x_v^{\dagger} \leq 2 \sum_{v \in V} w_v x_v^{\star} \leq 2 OPT_{ILP}$. $\tag*{$\square$}$
+
+Although this LP rounding algorithm is nice and seems simple, in some sense it is not that simple: it needs us to solve the LP relaxation, and--although we can do this in polynomial time--it is not “easy”. However, our knowledge of linear programming can also help us develop a very simple and fast algorithm.
+
+#### 3.2 Primal-dual algorithm
+
+待续
+
+-----
+
+## Class
+
+- 03/29/2016
+	- Intro
+	- Approx Alg
+		- Example Problem: TSP / Metrix TSP
+- 03/31/2016
+	- Approx Alg
+		- Continue with TSP / Metrix TSP
+		- Shrink $\alpha < 2$
+- 04/05/2016
+	- PSS A
+- 04/07/2016
+	- Technique for Approx Alg (1): Linear Programming (LP)
+		- Example Problem: Set Cover
+		- Integer Linear Programming + Randomized Rounding
+- 04/12/2016
+	- Technique for Approx Alg (1): Linear Programming (LP)
+		- Example Problem: Set Cover
+		- Duality in Linear Programming / Dual Fitting
+- 04/14/2016
+	- Technique for Approx Alg (2): Semi-definite Programming (SDP)
+		- Example Problem: Max Cut
+		- Ellipsoid Method
+- 04/19/2016
+	- Technique for Approx Alg (2): Semi-definite Programming (SDP)
+		- Continue with Max Cut
+- 04/21/2016
+	- Parameterized Complexity
+		- Example Problem: Vertex Cover
+		- Bounded Search Tree Method
+		- Chorded Completion
+- 04/26/2016
+	- PSS B
+- 04/28/2016
+	- PSS B
+- 05/03/2016
+	- Fixed Parameter Tractability (FPT)
+		- Example Problem: Vertex Cover
+		- Kernelization Method
+		- Crown Method
+		
+-----
+
+## DAA - Chapter 5 - Random sampling and randomized  rounding of linear programs
+
+... Thus randomization gains us simplicity in our algorithm design and analysis, while derandomization ensures that the performance guarantee can be obtained deterministically.
+
+### 5.1 Simple algorithms for MAX SAT and MAX CUT
+
+In this section we will give a simple randomized $\frac{1}{2}$-approximation algorithm for each problem.
+
+- MAX SAT
+	- $n$ variables $x_1, \dots, x_n$
+	- $m$ clauses $C_1, \dots, C_m$
+		- In the form of $(x_p \vee \dots \vee x_q) \wedge (\dots)$
+		- Every $x_i$ or $\overline{x_i}$ is a _**literal**_
+			- $x_i$ is a positive literal
+			- $\overline{x_i}$ is a negative literal
+		- The number of literals in a clause is called its size or length.
+			- The length of $C_j$ is $l_j$
+		- Clauses of length 1 are sometimes called unit clauses
+		- We assume that no literal is repeated in a clause and clauses are distinct
+	- Nonnegative weight $w_j$ for each $C_j$
+	- Objective: to find an assignment of TRUE/FALSE to the $x_i$s that maximizes the total weight of the satisfied clauses
+		- A clause is satisfied if one of its $x_i$ is TRUE or $\overline{x_i}$ is FALSE
+		
+_**Theorem 5.1:**_ Setting each $ x_i $ to TRUE with probability $\frac{1}{2}$ independently gives a randomized $\frac{1}{2}$-approximation algorithm for the MAX CUT problem.
+
+_**Proof.**_ Define a new random variable $ Y_j $ such that  
+
+$$
+\begin{align}
+	Y_j = \left \lbrace
+		\begin{matrix}
+			& 1, & \text{if } C_j \text{ is satisfied} \newline
+			& 0, & \text{otherwise}
+		\end{matrix} 
+	\right.
+\end{align}
+$$
+
+Total weights of the satisfied clauses $ W = \sum_{j=1}^m w_j Y_j $. 
+
+Then, by linearity of expectation and the definition of the expectation of a 0-1 random variable, 
+
+$$
+	E[W] = \sum_{j=1}^{m} w_j E[Y_i] = \sum_{j=1}^{m} w_j \operatorname{Pr}[C_j \text{ is satisfied}] 
+$$
+
+Because $l_j \geq 1$, 
+
+$$
+	\operatorname{Pr}[C_j \text{ is satisfied}] = 1 - \left ( \frac{1}{2} \right )^{l_j} \geq \frac{1}{2}
+$$
+
+Hence, 
+
+$$
+	E[W] = \sum_{j=1}^{m} w_j \cdot \frac{1}{2} = \frac{1}{2} \sum_{j=1}^{m} w_j \geq \frac{1}{2} OPT
+$$
+
+$\tag*{$\square$}$
+
+Observe that if $ l_j \geq k $ for each clause $ C_j $, then the analysis above shows that the algorithm is a $\big ( 1 - \left ( \frac{1}{2} \right )^k \big )$-approximation algorithm for such instances.
+
+- MAX CUT
+	- Undirected graph $G=(V,E)$
+	- Nonnegative weight $w_{ij}$ for each edge $(i,j) \in E$
+	- Cut $V$ into two partitions, $U$ and $W$
+		- An edge across $U$ and $W$ is said to be "in the cut"
+	- Objective: to find a cut to maximize the total weight of edges in the cut
+	
+_**Theorem 5.3:**_ If we place each vertex $v$ into $U$ independently with probability $\frac{1}{2}$, then we obtain a randomized $\frac{1}{2}$-approximation algorithm for the MAX CUT problem.
+
+_**Proof.**_ Define a new random variable $ X_{ij} $ such that 
+
+$$
+\begin{align}
+	X_{ij} = \left \lbrace
+		\begin{matrix}
+			& 1, & \text{if edge } C_j (i,j) \text{ is in the cut} \newline
+			& 0, & \text{otherwise}
+		\end{matrix} 
+	\right.
+\end{align}
+$$
+
+Total weights of the edges in the cut $ Z = \sum_{(i,j) \in E} w_{ij} X_{ij} $. 
+
+Then, by linearity of expectation and the definition of the expectation of a 0-1 random variable, 
+
+$$
+	E[Z] = \sum_{(i,j) \in E} w_{ij} E[X_{ij}] = \sum_{(i,j) \in E} w_{ij} \operatorname{Pr}[\text{edge } (i,j) \text{ is in the cut}] 
+$$
+
+In this case, the probability that a specific edge $(i,j)$ is in the cut is easy to calculate: since the two endpoints are placed in the sets independently, they are in different sets with probability equal to $\frac{1}{2}$. Hence,
+
+$$
+	E[Z] = \sum_{(i,j) \in E} w_{ij} \cdot \frac{1}{2} = \frac{1}{2} \sum_{(i,j) \in E} w_{ij} \geq \frac{1}{2} OPT
+$$
+
+$\tag*{$\square$}$
+
+### 5.2 Derandomization
+
+To derandomize a randomized algorithm means to obtain a deterministic algorithm whose solution value is as good as the expected value of the randomized algorithm.
+
+Assume for the moment that we will make the choice of $x_1$ deterministically, and all other variables will be set true with probability $\frac{1}{2}$ as before.
+
+略
+
+It is sometimes called the method of conditional expectations, due to its use of conditional expectations.
+
+略
+
+### 5.3 Flipping biased coins
+
+We will show here that biasing the probability with which we set $x_i$ is actually helpful; that is, we will set $x_i$ true with some probability not equal to $\frac{1}{2}$. To do this, it is easiest to start by considering only MAX SAT instances with no unit clauses $\overline{x_i}$, that is, no negated unit clauses. We will later show that we can remove this assumption.
+
+_**Lemma 5.4:**_ If each $x_i$ is set to true with probability $ p > \frac{1}{2} $ independently, then the probability that any given clause is satisfied is at least $ \min(p, 1−p^2) $ for MAX SAT instances with no negated unit clauses.
+
+证明略
+
+We can obtain the best performance guarantee by setting $ p = 1 − p^2 $. This yields $ p = \frac{1}{2} (\sqrt{5} − 1) \approx .618 $
+
+略
+
+### 5.4 Randomized rounding
+
+The algorithm of the previous section shows that biasing the probability with which we set $x_i$ true yields an improved approximation algorithm. However, we gave each variable the same bias. In this section, we show that we can do still better by giving each variable its own bias. We do this by returning to the idea of randomized rounding.
+
+we will create an integer program with a 0-1 variable $ y_i $ for each boolean variable $x_i$ such that $ y_i = 1 $ corresponds to $ x_i $ set true.
+
+The integer program is relaxed to a linear program by replacing the constraints $ y_i \in \lbrace 0, 1 \rbrace $ with $ 0 \leq y_i \leq 1 $, and the linear programming relaxation is solved in polynomial time.
+
+The central idea of randomized rounding is that the fractional value $ y_i^{\ast} $ is interpreted as the probability that $ y_i $ should be set to 1. In this case, we set each $ x_i $ to true with probability $ y_i^{\ast} $ independently.
+
+We introduce a variable $ z_j $ for each clause $ C_j $ such that
+
+$$
+\begin{align}
+	z_j = \left \lbrace
+		\begin{matrix}
+			& 1, & \text{if } C_j \text{ is satisfied} \newline
+			& 0, & \text{otherwise}
+		\end{matrix} 
+	\right.
+\end{align}
+$$
+
+For each clause $C_j$ let $P_j$ be the indices of the variables $x_i$ that occur positively in the clause, and let $N_j$ be the indices of the variables $x_i$ that are negated in the clause. We denote the clause $C_j$ by
+
+$$
+\bigvee_{i \in P_j} x_i \vee \bigvee_{i \in N_j} \overline{x_i}
+$$
+
+换句话说就是这样的：
+
+- If $i \in P_j$, then positive literal $x_i$ is in $C_j$
+- If $i \in N_j$, then negative literal $\overline{x_i}$ is in $C_j$
+
+Then the inequality $\sum_{i \in P_j} y_i + \sum_{i \in N_j} (1-y_i) \geq z_j$ must hold for clause $C_j$.
+
+- $\sum_{i \in P_j} y_i$ 即 $C_j$ 中 positive literal $x_i$ 取 TRUE 的个数
+- $\sum_{i \in N_j} (1-y_i)$ 即 $C_j$ 中 negative literal $\overline{x_i}$ 取 FALSE 的个数
+
+This inequality yields the following integer programming formulation of the MAX SAT problem:
+
+$$
+\begin{align}
+\text{max } & \sum_{j=1}^m w_j z_j \newline
+\text{s.t. } & \sum_{i \in P_j} y_i + \sum_{i \in N_j} (1-y_i) \geq z_j, & \forall C_j = \bigvee_{i \in P_j} x_i \vee \bigvee_{i \in N_j} \overline{x_i} \newline
+	& y_i \in \lbrace 0, 1 \rbrace, & i = 1,\dots,n, \newline
+	& z_j \in \lbrace 0, 1 \rbrace, & j = 1,\dots,m.
+\end{align}
+$$
+
+If $ Z_{IP}^{\ast} $ is the optimal value of this integer program, then it is not hard to see that $ Z_{IP}^{\ast} = OPT $.
+
+The corresponding linear programming relaxation of this integer program is
+
+$$
+\begin{align}
+\text{max } & \sum_{j=1}^m w_j z_j \newline
+\text{s.t. } & \sum_{i \in P_j} y_i + \sum_{i \in N_j} (1-y_i) \geq z_j, & \forall C_j = \bigvee_{i \in P_j} x_i \vee \bigvee_{i \in N_j} \overline{x_i} \newline
+	& 0 \leq y_i \leq 1, & i = 1,\dots,n, \newline
+	& 0 \leq z_j \leq 1, & j = 1,\dots,m.
+\end{align}
+$$
+
+If $ Z_{LP}^{\ast} $ is the optimal value of this integer program, then clarly $ Z_{LP}^{\ast} \geq Z_{IP}^{\ast} = OPT $.
+
+待续
+
+### 5.5 Choosing the better of two solutions
+
+待续
+
+### 5.6 Non-linear randomized rounding
+
+In the case of the MAX SAT problem, we set $x_i$ to true with probability $ y_i^{\ast} $ . There is no reason, however, that we cannot use some function $ f:[0,1] \rightarrow [0,1] $ to set $x_i$ to true with probability $ f(y_i^{\ast}) $. Sometimes this yields approximation algorithms with better performance guarantees than using the identity function, as we will see in this section.
