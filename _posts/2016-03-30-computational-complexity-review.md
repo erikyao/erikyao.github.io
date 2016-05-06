@@ -368,6 +368,8 @@ Designing the UTM:
 	- Thus, our assumption that there was an algorithm for $L_u$ is wrong.
 	- $L_u$ is RE, but not recursive.
 	
+$\tag*{$\square$}$
+	
 这个证明需要好好解读与总结：
 
 - 什么是 language? 
@@ -570,7 +572,7 @@ But here we are not interested in finding _**fast**_ algorithms, or indeed in fi
 
 ## Turing Machines @ class
 
-### Languages and UTM
+### Languages and UTM (Lecture 1 & 2)
 
 Language:
 
@@ -583,6 +585,10 @@ Language:
 - Language $S$ is _**Turing-decidable**_ (“recursive”) if $\exists$ TM $M$, such that $\forall x$
 	- $x \in S  \Rightarrow M $ accepts $x$
 	- $x \not\in S  \Rightarrow M $ rejects $x$
+- An _**algorithm**_ formally is a TM which 
+	1. halts on any input regardless of whether that input is accepted or not, and
+	1. accepts (a language) by final state 
+- In other words, language $S$ is _**Turing-decidable**_ (“recursive”) if $\exists$ an algorithm for $S$.
 - If $M$ is a TM, define $L(M) = \lbrace x \vert M \text{ accepts } x \rbrace$
 
 Programming conventions:
@@ -605,8 +611,10 @@ Universal Machines:
 	- $\langle M \rangle$: encoding of a TM $M$
 	- $\langle M,x \rangle$: encoding of a TM $M$ and a string $x$
 - $ L_{acc} = \lbrace \langle M,x \rangle \vert M \text{ is a TM that accepts } x \rbrace $ is Turing-recognizable (RE)
-	- $\exists \text{TM } U \text{ that accepts } \langle M,x \rangle \Leftrightarrow \langle M,x \rangle \in L_{acc}$
-- The single TM that recognize $L_{acc}$ can simulate any TM $M$! Thus call it a "universal TM"
+	- Suppose there such a TM $U$ that accept $\langle M,x \rangle$, i.e. $U(\langle M,x \rangle) = \text{yes}$.
+	- $U \text{ accepts } \langle M,x \rangle \iff \langle M,x \rangle \in L_{acc}$.
+	- In other words, $U$ recognizes $L_{acc}$, i.e. $L(U) = L_{acc}$
+- TM $U$ can recognizes $L_{acc}$, which means it can simulate any TM $M$! Thus call it a "universal TM"
 
 Design of Universal TM:
 
@@ -620,7 +628,7 @@ Design of Universal TM:
 	– “Simulate execution of $ M $ on input $ x $ for $ t $ steps” also possible (always halts)
 	- Can simulate $ t $ steps of a TM in $ O(t \log t) $ steps
 	
-### Diagonalization and Reduction
+### Diagonalization and Reduction (Lecture 2 & 3)
 	
 Diagonalization:
 
@@ -628,7 +636,7 @@ Diagonalization:
 	- Likewise, $ L_{halt} = \lbrace \langle M,x \rangle \vert M \text{ is a TM that halts } x \rbrace $ 
 - 这里的 $L_{acc}$ 即前面 Jeff Ullman 的 $L_u$
 
-Reductions:
+(Turing) Reductions:
 
 - Motivation:
 	- Let's not use diagonalization technique every time to prove something undecidable!
@@ -655,7 +663,7 @@ Reductions:
 		- Ground Truth: $L_2$ is decidable
 		- Goal: To prove $L_1$ is also decidable
 		- Method: Construct an algorithm $M_1$ for $L_1$ which satisfies $L_1 \leq_T L_2$
-			- $L_2$ is decidable so there must exist an $M_2$ for $L_2$
+			- $L_2$ is decidable so there must exist an algorithm $M_2$ for $L_2$
 			- Call $M_2$ inside $M_1$
 			- In this way we prove that $L_1 \leq_T L_2$ holds.
 	- CASE 2: contrapositive 
@@ -729,11 +737,43 @@ M_acc(&lt;M_i,x_j&gt;) {
 }
 </pre>
 
-### Rice's Theorem
+### Rice's Theorem (Lecture 4)
 
-Rice's Theorem: 待补充。$L_{acc} \leq_T L_P$ 的证明很精彩
+_**Rice's Theorem.**_ $\lbrace \langle M \rangle \vert L(M) \text{ has property } P \rbrace$ is undecidable if $P$ is non-trivial.
 
-### Kolmogorov Complexity (or, “optimal compression is hard!”) @ [Algorithmic Information Theory and Kolmogorov Complexity](http://www.lirmm.fr/~ashen/uppsala-notes.pdf)
+- Non-trivial means:
+	- $\exists$ $M_Y$ that $L(M_Y)$ has property $P$;
+	- also $\exists$ $M_N$ that $L(M_N)$ does not has property $P$.
+	- I.e. "是否有 property $P$" 这个问题并不是永真或者永假
+	
+In other words, given encoding of $M$:
+
+- Can't decide whether $L(M)$ is empty
+- Can't decide whether some special $x \in L(M)$
+- Can't decide whether $L(M)$ is finite
+- etc.
+
+Define $L_P = \lbrace \langle M \rangle \vert L(M) \text{ has property } P \rbrace$.
+
+_**Claim.**_ $L_{acc} \leq_T L_P$.
+
+_**Proof.**_  
+
+- By "non-trivial":
+	- Suppose $\emptyset$ does not have property $P$.
+	- $\exists$ $M_Y$ that $L(M_Y)$ has property $P$.
+- For every single pair of input $\langle M_i,x_j \rangle$, construct an TM $M_{ij}^{\star}(z)$, such that on input $z$ 
+	- If $M_i(x_j) = \text{yes}$
+		- return $M_Y(z)$
+	- else return No
+- If $M_{ij}^{\star} \in L_P$, $M_{acc}(\langle M_i,x_j \rangle)$ return Yes; else No
+- 逻辑是：
+	- If $M_i$ accepts $x_j$, $M_{ij}^{\star}$ 等价于 $M_Y$，此时 $M_{ij}^{\star}$ 应该具有 property $P$.
+	- If $M_i$ rejects $x_j$, $M_{ij}^{\star}$ 等价于 $\emptyset$，此时 $M_{ij}^{\star}$ 应该不具有 property $P$
+
+$\tag*{$\square$}$
+
+### Kolmogorov Complexity (or, “optimal compression is hard!”) (Lecture 5 & 6) @ [Algorithmic Information Theory and Kolmogorov Complexity](http://www.lirmm.fr/~ashen/uppsala-notes.pdf)
 
 Problem: 
 
@@ -750,11 +790,11 @@ Optimal decompression algorithm:
 - For the trivial decompression algorithm $U(y) = y$ we have $K_U(x) = \vert x \vert$. 
 - One can try to find better decompression algorithms, where “better” means “giving smaller complexities”
 
-_**Definition 1**_ An algorithm $ U $ is _**asymptotically not worse**_ than an algorithm $ V $ if $ K_U(x) \leq K_V(x)+C $ for some constant $ C $ and for all $ x $.
+_**Definition 1.**_ An algorithm $ U $ is _**asymptotically not worse**_ than an algorithm $ V $ if $ K_U(x) \leq K_V(x)+C $ for some constant $ C $ and for all $ x $.
 
-_**Theorem 1**_ There exists an decompression algorithm $ U $ which is asymptotically not worse than any other algorithm $ V $.
+_**Theorem 1.**_ There exists an decompression algorithm $ U $ which is asymptotically not worse than any other algorithm $ V $.
 
-Such an algorithm is called _**asymptotically optimal**_ one. 
+Such an algorithm is described as _**asymptotically optimal**_. 
 
 - The complexity $ K_U $ with respect to an asymptotically optimal $ U $ is called _**Kolmogorov complexity**_.
 - Assume that some asymptotically optimal decompression algorithm $U$ is fixed, the Kolmogorov complexity of a string $ x $ is denoted by $ K(x) $ ($=K_U(x)$).
@@ -789,7 +829,114 @@ Axioms of complexity:
 
 - 不懂
 
-### Time/space complexity classes: P & NP @ class
+### Kolmogorov Complexity (or, “optimal compression is hard!”) (Lecture 5 & 6) @ [Wikipedia](https://en.wikipedia.org/wiki/Kolmogorov_complexity)
+
+#### Definition
+
+If $ P $ is a program which outputs a string $ x $, then $ P $ is a _**description**_ of $ x $. The length of the description is just the length of $ P $ as a character string, multiplied by the number of bits in a character (e.g. 7 for ASCII).
+
+We could, alternatively, choose an encoding for Turing machines $\langle M \rangle$. If $ M $ is a Turing Machine which, on input $ w $, outputs string $ x $, then the concatenated string $\langle M \rangle w$ is a description of $ x $.
+
+Any string $ s $ has at least one description, namely the program:
+
+<pre class="prettyprint linenums">
+function GenerateFixedString()
+    return s
+</pre>
+
+If a description of $ s $, $ d(s) $, is of minimal length (i.e. it uses the fewest bits), it is called a minimal description of $ s $. Thus, the length of $ d(s) $ (i.e. the number of bits in the description) is the Kolmogorov complexity of $ s $, written $ K(s) $. Symbolically, $ K(s) = \vert d(s) \vert $.
+
+#### Invariance theorem
+
+##### Informal treatment
+
+_**Theorem.**_ Given any description language $ L $, the optimal description language is at least as efficient as $ L $, with some constant overhead.
+
+_**Proof:**_ Any description $ D $ in $ L $ can be converted into a description in the optimal language by first describing $ L $ as a computer program $ P $ (part 1), and then using the original description $ D $ as input to that program (part 2). The total length of this new description $ D' $ is (approximately): $ \vert D' \vert = \vert P \vert + \vert D \vert $.
+
+The length of $ P $ is a constant that doesn't depend on $ D $. So, there is at most a constant overhead, regardless of the object described. Therefore, the optimal language is universal up to this additive constant.
+
+$\tag*{$\square$}$
+
+##### A more formal treatment
+
+_**Theorem.**_ If $ K_1 $ and $ K_2 $ are the complexity functions relative to Turing complete description languages $ L_1 $ and $ L_2 $, then there is a constant $ c $ – which depends only on the languages $ L_1 $ and $ L_2 $ chosen – such that
+
+$$
+	\forall s, -c \leq K_1(s) - K_2(s) \leq c.
+$$
+
+Proof: By symmetry, it suffices to prove that there is some constant $ c $ such that for all strings $ s $, $ K_1(s) \leq K_2(s) + c $.
+
+Now, suppose there is a program in the language $ L_1 $ which acts as an interpreter for $ L_2 $:
+
+<pre class="prettyprint linenums">
+function InterpretL2(string p)
+    return p()
+</pre>
+
+Running `InterpretL2` on input `p` returns the result of running `p`.
+
+Thus, if $ P $ is a program in $ L_2 $ which is a minimal description of $ s $, then `InterpretL2(P)` returns the string $ s $. The length of this description of $ s $ is the sum of
+
+- The length of the program `InterpretL2`, which we can take to be the constant $ c $.
+- The length of $ P $ which by definition $ =K_2(s) $.
+
+This proves the desired upper bound.
+
+$\tag*{$\square$}$
+
+#### Basic results
+
+In the following discussion, let $ K(s) $ be the complexity of the string $ s $.
+
+_**Theorem.**_ There is a constant $ c $ such that $ \forall s, K(s) \leq \vert s \vert + c $.
+
+_**Theorem.**_ There exist strings of arbitrarily large Kolmogorov complexity. Formally: for each $ n \in \mathbb{N} $, there is a string $ s $ with $ K(s) \geq n $.
+
+_**Proof:**_ Otherwise all of the infinitely many possible finite strings could be generated by the finitely many programs with a complexity below $ n $ bits.
+
+$\tag*{$\square$}$
+
+_**Theorem.**_ $ K $ is not a computable function. In other words, there is no program which takes a string $ s $ as input and produces the integer $ K(s) $ as output.
+
+_**Chain rule for Kolmogorov complexity:**_ 
+
+$$
+	K(X,Y) = K(X) + K(Y \vert X) + O(\log(K(X,Y)))
+$$
+
+It states that the shortest program that reproduces $ X $ and $ Y $ is no more than a logarithmic term larger than a program to reproduce $ X $ and a program to reproduce $ Y $ given $ X. $ Using this statement, one can define an analogue of _**mutual information**_ for Kolmogorov complexity.
+
+#### Compression
+
+A string $ s $ is _**compressible**_ by a number $ c $ if it has a description whose length does not exceed $ \vert s \vert −c $ bits. This is equivalent to saying that $ K(s) \leq \vert s \vert −c $. Otherwise, $ s $ is _**incompressible**_ by $ c $. 
+
+A string incompressible by 1 is said to be _**simply incompressible**_--–by the pigeonhole principle, which applies _**because every compressed string maps to only one uncompressed string**_, incompressible strings must exist, since there are $ 2^n $ bit strings of length n, but only $ 2^n - 1 $ shorter strings.
+
+There are $ 2^n $ bitstrings of length $ n $. The number of descriptions of length not exceeding $ n-c $ is given by the geometric series:
+
+$$
+1 + 2 + 2^2 + ... + 2^{n-c} = 2^{n-c+1} - 1
+$$
+
+There remain at least $ 2^n - 2^{n-c+1} + 1 $ bitstrings of length $ n $ that are incompressible by $ c $. To determine the probability, divide by $ 2^n $.
+
+#### Chaitin's incompleteness theorem
+
+We know that, in the set of all possible strings, most strings are complex in the sense that they cannot be described in any significantly "compressed" way. However, it turns out that the fact that a specific string is complex cannot be formally proven, if the complexity of the string is above a certain threshold.
+
+_**Theorem.**_ There exists a constant $ L $ (which only depends on the particular axiomatic system and the choice of description language) such that there does not exist a string $ s $ for which the statement
+
+$$
+	K(s) \geq L \text{(as formalized in } S \text{)}
+$$
+
+can be proven within the axiomatic system $ S $.
+
+Proof by contradiction using Berry's paradox. 略
+
+### Time/space complexity classes: P & NP @ class (Lecture 7)
 
 Resource bounds:
 
@@ -798,39 +945,43 @@ Resource bounds:
 
 Basic Complexity Class:
 
-- $ DTIME(f(n)) = \lbrace L \vert L \text{ decided by a (deterministic) TM with running time } O(f(n)) \rbrace $
-	- D for "deterministic"
+- $\text{DTIME}(f(n)) = \lbrace L \vert L \text{ decided by a (deterministic) TM with running time } O(f(n)) \rbrace $
+	- $\text{D}$ for "deterministic"
 	- Formally, $ L \in TIME(f(n)) $ if there is a TM $M$ and a constant $c$ such that 
 		1. $M$ decides $L$, and 
 		1. $M$ runs in time $c \cdot f$; 
 			- i.e., for all $x$ (of length at least 1), $M(x)$ halts in at most $c \cdot f(\lvert x \rvert) $ steps.
-	- E.g. $ DTIME(n^2) = \text{set of all problems that can be solved in quadratic time}$
-- $ DSPACE(f(n)) = \lbrace L \vert L \text{ decided by a TM that uses spaces } O(f(n)) \rbrace $
+	- E.g. $\text{DTIME}(n^2) = \text{set of all problems that can be solved in quadratic time}$
+- $\text{DSPACE}(f(n)) = \lbrace L \vert L \text{ decided by a TM that uses spaces } O(f(n)) \rbrace $
 - Language / decision problem = set of strings (yes-instances)
 - Complexity class = set of languages
 
 Standard Complexity Classes:
 
-- $P = \text{set of problems that can be solved (by a deterministical TM) in poly time} = \bigcup_{k=1,2,\dots} DTIME(n^k)$ 
-	- 如果把 $P$ 看做 property 的话，$P$ 可以简单描述为 "deterministic poly time"
+- $\text{P} = \text{set of problems that can be solved (by a deterministical TM) in poly time} $ 
+	- $\text{P} = \bigcup_{k=1,2,\dots} \text{DTIME}(n^k)$ 
+		- 如果把 $P$ 看做 property 的话，$P$ 可以简单描述为 "deterministic poly time"
 		- "deterministic" = "deterministically solvable in time" = "solvable in time by a deterministical TM"
-- $PSPACE = \text{set of problems that can be solved using poly space} = \bigcup_{k=1,2,\dots} DSPACE(n^k)$ 
-- $EXP = \text{set of problems that can be solved by in exponential time} = \bigcup_{k=1,2,\dots} DTIME(2^{n^k})$ 
-- $L = \text{set of problems that can be solved using log space} = DSPACE(\log n)$ 
+- $\text{PSPACE} = \text{set of problems that can be solved using poly space} $ 
+	$\text{PSPACE} = \bigcup_{k=1,2,\dots} \text{DSPACE}(n^k)$ 
+- $\text{EXP} = \text{set of problems that can be solved by in exponential time} $ 
+	- $\text{EXP} = \bigcup_{k=1,2,\dots} \text{DTIME}(2^{n^k})$ 
+- $\text{L} = \text{set of problems that can be solved using log space}$ 
+	- $\text{L} = \text{DSPACE}(\log n)$ 
 
 Translating from “Complexity Theory Speak”:
 
-- Is $X \in PSPACE$?
+- Is $X \in \text{PSPACE}$?
 	- Can problem $ X $ be solved using polynomial space?
-- Is $PSPACE \subseteq P$?
+- Is $\text{PSPACE} \subseteq P$?
 	- Can every problem solvable in polynomial space also be solved in polynomial time?
-- This is true: $P \subseteq PSPACE$
+- This is true: $P \subseteq \text{PSPACE}$
 
 Relationships between Complexity Classes:
 
-- $\forall f(n), DTIME(f(n)) \subseteq DSPACE(f(n))$
+- $\forall f(n), \text{DTIME}(f(n)) \subseteq \text{DSPACE}(f(n))$
 	- This follows from the observation that a TM cannot write on more than a constant number of cells per move.
-- If $f(n) = O(g(n))$, then $DTIME(f(n)) subseteq DTIME(g(n))$
+- If $f(n) = O(g(n))$, then $\text{DTIME}(f(n)) \subseteq \text{DTIME}(g(n))$
 
 Complementation @ [Complement Classes and the Polynomial Time Hierarchy](http://cs.brown.edu/courses/cs159/lect.06.Hierarchy.pdf):
 
@@ -859,11 +1010,11 @@ Complementation @ [Complement Classes and the Polynomial Time Hierarchy](http://
 	- We say such class $\mathcal{C}$ are "closed under complementation".
 - _**Theorem 3.**_ If $\mathcal{C}$ is a deterministic time or space complexity class, then $\mathcal{C} = co\mathcal{C}$.
 	- E.g. 
-		- $coTIME(f(n)) = TIME(f(n))$
+		- $co\text{TIME}(f(n)) = TIME(f(n))$
 		- $coP = P$
 			-  翻译一下：如果 $\mathcal{L}$ can be solved by in poly time $\Rightarrow$ $co\mathcal{L}$ can also be solved by in poly time
 			- vise versa
-		- $coPSPACE = PSPACE$
+		- $co\text{PSPACE} = \text{PSPACE}$
 	- Why? For any class $\mathcal{C}$ defined by a deterministic TM $M$, just switch accpet/reject behavior and you get a TM $coM$ that decide $co\mathcal{C}$
 		- i.e. $ M(\mathcal{L}) = \text{yes} \hspace{1em} \Rightarrow \hspace{1em} coM(co\mathcal{L}) = \text{yes}$, in the same bound of time or space.
 
@@ -881,24 +1032,106 @@ $NP$:
 	- 简单理解就是，我们没有办法直接确定是否有 $x \in L$ (nondeterministic)，只能通过 $(x,w)$ 是否满足 $L$ 的条件来判断这个 $x$ 是否有 $\in L$
 - 举例待补充
 	
-$coNP$
+$co\text{NP}$
 	
-- _**Definition.**_ $coNP = \text{set of decision problems } L $, where
+- _**Definition.**_ $co\text{NP} = \text{set of decision problems } L $, where
 	- $L = \lbrace x \vert \not\exists w : M(x,w) = 1 \rbrace$
 	- 等价于 $L = \lbrace x \vert \forall w : M(x,w) = 0 \rbrace$
 	- 等价于 $L = \lbrace x \vert \forall w : M(x,w) = 1 \rbrace$
 	- $M$ halts in polynomial time, as a function of $ \lvert x \rvert $ alone.
 - 举例待补充	
 
-$P$ vs $NP$ vs $coNP$
+$P$ vs $NP$ vs $co\text{NP}$
 
-- _**Theorem 1.**_ $ P \subseteq NP $
-- _**Theorem 2.**_ $ P \subseteq coNP $
-- 证明待补充
+_**Theorem 1.**_ $ P \subseteq NP $
 
-Closure Properties of $NP$, $coNP$
+_**Proof:**_ Take any $L \in P$, then $\exists$ a PTM $M$ such that $L = \lbrace x \vert M(x) = 1 \rbrace$.
 
-- 待补充
+Define $M'(x,w) = \lbrace \text{ignore } w; \text{return } M(x) \rbrace$. Therefore $L=\lbrace x \vert \exists w : M,(x,w) = 1 \rbrace \in NP$
+
+$\tag*{$\square$}$
+
+_**Theorem 2.**_ $ P \subseteq co\text{NP} $
+
+_**Proof:**_ Ditto. $\tag*{$\square$}$
+
+Closure Properties of $NP$, $co\text{NP}$
+
+- If $A, B \in \text{NP}$, then
+	- $A \cap B \in \text{NP}$
+	- $A \cup B \in \text{NP}$
+- If $A, B \in co\text{NP}$, then
+	- $A \cap B \in co\text{NP}$
+	- $A \cup B \in co\text{NP}$
+	
+### Karp reductions, NP hardness/completeness (Lecture 8)
+
+_**Karp Reduction:**_ Define $A \leq_P B$ ("$A$ Karp-reduces to $B$") to mean:
+
+$$
+	\exists \text{ poly time function } f:
+	\quad \forall x : x \in A \iff f(x) \in B
+$$
+
+$\leq_P$ is transive: $A \leq_P B \leq_P C \Rightarrow A \leq_P C$.
+
+$L$ is $\text{NP}$-hard if $\forall A \in \text{NP} : A \leq_P L$, which means:
+
+- $L$ is at least as hard as EVERY problem in $\text{NP}$
+- If you could solve $L$ in poly-time then $\text{P} = \text{NP}$
+
+$L$ is $\text{NP}$-compelte if: 
+
+- $L$ is $\text{NP}$-hard
+- $L \in \text{NP}$
+
+which means: 
+
+- $L$ is (one of) the hardest problem in $\text{NP}$
+- It's impossible to prove $\text{P} = \text{NP}$ by solving $L$ in poly-time, because $L \in \text{NP}$
+
+_**Theorem.**_ If $A \leq_P B$ and $A$ is $\text{NP}$-hard, then $B$ is $\text{NP}$-hard.
+
+_**Proof:**_ $\forall L \in \text{NP} : L \leq_P A \leq_P B \Rightarrow L \leq_P B$
+
+$\tag*{$\square$}$
+
+- If $A \leq_P B$ and $B \in \text{P}$ $\Rightarrow A \in \text{P}$
+- If $A \leq_P B$ and $B \in \text{NP}$ $\Rightarrow A \in \text{NP}$
+- Suppose $A$ is $\text{NP}$-compelte; then $A \in P \iff \text{P} = \text{NP}$
+
+“Canonical” NP-complete Problem $X=\lbrace \langle M,x,T \rangle \vert \exists w : M \text{ accepts } (x,w) \text{ in } \vert T \vert \text{ steps} \rbrace$.
+
+_**Claim.**_ $X \in \text{NP}$
+
+_**Proof:**_ Can be checked in poly time as a function of length of $M,x,T$ (by universal TM)
+
+$\tag*{$\square$}$
+
+_**Claim.**_ $\forall A \in \text{NP}, A \leq_P X$
+
+_**Proof:**_ $A \in \text{NP}$, so $A = \lbrace x \vert \exists w : M_A(x,w) = 1 \rbrace$ where the running time of $M_A$ is $p(\vert x \vert)$.
+
+Define $1^{p(\vert x \vert)}$ a string of $p(\vert x \vert)$ ones. Consider $f(x)=\langle M_A,x,1^{p(\vert x \vert)}\rangle$.
+
+$\forall x \in A : f(x) \in X$. Therefore $A \leq_P X$
+
+$\tag*{$\square$}$
+
+### Cook-Levin Theorem & Natural NP-complete problems (Lecture 9 & 10)
+
+_**Cook-Levin Theorem.**_ $ SAT = \lbrace \\varphi \vert \varphi \text{ is a satisfiable boolean formula} \rbrace $ is NP-complete
+
+How to $SAT \leq_P 3SAT$:
+
+- For a long clause in $SAT$, say $x_1 \vee x_3 \vee \overline{x_4} \vee x_2 \vee x_5$,
+- Introduce $s$ and break it into $(x_1 \vee x_3 \vee s) \wedge (\overline{s} \vee \overline{x_4} \vee x_2 \vee x_5)$.
+	- If $s$ is TRUE, then $\overline{x_4} \vee x_2 \vee x_5$ must be TRUE
+	- If $s$ is FALSE, then $x_1 \vee x_3$ must be TRUE
+	- which means, one of $x_1 \vee x_3$ and $\overline{x_4} \vee x_2 \vee x_5$ must be true
+- Further break into: $(x_1 \vee x_3 \vee s) \wedge (\overline{s} \vee \overline{x_4} \vee t) \wedge (\overline{t} \vee x_2 \vee x_5) $
+
+### NP in terms of nondeterministic computation (Lecture 11)
 				
 -----
 
