@@ -3,34 +3,32 @@
 permalink: /:categories/:year/:month/:day/:title 
 
 exclude: [".rvmrc", ".rbenv-version", "README.md", "Rakefile", "changelog.md", "*.bak"]
-# pygments: true
-
-# markdown: rdiscount
 
 markdown: kramdown
-mathjax: true
-
+highlighter: rouge
 kramdown:
-  # GFM for Github Flavored Markdown
   input: GFM
-  # input: Markdown 
   syntax_highlighter: rouge
-
-# paginate: 11
-# paginate_path: "posts/page:num"
 
 # Themes are encouraged to use these universal variables 
 # so be sure to set them if your theme uses them.
 #
-title : Erik Yao's
+author: Erik Yao
+title: Erik Yao's blog
+header-img: img/home-bg.jpg
+
+# This will be used as your sites meta description as well
+description: "Suzy Wu's blog"
+
+baseurl: ""
+  
+twitter_username: iamerikyao
+github_username:  erikyao
+email: yaoy.cs
+copyright_name: Erik Yao
+# facebook_username:  IronSummitMedia
+  
 tagline: Site Tagline
-author :
-  name : Erik Yao
-  # email : blah@email.test
-  gmail : yaoy.cs
-  github : erikyao
-  twitter : iamerikyao
-  # feedburner : feedname
 
 # The production_url is only used when full-domain names are needed
 # such as sitemap.txt 
@@ -41,6 +39,11 @@ author :
 # Finally if you are pushing to a GitHub project page, include the project name at the end.
 #
 production_url : http://erikyao.github.io
+
+gems: [jekyll-sitemap, jekyll-paginate, jekyll-feed]
+
+paginate: 10
+paginate_path: "p-:num"
 
 # All Jekyll-Bootstrap specific configurations are namespaced into this hash
 #
@@ -79,7 +82,7 @@ JB :
   #   http://s3.amazonaws.com/yoursite/themes/watermelon
   #   /assets
   #
-  ASSET_PATH : http://erikyao.github.io/assets/themes/twitter
+  ASSET_PATH : /assets/themes/clean-blog
 
   # These paths are to the main pages Jekyll-Bootstrap ships with.
   # Some JB helpers refer to these paths; change them here if needed.
