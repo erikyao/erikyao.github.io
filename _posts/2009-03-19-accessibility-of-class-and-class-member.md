@@ -39,7 +39,7 @@ _7月27日补充：member的访问权限是针对类而言的_
 
 　　我们这里说的都是Class，而不是Object。有时候在理解上会有这样的混淆：
 
-<pre class="prettyprint linenums">
+```java
 class Test {  
 	private int i;  
 }  
@@ -50,7 +50,7 @@ public class PrivateTest {
 		System.out.println("i = " + t.i); // syntax error  
 	}  
 } 
-</pre>
+```
 
 　　我们的确是获得了 Test 对象 t，i 也的确是 t 的 member，不过我们访问 i 是在 PrivateTest 类中，根据 private 的定义，这里依旧是会出错。  
 

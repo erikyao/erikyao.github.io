@@ -45,17 +45,17 @@ In addition to the gene product identifier and the relevant GO term, GO annotati
 
 E.g. 
 
-<pre class="prettyprint linenums">
+```
 Gene product:    Actin, alpha cardiac muscle 1, UniProtKB:P68032
 GO term:         heart contraction ; GO:0060047
 Evidence code:   Inferred from Mutant Phenotype (IMP)
 Reference:       PMID 17611253
 Assigned by:     UniProtKB, June 6, 2008
-</pre>
+```
 
 GO term 是可以展开的，内容大概是这个样子的：
 
-<pre class="prettyprint linenums">
+```
 Accession	GO:0060047
 Name		heart contraction
 Ontology	biological_process
@@ -64,12 +64,12 @@ Synonyms	heart beating
 			hemolymph circulation
 Definition	The multicellular organismal process in which the heart decreases in volume in a characteristic way to propel blood through the body. Source: GOC:dph
 ……
-</pre>
+```
 	
 接着看文章。
 
 > The most accurate annotations are derived from laboratory experiments, which are often time-consuming and expensive...  
-> <br/>
+>   
 > Computational methods provide a way to annotate novel proteins efficiently...
 
 Computational methods 的缺点：

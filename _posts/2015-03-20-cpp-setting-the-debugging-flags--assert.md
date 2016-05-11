@@ -13,7 +13,7 @@ tags: [Cpp-101]
 
 ## Preprocessor debugging flags
 
-<pre class="prettyprint linenums">
+```cpp
 /* Probably in a header file */
 #define DEBUG 
 
@@ -24,12 +24,12 @@ int main(int argc, char* argv[]) {
 	
 	#ifdef DEBUG // Check to see if flag is defined
 		/* debugging code here */
-		cout &lt;&lt; "Info: i=" &lt;&lt; i &lt;&lt; endl;
+		cout << "Info: i=" << i << endl;
 	#endif
 	
 	...
 }
-</pre>
+```
 
 Most C and C++ implementations will also let you `#define` and `#undef` flags from the compiler command line, so you can recompile code and insert debugging information with a single command (preferably via the makefile). 比我想象的要简单，我还以为每次都要去改 header……不过每次都要改 makefile 和我 java 每次都要改 config.xml 不是差不多么，还是一样的麻烦……
 
@@ -37,7 +37,7 @@ Most C and C++ implementations will also let you `#define` and `#undef` flags fr
 
 In some situations it is more convenient to turn debugging flags on and off during program execution, especially by setting them when the program starts up using the command line. Large programs are tedious to recompile just to insert debugging code.
 
-<pre class="prettyprint linenums">
+```cpp
 // Debug flags aren't necessarily global:
 bool debug = false;
 
@@ -48,12 +48,12 @@ int main(int argc, char* argv[]) {
 
 	if(debug) {
 		// Debugging code here
-		cout &lt;&lt; "Debugger is now on!" &lt;&lt; endl;
+		cout << "Debugger is now on!" << endl;
 	}
 	
 	...
 }
-</pre>
+```
 
 这个参数检查的逻辑真是简单粗暴……还是我自己想得太复杂了？（我觉得怎么着都要切割下 `=` 吧）（应该是你太弱……
 
@@ -61,12 +61,12 @@ int main(int argc, char* argv[]) {
 
 When you use `assert()`, you give it an argument that is an expression you are “asserting to be true.” The preprocessor generates code that will test the assertion. If the assertion isn’t true, the program will stop after issuing an error message telling you what the assertion was and that it failed.
 
-<pre class="prettyprint linenums">
-#include &lt;cassert&gt;
+```cpp
+#include <cassert>
 using namespace std;
 
 int main() {
 	int i = 100;
 	assert(i != 100); // Fails
 }
-</pre>
+```

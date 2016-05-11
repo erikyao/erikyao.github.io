@@ -11,32 +11,32 @@ tags: [jbpm-101]
 
 　　假定我们有一个极其简单的流程 vartest。在 start-state 的 controller 里添加一个 variable，name 为 "var"，mapped-name 为 "variable"，如下：
 
-<pre class="prettyprint linenums">
-&lt;?xml version="1.0" encoding="UTF-8"?&gt;  
+```xml
+<?xml version="1.0" encoding="UTF-8"?>  
   
-&lt;process-definition  xmlns=""  name="vartest"&gt;  
+<process-definition  xmlns=""  name="vartest">  
   
-	&lt;start-state name="start-state1"&gt;  
-		&lt;task&gt;  
-			&lt;controller&gt;  
-				&lt;variable access="read,write" name="var" mapped-name="variable"&gt;&lt;/variable&gt;  
-			&lt;/controller&gt;  
-		&lt;/task&gt;  
-		&lt;transition to="task-node1"&gt;&lt;/transition&gt;  
-	&lt;/start-state&gt;  
+	<start-state name="start-state1">  
+		<task>  
+			<controller>  
+				<variable access="read,write" name="var" mapped-name="variable"></variable>  
+			</controller>  
+		</task>  
+		<transition to="task-node1"></transition>  
+	</start-state>  
   
-	&lt;task-node name="task-node1"&gt;   
-		&lt;transition to="end-state1"&gt;&lt;/transition&gt;  
-	&lt;/task-node&gt;  
+	<task-node name="task-node1">   
+		<transition to="end-state1"></transition>  
+	</task-node>  
   
-	&lt;end-state name="end-state1"&gt;&lt;/end-state&gt;  
+	<end-state name="end-state1"></end-state>  
   
-&lt;/process-definition&gt;
-</pre>
+</process-definition>
+```
 
 　　然后我们来写一个 Test Case：
 	
-<pre class="prettyprint linenums">
+```java
 public class AccessVariable extends TestCase {
 	public void testPayProcess() throws Exception {  
         JbpmContext jc = JbpmConfiguration.getInstance().  
@@ -49,7 +49,7 @@ public class AccessVariable extends TestCase {
         TaskInstance ti = pi.getTaskMgmtInstance().createStartTaskInstance()  
           
         // hint 1:  
-        // ci can create new variable (not declared in &lt;controller&gt;)  
+        // ci can create new variable (not declared in <controller>)  
         // and ti can access the variable ci created  
         ci.setVariable("abc", "ABC");  
         System.out.println(ti.getVariable("abc")); // ABC  
@@ -65,7 +65,7 @@ public class AccessVariable extends TestCase {
         System.out.println(ti.getVariable("def")); // FED  
           
         // hint 2:         
-        // for the variables declared in &lt;controller&gt;, it's the same situation  
+        // for the variables declared in <controller>, it's the same situation  
         // both ci and ti can create and access this kind of variable  
         ci.setVariable("var", "VAR");  
         System.out.println(ti.getVariable("var")); // VAR  
@@ -99,7 +99,7 @@ public class AccessVariable extends TestCase {
         jc.close();  
     }
 }
-</pre>
+```
 
 　　可以看出，除了 mapped-name 之外，ti 和 ci 可以随意 setVariable(key, value)，setVariable 的过程包含了 create 的过程，key 可以是 name，也可以是其他字符串，且这种类型的变量 (名称为 name 或是任意字符串，只要不是 mapped-name) ti 和 ci 可以随意访问，这类变量对 ti 和 ci 的作用域是一样的 (类似于全局变量)。  
 

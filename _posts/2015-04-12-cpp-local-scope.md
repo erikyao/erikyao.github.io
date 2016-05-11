@@ -9,7 +9,7 @@ tags: [Cpp-101]
 
 按 [Difference between local scope and function scope](http://stackoverflow.com/a/7933839) 的说法：
 
-<pre class="prettyprint linenums">
+```cpp
 void doSomething()
 {				//				<-------|
 	{			//	<---|				| 
@@ -18,14 +18,14 @@ void doSomething()
 				//		|				|
 	}			//	<---|				| 
 }				//				<-------|
-</pre>
+```
 
 - Function Scope is between outer `{ }`.
 - Local scope is between inner `{ }`.
 
 _Thinking in C++_ 上有一个有点无耻的用法：
 
-<pre class="prettyprint linenums">
+```cpp
 int main() {
 	{
 		// experiment 1
@@ -34,4 +34,4 @@ int main() {
 	
 	// experiment 2
 }
-</pre>
+```

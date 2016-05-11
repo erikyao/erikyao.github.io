@@ -27,11 +27,11 @@ tags: [Cpp-101, C++11]
 
 而 lambda expression 简单来说可以理解为 anonymous function object，不仅写起来比较简单（有时候为了个小功能而去单独写个 function object 也是蛮蛋疼的），而且功能上也强大了不少。它的形式是（完全体有点复杂，参 [Lambda functions (since C++11)](http://en.cppreference.com/w/cpp/language/lambda)）：
 
-<pre class="prettyprint linenums">
+```cpp
 [capture-list] (parameter-list) -> returnType { function-body }
 [capture-list] (parameter-list) { function-body }	// Only if returnType can be deduced from return statements
 [capture-list] { function-body } 					// If parameter-list is void, you can omit the parenthese
-</pre>
+```
 
 `-> returnType` 就是 [C++: 6 things you must know about functions](/c++/2015/05/03/cpp-things-you-must-know-about-functions) 里提到的 Trailing Return Type。不写的话，编译器会根据 return 语句来推断 returnType。By default, if a lambda body contains any statements other than a return（这句的意思是：如果 body 除了 return 外还包含了其他的语句）, that lambda is assumed to return void.
 
@@ -50,16 +50,16 @@ tags: [Cpp-101, C++11]
 	
 我们照搬 [C++: function object](/c++/2015/04/21/cpp-function-object) 里 `gt15` 的例子，用 1) function, 2) function object, 3) standard function object, 4) lambda 这四种方法实现，对比下效果：
 
-<pre class="prettyprint linenums">
-#include &lt;algorithm&gt;
-#include &lt;cstddef&gt;
-#include &lt;functional&gt;
-#include &lt;iostream&gt;
-#include &lt;iterator&gt;
+```cpp
+#include <algorithm>
+#include <cstddef>
+#include <functional>
+#include <iostream>
+#include <iterator>
 using namespace std;
 
 bool gt15(int x) {
-    return x &gt; 15;
+    return x > 15;
 }
 
 class Gt {
@@ -67,7 +67,7 @@ class Gt {
 public:
     Gt(int than) : than(than) {}
     bool operator()(int x) { // 注意语法 
-        return x &gt; than;
+        return x > than;
     }
 };
  
@@ -77,51 +77,51 @@ int main() {
     
     /***** a) by function *****/
     remove_copy_if(a, a + SIZE,
-                   ostream_iterator&lt;int&gt;(cout, "\n"),
+                   ostream_iterator<int>(cout, "\n"),
                    gt15); // output: 10
     
 	/***** b) by function object *****/ 
 	// You can also make an object first and pass it in
 		// Gt gt15(15);
     remove_copy_if(a, a + SIZE,
-                   ostream_iterator&lt;int&gt;(cout, "\n"),
+                   ostream_iterator<int>(cout, "\n"),
                    Gt(15)); // output: 10
     
     /***** c) by standard function object *****/ 
     remove_copy_if(a, a + SIZE,
-                   ostream_iterator&lt;int&gt;(cout, "\n"),
-                   bind2nd(greater&lt;int&gt;(), 15)); // output: 10
+                   ostream_iterator<int>(cout, "\n"),
+                   bind2nd(greater<int>(), 15)); // output: 10
     
     /***** d) by lambda expression *****/ 
     // You can also make an object first and pass it in
     /*
 		auto gt15 = [](const int& x) {
-			return x &gt; 15;
+			return x > 15;
 		};
 	*/
     remove_copy_if(a, a + SIZE,
-				   ostream_iterator&lt;int&gt;(cout, "\n"),
+				   ostream_iterator<int>(cout, "\n"),
                    [](const int& x) {
-					   return x &gt; 15;
+					   return x > 15;
 				   }); // output: 10
 }
-</pre>
+```
 
 ## Returning lambdas
 
 另外 We can also [return a lambda from a function](http://stackoverflow.com/a/4727021). Just use `std::function`, to which lambda functions are convertible, as ReturnType:
 
-<pre class="prettyprint linenums">
-std::function&lt;int (int)&gt; retFun() {
+```cpp
+std::function<int (int)> retFun() {
     return [](int x) { return x; };
 }
-</pre>
+```
 
 ## Mutable Lambdas
 
 By default, a lambda may not change the value of a variable that it captures by value. If we want to be able to change the value of a captured variable, we must follow the parameter list with the keyword `mutable`. Lambdas that are mutable may not omit the parameter list:
 
-<pre class="prettyprint linenums">
+```cpp
 void fcn3() {
 	size_t v1 = 42; // local variable
 	
@@ -132,4 +132,4 @@ void fcn3() {
 	v1 = 0;
 	auto j = f(); // j is 43
 }
-</pre>
+```

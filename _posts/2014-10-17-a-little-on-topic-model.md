@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "A Little on Topic Model"
 description: ""
 category: Machine-Learning

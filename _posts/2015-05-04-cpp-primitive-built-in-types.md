@@ -88,7 +88,7 @@ Typically, `float`s are represented in one word (32 bits), `double`s in two word
 
 ## Type Conversions
 
-<pre class="prettyprint linenums">
+```cpp
 bool b = 42; 			// b is true
 int i = b; 				// i has value 1
 i = 3.14; 				// i has value 3
@@ -99,7 +99,7 @@ signed char c2 = 256; 	// assuming 8-bit chars, the value of c2 is undefined
 int i = 42;
 if (i) 					// condition will evaluate as true
 	i = 0;
-</pre>
+```
 
 * When we assign one of the non-`bool` arithmetic types to a `bool` object, the result is false if the value is 0 and true otherwise.
 * When we assign a `bool` to one of the other arithmetic types, the resulting value is 1 if the bool is true and 0 if the bool is false.
@@ -120,20 +120,20 @@ Similarly, programs usually should avoid implementation-defined behavior, such a
 
 If we use both `unsigned` and `int` values in an arithmetic expression, the `int` value ordinarily is converted to `unsigned`.
 
-<pre class="prettyprint linenums">
+```cpp
 unsigned u = 10;
 int i = -42;
-std::cout &lt;&lt; i + i &lt;&lt; std::endl; // prints -84
-std::cout &lt;&lt; u + i &lt;&lt; std::endl; // if 32-bit ints, prints 4294967264
+std::cout << i + i << std::endl; // prints -84
+std::cout << u + i << std::endl; // if 32-bit ints, prints 4294967264
 
 unsigned u1 = 42, u2 = 10;
-std::cout &lt;&lt; u1 - u2 &lt;&lt; std::endl; // ok: result is 32
-std::cout &lt;&lt; u2 - u1 &lt;&lt; std::endl; // ok: but the result will wrap
+std::cout << u1 - u2 << std::endl; // ok: result is 32
+std::cout << u2 - u1 << std::endl; // ok: but the result will wrap
 around
 
 // WRONG: u can never be less than 0; the condition will always succeed
 for (unsigned u = 10; u >= 0; --u)
-	std::cout &lt;&lt; u &lt;&lt; std::endl;
-</pre>
+	std::cout << u << std::endl;
+```
 	
 Expressions that mix signed and unsigned values can yield surprising results when the signed value is negative. It is essential to remember that signed values are automatically converted to unsigned. For example, in an expression like `a * b`, if `a` is -1 and `b` is 1, then if both `a` and `b` are `int`s, the value is, as expected -1. However, if `a` is `int` and `b` is an `unsigned`, then the value of this expression depends on how many bits an int has on the particular machine. On our machine, this expression yields 4294967295.

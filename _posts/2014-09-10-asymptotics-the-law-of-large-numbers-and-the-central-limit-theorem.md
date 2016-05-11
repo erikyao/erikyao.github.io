@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "Asymptotics: The Law of Large Numbers and The Central Limit Theorem"
 description: "大数法则与中心极限定理"
 category: Math
@@ -34,12 +34,12 @@ Or more generally, the average of the results obtained from a large number of tr
 
 ### 1.2 Simulation
 
-<pre class="prettyprint linenums">
-n &lt;- 10000; 
-means &lt;- cumsum(rnorm(n)) / (1:n) ## cumsum 累积求和，e.g. cumsum(c(1,2,3)) = c(1,3,6)
+```
+n <- 10000; 
+means <- cumsum(rnorm(n)) / (1:n) ## cumsum 累积求和，e.g. cumsum(c(1,2,3)) = c(1,3,6)
 plot(1:n, means, type = "l", lwd = 2, frame = FALSE, ylab = "cumulative means", xlab = "sample size")
 abline(h = 0)
-</pre>
+```
 
 ![](https://farm2.staticflickr.com/1573/23920546385_2ea1a2edd5_o_d.png)
 
@@ -109,10 +109,10 @@ What is the probability of getting 45 or fewer heads out 100 flips of a fair coi
 * $ \sigma^2 = p*(1-p) = 0.25, \frac{\sigma}{\sqrt{100}} = 0.05$
 * $ \overline X = \frac{45}{100} = 0.45 $	
 
-<pre class="prettyprint linenums">
+```
 pnorm(0.45, mean=0.5, sd=0.05)
 ## [1] 0.1586553
-</pre>	
+```
 	
 
 #### Exercise II
@@ -128,9 +128,9 @@ Your campaign advisor told you that in a random sample of 100 likely voters, 56 
 
 A nuclear pump failed 5 times out of 94.32 days, give a 95% confidence interval for the failure rate per day (i.e. $ \lambda $)?
 
-<pre class="prettyprint linenums">
+```r
 poisson.test(x, T = 94.32)$conf
 ## [1] 0.01721 0.12371
 ## attr(,"conf.level")
 ## [1] 0.95
-</pre>
+```

@@ -21,7 +21,7 @@ tags: [Cpp-101, copy-constructor]
 
 我们先来看下 Java 的版本：
 
-<pre class="prettyprint linenums">
+```cpp
 public class T {
 	private int i;
 	
@@ -56,14 +56,14 @@ public class T {
 	48
 	true
 */
-</pre>
+```
 
 Java 里都是 reference，所以 `t2` 和 `t1` 指向了同一个对象，它们连地址都是相同的。
 
 再来看下 C++ 的版本：
 
-<pre class="prettyprint linenums">
-#include &lt;iostream&gt;
+```cpp
+#include <iostream>
 using namespace std;
 
 class T {
@@ -86,12 +86,12 @@ T::T(int i) {
 }
 
 T::T(const T& t) : i(t.getI()) {
-    cout &lt;&lt; "copy-constructor: &t==" &lt;&lt; &t &lt;&lt; endl;
-    cout &lt;&lt; "copy-constructor: this==" &lt;&lt; this &lt;&lt; endl;
+    cout << "copy-constructor: &t==" << &t << endl;
+    cout << "copy-constructor: this==" << this << endl;
 } 
 
 T::~T() {
-    cout &lt;&lt; "destructor: this==" &lt;&lt; this &lt;&lt; endl;
+    cout << "destructor: this==" << this << endl;
 }
 
 int main() {
@@ -100,15 +100,15 @@ int main() {
     
     t2.setI(48);
     
-    cout &lt;&lt; "t1.i==" &lt;&lt; t1.getI() &lt;&lt; endl;
-    cout &lt;&lt; "t2.i==" &lt;&lt; t2.getI() &lt;&lt; endl;
+    cout << "t1.i==" << t1.getI() << endl;
+    cout << "t2.i==" << t2.getI() << endl;
     
     T t3(53);
 	t2 = t3; 
 	
-	cout &lt;&lt; "t1.i==" &lt;&lt; t1.getI() &lt;&lt; endl;
-	cout &lt;&lt; "t2.i==" &lt;&lt; t2.getI() &lt;&lt; endl;
-	cout &lt;&lt; "t3.i==" &lt;&lt; t3.getI() &lt;&lt; endl;
+	cout << "t1.i==" << t1.getI() << endl;
+	cout << "t2.i==" << t2.getI() << endl;
+	cout << "t3.i==" << t3.getI() << endl;
 }
 
 // output:
@@ -124,6 +124,6 @@ int main() {
 	destructor: this==0x22fe20
 	destructor: this==0x22fe30
 */
-</pre>
+```
 
 可见 `T t2 = t1;` 调用了 copy-constructor，`t1` 和 `t2` 是两个完全不同的对象。而 `t2 = t3;` 是用 `t3` 的值完全覆盖了 `t2`；`t2` 和 `t3` 仍然是两个不同的对象。

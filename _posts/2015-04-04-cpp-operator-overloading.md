@@ -43,8 +43,8 @@ The number of arguments in the overloaded operator’s argument list depends on:
 	* one for binary
 		* the object becomes the left-hand argument
 	
-<pre class="prettyprint linenums">
-#include &lt;iostream&gt;
+```cpp
+#include <iostream>
 using namespace std;
 
 class Integer {
@@ -70,10 +70,10 @@ public:
 int main() {
     Integer ii(1), jj(2), kk = ii+jj;
     
-    cout &lt;&lt; "kk==" &lt;&lt; kk.getValue() &lt;&lt; endl;
+    cout << "kk==" << kk.getValue() << endl;
     
     kk += ii;
-    cout &lt;&lt; "kk==" &lt;&lt; kk.getValue() &lt;&lt; endl;
+    cout << "kk==" << kk.getValue() << endl;
 }
 
 // output:
@@ -81,17 +81,17 @@ int main() {
 	kk==3
 	kk==4
 */
-</pre>
+```
 
 另外需要注意的是，operator 可以像函数一样直接调用，比如：
 
-<pre class="prettyprint linenums">
+```cpp
 int main() {
     Integer ii(1), jj(2);
 	
 	Integer kk = ii.operator+(jj); // 等价于 Integer kk = ii+jj;
 }
-</pre>
+```
 
 ## <a name="overloadable-operators"></a>2. Overloadable operators
 
@@ -113,7 +113,7 @@ P536~P540 针对 overloadable unary operators 给了两个非常完整的例子�
 
 给个例子：
 
-<pre class="prettyprint linenums">
+```cpp
 // Prefix; return incremented value
 // ++a
 const Integer& operator++(Integer& a) {
@@ -128,7 +128,7 @@ const Integer operator++(Integer& a, int) {
 	a.i++;
 	return before;
 }
-</pre>
+```
 
 P541~P552 给的是 overloadable binary operators 的例子，也是一个用 global functions (non-member friend functions) 的写法，一个用 member functions 的写法。需要注意的是：
 
@@ -173,14 +173,14 @@ P541~P552 给的是 overloadable binary operators 的例子，也是一个用 gl
 
 因为 member operator 总是默认把 `*this` 当做 left-hand operand，如果我们想把 `*this` 当做 right-hand operand，就只能用 non-member operator，比如：
 
-<pre class="prettyprint linenums">
+```cpp
 class IntArray {
 	friend ostream&
-	operator&lt;&lt;(ostream& os, const IntArray& ia); 	// overload cout&lt;&lt;IntArray
+	operator<<(ostream& os, const IntArray& ia); 	// overload cout<<IntArray
 	friend istream&
-	operator&gt;&gt;(istream& is, IntArray& ia);		// overload cin&gt;&gt;IntArray
+	operator>>(istream& is, IntArray& ia);		// overload cin>>IntArray
 };
-</pre>
+```
 
 除了这一点外，书上给了个 basic guidelines：
 

@@ -11,7 +11,7 @@ tags: [Cpp-101]
 
 - _Thinking in C++, Volume 2_
 - [Apache C++ Standard Library User's Guide: 2.2 Varieties of Iterators](https://stdcxx.apache.org/doc/stdlibug/2-2.html)
-- [&lt;iterator&gt;](http://www.cplusplus.com/reference/iterator)
+- [<iterator>](http://www.cplusplus.com/reference/iterator)
 - [SGI: Iterators](http://www.sgi.com/tech/stl/Iterators.html)
 - [C++ concepts: Iterator](http://en.cppreference.com/w/cpp/concept/Iterator)
 
@@ -56,14 +56,14 @@ tags: [Cpp-101]
 		
 在继承关系上我们有：
 
-<pre class="prettyprint linenums">
+```cpp
 struct output_iterator_tag {};
 
 struct input_iterator_tag {};
 	struct forward_iterator_tag : public input_iterator_tag {};
 		struct bidirectional_iterator_tag : public forward_iterator_tag {};
 			struct random_access_iterator_tag : public bidirectional_iterator_tag {};
-</pre>
+```
 
 -----
 		

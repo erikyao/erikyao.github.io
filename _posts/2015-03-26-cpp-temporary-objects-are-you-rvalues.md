@@ -13,7 +13,7 @@ tags: [Cpp-101, const]
 
 书上的例子我稍微改了下：
 
-<pre class="prettyprint linenums">
+```cpp
 //: C08:ConstReturnValues.cpp
 // Constant return by value
 // Result cannot be used as an lvalue
@@ -67,7 +67,7 @@ int main() {
     f10(f5());		// ERROR. invalid initialization of non-const reference of type 'X&' from an rvalue of type 'X'
     f11(f5());		// OK
 }
-</pre>
+```
 
 对比 TEST 2 和 TEST 3，你是不是有种撞了鬼的感觉……
 
@@ -128,22 +128,22 @@ As for where the temporary is created, this is the compiler job. The rules of th
 
 Therefore, the following statement `X(1).modify();` can be fully translated to:
 
-<pre class="prettyprint linenums">
+```cpp
 {
     X __0(1);
     __0.modify();
 } // automatic cleanup of __0
-</pre>
+```
 
 With that in mind, we can attack `f5() = X(1);`. We have two temporaries here, and an assignment. Both arguments of the assignment must be fully evaluated before the assignment is called, but the order is not precise. One possible translation is:
 
-<pre class="prettyprint linenums">
+```cpp
 {
     X __0(f5());
     X __1(1);
     __0.operator=(__1);
 } // the other translation is swapping the order in which __0 and __1 are initialized
-</pre>
+```
 
 And the key to it working is that `__0.operator=(__1)` is a method invocation, and methods can be invoked on temporaries :)
 
@@ -151,7 +151,7 @@ And the key to it working is that `__0.operator=(__1)` is a method invocation, a
 
 最后注意，我们说是 temporary object，其实对 primitive 类型也是成立的。知道你会往这个方向想，我就做了个 int 的版本，请放心食用：
 
-<pre class="prettyprint linenums">
+```cpp
 int b5() {
 	return 5;
 }
@@ -173,4 +173,4 @@ int main() {
 	b8(&b5()); 	// ERROR. lvalue required as unary '&' operand
 	b9(b5());	// OK
 }
-</pre>
+```

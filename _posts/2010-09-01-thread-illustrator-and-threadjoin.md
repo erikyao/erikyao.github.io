@@ -13,7 +13,7 @@ tags: [Java-Concurrent]
 
 　　简单理解，一个线程就是程序的一条直行路径，比如下面这段：
 
-<pre class="prettyprint linenums">
+```java
 public static void main(String[] args) {
 	m1();
 }
@@ -25,7 +25,7 @@ private static void m1() {
 private static void m2() {
 	// do something;
 }
-</pre>
+```
 
 是一个串行的执行路径：
 

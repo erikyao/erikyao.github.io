@@ -15,15 +15,15 @@ tags: [C-101]
 
 To define a pointer to a function that has no arguments and no return value, you say:
 
-<pre class="prettyprint linenums">
+```cpp
 void (*funcPtr)();
-</pre>
+```
 
 括号还是必要的，否则就变成了 `void* funcPtr();`。
 
 ## 四十二式 Complicated declarations & definitions
 
-<pre class="prettyprint linenums">
+```cpp
 /* 1. */ void * (*(*fp1)(int))[10];
 
 /* 2. */ float (*(*fp2)(int,int,float))(int);
@@ -33,7 +33,7 @@ void (*funcPtr)();
 		 fp3 a;
 
 /* 4. */ int (*(*f4())[10])();
-</pre>
+```
 
 * `fp1` is a pointer to a function that takes an integer argument and returns a pointer to an array of 10 `void` pointers.
 * `fp2` is a pointer to a function that takes three arguments (`int`, `int`, and `float`) and returns a pointer to a function that takes an integer argument and returns a `float`
@@ -47,9 +47,9 @@ void (*funcPtr)();
 
 其实和 array 名一样，function 名就是它自己的地址：
 
-<pre class="prettyprint linenums">
+```cpp
 void func() {
-	cout &lt;&lt; "func() called..." &lt;&lt; endl;
+	cout << "func() called..." << endl;
 }
 
 int main() {
@@ -61,7 +61,7 @@ int main() {
 	(*fp)();
 	(*fp2)();
 }
-</pre>
+```
 
 ## Function Pointer Array
 

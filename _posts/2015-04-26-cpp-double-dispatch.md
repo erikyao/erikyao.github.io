@@ -17,8 +17,8 @@ tags: [Cpp-101]
 
 ## 事情的起因：函数参数并不支持多态
 
-<pre class="prettyprint linenums">
-#include &lt;iostream&gt;
+```cpp
+#include <iostream>
 using namespace std;
 
 class Base {
@@ -32,11 +32,11 @@ class Ext : public Base {
 class Printer {
 public:
 	static void print(const Base* pb) {
-		cout &lt;&lt; "Base" &lt;&lt; endl;
+		cout << "Base" << endl;
 	}
 	
 	static void print(const Ext* pe) {
-		cout &lt;&lt; "Ext" &lt;&lt; endl;
+		cout << "Ext" << endl;
 	}
 };
 
@@ -50,7 +50,7 @@ int main() {
 /*
 	Base
 */
-</pre>
+```
 
 从输出结果来看，函数的参数并没有执行多态机制，这是因为：
 
@@ -70,7 +70,7 @@ int main() {
 
 若要强行实现 double dispatch 的，可以稍微绕一下，最简单的写法就是：
 
-<pre class="prettyprint linenums">
+```cpp
 class FooExtA : public FooBase {
 public:
 	int fooUponBar(BarBase& bar) {
@@ -87,7 +87,7 @@ public:
 		return 2; 
 	}
 }
-</pre>
+```
 
 我们用 `bar.reverseFunc(foo);` 来实现 `foo.func(bar);` 相当于把多态的 single dispatch 执行了两次，进而就成了 double dispatch。
 

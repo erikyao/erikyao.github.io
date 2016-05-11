@@ -13,10 +13,10 @@ tags: [Cpp-101]
 
 ## 1. A union can also have a constructor, destructor, member functions, and access control
 
-<pre class="prettyprint linenums">
+```cpp
 //: C07:UnionClass.cpp
 // Unions with constructors and member functions
-#include&lt;iostream&gt;
+#include<iostream>
 using namespace std;
 
 union U {
@@ -33,16 +33,16 @@ public:
 
 U::U(int a) { i = a; }
 U::U(float b) { f = b;}
-U::~U() { cout &lt;&lt; "U::~U()\n"; }
+U::~U() { cout << "U::~U()\n"; }
 int U::read_int() { return i; }
 float U::read_float() { return f; }
 
 int main() {
 	U X(12), Y(1.9F);
-	cout &lt;&lt; X.read_int() &lt;&lt; endl;
-	cout &lt;&lt; Y.read_float() &lt;&lt; endl;
+	cout << X.read_int() << endl;
+	cout << Y.read_float() << endl;
 }
-</pre>
+```
 
 ## 2. However, a union cannot be used as a base class during inheritance
 
@@ -50,10 +50,10 @@ int main() {
 
 ## 3. untagged enum & anonymous union
 
-<pre class="prettyprint linenums">
+```cpp
 //: C07:SuperVar.cpp
 // A super-variable
-#include&lt;iostream&gt;
+#include<iostream>
 using namespace std;
 
 class SuperVar {
@@ -94,13 +94,13 @@ SuperVar::SuperVar(float ff) {
 void SuperVar::print() {
 	switch (vartype) {
 		case character:
-			cout &lt;&lt; "character: " &lt;&lt; c &lt;&lt; endl;
+			cout << "character: " << c << endl;
 			break;
 		case integer:
-			cout &lt;&lt; "integer: " &lt;&lt; i &lt;&lt; endl;
+			cout << "integer: " << i << endl;
 			break;
 		case floating_point:
-			cout &lt;&lt; "float: " &lt;&lt; f &lt;&lt; endl;
+			cout << "float: " << f << endl;
 			break;
 	}
 }
@@ -111,7 +111,7 @@ int main() {
 	B.print();
 	C.print();
 }
-</pre>
+```
 
 In the code above, the `enum` has no type name (it is an **untagged enumeration**). This is acceptable if you are going to immediately define instances of the enum, as is done here. There is no need to refer to the enum’s type name in the future, so the type name is optional.
 

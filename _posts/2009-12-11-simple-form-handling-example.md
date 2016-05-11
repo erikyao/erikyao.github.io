@@ -23,19 +23,19 @@ tags: [SpringMVC-101]
 
 一般使用 DI 来设置 `SimpleFormController` 的 `formView` 和 `successView`：
 
-<pre class="prettyprint linenums">
-&lt;bean name="/priceincrease.htm" class="springapp.web.PriceIncreaseFormController"&gt;  
-	&lt;property name="sessionForm" value="true" /&gt;  
-	&lt;property name="commandName" value="priceIncrease" /&gt;  
-	&lt;property name="commandClass" value="springapp.service.PriceIncrease" /&gt;  
-	&lt;property name="validator"&gt;  
-		&lt;bean class="springapp.service.PriceIncreaseValidator" /&gt;  
-	&lt;/property&gt;  
-	&lt;property name="formView" value="priceincrease" /&gt;  
-	&lt;property name="successView" value="hello.htm" /&gt;  
-	&lt;property name="productManager" ref="productManager" /&gt;  
-&lt;/bean&gt;  
-</pre>
+```xml
+<bean name="/priceincrease.htm" class="springapp.web.PriceIncreaseFormController">  
+	<property name="sessionForm" value="true" />  
+	<property name="commandName" value="priceIncrease" />  
+	<property name="commandClass" value="springapp.service.PriceIncrease" />  
+	<property name="validator">  
+		<bean class="springapp.service.PriceIncreaseValidator" />  
+	</property>  
+	<property name="formView" value="priceincrease" />  
+	<property name="successView" value="hello.htm" />  
+	<property name="productManager" ref="productManager" />  
+</bean>  
+```
 
 这里还有个有意思的事情：即使不配置 `formView`，根据 [惯例优先原则](http://docs.spring.io/spring/docs/2.5.6/reference/mvc.html#mvc-coc)，`DispatchServlet` 还是能找到 "priceincrease" 这个 `viewName`，然后去交给 `InternalResourceViewResolver` 解析 (如果配置了，应该是 `SimpleFormController` 执行 `showForm` 操作，返回一个 `new ModelAndView (formView)` 给 `DispatchServlet`)  
 
@@ -46,8 +46,8 @@ tags: [SpringMVC-101]
 这里需要注意的有以下几点：
 
 * Command Object 不需要名字。`commandName` 并不是 Command Object 的名字，所以在 `formBackingObject()` 方法里面创建 Command Object 不需要特别注意名字。`formBackingObject()` 是一个覆写方法，父类中的方法应该也只是简单地 new 一个 Command Object
-* Command Object 的属性、JSP 中 &lt;form&gt; 标签中的 “path”、和 `Validator` 中的 `reject` 方法的参数存在对应关系，如下图所示 (文字描述太复杂了，画图算了)：
+* Command Object 的属性、JSP 中 `<form>` 标签中的 `path`、和 `Validator` 中的 `reject` 方法的参数存在对应关系，如下图所示 (文字描述太复杂了，画图算了)：
  
 ![][3]
  
-* &lt;form:input path="percentage"&gt; 表示把这个文本框的输入内容写入 Command Object (已通过 `commandName=“priceIncrease”` 指定)；而 &lt;form:error path="percentage"&gt; 会被展开为成一个 &lt;span&gt; 来显示错误信息 (if any)，详见 [The errors tag](http://docs.spring.io/spring/docs/2.5.0/reference/mvc.html#mvc-formtaglib-errorstag)
+* `<form:input path="percentage">` 表示把这个文本框的输入内容写入 Command Object (已通过 `commandName=“priceIncrease”` 指定)；而 `<form:error path="percentage">` 会被展开为成一个 `<span>` 来显示错误信息 (if any)，详见 [The errors tag](http://docs.spring.io/spring/docs/2.5.0/reference/mvc.html#mvc-formtaglib-errorstag)

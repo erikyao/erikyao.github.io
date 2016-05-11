@@ -11,10 +11,10 @@ tags: [Cpp-101]
 
 -----
 
-<pre class="prettyprint linenums">
+```cpp
 void f();
 // int f(); // ERROR
-</pre>
+```
 
 If overloading on return values was permitted, how can the compiler distinguish which call is meant in `int x = f( );`? Possibly worse is the difficulty the reader has in knowing which function call is meant. Overloading solely on return value is a bit too subtle, and thus isn’t allowed in C++.
 

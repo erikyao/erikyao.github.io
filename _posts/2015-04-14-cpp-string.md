@@ -15,7 +15,7 @@ tags: [Cpp-101]
 
 To use strings you include the C++ header file `<string>`. The `string` class is also in the namespace `std`.
 
-<pre class="prettyprint linenums">
+```cpp
 string imBlank;
 string heyMom("Where are my socks?");
 string standardReply = "Beamed into deep "
@@ -34,48 +34,48 @@ assert(s == source);
 
 string okay(5, 'a'); // initialize a string with a number of copies of a single character
 assert(okay == string("aaaaa"));
-</pre>
+```
 	
 ## 2. Operating on strings
 
 ### 2.1 Appending, inserting, and concatenating strings
 
-<pre class="prettyprint linenums">
-#include &lt;string&gt;
-#include &lt;iostream&gt;
+```cpp
+#include <string>
+#include <iostream>
 using namespace std;
 
 int main() {
     string bigNews("I saw Elvis in a UFO. ");
-    cout &lt;&lt; bigNews &lt;&lt; endl;
+    cout << bigNews << endl;
 
 	// How much data have we actually got?
-    cout &lt;&lt; "Size = " &lt;&lt; bigNews.size() &lt;&lt; endl;
-    cout &lt;&lt; "Length = " &lt;&lt; bigNews.length() &lt;&lt; endl; // .length() and .size() are identical
+    cout << "Size = " << bigNews.size() << endl;
+    cout << "Length = " << bigNews.length() << endl; // .length() and .size() are identical
 	// How much can we store without reallocating?
-    cout &lt;&lt; "Capacity = " &lt;&lt; bigNews.capacity() &lt;&lt; endl;
+    cout << "Capacity = " << bigNews.capacity() << endl;
 
 	// Insert this string in bigNews immediately
 	// before bigNews[1]:
     bigNews.insert(1, " thought I");
-    cout &lt;&lt; bigNews &lt;&lt; endl;
-    cout &lt;&lt; "Size = " &lt;&lt; bigNews.size() &lt;&lt; endl;
-    cout &lt;&lt; "Capacity = " &lt;&lt; bigNews.capacity() &lt;&lt; endl;
+    cout << bigNews << endl;
+    cout << "Size = " << bigNews.size() << endl;
+    cout << "Capacity = " << bigNews.capacity() << endl;
 	
 	// Make sure that there will be this much space
     bigNews.reserve(500); // 注意是 reserve 不是 reverse 
 	
 	// Add this to the end of the string:
     bigNews.append("I've been working too hard.");
-    cout &lt;&lt; bigNews &lt;&lt; endl;
-    cout &lt;&lt; "Size = " &lt;&lt; bigNews.size() &lt;&lt; endl;
-    cout &lt;&lt; "Capacity = " &lt;&lt; bigNews.capacity() &lt;&lt; endl;
+    cout << bigNews << endl;
+    cout << "Size = " << bigNews.size() << endl;
+    cout << "Capacity = " << bigNews.capacity() << endl;
     
     // appends spaces if the new size is greater than the current string size or truncates the string otherwise
     bigNews.resize(10);
-    cout &lt;&lt; bigNews &lt;&lt; endl;
-    cout &lt;&lt; "Size = " &lt;&lt; bigNews.size() &lt;&lt; endl;
-    cout &lt;&lt; "Capacity = " &lt;&lt; bigNews.capacity() &lt;&lt; endl;
+    cout << bigNews << endl;
+    cout << "Size = " << bigNews.size() << endl;
+    cout << "Capacity = " << bigNews.capacity() << endl;
 }
 
 // output: 
@@ -94,7 +94,7 @@ int main() {
 	Size = 10
 	Capacity = 500
 */
-</pre>
+```
 
 ### 2.2 Replacing string characters
 
@@ -104,10 +104,10 @@ There are a number of overloaded versions of `string::replace()`, but the simple
 - an integer indicating how many characters to eliminate from the original string, 
 - and the replacement string.
 
-<pre class="prettyprint linenums">
-#include &lt;cassert&gt;
-#include &lt;cstddef&gt; // For size_t
-#include &lt;string&gt;
+```cpp
+#include <cassert>
+#include <cstddef> // For size_t
+#include <string>
 using namespace std;
 
 int main() {
@@ -129,14 +129,14 @@ int main() {
 	assert(bigNews == "I thought I saw Elvis in a wig. "
 		"I have been working too hard.");
 }
-</pre>
+```
 
 另外还有一个 generic algorithm `replace()`:
 
-<pre class="prettyprint linenums">
-#include &lt;algorithm&gt;
-#include &lt;cassert&gt;
-#include &lt;string&gt;
+```cpp
+#include <algorithm>
+#include <cassert>
+#include <string>
 using namespace std;
 
 int main() {
@@ -144,7 +144,7 @@ int main() {
 	replace(s.begin(), s.end(), 'X', 'Y');
 	assert(s == "aaaYaaaYYaaYYYaYYYYaaa");
 }
-</pre>
+```
 
 The `replace()` algorithm only works with single objects (in this case, `char` objects) and will not replace quoted char arrays or string objects.
 
@@ -180,12 +180,12 @@ C++ 的字符串是可以用 >、<、>=、<=、!=、== 来比较大小的，遵�
 
 Observe how `string` is declared in the Standard C++ header file:
 
-<pre class="prettyprint linenums">
-typedef basic_string&lt;char&gt; string;
+```cpp
+typedef basic_string<char> string;
 
-template &lt;class CharType, class Traits = char_traits&lt;CharType&gt;, class Allocator = allocator&lt;CharType&gt;&gt;
+template <class CharType, class Traits = char_traits<CharType>, class Allocator = allocator<CharType>>
 class basic_string;
-</pre>
+```
 
 根据 [MSDN: basic_string Class](https://msdn.microsoft.com/en-us/library/syxtdd4f.aspx) 的说法：
 

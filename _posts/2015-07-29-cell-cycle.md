@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "Cell Cycle"
 description: ""
 category: Biology

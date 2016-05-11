@@ -15,22 +15,22 @@ You can also define variables inside the control expressions of `for` loops and 
 
 `for (int i = 0; i < 10; ++i)` 这种是最常见的。其实 `if`, `while` 和 `switch` 的括号里都可以定义变量，举个 `switch` 的例子：
 
-<pre class="prettyprint linenums">
+```cpp
 switch(int i = cin.get()) {
 	case 'A': cout << "Snap" << endl; break;
 	case 'B': cout << "Crackle" << endl; break;
 	case 'C': cout << "Pop" << endl; break;
 	default: cout << "Not A, B or C!" << endl;
 }
-</pre>
+```
 
 Although the example also shows variables defined within `while`, `if`, and `switch` statements, this kind of definition is much less common than those in `for` expressions, possibly because the syntax is so constrained. For example, you cannot have any parentheses. That is, you cannot say:
 
-<pre class="prettyprint linenums">
+```cpp
 while((char c = cin.get()) != 'q') { // ERROR
 	...
 }
-</pre>
+```
 
 震惊了！这样一句看起来人畜无害的语句竟然是非法的！就是因为这个原因我才要贴这篇 blog。
 

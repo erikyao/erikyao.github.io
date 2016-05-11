@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "Soft Margin Intuition"
 description: ""
 category: Machine-Learning

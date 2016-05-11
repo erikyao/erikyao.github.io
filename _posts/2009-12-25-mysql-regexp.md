@@ -27,7 +27,7 @@ tags: [regexp]
 
 　　^ 文本开始，$ 文本结尾，[[:<:]] 单词开头，[[:>:]] 单词结尾。作用范围是其前或其后的单个字符或是 ( )。注意它们出现的位置。
 
-<pre class="prettyprint linenums">
+```sql
 -- 匹配一个以"x"开头、以"x"结尾的字符串  
 SELECT 'x word x' REGEXP '^x[[:print:]]*x$'; -- 1  
 -- 匹配一个以"x w"开头、以"d x"结尾的字符串  
@@ -36,6 +36,6 @@ SELECT 'x word x' REGEXP '^(x w)[[:print:]]*(d x)$'; -- 1
 SELECT 'x word x' REGEXP '[[:<:]]w[[:print:]]*d[[:>:]]'; -- 1  
 -- 匹配一个包含以"wo"开头的、以"rd"结尾的单词的字符串  
 SELECT 'x word x' REGEXP '[[:<:]](wo)[[:print:]]*(rd)[[:>:]]'; -- 1    
-</pre>
+```
 
 不过这里用 ( ) 和不用 ( ) 貌似没有什么区别…

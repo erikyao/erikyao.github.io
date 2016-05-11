@@ -15,20 +15,20 @@ tags: [Cpp-101, const]
 
 C++ has an additional casting syntax, which follows the function call syntax. E.g.:
 
-<pre class="prettyprint linenums">
+```cpp
 int main() {
 	float a = float(200);
 	// This is equivalent to:
 	float b = (float)200;
 }
-</pre>
+```
 
 本文要说的 `static_cast` / `const_cast` / `reinterpret_cast` / `dynamic_cast` 都是 explicit cast operator，但是你看下调用代码：
 
-<pre class="prettyprint linenums">
+```cpp
 int i = 200;
-long l = static_cast&lt;long&gt;(i);
-</pre>
+long l = static_cast<long>(i);
+```
 
 你管这个叫 operator？！这明明是 generic function！又不能像 `sizeof` 那样某些情况下不用括号……总之我接受唔到！（谁管你……
 
@@ -60,7 +60,7 @@ long l = static_cast&lt;long&gt;(i);
 
 ## 1. static_cast
 
-<pre class="prettyprint linenums">
+```cpp
 void func(int) {}
 
 int main() {
@@ -74,8 +74,8 @@ int main() {
 	l = i;
 	f = i;
 	// Also works:
-	l = static_cast&lt;long&gt;(i);
-	f = static_cast&lt;float&gt;(i);
+	l = static_cast<long>(i);
+	f = static_cast<float>(i);
 	
 	/*
 	  (2) Narrowing conversions:
@@ -83,9 +83,9 @@ int main() {
 	i = l; // May lose digits
 	i = f; // May lose info
 	// Says "I know," eliminates warnings:
-	i = static_cast&lt;int&gt;(l);
-	i = static_cast&lt;int&gt;(f);
-	char c = static_cast&lt;char&gt;(i);
+	i = static_cast<int>(l);
+	i = static_cast<int>(f);
+	char c = static_cast<char>(i);
 	
 	/*
 	  (3) Forcing a conversion from void*: 
@@ -94,86 +94,86 @@ int main() {
 	// Old way produces a dangerous conversion:
 	float* fp = (float*)vp;
 	// The new way is equally dangerous:
-	fp = static_cast&lt;float*&gt;(vp);
+	fp = static_cast<float*>(vp);
 	
 	/* 
 	  (4) Implicit type conversions, normally performed by the compiler:
 	*/
 	double d = 0.0;
 	int x = d; // Automatic type conversion
-	x = static_cast&lt;int&gt;(d); // More explicit
+	x = static_cast<int>(d); // More explicit
 	func(d); // Automatic type conversion
-	func(static_cast&lt;int&gt;(d)); // More explicit
+	func(static_cast<int>(d)); // More explicit
 }
-</pre>
+```
 
 ## 2. const_cast
 
-<pre class="prettyprint linenums">
+```cpp
 int main() {
 	const int i = 0;
 	int* j = (int*)&i; // Deprecated form
-	j = const_cast&lt;int*&gt;(&i); // Preferred
+	j = const_cast<int*>(&i); // Preferred
 	
 	// Can't do simultaneous additional casting:
-	// long* l = const_cast&lt;long*&gt;(&i); // Error
+	// long* l = const_cast<long*>(&i); // Error
 	
 	volatile int k = 0;
-	int* u = const_cast&lt;int*&gt;(&k);
+	int* u = const_cast<int*>(&k);
 }
-</pre>
+```
 
 ## 3. reinterpret_cast
 
-<pre class="prettyprint linenums">
-#include &lt;iostream&gt;
+```cpp
+#include <iostream>
 using namespace std;
 
 const int sz = 100;
 struct X { int a[sz]; };
 void print(X* x) {
-	for(int i = 0; i &lt; sz; i++)
-	cout &lt;&lt; x-&gt;a[i] &lt;&lt; ' ';
-	cout &lt;&lt; endl &lt;&lt; "--------------------" &lt;&lt; endl;
+	for(int i = 0; i < sz; i++)
+	cout << x->a[i] << ' ';
+	cout << endl << "--------------------" << endl;
 }
 
 int main() {
 	X x;
 	print(&x);
 	
-	int* xp = reinterpret_cast&lt;int*&gt;(&x);
-	for(int* i = xp; i &lt; xp + sz; i++)
+	int* xp = reinterpret_cast<int*>(&x);
+	for(int* i = xp; i < xp + sz; i++)
 		*i = 0;
 		
 	// Can't use xp as an X* at this point unless you cast it back:
-	print(reinterpret_cast&lt;X*&gt;(xp));
+	print(reinterpret_cast<X*>(xp));
 	
 	// In this example, you can also just use the original identifier:
 	print(&x);
 }
-</pre>
+```
 
-<pre class="prettyprint linenums">
-#include &lt;iostream&gt;
+```cpp
+#include <iostream>
 using namespace std;
 
 // Returns a hash code based on an address
 unsigned short Hash( void *p ) {
-   unsigned int val = reinterpret_cast&lt;unsigned int&gt;( p );
-   return ( unsigned short )( val ^ (val &gt;&gt; 16));
+   unsigned int val = reinterpret_cast<unsigned int>( p );
+   return ( unsigned short )( val ^ (val >> 16));
 }
 
 int main() {
    int a[20];
-   for ( int i = 0; i &lt; 20; i++ )
-      cout &lt;&lt; Hash( a + i ) &lt;&lt; endl;
+   for ( int i = 0; i < 20; i++ )
+      cout << Hash( a + i ) << endl;
 }
-</pre>
+```
 
 ## 4. dynamic_cast
 
-<pre class="prettyprint linenums">
-#include &lt;iostream&gt;
+```cpp
+#include <iostream>
 using namespace std;
 
 class Pet {
@@ -194,15 +194,15 @@ int main() {
 	// Try to cast it to Cat*:
     Cat* d2 = dynamic_cast<Cat*>(b);
     
-	cout &lt;&lt; "d1 = " &lt;&lt; d1 &lt;&lt; endl; // d1 = 0; 地址为 0 表示转型失败 
-    cout &lt;&lt; "d2 = " &lt;&lt; d2 &lt;&lt; endl; // d2 = 0x2f7f40
+	cout << "d1 = " << d1 << endl; // d1 = 0; 地址为 0 表示转型失败 
+    cout << "d2 = " << d2 << endl; // d2 = 0x2f7f40
 }
-</pre>
+```
 
 可以配合 `#include <typeinfo>` 的 `typeid` 操作符使用：
 
-<pre class="prettyprint linenums">
-#include &lt;typeinfo&gt;
+```cpp
+#include <typeinfo>
 
 int main() {
 	Circle c;
@@ -216,4 +216,4 @@ int main() {
 	else if(typeid(s) == typeid(sp))
 		sp = static_cast<Square*>(s);
 }
-</pre>
+```

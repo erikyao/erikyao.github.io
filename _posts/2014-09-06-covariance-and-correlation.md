@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "Covariance and Correlation"
 description: "协方差与相关系数"
 category: Math

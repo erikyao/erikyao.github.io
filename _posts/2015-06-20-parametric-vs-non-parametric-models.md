@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "Parametric vs. non-parametric models"
 description: ""
 category: Math

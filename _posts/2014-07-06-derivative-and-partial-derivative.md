@@ -81,8 +81,8 @@ n：No of moles = 摩尔数；R ：Gas constant = 气体常数。
 
 (1/V)∂V/∂P：
 
-* &gt; 0 时，是 Expansivity = 体积膨胀率；
-* &lt; 0 时，是 Comprssibility = 体积的压缩率。 
+* > 0 时，是 Expansivity = 体积膨胀率；
+* < 0 时，是 Comprssibility = 体积的压缩率。 
 
 ∂T/∂P：Joule-Thomson coefficient = 焦耳-汤姆孙温压系数 = 压强增加引起升温的比率、变化率。  
 

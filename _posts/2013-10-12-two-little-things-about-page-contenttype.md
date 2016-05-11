@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "&lt;%@ page contentType%&gt; 注意事项两则"
+title: "<%@ page contentType%> 注意事项两则"
 description: ""
 category: JSP
 tags: [JSP-101]
@@ -21,8 +21,10 @@ jsp 设置编码 `<%@ page contentType="text/html; charset=utf-8"%>`，写成 UT
 
 　　曾经的教训：
 
-* main JSP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: `<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>`
-* included JSP : `<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>`
+| file         | instruction |
+|==============|=============|
+| main JSP     | `<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>` |
+| included JSP | `<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>` |
 
 　　导致 resin 3.0.23 下报：
 

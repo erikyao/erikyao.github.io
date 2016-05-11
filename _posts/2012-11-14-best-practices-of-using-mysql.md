@@ -53,8 +53,10 @@ tags: [Database-101]
 
 innodb 的默认隔离级别是 Repeatable Read，但是实际上是可以防止幻读的。配置文件：
 
-	[mysqld]
-	transaction-isolation = REPEATABLE-READ
+```ini
+[mysqld]
+transaction-isolation = REPEATABLE-READ
+```
 
 实际应用中，Read Uncommitted（有脏数据）和 Serializable（并发性太差）基本不予考虑
 
@@ -73,7 +75,7 @@ innodb 的默认隔离级别是 Repeatable Read，但是实际上是可以防止
 - 更新语句的条件需要有合适的索引
 
 	> 一般应用中最常用的应该是索引记录锁，又称行锁，在唯一性等值条件查询时会施加到索引，如果等值条件没有索引，会锁住整张表！（严重拖累性能）
-    > <br/>
+    >   
 	> 注意，select 不会加锁（BTW，select for update 会），所以行锁的施加场景如：update ... where field1=n，此时需保证 field1 有索引
 
 - 避免对相同记录做大量并发写操作造成锁冲突
@@ -104,10 +106,9 @@ innodb 的默认隔离级别是 Repeatable Read，但是实际上是可以防止
 
 - 建议使用 INT UNSIGNED 存储 IPV4
 - 因为 MySQL 提供了函数给你，不用白不用……
-
-    > `select INET_ATON('192.168.164.125') => 3232277629`  
-    > `select INET_NTOA(3232277629) => '122.168.164.125'`  
-    > ATON: Address TO Num, and vice vesa
+	- `select INET_ATON('192.168.164.125') => 3232277629`  
+    - `select INET_NTOA(3232277629) => '122.168.164.125'`  
+    - ATON: Address TO Num, and vice vesa
 
 ### 关于 null ###
 
@@ -168,8 +169,10 @@ innodb 的默认隔离级别是 Repeatable Read，但是实际上是可以防止
 
 举例：
 
+```sql
     SELECT Name FROM tbl WHERE UserID=?
     KEY IDX_UID_NAME(UserID,Name)
+```
 
 因为索引保存了 key 的值，所以这里 `SELECT name` 可以直接从索引中读到数据，避免了回表查询（即不用去读表的 row）
 

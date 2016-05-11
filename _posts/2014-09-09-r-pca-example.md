@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "R PCA Example"
 description: ""
 category: Machine-Learning
@@ -32,16 +32,16 @@ where the columns of `U` are orthogonal ([ɔ:'θɒgənl], 正交的) (`U` a.k.a 
 
 比如可以使用 [Bioconductor 的 {impute} 包](https://bioconductor.org/packages/release/bioc/html/impute.html)。安装方法：
 
-<pre class="prettyprint linenums">
+```r
 source("http://bioconductor.org/biocLite.R")
 biocLite("impute")
-</pre>
+```
 
 比如使用 knn 策略来 impute：
 
-<pre class="prettyprint linenums">
-matrix2 &lt;- impute.knn(matrix)$data
-</pre>
+```r
+matrix2 <- impute.knn(matrix)$data
+```
 
 Knn, or k-nearest-neighbors, is a policy that take the k (10 by default in the code above) rows closest to the row with `NA`, impute the `NA` with average of the k rows.
 
@@ -49,19 +49,19 @@ Knn, or k-nearest-neighbors, is a policy that take the k (10 by default in the c
 
 Load the .rda file [face.rda][face.rda].
 
-<pre class="prettyprint linenums">
+```r
 load("face.rda")
 image(t(faceData)[, nrow(faceData):1]) ## t for transpose; 相当于 Octave 的 X'
 
 ## 这里转置再上下颠倒一下完全是因为这个图片本身就是歪的，并没有什么特殊用意
-</pre>
+```
 
 ## 3. Variance Explained
 
-<pre class="prettyprint linenums">
-udv &lt;- svd(scale(faceData))
+```r
+udv <- svd(scale(faceData))
 plot(udv$d^2/sum(udv$d^2), pch = 19, xlab = "Singular vector", ylab = "Variance explained")
-</pre>
+```
 
 ![][variance_explained]
 
@@ -69,8 +69,8 @@ plot(udv$d^2/sum(udv$d^2), pch = 19, xlab = "Singular vector", ylab = "Variance 
 
 ## 4. Create Approximations
 
-<pre class="prettyprint linenums">
-udv &lt;- svd(scale(faceData)) ## Note that '%*%' is matrix multiplication
+```r
+udv <- svd(scale(faceData)) ## Note that '%*%' is matrix multiplication
 ## scale 就是指 feature scaling/mean normalization (centering)，i.e. subtract the mean then divide by the standard deviation
 
 ## dim(faceData) = 32x32
@@ -78,20 +78,20 @@ udv &lt;- svd(scale(faceData)) ## Note that '%*%' is matrix multiplication
 ## str(udv$d) = 1x32, 因为是 diagonal 于是把 0 全都省了
 ## dim(udv$v) = 32x32
 
-approx1 &lt;- (udv$u[, 1] * udv$d[1]) %*% t(udv$v[, 1]) ## 这里必须加一个括号，不然 'd %*% t(v)' 会先结合 
-approx5 &lt;- udv$u[, 1:5] %*% diag(udv$d[1:5]) %*% t(udv$v[, 1:5]) ## 'diag' is used to make the diagonal matrix out of d
-approx10 &lt;- udv$u[, 1:10] %*% diag(udv$d[1:10]) %*% t(udv$v[, 1:10])
-</pre>
+approx1 <- (udv$u[, 1] * udv$d[1]) %*% t(udv$v[, 1]) ## 这里必须加一个括号，不然 'd %*% t(v)' 会先结合 
+approx5 <- udv$u[, 1:5] %*% diag(udv$d[1:5]) %*% t(udv$v[, 1:5]) ## 'diag' is used to make the diagonal matrix out of d
+approx10 <- udv$u[, 1:10] %*% diag(udv$d[1:10]) %*% t(udv$v[, 1:10])
+```
 
 ## 5. Plot Approximations
 
-<pre class="prettyprint linenums">
+```r
 par(mfrow = c(1, 4))
 image(t(approx1)[, nrow(approx1):1], main = "(a)")
 image(t(approx5)[, nrow(approx5):1], main = "(b)")
 image(t(approx10)[, nrow(approx10):1], main = "(c)")
 image(t(faceData)[, nrow(faceData):1], main = "(d)") ## Original data
-</pre>
+```
 
 ![][4_faces]
 
@@ -99,9 +99,9 @@ image(t(faceData)[, nrow(faceData):1], main = "(d)") ## Original data
 
 以下参考 [Running PCA and SVD in R](http://genomicsclass.github.io/book/pages/pca_svd.html)。
 
-<pre class="prettyprint linenums">
-x &lt;- t(e)
-pc &lt;- prcomp(x)
+```r
+x <- t(e)
+pc <- prcomp(x)
 names(pc)
 ## [1] "sdev"     "rotation" "center"   "scale"    "x"
 
@@ -119,6 +119,6 @@ names(pc)
 ## `pc$sdev` 是 sample standard deviations
 	## 更准确地说，`pc$sdev` 是 unbiased estimates of standard deviations，所以带了一个 (n-1) 的 correction
 ## pc$sdev^2 == sv$d^2/(ncol(e) - 1)
-</pre>
+```
 
 -> _~~~~~~~~~~ 2015-12-06 补充：结束 ~~~~~~~~~~_ <-

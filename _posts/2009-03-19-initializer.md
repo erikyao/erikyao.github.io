@@ -13,7 +13,7 @@ tags: [Java-101]
 
 　　The non-static fields can not be initialized in a static intializer.
 
-<pre class="prettyprint linenums">
+```java
 class Book {     
     Book(int id) {     
         System.out.println("This is book No." + id);     
@@ -82,13 +82,13 @@ class InitBlockTest {
         new Bookshelf();     
     }     
 }
-</pre>
+```
 
 _9月4号补充:_   
 
 　　initializer 不一定非要是初始化成员，在 initializer 内部其实是可以随便写的，像这样也可以：
 
-<pre class="prettyprint linenums">
+```java
 class Test {  
 	//static  
 	{  
@@ -108,7 +108,7 @@ public class InitializerTest {
 	pass 
 	pass 
 */ 
-</pre>
+```
 
 　　另：在声明 field 的时候，常常会当场初始化 field，这个称为 variable intializer (更倾向于将声明 field 的表达式右值称为 variable initializer)。根据 field 是否 static 及初始化是否调用了 static 方法，variable initializer 有的属于 class 行为，有的属于 object 行为。static initializer 完全属于 class 行为。
 

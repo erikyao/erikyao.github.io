@@ -11,8 +11,8 @@ To hell with you, C++!
 
 -----
 
-<pre class="prettyprint linenums">
-#include &lt;iostream&gt;
+```cpp
+#include <iostream>
 using namespace std;
 
 class Tango {
@@ -33,17 +33,17 @@ int main() {
 	Tango* ptango = new Tango;
 	Tango* ptango2 = new Tango();
 	
-	cout &lt;&lt; tango.i &lt;&lt; endl;
-	cout &lt;&lt; ptango->i &lt;&lt; endl;
-	cout &lt;&lt; ptango2->i &lt;&lt; endl;
+	cout << tango.i << endl;
+	cout << ptango->i << endl;
+	cout << ptango2->i << endl;
 	
 	Papa papa;
 	Papa* ppapa = new Papa;
 	Papa* ppapa2 = new Papa();
 	
-	cout &lt;&lt; papa.i &lt;&lt; endl;
-	cout &lt;&lt; ppapa->i &lt;&lt; endl;
-	cout &lt;&lt; ppapa2->i &lt;&lt; endl;
+	cout << papa.i << endl;
+	cout << ppapa->i << endl;
+	cout << ppapa2->i << endl;
 }
 
 // output:
@@ -55,7 +55,7 @@ int main() {
 	6319120
 	6055888
 */
-</pre>
+```
 
 - 具体的讨论见 [Do the parentheses after the type name make a difference with new?](http://stackoverflow.com/questions/620137/do-the-parentheses-after-the-type-name-make-a-difference-with-new)
 - `new T;` 和 `new T();` 都是调用的无参构造器，但是如果是系统自带的无参构造器，`new T();` 会做一个 zero initialization

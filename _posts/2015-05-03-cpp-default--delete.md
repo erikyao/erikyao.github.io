@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "C++: <i>=default</i> &amp; <i>=delete</i>"
+title: "C++: <i>=default</i> & <i>=delete</i>"
 description: ""
 category: C++
 tags: [Cpp-101, C++11, copy-constructor]
@@ -22,7 +22,7 @@ tags: [Cpp-101, C++11, copy-constructor]
 
 所谓 "compiler-generated version" 包括默认构造器（Synthesized Default Constructor）、默认 copy-constructor、默认 `operator=` 等（其实还有 C++11 才有的 move constructor 和 move `operator=`，遇到的时候再讨论）：
 
-<pre class="prettyprint linenums">
+```cpp
 struct SomeType {
     SomeType() = default; // The default constructor is explicitly stated.
     SomeType(OtherType value);
@@ -41,6 +41,6 @@ struct NoInt {
 
 struct OnlyDouble {
     void f(double d);
-    template&lt;class T&gt; void f(T) = delete; // Generalized form to disallow calling f() with any type other than double
+    template<class T> void f(T) = delete; // Generalized form to disallow calling f() with any type other than double
 };
-</pre>
+```

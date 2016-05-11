@@ -22,8 +22,8 @@ tags: [Cpp-101, copy-constructor]
 
 直接上例子：
 
-<pre class="prettyprint linenums">
-#include &lt;iostream&gt;
+```cpp
+#include <iostream>
 using namespace std;
 
 class T {
@@ -42,22 +42,22 @@ public:
 };
 
 T::T(int i) {
-	cout &lt;&lt; "constructor: i==" &lt;&lt; i &lt;&lt; endl;
-    cout &lt;&lt; "constructor: this==" &lt;&lt; this &lt;&lt; endl;
+	cout << "constructor: i==" << i << endl;
+    cout << "constructor: this==" << this << endl;
     this->i = i;
 }
 
 T::T(const T& t) : i(t.getI()) {
-    cout &lt;&lt; "copy-constructor: &t==" &lt;&lt; &t &lt;&lt; endl;
-    cout &lt;&lt; "copy-constructor: this==" &lt;&lt; this &lt;&lt; endl;
+    cout << "copy-constructor: &t==" << &t << endl;
+    cout << "copy-constructor: this==" << this << endl;
 } 
 
 T::~T() {
-    cout &lt;&lt; "destructor: this==" &lt;&lt; this &lt;&lt; endl;
+    cout << "destructor: this==" << this << endl;
 }
 
 void f(T t) {
-	cout &lt;&lt; "f: t.getI()==" &lt;&lt; t.getI() &lt;&lt; endl;
+	cout << "f: t.getI()==" << t.getI() << endl;
 }
 
 int main() {
@@ -84,7 +84,7 @@ int main() {
 	destructor: this==0x22fe10
 	destructor: this==0x22fe20
 */
-</pre>
+```
 
 * `T t1(1);` 这是最常见的用法
 * `T t2 = T(2);` 这个有点像 java 的写法也是可以的，但是根据 [Explicit Call to a Constructor](http://stackoverflow.com/a/12038485)，这个写法实际会调用 copy-constructor，虽然编译器会把这个步骤优化掉（所以我们的 output 显示没有调用 copy-constructor），但是如果把 copy-constructor 标为 `private` 的话，这句其实是会报错的
@@ -97,8 +97,8 @@ int main() {
 
 你觉得这个 constructor conversion 太智能了或者是影响了 type checking（至少我是这么觉得的），可以把 constructor 声明为 `explicit` 把这个功能 ban 掉。
 
-<pre class="prettyprint linenums">
-#include &lt;iostream&gt;
+```cpp
+#include <iostream>
 using namespace std;
 
 class T {
@@ -110,31 +110,31 @@ public:
 };
 
 T::T(int i) {
-	cout &lt;&lt; "constructor: i==" &lt;&lt; i &lt;&lt; endl;
-    cout &lt;&lt; "constructor: this==" &lt;&lt; this &lt;&lt; endl;
+	cout << "constructor: i==" << i << endl;
+    cout << "constructor: this==" << this << endl;
     this->i = i;
 }
 
 T::T(const T& t) : i(t.getI()) {
-    cout &lt;&lt; "copy-constructor: &t==" &lt;&lt; &t &lt;&lt; endl;
-    cout &lt;&lt; "copy-constructor: this==" &lt;&lt; this &lt;&lt; endl;
+    cout << "copy-constructor: &t==" << &t << endl;
+    cout << "copy-constructor: this==" << this << endl;
 } 
 
 T::~T() {
-    cout &lt;&lt; "destructor: this==" &lt;&lt; this &lt;&lt; endl;
+    cout << "destructor: this==" << this << endl;
 }
 
 int main() {
 	T t3 = 3; // ERROR. conversion from 'int' to non-scalar type 'T' requested
 }
-</pre> 
+```
 
 需要注意的是，copy-constructor 也可以声明为 `explicit`，只是这么做以后，所有后台隐式调用 copy-constructor 的地方（比如 pass-by-value）的地方都会报错。
 
 ## <a name="operator-conversion"></a>3. Operator conversion
 
-<pre class="prettyprint linenums">
-#include &lt;iostream&gt;
+```cpp
+#include <iostream>
 using namespace std;
 
 class T {
@@ -153,22 +153,22 @@ public:
 };
 
 T::T(int i) {
-	cout &lt;&lt; "constructor: i==" &lt;&lt; i &lt;&lt; endl;
-    cout &lt;&lt; "constructor: this==" &lt;&lt; this &lt;&lt; endl;
+	cout << "constructor: i==" << i << endl;
+    cout << "constructor: this==" << this << endl;
     this->i = i;
 }
 
 T::T(const T& t) : i(t.getI()) {
-    cout &lt;&lt; "copy-constructor: &t==" &lt;&lt; &t &lt;&lt; endl;
-    cout &lt;&lt; "copy-constructor: this==" &lt;&lt; this &lt;&lt; endl;
+    cout << "copy-constructor: &t==" << &t << endl;
+    cout << "copy-constructor: this==" << this << endl;
 } 
 
 T::~T() {
-    cout &lt;&lt; "destructor: this==" &lt;&lt; this &lt;&lt; endl;
+    cout << "destructor: this==" << this << endl;
 }
 
 void f(T t) {
-	cout &lt;&lt; "f: t.getI()==" &lt;&lt; t.getI() &lt;&lt; endl;
+	cout << "f: t.getI()==" << t.getI() << endl;
 }
 
 class Tango {
@@ -205,7 +205,7 @@ int main() {
 	destructor: this==0x22fe30
 	destructor: this==0x22fe10
 */
-</pre>
+```
 
 * 注意下这里的逻辑，你的转换方向是 `Tango` → `T`，所以你需要写一个 `Tango::operator T()`。如果你想像 constructor convention 的例子那样 `int` → `T`，用 operator conversion 是实现不了的，因为你没办法写 `int::operator T()`
 	* 但是反过来，你要 `T` → `int`，又只能用 operator conversion `T::operator int()`，constructor convention 没办法实现
@@ -220,7 +220,7 @@ int main() {
 * 如果 `operator+` 是用 non-member friend 实现的，automatic type conversion may be applied to either operand，你写 `t1+2` 和 `2+t1` 都可以
 * whereas with member function, the left-hand operand must already be the proper type，也就是说你只能写 `t1+2` 不能写 `2+t1`
 
-<pre class="prettyprint linenums">
+```cpp
 class Number {
     int i;
 public:
@@ -252,4 +252,4 @@ int main() {
     a - 1; // OK. 2nd arg converted to Number
     1 - a; // OK. 1st arg converted to Number
 }
-</pre>
+```

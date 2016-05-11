@@ -18,16 +18,16 @@ tags: [Cpp-101, C++11]
 
 Objects of `initializer_list` are automatically constructed by the compiler from initialization list declarations, which is a list of comma-separated elements enclosed in braces:
 
-<pre class="prettyprint linenums">
+```cpp
 auto il = { 10, 20, 30 };  // il is an initializer_list 
 
 for (auto i : { 1, 2, 3, 4, 5 })
 	std::cout << i << "\n";
-</pre>
+```
 
 Constructors taking only one argument of `initializer_list` are a special kind of constructor, called initializer-list constructor. 它的语法有点奇怪，我们称为 list initialization：
 
-<pre class="prettyprint linenums">
+```cpp
 struct myclass {
 	myclass(int,int) { ... }
 	myclass(initializer_list<int>) { ... }
@@ -35,15 +35,15 @@ struct myclass {
 
 myclass foo{10,20};  // calls initializer_list constructor
 myclass bar(10,20);  // calls (int,int) constructor 
-</pre>
+```
 
 然后你会发现 `initializer_list` 其实是个挺好的 variable argument list（可变参数列表）的 solution，比 `func(...)` 简单多了：
 
-<pre class="prettyprint linenums">
-template &lt;class T&gt;
-void func(std::initializer_list&lt;T&gt; list) {
+```cpp
+template <class T>
+void func(std::initializer_list<T> list) {
     for(T elem : list) {
-        std::cout &lt;&lt; elem &lt;&lt; std::endl ;
+        std::cout << elem << std::endl ;
     }
 }
 
@@ -51,4 +51,4 @@ int main() {
 	func({10, 20, 30, 40}) ;
     func({"Hello", "World"}) ;
 }
-</pre>
+```

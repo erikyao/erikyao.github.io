@@ -28,11 +28,11 @@ tags: [Cpp-101]
 
 The creation of a namespace is notably similar to the creation of a class:
 
-<pre class="prettyprint linenums">
+```cpp
 namespace foo {
 	// Declarations
 }
-</pre>
+```
 
 - A namespace definition can appear only at global scope, or nested within another namespace.
 	- Access nested namespace via `::`, like `foo::bar::baz::myCout << i << endl;`
@@ -48,24 +48,24 @@ namespace foo {
 - unnamed namespace 内的 variable 和 function 都是 internal linkage。
 - unnamed namespace 设计出来就是为了取代 global static 的。
 
-<pre class="prettyprint linenums">
-#include &lt;iostream&gt;
+```cpp
+#include <iostream>
 
 using namespace std;
  
 namespace { int i = 5; } 
  
 int main(int argc, char* argv[]) {
-	cout &lt;&lt; i; // output: 5
+	cout << i; // output: 5
 }
-</pre>
+```
 
 ## <a name="friend-and-namespace"></a>3. When friend meets namespace
 
 根据 [class friend function inside a namespace](http://stackoverflow.com/questions/10934226/class-friend-function-inside-a-namespace)，namespace 内的 function 内写 friend 还需要一点技巧：
 
-<pre class="prettyprint linenums">
-#include &lt;iostream&gt;
+```cpp
+#include <iostream>
 
 /***** forward declare *****/
 namespace A {
@@ -88,12 +88,12 @@ namespace A {
 	};
 	
 	void f(window rhs) {
-		std::cout &lt;&lt; rhs.a &lt;&lt; std::endl;
+		std::cout << rhs.a << std::endl;
 	}
 }
 
 void g(A::window rhs) {
-	std::cout &lt;&lt; rhs.a &lt;&lt; std::endl;
+	std::cout << rhs.a << std::endl;
 }
 
 int main() {
@@ -101,7 +101,7 @@ int main() {
 	A::f(w);	// output: 1 
 	g(w);		// output: 1 
 }
-</pre>
+```
 
 * 注意 forward declare 的用法
 * 注意 friend function 放在 namespace 内和放在 namespace 外的区别
@@ -118,7 +118,7 @@ int main() {
 
 `using` 引入的 variable 和 function，其实是可以 "override" 的，但是与覆写又有点不同的是：覆写后，原来的 variable 和 function 还是可以用全称显式地访问到的。举个例子：
 
-<pre class="prettyprint linenums">
+```cpp
 #include <iostream>
 
 namespace A {
@@ -131,25 +131,25 @@ using namespace std;
 int main() {
 	int i = 47; // override A::i
 	
-	cout &lt;&lt; i &lt;&lt; endl;		// output: 47
-	cout &lt;&lt; A::i &lt;&lt; endl;	// output: 5
+	cout << i << endl;		// output: 47
+	cout << A::i << endl;	// output: 5
 }
-</pre>
+```
 
 ### <a name="using-declaration"></a>4.3 `using` declaration
 
 有点像 java 的 static import，只引入一个 name 而不是整个 namespace：
 
-<pre class="prettyprint linenums">
-#include &lt;iostream&gt;
+```cpp
+#include <iostream>
 
 using std::cout; // 只引入一个 cout
 
 int main() {
-	cout &lt;&lt; "Hello" &lt;&lt; std::endl;
+	cout << "Hello" << std::endl;
 	// cout 可以直接用；但是 endl 就要写全称
 }
-</pre>
+```
 
 A `using` declaration can also appear within a namespace.
 
@@ -157,7 +157,7 @@ A `using` declaration can also appear within a namespace.
 
 如果两个 namespace 有同名的 variable 或者 function，引入的时候不会报错，使用这个 variable 或者 function 的时候才报错：
 
-<pre class="prettyprint linenums">
+```cpp
 namespace U {
 	int i = 5;
 	inline void f() {}
@@ -178,7 +178,7 @@ int main() {
 	U::f();	// OK
 	V::f();	// OK
 }
-</pre>
+```
 
 这种情况不算做 override，我猜是因为 override 是程序员自己控制的，而 namespace 成员重名程序员很难发觉，于是编译器直接报个错提示你……
 

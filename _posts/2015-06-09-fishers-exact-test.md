@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "Fisher's Exact Test for Independence"
 description: "To test whether two categorical variables are independent"
 category: Math

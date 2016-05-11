@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "C++: typedef sees <i>int*</i> and <i>int&amp;</i> as new types"
+title: "C++: typedef sees <i>int*</i> and <i>int&</i> as new types"
 description: ""
 category: C++
 tags: [Cpp-101]
@@ -15,15 +15,15 @@ tags: [Cpp-101]
 
 但是 _Thinking in C++_ 的 `typedef` 又明目张胆地说了：
 
-<pre class="prettyprint linenums">
+```cpp
 typedef int* IntPtr;
 IntPtr x, y; // both x and y are now of type int*
-</pre>
+```
 
 我们来看看 `typedef` 的效果：
 
-<pre class="prettyprint linenums">
-#include &lt;iostream&gt;
+```cpp
+#include <iostream>
 using namespace std;
 
 typedef int* IntPtr;
@@ -46,7 +46,7 @@ int main() {
 	int &ra = i, rb = i; // 1 ref, 1 int
 	IntRef ira = i, irb = i; // 2 refs
 }
-</pre>
+```
 
 这么看来，把 `int*` 做新类型是对的，是 `int* pa, pb;` 这一句本身太特殊……或者，我已经不想再讨论这个问题了，前面 dereference 的概念我就看出来了，C/C++ 就是有很多东西不能提供给你一个统一的方式去理解。
 

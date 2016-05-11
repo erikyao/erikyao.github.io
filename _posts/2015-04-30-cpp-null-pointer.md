@@ -13,16 +13,16 @@ tags: [Cpp-101, C++11]
 
 There are several ways to obtain a null pointer:
 
-<pre class="prettyprint linenums">
+```cpp
 int *p1 = nullptr;	// OK. equivalent to int *p1 = 0;
 int *p2 = 0;		// OK.
 
-// must #include &lt;cstdlib&gt;
+// must #include <cstdlib>
 int *p3 = NULL;		// OK. equivalent to int *p3 = 0;
 
 int zero = 0;
 p3 = zero;			// ERROR. cannot assign an int to a pointer
-</pre>
+```
 
 - The most direct approach is to initialize the pointer using the literal `nullptr`, which was introduced by C++11. 
 - Alternatively, we can initialize a pointer to the literal 0.

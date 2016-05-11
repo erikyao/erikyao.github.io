@@ -11,17 +11,17 @@ tags: [Config-Windows]
 
 　　在windows命令行窗口下执行：
 
-<pre class="prettyprint linenums">
+```shell
 C:\>netstat -aon|findstr "80"
 TCP     127.0.0.1:80         0.0.0.0:0               LISTENING       2448
-</pre>
+```
 
 　　看到了吗，端口被进程号为2448的进程占用，继续执行下面命令：
 
-<pre class="prettyprint linenums">
+```shell
 C:\>tasklist|findstr "2448"
 thread.exe                     2016 Console                 0     16,064 K
-</pre>
+```
 
 很清楚吧，thread占用了你的端口，Kill it
 

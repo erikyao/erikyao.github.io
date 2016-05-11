@@ -37,22 +37,22 @@ tags: [R-101]
 
 `lapply(X, func, ...)` 可以理解成：
 
-<pre class="prettyprint linenums">
-List&lt;T&gt; result = ...;
+```r
+List<T> result = ...;
 
 for (T xn : X) {
 	result.add(func(xn, ...));
 }
 
 return result;
-</pre>
+```
 
 If X is not a list, it will be coerced to a list using `as.list`.
 
-<pre class="prettyprint linenums">
+```r
 if (!is.vector(X) || is.object(X)) 
 	X <- as.list(X)
-</pre>
+```
 
 lapply always returns a list, regardless of the class of the input.
 
@@ -68,18 +68,18 @@ The simplification rule is:
 
 举个高级一点的例子，假设 `scores` 是一个 list，包含 4 个 vector 分别是某课程 4 个 semester 的成绩，要求对每个 vector 做 t-test：
 
-<pre class="prettyprint linenums">
-&gt; tests &lt;- lapply(scores, t.test) ## 如果用 sapply，返回 matrix 就不好办了
-&gt; sapply(tests, function(t) t$conf.int) ## function 的作用就是把 t$conf.int 给 print 出来
-</pre>
+```r
+> tests <- lapply(scores, t.test) ## 如果用 sapply，返回 matrix 就不好办了
+> sapply(tests, function(t) t$conf.int) ## function 的作用就是把 t$conf.int 给 print 出来
+```
 
 还有个有点巧妙的用法：查看 data frame 每个 column 的 class：
 
-<pre class="prettyprint linenums">
+```r
 > sapply(batches, class)
 	batch 	clinic    dosage shrinkage
  "factor" "factor" "integer" "numeric"
-</pre>
+```
 
 ### <a name="sapply-example"></a>2.1 sapply example: Removing low-correlation variables from a set of predictors
 
@@ -114,30 +114,30 @@ At this point, we can regress `resp` against `best.pred`, knowing that we have c
 
 举个例子：
 
-<pre class="prettyprint linenums">
-&gt; l1 &lt;- list(a = c(1:10), b = c(11:20))
-&gt; l2 &lt;- list(c = c(21:30), d = c(31:40))
-&gt; mapply(sum, l1$a, l1$b, l2$c, l2$d)
+```r
+> l1 <- list(a = c(1:10), b = c(11:20))
+> l2 <- list(c = c(21:30), d = c(31:40))
+> mapply(sum, l1$a, l1$b, l2$c, l2$d)
 [1]  64  68  72  76  80  84  88  92  96 100
-</pre>
+```
 
 注意，这里 `mapply` 并不是：
 
-<pre class="prettyprint linenums">
+```r
 sapply(l1$a, sum)
 sapply(l1$b, sum)
 sapply(l2$c, sum)
 sapply(l2$d, sum)
-</pre>
+```
 
 而是：
 
-<pre class="prettyprint linenums">
+```r
 for (int i = 1; i <= 10; ++i) {
 	list.add(sum(l1$a[i], l1$b[i], l2$c[i], l2$d[i]));
 }
 return list;
-</pre>
+```
 
 注意 `mapply` 的 function 要求是 works on scalars but not on vectors。
 
@@ -152,9 +152,9 @@ return list;
 
 首先我们要搞清楚 R 的 array。在 R 中说 array 你不能直接联想到 `int[]`，因为 R 的 array 上来就是多维的，而且你最好理解为多维 matrix。单个的 matrix 可以看做是最简单的 array。下面这个 array 你可以理解成 4 个 matrix，想象成 4 页纸，每张纸上有一个 matrix；或者想象成 4 块玻璃板，每一块上有一个 matrix，4 块玻璃板拼成一个 matrix 立方体。  
 
-<pre class="prettyprint linenums">
-&gt; x &lt;- array(rep(1, 24), c(2, 3, 4))
-&gt; x
+```r
+> x <- array(rep(1, 24), c(2, 3, 4))
+> x
 , , 1
 
      [,1] [,2] [,3]
@@ -178,25 +178,25 @@ return list;
      [,1] [,2] [,3]
 [1,]    1    1    1
 [2,]    1    1    1
-</pre>
+```
 
 然后再是这个 "Array Margins"，这个名字起得很奇怪，从字面上很难理解，我们举两个例子说明下：
 
-<pre class="prettyprint linenums">
-&gt; x &lt;- matrix(rep(1, 6), nrow=2, ncol=3)
-&gt; x
+```r
+> x <- matrix(rep(1, 6), nrow=2, ncol=3)
+> x
      [,1] [,2] [,3]
 [1,]    1    1    1
 [2,]    1    1    1
-&gt; apply(x, 1, sum)
+> apply(x, 1, sum)
 [1] 3 3
-&gt; apply(x, 2, sum)
+> apply(x, 2, sum)
 [1] 2 2 2
-&gt; apply(x, c(1, 2), sum)
+> apply(x, c(1, 2), sum)
      [,1] [,2] [,3]
 [1,]    1    1    1
 [2,]    1    1    1
-</pre>
+```
 
 对 matrix 而言，`margin = 1` 就是 apply by row，`margin = 2` 就是 apply by column，此时 the function being called should expect one argument, a
 vector, which will be one row or one column from the matrix；如果 `margin = c(1, 2)` 就是 apply by every single element，此时 function 就只需要接收 single element 作为参数。
@@ -204,9 +204,9 @@ vector, which will be one row or one column from the matrix；如果 `margin = c
 对 data frame 而言，如果你要 apply by column，其实可以不用 `apply(margin=2)` 这么麻烦（and in this case R will convert your data frame to a
 matrix and then apply your function），直接用 `lapply` 或者 `sapply` 就行，因为 data frame 本质上是一个 list，list 的元素就是它的 column。
 
-<pre class="prettyprint linenums">
-&gt; x &lt;- array(rep(1, 24), c(2, 3, 4))
-&gt; x
+```r
+> x <- array(rep(1, 24), c(2, 3, 4))
+> x
 , , 1
 
      [,1] [,2] [,3]
@@ -231,26 +231,26 @@ matrix and then apply your function），直接用 `lapply` 或者 `sapply` 就�
 [1,]    1    1    1
 [2,]    1    1    1
 
-&gt; apply(x, 1, sum)
+> apply(x, 1, sum)
 [1] 12 12
-&gt; apply(x, 2, sum)
+> apply(x, 2, sum)
 [1] 8 8 8
-&gt; apply(x, 3, sum)
+> apply(x, 3, sum)
 [1] 6 6 6 6
-&gt; apply(x, c(1, 2), sum)
+> apply(x, c(1, 2), sum)
      [,1] [,2] [,3]
 [1,]    4    4    4
 [2,]    4    4    4
-&gt; apply(x, c(1, 3), sum)
+> apply(x, c(1, 3), sum)
      [,1] [,2] [,3] [,4]
 [1,]    3    3    3    3
 [2,]    3    3    3    3
-&gt; apply(x, c(2, 3), sum)
+> apply(x, c(2, 3), sum)
      [,1] [,2] [,3] [,4]
 [1,]    2    2    2    2
 [2,]    2    2    2    2
 [3,]    2    2    2    2
-</pre>
+```
 
 立体的情况复杂一点，请发挥你的空间想象能力~  
 
@@ -276,10 +276,10 @@ The shortcut functions are much faster，因为有专门优化过.
 
 然后我们的 `tapply` 并不是直接作用在 Ragged Array 上的，这个 Ragged Array 是由 X 和 INDEX 两个参数拼起来的。以最简单的情况，X 是 vector、INDEX 是 factor 举个例子：
 
-<pre class="prettyprint linenums">
-&gt; X &lt;- 1:9
-&gt; INDEX &lt;- factor('a', 'a', 'a', 'a', 'b', 'b', 'b', 'c', 'c')
-</pre>
+```r
+> X <- 1:9
+> INDEX <- factor('a', 'a', 'a', 'a', 'b', 'b', 'b', 'c', 'c')
+```
 
 这两个参数一拼就会形成：
 
@@ -299,11 +299,11 @@ The shortcut functions are much faster，因为有专门优化过.
 
 然后我们算下按 a、b、c 分类的 sum：
 
-<pre class="prettyprint linenums">
-&gt; tapply(X, INDEX, sum)
+```r
+> tapply(X, INDEX, sum)
  a  b  c 
 10 18 17 
-</pre>
+```
 
 说白了就是 `tapply(X, INDEX, fun)` == `lapply(split(X, INDEX), fun)`，我们先用 `split` 来对某一个 column 做 grouping，得到一个 list of vectors，也就是 list of groups，然后对这个 list of groups 做 `lapply`
 
@@ -313,10 +313,10 @@ The shortcut functions are much faster，因为有专门优化过.
 
 从另一个角度来说，`split` 就是 `tapply` 拼 Ragged Array 的过程，举个例子：
 
-<pre class="prettyprint linenums">
-&gt; X &lt;- 1:30
-&gt; INDEX &lt;- gl(3, 10) ## Generate Levels：10 个 1，10 个 2，10 个 3；levels = 1, 2, 3
-&gt; split(X, INDEX)
+```r
+> X <- 1:30
+> INDEX <- gl(3, 10) ## Generate Levels：10 个 1，10 个 2，10 个 3；levels = 1, 2, 3
+> split(X, INDEX)
 $`1`
  [1]  1  2  3  4  5  6  7  8  9 10
 
@@ -325,12 +325,12 @@ $`2`
 
 $`3`
  [1] 21 22 23 24 25 26 27 28 29 30
-</pre>
+```
 
 `tapply(X, INDEX, fun)` == `lapply(split(X, INDEX), fun)`
 
-<pre class="prettyprint linenums">
-&gt; lapply(split(X, INDEX), sum)
+```r
+> lapply(split(X, INDEX), sum)
 $`1`
 [1] 55
 
@@ -339,32 +339,32 @@ $`2`
 
 $`3`
 [1] 255
-</pre>
+```
 
 下面看一个按两个 factor 分组的例子：
 
-<pre class="prettyprint linenums">
-&gt; X &lt;- 1:10
-&gt; INDEX_1 &lt;- as.factor(c(rep('a', 5), rep('b', 5)))
-&gt; INDEX_2 &lt;- gl(5, 2)
-&gt; INDEX_1
+```r
+> X <- 1:10
+> INDEX_1 <- as.factor(c(rep('a', 5), rep('b', 5)))
+> INDEX_2 <- gl(5, 2)
+> INDEX_1
  [1] a a a a a b b b b b
 Levels: a b
-&gt; INDEX_2
+> INDEX_2
  [1] 1 1 2 2 3 3 4 4 5 5
 Levels: 1 2 3 4 5
-&gt; str(split(X, INDEX_1))
+> str(split(X, INDEX_1))
 List of 2
  $ a: int [1:5] 1 2 3 4 5
  $ b: int [1:5] 6 7 8 9 10
-&gt; str(split(X, INDEX_2))
+> str(split(X, INDEX_2))
 List of 5
  $ 1: int [1:2] 1 2
  $ 2: int [1:2] 3 4
  $ 3: int [1:2] 5 6
  $ 4: int [1:2] 7 8
  $ 5: int [1:2] 9 10
-&gt; str(split(X, list(INDEX_1, INDEX_2)))
+> str(split(X, list(INDEX_1, INDEX_2)))
 List of 10
  $ a.1: int [1:2] 1 2
  $ b.1: int(0) 
@@ -375,14 +375,14 @@ List of 10
  $ a.4: int(0) 
  $ b.4: int [1:2] 7 8
  $ a.5: int(0) 
-</pre>
+```
 
 可见 `X$m.n` == `X$m` ∩ `X$n`。  
 
 `drop = TRUE` 的作用是去掉空行：
 
-<pre class="prettyprint linenums">
-&gt; str(split(X, list(INDEX_1, INDEX_2), drop=TRUE))
+```r
+> str(split(X, list(INDEX_1, INDEX_2), drop=TRUE))
 List of 6
  $ a.1: int [1:2] 1 2
  $ a.2: int [1:2] 3 4
@@ -390,14 +390,14 @@ List of 6
  $ b.3: int 6
  $ b.4: int [1:2] 7 8
  $ b.5: int [1:2] 9 10
-</pre>
+```
 
 Alternatively, you can use the `unstack` function:
 
-<pre class="prettyprint linenums">
-&gt; groups &lt;- split(x, f)
-&gt; groups &lt;- unstack(data.frame(x,f))
-</pre>
+```r
+> groups <- split(x, f)
+> groups <- unstack(data.frame(x,f))
+```
 
 Both functions return a list of vectors, where each vector contains the elements for one group.
  
@@ -409,16 +409,16 @@ The `unstack` function goes one step further: if all vectors have the same lengt
 
 这里 function 就必须是接收 data frame 为参数，一个常见的符合条件的 function 就是 `summary`，这也是常见的组合用法，比如:
 
-<pre class="prettyprint linenums">
-&gt; by(trials, trials$sex, summary)
-</pre>
+```r
+> by(trials, trials$sex, summary)
+```
 
 高级一点的例子是 "分组 Linear Regression"：
 
-<pre class="prettyprint linenums">
-&gt; models &lt;- by(trials, trials$sex, function(df) lm(post~pre+dose1+dose2, data=df)) ## `models` is a list of linear models
-&gt; lapply(models, confint) ## print confidence intervals of each linear model
-</pre>
+```r
+> models <- by(trials, trials$sex, function(df) lm(post~pre+dose1+dose2, data=df)) ## `models` is a list of linear models
+> lapply(models, confint) ## print confidence intervals of each linear model
+```
 
 ## <a name="family-tree"></a>Family Tree
 

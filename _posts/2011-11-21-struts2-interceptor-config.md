@@ -9,35 +9,35 @@ tags: [Config-Struts]
 
 　　为了解决昨天晚上碰到的 aLock 那个吞 Exception 的问题，下午配了一下 struts 2 的拦截器。  
 
-　　基本的拦截器配置是这个样子的（在 struts.xml 的 &lt;package&gt; 元素内）：
+　　基本的拦截器配置是这个样子的（在 struts.xml 的 <package> 元素内）：
 
-<pre class="prettyprint linenums">
-&lt;interceptors&gt;
-    &lt;interceptor-stack name="xxx"&gt;
-        &lt;interceptor-ref name="foo"/&gt;
-    &lt;/interceptor-stack&gt;
-&lt;/interceptors&gt;
-&lt;default-interceptor-ref name="xxx" /&gt;
-</pre>
+```xml
+<interceptors>
+    <interceptor-stack name="xxx">
+        <interceptor-ref name="foo"/>
+    </interceptor-stack>
+</interceptors>
+<default-interceptor-ref name="xxx" />
+```
 
 这里 `interceptor-ref` 既可以是单个拦截器，也可以是一个拦截器栈。struts 2 指定了很多拦截器和拦截器栈的 alias，如果 interceptor-ref 的 name 设置为这些 alias，就表示使用默认的拦截器或者拦截器栈（所以如果自定义拦截器实现的时应该避免这些 alias？）
 
 ## 1. 最开始我只配了一个默认的 exception 拦截器
 
-<pre class="prettyprint linenums">
-&lt;interceptor-ref name="exception"&gt;
-    &lt;param name="logEnabled"&gt;true&lt;/param&gt;
-    &lt;param name="logCategory"&gt;com.netease.mail.advlock&lt;/param&gt;
-    &lt;param name="logLevel"&gt;WARN&lt;/param&gt;
-&lt;/interceptor-ref&gt;
-</pre>
+```xml
+<interceptor-ref name="exception">
+    <param name="logEnabled">true</param>
+    <param name="logCategory">com.netease.mail.advlock</param>
+    <param name="logLevel">WARN</param>
+</interceptor-ref>
+```
 
 表示:
 
-<pre class="prettyprint linenums">
+```java
 log = LogFactory.getLog(new Category("com.netease.mail.advlock"));
 log.warn(exception);
-</pre>
+```
 
 ---
 
@@ -49,15 +49,15 @@ log.warn(exception);
 
 　　所以我改成了：
 
-<pre class="prettyprint linenums">
-&lt;interceptor-ref name="defaultStack"&gt;
-&lt;/interceptor-ref&gt;
-&lt;interceptor-ref name="exception"&gt;
-    &lt;param name="logEnabled"&gt;true&lt;/param&gt;
-    &lt;param name="logCategory"&gt;com.netease.mail.advlock&lt;/param&gt;
-    &lt;param name="logLevel"&gt;WARN&lt;/param&gt;
-&lt;/interceptor-ref&gt;
-</pre>
+```xml
+<interceptor-ref name="defaultStack">
+</interceptor-ref>
+<interceptor-ref name="exception">
+    <param name="logEnabled">true</param>
+    <param name="logCategory">com.netease.mail.advlock</param>
+    <param name="logLevel">WARN</param>
+</interceptor-ref>
+```
 
 ---
 
@@ -67,13 +67,13 @@ log.warn(exception);
 
   所以又改成了 “interceptor configuration override” 的写法：
   
-<pre class="prettyprint linenums">
-&lt;interceptor-ref name="defaultStack"&gt;
-    &lt;param name="exception.logEnabled"&gt;true&lt;/param&gt;
-    &lt;param name="exception.logCategory"&gt;com.netease.mail.advlock&lt;/param&gt;
-    &lt;param name="exception.logLevel"&gt;WARN&lt;/param&gt;
-&lt;/interceptor-ref&gt;
-</pre>
+```xml
+<interceptor-ref name="defaultStack">
+    <param name="exception.logEnabled">true</param>
+    <param name="exception.logCategory">com.netease.mail.advlock</param>
+    <param name="exception.logLevel">WARN</param>
+</interceptor-ref>
+```
 
 这下就圆满了~
  

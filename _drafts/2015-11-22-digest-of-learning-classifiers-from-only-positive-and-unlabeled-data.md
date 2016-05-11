@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "Digest of <i>Learning Classifiers from Only Positive and Unlabeled Data<i>"
 description: ""
 category: Machine-Learning

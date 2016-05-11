@@ -22,8 +22,8 @@ tags: [Cpp-101, const]
 
 但是，不管是 int const \*p; 还是 const int \*p;，这里有几点需要注意：
 
-<pre class="prettyprint linenums">
-#include &lt;stdio.h&gt;  
+```cpp
+#include <stdio.h>  
   
 int main() {  
 	int i1 = 30;  
@@ -36,7 +36,7 @@ int main() {
 	  
 	*p = 100; 			// ERROR. assignment of read-only location '*p'
 }
-</pre>
+```
 
 * 首先是 \*p 只读，并不是 p 只读，所以 p 的值是可以改的（p = &i2;）
 * 第二，&i1 只是一个 int \*，所以把一个int \* 赋值给 const int \* 是可以的（const int \*p = &i1;）
@@ -54,7 +54,7 @@ const int \* const p; 就是说 p 和 \*p 都是只读的，结合 1、2 即可�
 
 ## 4. <a name="rules"></a>大实验
 
-<pre class="prettyprint linenums">
+```cpp
 class T { };
   
 int main() {  
@@ -75,9 +75,9 @@ int main() {
 	cpt = pt;	// ERROR. assignment of read-only variable 'cpt'
 	cpt = pct;	// ERROR. assignment of read-only variable 'cpt'
 }
-</pre>
+```
 
-<pre class="prettyprint linenums">
+```cpp
 class T { };
 
 int main() {
@@ -91,9 +91,9 @@ int main() {
 	T* const cpt = pt;	// OK
 	T* const cpt = pct; // ERROR. invalid conversion from 'const T*' to 'T*'
 }
-</pre>
+```
 
-<pre class="prettyprint linenums">
+```cpp
 class T { };
 
 void foo(T* pt) { /* do nothing */ }
@@ -117,7 +117,7 @@ int main() {
 	baz(pt);	// OK
 	baz(pct);	// ERROR. invalid conversion from 'const T*' to 'T*'
 }
-</pre>
+```
 
 * 不能把 `const T*` 赋值给一个 `T*`
 	* 反过来把 `T*` 赋值给一个 `const T*` 是可以的
@@ -127,7 +127,7 @@ int main() {
 	* 这一点和 [C++: Const Reference](/c++/2015/03/28/cpp-const-reference#rules) 是类似的
 * `T* const` 除了 const 特性外，与 `T*` 性质是一样的（同上述 4 条）
 
-<pre class="prettyprint linenums">
+```cpp
 class T {
 public:
 	int i;
@@ -155,7 +155,7 @@ int main() {
     pct1->modify();	// ERROR. passing 'const T' as 'this' argument of 'void T::modify()' discards qualifiers
     pct2->modify();	// ERROR. passing 'const T' as 'this' argument of 'void T::modify()' discards qualifiers
 }
-</pre>
+```
 
 * `const T` 本身的值不能改
 * 即使你是把一个 `T*`（&t）赋给一个 `const T*`（pct2），你也不能通过这个 `const T*` 去修改它的值，虽然你可以用 `T*` 直接去修改（t.modify();）

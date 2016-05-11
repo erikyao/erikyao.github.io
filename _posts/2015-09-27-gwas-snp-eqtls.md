@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "GWAS / SNP / eQTLs"
 description: ""
 category: Biology

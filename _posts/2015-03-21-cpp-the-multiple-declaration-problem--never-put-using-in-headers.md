@@ -19,7 +19,7 @@ The compiler considers the redeclaration of a structure (this includes both `str
 
 那我们怎么解决这个问题呢？很简单，在 header 里 #define 一个 "inclusion flag" 就好了，比如：
 
-<pre class="prettyprint linenums">
+```cpp
 //: C04:Simple.h
 // Simple header that prevents re-definition
 #ifndef SIMPLE_H
@@ -29,7 +29,7 @@ struct Simple {
 	initialize() { i = j = k = 0; }
 };
 #endif // SIMPLE_H //
-</pre>
+```
 
 第一次 #include，declare 成功；第二次再 #include，因为 `SIMPLE_H` 已经 #define 了，`#ifndef SIMPLE_H` 直接判为 false，直接 pass。
 

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "C++: Default function arguments &amp; Placeholder arguments"
+title: "C++: Default function arguments & Placeholder arguments"
 description: ""
 category: C++
 tags: [Cpp-101]
@@ -15,21 +15,21 @@ tags: [Cpp-101]
 
 如果是 declare + define 一气呵成，那就这么写：
 
-<pre class="prettyprint linenums">
+```cpp
 int foo(int a, int b = 0) {
 	return a+b;
 }
-</pre>
+```
 
 如果是先 declare 再 define，那么只需要在 declaration 里写 default arguments；definition 里不用写（写了还算错）。加个注释会是个很好的习惯：
 
-<pre class="prettyprint linenums">
+```cpp
 int bar(int a, int b = 0);
 
 int bar(int a, int b /* = 0 */) {
 	return a+b;
 }
-</pre>
+```
 
 There are two rules you must be aware of when using default arguments. 
 
@@ -40,23 +40,23 @@ There are two rules you must be aware of when using default arguments.
 
 我们知道，declare function 时可以不写参数名，比如：
 
-<pre class="prettyprint linenums">
+```cpp
 int foo(int, int);
-</pre>
+```
 
 Digress：和 Default arguments 一起用就更微妙了。比如：
 
-<pre class="prettyprint linenums">
+```cpp
 int foo(int, int = 0);
-</pre>
+```
 
 其实这还不是重点。重点是：definition 里也可以不写参数名！我们称这样的参数为 placeholder arguments，比如：
 
-<pre class="prettyprint linenums">
+```cpp
 int foo(int a, int) {
 	...
 }
-</pre>
+```
 
 * Placeholder arguments 不像 default arguments 那样有顺序上的附加要求，参数列表里随便哪个位置上都可以设置 placeholder
 * Placeholder arguments 不能在函数体中使用

@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "R Generating Random Numbers and Random Sampling"
 description: ""
 category: R
@@ -92,19 +92,19 @@ $y = f(x)$ 是 **概率密度曲线**，$P(x_1 < X \leq x_2)$ 的值等于 "以 
 
 Setting the random number seed with `set.seed()` ensures reproducibility.
 
-<pre class="prettyprint linenums">
-&lt; set.seed(1)
-&lt; rnorm(5)
+```r
+< set.seed(1)
+< rnorm(5)
 [1] -0.6264538 0.1836433 -0.8356286 1.5952808
 [5] 0.3295078
-&lt; rnorm(5)
+< rnorm(5)
 [1] -0.8204684 0.4874291 0.7383247 0.5757814
 [5] -0.3053884
-&lt; set.seed(1)
-&lt; rnorm(5)
+< set.seed(1)
+< rnorm(5)
 [1] -0.6264538 0.1836433 -0.8356286 1.5952808
 [5] 0.3295078
-</pre>
+```
 
 <font color="red">Always</font> set the random number seed when conducting a simulation!
 
@@ -112,16 +112,16 @@ Setting the random number seed with `set.seed()` ensures reproducibility.
 
 假设 $Y = aX + E$，$X \sim N(0,1)$, $E \sim (0,2^2)$, $a = 2$，我们模拟这个曲线可以用：
 
-<pre class="prettyprint linenums">
-&gt; set.seed(20)
-&gt; x &lt;- rnorm(100)
-&gt; e &lt;- rnorm(100, 0, 2)
-&gt; y &lt;- 2x + e
-&gt; summary(y)
+```r
+> set.seed(20)
+> x <- rnorm(100)
+> e <- rnorm(100, 0, 2)
+> y <- 2x + e
+> summary(y)
  Min. 1st Qu. Median
 -6.4080 -1.5400 0.6789 0.6893 2.9300 6.5050
-&gt; plot(x, y)
-</pre>
+> plot(x, y)
+```
 
 -----
 
@@ -129,18 +129,18 @@ Setting the random number seed with `set.seed()` ensures reproducibility.
 
 The `sample()` function draws randomly from a speciﬁed set of (scalar) objects allowing you to sample from arbitrary distributions.
 
-<pre class="prettyprint linenums">
-&gt; set.seed(1)
-&gt; sample(1:10, 4)
+```r
+> set.seed(1)
+> sample(1:10, 4)
 [1] 3 4 5 7
-&gt; sample(1:10, 4)
+> sample(1:10, 4)
 [1] 3 9 8 5
-&gt; sample(letters, 5)
+> sample(letters, 5)
 [1] "q" "b" "e" "x" "p"
-&gt; sample(1:10) ## Generate Permutation(序列)
+> sample(1:10) ## Generate Permutation(序列)
  [1] 4 710 6 9 2 8 3 1 5 
-&gt; sample(1:10)
+> sample(1:10)
  [1] 2 3 4 1 9 5 10 8 6 7
-&gt; sample(1:10, replace = TRUE) ## Sample w/ replacement
+> sample(1:10, replace = TRUE) ## Sample w/ replacement
  [1] 2 9 7 8 2 8 5 9 7 8
-</pre>
+```

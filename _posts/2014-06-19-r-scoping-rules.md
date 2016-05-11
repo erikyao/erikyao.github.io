@@ -24,10 +24,12 @@ When R tries to bind a value to a symbol, it searches through a series of _envir
 
 The search list can be found by using the `search` function.
 
-	> search()
-	[1] ".GlobalEnv"        "package:stats"     "package:graphics"
-	[4] "package:grDevices" "package:utils"     "package:datasets"
-	[7] "package:methods"   "Autoloads"         "package:base"
+```r
+> search()
+[1] ".GlobalEnv"        "package:stats"     "package:graphics"
+[4] "package:grDevices" "package:utils"     "package:datasets"
+[7] "package:methods"   "Autoloads"         "package:base"
+```
 
 注意几点：
 
@@ -60,9 +62,11 @@ wiki 上 [Lexical scoping vs. dynamic scoping](http://en.wikipedia.org/wiki/Scop
 
 考虑这样一个函数：
 
-	f <- function(x, y) {
-		x^2 + y / z
-	}
+```r
+f <- function(x, y) {
+	x^2 + y / z
+}
+```
 
 x 和 y 是 formal argument (实参；调用时传入的参数，比如 `f(3, 5)` 的 3 和 5 称为实参，actual argument)，z 既不是实参也不是 local variable (which is assigned insided the function body)，称为 free variable。
 
@@ -77,46 +81,52 @@ Lexical scoping in R means that:
 
 比如这个返回函数的函数：
 
-	make.power <- function(n) {
-		pow <- function(x) {
-				x^n 
-		}
-		pow 
+```r
+make.power <- function(n) {
+	pow <- function(x) {
+		x^n 
 	}
+	pow 
+}
 
-	> cube <- make.power(3)
-	> square <- make.power(2)
-	> cube(3)
-	[1] 27
-	> square(3)
-	[1] 9
+> cube <- make.power(3)
+> square <- make.power(2)
+> cube(3)
+[1] 27
+> square(3)
+[1] 9
+```
 
 对 `pow` 而言，n 是 free variable，但是在 `pow` 被定义的 environment 里可以找到：
 
-	> ls(environment(cube))
-	[1] "n"   "pow"
-	> get("n", environment(cube))
-	[1] 3
+```r
+> ls(environment(cube))
+[1] "n"   "pow"
+> get("n", environment(cube))
+[1] 3
 
-	> ls(environment(square))
-	[1] "n"   "pow"
-	> get("n", environment(square))
-	[1] 2
+> ls(environment(square))
+[1] "n"   "pow"
+> get("n", environment(square))
+[1] 2
+```
 
 ### 2.3 Lexical vs. Dynamic Scoping
 
 再看一个例子：
 
-	y <- 10
+```r
+y <- 10
 
-	f <- function(x) {
-			y <- 2
-			y^2 + g(x)
-	}
+f <- function(x) {
+	y <- 2
+	y^2 + g(x)
+}
 
-	g <- function(x) { 
-			x*y
-	}
+g <- function(x) { 
+	x*y
+}
+```
 
 问 `g` 中 y 的值是多少？
 

@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "Slope, Intercept and Distance"
 description: "斜率、截距以及点到直线的距离"
 category: Math

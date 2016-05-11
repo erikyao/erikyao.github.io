@@ -13,7 +13,7 @@ tags: [Java-AOP, Proxy, Delegate, 动态代理]
 
 系统中现有接口 `UserDAO` 及其实现 `UseDAOImpl`：
 
-<pre class="prettyprint linenums">
+```java
 package com.bjsxt.dao;  
   
 import com.bjsxt.model.User;  
@@ -21,9 +21,9 @@ import com.bjsxt.model.User;
 public interface UserDAO {  
 	public void save(User user);  
 }  
-</pre>
+```
 
-<pre class="prettyprint linenums">
+```java
 package com.bjsxt.dao.impl;  
   
 import com.bjsxt.dao.UserDAO;  
@@ -35,11 +35,11 @@ public class UserDAOImpl implements UserDAO {
 		System.out.println("user saved!");  
 	}  
 }  
-</pre>
+```
 
 现在需要在 `save` 方法前记录日志，如：
 
-<pre class="prettyprint linenums">
+```java
 package com.bjsxt.dao.impl;  
   
 import com.bjsxt.dao.UserDAO;  
@@ -52,11 +52,11 @@ public class UserDAOImpl implements UserDAO {
 		System.out.println("user saved!");  
 	}  
 }  
-</pre>
+```
 
 当然，像这样直接在源代码里添加当然是最简单的了。但如果拿不到源代码呢？此时可以新写一个类来继承 `UserDAOImpl`，用 delegation：
 
-<pre class="prettyprint linenums">
+```java
 package com.bjsxt.dao.impl;  
   
 import com.bjsxt.model.User;  
@@ -67,11 +67,11 @@ public class UserDAOImpl2 extends UserDAOImpl {
 		super.save(user);     
 	}  
 }  
-</pre>
+```
 
 用组合的方式也可以，如：
 
-<pre class="prettyprint linenums">
+```java
 package com.bjsxt.dao.impl;  
   
 import com.bjsxt.dao.UserDAO;  
@@ -85,7 +85,7 @@ public class UserDAOImpl3 implements UserDAO {
 		userDAO.save(user);   
 	}  
 }  
-</pre>
+```
 
 这样，把系统的 beans.xml 文件中配置的 `UserDAOImpl` 改成 `UserDAOImpl2` 或者 `UserDAOImpl3`，系统就有了记录日志的的功能了。  
 

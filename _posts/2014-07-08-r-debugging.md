@@ -35,35 +35,35 @@ tags: [R-101]
 
 比如你定义了：
 
-<pre class="prettyprint linenums">
-foo &lt;- function() {
+```r
+foo <- function() {
 	stop("this function is evil")
 }
 
-bar &lt;- function() {
+bar <- function() {
 	foo()
 }
 
-main &lt;- function() {
+main <- function() {
 	bar()
 }
-</pre>
+```
 
 调用后并 traceback 的效果是：
 
-<pre class="prettyprint linenums">
-&gt; main()
+```r
+> main()
  Show Traceback
  
  Rerun with Debug
  Error in foo() : this function is evil 
 
-&gt; traceback()
+> traceback()
 4: stop("this function is evil") at #2
 3: foo() at #2
 2: bar() at #2
 1: main()
-</pre>
+```
 
 注意这个有时效性，有点像一个 error stack，永远只能看最近发生的一个 error，如果调用 `foo` 之后还有其他的 error 发生，这个 traceback 就看不到 `foo` 的 error 了
 
@@ -87,9 +87,9 @@ browser 可以理解成 debug 的环境，browser prompt 就是 browser 的命�
 
 设置成 recover 模式后，error 时系统会自动提示修改方案，比如：
 
-<pre class="prettyprint linenums">
-&gt; options(error = recover)
-&gt; read.csv("nosuchfile")
+```r
+> options(error = recover)
+> read.csv("nosuchfile")
 Error in file(file, "rt") : cannot open the connection
 In addition: Warning message:
 In file(file, "rt") :
@@ -102,4 +102,4 @@ Enter a frame number, or 0 to exit
 3: file(file, "rt")
 
 Selection:
-</pre>
+```

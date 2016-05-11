@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "WD kernel with shifts"
 description: "Digest of <i>RASE: recognition of alternatively spliced exons in C. elegans</i>"
 category: Machine-Learning

@@ -33,26 +33,26 @@ tags: [Cpp-101]
 
 An example of address-of operator:
 
-<pre class="prettyprint linenums">
-#include &lt;iostream&gt;
+```cpp
+#include <iostream>
 using namespace std;
 
 int dog, cat;
 
 void f(int pet) {
-	cout &lt;&lt; "pet id number: " &lt;&lt; pet &lt;&lt; endl;
+	cout << "pet id number: " << pet << endl;
 }
 
 int main() {
 	int i, j;
 	
-	cout &lt;&lt; "f(): " &lt;&lt; &f &lt;&lt; endl; // address of the function
+	cout << "f(): " << &f << endl; // address of the function
 	
-	cout &lt;&lt; "dog: " &lt;&lt; &dog &lt;&lt; endl;
-	cout &lt;&lt; "cat: " &lt;&lt; &cat &lt;&lt; endl;
+	cout << "dog: " << &dog << endl;
+	cout << "cat: " << &cat << endl;
 
-	cout &lt;&lt; "i: " &lt;&lt; &i &lt;&lt; endl;
-	cout &lt;&lt; "j: " &lt;&lt; &j &lt;&lt; endl;
+	cout << "i: " << &i << endl;
+	cout << "j: " << &j << endl;
 }
 
 // output:
@@ -63,20 +63,20 @@ int main() {
 	i: 0x22fe4c
 	j: 0x22fe48
 */
-</pre>
+```
 
 To define a pointer:
 
-<pre class="prettyprint linenums">
+```cpp
 int a = 47;
 int *ipa = &a;
-</pre>
+```
 
 To access a variable through a pointer, you **dereference** the pointer using the same operator that you used to define it, like this:
 
-<pre class="prettyprint linenums">
+```cpp
 *ipa = 100;
-</pre>
+```
 
 Now a contains the value 100 instead of 47.
 

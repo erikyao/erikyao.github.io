@@ -26,9 +26,9 @@ tags: [Cpp-101, C++11]
 
 这个其实挺好懂的，但是要注意：在返回 string reference 的时候 return string literal 也是会出问题的：
 
-<pre class="prettyprint linenums">
-#include &lt;string&gt;
-#include &lt;iostream&gt;
+```cpp
+#include <string>
+#include <iostream>
 using namespace std;
 
 const string& foo() {
@@ -40,10 +40,10 @@ const string bar() {
 }
 
 int main() {
-	cout &lt;&lt; foo() &lt;&lt; endl;
-	cout &lt;&lt; bar() &lt;&lt; endl;
+	cout << foo() << endl;
+	cout << bar() << endl;
 }
-</pre> 
+```
 
 因为 string literal 本质上是个 const char[] 或者说是个 const char*，你要返回 string，首先是要把 string literal 转成 string，这会产生一个 temporary：
 
@@ -56,9 +56,9 @@ return value placeholder 请参见 [C++: Copy-constructor and the return value o
 
 Calls to functions that return references are lvalues; other return types yield rvalues. 
 
-<pre class="prettyprint linenums">
-#include &lt;string&gt;
-#include &lt;iostream&gt;
+```cpp
+#include <string>
+#include <iostream>
 using namespace std;
 
 char& getAt(string &str, string::size_type ix) {
@@ -69,11 +69,11 @@ int main() {
     string s("abcd");
     
 	getAt(s, 0) = 'A';	// 有点毁三观……
-    cout &lt;&lt; s &lt;&lt; endl;	// output: Abcd
+    cout << s << endl;	// output: Abcd
     
 	return 0;
 }
-</pre>
+```
 
 因为是 lvalue 所以才敢这么用啊~
 
@@ -81,17 +81,17 @@ int main() {
 
 有的类，比如 vector，可以用 list initialization，所以你在 return vector 的函数里可以 return initializer_list：
 
-<pre class="prettyprint linenums">
-vector&lt;string&gt; process() {
+```cpp
+vector<string> process() {
 	return {"functionX", "okay"};
 }
-</pre>
+```
 
 ## <a name="thing4"></a>Using a Trailing Return Type
 
 In general, the new keyword `auto` in C++11 indicates that the type of the expression (in this case the return type of a function) should be inferred from the result of what occurs after the `->`.
 
-<pre class="prettyprint linenums">
+```cpp
 // func takes an int argument and returns a pointer to an array of 10 ints
 auto func(int i) -> int(*)[10];
 
@@ -99,20 +99,20 @@ auto func(int i) -> int(*)[10];
 auto func(int i) -> int(*)[10] {
 	...
 }
-</pre>
+```
 
 是不是比 `int (*func(int i))[10];` 来得清楚多了……
 
 另外 trailing return type 也可以用在 template function 中，还可以结合 `decltype` 和 typename：
 
-<pre class="prettyprint linenums">
+```cpp
 // a trailing return lets us declare the return type after the parameter list is seen
-template &lt;typename It&gt;
-auto fcn(It beg, It end) -&gt; decltype(*beg) {
+template <typename It>
+auto fcn(It beg, It end) -> decltype(*beg) {
 	// process the range
 	return *beg; // return a reference to an element from the range
 }
-</pre>
+```
 
 ## <a name="thing5"></a>Return from main
 

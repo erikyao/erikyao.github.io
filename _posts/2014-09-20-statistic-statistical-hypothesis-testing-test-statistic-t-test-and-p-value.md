@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "Statistic, Statistical Hypothesis Test(ing), Test Statistic, t-test and p-value"
 description: ""
 category: Math

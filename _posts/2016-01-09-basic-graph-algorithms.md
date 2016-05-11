@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "Basic Graph Algorithms"
 description: ""
 category: Algorithm
@@ -141,41 +141,41 @@ To keep things simple, we'll consider only undirected graphs here, although the 
 
 The simplest graph-traversal algorithm is _**DFS**_, depth-first search. This algorithm can be written either recursively or iteratively. It’s exactly the same algorithm either way; the only difference is that we can actually see the “recursion” stack in the non-recursive version.
 
-<pre class="prettyprint linenums">
+```ruby
 // v: a source vertex
 RecursiveDFS(v):
 	if v is unmarked
 		mark v
 		for each edge vw
 			RecursiveDFS(w)
-</pre>
+```
 
-<pre class="prettyprint linenums">
+```ruby
 // s: a source vertex
 IterativeDFS(s):
 	PUSH(s)
 	while the stack is not empty
-		v &lt;- POP
+		v <- POP
 		if v is unmarked
 			mark v
 			for each edge vw
 				PUSH(w)
-</pre>
+```
 
 _**N.B.**_ `IterativeDFS` 最后一个 `for` 可以稍微改良一下：
 
-<pre class="prettyprint linenums">
+```ruby
 // s: a source vertex
 IterativeDFS(s):
 	PUSH(s)
 	while the stack is not empty
-		v &lt;- POP
+		v <- POP
 		if v is unmarked
 			mark v
 			for each edge vw
 				if w is not visited
 					PUSH(w)
-</pre>
+```
 
 The generic graph traversal algorithm stores a set of candidate edges in some data structure that I’ll call a "bag". The only important properties of a bag are that we can put stuff into it and then later take stuff back out. A stack is a particular type of bag, but certainly not the only one.
 
@@ -183,7 +183,7 @@ _**N.B.**_ If you replace the stack above with a queue, you will get _**BFS**_, 
 
 另外一个需要注意的是，还有一种改良方法是：stack 存储 `(v, parent(v))`。这么做并不是为了提升效率，而是为了方便遍历后迅速定位 path。
 
-<pre class="prettyprint linenums">
+```ruby
 // s: a source vertex
 Traverse(s):
 	put (Φ,s) in bag // source vertex 的 parent 是空集
@@ -191,10 +191,10 @@ Traverse(s):
 		take (p,v) from the bag
 		if v is unmarked
 			mark v
-			parent(v) &lt;- p
+			parent(v) <- p
 			for each edge vw
 				put (v,w) into the bag
-</pre>
+```
 
 For any node `v`, the path of parent edges `(v, parent(v), parent(parent(v)), . . .)` eventually leads back to `s`.
 
@@ -223,36 +223,36 @@ _**Proof:**_ Assume without loss of generality that `v` is marked before `w`. Th
 
 ## <a name="4-preorder-and-postorder-labeling"></a>4. Preorder and Postorder Labeling
 
-<pre class="prettyprint linenums">
+```ruby
 PrePostLabel(G):
 	for all vertices v
 		unmark v
 	
-	clock &lt;- 0
+	clock <- 0
 	
 	for all vertices v
 		if v is unmarked
-			clock &lt;- LabelComponent(v, clock)
+			clock <- LabelComponent(v, clock)
 			
 LabelComponent(v, clock):
 	mark v
 	
-	prev(v) &lt;- clock
-	clock &lt;- clock + 1
+	prev(v) <- clock
+	clock <- clock + 1
 	
 	for each edge vw
 		if w is unmarked
-			clock &lt;- LabelComponent(w, clock)
+			clock <- LabelComponent(w, clock)
 	
-	post(v) &lt;- clock
-	clock &lt;- clock + 1
+	post(v) <- clock
+	clock <- clock + 1
 	
 	return clock
-</pre>
+```
 
 举个例子，假设有个 triangle `abc`，按 `a → b → c` 执行的情况应该是这样的：
 
-<pre class="prettyprint linenums">
+```c
 mark a √
 prev(a) = 0;
 	mark b √
@@ -264,7 +264,7 @@ prev(a) = 0;
 post(a) = 5;
 
 return 6;
-</pre>
+```
 
 |      | a | b | c |
 |------|---|---|---|
@@ -315,26 +315,26 @@ _**obs:**_ There is a backward edge in $ G \setminus T $ $ \iff $ $ \exists $ a 
 
 除了这个算法外，书上还提供了一个在 `DFS` 的过程中 detect cycle 的算法：
 
-<pre class="prettyprint linenums">
+```ruby
 IsAcyclic(G):
 	add a source vertex s
-	for all vertices v &ne; s
+	for all vertices v ≠ s
 		add edge s → v
-		status(v) &lt;- New
+		status(v) <- New
 
 	return IsAcyclicDFS(s)
 	
 IsAcyclicDFS(v):
-	status(v) &lt;- Active
+	status(v) <- Active
 	for each edge v → w
 		if status(w) == Active
 			return False
 		else if status(w) == New
 			if IsAcyclicDFS(w) == False
 				return False
-	status(v) &lt;- Done
+	status(v) <- Done
 	return True
-</pre>
+```
 
 ## <a name="6-topological-sort"></a>6. Topological Sort
 
@@ -348,26 +348,26 @@ _**Correctness of the Idea:**_ By _**Lemma 2**_, for every edge `a → b` in a D
 
 _**Improvement:**_ However actually you don't need to sort. 我们看下 `DFSAll` 的写法：
 
-<pre class="prettyprint linenums">
+```c
 DFS(v)
 	mark v
 	
-	prev(v) &lt;- clock++
+	prev(v) <- clock++
 	
 	for each edge v → w
 		if w is unmarked
-			parent(w) &lt;- v
+			parent(w) <- v
 			DFS(w)
 	
-	post(v) &lt;- clock++
+	post(v) <- clock++
 
 DFSAll(G)
-	clock &lt;- 0
+	clock <- 0
 	
 	for each vertex v
 		if v is not marked
 			DFS(v)
-</pre>
+```
 
 从最后的结果来看，finishing time, i.e. $ post(x_i) $ 的顺序并不会因为 `for each vertex v` 的遍历顺序而改变。也就是说，`DFSALL(G)` 和 `DFS(source)` 从结果上来看本质是一样的，而且都是 $ O(V+E) $。
 
@@ -459,22 +459,22 @@ Let's define:
 	- _tentative:_ [ˈten(t)ətiv], not certain or fixed
 - `pred(b)` is the predecessor of `b` in the tentative shortest $ s \rightsquigarrow b $ path, or NULL if there is no such vertex.
 
-<pre class="prettyprint linenums">
+```ruby
 is_tense(a → b)
-	return dist(a) + w(a → b) &lt; dist(b)
+	return dist(a) + w(a → b) < dist(b)
 	
 // `is_tense` means dist(b) better go through a → b because it's shorter
 
 relax(a → b)
-	dist(b) &lt;- dist(a) + w(a → b)
-	pred(b) &lt;- a
+	dist(b) <- dist(a) + w(a → b)
+	pred(b) <- a
 
 // `relax` means "yes! now I go through a → b"
-</pre>
+```
 
 If no edge in $ G $ is tense, then for every vertex `x`, `dist(x)` is the length of the predecessor path `s → ... → pred(pred(x)) → pred(x) → x`, which is, at the same time, the shortest $ s \rightsquigarrow x $ path.
 
-<pre class="prettyprint linenums">
+```ruby
 InitSSSP(s):
 	dist(s) <- 0
 	pred(s) <- NULL
@@ -492,7 +492,7 @@ GenericSSSP(s):
 			if u → v is tense
 				Relax(u → v)
 				put v in the bag
-</pre>
+```
 
 Just as with graph traversal, different “bag” data structures for the give us different algorithms. There are three obvious choices to try: a stack, a queue, and a priority queue. Unfortunately, if we use a stack, the resulting algorithm performs $ O(2^V) $ relaxation steps in the worst case!  The other two possibilities are much more efficient.
 
@@ -512,14 +512,14 @@ Since the priority of each vertex in the priority queue is its tentative distanc
 
 If we replace the heap in Dijkstra’s algorithm with a FIFO queue, we obtain Shimbel’s Algorithm. Shimbel’s algorithm is efficient even if there are negative edges, and it can be used to quickly detect the presence of negative cycles. If there are no negative edges, however, Dijkstra’s algorithm is faster.
 
-<pre class="prettyprint linenums">
+```ruby
 ShimbelSSSP(s):
 	InitSSSP(s)
 	repeat V times: // 其实 repeat (V-1) 次就够了
 		for every edge u → v
 			if u → v is tense
 				Relax(u → v)
-</pre>
+```
 
 A simple inductive argument implies the following invariant for every repeat index `i` and vertex `v`: After `i` phases of the algorithm, `dist(v)` is at most the length of the shortest walk from `s` to `v` consisting of at most `i` edges.
 
@@ -565,7 +565,7 @@ $$
 
 至于为什么是 Shimbel 而不是 Dijkstra？Because Shimbel doesn’t care if the edge weights are negative.
 
-<pre class="prettyprint linenums">
+```ruby
 JohnsonAPSP(G=(V,E), w):
 	// Step 1: O(V)
 	add a source s, connect it to all v ∈ V, with edge length 0
@@ -584,7 +584,7 @@ JohnsonAPSP(G=(V,E), w):
 	// Step 5: O(E). Recover from reweighting
 	for all u → v ∈ E:
 		dist(u,v) = dist(u,v) + c(v) − c(u)
-</pre>
+```
 
 _**RT:**_ $ V \cdot \Theta(E + V \log V) = \Theta(VE + V^2 \log V) $
 
@@ -615,7 +615,7 @@ $$
 \end{equation}
 $$
 
-<pre class="prettyprint linenums">
+```ruby
 DP_APSP(V, E, w):
 	for all u ∈ V:
 		for all v ∈ V:
@@ -636,7 +636,7 @@ DP_APSP(V, E, w):
 					if x → v ∈ E:
 						if dist[u,v,k] > dist[u,x,k−1] + w(x → v)
 							dist[u,v,k] = dist[u,x,k−1] + w(x → v)
-</pre>
+```
 
 _**RT:**_ $ O(V^4) $
 
@@ -644,7 +644,7 @@ _**Improvement: Shimbel APSP**_
 
 Just as in the dynamic programming development of Shimbel’s single-source algorithm, we don’t actually need the inner loop over vertices `v`, and we only need a two-dimensional table. After the `k`^th iteration of the main loop in the following algorithm, `dist[u,v]` lies between the true shortest path distance from `u` to `v` and the value `dist[u,v,k]` computed in the previous algorithm.
 
-<pre class="prettyprint linenums">
+```ruby
 Shimbel_APSP(V, E, w):
 	for all u ∈ V:
 		for all v ∈ V:
@@ -662,7 +662,7 @@ Shimbel_APSP(V, E, w):
 				if x → v ∈ E:
 					if dist[u,v] > dist[u,x] + w(x → v):
 						dist[u,v] = dist[u,x] + w(x → v)
-</pre>
+```
 
 _**RT:**_ $ O(V^2 E) $
 
@@ -679,7 +679,7 @@ $$
 \end{equation}
 $$
 
-<pre class="prettyprint linenums">
+```ruby
 DC_DP_APSP(V, E, w):
 	for all u ∈ V:
 		for all v ∈ V:
@@ -692,13 +692,13 @@ DC_DP_APSP(V, E, w):
 				for all x ∈ V: 
 					if dist[u,v,k] > dist[u,x,k−1] + dist[x,v,k−1]:
 						dist[u,v,k] = dist[u,x,k−1] + dist[x,v,k−1]
-</pre>
+```
 
 _**RT:**_ $ O(V^3 \log V) $
 
 _**Improvement: Shimbel Version reduces the size of DP table**_
 
-<pre class="prettyprint linenums">
+```ruby
 DC_Shimbel_APSP(V, E, w):
 	for all u ∈ V:
 		for all v ∈ V:
@@ -710,7 +710,7 @@ DC_Shimbel_APSP(V, E, w):
 				for all x ∈ V: 
 					if dist[u,v] > dist[u,x] + dist[x,v]:
 						dist[u,v] = dist[u,x] + dist[x,v]
-</pre>
+```
 
 _**RT:**_ $ O(V^3 \log V) $
 
@@ -735,7 +735,7 @@ $$
 \end{equation}
 $$
 
-<pre class="prettyprint linenums">
+```ruby
 FloydWarshall(V, E, w):
 	for all u ∈ V:
 		for all v ∈ V:
@@ -745,11 +745,11 @@ FloydWarshall(V, E, w):
 		for all u ∈ V:
 			for all v ∈ V:
 				dist[u,v,r-1] = min(dist[u,v,r-1], dist[u,r,r-1] + dist[r,v,r-1])
-</pre>
+```
 
 Just like our earlier algorithms, we can simplify the algorithm by removing the third dimension of the memoization table. Also, because the vertex numbering was chosen arbitrarily, there’s no reason to refer to it explicitly in the pseudocode.
 
-<pre class="prettyprint linenums">
+```ruby
 FloydWarshall(V, E, w):
 	for all u ∈ V:
 		for all v ∈ V:
@@ -760,7 +760,7 @@ FloydWarshall(V, E, w):
 			for all v ∈ V:
 				if dist[u,v] > dist[u,r] + dist[r,v]
 					dist[u,v] = dist[u,r] + dist[r,v]
-</pre>
+```
 
 _**RT:**_ $ O(V^3) $ for 3 for-loops over $ V $.
 
@@ -826,17 +826,17 @@ The Borvka algorithm can be summarized in one line:
 
 We can find all the safe edge in the graph in $ O(E) $ time as follows. First, we count the components of $ F $ using whatever-first search, using the standard wrapper function (See [4. Preorder and Postorder Labeling](#4-preorder-and-postorder-labeling)). As we count, we label every vertex with its component number; that is, every vertex in the first traversed component gets label 1, every vertex in the second component gets label 2, and so on.
 
-<pre class="prettyprint linenums">
+```ruby
 Borvka(G):
 	F = (V, Ef)
-	Ef &lt;- Φ // 空集
+	Ef <- Φ // 空集
 	
 	while F is not connected
-		S &lt;- all safe edges
-		Ef &lt;- Ef + S
+		S <- all safe edges
+		Ef <- Ef + S
 			
 	return F
-</pre>
+```
 
 _**RT:**_
 
@@ -860,16 +860,16 @@ Initially, $ T $ consists of an arbitrary vertex of the graph. The algorithm rep
 
 > Jarník: Repeatedly add T’s safe edge to T.
 
-<pre class="prettyprint linenums">
+```ruby
 Prim(G):
-	T &lt;- {v} // 任意的 vertex
+	T <- {v} // 任意的 vertex
 	
-	while |T| &lt; |V|
-		e &lt;- a safe edge with one endpoint in T
-		T &lt;- T + e
+	while |T| < |V|
+		e <- a safe edge with one endpoint in T
+		T <- T + e
 			
 	return T
-</pre>
+```
 
 ![][Prim]
 
@@ -881,19 +881,19 @@ Similar to Dijkstra’s algorithm, if we implement the priority queue with a Fib
 
 > Kruskal: Scan all edges in increasing weight order; if an edge is safe, add it to F.
 
-<pre class="prettyprint linenums">
+```ruby
 Kruskal(G):
 	sort E w.r.t w
 	
 	F = (V, Ef)
-	Ef &lt;- Φ // 空集
+	Ef <- Φ // 空集
 	
-	for i &lt;- 1 to E
+	for i <- 1 to E
 		if E[i] is not useless
-			Ef &lt;- Ef + E[i]
+			Ef <- Ef + E[i]
 			
 	return F
-</pre>
+```
 
 ![][Kruskal]
 
@@ -948,7 +948,7 @@ Now suppose each element of the ground set of a matroid $ M $ is given an arbitr
 
 There goes a greedy alg:
 
-<pre class="prettyprint linenums">
+```ruby
 // Given ground set U and matroid I
 GreedyMatroidOPT(U, I, w):
 	B = Φ // 空集
@@ -963,7 +963,7 @@ GreedyMatroidOPT(U, I, w):
 			B = B + {u}
 			
 	return B
-</pre>
+```
 
 有没有觉得很像 [Kruskal’s Algorithm](#10-4-kruskal-alg)？
 
@@ -983,11 +983,11 @@ In the maximum matching problem we are asked to find a matching $ M $ of maximum
 
 ### 12.2 Alternating and Augmenting Paths (待续)
 
-Let $ G = (V, E) $ be a graph and let $ M $ be a matching in $ G $. A path $ P $ is said to be an _**alternating path**_ with respect to $ M $ if and only if among every two consecutive edges along the path, exactly one belongs to $ M $. 我们也可以简称 P is $ M $-alternating.
+Let $ G = (V, E) $ be a graph and let $ M $ be a matching in $ G $. A path $ P $ is said to be an _**alternating path**_ with respect to $ M $ if and only if among every two consecutive edges along the path, exactly one belongs to $ M $. 我们也可以简称 $P$ is $ M $-alternating.
 
 E.g.
 
-$ 
+$$
 \begin{align}
 	\in M & \notin M \in M \newline
 	\text{===} & \text{--------} \text{===}
@@ -1024,15 +1024,15 @@ _**TODO:**_ proof
 
 Theorem 2.7 suggests the following simple algorithm for finding a maximum matching:
 
-<pre class="prettyprint linenums">
+```ruby
 MaxMatching(G):
 	M = Φ // 空集
 	
 	while exists an M-aug path P:
-		M = M &#8853; P
+		M = M ⴲ P
 			
 	return M
-</pre>
+```
 
 - The `while` loop would take $ \frac{V}{2} $ iteration.
 - For bipartite graphs, `AltBFS` alg takes $ O(E) $ time to find an $ M $-aug path.

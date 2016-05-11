@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "ISL: Linear Model Selection and Regularization - Part 1"
 description: ""
 category: Machine-Learning

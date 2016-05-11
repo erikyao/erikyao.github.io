@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "Ensemble Methods in Machine Learning"
 description: ""
 category: Machine-Learning

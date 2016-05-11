@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "ISL: Linear Regression - Part 1"
 description: ""
 category: Machine-Learning
@@ -537,7 +537,8 @@ In practice assuming a linear model for f(X) is almost always an approximation o
 #### <a name="Prediction-Intervals"></a>2.6.3 Prediction Intervals
 
 Even if we knew the true values of the paramters, the response value cannot be predicted perfectly because of the random error $ \epsilon $. We referred to this as the irreducible error. 
-How much will $ Y $ vary from $ \hat Y $? We use **prediction intervals** to answer this question. Prediction intervals are always wider than confidence intervals, because they incorporate both the error in the estimate for f(X) (the reducible error) and the uncertainty as to how much an individual point will differ from the population regression plane (the irreducible error).
+
+How much will $ Y $ vary from $ \hat Y $? We use **prediction intervals** to answer this question. Prediction intervals are always wider than confidence intervals, because they incorporate both the error in the estimate for f(X) (the reducible error) and the uncertainty as to how much an individual point will differ from the population regression plane (the irreducible error).
 	
 We interpret the 95% PI of $ \hat Y $ to mean that, with 95% in probablity the interval will contain the true value of $ Y $.  
 

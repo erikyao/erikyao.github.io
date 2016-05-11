@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "Digest of <i>Probabilistic Graphical Models</i>"
 description: ""
 category: PGM

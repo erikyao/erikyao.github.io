@@ -16,7 +16,7 @@ tags: [Java-101]
 
 　　通过例子来看：
 
-<pre class="prettyprint linenums">
+```java
 public class Test {  
 	public static void change(String s) {  
 		s = "changed";  
@@ -29,7 +29,7 @@ public class Test {
 		System.out.println(s); // Output: original  
 	}  
 }
-</pre>
+```
 
 　　值传递的示意图如下：
 
@@ -38,17 +38,17 @@ public class Test {
 
 　　由于 String 是 immutable class，即：String 对象一旦创建，就不可修改。所以应该这么理解：
 
-<pre class="prettyprint linenums">
+```java
 String s = "original"; // String s = new String("original");
 s = "changed"; // s = new String("changed");
-</pre>
+```
 
 　　即 s = "changed" 并不是把 "original" 对象修改成 "changed"，而是新建了一个 "changed" 对象，而且于此同时 "original" 对象依然存在。亦即不应该看成下面这种表示：
 
-<pre class="prettyprint linenums">
+```java
 String s = new String("original");  
 s.setValue("changed");  
-</pre>
+```
 
 　　正因为 String 是个不可变类，所以在 change()方法中，参数 s 指向 "original"，而 s 的拷贝指向 "changed"，s 的拷贝的行为对 s 没有影响，所以 System.out.println(s) 还是打印出 "original"。
 
@@ -56,7 +56,7 @@ s.setValue("changed");
 
 　　下面是一个StringBuffer的例子：
 
-<pre class="prettyprint linenums">
+```java
 public class Test {   
 	public static void change(StringBuffer sb) {  
 		sb.replace(0, sb.length(), "changed");  
@@ -69,7 +69,7 @@ public class Test {
 		System.out.println(sb.toString()); // Output: changed  
 	}  
 } 
-</pre>
+```
 
 ![][2]
 
@@ -81,7 +81,7 @@ _题外话_：一般说来，String 和 primitive 都是 immutable class，而 S
 
 _2010-7-6补充_：用 final 来修饰方法的参数可以强制禁止参数的拷贝指向新的对象，例如：
 
-<pre class="prettyprint linenums">
+```java
 public class Test {  
 	public static void change(final String s) {  
 		s = "changed"; // 非法！！！  
@@ -94,7 +94,7 @@ public class Test {
 		System.out.println(s);   
 	}  
 }
-</pre>
+```
 
 这里 final 就可以禁止 copy of String s 指向新对象 "changed" 的行为。  
 

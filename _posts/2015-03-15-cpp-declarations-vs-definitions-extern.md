@@ -30,16 +30,16 @@ By inference, a variable declaration might be a type followed by a name. For exa
 
 To resolve this dilemma, a keyword was necessary for C and C++ to say “This is only a declaration; it’s defined elsewhere.” The keyword is `extern`. It can mean the definition is external to the file, or that the definition occurs later in the file, like this:
 
-<pre class="prettyprint linenums">
+```cpp
 extern int a;
-</pre>
+```
 	
 `extern` can also apply to function declarations, but it makes no difference. These two declarations are equivalent:
 
-<pre class="prettyprint linenums">
+```cpp
 extern int func1(int length, int width);
 int func1(int length, int width); // equivalent
-</pre>
+```
 	
 虽然对 function declaration 是多于的，我觉得都加上 `extern` 更统一一点。
 

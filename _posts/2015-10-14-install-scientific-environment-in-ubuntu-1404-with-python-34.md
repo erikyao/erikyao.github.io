@@ -11,7 +11,7 @@ tags: [Python-101]
 
 Thanks to [Kenarius Octonotes](http://bikulov.org/), I basically followed his article [Install Up-to-date Scientific Environment in Ubuntu 14.04 With Python 3.4](http://bikulov.org/blog/2014/05/14/install-up-to-date-scientific-environment-in-ubuntu-14-dot-04-with-python-3-dot-4/). The installation flow goes like this (with some modification with Kenarius' note):
 
-<pre class="prettyprint linenums">
+```shell
 #!/usr/bin/env bash
 
 # change to root
@@ -70,7 +70,7 @@ sudo ipython notebook
 
 # deactivate venv, complementary to `source venv/ipython-notebook/bin/activate`
 deactivate
-</pre>
+```
 
 However, there might be some problems.
 
@@ -80,7 +80,7 @@ The solution is provided in [stackoverflow: Can't install via pip because of egg
 
 > Found out what was wrong. I never installed the setuptools for python, so it was missing some vital files, like the egg ones.
 > <br/>  
-> If you find yourself having my issue above, download [this file](https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py) and then in powershell or command prompt, navigate to ez_setup’s directory and execute the command <code>python ez_setup.py</code> and this will run the file for you.
+> If you find yourself having my issue above, download [this file](https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py) and then in powershell or command prompt, navigate to ez_setup’s directory and execute the command `python ez_setup.py` and this will run the file for you.
 
 But please don't change to `easy_install pip`, which is suggested in the above post, in the middle way.
 
@@ -92,13 +92,13 @@ According to [stackoverflow: ImportError: No module named notebook.notebookapp](
 
 > For 4.0 and above You need to install the notebook app separately from [https://github.com/jupyter/notebook](https://github.com/jupyter/notebook)
 > <br/>  
-> <code>pip install jupyter</code>
+> `pip install jupyter`
 
 How to check the versions of your packages?
 
-<pre class="prettyprint linenums">
+```shell
 pip freeze
-</pre>
+```
 
 ## Problem 3: Unrecognized alias
 
@@ -106,8 +106,8 @@ The profile mechanism changed, so you don't have to create profile under `~/.ipy
 
 > IPython has now moved to [version 4.0](http://blog.jupyter.org/2015/08/12/first-release-of-jupyter/), which means that if you are using it, it will be reading its configuration from <code>~/.jupyter</code>, not <code>~/.ipython</code>. You have to create a new configuration file with
 > <br/>  
-> <code>jupyter notebook --generate-config</code>
+> `jupyter notebook --generate-config`
 > <br/>  
-> and then edit the resulting <code>~/.jupyter/jupyter_notebook_config.py</code> file according to your needs.
+> and then edit the resulting `~/.jupyter/jupyter_notebook_config.py` file according to your needs.
 > <br/>  
 > More installation instructions [here](https://jupyter.readthedocs.org/en/latest/config.html).

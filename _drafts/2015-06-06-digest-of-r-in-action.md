@@ -53,9 +53,9 @@ TODO: 直接在 toc 里分 part 1234
 
 (1.5 Batch processing) E.g. For Windows, use
 
-<pre class="prettyprint linenums">
+```r
 "C:\Program Files\R\R-2.13.0\bin\R.exe" CMD BATCH --vanilla --slave "c:\my projects\myscript.R"
-</pre>
+```
 
 ## 2. Creating a Dataset
 
@@ -69,7 +69,7 @@ R doesn’t have scalar values. Scalars are represented as one-element vectors.
 
 ### y~x linear regression 标准式
 
-<pre class="prettyprint linenums">
+```r
 # pdf("mygraph.pdf")
 	attach(mtcars)
 		plot(wt, mpg)		# the scatter plot
@@ -77,13 +77,13 @@ R doesn’t have scalar values. Scalars are represented as one-element vectors.
 		title("Regression of MPG on Weight")
 	detach(mtcars)
 # dev.off()
-</pre>
+```
 
 ### 打开多个图像 window
 
 Creating a new graph by issuing a high-level plotting command such as `plot()` will typically overwrite a previous graph. How can you create more than one graph and still have access to each? 
 
-<pre class="prettyprint linenums">
+```r
 # Method 1
 dev.new()
 statements to create graph 1
@@ -92,25 +92,25 @@ statements to create a graph 2
 
 # Method 2
 # you can use the functions dev.new(), dev.next(), dev.prev(), dev.set(), and dev.off() to have multiple graph windows open at one time and choose which output are sent to which windows. See help(dev.cur) for details on this approach.
-</pre>
+```
 
 ### 画小刻度（minor tick mark）
 
-<pre class="prettyprint linenums">
+```r
 library(Hmisc)
 minor.tick(nx=n, ny=n, tick.ratio=n)
 
 # nx 表示把大刻度（major tick mark）分成 n 段
 # tick.ratio 是 minorTick / majorTick 的比例，但是 nx 不一定等于 ny，所以这个比例理论上是最大的可能的比例
 # 比如 nx=2, ny=3, tick.ratio=0.5, y 轴的比例自动画成 1/3，不受 tick.ratio 影响
-</pre>
+```
 
 ### Data point 上写 text
 
 - `text()` places text within the graph.
 - `mtext()` places text in one of the four margins.
 
-<pre class="prettyprint linenums">
+```r
 attach(mtcars)
 	plot(wt, mpg,
 		main="Mileage vs. Car Weight",
@@ -120,11 +120,11 @@ attach(mtcars)
 		row.names(mtcars), # 在每个点上写 row.names 这个 text
 		cex=0.6, pos=4, col="red")
 detach(mtcars)
-</pre>
+```
 
 As a second example, the following code can be used to display font families:
 
-<pre class="prettyprint linenums">
+```r
 opar &lt;- par(no.readonly=TRUE)
 par(cex=1.5)
 plot(1:7, 1:7, type="n")
@@ -132,7 +132,7 @@ text(3, 3, "Example of default text")
 text(4, 4, family="mono", "Example of mono-spaced text")
 text(5, 5, family="serif", "Example of serif text")
 par(opar)
-</pre>
+```
 
 ### TEX Text
 
@@ -144,7 +144,7 @@ Finally, you can add mathematical symbols and formulas to a graph using TEX-like
 
 - `par(new=TRUE)` 表示 adding a figure to an existing graph
 
-<pre class="prettyprint linenums">
+```r
 opar &lt;- par(no.readonly=TRUE)
 
 # 画 scatter plot
@@ -163,7 +163,7 @@ boxplot(mtcars$mpg, axes=FALSE)
 
 mtext("Enhanced Scatterplot", side=3, outer=TRUE, line=-3)
 par(opar)
-</pre>
+```
 
 `par(fig=c(x1, x2, y1, y2))` 这个方位表示是用第一象限的，左下角是 (0,0)，右上角是 (1,1)。所以对 `par(fig=c(x1, x2, y1, y2))` 而言，[x1, x2] 是 x 轴的范围，[y1, y2] 是 y 轴的范围。
 
@@ -173,7 +173,7 @@ par(opar)
 
 ### 使用 transform 来添加 column
 
-<pre class="prettyprint linenums">
+```r
 mydata&lt;-data.frame(x1 = c(2, 2, 6, 4), x2 = c(3, 4, 2, 8))
 
 # method 1
@@ -190,11 +190,11 @@ detach(mydata)
 mydata &lt;- transform(mydata,
 					sumx = x1 + x2,
 					meanx = (x1 + x2)/2)
-</pre>
+```
 
 ### Rename columns
 
-<pre class="prettyprint linenums">
+```r
 # method 1
 names(leadership)[1] &lt;- "managerID"
 names(leadership)[2] &lt;- "testDate"
@@ -207,7 +207,7 @@ library(reshape)
 leadership &lt;- rename(leadership,
 					c(manager="managerID", date="testDate")
 )
-</pre>
+```
 
 ### Missing values are noncomparable
 
@@ -244,18 +244,18 @@ Missing values are considered noncomparable, even to themselves. This means that
 	
 反过来，我们可以使用 `scale(x)*SD + M` 来生成一组具有 standard deviation `SD` 和 mean `M` 的数据，比如：
 
-<pre class="prettyprint linenums">
+```r
 x &lt;- c(1,2,3,4,5)
 y &lt;- scale(x, center=TRUE, scale=TRUE)*10 + 50
 mean(y)
 [1] 50
 sd(y)
 [1] 10
-</pre>
+```
 
 ### 快速画一个钟形曲线 & pretty 函数
 
-<pre class="prettyprint linenums">
+```r
 x &lt;- pretty(c(-3,3), 30)
 y &lt;- dnorm(x)
 plot(x, y,
@@ -264,7 +264,7 @@ plot(x, y,
 	ylab = "Density",
 	yaxs = "i"
 )
-</pre>
+```
 
 - `pretty(x, n)`
 	- Create pretty breakpoints. Divides a continuous variable `x` into `n` intervals, by selecting `n+1` equally spaced rounded values. Often used in plotting.
@@ -273,51 +273,51 @@ plot(x, y,
 
 In simulation research and Monte Carlo studies, you often want to draw data from multivariate normal distribution with a given mean vector and covariance matrix. The `mvrnorm()` function in the `MASS` package makes this easy. The function call is
 
-<pre class="prettyprint linenums">
+```r
 library(MASS)
 mvrnorm(n, mean, sigma)
-</pre>
+```
 
 where `n` is the desired sample size, `mean` is the vector of means, and `sigma` is the variance-covariance (or correlation) matrix.
 
 ### 给 top 20% 的分数打 A，给 buttom 20% 的分数打 F
 
-<pre class="prettyprint linenums">
+```r
 y &lt;- quantile(score, c(.8,.6,.4,.2))
 roster$grade[score &gt;= y[1]] &lt;- "A"
 roster$grade[score &lt; y[1] & score &gt;= y[2]] &lt;- "B"
 roster$grade[score &lt; y[2] & score &gt;= y[3]] &lt;- "C"
 roster$grade[score &lt; y[3] & score &gt;= y[4]] &lt;- "D"
 roster$grade[score &lt; y[4]] &lt;- "F"
-</pre>
+```
 
 ### R switch-case
 
 参 [R Programming Switch Function](http://www.programiz.com/r-programming/switch-function)，用法如下：
 
-<pre class="prettyprint linenums">
+```r
 switch(2, "red", "green", "blue") # 直接选择第 2 个 case；引号不可省略
 [1] "green"
 
 i &lt;- 1
 switch(i, "red", "green", "blue") # 选择第 i 个 case
 [1] "red"
-</pre>
+```
 
-<pre class="prettyprint linenums">
+```r
 switch("color", "color"="red", "shape"="square", "length"=5) ## 匹配 case "color"；引号可以省略
 [1] "red"
 
 attr &lt;- "color"
 switch(attr, color="red", shape="square", length=5) ## 根据 attr 匹配 case
 [1] "red"
-</pre>
+```
 
 以上这些用法，switch 都是直接返回了一个值，所以可以当 return 值返回来。
 
 如果需要像 java 那样每个 case 执行一些操作，需要这么写（参 [How to use the switch statement in R functions?](http://stackoverflow.com/questions/10393508/how-to-use-the-switch-statement-in-r-functions)）：
 
-<pre class="prettyprint linenums">
+```r
 action &lt;- "foo"
 switch(action, 
 	foo={ 
@@ -332,7 +332,7 @@ switch(action,
 		print('default')
 	}
 )
-</pre>
+```
 
 注意这种情况也是有返回值的，返回的应该是 {} 内最后一句的值。
 
@@ -340,7 +340,7 @@ switch(action,
 
 写 function 要 return 一个复杂的 object 时就会很怀念 class，不过其实是可以用 list 或者 named vector 来替代的：
 
-<pre class="prettyprint linenums">
+```r
 mystats &lt;- function(x, parameter1=TRUE, parameter2=FALSE, ...) {
 	center &lt;- xxx;
 	spread &lt;- zzz;
@@ -349,14 +349,14 @@ mystats &lt;- function(x, parameter1=TRUE, parameter2=FALSE, ...) {
 	result &lt;- list(center=center, spread=spread) 
 	return(result)
 }
-</pre>
+```
 
 ### 矩阵转置（Transpose）
 
-<pre class="prettyprint linenums">
+```r
 cars &lt;- mtcars[1:5,1:4]
 t(cars)
-</pre>
+```
 
 ## 6. Basic Graphs
 
@@ -368,7 +368,7 @@ Bar plots display the distribution (frequencies) of a categorical variable throu
 
 把一维数据画成柱状图。
 
-<pre class="prettyprint linenums">
+```r
 library(vcd)
 counts &lt;- table(Arthritis$Improved)
 counts
@@ -383,17 +383,17 @@ barplot(counts,
 		main="Horizontal Bar Plot",
 		xlab="Frequency", ylab="Improvement",
 		horiz=TRUE) # Horizontal bar plot
-</pre>
+```
 
 If the categorical variable to be plotted is a factor or ordered factor, you can create a vertical bar plot quickly with the `plot()` function.
 
-<pre class="prettyprint linenums">
+```r
 # 效果同上
 plot(Arthritis$Improved, main="Simple Bar Plot",
 	xlab="Improved", ylab="Frequency")
 plot(Arthritis$Improved, horiz=TRUE, main="Horizontal Bar Plot",
 	xlab="Frequency", ylab="Improved")
-</pre>
+```
 
 #### 6.1.2 Stacked and Grouped Bar Plots
 
@@ -404,7 +404,7 @@ If input is a matrix rather than a vector, the resulting graph will be a stacked
 - If `beside=TRUE`, each column of the matrix represents a group, and the values in each column are juxtaposed ([ˌdʒʌkstəˈpəʊz], 并列, 并排) rather than stacked.
 	- This is grouped bar plot.
 	
-<pre class="prettyprint linenums">
+```r
 library(vcd)
 counts &lt;- table(Arthritis$Improved, Arthritis$Treatment)
 counts
@@ -425,7 +425,7 @@ barplot(counts,
 		xlab="Treatment", ylab="Frequency",
 		col=c("red", "yellow", "green"),
 		legend=rownames(counts), beside=TRUE) # grouped bar plot
-</pre>
+```
 
 ![][figure-06-02]
 
@@ -433,19 +433,19 @@ barplot(counts,
 
 In a spinogram, a stacked bar plot is rescaled so that the height of each bar is 1 and the segment heights represent proportions. Spinograms are created through the `spine()` function of the `vcd` package.
 
-<pre class="prettyprint linenums">
+```r
 library(vcd)
 attach(Arthritis)
 	counts &lt;- table(Treatment, Improved)
 	spine(counts, main="Spinogram Example")
 detach(Arthritis)
-</pre>
+```
 
 ![][figure-06-05]
 
 ### 6.2 Pie Charts
 
-<pre class="prettyprint linenums">
+```r
 par(mfrow=c(2, 2))
 
 # data for Pie Chart No.1, No.2 & No.3
@@ -471,7 +471,7 @@ mytable &lt;- table(state.region)
 lbls3 &lt;- paste(names(mytable), "\n", mytable, sep="") 
 pie(mytable, labels = lbls3,
 	main="Pie Chart from a Table\n (with sample sizes)")
-</pre>
+```
 
 - `rainbow(length(lbls2))` resolves to `rainbow(5)`, providing five colors for the graph
 
@@ -479,12 +479,12 @@ pie(mytable, labels = lbls3,
 
 #### Digress: Fan Plot
 
-<pre class="prettyprint linenums">
+```r
 library(plotrix)
 slices &lt;- c(10, 12,4, 16, 8)
 lbls &lt;- c("US", "UK", "Australia", "Germany", "France")
 fan.plot(slices, labels = lbls, main="Fan Plot")
-</pre>
+```
 
 ![][figure-06-07]
 
@@ -498,7 +498,7 @@ Histograms display the distribution of a continuous variable by dividing up the 
 
 #### Histogram 示例
 
-<pre class="prettyprint linenums">
+```r
 par(mfrow=c(2,2))
 
 # Hist No.1: Simple
@@ -533,7 +533,7 @@ yfit &lt;- dnorm(xfit, mean=mean(x), sd=sd(x))
 yfit &lt;- yfit*diff(h$mids[1:2])*length(x)
 lines(xfit, yfit, col="blue", lwd=2)
 box()
-</pre>
+```
 
 - `rug`: add a rug plot (x-axis 上的小锯齿)
 - `jitter`: add a small random value to each data point (a uniform random variate between ±`amount`)
@@ -550,7 +550,7 @@ box()
 
 Technically, kernel density estimation is a nonparametric method for estimating the probability density function of a random variable. Although the mathematics are beyond the scope of this text, in general kernel density plots can be an effective way to view the distribution of a continuous variable.
 
-<pre class="prettyprint linenums">
+```r
 par(mfrow=c(2,1))
 
 # density plot No.1
@@ -562,13 +562,13 @@ d &lt;- density(mtcars$mpg)
 plot(d, main="Kernel Density of Miles Per Gallon")
 polygon(d, col="red", border="blue")  
 rug(mtcars$mpg, col="brown")
-</pre>
+```
 
 ![][figure-06-09]
 
 The `sm.density.compare()` function in the `sm` package allows you to superimpose the kernel density plots of two or more groups. The format is `sm.density.compare(x, factor)` where `x` is a numeric vector and `factor` is a grouping variable.
 
-<pre class="prettyprint linenums">
+```r
 par(lwd=2)
 library(sm)
 
@@ -580,7 +580,7 @@ attach(mtcars)
 	colfill &lt;- c(2:(1+length(levels(cyl.f))))
 	legend(locator(1), levels(cyl.f), fill=colfill) 
 detach(mtcars)
-</pre>
+```
 
 - The `locator(1)` option indicates that you’ll place the legend interactively by clicking on the graph where you want the legend to appear.
 
@@ -604,7 +604,7 @@ Box plots can be created for variables by group. The format is `boxplot(formula,
 - By adding `notch=TRUE`, you get notched box plots. 
 	- If two boxes’ notches don’t overlap, there’s strong evidence that their medians differ.
 	
-<pre class="prettyprint linenums">
+```r
 boxplot(mpg ~ cyl, data=mtcars,
 		notch=TRUE,
 		varwidth=TRUE,
@@ -612,7 +612,7 @@ boxplot(mpg ~ cyl, data=mtcars,
 		main="Car Mileage Data",
 		xlab="Number of Cylinders",
 		ylab="Miles Per Gallon")
-</pre>
+```
 
 ![][figure-06-13]
 
@@ -620,7 +620,7 @@ boxplot(mpg ~ cyl, data=mtcars,
 
 A violin plot is a combination of a box plot and a kernel density plot.
 
-<pre class="prettyprint linenums">
+```r
 library(vioplot)
 
 x1 &lt;- mtcars$mpg[mtcars$cyl==4]
@@ -630,7 +630,7 @@ vioplot(x1, x2, x3,
 		names=c("4 cyl", "6 cyl", "8 cyl"),
 		col="gold")
 title("Violin Plots of Miles Per Gallon")
-</pre>
+```
 
 ![][figure-06-15]
 
@@ -638,15 +638,15 @@ Violin plots are basically kernel density plots superimposed in a mirror image f
 
 ### 6.6 Dot Plots
 
-<pre class="prettyprint linenums">
+```r
 dotchart(mtcars$mpg, labels=row.names(mtcars), cex=.7,
 		main="Gas Mileage for Car Models",
 		xlab="Miles Per Gallon")
-</pre>
+```
 
 ![][figure-06-16]
 
-<pre class="prettyprint linenums">
+```r
 x &lt;- mtcars[order(mtcars$mpg),]
 x$cyl &lt;- factor(x$cyl)
 x$color[x$cyl==4] &lt;- "red"
@@ -661,7 +661,7 @@ dotchart(x$mpg,
 		pch=19,
 		main = "Gas Mileage for Car Models\ngrouped by cylinder",
 		xlab = "Miles Per Gallon")
-</pre>
+```
 
 ![][figure-06-17]
 
@@ -684,7 +684,7 @@ dotchart(x$mpg,
 
 #### 计算 Skewness、Kurtosis 并使用 sapply 的一个例子
 
-<pre class="prettyprint linenums">
+```r
 mystats &lt;- function(x, na.omit=FALSE){
 	if (na.omit)
 		x &lt;- x[!is.na(x)]
@@ -707,7 +707,7 @@ mean 		20.091	146.688	3.2172
 stdev 		6.027	68.563	0.9785
 skew 		0.611	0.726	0.4231
 kurtosis 	-0.373	-0.136	-0.0227
-</pre>
+```
 
 The distribution of `mtcars$mpg` is skewed to the right (+0.61) and somewhat flatter than a normal distribution (–0.37). This will be most evident if you graph the data.
 
@@ -726,7 +726,7 @@ The distribution of `mtcars$mpg` is skewed to the right (+0.61) and somewhat fla
 
 #### melt-cast 大法示例
 
-<pre class="prettyprint linenums">
+```r
 library(reshape)
 
 dstats &lt;- function(x)(c(n=length(x), mean=mean(x), sd=sd(x)))
@@ -740,7 +740,7 @@ cast(dfm, am + cyl + variable ~ ., dstats)
 5 	0 	6 	hp 			4 	115.25 	9.179
 6 	0 	6 	wt 			4 	3.39 	0.116
 ......
-</pre>
+```
 
 ### 7.2 Frequency and contingency tables
 
@@ -784,7 +784,7 @@ cast(dfm, am + cyl + variable ~ ., dstats)
 
 所谓的 two-way table 其实就是 two-variabled table，但是单个 variable 不一定只有两个值，所以不一定是 2x2 table。
 
-<pre class="prettyprint linenums">
+```r
 library(vcd)
 mytable &lt;- xtabs(~Treatment+Improved, data=Arthritis)
 
@@ -799,13 +799,13 @@ X-squared = 13.1, df = 2, p-value = 0.001463
 fisher.test(mytable)
 
 mantelhaen.test(mytable) # Cochran–Mantel–Haenszel test
-</pre>
+```
 
 #### 7.2.3 Measures of association
 
 如果 tests of independence 已经说明了 variable A and variable B are not independent，your interest turns naturally to measures of association in order to gauge the strength of the relationships present.
 
-<pre class="prettyprint linenums">
+```r
 library(vcd)
 mytable &lt;- xtabs(~Treatment+Improved, data=Arthritis)
 
@@ -817,7 +817,7 @@ Pearson 			13.055	2	0.0014626
 Phi-Coefficient : 0.394
 Contingency Coeff.: 0.367
 Cramer’s V : 0.394
-</pre>
+```
 
 Likelihood Ratio 参 [Conditional Probability](/math/2014/09/08/conditional-probability/)。
 
@@ -844,7 +844,7 @@ association 简单理解就是 correlation。"coefficient" 这个词单纯表示
 	- `spearman`
 	- `kendall`
 	
-<pre class="prettyprint linenums">
+```r
 states &lt;- state.x77[,1:6]
 cor(states)
 			Population	Income	Illiteracy	Life Exp	Murder	HS Grad
@@ -863,7 +863,7 @@ Population	-0.068		0.344
 Income		0.340		-0.230
 Illiteracy	-0.588		0.703
 HS Grad		0.582		-0.488
-</pre>
+```
 
 #### Testing correlations for significance
 
@@ -878,7 +878,7 @@ Once you’ve generated correlation coefficients, how do you test them for stati
 	- `two.side`: Assume population correlation isn’t equal to 0.
 - `method`: 同 `cor`
 
-<pre class="prettyprint linenums">
+```r
 cor.test(states[,3], states[,5])
 		
 		Pearson’s product-moment correlation
@@ -891,16 +891,16 @@ alternative hypothesis: true correlation is not equal to 0
 sample estimates:
 	cor
 	0.703
-</pre>
+```
 
 Unfortunately, you can test only one correlation at a time using `cor.test`. Luckily, the `psych::corr.test()` function produces correlations and significance levels for matrices of Pearson, Spearman, or Kendall correlations.
 
-<pre class="prettyprint linenums">
+```r
 library(psych)
 
 # The use= options can be "pairwise" or "complete" (for pairwise or listwise deletion of missing values, respectively)
 corr.test(states, use="pairwise", method="pearson")
-</pre>
+```
 
 ### 7.4 t-tests
 
@@ -908,15 +908,15 @@ For this illustration, we’ll use the `UScrime` dataset distributed with the `M
 
 #### 7.4.1 Independent t-test
 
-<pre class="prettyprint linenums">
+```r
 t.test(y ~ x, data) # where y is numeric and x is a dichotomous variable
 
 t.test(y1, y2) # where y1 and y2 are numeric vectors
-</pre>
+```
 
 In the following code, you compare Southern (group 1) and non-Southern (group 0) states on the probability of imprisonment using a two-tailed test without the assumption of equal variances:
 
-<pre class="prettyprint linenums">
+```r
 library(MASS)
 t.test(Prob ~ So, data=UScrime)
 
@@ -930,7 +930,7 @@ alternative hypothesis: true difference in means is not equal to 0
 sample estimates:
 mean in group 0		mean in group 1
 	0.03851265			0.06371269
-</pre>
+```
 
 #### 7.4.2 Dependent t-test
 
@@ -938,7 +938,7 @@ As a second example, you might ask if unemployment rate for younger males (14–
 
 In this case, the format is `t.test(y1, y2, paired=TRUE)`.
 
-<pre class="prettyprint linenums">
+```r
 library(MASS)
 
 sapply(UScrime[c("U1","U2")], function(x)(c(mean=mean(x),sd=sd(x))))
@@ -958,7 +958,7 @@ alternative hypothesis: true difference in means is not equal to 0
 sample estimates:
 mean of the differences
 	61.48936
-</pre>
+```
 
 #### 7.4.3 When there are more than two groups
 

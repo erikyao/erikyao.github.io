@@ -15,7 +15,7 @@ tags: [Cpp-101]
 
 struct member 默认是 public（其实很好记，因为我们最常见的 struct 就是啥也不写，也不会考虑是不是 private）。The following struct declarations are identical:
 
-<pre class="prettyprint linenums">
+```cpp
 struct A {
 	int i;
 	char j;
@@ -34,13 +34,13 @@ public:
 };
 
 void B::func() {}
-</pre>
+```
 
 `class` is identical to the `struct` keyword in absolutely every way except one: `class` defaults to private, whereas `struct` defaults to public.
 
 ## Constructors and destructors
 
-<pre class="prettyprint linenums">
+```cpp
 class X {
 	int i;
 public:
@@ -52,16 +52,16 @@ void f() {
 	X a; // 不需要 new，这样 declare 就直接 call 了 constructor
 	X b(12); // 调用带参 constructor。这个语法有点奇怪，习惯了就好
 }
-</pre>
+```
 
 Both the constructor and destructor are very unusual types of functions: they have no return value. This is distinctly different from a `void` return value, in which the function returns nothing but you still have the option to make it something else.
 
-<pre class="prettyprint linenums">
+```cpp
 class Y {
 public:
 	~Y(); // Destructor
 };
-</pre>
+```
 
 * The destructor never has any arguments because destruction never needs any options.
 * The destructor is called automatically by the compiler when the object goes out of scope.
@@ -69,10 +69,10 @@ public:
 
 一个完整的例子：
 
-<pre class="prettyprint linenums">
+```cpp
 //: C06:Constructor1.cpp
 // Constructors & destructors
-#include &lt;iostream&gt;
+#include <iostream>
 using namespace std;
 
 class Tree {
@@ -102,7 +102,7 @@ Tree::Tree(int initialHeight, int times) : Tree(initialHeight) {
 }
 
 Tree::~Tree() {
-	cout &lt;&lt; "inside Tree destructor" &lt;&lt; endl;
+	cout << "inside Tree destructor" << endl;
 	printsize();
 }
 
@@ -111,19 +111,19 @@ void Tree::grow(int years) {
 }
 
 void Tree::printsize() {
-	cout &lt;&lt; "Tree height is " &lt;&lt; height &lt;&lt; endl;
+	cout << "Tree height is " << height << endl;
 }
 
 int main() {
-	cout &lt;&lt; "before opening brace" &lt;&lt; endl;
+	cout << "before opening brace" << endl;
 	{
 		Tree t(12);
-		cout &lt;&lt; "after Tree creation" &lt;&lt; endl;
+		cout << "after Tree creation" << endl;
 		t.printsize();
 		t.grow(4);
-		cout &lt;&lt; "before closing brace" &lt;&lt; endl;
+		cout << "before closing brace" << endl;
 	}
-	cout &lt;&lt; "after closing brace" &lt;&lt; endl;
+	cout << "after closing brace" << endl;
 } 
 
 // output:
@@ -136,7 +136,7 @@ int main() {
 	Tree height is 16
 	after closing brace
 */
-</pre>
+```
 
 更多关于 constructor initializer list 的说明见 [C++: const object / const member & const member function / mutable](/c++/2015/03/29/cpp-const-object--const-member--const-member-function--mutable)。
 

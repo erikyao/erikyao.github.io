@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "PGM Review"
 description: ""
 category: PGM

@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "Introduction to Linear Discriminant Analysis"
 description: ""
 category: Machine-Learning

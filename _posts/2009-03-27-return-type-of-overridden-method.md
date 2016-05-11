@@ -11,9 +11,9 @@ tags: [Java-101]
 
 一般说来，覆写方法要求除了签名相同外，return type 也要相同。  
 
-另外，Java SE 5 新推出了“协变返回类型(covariant return type)”，即覆写方法的 return type 可以是被覆写方法 return type 的 ext class，如：
+另外，Java SE 5 新推出了“协变返回类型 (covariant return type)”，即覆写方法的 return type 可以是被覆写方法 return type 的 ext class，如：
 
-<pre class="prettyprint linenums">
+```java
 class BaseReturnType {  
 }  
   
@@ -31,4 +31,4 @@ class Ext extends Base {
 		return new ExtReturnType();  
 	}  
 } 
-</pre> 
+```

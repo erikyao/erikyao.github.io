@@ -13,7 +13,7 @@ tags: [Java-InnerClass]
 
 　　如果一个一般类来继承内部类，需要在构造器中使用特殊的语法。  
 
-<pre class="prettyprint linenums">
+```java
 class Outer {  
 	class Inner {}  
 }  
@@ -23,7 +23,7 @@ public class ExtInner extends Outer.Inner {
 		o.super();  
 	}  
 }  
-</pre>
+```
 
 　　ExtInner 的构造器必须要有一个 Outer 参数，然后调用 \.super();。这里要求必须使用一个 `enclosingClassReference.super();`。  
 
@@ -37,7 +37,7 @@ public class ExtInner extends Outer.Inner {
 
 　　如果内部类、外部类双重继承，情况如何呢？看下面代码：
 
-<pre class="prettyprint linenums">
+```java
 class BaseOuter {  
 	void print() {  
 		System.out.println("BaseOuter prints");  
@@ -86,7 +86,7 @@ public class ExtInnerTest {
 		ei.print7(); // error: BaseOut is not the enclosing class  
 	}  
 }  
-</pre>
+```
 
 　　可以看到 ExtInner 可以通过向上转型变成 BaseInner，然后再连接到 BaseOut.this (ei.print3(); // OK)，但是不能直接使用 BaseOut.this (ei.print7(); // won't compile)。  
 

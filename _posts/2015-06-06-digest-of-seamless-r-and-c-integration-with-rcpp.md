@@ -21,25 +21,25 @@ Rcpp 初体验。请结合 [Rcpp Hierarchy](/r/2015/07/17/rcpp-hierarchy) 做进
 
 假设我们有一个 C++ function：
 
-<pre class="prettyprint linenums">
+```c
 int fibonacci(const int x) {
 	if (x == 0) return(0);
 	if (x == 1) return(1);
 	return (fibonacci(x - 1)) + fibonacci(x - 2);
 }
-</pre>
+```
 
 R 的底层是 C，我们要把这个 C++ function 给 R 调用的话，需要写一个 wrapper。具体的原理这里不展示，你只要知道要有这个 wrapper 就好了：
 
-<pre class="prettyprint linenums">
+```c
 // SEXP means "pointer to S expression"
 
 extern "C" SEXP fibWrapper(SEXP xs) {
-	int x = Rcpp::as&lt;int&gt;(xs);
+	int x = Rcpp::as<int>(xs);
 	int fib = fibonacci(x);
 	return (Rcpp::wrap(fib));
 }
-</pre>
+```
 
 - `Rcpp::as<int>(xs)` converts the incoming argument `xs` from `SEXP` to integer. 
 - `Rcpp::wrap(fib)` converts the integer result `fib` to the `SEXP` type.
@@ -52,7 +52,7 @@ With `inline` package providing a complete wrapper around the compilation, linki
 
 - 类似地还有一个 `cfunction()` 接口
 
-<pre class="prettyprint linenums">
+```r
 library(inline)
 
 incltxt <- '
@@ -67,11 +67,11 @@ fibRcpp <- cxxfunction(signature(xs="int"),
 	plugin="Rcpp",
 	incl=incltxt,
 	body='
-		int x = Rcpp::as&lt;int&gt;(xs);
+		int x = Rcpp::as<int>(xs);
 		return Rcpp::wrap(fibonacci(x));
 	'
 )
-</pre>
+```
 
 这里 `incl` 就是 inline 的 C++ code，`body` 就是 C++ function wrapper。复杂一点的情况，`incl` 里可以定一个 class，然后 `body` 里 new 一个对象，然后调用对象的方法再 return 回去。
 
@@ -81,32 +81,32 @@ fibRcpp <- cxxfunction(signature(xs="int"),
 
 看起来比 inline 要来得简单。这里 Rcpp Attribute 可以理解为 java annotation，但是形式上它是一个注释：
 
-<pre class="prettyprint linenums">
+```cpp
 /***** fibonacci.cpp *****/
 
-#include &lt;Rcpp.h&gt;
+#include <Rcpp.h>
 using namespace Rcpp;
 
 // [[Rcpp::export]]
 int fibonacci(const int x) {
-	if (x &lt; 2)
+	if (x < 2)
 		return x;
 	else
 		return (fibonacci(x - 1)) + fibonacci(x - 2);
 }
-</pre>
+```
 
 这里 `[[Rcpp::export]]` 就是一个 Rcpp Attribute。
 
 R 调用起来也很方便：
 
-<pre class="prettyprint linenums">
+```r
 library(Rcpp)
 
 sourceCpp("fibonacci.cpp")
 fibonacci(20)
 [1] 6765
-</pre>
+```
 
 ## Chapter 2. Tools and Setup
 
@@ -120,11 +120,11 @@ As Rcpp is of course a C++ application, this last restriction applies and we nee
 
 我们把 C++ 编译好之后（书上的编译过程这里就不研究了），就可以通过 `.Call()` 接口配合 wrapper 来调用：
 
-<pre class="prettyprint linenums">
+```r
 dyn.load("fibonacci.so")
 .Call("fibWrapper", 10)
 [1] 55
-</pre>
+```
 
 - `dyn.load()` loads the shared library. It uses the full filename, including 
 	- the explicit platform-dependent extension which is .so on Unix, 
@@ -151,24 +151,24 @@ Rcpp 除了 `sourceCpp()` 外，还有
 	- 注意 `cxxfunction()` 是 `inline` 包的。
 - `evalCpp()`: evaluates a C++ expression directly
 
-<pre class="prettyprint linenums">
-cpptxt &lt;- '
+```r
+cpptxt <- '
 	int fibonacci(const int x) {
-		if (x &lt; 2) return(x);
+		if (x < 2) return(x);
 		return (fibonacci(x - 1)) + fibonacci(x - 2);
 	}
 '
 
-fibCpp &lt;- cppFunction(cpptxt) # compiles, load, links, ...
-</pre>
+fibCpp <- cppFunction(cpptxt) # compiles, load, links, ...
+```
 
 这种用法也可以使用 `inline` 的 plugin，比如：
 
-<pre class="prettyprint linenums">
-code &lt;- 'C++ code goes here'
+```r
+code <- 'C++ code goes here'
 
-gslVolumes &lt;- cppFunction(code, depends="RcppGSL")
-</pre>
+gslVolumes <- cppFunction(code, depends="RcppGSL")
+```
 
 ## Chapter 3. Data Structures: Part One
 
@@ -197,31 +197,31 @@ In Rcpp class hierarchy, although RObject is not directly user-facing, it provid
 
 #### shallow copy 和 deep copy 的问题
 
-<pre class="prettyprint linenums">
-src &lt;- '
+```r
+src <- '
 	Rcpp::NumericVector invec(vx);
 	Rcpp::NumericVector outvec(vx);
-	for (int i=0; i&lt;invec.size(); i++) {
+	for (int i=0; i<invec.size(); i++) {
 		outvec[i] = log(invec[i]);
 	}
 	return outvec;
 '
 
-fun &lt;- cxxfunction(signature(vx="numeric"), src, plugin="Rcpp")
-x &lt;- seq(1.0, 3.0, by=1)
+fun <- cxxfunction(signature(vx="numeric"), src, plugin="Rcpp")
+x <- seq(1.0, 3.0, by=1)
 
 cbind(x, fun(x))
 x
 [1,] 0.0000000 0.0000000
 [2,] 0.6931472 0.6931472
 [3,] 1.0986123 1.0986123
-</pre>
+```
 
 上面这一段最大的问题是：你修改 `outvec` 的同时也改动了 `invec`。反映到 R 上就是你调用 `fun(x)` 的同时也修改了 `x`。这是因为 `NumericVector` 本质是 RObject，而 RObject 的本质是 `SEXP`，而 `SEXP` 又是 pointer to R expression，所以这里 `invec` 和 `outvec` 是两个不同的 pointer 指向了同一个 R vector。
 
 正确的写法是：
 
-<pre class="prettyprint linenums">
+```r
 // method 1
 Rcpp::NumericVector invec(vx);
 Rcpp::NumericVector outvec = Rcpp::clone(vx);
@@ -230,7 +230,7 @@ Rcpp::NumericVector outvec = Rcpp::clone(vx);
 // method 2
 Rcpp::NumericVector invec(vx);
 Rcpp::NumericVector outvec = log(invec); // This is Rcpp sugar
-</pre>
+```
 
 ### 3.4 Other Vector Classes
 
@@ -241,17 +241,17 @@ Rcpp::NumericVector outvec = log(invec); // This is Rcpp sugar
 
 ### 4.1 Rcpp::Named
 
-<pre class="prettyprint linenums">
-someVec &lt;- c(mean=1.23, dim=42.0, cnt=12)
+```r
+someVec <- c(mean=1.23, dim=42.0, cnt=12)
 someVec
 mean dim cnt
 1.23 42.00 12.00
-</pre>
+```
 
 等同于：
 
-<pre class="prettyprint linenums">
-src &lt;- '
+```r
+src <- '
 	Rcpp::NumericVector x =
 	Rcpp::NumericVector::create(
 		Rcpp::Named("mean") = 1.23,
@@ -261,21 +261,21 @@ src &lt;- '
 	return x; 
 '
 
-fun &lt;- cxxfunction(signature(), src, plugin="Rcpp")
+fun <- cxxfunction(signature(), src, plugin="Rcpp")
 fun()
 mean dim cnt
 1.23 42.00 12.00
-</pre>
+```
 
 而 `Rcpp::Named("mean")` 部分又可以简写为：
 
-<pre class="prettyprint linenums">
+```r
 	Rcpp::NumericVector x = NumericVector::create(
 		_["mean"] = 1.23,
 		_["dim"] = 42,
 		_["cnt"] = 12
 	);
-</pre>
+```
 
 ### 4.2 Rcpp::GenericVector
 
@@ -291,16 +291,16 @@ mean dim cnt
 
 A `Function` object is needed whenever an R function—either supplied by the user or by accessing an R function—is employed.
 
-<pre class="prettyprint linenums">
-src &lt;- '
+```r
+src <- '
 	Function sort(x);
 	return sort(y, Named("decreasing", true));
 '
 
-fun &lt;- cxxfunction(signature(x="function", y="ANY"), src, plugin="Rcpp")
+fun <- cxxfunction(signature(x="function", y="ANY"), src, plugin="Rcpp")
 fun(sort, sample(1:5, 10, TRUE))
 [1] 5 5 5 3 3 3 2 2 2 1
-</pre>
+```
 
 这里是把 R 的 `sort` 作为 `x` 传给了 `Function sort(x)`。然后注意调用 `Function sort` 的传参方法是 `Named("paraName", paraVal)`
 
@@ -310,18 +310,18 @@ Another useful point to note is that because the second argument `y` is never in
 
 The `Function` class can also be used to access R functions directly. In the example below, we draw five random numbers from a t-distribution with three degrees of freedom. As we are accessing the random number generators, we need to ensure that it is in a proper state. The `RNGScope` class ensures this by initializing the random number generator by calling the `GetRNGState()` function from the class constructor, and by restoring the initial state via `PutRNGState()` via its destructor.
 
-<pre class="prettyprint linenums">
-src &lt;- '
+```r
+src <- '
 	RNGScope scp;
 	Rcpp::Function rt("rt");
 	return rt(5, 3);
 '
-fun &lt;- cxxfunction(signature(), src, plugin="Rcpp")
+fun <- cxxfunction(signature(), src, plugin="Rcpp")
 
 set.seed(42)
 fun()
 [1] 2.339681 0.130995 -0.074028 -0.057701 -0.046482
-</pre>
+```
 
 注意这里我们是把 R function 的 name "rt" 传给了 `Rcpp::Function rt("rt");`。
 
@@ -331,16 +331,16 @@ Environment 主要负责 variable lookup、namespace 这类的职责。
 
 #### 使用 Rcpp::Environment 定位到 R package 中的某个 functions
 
-<pre class="prettyprint linenums">
+```r
 Rcpp::Environment stats("package:stats");	// 用 environment 定位到 package
 Rcpp::Function rnorm = stats["rnorm"];		// 定位到 function
 
 return rnorm(10, Rcpp::Named("sd", 100.0));
-</pre>
+```
 
 #### 使用 Rcpp::Environment 访问 R global environment 的 variable、创建新的 variable
 
-<pre class="prettyprint linenums">
+```r
 Rcpp::Environment global = Rcpp::Environment::global_env();
 
 std::vector<double> vx = global["x"];	// 访问 x
@@ -349,7 +349,7 @@ std::map<std::string,std::string> map;
 map["foo"] = "oof";
 map["bar"] = "rab";
 global["y"] = map;						// 创建 y
-</pre>
+```
 
 ### 4.6 The S4 Class 
 

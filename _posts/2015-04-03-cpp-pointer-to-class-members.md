@@ -11,8 +11,8 @@ tags: [Cpp-101]
 
 -----
 
-<pre class="prettyprint linenums">
-#include &lt;iostream&gt;
+```cpp
+#include <iostream>
 using namespace std;
 
 class Data {
@@ -21,8 +21,8 @@ private:
 public:
     int a, b, c;
     void print() const {
-        cout &lt;&lt; "a = " &lt;&lt; a &lt;&lt; ", b = " &lt;&lt; b
-             &lt;&lt; ", c = " &lt;&lt; c &lt;&lt; endl;
+        cout << "a = " << a << ", b = " << b
+             << ", c = " << c << endl;
     }
 };
 
@@ -45,7 +45,7 @@ int main() {
 }
 
 // output: a = 47, b = 48, c = 49
-</pre>
+```
 
 * `int Data::*pmInt = &Data::a;` 定义一个 pointer 指向 `Data` class 内的一个 int member，并初始化为 member `a`;
 	* 这句其实很像在 `Data` 外部凭空给 `Data` 加了一个 pointer member
@@ -58,7 +58,7 @@ int main() {
 
 pointer to class member 的语法还能扩展到 member function：
 
-<pre class="prettyprint linenums">
+```cpp
 class Simple2 {
 public:
     int f(float) const {
@@ -79,7 +79,7 @@ int main() {
     (s.*fp)(1.0F);
     (ps->*fp2)(1.0F);
 }
-</pre>
+```
 
 * 说老实话，这段我看着十分难受……
 * 普通的 function，其名称就是它的地址。但是在这里不行，`&Simple2::f` 里的 `&` 必须要写

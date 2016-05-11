@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Signal Peptide &amp; Protein Targeting"
+title: "Signal Peptide & Protein Targeting"
 description: ""
 category: Biology
 tags: [Biology-101]

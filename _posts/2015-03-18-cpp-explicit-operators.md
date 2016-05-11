@@ -44,17 +44,17 @@ Keyword, Meaning
 
 举个例子：
 
-<pre class="prettyprint linenums">
-#include &lt;iostream&gt;
+```cpp
+#include <iostream>
 using namespace std;
 
 int main() {
 	bool a = true, b = false;
 	
-	cout &lt;&lt; (a and b); // output: 0
+	cout << (a and b); // output: 0
 	
-	// 注意结合律，下式实际是 (cout &lt;&lt; a) and b;
+	// 注意结合律，下式实际是 (cout << a) and b;
 	// 然后 cout 的 && 操作符应该是重载了 
-	// cout &lt;&lt; a and b; // output: 1
+	// cout << a and b; // output: 1
 }
-</pre>
+```

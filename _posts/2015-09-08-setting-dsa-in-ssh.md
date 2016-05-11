@@ -19,12 +19,12 @@ I met a problem setting up SSH and git today, and I am happy to share my workaro
 
 First, you have to tell SSH to use your DSA key instead of your RSA key. Following the posts [How to tell git which private key to use?](http://superuser.com/questions/232373/how-to-tell-git-which-private-key-to-use/232406#232406) and [Creating remote server nicknames with .ssh/config](http://www.saltycrane.com/blog/2008/11/creating-remote-server-nicknames-sshconfig/), you can create a config file, `C:\Users\xxx\.ssh\config`, like
 
-<pre class="prettyprint linenums">
+```conf
 Host myhost
   User johndoe
   HostName foo.bar.baz
   IdentityFile ~/.ssh/id_dsa_johndoe
-</pre>
+```
 
 N.B. The "Host" property can be anything you like. Now you can replace "johndoe@foo.bar.baz" with your "Host" property, "myhost" in this case, in your commands.
 
@@ -34,13 +34,13 @@ Second, you must enable DSA in SSH. If not, `ssh -v -l johndoe foo.bar.baz` or j
 
 According to [when openssh 7 blocks your public-key](https://coderwall.com/p/ykgawg/when-openssh-7-blocks-your-public-key), just adding another line, `PubkeyAcceptedKeyTypes ssh-dss`, to the config file would do:
 
-<pre class="prettyprint linenums">
+```conf
 Host myhost
   User johndoe
   HostName foo.bar.baz
   IdentityFile ~/.ssh/id_dsa_johndoe
   PubkeyAcceptedKeyTypes ssh-dss
-</pre>
+```
 
 Now `ssh myhost` should be working. 
 

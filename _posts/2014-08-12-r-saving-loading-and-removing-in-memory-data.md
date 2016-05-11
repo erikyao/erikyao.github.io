@@ -11,21 +11,21 @@ tags: [R-101]
 
 比如你创建了几个变量，想留着下次再用，这时可以用 `save(..., file="[name].rda")`，前面省略号处是变量名列表，有几个就填几个，后面是文件名，一般都是用 "rda" 格式。比如：
 
-<pre class="prettyprint linenums">
-&gt; df1 &lt;- data.frame()
-&gt; df2 &lt;- data.frame()
-&gt; save(df1, df2, file="temp.rda") ## save variables in temp.rda in workspace
-</pre>
+```r
+> df1 <- data.frame()
+> df2 <- data.frame()
+> save(df1, df2, file="temp.rda") ## save variables in temp.rda in workspace
+```
 
 ## Loading R Data
 
 等到下次你需要用这几个变量时：
 
-<pre class="prettyprint linenums">
-&gt; temp = load("temp.rda")
-&gt; temp ## list of variable names
+```r
+> temp = load("temp.rda")
+> temp ## list of variable names
 [1] "df1" "df2"
-</pre>
+```
 
 这时 df1 和 df2 就已经 load 进来了
 
@@ -33,36 +33,36 @@ tags: [R-101]
 
 首先，用 `ls()` 可以查看当前 R Console 内有哪些 variables：
 
-<pre class="prettyprint linenums">
-&gt; ls()
+```r
+> ls()
 [1] "df1"  "df2"  "temp"
-</pre>
+```
 
 然后可以用 `rm()` 来指定具体 remove 哪个 variable，比如：
 
-<pre class="prettyprint linenums">
-&gt; rm("temp")
-&gt; temp
+```r
+> rm("temp")
+> temp
 Error: object 'temp' not found
-&gt; ls()
+> ls()
 [1] "df1" "df2"
-</pre>
+```
 
 `rm()` 还可以接收 list 参数一次删除多个 variables：
 
-<pre class="prettyprint linenums">
-&gt; temp = load("temp.rda")
-&gt; ls()
+```r
+> temp = load("temp.rda")
+> ls()
 [1] "df1"  "df2"  "temp"
-&gt; rm(list=temp) ## load 进来的 variables 全部 remove 掉
-&gt; ls()
+> rm(list=temp) ## load 进来的 variables 全部 remove 掉
+> ls()
 [1] "temp" ## 但是这个 load 进来的 variables 的名称列表还保留着
-</pre>
+```
 
 与 `ls()` 连用还能将当前 R Console 的所有 variables 都删除：
 
-<pre class="prettyprint linenums">
-&gt; rm(list = ls()) ## remove all variables
-&gt; ls()
+```r
+> rm(list = ls()) ## remove all variables
+> ls()
 character(0)
-</pre>
+```

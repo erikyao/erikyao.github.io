@@ -60,10 +60,10 @@ tags: [Book, Java-InnerClass, Java-Exception, Java-Concurrent, Java-Collection, 
 - [item 23. 泛型与泛型的 raw type、wildcard type](#item23)
 - item 24. 尽量消除 unchecked warning（意味着不会有 ClassCastException）以及如何使用 @SuppressWarning
 - [item 25. 泛型优于数组](#item25)
-- item 26. 如何写一个 Stack&lt;E&gt;
+- item 26. 如何写一个 Stack<E>
 - item 27. 如何写一个泛型方法
-- item 28. 如何使用 &lt;? extends E&gt; 和 &lt;? super E&gt; 以及 PECS 原则
-- item 29. 如何使用 Class&lt;T&gt;
+- item 28. 如何使用 <? extends E> 和 <? super E> 以及 PECS 原则
+- item 29. 如何使用 Class<T>
 
 ### [chapter 6. Enums and Annotations](#ch6)
 
@@ -201,32 +201,31 @@ construtor 参数列表很长时，一般有两种常规做法：
 1. telescoping constructor 层叠构造器  
 
 	形如：  
+	
 	> `constructor(arg1, arg2)`  
-	> <br>`constructor(arg1, arg2, arg3)`  
-	> <br>`constructor(arg1, arg2, arg3, arg4)`  
+	> `constructor(arg1, arg2, arg3)`  
+	> `constructor(arg1, arg2, arg3, arg4)`  
 
-	缺点一：does not scale well，参数列表一长，写起来没完……  
-
-	缺点二：参数顺序的错误很难发现  
+	- 缺点一：does not scale well，参数列表一长，写起来没完……  
+	- 缺点二：参数顺序的错误很难发现  
 
 2. JavaBean  
 
 	形如：  
+	
 	> `obj = new constructor();`  
-	> <br>`obj.setArg1(arg1);`  
-	> <br>`obj.setArg2(arg2);`  
+	> `obj.setArg1(arg1);`  
+	> `obj.setArg2(arg2);`  
 
-	缺点一：JavaBean 在构造的过程中，自身的状态不一定正确（setter 没执行完就被拿去使用）  
-
-	缺点二：construtor 不能做状态检验  
-
-	缺点三：JavaBean 很难做成不可变类（why? see item 15）  
+	- 缺点一：JavaBean 在构造的过程中，自身的状态不一定正确（setter 没执行完就被拿去使用）  
+	- 缺点二：construtor 不能做状态检验  
+	- 缺点三：JavaBean 很难做成不可变类（why? see item 15）  
 
 救星是 <a name="dp_builder"></a>Builder 模式。Builder 模式可以简单理解为 setter 的一个变种，它是一个链式的 setter。  
 
 比如 `LPaper(docId, font, bgColor)`，对应的有 `LPaperBuilder(docId, font, bgColor)`  
 
-<pre class="prettyprint linenums">
+```java
 LPaperBuilder {  
 	LPaperBuilder docId(arg) {  
 		this.docId = arg; return this;  
@@ -243,14 +242,14 @@ LPaperBuilder {
 }  
 
 LPaper lp = LPaperBuilder.docId(1003401).font("SimHei").bgColor("red").build();  
-</pre>
+```
 
 进行状态检验的时机：  
 
 - build 过程中，Builder 的字段 copy 到目标对象后，在 对象域 而不是 Builder 域中做状态检验（why? see [item 39](#item39)）  
 - 类似层叠构造器的一种变种，比如有两个字段需要满足一个特定状态，可以定义一个包含两参数的方法：  
 
-<pre class="prettyprint linenums">
+```java
 LPaperBuilder init(arg1, arg2) {  
 	// code checking arg1 and arg2 goes here   
 	if (OK) {  
@@ -261,7 +260,7 @@ LPaperBuilder init(arg1, arg2) {
 		throw new IllegalArgumentException();  
 	}  
 }  
-</pre>
+```
 
 该方法的好处是：不用等到 build 时才发现问题。  
 
@@ -269,11 +268,11 @@ LPaperBuilder init(arg1, arg2) {
 
 另外，Builder 很适合 抽象工厂（Abstract Factory）。可以定义一个  
 
-<pre class="prettyprint linenums">
-public interface Builder&lt;T&gt; {  
+```java
+public interface Builder<T> {  
 	public T build();  
 }  
-</pre>
+```
 
 抽象工厂持有一组这样的 Builder 实现，就可以方便生产类型的对象。  
 
@@ -281,15 +280,15 @@ public interface Builder&lt;T&gt; {
 
 一般的 singleton 写法有两种：  
 
-<pre class="prettyprint linenums">
+```java
 public class singlton {  
 	public static final Singleton INSTANCE = new Singleton();  
 	private Singleton() { ... }  
 	...  
 }  
-</pre>  
+```
 
-<pre class="prettyprint linenums">
+```java
 public class singlton {  
 	private static final Singleton INSTANCE = new Singleton();  
 	private Singleton() { ... }  
@@ -298,7 +297,7 @@ public class singlton {
 	}  
 	...  
 }  
-</pre>
+```
 
 如果为了防止通过反射来访问 construtor，可以在 construtor 中直接抛异常（好贱啊……）。  
 
@@ -309,7 +308,7 @@ public class singlton {
 
 随着 Java 1.5 引入 enum，现在 singleton 也能用 enum 实现了：  
 
-<pre class="prettyprint linenums">
+```java
 public enum Singleton {  
 	INSTANCE;  
 
@@ -317,7 +316,7 @@ public enum Singleton {
 	// method goes here just like other classes  
 	...  
 }  
-</pre>
+```
 
 enum singleton 的优点：<a name="enum_serialize" href="http://docs.oracle.com/javase/1.5.0/docs/guide/serialization/spec/serial-arch.html#enum">JVM 无偿提供的序列化机制，绝对防止 **反序列化** 生成新的 INSTANCE</a>，原因是：
 
@@ -327,7 +326,7 @@ enum singleton 的优点：<a name="enum_serialize" href="http://docs.oracle.com
 
 一个常见的 `序列化` 与 `反序列化` 的调用类似于：
 
-<pre class="prettyprint linenums">
+```java
 public Object serialize() throws IOException, ClassNotFoundException {    
 	// 序列化  
 	ByteArrayOutputStream baos = new ByteArrayOutputStream();    
@@ -339,7 +338,7 @@ public Object serialize() throws IOException, ClassNotFoundException {
 	ObjectInputStream ois = new ObjectInputStream(bais);    
 	return ois.readObject();    
 }    
-</pre>
+```
 
 `序列化` 和 `反序列化`实际涉及到方法有4个，依次为：  
 
@@ -402,15 +401,18 @@ A weak reference, simply put, is a reference that isn't strong enough to force a
 
 You create a weak reference like this:  
 
-> `WeakReference<Widget> weakWidget = new WeakReference<Widget>(widget);`  
+```java
+WeakReference<Widget> weakWidget = new WeakReference<Widget>(widget);
+``` 
 
 and then elsewhere in the code you can use `weakWidget.get()` to get the actual Widget object. Of course the weak reference isn't strong enough to prevent garbage collection, so you may find (**IF** there are no strong references to the widget) `that weakWidget.get()` suddenly starts returning null.  
 
 #### ReferenceQueue
 
->  `ReferenceQueue<Widget> refQueue = new ReferenceQueue<Widget>();`  
-
-> `WeakReference<Widget> weakWidget = new WeakReference<Widget>(widget, refQueue);`  
+```java
+ReferenceQueue<Widget> refQueue = new ReferenceQueue<Widget>(); 
+WeakReference<Widget> weakWidget = new WeakReference<Widget>(widget, refQueue);
+```
 
 WeakReferences are enqueued as soon as the object to which they point becomes weakly reachable. ReferenceQueue 是 WeakHashMap 的重要组成部分。  
 
@@ -454,7 +456,7 @@ Phantom Reference 的两大用处：
 
 用组合代替继承的话，equals 也有新的写法，如下：  
 
-<pre class="prettyprint linenums">
+```java
 class Ext {  
 	private Base b;  
 	private NewField nf;  
@@ -474,7 +476,7 @@ class Ext {
 		return o.asBase().equals(this.asBase()) && o.getNewField().equals(this.getNewField());  
 	}  
 }  
-</pre>
+```
 
 float 的比较请用 `Float.compare()`，double 的比较请用 `Double.compare()`。  
 
@@ -556,11 +558,11 @@ _注_：工作经验告诉我们：如果自定义的 PO（的对象）会作为
 
 为了解决这个问题，我们可以引入一个 forwarding class, who forwards Set<E>'s feature：
 
-<pre class="prettyprint linenums">
-public class ForwardingSet&lt;E&gt; implements Set&lt;E&gt; {
-	private final Set&lt;E&gt; forwardedSet;
+```java
+public class ForwardingSet<E> implements Set<E> {
+	private final Set<E> forwardedSet;
 
-	public ForwardingSet(Set&lt;E&gt; forwardedSet) {
+	public ForwardingSet(Set<E> forwardedSet) {
 		this.forwardedSet = forwardedSet;
 	}
 
@@ -568,10 +570,10 @@ public class ForwardingSet&lt;E&gt; implements Set&lt;E&gt; {
 	public boolean contains(Object o) { return forwardedSet.contains(o); }
 	// ......
 	public boolean add(E e) { return forwardedSet.add(e); }
-	public boolean addAll(E eCollection&lt;? extends E&gt; c) { return forwardedSet.addAll(c); }
+	public boolean addAll(E eCollection<? extends E> c) { return forwardedSet.addAll(c); }
 	// .....
 }
-</pre>
+```
 
 这么一来就屏蔽了 HashSet 的内部实现细节，我们 extends ForwardingSet，就不用关心 HashSet 的内部实现细节了，上面计数器的实现逻辑就不会随着 HashSet 的实现细节而发生变化了。
 
@@ -583,11 +585,11 @@ public class ForwardingSet&lt;E&gt; implements Set&lt;E&gt; {
 
 感觉像是这样的：
 
-<pre class="prettyprint linenums">
+```java
 public class ForwardingClass {
 	private final ForwardedObject forwardedObject;
 	public void xxx() { forwardedObject.zzz(this); }
-</pre>
+```
 
 True Delegation 有被运用在 State Pattern 里。
 
@@ -641,19 +643,19 @@ True Delegation 有被运用在 State Pattern 里。
 
 用非静态内部类来实现 adapter 的一个例子是：
 
-<pre class="prettyprint linenums">
-public class MySet&lt;E&gt; extends AbstractSet&lt;E&gt; {
-	public Iterator&lt;E&gt; getMyIterator() {
+```java
+public class MySet<E> extends AbstractSet<E> {
+	public Iterator<E> getMyIterator() {
 		return new MyIterator();
 	}
 
-	private class MyIterator implements Iterator&lt;E&gt; {
+	private class MyIterator implements Iterator<E> {
 		// 调整原有 Iterator 的功能
 	}
 }
-</pre>
+```
 
-这里 client 是 MySet，Inf 是 Iterator&lt;E&gt;（target），otherImpl 是原有的 iterator 实现（adaptee），adapter 是 MyInterator，这明显是 class adapter pattern，MyIterator 可以通过 .this 访问到原有的 iterator。
+这里 client 是 MySet，Inf 是 Iterator<E>（target），otherImpl 是原有的 iterator 实现（adaptee），adapter 是 MyInterator，这明显是 class adapter pattern，MyIterator 可以通过 .this 访问到原有的 iterator。
 
 至于为什么说要优先考虑静态内部类，这是因为非静态内部类的每个实例都有一个 .this，消耗更大，而且会导致外围类在符合 GC 条件时仍然得以保留。
 
@@ -681,27 +683,27 @@ public class MySet&lt;E&gt; extends AbstractSet&lt;E&gt; {
 
 #### raw type
 
-List&lt;E&gt; 是泛型，对应的 List 就是 List&lt;E&gt; 的 raw type。raw type  不做类型检查，所以是很危险的，保留它们只是为了提供移植兼容性（Migration Compatibility）。
+List<E> 是泛型，对应的 List 就是 List<E> 的 raw type。raw type  不做类型检查，所以是很危险的，保留它们只是为了提供移植兼容性（Migration Compatibility）。
 
-List&lt;Object&gt; 虽然和 List 一样，可以 add 任意类型的对象进来，但是：
+List<Object> 虽然和 List 一样，可以 add 任意类型的对象进来，但是：
 
-<pre class="prettyprint linenums">
-List&lt;String&gt; listS = new ArrayList&lt;String&gt;();
+```java
+List<String> listS = new ArrayList<String>();
 
 List list = listS; // OK, listS is a subtype of list
-List&lt;Object&gt; listO = listS; // Type Mismatch; and actually List&lt;Object&gt is not a supertype of all kinds of lists
-</pre>
+List<Object> listO = listS; // Type Mismatch; and actually List<Object> is not a supertype of all kinds of lists
+```
 
 #### wildcard type
 
-List&lt;?&gt; 是 unbounded wildcard type；List&lt;? extends Number&gt; 是 bounded wildcard type。
+List<?> 是 unbounded wildcard type；List<? extends Number> 是 bounded wildcard type。
 
-对于 List&lt;?&gt; 可以这么理解：
+对于 List<?> 可以这么理解：
 
-1. List&lt;Object&gt; 相当于 /，根路径
-2. List&lt;?&gt; 相当于 \*\*，可以匹配任意路径，但没有任何路径 == \*\*
+1. List<Object> 相当于 /，根路径
+2. List<?> 相当于 \*\*，可以匹配任意路径，但没有任何路径 == \*\*
 
-前面有说 List&lt;Object&gt; is not a supertype of all kinds of lists, but List&lt;?&gt; is，所以 `List<?> listQ = listS;` 是可行的。
+前面有说 List<Object> is not a supertype of all kinds of lists, but List<?> is，所以 `List<?> listQ = listS;` 是可行的。
 
 [Wildcards](http://docs.oracle.com/javase/tutorial/extra/generics/wildcards.html) 有说：
 
@@ -711,19 +713,19 @@ List&lt;?&gt; 是 unbounded wildcard type；List&lt;? extends Number&gt; 是 bou
 
 #### class literal
 
-<pre class="prettyprint linenums">
+```java
 List.class // OK
-List&lt;?&gt;.class // error
-List&lt;String&gt;.class // error
-</pre>
+List<?>.class // error
+List<String>.class // error
+```
 
 #### instanceof
 
-<pre class="prettyprint linenums">
-listS instanceof List&lt;?&gt; // OK, but not necessary
-listS instanceof List // OK, and then the cast "listS = (List&lt;?&gt;)ListS" is also OK
-listS instanceof List&lt;String&gt; // error
-</pre>
+```java
+listS instanceof List<?> // OK, but not necessary
+listS instanceof List // OK, and then the cast "listS = (List<?>)ListS" is also OK
+listS instanceof List<String> // error
+```
 
 -----
 
@@ -733,43 +735,42 @@ listS instanceof List&lt;String&gt; // error
 
 数组是 covariant（协变的），即：如果 Sub 是 Super 的子类型，那么 Sub[] 就是 Super[] 的子类型。  
 
-泛型是 invariant（不可变的），即 List&lt;Sub&gt; 和 List&lt;Super&gt; 没有任何子类型关系。  
+泛型是 invariant（不可变的），即 List<Sub> 和 List<Super> 没有任何子类型关系。  
 
 #### Type Erasure and Reifiable Types
 
 [Type Erasure](http://docs.oracle.com/javase/specs/jls/se5.0/html/typesValues.html#4.6)
 
-> Type erasure is a mapping from types (possibly including parameterized types and type variables) to types (that are never parameterized types or type variables). We write |T| for the erasure of type T. The erasure mapping is defined as follows.  
-
->* The erasure of a parameterized type G&lt;T1, ... ,Tn&gt; is |G|.  
->* The erasure of a nested type T.C is |T|.C.  
->* The erasure of an array type T[] is |T|[].  
->* The erasure of a type variable is the erasure of its leftmost bound.  
->* The erasure of every other type is the type itself.   
-
+> Type erasure is a mapping from types (possibly including parameterized types and type variables) to types (that are never parameterized types or type variables). We write `|T|` for the erasure of type `T`. The erasure mapping is defined as follows.  
+>  
+> * The erasure of a parameterized type `G<T1, ... ,Tn>` is `|G|`.  
+> * The erasure of a nested type `T.C` is `|T|.C`.  
+> * The erasure of an array type `T[]` is `|T|[]`.  
+> * The erasure of a type variable is the erasure of its leftmost bound.  
+> * The erasure of every other type is the type itself.   
+>  
 > The erasure of a method signature s is a signature consisting of the same name as s, and the erasures of all the formal parameter types given in s.
 
 [Reifiable Types](http://docs.oracle.com/javase/specs/jls/se5.0/html/typesValues.html#4.7)
 
 > Because some type information is erased during compilation, not all types are available at run time. Types that are completely available at run time are known as reifiable types. A type is reifiable if and only if one of the following holds:  
-
->* It refers to a non-generic type declaration.
->* It is a parameterized type in which all type arguments are unbounded wildcards.
->* It is a raw type.
->* It is a primitive type.
->* It is an array type whose component type is reifiable.
-
+>  
+> * It refers to a non-generic type declaration.
+> * It is a parameterized type in which all type arguments are unbounded wildcards.
+> * It is a raw type.
+> * It is a primitive type.
+> * It is an array type whose component type is reifiable.
 
 注意下这个逻辑，因为泛型是 "some type information is erased during compilation"，所以为了确保能正确的 erase，compilation 会做严格的类型检查。而 Array 是 reified，所以是到 runtime 才类型检查，下面看个例子：
 
-<pre class="prettyprint linenums">
+```java
 Object[] objectArray = new Long[1]; // covariant
 objectArray[0] = "I don't fit in"; // 编译通过，运行时抛出 ArrayStoreException
 
-List&lt;Object&gt; objectList = new ArrayList&lt;Long&gt;(); // invariant; 编译直接不通过，Type Mismatch
-</pre>
+List<Object> objectList = new ArrayList<Long>(); // invariant; 编译直接不通过，Type Mismatch
+```
 
-因为两者的 type 有本质区别，所以泛型数组是不允许的，比如 List&lt;Object&gt;[]、List&lt;E&gt;[] 这样都是不合法的，唯一的例外是 List&lt;?&gt;[]，因为 List&lt;?&gt; 是 Reifiable Types。  
+因为两者的 type 有本质区别，所以泛型数组是不允许的，比如 `List<Object>[]`、`List<E>[]` 这样都是不合法的，唯一的例外是 `List<?>[]`，因为 `List<?>` 是 Reifiable Types。  
 
 _注意_：E[] 是合法的，但是 `E[] elements = new E[5]` 是非法的，需要 cast 一下 `E[] elements = new (E[]) new Object[5]`。
 
@@ -793,7 +794,7 @@ _注意_：E[] 是合法的，但是 `E[] elements = new E[5]` 是非法的，�
 
 初级写法：
 
-<pre class="prettyprint linenums">
+```java
 public enum Operation {
 	PLUS, MINUS, TIMES, DIVIDE;
 
@@ -813,11 +814,11 @@ public enum Operation {
 		System.out.println(PLUS.apply(x, y));
 	}
 }
-</pre>
+```
 
 好，这时我要加一个 power 运算，你要改 switch；下次我要加一个 log 运算，你又要改 switch。而且除了 null，不可能有其他值去触发 default，这个 exception 你在外围是处理还是不处理呢？等等这些问题，都可以解决，因为其实可以把 enum 和方法直接联系起来。高级写法：
 
-<pre class="prettyprint linenums">
+```java
 public enum Operation {
 	PLUS {
 		double apply(double x, double y) { return x + y; }
@@ -840,11 +841,11 @@ public enum Operation {
 		System.out.println(PLUS.apply(x, y));
 	}
 }
-</pre>
+```
 
 同时附带上 field 也可以：
 
-<pre class="prettyprint linenums">
+```java
 public enum Operation {
 	PLUS("+") {
 		double apply(double x, double y) { return x + y; }
@@ -873,11 +874,11 @@ public enum Operation {
 		System.out.println(PLUS.apply(x, y));
 	}
 }
-</pre>
+```
 
 #### <a name="enum_fromstring"></a>正确的 fromString 的写法
 
-<pre class="prettyprint linenums">
+```java
 public enum Operation {
 	PLUS("+") {
 		double apply(double x, double y) { return x + y; }
@@ -900,7 +901,7 @@ public enum Operation {
 
 	abstract double apply(double x, double y);
 
-	private static final Map&lt;String, Operation&gt; symbolMap = new HashMap&lt;String, Operation&gt;();
+	private static final Map<String, Operation> symbolMap = new HashMap<String, Operation>();
 
 	static {
 		for (Operation op : Operation.values()) {
@@ -922,7 +923,7 @@ public enum Operation {
 		System.out.println(PLUS.apply(x, y));
 	}
 }
-</pre>
+```
 
 避免了 switch-case 和土鳖的 String.equals()。
 
@@ -946,18 +947,18 @@ public enum Operation {
 
 考虑这么一个类：
 
-<pre class="prettyprint linenums">
+```java
 public class Period {
 	private final Date start;
 	private final Date end;
 }
-</pre>
+```
 
 如果我们 `Date start = new Date(); Date end = new Date(); Period p = new Period(start, end);` 然后 `end.setYear(78)`，这样就破坏了 `p`。  
 
 这时我们可以使用 Defensive Copy：
 
-<pre class="prettyprint linenums">
+```java
 public class Period {
 	private final Date start;
 	private final Date end;
@@ -967,11 +968,11 @@ public class Period {
 		this.end = new Date(end);
 	}
 }
-</pre>
+```
 
 但是 `p.getEnd().setYear(78);` 也可以破坏 `p`，我们对 getter 也可以用 Defensive Copy：
 
-<pre class="prettyprint linenums">
+```java
 public class Period {
 	private final Date start;
 	private final Date end;
@@ -985,7 +986,7 @@ public class Period {
 		return new Date(end);
 	}
 }
-</pre>
+```
 
 -----
 
@@ -1022,23 +1023,23 @@ _注_：感觉在实际工作中，很少抛 RuntimeException，其实主要是�
 
 假设原有的结构是：
 
-<pre class="prettyprint linenums">
+```java
 try {
 	obj.action(args);
 } catch (CheckedException e) {
 	// handle exception
 }
-</pre>
+```
 
 如果不确定是否该用 checked exception，可以把 `obj.action(args)` 改成抛出 RuntimeException，然后改成下面的结构：
 
-<pre class="prettyprint linenums">
+```java
 if (obj.actionPermitted(args)) {
 	obj.action(args);
 } else {
 	// handle exceptional conditions
 }
-</pre>
+```
 
 这里的 `obj.actionPermitted(args)` 和 `obj.action(args)` 就很像 `iterator.hasNext()` 和 `iterator.next()` 了。但是要注意：
 
@@ -1073,47 +1074,45 @@ if (obj.actionPermitted(args)) {
 
 其实结构很好理解，考虑我们常见的方法中打日志的情况：
 
-<pre class="prettyprint linenums">
+```java
 @Override
 public boolean addLot(Lot l) {
 	boolean added = lotDao.add(l);
 	log.info("...");
 	return added;
 }
-</pre>
+```
 
 我们把打日志的部分抽出来放到 LotObserver 里：
 
-<pre class="prettyprint linenums">
+```java
 public class LotObserver {
 	void whenAdd(Lot l) {
 		log.info("...");
 	}
 }
-</pre>
+```
 
-<pre class="prettyprint linenums">
+```java
 @Override
 public boolean addLot(Lot l) {
 	boolean added = lotDao.add(l);
 	lotObserver.whenAdd(l);
 	return added;
 }
-</pre>
+```
 
 这就是一个观察者模式的雏形了，当然实际运用中要复杂的多：
 
 1. LotObserver 会抽出一个 Observer 接口，可能有多个方法，比如还有 whenDelete 之类的
-2. LotService 里可以有多个 Observer，所以要维护一个 List&lt;Observer&gt;，然后暴露两个接口：
+2. LotService 里可以有多个 Observer，所以要维护一个 List<Observer>，然后暴露两个接口：
 	* addObserver
 	* removeObserver
-3. addLot 时需要可能需要 notify List&lt;Observer&gt; 里的所有 Observer
+3. addLot 时需要可能需要 notify List<Observer> 里的所有 Observer
 
 ![][item_67_Observer]
 
 Observer 模式通常被用在 Event Handling 方面。
-
-<br/>
 
 _2014.06.16 补充_：
 
@@ -1137,7 +1136,7 @@ push 模式的优缺点：
 
 如果出于性能考虑，要对 static field 使用 lazy initialization 的话，请使用 initialize-on-demand holder class idiom：
 
-<pre class="prettyprint linenums">
+```java
 private static class FieldHolder {
 	static final FieldType field = computeFieldValue();
 }
@@ -1145,13 +1144,13 @@ private static class FieldHolder {
 static FieldType getField() {
 	return FieldHolder.field;
 }
-</pre>
+```
 
 当 getField() 被调用时，会引起 FieldHolder 的加载，从而开始初始化。
 
 如果要对 non-static field 使用 lazy initialization 的话，可以使用 double-check idiom：
 
-<pre class="prettyprint linenums">
+```java
 private volatile FieldType field;
 
 FieldType getField() {
@@ -1166,11 +1165,11 @@ FieldType getField() {
 	}
 	return result;
 }
-</pre>
+```
 
 如果不怕多线程下可能造成的多次初始化，使用 single-check idiom 也是足够用的：
 
-<pre class="prettyprint linenums">
+```java
 private volatile FieldType field;
 
 FieldType getField() {
@@ -1180,6 +1179,6 @@ FieldType getField() {
 	}
 	return result;
 }
-</pre>
+```
 
 如果 FieldType 是 primitive 且不是 long 或者 double（即 FieldType 的读写是 atomic 的），你不用 volatile 也可以，这样就是 racy (原始的) single-check idiom。

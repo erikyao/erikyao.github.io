@@ -20,7 +20,7 @@ isn’t a member of the current structure.)
 
 在 struct 或者 class 内部，把**外部的** function、struct 或者 class 声明为 `friend`，表示这些 function、struct 或者 class 可以访问我的所有 member 和 function（也就是把 private 和 protected 开放给这些 function、struct 或者 class）。举个例子：
 
-<pre class="prettyprint linenums">
+```cpp
 // Declaration (incomplete type specification):
 struct X;
 
@@ -77,7 +77,7 @@ int main() {
 	Z z;
 	z.g(&x);
 }
-</pre>
+```
 
 第一行 `struct X;` 这个 declare 其实是个蛮搞笑的事情：`Y::f(X*)` 要用到 X，所以 X 要先定义；然后 X 的 `friend void Y::f(X*);` 又要求先定义 Y，死锁了。于是先 declare X，再 define Y，再 define X。我觉得这应该是编译器自己处理的事情，要人为干预实在是不够 cool。
 
@@ -85,7 +85,7 @@ int main() {
 
 Making a structure nested doesn’t automatically give it access to private members. To accomplish this, you must follow a particular form: first, declare (without defining) the nested structure, then declare it as a friend, and finally define the structure.
 
-<pre class="prettyprint linenums">
+```cpp
 const int sz = 20;
 
 struct Holder {
@@ -111,7 +111,7 @@ public:
 		void set(int i);
 	};
 };
-</pre>
+```
 
 这语法要求好恶心……
 

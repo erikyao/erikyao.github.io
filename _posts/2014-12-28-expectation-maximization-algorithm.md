@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "Expectation-Maximization Algorithm"
 description: "Digest of <i>A Gentle Tutorial of the EM Algorithm and its Application to Parameter Estimation for Gaussian Mixture and Hidden Markov Models</i>"
 category: Machine-Learning
@@ -56,7 +56,7 @@ There are two main applications of the EM algorithm. The first occurs when the *
 * 注 2-1：这两种情况都可以看做是传说中的 latent variable
 	* latent: [ˈleɪtnt], Existing but concealed or inactive
 		* He has a latent talent for acting that he hasn't had a chance to express yet
-		* &lt;a latent infection&gt;
+		* <a latent infection>
 	* 举个例子就好懂了：我现在告诉你，$ \mathcal{X} $ 是某班上 $ m $ 个学生的成绩没错，但是这 $ m $ 个成绩中，一部分是语文成绩，剩下的是数学成绩；但是哪些是语文哪些是数学我没法告诉你。
 	* 所以 latent variable 简单理解就是：
 		* 一个 feature，我知道它的定义，比如 $ \mathcal{Y} = 0 $ 表示语文成绩，$ \mathcal{Y} = 1 $ 表示数学成绩

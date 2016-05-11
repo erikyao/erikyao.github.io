@@ -7,7 +7,7 @@ tags: [Java-Concurrent]
 ---
 {% include JB/setup %}
 
-<pre class="prettyprint linenums">
+```java
 public class Runner implements Runnable {  
 	@Override  
 	public void run() {  
@@ -16,9 +16,9 @@ public class Runner implements Runnable {
 		}  
 	}  
 }  
-</pre>
+```
 
-<pre class="prettyprint linenums">
+```java
 public class MultiThreadTest {  
   
 	public static void main(String[] args) {  
@@ -34,7 +34,7 @@ public class MultiThreadTest {
 		}  
 	} 
 }  
-</pre>
+```
 
 　　Runnable 接口和 Thread 类的关系：
 

@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "Conditional Probability"
 description: ""
 category: Math

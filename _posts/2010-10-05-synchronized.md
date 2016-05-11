@@ -9,7 +9,7 @@ tags: [Java-Concurrent]
 
 　　首先明确一点，同步方法本质上也是一个同步控制块（仅针对于锁定 this 的情况，如果同步控制块锁定的不是 this，那么它是不能直接改写为同步方法的），区别在于同步方法的粒度是整个方法，而同步控制块的粒度可以是方法的一部分。
 
-<pre class="prettyprint linenums">
+```java
 // 同步方法示例  
 public class Counter {  
 	int count;  
@@ -60,11 +60,11 @@ public class Counter {
 		*/  
 	}  
 }  
-</pre>
+```
 
 　　从这个例子可以看出，Class 锁（针对 static 方法）和 Object 锁（针对非 static 方法）是两种锁。从实验的结果来看，这两种锁是不冲突的，即：假设有 Counter c = new Counter();，如果 Thread A 调用 c.bump() 方法，那么 synchronized(this) 只是锁定了 c 这个对象，Thread B 可以无所顾忌地调用 Counter.classBump()（或者 c.classBump() 也可以），不用等待 Thread A 释放 c 的锁。如：
 
-<pre class="prettyprint linenums">
+```java
 public class MultiThreadTest8 {  
 	public static void main(String[] args) {  
 		final Counter c = new Counter();  
@@ -96,7 +96,7 @@ public class MultiThreadTest8 {
 		*/  
 	}  
 }  
-</pre>
+```
 
 　　不过一旦 Thread A 调用 c.bump()，锁定了 c，那么 Thread B 就不能调用 c.bump() 了，c 中的其他同步方法或是同步控制块 Thread B 也不能访问，只有等到 Thread A 释放 c 的锁（即 c.bump() 同步部分执行完）。Counter 的非同步方法不受锁的限制，即使 Thread A 锁定了 c，Thread B 也可以随意访问 c 的非同步方法。
 

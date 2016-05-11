@@ -94,6 +94,7 @@ Although the various mock frameworks were designed with mockist testing in mind,
 An important offshoot of the mockist style is that of Behavior Driven Development (BDD). 
 
 ----------
+
 ### 5. Choosing Between the Differences
 
 The first thing to consider is the context. Are we thinking about an easy collaboration, such as order and warehouse, or an awkward one, such as order and mail service? 

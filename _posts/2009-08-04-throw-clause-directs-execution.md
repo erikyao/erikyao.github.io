@@ -9,7 +9,7 @@ tags: [Java-Exception]
 
 　　在其所在的块内 (如方法 body、if () {...} 等)，throw 语句可以屏蔽其后的语句，即在块内，该 throw 语句后面不能再写其他语句；但在块之外，还是可以写其他的语句的。如：
 
-<pre class="prettyprint linenums">
+```java
 public class ExceptionTest {  
 	private static void func() throws Exception {  
 		throw new Exception();  
@@ -43,7 +43,7 @@ public class ExceptionTest {
 	Caught Exception 
 	Continue 
 */  
-</pre>
+```
 
 　　如果不是直接在 try 中抛出异常 (Mark No.2)，而是调用会抛出异常的方法 (Mark No.1)，一旦 throw 语句执行，则包含该 throw 语句的方法 (如本例的 func2()) 直接退出，后续的语句都不执行 (如 Mark No.3 处就没有运行)。而处理异常的函数 (如本例的 main()) 依旧是顺序运行，不会有什么影响，后续的语句继续运行 (如 Mark No.4 处照常运行)。  
 
@@ -55,7 +55,7 @@ _2011-10-27补充_：多个throw的覆盖作用
 
 　　一个典型的可能的例子是：
 
-<pre class="prettyprint linenums">
+```java
 try {  
 	// 读文件  
 } finally {   
@@ -63,7 +63,7 @@ try {
 		io.close();  
 	}  
 }  
-</pre>
+```
 
 如果读文件时出了 FileNotFoundException，而不巧 io.close() 也出了 IOException，那么外围只能捕捉到 IOException，而真实的原因 FileNotFoundException 却捕捉不到。  
 

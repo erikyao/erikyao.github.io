@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "DNA Strand / Upstream and Downstream / TSS Distance"
 description: ""
 category: Biology

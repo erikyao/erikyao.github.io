@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "ISL: Classification"
 description: ""
 category: Machine-Learning
@@ -313,75 +313,89 @@ P153-154 设计了 6 个 Scenario 来测试这些方法的 performance。
 
 ### <a name="Lab-LgR"></a>6.2 Logistic Regression
 
-	> library(ISLR)
-	> names(Smarket)
-	[1] "Year" "Lag1" "Lag2" "Lag3" "Lag4"
-	[6] "Lag5" "Volume " "Today" " Direction "
-	> dim(Smarket)
-	[1] 1250 9
-	> summary(Smarket)
-	> cor(Smarket [,-9]) ## matrix of pairwise correlations, except the qualitative one
+```r
+> library(ISLR)
+> names(Smarket)
+[1] "Year" "Lag1" "Lag2" "Lag3" "Lag4"
+[6] "Lag5" "Volume " "Today" " Direction "
+> dim(Smarket)
+[1] 1250 9
+> summary(Smarket)
+> cor(Smarket [,-9]) ## matrix of pairwise correlations, except the qualitative one
+```
 
 Next, we will fit a logistic regression model in order to predict `Direction` using `Lag1` through `Lag5` and `Volume`. The `glm()` function fits **generalized linear models**, a class of models that includes logistic regression. The syntax of the `glm()` function is similar to that of `lm()`, except that we must pass in the argument `family=binomial` in order to tell R to run a logistic regression rather than some other type of generalized linear model.
 
-	> glm.fit = glm(Direction~Lag1+Lag2+Lag3+Lag4+Lag5+Volume, data=Smarket, family=binomial)
-	> summary(glm.fit)
+```r
+> glm.fit = glm(Direction~Lag1+Lag2+Lag3+Lag4+Lag5+Volume, data=Smarket, family=binomial)
+> summary(glm.fit)
 
-	> coef(glm.fit)
-	> summary(glm.fit)$coef
+> coef(glm.fit)
+> summary(glm.fit)$coef
+```
 
 The `predict()` function can be used to predict the probability that the market will go up, given values of the predictors. The t`ype="response"` option tells R to output probabilities of the form $ P(Y = 1 \vert X) $, as opposed to other information such as the logit. If no data set is supplied to the `predict()` function, then the probabilities are computed for the training data that was used to fit the logistic regression model.
 
-	> glm.probs = predict(glm.fit, type="response")
-	> glm.probs[1:10]
-		1 	  2 	3 	  4 	5 	  6 	7 	  8 	9 	 10
-	0.507 0.481 0.481 0.515 0.511 0.507 0.493 0.509 0.518 0.489
+```r
+> glm.probs = predict(glm.fit, type="response")
+> glm.probs[1:10]
+1	2	3	4	5	6	7	8	9	10
+0.507	0.481	0.481	0.515	0.511	0.507	0.493	0.509	0.518	0.489
+```
 
 We know that these values correspond to the probability of the market going up, rather than down, because the `contrasts()` function indicates that R has created a dummy variable with a 1 for `Up`.
 
-	> contrasts(Direction)
-		 Up
-	Down  0
-	Up    1
+```r
+> contrasts(Direction)
+	Up
+Down  0
+Up    1
+```
 
 In order to make a prediction, we must convert these predicted probabilities into class labels, `Up` or `Down`.
 
-	> glm.pred = rep("Down", 1250) ## n = 1250
-	> glm.pred[glm.probs>.5] = "Up"
+```r
+> glm.pred = rep("Down", 1250) ## n = 1250
+> glm.pred[glm.probs>.5] = "Up"
+```
 
 Given these predictions, the `table()` function can be used to produce a confusion matrix.
 
-	> table(glm.pred, Smarket$Direction)
-				Direction
-	glm.pred 	Down  Up
-	Down 		 145 141
-	Up 			 457 507
+```r
+> table(glm.pred, Smarket$Direction)
+		Direction
+glm.pred 	Down  Up
+Down		145 141
+Up		457 507
 
-	> (507+145)/1250
-	[1] 0.5216
-	> mean(glm.pred == Smarket$Direction)
-	[1] 0.5216
+> (507+145)/1250
+[1] 0.5216
+> mean(glm.pred == Smarket$Direction)
+[1] 0.5216
+```
 
 -> ~~~~~~~~~~ 2015.11.09 P.S. Start ~~~~~~~~~~ <-
 
 You can also use `confusionMatrix(prediction, reference)` function in `caret` package, e.g.
 
-	> library("caret")
-	> lvs <- c("normal", "abnormal")
-	> truth <- factor(rep(lvs, times = c(86, 258)), levels = rev(lvs))
-	> pred <- factor(c(rep(lvs, times = c(54, 32)), rep(lvs, times = c(27, 231))), levels = rev(lvs))
-	> xtab <- table(pred, truth)
-	> confusionMatrix(xtab)
-	Confusion Matrix and Statistics
+```r
+> library("caret")
+> lvs <- c("normal", "abnormal")
+> truth <- factor(rep(lvs, times = c(86, 258)), levels = rev(lvs))
+> pred <- factor(c(rep(lvs, times = c(54, 32)), rep(lvs, times = c(27, 231))), levels = rev(lvs))
+> xtab <- table(pred, truth)
+> confusionMatrix(xtab)
+Confusion Matrix and Statistics
 
-	  			truth
-	pred       abnormal normal
-	abnormal      231     32
-	normal         27     54
+		truth
+pred		abnormal	normal
+abnormal	231	32
+normal		27	54
 
-		   Accuracy : 0.8285
-		   ......
-	> confusionMatrix(pred, truth) # ditto
+	Accuracy : 0.8285
+	......
+> confusionMatrix(pred, truth) # ditto
+```
 
 See [confusionMatrix {caret}](http://www.inside-r.org/node/86995) for more.
 
@@ -389,35 +403,39 @@ See [confusionMatrix {caret}](http://www.inside-r.org/node/86995) for more.
 
 P159 起就是在说做 training set 的事情，只用注意一个 `glm()` 的 `subset` 参数用法就可以了：
 
-	> train = (Smarket$Year<2005)
-	> glm.fit = glm(Direction~Lag1+Lag2+Lag3+Lag4+Lag5+Volume, data=Smarket, family=binomial, subset=train)
+```r
+> train = (Smarket$Year<2005)
+> glm.fit = glm(Direction~Lag1+Lag2+Lag3+Lag4+Lag5+Volume, data=Smarket, family=binomial, subset=train)
+```
 
 ### <a name="Lab-LDA"></a>6.3 Linear Discriminant Analysis
 
 We fit a LDA model using the `lda()` function, which is part of the `MASS` library. Notice that the  syntax for the `lda()` function is identical to that of `lm()`.
 
-	> library(MASS)
-	> lda.fit=lda(Direction~Lag1+Lag2, data=Smarket, subset=train)
+```r
+> library(MASS)
+> lda.fit=lda(Direction~Lag1+Lag2, data=Smarket, subset=train)
 
-	> lda.fit
-	Call:
-	lda(Direction ~ Lag1 + Lag2, data = Smarket, subset = train)
+> lda.fit
+Call:
+lda(Direction ~ Lag1 + Lag2, data = Smarket, subset = train)
 
-	Prior probabilities of groups :
-	 Down 	  Up
-	0.492  0.508
+Prior probabilities of groups :
+ Down 	  Up
+0.492  0.508
 
-	Group means :
-			Lag1    Lag2
-	Down  0.0428  0.0339
-	Up   -0.0395 -0.0313
+Group means :
+	Lag1    Lag2
+Down	0.0428  0.0339
+Up	-0.0395 -0.0313
 
-	Coefficients of linear discriminants:
-			LD1
-	Lag1 -0.642
-	Lag2 -0.514
+Coefficients of linear discriminants:
+	LD1
+Lag1 -0.642
+Lag2 -0.514
 
-	> plot(lda.fit)
+> plot(lda.fit)
+```
 
 The LDA output indicates that $ \hat{\pi}_1 = 0.492 $ and $ \hat{\pi}_1 = 0.508 $; in other words, 49.2% of the training observations correspond to days during which the market went down.
 
@@ -436,49 +454,57 @@ class, i.e the $ p_k(X) = Pr(Y = k \vert X = x) $.
 
 <!-- -->
 
-	> train = (Smarket$Year<2005)
-	> Smarket.2005 = Smarket[!train,]
-	> Direction.2005 = Smarket$Direction[!train]
+```r
+> train = (Smarket$Year<2005)
+> Smarket.2005 = Smarket[!train,]
+> Direction.2005 = Smarket$Direction[!train]
 
-	> lda.pred = predict(lda.fit, Smarket.2005)
-	> names(lda.pred)
-	[1] "class" "posterior " "x"
+> lda.pred = predict(lda.fit, Smarket.2005)
+> names(lda.pred)
+[1] "class" "posterior " "x"
 
-	> lda.class = lda.pred$class
-	> table(lda.class, Direction.2005)
-				Direction.2005
-	lda.pred 	Down  Up
-	Down 		  35  35
-	Up 			  76 106
-	> mean(lda.class == Direction.2005)
-	[1] 0.56
+> lda.class = lda.pred$class
+> table(lda.class, Direction.2005)
+		Direction.2005
+lda.pred	Down  Up
+Down		35  35
+Up		76 106
+> mean(lda.class == Direction.2005)
+[1] 0.56
 
-	> sum(lda.pred$posterior[,1] >= .5)
-	[1] 70
-	> sum(lda.pred$posterior[,1] < .5)
-	[1] 182
+> sum(lda.pred$posterior[,1] >= .5)
+[1] 70
+> sum(lda.pred$posterior[,1] < .5)
+[1] 182
+```
 
 Notice that the posterior probability output by the model corresponds to the probability of `down`. So you'd better take a peek before performing further tasks.
 
-	> lda.pred$posterior[1:20 ,1]
-	> lda.class[1:20]
+```r
+> lda.pred$posterior[1:20 ,1]
+> lda.class[1:20]
+```
 
 ### <a name="Lab-QDA"></a>6.4 Quadratic Discriminant Analysis
 
 QDA is implemented in R using the `qda()` function, which is also part of the `MASS` library. The syntax is identical to that of `lda()`.
 
-	> qda.fit = qda(Direction~Lag1+Lag2, data=Smarket, subset=train)
+```r
+> qda.fit = qda(Direction~Lag1+Lag2, data=Smarket, subset=train)
+```
 
 The `predict()` function works in exactly the same fashion as for LDA.
 
-	> qda.class = predict(qda.fit, Smarket.2005)$class
-	> table(qda.class, Direction.2005)
-				Direction.2005
-	qda.class 	Down  Up
-	Down 		  30  20
-	Up 			  81 121
-	> mean(qda.class == Direction.2005)
-	[1] 0.599
+```r
+> qda.class = predict(qda.fit, Smarket.2005)$class
+> table(qda.class, Direction.2005)
+		Direction.2005
+qda.class	Down  Up
+Down		30  20
+Up		81 121
+> mean(qda.class == Direction.2005)
+[1] 0.599
+```
 
 ### <a name="Lab-KNN"></a>6.5 K-Nearest Neighbors
 
@@ -491,22 +517,26 @@ The `predict()` function works in exactly the same fashion as for LDA.
 
 <!-- -->
 
-	> library(class)
-	> train.X = cbind(Smarket$Lag1, Smarket$Lag2)[train,]
-	> test.X = cbind(Smarket$Lag1, Smarket$Lag2)[!train,]
-	> train.Direction = Smarket$Direction[train]
+```r
+> library(class)
+> train.X = cbind(Smarket$Lag1, Smarket$Lag2)[train,]
+> test.X = cbind(Smarket$Lag1, Smarket$Lag2)[!train,]
+> train.Direction = Smarket$Direction[train]
+```
 
 We set a random seed before we apply `knn()` because if several observations are tied as nearest neighbors, then R will randomly break the tie. Therefore, a seed must be set in order to ensure reproducibility of results.
 
-	> set.seed(1)
-	> knn.pred = knn(train.X, test.X, train.Direction, k=1)
-	> table(knn.pred, Direction.2005)
-				Direction.2005
-	knn.pred 	Down Up
-	Down 		  43 58
-	Up 			  68 83
-	> (83+43)/252
-	[1] 0.5
+```r
+> set.seed(1)
+> knn.pred = knn(train.X, test.X, train.Direction, k=1)
+> table(knn.pred, Direction.2005)
+		Direction.2005
+knn.pred	Down Up
+Down		43 58
+Up		68 83
+> (83+43)/252
+[1] 0.5
+```
 
 The results using $ K = 1 $ are not very good, since only 50% of the observations are correctly predicted. We repeat the analysis using $ K = 2,3,\cdots $ for improvements.
 
@@ -514,15 +544,17 @@ The results using $ K = 1 $ are not very good, since only 50% of the observation
 
 P165，一个具体的例子，业务分析值得一看。技术上需要注意的一个地方是: The `scale()` function standardize the data so that all  variables are given a mean of zero and a standard deviation of one.
 
-	## exclude column 86 because that is the qualitative Purchase variable
-	> standardized.X = scale(Caravan[,-86])
-	> var(Caravan[,1])
-	[1] 165
-	> var(Caravan[,2])
-	[1] 0.165
-	> var(standardized.X[,1])
-	[1] 1
-	> var(standardized.X[,2])
-	[1] 1
+```r
+## exclude column 86 because that is the qualitative Purchase variable
+> standardized.X = scale(Caravan[,-86])
+> var(Caravan[,1])
+[1] 165
+> var(Caravan[,2])
+[1] 0.165
+> var(standardized.X[,1])
+[1] 1
+> var(standardized.X[,2])
+[1] 1
+```
 
 Now every column of `standardized.X` has a standard deviation of one and a mean of zero.

@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "Support Vector Machines and Kernels"
 description: ""
 category: Machine-Learning

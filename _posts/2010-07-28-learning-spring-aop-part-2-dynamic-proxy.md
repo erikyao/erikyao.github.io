@@ -11,7 +11,7 @@ tags: [Java-AOP, Proxy, 动态代理]
 
 现在假设记录日志的功能已经单独提出来了，由 `LogInterceptor` 来完成：
 
-<pre class="prettyprint linenums">
+```java
 package com.bjsxt.aop;  
   
 public class LogInterceptor {  
@@ -19,18 +19,18 @@ public class LogInterceptor {
 		System.out.println("logging...");  
 	}  
 }  
-</pre>
+```
 
 有了 Spring AOP，我们就可以用配置文件来说明：“在某个类的每一个方法执行之前，都给我调用一次 `beforeMethod()` 方法”（更复杂一点的做法是给 `beforeMethod()` 方法添加一个 Method 参数，这样可以配置可以具体到某个类的某个方法上），如：
 
-<pre class="prettyprint linenums">
-&lt;beans&gt;  
-	&lt;bean id="u" class="com.bjsxt.dao.impl.UserDAOImpl" &gt;  
-		&lt;!-- 非标准写法，仅作演示 --&gt;  
-		&lt;Log class="com.bjsxt.aop.LogInterceptor" logMethod="beforeMethod" targetMethod="all" /&gt;  
-	&lt;/bean&gt;  
-&lt;/beans&gt;  
-</pre>
+```xml
+<beans>  
+	<bean id="u" class="com.bjsxt.dao.impl.UserDAOImpl" >  
+		<!-- 非标准写法，仅作演示 -->  
+		<Log class="com.bjsxt.aop.LogInterceptor" logMethod="beforeMethod" targetMethod="all" />  
+	</bean>  
+</beans>  
+```
 
 这样，在配置文件中给 500 个 bean 都加上这么一段，就能给这 500 个类都加上日志功能了。  
 
@@ -38,7 +38,7 @@ public class LogInterceptor {
 
 参考 [the proxy parameter of the invoke() method](/java/2009/08/13/proxy-parameter-of-the-invoke-method)，我们可以把 `LogInterceptor` 实现成一个 `InvocationHandler`:
 
-<pre class="prettyprint linenums">
+```java
 package com.bjsxt.aop;  
   
 import java.lang.reflect.InvocationHandler;  
@@ -65,11 +65,11 @@ public class LogInterceptor implements InvocationHandler {
 		return null;  
 	}  
 }  
-</pre>
+```
 
 调用的代码如下： 
 
-<pre class="prettyprint linenums">
+```java
 public class AOPTest {  
 	public static void main(String[] args) {  
 		UserDAO userDAO = new UserDAOImpl();  
@@ -81,7 +81,7 @@ public class AOPTest {
 		userDAOProxy.save(new User());  
 	}  
 }  
-</pre>
+```
 
 这里要特殊说明的是：
 
@@ -90,7 +90,7 @@ public class AOPTest {
 3. 代理对象和被代理对象应该在同一个 classLoader 中，如果在不同的 classLoader 中，它们就无法互相访问，所以 `userDAO.getClass().getClassLoader()` 也作为参数传递给了 `Proxy.newProxyInstance()`。代理对象和被代理对象需要互相访问的原因见第4点
 4. 我们得到的 `userDAOProxy` 对象，其类型应该是一个组合了 `LogInterceptor` 的类（`li` 作为参数被传递给了 `Proxy.newProxyInstance()`），而 `LogInterceptor` 又组合了 `userDAOImpl（li.setTarget(userDAO)`）；加上 `userDAOProxy` 又实现了 `UserDAO` 接口，所以 `userDAOProxy` 看上去应该是这样一个类：
 
-<pre class="prettyprint linenums">
+```java
 // 非标准写法，仅作演示用  
 public class UserDAOProxy implements UserDAO {  
 	private InvocationHandler invocationHandler;  
@@ -108,7 +108,7 @@ public class UserDAOProxy implements UserDAO {
 		this.invocationHandler.invoke(this, UserDAO.class.getDeclaredMethod("save", User.class), user);  
 	}  
 }  
-</pre>
+```
 
 这样，`Proxy.newProxyInstance(userDAO.getClass().getClassLoader(), userDAO.getClass().getInterfaces(), li)` 也就相当于 `new UserDAOProxy(li)`。
 

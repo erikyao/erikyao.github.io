@@ -9,14 +9,14 @@ tags: [Database-101]
 
 　　考虑一个简单的语句：
 
-<pre class="prettyprint linenums">
+```sql
 SELECT order_num, SUM(quantity * item_price) AS ordertotal  
 FROM orderitems  
 WHERE quantity > 1  
 GROUP BY order_num  
 HAVING ordertotal >= 50  
 ORDER BY ordertotal; 
-</pre>
+```
 
 * FROM 确定所操作的表
 	* WHERE 作行过滤 (row filtering)，过滤掉不符合条件的行

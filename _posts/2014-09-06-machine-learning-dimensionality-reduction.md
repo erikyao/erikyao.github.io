@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "Machine Learning: Dimensionality Reduction"
 description: "A Note from Ng"
 category: Machine-Learning

@@ -17,11 +17,11 @@ By definition, the size of any type of `char` (`signed`, `unsigned` or plain) is
 
 Note that `sizeof` is an operator, not a function. If you apply it to a type, it must be used with the parentheses, but if you apply it to a variable you can use it without parentheses.
 
-<pre class="prettyprint linenums">
+```cpp
 s = sizeof(int); // OK
 // s = sizeof int; // Error
 
 int i;
 s = sizeof(i); // OK
 s = sizeof i; // OK
-</pre>
+```

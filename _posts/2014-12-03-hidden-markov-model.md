@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "Hidden Markov Models"
 description: ""
 category: Machine-Learning

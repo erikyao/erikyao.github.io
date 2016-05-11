@@ -109,7 +109,7 @@ ToC:
 
 ## CHAPTER 1. YOUR FIRST PYTHON PROGRAM <a name="CHAPTER-1--YOUR-FIRST-PYTHON-PROGRAM"></a>
 
-<pre class="prettyprint linenums">
+```python
 # humansize.py
 
 SUFFIXES = {1000: ['KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
@@ -140,7 +140,7 @@ def approximate_size(size, a_kilobyte_is_1024_bytes=True):
 if __name__ == '__main__':
     print(approximate_size(1000000000000, False))
     print(approximate_size(1000000000000))
-</pre>
+```
 
 - Python functions have no explicit `begin` or `end`, and no curly braces to mark where the function code starts and stops. The only delimiter is a colon (`:`) and the indentation of the code itself.
 	- 缩进请用 spaces 不要用 \\t
@@ -164,32 +164,32 @@ if __name__ == '__main__':
 
 Python looks in all the directories defined in `sys.path` (in its order) when you try to import a module.
 
-<pre class="prettyprint linenums">
-&gt;&gt;&gt; import sys
+```python
+>>> import sys
 
 # show sys.path
-&gt;&gt;&gt; sys.path 
+>>> sys.path 
 
 # add an entry in sys.path
-&gt;&gt;&gt; sys.path.insert(0, '/home/mark/diveintopython3/examples') # The effect lasts as long as Python is running.
-</pre>
+>>> sys.path.insert(0, '/home/mark/diveintopython3/examples') # The effect lasts as long as Python is running.
+```
 
 Not all modules are stored as .py files. Some are built-in modules; they are actually baked right into Python itself. Built-in modules behave just like regular modules, but their Python source code is not available, because they are not written in Python! (Like Python itself, these built-in modules are written in C.)
 
 ### 1.5. EVERYTHING IS AN OBJECT <a name="1-5--EVERYTHING-IS-AN-OBJECT"></a>
 
-<pre class="prettyprint linenums">
-&gt;&gt;&gt; import humansize
+```python
+>>> import humansize
 
-&gt;&gt;&gt; print(humansize.approximate_size(4096, True))
+>>> print(humansize.approximate_size(4096, True))
 4.0 KiB
 
 # __doc__ is a built-in attribute for functions.
 # its value is the docstring
-&gt;&gt;&gt; print(humansize.approximate_size.__doc__)
+>>> print(humansize.approximate_size.__doc__)
 Convert a file size to human-readable form.
 ......
-</pre>
+```
 
 When you want to use functions defined in imported modules, you need to include the module name. So
 you can’t just say `approximate_size`; it must be `humansize.approximate_size`.
@@ -212,21 +212,21 @@ Unlike Java, Python functions don’t declare which exceptions they might raise.
 
 If you know a line of code may raise an exception, you should handle the exception using a `try-except` block.
 
-<pre class="prettyprint linenums">
+```python
 try:
     from lxml import etree
 except ImportError:
     import xml.etree.ElementTree as etree
-</pre>
+```
 
 By the end of this `try-except` block, you have imported some module and named it `etree`. Since both modules implement a common API, the rest of your code doesn’t need to keep checking which module got imported. And since the module that did get imported is always called `etree`, the rest of your code doesn’t need to be littered with if statements to call differently-named modules.
 
 ### 1.10. RUNNING SCRIPTS <a name="1-10--RUNNING-SCRIPTS"></a>
 
-<pre class="prettyprint linenums">
+```python
 if __name__ == '__main__':
     ......
-</pre>
+```
 
 - Like C, Python uses `==` for comparison and `=` for assignment. Unlike C, Python does not support in-line assignment, so there’s no chance of accidentally assigning the value you thought you were comparing.
 
@@ -256,57 +256,57 @@ Due to some legacy issues left over from Python 2, booleans can be treated as nu
 
 Python supports both integers and floating point numbers. There’s no type declaration to distinguish them; Python tells them apart by the presence or absence of a decimal point.
 
-<pre class="prettyprint linenums">
-&gt;&gt;&gt; type(1) 
-&lt;class 'int'&gt;
-&gt;&gt;&gt; isinstance(1, int) 
+```python
+>>> type(1) 
+<class 'int'>
+>>> isinstance(1, int) 
 True
-&gt;&gt;&gt; 1 + 1 
+>>> 1 + 1 
 2
-&gt;&gt;&gt; 1 + 1.0 
+>>> 1 + 1.0 
 2.0
-&gt;&gt;&gt; type(2.0)
-&lt;class 'float'&gt;
+>>> type(2.0)
+<class 'float'>
 
-&gt;&gt;&gt; float(2) 
+>>> float(2) 
 2.0
-&gt;&gt;&gt; int(2.0) 
+>>> int(2.0) 
 2
-&gt;&gt;&gt; int(2.5) 
+>>> int(2.5) 
 2
-&gt;&gt;&gt; int(-2.5) 
+>>> int(-2.5) 
 -2
 
-&gt;&gt;&gt; 11 / 2
+>>> 11 / 2
 5.5
-&gt;&gt;&gt; 11 // 2
+>>> 11 // 2
 5
-&gt;&gt;&gt; −11 // 2
+>>> −11 // 2
 −6
-&gt;&gt;&gt; 11.0 // 2
+>>> 11.0 // 2
 5.0
-&gt;&gt;&gt; 11 ** 2
+>>> 11 ** 2
 121
-&gt;&gt;&gt; 11 % 2 
+>>> 11 % 2 
 1
 
-&gt;&gt;&gt; import fractions
-&gt;&gt;&gt; x = fractions.Fraction(1, 3)
-&gt;&gt;&gt; x
+>>> import fractions
+>>> x = fractions.Fraction(1, 3)
+>>> x
 Fraction(1, 3)
-&gt;&gt;&gt; x * 2
+>>> x * 2
 Fraction(2, 3)
-&gt;&gt;&gt; fractions.Fraction(6, 4)
+>>> fractions.Fraction(6, 4)
 Fraction(3, 2)
 
-&gt;&gt;&gt; import math
-&gt;&gt;&gt; math.pi
+>>> import math
+>>> math.pi
 3.1415926535897931
-&gt;&gt;&gt; math.sin(math.pi / 2)
+>>> math.sin(math.pi / 2)
 1.0
-&gt;&gt;&gt; math.tan(math.pi / 4)
+>>> math.tan(math.pi / 4)
 0.99999999999999989
-</pre>
+```
 
 - Python 2 had separate types for `int` and `long`.
 
@@ -314,85 +314,85 @@ Fraction(3, 2)
 
 A better analogy would be to the `ArrayList` class, which can hold arbitrary objects and can expand dynamically as new items are added.
 
-<pre class="prettyprint linenums">
-&gt;&gt;&gt; a_list = ['a', 'b', 'mpilgrim', 'z', 'example'] 
-&gt;&gt;&gt; a_list
+```python
+>>> a_list = ['a', 'b', 'mpilgrim', 'z', 'example'] 
+>>> a_list
 ['a', 'b', 'mpilgrim', 'z', 'example']
-&gt;&gt;&gt; a_list[0] 
+>>> a_list[0] 
 'a'
-&gt;&gt;&gt; a_list[-1]
+>>> a_list[-1]
 'example'
-&gt;&gt;&gt; a_list[-3]
+>>> a_list[-3]
 'mpilgrim'
 
-&gt;&gt;&gt; a_list[1:3] 
+>>> a_list[1:3] 
 ['b', 'mpilgrim']
-&gt;&gt;&gt; a_list[1:-1] 
+>>> a_list[1:-1] 
 ['b', 'mpilgrim', 'z']
-&gt;&gt;&gt; a_list[0:3] 
+>>> a_list[0:3] 
 ['a', 'b', 'mpilgrim']
-&gt;&gt;&gt; a_list[:3] 
+>>> a_list[:3] 
 ['a', 'b', 'mpilgrim']
-&gt;&gt;&gt; a_list[3:] 
+>>> a_list[3:] 
 ['z', 'example']
-&gt;&gt;&gt; a_list[:] 
+>>> a_list[:] 
 ['a', 'b', 'mpilgrim', 'z', 'example']
 
-&gt;&gt;&gt; a_list = ['a']
-&gt;&gt;&gt; a_list = a_list + [2.0, 3] 
-&gt;&gt;&gt; a_list 
+>>> a_list = ['a']
+>>> a_list = a_list + [2.0, 3] 
+>>> a_list 
 ['a', 2.0, 3]
-&gt;&gt;&gt; a_list.append(True) 
-&gt;&gt;&gt; a_list
+>>> a_list.append(True) 
+>>> a_list
 ['a', 2.0, 3, True]
-&gt;&gt;&gt; a_list.extend(['four', 'Ω']) 
-&gt;&gt;&gt; a_list
+>>> a_list.extend(['four', 'Ω']) 
+>>> a_list
 ['a', 2.0, 3, True, 'four', 'Ω']
-&gt;&gt;&gt; a_list.insert(0, 'Ω') 
-&gt;&gt;&gt; a_list
+>>> a_list.insert(0, 'Ω') 
+>>> a_list
 ['Ω', 'a', 2.0, 3, True, 'four', 'Ω']
 
-&gt;&gt;&gt; a_list = ['a', 'b', 'c']
-&gt;&gt;&gt; a_list.extend(['d', 'e', 'f'])
-&gt;&gt;&gt; a_list
+>>> a_list = ['a', 'b', 'c']
+>>> a_list.extend(['d', 'e', 'f'])
+>>> a_list
 ['a', 'b', 'c', 'd', 'e', 'f']
-&gt;&gt;&gt; a_list.append(['g', 'h', 'i'])
-&gt;&gt;&gt; a_list
+>>> a_list.append(['g', 'h', 'i'])
+>>> a_list
 ['a', 'b', 'c', 'd', 'e', 'f', ['g', 'h', 'i']]
 
-&gt;&gt;&gt; a_list = ['a', 'b', 'new', 'mpilgrim', 'new']
-&gt;&gt;&gt; a_list.count('new') 
+>>> a_list = ['a', 'b', 'new', 'mpilgrim', 'new']
+>>> a_list.count('new') 
 2
-&gt;&gt;&gt; 'new' in a_list 
+>>> 'new' in a_list 
 True
-&gt;&gt;&gt; 'c' in a_list
+>>> 'c' in a_list
 False
-&gt;&gt;&gt; a_list.index('mpilgrim') 
+>>> a_list.index('mpilgrim') 
 3
-&gt;&gt;&gt; a_list.index('new') 
+>>> a_list.index('new') 
 2
 
-&gt;&gt;&gt; a_list = ['a', 'b', 'new', 'mpilgrim', 'new']
-&gt;&gt;&gt; a_list[1]
+>>> a_list = ['a', 'b', 'new', 'mpilgrim', 'new']
+>>> a_list[1]
 'b'
-&gt;&gt;&gt; del a_list[1] 
-&gt;&gt;&gt; a_list
+>>> del a_list[1] 
+>>> a_list
 ['a', 'new', 'mpilgrim', 'new']
-&gt;&gt;&gt; a_list.remove('new')
-&gt;&gt;&gt; a_list
+>>> a_list.remove('new')
+>>> a_list
 ['a', 'mpilgrim', 'new']
-&gt;&gt;&gt; a_list.remove('new')
-&gt;&gt;&gt; a_list
+>>> a_list.remove('new')
+>>> a_list
 ['a', 'mpilgrim']
 
-&gt;&gt;&gt; a_list = ['a', 'b', 'new', 'mpilgrim']
-&gt;&gt;&gt; a_list.pop() 
+>>> a_list = ['a', 'b', 'new', 'mpilgrim']
+>>> a_list.pop() 
 'mpilgrim'
-&gt;&gt;&gt; a_list
+>>> a_list
 ['a', 'b', 'new']
-&gt;&gt;&gt; a_list.pop(1) 
+>>> a_list.pop(1) 
 'b'
-&gt;&gt;&gt; a_list
+>>> a_list
 ['a', 'new']
 
 if []: # false
@@ -400,7 +400,7 @@ if []: # false
 
 if ['a']: # true
     ......
-</pre>
+```
 
 - If the negative index is confusing to you, think of it this way: `a_list[-n] == a_list[len(a_list) - n]`. So in this list, `a_list[-3] == a_list[5 - 3] == a_list[2]`.
 - You can get a part of a list, called a “slice”, by specifying two indices. The return value is a new list containing all the items of the list.
@@ -421,29 +421,29 @@ if ['a']: # true
 
 A tuple is an immutable list. A tuple can not be changed in any way once it is created.
 
-<pre class="prettyprint linenums">
-&gt;&gt;&gt; a_tuple = ("a", "b", "mpilgrim", "z", "example")
+```python
+>>> a_tuple = ("a", "b", "mpilgrim", "z", "example")
 
-&gt;&gt;&gt; type((False))
-&lt;class 'bool'&gt;
-&gt;&gt;&gt; type((False,))
-&lt;class 'tuple'&gt;
+>>> type((False))
+<class 'bool'>
+>>> type((False,))
+<class 'tuple'>
 
-&gt;&gt;&gt; v = ('a', 2, True)
-&gt;&gt;&gt; (x, y, z) = v
-&gt;&gt;&gt; x
+>>> v = ('a', 2, True)
+>>> (x, y, z) = v
+>>> x
 'a'
-&gt;&gt;&gt; y
+>>> y
 2
-&gt;&gt;&gt; z
+>>> z
 True
 
-&gt;&gt;&gt; (MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY) = range(7) 
-&gt;&gt;&gt; MONDAY 
+>>> (MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY) = range(7) 
+>>> MONDAY 
 0
-&gt;&gt;&gt; TUESDAY
+>>> TUESDAY
 1
-</pre>
+```
 
 - A tuple is defined in the same way as a list, except that the whole set of elements is enclosed in parentheses instead of square brackets.
 - Tuples are faster than lists. If you’re defining a constant set of values and all you’re ever going to do with it is iterate through it, use a tuple instead of a list. 
@@ -459,60 +459,60 @@ True
 
 A set is an unordered “bag” of unique values. A single set can contain values of any immutable datatype. Once you have two sets, you can do standard set operations like union, intersection, and set difference.
 
-<pre class="prettyprint linenums">
-&gt;&gt;&gt; a_set = {1}
+```python
+>>> a_set = {1}
 
-&gt;&gt;&gt; a_list = ['a', 'b', 'mpilgrim', True, False, 42]
-&gt;&gt;&gt; a_set = set(a_list) 
-&gt;&gt;&gt; a_set 
+>>> a_list = ['a', 'b', 'mpilgrim', True, False, 42]
+>>> a_set = set(a_list) 
+>>> a_set 
 {'a', False, 'b', True, 'mpilgrim', 42}
 
-&gt;&gt;&gt; a_set = set()
-&gt;&gt;&gt; a_set
+>>> a_set = set()
+>>> a_set
 set()
 
-&gt;&gt;&gt; not_sure = {} 
-&gt;&gt;&gt; type(not_sure)
-&lt;class 'dict'&gt;
+>>> not_sure = {} 
+>>> type(not_sure)
+<class 'dict'>
 
-&gt;&gt;&gt; a_set = {1, 2}
-&gt;&gt;&gt; a_set.add(4) 
-&gt;&gt;&gt; a_set
+>>> a_set = {1, 2}
+>>> a_set.add(4) 
+>>> a_set
 {1, 2, 4}
-&gt;&gt;&gt; a_set.add(1)
-&gt;&gt;&gt; a_set
+>>> a_set.add(1)
+>>> a_set
 {1, 2, 4}
 
-&gt;&gt;&gt; a_set = {1, 2, 3}
-&gt;&gt;&gt; a_set
+>>> a_set = {1, 2, 3}
+>>> a_set
 {1, 2, 3}
-&gt;&gt;&gt; a_set.update({2, 4, 6}) 
-&gt;&gt;&gt; a_set 
+>>> a_set.update({2, 4, 6}) 
+>>> a_set 
 {1, 2, 3, 4, 6}
-&gt;&gt;&gt; a_set.update({3, 6, 9}, {1, 2, 3, 5, 8, 13}) 
-&gt;&gt;&gt; a_set
+>>> a_set.update({3, 6, 9}, {1, 2, 3, 5, 8, 13}) 
+>>> a_set
 {1, 2, 3, 4, 5, 6, 8, 9, 13}
-&gt;&gt;&gt; a_set.update([10, 20, 30]) 
-&gt;&gt;&gt; a_set
+>>> a_set.update([10, 20, 30]) 
+>>> a_set
 {1, 2, 3, 4, 5, 6, 8, 9, 10, 13, 20, 30}
 
-&gt;&gt;&gt; a_set = {1, 3, 6, 10, 15, 21, 28, 36, 45}
-&gt;&gt;&gt; a_set
+>>> a_set = {1, 3, 6, 10, 15, 21, 28, 36, 45}
+>>> a_set
 {1, 3, 36, 6, 10, 45, 15, 21, 28}
-&gt;&gt;&gt; a_set.discard(10) ①
-&gt;&gt;&gt; a_set
+>>> a_set.discard(10) ①
+>>> a_set
 {1, 3, 36, 6, 45, 15, 21, 28}
-&gt;&gt;&gt; a_set.discard(10)
-&gt;&gt;&gt; a_set
+>>> a_set.discard(10)
+>>> a_set
 {1, 3, 36, 6, 45, 15, 21, 28}
-&gt;&gt;&gt; a_set.remove(21)
-&gt;&gt;&gt; a_set
+>>> a_set.remove(21)
+>>> a_set
 {1, 3, 36, 6, 45, 15, 28}
-&gt;&gt;&gt; a_set.remove(21)
+>>> a_set.remove(21)
 Traceback (most recent call last):
-File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+File "<stdin>", line 1, in <module>
 KeyError: 21
-</pre>
+```
 
 - Sets are actually implemented as classes.
 - You can actually call the `update()` method with any number of arguments.
@@ -529,21 +529,21 @@ KeyError: 21
 
 A dictionary is an unordered set of key-value pairs.
 
-<pre class="prettyprint linenums">
+```python
 # Use {} just like Sets
-&gt;&gt;&gt; a_dict = {'server': 'db.diveintopython3.org', 'database': 'mysql'} 
-&gt;&gt;&gt; a_dict
+>>> a_dict = {'server': 'db.diveintopython3.org', 'database': 'mysql'} 
+>>> a_dict
 {'server': 'db.diveintopython3.org', 'database': 'mysql'}
-&gt;&gt;&gt; a_dict['server'] 
+>>> a_dict['server'] 
 'db.diveintopython3.org'
-&gt;&gt;&gt; a_dict['database'] 
+>>> a_dict['database'] 
 'mysql'
 
 # modify the value by an existing entry
-&gt;&gt;&gt; a_dict['database'] = 'blog'
+>>> a_dict['database'] = 'blog'
 # add a new entry
-&gt;&gt;&gt; a_dict['user'] = 'mark'
-</pre>
+>>> a_dict['user'] = 'mark'
+```
 
 - An empty dictionary is false. Any dictionary with at least one key-value pair is true.
 
@@ -567,49 +567,49 @@ A dictionary is an unordered set of key-value pairs.
 
 Python 3 comes with a module called `os`, which stands for “operating system.” The os module contains a plethora of functions to get information on — and in some cases, to manipulate — local directories, files, processes, and environment variables. Python does its best to offer a unified API across all supported operating systems so your programs can run on any computer with as little platform-specific code as possible.
 
-<pre class="prettyprint linenums">
-&gt;&gt;&gt; import os 
+```python
+>>> import os 
 
 # 相当于 pwd 或者 cd (cd 不带参数时就相当于 pwd)
-&gt;&gt;&gt; print(os.getcwd()) 
+>>> print(os.getcwd()) 
 C:\Python31
 
 # 相当于 cd 到某个目录
-&gt;&gt;&gt; os.chdir('/Users/pilgrim/diveintopython3/examples') 
-&gt;&gt;&gt; print(os.getcwd()) 
+>>> os.chdir('/Users/pilgrim/diveintopython3/examples') 
+>>> print(os.getcwd()) 
 C:\Users\pilgrim\diveintopython3\examples
 
 # 获取 absolute path
-&gt;&gt;&gt; print(os.path.realpath('feed.xml'))
+>>> print(os.path.realpath('feed.xml'))
 c:\Users\pilgrim\diveintopython3\examples\feed.xml
 
 # 路径拼接
-&gt;&gt;&gt; print(os.path.join('/Users/pilgrim/diveintopython3/examples/', 'humansize.py')) 
+>>> print(os.path.join('/Users/pilgrim/diveintopython3/examples/', 'humansize.py')) 
 /Users/pilgrim/diveintopython3/examples/humansize.py
-&gt;&gt;&gt; print(os.path.join('/Users/pilgrim/diveintopython3/examples', 'humansize.py')) 
+>>> print(os.path.join('/Users/pilgrim/diveintopython3/examples', 'humansize.py')) 
 /Users/pilgrim/diveintopython3/examples\humansize.py
-&gt;&gt;&gt; print(os.path.expanduser('~')) 
+>>> print(os.path.expanduser('~')) 
 c:\Users\pilgrim
-&gt;&gt;&gt; print(os.path.join(os.path.expanduser('~'), 'diveintopython3', 'examples', 'humansize.py')) 
+>>> print(os.path.join(os.path.expanduser('~'), 'diveintopython3', 'examples', 'humansize.py')) 
 c:\Users\pilgrim\diveintopython3\examples\humansize.py
 
 # 路径拆分
-&gt;&gt;&gt; pathname = '/Users/pilgrim/diveintopython3/examples/humansize.py'
-&gt;&gt;&gt; os.path.split(pathname) 
+>>> pathname = '/Users/pilgrim/diveintopython3/examples/humansize.py'
+>>> os.path.split(pathname) 
 ('/Users/pilgrim/diveintopython3/examples', 'humansize.py')
-&gt;&gt;&gt; (dirname, filename) = os.path.split(pathname) 
-&gt;&gt;&gt; dirname 
+>>> (dirname, filename) = os.path.split(pathname) 
+>>> dirname 
 '/Users/pilgrim/diveintopython3/examples'
-&gt;&gt;&gt; filename 
+>>> filename 
 'humansize.py'
 
 # 文件名与 extension 拆分
-&gt;&gt;&gt; (shortname, extension) = os.path.splitext(filename) 
-&gt;&gt;&gt; shortname
+>>> (shortname, extension) = os.path.splitext(filename) 
+>>> shortname
 'humansize'
-&gt;&gt;&gt; extension
+>>> extension
 '.py'
-</pre>
+```
 
 - The `os.path.expanduser()` function will expand a pathname that uses ~ to represent the current user’s home directory.
 
@@ -617,17 +617,17 @@ The `glob` module is another tool in the Python standard library. It’s an easy
 
 - glob: (programming) A limited pattern matching technique using wildcards, less powerful than a regular expression.
 
-<pre class="prettyprint linenums">
-&gt;&gt;&gt; import glob
+```python
+>>> import glob
 
-&gt;&gt;&gt; os.chdir('/Users/pilgrim/diveintopython3/')
-&gt;&gt;&gt; glob.glob('examples/*.xml') 
+>>> os.chdir('/Users/pilgrim/diveintopython3/')
+>>> glob.glob('examples/*.xml') 
 ['examples\\feed-broken.xml',
 'examples\\feed-ns0.xml',
 'examples\\feed.xml']
 
-&gt;&gt;&gt; os.chdir('examples/') 
-&gt;&gt;&gt; glob.glob('*test*.py') 
+>>> os.chdir('examples/') 
+>>> glob.glob('*test*.py') 
 ['alphameticstest.py',
 'pluraltest1.py',
 'pluraltest2.py',
@@ -645,24 +645,24 @@ The `glob` module is another tool in the Python standard library. It’s an easy
 'romantest7.py',
 'romantest8.py',
 'romantest9.py']
-</pre>
+```
 
 Every modern file system stores metadata about each file: creation date, last-modified date, file size, and so on. Python provides a single API to access this metadata.
 
-<pre class="prettyprint linenums">
-&gt;&gt;&gt; import os
+```python
+>>> import os
 
-&gt;&gt;&gt; print(os.getcwd()) 
+>>> print(os.getcwd()) 
 c:\Users\pilgrim\diveintopython3\examples
-&gt;&gt;&gt; metadata = os.stat('feed.xml') 
-&gt;&gt;&gt; metadata.st_mtime 
+>>> metadata = os.stat('feed.xml') 
+>>> metadata.st_mtime 
 1247520344.9537716
 
-&gt;&gt;&gt; import time 
-&gt;&gt;&gt; time.localtime(metadata.st_mtime) 
+>>> import time 
+>>> time.localtime(metadata.st_mtime) 
 time.struct_time(tm_year=2009, tm_mon=7, tm_mday=13, tm_hour=17,
 tm_min=25, tm_sec=44, tm_wday=0, tm_yday=194, tm_isdst=1)
-</pre>
+```
 
 - Calling the `os.stat()` function returns an object that contains several different types of metadata about the file.
 
@@ -670,86 +670,86 @@ tm_min=25, tm_sec=44, tm_wday=0, tm_yday=194, tm_isdst=1)
 
 A list comprehension provides a compact way of mapping a list into another list by applying a function to each of the elements of the list.
 
-<pre class="prettyprint linenums">
-&gt;&gt;&gt; a_list = [1, 9, 8, 4]
-&gt;&gt;&gt; [elem * 2 for elem in a_list] 
+```python
+>>> a_list = [1, 9, 8, 4]
+>>> [elem * 2 for elem in a_list] 
 [2, 18, 16, 8]
 # a_list 本身并没有变
-&gt;&gt;&gt; a_list 
+>>> a_list 
 [1, 9, 8, 4]
-&gt;&gt;&gt; a_list = [elem * 2 for elem in a_list] 
-&gt;&gt;&gt; a_list
+>>> a_list = [elem * 2 for elem in a_list] 
+>>> a_list
 [2, 18, 16, 8]
-</pre>
+```
 
 - A list comprehension creates a new list; it does not change the original list.
 
-<pre class="prettyprint linenums">
-&gt;&gt;&gt; import os, glob
+```python
+>>> import os, glob
 
-&gt;&gt;&gt; glob.glob('*.xml') 
+>>> glob.glob('*.xml') 
 ['feed-broken.xml', 'feed-ns0.xml', 'feed.xml']
-&gt;&gt;&gt; [os.path.realpath(f) for f in glob.glob('*.xml')] 
+>>> [os.path.realpath(f) for f in glob.glob('*.xml')] 
 ['c:\\Users\\pilgrim\\diveintopython3\\examples\\feed-broken.xml',
 'c:\\Users\\pilgrim\\diveintopython3\\examples\\feed-ns0.xml',
 'c:\\Users\\pilgrim\\diveintopython3\\examples\\feed.xml']
-</pre>
+```
 
 List comprehensions can also filter items, producing a result that can be smaller than the original list.
 
-<pre class="prettyprint linenums">
-&gt;&gt;&gt; import os, glob
+```python
+>>> import os, glob
 
-&gt;&gt;&gt; [f for f in glob.glob('*.py') if os.stat(f).st_size &gt; 6000] 
+>>> [f for f in glob.glob('*.py') if os.stat(f).st_size > 6000] 
 ['pluraltest6.py',
 'romantest10.py',
 'romantest6.py',
 'romantest7.py',
 'romantest8.py',
 'romantest9.py']
-</pre>
+```
 
 There’s no limit to how complex a list comprehension can be.
 
-<pre class="prettyprint linenums">
-&gt;&gt;&gt; import os, glob
-&gt;&gt;&gt; [(os.stat(f).st_size, os.path.realpath(f)) for f in glob.glob('*.xml')] 
+```python
+>>> import os, glob
+>>> [(os.stat(f).st_size, os.path.realpath(f)) for f in glob.glob('*.xml')] 
 [(3074, 'c:\\Users\\pilgrim\\diveintopython3\\examples\\feed-broken.xml'),
 (3386, 'c:\\Users\\pilgrim\\diveintopython3\\examples\\feed-ns0.xml'),
 (3070, 'c:\\Users\\pilgrim\\diveintopython3\\examples\\feed.xml')]
 
-&gt;&gt;&gt; import humansize
-&gt;&gt;&gt; [(humansize.approximate_size(os.stat(f).st_size), f) for f in glob.glob('*.xml')] 
+>>> import humansize
+>>> [(humansize.approximate_size(os.stat(f).st_size), f) for f in glob.glob('*.xml')] 
 [('3.0 KiB', 'feed-broken.xml'),
 ('3.3 KiB', 'feed-ns0.xml'),
 ('3.0 KiB', 'feed.xml')]
-</pre>
+```
 
 ### 3.4. DICTIONARY COMPREHENSIONS <a name="3-4--DICTIONARY-COMPREHENSIONS"></a>
 
-<pre class="prettyprint linenums">
-&gt;&gt;&gt; import os, glob
+```python
+>>> import os, glob
 
 # This is a list comprehension
-&gt;&gt;&gt; metadata = [(f, os.stat(f)) for f in glob.glob('*test*.py')] 
-&gt;&gt;&gt; metadata[0] 
+>>> metadata = [(f, os.stat(f)) for f in glob.glob('*test*.py')] 
+>>> metadata[0] 
 ('alphameticstest.py', nt.stat_result(st_mode=33206, st_ino=0, st_dev=0,
 st_nlink=0, st_uid=0, st_gid=0, st_size=2509, st_atime=1247520344,
 st_mtime=1247520344, st_ctime=1247520344))
 
 # This is a dictionary comprehension
-&gt;&gt;&gt; metadata_dict = {f:os.stat(f) for f in glob.glob('*test*.py')} 
-&gt;&gt;&gt; type(metadata_dict) 
-&lt;class 'dict'&gt;
-&gt;&gt;&gt; list(metadata_dict.keys()) 
+>>> metadata_dict = {f:os.stat(f) for f in glob.glob('*test*.py')} 
+>>> type(metadata_dict) 
+<class 'dict'>
+>>> list(metadata_dict.keys()) 
 ['romantest8.py', 'pluraltest1.py', 'pluraltest2.py', 'pluraltest5.py',
 'pluraltest6.py', 'romantest7.py', 'romantest10.py', 'romantest4.py',
 'romantest9.py', 'pluraltest3.py', 'romantest1.py', 'romantest2.py',
 'romantest3.py', 'romantest5.py', 'romantest6.py', 'alphameticstest.py',
 'pluraltest4.py']
-&gt;&gt;&gt; metadata_dict['alphameticstest.py'].st_size 
+>>> metadata_dict['alphameticstest.py'].st_size 
 2509
-</pre>
+```
 
 - The syntax is similar to a list comprehension, with two differences. 
 	- First, it is enclosed in curly braces `{}` instead of square brackets `[]`. 
@@ -759,27 +759,27 @@ st_mtime=1247520344, st_ctime=1247520344))
 
 Here’s a trick with dictionary comprehensions that might be useful someday: swapping the keys and values of a dictionary.
 
-<pre class="prettyprint linenums">
-&gt;&gt;&gt; a_dict = {'a': 1, 'b': 2, 'c': 3}
-&gt;&gt;&gt; {value:key for key, value in a_dict.items()}
+```python
+>>> a_dict = {'a': 1, 'b': 2, 'c': 3}
+>>> {value:key for key, value in a_dict.items()}
 {1: 'a', 2: 'b', 3: 'c'}
-</pre>
+```
 
 Of course, this only works if the values of the dictionary are immutable, like strings or tuples. If you try this with a dictionary that contains lists, it will fail most spectacularly. 
 
 ### 3.5. SET COMPREHENSIONS <a name="3-5--SET-COMPREHENSIONS"></a>
 
-<pre class="prettyprint linenums">
-&gt;&gt;&gt; a_set = set(range(10))
-&gt;&gt;&gt; a_set
+```python
+>>> a_set = set(range(10))
+>>> a_set
 {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
-&gt;&gt;&gt; {x ** 2 for x in a_set} 
+>>> {x ** 2 for x in a_set} 
 {0, 1, 4, 81, 64, 9, 16, 49, 25, 36}
-&gt;&gt;&gt; {x for x in a_set if x % 2 == 0} 
+>>> {x for x in a_set if x % 2 == 0} 
 {0, 8, 2, 4, 6}
-&gt;&gt;&gt; {2**x for x in range(10)} 
+>>> {2**x for x in range(10)} 
 {32, 1, 2, 4, 8, 64, 128, 256, 16, 512}
-</pre>
+```
 
 ## CHAPTER 4. STRINGS <a name="CHAPTER-4--STRINGS"></a>
 
@@ -797,35 +797,35 @@ In Python 3, all strings are sequences of Unicode characters. There is no such t
 
 To create a string, enclose it in quotes. Python strings can be defined with either single quotes (`'`) or double quotes (`"`).
 
-<pre class="prettyprint linenums">
-&gt;&gt;&gt; s = '深入 Python' 
-&gt;&gt;&gt; len(s) 
+```python
+>>> s = '深入 Python' 
+>>> len(s) 
 9
-&gt;&gt;&gt; s[0] 
+>>> s[0] 
 '深'
-&gt;&gt;&gt; s + ' 3' 
+>>> s + ' 3' 
 '深入 Python 3'
-</pre>
+```
 
 ### 4.4. FORMATTING STRINGS <a name="4-4--FORMATTING-STRINGS"></a>
 
 Let’s take another look at humansize.py:
 
-<pre class="prettyprint linenums">
+```python
 	......
     if size < multiple:
         return '{0:.1f} {1}'.format(size, suffix)
 	......
-</pre>
+```
 
 Python 3 supports formatting values into strings. Although this can include very complicated expressions, the most basic usage is to insert a value into a string with a single placeholder.
 
-<pre class="prettyprint linenums">
-&gt;&gt;&gt; username = 'mark'
-&gt;&gt;&gt; password = 'PapayaWhip' 
-&gt;&gt;&gt; "{0}'s password is {1}".format(username, password) 
+```python
+>>> username = 'mark'
+>>> password = 'PapayaWhip' 
+>>> "{0}'s password is {1}".format(username, password) 
 "mark's password is PapayaWhip"
-</pre>
+```
 
 - First, that’s a method call on a string literal. Strings are objects, and objects have methods. 
 - Second, the whole expression evaluates to a string. 
@@ -835,14 +835,14 @@ Python 3 supports formatting values into strings. Although this can include very
 
 The previous example shows the simplest case, where the replacement fields are simply integers. Integer replacement fields are treated as positional indices into the argument list of the `format()` method. That means that `{0}` is replaced by the first argument (`username` in this case), `{1}` is replaced by the second argument (`password`), &c. But replacement fields are much more powerful than that.
 
-<pre class="prettyprint linenums">
-&gt;&gt;&gt; import humansize
-&gt;&gt;&gt; si_suffixes = humansize.SUFFIXES[1000] 
-&gt;&gt;&gt; si_suffixes
+```python
+>>> import humansize
+>>> si_suffixes = humansize.SUFFIXES[1000] 
+>>> si_suffixes
 ['KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
-&gt;&gt;&gt; '1000{0[0]} = 1{0[1]}'.format(si_suffixes) 
+>>> '1000{0[0]} = 1{0[1]}'.format(si_suffixes) 
 '1000KB = 1MB'
-</pre>
+```
 
 - `{0}` would refer to the first argument passed to the `format()` method, `si_suffixes`. 
 - But `si_suffixes` is a list. So `{0[0]}` refers to the first item of the list which is the first argument passed to the `format()` method: 'KB'. 
@@ -858,12 +858,12 @@ What this example shows is that format specifiers can access items and propertie
 
 Just to blow your mind, here’s an example that combines all of the above:
 
-<pre class="prettyprint linenums">
-&gt;&gt;&gt; import humansize
-&gt;&gt;&gt; import sys
-&gt;&gt;&gt; '1MB = 1000{0.modules[humansize].SUFFIXES[1000][0]}'.format(sys)
+```python
+>>> import humansize
+>>> import sys
+>>> '1MB = 1000{0.modules[humansize].SUFFIXES[1000][0]}'.format(sys)
 '1MB = 1000KB'
-</pre>
+```
 
 - The `sys` module holds information about the currently running Python instance. Since you just imported it, you can pass the `sys` module itself as an argument to the `format()` method. So the replacement field `{0}` refers to the `sys` module.
 - `sys.modules` is a dictionary of all the modules that have been imported in this Python instance. The keys are the module names as strings; the values are the module objects themselves. So the replacement field `{0.modules}` refers to the dictionary of imported modules.
@@ -883,59 +883,59 @@ Within a replacement field, a colon (`:`) marks the start of the format specifie
 
 Let’s say you have a list of key-value pairs and you want to split them up and make a dictionary:
 
-<pre class="prettyprint linenums">
-&gt;&gt;&gt; query = 'user=pilgrim&database=master&password=PapayaWhip'
-&gt;&gt;&gt; a_list = query.split('&') 
-&gt;&gt;&gt; a_list
+```python
+>>> query = 'user=pilgrim&database=master&password=PapayaWhip'
+>>> a_list = query.split('&') 
+>>> a_list
 ['user=pilgrim', 'database=master', 'password=PapayaWhip']
-&gt;&gt;&gt; a_list_of_lists = [v.split('=', 1) for v in a_list if '=' in v] 
-&gt;&gt;&gt; a_list_of_lists
+>>> a_list_of_lists = [v.split('=', 1) for v in a_list if '=' in v] 
+>>> a_list_of_lists
 [['user', 'pilgrim'], ['database', 'master'], ['password', 'PapayaWhip']]
-&gt;&gt;&gt; a_dict = dict(a_list_of_lists) 
-&gt;&gt;&gt; a_dict
+>>> a_dict = dict(a_list_of_lists) 
+>>> a_dict
 {'password': 'PapayaWhip', 'user': 'pilgrim', 'database': 'master'}
-</pre>
+```
 
 ### 4.6. STRINGS VS. BYTES <a name="4-6--STRINGS-VS--BYTES"></a>
 
 Bytes are bytes; characters are an abstraction. An immutable sequence of Unicode characters is called a `string`. An immutable sequence of numbers-between-0-and-255 is called a `bytes` object.
 
-<pre class="prettyprint linenums">
-&gt;&gt;&gt; by = b'abcd\x65' 
-&gt;&gt;&gt; by
+```python
+>>> by = b'abcd\x65' 
+>>> by
 b'abcde'
-&gt;&gt;&gt; type(by) 
-&lt;class 'bytes'&gt;
-&gt;&gt;&gt; by += b'\xff' 
-&gt;&gt;&gt; by # \xff 没有对应到一个 character，所以仍然显示为 \xff
+>>> type(by) 
+<class 'bytes'>
+>>> by += b'\xff' 
+>>> by # \xff 没有对应到一个 character，所以仍然显示为 \xff
 b'abcde\xff'
-&gt;&gt;&gt; by[5] 
+>>> by[5] 
 255
-</pre>
+```
 
 A bytes object is immutable; you can not assign individual bytes. If you need to change individual bytes, you can convert the bytes object into a `bytearray` object. The assigned value must be an integer between 0–255.
 
-<pre class="prettyprint linenums">
-&gt;&gt;&gt; by = b'abcd\x65'
-&gt;&gt;&gt; barr = bytearray(by) 
-&gt;&gt;&gt; barr
+```python
+>>> by = b'abcd\x65'
+>>> barr = bytearray(by) 
+>>> barr
 bytearray(b'abcde')
-&gt;&gt;&gt; barr[0] = 102 
-&gt;&gt;&gt; barr
+>>> barr[0] = 102 
+>>> barr
 bytearray(b'fbcde')
-</pre>
+```
 
 The one thing you can never do is mix bytes and strings.
 
-<pre class="prettyprint linenums">
-&gt;&gt;&gt; by = b'd'
-&gt;&gt;&gt; s = 'abcde'
-&gt;&gt;&gt; by + s # ERROR
+```python
+>>> by = b'd'
+>>> s = 'abcde'
+>>> by + s # ERROR
 
-&gt;&gt;&gt; s.count(by) 				# ERROR
-&gt;&gt;&gt; s.count(by.decode('ascii')) # OK
+>>> s.count(by) 				# ERROR
+>>> s.count(by.decode('ascii')) # OK
 1
-</pre>
+```
 
 And here is the link between `string`s and `bytes`: `bytes` objects have a `decode()` method that takes a character encoding and returns a `string`, and `string`s have an `encode()` method that takes a character encoding and returns a `bytes` object.
 
@@ -945,16 +945,16 @@ In Python 2, the default encoding for .py files was ASCII. In Python 3, the defa
 
 If you would like to use a different encoding within your Python code, you can put an encoding declaration on the first line of each file. This declaration below defines a .py file to be windows-1252:
 
-<pre class="prettyprint linenums">
+```python
 # -*- coding: windows-1252 -*-
-</pre>
+```
 
 Technically, the character encoding override can also be on the second line, if the first line is a UNIX-like hash-bang command.
 
-<pre class="prettyprint linenums">
+```python
 #!/usr/bin/python3
 # -*- coding: windows-1252 -*-
-</pre>
+```
 
 ## CHAPTER 5. REGULAR EXPRESSIONS (略) <a name="CHAPTER-5--REGULAR-EXPRESSIONS"></a>
 
@@ -975,7 +975,7 @@ Let’s design a Python library that automatically pluralizes English nouns. We�
 
 ### 6.2. I KNOW, LET’S USE REGULAR EXPRESSIONS! <a name="6-2--I-KNOW-LET’S-USE-REGULAR-EXPRESSIONS!"></a>
 
-<pre class="prettyprint linenums">
+```python
 def plural(noun):
     if re.search('[sxz]$', noun): 
         return re.sub('$', 'es', noun) 
@@ -985,11 +985,11 @@ def plural(noun):
         return re.sub('y$', 'ies', noun)
     else:
         return noun + 's'
-</pre>
+```
 
 ### 6.3. A LIST OF FUNCTIONS <a name="6-3--A-LIST-OF-FUNCTIONS"></a>
 
-<pre class="prettyprint linenums">
+```python
 def match_sxz(noun):
     return re.search('[sxz]$', noun)
 def apply_sxz(noun):
@@ -1017,7 +1017,7 @@ def plural(noun):
     for matches_rule, apply_rule in rules:
         if matches_rule(noun):
             return apply_rule(noun)
-</pre>
+```
 
 The reason this technique works is that everything in Python is an object, including functions. The rules data structure contains functions — not names of functions, but actual function objects. When they get assigned in the `for` loop, then `matches_rule` and `apply_rule` are actual functions that you can call.
 
@@ -1025,7 +1025,7 @@ The reason this technique works is that everything in Python is an object, inclu
 
 Defining separate named functions for each match and apply rule isn’t really necessary. You never call them directly; you add them to the `rules` sequence and call them through there. Furthermore, each function follows one of two patterns. All the match functions call `re.search()`, and all the apply functions call `re.sub()`. Let’s factor out the patterns so that defining new rules can be easier.
 
-<pre class="prettyprint linenums">
+```python
 import re
 
 def build_match_and_apply_functions(pattern, search, replace):
@@ -1036,14 +1036,14 @@ def build_match_and_apply_functions(pattern, search, replace):
         return re.sub(search, replace, word)
 
 	return (matches_rule, apply_rule)
-</pre>
+```
 
 - This technique of using the values of outside parameters within a dynamic function is called _**closures**_. You’re essentially defining constants within the `apply_rule` function you’re building: it takes one parameter (`word`), but it then acts on that plus two other values (`search` and `replace`) which were set when you defined the apply function.
 - Finally, the `build_match_and_apply_functions()` function returns a tuple of two values: the two functions you just created. The constants you defined within those functions (`pattern` within the `matches_rule()` function, and `search` and `replace` within the `apply_rule()` function) stay with those functions, even after you return from `build_match_and_apply_functions()`.
 
 If this is incredibly confusing (and it should be, this is weird stuff), it may become clearer when you see how to use it.
 
-<pre class="prettyprint linenums">
+```python
 patterns = \ 
     (
         ('[sxz]$', '$', 'es'),
@@ -1053,31 +1053,31 @@ patterns = \
     )
 
 rules = [build_match_and_apply_functions(pattern, search, replace) for (pattern, search, replace) in patterns]
-</pre>
+```
 
 - There’s a slight change here, in the fallback rule. In the previous example, the `match_default()` function simply returned `True`, meaning that if none of the more specific rules matched, the code would simply add an _s_ to the end of the given word. This example does something functionally equivalent. The final regular expression asks whether the word has an end (`$` matches the end of a string). Of course, every string has an end, even an empty string, so this expression always matches. Thus, it serves the same purpose as the `match_default()` function that always returned `True`
 
-<pre class="prettyprint linenums">
+```python
 def plural(noun):
     for matches_rule, apply_rule in rules: 
         if matches_rule(noun):
             return apply_rule(noun)
-</pre>
+```
 
 ### 6.5. A FILE OF PATTERNS <a name="6-5--A-FILE-OF-PATTERNS"></a>
 
 First, let’s create a text file that contains the rules you want. No fancy data structures, just whitespace-delimited strings in three columns. Let’s call it `plural4-rules.txt`.
 
-<pre class="prettyprint linenums">
+```python
 [sxz]$ $ es
 [^aeioudgkprt]h$ $ es
 [^aeiou]y$ y$ ies
 $ $ s
-</pre>
+```
 
 Now let’s see how you can use this rules file.
 
-<pre class="prettyprint linenums">
+```python
 import re
 
 def build_match_and_apply_functions(pattern, search, replace):
@@ -1093,7 +1093,7 @@ with open('plural4-rules.txt', encoding='utf-8') as pattern_file:
     for line in pattern_file: 
         pattern, search, replace = line.split(None, 3) 
         rules.append(build_match_and_apply_functions(pattern, search, replace))
-</pre>
+```
 
 - The `with` statement creates what’s called a _**context**_: when the with block ends, Python will automatically close the file, even if an exception is raised inside the with block.
 - The `for line in <fileobject>` idiom reads data from the open file, one line at a time.
@@ -1105,27 +1105,27 @@ The improvement here is that you’ve completely separated the pluralization rul
 
 Let’s look at an interactive example first.
 
-<pre class="prettyprint linenums">
-&gt;&gt;&gt; def make_counter(x):
+```python
+>>> def make_counter(x):
 ... print('entering make_counter')
 ... while True:
 ...     yield x 
 ...     print('incrementing x')
 ...     x = x + 1
 ...
-&gt;&gt;&gt; counter = make_counter(2) 
-&gt;&gt;&gt; counter 
-&lt;generator object at 0x001C9C10&gt;
-&gt;&gt;&gt; next(counter) 
+>>> counter = make_counter(2) 
+>>> counter 
+<generator object at 0x001C9C10>
+>>> next(counter) 
 entering make_counter
 2
-&gt;&gt;&gt; next(counter) 
+>>> next(counter) 
 incrementing x
 3
-&gt;&gt;&gt; next(counter) 
+>>> next(counter) 
 incrementing x
 4
-</pre>
+```
 
 - The presence of the yield keyword in `make_counter` means that this is not a normal function. It is a special kind of function which generates values one at a time. Calling it will return a _**generator**_ object that can be used to generate successive values of `x` (Note that this does not actually execute the function code).
 - The `next()` function takes a generator object and returns its next value.
@@ -1137,26 +1137,26 @@ Since `make_counter` sets up an infinite loop, you could theoretically do this f
 
 #### 6.6.1. A FIBONACCI GENERATOR <a name="6-6-1--A-FIBONACCI-GENERATOR"></a>
 
-<pre class="prettyprint linenums">
+```python
 def fib(max):
     a, b = 0, 1 
     while a < max:
         yield a 
         a, b = b, a + b 
-</pre>
+```
 
-<pre class="prettyprint linenums">
-&gt;&gt;&gt; from fibonacci import fib
-&gt;&gt;&gt; for n in fib(1000): 
+```python
+>>> from fibonacci import fib
+>>> for n in fib(1000): 
 ... print(n, end=' ') 
 0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987
-&gt;&gt;&gt; list(fib(1000)) 
+>>> list(fib(1000)) 
 [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987]
-</pre>
+```
 
 #### 6.6.2. A PLURAL RULE GENERATOR <a name="6-6-2--A-PLURAL-RULE-GENERATOR"></a>
 
-<pre class="prettyprint linenums">
+```python
 def rules(rules_filename):
     with open(rules_filename, encoding='utf-8') as pattern_file:
         for line in pattern_file:
@@ -1169,7 +1169,7 @@ def plural(noun, rules_filename='plural5-rules.txt'):
             return apply_rule(noun)
 
 	raise ValueError('no matching rule for {0}'.format(noun))
-</pre>
+```
 
 What have you gained over stage 4? Startup time. In stage 4, when you imported the `plural4` module, it read the entire patterns file and built a list of all the possible rules, before you could even think about calling the `plural()` function. With generators, you can do everything lazily: you read the first rule and create functions and try them, and if that works you don’t ever read the rest of the file or create any other functions.
 
@@ -1185,7 +1185,7 @@ Comprehensions are just a simple form of iterators. Generators are just a simple
 
 Remember the Fibonacci generator? Here it is as a built-from-scratch iterator:
 
-<pre class="prettyprint linenums">
+```python
 class Fib:
     '''iterator that yields numbers in the Fibonacci sequence'''
 
@@ -1203,7 +1203,7 @@ class Fib:
             raise StopIteration
         self.a, self.b = self.b, self.a + self.b
         return fib
-</pre>
+```
 
 Let’s take that one line at a time. `class Fib:`. Then what's a class?
 
@@ -1211,10 +1211,10 @@ Let’s take that one line at a time. `class Fib:`. Then what's a class?
 
 Python is fully object-oriented: you can define your own classes, inherit from your own or built-in classes, and instantiate the classes you’ve defined.
 
-<pre class="prettyprint linenums">
+```python
 class PapayaWhip: 
     pass
-</pre>
+```
 
 This `PapayaWhip` class doesn’t define any methods or attributes, but syntactically (of or relating to syntax), there needs to be something in the definition, thus the `pass` statement. This is a Python reserved word that just means “move along, nothing to see here”. It’s a statement that does nothing, and it’s a good placeholder when you’re stubbing out functions or classes.
 
@@ -1252,12 +1252,12 @@ To spit out the next value, an iterator’s `__next__()` method simply returns t
 
 Let’s see how to call this iterator:
 
-<pre class="prettyprint linenums">
-&gt;&gt;&gt; from fibonacci2 import Fib
-&gt;&gt;&gt; for n in Fib(1000):
+```python
+>>> from fibonacci2 import Fib
+>>> for n in Fib(1000):
 ... print(n, end=' ')
 0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987
-</pre>
+```
 
 Here’s what happens:
 
@@ -1267,7 +1267,7 @@ Here’s what happens:
 
 ### 7.6. A PLURAL RULE ITERATOR <a name="7-6--A-PLURAL-RULE-ITERATOR"></a>
 
-<pre class="prettyprint linenums">
+```python
 class LazyRules:
     rules_filename = 'plural6-rules.txt'
 
@@ -1305,7 +1305,7 @@ def plural(noun):
             return apply_rule(noun)
 
 	raise ValueError('no matching rule for {0}'.format(noun))
-</pre>
+```
 
 So this is a class that implements `__iter__()` and `__next__()`, so it can be used as an iterator. Then, you instantiate the class and assign it to rules. This happens just once, on import.
 
@@ -1325,50 +1325,50 @@ Putting it all together, here’s what happens when:
 
 ### 8.3. FINDING THE UNIQUE ITEMS IN A SEQUENCE <a name="8-3--FINDING-THE-UNIQUE-ITEMS-IN-A-SEQUENCE"></a>
 
-<pre class="prettyprint linenums">
-&gt;&gt;&gt; a_list = ['The', 'sixth', 'sick', "sheik's", 'sixth', "sheep's", 'sick']
-&gt;&gt;&gt; set(a_list) 
+```python
+>>> a_list = ['The', 'sixth', 'sick', "sheik's", 'sixth', "sheep's", 'sick']
+>>> set(a_list) 
 {'sixth', 'The', "sheep's", 'sick', "sheik's"}
-&gt;&gt;&gt; a_string = 'EAST IS EAST'
-&gt;&gt;&gt; set(a_string) 
+>>> a_string = 'EAST IS EAST'
+>>> set(a_string) 
 {'A', ' ', 'E', 'I', 'S', 'T'}
-&gt;&gt;&gt; words = ['SEND', 'MORE', 'MONEY']
-&gt;&gt;&gt; ''.join(words) 
+>>> words = ['SEND', 'MORE', 'MONEY']
+>>> ''.join(words) 
 'SENDMOREMONEY'
-&gt;&gt;&gt; set(''.join(words)) 
+>>> set(''.join(words)) 
 {'E', 'D', 'M', 'O', 'N', 'S', 'R', 'Y'}
-</pre>
+```
 
 ### 8.4. MAKING ASSERTIONS <a name="8-4--MAKING-ASSERTIONS"></a>
 
-<pre class="prettyprint linenums">
-&gt;&gt;&gt; assert 1 + 1 == 2 
-&gt;&gt;&gt; assert 1 + 1 == 3 
+```python
+>>> assert 1 + 1 == 2 
+>>> assert 1 + 1 == 3 
 Traceback (most recent call last):
-File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+File "<stdin>", line 1, in <module>
 AssertionError
-&gt;&gt;&gt; assert 2 + 2 == 5, "Only for very large values of 2" 
+>>> assert 2 + 2 == 5, "Only for very large values of 2" 
 Traceback (most recent call last):
-File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+File "<stdin>", line 1, in <module>
 AssertionError: Only for very large values of 2
-</pre>
+```
 
 Therefore, this line of code:
 
-<pre class="prettyprint linenums">
-assert len(unique_characters) &lt;= 10, 'Too many letters'
-</pre>
+```python
+assert len(unique_characters) <= 10, 'Too many letters'
+```
 
 is equivalent to this:
 
-<pre class="prettyprint linenums">
-if len(unique_characters) &gt; 10:
+```python
+if len(unique_characters) > 10:
     raise AssertionError('Too many letters')
-</pre>
+```
 
 ### 8.5. GENERATOR EXPRESSIONS <a name="8-5--GENERATOR-EXPRESSIONS"></a>
 
-<pre class="prettyprint linenums">
+```python
 # Generator expression
 (x*2 for x in range(256))
 
@@ -1384,101 +1384,101 @@ if len(unique_characters) &gt; 10:
 # There is NO tuple comprehension
 # but you can new a tuple with a generator expression
 tuple(x*2 for x in range(256))
-</pre>
+```
 
 `(x*2 for x in range(256))` is equal to:
 
-<pre class="prettyprint linenums">
+```python
 def times2(range):
     for x in range:
         yield x*2
 
 times2(range(256))
-</pre>
+```
 
 ### 8.6. CALCULATING PERMUTATIONS… THE LAZYWAY! <a name="8-6--CALCULATING-PERMUTATIONS-THE-LAZYWAY!"></a>
 
-<pre class="prettyprint linenums">
+```python
 # [1, 2, 3] 三个选两个做排列组合
-&gt;&gt;&gt; import itertools 
-&gt;&gt;&gt; perms = itertools.permutations([1, 2, 3], 2) 
-&gt;&gt;&gt; next(perms) 
+>>> import itertools 
+>>> perms = itertools.permutations([1, 2, 3], 2) 
+>>> next(perms) 
 (1, 2)
-&gt;&gt;&gt; next(perms)
+>>> next(perms)
 (1, 3)
-&gt;&gt;&gt; next(perms)
+>>> next(perms)
 (2, 1) 
-&gt;&gt;&gt; next(perms)
+>>> next(perms)
 (2, 3)
-&gt;&gt;&gt; next(perms)
+>>> next(perms)
 (3, 1)
-&gt;&gt;&gt; next(perms)
+>>> next(perms)
 (3, 2)
-&gt;&gt;&gt; next(perms) 
+>>> next(perms) 
 Traceback (most recent call last):
-File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+File "<stdin>", line 1, in <module>
 StopIteration
-</pre>
+```
 
 The `permutations()` function doesn’t have to take a list. It can take any sequence — even a string.
 
-<pre class="prettyprint linenums">
-&gt;&gt;&gt; import itertools
-&gt;&gt;&gt; perms = itertools.permutations('ABC', 3) 
-&gt;&gt;&gt; next(perms)
+```python
+>>> import itertools
+>>> perms = itertools.permutations('ABC', 3) 
+>>> next(perms)
 ('A', 'B', 'C')
-</pre>
+```
 
 ### 8.7. OTHER FUN STUFF IN THE `itertools` MODULE <a name="8-7--OTHER-FUN-STUFF-IN-THE-itertools-MODULE"></a>
 
-<pre class="prettyprint linenums">
-&gt;&gt;&gt; import itertools
-&gt;&gt;&gt; list(itertools.product('ABC', '123')) 
+```python
+>>> import itertools
+>>> list(itertools.product('ABC', '123')) 
 [('A', '1'), ('A', '2'), ('A', '3'),
 ('B', '1'), ('B', '2'), ('B', '3'),
 ('C', '1'), ('C', '2'), ('C', '3')]
-&gt;&gt;&gt; list(itertools.combinations('ABC', 2)) 
+>>> list(itertools.combinations('ABC', 2)) 
 [('A', 'B'), ('A', 'C'), ('B', 'C')]
 
-&gt;&gt;&gt; names = ['Alex', 'Anne', 'Dora', 'John', 'Mike', 'Chris', 'Ethan', 'Sarah', 'Lizzie', 'Wesley']
-&gt;&gt;&gt; groups = itertools.groupby(names, len)
-&gt;&gt;&gt; list(groups)
-[(4, &lt;itertools._grouper object at 0x00BA8BF0&gt;),
- (5, &lt;itertools._grouper object at 0x00BB4050&gt;),
- (6, &lt;itertools._grouper object at 0x00BB4030&gt;)]
+>>> names = ['Alex', 'Anne', 'Dora', 'John', 'Mike', 'Chris', 'Ethan', 'Sarah', 'Lizzie', 'Wesley']
+>>> groups = itertools.groupby(names, len)
+>>> list(groups)
+[(4, <itertools._grouper object at 0x00BA8BF0>),
+ (5, <itertools._grouper object at 0x00BB4050>),
+ (6, <itertools._grouper object at 0x00BB4030>)]
  
-&gt;&gt;&gt; list(itertools.chain(range(0, 3), range(10, 13))) 
+>>> list(itertools.chain(range(0, 3), range(10, 13))) 
 [0, 1, 2, 10, 11, 12]
-&gt;&gt;&gt; list(zip(range(0, 3), range(10, 13))) 
+>>> list(zip(range(0, 3), range(10, 13))) 
 [(0, 10), (1, 11), (2, 12)]
-&gt;&gt;&gt; list(zip(range(0, 3), range(10, 14))) 
+>>> list(zip(range(0, 3), range(10, 14))) 
 [(0, 10), (1, 11), (2, 12)]
-&gt;&gt;&gt; list(itertools.zip_longest(range(0, 3), range(10, 14))) 
+>>> list(itertools.zip_longest(range(0, 3), range(10, 14))) 
 [(0, 10), (1, 11), (2, 12), (None, 13)]
-</pre>
+```
 
 ### 8.8. A NEW KIND OF STRINGMANIPULATION <a name="8-8--A-NEW-KIND-OF-STRINGMANIPULATION"></a>
 
-<pre class="prettyprint linenums">
-&gt;&gt;&gt; translation_table = {ord('A'): ord('O')} 
-&gt;&gt;&gt; translation_table ②
+```python
+>>> translation_table = {ord('A'): ord('O')} 
+>>> translation_table ②
 {65: 79}
-&gt;&gt;&gt; 'MARK'.translate(translation_table) 
+>>> 'MARK'.translate(translation_table) 
 'MORK'
-</pre>
+```
 
 更多内容见书上。
 
 ### 8.9. EVALUATING ARBITRARY STRINGS AS PYTHON EXPRESSIONS <a name="8-9--EVALUATING-ARBITRARY-STRINGS-AS-PYTHON-EXPRESSIONS"></a>
 
-<pre class="prettyprint linenums">
-&gt;&gt;&gt; eval('1 + 1 == 2')
+```python
+>>> eval('1 + 1 == 2')
 True
-&gt;&gt;&gt; eval('1 + 1 == 3')
+>>> eval('1 + 1 == 3')
 False
-&gt;&gt;&gt; eval('9567 + 1085 == 10652')
+>>> eval('9567 + 1085 == 10652')
 True
-</pre>
+```
 
 The `eval()` function isn’t limited to boolean expressions. It can handle any Python expression and returns any datatype.
 
@@ -1494,7 +1494,7 @@ Tests run in isolation, separate from any other test cases (even if they test th
 
 ### 9.2. A SINGLE QUESTION <a name="9-2--A-SINGLE-QUESTION"></a>
 
-<pre class="prettyprint linenums">
+```python
 import roman1
 import unittest
 
@@ -1505,7 +1505,7 @@ class KnownValues(unittest.TestCase):
 	
 if __name__ == '__main__':
     unittest.main()
-</pre>
+```
 
 A test method takes no parameters, returns no value, and must have a name beginning with the four letters `test`. 
 
@@ -1520,7 +1520,7 @@ For each test case, the `unittest` module will print out the `docstring` of the 
 
 ### 9.3. “HALT AND CATCH FIRE” <a name="9-3--“HALT-AND-CATCH-FIRE”"></a>
 
-<pre class="prettyprint linenums">
+```python
 class OutOfRangeError(ValueError): 
     pass
 
@@ -1528,7 +1528,7 @@ class ToRomanBadInput(unittest.TestCase):
     def test_too_large(self): 
         '''to_roman should fail with large input'''
         self.assertRaises(roman2.OutOfRangeError, roman2.to_roman, 4000)
-</pre>
+```
 
 A unit test actually has three return values: `pass`, `fail`, and `error`. 
 
@@ -1538,19 +1538,19 @@ A unit test actually has three return values: `pass`, `fail`, and `error`.
 
 ### 9.4. MORE HALTING,MORE FIRE <a name="9-4--MORE-HALTINGMORE-FIRE"></a>
 
-<pre class="prettyprint linenums">
+```python
 if not (0 < n < 4000): 
     raise OutOfRangeError('number out of range (must be 1..3999)')
-</pre>
+```
 
 This is a nice Pythonic shortcut: multiple comparisons at once. This is equivalent to `if not ((0 < n) and (n < 4000))`, but it’s much easier to read.
 
 ### 9.5. AND ONEMORE THING… <a name="9-5--AND-ONEMORE-THING"></a>
 
-<pre class="prettyprint linenums">
+```python
 if not isinstance(n, int): 
     raise NotIntegerError('non-integers can not be converted')
-</pre>
+```
 
 The built-in `isinstance()` function tests whether a variable is a particular type (or, technically, any descendant type).
 
@@ -1560,12 +1560,12 @@ The built-in `isinstance()` function tests whether a variable is a particular ty
 
 Like it or not, bugs happen. Despite your best efforts to write comprehensive unit tests, bugs happen. What do I mean by “bug”? A bug is a test case you haven’t written yet.
 
-<pre class="prettyprint linenums">
+```python
 if not s: 
     raise InvalidRomanNumeralError('Input can not be blank')
 if not re.search(romanNumeralPattern, s):
     raise InvalidRomanNumeralError('Invalid Roman numeral: {}'.format(s))
-</pre>
+```
 
 - 测试 blank string 用 `if not s`
 - Starting in Python 3.1, you can skip the numbers when using positional indexes in a format specifier. That is, instead of using the format specifier `{0}` to refer to the first parameter to the `format()` method, you can simply use `{}` and Python will fill in the proper positional index for you. This works for any number of arguments; the first `{}` is `{0}`, the second `{}` is `{1}`, and so forth.
@@ -1578,13 +1578,13 @@ Comprehensive unit testing means never having to rely on a programmer who says �
 
 ### 10.3. REFACTORING <a name="10-3--REFACTORING"></a>
 
-<pre class="prettyprint linenums">
+```python
 # XXX.py
 
 def ......
 
 build_lookup_tables()
-</pre>
+```
 
 - `build_lookup_tables()` gets called when the module is imported. It is important to understand that modules are ONLY imported once, then cached. If you import an already-imported module, it does nothing. So this code will only get called the first time you import this module.
 
@@ -1592,9 +1592,9 @@ build_lookup_tables()
 
 ### 11.2. READING FROM TEXT FILES <a name="11-2--READING-FROM-TEXT-FILES"></a>
 
-<pre class="prettyprint linenums">
+```python
 a_file = open('examples/chinese.txt', encoding='utf-8')
-</pre>
+```
 
 - The directory path uses a forward slash. It just works, no matter what the OS is.
 - The above path is a relative one.
@@ -1607,44 +1607,44 @@ Bytes are bytes; characters are an abstraction. A string is a sequence of Unicod
 
 The `open()` function returns a `stream` object.
 
-<pre class="prettyprint linenums">
-&gt;&gt;&gt; a_file = open('examples/chinese.txt', encoding='utf-8')
-&gt;&gt;&gt; a_file.name
+```python
+>>> a_file = open('examples/chinese.txt', encoding='utf-8')
+>>> a_file.name
 'examples/chinese.txt'
-&gt;&gt;&gt; a_file.encoding
+>>> a_file.encoding
 'utf-8'
-&gt;&gt;&gt; a_file.mode
+>>> a_file.mode
 'r'
-</pre>
+```
 
 #### 11.2.3. READING DATA FROM A TEXT FILE <a name="11-2-3--READING-DATA-FROM-A-TEXT-FILE"></a>
 
-<pre class="prettyprint linenums">
-&gt;&gt;&gt; a_file = open('examples/chinese.txt', encoding='utf-8')
-&gt;&gt;&gt; a_file.read() 
+```python
+>>> a_file = open('examples/chinese.txt', encoding='utf-8')
+>>> a_file.read() 
 'Dive Into Python 是为有经验的程序员编写的一本 Python 书。\n'
-&gt;&gt;&gt; a_file.read() 
+>>> a_file.read() 
 ''
-</pre>
+```
 
 Python does not consider reading past end-of-file to be an error; it simply returns an empty string.
 
 #### 11.2.4. CLOSING FILES <a name="11-2-4--CLOSING-FILES"></a>
 
-<pre class="prettyprint linenums">
-&gt;&gt;&gt; a_file.close()
-&gt;&gt;&gt; a_file.closed 
+```python
+>>> a_file.close()
+>>> a_file.closed 
 True
-</pre>
+```
 
 #### 11.2.5. CLOSING FILES AUTOMATICALLY <a name="11-2-5--CLOSING-FILES-AUTOMATICALLY"></a>
 
-<pre class="prettyprint linenums">
+```python
 with open('examples/chinese.txt', encoding='utf-8') as a_file:
     a_file.seek(17)
     a_character = a_file.read(1)
     print(a_character)
-</pre>
+```
 
 This code calls `open()`, but it never calls `a_file.close()`. The `with` statement starts a code block, like an if statement or a `for` loop. Inside this code block, you can use the variable a_file as the stream object returned from the call to `open()`. All the regular stream object methods are available — `seek()`, `read()`, whatever you need. When the `with` block ends, even if you “exit” it via an unhandled exception, Python calls `a_file.close()` _**automatically**_.
 
@@ -1654,13 +1654,13 @@ There’s nothing file-specific about the `with` statement; it’s just a generi
 
 #### 11.2.6. READING DATA ONE LINE AT A TIME <a name="11-2-6--READING-DATA-ONE-LINE-AT-A-TIME"></a>
 
-<pre class="prettyprint linenums">
+```python
 line_number = 0
 with open('examples/favorite-people.txt', encoding='utf-8') as a_file: 
     for a_line in a_file: 
     line_number += 1
     print('{:>4} {}'.format(line_number, a_line.rstrip())) 
-</pre>
+```
 
 To read a file one line at a time, use a `for` loop. That’s it. Besides having explicit methods like `read()`, the stream object is also an iterator which spits out a single line every time you ask for a value.
 
@@ -1678,26 +1678,26 @@ There are two file modes for writing:
 
 Not all files contain text. Some of them contain pictures of my dog.
 
-<pre class="prettyprint linenums">
-&gt;&gt;&gt; an_image = open('examples/beauregard.jpg', mode='rb') 
-&gt;&gt;&gt; an_image.mode 
+```python
+>>> an_image = open('examples/beauregard.jpg', mode='rb') 
+>>> an_image.mode 
 'rb'
-&gt;&gt;&gt; an_image.name 
+>>> an_image.name 
 'examples/beauregard.jpg'
-&gt;&gt;&gt; an_image.encoding 
+>>> an_image.encoding 
 Traceback (most recent call last):
-  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+  File "<stdin>", line 1, in <module>
 AttributeError: '_io.BufferedReader' object has no attribute 'encoding'
-</pre>
+```
 
 - Opening a file in binary mode is simple but subtle. The only difference from opening it in text mode is that the `mode` parameter contains a 'b' character.
 - A binary stream object has no `encoding` attribute
 
-<pre class="prettyprint linenums">
-&gt;&gt;&gt; data = an_image.read(3) 
-&gt;&gt;&gt; data
+```python
+>>> data = an_image.read(3) 
+>>> data
 b'\xff\xd8\xff'
-</pre>
+```
 
 - You’re reading bytes, not strings. Since you opened the file in binary mode, the `read()` method takes the number of bytes to read, not the number of characters.
 
@@ -1710,13 +1710,13 @@ In the simplest case, a stream object is anything with a `read()` method which t
 
 You’re not limiting yourself to real files. The input source that’s being “read” could be anything: a web page, a string in memory, even the output of another program.
 
-<pre class="prettyprint linenums">
-&gt;&gt;&gt; a_string = 'PapayaWhip is the new black.'
-&gt;&gt;&gt; import io 
-&gt;&gt;&gt; a_file = io.StringIO(a_string) 
-&gt;&gt;&gt; a_file.read() 
+```python
+>>> a_string = 'PapayaWhip is the new black.'
+>>> import io 
+>>> a_file = io.StringIO(a_string) 
+>>> a_file.read() 
 'PapayaWhip is the new black.'
-</pre>
+```
 
 - `io.StringIO` lets you treat a string as a text file. 
 - There’s also a `io.BytesIO` class, which lets you treat a byte array as a binary file.
@@ -1729,11 +1729,11 @@ By default, both of these pipes, `stdout` and `stderr`, are just connected to th
 
 In the graphical Python Shell, the `stdout` and `stderr` pipes default to your “Interactive Window”.
 
-<pre class="prettyprint linenums">
-&gt;&gt;&gt; for i in range(3):
+```python
+>>> for i in range(3):
 ... sys.stdout.write('is the') 
 is theis theis the
-</pre>
+```
 
 `stdout` is defined in the `sys` module, and it is a stream object. Calling its `write()` function will print out whatever string you give it. 
 
@@ -1759,11 +1759,11 @@ For cases like this, the `pickle` module is ideal. It’s part of the Python sta
 
 ### 13.2. SAVING DATA TO A PICKLE FILE <a name="13-2--SAVING-DATA-TO-A-PICKLE-FILE"></a>
 
-<pre class="prettyprint linenums">
-&gt;&gt;&gt; import pickle
-&gt;&gt;&gt; with open('entry.pickle', 'wb') as f: 
+```python
+>>> import pickle
+>>> with open('entry.pickle', 'wb') as f: 
 ... pickle.dump(entry, f)
-</pre>
+```
 
 - To do this, it serializes the data structure using a data format called “the pickle protocol.”
 - Not every Python data structure can be serialized by the `pickle` module. The pickle protocol has changed several times as new data types have been added to the Python language, but there are still limitations.
@@ -1772,21 +1772,21 @@ For cases like this, the `pickle` module is ideal. It’s part of the Python sta
 
 ### 13.3. LOADING DATA FROM A PICKLE FILE <a name="13-3--LOADING-DATA-FROM-A-PICKLE-FILE"></a>
 
-<pre class="prettyprint linenums">
-&gt;&gt;&gt; import pickle
-&gt;&gt;&gt; with open('entry.pickle', 'rb') as f: 
+```python
+>>> import pickle
+>>> with open('entry.pickle', 'rb') as f: 
 ... entry = pickle.load(f)
-</pre>
+```
 
 ### 13.4. PICKLINGWITHOUT A FILE <a name="13-4--PICKLINGWITHOUT-A-FILE"></a>
 
 You can also serialize to a `bytes` object in memory.
 
-<pre class="prettyprint linenums">
-&gt;&gt;&gt; b = pickle.dumps(entry) 
-&gt;&gt;&gt; type(b) 
-&lt;class 'bytes'&gt;
-</pre>
+```python
+>>> b = pickle.dumps(entry) 
+>>> type(b) 
+<class 'bytes'>
+```
 
 ### 13.6. DEBUGGING PICKLE FILES (略) <a name="13-6--DEBUGGING-PICKLE-FILES"></a>
 

@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "R: Getting and Cleaning Data"
 description: ""
 category: R
@@ -240,18 +240,18 @@ You should also include information about which system (Mac/Windows/Linux) you u
 
 ### <a name="download-files"></a>2.1 Downloading Files
 
-<pre class="prettyprint linenums">
+```r
 if (!file.exists("data")) { ## check to see if the directory exists
     dir.create("data") ## create a directory if it doesn't exist
 }
-</pre>
+```
 
-<pre class="prettyprint linenums">
+```r
 fileUrl <- "https://data.baltimorecity.gov/api/views/dz54-2aru/rows.csv?accessType=DOWNLOAD"
 download.file(fileUrl, destfile = "./data/cameras.csv", method = "curl")
 list.files("./data")
 dateDownloaded <- date() ## Be sure to record when you downloaded.
-</pre>
+```
 
 ### <a name="read-table-args"></a>2.2 `read.table` args: `na.strings`, `stringsAsFactors`, `comment.char`
 
@@ -288,14 +288,14 @@ dateDownloaded <- date() ## Be sure to record when you downloaded.
 
 #### <a name="the-tables-function"></a>2.3.1 Using `tables` 
 
-<pre class="prettyprint linenums">
+```r
 library(data.table)
 tables() ## see all the tables in memory
-</pre>
+```
 
 #### <a name="data-table-referencing"></a>2.3.2 Referencing
 
-<pre class="prettyprint linenums">
+```r
 df <- data.frame(A=1:3, B=4:6, C=7:9)
 dt <- data.table(A=1:3, B=4:6, C=7:9)
 
@@ -316,7 +316,7 @@ dt[dt$A>1,] ## 返回 A>1 的所有行，in this case
 ## 2: 3 6 9
 
 dt[c(2,3)] ## 返回 row 2 和 row 3
-</pre>
+```
 
 #### <a name="calculation-in-data-table"></a>2.3.3 Calculation inside the data table
 
@@ -328,14 +328,14 @@ dt[c(2,3)] ## 返回 row 2 和 row 3
 
 还是利用 dt 的第二维，比如：
 	
-<pre class="prettyprint linenums">
+```r
 dt[, D:=C^2] ## 添加一个新 column D，值是 dt$C 的平方
 
 ##    A B C  D
 ## 1: 1 4 7 49
 ## 2: 2 5 8 64
 ## 3: 3 6 9 81
-</pre>
+```
 	
 注意：
 
@@ -344,20 +344,20 @@ dt[, D:=C^2] ## 添加一个新 column D，值是 dt$C 的平方
 * 这个操作直接影响 dt，不用重新赋值 `dt <- dt[, D:=C^2]`
 * 这个操作是也是有返回值的，而且返回的是更新后的 dt
 
-<pre class="prettyprint linenums">
+```r
 dt[, E:={temp <- A+B; log(temp+5)}] ## 更复杂的添加 column 运算；{} 这个就是 anonymous function
 
 ##    A B C  D        E
 ## 1: 1 4 7 49 2.302585
 ## 2: 2 5 8 64 2.484907
 ## 3: 3 6 9 81 2.639057
-</pre>
+```
 	
 #### <a name="by-dotN-key-join"></a>2.3.5 Group by, `.N`, Keys and Join
 	
 ##### Group By
 	
-<pre class="prettyprint linenums">
+```r
 dt2 <- data.table(A=1:4, B=5:8, C=c(9, 9, 10, 10))
 dt2[, D:=mean(A+B), by=C] ## by 就是 group by，C 值相同的 row 算一组；D:=mean(A+B) 是计算组内所有 row 的 mean(A+B)，不是单行的 mean(A+B)
 
@@ -366,25 +366,25 @@ dt2[, D:=mean(A+B), by=C] ## by 就是 group by，C 值相同的 row 算一组�
 ## 2: 2 6  9  7
 ## 3: 3 7 10 11
 ## 4: 4 8 10 11
-</pre>
+```
 
 ##### .N
 	
 `.N` 一般的解释是 "an integer, length 1, containing row#"，但我觉得也可以理解为一种操作，作用是显示 row#. It is renamed to N (no dot) in the result (otherwise a column called ".N" could conﬂict with the .N variable)
 
-<pre class="prettyprint linenums">
-&gt; dt2[, .N]
+```r
+> dt2[, .N]
 [1] 4 ## 4 rows in total
 
-&gt; dt2[, .N, by=C]
+> dt2[, .N, by=C]
     C N
 1:  9 2 ## C==9 的有 2 rows
 2: 10 2 ## 同理
-</pre>
+```
 
 ##### Keys
 
-<pre class="prettyprint linenums">
+```r
 set.seed(1130)
 dt3 <- data.table(x=rep(c("a","b","c"),each=5), y=rnorm(15))
 setkey(dt3, x) ## set dt3$x as the key
@@ -396,11 +396,11 @@ dt3['a'] ## 等价于 dt[dt$x='a',]；注意这种用法对数值类型的 key �
 ## 3: a -0.87017887
 ## 4: a  0.06673955
 ## 5: a -0.99255419
-</pre>
+```
 	
 ##### Join
 
-<pre class="prettyprint linenums">
+```r
 dt4 <- data.table(x=c('a', 'a', 'b', 'c'), y=1:4)
 
 ##    x y
@@ -425,7 +425,7 @@ merge(dt4, dt5) ## key 值相同的 row merge 到一起
 ## 2: a 2 5
 ## 3: b 3 6
 ## 4: c 4 7
-</pre>
+```
 
 #### <a name="fread"></a>2.3.6 Fast Reading
 	
@@ -451,7 +451,7 @@ The `sqldf` package allows for execution of SQL commands on R data frames, e.g. 
 
 先制作示例 data frame：
 
-<pre class="prettyprint linenums">
+```r
 set.seed(1130)
 X <- data.frame(var1=sample(1:5),var2=sample(6:10),var3=sample(11:15))
 X <- X[sample(1:5),] ## 随机排列这 5 行 
@@ -463,48 +463,48 @@ X$var2[c(1,3)] <- NA ## 选两个元素赋为 NA
 ## 2    4   NA   13
 ## 1    1    6   15
 ## 4    5   10   12
-</pre>
+```
 
-<pre class="prettyprint linenums">
-&gt; X[, 1] ## extract column 1, i.e. "var1"
+```r
+> X[, 1] ## extract column 1, i.e. "var1"
 [1] 2 3 4 1 5
-&gt; X[, "var1"] ## extract column "var1"
+> X[, "var1"] ## extract column "var1"
 [1] 2 3 4 1 5
-&gt; X[1:2, "var2"] ## extract row 1 and row 2 of column "var2"
+> X[1:2, "var2"] ## extract row 1 and row 2 of column "var2"
 [1] NA  7
-&gt; X[X$var1 <= 3 & X$var3 > 11,]
+> X[X$var1 <= 3 & X$var3 > 11,]
   var1 var2 var3
 5    2   NA   14
 1    1    6   15
-</pre>
+```
 
 注意 [] 的条件其实是可以组合出很多高大上的功能的，比如假设 `v` 是一个 vector，有：
 
-<pre class="prettyprint linenums">
+```r
 ## Select all elements greater than the median
-v[ v &gt; median(v) ]
+v[ v > median(v) ]
 ## Select all elements in the lower and upper 5%
-v[ (v &lt; quantile(v,0.05)) | (v &gt; quantile(v,0.95)) ]
+v[ (v < quantile(v,0.05)) | (v > quantile(v,0.95)) ]
 ## Select all elements that exceed ±2 standard deviations from the mean
-v[ abs(v-mean(v)) &gt; 2*sd(v) ]
+v[ abs(v-mean(v)) > 2*sd(v) ]
 ## Select all elements that are neither NA nor NULL
 v[ !is.na(v) & !is.null(v) ]
-</pre>
+```
 
 ##### <a name="the-subset-function"></a>Using `subset` function
 
 举几个例子，应该不需要再解释了：
 
-<pre class="prettyprint linenums">
+```r
 subset(dfrm, select=colname)
 subset(dfrm, select=c(colname1, ..., colnameN))
 
-subset(dfrm, subset=(response &gt; 0))
-subset(dfrm, select=c(predictor,response), subset=(response &gt; 0))
+subset(dfrm, subset=(response > 0))
+subset(dfrm, select=c(predictor,response), subset=(response > 0))
 
 subset(dfrm, select = -badboy) # All columns except 'badboy'
 subset(patient.data, select = c(-patient.id,-dosage)) # except these two columns
-</pre>
+```
 
 但是 [In R, why is \[ better than `subset`?](http://stackoverflow.com/questions/9860090/in-r-why-is-better-than-subset) 说直接在 [] 写条件是比用 subset 要好的，具体请细看。
 
@@ -512,154 +512,154 @@ subset(patient.data, select = c(-patient.id,-dosage)) # except these two columns
 
 在使用 `which(vector > x)` 时要注意与 `vector > x` 的区别：
 
-<pre class="prettyprint linenums">
-&gt; X$var1 &gt; 3 ## 返回 TRUE-FALSE vector
+```r
+> X$var1 > 3 ## 返回 TRUE-FALSE vector
 [1] FALSE FALSE  TRUE FALSE  TRUE
-&gt; which(X$var1 &gt; 3) ## 返回满足条件的元素的 index
+> which(X$var1 > 3) ## 返回满足条件的元素的 index
 [1] 3 5
 
-&gt; X$var2 &gt; 8 ## NA 仍然保留
+> X$var2 > 8 ## NA 仍然保留
 [1]    NA FALSE    NA FALSE  TRUE 
-&gt; which(X$var2 &gt; 8) ## NA 会被处理掉，你可以理解成 which() 将 (NA > 8) 判定为 false
+> which(X$var2 > 8) ## NA 会被处理掉，你可以理解成 which() 将 (NA > 8) 判定为 false
 [1] 5
 
-&gt; X[X$var2 &gt;8,] ## 进而 NA 会影响 subset 的结果
+> X[X$var2 >8,] ## 进而 NA 会影响 subset 的结果
      var1 var2 var3
 NA     NA   NA   NA
 NA.1   NA   NA   NA
 4       5   10   12
-&gt; X[which(X$var2 &gt;8),] ## which 不会返回 NA，subset 的结果自然也没有全是 NA 的行
+> X[which(X$var2 >8),] ## which 不会返回 NA，subset 的结果自然也没有全是 NA 的行
   var1 var2 var3
 4    5   10   12
-</pre>
+```
 
 `which.min`: 找到 min 值所在的 index 或者行号；同理有 `which.max`
 
-<pre class="prettyprint linenums">
-&gt; x &lt;- c(7:9, 4:6, 1:3)
-&gt; x
+```r
+> x <- c(7:9, 4:6, 1:3)
+> x
 [1] 7 8 9 4 5 6 1 2 3
-&gt; which.min(x)
+> which.min(x)
 [1] 7
-&gt; which.max(x)
+> which.max(x)
 [1] 3
-</pre>
+```
 
 ##### <a name="remove-columns"></a>How to remove columns?
 
 有时也会遇到这样的情况：需要把原 data frame 删掉一些 column 来构成新的 data frame，这是可以把具体的 column 赋值为 NULL，比如：
 
-<pre class="prettyprint linenums">
-&gt; df &lt;- data.frame(A=1:3, B=4:6, C=7:9)
-&gt; df2 &lt;- df  ## 保留原 df，在新的 df2 上做删除
-&gt; df2$C &lt;- NULL
-&gt; df2
+```r
+> df <- data.frame(A=1:3, B=4:6, C=7:9)
+> df2 <- df  ## 保留原 df，在新的 df2 上做删除
+> df2$C <- NULL
+> df2
   A B
 1 1 4
 2 2 5
 3 3 6
-</pre>
+```
 
 ##### <a name="extract-new-data-frame"></a>Making new data frames by extraction
 
 有时候和 remove column 的情况相反：我只需要原来 data frame 的某几个 columns 来构成新 data frame（如果原 column 数很多的话，一个一个删除起来很麻烦），这个操作比我想得要简单：
 
-<pre class="prettyprint linenums">
-df2 &lt;- data.frame(df$A, df$B) ## 直接拿你想要的 column 重新构造一个 data frame 就好了
-</pre>
+```r
+df2 <- data.frame(df$A, df$B) ## 直接拿你想要的 column 重新构造一个 data frame 就好了
+```
 
 R 和 java 有一点不同的是 R 的构造器真的很强大，所以不要陷入 java 的思维去找单独的 extract 方法，灵活运用构造器可以带来很多惊喜。
 
 #### <a name="sort"></a>3.1.2 Sorting
 
-<pre class="prettyprint linenums">
-&gt; sort(X$var1)
+```r
+> sort(X$var1)
 [1] 1 2 3 4 5
-&gt; sort(X$var1, decreasing=TRUE)
+> sort(X$var1, decreasing=TRUE)
 [1] 5 4 3 2 1
-&gt; sort(X$var2) ## 默认忽略 NA
+> sort(X$var2) ## 默认忽略 NA
 [1]  6  7 10
-&gt; sort(X$var2, na.last=TRUE) ## put NA values at the end of the sort
+> sort(X$var2, na.last=TRUE) ## put NA values at the end of the sort
 [1]  6  7 10 NA NA
 
-&gt; sort(c("CA", "TX", "AZ")) ## 不关是数字，alphabet 也可以排
+> sort(c("CA", "TX", "AZ")) ## 不关是数字，alphabet 也可以排
  [1] "AZ" "CA" "TX"
-</pre>
+```
 
 #### <a name="order"></a>3.1.3 Ordering
 
-<pre class="prettyprint linenums">
-&gt; df <- data.frame(A=sample(c(1, 1, 2, 2, 3)), B=sample(6:10), C=sample(11:15))
-&gt; df
+```r
+> df <- data.frame(A=sample(c(1, 1, 2, 2, 3)), B=sample(6:10), C=sample(11:15))
+> df
   A  B  C
 1 2 10 11
 2 1  6 14
 3 2  8 12
 4 1  7 15
 5 3  9 13
-&gt; order(df$A) ## df$A 升序的 index
+> order(df$A) ## df$A 升序的 index
 [1] 2 4 1 3 5
-&gt; df[order(df$A),] ## 将排序后的 index 传给 [] 才能重排
+> df[order(df$A),] ## 将排序后的 index 传给 [] 才能重排
   A  B  C
 2 1  6 14
 4 1  7 15
 1 2 10 11
 3 2  8 12
 5 3  9 13
-&gt; order(df$A, df$B) ## 按 df$A 升序排列，若 df$A 值相同，再按 df$B 升序排列（多维排序）
+> order(df$A, df$B) ## 按 df$A 升序排列，若 df$A 值相同，再按 df$B 升序排列（多维排序）
 [1] 2 4 3 1 5
-&gt; df[order(df$A, df$B),] ## 注意 order 只是返回一个 vector of row indexes，要得到排序后的 df 需要组合使用 df[order(df$xxx)]
+> df[order(df$A, df$B),] ## 注意 order 只是返回一个 vector of row indexes，要得到排序后的 df 需要组合使用 df[order(df$xxx)]
   A  B  C
 2 1  6 14
 4 1  7 15
 3 2  8 12
 1 2 10 11
 5 3  9 13
-</pre>
+```
 
 这里介绍一个降序排列的小技巧：
 
-<pre class="prettyprint linenums">
-&gt; order(-df$A) ## use negative to sort descending
-</pre>
+```r
+> order(-df$A) ## use negative to sort descending
+```
 
 #### <a name="plyr-order"></a>3.1.3 Ordering with `plyr`
 
-<pre class="prettyprint linenums">
-&gt; library(plyr)
-&gt; arrange(df, A)
+```r
+> library(plyr)
+> arrange(df, A)
   A  B  C
 1 1  6 14
 2 1  7 15
 3 2 10 11
 4 2  8 12
 5 3  9 13
-&gt; arrange(df, desc(A))
+> arrange(df, desc(A))
   A  B  C
 1 3  9 13
 2 2 10 11
 3 2  8 12
 4 1  6 14
 5 1  7 15
-</pre>
+```
 
 ### <a name="summarize"></a>3.2 Summarizing Data
 
 首先获取试验数据：
 
-<pre class="prettyprint linenums">
+```r
 if(!file.exists("./data")){dir.create("./data")}
 fileUrl <- "http://data.baltimorecity.gov/api/views/k5ry-ef3g/rows.csv?accessType=DOWNLOAD" ## the https URL cannot work on my Windows, so I changed to http
 download.file(fileUrl,destfile="./data/restaurants.csv",method="auto") ## method="curl" won't work on my Windows
 ## Or you can try install.packages("downloader")
 restData <- read.csv("./data/restaurants.csv")
-</pre>
+```
 
 #### <a name="about-rows-and-columns"></a>3.2.1 `dim`, `nrow`, `ncol`, `colnames`, `head`, `tail`, `summary` and `str`
 
 太常用了我就不啰嗦了。
 
-<pre class="prettyprint linenums">
+```r
 dim(restData) ## 1327    6  
 ## i.e. 1327x6, 和 Octave 的 size(X) 是一个意思
 
@@ -673,18 +673,18 @@ head(restData, n=3) ## n = 6 by default
 tail(restData, n=3) ## 此外还有个小技巧是：当 x 名字变得很长时，x[length(x)] 看得就会很心烦，此时可以用 tail(x, n=1) 来代替
 summary(restData)
 str(restData)
-</pre>
+```
 
 #### <a name="quantile"></a>3.2.2 `quantile`
 
-<pre class="prettyprint linenums">
-&gt; quantile(restData$councilDistrict, na.rm=TRUE) ## remove NA
+```r
+> quantile(restData$councilDistrict, na.rm=TRUE) ## remove NA
   0%  25%  50%  75% 100% 
    1    2    9   11   14 
-&gt; quantile(restData$councilDistrict, probs=c(0.5,0.75,0.9))
+> quantile(restData$councilDistrict, probs=c(0.5,0.75,0.9))
   50% 75% 90% 
     9  11  12 
-</pre>
+```
 
 这里使用的应该是下侧分位数，参照 [R Generating Random Numbers and Random Sampling](/r/2014/07/08/r-generating-random-numbers-and-random-sampling) 中 "新知识：分位数 Quantile" 小节，输出的意思是：
 
@@ -695,11 +695,11 @@ str(restData)
 
 当然这里要注意边界值没有那么严格，`restData$councilDistrict` 是有很多值为 1 的，理论上 $ u_{0.00} $ 不应该是 1。所以这里 $ u_{0.00} $ 最好理解为 min 值，$ u_{1.00} $ 理解为 max 值，这和 `summary` 的结果是一致的：
 
-<pre class="prettyprint linenums">
-&gt; summary(restData$councilDistrict)
+```r
+> summary(restData$councilDistrict)
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
   1.000   2.000   9.000   7.191  11.000  14.000 
-</pre>
+```
 
 <a name="quartile"></a>注意 summary 这里的 "Qu" 指的是 quartile [ˈkwɔ:taɪl] 而不是 quantile ['kwɒntaɪl]:
 
@@ -742,18 +742,18 @@ quartile $ Q_3 $
 
 `table` 的作用其实是统计取值的个数，比如：
 
-<pre class="prettyprint linenums">
+```r
 > table(restData$councilDistrict, useNA="ifany") ## useNA="ifany" 表示如果有 NA，也会计算 NA 的个数；不指定的话，NA 值是不会被统计的
 
   1   2   3   4   5   6   7   8   9  10  11  12  13  14 
 312  85  32  30  40  36  62  18  75 172 277  89  45  54
-</pre>
+```
 
 1 对应的 312 表示 `restData$councilDistrict == 1` 的有 312 个（i.e. 312 rows）。  
 
 同理有二维的 table：
 
-<pre class="prettyprint linenums">
+```r
 > table(restData$councilDistrict, restData$policeDistrict)
     
      CENTRAL EASTERN NORTHEASTERN NORTHERN ......
@@ -762,50 +762,50 @@ quartile $ Q_3 $
   3        0       0           32        0 ......
   4        0       0            2       28 ......
   ......
-</pre>
+```
 
 2 和 NORTHEASTERN 对应的 27 表示 `restData$councilDistrict == 2 && restData$policeDistrict == NORTHEASTERN` 的有 27 个（i.e. 27 rows）。
 
 #### <a name="check-NA"></a>3.2.4 Checking NA
 
-<pre class="prettyprint linenums">
+```r
 ## You can use the complete.cases() function on a data frame, matrix, or vector, which returns a logical vector indicating which cases are complete, i.e., they have no missing values.
 ## 我们称 a row is complete when it has no NA values
-&gt; table(complete.cases(restData)) 
+> table(complete.cases(restData)) 
 
 TRUE 
 1327 
-</pre>
+```
 
-<pre class="prettyprint linenums">
+```r
 sum(is.na(restData$councilDistrict)) ## 统计 NA 的数量
 any(is.na(restData$councilDistrict)) ## 检查 is.na(df$A) 是否有为 TRUE 的，如果有，返回 TRUE；如果是全 FALSE，返回 FALSE
 all(restData$zipCode > 0) ## 返回 TRUE / FALSE
-</pre>
+```
 
-<pre class="prettyprint linenums">
-&gt; colSums(is.na(restData)) ## is.na(restData) 返回一个 TRUE / FALSE 的 data frame，而且 column 名字还没变，所以接着用 colSums 正好可以统计各个 column 为 is.na 为 TRUE 的数量
+```r
+> colSums(is.na(restData)) ## is.na(restData) 返回一个 TRUE / FALSE 的 data frame，而且 column 名字还没变，所以接着用 colSums 正好可以统计各个 column 为 is.na 为 TRUE 的数量
   name  zipCode  neighborhood  councilDistrict  policeDistrict  Location.1 
   0     0        0             0                0               0 
-</pre>
+```
 
 注意 `colSums` 是带 column name 的，但是 `rowSums` 不带，只返回一个 1xn 的 vector。
 
-<pre class="prettyprint linenums">
+```r
 all(colSums(is.na(restData)) == 0) ## 当 column 太多时，colSums 看起来也不方便，这时用 all 就好了
-</pre>
+```
 
 ##### <a name="na.omit"></a>有点粗暴的处理手段：`na.omit`
 
 `na.omit`: 去掉有 NA 的行
 
-<pre class="prettyprint linenums">
-&gt; DF &lt;- data.frame(x = c(1, 2, 3), y = c(0, 10, NA))
-&gt; na.omit(DF)
+```r
+> DF <- data.frame(x = c(1, 2, 3), y = c(0, 10, NA))
+> na.omit(DF)
   x  y
 1 1  0
 2 2 10
-</pre>
+```
 
 但是要注意，`na.omit(DF)` 并没有改变 DF 的值，要想改变 DF 的值，需要重新赋值 `DF <- na.omit(DF)`。
 
@@ -815,36 +815,36 @@ all(colSums(is.na(restData)) == 0) ## 当 column 太多时，colSums 看起来�
 
 没啥好说的，注意 `%in%` 的用法就好（类似于 `collection.contains(obj)` 操作）。
 
-<pre class="prettyprint linenums">
-&gt; table(restData$zipCode %in% c("21212"))
+```r
+> table(restData$zipCode %in% c("21212"))
 
 FALSE  TRUE 
  1299    28 
-&gt; table(restData$zipCode %in% c("21212","21213"))
+> table(restData$zipCode %in% c("21212","21213"))
 
 FALSE  TRUE 
  1268    59 
-&gt; restData[restData$zipCode %in% c("21212","21213"),]
+> restData[restData$zipCode %in% c("21212","21213"),]
                  name zipCode                neighborhood councilDistrict policeDistrict ......
 29  BAY ATLANTIC CLUB   21212                    Downtown              11        CENTRAL ......
 39  BERMUDA BAR         21213               Broadway East              12        EASTERN ......
 92  ATWATER'S           21212   Chinquapin Park-Belvedere               4       NORTHERN ......
 ......
-</pre>
+```
 
 然后 `unique` 可以排除重复元素：
 
-<pre class="prettyprint linenums">
-&gt; x &lt;- c(1:5, 2:6)
-&gt; unique(x)
+```r
+> x <- c(1:5, 2:6)
+> unique(x)
 [1] 1 2 3 4 5 6
-</pre>
+```
 
 #### <a name="xtab"></a>3.2.6 Cross Tabulation (`xtabs`): 统计多个变量的取值组合
 
 这次换个小点的数据集来演示：
 
-<pre class="prettyprint linenums">
+```r
 data(UCBAdmissions) ## BTW, data() will show you a list of data sets within R
 df = as.data.frame(UCBAdmissions)
 summary(df)
@@ -856,22 +856,22 @@ summary(df)
 ##                            D:4   Mean   :188.6  
 ##                            E:4   3rd Qu.:302.5  
 ##                            F:4   Max.   :512.0  
-</pre>
+```
 
-<pre class="prettyprint linenums">
-&gt; xtabs(Freq ~ Gender + Admit, data=df)
+```r
+> xtabs(Freq ~ Gender + Admit, data=df)
         Admit
 Gender   Admitted Rejected
   Male       1198     1493
   Female      557     1278
-</pre>
+```
 
 这个表的意思是：满足 `Gender=="Male" & Admit=="Admitted"` 的所有 row 的 Freq 的和为 1198；依次类推。
 
 我们可以自行验证一下：
 
-<pre class="prettyprint linenums">
-&gt; df[df$Gender=="Male" & df$Admit=="Admitted", ]
+```r
+> df[df$Gender=="Male" & df$Admit=="Admitted", ]
       Admit Gender Dept Freq
 1  Admitted   Male    A  512
 5  Admitted   Male    B  353
@@ -879,52 +879,52 @@ Gender   Admitted Rejected
 13 Admitted   Male    D  138
 17 Admitted   Male    E   53
 21 Admitted   Male    F   22
-&gt; sum(df[df$Gender=="Male" & df$Admit=="Admitted", ]$Freq)
+> sum(df[df$Gender=="Male" & df$Admit=="Admitted", ]$Freq)
 [1] 1198
-</pre>
+```
 
 <a name="ftable"></a>当 `xtabs` 超过 2 维时，输出就有点难看了，这时可以用 `ftable` 来调整下输出的格式：
 
-<pre class="prettyprint linenums">
-&gt; xt &lt;- xtabs(Freq ~ ., data=df)
-&gt; ftable(xt)
+```r
+> xt <- xtabs(Freq ~ ., data=df)
+> ftable(xt)
                 Dept   A   B   C   D   E   F
 Admit    Gender                             
 Admitted Male        512 353 120 138  53  22
          Female       89  17 202 131  94  24
 Rejected Male        313 207 205 279 138 351
          Female       19   8 391 244 299 317
-</pre>
+```
 
 注意一定要 `ftable(xtab)` 套用才行，直接 `ftable(Freq ~ ., data=df)` 的输出也是很长很散的。
 
 #### <a name="data-size"></a>3.2.7 Calculating the size of a dataset
 
-<pre class="prettyprint linenums">
-&gt; object.size(df)
+```r
+> object.size(df)
 3216 bytes
-&gt; print(object.size(df), units="Kb")
+> print(object.size(df), units="Kb")
 3.1 Kb
-&gt; print(object.size(df), units="Mb")
+> print(object.size(df), units="Mb")
 0 Mb
-</pre>
+```
 
 ### <a name="add-new-var"></a>3.3 Adding New Variables (i.e. New Columns)
 
 #### <a name="add-column-row"></a>3.3.1 How to add columns and rows
 
-<pre class="prettyprint linenums">
-&gt; df &lt;- data.frame(A=1:3, B=4:6, C=7:9) ## 原始 df
+```r
+> df <- data.frame(A=1:3, B=4:6, C=7:9) ## 原始 df
 
-&gt; df &lt;- cbind(df, 10:12) ## 添加一个 column，但是 column name 会直接变成 "10:12"
+> df <- cbind(df, 10:12) ## 添加一个 column，但是 column name 会直接变成 "10:12"
 
-&gt; D &lt;- 10:12
-&gt; df &lt;- cbind(df, D) ## 新 column name 为 D
+> D <- 10:12
+> df <- cbind(df, D) ## 新 column name 为 D
 
-&gt; df$D &lt;- 10:12 ## 更直接的方式
+> df$D <- 10:12 ## 更直接的方式
 
-&gt; df &lt;- rbind(df, rep(0, 3)) ## add a row
-</pre>
+> df <- rbind(df, rep(0, 3)) ## add a row
+```
 
 <a name="cbind-vector-get-matrix"></a>这里要强调一下：cbind 多个 vector 产生的是 matrix 而不是 data frame。之所以强调这一点是因为有些 generic function (比如 [melt](#melt)) 会根据实际的参数类型来选择不同的操作。
 	
@@ -937,13 +937,13 @@ Rejected Male        313 207 205 279 138 351
 
 <a name="re-order-column"></a>另外，添加 column 后总会有调整 column 顺序的需求，而且一般都是把 last column 往前排，这里介绍一种比较简单的方法：
 
-<pre class="prettyprint linenums">
+```r
 data[, c(ncol(data),1:(ncol(data)-1))] ## move last column to first
 data[, c(1,ncol(data),2:(ncol(data)-1))] ## move last column to second
 data[, c(1:2,ncol(data),3:(ncol(data)-1))] ## move last column to third
 
 ## 发现规律了么？
-</pre>
+```
 
 #### <a name="add-mathematical-var"></a>3.3.2 Creating mathematical variables
 
@@ -968,37 +968,37 @@ data[, c(1:2,ncol(data),3:(ncol(data)-1))] ## move last column to third
 
 用 `seq` 创建好再添加为新 column 就可以了：
 
-<pre class="prettyprint linenums">
-&gt; seq(1, 10, by=2) ## sequence increases by 2
+```r
+> seq(1, 10, by=2) ## sequence increases by 2
 [1] 1 3 5 7 9
 
-&gt; seq(1, 10, length=3) ## create a sequence whose length is 3
+> seq(1, 10, length=3) ## create a sequence whose length is 3
 [1]  1.0  5.5 10.0
 
-&gt; x &lt;- c(1,3,8,25,100) ## create a sequence along x
+> x <- c(1,3,8,25,100) ## create a sequence along x
 seq(along = x)
 [1] 1 2 3 4 5
-</pre>
+```
 
 #### <a name="add-subset-result"></a>3.3.4 Adding subset result
 
 其实就是把 subset 的结果添加为新 column：
 
-<pre class="prettyprint linenums">
-restData$nearMe &lt;- restData$neighborhood %in% c("Roland Park", "Homeland")
-</pre>
+```r
+restData$nearMe <- restData$neighborhood %in% c("Roland Park", "Homeland")
+```
 
 <a name="ifelse"></a>还有一种 `ifelse` 操作，十分类似 Java 的三目运算符 `? :`:
 
-<pre class="prettyprint linenums">
-restData$zipState &lt;- ifelse(restData$zipCode < 0, "invalid", "valid") ## restData$zipCode < 0? "invalid" : "valid"
-</pre>
+```r
+restData$zipState <- ifelse(restData$zipCode < 0, "invalid", "valid") ## restData$zipCode < 0? "invalid" : "valid"
+```
 
 这个 Java 一样，也是可以嵌套的，比如：
 
-<pre class="prettyprint linenums">
+```r
 ALevels = ifelse(df$A < 10000, "low", ifelse(df$A > 20000, "high", "med"))
-</pre>
+```
 
 #### <a name="add-categorical-var"></a>3.3.5 Creating categorical variables
 
@@ -1006,44 +1006,44 @@ ALevels = ifelse(df$A < 10000, "low", ifelse(df$A > 20000, "high", "med"))
 
 <a name="factor-along-column"></a>根据 column 直接生成一个 factor 是很简单的，直接把 column 传给 `factor()` 就可以了：
 
-<pre class="prettyprint linenums">
+```r
 restData$zcf <- factor(restData$zipCode)
-</pre>
+```
 
 <a name="arrange-levels"></a>有时候需要特别指定一下 levels：
 
-<pre class="prettyprint linenums">
-&gt; yesno <- sample(c("yes","no"), size=10, replace=TRUE)
-&gt; factor(yesno) ## 默认情况下，levels 按字母顺序排列，所以 no 是 level#1，yes 是 level#2
+```r
+> yesno <- sample(c("yes","no"), size=10, replace=TRUE)
+> factor(yesno) ## 默认情况下，levels 按字母顺序排列，所以 no 是 level#1，yes 是 level#2
  [1] no  no  yes yes no  yes yes yes no  no 
 Levels: no yes
-&gt; factor(yesno, levels=c("yes","no")) ## 这里指定 levels=c("yes","no") 的话，那 yes 就是 level#1，no 是 level#2
+> factor(yesno, levels=c("yes","no")) ## 这里指定 levels=c("yes","no") 的话，那 yes 就是 level#1，no 是 level#2
  [1] no  no  yes yes no  yes yes yes no  no 
 Levels: yes no
-</pre>
+```
 
 也可以用 `relevel`：
 
-<pre class="prettyprint linenums">
-&gt; yesnofac &lt;- factor(yesno)
-&gt; yesnofac
+```r
+> yesnofac <- factor(yesno)
+> yesnofac
  [1] no  no  yes yes no  yes yes yes no  no 
 Levels: no yes
-&gt; yesnofac &lt;- relevel(yesnofac, ref="yes") ## relevel 的作用是把 ref 提到 level#1，ref 之前的 levels 顺序往后挪一位。factor 本身的元素顺序并不受影响
+> yesnofac <- relevel(yesnofac, ref="yes") ## relevel 的作用是把 ref 提到 level#1，ref 之前的 levels 顺序往后挪一位。factor 本身的元素顺序并不受影响
 ## 另外要注意 relevel 并不会改变 yesnofac 本身，所以还是要再次赋个值
-&gt; yesnofac
+> yesnofac
  [1] no  no  yes yes no  yes yes yes no  no 
 Levels: yes no
-</pre>
+```
 
 <a name="relevel-and-asnumeric"></a> 这里要提一下，`relevel` 会影响 `as.numeric(factor)` 的值：
 
-<pre class="prettyprint linenums">
-&gt; as.numeric(factor(yesno))
+```r
+> as.numeric(factor(yesno))
  [1] 1 1 2 2 1 2 2 2 1 1
-&gt; as.numeric(relevel(factor(yesno), ref="yes"))
+> as.numeric(relevel(factor(yesno), ref="yes"))
  [1] 2 2 1 1 2 1 1 1 2 2
-</pre>
+```
 
 可见 `as.numeric()` 的值是就是 level#，你是 level#1，那值就为 1，和 level#1 具体是什么没有关系。
 
@@ -1053,13 +1053,13 @@ Levels: yes no
 
 还是用 [3.2 Summarizing Data](#summarize) 的试验数据。先看一个例子：
 
-<pre class="prettyprint linenums">
-&gt; quantile(restData$councilDistrict)
+```r
+> quantile(restData$councilDistrict)
   0%  25%  50%  75% 100% 
    1    2    9   11   14 
 
-&gt; restData$councilDistrictGroup &lt;- cut(restData$councilDistrict, breaks=quantile(restData$councilDistrict), include.lowest=TRUE)
-&gt; restData$councilDistrictGroup
+> restData$councilDistrictGroup <- cut(restData$councilDistrict, breaks=quantile(restData$councilDistrict), include.lowest=TRUE)
+> restData$councilDistrictGroup
    [1] [1,2]   [1,2]   [1,2]   (11,14] (2,9]   (11,14] (11,14] (2,9]  
    [9] (11,14] [1,2]   (9,11]  (2,9]   [1,2]   [1,2]   (9,11]  (9,11] 
   [17] (11,14] [1,2]   [1,2]   (9,11]  [1,2]   (9,11]  (2,9]   [1,2] 
@@ -1067,11 +1067,11 @@ Levels: yes no
 [1321] (11,14] (9,11]  (2,9]   [1,2]   (11,14] (2,9]   [1,2] 
 Levels: [1,2] (2,9] (9,11] (11,14]
 
-&gt; table(restData$councilDistrictGroup)
+> table(restData$councilDistrictGroup)
 
   [1,2]   (2,9]  (9,11] (11,14] 
     397     293     449     188  
-</pre>
+```
 
 `cut` 简单说就是按 `breaks` 的区间来分组：
 	
@@ -1084,14 +1084,14 @@ Levels: [1,2] (2,9] (9,11] (11,14]
 
 ###### <a name="the-cut2-function"></a>Easier cutting (with `cut2`)
 
-<pre class="prettyprint linenums">
-&gt; library(Hmisc)
-&gt; restData$councilDistrictGroup &lt;- cut2(restData$councilDistrict, g=4) ## g=4 表示分 4 个 group
-&gt; table(restData$councilDistrictGroup)
+```r
+> library(Hmisc)
+> restData$councilDistrictGroup <- cut2(restData$councilDistrict, g=4) ## g=4 表示分 4 个 group
+> table(restData$councilDistrictGroup)
 
 [ 1, 3) [ 3,10) [10,12) [12,14] 
     397     293     449     188 
-</pre>
+```
 
 注意分组区间的开闭。结果和前面 `cut(include.lowest=TRUE)` 的恰好一致。
 
@@ -1099,12 +1099,12 @@ Levels: [1,2] (2,9] (9,11] (11,14]
 
 mutate 就是 "基因突变" "变异" 的那个意思，注意下用法就好了，和直接加 column 差不多：
 
-<pre class="prettyprint linenums">
+```r
 library(Hmisc); 
 library(plyr);
 restData2 <- mutate(restData, zipGroups=cut2(zipCode,g=4)) ## 作用是：以 restData 为基础，添加一个名为 zipCode 的 column，值为 cut2(zipCode,g=4)
 ## mutate 并不会改变 restData 的值
-</pre>
+```
 
 ### <a name="reshape"></a>3.4 Reshaping Data
 
@@ -1118,18 +1118,18 @@ restData2 <- mutate(restData, zipGroups=cut2(zipCode,g=4)) ## 作用是：以 re
 
 这里我们只演示 data frame 的情况：
 
-<pre class="prettyprint linenums">
-&gt; library(reshape2)
-&gt; df &lt;- data.frame(A=1:3, B=4:6, C=7:9, D=10:12)
-&gt; df &lt;- rbind(df, c(4, NA, NA, 13))
-&gt; df
+```r
+> library(reshape2)
+> df <- data.frame(A=1:3, B=4:6, C=7:9, D=10:12)
+> df <- rbind(df, c(4, NA, NA, 13))
+> df
   A  B  C  D
 1 1  4  7 10
 2 2  5  8 11
 3 3  6  9 12
 4 4 NA NA 13
-&gt; mdf &lt;- melt(df, id=c("A"), measure.vars=c("B", "C", "D"), na.rm=TRUE) ## remove NA of the molten result from row 4 
-&gt; mdf[order(mdf$A),]
+> mdf <- melt(df, id=c("A"), measure.vars=c("B", "C", "D"), na.rm=TRUE) ## remove NA of the molten result from row 4 
+> mdf[order(mdf$A),]
    A variable value
 1  1        B     4
 5  1        C     7
@@ -1141,7 +1141,7 @@ restData2 <- mutate(restData, zipGroups=cut2(zipCode,g=4)) ## 作用是：以 re
 7  3        C     9
 11 3        D    12
 12 4        D    13
-</pre>
+```
 
 初看有点难理解。在 [Reshaping data with the `reshape` package](http://had.co.nz/reshape/introduction.pdf) 里有说，melt 的作用是：
 
@@ -1160,12 +1160,12 @@ restData2 <- mutate(restData, zipGroups=cut2(zipCode,g=4)) ## 作用是：以 re
 
 再介绍一些写法惯例：
 
-<pre class="prettyprint linenums">
+```r
 melt(df) ## 所有的 var (column) 都是 measure.vars，系统自己分配 id
 melt(df, id=c("A")) ## 自动把 A 以外的所有 var 设置成 measure.vars
 melt(df, measure.vars=c("B", "C", "D")) ## 自动把剩下 A 设置成 id
 melt(df, id=1:2) ## 把第一项（A）和第二项（B）设置成 id，剩下的 var 设置成 measure.vars
-</pre>
+```
 
 #### <a name="cast"></a>3.4.2 Casting data frames
 
@@ -1176,12 +1176,12 @@ melt(df, id=1:2) ## 把第一项（A）和第二项（B）设置成 id，剩下�
 
 我们这里只演示 dcast：
 
-<pre class="prettyprint linenums">
-&gt; library(reshape2)
-&gt; df &lt;- data.frame(A=1:3, B=4:6, C=7:9, D=10:12)
-&gt; df &lt;- rbind(df, c(4, NA, NA, 13))
-&gt; mdf &lt;- melt(df, id=c("A"), measure.vars=c("B", "C", "D"), na.rm=TRUE)
-&gt; mdf
+```r
+> library(reshape2)
+> df <- data.frame(A=1:3, B=4:6, C=7:9, D=10:12)
+> df <- rbind(df, c(4, NA, NA, 13))
+> mdf <- melt(df, id=c("A"), measure.vars=c("B", "C", "D"), na.rm=TRUE)
+> mdf
    A variable value
 1  1        B     4
 2  2        B     5
@@ -1193,13 +1193,13 @@ melt(df, id=1:2) ## 把第一项（A）和第二项（B）设置成 id，剩下�
 10 2        D    11
 11 3        D    12
 12 4        D    13 
-&gt; dcast(mdf, A ~ variable)
+> dcast(mdf, A ~ variable)
   A  B  C  D
 1 1  4  7 10
 2 2  5  8 11
 3 3  6  9 12
 4 4 NA NA 13
-</pre>
+```
 
 <a name="formula-valuevar-guessvalue"></a>注意这里是简写，完整一点的写法是：`dcast(mdf, A ~ variable, value.var=c("value"))`，只是 dcast 存在一个[自动识别 value.var 的机制（`guess_value` 函数）](http://127.0.0.1:22009/library/reshape2/html/guess_value.html)：
 
@@ -1222,36 +1222,36 @@ formula 也可以有多项的情况，写法为 X1 + X2 ~ Y1 + Y2，这时 Y1 �
 
 这里用原始的 df 直接演示下（这也说明 `cast` 不一定非要用在 `melt` 的结果上）：
 
-<pre class="prettyprint linenums">
-&gt; df &lt;- data.frame(A=1:3, B=4:6, C=7:9, D=10:12)
-&gt; df
+```r
+> df <- data.frame(A=1:3, B=4:6, C=7:9, D=10:12)
+> df
   A B C  D
 1 1 4 7 10
 2 2 5 8 11
 3 3 6 9 12
-&gt; dcast(df, A ~ .) ## 只有病人 id，没有体检项目
+> dcast(df, A ~ .) ## 只有病人 id，没有体检项目
 Using D as value column: use value.var to override.
   A  .
 1 1 10
 2 2 11
 3 3 12
-&gt; dcast(df, . ~ A) ## 没有病人 id，体检项目是 A 的值
+> dcast(df, . ~ A) ## 没有病人 id，体检项目是 A 的值
 Using D as value column: use value.var to override.
   .  1  2  3
 1 . 10 11 12
-&gt; dcast(df, A ~ ...) ## all variables except A and value.var (D)，所以是 B 和 C，但是要注意是 B+C
+> dcast(df, A ~ ...) ## all variables except A and value.var (D)，所以是 B 和 C，但是要注意是 B+C
 Using D as value column: use value.var to override.
   A 4_7 5_8 6_9
 1 1  10  NA  NA
 2 2  NA  11  NA
 3 3  NA  NA  12
-&gt; dcast(df, ... ~ A) ## all variables except A and value.var (D)，所以是 B 和 C，要注意的是 B+C 写在 formula 左端是不像写在右端那样会组合 B_C 的
+> dcast(df, ... ~ A) ## all variables except A and value.var (D)，所以是 B 和 C，要注意的是 B+C 写在 formula 左端是不像写在右端那样会组合 B_C 的
 Using D as value column: use value.var to override.
   B C  1  2  3
 1 4 7 10 NA NA
 2 5 8 NA 11 NA
 3 6 9 NA NA 12
-</pre>
+```
 
 <a name="aggregation-rule"></a>上面还提到了 aggregation，这里其实有一个非常重要的规则：
 
@@ -1259,76 +1259,76 @@ Using D as value column: use value.var to override.
 
 这里实际的意思是：如果 formula 左端的 id 不能唯一确定一行（i.e. a single observation）时，所有的 id 会实际对应一个 observation 列表，dcast 会在列表上执行 `fun.aggregate` 参数指定的 function，默认是 `length`。举个例子看看：
 
-<pre class="prettyprint linenums">
-&gt; df2 &lt;- rbind(df, c(1, 13, 14, 15))
-&gt; df2
+```r
+> df2 <- rbind(df, c(1, 13, 14, 15))
+> df2
   A  B  C  D
 1 1  4  7 10
 2 2  5  8 11
 3 3  6  9 12
 4 1 13 14 15
-&gt; dcast(df2, A ~ .)
+> dcast(df2, A ~ .)
 Using D as value column: use value.var to override.
 Aggregation function missing: defaulting to length
   A .
 1 1 2 ## 表示 A = 1 的有两个 observation
 2 2 1
 3 3 1
-</pre> 
+```
 
 这个功能拿来做统计其实很有用：
 
-<pre class="prettyprint linenums">
-&gt; dcast(df2, A ~ ., fun.aggregate=sum)
+```r
+> dcast(df2, A ~ ., fun.aggregate=sum)
 Using D as value column: use value.var to override.
   A  .
 1 1 25
 2 2 11
 3 3 12
-&gt; dcast(df2, A ~ ., fun.aggregate=mean)
+> dcast(df2, A ~ ., fun.aggregate=mean)
 Using D as value column: use value.var to override.
   A    .
 1 1 12.5
 2 2 11.0
 3 3 12.0
-</pre>
+```
 
 <a name="margins-subset"></a>最后介绍下两个参数 margins 和 subset。
 
 margins 这个描述起来有点困难，可以看下面代码的例子。目前已知 margins 取值可以是 formula 右边的任意一个 column 或者多个 column 的组合，或者直接 `margins=TRUE` 表示 all possible margins。文档里提到的 "grand_col" 和 "grand_row" 应该是 obsolete 了，至少我在 [源码](https://github.com/hadley/reshape/blob/master/R/helper-margins.r) 里没见着。
 
-<pre class="prettyprint linenums">
+```r
 ## 对于 A ~ B + C，margins 可以取 "B" 或 "C" 或者 c("B", "C")
-&gt; dcast(df2, A ~ B + C, sum, margins="B")
-&gt; dcast(df2, A ~ B + C, sum, margins="C")
-&gt; dcast(df2, A ~ B + C, sum, margins=c("B", "C"))
-&gt; dcast(df2, A ~ B + C, sum, margins=TRUE)
+> dcast(df2, A ~ B + C, sum, margins="B")
+> dcast(df2, A ~ B + C, sum, margins="C")
+> dcast(df2, A ~ B + C, sum, margins=c("B", "C"))
+> dcast(df2, A ~ B + C, sum, margins=TRUE)
 Using D as value column: use value.var to override.
       A 4_7 4_(all) 5_8 5_(all) 6_9 6_(all) 13_14 13_(all) (all)_(all)
 1     1  10      10   0       0   0       0    15       15          25
 2     2   0       0  11      11   0       0     0        0          11
 3     3   0       0   0       0  12      12     0        0          12
 4 (all)  10      10  11      11  12      12    15       15          48
-</pre>
+```
 
 这个效果看自己体会一下吧，有点难解释。
 
 subset 这个简单点，表示 "dcast 应该在 data frame 的 subset 上进行"。subset 的值为 subsetting 的条件，但是要注意写法：
 
-<pre class="prettyprint linenums">
-&gt; library(plyr)
-&gt; dcast(df2, A ~ ., sum)
+```r
+> library(plyr)
+> dcast(df2, A ~ ., sum)
 Using D as value column: use value.var to override.
   A  .
 1 1 25
 2 2 11
 3 3 12
-&gt; dcast(df2, A ~ ., sum, subset=.(A<3)) ## this `.` requires plyr. in fact, `.` is a function
+> dcast(df2, A ~ ., sum, subset=.(A<3)) ## this `.` requires plyr. in fact, `.` is a function
 Using D as value column: use value.var to override.
   A  .
 1 1 25
 2 2 11
-</pre>
+```
 
 #### <a name="calculate-on-groups"></a>3.4.3 Calculate on groups
 
@@ -1338,25 +1338,25 @@ Using D as value column: use value.var to override.
 
 我们掌握下函数的用法就好了。以分组 sum 为例：
 
-<pre class="prettyprint linenums">
-&gt; tapply(InsectSprays$count, InsectSprays$spray, sum)
+```r
+> tapply(InsectSprays$count, InsectSprays$spray, sum)
   A   B   C   D   E   F 
 174 184  25  59  42 200 
 
 ## 效果上它等价于：
-&gt; s <- split(InsectSprays$count, InsectSprays$spray)
-&gt; lapply(s, sum) ## 但是返回结果是 list
+> s <- split(InsectSprays$count, InsectSprays$spray)
+> lapply(s, sum) ## 但是返回结果是 list
 ## or
-&gt; sapply(s, sum) ## 返回结果简化成 vector
+> sapply(s, sum) ## 返回结果简化成 vector
 ## or 
-&gt; unlist(lapply(s, sum)) ## to convert a list to vector (with column name)
-</pre>
+> unlist(lapply(s, sum)) ## to convert a list to vector (with column name)
+```
 
 如果用 plyr 的话可以用：
 
-<pre class="prettyprint linenums">
-&gt; library(plyr)
-&gt; ddply(InsectSprays, .(spray), summarize, sum=sum(count))
+```r
+> library(plyr)
+> ddply(InsectSprays, .(spray), summarize, sum=sum(count))
   spray sum
 1     A 174
 2     B 184
@@ -1367,13 +1367,13 @@ Using D as value column: use value.var to override.
 
 ## 先将 InsectSpray 按 .(spray) 分组，然后在每个分组上执行 summarize，summarize 的参数是 sum=sum(count)
 ## 分组结果可以用 ddply(InsectSprays, .(spray), print) 查看
-</pre>
+```
 
 如果想把分组 sum 添加到 data frame，可以用：
 
-<pre class="prettyprint linenums">
-&gt; spraySums <- ddply(InsectSprays, .(spray), summarize, sum=ave(count,FUN=sum))
-&gt; head(spraySums)
+```r
+> spraySums <- ddply(InsectSprays, .(spray), summarize, sum=ave(count,FUN=sum))
+> head(spraySums)
   spray sum
 1     A 174
 2     A 174
@@ -1382,15 +1382,15 @@ Using D as value column: use value.var to override.
 5     A 174
 6     A 174
 ## ave 的作用是在指定的列（或者列的 subset）上执行 FUN（默认是 mean），然后将计算结果附到该列的每个值的后面
-</pre>
+```
 
 ##### <a name="the-aggregate-function"></a>Using `aggregate` function
 
 简单举个例子：
 
-<pre class="prettyprint linenums">
+```r
 aggregate(. ~ cyl + gear, data=mtcars, FUN=mean)
-</pre>
+```
 
 这一句的意思是：
 
@@ -1408,7 +1408,7 @@ aggregate(. ~ cyl + gear, data=mtcars, FUN=mean)
 
 数据准备：
 
-<pre class="prettyprint linenums">
+```r
 if(!file.exists("./data")){dir.create("./data")}
 fileUrl1 = "http://dl.dropboxusercontent.com/u/7710864/data/reviews-apr29.csv"
 fileUrl2 = "http://dl.dropboxusercontent.com/u/7710864/data/solutions-apr29.csv"
@@ -1416,13 +1416,13 @@ download.file(fileUrl1,destfile="./data/reviews.csv",method="auto")
 download.file(fileUrl2,destfile="./data/solutions.csv",method="auto")
 reviews = read.csv("./data/reviews.csv"); 
 solutions = read.csv("./data/solutions.csv")
-</pre>
+```
 
 #### <a name="the-merge-function"></a>3.5.1 Using `merge`
 
-<pre class="prettyprint linenums">
+```r
 mergedData = merge(reviews, solutions, by.x="solution_id", by.y="id", all=TRUE)
-</pre>
+```
 
 这个学过数据库的应该很了解了（参 [join](/sql/2010/04/03/sql-join)）：
 	
@@ -1437,7 +1437,7 @@ mergedData = merge(reviews, solutions, by.x="solution_id", by.y="id", all=TRUE)
 
 Faster, but less full featured. Defaults to left join, see help file for more.
 
-<pre class="prettyprint linenums">
+```r
 df1 = data.frame(id=sample(1:10), x=rnorm(10))
 df2 = data.frame(id=sample(1:10), y=rnorm(10))
 arrange(join(df1,df2), id) ## arrange 的作用是把行号和 id 都排列整齐
@@ -1452,11 +1452,11 @@ arrange(join(df1,df2), id) ## arrange 的作用是把行号和 id 都排列整�
 8   8 -1.2629 -1.2848
 9   9 -0.9258 -0.8276
 10 10  2.8065  0.5794
-</pre>
+```
 
 #### <a name="the-join-all-function"></a>3.5.3 Using `join_all` if you have multiple data frames
 
-<pre class="prettyprint linenums">
+```r
 df1 = data.frame(id=sample(1:10), x=rnorm(10))
 df2 = data.frame(id=sample(1:10), y=rnorm(10))
 df3 = data.frame(id=sample(1:10), z=rnorm(10))
@@ -1473,7 +1473,7 @@ arrange(join_all(dfList), id)
 8   8  1.3038877 -1.3293329  1.12601196
 9   9  0.8370239 -0.5411611  2.34161938
 10 10 -0.3579197 -0.8578622  1.57283904
-</pre>
+```
 
 #### <a name="the-stack-function"></a>3.5.4 Using `stack` to combine vectors
 
@@ -1486,7 +1486,7 @@ Create a list that contains the vectors. Then use the `stack` function to combin
 
 举个例子就好懂了：
 
-<pre class="prettyprint linenums">
+```r
 freshmenGrade = c(90,85,80)
 sophomoresGrade = c(88,82,91)
 juniorsGrade = c(78,93,95)
@@ -1503,7 +1503,7 @@ allGrade
 7     78   jrs
 8     93   jrs
 9     95   jrs
-</pre>
+```
 
 ### <a name="edit-text"></a>3.6 Editing Text Variables
 
@@ -1525,65 +1525,65 @@ allGrade
 
 准备数据：
 
-<pre class="prettyprint linenums">
+```r
 if(!file.exists("./data")){dir.create("./data")}
-fileUrl &lt;- "http://data.baltimorecity.gov/api/views/dz54-2aru/rows.csv?accessType=DOWNLOAD"
+fileUrl <- "http://data.baltimorecity.gov/api/views/dz54-2aru/rows.csv?accessType=DOWNLOAD"
 download.file(fileUrl,destfile="./data/cameras.csv",method="auto")
-cameraData &lt;- read.csv("./data/cameras.csv")
-</pre>
+cameraData <- read.csv("./data/cameras.csv")
+```
 
 ##### <a name="lower-case-when-possible"></a>Make lower case when possible
 
-<pre class="prettyprint linenums">
+```r
 names(cameraData)
-names(cameraData) &lt;- tolower(names(cameraData)) ## BTW, toupper() makes it upper case
-</pre>
+names(cameraData) <- tolower(names(cameraData)) ## BTW, toupper() makes it upper case
+```
 
 ##### <a name="delete-dot-1"></a>Delete suffix ".1" like in "Location.1"
 
-<pre class="prettyprint linenums">
-&gt; splitNames = strsplit(names(cameraData),"\\.")
-&gt; splitNames[[6]]
+```r
+> splitNames = strsplit(names(cameraData),"\\.")
+> splitNames[[6]]
 [1] "Location" "1"
-&gt; splitNames = sapply(splitNames, function(x) { x[1] })
-&gt; splitNames
+> splitNames = sapply(splitNames, function(x) { x[1] })
+> splitNames
 [1] "address"      "direction"    "street"       "crossStreet" 
 [5] "intersection" "Location"  
-</pre>
+```
 
 ##### <a name="delete-underscore"></a>Delete underscore
 
-<pre class="prettyprint linenums">
-&gt; v &lt;- c("A", "B", "C_1")
-&gt; v1 &lt;- sub("_", "", v) ## sub for substitute
-&gt; v1
+```r
+> v <- c("A", "B", "C_1")
+> v1 <- sub("_", "", v) ## sub for substitute
+> v1
 [1] "A"  "B"  "C1"
 
-&gt; v &lt;- c("A", "B", "C_1_1")
-&gt; v2 &lt;- sub("_", "", v1) ## 但是 sub 只能替换第一个遇到的 `_`
-&gt; v2
+> v <- c("A", "B", "C_1_1")
+> v2 <- sub("_", "", v1) ## 但是 sub 只能替换第一个遇到的 `_`
+> v2
 [1] "A"    "B"    "C1_1"
 
-&gt; v2 &lt;- gsub("_", "", v) ## 使用 gsub 替换全部 `_`
-&gt; v2
+> v2 <- gsub("_", "", v) ## 使用 gsub 替换全部 `_`
+> v2
 [1] "A"   "B"   "C11"
-</pre>
+```
 
 ##### <a name="rename-a-column"></a>Rename a single column
 
-<pre class="prettyprint linenums">
-&gt; names(df)[names(df) == 'old.var.name'] <- 'new.var.name'
-</pre>
+```r
+> names(df)[names(df) == 'old.var.name'] <- 'new.var.name'
+```
 
 #### <a name="grep-grepl"></a>3.6.3 `grep` and `grepl`
 
-<pre class="prettyprint linenums">
-&gt; grep("Alameda", cameraData$intersection) ## 返回 index
+```r
+> grep("Alameda", cameraData$intersection) ## 返回 index
 [1]  4  5 36
-&gt; grep("Alameda", cameraData$intersection, value=TRUE) ## 返回匹配的 item
+> grep("Alameda", cameraData$intersection, value=TRUE) ## 返回匹配的 item
 [1] "The Alameda  & 33rd St"   "E 33rd  & The Alameda"   
 [3] "Harford \n & The Alameda"
-&gt; grepl("Alameda", cameraData$intersection) ## l for "logical vector"
+> grepl("Alameda", cameraData$intersection) ## l for "logical vector"
  [1] FALSE FALSE FALSE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 [25] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE
@@ -1591,70 +1591,70 @@ names(cameraData) &lt;- tolower(names(cameraData)) ## BTW, toupper() makes it up
 [49] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 [61] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 [73] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-&gt; table(grepl("Alameda", cameraData$intersection)) ## 查看匹配与否的数量
+> table(grepl("Alameda", cameraData$intersection)) ## 查看匹配与否的数量
 
 FALSE  TRUE 
    77     3 
-&gt; grep("JeffStreet", cameraData$intersection)
+> grep("JeffStreet", cameraData$intersection)
 integer(0)
-&gt; grep("JeffStreet", cameraData$intersection, value=TRUE)
+> grep("JeffStreet", cameraData$intersection, value=TRUE)
 character(0)
-&gt; length(grep("JeffStreet", cameraData$intersection)) ## 判断是否有匹配
+> length(grep("JeffStreet", cameraData$intersection)) ## 判断是否有匹配
 [1] 0
 
 ## 根据匹配与否来 subset
-&gt; cameraData2 &lt;- cameraData[grep("Alameda", cameraData$intersection), ]
-&gt; cameraData3 &lt;- cameraData[!grepl("Alameda",cameraData$intersection), ]
-</pre>
+> cameraData2 <- cameraData[grep("Alameda", cameraData$intersection), ]
+> cameraData3 <- cameraData[!grepl("Alameda",cameraData$intersection), ]
+```
 
 #### <a name="string-functions"></a>3.6.4 Some other String functions
 
-<pre class="prettyprint linenums">
-&gt; library(stringr)
-&gt; nchar("Jeffrey Leek") ## 相当于 Java 的 String.length(); R 的 length() 是返回 vector 或者 list 的元素个数，不要误用
+```r
+> library(stringr)
+> nchar("Jeffrey Leek") ## 相当于 Java 的 String.length(); R 的 length() 是返回 vector 或者 list 的元素个数，不要误用
 [1] 12
 
-&gt; nchar(c("Moe", "Larry", "Curly")) ## nchar 也可以用于 string vector
+> nchar(c("Moe", "Larry", "Curly")) ## nchar 也可以用于 string vector
 [1] 3 5 5
-</pre>
+```
 
-<pre class="prettyprint linenums">
-&gt; substr("Jeffrey Leek", 1, 7)
+```r
+> substr("Jeffrey Leek", 1, 7)
 [1] "Jeffrey"
 
-&gt; substr(c("Moe", "Larry", "Curly"), 1, 3) ## Extract first 3 characters of each string
+> substr(c("Moe", "Larry", "Curly"), 1, 3) ## Extract first 3 characters of each string
 [1] "Moe" "Lar" "Cur"
 
-&gt; cities &lt;- c("New York, NY", "Los Angeles, CA", "Peoria, IL") 
-&gt; substr(cities, nchar(cities)-1, nchar(cities)) ## In fact, all the arguments can be vectors, in which case substr will treat them as parallel vectors
+> cities <- c("New York, NY", "Los Angeles, CA", "Peoria, IL") 
+> substr(cities, nchar(cities)-1, nchar(cities)) ## In fact, all the arguments can be vectors, in which case substr will treat them as parallel vectors
 [1] "NY" "CA" "IL"
-</pre>
+```
 
-<pre class="prettyprint linenums">
-&gt; paste("Jeffrey", "Leek") ## 注意拼接结果自带一个空格
+```r
+> paste("Jeffrey", "Leek") ## 注意拼接结果自带一个空格
 [1] "Jeffrey Leek"
-&gt; paste("Hello", "world", sep=",")
+> paste("Hello", "world", sep=",")
 [1] "Hello,world"
-&gt; paste0("foo", "bar") ## 不会带空格
+> paste0("foo", "bar") ## 不会带空格
 [1] "foobar"
 
-&gt; paste("Visit", 1:5, sep = "_")
+> paste("Visit", 1:5, sep = "_")
 [1] "Visit_1" "Visit_2" "Visit_3" "Visit_4" "Visit_5"
-&gt; paste("Visit", 1:5, sep = "_", collapse = " ") ## collapse is used to separate the results
+> paste("Visit", 1:5, sep = "_", collapse = " ") ## collapse is used to separate the results
 [1] "Visit_1 Visit_2 Visit_3 Visit_4 Visit_5"
-</pre>
+```
 
-<pre class="prettyprint linenums">
-&gt; library(stringr)
-&gt; str_trim("foo   ")
+```r
+> library(stringr)
+> str_trim("foo   ")
 [1] "foo"
-</pre>
+```
 
-<pre class="prettyprint linenums">
-&gt; id <- c(1, 2, 3)
-&gt; formatC(id, width=3, flag="0") ## 格式化输出：将 id 输出为长度为 3 的串，不够长的填 0
+```r
+> id <- c(1, 2, 3)
+> formatC(id, width=3, flag="0") ## 格式化输出：将 id 输出为长度为 3 的串，不够长的填 0
 [1] "001" "002" "003"
-</pre>
+```
 
 #### <a name="reg-exp"></a>3.6.5 Regular Expressions
 
@@ -1694,7 +1694,7 @@ Regular Expression has 2 components:
 * `[Bb]ush( +[^ ]+ +){1,5} debate`: 首先看中间那个括号，\+个空格，然后\+个非空格，再\+个空格。然后这整个括号的结构可以重复 1-5 次。简单说就是 bush 和 debate 之间可以有 1-5 个单词，这 1-5 个单词之间可以有+个空格
 	* `{5}`: 表示 exactly 重复 5 次
 	* `{1,}`: 表示重复 at least 1 次
-* `　+([a-zA-Z]+) +\1+`: \+个空格（注意：开头的这个空格我用的是全角，用半角的话会被 &lt;code&gt; 吞掉），接着\+个字母，再\+个空格，然后 `\1` 表示与前面括号内的匹配内容一样（这种用法仅限于引用括号的匹配内容），也是\+个。简单说就这就用来匹配两个相同的单词的，比如 " foo foo"
+* `　+([a-zA-Z]+) +\1+`: \+个空格（注意：开头的这个空格我用的是全角，用半角的话会被 <code> 吞掉），接着\+个字母，再\+个空格，然后 `\1` 表示与前面括号内的匹配内容一样（这种用法仅限于引用括号的匹配内容），也是\+个。简单说就这就用来匹配两个相同的单词的，比如 " foo foo"
 
 <!-- -->
 
@@ -1704,23 +1704,23 @@ Regular Expression has 2 components:
 
 #### <a name="work-with-date"></a>3.6.6 Working with Dates
 
-<pre class="prettyprint linenums">
-&gt; d1 = date()
-&gt; d1
+```r
+> d1 = date()
+> d1
 [1] "Tue Aug 12 14:58:40 2014"
-&gt; class(d1)
+> class(d1)
 [1] "character"
-&gt; d2 = Sys.Date()
-&gt; d2
+> d2 = Sys.Date()
+> d2
 [1] "2014-08-12"
-&gt; class(d2)
+> class(d2)
 [1] "Date"
-</pre>
+```
 
-<pre class="prettyprint linenums">
-&gt; format(d2,"%a %b %d")
+```r
+> format(d2,"%a %b %d")
 [1] "周二 八月 12"
-</pre>
+```
 
 * %d = day as number (01-31) 
 * %a = abbreviated weekday 
@@ -1733,53 +1733,54 @@ Regular Expression has 2 components:
 
 For more format, click [Date Formats in R](http://www.r-bloggers.com/date-formats-in-r).  
 
-<pre class="prettyprint linenums">
-&gt; Sys.setlocale("LC_TIME", "C");
-&gt; x = c("1jan1960", "2jan1960", "31mar1960", "30jul1960")
-&gt; z = as.Date(x, "%d%b%Y")
-&gt; z
+```r
+> Sys.setlocale("LC_TIME", "C");
+> x = c("1jan1960", "2jan1960", "31mar1960", "30jul1960")
+> z = as.Date(x, "%d%b%Y")
+> z
 [1] "1960-01-01" "1960-01-02" "1960-03-31" "1960-07-30"
-&gt; z[1] - z[2]
+> z[1] - z[2]
 Time difference of -1 days
-&gt; as.numeric(z[1]-z[2])
+> as.numeric(z[1]-z[2])
 [1] -1
-</pre>
+```
 
 <a name="locale"></a>这里就 locale 说两句：
 
 * 这里 "LC_TIME" 和 "C" 是 \*nix 的概念，并不是 R 特有的。设置 "LC_TIME" 为 "C" 表示 "use the default locale for LC_TIME"，具体可以参见 [What does “LC_ALL=C” do?](http://unix.stackexchange.com/questions/87745/what-does-lc-all-c-do)
 * 可以用 `strsplit(Sys.getlocale(), ";")` 来查看当前的 locale 信息。`strsplit` 是为了让输出好看一点~
 
-<pre class="prettyprint linenums">
-&gt; weekdays(d2) ## 不能用于 d1
+```r
+> weekdays(d2) ## 不能用于 d1
 [1] "Tuesday"
-&gt; months(d2)
+> months(d2)
 [1] "August"
-&gt; julian(d2) ## days since 1970-01-01
+> julian(d2) ## days since 1970-01-01
 [1] 16294
 attr(,"origin")
 [1] "1970-01-01"
-&gt; attr(julian(d2), "origin")
+> attr(julian(d2), "origin")
 [1] "1970-01-01"
-</pre>
+```
 
 <a name="lubridate-pkg"></a>
-<pre class="prettyprint linenums">
-&gt; library(lubridate); 
-&gt; ymd("20140108")
+
+```r
+> library(lubridate); 
+> ymd("20140108")
 [1] "2014-01-08 UTC"
-&gt; mdy("08/04/2013")
+> mdy("08/04/2013")
 [1] "2013-08-04 UTC"
-&gt; dmy("03-04-2013")
+> dmy("03-04-2013")
 [1] "2013-04-03 UTC"
-&gt; ymd_hms("2011-08-03 10:15:03")
+> ymd_hms("2011-08-03 10:15:03")
 [1] "2011-08-03 10:15:03 UTC"
-&gt; ymd_hms("2011-08-03 10:15:03", tz="Pacific/Auckland") ## ?Sys.timezone for more information on timezone
+> ymd_hms("2011-08-03 10:15:03", tz="Pacific/Auckland") ## ?Sys.timezone for more information on timezone
 [1] "2011-08-03 10:15:03 NZST"
-&gt; x = dmy(c("1jan2013", "2jan2013", "31mar2013", "30jul2013"))
-&gt; wday(x[1])
+> x = dmy(c("1jan2013", "2jan2013", "31mar2013", "30jul2013"))
+> wday(x[1])
 [1] 3
-&gt; wday(x[1],label=TRUE)
+> wday(x[1],label=TRUE)
 [1] Tues
 Levels: Sun < Mon < Tues < Wed < Thurs < Fri < Sat
-</pre>
+```

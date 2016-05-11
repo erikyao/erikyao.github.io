@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "C++: move constructor &amp; move assignment operator / lvalue &amp; rvalue / reference qualifier"
+title: "C++: move constructor & move assignment operator / lvalue & rvalue / reference qualifier"
 description: ""
 category: C++
 tags: [Cpp-101, C++11, copy-constructor]
@@ -48,7 +48,7 @@ As we know, we cannot bind regular references—which we’ll refer to as **lval
 - Functions that return a nonreference type, along with the arithmetic, relational, bitwise, and postfix increment/decrement operators, all yield rvalues. 
 	- We CANNOT bind an **lvalue reference** to these expressions, but we can bind either an **lvalue reference to const** or an **rvalue reference** to such expressions.
 
-<pre class="prettyprint linenums">
+```cpp
 int i = 7;					// 数字 7 本身是 rvalue
 
 int &ri = i;				// OK.
@@ -56,7 +56,7 @@ int &&ri2 = i;				// ERROR. cannot bind an rvalue reference to an lvalue
 int &ri3 = i * 42;			// ERROR. i * 42 is an rvalue
 const int &ri4 = i * 42;	// OK. we can bind a reference to const to an rvalue
 int &&ri4 = i * 42;			// OK. bind ri4 to the result of the multiplication
-</pre>
+```
 
 ### <a name="11-lvalues-persist-rvalues-are-ephemeral"></a>1.1 Lvalues Persist; Rvalues Are Ephemeral
 
@@ -73,20 +73,20 @@ Because **rvalue reference**s can only be bound to temporaries, we know that
 
 A variable is an lvalue; we cannot directly bind an **rvalue reference** to a variable even if that variable was defined as an **rvalue reference** type.
 
-<pre class="prettyprint linenums">
+```cpp
 int &&rr1 = 42;		// OK. literals are rvalues
 int &&rr2 = rr1;	// ERROR. the expression rr1 is an lvalue!
-</pre>
+```
 
 ### <a name="13-the-library-move-function"></a>1.3 The Library move() Function
 
 Although we cannot directly bind an **rvalue reference** to an lvalue, we can explicitly cast an lvalue to its corresponding **rvalue reference** type by calling a new library function `move()`, which is defined in the `<utility>` header. 
 
-<pre class="prettyprint linenums">
+```cpp
 int &&rr1 = 42;		// OK. literals are rvalues
 int &&rr2 = rr1;	// ERROR. the expression rr1 is an lvalue!
 int &&rr3 = std::move(rr1); // OK
-</pre>
+```
 
 We can destroy a moved-from object (e.g. `rr1` above) and can assign a new value to it, but we cannot use the value of a moved-from object.
 
@@ -122,7 +122,7 @@ Because a move operation executes by “stealing” resources, it ordinarily doe
 
 As with the move constructor, if our move-assignment operator won’t throw any exceptions, we should make it `noexcept`. Like a copy-assignment operator, a move-assignment operator must guard against self-assignment:
 
-<pre class="prettyprint linenums">
+```cpp
 StrVec &StrVec::operator=(StrVec &&rhs) noexcept {
 	// direct test for self-assignment
 	if (this != &rhs) {
@@ -136,7 +136,7 @@ StrVec &StrVec::operator=(StrVec &&rhs) noexcept {
 	}
 	return *this;
 }
-</pre>
+```
 
 ### <a name="23-a-moved-from-object-must-be-destructible"></a>2.3 A Moved-from Object Must Be Destructible
 
@@ -158,19 +158,19 @@ If the class defines either a move constructor and/or a move-assignment operator
 
 When a class has both a move constructor and a copy constructor, the compiler uses ordinary function matching to determine which constructor to use:
 
-<pre class="prettyprint linenums">
+```cpp
 StrVec getVec(istream &); // returns an rvalue
 
 StrVec v1, v2;
 v1 = v2; 			// v2 is an lvalue; copy assignment
 v2 = getVec(cin);	// getVec(cin) is an rvalue; move assignment
-</pre>
+```
 
 ### <a name="26-but-rvalues-are-copied-if-there-is-no-move-constructor"></a>2.6 ...But Rvalues Are Copied If There Is No Move Constructor
 
 If a class has no move constructor, function matching ensures that objects of that type are copied, even if we attempt to move them by calling `move`:
 
-<pre class="prettyprint linenums">
+```cpp
 class Foo {
 public:
 	Foo() = default;
@@ -181,7 +181,7 @@ public:
 Foo x;
 Foo y(x);				// copy constructor; x is an lvalue
 Foo z(std::move(x));	// copy constructor, because there is no move constructor
-</pre>
+```
 
 ### <a name="27-advice-dont-be-too-quick-to-move"></a>2.7 Advice: Don’t Be Too Quick to Move
 
@@ -191,7 +191,7 @@ Judiciously used inside class code, `move` can offer significant performance ben
 
 When a derived class defines a copy or move operation, that operation is responsible for copying or moving the entire object, including base-class members.
 
-<pre class="prettyprint linenums">
+```cpp
 class Base { /* ... */ };
 
 class D: public Base {
@@ -206,22 +206,22 @@ public:
 	D(D&& d): Base(std::move(d))	// move the base members
 	/* initializers for members of D */ { /* ... */ }
 };
-</pre>
+```
 
 ## <a name="3-rvalue-references-and-member-functions"></a>3. Rvalue References and Member Functions
 
 For example, the library containers that define `push_back` provide two versions:
 
-<pre class="prettyprint linenums">
+```cpp
 void push_back(const X&);	// copy: binds to any kind of X
 void push_back(X&&);		// move: binds only to modifiable rvalues of type X
-</pre>
+```
 
 Usually, we pass an **rvalue reference** when we want to “steal” from the argument. In order to do so, the argument must not be const.
 
 示例实现如下：
 
-<pre class="prettyprint linenums">
+```cpp
 void StrVec::push_back(const string& s) {
 	chk_n_alloc(); // ensure that there is room for another element
 	// construct a copy of s in the element to which first_free points
@@ -237,31 +237,31 @@ StrVec vec; // empty StrVec
 string s = "foo";
 vec.push_back(s);		// calls push_back(const string&)
 vec.push_back("bar");	// calls push_back(string&&)
-</pre>
+```
 
 ### <a name="reference-qualifier"></a>Reference Qualifier
 
 Ordinarily, we can call a member function on an object, regardless of whether that object is an lvalue or an rvalue. 
 
-<pre class="prettyprint linenums">
+```cpp
 string s1 = "a value", s2 = "another";
 auto n = (s1 + s2).find('a'); 	// OK. (s1 + s2) generates a rvalue; it seems fine. 
 s1 + s2 = "wow!";				// Also OK. but WTF!
-</pre>
+```
 
 Prior to the new standard, there was no way to prevent usage like `s1 + s2 = "wow!";`. In order to maintain backward compatability, the library classes continue to allow assignment to rvalues, However, we might want to prevent such usage in our own classes. In this case, we’d like to force the left-hand operand to be an lvalue. 更准确地说，是可以规定 member function 的调用者是 lvalue 或者是 rvalue；对 operator 而言，就是可以规定 left-hand operand 是 lvalue 或者是 rvalue。
 
 下面这个例子来自 [What is “rvalue reference for *this”?](http://stackoverflow.com/a/8610728):
 
-<pre class="prettyprint linenums">
-#include &lt;iostream&gt;
+```cpp
+#include <iostream>
 
 struct test {
     void f() & { // & 表示调用者必须是 lvalue 
-		std::cout &lt;&lt; "called by an lvalue" &lt;&lt; std::endl; 
+		std::cout << "called by an lvalue" << std::endl; 
 	}
     void f() && { // && 表示调用者必须是 rvalue 
-		std::cout &lt;&lt; "called by an rvalue" &lt;&lt; std::endl; 
+		std::cout << "called by an rvalue" << std::endl; 
 	}
 };
 
@@ -276,14 +276,14 @@ int main() {
 	called by an lvalue
 	called by an rvalue
 */
-</pre>
+```
 
 我们称函数后的 & 和 && 为 **reference qualifier**。We place a **reference qualifier** after the parameter list. 如果有 const 的话，需要把 const 写在 **reference qualifier** 前面：
 
-<pre class="prettyprint linenums">
+```cpp
 class Foo {
 public:
 	Foo someMem() & const;		// ERROR. const qualifier must come first
 	Foo anotherMem() const &;	// OK.
 };
-</pre>
+```

@@ -7,7 +7,7 @@ tags: [Java-InnerClass]
 ---
 {% include JB/setup %}
 
-<pre class="prettyprint linenums">
+```java
 class Outer {   
 	public class Inner {   
 		public String getInnerClassName() {   
@@ -41,18 +41,23 @@ public class InnerTest {
 	class Outer 
 	class Outer$Inner  
 */  
-</pre>
+```
 
 ## .new
 
 　　内部类对象是不能直接创建的。必须先创建一个外部类对象，再由这个外部类对象来创建内部类对象。这样处理可能是为了体现内部类对象是依存外部类对象存在的，即内部类对象不能脱离外部类对象而存在。一个外部类对象可以创建多个内部类对象 (类似 Process 与 Thread 的关系)。创建方法有2种：  
 
 * OuterClassObj.new InnerClass()：即使用 \.new 和内部类构造器，如上面代码中的：
-    <pre class="prettyprint linenums">
-	Outer.Inner i1 = o.new Inner(); </pre>
+
+```java
+	Outer.Inner i1 = o.new Inner(); 
+```
+
 * OuterClassObj.InnerClassConstructorProxy()：即使用在外部类中定义的内部类构造器的代理方法，如上面代码中的：
-    <pre class="prettyprint linenums">
-    Outer.Inner i2 = o.createInner(); </pre>
+
+```java
+    Outer.Inner i2 = o.createInner(); 
+```
  
 上面2种方法其实是等价的。  
 
@@ -64,19 +69,19 @@ public class InnerTest {
 
 　　其实可以把 this 当作 class 的一个 static field，就算不用内部类，也可以照样用 class.this 形式，如上面代码中的：  
 
-<pre class="prettyprint linenums">
+```java
 public String getInnerClassName() {   
 	return Inner.this.getClass().toString(); // 'Inner' can be omitted here   
 }  
-</pre>
+```
 
 　　不过鉴于内部类和外部类的特殊关系，内部类必须能够访问其创建者，所以在内部类中可以使用 Outer.this 来指向创建这个内部类对象的外部类对象。如： 
 
-<pre class="prettyprint linenums">
+```java
 public String getOuterClassName() {   
 	return Outer.this.getClass().toString(); //'Outer' CANNOT be omitted here   
 }  
-</pre>
+```
  
 　　总结一点，\.this 与 class 连用 (class.this)，\.new 与 reference 连用 (obj.new)。 
 

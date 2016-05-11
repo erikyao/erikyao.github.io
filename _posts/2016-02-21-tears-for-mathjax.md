@@ -14,15 +14,15 @@ local build environment:
 - jekyll: 3.1.1
 - kramdown: 1.9.0
 
-<!-- -->
+```yaml
+markdown: kramdown
+mathjax: true
 
-	markdown: kramdown
-	mathjax: true
-
-	kramdown:
-		# GFM for Github Flavored Markdown
-		input: GFM
-		syntax_highlighter: rouge
+kramdown:
+  # GFM for Github Flavored Markdown
+  input: GFM
+  syntax_highlighter: rouge
+```
 
 ## 1. 需要你 escape `_` 和 `^` 的解析引擎都不是好引擎！
 

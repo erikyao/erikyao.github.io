@@ -126,7 +126,7 @@ When const and non-const member functions have essentially identical implementat
 
 问题的根源在于：你不能指望 static member 的 initialization 的一定会发生在你调用它之前。举个例子：
 
-<pre class="prettyprint linenums">
+```cpp
 /***** FileSystem.h *****/
 class FileSystem { 
 public:
@@ -144,11 +144,11 @@ class Directory { ... };
 Directory::Directory(string path) {
 	// use FileSystem::root 
 }
-</pre>
+```
 
 你在构造 `Directory` 的时候是无法保证 `FileSystem::root` 是已经初始化了的。一个解决方案就是：replacing a non-local static object with a local static objects returned by a function (这个 function 不一定要求是 static). 我们改造下上面的例子：
 
-<pre class="prettyprint linenums">
+```cpp
 /***** FileSystem.h *****/
 class FileSystem { 
 public:
@@ -169,7 +169,7 @@ class Directory { ... };
 Directory::Directory(string path) {
 	// use FileSystem::root() 
 }
-</pre>
+```
 
 这样就解决了 static initialization order fiasco 的问题。
 
@@ -230,22 +230,22 @@ string and all the STL containers have no virtual destructors, so don't ever ext
 
 用例子来说明下：
 
-<pre class="prettyprint linenums">
-processWidget(std::tr1::shared_ptr&lt;Widget&gt;(new Widget), priority());
+```cpp
+processWidget(std::tr1::shared_ptr<Widget>(new Widget), priority());
 
 // a possible evaluation order:
 	// 1. Execute “new Widget”.
 	// 2. Call priority().	
 	// 3. Call the tr1::shared_ptr constructor.
 // memory leak if priority() throws an exception
-</pre>
+```
 
 改进的写法：
 
-<pre class="prettyprint linenums">
-std::tr1::shared_ptr&lt;Widget&gt; pw(new Widget);
+```cpp
+std::tr1::shared_ptr<Widget> pw(new Widget);
 processWidget(pw, priority()); 
-</pre>
+```
  
 -----
 
@@ -284,7 +284,7 @@ Even when small objects have inexpensive copy constructors, there can be perform
 
 书上的例子：
 
-<pre class="prettyprint linenums">
+```cpp
 class WebBrowser {
 public:
 	...
@@ -295,17 +295,17 @@ public:
 	void clearEverything(); // calls clearCache, clearHistory, and removeCookies
 							// BETTER NOT a member function
 };
-</pre>
+```
 
 `WebBrowser.clearEverything()` 不如写成：
 
-<pre class="prettyprint linenums">
+```cpp
 void clearBrowser(WebBrowser& wb) {
 	wb.clearCache();
 	wb.clearHistory();
 	wb.removeCookies();
 }
-</pre>
+```
 
 这么做有几个好处：
 
@@ -315,17 +315,17 @@ void clearBrowser(WebBrowser& wb) {
 
 进一步来讲，C++ 惯用的结构应该是把 class 和 util 放到一个 namespace 里：
 
-<pre class="prettyprint linenums">
+```cpp
 namespace WebBrowserStuff {
 	class WebBrowser { ... };
 	void clearBrowser(WebBrowser& wb);
 	...
 }
-</pre>
+```
 
 如果你有多个 util，最好是分成不同的文件，但还是统一在一个 namespace 里：
 
-<pre class="prettyprint linenums">
+```cpp
 // header “webbrowser.h”
 namespace WebBrowserStuff {
 	class WebBrowser { ... };
@@ -341,7 +341,7 @@ namespace WebBrowserStuff {
 namespace WebBrowserStuff {
 	... // cookie-related convenience functions
 } 
-</pre>
+```
 
 ### <a name="item-24-declare-non-member-functions-when-type-conversions-should-apply-to-all-parameters"></a>Item 24: Declare non-member functions when type conversions should apply to all parameters. 
 
@@ -349,7 +349,7 @@ namespace WebBrowserStuff {
 
 书上的例子：
 
-<pre class="prettyprint linenums">
+```cpp
 class Rational {
 public:
 	Rational(int numerator = 0, int denominator = 1); // ctor is deliberately not explicit;
@@ -365,15 +365,15 @@ Rational result;
 
 result = oneHalf * 2; // OK
 result = 2 * oneHalf; // ERROR!
-</pre>
+```
 
 因为 `operator*` 是 member function，所以 lhs (left-hand side) 必须是 Rational 对象，所以 lhs 2 就无法做 conversion。写成 non-member function 就可以解决这个问题（不一定要是 friend，因为你有 getter/setter 可以用）：
 
-<pre class="prettyprint linenums">
+```cpp
 const Rational operator*(const Rational& lhs, const Rational& rhs) {
 	return Rational(lhs.numerator() * rhs.numerator(), lhs.denominator() * rhs.denominator());
 }
-</pre>
+```
 
 ### <a name="item-25-consider-support-for-a-non-throwing-swap"></a>Item 25: Consider support for a non-throwing swap. 
 
@@ -490,12 +490,12 @@ The key to this separation is replacement of dependencies on definitions with de
 
 结合 [C++ Programming/Idioms: 1.2 Pointer To Implementation (pImpl)][31-4] 和 [MSDN: Pimpl For Compile-Time Encapsulation (Modern C++)][31-5] 以及书上的例子，我们举个大一点的例子：
 
-<pre class="prettyprint linenums">
+```cpp
 /***** Title.h *****/
 #ifndef TITLE_H
 #define TITLE_H
 
-#include &lt;string&gt;
+#include <string>
 
 class Title {
 private:
@@ -515,7 +515,7 @@ public:
 #ifndef CONTENT_H
 #define CONTENT_H
 
-#include &lt;string&gt;
+#include <string>
 
 class Content {
 private:
@@ -530,14 +530,14 @@ public:
 };
 
 #endif
-</pre>
+```
 
-<pre class="prettyprint linenums">
+```cpp
 /***** Book.h *****/
 #ifndef BOOK_H
 #define BOOK_H
 
-#include &lt;memory&gt;
+#include <memory>
 
 class Title;	// forward-declaration
 class Content;	// forward-declaration
@@ -549,18 +549,18 @@ public:
 	void print();
 private:
 	class BookImpl;
-	std::unique_ptr&lt;BookImpl&gt; pimpl;
+	std::unique_ptr<BookImpl> pimpl;
 };
 
 #endif
-</pre>
+```
 
-<pre class="prettyprint linenums">
+```cpp
 /***** Book.cpp *****/
 #include "Book.h"
 #include "Title.h"
 #include "Content.h"
-#include &lt;iostream&gt;
+#include <iostream>
 using namespace std;
 
 class Book::BookImpl {
@@ -575,8 +575,8 @@ public:
 };
 
 void Book::BookImpl::print() {
-	cout &lt;&lt; "Title: " &lt;&lt; t.getVal() &lt;&lt; endl;
-	cout &lt;&lt; "Content: " &lt;&lt; c.getVal() &lt;&lt; endl;
+	cout << "Title: " << t.getVal() << endl;
+	cout << "Content: " << c.getVal() << endl;
 }
 
 Book::Book(Title t, Content c) : pimpl(new BookImpl(t, c)) {
@@ -588,11 +588,11 @@ Book::~Book() {
 }
 
 void Book::print() {
-	pimpl-&gt;print();
+	pimpl->print();
 }
-</pre>
+```
 
-<pre class="prettyprint linenums">
+```cpp
 /***** main.cpp *****/
 #include "Book.h"
 #include "Title.h"
@@ -611,7 +611,7 @@ int main() {
 		Content: A lot...
 	*/
 }
-</pre>
+```
 
 注意 `Book::~Book()` 必须要手动写一个，因为 synthesized destructor 会要求 complete declaration of `BookImpl`（参 [std::unique_ptr with an incomplete type won't compile](http://stackoverflow.com/a/9954553)）。
 
@@ -635,8 +635,8 @@ int main() {
 
 Virtual functions are dynamically bound, but default parameter values are statically bound.
 
-<pre class="prettyprint linenums">
-#include &lt;iostream&gt;
+```cpp
+#include <iostream>
 using namespace std;
 
 class Shape {
@@ -652,17 +652,17 @@ public:
 };
 
 void Rectangle::draw(ShapeColor color /* = Green */) const {
-	cout &lt;&lt; "Draw Rectangle in " &lt;&lt; shapeColorNames[color] &lt;&lt; endl;
+	cout << "Draw Rectangle in " << shapeColorNames[color] << endl;
 }
 
 int main() {
 	Shape* ps = new Rectangle();
-	ps-&gt;draw();
+	ps->draw();
 	
 	delete ps;
 	
 	Rectangle* pr = new Rectangle();
-	pr-&gt;draw();
+	pr->draw();
 	
 	delete pr;
 	
@@ -672,7 +672,7 @@ int main() {
 		Draw Rectangle in green	
 	*/
 }
-</pre>
+```
 
 也就是说，default parameter value 没有多态机制，完全看调用者的类型：你是 `Shape*`，参数就是 `Shape::draw()` 的默认参数；你是 `Rectangle*`，参数就是 `Rectangle::draw()` 的默认参数；reference 同理。
 
@@ -698,9 +698,9 @@ int main() {
 
 直接上例子：
 
-<pre class="prettyprint linenums">
+```cpp
 /***** Base template class *****/
-template&lt;typename Company&gt; 
+template<typename Company> 
 class MsgSender {
 private:
 	Company c;
@@ -718,8 +718,8 @@ public:
 };
 
 /***** Derived template class *****/
-template&lt;typename Company&gt;
-class LoggingMsgSender: public MsgSender&lt;Company&gt; {
+template<typename Company>
+class LoggingMsgSender: public MsgSender<Company> {
 public:
 	... // ctors, dtor, etc.
 	
@@ -730,7 +730,7 @@ public:
 	}
 	...
 };
-</pre>
+```
 
 C++ recognizes that base class templates may be specialized and that such specializations may not offer the same interface as the general template. As a result, it generally refuses to look in templatized base classes for inherited names. 
 
@@ -740,23 +740,23 @@ C++ recognizes that base class templates may be specialized and that such specia
 - via using declarations, 
 - or via an explicit base class qualification.
 
-<pre class="prettyprint linenums">
+```cpp
 /***** Solution 1 *****/
-template&lt;typename Company&gt;
-class LoggingMsgSender: public MsgSender&lt;Company&gt; {
+template<typename Company>
+class LoggingMsgSender: public MsgSender<Company> {
 public:
 	... // ctors, dtor, etc.
 	
 	void sendClearMsg(const MsgInfo& info) {
 		// write some logs
-		this-&gt;sendClear(info); // okay, assumes that sendClear will be inherited
+		this->sendClear(info); // okay, assumes that sendClear will be inherited
 	}
 	...
 };
 
 /***** Solution 2 *****/
-template&lt;typename Company&gt;
-class LoggingMsgSender: public MsgSender&lt;Company&gt; {
+template<typename Company>
+class LoggingMsgSender: public MsgSender<Company> {
 public:
 	... // ctors, dtor, etc.
 	
@@ -770,18 +770,18 @@ public:
 };
 
 /***** Solution 3 *****/
-template&lt;typename Company&gt;
-class LoggingMsgSender: public MsgSender&lt;Company&gt; {
+template<typename Company>
+class LoggingMsgSender: public MsgSender<Company> {
 public:
 	... // ctors, dtor, etc.
 	
 	void sendClearMsg(const MsgInfo& info) {
 		// write some logs
-		MsgSender&lt;Company&gt;::sendClear(info); // okay, assumes that sendClear will be inherited
+		MsgSender<Company>::sendClear(info); // okay, assumes that sendClear will be inherited
 	}
 	...
 };
-</pre>
+```
 
 ### <a name="item-44-factor-parameter-independent-code-out-of-templates"></a>Item 44: Factor parameter-independent code out of templates. 
 
@@ -799,12 +799,12 @@ public:
 
 实现方法是带 template 的 constructor：
 
-<pre class="prettyprint linenums">
-template&lt;typename T&gt;
+```cpp
+template<typename T>
 class SmartPtr {
 public:
-	template&lt;typename U&gt;
-	SmartPtr(const SmartPtr&lt;U&gt;& other) : heldPtr(other.get()) { 
+	template<typename U>
+	SmartPtr(const SmartPtr<U>& other) : heldPtr(other.get()) { 
 		... 
 	} 
 	
@@ -815,7 +815,7 @@ public:
 private: 
 	T *heldPtr; 
 };
-</pre>
+```
 
 我们还是把多态转移到了 `T*` 身上。
 
@@ -827,7 +827,7 @@ private:
 
 我们把 [Item 24](#item-24-declare-non-member-functions-when-type-conversions-should-apply-to-all-parameters) 的例子改写成 template 版本：
 
-<pre class="prettyprint linenums">
+```cpp
 template<typename T>
 class Rational {
 public:
@@ -842,27 +842,27 @@ const Rational<T> operator*(const Rational<T>& lhs, const Rational<T>& rhs) {
 	...
 }
 
-Rational&lt;int&gt; oneHalf(1, 2);		// this example is from Item 24, except Rational is now a template
-Rational&lt;int&gt; result = oneHalf * 2;	// ERROR. won’t compile
-</pre>
+Rational<int> oneHalf(1, 2);		// this example is from Item 24, except Rational is now a template
+Rational<int> result = oneHalf * 2;	// ERROR. won’t compile
+```
 
 问题出在 `template<typename T> const Rational<T> operator*` 身上，原因就是因为它是一个 function template 而不是一个具体的 function。You might expect them to use `Rational<int>`’s non-explicit constructor to convert `2` into a `Rational<int>`, thus allowing them to deduce that `T` is `int`, but they don’t do that. They don’t, because implicit type conversion functions are never considered during template argument deduction. 但是如果是一个具体的 function，implicit type conversion 是会被调用的。
 
 一个有点狡猾的 workaround 是：在 `Rational<T>` 内部声明一个 friend `operator*`:
 
-<pre class="prettyprint linenums">
-friend const Rational&lt;T&gt; 
-operator*(const Rational&lt;T&gt;& lhs, const Rational&lt;T&gt;& rhs);
-</pre>
+```cpp
+friend const Rational<T> 
+operator*(const Rational<T>& lhs, const Rational<T>& rhs);
+```
 
 这样每次 `Rational<T>` 初始化了，就会声明一个具体的 `operator*`，而这个声明恰好又会被 `template<typename T> const Rational<T> operator*` 给定义出来，所以就成了一个具体的 function，从而就可以使用 implicit type conversion 了。（Item 24 并没有 template argument deduction 的问题，所以用不用 friend 无所谓。）
 
 另外还有一个小地方要注意：Inside a class template, the name of the template can be used as shorthand for the template and its parameters, so inside `Rational<T>`, we can just write `Rational` instead of `Rational<T>`. That saves us only a few characters in this example, but when there are multiple parameters or longer parameter names, it can both save typing and make the resulting code clearer. 所以上面那个 friend `operator*` 的声明可以简写为：
 
-<pre class="prettyprint linenums">
+```cpp
 friend const Rational 
 operator*(const Rational& lhs, const Rational& rhs);
-</pre>
+```
 
 <!--
 ### Item 47: Use traits classes for information about types. 
@@ -883,7 +883,7 @@ Things to Remember:
 
 你可以 `set_new_handler` 和 `operator new` 设计成 class 的 member function，这样在 new 这个 class 的 object 时，行为可以自定义：
 
-<pre class="prettyprint linenums">
+```cpp
 class Widget {
 public:
 	static std::new_handler set_new_handler(std::new_handler p) throw();
@@ -891,7 +891,7 @@ public:
 private:
 	static std::new_handler currentHandler;
 };
-</pre>
+```
 
 具体设实现细节请参考书上。
 
@@ -921,17 +921,17 @@ Placement delete is called only if an exception arises from a constructor call t
 
 C++ offers the following forms of `operator new` at global scope:
 
-<pre class="prettyprint linenums">
+```cpp
 void* operator new(std::size_t) throw(std::bad_alloc);			// normal new
 void* operator new(std::size_t, void*) throw();					// placement new
 void* operator new(std::size_t, const std::nothrow_t&) throw();	// nothrow new 
-</pre>
+```
 
 在 overload 的时候要注意屏蔽作用。
 
 最后给个简单的例子：
 
-<pre class="prettyprint linenums">
+```cpp
 class StandardNewDeleteForms {
 public:
 	// normal new/delete
@@ -952,7 +952,7 @@ public:
 	static void operator delete(void *pMemory, const std::nothrow_t&) throw()
 	{ ::operator delete(pMemory); }
 };
-</pre>
+```
 
 <!--
 ## Chapter 9: Miscellany 

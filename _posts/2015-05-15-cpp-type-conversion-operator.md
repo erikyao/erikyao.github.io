@@ -13,12 +13,12 @@ tags: [Cpp-101]
 
 ## 1. Conversion Operators
 
-<pre class="prettyprint linenums">
+```cpp
 class SmallInt {
 public:
     SmallInt(int i = 0): val(i)
     {
-        if (i &lt; 0 || i &gt; 255)
+        if (i < 0 || i > 255)
             throw std::out_of_range("Bad SmallInt value");
     }
     operator int() const { // conversion operator (to int)
@@ -31,7 +31,7 @@ private:
 SmallInt si;
 si = 4; // implicitly converts 4 to SmallInt then calls SmallInt::operator=
 si + 3; // implicitly converts si to int followed by integer addition
-</pre>
+```
 
 A conversion function must be a member function, may not specify a return type, and must have an empty parameter list. The function usually should be const.
 
@@ -39,16 +39,16 @@ A conversion function must be a member function, may not specify a return type, 
 
 如果不限定 explicit 会怎样？书上给了一个奇葩例子：
 
-<pre class="prettyprint linenums">
+```cpp
 int i = 42;
-cin &lt;&lt; i; // this code would be legal if the conversion cin=>bool were not explicit!
-</pre>
+cin << i; // this code would be legal if the conversion cin=>bool were not explicit!
+```
 
 首先这是 cin，理应用 `>>` 但是这里是 `<<`；但是如果 cin=>bool 的 conversion 不是 explicit 的话，这里 cin 首先会被转成 bool，然后会取 0/1 值，然后 `>>` 就变成了 shift 操作……
 
 加了 explicit 后就 compiler 就不会进行 implicit conversion 了：
 
-<pre class="prettyprint linenums">
+```cpp
 class SmallInt {
     ...
     explicit operator int() const {
@@ -59,8 +59,8 @@ class SmallInt {
 
 SmallInt si = 3;			// OK. the SmallInt constructor is not explicit
 si + 3;						// ERROR. implicit is conversion required, but operator int is explicit
-static_cast&lt;int&gt;(si) + 3;	// OK. explicitly request the conversion
-</pre>
+static_cast<int>(si) + 3;	// OK. explicitly request the conversion
+```
 
 ## 3. Contextual Conversion to bool
 

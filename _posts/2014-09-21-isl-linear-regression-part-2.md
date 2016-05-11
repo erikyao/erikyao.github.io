@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "ISL: Linear Regression - Part 2"
 description: ""
 category: Machine-Learning
@@ -341,10 +341,10 @@ A simple way to detect collinearity is to look at the correlation matrix of the 
 
 R 里还有一种方法是用 Scatterplot Matrices
 
-<pre class="prettyprint linenums">
+```
 college = read.csv("./ISL/College.csv")
 pairs(college[,1:10])
-</pre>
+```
 
 Unfortunately, not all collinearity problems can be detected by inspection of the correlation matrix: it is possible for collinearity to exist between three or more variables even if no pair of variables has a particularly high correlation. We call this situation **multicollinearity** (多重共线性).
 
@@ -404,59 +404,71 @@ P109
 
 ### <a name="Lab-SLR"></a>6.2 Simple Linear Regression
 
-	> library(MASS)
-	
-	> fix(Boston)
-	> names(Boston)
-	
-	> lm.fit = lm(medv~lstat, data=Boston)
+```r
+> library(MASS)
+
+> fix(Boston)
+> names(Boston)
+
+> lm.fit = lm(medv~lstat, data=Boston)
+```
 	
 If we type `lm.fit`, some basic information about the model is output. For more detailed information, we use `summary(lm.fit)`. This gives us p-values and standard errors for the coefficients, as well as the R^2 statistic and F-statistic for the model.
 
 We can use the `names()` function in order to find out what other pieces of information are stored in `lm.fit`. Although we can extract these quantities by name — e.g. `lm.fit$coefficients` — it is safer to use the extractor functions like `coef()` to access them.
 
-	> names(lm.fit)
-	[1] "coefficients" "residuals " "effects "
-	[4] "rank" "fitted.values " "assign"
-	[7] "qr" "df.residual" "xlevels "
-	[10] "call" "terms" "model"
-	
-	> coef(lm.fit)
-	(Intercept) lstat
-		  34.55 -0.95
+```r
+> names(lm.fit)
+[1] "coefficients" "residuals " "effects "
+[4] "rank" "fitted.values " "assign"
+[7] "qr" "df.residual" "xlevels "
+[10] "call" "terms" "model"
+
+> coef(lm.fit)
+(Intercept)	lstat
+34.55		-0.95
+```
 		  
 In order to obtain a confidence interval for the coefficient estimates, we can use the `confint()` command.（注：如果区间横跨了 0，比如 [-1, 1] 这样的，说明这个 predictor is not significant for this model）
 
-	> confint(lm.fit)
-				2.5 % 97.5 %
-	(Intercept) 33.45 35.659
-	lstat 		-1.03 -0.874
+```r
+> confint(lm.fit)
+		2.5 % 97.5 %
+(Intercept)	33.45 35.659
+lstat		-1.03 -0.874
+```
 	
 The `predict()` function can be used to produce 95% confidence intervals and 95% prediction intervals for the prediction of `medv` for a given value of `lstat`.	
-	
-	> predict(lm.fit, data.frame(lstat=(c(5 ,10 ,15))), interval="confidence")
-		fit   lwr   upr
-	1 29.80 29.01 30.60
-	2 25.05 24.47 25.63
-	3 20.30 19.73 20.87
-	
-	> predict (lm.fit, data.frame(lstat=(c(5 ,10 ,15))), interval="prediction")
-		fit    lwr   upr
-	1 29.80 17.566 42.04
-	2 25.05 12.828 37.28
-	3 20.30  8.078 32.53
+
+```r	
+> predict(lm.fit, data.frame(lstat=(c(5 ,10 ,15))), interval="confidence")
+	fit   lwr   upr
+1	29.80 29.01 30.60
+2	25.05 24.47 25.63
+3	20.30 19.73 20.87
+
+> predict (lm.fit, data.frame(lstat=(c(5 ,10 ,15))), interval="prediction")
+	fit    lwr   upr
+1 	29.80 17.566 42.04
+2 	25.05 12.828 37.28
+3 	20.30  8.078 32.53
+```
 	
 We will now plot medv and lstat along with the least squares regression line using the `plot()` and `abline()` functions.
 
-	> plot(Boston$lstat, Boston$medv)
-	> abline(lm.fit)
+```r
+> plot(Boston$lstat, Boston$medv)
+> abline(lm.fit)
+```
 	
 The `lwd=3` parameter causes the width of the regression line to be increased by a factor of 3.
 
 注意 `abline(lm.fit)` 只是画出了 least squares line，而 `plot(lm.fit)` 是连续画出 4 张图，所以我们一般是：
 
-	> par(mfrow = c(2,2))
-	> plot(lm.fit)
+```r
+> par(mfrow = c(2,2))
+> plot(lm.fit)
+```
 
 一般的记法是这样的：如果 y-axis 是 foo 值，x-axis 是 bar 值，我们称为 plot foo versus bar，这个图也可以叫 foo versus bar。这样 `plot(lm.fit)` 连续画的 4 张图就是：
 
@@ -467,31 +479,41 @@ The `lwd=3` parameter causes the width of the regression line to be increased by
 
 Alternatively, we can compute the residuals from a linear regression fit using the `residuals()` function. The function `rstudent()` will return the studentized residuals, and we can use this function to plot the residuals against the fitted values.
 
-	> plot(predict(lm.fit), residuals(lm.fit))
-	> plot(predict(lm.fit), rstudent(lm.fit))
+```r
+> plot(predict(lm.fit), residuals(lm.fit))
+> plot(predict(lm.fit), rstudent(lm.fit))
+```
 	
 On the basis of the residual plots, there is some evidence of non-linearity. Leverage statistics can be computed for any number of predictors using the `hatvalues()` function.
 
-	> plot(hatvalues(lm.fit))
-	> which.max(hatvalues(lm.fit))
-	375 ## it tells us which observation has the largest leverage statistic
+```r
+> plot(hatvalues(lm.fit))
+> which.max(hatvalues(lm.fit))
+375 ## it tells us which observation has the largest leverage statistic
+```
 	
 ### <a name="Lab-MLR"></a>6.3 Multiple Linear Regression
 
-	> lm.fit = lm(medv~lstat+age, data=Boston)
-	> summary(lm.fit)
-	
-	> lm.fit = lm(medv~., data=Boston)
-	> summary(lm.fit)
+```r
+> lm.fit = lm(medv~lstat+age, data=Boston)
+> summary(lm.fit)
+
+> lm.fit = lm(medv~., data=Boston)
+> summary(lm.fit)
+```
 	
 What if we would like to perform a regression using all of the variables but one? For example, in the above regression output, `age` has a high p-value. So we may wish to run a regression excluding this predictor. Use `-age` in the formula, as
 
-	> lm.fit1 = lm(medv~.-age, data=Boston)
-	> summary(lm.fit1)
+```r
+> lm.fit1 = lm(medv~.-age, data=Boston)
+> summary(lm.fit1)
+```
 	
 Alternatively, the `update()` function can be used.
 
-	> lm.fit1 = update(lm.fit, ~.-age)
+```r
+> lm.fit1 = update(lm.fit, ~.-age)
+```
 	
 We can access the individual components of a summary object by name (type ?summary.lm to see what is available), e.g.
 
@@ -500,12 +522,14 @@ We can access the individual components of a summary object by name (type ?summa
 
 The `vif()` function, part of the `car` package, can be used to compute variance inflation factors.
 
-	> library (car)
-	> vif(lm.fit)
-		crim    zn indus  chas   nox    rm   age
-		1.79  2.30  3.99  1.07  4.39  1.93  3.10
-		 dis   rad   tax  ptratio black lstat
-		3.96  7.48  9.01     1.80  1.35  2.94
+```r
+> library (car)
+> vif(lm.fit)
+	crim	zn	indus	chas	nox	rm	age
+	1.79	2.30	3.99	1.07  4.39	1.93	3.10
+	dis	rad   tax	ptratio	black	lstat
+	3.96	7.48	9.01	1.80	1.35	2.94
+```
 		
 还有在 [6.2 Simple Linear Regression](#Lab-SLR) 里能用的这里也能用。
 
@@ -513,20 +537,26 @@ The `vif()` function, part of the `car` package, can be used to compute variance
 
 It is easy to include interaction terms in a linear model using the `lm()` function. The syntax `lstat:black` tells R to include an interaction term between `lstat` and `black`. The syntax `lstat*age` simultaneously includes `lstat`, `age`, and the interaction term `lstat:age` as predictors; it is a shorthand for `lstat+age+lstat:age`.
 
-	> summary(lm(medv~lstat*age, data=Boston))
+```r
+> summary(lm(medv~lstat*age, data=Boston))
+```
 	
 ### <a name="Lab-Non-Linear-Trans"></a>6.5 Non-linear Transformations of the Predictors
 
 Given a predictor X, we can create a predictor X^2 using `I(X^2)`. The function `I()` is needed since the `^` has a special meaning in a formula; wrapping with `I()` allows the standard usage in R, which is to raise X to the power 2. We now perform a regression of medv onto `lstat` and `lstat^2`.
 
-	> lm.fit2 = lm(medv~lstat+I(lstat^2))
-	> summary(lm.fit2)
+```r
+> lm.fit2 = lm(medv~lstat+I(lstat^2))
+> summary(lm.fit2)
+```
 	
 The near-zero p-value associated with the quadratic term suggests that it leads to an improved model. We use the `anova()` function to further quantify the extent to which the quadratic fit is superior to the linear fit.
 
-	> lm.fit = lm(medv~lstat, data=Boston)
-	> lm.fit2 = lm(medv~lstat+I(lstat^2), data=Boston)
-	> anova(lm.fit, lm.fit2) ## Analysis of Variance
+```r
+> lm.fit = lm(medv~lstat, data=Boston)
+> lm.fit2 = lm(medv~lstat+I(lstat^2), data=Boston)
+> anova(lm.fit, lm.fit2) ## Analysis of Variance
+```
 	
 The `anova()` function performs a hypothesis test comparing the two models. 
 
@@ -537,14 +567,18 @@ Here the F-statistic is 135 and the associated p-value is virtually zero. This p
 
 This is not surprising, since earlier we saw evidence for non-linearity in the relationship between `medv` and `lstat`. If we type
 
-	> par(mfrow=c(2,2))
-	> plot(lm.fit2)
+```r
+> par(mfrow=c(2,2))
+> plot(lm.fit2)
+```
 	
 then we see that when the `lstat^2` term is included in the model, there is little discernible pattern in the residuals.
 
 For even higher order polynomials, a better approach is `poly()` function. E.g. the following command produces a fifth-order polynomial fit:
 
-	> lm.fit5 = lm(medv~poly(lstat,5), data=Boston)
+```r
+> lm.fit5 = lm(medv~poly(lstat,5), data=Boston)
+```
 
 根据 [Quadratic models with R. The use of poly(..) and I(..) functions (R-language) 的这个答案](http://stats.stackexchange.com/a/66282)，有：
 
@@ -557,13 +591,17 @@ For even higher order polynomials, a better approach is `poly()` function. E.g. 
 
 We can also give a try of log transformation.
 
-	> summary(lm(medv~log(rm), data=Boston))
+```r
+> summary(lm(medv~log(rm), data=Boston))
+```
 	
 ### <a name="Lab-QP"></a>6.6 Qualitative Predictors
 
-	> library(ISLR)
-	> fix(Carseats)
-	> names(Carseats)
+```r
+> library(ISLR)
+> fix(Carseats)
+> names(Carseats)
+```
 	
 We will attempt to predict `Sales` (child car seat sales). 
 
@@ -571,22 +609,28 @@ There is a qualitative predictors `Shelveloc`, an indicator of the quality of th
 
 Given a qualitative variable such as `Shelveloc`, R generates dummy variables automatically. Below we fit a multiple regression model that includes some interaction terms.
 
-	> lm.fit = lm(Sales~.+Income:Advertising+Price:Age, data=Carseats)
-	> summary(lm.fit)
+```r
+> lm.fit = lm(Sales~.+Income:Advertising+Price:Age, data=Carseats)
+> summary(lm.fit)
+```
 	
 从 `summary(lm.fit)` 可以看出 R 创建了 `ShelveLocGood` 和 `ShelveLocMedium` 这两个 dummy variable，它们的设计值是：
 
-	> contrasts(Carseats$ShelveLoc)
-		   Good Medium
-	Bad       0      0
-	Good      1      0
-	Medium    0      1
+```r
+> contrasts(Carseats$ShelveLoc)
+		Good Medium
+Bad		0      0
+Good		1      0
+Medium		0      1
+```
 
 ### <a name="Lab-Writing-Functions"></a>6.7 Writing Functions
 
-	> LoadLibraries=function() {
-	+ library(ISLR)
-	+ library(MASS)
-	+ print("The libraries have been loaded.")
-	+ }
+```r
+> LoadLibraries=function() {
++ 	library(ISLR)
++ 	library(MASS)
++ 	print("The libraries have been loaded.")
++ }
+```
 	

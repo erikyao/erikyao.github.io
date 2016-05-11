@@ -15,7 +15,7 @@ tags: [Cpp-101, const]
 
 我们按照 const pointer 那一套的逻辑来嘛，大家讲道理嘛……
 
-<pre class="prettyprint linenums">
+```cpp
 class T {};
 
 int main() {  
@@ -31,7 +31,7 @@ int main() {
 	T& const crt = t2;  // ERROR. 'const' qualifiers cannot be applied to 'T&' 
 						// Ops! So there is NO const reference!
 }
-</pre>
+```
 
 但是好像到处都在用 "const reference"。更有甚者，编译器报错会用 "non-const reference" 这个词，比如 "invalid initialization of non-const reference of type 'X&' from an rvalue of type 'X'"。其实说的都是 reference to const，你明白就好。
 
@@ -39,8 +39,8 @@ int main() {
 
 ## 2. 理解 reference 与 object 的强绑定关系
 
-<pre class="prettyprint linenums">
-#include &lt;iostream&gt;
+```cpp
+#include <iostream>
 
 using namespace std;
 
@@ -66,23 +66,23 @@ int main() {
 	rt = t2; // 等价于 t1 = t2；并不是将 rt 绑定到 t2，rt 仍然绑定 t1 
 	
 	// 这个时候 rt 绑定 t1；t1 == t2 
-	cout &lt;&lt; t1.i &lt;&lt; endl; // 2
-	cout &lt;&lt; t2.i &lt;&lt; endl;  // 2
-	cout &lt;&lt; rt.i &lt;&lt; endl;   // 2
+	cout << t1.i << endl; // 2
+	cout << t2.i << endl;  // 2
+	cout << rt.i << endl;   // 2
 	
 	// rt 修改，t1 跟着变化，不影响 t2
 	rt.modify();
-	cout &lt;&lt; t1.i &lt;&lt; endl; // 3
-	cout &lt;&lt; t2.i &lt;&lt; endl;  // 2
-	cout &lt;&lt; rt.i &lt;&lt; endl;   // 3
+	cout << t1.i << endl; // 3
+	cout << t2.i << endl;  // 2
+	cout << rt.i << endl;   // 3
 	
 	// t1 修改，rt 跟着变化，还是不影响 t2
 	t1.modify();
-	cout &lt;&lt; t1.i &lt;&lt; endl; // 4
-	cout &lt;&lt; t2.i &lt;&lt; endl;  // 2
-	cout &lt;&lt; rt.i &lt;&lt; endl;   // 4
+	cout << t1.i << endl; // 4
+	cout << t2.i << endl;  // 2
+	cout << rt.i << endl;   // 4
 }
-</pre>
+```
 
 * reference 在 declare 的时候是要求直接初始化的（`T& rt = t1;`），这一初始化就直接绑定 object 了，之后你再用 `=` 赋值（`rt = t2;`）也改变不了这个绑定关系，而是直接等价于 object 之间的赋值（i.e. 等价于 `t1 = t2;`）。
 * 所以 reference 和 pointer 在行为上有本质的不同：pointer 可以到处乱改到处乱指；而 reference 一旦绑定 object 之后就直接等价于 object 了
@@ -93,9 +93,9 @@ int main() {
 
 > A declaration of a `const` reference is redundant since references can never be made to refer to another object.
 
-<pre class="prettyprint linenums">
+```cpp
 int & const constRef = i; // Error the "const" is redundant
-</pre> 
+```
 
 -> _~~~~~~~~~~ 2015-04-02 更新 ~~~~~~~~~~_ <-
 
@@ -107,7 +107,7 @@ int & const constRef = i; // Error the "const" is redundant
 	
 ## 3. <a name="rules"></a>大实验
 
-<pre class="prettyprint linenums">
+```cpp
 class T {};
 
 int main() {
@@ -140,13 +140,13 @@ int main() {
 	rct = rt; 	// ERROE. passing 'const T' as 'this' argument of 'T& T::operator=(const T&)' discards qualifiers
 				// const-object = reference 不行，reference-to-const = reference 自然也不行 
 }	
-</pre>
+```
 
 * 不能把 `T` 或者 `T&` 赋值给一个 `const T` 或者 `const T&` 
 	* 反过来把 `const T` 或者 `const T&` 赋值给一个 `T` 或者 `T&` 是可以的
 	* 这一点和 [C++: Const Pointer](/c++/2015/03/26/cpp-const-pointer#rules) 是相反的
 
-<pre class="prettyprint linenums">
+```cpp
 class T { };
 
 void foo(T& rt) { /* do nothing */ }
@@ -181,14 +181,14 @@ int main() {
 	qux(ct);	// OK
 	qux(rct);	// OK
 }
-</pre>
+```
 
 * 不能把 `const T` 或者 `const T&` 实参传给一个 `T&` 形参
 	* 除此之外没有其他禁忌
 	* 这一点和 [C++: Const Pointer](/c++/2015/03/26/cpp-const-pointer#rules) 是类似的
 * 试验结果有点出乎我意料，因为 `foo(T& rt)` 和 `baz(T t)` 并不只有 pass-by-value vs. pass-by-reference 这一个区别
 	
-<pre class="prettyprint linenums">
+```cpp
 class T {
 public:
 	int i;
@@ -218,7 +218,7 @@ int main() {
     rct2.modify();	// ERROR. passing 'const T' as 'this' argument of 'void T::modify()' discards qualifiers
     				// 虽然 object.modify() 可以，可 reference-to-const 不允许修改 
 }
-</pre>
+```
 
 * `const T` 本身的值不能改
 * 即使你是把一个 `T&`（t）赋给一个 `const T&`（rct2），你也不能通过这个 `const T&` 去修改它的值，虽然你可以用 `T*` 直接去修改（t.modify();）

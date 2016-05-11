@@ -27,7 +27,7 @@ Virtual Inheritance 是专门用于解决 dreaded ([ˈdredɪd], I dread = I fear
 
 解决的方法是在 B、C 上使用 Virtual Inheritance：
 
-<pre class="prettyprint linenums">
+```cpp
 class A { public: void Foo() {} };
 class B : virtual public A {};		// VI
 class C : virtual public A {};		// VI
@@ -35,7 +35,7 @@ class D : public B, public C {};
 
 D d;
 d.Foo(); // no longer ambiguous
-</pre>
+```
 
 对，你没有看错，是在 B、C 的继承上加了个 virtual 关键字，根本不需要处理 D。而这个 virtual 对 B、C 的实现没有任何影响，该咋写咋写。换言之，你必须知道 D 会存在才需要对 B、C 使用 Virtual Inheritance，要是没有 D 的话根本就不用管。
 

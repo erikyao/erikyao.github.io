@@ -23,26 +23,26 @@ tags: [Book, Java-Concurrent]
 
 　　跑个例子看看：
 
-<pre class="prettyprint linenums">
-private ConcurrentMap&lt;String, FutureTask&lt;FooConnection&gt;&gt; connectionPool = 
-	new ConcurrentHashMap&lt;String, FutureTask&lt;FooConnection&gt;&gt;();
+```java
+private ConcurrentMap<String, FutureTask<FooConnection>> connectionPool = 
+	new ConcurrentHashMap<String, FutureTask<FooConnection>>();
 
 public FooConnection getConnection(String key) throws InterruptedException, ExecutionException {
-	FutureTask&lt;FooConnection&gt; connectionTask = connectionPool.get(key);
+	FutureTask<FooConnection> connectionTask = connectionPool.get(key);
    
 	// 有 key，直接返回
 	if (connectionTask != null) {
 		return connectionTask.get();
 	}
    
-	// 无 key，需要 new 一个 &lt;key, FutureTask&lt;FooConnection&gt;&gt;
-	Callable&lt;FooConnection&gt; connectionBuilder = new Callable&lt;FooConnection&gt;() {
+	// 无 key，需要 new 一个 <key, FutureTask<FooConnection>>
+	Callable<FooConnection> connectionBuilder = new Callable<FooConnection>() {
 		@Override
 		public FooConnection call() throws Exception {
 			return new FooConnection();
 		}
 	};
-	FutureTask&lt;FooConnection&gt; newTask = new FutureTask&lt;FooConnection&gt;(connectionBuilder);
+	FutureTask<FooConnection> newTask = new FutureTask<FooConnection>(connectionBuilder);
    
 	/**
 	 * putIfAbsent 相当于：
@@ -60,7 +60,7 @@ public FooConnection getConnection(String key) throws InterruptedException, Exec
 	 */
 	connectionTask = connectionPool.putIfAbsent(key, newTask);
    
-	// 返回 null 也说明，&lt;key, newTask&gt; 是 map 中的新值，所以我们接着 run 一下
+	// 返回 null 也说明，<key, newTask> 是 map 中的新值，所以我们接着 run 一下
 	if (connectionTask == null) {
 		connectionTask = newTask;
 		connectionTask.run();
@@ -68,7 +68,7 @@ public FooConnection getConnection(String key) throws InterruptedException, Exec
    
 	return connectionTask.get();
 }
-</pre>
+```
 
 ### Semaphore
 
@@ -138,7 +138,6 @@ public FooConnection getConnection(String key) throws InterruptedException, Exec
 　　适合读多写少的并发场景
 
 * add(E): 
-
 	1. ReentranLock 加锁
 	2. newInnerArray = copy(innerArray); 
 	3. newInnerArray.append(E);

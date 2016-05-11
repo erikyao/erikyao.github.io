@@ -15,8 +15,8 @@ tags: [Cpp-101]
 
 在 [C++: Generic Algorithm Examples](/c++/2015/04/21/cpp-generic-algorithm-examples#ga2) 我们写过一个叫做 `gt15(int x)` 的函数，如果能把这个函数封装成一个对象 `Gt(15)` 明显会更灵活。这样的对象我们称为 function object，而实现的手段就是重载 `operator()` (function call operator):
 
-<pre class="prettyprint linenums">
-#include &lt;iostream&gt;
+```cpp
+#include <iostream>
 using namespace std;
 
 class Gt {
@@ -24,17 +24,17 @@ class Gt {
 public:
     Gt(int than) : than(than) {}
     bool operator()(int x) const { // 注意语法 
-        return x &gt; than;
+        return x > than;
     }
 };
 
 int main() {
     Gt gt15(15);
     
-    cout &lt;&lt; gt15(1) &lt;&lt; endl; // output: 0 (for false)
-    cout &lt;&lt; gt15(20) &lt;&lt; endl; // output: 1 (for true)
+    cout << gt15(1) << endl; // output: 0 (for false)
+    cout << gt15(20) << endl; // output: 1 (for true)
 }
-</pre>
+```
 
 注意重载 `operator()` 的语法：
 
@@ -44,17 +44,17 @@ int main() {
 
 我们进一步观察，其实可以把 `int than;` 变成 `template<T>`。这里我们不示范了，因为 lib 已经有写了，但是又稍微有点不同：
 
-<pre class="prettyprint linenums">
-template &lt;class T&gt; struct greater : binary_function &lt;T,T,bool&gt; {
-	bool operator() (const T& x, const T& y) const {return x&gt;y;}
+```cpp
+template <class T> struct greater : binary_function <T,T,bool> {
+	bool operator() (const T& x, const T& y) const {return x>y;}
 };
-</pre>
+```
 
 首先它是一个 struct；然后它不像我们的 Gt 可以初始化一个参数，而且只能像 `greater<int>(15, 20)` 这样传两个参数进去才能用。这个 greater 无法直接用于 [C++: Generic Algorithm Examples](/c++/2015/04/21/cpp-generic-algorithm-examples#ga2) 的场景，所以我们需要进一步封装：
 
-<pre class="prettyprint linenums">
-bind2nd(greater&lt;int&gt;(), 15));
-</pre>
+```cpp
+bind2nd(greater<int>(), 15));
+```
 
 - 需要注意的是，`greater<int>()` 这是在调用构造器生成一个 `greater<int>` 对象，对等于我们的 `Gt gt15(15);`
 - 我们经常会看到直接在这个 temporary 上调用函数，比如 `greater<int>()(37, 15)`，这一句是对等于我们的 `gt15(37)`
@@ -66,12 +66,12 @@ bind2nd(greater&lt;int&gt;(), 15));
 
 这样 [C++: Generic Algorithm Examples](/c++/2015/04/21/cpp-generic-algorithm-examples#ga2) 里的例子就可以重写成：
 
-<pre class="prettyprint linenums">
-#include &lt;algorithm&gt;
-#include &lt;cstddef&gt;
-#include &lt;functional&gt;
-#include &lt;iostream&gt;
-#include &lt;iterator&gt;
+```cpp
+#include <algorithm>
+#include <cstddef>
+#include <functional>
+#include <iostream>
+#include <iterator>
 using namespace std;
 
 int main() {
@@ -79,11 +79,11 @@ int main() {
     const size_t SIZE = sizeof a / sizeof a[0];
     
 	remove_copy_if(a, a + SIZE,
-                   ostream_iterator&lt;int&gt;(cout, "\n"),
-                   bind2nd(greater&lt;int&gt;(), 15));
+                   ostream_iterator<int>(cout, "\n"),
+                   bind2nd(greater<int>(), 15));
     // output: 10
 }
-</pre>
+```
 
 ## 2. Classification of function objects
 
@@ -129,11 +129,11 @@ int main() {
 
 ## 5. Member function object adaptor
 
-<pre class="prettyprint linenums">
-#include &lt;algorithm&gt;
-#include &lt;functional&gt;
-#include &lt;iostream&gt;
-#include &lt;vector&gt;
+```cpp
+#include <algorithm>
+#include <functional>
+#include <iostream>
+#include <vector>
 using namespace std;
 
 class Shape {
@@ -151,7 +151,7 @@ public:
 	}
 public:
     void draw() {
-        cout &lt;&lt; "Circle." &lt;&lt; id &lt;&lt; "::Draw()" &lt;&lt; endl;
+        cout << "Circle." << id << "::Draw()" << endl;
     }
     ~Circle() {
 		
@@ -166,7 +166,7 @@ public:
 		
 	}
     void draw() {
-        cout &lt;&lt; "Square." &lt;&lt; id &lt;&lt; "::Draw()" &lt;&lt; endl;
+        cout << "Square." << id << "::Draw()" << endl;
     }
     ~Square() {
 		
@@ -174,7 +174,7 @@ public:
 };
 
 int main() {
-    vector&lt;Shape*&gt; shapeVec;
+    vector<Shape*> shapeVec;
     shapeVec.push_back(new Circle(1));
     shapeVec.push_back(new Square(1));
     
@@ -183,8 +183,8 @@ int main() {
     	delete ps;
 	}
 	
-	// vector&lt;Shape&gt; shapeVec2; // ERROR: C++ 中不允许建立 abstract class 的 vector，只能像上面用指针 
-	vector&lt;Circle&gt; circleVec;
+	// vector<Shape> shapeVec2; // ERROR: C++ 中不允许建立 abstract class 的 vector，只能像上面用指针 
+	vector<Circle> circleVec;
 	Circle c2(2), c3(3);
 	circleVec.push_back(c2);
     circleVec.push_back(c3);
@@ -200,7 +200,7 @@ int main() {
 	Circle.2::Draw()
 	Circle.3::Draw()
 */
-</pre>
+```
 
 简单说就是 `mem_fun` 在遍历 object pointer `po` 时调用 `po->func()`，而 `mem_fun_ref` 是在遍历 object reference `ro` 时调用 `ro.func()`。
 
@@ -208,7 +208,7 @@ int main() {
 
 下面再举个 `find_if` + `mem_fun` 的例子：
 
-<pre class="prettyprint linenums">
+```cpp
 typedef vector<string>::iterator StrVecIterator;
 
 vector<string> vs;
@@ -217,4 +217,4 @@ StrVecIterator svi = find_if(vs.begin(), vs.end(), mem_fun_ref(&string::empty));
 if (svi != vs.end()) {
 	...
 }
-</pre>
+```

@@ -15,7 +15,7 @@ tags: [Java-101]
 
 不过下面的这个例子也许会让人有点吃惊 (also from _Chapter 8, Thinking in Java, Fourth Edition_)：
 
-<pre class="prettyprint linenums">
+```java
 //RTTI: Run-Time Type Identification  
   
 class Useful {  
@@ -41,7 +41,7 @@ public class RTTI {
 	MoreUseful.f() 
 	MoreUseful.g() 
 */
-</pre>
+```
 
 按理来说，`x.f()` 通过动态绑定能够正确调用 MoreUseful 的 `f()` 方法，那么为什么 `x.g()` 就不行呢？真的是 “除了 static 方法和 final 方法 (final 包含 private) 外，Java 对其他 _**‘所有’**_ 的方法都采用 dynamic binding” 吗？还是只对覆写方法才动态绑定？  
 

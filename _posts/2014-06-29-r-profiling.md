@@ -11,18 +11,18 @@ tags: [R-101]
 
 用法是把待测量的代码放到括号里，可以加一对 `{}` 包起来，比如：
 
-<pre class="prettyprint linenums">
+```r
 system.time(readLines("http://www.jhsph.edu"))
 
 system.time({
-    n &lt;- 1000
-    r &lt;- numeric(n)
+    n <- 1000
+    r <- numeric(n)
     for (i in 1:n) {
-        x &lt;- rnorm(n)
-        r[i] &lt;- mean(x)
+        x <- rnorm(n)
+        r[i] <- mean(x)
     }
 })
-</pre>
+```
 
 Returns an object of class proc_time: 
 
@@ -39,21 +39,21 @@ user time 与 elapsed time 的大小关系与指令数和 CPU 的核数相关：
 
 注意一下用法：
 
-<pre class="prettyprint linenums">
-&gt; Rprof()        ## enable profiling
-&gt; foo()          ## some code to be profiled
-&gt; Rprof(NULL)    ## disable profiling
-&gt; summaryRprof() ## show summarized output from Rprof()
-</pre>
+```r
+> Rprof()        ## enable profiling
+> foo()          ## some code to be profiled
+> Rprof(NULL)    ## disable profiling
+> summaryRprof() ## show summarized output from Rprof()
+```
 
 注意事项：
 
-* DO NOT use system.time() and Rprof() together or you will be sad
+* DO NOT use `system.time()` and `Rprof()` together or you will be sad
 * C or Fortran code cannot be profiled
 
 ## summaryRprof()
 
 注意有两种统计方法：
 
-* by.total: 计算各级 function 从开始到退出所用的时间在总时间上的占比。这样一来，最外层的 function 永远是 100% 时间
-* by.self: 在 by.total 的基础上，减去内部调用的 function 的运行时间。此时，如果最外层的 function 只负责调用，那么它只会占很少的时间。
+* `by.total`: 计算各级 function 从开始到退出所用的时间在总时间上的占比。这样一来，最外层的 function 永远是 100% 时间
+* `by.self`: 在 `by.total` 的基础上，减去内部调用的 function 的运行时间。此时，如果最外层的 function 只负责调用，那么它只会占很少的时间。

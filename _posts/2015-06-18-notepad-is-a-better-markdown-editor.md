@@ -25,11 +25,11 @@ word wrap (自动换行) 并不在 `Settings->Preferences` 里面，而是直接
 
 如果安装成功的话，你打开 `Plugins->Python Script->Show Console` 会显示出：
 
-<pre class="prettyprint linenums">
+```
 Python 2.7.6-notepad++ r2 (default, Apr 21 2014, 19:26:54) [MSC v.1600 32 bit (Intel)]
 Initialisation took 171ms
 Ready.
-</pre>
+```
 
 ## Wrapping Text
 

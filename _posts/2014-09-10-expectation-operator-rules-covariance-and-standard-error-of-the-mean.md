@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "Expectation Operator Rules, Covariance and Standard Error of the Mean"
 description: ""
 category: Math

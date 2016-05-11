@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "Computational Complexity Review"
 description: ""
 category: Math
@@ -453,13 +453,13 @@ Multitape TM:
 
 Nondeterministic TM:
 
-- Allow TM to have more than 1 choice of move at each step for any &lt;state, symbol&gt; pair.
-	- Each choice is a &lt;state,symbol,direction&gt; triple, as for the deterministic TM.
+- Allow TM to have more than 1 choice of move at each step for any <state, symbol> pair.
+	- Each choice is a <state,symbol,direction> triple, as for the deterministic TM.
 - Simulating a NTM by a DTM: 待续
 	
-How a TM can simulate a &lt;name-value&gt; store (a storage system that allow us to associate any value with any name):
+How a TM can simulate a <name-value> store (a storage system that allow us to associate any value with any name):
 
-- Very large &lt;name-value&gt; stores => a significant factor in big-data world, like google's big table.
+- Very large <name-value> stores => a significant factor in big-data world, like google's big table.
 - 待续
 
 ### 17.4 Closure Properties of Recursive and RE Languages
@@ -713,9 +713,9 @@ Diagonalization:
 				- 如果不能，考虑 $\text{if } M_i(x_j) = \text{yes}, \text{return } function(z)$ 这样的形式
 		- 然后根据 $L_2$ 的输出决定 $L_1$ 的输出。
 
-<pre class="prettyprint linenums">
+```
 // Reduce L_acc to L_empty
-M_acc(&lt;M_i,x_j&gt;) {
+M_acc(<M_i,x_j>) {
 	M*_ij = TurningMachine(z) {
 		return M_i(x_j)
 	}
@@ -724,7 +724,7 @@ M_acc(&lt;M_i,x_j&gt;) {
 }
 
 // General form of reduction algorithm for L_acc
-M_acc(&lt;M_i,x_j&gt;) {
+M_acc(<M_i,x_j>) {
 	M*_ij = TurningMachine(z) {
 		if(M_i(x_j) = yes) {
 			return f_1(z)
@@ -735,7 +735,7 @@ M_acc(&lt;M_i,x_j&gt;) {
 	
 	return f_3(M_2(M*_ij))
 }
-</pre>
+```
 
 ### Rice's Theorem (Lecture 4)
 
@@ -839,10 +839,10 @@ We could, alternatively, choose an encoding for Turing machines $\langle M \rang
 
 Any string $ s $ has at least one description, namely the program:
 
-<pre class="prettyprint linenums">
+```
 function GenerateFixedString()
     return s
-</pre>
+```
 
 If a description of $ s $, $ d(s) $, is of minimal length (i.e. it uses the fewest bits), it is called a minimal description of $ s $. Thus, the length of $ d(s) $ (i.e. the number of bits in the description) is the Kolmogorov complexity of $ s $, written $ K(s) $. Symbolically, $ K(s) = \vert d(s) \vert $.
 
@@ -870,10 +870,10 @@ Proof: By symmetry, it suffices to prove that there is some constant $ c $ such 
 
 Now, suppose there is a program in the language $ L_1 $ which acts as an interpreter for $ L_2 $:
 
-<pre class="prettyprint linenums">
+```
 function InterpretL2(string p)
     return p()
-</pre>
+```
 
 Running `InterpretL2` on input `p` returns the result of running `p`.
 

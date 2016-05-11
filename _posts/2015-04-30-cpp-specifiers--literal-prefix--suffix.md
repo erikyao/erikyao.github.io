@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "C++: Specifiers / Literal Prefix &amp; Suffix"
+title: "C++: Specifiers / Literal Prefix & Suffix"
 description: ""
 category: C++
 tags: [Cpp-101]

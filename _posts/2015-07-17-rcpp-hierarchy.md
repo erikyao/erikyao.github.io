@@ -36,10 +36,10 @@ _Seamless R and C++ Integration with Rcpp_ 的 _2.3 The R Applicataion Programmi
 
 结合 [Digest of Advanced R](/r/2015/07/08/digest-of-advanced-r) 的 [17.1 Calling C functions from R](/r/2015/07/08/digest-of-advanced-r#17-1-Calling-C-functions-from-R) 和 _Seamless R and C++ Integration with Rcpp_ 的 _2.4 A First Compilation with Rcpp_ 小节，我们可以得到一个完整点的例子：
 
-<pre class="prettyprint linenums">
+```c
 // In C ----------------------------------------
-#include &lt;R.h&gt;
-#include &lt;Rinternals.h&gt;
+#include <R.h>
+#include <Rinternals.h>
 
 SEXP add(SEXP a, SEXP b) {
   SEXP result = PROTECT(allocVector(REALSXP, 1));
@@ -50,16 +50,16 @@ SEXP add(SEXP a, SEXP b) {
 }
 
 // 假设编译得到 add.so
-</pre>
+```
 
-<pre class="prettyprint linenums">
+```r
 # In R ----------------------------------------
 dyn.load("add.so")
 
-add &lt;- function(a, b) {
+add <- function(a, b) {
   .Call("add", a, b)
 }
-</pre>
+```
 
 - `dyn.load()` loads the shared library. It uses the full filename, including 
 	- the explicit platform-dependent extension which is .so (Shared Object) on Unix, 
@@ -84,19 +84,19 @@ _Seamless R and C++ Integration with Rcpp_ 的 _1.2.4 Using Inline_ 小节有讲
 
 我们用 `inline` 来实现上面那个例子：
 
-<pre class="prettyprint linenums">
+```r
 library(inline)
 
-code &lt;- '
+code <- '
 	SEXP result = PROTECT(allocVector(REALSXP, 1));
 	REAL(result)[0] = asReal(a) + asReal(b);
 	UNPROTECT(1);
 	return result;
 '
 
-add &lt;- cfunction(signature(a="numeric", b="numeric"), body=code)
+add <- cfunction(signature(a="numeric", b="numeric"), body=code)
 // 加一个 verbose=TREU 参数可以看到 cfunction 生成的临时的 C 文件
-</pre>
+```
 
 此外还需要注意的是：
 

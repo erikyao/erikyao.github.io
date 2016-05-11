@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "The MEME algorithm"
 description: ""
 category: Machine-Learning

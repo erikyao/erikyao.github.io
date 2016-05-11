@@ -37,8 +37,8 @@ You can use any type (including built-in types) as an exception when you throw, 
 
 而对应的 catch 也可以用 primitive type，比如：
 
-<pre class="prettyprint linenums">
-#include &lt;iostream&gt;
+```cpp
+#include <iostream>
 using namespace std;
 
 void oz() {
@@ -49,20 +49,20 @@ int main() {
     try {
         oz();
     } catch(int) { // catching an int exception 
-        cout &lt;&lt; "Something wrong..." &lt;&lt; endl;
+        cout << "Something wrong..." << endl;
     }
 }
-</pre>
+```
 
 ## <a name="catch-all"></a>2. Catching all
 	
 如果想像 Java 的 `catch(Exception e)` 一样来抓所有的 exception，C++ 需要写成 `catch (...)`：
 
-<pre class="prettyprint linenums">
+```cpp
 catch(...) {
 	// catch any type of exception
 }
-</pre>
+```
 
 The ellipsis ([ɪˈlɪpsɪs], (语法结构上的)省略) gives you no possibility to have an argument, so you can’t know anything about the exception or its type. It’s a “catch-all.” Such a catch clause is often used to clean up some resources and then re-throw the exception.
 
@@ -70,12 +70,12 @@ The ellipsis ([ɪˈlɪpsɪs], (语法结构上的)省略) gives you no possibili
 
 You re-throw an exception by using `throw` with no argument inside a handler:
 
-<pre class="prettyprint linenums">
+```cpp
 catch(...) {
 	// Deallocate your resource here, and then re-throw
 	throw;
 }
-</pre>
+```
 
 In addition, everything about the exception object is preserved, so the handler at the higher context that catches the specific exception type can extract any information the object may contain.
 
@@ -129,11 +129,11 @@ _~~~~~~~~~~ 2015-05-21 补充；来自 Item 13, Effective C++ ~~~~~~~~~~_
 
 Because an `auto_ptr` automatically deletes what it points to when the `auto_ptr` is destroyed, it’s important that there never be more than one `auto_ptr` pointing to an object. If there were, the object would be deleted more than once, and that would put your program on the fast track to undefined behavior. To prevent such problems, `auto_ptr`s have an unusual characteristic: copying them (via copy constructor or copy assignment operator) sets them to null, and the copying pointer assumes sole ownership of the resource!
 
-<pre class="prettyprint linenums">
-std::auto_ptr&lt;Investment&gt; pInv1(createInvestment()); 
-std::auto_ptr&lt;Investment&gt; pInv2(pInv1); // pInv2 now points to the object; pInv1 is now null
+```cpp
+std::auto_ptr<Investment> pInv1(createInvestment()); 
+std::auto_ptr<Investment> pInv2(pInv1); // pInv2 now points to the object; pInv1 is now null
 pInv1 = pInv2; 							// now pInv1 points to the object, and pInv2 is null
-</pre>
+```
 
 STL containers require that their contents exhibit “normal” copying behavior, so containers of `auto_ptr` aren’t allowed.
 
@@ -145,26 +145,26 @@ _~~~~~~~~~~ 2015-05-21 补充完毕 ~~~~~~~~~~_
 
 所谓 function–level try-block，就是把整个 function body 当做 try-block。那 try 写在哪儿？写在 function name 和 `{` 中间：
 
-<pre class="prettyprint linenums">
+```cpp
 int main() try {
 	throw "main";
 } catch(const char* msg) {
 	cout << msg << endl;
 	return 1;
 }
-</pre>
+```
 
 简直是奇行种……C++ also allows function-level try blocks for any function.
 
 注意书上还有一种写法是把 try 写在 constructor initializer list 前面：
 
-<pre class="prettyprint linenums">
+```cpp
 Ext(int i) try : Base(i) { // Base 的 constructor 可能抛异常
 	// Ext construction goes here
 } catch(BaseException&) {
 	throw ExtException("Base constructor fails");;
 }
-</pre>
+```
 
 ## <a name="standard-exception"></a>7. Standard exceptions
 
@@ -198,7 +198,7 @@ Ext(int i) try : Base(i) { // Base 的 constructor 可能抛异常
 
 标准用词是 exception specification，懂了就好。注意语法：
 
-<pre class="prettyprint linenums">
+```cpp
 // 注意是 throw 不是 throws
 void f() throw(FooException, BarException, BazException); // 可能抛出三种异常
 
@@ -207,7 +207,7 @@ void f();				// 可能抛出任何异常
 void f() throw();		// 不会抛出任何异常
 
 void f() throw(...);	// ERROR. no such syntax
-</pre>
+```
 
 If your exception specification claims you’re going to throw a certain set of exceptions and then you throw something that isn’t in that set, the special function `unexpected()` is called. The default `unexpected()` calls the `terminate()` function. 你也可以用 ` set_unexpected()` 自己注册一个，语法和 `set_terminate()` 是同一个系列的。
 
@@ -221,14 +221,14 @@ Since exception specifications are logically part of a function’s declaration,
 
 书上举了个例子：Standard C++ Library 的 `stack`，`pop()` 是个 void 函数。To retrieve the top value, call `top()` before you call `pop()`. 为什么要这么设计？直接把 `pop()` 设计为 int 不好吗？比如：
 
-<pre class="prettyprint linenums">
-template&lt;class T&gt; T stack&lt;T&gt;::pop() {
+```cpp
+template<class T> T stack<T>::pop() {
 	if(top == 0)
 		throw logic_error("stack underflow");
 	else
 		return data[--top]; // If an exception was thrown here...
 }
-</pre>
+```
 
 What happens if the copy constructor that is called for the return value in the last line throws an exception when the value is returned? The popped element is not returned because of the exception, and yet `top` has already been decremented, so the top element you wanted is lost forever! 
 

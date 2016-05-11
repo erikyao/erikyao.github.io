@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "ISL: Classification - Conceptual Exercises"
 description: ""
 category: Machine-Learning

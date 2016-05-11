@@ -19,29 +19,29 @@ When you supply the type for the template parameter, whether explicitly or impli
 
 You can also provide the code yourself for a given template specialization, should the need arise. E.g.:
 
-<pre class="prettyprint linenums">
-#include &lt;cstring&gt;
-#include &lt;iostream&gt;
+```cpp
+#include <cstring>
+#include <iostream>
 using std::strcmp;
 using std::cout;
 using std::endl;
  
-template&lt;class T&gt; const T& min(const T& a, const T& b) {
-    return (a &lt; b) ? a : b;
+template<class T> const T& min(const T& a, const T& b) {
+    return (a < b) ? a : b;
 }
  
 // An explicit specialization of the min template
-template&lt;&gt;
-const char* const& min&lt;const char*&gt;(const char* const& a,
+template<>
+const char* const& min<const char*>(const char* const& a,
                                     const char* const& b) {
-    cout &lt;&lt; "const char* specialization called" &lt;&lt; endl;
-    return (strcmp(a, b) &lt; 0) ? a : b;
+    cout << "const char* specialization called" << endl;
+    return (strcmp(a, b) < 0) ? a : b;
 }
  
 int main() {
     const char *s2 = "say \"Ni-!\"", *s1 = "knights who";
-    cout &lt;&lt; min(s1, s2) &lt;&lt; endl;
-    cout &lt;&lt; min&lt;&lt;(s1, s2) &lt;&lt; endl;
+    cout << min(s1, s2) << endl;
+    cout << min<<(s1, s2) << endl;
 }
  
 // output: 
@@ -51,7 +51,7 @@ int main() {
     const char* specialization called
     knights who
 */
-</pre>
+```
 
 The `template<>` prefix tells the compiler that what follows is a specialization of a template.
 
@@ -59,47 +59,47 @@ Note that we carefully substitute `const char*` for `T`, and we must write `cons
 
 Explicit specializations tend to be more useful for class templates than for function templates. When you provide a full specialization for a class template, though, you may need to implement _**all**_ the member functions. This is because you are providing a separate class, and client code may expect the complete interface to be implemented.
 
-<pre class="prettyprint linenums">
-template&lt;class T, class Allocator = allocator&lt;T&gt;&gt;
+```cpp
+template<class T, class Allocator = allocator<T>>
 class vector {...};
 
 // An explicit specialization for bool
-template&lt;&gt; 
-class vector&lt;bool, allocator&lt;bool&gt;&gt; {...};
-</pre>
+template<> 
+class vector<bool, allocator<bool>> {...};
+```
 
 ## Partial specialization
 
 Class templates can also be partially specialized (However, we cannot partially specialize a function template.), meaning that at least one of the template parameters is left “open” in some way in the specialization. 比如上面的 `template<class T, class Allocator = allocator<T>>`，我们可以指定 T 为 bool，但是 Allocator 可以留着不指定。
 
-<pre class="prettyprint linenums">
-template&lt;class T, class Allocator = allocator&lt;T&gt;&gt;
+```cpp
+template<class T, class Allocator = allocator<T>>
 class vector {...};
 
-template&lt;class Allocator&gt; 
-class vector&lt;bool, Allocator&gt; {...};
-</pre>
+template<class Allocator> 
+class vector<bool, Allocator> {...};
+```
 
 这样只要是 `vector<bool, Whatever>` 都会落到上面的这个实现上。
 
 但是 "is left “open” in some way" 并不是只有 "留着不指定" 这么一种形式。[partial template specialization](http://en.cppreference.com/w/cpp/language/partial_specialization) 上举得例子还有：
 
-<pre class="prettyprint linenums">
-template&lt;class T1, class T2, int I&gt;
+```cpp
+template<class T1, class T2, int I>
 class A {};					// primary template
  
-template&lt;class T, int I&gt;
-class A&lt;T, T*, I&gt; {};		// partial specialization where T2 is a pointer to T1
+template<class T, int I>
+class A<T, T*, I> {};		// partial specialization where T2 is a pointer to T1
  
-template&lt;class T, class T2, int I&gt;
-class A&lt;T*, T2, I&gt; {};	// partial specialization where T1 is a pointer
+template<class T, class T2, int I>
+class A<T*, T2, I> {};	// partial specialization where T1 is a pointer
  
-template&lt;class T&gt;
-class A&lt;int, T*, 5&gt; {};	// partial specialization where T1 is int, I is 5,
+template<class T>
+class A<int, T*, 5> {};	// partial specialization where T1 is int, I is 5,
 							// and T2 is a pointer
  
-template&lt;class X, class T, int I&gt;
-class A&lt;X, T*, I&gt; {};		// partial specialization where T2 is a pointer
-</pre>
+template<class X, class T, int I>
+class A<X, T*, I> {};		// partial specialization where T2 is a pointer
+```
 
 具体的规则见上面的链接。反正 partial specialization 的原则就是：**You must specialize something, but not all.**

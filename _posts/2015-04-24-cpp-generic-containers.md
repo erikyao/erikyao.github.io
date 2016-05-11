@@ -39,8 +39,8 @@ The containers and their categories are summarized in the following table:
 	- `array<string, 10>` is an array that holds 10 strings.
 	- Although we cannot copy or assign objects of built-in array types, there is no such restriction on **array**.
 	
-<pre class="prettyprint linenums">
-typedef std::vector&lt;Shape*&gt; Container;
+```cpp
+typedef std::vector<Shape*> Container;
 typedef Container::iterator Iter;
 
 Container shapes;
@@ -48,13 +48,13 @@ shapes.push_back(new Circle);
 shapes.push_back(new Square);
 shapes.push_back(new Triangle);
 
-// DO NOT use "i &lt; shapes.end()" or "i &lt;= shapes.end()"
+// DO NOT use "i < shapes.end()" or "i <= shapes.end()"
 for(Iter i = shapes.begin(); i != shapes.end(); i++) 
-	(*i)-&gt;draw(); // 注意 *i 得到的是 pointer
+	(*i)->draw(); // 注意 *i 得到的是 pointer
 	
 for(Iter j = shapes.begin(); j != shapes.end(); j++)
 	delete *j;
-</pre>
+```
 
 ### Digress: Holding bits
 
@@ -90,17 +90,17 @@ Container adaptors adapt one of the basic sequence containers to store their dat
 
 ### 3.1 Stack
 
-<pre class="prettyprint linenums">
-stack&lt;string&gt; strStack1; 					// Default implementation with deque&lt;string&gt;
-stack&lt;string, vector&lt;string&gt;&gt; strStack2;	// implementation with vector&lt;string&gt;
-stack&lt;string, list&lt;string&gt;&gt; strStack3;		// implementation with list&lt;string&gt;
+```cpp
+stack<string> strStack1; 					// Default implementation with deque<string>
+stack<string, vector<string>> strStack2;	// implementation with vector<string>
+stack<string, list<string>> strStack3;		// implementation with list<string>
 
 while(!strStack1.empty()) {
-	cout &lt;&lt; strStack1.top();
+	cout << strStack1.top();
 	strStack1.pop();
 	// top 与 pop 操作分工明确；pop 并不返回 top 值
 }
-</pre>
+```
 
 You cannot iterate through a **stack**; this emphasizes that you only want to perform stack operations when you create a **stack** because actually you can get equivalent “stack” functionality using a **vector** and its `back()`, `push_back()`, and `pop_back()` member functions.
 
@@ -114,33 +114,33 @@ The **queue** container is a restricted form of a **deque**. Functionally, you c
 
 When you `push()` an object onto a **priority_queue**, that object is sorted into the queue according to a comparison function or function object. (You can allow the default `less` template to supply this, or you can provide one of your own.) The **priority_queue** ensures that when you look at the `top()` element, it will be the one with the highest priority.
 
-<pre class="prettyprint linenums">
-#include &lt;cstdlib&gt;
-#include &lt;ctime&gt;
-#include &lt;iostream&gt;
-#include &lt;queue&gt;
+```cpp
+#include <cstdlib>
+#include <ctime>
+#include <iostream>
+#include <queue>
 using namespace std;
 
 int main() {
-    priority_queue&lt;int&gt; pqi;
+    priority_queue<int> pqi;
     
 	srand(time(0)); // Seed the random number generator
-    for(int i = 0; i &lt; 10; i++)
+    for(int i = 0; i < 10; i++)
         pqi.push(rand() % 7);
     
 	while(!pqi.empty()) {
-        cout &lt;&lt; pqi.top() &lt;&lt; ' ';
+        cout << pqi.top() << ' ';
         pqi.pop();
     }
     // output: 6 5 4 3 3 3 2 1 1 0
 }
-</pre>
+```
 
-<pre class="prettyprint linenums">
-// implementation with vector&lt;int&gt;
-// use greater&lt;int&gt; to sort
-priority_queue&lt;int, vector&lt;int&gt;, greater&lt;int&gt;&gt; pqi;
-</pre>
+```cpp
+// implementation with vector<int>
+// use greater<int> to sort
+priority_queue<int, vector<int>, greater<int>> pqi;
+```
 
 You cannot iterate through a **priority_queue**, but it’s possible to simulate the behavior of a **priority_queue** using a **vector**.
 
@@ -155,26 +155,26 @@ The **set**, **map**, **multiset**, and **multimap** are called associative cont
 - 自带排序效果，无需手动操作。
 - Its `find()` member function has logarithmic complexity and so is much faster than the generic `find()` algorithm. (联系 hashset)
 
-<pre class="prettyprint linenums">
-#include &lt;iostream&gt;
-#include &lt;set&gt;
+```cpp
+#include <iostream>
+#include <set>
 using namespace std;
 
 int main() {
-    set&lt;int&gt; iset;
+    set<int> iset;
     iset.insert(1);
     iset.insert(3);
     iset.insert(2);
     
-    for(set&lt;int&gt;::iterator i = iset.begin(); i != iset.end(); ++i) {
-    	cout &lt;&lt; *i &lt;&lt; endl;
+    for(set<int>::iterator i = iset.begin(); i != iset.end(); ++i) {
+    	cout << *i << endl;
 	}
 	
 	for(const int& i : iset) { // C++11 syntax
-		cout &lt;&lt; i &lt;&lt; endl;
+		cout << i << endl;
 	}
 }
-</pre>
+```
 
 A **multimap** is a **map** that can contain duplicate keys.
 
@@ -194,14 +194,14 @@ A **multiset** allows more than one object of each value to be inserted.
 - All the containers except the unordered associative containers also support the relational operators (>, >=, <, <=). The right- and left-hand operands must be the same kind of container and must hold elements of the same type.
 	- Appropriate comparison operatos must be defined for the element type.
 
-<pre class="prettyprint linenums">
-vector&lt;int&gt; v1 = { 1, 3, 5, 7, 9, 12 };
-vector&lt;int&gt; v2 = { 1, 3, 9 };
-vector&lt;int&gt; v3 = { 1, 3, 5, 7 };
-vector&lt;int&gt; v4 = { 1, 3, 5, 7, 9, 12 };
+```cpp
+vector<int> v1 = { 1, 3, 5, 7, 9, 12 };
+vector<int> v2 = { 1, 3, 9 };
+vector<int> v3 = { 1, 3, 5, 7 };
+vector<int> v4 = { 1, 3, 5, 7, 9, 12 };
 
-v1 &lt; v2 // true; v1 and v2 differ at element [2]: v1[2] is less than v2[2]
-v1 &lt; v3 // false; all elements are equal, but v3 has fewer of them;
+v1 < v2 // true; v1 and v2 differ at element [2]: v1[2] is less than v2[2]
+v1 < v3 // false; all elements are equal, but v3 has fewer of them;
 v1 == v4 // true; each element is equal and v1 and v4 have the same size()
 v1 == v2 // false; v2 has fewer elements than v1
-</pre>
+```

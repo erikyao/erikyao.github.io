@@ -15,7 +15,7 @@ tags: [Cpp-101]
 
 整个第四章的中心应该是安利 class，所以一上来说了 C lib 这里不好那里不好。然后改进的切入点就是 "why not make functions members of structs?"，于是就有了这样 struct 的新用法（部分代码省略）：
 
-<pre class="prettyprint linenums">
+```cpp
 //: C04:CppLib.h
 // C-like library converted to C++
 struct Stash {
@@ -36,14 +36,14 @@ struct Stash {
 		}
 	*/
 };
-</pre>
+```
 
-<pre class="prettyprint linenums">
+```cpp
 //: C04:CppLib.cpp
 // C library converted to C++
 // Declare structure and functions:
 #include "CppLib.h"
-#include &lt;iostream&gt;
+#include <iostream>
 
 using namespace std;
 
@@ -56,11 +56,11 @@ void Stash::initialize(int size) {
 
 void Stash::cleanup() {
 	if(storage != 0) {
-		cout &lt;&lt; "freeing storage" &lt;&lt; endl;
+		cout << "freeing storage" << endl;
 		delete []storage;
 	}
 }
-</pre>
+```
 
 1. 不需要 `typedef`，声明变量时也不需要写全称 `struct Stash s;`，直接写 `Stash s;` 就好了（当然 C++ 下写全称也不会判错）
 	* 而且不需要 `new`。`Stash s;` 就像 `int i;` 一样有效，然后可以紧接着 `s.cleanup();` 调用函数
@@ -83,7 +83,7 @@ _~~~~~~~~~~ 2015-05-15 更新完毕 ~~~~~~~~~~_
 	
 ## Nested struct
 
-<pre class="prettyprint linenums">
+```cpp
 #ifndef STACK_H
 #define STACK_H
 
@@ -102,11 +102,11 @@ struct Stack {
 };
 
 #endif // STACK_H
-</pre>
+```
 
 注意实现的写法：
 
-<pre class="prettyprint linenums">
+```cpp
 // using an additional level of scope resolution
 void Stack::Link::initialize(void* dat, Link* nxt) {
 	data = dat;
@@ -122,13 +122,13 @@ void Stack::push(void* dat) {
 }
 
 ...
-</pre>
+```
 
 ## Global scope resolution inside struct
 
 主要的目的是想在 struct 内部访问到 global 的同名 function 或者 variable，注意写法：
 
-<pre class="prettyprint linenums">
+```cpp
 int a;
 void f() {} // do nothing
 
@@ -143,4 +143,4 @@ void S::f() {
 	f(); // call this->f(), i.e. the function itself
 	a++; // increase this->a;
 }
-</pre>
+```

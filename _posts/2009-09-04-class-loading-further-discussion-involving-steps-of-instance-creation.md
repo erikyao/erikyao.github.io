@@ -34,18 +34,18 @@ tags: [JVM]
 - _**resolution**_ 过程分析类中的引用。resolution 过程是一个 optional 的过程，在 resolution 过程中可以有不同的 loading 策略，比如说，在 resolve class A 的时候，发现 class A 中有一个 class B 的引用，此时可以立即加载 class B，也可以 do nothing。  
 - _**initialization**_ 过程执行 static initializer 和 initializer for static field (i.e. static variable initializer)。如：
 
-<pre class="prettyprint linenums">
+```java
 private static int i = 5; // static variable initializer  
   
 // static initializer  
 static {  
 	......  
 }
-</pre>
+```
 
 以下 _**不**_ 属于 initialization 阶段执行的代码：
 
-<pre class="prettyprint linenums">
+```java
 private int i = StaticFunction(); // 虽然涉及到了 static 方法，不过 field 不是 static，不能算是 static variable initialzer  
   
 //虽然是对 static field 初始化，但这个 initializer 本身不是 static，依旧不能算是 static initializer  
@@ -53,7 +53,7 @@ private int i = StaticFunction(); // 虽然涉及到了 static 方法，不过 f
 	StaticField = xxx;  
 	......  
 }
-</pre>
+```
 
 由于 loading 和 linking 过程是 implementation-dependent，且不方便追踪和查看，所以暂不讨论 loading 和 linking 的触发条件。以下着重讨论 initialization。
 
@@ -78,7 +78,7 @@ constructor 执行的过程：
 
 回头看 [class loading: an example](/java/2009/03/25/class-loading-an-example) 的例子：
 
-<pre class="prettyprint linenums">
+```java
 import static java.lang.System.out;  
   
 class Insect {  
@@ -122,7 +122,7 @@ public class Beetle extends Insect {
     Beetle constructor 
     j = 2, k = 3, x2 = 3 
 */ 
-</pre>
+```
 
 1. 访问 `Insect` 的 main 方法，是个 static，引发 `Beetle` 的 loading、linking 和 initialization；initialization 又引发 `Insect` 的 loading、linking和 initialization
     * 执行 `Insect` 的 initialization，`private static int x1` (=3)，打印 "static Insect.x1 initialized"
@@ -138,7 +138,7 @@ public class Beetle extends Insect {
 
 回头看 [warning: 在构造器中请谨慎使用被覆写方法](/java/2009/03/27/using-overridden-method-in-constructor-is-dangerous) 的例子：
 
-<pre class="prettyprint linenums">
+```java
 class Glyph {  
 	void draw() {   
 		System.out.println("Glyph.draw()");  
@@ -176,7 +176,7 @@ public class PolyConstructors {
 	before assignment in constructor, radius = 1 
 	RoundGlyph constructor, radius = 5 
 */ 
-</pre>
+```
 
 1. 访问 `PolyConstructors` 的 `main` 方法，loading、linking PolyConstructors，进入 `main`，发现 `RoundGlyph` 构造器
 2. 隐式调用 `super()`，打印 "Glyph constructor"，执行 `RoundGlyph` 的 `draw()` 方法，打印 "RoundGlyph.draw(), radius = 0" (此时还没有执行到 `RoundGlyph` 的 non-static variable initializer)

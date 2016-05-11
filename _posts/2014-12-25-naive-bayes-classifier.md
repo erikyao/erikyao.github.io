@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "Naive Bayes classifier"
 description: ""
 category: Machine-Learning

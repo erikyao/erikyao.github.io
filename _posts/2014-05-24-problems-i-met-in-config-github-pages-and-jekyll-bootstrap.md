@@ -11,7 +11,7 @@ tags: [Config-Jekyll]
 
 见 [User, Organization, and Project Pages](https://help.github.com/articles/user-organization-and-project-pages)，列个表说明下吧：
 
-&nbsp;  | User & Organization Pages | Project Pages
+   | User & Organization Pages | Project Pages
 - | ------------------------- | -------------
 repository | username.github.io | whatever
 branch | master | gh-pages

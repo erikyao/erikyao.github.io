@@ -15,7 +15,7 @@ tags: [Java-Concurrent]
 
 　　基本思想就是在 run() 方法中的 while (true) 里检查线程是否中断，如果中断就退出（当然，退出之前可以做一些关闭资源的操作）；这么一来在主线程中就可以调用 Thread.interrupt() 来中断线程，进而使线程退出。 
 
-<pre class="prettyprint linenums">
+```java
 public class Runner3 implements Runnable {     
 	@Override    
 	public void run() {     
@@ -35,9 +35,9 @@ public class Runner3 implements Runnable {
 		}     
 	}     
 }    
-</pre>
+```
 
-<pre class="prettyprint linenums">
+```java
 public class MultiThreadTest3 {     
     public static void main(String[] args) {     
         Runner3 r = new Runner3();     
@@ -54,11 +54,11 @@ public class MultiThreadTest3 {
         t.interrupt(); // 中断Thread t，使run()方法退出，线程结束     
     }     
 }    
-</pre>
+```
 
 如果在 run() 方法中的 while (true) 里有可能导致 InterruptedException 的操作，那么退出 run() 方法的代码可以放在 catch 语句里。
 
-<pre class="prettyprint linenums">
+```java
 public class Runner2 implements Runnable {  
 	@Override  
 	public void run() {  
@@ -73,9 +73,9 @@ public class Runner2 implements Runnable {
 		}  
 	}  
 }   
-</pre>
+```
 
-<pre class="prettyprint linenums">
+```java
 public class MultiThreadTest2 {     
 	public static void main(String[] args) {     
 		Runner2 r = new Runner2();     
@@ -92,13 +92,13 @@ public class MultiThreadTest2 {
 		t.interrupt(); // 中断Thread t，使t.sleep()时产生中断异常，进而终止线程     
 	}     
 }    
-</pre>
+```
 
 ## 2. 使用标志位
 
 　　使用标志位 boolean flag，将 run() 方法中的 while (true) 改为while (flag)（轮询标志位），主线程中就就可以通过修改 flag 来退出线程。
 
-<pre class="prettyprint linenums">
+```java
 public class Runner4 implements Runnable {  
 	private boolean flag = true;  
 	  
@@ -119,9 +119,9 @@ public class Runner4 implements Runnable {
 		}  
 	}  
 }  
-</pre> 
+```
 
-<pre class="prettyprint linenums">
+```java
 public class MultiThreadTest4 {  
 	public static void main(String[] args) {  
 		Runner4 r = new Runner4();  
@@ -138,15 +138,13 @@ public class MultiThreadTest4 {
 		r.setFlag(false); // 设置标志位，使run()方法退出，线程结束  
 	}  
 }  
-</pre>
+```
 
 这个方法有一个缺点：如果 while (flag) {...} 方法阻塞了，则 flag 的设置会失效。 
 
 ## 3. 最好的方法是使用线程池
 
 　　当线程不用了，就让它 sleep 并放进队列中，这样可以最大限度地利用资源。
-
-<br/>
 
 _2010-10-04补充_：
 

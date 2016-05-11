@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "Probability"
 description: ""
 category: Math
@@ -131,12 +131,12 @@ If $ \alpha = 2 $ and $ \beta = 1 $, then $ B(\alpha, \beta) = \frac{1!\times0!}
 
 我们在 R 中执行 `pbeta(0.75, 2, 1)` 会得到 0.5625。根据 [R Generating Random Numbers and Random Sampling](/r/2014/07/08/r-generating-random-numbers-and-random-sampling) 里总结的规律，p 开头的都是求 CDF，i.e. $ F(x) $，所以这里 `pbeta(0.75, 2, 1)` 的意义就是：当 $ \alpha = 2 $ and $ \beta = 1 $ 时，求 $ F(0.75) $。最终得到 $ F(0.75) = 0.5625 $。这和我们用 $ f(x) $ 的面积来算的结果是一致的：
 
-<pre class="prettyprint linenums">
-&gt; x &lt;- c(0, 1, 1, 1.5)
-&gt; y &lt;- c(0, 2, 0, 0)
-&gt; plot(x, y, lwd = 3, frame = FALSE, type = "l", ylab="f(x)")
-&gt; abline(h=1.5, v=0.75)
-</pre>
+```r
+> x <- c(0, 1, 1, 1.5)
+> y <- c(0, 2, 0, 0)
+> plot(x, y, lwd = 3, frame = FALSE, type = "l", ylab="f(x)")
+> abline(h=1.5, v=0.75)
+```
 
 ![](https://farm6.staticflickr.com/5684/23552709119_86e55bfc5a_o_d.png)
 

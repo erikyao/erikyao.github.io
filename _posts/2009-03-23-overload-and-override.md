@@ -25,7 +25,7 @@ _P.S._ 重载并不要求有继承，同一个类中也可以有重载行为
 
 _P.S._ 静态方法没有覆写机制，如：
 
-<pre class="prettyprint linenums">
+```java
 class Base {  
 	public static void print() {  
 		System.out.println("Base prints.");  
@@ -51,6 +51,6 @@ public class Ext extends Base {
 		e.print(); // Ext prints.  
 	}  
 }  
-</pre>
+```
 
 尤其需要注意的是 b2，这里不像多态机制，静态方法的绑定也是静态的，引用是啥类型，就调用啥类型的静态方法。

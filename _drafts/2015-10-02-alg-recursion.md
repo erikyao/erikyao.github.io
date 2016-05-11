@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "Alg: Recursion"
 description: ""
 category: Algorithm
@@ -40,7 +40,7 @@ There is one mild technical condition that must be satisfied in order for any re
 	
 ### 1.3 Tower of Hanoi
 
-<pre class="prettyprint linenums">
+```
 # Move a stack of n disks 
 # from a source peg (src) 
 # to a destination peg (dst) 
@@ -50,7 +50,7 @@ Hanoi(n, src, dst, tmp):
 		Hanoi(n - 1, src, tmp, dst)
 		move disk n from src to dst
 		Hanoi(n - 1, tmp, dst, src)
-</pre>
+```
 
 - \\( T(0) = 0 \\)
 - \\( T(n) = 2T(n-1)+1 \\) for any \\( n \geq 1 \\)
@@ -58,7 +58,7 @@ Hanoi(n, src, dst, tmp):
 
 ### 1.4 Mergesort
 
-<pre class="prettyprint linenums">
+```
 MergeSort(A[1 .. n]):
 	if n &gt; 1
 		m &lt;- Floor(n / 2)
@@ -88,7 +88,7 @@ Merge(A[1 ... n], m):
 	
 	for k &lt;- 1 to n			# override A with B
 		A[k] &lt;- B[k]
-</pre>
+```
 
 Now we prove MergeSort correct by induction; there are two cases to consider.
 
@@ -119,7 +119,7 @@ $$
 2. Partition the array into three subarrays containing the elements smaller than the pivot, the pivot element itself, and the elements larger than the pivot.
 3. Recursively quicksort the first and last subarray.
 
-<pre class="prettyprint linenums">
+```
 QuickSort(A[1 .. n]):
 	if (n > 1)
 		Choose a pivot element A[p]
@@ -146,7 +146,7 @@ Partition(A[1 .. n], p):
 	# 再把 n 位的 A[p] swap 回来
 	swap A[i] <-> [n]
 	return i
-</pre>
+```
 
 `Partition` runs in \\( O(n) \\) time: \\( j - i = n \\) at the beginning (of the while loop), \\( j - i = 0 \\) at the end (of the while loop), and we do a constant amount of work each time we increment i or decrement j. 
 
@@ -176,7 +176,7 @@ So how do we find the median element of an array in linear time? The following a
 
 The basic `QuickSelect` algorithm chooses a pivot element, partitions the array using the `Partition` subroutine from `QuickSort`, and then recursively searches only one of the two subarrays.
 
-<pre class="prettyprint linenums">
+```
 QuickSelect(A[1 ... n], k):
 	if n = 1
 		return A[1]
@@ -189,7 +189,7 @@ QuickSelect(A[1 ... n], k):
 			return QuickSelect(A[r + 1 ... n], k - r) # 在这部分要选 (k-r)<sup>th</sup> 大的元素
 		else
 			return A[r]
-</pre>
+```
 
 The worst-case running time of `QuickSelect` obeys a recurrence similar to the `QuickSort` recurrence.
 
@@ -217,7 +217,7 @@ This recurrence expands into a descending geometric series, which is dominated b
 
 The Blum-Floyd-Pratt-Rivest-Tarjan algorithm chooses a good pivot for `QuickSort` by recursively computing the median of a carefully-selected subset of the input array.
 
-<pre class="prettyprint linenums">
+```
 Mom5Select(A[1 ... n], k):
 	if n <= 25
 		use brute force
@@ -237,7 +237,7 @@ Mom5Select(A[1 ... n], k):
 			return Mom5Select(A[r + 1 ... n], k - r) 
 		else
 			return mom
-</pre>
+```
 
 There’s absolutely nothing special about the constant 25 in the pseudocode.
 
@@ -284,7 +284,7 @@ $$
 
 参考 [stackoverflow - Code to calculate “median of five” in C#](http://stackoverflow.com/questions/480960/code-to-calculate-median-of-five-in-c-sharp) 
 
-<pre class="prettyprint linenums">
+```
 private static void Swap(ref double a, ref double b) {
     double t = a;
     a = b;
@@ -325,7 +325,7 @@ private static double MedianOfFive(double a, double b, double c, double d, doubl
 
     return Math.Min(d, a);
 }
-</pre>
+```
 
 一共有三次调用 `Sort`，一次 `if (c < a)`，一次 `if (a < c)`，最后还有一个 `Math.Min(d, a)`，所以是 6 次 comparisons
 

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "C++: overloading <i>new</i> &amp; <i>delete</i>"
+title: "C++: overloading <i>new</i> & <i>delete</i>"
 description: ""
 category: C++
 tags: [Cpp-101]
@@ -31,17 +31,17 @@ When you overload `operator new`, you also replace the behavior when it runs out
 
 当 `new` 申请不到内存的时候，其实是会执行一个叫做 new_handler 的 function，这是一个无参的 void 函数，默认的行为是 throw 一个 exception。我们可以用 `#include <new>` 的 set_new_handler() 函数来设置一个新的 new_handler，只要这个 new_handler 是一个无参的 void 函数就行。看例子：
 
-<pre class="prettyprint linenums">
-#include &lt;iostream&gt;
-#include &lt;cstdlib&gt;
-#include &lt;new&gt;
+```cpp
+#include <iostream>
+#include <cstdlib>
+#include <new>
 using namespace std;
 
 int count = 0;
 
 void out_of_memory() {
-    cerr &lt;&lt; "memory exhausted after " &lt;&lt; count
-         &lt;&lt; " allocations!" &lt;&lt; endl;
+    cerr << "memory exhausted after " << count
+         << " allocations!" << endl;
     exit(1);
 }
 
@@ -53,7 +53,7 @@ int main() {
         new int[1000]; // Exhausts memory
     }
 }
-</pre>
+```
 
 The behavior of the new_handler is tied to `operator new`, so if you overload `operator new`, the new_handler will not be called by default. If you still want the new_handler to be called you’ll have to write the code to do so inside your overloaded `operator new`.
 
@@ -66,9 +66,9 @@ The `operator delete` takes an argument of `void*`,
 	
 下面给个没有啥实际意义的例子，主要是演示怎么写：
 	
-<pre class="prettyprint linenums">
-#include &lt;cstdio&gt;
-#include &lt;cstdlib&gt;
+```cpp
+#include <cstdio>
+#include <cstdlib>
 
 void* operator new(size_t sz) {
     printf("operator new: %d Bytes\n", sz);
@@ -84,7 +84,7 @@ void operator delete(void* m) {
     puts("operator delete");
     free(m);
 }
-</pre>
+```
 
 若真是因为原来的 `new` 和 `delete` 不能满足需求而重载，得是多复杂的场景、得是有多牛 X 的技术……想象一下大神说：C++ 这个不太好，我自己造一个语言好了……大概就是这样的感觉……
 
@@ -108,13 +108,13 @@ Although you don’t have to explicitly say `static`, when you overload `new` an
  
 new 接收 additional parameter 的语法是：
 
-<pre class="prettyprint linenums">
+```cpp
 T::operator new(size_t, ...) {
 	...
 }
 
 T* pt = new(...) X(1024);
-</pre>
+```
 
 有啥新添的参数，在 new object 的时候全部加到 new 的括号里。
 

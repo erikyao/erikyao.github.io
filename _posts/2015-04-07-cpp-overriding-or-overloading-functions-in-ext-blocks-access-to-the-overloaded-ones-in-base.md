@@ -13,7 +13,7 @@ tags: [Cpp-101]
 
 先看 Java：
 
-<pre class="prettyprint linenums">
+```cpp
 public class Base {
 	int f() {
 		System.out.println("Base.f()");
@@ -58,23 +58,23 @@ public class Ext3 extends Base {
 		ext3.f("Hello");	// OK. Base.f(): Hello
 	}
 }
-</pre>
+```
 
 再来看下 C++：
 
-<pre class="prettyprint linenums">
-#include &lt;iostream&gt;
-#include &lt;string&gt;
+```cpp
+#include <iostream>
+#include <string>
 using namespace std;
 
 class Base {
 public:
     int f() const {
-        cout &lt;&lt; "Base::f()" &lt;&lt; endl;
+        cout << "Base::f()" << endl;
         return 1;
     }
     int f(string s) const {
-    	cout &lt;&lt; "Base::f(): " &lt;&lt; s &lt;&lt; endl;
+    	cout << "Base::f(): " << s << endl;
         return 1;
     }
 };
@@ -82,7 +82,7 @@ public:
 class Ext : public Base {
 public:
     int f() const {
-        cout &lt;&lt; "Ext::f()" &lt;&lt; endl;
+        cout << "Ext::f()" << endl;
         return 1;
     }
 };
@@ -90,14 +90,14 @@ public:
 class Ext2 : public Base {
 public:
     void f() const { // OK in C++
-        cout &lt;&lt; "Ext2::f()" &lt;&lt; endl;
+        cout << "Ext2::f()" << endl;
     }
 };
 
 class Ext3 : public Base {
 public:
     int f(int i) const {
-        cout &lt;&lt; "Ext3::f(): " &lt;&lt; i &lt;&lt; endl; 
+        cout << "Ext3::f(): " << i << endl; 
         return 3;
     }
 };
@@ -116,7 +116,7 @@ int main() {
     ext3.f(47); 		// OK. Ext3::f(): 47
     ext3.f("Hello"); 	// ERROR. invalid conversion from 'const char*' to 'int'
 }
-</pre>
+```
 
 - `Ext` 覆写了 `int f()`，然后 `int f(string s)` 就访问不到了
 - `Ext2` 不知道算是覆写还是重载了 `int f()`，然后 `int f(string s)` 就访问不到了
@@ -140,19 +140,19 @@ _~~~~~~~~~~ 2015-04-10 更新 ~~~~~~~~~~_
 - `Ext2` 这样不知道是覆写还是重载的写法像 java 一样，C++ 也不允许
 - `Ext1` 和 `Ext3` 里的重载方法还是被屏蔽
 
-<pre class="prettyprint linenums">
-#include &lt;iostream&gt;
-#include &lt;string&gt;
+```cpp
+#include <iostream>
+#include <string>
 using namespace std;
  
 class Base {
 public:
     virtual int f() const {
-        cout &lt;&lt; "Base::f()" &lt;&lt; endl;
+        cout << "Base::f()" << endl;
         return 1;
     }
     virtual int f(string s) const {
-        cout &lt;&lt; "Base::f(): " &lt;&lt; s &lt;&lt; endl;
+        cout << "Base::f(): " << s << endl;
         return 1;
     }
 };
@@ -160,7 +160,7 @@ public:
 class Ext : public Base {
 public:
     int f() const {
-        cout &lt;&lt; "Ext::f()" &lt;&lt; endl;
+        cout << "Ext::f()" << endl;
         return 1;
     }
 };
@@ -168,14 +168,14 @@ public:
 class Ext2 : public Base {
 public:
     void f() const { // ERROR. conflicting return type specified for 'virtual void Ext2::f() const'
-        cout &lt;&lt; "Ext2::f()" &lt;&lt; endl;
+        cout << "Ext2::f()" << endl;
     }
 };
  
 class Ext3 : public Base {
 public:
     int f(int i) const {
-        cout &lt;&lt; "Ext3::f(): " &lt;&lt; i &lt;&lt; endl; 
+        cout << "Ext3::f(): " << i << endl; 
         return 3;
     }
 };
@@ -190,7 +190,7 @@ int main() {
     ext3.f(47);         // OK. Ext3::f(): 47
     ext3.f("Hello");    // ERROR. invalid conversion from 'const char*' to 'int'
 }
-</pre>
+```
 
 另外要注意：协变返回类型（variant return type）在 C++ 中也是允许的。
 

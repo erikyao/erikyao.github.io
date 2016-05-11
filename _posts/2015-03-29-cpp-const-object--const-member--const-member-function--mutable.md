@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "C++: const object / const member &amp; const member function / mutable"
+title: "C++: const object / const member & const member function / mutable"
 description: ""
 category: C++
 tags: [Cpp-101, const]
@@ -34,7 +34,7 @@ tags: [Cpp-101, const]
 
 NO **non-static** data member of the const object can be changed during the object’s lifetime. 用 java 的话说就是 "const 对象的状态不可变"。
 
-<pre class="prettyprint linenums">
+```cpp
 class X {
 public: 
 	int i;
@@ -54,7 +54,7 @@ int main() {
 	cx.i = 2;	// ERROR. assignment of member 'X::i' in read-only object
 	cx.si = 2;	// OK
 }
-</pre>
+```
 
 ## <a name="const-member"></a>2. const member
 
@@ -66,7 +66,7 @@ When you create an ordinary (non-static) `const` inside a class, you CANNOT give
 
 我们来感受一下 constructor initializer list 迷の语法：
 
-<pre class="prettyprint linenums">
+```cpp
 class T {
 private:
 	const int f;
@@ -101,7 +101,7 @@ int main() {
 	int i(5); 	// 我就是 int i = 5; 
 				// int i = 5; 就是我 
 }
-</pre>
+```
 
 注释说得够清楚了，就不啰嗦了。
 
@@ -113,12 +113,12 @@ You must provide the initializer at the point of definition of the static const 
 
 简单举个例子：
 
-<pre class="prettyprint linenums">
+```cpp
 class StringStack {
 private:
 	static const int size = 100;
 };
-</pre>
+```
 
 ## <a name="const-member-function"></a>3. const member function
 
@@ -138,7 +138,7 @@ A const member function
 	
 注意下 const member function 迷の语法： 
 	
-<pre class="prettyprint linenums">
+```cpp
 class T {
 private:
 	const int f;
@@ -193,7 +193,7 @@ int main() {
 	
 	return 0;
 }
-</pre>
+```
 
 需要注意的一点是：
 
@@ -213,7 +213,7 @@ int main() {
 
 This keyword `mutable` can only be applied to non-static and non-const data members of a class. If a data member is declared `mutable`, then it is legal to assign a value to this data member from a const member function. 这也意味着 mutable member 的变化并不会被视为违反 const object 的行为；换句话说，mutable member 不计入 object 的状态。
 
-<pre class="prettyprint linenums">
+```cpp
 class X {
 public: 
 	int i;
@@ -242,7 +242,7 @@ int main() {
 	cx.ti = 2;
 	cx.setTi(3);
 }
-</pre>
+```
 
 我们对标准的、严格要求的 const object 称为 bitwise const，意思是 every bit is const；对 mutable 这样开后门的 const object 称为 logical const，嗯，原则上的 const。
 

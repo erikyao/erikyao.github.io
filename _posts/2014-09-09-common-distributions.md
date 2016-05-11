@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "Common Distributions"
 description: ""
 category: Math
@@ -43,9 +43,9 @@ $$
 
 Recall that the notation $ {n \choose x} = \frac{n!}{x!(n-x)!} $ (read "n choose x") (BTW, $ n! $ reads "n factorial") counts the number of ways of selecting $ x $ items out of $ n $ without replacement disregarding the order of the items, i.e. $ C_n^x $. Specially, 
 
-$ 
+$$
 	{n \choose 0} = {n \choose n} =  1
-$ 
+$$
 
 ### 1.4 Exercise
 
@@ -56,13 +56,13 @@ $$
 	{8 \choose 7} .5^{7}(1-.5)^{1} + {8 \choose 8} .5^{8}(1-.5)^{0} \approx 0.04
 $$
 
-<pre class="prettyprint linenums">
+```r
 choose(8, 7) * .5 ^ 8 + choose(8, 8) * .5 ^ 8 
 ## [1] 0.03516
 
 pbinom(6, size = 8, prob = .5, lower.tail = FALSE) ## if lower.tail=TRUE (default), return P(X ≤ x), otherwise, return P(X > x). 所以这里是 return P(X > 6)
 ## [1] 0.03516
-</pre>
+```
 
 ## 2. The normal (Gaussian) distribution
 
@@ -136,22 +136,22 @@ Assume that the number of daily ad clicks for a company is approximately normal 
 
 * First thought: it is not very likely, 1160 is 2.8 standard deviations from the mean
 
-<pre class="prettyprint linenums">
+```r
 pnorm(1160, mean = 1020, sd = 50, lower.tail = FALSE)
 ## [1] 0.002555
 
 pnorm(2.8, lower.tail = FALSE)
 ## [1] 0.002555
-</pre>
+```
 
 #### 2.4.4 Clicks Problem II
 
 What number of daily ad clicks would represent the one where 75% of days have fewer clicks?
 
-<pre class="prettyprint linenums">
+```r
 qnorm(0.75, mean = 1020, sd = 50)
 ## [1] 1054
-</pre>
+```
 
 ## 3. The Poisson distribution
 
@@ -191,10 +191,10 @@ When $ n $ is large and $ p $ is small:
 
 The number of people that show up at a bus stop is Poisson with a mean of **2.5** per hour. If watching the bus stop for **4** hours, what is the probability that **3** or fewer people show up for the whole time?
 
-<pre class="prettyprint linenums">
+```r
 ppois(3, lambda = 2.5 * 4)
 ## [1] 0.01034
-</pre>
+```
 
 ### 3.5 Poisson approximation to the binomial
 
@@ -210,10 +210,10 @@ ppois(3, lambda = 2.5 * 4)
 
 We flip a coin with success probablity **0.01** five hundred times. What's the probability of 2 or fewer successes?
 
-<pre class="prettyprint linenums">
+```r
 pbinom(2, size = 500, prob = .01)
 ## [1] 0.1234
 
 ppois(2, lambda=500 * .01)
 ## [1] 0.1247
-</pre>
+```

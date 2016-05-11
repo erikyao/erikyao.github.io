@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "ISL: Statistical Learning"
 description: ""
 category: Machine-Learning
@@ -297,31 +297,41 @@ $K$ too large:
 
 Once the data has been loaded, the `fix()` function can be used to view it in a spreadsheet like window.
 
-	> Auto=read.csv (" Auto.csv", header =T,na.strings ="?")
-	> fix(Auto)
+```r
+> Auto=read.csv (" Auto.csv", header =T,na.strings ="?")
+> fix(Auto)
+```
 
 Once the data are loaded correctly, we can use `names()` to check the variable names.
 
-	> names(Auto)
-	[1] "mpg " "cylinders " " displacement" "horsepower "
-	[5] "weight " " acceleration" "year" "origin "
-	[9] "name"
+```r
+> names(Auto)
+[1] "mpg " "cylinders " " displacement" "horsepower "
+[5] "weight " " acceleration" "year" "origin "
+[9] "name"
+```
 	
 To refer to a variable, we must type the data set and the variable name joined with a `$` symbol. Alternatively, we can use the `attach()` function in order to tell R to make the variables in this data frame available by name.
 
-	> plot(Auto$cylinders , Auto$mpg )
-	
-	> attach (Auto)
-	> plot(cylinders , mpg)
+```r
+> plot(Auto$cylinders , Auto$mpg )
+
+> attach (Auto)
+> plot(cylinders , mpg)
+```
 	
 The `pairs()` function creates a scatterplot matrix i.e. a scatterplot for every scatterplot pair of variables for any given data set.
 
-	> pairs(Auto)
-	> pairs(~ mpg + displacement + horsepower + weight + acceleration , Auto)
+```r
+> pairs(Auto)
+> pairs(~ mpg + displacement + horsepower + weight + acceleration , Auto)
+```
 
 In conjunction with the `plot()` function, `identify()` provides a useful interactive method for identifying the value for a particular variable for points on a plot. We pass in three arguments to `identify()`: the x-axis variable, the y-axis variable, and the variable whose values we would like to see printed for each point. Then clicking on a given point in the plot will cause R to print the value of the variable of interest. Right-clicking on the plot will exit the `identify()` function
 
-	> plot(horsepower ,mpg)
-	> identify (horsepower ,mpg ,name)
+```r
+> plot(horsepower ,mpg)
+> identify (horsepower ,mpg ,name)
+```
 
 Before exiting R, we may want to save a record of all of the commands that we typed in the most recent session; this can be accomplished using the `savehistory()` function. Next time we enter R, we can load that history using the `loadhistory()` function.

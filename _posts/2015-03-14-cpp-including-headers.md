@@ -17,24 +17,24 @@ A **header file** is a file containing the external declarations for a library.
 
 The `#include` preprocessor directive tells the preprocessor to open the named header file and insert its contents where the `#include` statement appears.
 
-<pre class="prettyprint linenums">
-#include &lt;header&gt; // search in some systematic paths
-#include "local.h" // typically search relative to the current directory. If not found, reprocessed as &lt;local.h&gt;
-</pre>
+```cpp
+#include <header> // search in some systematic paths
+#include "local.h" // typically search relative to the current directory. If not found, reprocessed as <local.h>
+```
 
 The libraries that have been inherited from C are still available with the traditional ‘.h’ extension. However, you can also use them with the more modern C++ include style by prepending a “c” before the name. Thus:
 
-<pre class="prettyprint linenums">
-#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
-</pre>
+```cpp
+#include <stdio.h>
+#include <stdlib.h>
+```
 
 become:
 
-<pre class="prettyprint linenums">
-#include &lt;cstdio&gt;
-#include &lt;cstdlib&gt;
-</pre>
+```cpp
+#include <cstdio>
+#include <cstdlib>
+```
 
 And so on, for all the Standard C headers. This provides a nice distinction to the reader indicating when you’re using C versus C++ libraries.
 

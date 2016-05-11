@@ -13,7 +13,7 @@ tags: [Java-Exception]
 
 　　同时，对基类异常的 catch 块会屏蔽其后的对其导出类异常的 catch 块，而且这个屏蔽只与 catch 块代码的位置有关系，如：
 
-<pre class="prettyprint linenums">
+```java
 class MyException extends Exception {  
 }  
   
@@ -35,11 +35,11 @@ public class ExceptionTest {
 // when comment or delete the 'catch (MyException me)' block  
 // output:  
 /* Catch an Exception: class MyException */  
-</pre>
+```
 
 　　这里，catch (Exception e) 就屏蔽了 catch (MyException me)。但是，如果我们把 catch (MyException me) 置于 catch (Exception e) 之上，就不会有屏蔽。如：
 
-<pre class="prettyprint linenums">
+```java
 class MyException extends Exception {  
 }  
   
@@ -57,4 +57,4 @@ public class ExceptionTest {
   
 // output:  
 /* Catch a MyException: class MyException */  
-</pre>
+```

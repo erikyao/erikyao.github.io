@@ -11,7 +11,7 @@ class loading 是一个比较复杂的过程。一般说来，类是在其 stati
 
 以下是一个例子 (adapted from _Chapter 7, Thinking in Java, Fourth Edition_)：
 
-<pre class="prettyprint linenums">
+```java
 import static java.lang.System.out;  
   
 class Insect {  
@@ -55,7 +55,7 @@ public class Beetle extends Insect {
     Beetle constructor 
     j = 2, k = 3, x2 = 3 
 */ 
-</pre>
+```
 
 1. 首先，访问 `Beetle.main()`，是个 static，好，加载 Beetle.class；
     * 发现 `Beetle extends Insect`，好，加载 Insect.class (如果 Insect 还有 base class，则持续这一过程，直到找到 root base class)；

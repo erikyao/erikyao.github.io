@@ -47,13 +47,12 @@ tags: [Book, Java-TDD]
 <!-- -->
 > 测试提纲（一种风格，看个人喜好）：
 > 
-> <pre class="prettyprint linenums">
-> //\* first layer
-> //\*\* second layer
-> //\*\*\* third layer step1
-> //\*\*\* third layer step2
+> 	//\* first layer
+> 	//\*\* second layer
+> 	//\*\*\* third layer step1
+> 	//\*\*\* third layer step2
+>  
 > 在最底层提纲下面写测试代码
-> </pre>
 
 <!-- -->
 > 递归组合：比如 Folder 可以包含 Folder，TestSuite 可以包含 TestSuite；避免了再抽象出更高层次的集合类

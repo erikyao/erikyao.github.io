@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "C++: new &amp; delete"
+title: "C++: new & delete"
 description: ""
 category: C++
 tags: [Cpp-101]
@@ -37,10 +37,10 @@ If you create an object on the stack or in static storage, the compiler determin
 	
 `delete` 直接用于指针变量，比如：
 
-<pre class="prettyprint linenums">
+```cpp
 int *pi = new int;
 delete pi;
-</pre>
+```
 
 If the pointer you’re deleting is zero, nothing will happen. For this reason, people often recommend setting a pointer to zero immediately after you delete it, to prevent deleting it twice.
 

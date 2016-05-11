@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "t-tests introduction"
 description: ""
 category: Math

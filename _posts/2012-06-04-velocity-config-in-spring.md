@@ -11,19 +11,19 @@ tags: [Config-Spring, Config-Velocity]
 
 Example from project: 
 
-<pre class="prettyprint linenums">
-&lt;bean id="velocityConfig"  class="org.springframework.web.servlet.view.velocity.VelocityConfigurer"&gt;
-	&lt;property name="velocityProperties"&gt;
-		&lt;props&gt;
-			&lt;prop key="resource.loader"&gt;file&lt;/prop&gt;
-			&lt;prop key="file.resource.loader.class"&gt;org.apache.velocity.runtime.resource.loader.FileResourceLoader&lt;/prop&gt;
-			&lt;prop key="file.resource.loader.path"&gt;${webapp.letterpaper.root}/WEB-INF/vm&lt;/prop&gt;
-			&lt;prop key="file.resource.loader.cache"&gt;true&lt;/prop&gt;
-			&lt;prop key="file.resource.loader.modificationCheckInterval"&gt;300&lt;/prop&gt;
-		&lt;/props&gt;
-	&lt;/property&gt;
-&lt;/bean&gt;
-</pre>	
+```xml
+<bean id="velocityConfig"  class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+	<property name="velocityProperties">
+		<props>
+			<prop key="resource.loader">file</prop>
+			<prop key="file.resource.loader.class">org.apache.velocity.runtime.resource.loader.FileResourceLoader</prop>
+			<prop key="file.resource.loader.path">${webapp.letterpaper.root}/WEB-INF/vm</prop>
+			<prop key="file.resource.loader.cache">true</prop>
+			<prop key="file.resource.loader.modificationCheckInterval">300</prop>
+		</props>
+	</property>
+</bean>
+```
 
 `resource.manager.logwhenfound = true`
 

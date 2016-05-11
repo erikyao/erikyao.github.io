@@ -23,11 +23,11 @@ tags: [Java-DesignPattern]
 
 企鹅 “知道” 气候，但并不 “拥有” 气候，在代码上反映为：
 
-<pre class="prettyprint linenums">
+```
 class Penguin extends Bird {  
 	private Climate c;  
 }  
-</pre>
+```
 
 ---
 
@@ -39,11 +39,11 @@ class Penguin extends Bird {
 
 虽然雁群理所当然应该包含大雁，但也存在着 null 雁群，即 WildGoose 数组为空的情况。从代码上看：
 
-<pre class="prettyprint linenums">
+```
 class WildGooseGroup {  
 	private arrayWildGoose WildGoose[];  
 }  
-</pre>
+```
 
 与关联并没有什么不同。的确是这样，关联和聚合的区别仅体现在这两个对象在业务逻辑或是在常识中的关系，在代码层次是没有区别的。
 
@@ -57,7 +57,7 @@ class WildGooseGroup {
 
 鸟必然 “拥有” 翅膀，如果 Wing[2] 为空，那么这个这个 Bird 对象是不应该存在的。在代码上体现为：
 
-<pre class="prettyprint linenums">
+```
 class Bird extends Animal {  
 	private wings Wing[2];  
 	  
@@ -66,7 +66,7 @@ class Bird extends Animal {
 		wings[1] = new Wing();  
 	}  
 }  
-</pre>
+```
 
 可见 Bird 和 Wing 对象是强制绑定在一起的。
 

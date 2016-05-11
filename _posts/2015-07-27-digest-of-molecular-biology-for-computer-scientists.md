@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "Digest of <i>Molecular Biology for Computer Scientists</i>"
 description: ""
 category: Biology

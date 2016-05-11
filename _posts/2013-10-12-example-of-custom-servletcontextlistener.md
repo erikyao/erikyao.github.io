@@ -7,17 +7,17 @@ tags: [Servlet]
 ---
 {% include JB/setup %}
 
-<pre class="prettyprint linenums">
-&lt;context-param&gt;
-	 &lt;param-name&gt;ibatisResourceCharset&lt;/param-name&gt;
-	 &lt;param-value&gt;UTF-8&lt;/param-value&gt;
-&lt;/context-param&gt;
-&lt;listener&gt;
-     &lt;listener-class&gt;xxx.xxx.xxx.listener.IbatisConfigListener&lt;/listener-class&gt;
-&lt;/listener&gt;
-</pre>
+```xml
+<context-param>
+	 <param-name>ibatisResourceCharset</param-name>
+	 <param-value>UTF-8</param-value>
+</context-param>
+<listener>
+     <listener-class>xxx.xxx.xxx.listener.IbatisConfigListener</listener-class>
+</listener>
+```
 
-<pre class="prettyprint linenums">
+```java
 package xxx.xxx.xxx.listener;
 
 import java.nio.charset.Charset;
@@ -46,4 +46,4 @@ public class IbatisConfigListener implements ServletContextListener {
           System.out.println(Charset.isSupported("UTF-8"));
      }
 }
-</pre>
+```

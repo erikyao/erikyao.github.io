@@ -1,6 +1,6 @@
 ---
-layout: post-mathjax
-title: "R Data Types - Part 1: Basis, Vectors, Matrices &amp; Lists"
+layout: post
+title: "R Data Types - Part 1: Basis, Vectors, Matrices & Lists"
 description: ""
 category: R
 tags: [R-101]
@@ -88,67 +88,79 @@ Matrices are vectors with a dimension attribute.
 
 Matrices are constructed column-wise, so entries scan be thought of starting in the “upper left” corner and running down the columns. 
 
-	> m <- matrix(1:6, nrow = 2, ncol = 3)
-	> m
-		 [,1] [,2] [,3]
-	[1,]    1    3    5
-	[2,]    2    4    6
+```r
+> m <- matrix(1:6, nrow = 2, ncol = 3)
+> m
+	 [,1] [,2] [,3]
+[1,]    1    3    5
+[2,]    2    4    6
+```
 
 	
 Observe that the matrix was filled column by column, not row by row. 不过可以指定 `byrow=TRUE`:
 
-	> m <- matrix(1:6, nrow = 2, ncol = 3, byrow = TRUE) 
-	> m
-		 [,1] [,2] [,3]
-	[1,]    1    2    3
-	[2,]    4    5    6
+```r
+> m <- matrix(1:6, nrow = 2, ncol = 3, byrow = TRUE) 
+> m
+	 [,1] [,2] [,3]
+[1,]    1    2    3
+[2,]    4    5    6
+```
 
 If the first argument of matrix is a single value, then R will apply the Recycling Rule and automatically replicate the value to fill the entire matrix:
 
-	> matrix(0, 2, 3) # Create an all-zeros matrix
-		 [,1] [,2] [,3]
-	[1,]    0    0    0
-	[2,]    0    0    0
+```r
+> matrix(0, 2, 3) # Create an all-zeros matrix
+	 [,1] [,2] [,3]
+[1,]    0    0    0
+[2,]    0    0    0
+```
 
 ### 3.2 间接创建 matrix
 
 Matrices can also be created directly from vectors by adding a dimension attribute.
-	
-	> m <- 1:10 
-	> m
-	[1] 1 2 3 4 5 6 7 8 9 10 
-	> dim(m) <- c(2, 5) ## 改成一个 2x5 矩阵
-	> m
-		 [,1] [,2] [,3] [,4] [,5]
-	[1,]    1    3    5    7    9
-	[2,]    2    4    6    8   10
+
+```r
+> m <- 1:10 
+> m
+[1] 1 2 3 4 5 6 7 8 9 10 
+> dim(m) <- c(2, 5) ## 改成一个 2x5 矩阵
+> m
+	 [,1] [,2] [,3] [,4] [,5]
+[1,]    1    3    5    7    9
+[2,]    2    4    6    8   10
+```
 
 Matrices can be created by column-binding or row-binding with cbind() and rbind().  
 
-	> x <- 1:3
-	> y <- 10:12
-	> cbind(x, y) ## 可以理解为 bind by column
-		 x y 
-	[1,] 1 10 
-	[2,] 2 11 
-	[3,] 3 12
-	> rbind(x, y) ## 可以理解为 bind by row
-	  [,1] [,2] [,3]
-	x    1    2    3
-	y   10   11   12
+```r
+> x <- 1:3
+> y <- 10:12
+> cbind(x, y) ## 可以理解为 bind by column
+	 x y 
+[1,] 1 10 
+[2,] 2 11 
+[3,] 3 12
+> rbind(x, y) ## 可以理解为 bind by row
+  [,1] [,2] [,3]
+x    1    2    3
+y   10   11   12
+```
 
 但是要注意一点：R will repeat the shorter column or row to make the matrix:
 
-	> rbind(x=1:6, y=10:12)
-	  [,1] [,2] [,3] [,4] [,5] [,6]
-	x    1    2    3    4    5    6
-	y   10   11   12   10   11   12
+```r
+> rbind(x=1:6, y=10:12)
+  [,1] [,2] [,3] [,4] [,5] [,6]
+x    1    2    3    4    5    6
+y   10   11   12   10   11   12
 
-	> cbind(x=1:3, y=4:5)
-		 x y
-	[1,] 1 4
-	[2,] 2 5
-	[3,] 3 4
+> cbind(x=1:3, y=4:5)
+	 x y
+[1,] 1 4
+[2,] 2 5
+[3,] 3 4
+```
 
 ### 3.3 Matrix Operations
 
@@ -190,7 +202,7 @@ Matrices can be created by column-binding or row-binding with cbind() and rbind(
 
 There are many contexts that require a vector. Basic statistical function, say, `mean`, works on vectors but not on lists, for example. Instead, we must flatten the list into a vector using `unlist` and then compute the mean of the result:
 
-<pre class="prettyprint linenums">
+```r
 grade = list(88,92,96)
 
 mean(grade)
@@ -200,26 +212,26 @@ In mean.default(grade) : argument is not numeric or logical: returning NA
 
 mean(unlist(grade))
 [1] 92
-</pre>
+```
 
 ### 4.2 Removing NULL Elements from a List
 
 有点高端的写法：
 
-<pre class="prettyprint linenums">
-lst[sapply(lst, is.null)] &lt;- NULL
-</pre>
+```r
+lst[sapply(lst, is.null)] <- NULL
+```
 
 ### 4.3 Removing Elements Whose abs < 1
 
 The simplest solution is flattening the list into a vector by calling `unlist` and then testing the vector:
 
-<pre class="prettyprint linenums">
-lst[abs(unlist(lst)) &lt; 1] &lt;- NULL
-</pre>
+```r
+lst[abs(unlist(lst)) < 1] <- NULL
+```
 
 A more elegant solution uses `lapply` to apply the function to every element of the list:
 
-<pre class="prettyprint linenums">
-lst[lapply(lst,abs) &lt; 1] &lt;- NULL
-</pre>
+```r
+lst[lapply(lst,abs) < 1] <- NULL
+```

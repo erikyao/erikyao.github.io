@@ -226,9 +226,9 @@ tags: [Book, Java-DesignPattern]
 8. 对于特殊的业务规则，用一个 method 封装业务规则相关操作，名字当然要 semantic，必要时加注释  
 9. 对于复杂、繁复的业务规则，自顶向下是好办法。这样的代码能一眼看到业务规则的全貌：  
 	  
-	switch (processNum) {<br/>  
-	&nbsp;&nbsp;&nbsp;&nbsp;case 1: doProcess1(); break;<br/>  
-	&nbsp;&nbsp;&nbsp;&nbsp;case 2: doSubProcess2_1(); doSubProcess2_2(); break;<br>  
+	switch (processNum) {  
+	    case 1: doProcess1(); break;  
+	    case 2: doSubProcess2_1(); doSubProcess2_2(); break;  
 	}
   
 10. 对于很长很长的 `if` 条件，用一个 boolean method 代替吧  
@@ -384,12 +384,12 @@ ISP, Interface Segregation Principle
 > In object-oriented programming, the command pattern is a behavioral design pattern in which an object is used to represent and encapsulate all the information needed to call a method at a later time. This information includes the method name, the object that owns the method and values for the method parameters.  
 > <br/>
 > Four terms always associated with the command pattern are command, receiver, invoker and client.   
-
->* A command object has a receiver object and invokes a method of the receiver in a way that is specific to that receiver's class. 
->* The receiver then does the work. 
->* A command object is separately passed to an invoker object, which invokes the command, and optionally does bookkeeping about the command execution. Any command object can be passed to the same invoker object. 
->* Both an invoker object and several command objects are held by a client object. The client contains the decision making about which commands to execute at which points. To execute a command, it passes the command object to the invoker object.   
-
+>   
+> * A command object has a receiver object and invokes a method of the receiver in a way that is specific to that receiver's class. 
+> * The receiver then does the work. 
+> * A command object is separately passed to an invoker object, which invokes the command, and optionally does bookkeeping about the command execution. Any command object can be passed to the same invoker object. 
+> * Both an invoker object and several command objects are held by a client object. The client contains the decision making about which commands to execute at which points. To execute a command, it passes the command object to the invoker object.   
+>   
 > Using command objects makes it easier to construct general components that need to delegate, sequence or execute method calls at a time of their choosing without the need to know the class of the method or the method parameters. Using an invoker object allows bookkeeping about command executions to be conveniently performed, as well as implementing different modes for commands, which are managed by the invoker object, without the need for the client to be aware of the existence of bookkeeping or modes.  
 
 ![][command_pattern]
@@ -513,13 +513,13 @@ mediator 与 facade 不同，不管有没有 mediator，client 的访问方式�
 这篇 [Mediator Pattern](http://www.oodesign.com/mediator-pattern.html) 写得不错，还提了一个 chatroom 的例子：
 
 > The chat application is another example of the mediator pattern. In a chat application we can have several participants. It's not a good idea to connect each participant to all the others because the number of connections would be really high, there would be technical problems due to proxies and firewalls, etc... . The most appropriate solution is to have a hub where all participants will connect; this hub is just the mediator class.  
-> <br/>
+>  
 > Participants:
-
->* Chatroom (Mediator) - Defines the interface for interacting with participants
->* ChatroomImpl (ConcreteMediator) - implements the operations defined by the Chatroom interface. The operations are managing the interactions between the objects: when one participant sends a message, the message is sent to the other participants.
->* Participant (Colleague) - defines an interface for the participants.  
->* HumanParticipant, Bot (ConcreteColleague) - implements participants; the participant can be a human or a bot, each one having a distinct implementation but implementing the same interface. Each participant will keep only a reference to the mediator.
+>  
+> * Chatroom (Mediator) - Defines the interface for interacting with participants
+> * ChatroomImpl (ConcreteMediator) - implements the operations defined by the Chatroom interface. The operations are managing the interactions between the objects: when one participant sends a message, the message is sent to the other participants.
+> * Participant (Colleague) - defines an interface for the participants.  
+> * HumanParticipant, Bot (ConcreteColleague) - implements participants; the participant can be a human or a bot, each one having a distinct implementation but implementing the same interface. Each participant will keep only a reference to the mediator.
 
 还有一个类比就是塔台，“飞机甲” 不需要向其余的 “飞机乙丙丁” 通告飞行高度，它只需要向塔台（mediator）通报就可以了。  
 
@@ -744,15 +744,15 @@ SAP: Stable Abstractions Principle
 
 还是用 Shape、Circle、Square 的例子。调用类可能要多个 Circle 或 Square，这是我们常见的做法是定一个 `List<Shape> list = new ArrayList<Shanpe>();`。如果用 Composite 模式的话就是：
 
-<pre class="prettyprint linenums">
+```java
 public class CompositeShape implements Shape {
-	private List&lt;Shape&gt; list = new ArrayList&lt;Shanpe&gt;();
+	private List<Shape> list = new ArrayList<Shanpe>();
 	
 	public void add(Shape s) { ... }
 	public void remove(Shape s) { ... }
 	...
 }
-</pre>
+```
 
 然后调用类就可以只持有一个 Composite 对象就可以了。同时 CompositeShape 还可以 `add(CompositeShape)` 自行嵌套，可以亦链亦树。  
 
@@ -878,7 +878,7 @@ Bridge 模式和 [Adapter 模式](http://erikyao.github.io/java/2014/06/04/diges
 
 简化的代码是：
 
-<pre class="prettyprint linenums">
+```java
 public class UnixModemConfigurator implements ModemVistor {
 	@Override
 	public void visit(HayesModem hm) {
@@ -890,9 +890,9 @@ public class UnixModemConfigurator implements ModemVistor {
 		zm.setConfigString("zoom");
 	}
 }
-</pre>
+```
 
-<pre class="prettyprint linenums">
+```java
 public class HayesModem implements Modem {
 
 	private String configString;
@@ -911,9 +911,9 @@ public class HayesModem implements Modem {
 		v.visit(this);
 	}
 }
-</pre>
+```
 
-<pre class="prettyprint linenums">
+```java
 public static void main(String[] args) {
 	Modem hayes = new HayesModem();
 	Modem zoom = new ZoomModem();
@@ -925,7 +925,7 @@ public static void main(String[] args) {
 	System.out.println(hayes.getConfigString());
 	System.out.println(zoom.getConfigString());
 }
-</pre>
+```
 
 [wiki](http://en.wikipedia.org/wiki/Visitor_pattern) 的说法是：
 
@@ -940,7 +940,7 @@ public static void main(String[] args) {
 _Thinking in C++, Volume 2_ 的说法是：
 
 > The goal of Visitor is to separate the operations on a class hierarchy from the hierarchy itself.  
-> <br/>
+>   
 > If you need to add member functions to the base class, but for some reason you can’t touch the base class. How do you get around this? Visitor builds on the double-dispatching scheme which allows you to effectively extend the interface of the primary type by creating a separate class hierarchy of type Visitor to “virtualize” the operations performed on the primary type. The objects of the primary type simply “accept” the visitor and then call the visitor’s dynamically bound member function. Thus, you create a visitor, pass it into the primary hierarchy, and you get the effect of a virtual function.
 
 注意我写的简化的代码和书上的有些区别：
@@ -1040,7 +1040,7 @@ Double Dispatch 可以简单理解成 `infA.do(InfB infB)`， 就是在 infA 和
 
 代码如下：
 
-<pre class="prettyprint linenums">
+```java
 public class LockTurnStileState implements TurnstileState {
 	@Override
 	public void coin(Turnstile t) {
@@ -1053,9 +1053,9 @@ public class LockTurnStileState implements TurnstileState {
 		t.alarm();
 	}
 }
-</pre>
+```
 
-<pre class="prettyprint linenums">
+```java
 public class UnlockedTurnstileState implements TurnstileState {
 	@Override
 	public void coin(Turnstile t) {
@@ -1068,9 +1068,9 @@ public class UnlockedTurnstileState implements TurnstileState {
 		t.setLocked();
 	}
 }
-</pre>
+```
 
-<pre class="prettyprint linenums">
+```java
 public class Turnstile {
 	private static TurnstileState LOCKED = new LockTurnStileState();
 	private static TurnstileState UNLOCKED = new UnlockedTurnstileState();
@@ -1115,7 +1115,7 @@ public class Turnstile {
 		TurnstileUtil.thankyou();
 	}
 }
-</pre>
+```
 
 写到这里，我不禁觉得我的 LP 项目 create、edit 那一块的逻辑真的很适合用 State 模式：StateOwner 是 `EditPage`，State 是 `UploadPic`、`UseSystemPic` 之类的，action 是 `createLP`、`saveLP`、`writeResponse` 之类，event 就靠参数来判断好了……简直不能更适用！  
 
@@ -1128,7 +1128,7 @@ public class Turnstile {
 
 代码如下：
 
-<pre class="prettyprint linenums">
+```java
 public enum EnumedTurnsitleState implements TurnstileState {
 	EnumedLockedTurnstileState {
 		@Override
@@ -1156,7 +1156,7 @@ public enum EnumedTurnsitleState implements TurnstileState {
 		}
 	};
 }
-</pre>
+```
 
 这样一来，`Turnstile` 里就可以不用 `TurnstileState` 的多态了，直接 `EnumedTurnsitleState currentState = EnumedLockedTurnstileState;` 好了。
 
@@ -1189,7 +1189,7 @@ State 模式也是有缺点的：
 UML 没啥好讲的，记录下小知识点：
 
 1. UML 的 unified 表示的是 "统一了结构化分析与结构化设计"
-2. 用例的扩展点（extension point）其实是个标志，表示 "快来几个用例来扩展（&lt;&lt;extend&gt;&gt;）我"，比如：
+2. 用例的扩展点（extension point）其实是个标志，表示 "快来几个用例来扩展（<<extend>>）我"，比如：
 	* 父用例 UC#2 是 "在线支付"
 	* extension point 是 "选择支付方式"
 	* 子用例 UC#2.1 是 "支付宝支付"，UC#2.2 是 "网银支付"

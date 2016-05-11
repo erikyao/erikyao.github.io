@@ -32,8 +32,8 @@ tags: [Cpp-101]
 	
 ## <a name="Singleton"></a>1. Singleton
 
-<pre class="prettyprint linenums">
-#include &lt;iostream&gt;
+```cpp
+#include <iostream>
 using namespace std;
 
 class Singleton {
@@ -59,17 +59,17 @@ Singleton Singleton::s(47); // initialize the static instance
 
 int main() {
     Singleton& s = Singleton::instance();
-    cout &lt;&lt; s.getValue() &lt;&lt; endl; // output: 47
+    cout << s.getValue() << endl; // output: 47
     
 	Singleton& s2 = Singleton::instance();
     s2.setValue(9);
-    cout &lt;&lt; s.getValue() &lt;&lt; endl; // output: 9
+    cout << s.getValue() << endl; // output: 9
 }
-</pre>
+```
 
 lazy-initialization version:
 
-<pre class="prettyprint linenums">
+```cpp
 class Singleton {
     int i;
     Singleton(int x) : i(x) { }			// To disable constructor
@@ -87,15 +87,15 @@ public:
         i = x;
     }
 };
-</pre>
+```
 
 ## <a name="Command"></a>2. Command
 
 The point is to decouple the choice of function to be called from the site where that function is called.
 
-<pre class="prettyprint linenums">
-#include &lt;iostream&gt;
-#include &lt;vector&gt;
+```cpp
+#include <iostream>
+#include <vector>
 using namespace std;
 
 class Command {
@@ -106,37 +106,37 @@ public:
 class SayHello : public Command {
 public:
     void execute() {
-        cout &lt;&lt; "Hello ";
+        cout << "Hello ";
     }
 };
 
 class SayWorld : public Command {
 public:
     void execute() {
-        cout &lt;&lt; "World! ";
+        cout << "World! ";
     }
 };
 
 class SayIAm : public Command {
 public:
     void execute() {
-        cout &lt;&lt; "I'm the command pattern!";
+        cout << "I'm the command pattern!";
     }
 };
 
 int main() {
-    vector&lt;Command*&gt; commandVector;
+    vector<Command*> commandVector;
     commandVector.push_back(new SayHello);
     commandVector.push_back(new SayWorld);
     commandVector.push_back(new SayIAm);
     
     for (Command* pc : commandVector) {
-    	pc-&gt;execute();
+    	pc->execute();
     	delete pc;
 	}
 	// output: Hello World! I'm the command pattern! 
 }
-</pre>
+```
 
 GoF says that “Commands are an object-oriented replacement for callbacks.”
 
@@ -148,8 +148,8 @@ Proxy is simply a special case of State. Structurally, the difference between Pr
 
 其实就是一种 composition 的运用：
 
-<pre class="prettyprint linenums">
-#include &lt;iostream&gt;
+```cpp
+#include <iostream>
 using namespace std;
 
 class FooBase {
@@ -162,10 +162,10 @@ public:
 class FooImpl : public FooBase {
 public:
     void g() {
-        cout &lt;&lt; "FooImpl.g()" &lt;&lt; endl;
+        cout << "FooImpl.g()" << endl;
     }
     void h() {
-        cout &lt;&lt; "FooImpl.h()" &lt;&lt; endl;
+        cout << "FooImpl.h()" << endl;
     }
 };
 
@@ -181,10 +181,10 @@ public:
 	
 	// Forward calls to the FooImpl:
     void g() {
-        foo-&gt;g();
+        foo->g();
     }
     void h() {
-        foo-&gt;h();
+        foo->h();
     }
 };
 
@@ -193,15 +193,15 @@ int main() {
     proxy.g();
     proxy.h();
 }
-</pre>
+```
 
 `FooImpl` doesn’t need the same interface as `FooProxy`.
 
 ### State: changing object behavior
 
-<pre class="prettyprint linenums">
-#include &lt;iostream&gt;
-#include &lt;string&gt;
+```cpp
+#include <iostream>
+#include <string>
 using namespace std;
 
 class FrogPrince {
@@ -229,7 +229,7 @@ public:
     FrogPrince() : state(new Frog()) {}
     
 	void greet() {
-        cout &lt;&lt; state-&gt;response() &lt;&lt; endl;
+        cout << state->response() << endl;
     }
     
 	void kiss() {
@@ -245,7 +245,7 @@ int main() {
     frogPrince.kiss();
     frogPrince.greet();
 }
-</pre>
+```
 
 It is not necessary to make the implementing classes nested or private, but if you can it creates cleaner code.
 
@@ -266,12 +266,12 @@ Chain of Responsibility might be thought of as a “dynamic generalization of re
 
 ## <a name="Factory"></a>6. Factories: encapsulating object creation
 
-<pre class="prettyprint linenums">
-#include &lt;iostream&gt;
-#include &lt;stdexcept&gt;
-#include &lt;cstddef&gt;
-#include &lt;string&gt;
-#include &lt;vector&gt;
+```cpp
+#include <iostream>
+#include <stdexcept>
+#include <cstddef>
+#include <string>
+#include <vector>
 #include "../purge.h"
 using namespace std;
 
@@ -294,8 +294,8 @@ private:
     Circle() {} // Private constructor
     friend class Shape;
 public:
-    void draw() { cout &lt;&lt; "Circle::draw" &lt;&lt; endl; }
-    ~Circle() { cout &lt;&lt; "Circle::~Circle" &lt;&lt; endl; }
+    void draw() { cout << "Circle::draw" << endl; }
+    ~Circle() { cout << "Circle::~Circle" << endl; }
 };
 
 class Square : public Shape {
@@ -303,8 +303,8 @@ private:
     Square() {} // Private constructor
     friend class Shape;
 public:
-    void draw() { cout &lt;&lt; "Square::draw" &lt;&lt; endl; }
-    ~Square() { cout &lt;&lt; "Square::~Square" &lt;&lt; endl; }
+    void draw() { cout << "Square::draw" << endl; }
+    ~Square() { cout << "Square::~Square" << endl; }
 };
 
 Shape* Shape::factory(const string& type) throw(Shape::BadShapeCreation) {
@@ -321,13 +321,13 @@ int main() {
     try {
     	Shape* ps = Shape::factory("Square");
     } catch(Shape::BadShapeCreation e) {
-        cout &lt;&lt; e.what() &lt;&lt; endl;
+        cout << e.what() << endl;
         delete ps;
         return EXIT_FAILURE;
     }
     ...
 }
-</pre>
+```
 
 You could also declare only `Shape::factory()` to be a friend, but it seems reasonably harmless to declare the entire base class as a friend.
 

@@ -11,52 +11,62 @@ tags: [Interview-101]
 
 求以下两段代码各自的computational cost（参 [Computational cost](http://stackoverflow.com/questions/3127145/computational-cost)）：
 
-	(1) while(n>2)	
-			n = sqrt(n); 
-	(2) while(n>2) 
-			n = log(n)
+```java
+(1) while(n>2)
+	n = sqrt(n); 
+(2) while(n>2) 
+	n = log(n)
+```
 
 解：(1) 设 sqrt(n) == p，假设程序运行 k 次，有：
 
-	k = 1, p = n ^ ½ 
-	k = 2, p = n ^ ¼ 
-	…… 
-	k = m, p = n ^ (½ ^ m)
+```
+k = 1, p = n ^ ½ 
+k = 2, p = n ^ ¼ 
+…… 
+k = m, p = n ^ (½ ^ m)
+```
  
 假设 k = m 时，p <= 2，有：
 
-	p = n ^ (½ ^ m)，两边同时 (2 ^ m) 次方，得：
-	p ^ (2 ^ m) = n，两边同时取对数，得：
-	(2 ^ m) × log p = log n，两边再次取对数，得：
-	log (2 ^ m) + log log p = log log n，即：
-	m•log2 + log log p = log log n
+```
+p = n ^ (½ ^ m)，两边同时 (2 ^ m) 次方，得：
+p ^ (2 ^ m) = n，两边同时取对数，得：
+(2 ^ m) × log p = log n，两边再次取对数，得：
+log (2 ^ m) + log log p = log log n，即：
+m•log2 + log log p = log log n
 
-	∵ p <= 2 为常数
-	∴ log log p 为常数
-	又 ∵ log2 是常数
-	∴ m ~= log log n
+∵ p <= 2 为常数
+∴ log log p 为常数
+又 ∵ log2 是常数
+∴ m ~= log log n
+```
 	
 即算法复杂度为 O(log log n)
 
 解：(2) 设 log(n) == p，假设程序运行 k 次，有 
 
-	k = 1, p = log n 
-	k = 2, p = log log n 
-	…… 
-	k = m, p = log log …… log n // m 个 log
+```
+k = 1, p = log n 
+k = 2, p = log log n 
+…… 
+k = m, p = log log …… log n // m 个 log
+```
 
 假设 k = m 时，p <= 2，根据 Iterated logarithm，有：
 
-	log*(n) = 1 + log*(log n)
-			= 2 + log*(log log n)
-			= 3 + log*(log log log n)
-			= ……
-			= m + log*(log log …… log n) // m 个 log
-			= m + log*(p)
+```
+log*(n) = 1 + log*(log n)
+	= 2 + log*(log log n)
+	= 3 + log*(log log log n)
+	= ……
+	= m + log*(log log …… log n) // m 个 log
+	= m + log*(p)
 
-	∵ p <= 2 为常数
-	∴ log*(p) 为常数
-	∴ m ~= log*(n)
+∵ p <= 2 为常数
+∴ log*(p) 为常数
+∴ m ~= log*(n)
+```
 	
 即算法复杂度为 O(log log n)
 

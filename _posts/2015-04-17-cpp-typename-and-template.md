@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "C++: <i>typename</i> &amp; <i>template</i>"
+title: "C++: <i>typename</i> & <i>template</i>"
 description: ""
 category: C++
 tags: [Cpp-101, template]
@@ -11,13 +11,13 @@ tags: [Cpp-101, template]
 
 Put simply, 当你在 `template<class T>` 的内部需要使用 `T` 的内部类时，需要使用 `typename`，比如：
 
-<pre class="prettyprint linenums">
-template &lt;class T&gt;
+```cpp
+template <class T>
 void foo() {
 	typename T::Iterator * iter; 	// Iterator 是 T 的内部类
 	int size = T::DEFAULT_SIZE;		// DEFAULT_SIZE 是 T 的 static member
 }
-</pre>
+```
 
 其实主要就是为了区分 T 内部类和 T 的 static member。
 
@@ -40,21 +40,21 @@ void foo() {
 
 _Thinking in C++, Volume 2_ 书上的那个例子并不直观，还是 [Where and why do I have to put the “template” and “typename” keywords?](http://stackoverflow.com/a/613132) 这个帖子的例子举得好：
 
-<pre class="prettyprint linenums">
-boost::function&lt;int()&gt; f;
-</pre>
+```cpp
+boost::function<int()> f;
+```
 
 这是 boost 库的一个 template，注意 `int()` 这里其实是一个 function 签名，并不是调用 int 构造器。
 
 同样地，我们还可以写：
 
-<pre class="prettyprint linenums">
+```cpp
 namespace boost { int function = 0; }
 int main() { 
 	int f = 0;
-	boost::function&lt;int()&gt; f; 
+	boost::function<int()> f; 
 }
-</pre>
+```
 
 最后一句的 `int()` 这里就会被解析为一个 int 构造器，所以这句就等价于 `0 <0> 1`，变成了一个合法的表达式！
 
@@ -66,7 +66,7 @@ int main() {
 
 这种用法的 `template` 关键字只能出现在 after a `::`, or after a `->` or `.` in a class member access，比如：
 
-<pre class="prettyprint linenums">
-t::template f&lt;int&gt;();		// call a function template
-this-&gt;template f&lt;int&gt;();	// call a function template
-</pre>
+```cpp
+t::template f<int>();		// call a function template
+this->template f<int>();	// call a function template
+```

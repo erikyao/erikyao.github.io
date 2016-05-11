@@ -23,13 +23,13 @@ tags: [Cpp-101, const]
 	
 However, you can always use a cast to force such an assignment, but this is bad programming practice because you are then breaking the constness of the object, along with any safety promised by the const.
 
-<pre class="prettyprint linenums">
+```cpp
 //: C08:PointerAssignment.cpp
 const int e = 2;
 int* w = (int*)&e; 	// Legal but bad practice
 
 int main() {}
-</pre>
+```
 
 另外 "不能把 `const T*` 赋值给一个 `T*`" 有一个例外就是 `char* cp = "howdy";`：
 
@@ -45,26 +45,26 @@ int main() {}
 
 ### 2.1 Passing const value
 
-<pre class="prettyprint linenums">
+```cpp
 void f1(const int i) {
 	i++; // Illegal -- compile-time error
 }
-</pre>
+```
 
 因为是 pass-by-value，所以 copy 也是 const，自然不能修改。但是如果你的初衷只是 "保证原参数不变" 的话，用 const 只能说是 paranoid；如果函数编写者的期望是 "把参数 copy 设置成 const 避免错误的赋值"，那其实可以这么写：
 
-<pre class="prettyprint linenums">
+```cpp
 void f2(int i) {
 	const int& cri = i; // cri: reference to a const int. 你理解为 "cri 本身就是个 const int" 似乎更简单一些
 	cri++; 				// Illegal -- compile-time error
 }
-</pre>
+```
 
 ### 2.2 Returning const value
 
 For built-in types, it doesn’t matter whether you return a const value, so you should avoid confusing the client programmer and leave off the const when returning a built-in type by value.
 
-<pre class="prettyprint linenums">
+```cpp
 //: C08:Constval.cpp
 // Returning consts by value has no meaning for built-in types
 int f3() { return 1; }
@@ -74,13 +74,13 @@ int main() {
 	const int j = f3(); // Works fine
 	int k = f4(); 		// But this works fine too!
 } 
-</pre>
+```
 
 我觉得你理解成常数就好了，比如 3，你 `const int j = 3;` 和 `int k = 3;` 看上去一点问题都没有。
 
 Returning a const value becomes important when you’re dealing with user-defined types. If a function returns a const class object, the return value of that function cannot be an lvalue (that is, it cannot be assigned to or otherwise modified). For example:
 
-<pre class="prettyprint linenums">
+```cpp
 //: C08:ConstReturnValues.cpp
 // Constant return by value
 // Result cannot be used as an lvalue
@@ -103,5 +103,5 @@ int main() {
 	//! f6() = X(1);	// CANNOT be assigned to
 	//! f6().modify();	// CANNOT be modified
 }
-</pre>
+```
 

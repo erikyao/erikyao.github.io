@@ -7,11 +7,11 @@ tags: [Java-101]
 ---
 {% include JB/setup %}
 
-<pre class="prettyprint linenums">
+```java
 public static void main(String[] args) {  
     ...  
 }
-</pre>
+```
 
 ## 1、关于 main 方法中的修饰符 public
 

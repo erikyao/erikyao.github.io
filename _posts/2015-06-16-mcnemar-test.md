@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "McNemar Test"
 description: ""
 category: Math

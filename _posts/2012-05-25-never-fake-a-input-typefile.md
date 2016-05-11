@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "never fake a &lt;input type=file&gt;"
+title: "never fake a <input type=file>"
 description: ""
 category: JavaScript
 tags: [JavaScript-101]

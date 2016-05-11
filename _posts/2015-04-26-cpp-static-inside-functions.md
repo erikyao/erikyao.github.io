@@ -22,15 +22,15 @@ tags: [Cpp-101]
 
 local static 的初始化在 C++98 中并不是 thread-safe 的，C++11 requires that static initialization be thread safe.
 
-<pre class="prettyprint linenums">
-#include &lt;iostream&gt;
+```cpp
+#include <iostream>
 using namespace std;
 
 class A {
 public:
    void foo() {
       static int i = 0;
-      cout &lt;&lt; i++ &lt;&lt; endl;;
+      cout << i++ << endl;;
    }
 };
 
@@ -42,8 +42,8 @@ int main() {
 	o3.foo(); // output: 2
 	o1.foo(); // output: 3
 	
-	cout &lt;&lt; A::i &lt;&lt; endl; // ERROR. 'i' is not a member of 'A'
+	cout << A::i << endl; // ERROR. 'i' is not a member of 'A'
 }
-</pre>
+```
 
 需要注意的是，local static 本质上还是个 local，它并不会变成 global static 或是 class member。除非你 `return i;`，否则其他地方都访问不到这个 `i`。

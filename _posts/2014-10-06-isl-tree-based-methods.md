@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "ISL: Tree Based Methods"
 description: ""
 category: Machine-Learning
@@ -229,10 +229,10 @@ boost: [bu:st]
 * A push from behind or a push upward
 * To push up
 * To increase, raise
-	* &lt;plans to boost production&gt; 
-	* &lt;an extra holiday to boost morale&gt; 
+	* <plans to boost production> 
+	* <an extra holiday to boost morale> 
 * To promote
-	* &lt;a campaign to boost the new fashions&gt; 
+	* <a campaign to boost the new fashions> 
 
 算法简单说就是：
 
@@ -248,16 +248,18 @@ boost: [bu:st]
 
 ### <a name="Lab-Class-Tree"></a>3.1 Fitting Classification Trees
 
-	> library(tree)
-	
-	> library(ISLR)
-	> attach(Carseats)
-	
-	> High = ifelse(Sales<=8, "No", "Yes")
-	> Carseats = data.frame(Carseats,High)
-	
-	> tree.carseats = tree(High~.-Sales, Carseats)
-	> summary(tree.carseats)
+```r
+> library(tree)
+
+> library(ISLR)
+> attach(Carseats)
+
+> High = ifelse(Sales<=8, "No", "Yes")
+> Carseats = data.frame(Carseats,High)
+
+> tree.carseats = tree(High~.-Sales, Carseats)
+> summary(tree.carseats)
+```
 	
 The `summary()` function lists the variables that are used as internal nodes in the tree, the number of terminal nodes, and the (training) error rate. 
 
@@ -273,135 +275,165 @@ where $ n_{mk} $ is the number of observations in the m^th terminal node that be
 
 The **residual mean deviance** reported is simply the $ \frac{\text{deviance}}{n− \lvert T_0 \rvert} $, where $ n $ is the number of observations and $ \lvert T_0 \rvert $ is the number of terminal nodes.
 
-	> plot(tree.carseats)
-	> text(tree.carseats, pretty=0)
-	## text() is used to display the node labels
-	## pretty=0 instructs R to include the category names for any qualitative predictors, rather than simply displaying a letter for each category
-	
-	> tree.carseats
+```r
+> plot(tree.carseats)
+> text(tree.carseats, pretty=0)
+## text() is used to display the node labels
+## pretty=0 instructs R to include the category names for any qualitative predictors, rather than simply displaying a letter for each category
+
+> tree.carseats
+```
 	
 To estimate the test error, the `predict()` function can be used. In the case of a classification tree, the argument `type="class"` instructs R to return the actual class prediction.
 
-	> set.seed(2)
-	> train = sample(1:nrow(Carseats), 200)
-	> Carseats.test = Carseats[-train,]
-	> High.test = High[-train]
-	
-	> tree.carseats = tree(High~.-Sales, Carseats, subset=train)
-	> tree.pred = predict(tree.carseats, Carseats.test, type="class")
-	
-	> table(tree.pred, High.test)
-			   High.test
-	tree.pred 	 No Yes
-		  No	 86  27
-		  Yes 	 30  57
-	> (86+57)/200
-	[1] 0.715
+```r
+> set.seed(2)
+> train = sample(1:nrow(Carseats), 200)
+> Carseats.test = Carseats[-train,]
+> High.test = High[-train]
+
+> tree.carseats = tree(High~.-Sales, Carseats, subset=train)
+> tree.pred = predict(tree.carseats, Carseats.test, type="class")
+
+> table(tree.pred, High.test)
+		High.test
+tree.pred	No	Yes
+	No	86	27
+	Yes	30	57
+> (86+57)/200
+[1] 0.715
+```
 	
 Next, we consider whether pruning the tree might lead to improved results. The function `cv.tree()` performs cross-validation in order to determine the optimal level of tree complexity; cost complexity pruning is used in order to select a sequence of trees for consideration. We use the argument `FUN=prune.misclass` in order to indicate that we want the classification error rate to guide the cross-validation and pruning process, rather than the default for the `cv.tree()` function, which is deviance. The `cv.tree()` function reports the number of terminal nodes of each tree considered (size) as well as the corresponding error rate and the value of the cost-complexity parameter used (k, which corresponds to $ \alpha $).
 
-	> set.seed(3)
-	> cv.carseats = cv.tree(tree.carseats, FUN=prune.misclass)
-	> names(cv.carseats)
-	[1] "size" "dev" "k" "method"
-	> cv.carseats
+```r
+> set.seed(3)
+> cv.carseats = cv.tree(tree.carseats, FUN=prune.misclass)
+> names(cv.carseats)
+[1] "size" "dev" "k" "method"
+> cv.carseats
+```
 	
 Note that, despite the name, `dev` corresponds to the cross-validation error rate in this instance. The tree with 9 terminal nodes results in the lowest cross-validation error rate, with 50 cross-validation errors. We plot the error rate as a function of both size and k.
 
-	> par(mfrow=c(1,2))
-	> plot(cv.carseats$size, cv.carseats$dev, type="b")
-	> plot(cv.carseats$k, cv.carseats$dev, type="b")
+```r
+> par(mfrow=c(1,2))
+> plot(cv.carseats$size, cv.carseats$dev, type="b")
+> plot(cv.carseats$k, cv.carseats$dev, type="b")
+```
 	
 We now apply the `prune.misclass()` function in order to prune the tree to obtain the 9-node tree.
 
-	> prune.carseats = prune.misclass(tree.carseats, best=9)
-	> plot(prune.carseats)
-	> text(prune.carseats, pretty=0)
+```r
+> prune.carseats = prune.misclass(tree.carseats, best=9)
+> plot(prune.carseats)
+> text(prune.carseats, pretty=0)
+```
 	
 How well does this pruned tree perform on the test data set? Once again, we apply the `predict()` function.
 
-	> tree.pred = predict(prune.carseats, Carseats.test, type="class")
-	> table(tree.pred, High.test)
-			   High.test
-	tree.pred   No Yes
-		  No 	 94 24
-		  Yes    22 60
-	> (94+60) /200
-	[1] 0.77 ## a litte better than 0.715
+```r
+> tree.pred = predict(prune.carseats, Carseats.test, type="class")
+> table(tree.pred, High.test)
+		High.test
+tree.pred	No	Yes
+	No	94	24
+	Yes	22	60
+> (94+60) /200
+[1] 0.77 ## a litte better than 0.715
+```
 
 ### <a name="Lab-Reg-Tree"></a>3.2 Fitting Regression Trees
 
-	> library(MASS)
-	> set.seed(1)
-	
-	> train = sample(1:nrow(Boston), nrow(Boston)/2)
-	
-	> tree.boston = tree(medv~., Boston, subset=train)
-	> summary(tree.boston)
+```r
+> library(MASS)
+> set.seed(1)
+
+> train = sample(1:nrow(Boston), nrow(Boston)/2)
+
+> tree.boston = tree(medv~., Boston, subset=train)
+> summary(tree.boston)
+```
 	
 In the context of a regression tree, the deviance is simply the sum of squared errors for the tree. We now plot the tree.
 
-	> plot(tree.boston)
-	> text(tree.boston, pretty=0)
+```r
+> plot(tree.boston)
+> text(tree.boston, pretty=0)
+```
 	
 Now we use the `cv.tree()` function to see whether pruning the tree will improve performance.
 
-	> cv.boston = cv.tree(tree.boston )
-	> plot(cv.boston$size, cv.boston$dev, type=’b’)
+```r
+> cv.boston = cv.tree(tree.boston )
+> plot(cv.boston$size, cv.boston$dev, type='b')
+```
 	
 In this case, the most complex tree is selected by cross-validation. However, if we wish to prune the tree, we could do so as follows, using the `prune.tree()` function:
 
-	> prune.boston = prune.tree(tree.boston, best=5)
-	> plot(prune.boston)
-	> text(prune.boston, pretty=0)
+```r
+> prune.boston = prune.tree(tree.boston, best=5)
+> plot(prune.boston)
+> text(prune.boston, pretty=0)
+```
 	
 In keeping with the cross-validation results, we use the unpruned tree to make predictions on the test set.
 
-	> yhat = predict(tree.boston, newdata=Boston[-train ,])
-	> boston.test = Boston[-train, "medv"]
-	> plot(yhat, boston.test)
-	> abline(0,1)
-	> mean((yhat-boston.test)^2)
-	[1] 25.05
+```r
+> yhat = predict(tree.boston, newdata=Boston[-train ,])
+> boston.test = Boston[-train, "medv"]
+> plot(yhat, boston.test)
+> abline(0,1)
+> mean((yhat-boston.test)^2)
+[1] 25.05
+```
 
 ### <a name="Lab-Bagging-RF"></a>3.3 Bagging and Random Forests
 
 Recall that bagging is simply a special case of a random forest with m = p. Therefore, the randomForest() function can be used to perform both random forests and bagging. We perform bagging as follows:
 
-	> library(randomForest)
-	> set.seed(1)
-	
-	> bag.boston = randomForest(medv~., data=Boston, subset=train, mtry=13, importance=TRUE) ## Boston has 14 columns
-	> bag.boston
-	
-	> yhat.bag = predict(bag.boston, newdata=Boston[-train,])
-	> plot(yhat.bag, boston.test)
-	> abline(0,1)
-	> mean((yhat.bag-boston.test)^2)
-	[1] 13.16
+```r
+> library(randomForest)
+> set.seed(1)
+
+> bag.boston = randomForest(medv~., data=Boston, subset=train, mtry=13, importance=TRUE) ## Boston has 14 columns
+> bag.boston
+
+> yhat.bag = predict(bag.boston, newdata=Boston[-train,])
+> plot(yhat.bag, boston.test)
+> abline(0,1)
+> mean((yhat.bag-boston.test)^2)
+[1] 13.16
+```
 	
 We could change the number of trees grown by randomForest() using the ntree argument:
 
-	> bag.boston = randomForest(medv~., data=Boston, subset=train, mtry=13, ntree=25)
-	> yhat.bag = predict(bag.boston, newdata=Boston[-train,])
-	> mean((yhat.bag-boston.test)^2)
-	[1] 13.31
+```r
+> bag.boston = randomForest(medv~., data=Boston, subset=train, mtry=13, ntree=25)
+> yhat.bag = predict(bag.boston, newdata=Boston[-train,])
+> mean((yhat.bag-boston.test)^2)
+[1] 13.31
+```
 	
 By default, `randomForest()` uses $ p/3 $ variables when building a random forest of regression trees, and $ \sqrt{p} $ variables when building a random forest of classification trees. Here we use `mtry=6`.
 
-	> set.seed(1)
-	> rf.boston = randomForest(medv~., data=Boston, subset=train, mtry=6, importance=TRUE)
-	> yhat.rf = predict(rf.boston, newdata=Boston[-train ,])
-	> mean((yhat.rf-boston.test)^2)
-	[1] 11.31
+```r
+> set.seed(1)
+> rf.boston = randomForest(medv~., data=Boston, subset=train, mtry=6, importance=TRUE)
+> yhat.rf = predict(rf.boston, newdata=Boston[-train ,])
+> mean((yhat.rf-boston.test)^2)
+[1] 11.31
+```
 	
 Using the `importance()` function, we can view the importance of each variable.
 
-	> importance(rf.boston)
-			%IncMSE IncNodePurity
-	crim 	 12.384       1051.54
-	zn 		  2.103         50.31
-	......
+```r
+> importance(rf.boston)
+	%IncMSE IncNodePurity
+crim  12.384       1051.54
+zn   2.103         50.31
+......
+```
 	
 Two measures of variable importance are reported. 
 
@@ -410,7 +442,9 @@ Two measures of variable importance are reported.
 
 Plots of these importance measures can be produced using the `varImpPlot()` function.
 
-	> varImpPlot(rf.boston)
+```r
+> varImpPlot(rf.boston)
+```
 	
 The results indicate that across all of the trees considered in the random forest, the wealth level of the community (`lstat`) and the house size (`rm`) are by far the two most important variables.
 
@@ -418,33 +452,43 @@ The results indicate that across all of the trees considered in the random fores
 
 Here we use the `gbm` package, and within it the `gbm()` function, to fit boosted regression trees to the `Boston` data set. We run `gbm()` with the option `distribution="gaussian"` since this is a regression problem; if it were a binary classification problem, we would use `distribution="bernoulli"`. The argument `n.trees=5000` indicates that we want 5000 trees, and the option `interaction.depth=4` limits the depth of each tree.
 
-	> library(gbm)
-	> set.seed(1)
-	> boost.boston = gbm(medv~., data=Boston[train,], distribution="gaussian", n.trees=5000, interaction.depth=4)
+```r
+> library(gbm)
+> set.seed(1)
+> boost.boston = gbm(medv~., data=Boston[train,], distribution="gaussian", n.trees=5000, interaction.depth=4)
+```
 
 The `summary()` function produces a relative influence plot and also outputs the relative influence statistics.
 	
-	> summary (boost.boston )
-		var 	rel.inf
-	1 lstat 	45.96
-	2    rm 	31.22
-	......
+```r
+> summary (boost.boston )
+	var rel.inf
+1	lstat 45.96
+2	rm 31.22
+......
+```
 	
 We see that `lstat` and `rm` are by far the most important variables. We can also produce **partial dependence plots** for these two variables. These plots illustrate the marginal effect of the selected variables on the response after **integrating** out the other variables. In this case, as we might expect, median house prices are increasing with `rm` and decreasing with `lstat`.
 
-	> par(mfrow=c(1,2))
-	> plot(boost.boston, i="rm")
-	> plot(boost.boston, i="lstat")
+```r
+> par(mfrow=c(1,2))
+> plot(boost.boston, i="rm")
+> plot(boost.boston, i="lstat")
+```
 	
 We now use the boosted model to predict `medv` on the test set:
 
-	> yhat.boost = predict(boost.boston, newdata=Boston[-train,], n.trees=5000)
-	> mean((yhat.boost-boston.test)^2)
-	[1] 11.8
+```r
+> yhat.boost = predict(boost.boston, newdata=Boston[-train,], n.trees=5000)
+> mean((yhat.boost-boston.test)^2)
+[1] 11.8
+```
 	
 If we want to, we can perform boosting with a different value of the shrinkage parameter $ \lambda $. The default value is 0.001. Here we take $ \lambda=0.2 $.
 
-	> boost.boston = gbm(medv~., data=Boston[train,], distribution="gaussian", n.trees=5000, interaction.depth=4, shrinkage=0.2, verbose=F)
-	> yhat.boost = predict(boost.boston, newdata=Boston[-train,], n.trees =5000)
-	> mean((yhat.boost-boston.test)^2)
-	[1] 11.5
+```r
+> boost.boston = gbm(medv~., data=Boston[train,], distribution="gaussian", n.trees=5000, interaction.depth=4, shrinkage=0.2, verbose=F)
+> yhat.boost = predict(boost.boston, newdata=Boston[-train,], n.trees =5000)
+> mean((yhat.boost-boston.test)^2)
+[1] 11.5
+```

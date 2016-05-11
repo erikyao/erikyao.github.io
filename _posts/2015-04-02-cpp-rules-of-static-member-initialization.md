@@ -11,7 +11,7 @@ tags: [Cpp-101, const]
 
 -----
 
-<pre class="prettyprint linenums">
+```cpp
 class X {
 private:
 	int i;
@@ -48,7 +48,7 @@ const X T::qux2(1);				// const static 的对象的初始化也要放到 class �
 int main() {
 	return 1;
 }
-</pre>
+```
 
 * non-const static member 不允许在 class 内初始化
 * const static member 可以在 class 内初始化，但仅限于 integral types
@@ -60,7 +60,7 @@ int main() {
 
 另外需要特别注意的是：nested class 可以有 static member，但是 local class (function 内部定义的 class) 不能有 static member：
 
-<pre class="prettyprint linenums">
+```cpp
 // Nested class CAN have static data members:
 class Outer {
 	class Inner {
@@ -78,6 +78,6 @@ void f() {
 		// How would you define i?
 	} x;
 }
-</pre> 
+```
 
 有点囧但是又很有道理的一个解释是：local class 外部无法初始化 static member……

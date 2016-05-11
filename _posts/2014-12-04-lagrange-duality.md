@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "Lagrange duality"
 description: ""
 category: Machine-Learning

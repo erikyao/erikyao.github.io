@@ -9,9 +9,9 @@ tags: [Spring-101, Config-Spring]
 
 I added `proxy-target-class="true"` at the `tx:`-statement:
 
-<pre class="prettyprint linenums">
-&lt;tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/&gt;
-</pre>
+```xml
+<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+```
 
 and after adding `CGLIB` to my dependencies it finally worked ...
 

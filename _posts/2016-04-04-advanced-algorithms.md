@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "Advanced Algorithms"
 description: ""
 category: Algorithm
@@ -37,16 +37,16 @@ It’s not hard to prove that the load balancing problem is NP-hard by reduction
 
 There is a fairly natural and efficient greedy heuristic for load balancing: consider the jobs one at a time, and assign each job to the machine $j$ with the earliest finishing time $Total[j]$.
 
-<pre class="prettyprint linenums">
+```python
 GreedyLoadBalance(T, m):
-	for j = 1 to m
+	for j = 1 to m:
 		Total[j] = 0
-	for i = 1 to n
+	for i = 1 to n:
 		min_j = min_element_of(Total)
 		A[i] = min_j
 		Total[min_j] = Total[min_j] + T[i]
 	return A
-</pre>
+```
 
 _**Theorem 1.**_ The makespan of the assignment computed by `GreedyLoadBalance` is at most twice the makespan of the optimal assignment.
 
@@ -72,11 +72,11 @@ This leads to the conclusion that $Total[j] \leq 2 \cdot OPT$. $\tag*{$\square$}
 
 In our original offline setting, we can improve the approximation factor by sorting the jobs before piping them through the greedy algorithm.
 
-<pre class="prettyprint linenums">
+```python
 SortedGreedyLoadBalance(T, m):
 	sort T in decreasing order
 	return GreedyLoadBalance(T, m)
-</pre>
+```
 
 _**Theorem 2.**_ The makespan of the assignment computed by SortedGreedyLoadBalance is at most $\frac{3}{2}$ times the makespan of the optimal assignment.
 
@@ -123,7 +123,7 @@ MVC is NP-hard. There is a natural and efficient greedy heuristic for computing 
 
 - heuristic: of approaches that employ a practical method not guaranteed to be optimal or perfect, but sufficient for the immediate goals.
 
-<pre class="prettyprint linenums">
+```python
 GreedyVertexCover(G):
 	C = Ø
 	while G has at least one edge
@@ -131,13 +131,13 @@ GreedyVertexCover(G):
 		G = G \ {v}
 		C = C ∪ {v}
 	return C
-</pre>
+```
 
 _**Theorem 3.**_ `GreedyVertexCover` is an $O(\log n)$-approximation algorithm.
 
 _**Proof:**_ For all $i$, let $ G_i $ denote the graph $G$ after $i$ iterations of the main loop, and let $d_i$ denote the maximum degree of any node in $G_i$. We can define these variables more directly by adding a few extra lines to our algorithm:
 
-<pre class="prettyprint linenums">
+```python
 GreedyVertexCover(G):
 	C = Ø
 	G[0] = G
@@ -149,7 +149,7 @@ GreedyVertexCover(G):
 		G[i] = G[i-1] \ {v[i]}
 		C = C ∪ {v[i]}
 	return C
-</pre>
+```
 
 Let $\vert G_{i−1} \vert$ denote the number of edges in the graph $ G_{i−1} $. Let $C^{\star}$ denote the optimal vertex cover of $G$, i.e. $OPT = \vert C^{\star} \vert$. Since $C^{\star}$ is also a vertex cover for $ G_{i−1} $, we have
 
@@ -230,7 +230,7 @@ A set cover for any set system $ (X,\mathcal{F}) $ is also a hitting set for the
 
 The greedy approach doesn’t always lead to the best approximation algorithms. Consider the following alternate heuristic for vertex cover:
 
-<pre class="prettyprint linenums">
+```python
 DumbVertexCover(G):
 	C = Ø
 	while G has at least one edge
@@ -238,7 +238,7 @@ DumbVertexCover(G):
 		G = G \ {u,v}
 		C = C ∪ {u,v}
 	return C
-</pre>
+```
 
 The minimum vertex cover—in fact, every vertex cover—contains at least one of the two vertices u and v chosen inside the while loop. It follows immediately that `DumbVertexCover` is a 2-approximation algorithm!
 
@@ -592,7 +592,7 @@ Although this LP rounding algorithm is nice and seems simple, in some sense it i
 		
 -----
 
-## DAA - Chapter 5 - Random sampling and randomized  rounding of linear programs
+## DAA - Chapter 5 - Random sampling and randomized rounding of linear programs
 
 ... Thus randomization gains us simplicity in our algorithm design and analysis, while derandomization ensures that the performance guarantee can be obtained deterministically.
 
@@ -790,3 +790,17 @@ If $ Z_{LP}^{\ast} $ is the optimal value of this integer program, then clarly $
 ### 5.6 Non-linear randomized rounding
 
 In the case of the MAX SAT problem, we set $x_i$ to true with probability $ y_i^{\ast} $ . There is no reason, however, that we cannot use some function $ f:[0,1] \rightarrow [0,1] $ to set $x_i$ to true with probability $ f(y_i^{\ast}) $. Sometimes this yields approximation algorithms with better performance guarantees than using the identity function, as we will see in this section.
+
+待续
+
+## DAA - Chapter 6 - Randomized rounding of semidefinite programs
+
+So far we have used linear programming relaxations to design and analyze various approximation algorithms. In this section, we show how nonlinear programming relaxations can give us better algorithms than we know how to obtain via linear programming; in particular we use _**a type of nonlinear program called a semidefinite program**_. Part of the power of semidefinite programming is that _**semidefinite programs can be solved in polynomial time**_.
+
+### 6.1 A brief introduction to semidefinite programming
+
+Semidefinite programming uses symmetric, positive semidefinite matrices.
+
+In what follows, vectors $ v \in \mathfrak{R}^n $ are assumed to be column vectors, so that $ v^T v $ is the inner product of $ v $ with itself, while $ vv^T $ is an $ n $ by $ n $ matrix.
+
+_**Definition 6.1:**_ A matrix $ X \in \mathfrak{R}^{n \times n} $ is positive semidefinite $ \iff \forall y \in \mathfrak{R}^n, y^TXy \geq 0 $.

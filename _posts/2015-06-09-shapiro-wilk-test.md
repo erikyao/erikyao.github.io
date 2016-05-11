@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "Shapiro-Wilk Test for Normality"
 description: "To test whether the sample come from a normally distributed population"
 category: Math

@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "CRF Learning"
 description: ""
 category: Math

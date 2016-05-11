@@ -9,7 +9,7 @@ tags: [Java-101]
 
 先上代码 (adapted from _Chapter 8, Thinking in Java, Fourth Edition_)：
 
-<pre class="prettyprint linenums">
+```java
 class Glyph {  
 	void draw() {   
 		System.out.println("Glyph.draw()");  
@@ -47,7 +47,7 @@ public class PolyConstructors {
 	before assignment in constructor, radius = 1 
 	RoundGlyph constructor, radius = 5 
 */ 
-</pre>
+```
 
 根据 [class loading: an example](/java/2009/03/25/class-loading-an-example)，调用 RoundGlyph 的构造器时，会先调用 Glyph 的构造器。Glyph 的构造器里调用了一个被覆写方法 `draw()`。这里我们惊奇地发现：虽然 RoundGlyph 对象还没有创建完毕，但 Glyph 的构造器却实际调用了 RoundGlyph 的 `draw()` 方法 (覆写方法)，而且 radius == 0。  
 

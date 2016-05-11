@@ -21,16 +21,16 @@ tags: [IR-101]
 
 ## 3. 布尔模型中的相似度
 
-<pre class="prettyprint linenums">
+```
 if 存在 qcc ∈ qdnf 满足对任意 ki，gi(dj) = wij = gi(qcc) 
 	则 sim(dj, q) = 1，即文档 dj 与查询 q 相关  
 else 
 	sim(dj, q) = 0，即文档 dj 与查询 q 无关 
-</pre>
+```
 
 ## 4. 对 gi(qcc) 的理解
 
-　　考虑到 dj 是个 t 元组，形如 dj = {1, 0, 1, 1, ..., 0, 0}，“对任意ki，gi(dj) = wij = gi(qcc)” 从实质上就是 dj = qcc。但是，qcc 中并不会包含所有 t 个 indexing item，设 |qcc| = n，一般情况下 t != n，所以可以从以下两个方面理解：
+　　考虑到 dj 是个 t 元组，形如 dj = {1, 0, 1, 1, ..., 0, 0}，“对任意ki，gi(dj) = wij = gi(qcc)” 从实质上就是 dj = qcc。但是，qcc 中并不会包含所有 t 个 indexing item，设 \|qcc\| = n，一般情况下 t != n，所以可以从以下两个方面理解：
 
 1. 扩展qcc到t元  
 2. 截取(或者叫投影)dj到n元  

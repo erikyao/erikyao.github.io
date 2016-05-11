@@ -27,24 +27,24 @@ Ordinarily, the system associates each of these objects with the window in which
 
 ### 1.2 Operator Precedence
 
-<pre class="prettyprint linenums">
-std::cout &lt;&lt; "Enter two numbers:" &lt;&lt; std::endl;
-</pre>
+```cpp
+std::cout << "Enter two numbers:" << std::endl;
+```
 
 The output operator `<<` takes two operands: The left-hand operand must be an `ostream` object; the right-hand operand is a value to print. The operator writes the given value on the given `ostream`. The result of the output operator is its left-hand operand. That is, the result is the `ostream` on which we wrote the given value.
 
 Thus, our expression is equivalent to
 
-<pre class="prettyprint linenums">
-(std::cout &lt;&lt; "Enter two numbers:") &lt;&lt; std::endl;
-</pre>
+```cpp
+(std::cout << "Enter two numbers:") << std::endl;
+```
 
 or
 
-<pre class="prettyprint linenums">
-std::cout &lt;&lt; "Enter two numbers:";
-std::cout &lt;&lt; std::endl;
-</pre>
+```cpp
+std::cout << "Enter two numbers:";
+std::cout << std::endl;
+```
 
 The input operator `>>` behaves analogously to the output operator.
 
@@ -58,11 +58,11 @@ By default, reading **cin** flushes **cout**; **cout** is also flushed when the 
 
 ### 1.4 Stream as a condition
 
-<pre class="prettyprint linenums">
+```cpp
 // read until end-of-file, calculating a running total of all values read
-while (std::cin &gt;&gt; value)
+while (std::cin >> value)
 	sum += value;
-</pre>
+```
 
 When we use an `istream` as a condition, the effect is to test the state of the stream. If the stream is valid—that is, if the stream hasn’t encountered an error—then the test succeeds. An `istream` becomes invalid when we hit _end-of-file_ or encounter an invalid input, such as reading a value that is not an integer. An `istream` that is in an invalid state will cause the condition to yield false.
 
@@ -70,9 +70,9 @@ On Windows systems we enter an _end-of-file_ by typing a "ctrl + z" followed by 
 
 ### 1.5 Redirection Command
 
-<pre class="prettyprint linenums">
-&gt; addItems &lt;infile &gt;outfile
-</pre>
+```cpp
+> addItems <infile >outfile
+```
 
 Assuming our addition program has been compiled into an executable file named "addItems.exe" (or "addItems" on UNIX systems), this command will (force `std::cin` to) read transactions from a file named `infile` and (force `std::cout` to) write its output to a file named `outfile` in the current directory.
 
@@ -82,23 +82,23 @@ Assuming our addition program has been compiled into an executable file named "a
 
 Consider how to output the representation of a Date object in MM-DD-YYYY format: 
 
-<pre class="prettyprint linenums">
-ostream& operator&lt;&lt;(ostream& os, const Date& d) {
+```cpp
+ostream& operator<<(ostream& os, const Date& d) {
 	// 设置 fill 模式为首位填 0
 	char fillc = os.fill('0'); 
-	os &lt;&lt; setw(2) &lt;&lt; d.getMonth() &lt;&lt; '-'
-		&lt;&lt; setw(2) &lt;&lt; d.getDay() &lt;&lt; '-'
-		&lt;&lt; setw(4) &lt;&lt; setfill(fillc) &lt;&lt; d.getYear();		
+	os << setw(2) << d.getMonth() << '-'
+		<< setw(2) << d.getDay() << '-'
+		<< setw(4) << setfill(fillc) << d.getYear();		
 		// 对年份不需要做填充，setfill(fillc) 恢复原 fill 模式
-		// setfill(fillc) 返回一个 manipulator，类似 endl，所有可以直接接到 &lt;&lt; 后面
+		// setfill(fillc) 返回一个 manipulator，类似 endl，所有可以直接接到 << 后面
 	
 	return os;
 }
-</pre>
+```
 
 Extractors require a little more care because things can go wrong with input data. The way to signal a stream error is to set the stream’s **fail bit**, as follows:
 
-<pre class="prettyprint linenums">
+```cpp
 istream& operator>>(istream& is, Date& d) {
 	is >> d.month;
 	
@@ -117,7 +117,7 @@ istream& operator>>(istream& is, Date& d) {
 	
 	return is;
 }
-</pre>
+```
 
 When an error bit is set in a stream, all further streams operations are ignored until the stream is restored to a good state. 所以这里不需要用异常或是用 if-else 使得出错后跳过后续的某些操作，你正常写就好了. This implementation is somewhat forgiving in that it allows white space between the numbers and dashes in a date string because `operator>>` skips white space _**by default**_ when reading built-in types.
 
@@ -142,19 +142,19 @@ In addition, formatted input defaults to white space delimiters. 比如 `int i; 
 
 Once any of the error bits in a stream’s state are set, they remain set. 如果要清除的话，需要用 `stream::clear()`：
 
-<pre class="prettyprint linenums">
+```cpp
 myStream.clear(); 							// clear all error bits
 myStream.clear(ios::failbit | ios::eofbit); // clear failbit and eofbit
-</pre>
+```
 
 ### 3.2 Streams and exceptions
 
 可以使用 `stream::exception()` 方法来注册一个 exception state，当出现这个状态的时候就抛一个异常，一般为 `std::ios_base::failure`。比如：
 
-<pre class="prettyprint linenums">
+```cpp
 std::ifstream file;
 file.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-</pre>
+```
 
 The `exceptions()` function returns a bitmask of type `iostate` (which is a compiler-dependent type convertible to int) indicating which stream states will cause exceptions. If those states have already been set, an exception is thrown immediately.
 
@@ -190,29 +190,29 @@ There are six standard manipulators that take arguments. These are defined in th
 
 我们先看下 `endl` 的构造：
 
-<pre class="prettyprint linenums">
+```cpp
 ostream& endl(ostream&);
-</pre>
+```
 
 然后 `cout << endl;` 里实际是传的这个 function name，也就是 function 的地址。然后 `operator<<` 的逻辑大概是（The actual definition is a little more complicated since it involves templates）：
 
-<pre class="prettyprint linenums">
-ostream& ostream::operator&lt;&lt;(ostream& (*pf)(ostream&)) {
+```cpp
+ostream& ostream::operator<<(ostream& (*pf)(ostream&)) {
 	return pf(*this);
 }
-</pre>
+```
 
 所以我们只要参照 endl 函数的签名，自己做一个 manipulator 也不是很难，比如：
 
-<pre class="prettyprint linenums">
-#include &lt;iostream&gt;
+```cpp
+#include <iostream>
 using namespace std;
 
 ostream& nl(ostream& os) { // 'nl' for 'newline'
-	return os &lt;&lt; '\n';
+	return os << '\n';
 }
 
 int main() {
-	cout &lt;&lt; "newlines" &lt;&lt; nl;
+	cout << "newlines" << nl;
 }
-</pre>
+```

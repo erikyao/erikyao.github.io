@@ -231,7 +231,7 @@ Static global variables (我造的这个词；姑且这么用) are extant throug
 * Declare in lib.h
 * Define in lib.cpp
 
-<pre class="prettyprint linenums">
+```cpp
 /***** CASE 1 *****/
 
 ///// MyLib.h /////
@@ -242,11 +242,11 @@ const int STASH_NUM = 8;
 
 ///// MyMain.cpp /////
 int main(int argc, char* argv[]) {
-	cout &lt;&lt; STASH_NUM; // ERROR. Not declared in this scope
+	cout << STASH_NUM; // ERROR. Not declared in this scope
 }
-</pre>
+```
 
-<pre class="prettyprint linenums">
+```cpp
 /***** CASE 2 *****/
 
 ///// MyLib.h /////
@@ -258,11 +258,11 @@ const int STASH_NUM = 8;
 
 ///// MyMain.cpp /////
 int main(int argc, char* argv[]) {
-	cout &lt;&lt; STASH_NUM; // ERROR. Not declared in this scope
+	cout << STASH_NUM; // ERROR. Not declared in this scope
 }
-</pre>
+```
 
-<pre class="prettyprint linenums">
+```cpp
 /***** CASE 3 *****/
 
 ///// MyLib.h /////
@@ -274,11 +274,11 @@ const int STASH_NUM = 8;
 
 ///// MyMain.cpp /////
 int main(int argc, char* argv[]) {
-	cout &lt;&lt; STASH_NUM; // ERROR. Not declared in this scope
+	cout << STASH_NUM; // ERROR. Not declared in this scope
 }
-</pre>
+```
 
-<pre class="prettyprint linenums">
+```cpp
 /***** CASE 4 *****/
 
 ///// MyLib.h /////
@@ -291,11 +291,11 @@ const int STASH_NUM = 8;
 extern const int STASH_NUM;
 
 int main(int argc, char* argv[]) {
-	cout &lt;&lt; STASH_NUM; // ERROR. Undefined reference
+	cout << STASH_NUM; // ERROR. Undefined reference
 }
-</pre>
+```
 
-<pre class="prettyprint linenums">
+```cpp
 /***** CASE 5 *****/
 
 ///// MyLib.h /////
@@ -308,11 +308,11 @@ const int STASH_NUM = 8;
 #include "MyLib.h"
 
 int main(int argc, char* argv[]) {
-	cout &lt;&lt; STASH_NUM; // ERROR. Undefined reference
+	cout << STASH_NUM; // ERROR. Undefined reference
 }
-</pre>
+```
 
-<pre class="prettyprint linenums">
+```cpp
 /***** CASE 6 *****/
 
 ///// MyLib.h /////
@@ -324,11 +324,11 @@ const int STASH_NUM = 8;
 
 ///// MyMain.cpp /////
 int main(int argc, char* argv[]) {
-	cout &lt;&lt; STASH_NUM; // ERROR. Not declared in this scope
+	cout << STASH_NUM; // ERROR. Not declared in this scope
 }
-</pre>
+```
 
-<pre class="prettyprint linenums">
+```cpp
 /***** CASE 7 *****/
 
 ///// MyLib.h /////
@@ -342,11 +342,11 @@ const int STASH_NUM = 8;
 extern const int STASH_NUM;
 
 int main(int argc, char* argv[]) {
-	cout &lt;&lt; STASH_NUM; // OK! output: 8
+	cout << STASH_NUM; // OK! output: 8
 }
-</pre>
+```
 
-<pre class="prettyprint linenums">
+```cpp
 /***** CASE 8 *****/
 
 ///// MyLib.h /////
@@ -360,11 +360,11 @@ const int STASH_NUM = 8;
 #include "MyLib.h"
 
 int main(int argc, char* argv[]) {
-	cout &lt;&lt; STASH_NUM; // OK! output: 8
+	cout << STASH_NUM; // OK! output: 8
 }
-</pre>
+```
 
-<pre class="prettyprint linenums">
+```cpp
 /***** CASE 9 *****/
 
 ///// MyLib.h /////
@@ -379,11 +379,11 @@ const int STASH_NUM = 8;
 #include "MyLib.h"
 
 int main(int argc, char* argv[]) {
-	cout &lt;&lt; STASH_NUM; // OK! output: 8
+	cout << STASH_NUM; // OK! output: 8
 }
-</pre>
+```
 
-<pre class="prettyprint linenums">
+```cpp
 /***** CASE 10 *****/
 
 ///// MyLib.h /////
@@ -400,11 +400,11 @@ const int STASH_NUM = 8;
 extern const int STASH_NUM;
 
 int main(int argc, char* argv[]) {
-	cout &lt;&lt; STASH_NUM; // OK! output: 8
+	cout << STASH_NUM; // OK! output: 8
 }
-</pre>
+```
 
-<pre class="prettyprint linenums">
+```cpp
 /***** CASE 11 *****/
 
 ///// MyLib.h /////
@@ -420,9 +420,9 @@ const int STASH_NUM = 8;
 extern const int STASH_NUM;
 
 int main(int argc, char* argv[]) {
-	cout &lt;&lt; STASH_NUM; // OK! output: 8
+	cout << STASH_NUM; // OK! output: 8
 }
-</pre>
+```
 
 总结并更新下 rule of thumb:
 
@@ -435,7 +435,7 @@ int main(int argc, char* argv[]) {
 
 如果直接在 lib.h 里 declare + define (比如 `extern const int STASH_NUM = 8;`)、然后不写 lib.cpp，会出现很奇怪的效果：
 
-<pre class="prettyprint linenums">
+```cpp
 /***** CASE 12 *****/
 
 ///// MyLib.h /////
@@ -445,11 +445,11 @@ extern const int STASH_NUM = 8;
 extern const int STASH_NUM;
 
 int main(int argc, char* argv[]) {
-	cout &lt;&lt; STASH_NUM; // ERROR. Undefined reference
+	cout << STASH_NUM; // ERROR. Undefined reference
 }
-</pre>
+```
 
-<pre class="prettyprint linenums">
+```cpp
 /***** CASE 13 *****/
 
 ///// MyLib.h /////
@@ -459,9 +459,9 @@ extern const int STASH_NUM = 8;
 #include "MyLib.h"
 
 int main(int argc, char* argv[]) {
-	cout &lt;&lt; STASH_NUM; // OK! output: 8
+	cout << STASH_NUM; // OK! output: 8
 }
-</pre>
+```
 
 * CASE 13 好解释：#include 进来相当于直接在 main 之前 declare + define
 * CASE 12 我实在不懂，它和 CASE 10 有嘛区别嘛！
@@ -486,7 +486,7 @@ int main(int argc, char* argv[]) {
 
 我稍微设计了一个试验，猜测：lib.h 里 extern const 的 initialization 貌似是会被忽略的（而前面 [linkage 的例子](#linkage-example) 里，lib.h 里 declare + define 一个 common const 是没有问题的）。看代码：
 
-<pre class="prettyprint linenums">
+```cpp
 /***** CASE 14 *****/
 
 ///// MyLib.h /////
@@ -499,10 +499,10 @@ extern const int STASH_NUM = 8; // 给 const 重复赋值成功！你敢信？
 extern const int STASH_NUM;
 
 int main(int argc, char* argv[]) {
-	cout &lt;&lt; STASH_NUM; // OK! output: 8
+	cout << STASH_NUM; // OK! output: 8
 	// 从输出结果来看，我只能猜测 .h 里 =7 的赋值实际没有执行
 }
-</pre>
+```
 
 -> _~~~~~~~~~~ 2015-03-26 更新结束 ~~~~~~~~~~_ <-
 	

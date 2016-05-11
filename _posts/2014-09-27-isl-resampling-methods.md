@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "ISL: Resampling Methods"
 description: ""
 category: Machine-Learning
@@ -193,12 +193,14 @@ P189 阐述了 bootstrap 的做法，其实挺简单：
 
 ### <a name="Lab-VSA"></a>3.1 The Validation Set Approach
 
-	> library(ISLR)
-	> set.seed(1)
-	> train = sample(392,196) ## 从 [1,392] 中选择 196 个整数
-	
-	> lm.fit = lm(mpg~horsepower, data=Auto, subset=train)
-	> mean((Auto$mpg - predict(lm.fit, Auto))[-train]^2) ## MSE
+```r
+> library(ISLR)
+> set.seed(1)
+> train = sample(392,196) ## 从 [1,392] 中选择 196 个整数
+
+> lm.fit = lm(mpg~horsepower, data=Auto, subset=train)
+> mean((Auto$mpg - predict(lm.fit, Auto))[-train]^2) ## MSE
+```
 	
 ### <a name="Lab-LOOCV"></a>3.2 Leave-One-Out Cross-Validation
 
@@ -208,12 +210,14 @@ In previous lab, we used the `glm()` function to perform logistic regression by 
 
 The `cv.glm()` function is part of the `boot` library.
 
-	> library(boot)
-	> glm.fit = glm(mpg~horsepower, data=Auto)
-	> cv.err = cv.glm(Auto, glm.fit)
-	> cv.err$delta
-	1 1
-	24.23 24.23
+```r
+> library(boot)
+> glm.fit = glm(mpg~horsepower, data=Auto)
+> cv.err = cv.glm(Auto, glm.fit)
+> cv.err$delta
+1 1
+24.23 24.23
+```
 	
 这里注意下 `delta`。`cv.glm` 本身是为 k-fold 设计的，如果不传一个 k 值的话，默认就是 LOOCV。`cv.glm` 其实计算了两个 MSE，都放在 `delta` 里传回来了：
 
@@ -224,14 +228,16 @@ The `cv.glm()` function is part of the `boot` library.
 
 ### <a name="Lab-k-fold"></a>3.3 k-Fold Cross-Validation
 
-	> set.seed(17)
-	> cv.error.10 = rep(0,10)
-	> for (i in 1:10) {
-	+ glm.fit=glm(mpg~poly(horsepower,i), data=Auto)
-	+ cv.error.10[i]=cv.glm(Auto, glm.fit, K=10)$delta [1]
-	+ }
-	> cv.error.10
-	[1] 24.21 19.19 19.31 19.34 18.88 19.02 18.90 19.71 18.95 19.50
+```r
+> set.seed(17)
+> cv.error.10 = rep(0,10)
+> for (i in 1:10) {
++ 	glm.fit=glm(mpg~poly(horsepower,i), data=Auto)
++ 	cv.error.10[i]=cv.glm(Auto, glm.fit, K=10)$delta [1]
++ }
+> cv.error.10
+[1] 24.21 19.19 19.31 19.34 18.88 19.02 18.90 19.71 18.95 19.50
+```
 	
 In principle, the computation time for LOOCV for a least squares linear model should be faster than for $k$-fold CV, due to the availability of the formula $ (\ref{eq1.2}) $ for LOOCV; however, unfortunately the `cv.glm()` function does not make use of this formula.
 
@@ -248,30 +254,36 @@ We use the `Portfolio` data set in the `ISLR` package here.
 
 we first create a function, `alpha.fn()`, which takes as input the $ (X, Y) $ data as well as a vector indicating which observations should be used to estimate $ \alpha $. The function then return the estimate for $ \alpha $ based on the selected observations.
 
-	> alpha.fn = function(data, index){
-	+ X=data$X[index]
-	+ Y=data$Y[index]
-	+ return ((var(Y)-cov(X,Y)) / (var(X)+var(Y)-2*cov(X,Y)))
-	+ }
+```r
+> alpha.fn = function(data, index){
++ 	X=data$X[index]
++ 	Y=data$Y[index]
++ 	return ((var(Y)-cov(X,Y)) / (var(X)+var(Y)-2*cov(X,Y)))
++ }
+```
 	
 在用 `boot()` 之前，我们可以自己先手动模拟一下：
 
-	> set.seed(1)
-	> alpha.fn(Portfolio, sample(100,100,replace=T)) ## nrow(Portfolio) = 100
-	[1] 0.596
+```r
+> set.seed(1)
+> alpha.fn(Portfolio, sample(100,100,replace=T)) ## nrow(Portfolio) = 100
+[1] 0.596
+```
 	
 We can implement a bootstrap analysis by performing this command many times, recording all of the corresponding estimates for $ \alpha $, and computing the resulting standard deviation. However, the boot() function automates this approach.
 
-	> boot(Portfolio, alpha.fn, R=1000) # R = 1000 is the number of bootstrap replicates, i.e. the B number mentioned in Section 2
-	
-	ORDINARY NONPARAMETRIC BOOTSTRAP
-	
-	Call:
-	boot(data = Portfolio, statistic = alpha.fn, R = 1000)
-	
-	Bootstrap Statistics :
-		original     bias  std . error
-	t1*   0.5758  -7.315e   -05 0.0886
+```r
+> boot(Portfolio, alpha.fn, R=1000) # R = 1000 is the number of bootstrap replicates, i.e. the B number mentioned in Section 2
+
+ORDINARY NONPARAMETRIC BOOTSTRAP
+
+Call:
+boot(data = Portfolio, statistic = alpha.fn, R = 1000)
+
+Bootstrap Statistics :
+original     bias  std . error
+t1*   0.5758  -7.315e   -05 0.0886
+```
 	
 #### <a name="Lab-Bootstrap-2"></a>3.4.2 Estimating the Accuracy of a Linear Regression Model
 

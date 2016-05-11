@@ -11,40 +11,40 @@ tags: [Rcpp]
 
 -----
 
-<pre class="prettyprint linenums">
+```r
 library(inline)
 
-src &lt;- '
+src <- '
 	Rcpp::NumericVector xa(a);
 	Rcpp::NumericVector xb(b);
 	int n_xa = xa.size(), n_xb = xb.size();
 
 	Rcpp::NumericVector xab(n_xa + n_xb - 1);
-	for (int i = 0; i &lt; n_xa; i++)
-		for (int j = 0; j &lt; n_xb; j++)
+	for (int i = 0; i < n_xa; i++)
+		for (int j = 0; j < n_xb; j++)
 			xab[i + j] += xa[i] * xb[j];
 
 	return xab;
 '
 
-fun &lt;- cxxfunction(signature(a="numeric", b="numeric"), src, plugin="Rcpp", verbose=TRUE)
-</pre>
+fun <- cxxfunction(signature(a="numeric", b="numeric"), src, plugin="Rcpp", verbose=TRUE)
+```
 
 执行上面的 R 代码，console 会显示出编译、链接信息以及生成的 C++ 临时文件：
 
-<pre class="prettyprint linenums">
- &gt;&gt; setting environment variables: 
+```r
+ >> setting environment variables: 
 PKG_LIBS = 
 
- &gt;&gt; LinkingTo : Rcpp
+ >> LinkingTo : Rcpp
 CLINK_CPPFLAGS =  -I"E:/R/R-3.1.0/library/Rcpp/include" 
 
- &gt;&gt; Program source :
+ >> Program source :
 
    1 : 
    2 : // includes from the plugin
    3 : 
-   4 : #include &lt;Rcpp.h&gt;
+   4 : #include <Rcpp.h>
    5 : 
    6 : 
    7 : #ifndef BEGIN_RCPP
@@ -76,8 +76,8 @@ CLINK_CPPFLAGS =  -I"E:/R/R-3.1.0/library/Rcpp/include"
   33 : int n_xa = xa.size(), n_xb = xb.size();
   34 : 
   35 : Rcpp::NumericVector xab(n_xa + n_xb - 1);
-  36 : for (int i = 0; i &lt; n_xa; i++)
-  37 : for (int j = 0; j &lt; n_xb; j++)
+  36 : for (int i = 0; i < n_xa; i++)
+  37 : for (int j = 0; j < n_xb; j++)
   38 : xab[i + j] += xa[i] * xb[j];
   39 : 
   40 : return xab;
@@ -86,13 +86,13 @@ CLINK_CPPFLAGS =  -I"E:/R/R-3.1.0/library/Rcpp/include"
   43 : }
   44 : 
   45 : 
-</pre>
+```
 
 我们把生成的 C++ 临时文件拎出来排下版：
 
-<pre class="prettyprint linenums">
+```r
 // includes from the plugin
-#include &lt;Rcpp.h&gt;
+#include <Rcpp.h>
 
 #ifndef BEGIN_RCPP
 #define BEGIN_RCPP
@@ -121,19 +121,19 @@ SEXP file11f437244ecf( SEXP a, SEXP b ){
 		int n_xa = xa.size(), n_xb = xb.size();
 
 		Rcpp::NumericVector xab(n_xa + n_xb - 1);
-		for (int i = 0; i &lt; n_xa; i++)
-			for (int j = 0; j &lt; n_xb; j++)
+		for (int i = 0; i < n_xa; i++)
+			for (int j = 0; j < n_xb; j++)
 				xab[i + j] += xa[i] * xb[j];
 		
 		return xab;
 	
 	END_RCPP
 }
-</pre>
+```
 
 注意 `BEGIN_RCPP` 和 `END_RCPP` 这个两个宏，它们的作用其实是用来拼 exception handling 语句的：
 
-<pre class="prettyprint linenums">
+```r
 #ifndef BEGIN_RCPP
 #define BEGIN_RCPP try {
 #endif
@@ -149,13 +149,13 @@ SEXP file11f437244ecf( SEXP a, SEXP b ){
 #ifndef END_RCPP
 #define END_RCPP VOID_END_RCPP return R_NilValue;
 #endif
-</pre>
+```
 
 这两个宏的定义在 [Rcpp Version 0.11.6 - macros.h File Reference](http://dirk.eddelbuettel.com/code/rcpp/html/macros_2macros_8h.html)。现在的版本比上面的要高级一点，但是主体结构没有大的变化。
 
 另外，查看本机 R package 的版本可以用：
 
-<pre class="prettyprint linenums">
+```r
 packageVersion("Rcpp") # 引号不能省
 [1] ‘0.11.2’
-</pre>
+```

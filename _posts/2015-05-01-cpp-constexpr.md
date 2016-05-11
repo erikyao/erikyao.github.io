@@ -24,12 +24,12 @@ A constant expression is an expression whose value cannot change and that can be
 - A literal is a constant expression. 
 - A const object that is initialized from a constant expression is also a constant expression.
 
-<pre class="prettyprint linenums">
+```cpp
 const int max_files = 20; 			// YES. 20 is a const expression; max_files is const and initialized from 20
 const int limit = max_files + 1; 	// YES. max_files is a const expression; limit is const and initialized from max_files
 int staff_size = 27; 				// NO. Because staff_size is not const
 const int sz = get_size(); 			// DEPENDS on whether get_size() is a const expression
-</pre>
+```
 
 ## 2. constexpr function
 
@@ -40,25 +40,25 @@ const int sz = get_size(); 			// DEPENDS on whether get_size() is a const expres
 
 举几个例子，一看就懂：
 
-<pre class="prettyprint linenums">
+```cpp
 constexpr int multiply (int x, int y) {
     return x * y;
 }
  
 // the compiler may evaluate this at compile time
 const int val = multiply( 10, 10 );
-</pre>
+```
 
-<pre class="prettyprint linenums">
+```cpp
 constexpr int getDefaultArraySize (int multiplier) {
     return 10 * multiplier;
 }
  
 int my_array[getDefaultArraySize(3)];
-</pre>
+```
 
-<pre class="prettyprint linenums">
-template &lt;int N&gt;
+```cpp
+template <int N>
 class list { 
 
 };
@@ -74,12 +74,12 @@ int sqr2(int arg) {
 int main() {
   const int X = 2;
 
-  list&lt;sqr1(X)&gt; mylist1; // OK. sqr1 is constexpr
-  list&lt;sqr2(X)&gt; mylist2; // ERROR. sqr2 is not constexpr
+  list<sqr1(X)> mylist1; // OK. sqr1 is constexpr
+  list<sqr2(X)> mylist2; // ERROR. sqr2 is not constexpr
 
   return 0;
 }
-</pre>
+```
 
 当然，也不是说你可以把任何函数都变成 constexpr，限制可是有很多的，具体参 [constexpr specifier (since C++11)](http://en.cppreference.com/w/cpp/language/constexpr)。
 
@@ -91,7 +91,7 @@ A constexpr specifier used in an object declaration implies const.
 
 粗略来说 const 和 constexpr variable 看不出有啥区别，但是 [const vs constexpr on variables](http://stackoverflow.com/questions/13346879/const-vs-constexpr-on-variables) 提到 constexpr variable 是强制 compile time const，而 const 可能是 runtime const。我估计和编译器实现有关，遇到具体问题再讨论。这里仅举几个例子：
 
-<pre class="prettyprint linenums">
+```cpp
 constexpr int mf = 20; 			// YES. Because 20 is a constant expression
 constexpr int limit = mf + 1; 	// YES. Because mf + 1 is a constant expression
 constexpr int sz = size(); 		// DEPENDS on whether size() is a const expression
@@ -100,4 +100,4 @@ const int *p = nullptr; 		// p is a pointer to const
 constexpr int *q = nullptr; 	// q is a const pointer
 constexpr int i = 42; 			// i is a const int
 constexpr const int *r = &i; 	// r is a constant pointer to const
-</pre>
+```

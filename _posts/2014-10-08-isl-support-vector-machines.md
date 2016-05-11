@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "ISL: Support Vector Machines"
 description: ""
 category: Machine-Learning
@@ -261,22 +261,28 @@ The `e1071` library contains implementations for a number of statistical learnin
 
 Here we demonstrate the use of this function on a two-dimensional example so that we can plot the resulting decision boundary. We begin by generating the observations, which belong to two classes.
 
-	> set.seed(1)
-	> x = matrix(rnorm(20*2), ncol=2)
-	> y = c(rep(-1,10), rep(1,10))
-	> x[y==1,] = x[y==1,] + 1 ## 我们自己造的数据
-	
+```r
+> set.seed(1)
+> x = matrix(rnorm(20*2), ncol=2)
+> y = c(rep(-1,10), rep(1,10))
+> x[y==1,] = x[y==1,] + 1 ## 我们自己造的数据
+```
+
 We begin by checking whether the classes are linearly separable.
 
-	> plot(x, col=(3-y)) ## col=2 是红色，col=4 是蓝色
-	
+```r
+> plot(x, col=(3-y)) ## col=2 是红色，col=4 是蓝色
+```
+
 They are not. Next, we fit the support vector classifier. Note that in order for the `svm()` function to perform classification (as opposed to SVM-based regression), we must encode the response as a factor variable. We now create a data frame with the response coded as a factor.
 
-	> dat = data.frame(x=x, y=as.factor(y))
-	> library(e1071)
-	> svmfit = svm(y~., data=dat, kernel="linear", cost=10, scale=FALSE) ## no feature scaling
-	> plot(svmfit, dat)
-	
+```r
+> dat = data.frame(x=x, y=as.factor(y))
+> library(e1071)
+> svmfit = svm(y~., data=dat, kernel="linear", cost=10, scale=FALSE) ## no feature scaling
+> plot(svmfit, dat)
+```
+
 The decision boundary between the two classes is linear (because we used the argument `kernel="linear"`), though due to the way in which the plotting function is implemented in this library the decision boundary looks somewhat jagged in the plot. 
 
 注意这里是按颜色区分的：
@@ -292,74 +298,92 @@ O 和 X 并不是表示 classification 的对错的：
 
 We see here that there are 7 support vectors. We can determine their identities as follows:
 
-	> svmfit$index
-	[1] 1 2 5 7 14 16 17
-	
+```r
+> svmfit$index
+[1] 1 2 5 7 14 16 17
+```
+
 We can obtain some basic information about the support vector classifier fit using the `summary()` command:
 
-	> summary(svmfit)
-	
+```r
+> summary(svmfit)
+```
+
 It tells us, for instance, that a linear kernel was used with `cost=10`, and that there were 7 support vectors, 4 in one class and 3 in the other.
 
 What if we instead used a smaller value of the `cost` parameter?
 
-	> svmfit = svm(y~., data=dat, kernel="linear", cost=0.1, scale=FALSE)
-	> plot(svmfit, dat)
-	> svmfit$index
-	[1] 1 2 3 4 5 7 9 10 12 13 14 15 16 17 18 20
-	
+```r
+> svmfit = svm(y~., data=dat, kernel="linear", cost=0.1, scale=FALSE)
+> plot(svmfit, dat)
+> svmfit$index
+[1] 1 2 3 4 5 7 9 10 12 13 14 15 16 17 18 20
+```
+
 Now that a smaller value of the cost parameter is being used, we obtain a larger number of support vectors, because the margin is now wider. Unfortunately, the `svm()` function does not explicitly output the coefficients of the linear decision boundary obtained when the support vector classifier is fit, nor does it output the width of the margin.
 
 The `e1071` library includes a built-in function, `tune()`, to perform cross-validation. By default, `tune()` performs 10-fold cross-validation on a set of models of interest. In order to use this function, we pass in relevant information about the set of models that are under consideration. The following command indicates that we want to compare SVMs with a linear kernel, using a range of values of the cost parameter.
 
-	> set.seed(1)
-	> tune.out = tune(svm, y~., data=dat, kernel="linear", ranges=list(cost=c(0.001,0.01,0.1,1,5,10,100)))
-	
-	> summary(tune.out)
-	
+```r
+> set.seed(1)
+> tune.out = tune(svm, y~., data=dat, kernel="linear", ranges=list(cost=c(0.001,0.01,0.1,1,5,10,100)))
+
+> summary(tune.out)
+```
+
 We see that `cost=0.1` results in the lowest cross-validation error rate. The `tune()` function stores the best model obtained, which can be accessed as follows:
 
-	> bestmod = tune.out$best.model
-	> summary(bestmod)
-	
+```r
+> bestmod = tune.out$best.model
+> summary(bestmod)
+```
+
 To make predictions, we begin by generating a test data set.
 
-	> xtest = matrix(rnorm(20*2), ncol=2)
-	> ytest = sample(c(-1,1), 20, rep=TRUE)
-	> xtest[ytest==1,] = xtest[ytest==1,] + 1
-	> testdat = data.frame(x=xtest, y=as.factor(ytest))
-	
-	> ypred = predict(bestmod, testdat)
-	> table(predict=ypred, truth=testdat$y)
-			 truth
-	predict  -1	 1
-		 -1  11  1
-		  1   0  8
-	## 1 misclassification on test data  
-	
+```r
+ xtest = matrix(rnorm(20*2), ncol=2)
+> ytest = sample(c(-1,1), 20, rep=TRUE)
+> xtest[ytest==1,] = xtest[ytest==1,] + 1
+> testdat = data.frame(x=xtest, y=as.factor(ytest))
+
+> ypred = predict(bestmod, testdat)
+> table(predict=ypred, truth=testdat$y)
+	    truth
+predict	    -1	1
+	-1  11  1
+	1   0  8
+## 1 misclassification on test data  
+```
+
 What if we had instead used `cost=0.01`?
 
-	> svmfit = svm(y~., data=dat, kernel="linear", cost=.01, scale=FALSE)
-	> ypred = predict(svmfit, testdat)
-	> table(predict=ypred, truth=testdat$y)
-			 truth
-	predict  -1  1
-		 -1  11  2
-		  1   0  7
-	## however, 2 misclassification on test data
-	
+```r
+> svmfit = svm(y~., data=dat, kernel="linear", cost=.01, scale=FALSE)
+> ypred = predict(svmfit, testdat)
+> table(predict=ypred, truth=testdat$y)
+	    truth
+predict	    -1  1
+	-1  11  2
+	1   0  7
+## however, 2 misclassification on test data
+```
+
 Now consider a situation in which the two classes are linearly separable.
 
-	> x[y==1,] = x[y==1,]+0.5
-	> plot(x, col=(y+5)/2, pch=19) ## col=3 是绿色，col=2 是红色
-	
+```r
+> x[y==1,] = x[y==1,]+0.5
+> plot(x, col=(y+5)/2, pch=19) ## col=3 是绿色，col=2 是红色
+```
+
 Now the observations are just barely linearly separable. We fit the SVC and plot the resulting hyperplane, using a very large value of `cost` so that no observations are misclassified. 
 
-	> dat = data.frame(x=x, y=as.factor(y))
-	> svmfit = svm(y~., data=dat, kernel="linear", cost=1e5)
-	> summary(svmfit)
-	> plot(svmfit, dat)
-	
+```r
+> dat = data.frame(x=x, y=as.factor(y))
+> svmfit = svm(y~., data=dat, kernel="linear", cost=1e5)
+> summary(svmfit)
+> plot(svmfit, dat)
+```
+
 No training errors were made and only three support vectors were used. However, we can see from the figure that the margin is very narrow (because the observations that are not support vectors, indicated as circles, are very close to the decision boundary). It seems likely that this model will perform poorly on test data.
 
 ### <a name="Lab-SVM"></a>6.2 Support Vector Machine
@@ -371,106 +395,130 @@ In order to fit an SVMusing a non-linear kernel, we once again use the `svm()` f
 
 We first generate some data with a non-linear class boundary, as follows:
 
-	> set.seed(1)
-	> x = matrix(rnorm(200*2), ncol=2)
-	> x[1:100,] = x[1:100,]+2
-	> x[101:150,] = x[101:150,]-2
-	> y = c(rep(1,150), rep(2,50))
-	> dat = data.frame(x=x, y=as.factor(y))
-	
+```r
+> set.seed(1)
+> x = matrix(rnorm(200*2), ncol=2)
+> x[1:100,] = x[1:100,]+2
+> x[101:150,] = x[101:150,]-2
+> y = c(rep(1,150), rep(2,50))
+> dat = data.frame(x=x, y=as.factor(y))
+```
+
 Plotting the data makes it clear that the class boundary is indeed nonlinear:
 
-	> plot(x, col=y)
-	
-	> train = sample(200,100)
-	> svmfit = svm(y~., data=dat[train,], kernel="radial", gamma=1, cost=1)
-	> plot(svmfit, dat[train,])
-	
-	> summary(svmfit)
-	
+```r
+> plot(x, col=y)
+
+> train = sample(200,100)
+> svmfit = svm(y~., data=dat[train,], kernel="radial", gamma=1, cost=1)
+> plot(svmfit, dat[train,])
+
+> summary(svmfit)
+```
+
 We can see from the figure that there are a fair number of training errors in this SVM fit. If we increase the value of `cost`, we can reduce the number of training errors. However, this comes at the price of a more irregular decision boundary that seems to be at risk of overfitting the data.
 
-	> svmfit = svm(y~., data=dat[train,], kernel="radial", gamma=1, cost=1e5)
-	> plot(svmfit, dat[train,]) ## a quite weird shape
-	
+```r
+> svmfit = svm(y~., data=dat[train,], kernel="radial", gamma=1, cost=1e5)
+> plot(svmfit, dat[train,]) ## a quite weird shape
+```
+
 We can perform cross-validation using `tune()` to select the best choice of $ \gamma $ and `cost` for an SVM with a radial kernel:
 
-	> set.seed(1)
-	> tune.out = tune(svm, y~., data=dat[train,], kernel="radial", ranges=list(cost=c(0.1,1,10,100,1000), gamma=c(0.5,1,2,3,4)))
-	> summary(tune.out)
-	
+```r
+> set.seed(1)
+> tune.out = tune(svm, y~., data=dat[train,], kernel="radial", ranges=list(cost=c(0.1,1,10,100,1000), gamma=c(0.5,1,2,3,4)))
+> summary(tune.out)
+```
+
 Therefore, the best choice of parameters involves `cost=1` and `gamma=2`. We can view the test set predictions for this model by applying the `predict()` function to the data. Notice that to do this we subset the dataframe `dat` using `-train` as an index set.
 
-	> table(true=dat[-train,"y"], pred=predict(tune.out$best.model, newx=dat[-train,]))
-	
+```r
+> table(true=dat[-train,"y"], pred=predict(tune.out$best.model, newx=dat[-train,]))
+```
+
 39% of test observations are misclassified by this SVM.
 
 ### <a name="Lab-ROC"></a>6.3 ROC Curves
 
 The `ROCR` package can be used to produce ROC curves. We first write a short function to plot an ROC curve given a vector containing a numerical score for each observation, `pred`, and a vector containing the class label for each observation, `truth`.
 
-	> library(ROCR)
-	> rocplot = function(pred, truth, ...) {
-	+ 	predob = prediction(pred, truth)
-	+ 	perf = performance(predob, "tpr", "fpr")
-	+ 	plot(perf, ...)
-	+ }
+```r
+> library(ROCR)
+> rocplot = function(pred, truth, ...) {
++ 	predob = prediction(pred, truth)
++ 	perf = performance(predob, "tpr", "fpr")
++ 	plot(perf, ...)
++ }
+```
 
 SVMs and support vector classifiers output class labels for each observation. However, it is also possible to obtain fitted values for each observation, which are the numerical scores used to obtain the class labels (也就是 $ f(x^*) $，看是 > 0 还是 < 0 的那个值). In order to obtain the fitted values for a given SVM model fit, we use `decision.values=TRUE` when fitting `svm()`. Then the `predict()` function will output the fitted values.
 
-	> svmfit.opt = svm(y~., data=dat[train,], kernel="radial", gamma=2, cost=1, decision.values=T)
-	> fitted = attributes(predict(svmfit.opt, dat[train,], decision.values =TRUE))$decision.values
-	
+```r
+> svmfit.opt = svm(y~., data=dat[train,], kernel="radial", gamma=2, cost=1, decision.values=T)
+> fitted = attributes(predict(svmfit.opt, dat[train,], decision.values =TRUE))$decision.values
+```
+
 Now we can produce the ROC plot.
 
-	> par(mfrow=c(1,2))
-	> rocplot(fitted, dat[train,"y"], main="Training Data")
-	
+```r
+> par(mfrow=c(1,2))
+> rocplot(fitted, dat[train,"y"], main="Training Data")
+```
+
 SVM appears to be producing accurate predictions. By increasing $ \gamma $ we can produce a more flexible fit and generate further improvements in accuracy.
 
-	> svmfit.flex = svm(y~., data=dat[train,], kernel="radial", gamma=50, cost=1, decision.values=T)
-	> fitted = attributes(predict(svmfit.flex, dat[train,], decision.values =T))$decision.values
-	> rocplot(fitted, dat[train,"y"], add=T, col="red")
-	
+```r
+> svmfit.flex = svm(y~., data=dat[train,], kernel="radial", gamma=50, cost=1, decision.values=T)
+> fitted = attributes(predict(svmfit.flex, dat[train,], decision.values =T))$decision.values
+> rocplot(fitted, dat[train,"y"], add=T, col="red")
+```
+
 However, these ROC curves are all on the training data. We are really more interested in the level of prediction accuracy on the test data. When we compute the ROC curves on the test data, the model with γ = 2 appears to provide the most accurate results.
 
-	> fitted = attributes(predict(svmfit.opt, dat[-train,], decision.values =T))$decision.values
-	> rocplot(fitted, dat[-train,"y"], main="Test Data")
-	> fitted = attributes(predict(svmfit.flex, dat[-train,], decision.values =T))$decision.values
-	> rocplot(fitted, dat[-train,"y"], add=T, col ="red")
-	
+```r
+> fitted = attributes(predict(svmfit.opt, dat[-train,], decision.values =T))$decision.values
+> rocplot(fitted, dat[-train,"y"], main="Test Data")
+> fitted = attributes(predict(svmfit.flex, dat[-train,], decision.values =T))$decision.values
+> rocplot(fitted, dat[-train,"y"], add=T, col ="red")
+```
+
 ### <a name="Lab-SVM-Multi"></a>6.4 SVM with Multiple Classes
 
 If the response is a factor containing more than two levels, then the `svm()` function will perform multi-class classification using the one-versus-one approach.
 
-	> set.seed(1)
-	> x = rbind(x, matrix(rnorm(50*2), ncol=2))
-	> y = c(y, rep(0 ,50))
-	> x[y==0,2] = x[y==0,2]+2
-	> dat = data.frame(x=x, y=as.factor(y))
-	> par(mfrow = c(1,1))
-	> plot(x, col=(y+1))
-	
-	> svmfit = svm(y~., data=dat, kernel="radial", cost=10, gamma=1)
-	> plot(svmfit, dat)
-	
+```r
+> set.seed(1)
+> x = rbind(x, matrix(rnorm(50*2), ncol=2))
+> y = c(y, rep(0 ,50))
+> x[y==0,2] = x[y==0,2]+2
+> dat = data.frame(x=x, y=as.factor(y))
+> par(mfrow = c(1,1))
+> plot(x, col=(y+1))
+
+> svmfit = svm(y~., data=dat, kernel="radial", cost=10, gamma=1)
+> plot(svmfit, dat)
+```
+
 The `e1071` library can also be used to perform support vector regression, if the response vector that is passed in to `svm()` is numerical rather than a factor.
 
 ### <a name="Lab-GED"></a>6.5 Application to Gene Expression Data
 
 We now examine the `Khan` data set, which consists of a number of tissue samples corresponding to four distinct types of small round blue cell tumors. For each tissue sample, gene expression measurements are available. The data set consists of training data, `xtrain` and `ytrain`, and testing data, `xtest` and `ytest`.
 
-	> library(ISLR)
-	> names(Khan)
-	[1] "xtrain" "xtest" "ytrain" "ytest"
-	
+```r
+> library(ISLR)
+> names(Khan)
+[1] "xtrain" "xtest" "ytrain" "ytest"
+
 In this data set, there are a very large number of features relative to the number of observations. This suggests that we should use a linear kernel.
 
-	> dat = data.frame(x=Khan$xtrain, y=as.factor(Khan$ytrain))
-	> out = svm(y~., data=dat, kernel="linear", cost=10)
-	> summary(out)
-	> table(out$fitted, dat$y) ## check training error
-	
-	> dat.te = data.frame(x=Khan$xtest, y=as.factor(Khan$ytest))
-	> pred.te = predict(out, newdata=dat.te)
-	> table(pred.te, dat.te$y) ## check test error
+> dat = data.frame(x=Khan$xtrain, y=as.factor(Khan$ytrain))
+> out = svm(y~., data=dat, kernel="linear", cost=10)
+> summary(out)
+> table(out$fitted, dat$y) ## check training error
+
+> dat.te = data.frame(x=Khan$xtest, y=as.factor(Khan$ytest))
+> pred.te = predict(out, newdata=dat.te)
+> table(pred.te, dat.te$y) ## check test error
+```

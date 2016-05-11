@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "Moment, Expectation, Variance, Skewness and Kurtosis"
 description: "矩、期望、方差、偏度与峰度"
 category: Math

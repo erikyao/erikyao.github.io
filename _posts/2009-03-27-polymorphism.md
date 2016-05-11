@@ -39,12 +39,12 @@ _p.s._ 不存在平行转型 (horizontal-cast)，即 `Ext1 e = new Ext2()`。
 
 如在某方法中，不管传进来的参数是 Ext1 object 还是 Ext2 object，都要求执行 `work()` 方法，这是可以写成：
 
-<pre class="prettyprint linenums">
+```java
 return-type xxx(..., Base b, ...) {  
 	...;  
 	b.work();  
 	...;  
 }  
-</pre>
+```
 
 这就相当于把类型判断交给编译器去执行了。

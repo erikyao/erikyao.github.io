@@ -36,7 +36,7 @@ Any member function _**defined**_ within a class body, a.k.a _in situ_ function,
 
 如果 member function 的 declaration 和 definition 是分开的，只在 declaration 处声明 inline 是无效的，必须在 definition 处声明 inline 才有效。而且 best practice 是只在 definition 处写 inline，declaration 处不用写：
 
-<pre class="prettyprint linenums">
+```cpp
 class Foo {
 public:
 	void method();  		// Best practice: Don't put the inline keyword here
@@ -46,7 +46,7 @@ public:
 inline void Foo::method() { // Best practice: Put the inline keyword here
   // ...
 }
-</pre>
+```
 
 具体的解释见 [FAQ: With inline member functions that are defined outside the class, is it best to put the inline keyword next to the declaration within the class body, next to the definition outside the class body, or both?](http://isocpp.org/wiki/faq/inline-functions#where-to-put-inline-keyword)。大致的意思就是：inline 作为实现的技术细节不需要暴露在 class declaration 中。
 
@@ -65,7 +65,7 @@ One of the most important uses of inlines inside classes is the access function.
 
 Access function 说白了就是 getter 和 setter，C++ 界也有叫 accessors 和 mutators 的。举个例子：
 
-<pre class="prettyprint linenums">
+```cpp
 class Access {
 	int i;
 public:
@@ -78,7 +78,7 @@ int main() {
 	A.set(100);
 	int x = A.read();
 }
-</pre>
+```
 
 ## 4. Inlines and the compiler
 
@@ -100,7 +100,7 @@ It is important to understand that an inline is just a suggestion to the compile
 
 ### Forwarding a reference to another function in an inline function is OK
 
-<pre class="prettyprint linenums">
+```cpp
 class Forward {
 	int i;
 public:
@@ -116,7 +116,7 @@ int main() {
 	Forward frwd;
 	frwd.f();
 }
-</pre>
+```
 
 In `f()`, a call is made to `g()` (这里 `g()` 是否是 inline 并不影响), although `g()` has not yet been declared. This works because the language definition states that no inline functions in a class shall be evaluated until the closing brace of the class declaration.
 

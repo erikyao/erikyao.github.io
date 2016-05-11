@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "Structured Output Support Vector Machines"
 description: ""
 category: Machine-Learning

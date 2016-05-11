@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "C++: Copy-constructor &amp; the return value on the stack"
+title: "C++: Copy-constructor & the return value on the stack"
 description: ""
 category: C++
 tags: [Cpp-101, copy-constructor]
@@ -42,8 +42,8 @@ _~~~~~~~~~~ 2015-05-14 补充完毕 ~~~~~~~~~~_
 
 ## 2. 大实验一
 
-<pre class="prettyprint linenums">
-#include &lt;iostream&gt;
+```cpp
+#include <iostream>
 using namespace std;
 
 class T {
@@ -66,34 +66,34 @@ T::T(int i) {
 }
 
 T::T(const T& t) : i(t.getI()) {
-	cout &lt;&lt; "copy-constructor: &t==" &lt;&lt; &t &lt;&lt; endl;
-	cout &lt;&lt; "copy-constructor: this==" &lt;&lt; this &lt;&lt; endl;
+	cout << "copy-constructor: &t==" << &t << endl;
+	cout << "copy-constructor: this==" << this << endl;
 } 
 
 T::~T() {
-	cout &lt;&lt; "destructor: this==" &lt;&lt; this &lt;&lt; endl;
+	cout << "destructor: this==" << this << endl;
 }
 
 T foo(T t) {
 	t.setI(47);
-	cout &lt;&lt; "foo: &t==" &lt;&lt; &t &lt;&lt; endl;
+	cout << "foo: &t==" << &t << endl;
 	return t;
 }
 
 int main() {
 	T t1(5);
 	
-	cout &lt;&lt; "main: &t1==" &lt;&lt; &t1 &lt;&lt; endl;
+	cout << "main: &t1==" << &t1 << endl;
 	
 	T t2 = foo(t1);
 	
-	cout &lt;&lt; "main: &t1==" &lt;&lt; &t1 &lt;&lt; endl;
-	cout &lt;&lt; "main: &t2==" &lt;&lt; &t2 &lt;&lt; endl;
+	cout << "main: &t1==" << &t1 << endl;
+	cout << "main: &t2==" << &t2 << endl;
 	
-	cout &lt;&lt; "main: t1.i==" &lt;&lt; t1.getI() &lt;&lt; endl;
-	cout &lt;&lt; "main: t2.i==" &lt;&lt; t2.getI() &lt;&lt; endl;
+	cout << "main: t1.i==" << t1.getI() << endl;
+	cout << "main: t2.i==" << t2.getI() << endl;
 }
-</pre>
+```
 
 output: (序号是我自己加的)
  
@@ -160,8 +160,8 @@ output: (序号是我自己加的)
 
 先看 return an argument 的情况：
 
-<pre class="prettyprint linenums">
-#include &lt;iostream&gt;
+```cpp
+#include <iostream>
 using namespace std;
 
 class T {
@@ -184,44 +184,44 @@ T::T(int i) {
 }
 
 T::T(const T& t) : i(t.getI()) {
-	cout &lt;&lt; "copy-constructor: &t==" &lt;&lt; &t &lt;&lt; endl;
-	cout &lt;&lt; "copy-constructor: this==" &lt;&lt; this &lt;&lt; endl;
+	cout << "copy-constructor: &t==" << &t << endl;
+	cout << "copy-constructor: this==" << this << endl;
 } 
 
 T::~T() {
-	cout &lt;&lt; "destructor: this==" &lt;&lt; this &lt;&lt; endl;
+	cout << "destructor: this==" << this << endl;
 }
 
 T foo(T t1, T t2, T t3) {
 	
-	cout &lt;&lt; "foo: &t1==" &lt;&lt; &t1 &lt;&lt; endl;
-	cout &lt;&lt; "foo: &t2==" &lt;&lt; &t2 &lt;&lt; endl;
-	cout &lt;&lt; "foo: &t3==" &lt;&lt; &t3 &lt;&lt; endl;
+	cout << "foo: &t1==" << &t1 << endl;
+	cout << "foo: &t2==" << &t2 << endl;
+	cout << "foo: &t3==" << &t3 << endl;
 
 	T newT1(47);
 	T newT2(48);
 	T newT3(49);
 	
-	cout &lt;&lt; "foo: &newT1==" &lt;&lt; &newT1 &lt;&lt; endl;
-	cout &lt;&lt; "foo: &newT2==" &lt;&lt; &newT2 &lt;&lt; endl;
-	cout &lt;&lt; "foo: &newT3==" &lt;&lt; &newT3 &lt;&lt; endl;
+	cout << "foo: &newT1==" << &newT1 << endl;
+	cout << "foo: &newT2==" << &newT2 << endl;
+	cout << "foo: &newT3==" << &newT3 << endl;
 	
 	return t2; // 返回一个 argument
 }
 
 T bar(T t1, T t2, T t3) {
 	
-	cout &lt;&lt; "foo: &t1==" &lt;&lt; &t1 &lt;&lt; endl;
-	cout &lt;&lt; "foo: &t2==" &lt;&lt; &t2 &lt;&lt; endl;
-	cout &lt;&lt; "foo: &t3==" &lt;&lt; &t3 &lt;&lt; endl;
+	cout << "foo: &t1==" << &t1 << endl;
+	cout << "foo: &t2==" << &t2 << endl;
+	cout << "foo: &t3==" << &t3 << endl;
 
 	T newT1(47);
 	T newT2(48);
 	T newT3(49);
 	
-	cout &lt;&lt; "foo: &newT1==" &lt;&lt; &newT1 &lt;&lt; endl;
-	cout &lt;&lt; "foo: &newT2==" &lt;&lt; &newT2 &lt;&lt; endl;
-	cout &lt;&lt; "foo: &newT3==" &lt;&lt; &newT3 &lt;&lt; endl;
+	cout << "foo: &newT1==" << &newT1 << endl;
+	cout << "foo: &newT2==" << &newT2 << endl;
+	cout << "foo: &newT3==" << &newT3 << endl;
 	
 	return newT2; // 返回一个 local variable
 }
@@ -229,17 +229,17 @@ T bar(T t1, T t2, T t3) {
 int main() {
 	T t1(5), t2(6), t3(7), t4(8);
 	
-	cout &lt;&lt; "main: &t1==" &lt;&lt; &t1 &lt;&lt; endl;
-	cout &lt;&lt; "main: &t2==" &lt;&lt; &t2 &lt;&lt; endl;
-	cout &lt;&lt; "main: &t3==" &lt;&lt; &t3 &lt;&lt; endl;
-	cout &lt;&lt; "main: &t4==" &lt;&lt; &t4 &lt;&lt; endl;
+	cout << "main: &t1==" << &t1 << endl;
+	cout << "main: &t2==" << &t2 << endl;
+	cout << "main: &t3==" << &t3 << endl;
+	cout << "main: &t4==" << &t4 << endl;
 	
 	T t123 = foo(t1, t2, t3);
 	//T t123 = bar(t1, t2, t3);
 	
-	cout &lt;&lt; "main: &t123==" &lt;&lt; &t123 &lt;&lt; endl;
+	cout << "main: &t123==" << &t123 << endl;
 }
-</pre>
+```
 
 output: (序号是我自己加的；配色与之前不同，这里同组的 variable 标为相同的颜色)
 

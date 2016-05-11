@@ -9,9 +9,9 @@ tags: [Java-AOP]
 
 　　依旧是 LogInterceptor 的例子。下面是 beans.xml：
 
-<pre class="prettyprint linenums">
-&lt;?xml version="1.0" encoding="UTF-8"?&gt;  
-&lt;beans xmlns="http://www.springframework.org/schema/beans"  
+```xml
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"  
 	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
 	   xmlns:context="http://www.springframework.org/schema/context"  
 	   xmlns:aop="http://www.springframework.org/schema/aop"  
@@ -20,16 +20,16 @@ tags: [Java-AOP]
 		   http://www.springframework.org/schema/context  
 		   http://www.springframework.org/schema/context/spring-context-2.5.xsd  
 		   http://www.springframework.org/schema/aop  
-		   http://www.springframework.org/schema/aop/spring-aop-2.5.xsd"&gt;  
-	&lt;context:annotation-config /&gt;  
-	&lt;context:component-scan base-package="com.bjsxt"/&gt;  
-	&lt;aop:aspectj-autoproxy /&gt;  
-&lt;/beans&gt;  
-</pre>
+		   http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">  
+	<context:annotation-config />  
+	<context:component-scan base-package="com.bjsxt"/>  
+	<aop:aspectj-autoproxy />  
+</beans>  
+```
 
 注意添加 aop 的 namespace 和 `<aop:aspectj-autoproxy />` 这一句。LogInterceptor 的代码如下：
 
-<pre class="prettyprint linenums">
+```java
 package com.bjsxt.aop;  
   
 import org.aspectj.lang.ProceedingJoinPoint;  
@@ -57,7 +57,7 @@ public class LogInterceptor {
 		System.out.println("method around end");  
 	}    
 }  
-</pre>
+```
 
 这里需要注意两点：
 
