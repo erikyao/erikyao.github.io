@@ -669,7 +669,7 @@ $$
 \begin{align}
 	X_{ij} = \left \lbrace
 		\begin{matrix}
-			& 1, & \text{if edge } C_j (i,j) \text{ is in the cut} \newline
+			& 1, & \text{if edge } (i,j) \text{ is in the cut} \newline
 			& 0, & \text{otherwise}
 		\end{matrix} 
 	\right.
@@ -804,3 +804,72 @@ Semidefinite programming uses symmetric, positive semidefinite matrices.
 In what follows, vectors $ v \in \mathfrak{R}^n $ are assumed to be column vectors, so that $ v^T v $ is the inner product of $ v $ with itself, while $ vv^T $ is an $ n $ by $ n $ matrix.
 
 _**Definition 6.1:**_ A matrix $ X \in \mathfrak{R}^{n \times n} $ is positive semidefinite $ \iff \forall y \in \mathfrak{R}^n, y^TXy \geq 0 $.
+
+Actually, $\forall y \in \mathfrak{R}^n$, 
+
+- $ y^TXy > 0 \iff X $ is positive definite 
+- $ y^TXy \geq 0 \iff X $ is positive semidefinite
+- $ y^TXy < 0 \iff X $ is negative definite 
+- $ y^TXy \leq 0 \iff X $ is negative semidefinite 
+
+Sometimes we abbreviate “positive semidefinite” as “psd.” Sometimes we will write $X \succeq 0$ to denote that a matrix $X$ is positive semidefinite. Symmetric positive semidefinite matrices have some special properties which we list below. From here on, we will generally assume (unless otherwise stated) that any psd matrix $X$ is also symmetric.
+
+_**Fact 6.2:**_ If $ X \in \mathfrak{R}^{n \times n} $ is a symmetric matrix, then the following statements are equivalent:
+
+1. $X$ is psd
+1. $X$ has eigenvalues $\geq 0$
+	- If $\exists$ a vector $v \in \mathfrak{R}^n$ that $Xv = \lambda v$ for some scalar $\lambda$, then $\lambda$ is called the eigenvalue of $X$ with corresponding (right) eigenvector $v$
+1. $X= V^T V$ for some $V \in \mathfrak{R}^{m \times n}$ where $m \leq n$
+1. $X=\sum_{i=1}^n \lambda_i w_i w_i^T$ for some $\lambda_i \geq 0$ and vectors $ w_i \in \mathfrak{R}^n $ such that $w_i^T w_i = 1$ and $w_i^T w_j = 0$ for $i \neq j$
+
+A _**semidefinite program (SDP)**_ is similar to a linear program in that there is a linear objective function and linear constraints. In addition, however, a square symmetric matrix of variables can be constrained to be positive semidefinite. Below is an example in which the variables are $x_{ij}$ for $1 \leq i, j \leq n$.
+
+$$
+\begin{align}
+\text{max or min } 	& \sum_{i,j} c_{ij} x_{ij} & \newline
+\text{subject to } 	& \sum_{i,j} a_{ijk} x_{ij} \leq b_k & \forall k \newline
+					& x_{ij} = x_{ji} & \forall i,j \newline
+					& X = (x_{ij}) \succeq 0 &
+\tag{6.1}
+\end{align}
+$$
+
+We will often use semidefinite programming in the form of vector programming. The variables of vector programs are vectors $ v_i \in \mathfrak{R}^n $. We write the inner product of $v_i$ and $v_j$ as $v_i \cdot v_j$, or sometimes as $v_i^T v_j$.
+
+$$
+\begin{align}
+\text{max or min } 	& \sum_{i,j} c_{ij} (v_i \cdot v_j) & \newline
+\text{subject to } 	& \sum_{i,j} a_{ijk} (v_i \cdot v_j) \leq b_k & \forall k \newline
+					& v_i \in \mathfrak{R}^n & i=1,\dots,n 
+\tag{6.2}
+\end{align}
+$$
+
+We claim that in fact the SDP (6.1) and the vector program (6.2) are equivalent. This follows from Fact 6.2 Statement 3. Given a solution to the SDP, we can take the solution $X$, compute in polynomial time a matrix $V$ for which $X = V^T V$ and set $v_i$ to be the $i^{th}$ column of $V$.
+
+### 6.2 MAX CUT + SDP
+
+Recall that for this problem, the input is an undirected graph $G = (V,E)$, and nonnegative weights $w_{ij} \geq 0$ for each edge $(i, j) \in E$. The goal is to partition the vertex set into two parts, $U$ and $W$ so as to maximize the total weight of the edges in the cut.
+
+For every vertex $v_i$, define 
+
+$$
+\begin{align}
+	y_i = \left \lbrace
+		\begin{matrix}
+			& -1, & \text{if } v_i \in U \newline
+			& +1, & \text{if } v_i \in W
+		\end{matrix} 
+	\right.
+\end{align}
+$$
+
+Note that if an edge $(i, j)$ is in this cut, then $y_i y_j = −1$, while if the edge is not in the cut, $y_i y_j = 1$. Then MAX CUT can be modeled as
+
+$$
+\begin{align}
+\text{maximize } 	& \frac{1}{2} \sum_{(i,j) \in E} w_{ij} (1 - y_i y_j) & \newline
+\text{subject to }  & y_i \in \lbrace -1, +1 \rbrace & i=1,\dots,n 
+\tag{$CUT_{max}$}
+\end{align}
+$$
