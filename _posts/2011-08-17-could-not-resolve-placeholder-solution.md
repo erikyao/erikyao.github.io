@@ -7,9 +7,9 @@ tags: [Spring-101, Config-Spring]
 ---
 {% include JB/setup %}
 
-　　除去 properites 文件路径错误、拼写错误外，出现 "Could not resolve placeholder" 很有可能是使用了多个 `PropertyPlaceholderConfigurer` 或者多个 `<context:property-placeholder>` 的原因。 
+除去 properites 文件路径错误、拼写错误外，出现 "Could not resolve placeholder" 很有可能是使用了多个 `PropertyPlaceholderConfigurer` 或者多个 `<context:property-placeholder>` 的原因。 
 
-　　比如我有一个 dao.xml 读取 dbConnect.properties，还有一个 dfs.xml 读取 dfsManager.properties，然后 web.xml 统一 load 这两个 xml 文件
+比如我有一个 dao.xml 读取 dbConnect.properties，还有一个 dfs.xml 读取 dfsManager.properties，然后 web.xml 统一 load 这两个 xml 文件
 
 ```xml
 <context-param>  
@@ -33,18 +33,11 @@ tags: [Spring-101, Config-Spring]
 
 那么，一定会出 "Could not resolve placeholder"。
 
-　　一定要记住，不管是在一个 Spring 文件还是在多个 Spring 文件被统一 load 的情况下，直接写：
+一定要记住，不管是在一个 Spring 文件内还是在多个 Spring 文件被统一 load 的情况下，直接出现重复的 `<context:property-placeholder location="" />` 是不允许的。
 
-```xml
-<context:property-placeholder location="" />  
-<context:property-placeholder location="" />  
-```
+解决方案：
 
-是不允许的。   
-
-　　解决方案：
-
-　　(1) 在 Spring 3.0 中，可以写：
+(1) 在 Spring 3.0 中，可以写：
 
 ```xml
 <context:property-placeholder location="xxx.properties" ignore-unresolvable="true" />    
@@ -53,7 +46,7 @@ tags: [Spring-101, Config-Spring]
 
 注意两个都要加上 ignore-unresolvable="true"，一个加另一个不加也是不行的  
 
-　　(2) 在Spring 2.5中，`<context:property-placeholder>` 没有 ignore-unresolvable 属性，此时可以改用 PropertyPlaceholderConfigurer。其实 `<context:property-placeholder location="xxx.properties" ignore-unresolvable="true" />` 与下面的配置是等价的
+(2) 在 Spring 2.5 中，`<context:property-placeholder>` 没有 ignore-unresolvable 属性，此时可以改用 PropertyPlaceholderConfigurer。其实 `<context:property-placeholder location="xxx.properties" ignore-unresolvable="true" />` 与下面的配置是等价的
 
 ```xml
 <bean id="随便" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">  
