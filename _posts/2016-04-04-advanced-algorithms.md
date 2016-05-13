@@ -766,7 +766,7 @@ $$
 \end{align}
 $$
 
-If $ Z_{IP}^{\ast} $ is the optimal value of this integer program, then it is not hard to see that $ Z_{IP}^{\ast} = OPT $.
+If $ Z_{ILP}^{\ast} $ is the optimal value of this integer program, then it is not hard to see that $ Z_{ILP}^{\ast} = OPT $.
 
 The corresponding linear programming relaxation of this integer program is
 
@@ -779,7 +779,7 @@ $$
 \end{align}
 $$
 
-If $ Z_{LP}^{\ast} $ is the optimal value of this integer program, then clarly $ Z_{LP}^{\ast} \geq Z_{IP}^{\ast} = OPT $.
+If $ Z_{LP}^{\ast} $ is the optimal value of this integer program, then clarly $ Z_{LP}^{\ast} \geq Z_{ILP}^{\ast} = OPT $.
 
 待续
 
@@ -814,6 +814,22 @@ Actually, $\forall y \in \mathfrak{R}^n$,
 
 Sometimes we abbreviate “positive semidefinite” as “psd.” Sometimes we will write $X \succeq 0$ to denote that a matrix $X$ is positive semidefinite. Symmetric positive semidefinite matrices have some special properties which we list below. From here on, we will generally assume (unless otherwise stated) that any psd matrix $X$ is also symmetric.
 
+_**Lemma:**_ $C = \lbrace X \in \mathfrak{R}^{n \times n} \vert X \succeq 0 \rbrace$ is a convex region.
+
+_**Proof:**_ Equivalent to show that: given $X_1,X_2 \succeq 0$, $\forall t \in [0,1]$, we have $tX_1 + (1-t)X_2 \succeq 0$.
+
+$$
+\begin{align}
+			& \forall y, \quad y^TX_1y \geq 0, \quad y^TX_2y \geq 0 \newline
+\Rightarrow	& \forall y, \quad t \cdot y^TX_1y \geq 0, \quad (1-t) \cdot y^TX_2y \geq 0 \newline
+\Rightarrow	& \forall y, \quad y^T(tX_1)y \geq 0, \quad y^T \left ( (1-t)X_2 \right ) y \geq 0 \newline
+\Rightarrow	& \forall y, \quad y^T \left ( tX_1 + (1-t)X_2 \right ) y \geq 0 \newline
+\Rightarrow	& \left ( tX_1 + (1-t)X_2 \right ) y \succeq 0 
+\end{align}
+$$
+
+$\tag*{$\square$}$
+
 _**Fact 6.2:**_ If $ X \in \mathfrak{R}^{n \times n} $ is a symmetric matrix, then the following statements are equivalent:
 
 1. $X$ is psd
@@ -845,7 +861,7 @@ $$
 \end{align}
 $$
 
-We claim that in fact the SDP (6.1) and the vector program (6.2) are equivalent. This follows from Fact 6.2 Statement 3. Given a solution to the SDP, we can take the solution $X$, compute in polynomial time a matrix $V$ for which $X = V^T V$ and set $v_i$ to be the $i^{th}$ column of $V$.
+We claim that in fact the SDP $(6.1)$ and the vector program $(6.2)$ are equivalent. This follows from Fact 6.2 Statement 3. Given a solution to the SDP, we can take the solution $X$, compute in polynomial time a matrix $V$ for which $X = V^T V$ and set $v_i$ to be the $i^{th}$ column of $V$.
 
 ### 6.2 MAX CUT + SDP
 
@@ -873,3 +889,44 @@ $$
 \tag{$CUT_{max}$}
 \end{align}
 $$
+
+We can now consider the following vector programming relaxation of $CUT_{max}$
+
+$$
+\begin{align}
+\text{maximize } 	& \frac{1}{2} \sum_{(i,j) \in E} w_{ij} (1 - v_i \cdot v_j) & \newline
+\text{subject to } 	& v_i \cdot v_i = 1 & i=1,\dots,n \newline
+					& v_i \in \mathfrak{R}^n & i=1,\dots,n 
+\tag{6.4}
+\end{align}
+$$
+
+$(6.4)$ is a relaxation of $CUT_{max}$ since we can take any feasible solution $y$ of  $CUT_{max}$ and produce a feasible solution to $(6.4)$ of the same value by setting $v_i = (y_i, 0, 0, \dots, 0)$: clearly $v_i \cdot v_i = 1$ and $v_i \cdot v_j = y_i y_j = 1$. Thus if $Z_{VP}$ is the value of an optimal solution to the vector program, it must be the case that $Z_{VP} \geq OPT_{CUT}$.
+
+We can solve $(6.4)$ in polynomial time. We would now like to round the solution to obtain a near-optimal cut. To do this, we introduce a form of randomized rounding suitable for vector programming.
+
+注：这和前面 ILP 的套路是一样的：
+
+$$
+\text{problem} \rightarrow ILP \overset{\text{relax}}{\rightarrow} LP \rightarrow LP \text{ solution} \overset{\text{round}}{\rightarrow} ILP \text{ solution}
+$$
+
+$$
+\text{problem} \rightarrow IQP \overset{\text{relax}}{\rightarrow} QP \rightarrow QP \text{ solution} \overset{\text{round}}{\rightarrow} IQP \text{ solution}
+$$
+
+$QP$ for _**Quadratic Programming**_; $IQP$ for _**Integer Quadratic Programming**_。而 $SDP / VP$ 正是 $QP$ 的 special case。
+
+我们同样可以用 randomized rounding 来处理 $Z_{VP}$。而这个 randomized rounding 的处理过程又能看成 “choosing a random hyperplane”。因为 $v_i$ 都是 unit vector，所以所有的 $v_i$ 都在一个 unit sphere 上。rounding 的过程就好比把这个 unit sphere 用一个 hyperplane 一刀切，一个 half-space 算 $U$，另一个 half-space 算 $W$ (联想 LP 的 $y_i$ 按 0.5 一刀切，大于的算 1，小于的算 0)。假设 $v_i$ 和 $v_j$ 的夹角是 $\theta$，一个 random 的 hyperplane 能正好把 $v_i$ 和 $v_j$ 切开的概率是 $\frac{\theta}{\pi}$。
+
+又因为 $v_i \cdot v_j = \lvert v_i \rvert \lvert v_j \rvert \cos \theta = \cos \theta$，所以 $\theta = \arccos(v_i \cdot v_j)$。
+
+又因为 $\frac{\theta}{\pi} = \frac{\arccos(v_i \cdot v_j)}{\pi} \geq 0.878 \cdot \frac{1}{2} (1 - v_i \cdot v_j)$，所以 rounding 得到的 solution $\geq 0.878 \cdot Z_{VP} \geq 0.878 \cdot OPT_{CUT}$.
+
+待续：Ellipsoid Method + Separation Oracle
+
+### 6.3 Approximating QP
+
+### 6.4 Finding a correlation clustering
+
+### 6.5 Coloring 3-colorable graphs
