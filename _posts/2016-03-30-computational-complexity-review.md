@@ -2,8 +2,8 @@
 layout: post
 title: "Computational Complexity Review"
 description: ""
-category: Math
-tags: []
+category: Algorithm
+tags: [Algorithm-101]
 ---
 {% include JB/setup %}
 
@@ -958,15 +958,15 @@ Basic Complexity Class:
 
 Standard Complexity Classes:
 
-- $\text{P} = \text{set of problems that can be solved (by a deterministical TM) in poly time} $ 
+- $\text{P} = \lbrace \text{problems that can be solved (by a deterministical TM) in poly time} \rbrace$ 
 	- $\text{P} = \bigcup_{k=1,2,\dots} \text{DTIME}(n^k)$ 
 		- 如果把 $P$ 看做 property 的话，$P$ 可以简单描述为 "deterministic poly time"
 		- "deterministic" = "deterministically solvable in time" = "solvable in time by a deterministical TM"
-- $\text{PSPACE} = \text{set of problems that can be solved using poly space} $ 
+- $\text{PSPACE} = \lbrace \text{problems that can be solved using poly space} \rbrace$ 
 	$\text{PSPACE} = \bigcup_{k=1,2,\dots} \text{DSPACE}(n^k)$ 
-- $\text{EXP} = \text{set of problems that can be solved by in exponential time} $ 
+- $\text{EXP} = \lbrace \text{problems that can be solved by in exponential time} \rbrace$ 
 	- $\text{EXP} = \bigcup_{k=1,2,\dots} \text{DTIME}(2^{n^k})$ 
-- $\text{L} = \text{set of problems that can be solved using log space}$ 
+- $\text{L} = \lbrace \text{problems that can be solved using log space} \rbrace$ 
 	- $\text{L} = \text{DSPACE}(\log n)$ 
 
 Translating from “Complexity Theory Speak”:
@@ -1023,7 +1023,7 @@ $NP$:
 - $NP$ 可以描述为 nondeterministic polynomial time
 	- "nondeterministic" = "nondeterministically solvable in time" = "solvable in time by a nondeterministical TM"
 - _**Definition 1.**_ A problem is assigned to the $NP$ class if it is solvable in polynomial time by a nondeterministic TM.
-	- $NP = \text{set of problems that can be solved by a nondeterministic TM in poly time}$
+	- $NP = \lbrace \text{problems that can be solved by a nondeterministic TM in poly time} \rbrace$
 - _**Definition 2.**_ $NP = \text{set of decision problems } L $, where
 	- $L = \lbrace x \vert \exists w : M(x,w) = 1 \rbrace$
 	- $M$ halts in polynomial time, as a function of $ \lvert x \rvert $ alone.
@@ -1120,7 +1120,7 @@ $\tag*{$\square$}$
 
 ### Cook-Levin Theorem & Natural NP-complete problems (Lecture 9 & 10)
 
-_**Cook-Levin Theorem.**_ $ SAT = \lbrace \\varphi \vert \varphi \text{ is a satisfiable boolean formula} \rbrace $ is NP-complete
+_**Cook-Levin Theorem.**_ $ SAT = \lbrace \varphi \vert \varphi \text{ is a satisfiable boolean formula} \rbrace $ is NP-complete
 
 How to $SAT \leq_P 3SAT$:
 
@@ -1132,7 +1132,235 @@ How to $SAT \leq_P 3SAT$:
 - Further break into: $(x_1 \vee x_3 \vee s) \wedge (\overline{s} \vee \overline{x_4} \vee t) \wedge (\overline{t} \vee x_2 \vee x_5) $
 
 ### NP in terms of nondeterministic computation (Lecture 11)
-				
+
+$NP = \lbrace \text{problems that can be solved by a nondeterministic TM in poly time} \rbrace$. 
+
+Nondeterministic TM:
+
+- In state $q$, reading char $c$, transition $\delta(q,c)$ is a _**set**_ of possible / legal actions.
+	- Thus we can draw a graph of configurations for a Nondet TM.
+	- Configuration can have many outgoing edges.
+- Nondeterministic TM is just imaginary, not a realistic model for computation. Just convenient for computational theory.
+
+Nondeterministic TM acceptance:
+
+- A configuration can have many outgoing edges in the configuration graph.
+- Define _**computation thread**_ on $x$: a path start at $(q_{\text{start}}, x, \cdot)$
+- Define _**accepting thread**_: a computation thread eventually reaches $(q_{\text{accept}}, \cdot, \cdot)$
+- NTM accepts $x$ $\iff \exists$ an accepting thread on $x$
+- Running time of NTM on $x$: max $\text{#}$ of steps among all threads
+- Space usage of NTM on $x$: max tape usage among all threads
+
+Pitfalls of NTM:
+
+- Nondeterministic “algorithm” defined in terms of _**local behavior**_ within each thread
+- Acceptance/rejection defined in terms of global/collective behavior of all threads
+- Threads can't “communicate” with each other
+
+$NTIME$, $NSPACE$ & $NP$
+
+- $\text{NTIME}(f(n)) = \lbrace L \vert L \text{ accepted by a NTM with running time } O(f(n)) \rbrace $
+- $\text{NSPACE}(f(n)) = \lbrace L \vert L \text{ accepted by a NTM that uses spaces } O(f(n)) \rbrace $
+- $\text{NP} = \bigcup_{k=1,2,\dots} \text{NTIME}(n^k)$ 
+
+_**Claim:**_ for $\text{NP}$, the witness-checking definition and the NTM definition are equivalent.
+
+_**Proof:**_ 略
+
+### Hierarchy theorems (Lecture 12 & 13)
+
+Complexity Separations--the holy grail of computational complexity:
+
+- Containments: $P \subseteq NP, NP \subseteq PSPACE, DTIME(n) \subseteq DSPACE(n)$, etc
+- Separations: $P \neq NP?, P \neq PSPACE?, NP \neq coNP$?
+
+Deterministic Hierarchy:
+
+- $\text{DTIME}(n) \subsetneq \text{DTIME}(n^2) \text{DTIME}(n^3) \dots$
+- $\text{DSPACE}(n) \subsetneq \text{DSPACE}(n^2) \text{DSPACE}(n^3) \dots$
+
+How to prove $\text{DTIME}(n) \neq \text{DTIME}(n^2)$?
+
+- Better Diagonalization
+- 略
+
+Deterministic Time Hierarchy Theorem:
+
+- $f(n) \log f(n) = o(g(n)) \Rightarrow \text{DTIME}(f(n)) \subsetneq \text{DTIME}(g(n))$
+- Thus, $\text{P} \subseteq \text{EXP}$
+
+Deterministic Space Hierarchy Theorem:
+
+- Ditto
+- Thus, $\text{L} \subseteq \text{PSPACE}$
+
+Non-deterministic Hierarchy:
+
+- $\text{NTIME}(n) \subsetneq \text{NTIME}(n^2) \text{NTIME}(n^3) \dots$
+- $\text{NSPACE}(n) \subsetneq \text{NSPACE}(n^2) \text{NSPACE}(n^3) \dots$
+
+How to prove $\text{NTIME}(n) \neq \text{NTIME}(n^2)$?
+
+- Delayed/lazy  Diagonalization
+- 略
+
+Non-deterministic Time Hierarchy Theorem:
+
+- $f(n+1) = o(g(n)) \Rightarrow \text{NTIME}(f(n)) \subsetneq \text{NTIME}(g(n))$
+- Thus, $\text{NP} \subseteq \text{NEXP}$
+
+Non-deterministic Space Hierarchy Theorem:
+
+- Ditto
+- Thus, $\text{NL} \subseteq \text{NPSPACE}$
+
+### Ladner's theorem & NP-intermediate problems (Lecture 14)
+
+Questions:
+
+- Most natural problems are in $P$ or $NP$-complete.
+- Any problem between $P$ and $NP$-complete?
+
+Ladner's theorem:
+
+- If $\text{P} \neq \text{NP}$ then we can construct $M^{\ast}$ such that:
+	- $L(M^{\ast}) \in \text{NP}$
+	- $L(M^{\ast}) \notin \text{P}$
+	- $L(M^{\ast}) \notin \text{NP}-complete$
+	
+_**Claim:**_ all finite languages are in $P$.
+
+_**Proof:**_ A finite language is a finite list of all yes-instances. Build an algorithm to compare input to this list and running time is bounded.
+
+$\tag*{$\square$}$
+
+_**Claim:**_ if $L = 3SAT \setminus A$ where $A$ is finite, then $L$ is $NP$-complete.
+
+_**Proof:**_ 注意这里 $3SAT \setminus A$ 并不是表示 "infinite $3SAT$"，只是简单的表示 "$3SAT$ 抠掉了一个 finite 集合"，所以也称为 "finite modification of $3SAT$" (这里 modification 就是 exclusion 的意思)。
+
+$3SAT \leq_P L$:
+
+- If $x \in A$ (比方说 $A$ 只有 $x_1,x_2,x_3$ 三个 literal 并只有两个 clause), convert $x$ to an instance in $L$
+- If $x \notin A$, $x \in L$ by definition.  
+
+$\tag*{$\square$}$
+
+Ladner's theorem 证明略
+
+### Polynomial hierarchy (Lecture 15)
+
+Question:
+
+- $\text{NP}$ problem: $\lbrace x \vert \exists w : M(x, w) = 1 \rbrace$
+- $co\text{NP}$ problem: $\lbrace x \vert \forall w : M(x, w) = 1 \rbrace$
+	- $M$ runs in poly($\lvert x \rvert$) time
+- What about problems like $\lbrace x \vert \exists w_1 \forall w_2: M(x, w_1, w_2) =1 \rbrace$?
+
+Polynomial Hierarchy:
+
+- Define $\Sigma_k$ problem: $\lbrace x \vert \exists w_1 \forall w_2 \cdots \square w_k: M(x, w_1, w_2, \dots, w_k)=1 \rbrace$
+- Define $\Pi_k$ problem: $\lbrace x \vert \forall w_1 \exists w_2 \cdots \square w_k: M(x, w_1, w_2, \dots, w_k)=1 \rbrace$
+	- $M$ runs in poly($\lvert x \rvert$) time
+- E.g.
+	- $\Sigma_0 = \text{P}$
+	- $\Sigma_1 = \text{NP}$
+	- $\Pi_0 = co\text{P} = \text{P}$
+	- $\Pi_1 = co\text{NP}$
+	- $\Pi_k = co\Sigma_k$
+- $\text{#}$ of quantifiers doesn't matter. E.g. $L = \lbrace x \vert \forall w_1 \forall w_2 \exists w_3 \exists w_4 \exists w_5: M(x, w_1, w_2, w_3, w_4, w_5) =1 \rbrace$
+	- Obviously, $L \in \Pi_5$
+	- But also $L = \lbrace x \vert \forall (w_1,w_2) \exists (w_3, w_4, w_5): M(x, \vec{w})=1 \rbrace$, so $L \in \Pi_2$
+	
+Properties (for all $k$):
+
+- $\Sigma_k \subseteq \Sigma_{k+1} \cap \Pi_{k+1}$
+- $\Sigma_k \subseteq \text{PSPACE}$
+- $\Sigma_k = co\Pi_k$
+- $\Pi_k \subseteq \Sigma_{k+1} \cap \Pi_{k+1}$
+- $\Pi_k \subseteq \text{PSPACE}$
+- $\Pi_k = co\Sigma_k$
+
+_**Proof**_ of $\Sigma_k \subseteq \Sigma_{k+1} \cap \Pi_{k+1}$:
+
+Suppose $L = \lbrace x \vert \exists w_1 \forall w_2 \cdots \exists w_k: M(x, \vec{w})=1 \rbrace \in \Sigma_k$.
+
+Then $L = \lbrace x \vert \exists w_1 \forall w_2 \cdots \exists w_k \forall w_{junk}: M(x, \vec{w})=1 \rbrace \in \Sigma_{k+1}$ and $L = \lbrace x \vert \forall w_{junk} \exists w_1 \forall w_2 \cdots \exists w_k: M(x, \vec{w})=1 \rbrace \in \Pi_{k+1}$
+
+Polynomial Hierarchy:
+
+- Define $\text{PH} = \bigcup_{k=0,1,\dots} \Sigma_k = \bigcup_{k=0,1,\dots} \Pi_k$
+- Conjecture: for all $k > 0$: $\Sigma_k \neq \Pi_k$.
+- Since $Sigma_k, \Pi_k \in \text{PSPACE}$ for all $k > 0$, we have $\text{PH} \in \text{PSPACE}$. Each $Sigma_k$ or $\Pi_k$ is called a level in the hierarchy.
+
+_**Theorem:**_ If $\Sigma_k = \Pi_k$ for some $k$, then $\text{PH} = \Sigma_k$ (denoted as "$\text{PH} collapses to $k$").
+
+_**Proof:**_ (1) If $\Sigma_k = \Pi_k$, then $\Sigma_k = \Sigma_{k+1}$.
+
+Take $L \in \Sigma_{k+1}$. 
+
+$L = \lbrace x \vert \exists w_1 \forall w_2 \cdots \square w_{k+1}: M(x, \vec{w})=1 \rbrace$. $M$ runs in poly time.
+
+Using the same $M$, define $L' = \lbrace (x,w_1) \vert \forall w_2 \exists w_3 \cdots \square w_{k+1}: M(x, \vec{w})=1 \rbrace$. Therefore $L' \in \Pi_{k}$.
+
+Since $\Sigma_k = \Pi_k$, $L'$ can be rewritten as $L' = \lbrace (x,w_1) \vert \exists w_2' \forall w_3' \cdots \square w_{k+1}': M(x, w_1 \vec{w}')=1 \rbrace$.
+
+Reconstruct $L$ using $L'$: 
+
+$$
+\begin{align}
+L &= \lbrace x \vert \exists w_1 \exists w_2' \forall w_3' \cdots \square w_{k+1}': M(x, w_1, \vec{w}')=1 \rbrace \newline
+  &= \lbrace x \vert \exists (w_1,w_2') \forall w_3' \cdots \square w_{k+1}': M(x, w_1, \vec{w}')=1 \rbrace \in \Sigma_k
+\end{align}
+$$
+
+(2) If $\Sigma_k = \Pi_k = \Sigma_{k+1}$, then $\Sigma_{k+1} = \Sigma_k = co\Pi_k = co\Sigma_{k+1} = \Pi_{k+1}$
+
+$\tag*{$\square$}$
+
+### Oracle computations and a characterization of PH (Lecture 16)
+
+Let $A$ be some decision problem and $M$ be a class of Turing machines. Then $M^A$ is defined to be the class of machines obtained from $M$ by allowing instances of $A$ to be solved in one step. 
+
+- We call the "one-step" (not necessarily $O(1)$, but a guaranteed time bound) algorithm to $A$ an _**oracle**_.
+- E.g. we can declare an oracle to solve $3SAT$ in poly time.
+
+Similarly, if $M$ is a class of Turing machines and $C$ is a complexity class, then $M^C$ = \bigcup_{A \in C} M^A. If $L$ is a complete problem for $C$, and the machines in $M$ are powerful enough to compute polynomial-time computations, then $M^C = M^L$.
+
+Oracle complexity classes:
+
+- Let $A$ be a decision problem, then
+	- $\text{P}^A = \lbrace \text{decision problems solvable by a poly-time } A\text{-OTM} \rbrace$
+		= $\text{P}^A = \lbrace L(M^A) \vert M \text{ is a poly-time OTM} \rbrace$
+	- $\text{NP}^A = \lbrace \text{decision problems solvable by a non-det poly-time } A\text{-OTM} \rbrace$
+- Let $C$ be a complexity class, then
+	- $\text{P}^C = \bigcup_{L \in C} \text{P}^L$
+		- $\text{P}^C = \lbrace \text{problems solvable by a poly-time OTM with some problem from } C \text{ as its oracle} \rbrace
+	- $\text{NP}^C = \bigcup_{L \in C} \text{P}^L$
+		- Differenet threads of an $\text{NP}$ computation can ask different oracle queries for $L \in C$
+		
+Note: Overloaded Notation!
+
+- $M^L$: special TM $M$ with oracle for a specific decision problem $L$
+- $\text{NP}^L$: complexity class $\text{NP}$ with oracle for a specific decision problem $L$
+- $\text{NP}^C$: complexity class $\text{NP}$ with oracle for any decision problem $\in C$
+
+_**Claim:**_ If $X$ is a $C$-complete problem, then $\text{P}^X = \text{P}^C, \text{NP}^X = \text{NP}^C$ etc.
+
+- $\text{P}^{\text{P}} = \text{P}$
+- $\text{NP}^{\text{P}} = \text{NP}$
+- $\text{P}^{\text{NP}} = \text{P}^{co\text{NP}}$
+- $co\text{NP} \subseteq \text{P}^{\text{NP}}$
+
+$\text{PH}$ new characterization:
+
+- $\Sigma_0 = \Pi_0 = \text{P}$
+- $\Sigma_k = \text{NP}^{\Sigma_{k-1}} = \text{NP}^{\Pi_{k-1}}$
+	- $\Sigma_0 = \text{P}$
+	- $\Sigma_1 = \text{NP}^{\text{P}} = \text{NP}$
+	- $\Sigma_2 = \text{NP}^{\text{NP}}$
+	- $\Sigma_3 = \text{P}^{\text{NP}^{\text{NP}}}$
+- $\Pi_{k} = co\Sigma_k$
+
 -----
 
 - [Tim Gowers - Computational Complexity and Quantum Compuation](http://www.sms.cam.ac.uk/collection/545358;jsessionid=53925A3FEE89D7505565619066A413C8)
