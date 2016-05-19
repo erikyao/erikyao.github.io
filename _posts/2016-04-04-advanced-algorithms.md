@@ -930,3 +930,67 @@ $QP$ for _**Quadratic Programming**_; $IQP$ for _**Integer Quadratic Programming
 ### 6.4 Finding a correlation clustering
 
 ### 6.5 Coloring 3-colorable graphs
+
+-----
+
+## [Fixed Parameter Algorithms](http://www.cs.bme.hu/~dmarx/papers/marx-warsaw-fpt1)
+
+### Classical complexity
+
+- We usually aim for poly-time algorithms: $O(n^c)$
+- It is unlikely that poly-time algorithms exist for NP-hard problems.
+- We expect that these NP-hard problems can be solved only in exponential time: $O(c^n)$
+
+### [Parameterized complexity](https://en.wikipedia.org/wiki/Parameterized_complexity)
+
+Instead of expressing the running time as a function $T(n)$ of $n$, we express it as a function $T(n, k)$ of the input size $n$ and some parameter $k$ of the input.
+
+The existence of efficient, exact, and deterministic solving algorithms for NP-complete, or otherwise NP-hard, problems is considered unlikely, _**if input parameters $k$ are not fixed**_; all known solving algorithms for these problems require time that is exponential (or at least superpolynomial) in the total size of the input, $n$.
+
+However, some problems can be solved by algorithms that are exponential only in the size of _**a fixed parameter**_ $k$ while polynomial in the size of the input $n$.
+
+- Hence, if k is fixed at a small value and the growth of the function over k is relatively small then such problems can still be considered "tractable" despite their traditional classification as "intractable".
+	- Such an algorithm is called a _**fixed-parameter tractable**_ (fpt-)algorithm
+	- Problems in which some parameter $k$ is fixed are called _**parameterized problems**_.
+	- A parameterized problem that allows for such an fpt-algorithm is said to be _**a fixed-parameter tractable problem**_ and belongs to the complexity class $FPT$.
+	
+To be specific,
+
+- A _**parameterized problem**_ is a language $L \subseteq \Sigma^{\ast} \times \mathbb{N}$, where $\Sigma$ is a finite alphabet. 
+	- The second component is called the _**parameter**_ of the problem.
+- A parameterized problem $L$ is _**fixed-parameter tractable**_ if the question “$(x, k) \in L$?” can be decided in running time $f(k) \cdot \lvert x \rvert^{O(1)}$, where $f$ is an arbitrary function depending only on $k$. 
+	- The corresponding complexity class is called $FPT$.
+	
+For example, there is an algorithm which solves the vertex cover problem in $O(kn + 1.274^k)$ time. This means that vertex cover is fixed-parameter tractable with the size of the solution as the parameter.
+
+For $FTP$:
+
+- Typically, the function $f(k)$ is thought of as single exponential, such as $2^{O(k)}$ but the definition admits functions that grow even faster.
+- The crucial part of the definition is to exclude functions of the form $f(n,k)$, such as $n^k$.
+- The class $FPL$ (fixed parameter linear) is the class of problems solvable in time $f(k) \cdot \lvert x \rvert$.
+	- $FPL$ is thus a subclass of $FPT$.
+- There are a number of alternative definitions of $FPT$. 
+	- E.g., the running time requirement can be replaced by $f(k) + \lvert x \rvert^{O(1)}$. 
+	- Also, a parameterised problem is in $FPT$ if it has a so-called _**kernel**_. Kernelization is a preprocessing technique that reduces the original instance to its "hard kernel", a possibly much smaller instance that is equivalent to the original instance but has a size that is bounded by a function in the parameter.
+- $FPT$ is closed under a parameterised reduction called fpt-reduction.
+- Obviously, $FPT$ contains all polynomial-time computable problems.
+
+### [Kernelization](https://en.wikipedia.org/wiki/Kernelization)
+
+In parameterized complexity theory, it is often possible to prove that a kernel with guaranteed bounds on the size of a kernel (as a function of some parameter associated to the problem) can be found in polynomial time. When this is possible, it results in a fpt-algorithm whose running time is the sum of the (polynomial time) kernelization step and the (non-polynomial but bounded by the parameter) time to solve the kernel. Indeed, every problem that can be solved by a fixed-parameter tractable algorithm can be solved by a kernelization algorithm of this type.
+
+P23 
+P25 26 31 32 35
+
+### Powerful toolbox for designing FPT algorithms
+
+- Bounded Search Tree
+- Graph Minors Theorem
+- Color coding
+- Kernelization
+- Treewidth 
+- Iterative compression
+
+$O^{\ast}$ notation: $O^{\ast}(f(k))$ means $O(f(k) \cdot n^c)$ for some constant $c$.
+
+### Bounded search tree method
