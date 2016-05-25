@@ -1124,16 +1124,21 @@ $NP = \lbrace \text{problems that can be solved by a nondeterministic TM in poly
 Nondeterministic TM:
 
 - In state $q$, reading char $c$, transition $\delta(q,c)$ is a _**set**_ of possible / legal actions.
-	- Thus we can draw a graph of configurations for a Nondet TM.
-	- Configuration can have many outgoing edges.
+	- Thus we can draw a graph of configurations for a Nondet TM on a given input $x$.
+	- 注意 configuration graph 不是 general 的，不是针对所有的 input $x$ 的；而是对每一个特定的 $x$，我们都可以画一个 configuration graph
+	- configuration graph 也可以称为 computation tree
 - Nondeterministic TM is just imaginary, not a realistic model for computation. Just convenient for computational theory.
 
 Nondeterministic TM acceptance:
 
-- A configuration can have many outgoing edges in the configuration graph.
+- 在 configuration tree 中，每一个 internal node（非 leaf） 都是一个 configuration
+	- A configuration can have many outgoing edges in the configuration graph.
+	- 我们称每个可以走的 outgoing edge 为一个 choice
 - Define _**computation thread**_ on $x$: a path start at $(q_{\text{start}}, x, \cdot)$
+	- 所以每个 computation thread 都可以看做一个 sequence of choices
 - Define _**accepting thread**_: a computation thread eventually reaches $(q_{\text{accept}}, \cdot, \cdot)$
 - NTM accepts $x$ $\iff \exists$ an accepting thread on $x$
+- NTM rejects $x$ $\iff \not \exists$ an accepting thread on $x$ $\iff$ all threads rejects $x$
 - Running time of NTM on $x$: max $\text{#}$ of steps among all threads
 - Space usage of NTM on $x$: max tape usage among all threads
 
@@ -1212,7 +1217,7 @@ Ladner's theorem:
 - If $\text{P} \neq \text{NP}$ then we can construct $M^{\ast}$ such that:
 	- $L(M^{\ast}) \in \text{NP}$
 	- $L(M^{\ast}) \notin \text{P}$
-	- $L(M^{\ast}) \notin \text{NP}-complete$
+	- $L(M^{\ast}) \notin \text{NP}$-complete
 	
 _**Claim:**_ all finite languages are in $P$.
 
@@ -1244,6 +1249,7 @@ Polynomial Hierarchy:
 
 - Define $\Sigma_k$ problem: $\lbrace x \vert \exists w_1 \forall w_2 \cdots \square w_k: M(x, w_1, w_2, \dots, w_k)=1 \rbrace$
 - Define $\Pi_k$ problem: $\lbrace x \vert \forall w_1 \exists w_2 \cdots \square w_k: M(x, w_1, w_2, \dots, w_k)=1 \rbrace$
+	- Generally, 这里的 $M$ 应该是一个 Nondet TM
 	- $M$ runs in poly($\lvert x \rvert$) time
 - E.g.
 	- $\Sigma_0 = \text{P}$
@@ -1314,9 +1320,9 @@ Oracle complexity classes:
 	- $\text{P}^A = \lbrace \text{decision problems solvable by a poly-time } A\text{-OTM} \rbrace$
 		= $\text{P}^A = \lbrace L(M^A) \vert M \text{ is a poly-time OTM} \rbrace$
 	- $\text{NP}^A = \lbrace \text{decision problems solvable by a non-det poly-time } A\text{-OTM} \rbrace$
-- Let $text{C}$ be a complexity class, then
-	- $\text{P}^text{C} = \bigcup_{L \in \text{C}} \text{P}^L$
-		- $\text{P}^text{C} = \lbrace \text{problems solvable by a poly-time OTM with some problem from C as its oracle} \rbrace $
+- Let $\text{C}$ be a complexity class, then
+	- $\text{P}^\text{C} = \bigcup_{L \in \text{C}} \text{P}^L$
+		- $\text{P}^\text{C} = \lbrace \text{problems solvable by a poly-time OTM with some problem from C as its oracle} \rbrace $
 	- $\text{NP}^C = \bigcup_{L \in \text{C}} \text{P}^L$
 		- Differenet threads of an $\text{NP}$ computation can ask different oracle queries for $L \in \text{C}$
 		
@@ -1324,7 +1330,7 @@ Note: Overloaded Notation!
 
 - $M^L$: special TM $M$ with oracle for a specific decision problem $L$
 - $\text{NP}^L$: complexity class $\text{NP}$ with oracle for a specific decision problem $L$
-- $\text{NP}^text{C}$: complexity class $\text{NP}$ with oracle for any decision problem $\in \text{C}$
+- $\text{NP}^\text{C}$: complexity class $\text{NP}$ with oracle for any decision problem $\in \text{C}$
 
 _**Claim:**_ If $L$ is a $\text{C}$-complete problem, then $\text{P}^L = \text{P}^\text{C}, \text{NP}^L = \text{NP}^\text{C}$ etc.
 
@@ -1348,23 +1354,27 @@ $\text{PH}$ new characterization:
 	- $\Sigma_3 = \text{P}^{\text{NP}^{\text{NP}}}$
 - $\Pi_{k} = co\Sigma_k$
 
-_**Claim:**_ $\Sigma_k = \text{NP}^{\Sigma_{k-1}}$
+_**Claim:**_ $\Sigma_k = \text{NP}^{\Pi_{k-1}}$
 
 _**Proof:**_ By induction on $k$.
 
-(1) [$\Sigma_k \subseteq \text{NP}^{\Sigma_{k-1}}$]
+(1) [$\Sigma_k \subseteq \text{NP}^{\Pi_{k-1}}$]
 
 Take any $L \in \Sigma_{k}$, so $L = \lbrace x \vert \exists w_1 \forall w_2 \cdots \square w_{k}: M(x, \vec{w})=1 \rbrace$. $M$ runs in poly time.
 
-Goal: show $L$ is solvable with $\text{NP}$TM and $\Sigma_{k-1}$ oracle.
+Goal: show $x \in L \Rightarrow$ $x$ is accepted by a $\text{NP}$TM $M^{\ast}$ with $\Pi_{k-1}$ oracle, i.e. $x \in L(M^{\ast})$.
 
 Using the same $M$, define $L' = \lbrace (x,w_1) \vert \forall w_2 \exists w_3 \cdots \square w_{k}: M(x, \vec{w})=1 \rbrace$. Therefore $L' \in \Pi_{k-1}$.
 
 Choose $L'$ as my oracle. Define $M^{\ast}(x)$:
 
 1. Non-deterministically guess $w_1$
+	- 不同的 guess of $w_1$ 对应不同的一条 computation thread
 2. Call oracle to see $(x,w_1) \stackrel{?}{\in} L'$.
 3. Accept $x$ if oracle says yes.
+	- 相当于我们穷举了所有 $w_1$ 的取值，并 query $(x,w_1) \stackrel{?}{\in} L'$
+	- 如果有某个 query 返回了 YES，说明 $\exists$ an accepting thread $\Rightarrow$ NTM accepts $x$
+	- 如果所有的 query 都返回 NO，说明 $\not \exists$ an accepting thread $\Rightarrow$ NTM rejects $x$
 
 $$
 \begin{align}
@@ -1376,20 +1386,78 @@ M^{\ast} \text{ nondet accepts } x
 \end{align}
 $$
 
-(2) [$\Sigma_k \supseteq \text{NP}^{\Sigma_{k-1}}$]
+(2) [$\Sigma_k \supseteq \text{NP}^{\Pi_{k-1}}$]
 
-Goal: given $\text{NP}$TM $M^{\ast}$ using oracle $L' = \lbrace x \vert \exists w_1 \forall w_2 \exists w_3 \cdots \square w_{k-1}: M(x, \vec{w})=1 \rbrace \in \Sigma_{k-1}$, prove $L(M^{\ast}) \in \Sigma_k$.
+Suppose there is a $\text{NP}$TM $M^{\ast}$ using $L' = \lbrace x \vert \forall w_2 \exists w_3 \cdots \square w_{k}: M'(x, \vec{w})=1 \rbrace \in \Pi_{k-1}$ as its oracle.
 
-For simplicity, assume that each thread of $M^{\ast}$ makes only 1 query to the oracle.
+Goal: show $x \in L(M^{\ast}) \Rightarrow$ $\exists w_1: (x, w_1) \in L''$ for some $\Pi_{k-1}$ set $L''$.  
 
-Suppose on input $x$, $M^{\ast}$ makes a query $q \stackrel{?}{\in} L'$. Without loss of generality, assume $M^{\ast}$ accepts $x$ when $q \in L'$ and rejects $x$ otherwise, i.e.
+For simplicity, assume that each thread of $M^{\ast}$ makes only 1 query to the oracle. Define an existentially quantified variable $y_1$ that include all computation threads of $M^{\ast}$.
 
-1. $x \in L(M^{\ast}) \Rightarrow q \in L' \iff \exists w_1 \forall w_2 \cdots \forall w_{k-1}: M(q, \vec{w})=1$
-1. $x \notin L(M^{\ast}) \Rightarrow q \notin L' \iff \forall w_1 \exists w_2 \cdots \exists w_{k-1}: M(q, \vec{w})=0$
+Suppose on input $x$, $\exists$ an accepting thread of $M^{\ast}$, say $y$, that makes a query $q \stackrel{?}{\in} L'$.
 
-待续
+CASE 1: on accepting thread $y$, oracle answer is YES.
 
-$\tag*{$\square$}$
+$x \in L(M^{\ast}) \Rightarrow$ $\exists y_1: (x, y_1) \in L'$ (i.e. 我们的 $L''$ 直接取 $L'$ 就好了). 
+
+CASE 2: on accepting thread $y$, oracle answer is NO.
+
+$x \in L(M^{\ast}) \Rightarrow$ $\exists y_1: (x, y_1) \in coL'$
+
+Because $coL' \in \Sigma_{k-1}$, $\lbrace x \vert \exists y_1: (x, y_1) \in coL' \rbrace \in \Sigma_{k-1}$ (合并 $\exists y_1$ 和 $\exists w_2$). Based on the fact that $\Sigma_{k-1} \subseteq \Sigma_{k}$, we can still conclude that $\lbrace x \vert \exists y_1: (x, y_1) \in coL' \rbrace \in \Sigma_{k}$. $\tag*{$\square$}$
+
+### Space complexity (in terms of configuration graphs) (Lecture 18)
+
+- $\text{PSPACE} = \bigcup_{k=1,2,\dots} \text{DSPACE}(n^k)$ 
+- $\text{NPSPACE} = \bigcup_{k=1,2,\dots} \text{NSPACE}(n^k)$ 
+- $\text{L} = \text{DSPACE}(\log n)$ 
+- $\text{NL} = \text{NSPACE}(\log n)$ 
+
+Configuration graphs:
+
+- Two tapes:
+	- Read-only input tape
+	- Read-write work tape (calculate space usage on this tape)
+- Transition: $(q, w, i, j) \rightarrow (q', w', i', j')$
+	- $q$: state
+	- $w$: content of work tape
+		- Here, $\lvert w \rvert \leq$ space usage of the TM
+	- $i$: input tape head
+	- $j$: work tape head
+- Possible $\text{#}$ of configurations
+	- Suppose $M$ uses $f(n)$ space on input of length $n$
+	- $C_M(n) \leq \lvert Q \rvert \cdot \lvert \Gamma \rvert \cdot n \cdot f(n) = 2^{O(f(n))}$, as long as $f(n) \geq \log n$
+	- Note that since the input is fixed and the input tape is read-only, we do not need to consider all possible length-$n$ strings that can be written on the input tape.
+	
+Inclusions
+
+- We alread had $\text{DTIME}(f(n)) \subseteq \text{DSPACE}(f(n))$
+- $\text{DSPACE}(f(n)) \subseteq \text{DTIME}(2^{O(f(n))})$
+- $\text{NSPACE}(f(n)) \subseteq \text{NTIME}(2^{O(f(n))})$
+
+_**Proof:**_
+
+Let $L \in \text{DSPACE}(f(n))$. Then there is a TM $M$ that decides $L$ using $f(n)$ space. Show there is a TM $M'$ that decides $L$ in $2^{O(f(n))}$ time.
+
+Construct $M'$ this way:
+
+```python
+M'(x):
+	run (orignal) M on x for C_M(n) steps
+	if M accepted
+		return YES
+	else 
+		return NO
+```
+
+- $M'$ runs in $C_M(n)$ time
+- If $M$ hasn't halted in $C_M(n)$ steps, it must be in an infinite loop
+
+### $\text{PSPACE}$-completeness (Lecture 18 & 19)
+
+Canonical $\text{PSPACE}$-complete problem:
+
+- $X=\lbrace \langle M,x,1^s \rangle \vert M \text{ is a DTM that accepts } x \text{ using } \leq s \text{ space}\rbrace$
 
 -----
 
