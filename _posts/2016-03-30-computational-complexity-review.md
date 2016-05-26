@@ -1444,7 +1444,7 @@ Construct $M'$ this way:
 ```python
 M'(x):
 	run (orignal) M on x for C_M(n) steps
-	if M accepted
+	if M accepted x
 		return YES
 	else 
 		return NO
@@ -1453,11 +1453,273 @@ M'(x):
 - $M'$ runs in $C_M(n)$ time
 - If $M$ hasn't halted in $C_M(n)$ steps, it must be in an infinite loop
 
+$\tag*{$\square$}$
+
 ### $\text{PSPACE}$-completeness (Lecture 18 & 19)
 
 Canonical $\text{PSPACE}$-complete problem:
 
 - $X=\lbrace \langle M,x,1^s \rangle \vert M \text{ is a DTM that accepts } x \text{ using } \leq s \text{ space}\rbrace$
+
+To prove that $L$ is $\text{PSPACE}$-complete:
+
+- Show that $L \in \text{PSPACE}$
+- If $L \in \text{PSPACE}$, then $L$ is decided by some TM $M$ that uses $s(n)$ space. Show $X \leq_P L via f(x) = \langle M,x,1^{s(n)} \rangle$
+	- $x \in L \iff f(x) \in X$
+	
+TQBF
+
+- $TQBF$ is $\text{PSPACE}$-complete
+	- 证明待补充
+- $TQBF$ is also $\text{NPSPACE}$-complete
+- So $\text{PSPACE} = \text{NPSPACE}$
+
+Geography Game
+
+- What does "Play 1 has winning strategy" mean?
+	- $\exists$ winning trategy, 所以 Play 1 是不能乱走的，是 $\exists$ winning moves，但是你得下出来才行
+	- 那对 Player 2 而言，你无论怎么下都是输，所以是 $\forall$ moves of Player 2
+- 后略
+
+Regex Universality
+
+- 略
+
+### Connectivity problems / Savitch's theorem (Lecture 20)
+
+- $\text{L} = \text{DSPACE}(\log n)$ 
+- $\text{NL} = \text{NSPACE}(\log n)$ 
+- $\text{L} \subseteq \text{NL}$ 
+- $\text{NL} \subseteq \text{NPSPACE}$
+
+$\text{NL}$-completeness
+
+- Karp reductions don't make sense for defining $\text{NL}$-completeness
+- Define log-space reduction $A \leq_L B$:
+	- $\exists$ a log-space computable function $f$ such that $x \in A \iff f(x) \in B$
+	- What does "log-space computable function" mean?
+		- $f$ requires $O(\log n)$ memory to be computed
+			- This restriction does NOT apply to the size of output
+		- The TM computating $f$ has:
+			- read-only input tape
+			- unidirectional output tape ("write-once")
+			- $O(\log n)$-length read/write work tape
+				- TM cannot "cheat" and use output tape as storage
+				
+$CONN = \lbrace (G,s,t)\vert G \text{ is a directed graph with a directed path from } s \text{ to } t \rbrace$
+
+- Assume $G$ is represented by an adjacency matrix
+- Vertices are named $1,2,\dots,n$
+	- It takes $O(\log n)$ bits to write a single vertex name
+	- Log-space is only enough to store $O(1)$ number of vertex names
+
+_**Claim:**_ $CONN$ is $\text{NL}$-complete
+
+_**Proof:**_ 
+
+(1) $CONN \in \text{NL}$
+
+Idea: start from $s$, nondet guess to $t$
+
+```python
+CONN(G, s, t):
+	_curr = s
+	
+	for i = 1 to n:
+		guess _next from {1,2,...,n}
+		
+		if no _curr → _next edge:
+			reject
+		if _next == t:
+			accept
+			
+		_curr = _next
+	
+	reject
+```
+
+- Scan adjacency matrix cells one by one to detect `_curr → _next` edge
+- 2 variables: `_curr` and `_next` $\Rightarrow 2 \log n $ space
+
+(2) $CONN$ is $\text{NL}$-hard
+
+Reduction strategy: Let $M$ be a $\text{NL}$ machine. On input $x$, output $\langle G,s,t \rangle$ so that $M$ accepts $x \iff \exists s \rightsquigarrow t$ path in $G$.
+
+Idea: 
+
+- Let $G$ be the configuration graph of $M$ on $x$
+- $s$ be the start configuration
+- $t$ be the (unique) accepting configuration
+
+Each configuration can be represented using $O(\log n)$ bits, and the adjacency matrix can be generated in log-space as follows (matrix 本身要 $O(n^2)$ space，但是这是 output 的 size，并不受 log-space 的限制):
+
+```python
+for each configuration i:
+	for each configuration j:
+		Output 1 if there is a legal transition from i to j, and 0 otherwise
+		(if i or j is not a legal state, simply output 0)
+```
+
+The algorithm requires $O(\log n)$ space for `i` and `j`, and to check for a legal transition. $\tag*{$\square$}$
+
+_**Corollary:**_ $\text{NL} \subseteq \text{P}$
+
+_**Proof:**_ Take any $A \in \text{NL}$. Because $CONN$ is $\text{NL}$-complete, there must exists a log-space function $f$ that for every input $x$ to $A$, $f(x) = \langle G,s,t \rangle$ and $x \in A \iff \exists s \rightsquigarrow t$ path in $G$.
+
+We can construct an algorithm for $A$ using poly time:
+
+```python
+A(x):
+	run BFS on f(x) to see whether exists s → t path
+```
+
+So $A \in \text{P}$. $\tag*{$\square$}$
+
+Summary:
+
+- $\text{L} \subseteq \text{NL} \subseteq \text{P} \subseteq \text{NP} \subseteq \text{PSPACE} \subseteq \text{EXP}$
+- By the hierarchy theorems (and Savitch’s theorem, below) we know $\text{NL} \subset \text{PSPACE}$, and $\text{P} \subset \text{EXP}$. But we cannot prove that any of the inclusions above is strict.
+
+_**Claim:**_ $CONN \in \text{DSPACE}(\log^2 n)$
+
+_**Proof:**_ Define a recursive algorithm `Path(a,b,i)` to seek "is there a $a \rightsquigarrow b$ path whose length $\leq 2^i$?"
+
+```python
+Path(a,b,i):
+	if i == 0:
+		check (a,b) edge in adjacency matrix
+	else:
+		for each vertex v
+			if Path(a,v,i-1) && Path(v,b,i-1)
+				accept
+		
+		reject
+```
+
+- Call `Path(s, t, log n)` to check $\langle G,s,t$
+- Space Usage
+	- depth of recursion: $\log n$
+	- stack frame of each iteration: space to write down `a,b,i,v` $\Rightarrow O(\log n)$
+	- Totally: $\log n \times O(\log n) = O(\log^2 n)$
+	
+$\tag*{$\square$}$
+	
+Savitch's theorem: $\text{NSPACE}(s) \subseteq \text{DSPACE}(s^2)$ (for $s > log(n)$)
+
+- Implies that "Nondeterminisim saves at most quadratic amount of space"
+
+_**Proof:**_ 待续 $\tag*{$\square$}$
+
+_**Corollary 7:**_ If $s(n) \geq \log n$ is space constructible, then $\text{NSPACE}(s(n)) = co\text{NSPACE}(s(n))$.
+
+_**Corollary 8:**_ $\text{NL} = co\text{NL}$.
+
+参 Katz §7
+
+### Counting complexity / $\text{#P}$ / $\text{#P}$-completeness / Parsimonious Reductions (Lecture 21)
+
+Complexity of Counting:
+
+- So far in the class: decision problems
+- This unit: counting problems
+
+Counting complexity classes $\text{FP}$, $\text{#P}$
+
+- For this lecture, “function” means $f : \lbrace 0,1 \rbrace^{\ast} \mapsto \mathbb{N}$ ($\mathbb{N}$ for "Natural number")
+- $\text{FP} = \lbrace \text{functions computable in deterministically poly time} \rbrace$
+- If $M$ is a Nondet TM, define: $\text{#M}(x)=\text{number of accepting threads of } M \text{ on input } x$
+	- 注意这是一个 function，不是一个 decision problem
+	- 这个 function 即是一个 counting problem
+	- 实际应用时，$M$ 可以是一个 problem，e.g. $\text{#SAT}$: given boolean formula $\phi$, determine $\text{#}$ of satisfying assignments of $\phi$
+- $\text{#P} = \lbrace \text{#M} \vert M \text{ is a Nondet poly-time TM} \rbrace$
+	- $\text{#P} = \lbrace \text{functions that count # of accepting threads of a NTM} \rbrace$
+	
+_**Claim:**_ $\text{FP} \subset \text{#P}$
+
+_**Proof:**_ Idea: given $f \in \text{FP}$, design a poly-time NTM $M$ that $\text{#M}(x) = f(x)$.
+
+```python
+M(x):
+	compute f(x) # in poly time
+	nondet guess positive integer i
+	accept if i <= f(x)
+```
+
+In this way, $i = 1,2,\dots,f(x)$ will be accepted, thus $f(x)$ accepting thread.
+
+优化策略：searching space 可能会很大，比如 $f(x)=10$，你却在 $1,\dots,99999$ 的范围内 guess。此时你可以限制 guess 的 $i$ 不超过 $f(x)$ 的 bit 数。 $\tag*{$\square$}$
+
+_**Claim:**_ $\text{#P}$ is closed under addition & multiplication
+
+_**Proof:**_ Equal to prove $f,g \in \text{#P} \Rightarrow f+g \in \text{#P} and f \ast g \in \text{#P}$
+
+Let 
+
+- $f(x)$ $\text{#}$ accepting threads of $M_f$ on $x$
+- $g(x)$ $\text{#}$ accepting threads of $M_g$ on $x$
+
+(1) $f+g \in \text{#P}$
+
+Define $M_{f+g}$
+
+```python
+M_fg(x):
+	nondet guess bit b
+	if b == 0:
+		return M_f(x)
+	else:
+		return M_g(x)
+```
+
+相当于把 $M_f(x)$ 和 $M_g(x)$ 这两棵 computation tree 的 root 连接到一个新的 root 上，称为一棵新的 computation tree。
+
+(2) $f \ast g \in \text{#P}$
+
+Define $M_{f \ast g}$
+
+```python
+M_fg(x):
+	run M_f(x)
+	if M_f(x) reached an accepting thread
+		return M_g(x)
+```
+
+相当于把 $M_f(x)$ 的 computation tree 的每一个 leaf 上连接一棵 $M_g(x)$ 的 computation tree。$\tag*{$\square$}$
+
+_**Claim:**_ if $\text{FP} = \text{#P}$ then $\text{P} = \text{NP}$
+
+_**Proof:**_ Already known that $\text{#SAT} \in \text{#P}$, so if $\text{FP} = \text{#P}$, $\text{#SAT} \in \text{FP}$.
+
+$\text{NP}$-complete problem $SAT$ can be solved in poly time by running $\text{#SAT}(x)$ and see if the result $>0$. $\tag*{$\square$}$
+
+$\text{#P}$-hardness
+
+- Not equivalent definitions, but both commonly used
+	- Def. 1: $f$ is $\text{#P}$-hard if a poly time algorithm for $f$ implies $\text{#P} = \text{FP}$ (thus $\text{P} = \text{NP}$)
+	- Def. 2: $f$ is $\text{#P}$-hard if $\forall g \in \text{#P}, g \leq_1 f$ via a parsimonious reduction
+	
+Parsimonious Reduction
+
+- Let $g$ & $f$ be counting problems (functions)
+- $g \leq_1 f$ if there $\exists$ a poly-time function $h$ such that $\forall x, f(h(x)) = g(x)$
+
+_**Claim:**_ if $g \leq_1 f$ and $f \in \text{FP}$, then $g \in \text{FP}$
+
+_**Claim:**_ The counting version of any $\text{NP}$-complete problem is $\text{#P}$-complete, i.e. if $M$ is a NTM where $L(M)$ is $\text{NP}$-complete, then $\text{#M}$ is $\text{#P}$-complete.
+
+_**Proof:**_ Use $\text{#P}$-hardness definition 1.
+
+If $\text{#M} \in \text{FP}$, I can solve $L(M)$, a $\text{NP}$-complete problem in poly time by computing whether $\text{#M}(x) > 0$. $\tag*{$\square$}$
+
+_**Claim:**_ $\text{#SAT}$ is $\text{#P}$-complete
+
+_**Proof:**_ Use $\text{#P}$-hardness definition 2.
+
+Given arbitrary $M$ and $x$, construct formula $\phi$ such that $\exists w : M(x,w) = 1 \iff \phi \text{ is satisfiable}$.
+
+Let $f(w) = \text{#} w \text{ that } M(x,w) = 1$. $f(w) = \text{#SAT}(\phi)$. $\tag*{$\square$}$
+
+待续。 Katz §23 需要大量补充进来
 
 -----
 
