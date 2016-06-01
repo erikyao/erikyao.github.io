@@ -933,7 +933,7 @@ $QP$ for _**Quadratic Programming**_; $IQP$ for _**Integer Quadratic Programming
 
 -----
 
-## [Fixed Parameter Algorithms](http://www.cs.bme.hu/~dmarx/papers/marx-warsaw-fpt1)
+## [Fixed Parameter Algorithms: Part 1](http://www.cs.bme.hu/~dmarx/papers/marx-warsaw-fpt1)
 
 ### Classical complexity
 
@@ -975,13 +975,6 @@ For $FTP$:
 - $FPT$ is closed under a parameterised reduction called fpt-reduction.
 - Obviously, $FPT$ contains all polynomial-time computable problems.
 
-### [Kernelization](https://en.wikipedia.org/wiki/Kernelization)
-
-In parameterized complexity theory, it is often possible to prove that a kernel with guaranteed bounds on the size of a kernel (as a function of some parameter associated to the problem) can be found in polynomial time. When this is possible, it results in a fpt-algorithm whose running time is the sum of the (polynomial time) kernelization step and the (non-polynomial but bounded by the parameter) time to solve the kernel. Indeed, every problem that can be solved by a fixed-parameter tractable algorithm can be solved by a kernelization algorithm of this type.
-
-P23 
-P25 26 31 32 35
-
 ### Powerful toolbox for designing FPT algorithms
 
 - Bounded Search Tree
@@ -993,4 +986,155 @@ P25 26 31 32 35
 
 $O^{\ast}$ notation: $O^{\ast}(f(k))$ means $O(f(k) \cdot n^c)$ for some constant $c$.
 
+### [Kernelization](https://en.wikipedia.org/wiki/Kernelization)
+
+In parameterized complexity theory, it is often possible to prove that a kernel with guaranteed bounds on the size of a kernel (as a function of some parameter associated to the problem) can be found in polynomial time. When this is possible, it results in a fpt-algorithm whose running time is the sum of the (polynomial time) kernelization step and the (non-polynomial but bounded by the parameter) time to solve the kernel. Indeed, every problem that can be solved by a fixed-parameter tractable algorithm can be solved by a kernelization algorithm of this type.
+
+Definition: P23
+
+Kernelization for VERTEX COVER: P26,27,29,32-35
+
+COVERING POINTS WITH LINES: P38
+
+Some kernelizations are based on surprising nice tricks (E.g. Crown Reduction and the Sunflower Lemma).
+
+Crown Reduction: P43,45,46,47,48,49,50. Proof of Lemma.
+
+DUAL OF VERTEX COLORING: P54,55
+
+Sunflower lemma: P57,58,59
+
 ### Bounded search tree method
+
+P61-72
+
+待续
+
+## [Fixed Parameter Algorithms: Part 2](http://www.cs.bme.hu/~dmarx/papers/marx-warsaw-fpt2)
+
+### The Party Problem (MWIS)
+
+- Problem: Invite some colleagues for a party.
+- Maximize: The total fun factor of the invited people.
+- Constraint: 
+	- Everyone has a fun positive factor.
+	- Do not invite a colleague and his direct boss at the same time!
+
+Actually a Maximum-Weight [Independent Set](https://www.wikiwand.com/en/Independent_set_(graph_theory)) (MWIS) problem.
+
+> In graph theory, an independent set or stable set is a set of vertices in a graph, no two of which are adjacent.  
+>   
+> That is, for every two vertices in independent set $S$, there is no edge connecting them.
+
+- Fan factors are weights.
+- MWIS in a tree (not a general graph) in this case.
+	- Boss-colleague => root-leaf hierarchy
+
+Solve by DP.
+
+- $T_v$: the subtree rooted at node $v$
+- $A[v]$: max weight of an independent set of $T_v$
+- $B[v]$: max weight of an independent set of $T_v \setminus \lbrace v \rbrace$
+
+Goal: $A[r]$ for root $r$
+
+Method: Assume $v_1, \dots, v_k$ are children of $v$. Use the recurrence
+
+$$
+\begin{align}
+B[v] = \sum_{i=1}^{k} A[v_i] \newline
+A[v] = \max \lbrace B[v], w(v) + \sum_{i=1}^{k}B[v_i]
+\end{align}
+$$
+
+The values $A[v]$ and $B[v]$ can be calculated in a bottom-up order (the leaves are trivial).
+
+### Treewidth
+
+A measure of how “tree-like” the graph is.
+
+A _**tree decomposition**_ ([wikipedia](https://en.wikipedia.org/wiki/Treewidth#Definition)) of a graph $G = (V, E)$ is a tree, $T$, with nodes $X_1, \dots, X_n$, where each $X_i$ is a subset of $V$, satisfying the following properties:
+
+1. For each vertex $v \in V$, there is at least one tree node $X_i$ that contains $v$ (denoted by $v \in X_i$). 
+	- Therefore, $\bigcup_{i=1}^n X_i = V$.
+1. If both $X_i$ and $X_j$ contain $v$, then all $X_k$ in the (unique) $X_i \rightsquigarrow X_j$ path in $T$ also contains $v$. 
+	- Why unique? Because it is a tree property that any two vertices in a tree can be connected by a unique simple path.
+	- Equivalently, all $X_i$s containing a certain vertex $v$ form a connected subtree of $T$.
+		- By definition, a path is definitely a tree.
+1. For each edge $(u,v) \in E$, there is at least one tree node $X_i$ that contains both $u$ and $v$.
+	- Suppose: 
+		- $\exists X_i$ such that $u \in X_i$ and $v \in X_i$
+		- All nodes containing $u$ form a subtree $T'_u$
+		- All nodes containing $v$ form a subtree $T'_v$
+	- Then $X_i \in T'_u$, $X_i \in T'_v$ and thus $X_i \in T'_u \cap T'_v$.
+	
+The _**width of a tree decomposition**_ is $width(T)=\max_i \lvert X_i \rvert - 1$. A graph can have different tree decompositions $T_1,\dots,T_m$, so the _**treewidth**_ of $G$ is $tw(G) = \min_j width(T_j)$.
+
+[Special cases](http://mathworld.wolfram.com/Treewidth.html):
+
+- $tw(T)=1$ for any tree $T$
+	- Actually, $tw(G)=1 \iff G \text{ is a forest}$
+- $tw(H) \leq 3$ for any Halin graph $H$
+- $tw(C_n) = 2$ for any cycle
+- $tw(K_n) = n-1$ for any complete graph
+- $tw(K_{(m,n)}) = \min(m,n)$ for any complete bipartite graph
+- $tw(P_m \square P_n) = min(m,n)$ where $P_m \square P_n$ is an $m \times n$ grid
+
+### Finding tree decompositions
+
+P19
+
+### Algoritmhs for bounded-treewidth graphs
+
+MWIS: P21-25
+
+3-COLORING: P26-29
+
+Hamiltonian cycle: P30-49
+
+Monadic Second Order Logic: P51
+
+Courcelle’s Theorem: P52-57
+
+SUBGRAPH ISOMORPHISM: P58-60
+
+### Graph-theoretical properties of treewidth
+
+### Applications
+
+Baker’s shifting strategy: delete the $L_i$ layer. P87
+
+PTAS: P100
+
+待续
+
+-----
+
+## Treewidth @ [Erickson §11](http://jeffe.cs.illinois.edu/teaching/comptop/2009/notes/treewidth.pdf)
+
+### 11.1 Definitions
+
+[Revised definition](http://cstheory.stackexchange.com/a/1533): A graph $G$ is called a $k$-tree if and only if 
+
+- either $G = K_k$ (complete graph with $k$ vertices), 
+	- -- OR --
+- $G$ has a vertex $v$ with degree $k$ such that such that the (open) neighborhood of $v$ forms a $k$-clique, and $G \setminus \lbrace v \rbrace$ is a $k$-tree.
+
+The bottom-up definition:
+
+- $K_k$ is a $k$-tree.
+- A $k$-tree $G$ with $n+1$ vertices ($n \geq k$) can be constructed from a $k$-tree $H$ with $n$ vertices by adding a vertex adjacent to exactly $k$ vertices that form a $k$-clique in $H$.
+	- From [LINEAR TIME ALGORITHMS FOR NP-HARD PROBLEMS RESTRICTED TO PARTIAL $k$-TREE](http://www.sciencedirect.com/science/article/pii/0166218X89900310): One can test a graph for being a $k$-tree by repeatedly removing a vertex of degree $k$ with completely connected neighbors (a $k$-leaf) until no such vertex remains, then the graph is a $k$-tree if and only if what remains is $K_k$
+- No other graphs are $k$-trees.
+
+_**Observation:**_ a connected graph $G$ is a $1$-tree $\iff$ $G$ is a tree.
+
+注意： $K_2$ 是一棵树，然后也是一棵 $2$-tree；但同时也是一棵 $1$-tree。也就是说 “$G$ is a $2$-tree” 的同时也可以有 “$G$ is a $1$-tree”；这两句陈述并不存在排斥或冲突的情形。
+
+A _**partial**_ $k$-tree is any subgraph of a $k$-tree.
+
+- For any fixed constant $k$, a graph $G$ with $tw(G) \leq k$ is called a partial $k$-tree.
+
+_**Lemma 11.1**_ A graph has treewidth $k$ if and only if it is a partial $k$-tree.
+
+- 结合上一条，如果 $tw(G) = j < k$，首先 $G$ 一定是一个 partial $j$-tree，同时 $G$ 也是一个 partial $k$-tree (just image $G$ as a subtree of a $k$-tree)
