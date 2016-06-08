@@ -10,6 +10,8 @@ tags: [Algorithm-101]
 [Reduction]: https://farm2.staticflickr.com/1670/25699429983_0e32464a98_o_d.jpg
 [M_Prime]: https://farm2.staticflickr.com/1698/26278452596_b3f4a02ca9_o_d.jpg
 [Picture_of_Reduction]: https://farm2.staticflickr.com/1617/26031609730_046b650ddd_o_d.jpg
+[IID]: https://farm8.staticflickr.com/7786/27414670346_2e21a634c7_o_d.png
+[IID_2]: https://farm8.staticflickr.com/7405/27449203455_b6320e6f58_o_d.png
 
 ## Turing Machines @ [Automata](https://class.coursera.org/automata-003/lecture) by Jeff Ullman
 
@@ -1178,17 +1180,17 @@ How to prove $\text{DTIME}(n) \neq \text{DTIME}(n^2)$?
 Deterministic Time Hierarchy Theorem:
 
 - $f(n) \log f(n) = o(g(n)) \Rightarrow \text{DTIME}(f(n)) \subsetneq \text{DTIME}(g(n))$
-- Thus, $\text{P} \subseteq \text{EXP}$
+- Thus, $\text{P} \subsetneq \text{EXP}$
 
 Deterministic Space Hierarchy Theorem:
 
 - Ditto
-- Thus, $\text{L} \subseteq \text{PSPACE}$
+- Thus, $\text{L} \subsetneq \text{PSPACE}$
 
 Non-deterministic Hierarchy:
 
-- $\text{NTIME}(n) \subsetneq \text{NTIME}(n^2) \text{NTIME}(n^3) \dots$
-- $\text{NSPACE}(n) \subsetneq \text{NSPACE}(n^2) \text{NSPACE}(n^3) \dots$
+- $\text{NTIME}(n) \subsetneq \text{NTIME}(n^2) \subsetneq \text{NTIME}(n^3) \dots$
+- $\text{NSPACE}(n) \subsetneq \text{NSPACE}(n^2) \subsetneq \text{NSPACE}(n^3) \dots$
 
 How to prove $\text{NTIME}(n) \neq \text{NTIME}(n^2)$?
 
@@ -1198,12 +1200,12 @@ How to prove $\text{NTIME}(n) \neq \text{NTIME}(n^2)$?
 Non-deterministic Time Hierarchy Theorem:
 
 - $f(n+1) = o(g(n)) \Rightarrow \text{NTIME}(f(n)) \subsetneq \text{NTIME}(g(n))$
-- Thus, $\text{NP} \subseteq \text{NEXP}$
+- Thus, $\text{NP} \subsetneq \text{NEXP}$
 
 Non-deterministic Space Hierarchy Theorem:
 
 - Ditto
-- Thus, $\text{NL} \subseteq \text{NPSPACE}$
+- Thus, $\text{NL} \subsetneq \text{NPSPACE}$
 
 ### Ladner's theorem & NP-intermediate problems (Lecture 14)
 
@@ -1274,7 +1276,7 @@ _**Proof**_ of $\Sigma_k \subseteq \Sigma_{k+1} \cap \Pi_{k+1}$:
 
 Suppose $L = \lbrace x \vert \exists w_1 \forall w_2 \cdots \exists w_k: M(x, \vec{w})=1 \rbrace \in \Sigma_k$.
 
-Then $L = \lbrace x \vert \exists w_1 \forall w_2 \cdots \exists w_k \forall w_{junk}: M(x, \vec{w})=1 \rbrace \in \Sigma_{k+1}$ and $L = \lbrace x \vert \forall w_{junk} \exists w_1 \forall w_2 \cdots \exists w_k: M(x, \vec{w})=1 \rbrace \in \Pi_{k+1}$
+Then $L = \lbrace x \vert \exists w_1 \forall w_2 \cdots \exists w_k \forall w_{junk}: M(x, \vec{w})=1 \rbrace \in \Sigma_{k+1}$ and $L = \lbrace x \vert \forall w_{junk} \exists w_1 \forall w_2 \cdots \exists w_k: M(x, \vec{w})=1 \rbrace \in \Pi_{k+1}$ $\tag*{$\square$}$
 
 Polynomial Hierarchy:
 
@@ -1318,12 +1320,12 @@ Oracle complexity classes:
 
 - Let $A$ be a decision problem, then
 	- $\text{P}^A = \lbrace \text{decision problems solvable by a poly-time } A\text{-OTM} \rbrace$
-		= $\text{P}^A = \lbrace L(M^A) \vert M \text{ is a poly-time OTM} \rbrace$
+		- $\text{P}^A = \lbrace L(M^A) \vert M \text{ is a poly-time OTM} \rbrace$
 	- $\text{NP}^A = \lbrace \text{decision problems solvable by a non-det poly-time } A\text{-OTM} \rbrace$
 - Let $\text{C}$ be a complexity class, then
 	- $\text{P}^\text{C} = \bigcup_{L \in \text{C}} \text{P}^L$
 		- $\text{P}^\text{C} = \lbrace \text{problems solvable by a poly-time OTM with some problem from C as its oracle} \rbrace $
-	- $\text{NP}^C = \bigcup_{L \in \text{C}} \text{P}^L$
+	- $\text{NP}^C = \bigcup_{L \in \text{C}} \text{NP}^L$
 		- Differenet threads of an $\text{NP}$ computation can ask different oracle queries for $L \in \text{C}$
 		
 Note: Overloaded Notation!
@@ -1464,7 +1466,7 @@ Canonical $\text{PSPACE}$-complete problem:
 To prove that $L$ is $\text{PSPACE}$-complete:
 
 - Show that $L \in \text{PSPACE}$
-- If $L \in \text{PSPACE}$, then $L$ is decided by some TM $M$ that uses $s(n)$ space. Show $X \leq_P L via f(x) = \langle M,x,1^{s(n)} \rangle$
+- If $L \in \text{PSPACE}$, then $L$ is decided by some TM $M$ that uses $s(n)$ space. Show $X \leq_P L$ via $f(x) = \langle M,x,1^{s(n)} \rangle$
 	- $x \in L \iff f(x) \in X$
 	
 TQBF
@@ -1596,7 +1598,7 @@ Path(a,b,i):
 		reject
 ```
 
-- Call `Path(s, t, log n)` to check $\langle G,s,t$
+- Call `Path(s, t, log n)` to check $\langle G,s,t \rangle$
 - Space Usage
 	- depth of recursion: $\log n$
 	- stack frame of each iteration: space to write down `a,b,i,v` $\Rightarrow O(\log n)$
@@ -1633,6 +1635,7 @@ Counting complexity classes $\text{FP}$, $\text{#P}$
 	- 实际应用时，$M$ 可以是一个 problem，e.g. $\text{#SAT}$: given boolean formula $\phi$, determine $\text{#}$ of satisfying assignments of $\phi$
 - $\text{#P} = \lbrace \text{#M} \vert M \text{ is a Nondet poly-time TM} \rbrace$
 	- $\text{#P} = \lbrace \text{functions that count # of accepting threads of a NTM} \rbrace$
+	- A function $f : \lbrace 0,1 \rbrace^{\ast} \mapsto \mathbb{N}$ is $\in \text{#P}$ if $\exists$ a TM $M$ running in poly time such that $f(x) = \text{#M}(x)$
 	
 _**Claim:**_ $\text{FP} \subset \text{#P}$
 
@@ -1651,7 +1654,7 @@ In this way, $i = 1,2,\dots,f(x)$ will be accepted, thus $f(x)$ accepting thread
 
 _**Claim:**_ $\text{#P}$ is closed under addition & multiplication
 
-_**Proof:**_ Equal to prove $f,g \in \text{#P} \Rightarrow f+g \in \text{#P} and f \ast g \in \text{#P}$
+_**Proof:**_ Equal to prove $f,g \in \text{#P} \Rightarrow f+g \in \text{#P}$ and $f \ast g \in \text{#P}$
 
 Let 
 
@@ -1717,9 +1720,341 @@ _**Proof:**_ Use $\text{#P}$-hardness definition 2.
 
 Given arbitrary $M$ and $x$, construct formula $\phi$ such that $\exists w : M(x,w) = 1 \iff \phi \text{ is satisfiable}$.
 
-Let $f(w) = \text{#} w \text{ that } M(x,w) = 1$. $f(w) = \text{#SAT}(\phi)$. $\tag*{$\square$}$
+Let $f(w) = \text{#} w \text{ that } M(x,w) = 1$. Obviously,
+
+- $f \in \text{#P}$ and $f$ can represent $\forall \cdot \in \text{#P}$
+- $f(w) = \text{#SAT}(\phi)$. 
+
+$\Rightarrow \text{#SAT}$ is $\text{#P}$-hard. $\tag*{$\square$}$
 
 待续。 Katz §23 需要大量补充进来
+
+### $\text{#P}$-completeness of the permanent (Lecture 22)
+
+暂略
+
+### Randomized complexity classes / Amplification (Lecture 23)
+
+2 ways to define a randomized TM (以下综合 slides、[Katz §12](http://www.cs.umd.edu/~jkatz/complexity/f11/lecture12.pdf) 和 [Trevisan §5.1](http://people.eecs.berkeley.edu/~luca/notes/complexitynotes02.pdf)):
+
+- [“Lazy”] Deterministic TM with two transitions functions
+	- A random one is applied at each step
+- [“Upfront”] Deterministic TM with an additional read-only “random tape”
+	- Each cell of this random tape is initialized randomly (with 0/1)
+		- Only finite portion of this random tape can actually be used
+- Randomized TM $M(x;r)$ 你看做接受两个输入比较好理解：
+	- For a fixed $x$, $M(x;r)$ is the deterministic result with random choices $r$
+	- Then what is $r$?
+		- [“Lazy”] The $i^{\text{th}}$ bit of $r$ determines which transition function is used at the $i^{\text{th}}$ step
+		- [“Upfront”] $r$ is the value written on $M$'s random tape.
+		- 也就是说，给定 $x$，我们在穷举 $r = r^{(1)},r^{(2)} \dots$:
+			- 对某些 $r^{(i)}$，$M(x;r^{(i)}) = 1$
+			- 对某些 $r^{(j)}$，$M(x;r^{(j)}) = 0$
+			- 这样一来就存在一个 frequency 即 $\frac{\text{# } r^{(i)} : M(x;r^{(i)}) = 1}{\lvert r \vert}$。概率就这么出来了。
+			- 如果你给了一个新的 $x'$，那么会有一组新的 $r^{(i')}$ 和 $r^{(j')}$，概率也会不同
+				- 也就是说，同一个 $r^{(i)}$ 值，不一定有 $M(x;r^{(i)}) = M(x';r^{(i)})$
+	- How long is $r$? I.e. $\lvert r \vert = ?$
+		- $\lvert r \vert$ is polynomial in the input length $\lvert x \vert$
+	- 如果给定 $x$，把 $r$ 看做一个变量，那么 $M(x)$ 即是一个 distribution induced by uniform $r$
+		- 你也可以把 $M(x)$ 看做是一个 Nondet TM，每一个 $r^{(i)}$ 对应一条 computation thread
+- Randomized TM $M(x;r)$ runs in poly time (poly in $\lvert x \vert$)
+	- 这个很好理解，因为 $\textbf{RT} = \text{# of steps} = \lvert r \rvert = p(\lvert x \rvert)$
+	
+PPT = probabilistic, polynomial-time
+
+- An algorithm $A$ is probabilistic polynomial time (PPT) if it uses randomness (i.e, flips coins) and its running time is bounded by some polynomial in the input size.
+- Alternatively, "expected poly time" means $\exists$ a polynomial (这里指 “多項式”) $p()$ such that $\mathrm{E}[\text{# of steps}] = p(\lvert x \rvert)$
+
+$\text{RP}$ = Randomized Poly-time
+
+- $\text{RP}$ = languages $L$ of the form:
+	- $x \in L \Rightarrow \Pr[M(x) = 1] \geq \frac{1}{2}$ ($M$ is a PPT TM, hereafter)
+	- $x \not \in L \Rightarrow \Pr[M(x) = 0] = 1$
+		- 注意：$x \in L$ 时的 $M(x)$ 和 $x \not \in L$ 时的 $M(x)$ 是两套不同的 distribution，所以 $x \in L$ 时的 $\Pr[M(x) = 1]$ 和 $x \not \in L$ 时的 $\Pr[M(x) = 0]$ 没有任何关系，相加也不为 1。这个概念完整点写是这样的： 
+			- $x \in L \Rightarrow \Pr[M(x) = 1] \geq \frac{1}{2}$ (同时 $\Pr[M(x) = 0] \leq \frac{1}{2}$)
+			- $x \not \in L \Rightarrow \Pr[M(x) = 0] = 1$ (同时 $\Pr[M(x) = 1] = 0$)
+- 换个角度陈述：$L \in \text{RP}$ if $\exists$ a PPT TM $M$ such that:
+	- $x \in L \Rightarrow \Pr[M(x) = 1] \geq \frac{1}{2}$
+	- $x \not \in L \Rightarrow \Pr[M(x) = 0] = 1$
+- [Trevisan §5.1](http://people.eecs.berkeley.edu/~luca/notes/complexitynotes02.pdf) 的表述更好理解：$L \in \text{RP} \iff \exists$ a PPT TM $M$ and a polynomial $p()$ such that:
+	- $\forall x \in L : \Pr_{r\in \lbrace 0,1 \rbrace^{p(
+	\lvert x \rvert)}}[M(x;r) = 1] \geq \frac{1}{2}$
+	- $\forall x \not \in L : \Pr_{r\in \lbrace 0,1 \rbrace^{p(
+	\lvert x \rvert)}}[M(x;r) = 1] = 0$
+- $\text{RP}$ has one-sided error.
+	
+题外话：我们还可以类似地定义 $\text{P}$:
+
+- $L \in \text{P} \iff \exists$ a PPT TM $M$ and a polynomial $p()$ such that:
+	- $\forall x \in L : \Pr_{r\in \lbrace 0,1 \rbrace^{p(
+	\lvert x \rvert)}}[M(x;r) = 1] = 1$
+	- $\forall x \not \in L : \Pr_{r\in \lbrace 0,1 \rbrace^{p(
+	\lvert x \rvert)}}[M(x;r) = 1] = 0$
+		
+_**Claim:**_ $\Pr[M(x) = 1] \geq \frac{1}{2}$ 里的 $\frac{1}{2}$ is not fundamental to this definition.
+
+_**Explaination:**_ I can always "amplify" $M$ to a new PPT $M'$:
+
+```python
+def M'(x):
+	run M(x) independently t times
+	accept if any trial accepts
+```
+
+$$
+\begin{align}
+x \in L &\Rightarrow \Pr[M'(x) = 1] = 1 - \Pr[M'(x) = 0] \geq 1 - (\frac{1}{2})^t = 1 - \frac{1}{2^t} \newline
+x \not \in L &\Rightarrow \Pr[M'(x) = 0] = 1^t = 1
+\end{align}
+$$
+
+注意 $x \in L$ 时的 $\Pr[M'(x) = 0]$ 不等于 $x \not \in L$ 时的 $\Pr[M'(x) = 0]$. $\tag*{$\square$}$
+
+所以 $\Pr[M(x) = 1] \geq \frac{1}{2}$ 里的 $\frac{1}{2}$ 其实可以是任意的 $\frac{1}{t}$。这个 amplification 更大的意义在于，如果我在多次试验 $M(x)^{(1)},M(x)^{(2)},\dots,M(x)^{(n)},\dots$ 中:
+
+- 只要有一次 $M(x)^{(i)} = 1$，我就可以 100% 判断 $x \in L$
+	- 我们称这个判断为 "no false positive"，i.e. 只要是判断为 positive 的（i.e. 判断 $x \in L$），一定是 true positive（i.e. 与 ground truth 吻合）。
+	- 同理，$co\text{RP}$ 是 "no false negative".
+- 一次 $M(x)^{(i)} = 0$ 无法判断一定有 $x \not \in L$
+	
+注：写上面两段话时，我还没有领悟到 [Trevisan §5.1](http://people.eecs.berkeley.edu/~luca/notes/complexitynotes02.pdf) 的概念更好理解。我自己写的 $M(x)^{(i)}$	其实就是 $M(x;r^{(i)})$。
+
+注二：[Trevisan §5.1](http://people.eecs.berkeley.edu/~luca/notes/complexitynotes02.pdf) 的概念同时也跟方便理解 "什么是 error"？
+
+- 我们期待的效果是像 $\text{P}$ 一样：
+	- $\forall x \in L : \Pr_{r\in \lbrace 0,1 \rbrace^{p(
+	\lvert x \rvert)}}[M(x;r) = 1] = 1$
+	- $\forall x \not \in L : \Pr_{r\in \lbrace 0,1 \rbrace^{p(
+	\lvert x \rvert)}}[M(x;r) = 1] = 0$
+- 实际情况达不到的话，假设：
+	- $\forall x \in L : \Pr_{r\in \lbrace 0,1 \rbrace^{p(
+	\lvert x \rvert)}}[M(x;r) = 1] \geq a$
+	- $\forall x \not \in L : \Pr_{r\in \lbrace 0,1 \rbrace^{p(
+	\lvert x \rvert)}}[M(x;r) = 1] \leq b$
+- 那么 error 可以这么计算：
+	- $x \in L$-side error = $1-a$
+	- $x \not \in L$-side error = $b-0$ = $b$
+- 这样就很好理解 $\text{RP}$ 的 one-sided error
+- 下面的 $\text{BPP}$ 是 2-sided error；而且两边 error 相等，i.e. $a+b=1$
+	- 我们可以笼统地称 $\text{BPP}$ 的 error = $1-a$，即不用特定指是哪一边。
+	
+$\text{BPP}$ = Bounded Probabilistic Poly-time 
+
+- $\text{BPP}$ = languages $L$ of the form:
+	- $x \in L \Rightarrow \Pr[M(x) = 1] \geq \frac{2}{3}$
+	- $x \not \in L \Rightarrow \Pr[M(x) = 0] \geq \frac{2}{3}$
+- [Trevisan §5.1](http://people.eecs.berkeley.edu/~luca/notes/complexitynotes02.pdf) 的表述更好理解：$L \in \text{BPP} \iff \exists$ a PPT TM $M$ and a polynomial $p()$ such that:
+	- $\forall x \in L : \Pr_{r\in \lbrace 0,1 \rbrace^{p(
+	\lvert x \rvert)}}[M(x;r) = 1] \geq \frac{2}{3}$
+	- $\forall x \not \in L : \Pr_{r\in \lbrace 0,1 \rbrace^{p(
+	\lvert x \rvert)}}[M(x;r) = 1] \leq \frac{1}{3}$
+- $\text{BPP}$ has 2-sided error
+	
+How to amplify $\text{BPP}$ algorithm?
+
+```python
+def M'(x):
+	run M(x) independently t times
+	take the majority output
+```
+
+Chernoff Bound: How to calculate $x \in L \Rightarrow \Pr[M'(x) = 1]=?$
+
+- IID
+	- 我们总说是 independent and identically distributed random variables，换个方法断句可能更好理解一些：identically distributed, independent r.v.
+	- 假设有这么一个试验：在单次试验 $X^{(i)}$ 中，我们要抛 $t$ 次硬币，分别得到 $X_1^{(i)},X_2^{(i)},\dots,X_n^{(i)}$ 这 $t$ 个结果
+	- 执行 $n$ 次试验，我们可以得到 $t$ 组值，分别是 $\lbrace X_1^{(1)},\dots,X_1^{(n)} \rbrace, \lbrace X_2^{(1)},\dots,X_2^{(n)} \rbrace, \dots, \lbrace X_t^{(1)},\dots,X_t^{(n)} \rbrace$。
+	- 于是这 $t$ 组值构成 $t$ 个 distribution，也就是 $t$ 个 r.v. $X_1,X_2,\dots,X_t$
+		- 这 $t$ 个 r.v. 是 identical 的。在这里抛硬币的例子里，大家都是 Bernoulli；不可能 $X_1$ 是 Bernoulli 然后 $X_2$ 是 Gaussian.
+		- 这 $t$ 个 r.v. 是 independent 的。明显，第一次抛并不会影响第二次抛。
+		
+![][IID]
+
+- Suppose $X_1,X_2,\dots,X_t$ are IID and $\Pr[X_i = 1] = p$ (this is how they are "identical"), then Chernoff Bound states that $\Pr[\sum X_i > (1+\epsilon)tp] < \exp(-\frac{tp}{2}\epsilon^2)$.
+	- 简单理解就是，$\Pr[\text{total # of heads I observed} \ggg \text{total # of heads I expected}]$ is exponentially small
+	- 这个其实就是 quantile 的理论，见下图
+	
+![][IID_2]
+
+我们回头算 $\text{BPP}$ 的 amplification:
+
+- Suppose $X_i$ is the event of "obtaining wrong answer in $i^{\text{th}}$ trial of $M(x)$", so $\Pr[Xi] \leq \frac{1}{3}$.
+- Let $\epsilon = \frac{1}{2}$ and $tp = \frac{t}{3}$
+
+$$
+\begin{align}
+\Pr[\text{majority gives wrong answer}] &= \Pr \big [\sum X_i > \frac{t}{2} \big ] \newline
+	& = \Pr \big [\sum X_i > (1+\epsilon)tp ] \newline
+	& < \exp(-\frac{tp}{2}\epsilon^2) \newline
+	& = \exp(-\frac{t}{24})
+\end{align}
+$$
+
+- Let $t = 24 \lvert x \rvert$ and then
+	- $x \in L \Rightarrow \Pr[M(x) = 1] \geq 1 - e^{-\lvert x \rvert}$
+	- $x \not \in L \Rightarrow \Pr[M(x) = 0] \geq 1 - e^{-\lvert x \rvert}$
+	
+Katz §12 很精彩，值得一看
+
+### Relations between randomized complexity classes (Lecture 24)
+
+$\text{PP}$ = Probabilistic Poly-time
+
+- $L \in \text{PP} \iff \exists$ a PPT TM $M$ and a polynomial $p()$ such that:
+	- $\forall x \in L : \Pr_{r\in \lbrace 0,1 \rbrace^{p(
+	\lvert x \rvert)}}[M(x;r) = 1] > \frac{1}{2}$
+	- $\forall x \not \in L : \Pr_{r\in \lbrace 0,1 \rbrace^{p(
+	\lvert x \rvert)}}[M(x;r) = 1] \leq \frac{1}{2}$
+- $\text{PP}$ is unrealistic
+- $\text{PP}$ cannot be amplified
+
+_**Lemma.**_ $L \in \text{BPP} \Rightarrow \exists$ a PPT TM $M$ with error $\leq \frac{1}{\lvert r \rvert}$
+
+证明我就不详说了，反正一定可以 amplify 到。这个 Lemma 主要是为了证明 Sipser-Lautemann Theorem 服务的。
+
+_**Sipser-Lautemann Theorem:**_ $\text{BPP} \in \Sigma_2 \cap \Pi_2$
+
+_**Proof:**_ $\text{BPP}$ is closed under complement, i.e. $\text{BPP} = co\text{BPP}$. 
+
+所以一旦我们证明了 $\text{BPP} \in \Sigma_2$，马上就能得到 $\text{BPP} = co\text{BPP} \in \Pi_2$。得证。
+
+下面我们全力证明 $\text{BPP} \in \Sigma_2$。
+
+暂略。 $\tag*{$\square$}$
+
+### Non-uniformity in terms of circuits & advice / $\text{P/poly}$ (Lecture 25)
+
+Question: Does it help to have a different algorithm for each input length?
+
+Non-uniformity
+
+- TM is a “uniform” model of computation--a single TM handles all inputs.
+- A circuit only handle input with a fixed length.
+
+Circuits
+
+- A circuit $C_n$ has $n$-bit input and is constructed with AND gates, OR gates and NOT gates.
+- A circuit $C_n$ computes a function $f_C : \lbrace 0, 1 \rbrace^n \mapsto \lbrace 0, 1 \rbrace$
+- Define $SIZE(C_n)=\text{# of gates in } C_n$ and $DEPTH(C_n)=$max path length from input to output
+- Define Circuit family $C = \lbrace C_1, C_2, \dots \rbrace$
+	- $C_i$ has $i$-bit input
+	- $C$ accepts $x$ if $C_{\lvert x \rvert}(x) = 1$
+	- $L(C) = \lbrace x \vert C \text{ accepts } x \rbrace$
+		- i.e. $L$ is decided by $C$ $\iff \forall x \in L, C_{\lvert x \rvert}(x) = 1$
+	- Size of $C$ is $f(n)$ such that $\forall C_i \in C, SIZE(C_i) \leq f(i)$
+
+$\text{PSIZE}$
+
+- $\text{SIZE}(f(n)) = \lbrace$ decision problems accepted by circuit family of size $f(n)\rbrace$
+- $\text{PSIZE} = \bigcup_{c>0} \text{SIZE}(n^c)$
+
+_**Claim:**_ Every language (even undecidable) is in $\text{SIZE}(O(2^n))$
+
+_**Proof:**_ Suppose $x \in L$ and $\lvert x \rvert = n$. Thus $x = x_1 x_2 \dots x_n$.
+
+Use the identity $f(x_1 x_2 \dots x_n) = (x_1 \wedge f(1 x_2 \dots x_n)) \vee (\overline{x_1} \wedge f(0 x_2 \dots x_n))$ to recursively construct a circuit for $f$.
+
+The size of the circuit is: $s(n) = 3 + 2s(n−1)$ with base case $s(1) = 1$, which solves to $s(n) = 2 \times 2^n − 3 = O(2^n)$. $\tag*{$\square$}$
+
+注意解题技巧：我们这里说的 $n$，其实都是 $\lvert x \rvert$，所以你上来一个 $x \in L$ 其实都是包含了 $\lvert x \rvert = n$。
+
+Relationship between $\text{P}$, $\text{NP}$, $\text{PSIZE}$
+
+- $\text{P} \subset \text{PSIZE}$
+- Possibly $\text{NP} \not \subseteq \text{PSIZE}$ 
+
+_**Theorem (Cook-Levin)**_ Take any poly-time TM $M$. $M$'s behavior on input of length $n$ can be written as a poly-size circuit. I.e. $\text{P} \subseteq \text{PSIZE}$
+
+注：$\text{P} \neq \text{PSIZE}$ 需要另外证明
+
+_**Theorem (Karp-Lipton-Sipser)**_ If $\text{NP} \subseteq \text{PSIZE}$ then $\text{PH} = \Sigma_2$
+
+$\text{P/}f(n)$: poly-time with $f(n)$-bounded advice
+
+_**Definition:**_ $L \in \text{P/}f(n) \iff \exists$ a poly-time TM $M$ such that $\forall n$, $\exists$ an advice string $a$ with $\lvert a \rvert = f(n)$ and $M(x,a) = 1 \forall x \in L$
+
+注意：这里是 $\forall n \exists a$ 不是 $\forall x \exists a$。也就是说，所有的 $x$ with $\lvert x \rvert = n$ 用的是同一个 $a$，而不是每个 $x$ 都配一个。
+
+你可以想象成有一个 advice pool $A = \lbrace a_1,a_2,\dots \rbrace$ where $\lvert a_n \rvert = f(n)$ and $x \in L, \lvert x \rvert = n \Rightarrow M(x, a_n) = 1$
+
+- $\text{P/}1$ = problems solvable with a 1-bit advice
+- $\text{P/}n^2$ = problems solvable with a $n^2$-bit advice
+- $\text{P/}poly$ = problems solvable with a $p(n)$-bit advice
+
+_**Claim:**_ $\text{P/}poly = \text{PSIZE}$
+
+_**Proof:**_ 
+
+(1) $\text{P/}poly \supseteq \text{PSIZE}$
+
+Take any $L \in \text{PSIZE}$. Then $\exists$ a circuit family $C = \lbrace C_1, C_2, \dots \rbrace$ such that $\forall x \in L, C_{\lvert x \rvert}(x) = 1$.
+
+Let $a_{\lvert x \rvert}$ be the description of $C_{\lvert x \rvert}$. Define TM:
+
+```python
+def M(x, a_n):
+	interpret a_n as circuit
+	evaluates it on x
+```
+
+$M$ runs in poly-time. Therefore $x \in L \iff M(x, a_{\lvert x \rvert}) = 1$, i.e. $L \in \text{P/}poly$, i.e. $\text{P/}poly \supseteq \text{PSIZE}$.
+
+(2) $\text{P/}poly \subseteq \text{PSIZE}$
+
+Take any $L \in \text{P/}poly$. Then $\exists$ a poly-time TM $M$ and a set of advices $A = \lbrace a_1, a_2, \dots \rbrace$ such that $\forall x \in L, M(x, a_{\lvert x \rvert}) = 1$.
+
+According to _**Theorem (Cook-Levin)**_, any poly-time TM can be written as a poly-size circuit, so define $C_{\lvert x \rvert}$ to be the circuit with the same behavior as $M(x, a_{\lvert x \rvert}) = 1$. Thus $L \in \text{PSIZE}$, i.e $\text{P/}poly \subseteq \text{PSIZE}$. $\tag*{$\square$}$
+
+### Karp-Lipton theorem / Meyer's theorem (Lecture 26)
+
+_**Karp-Lipton theorem**_ If $\text{NP} \subseteq \text{P/}poly$, then $\text{PH} = \Sigma_2$
+
+_**Idea:**_ First use $\text{SAT} \in \text{NP} \Rightarrow \text{SAT} \in \text{P/}poly$. 
+
+Then use $\Pi_2 \text{SAT} \in \Pi_2$. Note that $\Pi_2 \text{SAT}$ is $\Pi_2$-complete. Prove $\Pi_2 \text{SAT} \in \Sigma_2$.
+
+_**Proof:**_ If $\text{SAT} \in \text{P/}poly$, then $\exists$ a circuit family $C = \lbrace C_1, C_2, \dots \rbrace$ of poly size such that $\phi$ is satisfiable $\Rightarrow C_{\lvert \phi \rvert}(\phi) = 1$
+
+$\Pi_2 \text{SAT} = \lbrace \phi \vert \forall y \exists z : \phi(y,z) = 1 \rbrace$
+
+$$
+\begin{align}
+\phi \in \Pi_2 \text{SAT} & \iff \forall y \exists z : \phi(y,z) = 1 \newline
+	& \iff \forall y : \phi(y,\cdot) = 1 \newline
+	& \iff \forall y : C_{\lvert \phi(y,\cdot) \rvert}(\phi(y,\cdot)) = 1 \newline
+	& \iff \exists C_{\lvert \phi(y,\cdot) \rvert} \forall y : C_{\lvert \phi(y,\cdot) \rvert}(\phi(y,\cdot)) = 1
+\end{align}
+$$
+
+So $\Pi_2 \text{SAT} \in \Sigma_2$, i.e. $\text{PH} = \Sigma_2$. $\tag*{$\square$}$
+
+_**Meyer's theorem**_ If $\text{EXP} \subseteq \text{P/}poly$, then $\text{EXP} = \Sigma_2$
+
+_**Note:**_ Weird sequences:
+
+- $\text{EXP}$ is closed under complememt. Therefore if $\text{EXP} = \Sigma_2$, then also $\text{EXP} = co\text{EXP} = \Pi_2 \Rightarrow \text{PH} = \Sigma_2$
+- Already known that $\text{P} \neq \text{EXP}$ by time hierarchy theorem $\Rightarrow \text{P} \neq \Sigma_2 \Rightarrow \text{P} \neq \text{NP}$
+
+_**Proof:**_ Given $L \in \text{EXP}$ decided by TM $M$, define
+
+- $ST(x,t)$: On input $x$, $M$ is in this state after $t$ steps
+- $HD(x,t)$: On input $x$, $M$'s tape head is at this index after $t$ steps
+- $TP(x,t,i)$: On input $x$, $M$'s tape has this character at index $i$ after $t$ steps
+	- $t, i$ are numbers $\leq 2^{p(n)}$ (because of $\text{EXP}$), so required $p(n)$ bits to write them down
+	- Suppose the maximum step number is $t_{max}$
+
+$M$ accepts $x \iff ST(x, t_{max}) = q_{accept}$.
+
+We can imagine $ST$, $HD$ and $TP$ as 3 circuits. They must be consistent with $M$'s transition function and tape cells. We can check the consistency in poly time.
+
+$$
+\begin{align}
+M \text{ accepts } x \iff & \exists \text{ (poly-size circuits) } ST,HD,TP: \newline
+	& \forall \text{ (poly-size bitstrings) } t,i : \newline
+	& ST(x,t), HD(x,t) \text{ and } TP(x,t,i) \text{ are consistent with } M \newline
+	& \text{and } ST(x, t_{max}) = q_{accept}
+\end{align}
+$$ $\tag*{$\square$}$
 
 -----
 
