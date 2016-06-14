@@ -1138,3 +1138,38 @@ A _**partial**_ $k$-tree is any subgraph of a $k$-tree.
 _**Lemma 11.1**_ A graph has treewidth $k$ if and only if it is a partial $k$-tree.
 
 - 结合上一条，如果 $tw(G) = j < k$，首先 $G$ 一定是一个 partial $j$-tree，同时 $G$ 也是一个 partial $k$-tree (just image $G$ as a subtree of a $k$-tree)
+
+-----
+
+## PTAS & [Distance in Graphs](https://people.cs.clemson.edu/~goddard/papers/distanceChapter.pdf) & Baker's technique
+
+PTAS: Polynomial-Time Approximation Scheme
+
+- A PTAS is an algorithm which takes an instance of an optimization problem $L$ and a parameter $\epsilon > 0$ and, in polynomial time, produces a $(1+\epsilon)$-approximation (or $(1-\epsilon)$ for maximization problems) alg for $L$.
+- The running time of a PTAS is required to be polynomial in $n$ for every fixed $\epsilon$ but can be different for different $\epsilon$. E.g.
+	- $n^{O(\frac{1}{\epsilon})}$
+	- $2^{O(\frac{1}{\epsilon})} n^2$: a.k.a. EPTAS (efficient PTAS)
+	- $O(\frac{1}{\epsilon^2} n)$: a.k.a. FPTAS (full PTAS)
+
+Let $G$ be an undirected graph: (参考 [Diameter vs Radius in Maximal Planar Graphs](http://mathoverflow.net/questions/227888/diameter-vs-radius-in-maximal-planar-graphs))
+
+- The _**eccentricity**_ of a vertex $v$ of $G$, is the maximum distance between $v$ and any other vertex of $G$: $ecc(v)=\max_udist(v,u)$.
+- The _**radius**_ of $G$ is the minimum eccentricity among all vertices in $G$:$R(G)=\min_v ecc(v)$.
+	- A spanning tree of a graph $G$ is a subgraph that is a tree and contains every vertex of $G$.
+	- $R(G) = r \Rightarrow G$ has a rooted spanning tree of height $r$  
+	- A disconnected graph therefore has infinite radius.
+- The _**diameter**_ of $G$ is the maximum eccentricity among all vertices in $G$:  $G$:$D(G)=\max_v ecc(v)$.
+	- $R(G) \leq D(G) \leq 2R(G)$
+	
+_**Lemma:**_ $\forall$ planar graph $G$ with $R(G) = r$, $tw(G) \leq 3r$.
+
+### Apply Baker's technique to MWIS in a planar graph
+
+An independent set of a graph $G$ is a set of vertices in $G$, no two of which are adjacent. In Maximum Weighted Independent Set (MWIS) problem, each vertex is assigned a weight.
+
+Let $G$ be a planar graph. Choose an arbitrary vertex $r$ as root and build a spanning tree via BFS.
+
+
+
+
+
