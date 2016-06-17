@@ -190,3 +190,13 @@ MSE[\hat{f}] = \mathrm{E}[(\hat{f}(x)−f(x))^2] = \mathrm{Var}[\hat{f}(x)] + \m
 $$
 
 One wants a smooth that minimizes $MSE[\hat{f}]$ over all $x$.
+
+-----
+
+待补充：
+
+http://www.biostat.jhsph.edu/~ririzarr/Teaching/754/
+https://web.stanford.edu/~hastie/Papers/lsam_annals.pdf
+http://www.stat.umn.edu/geyer/5601/notes/smoo.pdf
+http://www.stat.uchicago.edu/~lafferty/pdf/nonparam.pdf
+http://data.princeton.edu/eco572/smoothing.pdf
