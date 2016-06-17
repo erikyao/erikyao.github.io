@@ -69,7 +69,9 @@ If we are going to “model” $(\ref{eq1.1})$, we gain insight into the importa
 - explore the overall shape of $f$ in some neighborhood
 - find areas of sharp increase or regions exhibiting little curvature.
 
-<font color="red">The first three chapters of the class deal with this problem and these descriptions</font>. We will then move on to the case where we have many covariates, then cases where the expectation needs to be transformed, and various other generalization. 
+<font color="red">The first three chapters of the class deal with this problem and these descriptions.</font> 
+
+We will then move on to the case where we have many covariates, then cases where the expectation needs to be transformed, and various other generalization. 
 
 ## 2. Overview of various smoothers
 
