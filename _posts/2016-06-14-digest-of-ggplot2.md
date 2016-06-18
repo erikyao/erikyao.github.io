@@ -244,7 +244,7 @@ p + stat_smooth(method = "gam", formula = y ~ s(x, k = 3), size = 1)
 
 更多内容可以参考 [How can I explore different smooths in ggplot2?](http://www.ats.ucla.edu/STAT/r/faq/smooths.htm)。
 
-#### 2.5.2 Boxplots and jittered points (show value of $y$ categorized on $x$)
+#### 2.5.2 Boxplots and jittered points (value of $y$ categorized on $x$)
 
 When a set of data includes a categorical variable and one or more continuous variables, you will probably be interested to know how the values of the continuous variables vary with the levels of the categorical variable. Boxplots and jittered points offer two ways to do this.
 
