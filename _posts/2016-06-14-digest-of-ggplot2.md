@@ -157,7 +157,7 @@ For 2d data (x-y):
 - `geom = "smooth"`: fits a smoother to the data and displays the smooth and its standard error.
 - `geom = "boxplot"`: box-and-whisker plot.
 - `geom = "path"` or `geom = "line"`: draw lines between the data points. 
-	- Traditionally used to explore relationships between time and another variable. 
+	- Traditionally used for time series data. 
 	- A line is constrained to travel from left to right, while paths can go in any direction.
 	
 For 1d data (x only):
@@ -171,7 +171,7 @@ For 1d data (x only):
 		- histogram 是先分 bin，然后统计落到每个 bin 的数量。所以 histogram 用于 continuous variable
 		- discrete variable 不需要分 bin，直接统计每一个具体值的数量就可以了。所以在形状上这两个图有点类似。
 		
-#### 2.5.1 Adding a smoother to a plot
+#### 2.5.1 Adding a smoother to a plot: $y = f(x)$
 
 ```r
 qplot(carat, price, data = dsmall, geom = c("point", "smooth"))
@@ -182,4 +182,149 @@ If you want to turn the confidence interval off, use `se = FALSE`.
 
 There are many different smoothers you can choose between by using the `method` argument:
 
-- $method = "loess"$ 
+- `method = "loess"`: local regression, the default for small $n$.
+	- More details about the algorithm used can be found in `?loess`. 
+	- The wiggliness of the line is controlled by the `span` parameter, which ranges from 0 (exceedingly wiggly) to 1 (not so wiggly).
+	- Loess does not work well for large datasets (it’s $O(n^2)$ in memory), and so alternatively `method = "gam"` is used when $n$ is greater than 1,000.
+	
+```r
+qplot(carat, price, data = dsmall, geom = c("point", "smooth"), span = 0.2)
+qplot(carat, price, data = dsmall, geom = c("point", "smooth"), span = 1)
+```
+
+- <del>`method = "gam"`</del>: Generalised Additive Model (GAM), the default for $n > 1000$
+	- You need to load `mgcv` (Mixed GAM Computation Vehicle) library first to import [formula `s`](https://stat.ethz.ch/R-manual/R-devel/library/mgcv/html/s.html) for the common usage `method = "gam", formula = y ~ s(x)`.
+		- This is similar to using a spline with `lm`, but the degree of smoothness is estimated from the data.
+	- For large data, use the formula `y ~ s(x, bs = "cs")`. This is the extact default behavior for $n > 1000$.
+		- `bs = "cs"` specifies a shrinkage version of `bs = "cr"`, the cubic regression.
+
+```r
+## Obsolete ##
+
+# library(mgcv)
+
+# qplot(carat, price, data = dsmall, geom = c("point", "smooth"), method = "gam", formula = y ~ s(x))
+# qplot(carat, price, data = dsmall, geom = c("point", "smooth"), method = "gam", formula = y ~ s(x, bs = "cs"))
+```
+
+- <del>`method = "lm"`</del>: Linear Model
+	- default: straight line
+	- `formula = y ~ poly(x, 2)`: degree 2 polynomial
+	- `library(splines); formula = y ~ ns(x, 2)`: natural spline. `2` is the degrees of freedom: a higher number will create a wigglier curve.
+	- etc.
+	
+```r
+## Obsolete ##
+
+# library(splines)
+
+# qplot(carat, price, data = dsmall, geom = c("point", "smooth"), method = "lm")
+# qplot(carat, price, data = dsmall, geom = c("point", "smooth"), method = "lm", formula = y ~ ns(x,5))
+```
+
+- <del>`method = "rlm"`</del>: Robust Linear Model
+	- In `MASS` package.
+	- Robust in that outliers don’t affect the fit as much.
+
+注：`method` 和 `formula` 已经不再是 `qplot()` 的参数了，如果要画出上述几个 smooth，可以用 `stat_smooth`
+
+```r
+p <- ggplot(dsmall, aes(x = carat, y = price)) + geom_point()
+
+p + stat_smooth(method = "loess", formula = y ~ x, size = 1)
+
+p + stat_smooth(method = "lm", formula = y ~ x, size = 1)
+p + stat_smooth(method = "lm", formula = y ~ x + I(x^2), size = 1)
+p + stat_smooth(method = "lm", formula = y ~ poly(x, 2), size = 1)
+
+require(mgcv)
+p + stat_smooth(method = "gam", formula = y ~ s(x), size = 1)
+p + stat_smooth(method = "gam", formula = y ~ s(x, k = 3), size = 1)
+```
+
+更多内容可以参考 [How can I explore different smooths in ggplot2?](http://www.ats.ucla.edu/STAT/r/faq/smooths.htm)。
+
+#### 2.5.2 Boxplots and jittered points (show value of $y$ categorized on $x$)
+
+When a set of data includes a categorical variable and one or more continuous variables, you will probably be interested to know how the values of the continuous variables vary with the levels of the categorical variable. Boxplots and jittered points offer two ways to do this.
+
+也就是，将 data point 按 categorical variable 分类：
+
+- x-axis 是分类
+- y-axis 是 continuous variable 的值
+
+<!-- -->
+
+- `geom = "jitter"`: jittering
+- `geom = "boxplot"`: box-and-whisker plot
+
+```r
+qplot(color, price / carat, data = diamonds, geom = "jitter", alpha = I(1 / 5))
+qplot(color, price / carat, data = diamonds, geom = "jitter", alpha = I(1 / 50))
+qplot(color, price / carat, data = diamonds, geom = "jitter", alpha = I(1 / 200))
+```
+
+Another way to look at conditional distributions is to use faceting to plot a separate histogram or density plot for each value of the categorical variable.
+
+#### 2.5.3 Histogram and density plots (count of $x$ categorized on $x$)
+
+Histogram and density plots show the distribution of a single variable. 
+
+```r
+qplot(carat, data = diamonds, geom = "histogram")
+qplot(carat, data = diamonds, geom = "density")
+```
+
+- For the density plot, the `adjust` argument controls the degree of smoothness (high values of `adjust` produce smoother plots). 
+- For the histogram, the `binwidth` argument controls the amount of smoothing by setting the bin size. 
+	- Break points can also be specified explicitly, using the `breaks` argument.
+	
+```r
+qplot(carat, data = diamonds, geom = "histogram", binwidth = 1, xlim = c(0,3))
+qplot(carat, data = diamonds, geom = "histogram", binwidth = 0.1, xlim = c(0,3))
+qplot(carat, data = diamonds, geom = "histogram", binwidth = 0.01, xlim = c(0,3))
+```
+
+<del>To compare the distributions of different subgroups, just add an aesthetic mapping, as in the following code.</del>
+
+```r
+## Hard to interpret ##
+
+# qplot(carat, data = diamonds, geom = "density", colour = color) 
+# qplot(carat, data = diamonds, geom = "histogram", fill = color) 
+```
+
+#### 2.5.4 Bar charts (count of $x$ for each value of $x$; extensible)
+
+1. 基本用法：对每一个 $x_i$，计算 $y_i = nrow(df[X == x_i,])$
+1. 扩展用法：对每一个 $x_i$，计算 $y_i = sum(df[X == x_i,]\\$foo)$
+	- 这里 `foo` 通过 `weight = foo` 来指定
+	
+```r
+qplot(color, data = diamonds, geom = "bar")
+qplot(color, data = diamonds, geom = "bar", weight = carat) + scale_y_continuous("carat") # 按 color 分组，统计各组的 carat 之和
+qplot(color, data = diamonds, geom = "bar", weight = x*y*z) + scale_y_continuous("volumn") # 按 color 分组，统计各组的 x*y*z 之和
+``` 
+
+`scale_y_continuous` 表示 “我需要一个 continuous 的 y-axis”.
+
+#### 2.5.5 Time series with line and path plots
+
+其实这两个图不一定非要用于 time series。简单来说，这两个图的画法就是：在 scatter plot $n$ 个 data point $p_1,\dots,p_n$ 的过程中，将 $p_1 \rightarrow p_2 \rightarrow \dots \rightarrow p_n$ 在坐标系内按顺序连起来。区别在于：
+
+- line plot 会将 data point 按 `x` 排序。如果 x-axis 是时间，那就正好反映了 how `y` has changed over time
+- path plot 不会排序，完全按照 appear in dataset 的顺序来，所以它反映的是 how `x` and `y` have simultaneously changed
+
+```r
+qplot(carat, price, data = dsmall, geom = c("point", "line"))
+
+## Time Series using `ecnomics` dataset ##
+qplot(date, unemploy / pop, data = economics, geom = "line") # unemploy / pop = unemployment rate
+qplot(date, uempmed, data = economics, geom = "line") # uempmed = median number of weeks unemployed
+
+year <- function(x) as.POSIXlt(x)$year + 1900
+qplot(unemploy / pop, uempmed, data = economics, geom = c("point", "path"))
+qplot(unemploy / pop, uempmed, data = economics, geom = "path", colour = year(date)) + scale_area()
+```
+
+### 2.6 Faceting
