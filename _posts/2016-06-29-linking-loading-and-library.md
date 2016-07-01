@@ -74,7 +74,136 @@ Paging:
 
 ### 2. 编译和链接
 
-IDE 的 "build" 往往包含了 compile 和 link 这两个步骤。
+`gcc hello.c` 生成 `a.out` 的过程实际包含了 4 个步骤：
+
+- Preprocessing
+    - 命令：`gcc -E hello.c -o hello.i` 或者 `cpp hello.c > hello.i`
+    - 输入：源文件 `hello.c` 外加 `stdio.h` 之类的头文件
+    - 输出：`hello.i`
+    - 操作：
+        - 展开 `#define`
+        - 执行 `#if` 之流
+        - 将被 `#include` 的文件 copy 到该位置，注意这个过程是递归的，被 `#include` 的文件本身也可能 `#include` 其他的文件，这些文件也会被一并 copy
+        - 删除注释
+        - 添加 line number
+        - 保留 `#progma` 编译器指令
+- Compilation
+    - 现在版本的 GCC 的 `cc1` 命令合并了 processing 和 compilation
+        - `cc1 hello.c` 等同于 `gcc -S hello.c -o hello.s`
+        - `gcc -S` 的实质就是去调用了 `cc1`
+    - 输入：`hello.i`
+    - 输出：`hello.s`
+    - 操作：词法分析、语法分析、语义分析及优化后生成汇编代码
+- Assembling
+    - 命令：`as hello.s -o hello.o` 或者 `gcc -c hello.s -o hello.o`
+    - 输入：`hello.s`
+    - 输出：`hello.o`
+    - 操作：将汇编代码转成机器指令
+- Linking
+    - 简化版的命令：`ld -static crt1.o crti.o crtbeginT.o hello.o -start-group -lgcc -lgcc_eh -lc-end-group crtend.o crtn.o`
+    - What the hell are they?
+    
+对 static-typed language C/C++ 而言 (dynamic-typed languge 如 python、javascript)，模块（你可以简单理解成一个模块就是一个 .c 或者 .o 文件）间的通信有两种方式：
+
+- 模块间的 function call
+- 模块间的 variable access
+    - 这两种方式可以统一描述为 “模块间的 symbol referencing”
+    
+Linking 的任务就是把模块间互相 referencing 的部分处理好，具体包括：
+
+- Address and Storage Allocation
+- Symbol Resolution
+    - a.k.a. Symbol Binding, Naming Binding
+- Relocation
+    - 比如 `main.c` 调用 `func.c` 的一个函数 `foo()`，由于这两个 .c 文件是分开编译的，所以在编译 `main.c` 时，compiler 并不知道 `foo()` 的地址，所以 compiler 会把调用 `foo()` 的指令 pending，留给 linker 去确定 `foo()` 的地址
+
+### 3. object 文件 (i.e. .o 文件) 里都有啥
+
+- object 文件：
+    - Windows: `.obj` vs Linux: `.o`
+- executable 文件：
+    - Windows: PE (Portable Executable) 格式，后缀比如 `.exe`
+    - Linux: ELF (Executable Linkable Format) 格式，后缀比如 `.out`
+- Dynamic Linking Library (DLL)
+    - Windows: `.dll` vs Linux: `.so` (Shared Object)
+- Static Linking Library 
+    - Windows: `.lib` vs Linux: `.a` (Archive libraries)
+    
+Generally，object 文件和 executable 文件的内容、格式都很相似，一般是按 section 划分的：
+
+- code section: 存放源代码编译后的机器指令 
+    - 一般简写为 `.code` 或 `.text`
+- data section: 存放 _**已经初始化的**_ static variables (that is, global variables and static local variables)
+    - 一般简写为 `.data`
+- BSS section (Block Starter by Symbol): 存放 _**未初始化的**_ static variables 
+    - 一般简写为 `.bss`
+    - 未初始化的全局 variable 和局部静态 variable 都默认为 0，但是没有必要放在 data section
+    - > Peter van der Linden, a C programmer and author, says, "Some people like to remember it as 'Better Save Space.' Since the BSS segment only holds variables that don't have any value yet, it doesn't actually need to store the image of these variables. The size that BSS will require at runtime is recorded in the object file, but BSS (unlike the data segment) doesn't take up any actual space in the object file."
+- `.rodata` section： 存只读数据
+    - 比如 `const`
+    - 有的编译器会把字符串常量放 `.rodata`，有的会放 `.data`
+- ELF 文件的开头还有一个 header (一般简写为 `.symtab`)，包含如下信息
+    - 文件是否可执行？
+        - 如果可执行，还要记录入口地址
+    - 是 static linking library 还是 DLL？
+    - 目标硬件、目标 OS etc.
+    - Section Table: 各个 section 在文件中的偏移位置 etc.
+
+Why sectioning?
+
+- 程序被装载后，code 和 data 可以被映射到不同的 virtual memory segment，code 可以设置为 read-only，防止被修改
+- CPU 的 cache 一般都设计为指令 cache 和数据 cache 两部分，sectioning 有利于提高 CPU cache 命中
+- 可以实现一个程序的多个副本共享指令，节省内存 
+  
+### 4. 静态链接
+
+#### 4.1 空间与地址分配
+
+问题：对于多个 object 文件，如何将他们的 sections 合并到输出文件？
+
+##### 4.1.1 按序叠加
+
+缺点：
+
+- 如果有 100 个 object 文件，输出文件就会有 100 个 `.text`、`data` etc. sections
+- 这样是很浪费空间的，因为一个 section 即使只有 1 bit，也要占据 1 page (4KB) 的 size
+
+##### 4.1.2 合并相同类型的 section
+
+目前常用的方式。实现一般采用 Two-pass Linking:
+
+1. 扫描所有输入的 object 文件
+    - 从 headers 收集所有 sections 的属性，合并
+    - 从符号表中收集所有的符号定义和符号引用，生成一个全局符号表
+1. Symbol Resolution + Relocation
+  
+#### 4.3 C++ 相关问题
+
+##### 4.3.3 C++ 与 ABI
+
+ABIs (Application Binary Interface) cover details such as:
+
+- the sizes, layout, and alignment of data types
+- the calling convention, which controls how functions' arguments are passed and return values retrieved; for example, 
+    - whether all parameters are passed on the stack or some are passed in registers, 
+    - which registers are used for which function parameters, and 
+    - whether the first function parameter passed on the stack is pushed first or last onto the stack
+- how an application should make system calls to the operating system and, if the ABI specifies direct system calls rather than procedure calls to system call stubs, the system call numbers
+and in the case of a complete operating system ABI, the binary format of object files, program libraries and so on.
+
+A complete ABI, such as the Intel Binary Compatibility Standard (iBCS), allows a program from one operating system supporting that ABI to run without modifications on any other such system, provided that necessary shared libraries are present, and similar prerequisites are fulfilled.
+
+- 从这个角度来说，Java 字节码有遵循一套很好的 ABI
+
+Other ABIs standardize details such as the C++ name mangling, exception propagation, and calling convention between compilers on the same platform, but do not require cross-platform compatibility.
+  
+#### 4.5 静态链接库
+
+一个静态库可以简单地看做一组 object 文件的集合。
+
+`glibc` 本身是由 C 语言开发的，编译后得到 `printf.o`、`scanf.o`、`fread.o`、`fwrite.o`、`data.o`、`time.o`、`malloc.o` 等 object 文件供开发者使用。为了方便管理，通常用 `ar` 压缩程序将这些 object 文件打包成 `libc.a` 这个静态库文件。
+
+经常会有这样的情况：一个 object 文件里只包含一个函数。这么做是为了减少 `#include` 导入多余的内容造成空间的浪费。
 
 
 
