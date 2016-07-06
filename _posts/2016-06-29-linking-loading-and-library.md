@@ -9,6 +9,7 @@ tags: [Book]
 
 [northbridge_southbridge]: https://farm8.staticflickr.com/7239/27374870374_03bd8a9661_o_d.png
 [software_hierarchy]: https://farm8.staticflickr.com/7716/27886596032_ec5a763b1a_o_d.png
+[VMA]: https://farm8.staticflickr.com/7340/27501582064_3637703587_z_d.jpg
 
 ## Part 1. 简介
 
@@ -205,5 +206,93 @@ Other ABIs standardize details such as the C++ name mangling, exception propagat
 
 经常会有这样的情况：一个 object 文件里只包含一个函数。这么做是为了减少 `#include` 导入多余的内容造成空间的浪费。
 
+#### 4.6 链接过程控制
 
+OS 内核、BIOS (Basic Input Output System)，或者一些在没有 OS 的情况下运行的程序，比如　Boot Loader、PQMagic 或者嵌入式的程序会有一些特殊的链接要求，比如要指定输出文件的 section 的地址、section 名称、section 存放顺序等。
 
+### 5. Windows PE/COFF
+
+映象（image）：PE 文件在装载时直接映射到进程的虚拟空间中运行，它是进程的虚拟空间的映象（$f(x) = y$ is the image of argument $x$ under $f$）。所以 PE 可执行文件很多时候也叫做映象文件（image file）。
+
+略
+
+## Part 3. 装载与动态链接
+
+### 6. 可执行文件的装载与进程
+
+可自行文件只有被装载到内存后才能被 CPU 执行。早起的装载十分简陋，基本过程就是把程序从外部存储器读取到内存中的某个位置。随着 MMU 的诞生和多进程、虚拟内存的楚翔，装载变得复杂起来。
+
+#### 6.1 进程虚拟地址空间
+
+程序 vs 进程：
+
+- 程序（或者狭义上讲，可自行文件）是一个静态的文件
+- 进程是程序运行的一个动态过程，所以动态库也常被叫 runtime
+- 若把程序比作菜谱，进程就是做菜的过程。把一道菜同时炒两份就是多进程。
+
+进程都有自己独立的虚拟地址空间 (Virtual Address Space)。32-bit 系统的虚拟地址空间有 4GB。
+
+- 默认情况下，Linux 是限定 1GB 提供给 OS，3GB 给 user process
+    - 所以 `malloc` 申请的虚拟地址之和不能超过 3GB 
+- Windows 默认是限定 2GB 提供给 OS，2GB 给 user process
+    - 这个值可以在 `Boot.ini` 里修改
+    
+#### 6.2 装载的方式
+
+Problem: 程序需要的内存大于物理内存。
+
+- 方法一：加内存
+- 方法二：程序运行时是有局部性原理的，所以可以讲最常用的部分放内存，不太常用的部分放磁盘。是所谓 _**动态装载**_。
+    - In computer science, _**locality of reference**_, also known as the _**principle of locality**_, is a term for the phenomenon in which the same values, or related storage locations, are frequently accessed, depending on the memory access pattern.
+    - 动态装载有两种方式：overlay 和 paging
+    
+overlay:
+
+- 首先把程序所有的内存划段（做一个 layout）
+- 假设 module A 和 module B 分别需要 512KB 和 256KB，但是 A 和 B 之间不会互相调用，我们可以只给它们 512KB 的空间，需要 A 的时候就装 A，需要 B 的时候就装 B，直接覆盖原有的内容，不用顾忌
+- 这样 module 间就构成了一棵依赖树
+    - 比如 A 和 B 之间不会互相调用，那么它们就不依赖彼此，所以也就不存在 ancestor 和 descendant 的关系
+    - 如果 A 依赖 B，那么就有一个 $A \rightarrow B$ 的 edge
+    - `main` 是 root
+    - 任何一个 node 到 root 的路径都叫做 _**调用路径**_。当该 node 被调用时，整个调用路径都必须再内存中，以确保该 node 执行完后可以返回到上层 node，最终返回到 `main`
+    - 禁止跨子树调用
+    - （隐约觉得这里有很多算法可以考……）
+    
+paging: 
+
+- 当装载新 page 进来时，需要替换掉旧的 page，此时可以有多种算法来决定替换哪个 page，比如：FIFO
+
+#### 6.4 进程虚拟内存空间分布
+
+Linux 中将虚拟空间中的一个段叫做 VMA (Virtual Memory Area)，Windows 中叫做 Virtual Section，概念上是一样的。
+
+在装载时，程序中属性相近的 sections 会被合并成一个 loadable segment (当然最简单的情况就是一个 section 对应一个 segment)，然后每个 loadable segment 的都有自己的 VMA
+
+- 这样做的一个好处是减少 page 的浪费
+- 对同一个 ELF 文件，sectioning 就是 _**Linking View**_，segmentation 就是 _**Execution View**_
+
+stack 和 heap 是两个特殊的 VMA，它们并没有映射到文件中的某个 segment，所以属于 Anonymous VMA。
+
+一个进程基本有一下几种 VMA：
+
+- CODE VMA：read-only、可执行；有映象文件
+- DATA VMA：read-write、可执行；有映象文件
+- Heap VMA：read-write、可执行；无映象文件、Anonymous、可向上扩展
+    - `malloc()` 申请的是 heap
+- Stack VMA：read-write、不可执行；无映象文件、Anonymous、可向下扩展
+
+![][VMA]
+
+##### 6.4.5 stack 初始化
+
+进程刚开始启动时，需要知道一些信息比如环境变量（`PATH=/usr/bin` 这类的）和命令行参数（`argv`）。很常见的一个做法是 OS 在进程启动之前将这些信息保存到进程的 stack 中。进程启动之后，这些信息会被传给 `main()`
+
+#### 6.5 Linux 内核装载 ELF 过程简介
+
+当 bash 下输入命令执行某个 ELF 时：
+
+- 首先 bash 会先 `fork()` 出一个新进程
+- 新进程调用 `execve()` 执行 ELF，开始装载
+    - `execve()` 在内核中的入口是 `sys_execve()`，位于 `kernel/Process.c`
+    
+### 7. 动态链接
