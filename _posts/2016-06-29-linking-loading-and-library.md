@@ -419,7 +419,7 @@ C 默认的 calling convention 是 `cdecl`，它规定：
     - 其实出栈时我们并不会拿这些参数的值来用，所以可以直接修栈指针跳过这部分内存即可
 - Name mangling (修饰，for linking convenience) 的策略是：直接在原 name 前加一个下划线
 
-![][cdel_example]
+![][cdecl_example]
 
 `cdecl` 是非标准关键字，一种写法是 `int _cdecl foo(int n, int m)`；GCC 下你得写 `__attribute__((cdecl))`。此外还有一些 calling convention 比如 `stdcall`、`fastcall` 等。
 
