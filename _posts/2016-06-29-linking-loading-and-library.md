@@ -10,6 +10,14 @@ tags: [Book]
 [northbridge_southbridge]: https://farm8.staticflickr.com/7239/27374870374_03bd8a9661_o_d.png
 [software_hierarchy]: https://farm8.staticflickr.com/7716/27886596032_ec5a763b1a_o_d.png
 [VMA]: https://farm8.staticflickr.com/7340/27501582064_3637703587_z_d.jpg
+[stack_frame]: https://farm8.staticflickr.com/7494/27522590674_7d738b9527_o_d.png
+[cdecl_example]: https://farm8.staticflickr.com/7300/28103751046_170da00863_o_d.png
+[fd]: https://farm8.staticflickr.com/7428/27858238310_160dce9cd6_o_d.jpg
+[system_call_example]: https://farm8.staticflickr.com/7460/27859201890_5e02591a17_o_d.png
+
+《程序员的自我修养——链接、装载与库》泛读
+
+-----
 
 ## Part 1. 简介
 
@@ -296,3 +304,232 @@ stack 和 heap 是两个特殊的 VMA，它们并没有映射到文件中的某�
     - `execve()` 在内核中的入口是 `sys_execve()`，位于 `kernel/Process.c`
     
 ### 7. 动态链接
+
+静态链接的缺点：
+
+- 浪费空间
+    - 比如 `a.o` 和 `b.o` 都需要 `lib.o`，那么它们在磁盘中都要包含 `lib.o`；在同时运行 `a.o` 和 `b.o` 时，`lib.o` 在内存中也会有两份
+- 更新起来很麻烦
+    - 比如 `a.o` 依赖 `lib_1.o`、`lib_2.o`……`lib_n.o`，你更新其中一个 lib，整个 `a.o` 就需要重新链接
+    
+动态链接的基本思想：把链接这个过程推迟到运行时再进行。
+
+- 还是假设 `a.o` 和 `b.o` 都依赖 `lib.so`
+- 先装载 `a.o`，发现有依赖 `lib.so`，装载 `lib.so`（如果还有 further 的依赖就继续，直到所有的依赖都满足，i.e. 调用路径都在内存当中），此时再进行链接
+- 如果此时再装载 `b.o`，我们可以先检查内存，发现已经有一个 `lib.so`，就不用再装载 `lib.so`，直接链接
+    - 实际上 `lib.so` 的 DATA segment 还是会有两份，这样两个进程 `a.o` 和 `b.o` 对 `lib.so` 全局变量的修改就可以被隔离开
+        - 多进程共享全局变量也是可以做到的，用到的技术叫 "共享数据段"
+    - 同一进程的两个线程访问是同一个 DATA segment
+        - 线程保有自己的全局变量副本也是可以的，用到的技术是 Thread Local Storage
+- 缺点：每次装载都要链接，但是这个时间损失不算大，5% 以下，可以接受
+
+[DLL hell](http://stackoverflow.com/a/1379312):
+
+> It's when App A installs a Shared DLL vers 1.0, App B comes and updates the Shared DLL to vers 1.1 which should be compatible but there are slightly different behaviors, then App A stops working correctly and reinstalls vers 1.0 then App B stops working ... now imagine this with more than 2 apps let's say a dozen: DLL Hell.
+
+#### 7.4 Lazy Binding
+
+比动态链接更进一步：链接我还是正常做，但是只有当 function 第一次被用到时才进行 binding (Symbol Resolution, Relocation etc.)
+
+- 加快程序启动速度，特别是对依赖大量函数引用的程序
+- 在 `glibc` 中，负责在运行时查找 function 信息的函数是 `_dl_runtime_resolve()` 
+- ELF 用的技术是 PLT (Procedure Linkage Table)
+
+#### 7.7 Explicit Runtime Linking
+
+让程序在运行时自行装载指定的模块，不需要时可以将其卸载。最常见的例子是 Web Server 程序。
+
+### 8. Linux Shared Library 的组织
+
+#### 8.1 Shared Library 版本
+
+##### 8.1.2 版本命名
+
+`libname.so.x.y.z`:
+
+- `x`: major version number
+    - 标志着库的重大升级，不同主版本号的库是不兼容的
+- `y`: minor version number
+    - 标志着库的增量升级，高版本向后兼容低版本
+- `z`: release version number
+    - 标志着库的 bug-fix、性能提升等，并不会修改接口
+    
+##### 8.1.3 SO-NAME
+
+SO-NAME 的格式是 `libname.so.x`。Linux 系统会为每一个 Shared Library 创建一个名为 SO-NAME 的 symbol link (联系我本机的 python 2 和 python 3)
+
+### 9. Windows 下的动态链接
+
+略
+
+## Part 4. 库与运行库
+
+运行库即 [runtime library](https://en.wikipedia.org/wiki/Runtime_library):
+
+> In computer programming, a runtime library is a set of low-level routines used by a compiler to invoke some of the behaviors of a runtime environment, by inserting calls to the runtime library into compiled executable binary.
+
+比如 `glibc` 就是一个运行库
+
+### 10. 内存
+
+#### 10.1 程序的内存布局
+
+32-bit 系统有 4GB 内存空间，除掉内核占用的部分（Kernel Space），剩下的都是 User Space。
+
+一个应用程序的内存空间有以下默认的区域：
+
+- Stack：用于维护函数调用的 context，离开了 stack 函数调用就没法实现。
+    - stack 通常在程序所占内存的最高位地址分配
+- Heap：供程序动态分配的内存区域，比如 `malloc()` 或者 `new`
+    - 通常位于 stack 的下方（低地址方向），一般比 stack 大很多
+- 可执行文件映象
+- 保留区：受到保护而禁止访问的内存区域
+- dynamic libraries 映射区：用于装载动态链接库
+
+#### 10.2 Stack 与函数调用惯例
+
+stack 保存函数调用所需要的信息，这些信息也常常被称作 _**stack frame**_ 或者 _**activity record**_，包括：
+
+- 函数的返回地址和参数
+- 临时变量：包括函数的非静态局部变量以及编译器自己生成的其他临时变量
+- 上下文：包括在函数调用前后需要保持不变的寄存器
+
+在 i386 中，一个函数的 stack frame 的地址范围保存在 ebp 和 esp 这两个寄存器中：
+
+- ebp 始终指向栈顶
+- esp 又被称为 frame pointer
+
+![][stack_frame]
+
+在 VC 下，常常看到一些没有初始化的变量或者内存区域的值是 "烫"，比如：
+
+```c
+int main()
+{
+    char p[12]
+}
+```
+
+这是因为栈空间的每一个字节会被初始化未 `0xCC`，而 `0xCCCC` 的文本就是 "烫"。有的编译器会用 `0xCD`，这样会出现汉字 "屯"。
+
+C 默认的 calling convention 是 `cdecl`，它规定：
+
+- 参数按从右至左的顺序被压入 stack
+- 参数出栈的操作（以保证参数调用前后 stack 不变）由函数调用方完成（另一个 option 是由函数本身完成）
+    - 其实出栈时我们并不会拿这些参数的值来用，所以可以直接修栈指针跳过这部分内存即可
+- Name mangling (修饰，for linking convenience) 的策略是：直接在原 name 前加一个下划线
+
+![][cdel_example]
+
+`cdecl` 是非标准关键字，一种写法是 `int _cdecl foo(int n, int m)`；GCC 下你得写 `__attribute__((cdecl))`。此外还有一些 calling convention 比如 `stdcall`、`fastcall` 等。
+
+#### 10.3 Heap 与内存管理
+
+`malloc()` 的实现策略：
+
+- 策略一：交给系统内核去做。每次申请或者释放，都去 call 系统调用
+    - 缺点：系统调用的开销是很大的，频繁 call 系统调用会影响性能
+- 策略二：运行库代管。运行库向 OS “批发” 一块空间（i.e. heap），然后向应用程序 “零售”。如果全部用完了再向 OS “进货”（call 系统调用，得到一个新的 heap）。
+    - 同一块地址空间不能 “售出” 两次，所以这里需要一个 “heap 分配算法”
+    
+heap 分配算法：
+
+- Free List
+    - 空闲的内存块按链表的方式连接起来
+    - 申请空间时，遍历链表找到合适的块（如果可用的块比申请的 size 要大，还需要 split）
+    - 释放空间时，合并该块到链表中
+- Bitmap
+    - 将整个 heap 分成大量的 block，每个 block 大小相同（类似于 paging）
+    - 每次申请都分配整数个 block 给用户，假设有 n 个 block
+        - 第一个 block 我们标记为 head
+        - 其余的 block 全部标记为 body
+    - 这样我们可以用一个数组来记录所有的 block 的状态
+        - 状态只可能是 H、B 或者 F (free)，所以用 2-bit 就够了
+        - 把这个数组铺成二维的，就可以看成是一幅图
+- Object Pool
+    - 适用于 “每次申请的 size 是固定的几个值” 的场合
+    - 将 heap 按这几个固定的值划分成 block，然后再采用 Free List 或是 Bitmap 都可以
+    
+### 11. 运行库
+
+#### 11.1 入口函数和程序初始化
+
+OS 在装载程序后，首先运行的并不是 `main()` 的第一行，而是其他的一些代码，这些代码负责全局变量初始化、传参 `argc` 和 `argv`、初始化 heap 和 stack、初始化 I/O 等等的工作，并最终调用 `main()`。`main()` 结束后，也有一些代码会运行，比如你可以用 `atexit(&foo)` 来指定 `main()` 结束后执行 `foo()`，此外，变量析构、heap 的销毁、关闭 I/O 这些活儿也被某些代码承包了。
+
+执行这些 `main()` 前后的代码的函数称为 Entry function 或者 Entry Point，它往往是运行库的一部分。OS 在创建进程后，会调用这个 entry function。
+
+- 若是 C++，entry function 还要负责全局 object 的 `new` 和销毁
+
+按 “静态链接 vs 动态链接 glibc” 和 “glibc 用于可执行文件 vs 用于共享库”，我们可以组合出 4 种场景。“静态链接 glibc 用于可执行文件” 时，entry function 是 `_start` (这是 `ld` linker 指定的，however, customizable)
+
+##### 11.1.3 运行库与 I/O
+
+`fd`，Linux 叫 File Description，Windows 叫 Handle，其实是同一个概念。技术角度上，[`fd n` 其实表示的是 Process Table 的第 `n` 条 entry](http://stackoverflow.com/a/17741176)：
+
+![][fd]
+
+- `fd 0` 是 `stdin`
+- `fd 1` 是 `stdout`
+- `fd 2` 是 `stderr`
+
+#### 11.2 C/C++ 运行库
+
+运行库的标准，即是标准库，比如 `C89` 和 `C99`。
+
+#### 11.3 运行库与多线程
+
+##### 11.3.3 TLS (Thread Local Storage) 的实现
+
+Windows 下，当我们用 `__declspec(thread)` 申明一个 TLS 变量时，编译器会把这个变量放到 PE 文件的 `.tls` section。当系统启动一个新 thread 时，它会从进程的 heap 中申请一块空间，然后把 `.tls` section 的内容复制到这块空间中。
+
+对每一个 Windows thread，系统会为其建立一个 TEB (Thread Environment Block)，除了 thread 的堆栈地址、线程 ID 等信息外，TLS 数组也存放在 TEB，这样就保证 thread 可以访问到自己的 TLS 变量了。
+
+#### 11.5 `fread` 的实现
+
+略
+
+### 12. 系统调用与 API
+
+#### 12.1 系统调用介绍
+
+##### 12.1.2 Linux 系统调用
+
+x86 下，系统调用由 `0x80` 中断发起，`EAX` 寄存器表示系统调用的接口号，比如 `EAX = 1` 表示 “退出进程”，在 `/usr/include/unistd.h` 中定义为 `exit()` 函数，这个函数会调用一个内核函数 `sys_exit()`；`EAX = 2` 表示 “创建进程”，对应 `fork()` 和 `sys_fork()`；大抵就是这么一个规律。
+
+- 运行库的部分工作就是 call 了系统调用，并在调用前后帮你做了很多后勤工作，这也算是一种 “屏蔽底层技术细节”
+    - 比如 `read()` 系统调用读取的就是文件的原始数据，而运行库 `glibc` 的 `fread()` 就提供了 buffer、按行读取这些便利
+- 而且运行库有 “标准库” 保障，算是 “跨平台” 的 “屏蔽底层技术细节”
+
+#### 12.2 系统调用原理
+
+[Understanding User and Kernel Mode](https://blog.codinghorror.com/understanding-user-and-kernel-mode/):
+
+> In any modern operating system, the CPU is actually spending time in two very distinct modes:
+>   
+> 1. Kernel Mode  
+> In Kernel mode, the executing code has complete and unrestricted access to the underlying hardware. It can execute any CPU instruction and reference any memory address. Kernel mode is generally reserved for the lowest-level, most trusted functions of the operating system. Crashes in kernel mode are catastrophic; they will halt the entire PC.
+> 
+> 2. User Mode  
+> In User mode, the executing code has no ability to directly access hardware or reference memory. Code running in user mode must delegate to system APIs to access hardware or memory. Due to the protection afforded by this sort of isolation, crashes in user mode are always recoverable. Most of the code running on your computer will execute in user mode.
+> 
+> It's possible to enable display of Kernel time in Task Manager... The green line is total CPU time; the red line is Kernel time. The gap between the two is User time.
+
+System call 都运行在 kernel mode，应用程序一般运行在 user mode。应用程序（通过运行库）调用 system call 时，OS 会通过中断从 user mode 切到 kernel mode
+
+- Windows 中断号 `int 0x2e`，Linux 中断号 `int 0x80`
+- OS 通过 Interrupt Vector Table 找到对应的 ISR (Interrupt Service Rountine)。切回 kernel mode 这个中断的 ISR 的工作就是去读取 `EAX` 寄存器，并调用相应的函数
+    - `EAX` 是发出中断之前就写入了
+
+![][system_call_example]
+
+### 13. 运行库实现
+
+大总结，大量代码，可以一窥实现逻辑。
+
+
+
+
+
+
+
+
