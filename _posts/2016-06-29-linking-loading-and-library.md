@@ -3,7 +3,7 @@ layout: post
 title: "Linking, Loading and Library"
 description: ""
 category: OS
-tags: [Book]
+tags: [C-101, Book]
 ---
 {% include JB/setup %}
 
@@ -525,11 +525,3 @@ System call 都运行在 kernel mode，应用程序一般运行在 user mode。�
 ### 13. 运行库实现
 
 大总结，大量代码，可以一窥实现逻辑。
-
-
-
-
-
-
-
-
