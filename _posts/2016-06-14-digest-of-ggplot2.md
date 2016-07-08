@@ -3,7 +3,7 @@ layout: post
 title: "Digest of <i>ggplot2</i>"
 description: ""
 category: R
-tags: [R-101]
+tags: [R-101, Book]
 ---
 {% include JB/setup %}
 
@@ -294,6 +294,18 @@ qplot(carat, data = diamonds, geom = "histogram", binwidth = 0.01, xlim = c(0,3)
 # qplot(carat, data = diamonds, geom = "histogram", fill = color) 
 ```
 
+另外注意 histogram 的 y-axis 默认是 count，可以改成 density：
+
+```r
+qplot(x = carat, y = ..count.., data = diamonds, geom = "histogram")
+	## OR equivalently ##
+qplot(carat, ..count.., data = diamonds, geom = "histogram") # 这里啰嗦一下是为了确认你看得懂不指定 `y = ...` 的写法
+
+qplot(carat, ..density.., data = diamonds, geom = "histogram") # 用 histogram 的形式显示 density
+```
+
+注意 `geom = "density"` 是曲线，而这里 `..density..` 任然是 histogram，数据上有关联但形式上是截然不同的。
+
 #### 2.5.4 Bar charts (count of $x$ for each value of $x$; extensible)
 
 1. 基本用法：对每一个 $x_i$，计算 $y_i = nrow(df[X == x_i,])$
@@ -328,3 +340,66 @@ qplot(unemploy / pop, uempmed, data = economics, geom = "path", colour = year(da
 ```
 
 ### 2.6 Faceting
+
+We have already discussed using aesthetics (colour and shape) to compare subgroups, drawing all groups on the same plot. Faceting takes an alternative approach: It creates tables of graphics by splitting the data into subsets and displaying the same graph for each subset in an arrangement that facilitates comparison.
+
+The default faceting method in `qplot()` creates plots arranged on a grid specified by a faceting formula which looks like `row_var ∼ col_var`. 简单说，`x ~ y` 的意思就是把 `df` group by `df$x` and `df$y`； `x + y ~ z` 的意思就是把 `df` group by `df$x`， `df$y` and `df$z`。所有出现在 formula 里的 column name 都是 group by 的标准，出现在 `~` 左边或是右边的区别在于，say `x ~ y`：
+
+- 最终的 grid plot 按 `～` 左边的 column name，i.e. `df$x` 的值排列 row
+- 最终的 grid plot 按 `～` 右边的 column name，i.e. `df$y` 的值排列 column
+
+而 `.` 是一个 place holder，表示 “我没有 column name 需要指定在 formula 的这一边”。比较下面两句：
+
+```r
+qplot(carat, data = diamonds, facets = color ~ ., geom = "histogram", binwidth = 0.1, xlim = c(0, 3)) # Grid Plot 1
+qplot(carat, data = diamonds, facets = . ~ color, geom = "histogram", binwidth = 0.1, xlim = c(0, 3)) # Grid Plot 2
+```
+
+这两句的逻辑是：
+
+- 把 `diamonds` 按 `diamonds$color` 分成 7 个 subset (因为 color 有 7 种取值)
+- 对每一个 subset 画 `diamonds$carat` 的 histogram
+- 然后我把这 7 个 histogram 放到一个 grid plot 里
+	- Grid Plot 1 是 $7 \times 1$ 排列
+	- Grid Plot 2 是 $1 \times 7$ 排列
+
+### 2.7 Other options for `qplot`
+
+- `xlim = c(a,b)`: 必须是一个 length 2 vector，表示 "x-axis 只要画 `[a,b]` 这一段就好了"，如果 `[a,b]` 范围之外还有点或者线，直接截掉。一般是先在草图里确定了 x-axis 的有效范围后再指定
+	- `ylim = c(a,b)`: 同上
+- `log = "y"`: 表示 "y-axis 的 scale 换成 $\log_{10}$ 值，但是 scale mark 不变"
+	- 你比较一下这两句就明白了：
+		- `qplot(x = c(1,2,3), y = log10(c(10,100,1000)))`
+		- `qplot(x = c(1,2,3), y = c(10,100,1000), log="y")`
+	- `log = "x"`: 同上
+	- `log = "xy"`: x-axis 和 y-axis 都做这个处理，尼玛这个语法我是万万没想到……
+- `main = "plot title"`: 例子已经说明一切
+	- `main = expression(beta[1] == 1)` 给出的 plot title 是 $\beta_1 = 1$，注意一定要是 `==`
+	- See `？plotmath` for more
+- `xlab = "x-axis label"`: 例子已经说明一切
+	- 同 `main` 一样，也可以用 expression
+	- `ylab` 同上
+	
+几个综合运用的例子：
+
+```r
+qplot(carat, price, data = dsmall, xlab = "Price ($)", ylab = "Weight (carats)", main = "Price-weight relationship")
+
+qplot(carat, price/carat, data = dsmall, xlab = "Weight (carats)", ylab = expression(frac(price,carat)), main="Small diamonds", xlim = c(.2,1))
+
+qplot(carat, price, data = dsmall, log = "xy")
+```
+### 2.8 Differences from `plot`
+
+- `qplot` is not generic: you CANNOT write `q = qplot()` and expect to get some kind of default plot. Note, however, that `ggplot()` is generic, and may provide a starting point for producing visualizations of arbitrary R objects.
+- With base graphics, to add further graphic elements to a plot, you can use `points()`, `lines()` and `text()`. With ggplot2, you need to add additional **layers** to the existing plot, described in the next chapter.
+
+## 3. Mastering the grammar
+
+### 3.1 Introduction
+
+
+
+
+
+
