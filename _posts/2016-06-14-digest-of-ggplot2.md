@@ -7,7 +7,7 @@ tags: [R-101, Book]
 ---
 {% include JB/setup %}
 
-## 1. Introduction
+## Chapter 1. Introduction
 
 ### 1.1 Welcome to ggplot2
 
@@ -47,7 +47,7 @@ It is also important to talk about what the grammar doesn’t do:
 - `ggplot2` is an attempt to take the good things about base and lattice graphics and improve on them with a strong underlying model which supports the production of any kind of statistical graphic.
 	- Like `lattice`, `ggplot2` uses grid to draw the graphics, which means you can exercise much low-level control over the appearance of the plot.
 	
-## 2. Getting started with `qplot`
+## Chapter 2. Getting started with `qplot`
 
 ### 2.2 Datasets
 
@@ -367,7 +367,7 @@ qplot(carat, data = diamonds, facets = . ~ color, geom = "histogram", binwidth =
 
 - `xlim = c(a,b)`: 必须是一个 length 2 vector，表示 "x-axis 只要画 `[a,b]` 这一段就好了"，如果 `[a,b]` 范围之外还有点或者线，直接截掉。一般是先在草图里确定了 x-axis 的有效范围后再指定
 	- `ylim = c(a,b)`: 同上
-- `log = "y"`: 表示 "y-axis 的 scale 换成 $\log_{10}$ 值，但是 scale mark 不变"
+- `log = "y"`: 表示 "y-axis 的 scale 换成 $\log_{10}$ 值，但是 axis mark 不变"
 	- 你比较一下这两句就明白了：
 		- `qplot(x = c(1,2,3), y = log10(c(10,100,1000)))`
 		- `qplot(x = c(1,2,3), y = c(10,100,1000), log="y")`
@@ -392,12 +392,310 @@ qplot(carat, price, data = dsmall, log = "xy")
 
 ### 2.8 Differences from `plot`
 
-- `qplot` is not generic: you CANNOT write `q = qplot()` and expect to get some kind of default plot. Note, however, that `ggplot()` is generic, and may provide a starting point for producing visualizations of arbitrary R objects.
 - With base graphics, to add further graphic elements to a plot, you can use `points()`, `lines()` and `text()`. With ggplot2, you need to add additional **layers** to the existing plot, described in the next chapter.
 
-## 3. Mastering the grammar
+## Chapter 3. Mastering the grammar
 
-### 3.1 Introduction
+### 3.2 Fuel economy data
+
+这一章我们使用 `mpg` 这个 dataset
+
+```r
+> library(ggplot2)
+> head(mpg)
+  manufacturer model displ year cyl      trans drv cty hwy fl   class
+1         audi    a4   1.8 1999   4   auto(l5)   f  18  29  p compact
+2         audi    a4   1.8 1999   4 manual(m5)   f  21  29  p compact
+3         audi    a4   2.0 2008   4 manual(m6)   f  20  31  p compact
+4         audi    a4   2.0 2008   4   auto(av)   f  21  30  p compact
+5         audi    a4   2.8 1999   6   auto(l5)   f  16  26  p compact
+6         audi    a4   2.8 1999   6 manual(m5)   f  18  26  p compact
+```
+
+- `displ`: the engine displacement in litres, 排量
+- [`fl`: fuel](http://stackoverflow.com/a/25548752)
+	- `e`: E85, 85% ethanol ([ˈɛθəˌnɔl], 乙醇) + 15% gasoline
+	- `d`: diesel ([ˈdizəl], 柴油)
+	- `r`: regular
+	- `p`: premium
+	- `c`: CNG, Compressed Natural Gas 
+
+### 3.3 Building a scatterplot
+
+```r
+qplot(displ, hwy, data = mpg, colour = factor(cyl))
+```
+
+But what is going on underneath the surface? How does ggplot2 draw this plot?
+
+1. Mapping aesthetics to data
+	- 除了 x-coord, y-coord，**aesthetics** 还包括:
+		- size,
+		- color,
+		- shape, etc.
+	- 上图我们没有指定 size 和 shape，我们说 "Size and shape are not mapped to variables, but remain at their default values."
+	- 这个 mapping 相当创建了一个 mapped dataframe，在我们的例子中，它有三列：
+		- `x`: <- `mpg$displ`
+		- `y`: <- `mpg$hwy`
+		- `color`: <- `factor(mpg$cyl)`
+	- 我们有了这个 mapped dataframe，就可以不局限于 scatterplot。在 `qplot` 中，我们还可以指定：
+		- `geom = "point"`: scatterplot
+		- `geom = "point"` + `size = foo`: bubblechart, 实质还是 scatterplot
+		- `geom = "bar"`: barchart
+		- `geom = "boxplot"`: boxplot
+		- `geom = "line"`: line chart
+		- Points, lines and bars are all examples of geometric objects, or `geom`s.
+1. Scaling
+	- Convert the mapped dataframe from data units to physical units (e.g. pixels and colors) that computer can display. 
+		- 我们说："we have three aesthetics that need to be scaled: horizontal position (x), vertical position (y) and colour."
+		- 负责完成这项工作的对象我们称为 `scale`s 
+			- 我们说："A `scale` controls the mapping from data to aesthetic attributes."
+			- A scale is a function, and its inverse.
+				- function 负责转换
+				- inverse 负责 axis marks 和 legends
+	- Physical units are meaningful to the computer, they may not be meaningful to us:
+		- colours are represented by a six-letter hexadecimal string, 
+		- sizes by a number
+		- and shapes by an integer. 
+	- Scaling position is easy in this example because we are using the default **linear scales**. 
+		- We need only a linear mapping from the range of the data to [0, 1], 这是 `ggplot2` 的底层 drawing system, `grid`, 要求的
+	- Scaling color, size or shape 的工作，简单说就是 mapping each value to a point in color-space, size-space or shape-space
+	- 算上默认的 size 和 shape，这下我们的 mapped dataframe 就变成了一个 5 列的 scaled mapped dataframe
+1. 有了 scaled mapped dataframe，现在就可以开始画了：
+	- Coordinate system, `coord`, 负责：
+		- 确定每个 scaled (x,y) 在画出来的图中的位置；
+		- 画 axes
+			- In most cases this will be Cartesian coordinates, but it might be polar coordinates, or a spherical projection used for a map.
+		- 画 legends
+	- 最后添加 plot annotation，包括 background、title、axis labels 等等 
+
+### 3.4 A more complex plot
+
+```r
+qplot(displ, hwy, data=mpg, facets = . ~ year) + geom_smooth()
+```
+
+`facets` 相当于把我们的 scaled mapped dataframe 变成了一个 3-D array；smooth layer 属于 statistics layers 的范畴，it doesn’t display the raw data, but instead displays a statistical transformation of the data.
+
+- Extra step: after mapping the data to aesthetics, the data is passed to a statistical transformation, or `stat`
+- 在我们这个例子中，我们说："The `stat` fits the data to a loess smoother."
+- Other useful `stat`s include 1 and 2d binning, group means, quantile regression and contouring.
+
+### 3.5 Components of the layered grammar
+
+The layered grammar defines a plot as the combination of:
+
+- A default dataset and set of mappings from variables to aesthetics.
+- One or more layers, each composed of 
+	- a geometric object (`geom`), 
+	- a statistical transformation (`stat`), 
+	- and a position adjustment (which deals with overlapping graphic objects, will be introduced later), 
+	- and optionally (因为一般可以继承自原有的，所以不需要特别指定，比如我们的 `geom_smooth()` 就没有指定，但它还是知道哪个是 x 哪个是 y), 
+		- a dataset and 
+		- aesthetic mappings.
+- One scale for each aesthetic mapping.
+- A coordinate system (`coord`).
+- The faceting specification.
+
+举个例子：
+
+```r
+ggplot(mpg, aes(hwy, cty)) + 		# data and mapping
+	geom_point(aes(color = cyl)) +	# layer
+	geom_smooth(method ="lm") +	# layer
+	coord_cartesian() +
+	scale_color_gradient() +
+	theme_bw()			# additional elements
+```
+
+你可以简单认为每个 `geom_*()` 或者 `stat_*()` 函数都是一个 layer。
+
+我们接下来的章节：
+
+- Chapter 4: properties of layers
+- Chapter 5: how layers are used to visulize data
+- Chapter 6: scales
+- Chapter 7: coordinate system + faceting
+- Chapter 8: plot-specific theme options
+
+### 3.6 The plot object
+
+A plot object is a list with components data, `mapping` (the default aesthetic mappings), `layers`, `scales`, `coordinates`, `facet` and `options`.
+
+```r
+> p <- qplot(displ, hwy, data = mpg, colour = factor(cyl))
+> 
+> p		# 隐式 render to screen
+> print(p)	# 显式 render to screen
+> 
+> summary(p)
+data: manufacturer, model, displ, year, cyl, trans, drv, cty, hwy, fl,
+  class [234x11]
+mapping:  colour = factor(cyl), x = displ, y = hwy
+faceting: facet_null() 
+-----------------------------------
+geom_point:  
+stat_identity:  
+position_identity: (width = NULL, height = NULL)
+> 
+> save(p, file = "plot.rdata")		# Save object to disk
+> 
+> load("plot.rdata")			# Load object from disk
+> 
+> ggsave("plot.png", width = 5, height = 5)	# Save png to disk
+```
+
+## Chapter 4. Build a plot layer by layer
+
+### 4.2 Creating a plot
+
+When we used `qplot()``, it did a lot of things for us: it created a plot object, added layers, and displayed the result, using many default values along the way. 
+
+To create the plot object ourselves, we use `ggplot()``. This has two arguments: `data` and aesthetic `mapping`
+
+- These 2 arguments set up defaults for the plot and can be omitted if you specify data and aesthetics when adding layers later. 
+
+```r
+p <- ggplot(diamonds, aes(carat, price, colour = cut))
+```
+
+This plot object cannot be displayed until we add a layer: there is nothing to see!
+
+### 4.3 Layers
+
+A minimal scatterplot layer:
+
+```r
+p <- p + layer(geom = "point")
+```
+
+Now it can be rendered!
+
+A more fully specified layer can take any or all of these arguments:
+
+```r
+layer(geom, geom_params, stat, stat_params, data, mapping, position)
+```
+
+Here is what a more complicated call looks like. It produces a histogram (a combination of bars and binning) coloured “steelblue” with a bin width of 2:
+
+```r
+p <- ggplot(diamonds, aes(x = carat))
+p <- p + layer(
+	geom = "bar",
+	geom_params = list(fill = "steelblue"),
+	stat = "bin",
+	stat_params = list(binwidth = 2)
+)
+p
+```
+
+This layer specification is precise but verbose. We can simplify it by using shortcuts:
+
+```r
+p <- ggplot(diamonds, aes(x = carat))
+p <- p + geom_histogram(binwidth = 2, fill = "steelblue")
+p
+```
+
+`qplot` object 也可以添加 layer：
+
+```r
+qplot(sleep_rem / sleep_total, awake, data = msleep, geom = c("point", "smooth"))
+	## OR equivalently ##
+qplot(sleep_rem / sleep_total, awake, data = msleep) + geom_smooth()
+	## OR equivalently ##
+ggplot(msleep, aes(sleep_rem / sleep_total, awake)) + geom_point() + geom_smooth()
+```
+
+Layers are regular R objects and so can be stored as variables, making it easy to write clean code that reduces duplication:
+
+```r
+bestfit <- geom_smooth(method = "lm", se = F, colour = alpha("steelblue", 0.5), size = 2)
+
+qplot(sleep_rem, sleep_total, data = msleep) + bestfit
+qplot(awake, brainwt, data = msleep, log = "y") + bestfit
+qplot(bodywt, brainwt, data = msleep, log = "xy") + bestfit
+```
+
+### 4.4 Data
+
+The `data` parameter must be a data frame and this is the only restriction.
+
+This restriction also makes it very easy to produce the same plot for different data: you can update your current data frame and pass it to your plot object via `%+%` operator:
+
+```r
+p <- ggplot(mtcars, aes(mpg, wt, colour = cyl)) + geom_point()
+p
+
+mtcars <- transform(mtcars, mpg = mpg ^ 2)
+p %+% mtcars
+```
+
+Any change of values or dimensions is legitimate. However, if a variable changes from discrete to continuous (or vice versa), you will need to change the default scales.
+
+It is not necessary to specify a default dataset except when using faceting; faceting is a global operation (i.e., it works on all layers).
+
+The `data` data frame is stored in the plot object **as a copy, not a reference**. This has two important consequences: 
+
+- if your data changes, the plot will not; 
+- and ggplot2 objects are entirely self-contained so that they can be `save()`d to disk and later `load()`ed and plotted without needing anything else from that session.
+
+### 4.5 Aesthetic mappings
+
+The `aes` function takes a list of aesthetic-variable pairs like these:
+
+```r
+aes(x = weight, y = height, colour = age)
+```
+
+Note that functions of variables can be used:
+
+```r
+aes(x = weight, y = height, colour = sqrt(age))
+```
+
+#### 4.5.1 Adding, extending, overriding and removing aesthetic mappings
+
+The default aesthetic mappings can be set when the plot is initialised or modified later using `+`:
+
+```r
+p <- ggplot(mtcars)
+p <- p + aes(wt, hp)
+```
+
+The default mappings in the plot `p` can be extended, overridden or removed in the layers:
+
+```r
+p + geom_point(aes(colour = factor(cyl)))	# extend
+p + geom_point(aes(y = disp))		# override
+p + geom_point(aes(y = NULL))		# remove
+```
+
+#### 4.5.2 Setting vs. mapping
+
+注意 `aes` 是 "**map** an aesthetic to a variable"，不用 `aes` 的时候我们可以 "**set** an aesthetic to a constant":
+
+```r
+p <- ggplot(mtcars, aes(mpg, wt))
+
+p + geom_point(colour = "darkblue")	# OK
+p + geom_point(aes(colour = "darkblue")) # Wrong!
+```
+
+后面一句的错误在于：它是 maps (not sets) the colour to the value “darkblue”. This effectively creates a new variable containing only the value “darkblue” and then maps colour to that new variable. Because this value is discrete, the default colour scale uses evenly spaced colours on the colour wheel, and since there is only one value, this colour is pinkish.
+
+`qplot` 里我们可以用 `I()` 来 set：
+
+```r
+qplot(mpg, wt, data = mtcars, colour = I("darkblue"))
+```
+
+但是 we CANNOT use `aes(colour = I("darkblue"))`。
+
+#### 4.5.3 Grouping
+
+
 
 
 
