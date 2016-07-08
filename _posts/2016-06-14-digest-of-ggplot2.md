@@ -389,6 +389,7 @@ qplot(carat, price/carat, data = dsmall, xlab = "Weight (carats)", ylab = expres
 
 qplot(carat, price, data = dsmall, log = "xy")
 ```
+
 ### 2.8 Differences from `plot`
 
 - `qplot` is not generic: you CANNOT write `q = qplot()` and expect to get some kind of default plot. Note, however, that `ggplot()` is generic, and may provide a starting point for producing visualizations of arbitrary R objects.
