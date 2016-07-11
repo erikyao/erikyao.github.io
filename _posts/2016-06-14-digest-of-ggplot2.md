@@ -375,7 +375,7 @@ qplot(carat, data = diamonds, facets = . ~ color, geom = "histogram", binwidth =
 	- `log = "xy"`: x-axis 和 y-axis 都做这个处理，尼玛这个语法我是万万没想到……
 - `main = "plot title"`: 例子已经说明一切
 	- `main = expression(beta[1] == 1)` 给出的 plot title 是 "$\beta_1 = 1$"，注意一定要是 `==`
-	- See `？plotmath` for more
+	- See `?plotmath` for more
 - `xlab = "x-axis label"`: 例子已经说明一切
 	- 同 `main` 一样，也可以用 expression
 	- `ylab` 同上
