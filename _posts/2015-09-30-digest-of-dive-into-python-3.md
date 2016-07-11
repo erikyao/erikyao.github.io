@@ -41,7 +41,7 @@ ToC:
 - [Chapter 5. Regular Expressions (略)](#Chapter-5--Regular-Expressions)
 - [Chapter 6. Closures & Generators](#Chapter-6--Closures-&-Generators)
 	- [6.1. Diving In](#6-1--Diving-In)
-	- [6.2. I Know, Let’S Use Regular Expressions!](#6-2--I-Know-Let’S-Use-Regular-Expressions!)
+	- [6.2. I Know, Let’s Use Regular Expressions!](#6-2--I-Know-Lets-Use-Regular-Expressions)
 	- [6.3. A List Of Functions](#6-3--A-List-Of-Functions)
 	- [6.4. A List Of Patterns](#6-4--A-List-Of-Patterns)
 	- [6.5. A File Of Patterns](#6-5--A-File-Of-Patterns)
@@ -59,7 +59,7 @@ ToC:
 	- [8.3. Finding The Unique Items In A Sequence](#8-3--Finding-The-Unique-Items-In-A-Sequence)
 	- [8.4. Making Assertions](#8-4--Making-Assertions)
 	- [8.5. Generator Expressions](#8-5--Generator-Expressions)
-	- [8.6. Calculating Permutations… The Lazyway!](#8-6--Calculating-Permutations-The-Lazyway!)
+	- [8.6. Calculating Permutations… The Lazy way!](#8-6--Calculating-Permutations-The-Lazy-Way)
 	- [8.7. Other Fun Stuff In The `itertools` Module](#8-7--Other-Fun-Stuff-In-The-Itertools-Module)
 	- [8.8. A New Kind Of String Manipulation](#8-8--A-New-Kind-Of-String-Manipulation)
 	- [8.9. Evaluating Arbitrary Strings As Python Expressions](#8-9--Evaluating-Arbitrary-Strings-As-Python-Expressions)
@@ -973,7 +973,7 @@ first, let’s talk about how to make plural nouns. If you grew up in an English
 
 Let’s design a Python library that automatically pluralizes English nouns. We’ll start with just these four rules.
 
-### 6.2. I Know, Let’S Use Regular Expressions! <a name="6-2--I-Know-Let’S-Use-Regular-Expressions!"></a>
+### 6.2. I Know, Let’s Use Regular Expressions! <a name="6-2--I-Know-Lets-Use-Regular-Expressions"></a>
 
 ```python
 def plural(noun):
@@ -1396,7 +1396,7 @@ def times2(range):
 times2(range(256))
 ```
 
-### 8.6. Calculating Permutations… The Lazyway! <a name="8-6--Calculating-Permutations-The-Lazyway!"></a>
+### 8.6. Calculating Permutations… The Lazy way! <a name="8-6--Calculating-Permutations-The-Lazy-Way"></a>
 
 ```python
 # [1, 2, 3] 三个选两个做排列组合
