@@ -63,7 +63,7 @@ ToC:
 	- [8.7. Other Fun Stuff In The `itertools` Module](#8-7--Other-Fun-Stuff-In-The-Itertools-Module)
 	- [8.8. A New Kind Of String Manipulation](#8-8--A-New-Kind-Of-String-Manipulation)
 	- [8.9. Evaluating Arbitrary Strings As Python Expressions](#8-9--Evaluating-Arbitrary-Strings-As-Python-Expressions)
-	- [8.10. Putting It All Together （略）](#8-10--Putting-It-All-Together)
+	- [8.10. Putting It All Together (略)](#8-10--Putting-It-All-Together)
 - [Chapter 9. Unit Testing](#Chapter-9--Unit-Testing)
 	- [9.2. A Single Question](#9-2--A-Single-Question)
 	- [9.3. “Halt And Catch Fire”](#9-3--“Halt-And-Catch-Fire”)
