@@ -20,6 +20,20 @@ mysql -u root -p hg19 < snp142.sql
 mysqlimport -u root -p --local hg19 snp142.txt
 ```
 
+If you have multiple tables to download and import, use:
+
+```shell
+DBNAMES="wgEncodeAwgSegmentationSegwayGm12878 wgEncodeAwgSegmentationSegwayH1hesc wgEncodeAwgSegmentationChromhmmK562"
+
+for DBNAME in $DBNAMES ; do
+	wget http://hgdownload.cse.ucsc.edu/goldenPath/hg19/database/${DBNAME}.sql
+	wget http://hgdownload.cse.ucsc.edu/goldenPath/hg19/database/${DBNAME}.txt.gz
+	gzip -d ${DBNAME}.txt.gz
+	mysql -u root hg19 < ${DBNAME}.sql
+	mysqlimport -u root --local hg19 ${DBNAME}.txt
+done
+```
+
 ## [Windows: How to handle "Error 1290"](http://stackoverflow.com/a/32737616)
 
 Without `--local` option, you may encounter the following error:
