@@ -2,8 +2,8 @@
 layout: post
 title: "Digest of <i>Working Effectively with Legacy Code</i>"
 description: ""
-category: 
-tags: []
+category: TDD
+tags: [Book, Java-TDD]
 ---
 {% include JB/setup %}
 
@@ -83,6 +83,7 @@ The Legacy Code Change Algorithm
 	- Chapter 23, _How Do I Know That I’m Not Breaking Anything?_
 4. Write tests.
 	- Chapter 13, _I Need to Make a Change but I Don’t Know What Tests to Write._
+	- Chapter 19, _My Project is Not Object- Oriented. How Do I Make Safe Changes?_
 5. Make changes and refactor.
 	- Chapter 8, _How Do I Add a Feature?_
 	- Chapter 21, _I’m Changing the Same Code All Over the Place._
@@ -90,3 +91,35 @@ The Legacy Code Change Algorithm
 	- Chapter 22, _I Need to Change a Monster Method and I Can’t Write Tests for It._
 	
 ## Chapter 3 - Sensing and Separation
+
+Generally, when we want to get tests in place, there are two reasons to break dependencies: sensing and separation. 
+
+1. **Sensing**: We break dependencies to _sense_ when we can’t access values our code computes. 
+	- One dominant technique for sensing is _Faking Collaborators._
+	- A _fake object_ is an object that impersonates some collaborator of your class when it is being tested.
+	- _Mock objects_ are fakes that perform assertions internally.
+		- However, mock object frameworks are not available in all languages, and simple fake objects suffice in most situations.
+2. **Separation**: We break dependencies to _separate_ when we can’t even get a piece of code into a test harness to run.
+
+```java
+import junit.framework.*;
+
+public class SaleTest extends TestCase {
+	public void testDisplayAnItem() {
+		FakeDisplay display = new FakeDisplay();
+		Sale sale = new Sale(display);
+		sale.scan("1");
+		assertEquals("Milk $3.99", display.getLastLine());
+	}
+	
+	public void testDisplayAnItem2() {
+		MockDisplay display = new MockDisplay();
+		display.setExpectation("showLine", "Milk $3.99");
+		Sale sale = new Sale(display);
+		sale.scan("1");
+		display.verify();
+	}
+}
+```
+
+## Chapter 4 - The Seam Model
