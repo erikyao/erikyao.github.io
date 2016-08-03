@@ -47,7 +47,7 @@ See [Create new user in MySQL and give it full access to one database](http://st
 
 Even after you `import MySQLdb`, PyDev would still paste a red cross to any line where `MySQLdb.Error` is written. However, you can still run your code and `try-except` block works well. 
 
-Some suggestions were given in [http://stackoverflow.com/questions/2451682/how-do-i-handle-an-unresolvedimport-eclipse-python](How do I handle an UnresolvedImport Eclipse (Python)). I didn't try all of them but this one works for me:
+Some suggestions were given in [How do I handle an UnresolvedImport Eclipse (Python)](http://stackoverflow.com/questions/2451682/how-do-i-handle-an-unresolvedimport-eclipse-python). I didn't try all of them but this one works for me:
 
 1. Window -> Preferences -> PyDev -> Interpreter - Python
 1. Select the python interpreter in the upper pane
