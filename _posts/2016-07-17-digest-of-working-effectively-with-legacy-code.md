@@ -123,3 +123,9 @@ public class SaleTest extends TestCase {
 ```
 
 ## Chapter 4 - The Seam Model
+
+A _**seam**_ is a place where you can alter behavior in your program without editing in that place.
+
+比如要测一个大方法，这个大方法里面调用了一个小方法，我们想跳过这个小方法（比如因为它的作用是给外部系统发送消息，会很慢），一个可能的做法是：用一个空方法去覆盖掉这个小方法，这样我们在大方法里就不用去把这个小方法注释掉。调用这个小方法的那一行代码就是一个 seam，我们修改了大方法的 behavior without editing the call to the 小方法。
+
+This seam is what I call an _object seam_. We were able to change the method that is called without changing the method that calls it. Object seams are available in object-oriented languages, and they are only one of many different kinds of seams.
