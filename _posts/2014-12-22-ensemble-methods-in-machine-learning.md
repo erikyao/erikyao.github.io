@@ -34,7 +34,7 @@ It is often possible to construct very good ensembles. There are three fundament
 Given
 
 * search space or hypothesis space $ \mathcal{H} $
-* $ h_n $, the hypothesis (function) provided by the n^th classifier
+* $ h_n $, the hypothesis (function) provided by the $n^{th}$ classifier
 * $ f $, the true hypothesis (function)
 
 ![](https://farm6.staticflickr.com/5632/23624879700_8a8fb60ee6_o_d.jpg)
