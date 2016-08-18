@@ -70,6 +70,14 @@ The validation set approach is conceptually simple and is easy to implement. But
 
 Cross-validation is a refinement of the validation set approach that addresses these two issues.
 
+简单来说：
+
+- Validation Set Approach: 只有一次分割 Training / Validation 的操作
+	- 所以也只有一个 estimate on validation set
+- Cross Validation: 有多次分割 Training / Validation 的操作
+	- 所以可以在多个 validation set 上 estimate 再求平均
+- validation set == hold-out set
+
 ### <a name="LOOCV"></a>1.2 Leave-One-Out Cross-Validation
 
 P178
@@ -167,7 +175,7 @@ P185-186 是一个借助 CV 来选择 Order of Polynomials 的例子，其实挺
 4. (computing) The process necessary to compile the tools that will be used to compile the rest of the system or program.
 5. (statistics) Any method or instance of estimating properties of an estimator (such as its variance) by measuring those properties when sampling from an approximating distribution.
 
-Clear now? Ok, let get start!
+Clear now? Ok, let's get started!
 
 P187
 
@@ -186,8 +194,16 @@ The bootstrap approach allows us to emulate the process of obtaining new sample 
 P189 阐述了 bootstrap 的做法，其实挺简单：
 
 1. 假设原 data set 有 $ n $ 个 observation
-2. Randomly select $ n $ observations from the data set to produce a bootstrap data set. This sampling is performed with **replacement**, which means that the same observation can occur more than once in the bootstrap data set.
+2. Randomly select $ n $ observations from the data set to produce a bootstrap data set. This sampling is performed **with replacement**, which means that the same observation can occur more than once in the bootstrap data set.
 3. 假设生成了 $ B $ 个 bootstrap data set，我们就在这 $ B $ 个 bootstrap data set 上做 estimate
+
+~~~~~ 2016.08.16 补充 start ~~~~~
+
+其实我觉得 [wikipedia: Bootstrap aggregating](https://en.wikipedia.org/wiki/Bootstrap_aggregating) 的解释更清楚一点：
+
+> Given a standard **training set** $D$ of size $n$, bagging generates $m$ new training sets $D_1,D_2,\dots,D_m$, each of size $n'$, by sampling from D uniformly and **with replacement**. By sampling with replacement, some observations may be repeated in each $D_i$. If $n'=n$, then for large $n$, the set $D_i$ is expected to have the fraction $1 - \frac{1}{e} \approx 63.2\%$ of the unique examples of $D$, the rest being duplicates. This kind of sample is known as a **bootstrap sample**. The $m$ models are fitted using the above $m$ bootstrap samples and combined by averaging the output (for regression) or voting (for classification).
+
+~~~~~ 2016.08.16 补充 end ~~~~~
 
 ## <a name="Lab"></a>3. Lab: Cross-Validation and the Bootstrap
 
