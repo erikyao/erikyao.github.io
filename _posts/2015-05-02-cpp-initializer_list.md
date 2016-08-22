@@ -43,12 +43,12 @@ myclass bar(10,20);  // calls (int,int) constructor
 template <class T>
 void func(std::initializer_list<T> list) {
     for(T elem : list) {
-        std::cout << elem << std::endl ;
+        std::cout << elem << std::endl;
     }
 }
 
 int main() {
-	func({10, 20, 30, 40}) ;
-    func({"Hello", "World"}) ;
+	func({10, 20, 30, 40});
+	func({"Hello", "World"});
 }
 ```
