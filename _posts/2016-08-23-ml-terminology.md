@@ -28,3 +28,14 @@ Therefore, the coined term **Null Accuracy** == $\frac{N_{major}}{N_{total}}$
 OOB error is a valid estimate of the test error for the bagged model. With the number of tree (also the number of bootstrap samples), $B$, sufficiently large, OOB error is virtually equivalent to leave-one-out cross-validation error.
 
 The OOB approach for estimating the test error is particularly convenient when performing bagging on large data sets for which cross-validation would be computationally onerous ([ˈɒnərəs], burdensome).
+
+## ROC is insensitive to class distribution changes
+
+参考自 [Quora: Why is AUC (Area under ROC) insensitive to class distribution changes?](https://www.quora.com/Why-is-AUC-Area-under-ROC-insensitive-to-class-distribution-changes)
+
+这里的 intuitive 应该是：
+
+- 如果把 positive 的 examples 复制一份，那么对这些新的 examples 的 prediction 不变，那么 TP 翻倍，FN 翻倍，true positive rate = $\frac{TP}{TP + FN}$ 保持不变，false negative rate 我们没动
+- 如果把 negative 的 examples 复制一份，那么对这些新的 examples 的 prediction 不变，那么 TN 翻倍，FP 翻倍，false positive rate = $\frac{FP}{TN + FP}$ 保持不变，true negative rate 我们没动
+
+如果你想像成 “把部分 positive 改成 negative” 或者 vice versa，这个情况就复杂了，因为你不知道 prediction 会怎么变。
