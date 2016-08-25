@@ -39,3 +39,10 @@ The OOB approach for estimating the test error is particularly convenient when p
 - 如果把 negative 的 examples 复制一份，那么对这些新的 examples 的 prediction 不变，那么 TN 翻倍，FP 翻倍，false positive rate = $\frac{FP}{TN + FP}$ 保持不变，true negative rate 我们没动
 
 如果你想像成 “把部分 positive 改成 negative” 或者 vice versa，这个情况就复杂了，因为你不知道 prediction 会怎么变。
+
+## Oversampling vs Undersampling
+
+Either is used to adjust the class distribution of a data set (i.e. the ratio between the different classes/categories represented).
+
+- Oversampling : you duplicate the observations of the minority class to obtain a balanced dataset.
+- Undersampling : you drop observations of the majority class to obtain a balanced dataset.
