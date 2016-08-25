@@ -47,9 +47,9 @@ Either is used to adjust the class distribution of a data set (i.e. the ratio be
 - Oversampling : you duplicate the observations of the minority class to obtain a balanced dataset.
     - Risk of over-fitting
 - Undersampling : you drop observations of the majority class to obtain a balanced dataset.
-    - Waste data
+    - Wasting data
 
-当然也有把 undersample 叫 downsample、oversample 叫 upsample 的，比如这篇 note：[How to apply Machine Learning](http://www.cs.cmu.edu/~16831-f14/notes/F11/16831_lecture23_ss1.pdf)
+当然也有把 undersample 叫 downsample、把 oversample 叫 upsample 的，比如这篇 note：[How to apply Machine Learning](http://www.cs.cmu.edu/~16831-f14/notes/F11/16831_lecture23_ss1.pdf)。
 
 ## Resampling
 
