@@ -45,4 +45,22 @@ The OOB approach for estimating the test error is particularly convenient when p
 Either is used to adjust the class distribution of a data set (i.e. the ratio between the different classes/categories represented).
 
 - Oversampling : you duplicate the observations of the minority class to obtain a balanced dataset.
+    - Risk of over-fitting
 - Undersampling : you drop observations of the majority class to obtain a balanced dataset.
+    - Waste data
+
+当然也有把 undersample 叫 downsample、oversample 叫 upsample 的，比如这篇 note：[How to apply Machine Learning](http://www.cs.cmu.edu/~16831-f14/notes/F11/16831_lecture23_ss1.pdf)
+
+## Resampling
+
+简单说就是做多次（re-）sample，然后在用这多个 sample 的 statistics（比如取 sample means 的 average）来 estimate 总体的 statistics（比如总体的 mean）。
+
+我们最熟悉的 bootstrap sampling 就是一种具体的 resampling 测略。注意我们的目的是用 sample statistics 来 estimate 总体的 statistics，所以从这个角度来说，cross validation（比如 K-fold）也是 resampling 策略。
+
+## Subsampling
+
+Subsampling 和 bootstrap sampling 一样，也是一种 resampling 的策略，它与 bootstrap sampling 的区别在于：
+
+1. The resample size is smaller than the sample size.
+1. Resampling is done without replacement.
+ 
