@@ -7,7 +7,7 @@ tags: [ML-101]
 ---
 {% include JB/setup %}
 
-## confusion matrix $\subset$ contingency table
+## Confusion matrix $\subset$ Contingency table
 
 confusion matrix 常见的是 TP vs FP vs TN vs FN counts，但并不是说只能是 2 $\times$ 2，我还可以是 Actual $A_1,\dots,A_n$ vs Predicted $P_1,\dots,P_n$ 这样的 $n \times n$ table。
 
@@ -63,4 +63,40 @@ Subsampling 和 bootstrap sampling 一样，也是一种 resampling 的策略，
 
 1. The resample size is smaller than the sample size.
 1. Resampling is done without replacement.
+
+## Cross Validation vs Grid Search
+
+这个帖子 [understanding python xgboost cv](http://stackoverflow.com/a/34483222) 说得好：
+
+> Cross-validation is used for estimating the performance of **ONE** set of parameters on unseen data.  
+> <!-- -->  
+> Grid-search evaluates a model with varying parameters to find the best possible combination of these.  
+
+我们平时总说，“用 cross validation 来 tune parameter”，这个 intuitive 是非常不好的。cross validation 往大了说就是个 resampling 策略，好处是让你的 estimate 更可信更科学，但是到 parameter tuning 这一块，cross validation 是不会自动帮你挑出 optimal 的一套 parameter 的，因为 cross validation 只能告诉你 “parameter set $A$ 得出的 estimate 是 $e_A$，parameter set $B$ 得出的 estimate 是 $e_B$” 这类的信息，你至少需要写一个 for loop 来尝试所有的 parameter 组合（对每一个 parameter 的组合再使用 cross validation），然后挑出 optimal 的 parameter 组合。
+
+cross validation 是不会帮你写这个 “for loop 再挑 optimal” 的 framework 的，但是有人会，它就是 grid search。
+
+在 XGBoost 的 python 版本里，`cv` method 你只能传一套参数给它，grid search 是交给 scikit-learn 来做的，比如：
+
+```python
+cv_params = {
+    'num_boost_round': 100,
+    'eta': 0.05,
+    'max_depth': 6,
+    'subsample': 0.9,
+    'colsample_bytree': 0.9
+} # 这是一套固定的参数
+
+gs_param = {
+    'num_boost_round': [100, 250, 500],
+    'eta': [0.05, 0.1, 0.3],
+    'max_depth': [6, 9, 12],
+    'subsample': [0.9, 1.0],
+    'colsample_bytree': [0.9, 1.0]
+}
+```
+
+grid search 会根据 `gs_param` 自动衍生出 $3 \times 3 \times 3 \times 2 \times 2 = 108$ 套参数，然后自动帮你跑 108 遍 cross validation（当然你也可以设置不用 cross validation）来挑出 optimal 的一套。
+
+所以相比 “用 cross validation 来 tune parameter”，更好理解的说法应该是 “用 grid search 来 tune parameter；为了使 estimate 更准确，请在 grid search 的过程中使用 cross validation”。
  
