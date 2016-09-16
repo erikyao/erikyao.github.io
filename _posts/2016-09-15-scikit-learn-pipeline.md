@@ -86,7 +86,7 @@ Pipeline `fit()` 的逻辑是：
 
 因为 Pipeline 也符合 `fit()`、`predict()` 这一套接口规范，所以你可以把它当做一个 estimator 来用，也就是说你可以去 `cross_val_score()` 或者 `GridSearchCV()` 一个 Pipeline！
 
-如果你要去 `GridSearchCV()` 一个 Pipeline，那我们一定会用到 `FeatureUnion` 的去访问 Pipeline 内部 processor unit 的参数。比方说，我们可以用 `p1.set_params(Trans1__number=66)` 去修改 `DullTransformer(1)` 的 `number` 字段。`p1` 的这个新字段 `Trans1__number` 实际就是由 `FeatureUnion` 合成的。
+如果你要去 `GridSearchCV()` 一个 Pipeline，那我们一定会用到 `FeatureUnion` 的支持去访问 Pipeline 内部 processor unit 的参数。比方说，我们可以用 `p1.set_params(Trans1__number=66)` 去修改 `DullTransformer(1)` 的 `number` 字段。`p1` 的这个新字段 `Trans1__number` 实际就是由 `FeatureUnion` 合成的。
 
 可以简单设想这么两种应用场景：
 
