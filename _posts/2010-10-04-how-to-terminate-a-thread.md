@@ -3,7 +3,7 @@ layout: post
 title: "Java 多线程：终止线程的方法"
 description: ""
 category: Java
-tags: [Java-Concurrent]
+tags: [Java-Concurrency]
 ---
 {% include JB/setup %}
 

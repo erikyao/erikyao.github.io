@@ -3,7 +3,7 @@ layout: post
 title: "Java 多线程：Runnable 接口 v.s. Thread 类"
 description: ""
 category: Java
-tags: [Java-Concurrent]
+tags: [Java-Concurrency]
 ---
 {% include JB/setup %}
 
