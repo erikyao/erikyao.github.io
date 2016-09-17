@@ -1,13 +1,13 @@
 ---
 layout: post
-title: "finally总是会被执行"
+title: "finally 总是会被执行"
 description: ""
 category: Java
 tags: [Java-Exception]
 ---
 {% include JB/setup %}
 
-　　finally 总是会被执行，即使 try 中有break、continue、return 这样的语句，如：
+`finally` 总是会被执行，即使 `try` 中有 `break`、`continue`、`return`，如：
 
 ```java
 public class FinallyTest {  
@@ -43,4 +43,4 @@ public class FinallyTest {
 */  
 ```
 
-　　另外，从这个例子可以看出，不写 catch，直接 try-finally 也是可以的。
+另外，从这个例子可以看出，不写 `catch`，直接 try-finally 也是可以的。
