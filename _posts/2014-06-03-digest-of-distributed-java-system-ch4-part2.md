@@ -11,17 +11,17 @@ tags: [Book, Java-Concurrency]
 
 ### XxxBlockingQueue
 
-* ArrayBlockingQueue: 基于数组的，FIFO 的，线程安全的 Queue
-* LinkedBlockingQueue: 性能更好
+* `ArrayBlockingQueue`: 基于数组的，FIFO 的，线程安全的 Queue
+* `LinkedBlockingQueue`: 性能更好
 
 ### AtomicXxx
 
-* AtomicInteger: 使用 CAS 自增的 Integer
-* AtomicBoolean: 使用 CAS 做赋值的 Boolean，常见的用法：init方法只用执行一次，但可能被多个线程调用，此时可以加一个 AtomicBoolean 的 flag
+* `AtomicInteger`: 使用 CAS 自增的 Integer
+* `AtomicBoolean`: 使用 CAS 做赋值的 Boolean，常见的用法：init方法只用执行一次，但可能被多个线程调用，此时可以加一个 AtomicBoolean 的 flag
 
 ### FutureTask
 
-　　跑个例子看看：
+跑个例子看看：
 
 ```java
 private ConcurrentMap<String, FutureTask<FooConnection>> connectionPool = 
@@ -72,46 +72,45 @@ public FooConnection getConnection(String key) throws InterruptedException, Exec
 
 ### Semaphore
 
-　　原意是 “臂板信号系统”，就是这种铁路上用的。  
+原意是 “臂板信号系统”，就是这种铁路上用的：
 
-->![][Semaphore]<-
+![][Semaphore]
 
-　　可以类比于 “地铁口的闸机” 或者 “收费站的栏杆”，是一种准入机制。同时，Semaphore 可以带数量限制，比如面试时是 5 个 5 个一组，那么 HR 那里就有一个 Semaphore(5)，每次最多只能放 5 个人进来。
+可以类比于 “地铁口的闸机” 或者 “收费站的栏杆”，是一种准入机制。同时，`Semaphore` 可以带数量限制，比如面试时是 5 个 5 个一组，那么 HR 那里就有一个 `Semaphore(5)`，每次最多只能放 5 个人进来。
 
 ### CountDownLatch
 
-　　Latch 的原意是 “门闩”
+Latch 的原意是 “门闩”。
 
-* await(): 将当前线程放入 CountDownLatch 的内部队列进行等待
-* coutnDown(): 信号量减 1，当信号量减为 0 时，notify 队列中的所有进程
+* `await()`: 将当前线程放入 `CountDownLatch` 的内部队列进行等待
+* `coutnDown()`: 信号量减 1，当信号量减为 0 时，notify 队列中的所有进程
 
 ### CyclicBarrier
 
-　　cyclic: 周期的，循环的；轮转的  
-　　barrier: 障碍  
+- cyclic: 周期的，循环的；轮转的  
+- barrier: 障碍  
 
-　　与 CountDownLatch 不同，它是等待 await 的线程数量到达一定阈值后才能继续执行。类比于那种 “一定要坐满 XX 人才发车的巴士”
+与 `CountDownLatch` 不同，它是等待 await 的线程数量到达一定阈值后才能继续执行。类比于那种 “一定要坐满 XX 人才发车的巴士”
 
 ### ReentrantLock: 
 
-　　[API 在此](http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/locks/ReentrantLock.html)  
+[API 在此](http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/locks/ReentrantLock.html)  
 
-　　说它 “可重入”，应该是指它内部的 state 不止 0 和 1 两种状态，同一个线程 lock 两次的话，state 可能为 2，而且重复加锁不会造成 blocking（你重复 synchronized 试试！）。[更具体的说明](http://stackoverflow.com/questions/1312259/what-is-the-re-entrant-lock-and-concept-in-general)  
+说它 “可重入”，应该是指它内部的 state 不止 0 和 1 两种状态，同一个线程 lock 两次的话，state 可能为 2，而且重复加锁不会造成 blocking（你重复 `synchronized` 试试！）。[更具体的说明](http://stackoverflow.com/questions/1312259/what-is-the-re-entrant-lock-and-concept-in-general)  
 
-　　注意 fair 和 unfair 两种策略的主要区别在于 “当持有锁的线程结束后，如何重新分配锁”，unfair 是自由竞争，fair 是分配给等待时间最长的线程
+注意 fair 和 unfair 两种策略的主要区别在于 “当持有锁的线程结束后，如何重新分配锁”，unfair 是自由竞争，fair 是分配给等待时间最长的线程
 
 ### ReentrantReadWriteLock:
 
-1. ReentrantReadWriteLock 和 ReentrantLock 没有继承关系
-2. ReentrantReadWriteLock 内部分离了读锁和写锁
+```java
+ReentrantReadWriteLock rrwLock = new ReentrantReadWriteLock();
+ReadLock readLock = rrwLock.readLock();
+WriteLock writeLock = rrwLock.writeLock();
+```
 
-	<pre class="prettyprint linenums">
-	ReentrantReadWriteLock rrwLock = new ReentrantReadWriteLock();
-	ReadLock readLock = rrwLock.readLock();
-	WriteLock writeLock = rrwLock.writeLock();
-	</pre>
-
-3. [when readLock.lock()](http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/locks/ReentrantReadWriteLock.ReadLock.html#lock(\)): 
+1. `ReentrantReadWriteLock` 和 `ReentrantLock` 没有继承关系
+2. `ReentrantReadWriteLock` 内部分离了读锁和写锁
+3. [when `readLock.lock()`](http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/locks/ReentrantReadWriteLock.ReadLock.html#lock(\)): 
 
 	> Acquires the read lock if the write lock is not held by <font color="red">another</font> thread and returns immediately.   
 	> <br/>
@@ -119,7 +118,7 @@ public FooConnection getConnection(String key) throws InterruptedException, Exec
 
 	意味着 “如果有线程在写操作，不准任何线程来读；没有写操作时，大家都可以来读”
 
-4. [when writeLock.lock()](http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/locks/ReentrantReadWriteLock.WriteLock.html#lock(\)): 
+4. [when `writeLock.lock()`](http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/locks/ReentrantReadWriteLock.WriteLock.html#lock(\)): 
 
 	> Acquires the write lock if neither the read nor write lock are held by another thread and returns immediately, setting the write lock hold count to one.  
 	> <br/>
@@ -135,15 +134,14 @@ public FooConnection getConnection(String key) throws InterruptedException, Exec
 
 ### CopyOnWriteArrayList
 
-　　适合读多写少的并发场景
+适合读多写少的并发场景
 
-* add(E): 
-	1. ReentranLock 加锁
-	2. newInnerArray = copy(innerArray); 
-	3. newInnerArray.append(E);
-	4. assign newInnerArray to CopyOnWriteArrayList; leave innerArray to GC
-	5. ReentranLock 解锁
-
-* remove(E): 与 add 类似，也是 ReentranLock 加锁，复制一个新的 array，将没有被删除的元素填到新的 array 中，旧的 array 被抛弃
-* get(int): 没有加锁保护，可能读到脏数据
-* interator: 会在 array 的 snapshot 上遍历，所以不会有 ConcurrentModificationException
+* `add(E)`: 
+	1. `ReentranLock` 加锁
+	2. `newInnerArray = copy(innerArray);` 
+	3. `newInnerArray.append(E);`
+	4. assign `newInnerArray` to `CopyOnWriteArrayList`; leave `innerArray` to GC
+	5. `ReentranLock` 解锁
+* `remove(E)`: 与 add 类似，也是 `ReentranLock` 加锁，复制一个新的 array，将没有被删除的元素填到新的 array 中，旧的 array 被抛弃
+* `get(int)`: 没有加锁保护，可能读到脏数据
+* `interator`: 会在 array 的 snapshot 上遍历，所以不会有 `ConcurrentModificationException`
