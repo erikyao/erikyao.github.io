@@ -100,3 +100,12 @@ grid search 会根据 `gs_param` 自动衍生出 $3 \times 3 \times 3 \times 2 \
 
 所以相比 “用 cross validation 来 tune parameter”，更好理解的说法应该是 “用 grid search 来 tune parameter；为了使 estimate 更准确，请在 grid search 的过程中使用 cross validation”。
  
+## Bias vs Variance
+
+Nice summary from [On Over-fitting in Model Selection and Subsequent Selection Bias in Performance Evaluation](http://dl.acm.org/citation.cfm?id=1756006.1859921):
+
+>  ...bias, represents the difference between the expected value of the estimator and the unknown value of the true generalization error...variance, reflects the variability of the estimator around its expected value due to the sampling of the data $D$ on which it is evaluated. 
+
+Another nice post on these 2 concepts is [Understanding the Bias-Variance Tradeoff](http://scott.fortmann-roe.com/docs/BiasVariance.html).
+
+上课的时候为啥不能讲得这么明白……
