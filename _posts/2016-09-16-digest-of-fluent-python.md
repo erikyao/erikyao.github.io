@@ -153,3 +153,15 @@ An elegant application of tuple unpacking is swapping the values of variables wi
 ```python
 b, a = a, b
 ```
+
+#### 2.3.3 Nested Tuple Unpacking
+
+```python
+top_left, top_right, bottom_left, bottom_right = (0, 1), (1, 1), (0, 0), (1, 0)
+square = (top_left, top_right, bottom_left, bottom_right)
+(top_left_x, top_left_y), (top_right_x, top_right_y) = square[0:2]
+```
+
+Note that: `square[0:2]` == `((0, 1), (1, 1))` while `square[0]` == `(0, 1)` not `((0, 1))`. In fact, python will evaluate `((0, 1))` as `(0, 1)`.
+
+#### 2.3.4 `namedtuple`
