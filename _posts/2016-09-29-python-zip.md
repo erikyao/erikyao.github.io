@@ -24,7 +24,7 @@ def zip(*iterables):
         yield tuple(result)
 ```
 
-注意 `iterators` 是个 list，所以 `len(iterators) != 0` 时，`while iterators:` 就死循环，得等到里面的 `return` 执行才能退出。
+注意 `iterators` 是个 list，所以 `len(iterators) != 0` 时，`while iterators` 就是个死循环，得等到里面的 `return` 执行才能退出。
 
 ## 那么第一个问题来了：什么时候 `iterators` 为空？
 
@@ -51,7 +51,7 @@ list(None)      # TypeError: 'NoneType' object is not iterable
 list(*None)     # TypeError: type object argument after * must be an iterable, not NoneType
 ```
 
-（暂时不要问我 `zip()` 和 `*zip()` 有什么区别……）所以 `zip()` 并没有返回 None，empty generator 的逻辑肯定是在 `zip` 对象里单独处理了。
+（暂时不要问我 `list(zip())` 和 `list(*zip())` 有什么区别……）所以 `zip()` 并没有返回 None，empty generator 的逻辑肯定是在 `zip` 对象里单独处理了。
 
 ## 参数场景一：`zip([1,2], [3,4])`
 
