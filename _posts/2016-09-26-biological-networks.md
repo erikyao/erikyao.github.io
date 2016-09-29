@@ -40,7 +40,7 @@ Biochemical networks represent the molecular-level patterns of interactions and 
 - _sites_ vs _bonds_, in physics
 - _actors_ vs _ties_, in sociology
 
-$\vert V \vert = n, \vert E \vert = m$.
+$\vert V \vert = n, \vert E \vert = m$. Mean degree of network $c = \frac{2m}{n}$
 
 In simple networks, _simple_ means "no loop (an edge from a vertex to itself)" and "no parallel edges (multiple edges with the same endpoints)"
 
@@ -73,3 +73,5 @@ If all the parts of network are trees, the complete network is called a _forest_
 There is exactly one path between any pair of vertices in a tree.
 
 A tree with $n$ vertices always has $n-1$ edges. Any connected newwork with $n$ vertices and $n-1$ edges is a tree.
+
+## 3. Basic Concepts of Algorithms
