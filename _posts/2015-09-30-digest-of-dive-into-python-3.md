@@ -92,7 +92,7 @@ ToC:
 	- [13.1. Diving In](#13-1--Diving-In)
 	- [13.2. Saving Data To A Pickle File](#13-2--Saving-Data-To-A-Pickle-File)
 	- [13.3. Loading Data From A Pickle File](#13-3--Loading-Data-From-A-Pickle-File)
-	- [13.4. Picklingwithout A File](#13-4--Picklingwithout-A-File)
+	- [13.4. Pickling without A File](#13-4--Pickling-without-A-File)
 	- [13.6. Debugging Pickle Files (略)](#13-6--Debugging-Pickle-Files)
 	- [13.7. Serializing Python Objects To Be Read By Other Languages](#13-7--Serializing-Python-Objects-To-Be-Read-By-Other-Languages)
 	- [13.8. Saving Data To A Json File (略)](#13-8--Saving-Data-To-A-Json-File)
@@ -258,7 +258,7 @@ Python supports both integers and floating point numbers. There’s no type decl
 
 ```python
 >>> type(1) 
-<class 'int'>
+<class int>
 >>> isinstance(1, int) 
 True
 >>> 1 + 1 
@@ -266,7 +266,7 @@ True
 >>> 1 + 1.0 
 2.0
 >>> type(2.0)
-<class 'float'>
+<class float>
 
 >>> float(2) 
 2.0
@@ -425,9 +425,9 @@ A tuple is an immutable list. A tuple can not be changed in any way once it is c
 >>> a_tuple = ("a", "b", "mpilgrim", "z", "example")
 
 >>> type((False))
-<class 'bool'>
+<class bool>
 >>> type((False,))
-<class 'tuple'>
+<class tuple>
 
 >>> v = ('a', 2, True)
 >>> (x, y, z) = v
@@ -473,7 +473,7 @@ set()
 
 >>> not_sure = {} 
 >>> type(not_sure)
-<class 'dict'>
+<class dict>
 
 >>> a_set = {1, 2}
 >>> a_set.add(4) 
@@ -499,7 +499,7 @@ set()
 >>> a_set = {1, 3, 6, 10, 15, 21, 28, 36, 45}
 >>> a_set
 {1, 3, 36, 6, 10, 45, 15, 21, 28}
->>> a_set.discard(10) ①
+>>> a_set.discard(10)
 >>> a_set
 {1, 3, 36, 6, 45, 15, 21, 28}
 >>> a_set.discard(10)
@@ -905,7 +905,7 @@ Bytes are bytes; characters are an abstraction. An immutable sequence of Unicode
 >>> by
 b'abcde'
 >>> type(by) 
-<class 'bytes'>
+<class bytes>
 >>> by += b'\xff' 
 >>> by # \xff 没有对应到一个 character，所以仍然显示为 \xff
 b'abcde\xff'
@@ -1068,7 +1068,7 @@ def plural(noun):
 
 First, let’s create a text file that contains the rules you want. No fancy data structures, just whitespace-delimited strings in three columns. Let’s call it `plural4-rules.txt`.
 
-```python
+```txt
 [sxz]$ $ es
 [^aeioudgkprt]h$ $ es
 [^aeiou]y$ y$ ies
@@ -1175,7 +1175,7 @@ What have you gained over stage 4? Startup time. In stage 4, when you imported t
 
 What have you lost? Performance! Every time you call the `plural()` function, the `rules()` generator starts over from the beginning — which means re-opening the patterns file and reading from the beginning, one line at a time.
 
-What if you could have the best of both worlds: minimal startup cost (don’t execute any code on import)(import 后不立即 parse rules) and maximum performance (don’t build the same functions over and over again). Oh, and you still want to keep the rules in a separate file (because code is code and data is data), just as long as you never have to read the same line twice. To do that, you’ll need to build your own iterator.
+What if you could have the best of both worlds: minimal startup cost (don’t execute any code on import) (import 后不立即 parse rules) and maximum performance (don’t build the same functions over and over again). Oh, and you still want to keep the rules in a separate file (because code is code and data is data), just as long as you never have to read the same line twice. To do that, you’ll need to build your own iterator.
 
 ## Chapter 7. Classes & Iterators <a name="Chapter-7--Classes-&-Iterators"></a>
 
@@ -1778,14 +1778,14 @@ For cases like this, the `pickle` module is ideal. It’s part of the Python sta
 ... entry = pickle.load(f)
 ```
 
-### 13.4. Picklingwithout A File <a name="13-4--Picklingwithout-A-File"></a>
+### 13.4. Pickling without A File <a name="13-4--Pickling-without-A-File"></a>
 
 You can also serialize to a `bytes` object in memory.
 
 ```python
 >>> b = pickle.dumps(entry) 
 >>> type(b) 
-<class 'bytes'>
+<class bytes>
 ```
 
 ### 13.6. Debugging Pickle Files (略) <a name="13-6--Debugging-Pickle-Files"></a>
