@@ -7,7 +7,7 @@ tags: [Python-101]
 ---
 {% include JB/setup %}
 
-## `*expression` and `**expression` inside function calls
+## Argument Unpacking: `*expression` and `**expression` inside function calls
 
 From [The Python Language Reference - 6.3.4. Calls](https://docs.python.org/dev/reference/expressions.html#calls):
 
@@ -26,6 +26,36 @@ func(c=3, *(1,2))              # OK. 1 2 3
 func(c=3, **dict(a=1,b=2))     # OK. 1 2 3
 func(c=3, *(1,), **dict(b=2))  # OK. 1 2 3
 ```
+
+## Parameter Packing: `*expression` and `**expression` in function definitions
+
+On the other hand, from [The Python Language Reference - 8.6. Function definitions](https://docs.python.org/3/reference/compound_stmts.html#function-definitions):
+
+> If the form `*identifier` is present, it is initialized to a tuple receiving any excess positional parameters, defaulting to the empty tuple.
+
+> If the form `**identifier` is present, it is initialized to a new dictionary receiving any excess keyword arguments, defaulting to a new empty dictionary.
+
+（注意 `*args` 是 tuple！钦定的 tuple！）
+
+Let's construct an example:
+
+```python
+def func(*args, **kwargs):
+    print(args)
+    print(kwargs)
+    print(locals())
+
+func(1, a=2)
+
+# output:
+#   (1,)
+#   {'a': 2}
+#   {'kwargs': {'a': 2}, 'args': (1,)}
+```
+
+The syntax of one-elemented tuples is kind of weird, as [The Python Language Reference - 6.14. Expression lists](https://docs.python.org/3/reference/expressions.html#expression-lists) indicates:
+
+> The trailing comma is required only to create a single tuple (a.k.a. a singleton); it is optional in all other cases. A single expression without a trailing comma doesn’t create a tuple, but rather yields the value of that expression.
 
 ## Unpacking inside tuple, list, set and dictionary **_displays_**
 
@@ -58,7 +88,7 @@ N.B. We can also call
 - `*`: iterable unpacking operator and 
 - `**`: dictionary unpacking operator
 
-## Extended Unpacking (`*expression` on LHS of assignments)
+## Extended Unpacking: `*expression` on LHS of assignments
 
 From [PEP 3132 -- Extended Iterable Unpacking](https://www.python.org/dev/peps/pep-3132/), if `seq` is a slicable sequence, all the following assignments are equivalent if `seq` has at least 3 elements:
 
