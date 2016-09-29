@@ -8,7 +8,26 @@
                     {% if page.description %}
                     <h2 class="subheading">{{ page.description }}</h2>
                     {% endif %}
-                    <span class="meta">Posted by {% if page.author %}{{ page.author }}{% else %}{{ site.author }}{% endif %} on {{ page.date | date: "%B %-d, %Y" }}</span>
+                    <span class="meta">{% if page.author %}{{ page.author }}{% else %}{{ site.author }}{% endif %} on {{ page.date | date: "%B %-d, %Y" }}</span>
+                    <!--<ul class="tag_box meta" style="font-style: italic;font-size: 12px; text-align: right; list-style-position:inside;">-->
+                    <ul class="tag_box_meta">
+                        {% unless page.categories == empty %}
+                            {% assign categories_list = page.categories %}
+                            {% assign hide_size = true %}
+                            <li>Published in category </li>
+                            {% include JB/categories_list %}
+                        {% endunless %}  
+                    
+                        {% unless page.tags == empty %}
+                            {% assign tags_list = page.tags %}
+                            {% assign hide_size = true %}
+                            {% if page.tags.size > 1%}
+                                {% assign show_slash = true %}
+                            {% endif %}
+                            <li>tagged </li>
+                            {% include JB/tags_list %}
+                        {% endunless %}
+                    </ul>
                 </div>
             </div>
         </div>
@@ -37,26 +56,6 @@
                     </li>
                     {% endif %}
                 </ul>
-				
-				<hr>
-				
-				{% unless page.categories == empty %}
-					<h5 style="float: left; width: 12%; text-align:center">Categories:</h5>
-					<ul class="tag_box inline">
-						{% assign categories_list = page.categories %}
-						{% assign hide_size = true %}
-						{% include JB/categories_list %}
-					</ul>
-				{% endunless %}  
-				
-				{% unless page.tags == empty %}
-					<h5 style="float: left; width: 12%; text-align:center">Tags:</h5>
-					<ul class="tag_box inline">
-						{% assign tags_list = page.tags %}
-						{% assign hide_size = true %}
-						{% include JB/tags_list %}
-					</ul>
-				{% endunless %}
 				
 				<hr>
 

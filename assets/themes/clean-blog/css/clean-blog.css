@@ -41,7 +41,7 @@ a img:hover,
 a img:focus {
   cursor: zoom-in;
 }
-ul:not(.nav):not(.pager):not(.list-inline) li {
+ul:not(.nav):not(.pager):not(.list-inline):not(.tag_box_meta) li {
   font-family: 'Lora', 'Times New Roman', serif;
   font-size: 18px;
   color: #261E47;
@@ -52,7 +52,7 @@ h3 a,
 h4 a,
 h5 a,
 h6 a,
-ul:not(.nav):not(.pager):not(.list-inline) li a {
+ul:not(.nav):not(.pager):not(.list-inline):not(.tag_box_meta) li a {
   color: #005CAF;
 }
 h1 a:hover,a:focus,
@@ -61,7 +61,7 @@ h3 a:hover,a:focus,
 h4 a:hover,a:focus,
 h5 a:hover,a:focus,
 h6 a:hover,a:focus,
-ul:not(.nav):not(.pager):not(.list-inline) li a:hover,a:focus {
+ul:not(.nav):not(.pager):not(.list-inline):not(.tag_box_meta) li a:hover,a:focus {
   color: #26453D;
 }
 blockquote {
@@ -461,8 +461,37 @@ body {
 	vertical-align:super;
 	font-size:0.8em;
 }
-.tag_box a.active {
-	background:#57A957;
-	border:1px solid #4C964D;
-	color:#FFF;
+.tag_box a:hover {
+	background:#FFFFFB;
+}
+
+/* tag_box in meta ====================================================== */
+
+.tag_box_meta {
+	list-style:none;
+	margin:0;
+	padding:5px 0 ;
+	overflow:hidden;
+    text-align: left; 
+    list-style-position:inside;
+}
+.tag_box_meta li {
+    color: white;
+	display:inline;
+    font-family: 'Lora', 'Times New Roman', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 20px;
+}
+.tag_box_meta a {
+	color: #D9CD90;
+	border-radius: 3px;
+	text-decoration:none;
+}
+.tag_box_meta a span{
+	vertical-align:super;
+	font-size:0.8em;
+}
+.tag_box_meta a:hover {
+	color: #F596AA;
 }

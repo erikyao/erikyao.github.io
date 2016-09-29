@@ -22,11 +22,11 @@ Usage:
 {% else %}
   {% if tags_list.first[0] == null %}
     {% for tag in tags_list %} 
-    	<li><a href="{{ BASE_PATH }}{{ site.JB.tags_path }}#{{ tag }}-ref">{{ tag }} {% unless hide_size %} <span>{{ site.tags[tag].size }}</span>{% endunless %}</a></li>
+    	<li><a href="{{ BASE_PATH }}{{ site.JB.tags_path }}#{{ tag }}-ref">{{ tag }}{% unless hide_size %}<span>&nbsp;{{ site.tags[tag].size }}</span>{% endunless %}</a>{% if show_slash %}{% if forloop.last == false %}&nbsp;/{% endif %}{% endif %}</li>
     {% endfor %}
   {% else %}
     {% for tag in tags_list %} 
-    	<li><a href="{{ BASE_PATH }}{{ site.JB.tags_path }}#{{ tag[0] }}-ref">{{ tag[0] }} {% unless hide_size %} <span>{{ tag[1].size }}</span>{% endunless %}</a></li>
+    	<li><a href="{{ BASE_PATH }}{{ site.JB.tags_path }}#{{ tag[0] }}-ref">{{ tag[0] }}{% unless hide_size %}<span>&nbsp;{{ tag[1].size }}</span>{% endunless %}</a>{% if show_slash %}{% if forloop.last == false %}&nbsp;/{% endif %}{% endif %}</li>
     {% endfor %}
   {% endif %}
 {% endif %}
