@@ -53,7 +53,7 @@ However, somehow misleading, `tabix --version` would show "Version: 1.0" because
 
 ## Issue 3: `pybedtools`, the python interface, needs its implementation, a binary lib `bedtools`
 
-The latest `bedtools 2.26.0` is not back compatible and will raise errors like:
+The latest `bedtools 2.25.0`, available via `apt`, is not back-compatible and will raise errors like:
 
 ```bash
 ***** ERROR: Unrecognized parameter: -ops *****
@@ -73,7 +73,7 @@ make
 cp ./bin/bedtools /usr/local/bin
 ```
 
-Yes, you can get `bedtools` by `apt install bedtools`, but I am not sure whether the versions available in Ubuntu sources are compatible or not. See [Ubuntu - bedtools package](https://launchpad.net/ubuntu/+source/bedtools) for more details.
+Yes, you can get other versions rather than `2.25.0` of `bedtools` by `apt`, but I am not sure whether those versions are compatible or not. See [Ubuntu - bedtools package](https://launchpad.net/ubuntu/+source/bedtools) for more details.
 
 ## Issue 4: nobody ever told me that `samtools` is required...
 
