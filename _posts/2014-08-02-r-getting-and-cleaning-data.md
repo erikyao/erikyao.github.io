@@ -64,7 +64,7 @@ coursera 课程总结。
 	- [3.2.2 `quantile`](#quantile)
 		- [quartile](#quartile)
 		- [题外话：boxplot 示意](#boxplot)
-		- [n^th quantile](#nth-quantile)
+		- [$n^{th}$ quantile](#nth-quantile)
 	- [3.2.3 `table`](#table)
 	- [3.2.4 Checking NA](#check-NA)
 		- [有点粗暴的处理手段：`na.omit`](#na.omit)
@@ -74,7 +74,7 @@ coursera 课程总结。
 	- [3.2.7 Calculating the size of a dataset](#data-size)
 - [3.3 Adding New Variables (i.e. New Columns)](#add-new-var)
 	- [3.3.1 How to add columns and rows](#add-column-row)
-		- [注意 cbind 多个 vector 产生的是 matrix 而不是 data frame](#cbind-vector-get-matrix)
+		- [注意 `cbind` 多个 vector 产生的是 matrix 而不是 data frame](#cbind-vector-get-matrix)
 		- [顺便说一下调整 column 顺序的方法](#re-order-column)
 	- [3.3.2 Creating mathematical variables](#add-mathematical-var)
 	- [3.3.3 Creating sequences or indices](#add-seq-or-indices)
@@ -122,7 +122,7 @@ coursera 课程总结。
   
 ### <a name="overview"></a>1.1 Overview
 
-<font color="red">Raw Data -> Processing Script -> Tidy Data</font> -> Data Analysis -> Data Commmunication  
+_Raw Data_ -> _Processing Script_ -> _Tidy Data_ -> Data Analysis -> Data Communication  
 
 Getting and Cleaning Data 处理的就是前三个阶段。
 
@@ -133,7 +133,7 @@ Data are values of qualitative or quantitative variables, belonging to a set of 
 * Set of items: Sometimes called the population; the set of objects you are interested in
 * Variables: A measurement or characteristic of an item.
 * Qualitative: e.g. country of origin, sex, treatment
-* Quantitative: e.g. height, weight, bllod pressure
+* Quantitative: e.g. height, weight, blood pressure
 
 Raw data:
 
@@ -167,7 +167,7 @@ For Tidy Data Set:
 For Tidy Data Files:
 
 * Include column names at the top of the data file.
-* Make variable names human readable, e.g. AgeAtDiagnosis instead of AgeDx
+* Make variable names human readable, e.g. `AgeAtDiagnosis` instead of `AgeDx`
 * In general, one file for one table.
 
 Here is an example of how this would work from genomics. Suppose that for 20 people you have collected gene expression measurements with RNA-sequencing. You have also collected demographic and clinical information about the patients including their age, treatment, and diagnosis.   
@@ -226,11 +226,11 @@ The basic requirements of a script are:
 * The output is the processed, tidy data
 * There are no parameters to the script
 
-In some cases it will not be possible to script every step. In that case you should provide instructions, in pseudocode, like: 
+In some cases it will not be possible to script every step. In that case you should provide instructions, in pseudo code, like: 
 
-* Step 1 - take the raw file, run version 3.1.2 of summarize software with parameters a=1, b=2, c=3
+* Step 1 - take the raw file, run version 3.1.2 of summarize software with parameters `a=1`, `b=2` and `c=3`
 * Step 2 - run the software separately for each sample
-* Step 3 - take column three of outputfile.out for each sample and that is the corresponding row in the output data set
+* Step 3 - take column three of `outputfile.out` for each sample and that is the corresponding row in the output data set
 
 You should also include information about which system (Mac/Windows/Linux) you used the software on and whether you tried it more than once to confirm it gave the same results. Ideally, you will run this by a fellow student/labmate to confirm that they can obtain the same output file you did.
 
@@ -255,19 +255,19 @@ dateDownloaded <- date() ## Be sure to record when you downloaded.
 
 ### <a name="read-table-args"></a>2.2 `read.table` args: `na.strings`, `stringsAsFactors`, `comment.char`
 
-#### na.strings 参数
+#### `na.strings` 参数
 
 `na.strings`: a character vector of strings which are to be interpreted as NA values.   
 
 比如有的 table 里表示 NA 的字符串是 "N/A" 或 "Not Available"，那么就可以设置成 `read.table(..., na.strings=c("N/A", "Not Available" ),...)`。
 
-#### stringsAsFactors 参数
+#### `stringsAsFactors` 参数
 
-默认是 TRUE，此时元素是字符串的列 `df$A` 会被当做 factor，`df$A[[1]]` 会被当成 factor 的一个元素，`str(df$A[[1]])` 会得到类似 `Factor w/ 4510 levels "ABBEVILLE AREA MEDICAL CENTER",..: 866` 这样的信息，表示 `str(df$A[[1]])` 是 4510 个 levels 中 level 为 866 的元素，而且 `return(df$A[[1]])` 也会打出 `4510 Levels: ABBEVILLE AREA MEDICAL CENTER ...` 这样的信息，略烦。如果不用 factor 相关的功能，可以把 stringsAsFactors 这一项设置为 FALSE。  
+默认是 TRUE，此时元素是字符串的列 `df$A` 会被当做 factor，`df$A[[1]]` 会被当成 factor 的一个元素，`str(df$A[[1]])` 会得到类似 `Factor w/ 4510 levels "ABBEVILLE AREA MEDICAL CENTER",..: 866` 这样的信息，表示 `str(df$A[[1]])` 是 4510 个 levels 中 level 为 866 的元素，而且 `return(df$A[[1]])` 也会打出 `4510 Levels: ABBEVILLE AREA MEDICAL CENTER ...` 这样的信息，略烦。如果不用 factor 相关的功能，可以把 `stringsAsFactors` 这一项设置为 FALSE。  
 
 关闭之后，`str(df$A)` 得到的是类似 `chr [1:370] "PROVIDENCE MEMORIAL HOSPITAL" ...` 这样的信息，表示是一个 string vector；`str(df$A[[1]])` 得到的是 `chr "CYPRESS FAIRBANKS MEDICAL CENTER"`。
 
-#### comment.char 参数
+#### `comment.char` 参数
 
 有些文件一开头是注释，比如有像这样用 "##" 开头的：
 
@@ -281,7 +281,7 @@ dateDownloaded <- date() ## Be sure to record when you downloaded.
 
 ### <a name="datatable-pkg"></a>2.3 The `data.table` Package
 
-* Inherets from `data.frame`
+* Inherits from `data.frame`
 	* All functions that accept `data.frame` also work on `data.table`
 * Written in C so it is much faster
 * Much, much faster at subsetting, group, and updating
@@ -326,7 +326,7 @@ dt[c(2,3)] ## 返回 row 2 和 row 3
 
 #### <a name="add-new-column-to-data-table"></a>2.3.4 Adding new columns
 
-还是利用 dt 的第二维，比如：
+还是利用 `dt` 的第二维，比如：
 	
 ```r
 dt[, D:=C^2] ## 添加一个新 column D，值是 dt$C 的平方
@@ -478,7 +478,7 @@ X$var2[c(1,3)] <- NA ## 选两个元素赋为 NA
 1    1    6   15
 ```
 
-注意 [] 的条件其实是可以组合出很多高大上的功能的，比如假设 `v` 是一个 vector，有：
+注意 `[]` 内的条件其实是可以组合出很多高大上的功能的，比如假设 `v` 是一个 vector，有：
 
 ```r
 ## Select all elements greater than the median
@@ -568,7 +568,7 @@ NA.1   NA   NA   NA
 df2 <- data.frame(df$A, df$B) ## 直接拿你想要的 column 重新构造一个 data frame 就好了
 ```
 
-R 和 java 有一点不同的是 R 的构造器真的很强大，所以不要陷入 java 的思维去找单独的 extract 方法，灵活运用构造器可以带来很多惊喜。
+R 和 Java 有一点不同的是 R 的构造器真的很强大，所以不要陷入 Java 的思维去找单独的 extract 方法，灵活运用构造器可以带来很多惊喜。
 
 #### <a name="sort"></a>3.1.2 Sorting
 
@@ -707,12 +707,9 @@ str(restData)
 
 图片来源：[Lecture 2: Descriptive Statistics and Exploratory Data Analysis](http://www.gs.washington.edu/academics/courses/akey/56008/lecture/lecture2.pdf)
 
-* The first quartile, $ Q_1 $, is the value for which 25% of the
-observations are smaller and 75% are larger
-* $ Q_2 $ is the same as the median (50% are smaller, 50% are
-larger)
-* Only 25% of the observations are greater than the third
-quartile $ Q_3 $
+* The first quartile, $ Q_1 $, is the value for which 25% of the observations are smaller and 75% are larger
+* $ Q_2 $ is the same as the median (50% are smaller, 50% are larger)
+* Only 25% of the observations are greater than the third quartile $ Q_3 $
 * IQR, interquartile range, is the difference between the third and the first quartiles, i.e. $ IQR = Q_3 - Q_1 $
 
 <a name="boxplot"></a>这里顺带再图示一下 boxplot 的意思：
@@ -732,7 +729,7 @@ quartile $ Q_3 $
 * $ Q_1 $ 也叫 lower hinge [hɪndʒ]
 * $ Q_3 $ 也叫 upper hinge
 
-<a name="nth-quantile"></a>最后注意一种表达方式：quantile a.k.a percentile，在 Week 3 Quiz 的 Question 2 中问到了 "What are the 30^th and 80^th quantiles of the resulting data?"，其实就是 $ u_{30\%} $ 和 $ u_{80\%} $，当然我更习惯写成 $ u_{0.30} $ 和 $ u_{0.80} $
+<a name="nth-quantile"></a>最后注意一种表达方式：quantile a.k.a percentile，在 Week 3 Quiz 的 Question 2 中问到了 "What are the $30^{th}$ and $80^{th}$ quantiles of the resulting data?"，其实就是 $ u_{30\%} $ 和 $ u_{80\%} $，当然我更习惯写成 $ u_{0.30} $ 和 $ u_{0.80} $
 
 ![][Percentiles]
 
@@ -807,7 +804,7 @@ all(colSums(is.na(restData)) == 0) ## 当 column 太多时，colSums 看起来�
 2 2 10
 ```
 
-但是要注意，`na.omit(DF)` 并没有改变 DF 的值，要想改变 DF 的值，需要重新赋值 `DF <- na.omit(DF)`。
+但是要注意，`na.omit(DF)` 并没有改变 `DF` 的值，要想改变 `DF` 的值，需要重新赋值 `DF <- na.omit(DF)`。
 
 一行内，哪怕只要有一个 NA，这一行也会被 `na.omit` 直接干掉。所以很有必要计算下干掉的行数的比例，比如你一下干掉 50% 的行数，这肯定是不妥的，这时就要转入 impute 程序。
 
@@ -1078,7 +1075,7 @@ Levels: [1,2] (2,9] (9,11] (11,14]
 * 如果 `breaks = n`，那就是分 n 个组
 * 如果 `breaks = c(x, y, z)`，那就是分 (x, y], (y, z] 这么两个组，依此类推
 
-这里我们 `breaks=quantile()`，所以分组是 (1, 2]、(2, 9]、(9, 11]、(11, 14]，然后我们加了一个 `include.lowest=TRUE`，于是第一个分组就变成了 [1, 2]。这么做也是因为 [quantile](#quantile) 里说过 "理论上 $ u_{0.00} $ 不应该是 1"，不设置 `include.lowest=TRUE` 的话，`restData$councilDistrict == 1` 的 row 的 councilDistrictGroup 就是 NA。
+这里我们 `breaks=quantile()`，所以分组是 (1, 2]、(2, 9]、(9, 11]、(11, 14]，然后我们加了一个 `include.lowest=TRUE`，于是第一个分组就变成了 [1, 2]。这么做也是因为 [quantile](#quantile) 里说过 "理论上 $ u_{0.00} $ 不应该是 1"，不设置 `include.lowest=TRUE` 的话，`restData$councilDistrict == 1` 的 row 的 `councilDistrictGroup` 就是 NA。
 
 你应该已经注意到了，`cut` 得到的结果是一个 factor，其实还可以指定 `labels=c("low", "below median", ...)` 来设置这个 factor 的 levels（注意 quantile 产生了 5 个值，但是只有 4 个区间，所以 labels 的长度也是 4）。如果直接设置 `labels=FALSE`，那么 `cut` 得到的结果就不再是一个 factor，而是一个 vector，若属于第一个分组，那么值就为 1，依此类推。
 
@@ -1169,10 +1166,10 @@ melt(df, id=1:2) ## 把第一项（A）和第二项（B）设置成 id，剩下�
 
 #### <a name="cast"></a>3.4.2 Casting data frames
 
-`cast` 最直观的作用就是把 `melt` 的结果重新拼回来，分为 acast 和 dcast 两种，功能和用法是一样的，只是返回不同
+`cast` 最直观的作用就是把 `melt` 的结果重新拼回来，分为 `acast` 和 `dcast` 两种，功能和用法是一样的，只是返回不同
 	
-* dcast 返回 data frame
-* acast 返回 array (matrix)
+* `dcast` 返回 data frame
+* `acast` 返回 array (matrix)
 
 我们这里只演示 dcast：
 
@@ -1313,7 +1310,7 @@ Using D as value column: use value.var to override.
 
 这个效果看自己体会一下吧，有点难解释。
 
-subset 这个简单点，表示 "dcast 应该在 data frame 的 subset 上进行"。subset 的值为 subsetting 的条件，但是要注意写法：
+subset 这个简单点，表示 "`dcast` 应该在 data frame 的 subset 上进行"。subset 的值为 subsetting 的条件，但是要注意写法：
 
 ```r
 > library(plyr)
@@ -1352,7 +1349,7 @@ Using D as value column: use value.var to override.
 > unlist(lapply(s, sum)) ## to convert a list to vector (with column name)
 ```
 
-如果用 plyr 的话可以用：
+如果用 `plyr` 的话可以用：
 
 ```r
 > library(plyr)
