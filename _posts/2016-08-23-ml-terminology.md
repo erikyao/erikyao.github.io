@@ -109,3 +109,5 @@ Nice summary from [On Over-fitting in Model Selection and Subsequent Selection B
 Another nice post on these 2 concepts is [Understanding the Bias-Variance Tradeoff](http://scott.fortmann-roe.com/docs/BiasVariance.html).
 
 上课的时候为啥不能讲得这么明白……
+
+最后记得 $\text{Error} = \text{Bias} + \text{Variance}$。
