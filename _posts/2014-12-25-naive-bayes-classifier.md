@@ -79,7 +79,7 @@ $ Pr(x^{(i)}_j  \vert  y_k) $ 就麻烦一点，根据 [Naive Bayes classifier -
 
 * for continuous features:
 	* Gaussian event model
-	* 统计所有 label 为 $ y_k $ 的 sample 的 feature $ j $ 的值，得到 variance $ \sigma^2_{jk} $ 和 mean $ \mu_{jk} $，进而得到一个高斯分布，把 $ x^{(i)}_j $ 的值带进去计算即可得到概率
+	* 统计所有 label 为 $ y_k $ 的 sample 的 feature $ j $ 的值，得到 variance $ \sigma_{jk}^2 $ 和 mean $ \mu_{jk} $，进而得到一个高斯分布，把 $ x_j^{(i)} $ 的值带进去计算即可得到概率
 * for discrete features
 	* multinomial event model
 	* Bernoulli event model
