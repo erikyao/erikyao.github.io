@@ -91,7 +91,7 @@ $ z^{(i)} = \begin{vmatrix} z^{(i)}_1 \newline z^{(i)}_2 \newline ... \newline z
 
 这里说的 Reconstruction 是指 Reconstruct X from Z，更具体说来就是通过 Z 来算 X 的近似值。  
 
-算法是：$ x^{(i)}_{approx} = U_{reduce} * z^{(i)} $ (size = (nxk) * (kx1) = nx1)
+算法是：$ x_{approx}^{(i)} = U_{reduce} * z^{(i)} $ (size = (nxk) * (kx1) = nx1)
 
 Vectorized formula is: $ X_{approx} = Z*U_{reduce}^T $
 
