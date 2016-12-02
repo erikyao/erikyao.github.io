@@ -165,3 +165,10 @@ square = (top_left, top_right, bottom_left, bottom_right)
 Note that: `square[0:2]` == `((0, 1), (1, 1))` while `square[0]` == `(0, 1)` not `((0, 1))`. In fact, python will evaluate `((0, 1))` as `(0, 1)`.
 
 #### 2.3.4 `namedtuple`
+
+The `collections.namedtuple(typename, field_names)` is a factory function that produces subclasses of `tuple` named `typename` and enhanced with accessibility via `field_names`.
+
+- [How namedtuple works in Python 2.7](http://jameso.be/2013/08/06/namedtuple.html)
+- [Breakdown: collections.namedtuple](http://nathschmidt.net/breakdown-collections-namedtuple.html)
+- [Be careful with exec and eval in Python](http://lucumr.pocoo.org/2011/2/1/exec-in-python/)
+- [source code](https://svn.python.org/projects/python/trunk/Lib/collections.py)
