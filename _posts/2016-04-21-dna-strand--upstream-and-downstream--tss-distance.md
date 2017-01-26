@@ -20,6 +20,11 @@ For the diagram:
 
 - 0-based coordinate system is used (same as UCSC Genome Browser)
     - [Tutorial: Cheat Sheet For One-Based Vs Zero-Based Coordinate Systems](https://www.biostars.org/p/84686/)
+    - UCSC Genome Browser: 0-based
+    - HGMD: 1-based
+    - Ensembl: 1-based
+    - $chromStart_{0} = chromStart_{1} - 1$
+    - $chromEnd_{0} = chromEnd_{1}$
 - `chromStart` and `chromEnd` are columns from table `snp142` of database `hg19` in UCSC Genome Browser
 - `txStart` and `txEnd` are columns from table `ensGene` of database `hg19` in UCSC Genome Browser
 
