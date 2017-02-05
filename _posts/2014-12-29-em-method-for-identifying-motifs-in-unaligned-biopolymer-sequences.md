@@ -11,6 +11,14 @@ tags: [ML-101, BioInformatics-101, Paper]
 
 我自己写的注释里，"motif" 和 "site" 这两个概念是混用的，可以等同视之。
 
+~~~~~~~~~~ 2017-02-04 补充开始 ~~~~~~~~~~
+
+[RSA-tools: Introduction to cis-regulation](http://rsa-tools.github.io/course/pdf_files/01.2_regulatory_sequences_intro.pdf):
+
+> Note that there is a frequent confusion in the literature between the concepts of "binding site" and "binding motif". We recommend to reserve the term "site" to denote the particular sequence (genomic or artificial) where a factor binds, and the term "motif" (or "patten" in this case) for the generic description of the binding specificity, obtained by summarizing the information provided by a collection of sites.
+
+~~~~~~~~~~ 2017-02-04 补充结束 ~~~~~~~~~~
+
 -----
 
 In this report we are concerned only with _**contiguous**_ [kənˈtɪgjuəs] motifs. That is, appearances of a motif may differ in point mutations, but insertions or deletions are not allowed. 
