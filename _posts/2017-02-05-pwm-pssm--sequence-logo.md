@@ -3,7 +3,7 @@ layout: post
 title: "PWM (PSSM) / Sequence Logo"
 description: ""
 category: Biology
-tags: [Biology-101]
+tags: [Biology-101, Markov]
 ---
 {% include JB/setup %}
 
@@ -61,7 +61,13 @@ $$
 
 Pseudocounts (or Laplace estimators) are often applied when calculating PPMs if based on a small dataset, in order to avoid matrix entries having a value of 0.
 
-## 2. Background Model (Genomic Context)
+- 原先是 $M_{I,i} = \frac{N(I)}{\sum_{I \in \lbrace A,C,T,G \rbrace}N(I)} = \frac{N(I)}{N(\text{sequence})}$
+- 现在有 1st option: identically distributed pseudo-weight $k$
+    - $M_{I,i}' = \frac{N(I) + \frac{k}{4}}{N(\text{sequence})+k}$
+- 2nd option: pseudo-weight distributed according to nucleotide priors
+    - $M_{I,i}' = \frac{N(I) + p(I)k}{N(\text{sequence})+k}$
+
+## 2. Background Models (Genomic Context)
 
 以下内容摘自 [RSA-tools: Sequence models](http://rsa-tools.github.io/course/pdf_files/01.3.sequence_models.pdf)。
 
@@ -69,19 +75,19 @@ Why do we need a background model? Any motif discovery relies on an underlying m
 
 What is the probability for a given sequence segment (oligonucleotide, “word”) to be found at a given position of a DNA sequence? Different models can be chosen. 我们称 background model 为 $B$。
 
-### 2.1 Bernoulli model
+### 2.1 Bernoulli Model
 
 - Assumes independence between successive nucleotides.
 - The probability of each nucleotide is fixed a priori
     - E.g. $p(A) = p(T) = 0.4$, $p(C) = p(G) = 0.1$
     - 对任意一个 sequence $x$，我们假定 "$x$ is a background sequence"，也就是说我们假定 "$x$ is not a motif"，然后我们可以计算 "probability (likelihood) of $x$ given $B$"
-    - $p(x|B) = \prod_{i=1}^{\vert x \vert} p(x[i])$
+    - $p(x \vert B) = \prod_{i=1}^{\vert x \vert} p(x[i])$
 - Particular case: equiprobable nucleotides
     - I.e. $p(A) = p(T) = p(C) = p(G) = 0.25$
     - Simple, but NOT realistic.
-    - $p(x|B) = 0.25^{\vert x \vert}$
+    - $p(x \vert B) = 0.25^{\vert x \vert}$
   
-### 2.2 Markov model
+### 2.2 Markov Model
 
 - The probability of each nucleotide depends on the $m$ preceding nucleotides.
 - The parameter $m$ is called the order of the Markov model
@@ -130,4 +136,69 @@ $$
     - 意思说不管你 $k$ 是多少，我都给你提供一个固定的 length-$l$ 的 collection
     - Reasonably good estimate for microbes, NOT for higher organisms. 
 
-## 3. Sequence Logo
+## 3. Position Weight Matrix
+
+PWM 就是把 Motif Model $M'$ (经过 Pseudocounts 处理的 $M$) 的每一项除以 Bernoulli Model $B$ 中对应的 $p(I)$。PWM 不涉及 Markov model。
+
+具体说来就是 $W_{I,i} = \ln \frac{M_{I,i}'}{p(I)}$，比如 $W_{A,1} = \ln \frac{M_{A,1}'}{p(A)}$
+
+- $W_{I,i} > 0$ when $M_{I,i}' > {p(I)}$, indicating $I$ in position $i$ is favorable of the motif
+    - 在 TFBM 的问题中，$W_{I,i} > 0$ 说明 $i$ 位上有一个 $I$ 的话是容易被 TF 来 bind 的
+- $W_{I,i} > 0$ when $M_{I,i}' < {p(I)}$, indicating $I$ in position $i$ is unfavorable of the motif
+
+对一个 sequence $x$，我们这样计算它的 Position Weight：$W_x = \sum_{i=1}^{\vert x \vert}W_{x[i], i}$。比如对 $x=CGTAAGGT$:
+
+$$
+W_x = W_{C,1} + W_{G,2} + W_{T,3} + W_{A,4} + W_{A,5} + W_{G,6} + W_{G,7} + W_{T,8}
+$$
+
+## 4. Sequence Logo
+
+### 4.1 Shannon Entropy
+
+Shannon Entropy is a measure of the uncertainty of a model, in the sense of how unpredictable a sequence generated from such a model would be. 
+
+For the single-nucleotide background model (i.e. Bernoulli model), the entropy is
+
+$$
+H = -\sum_{I \in \lbrace A,C,T,G \rbrace} p(I) \log_2 p(I)
+$$
+
+Similarly, we can then compute the entropy at each position $i$ of our motif model $M$:
+
+$$
+H_i = -\sum_{I \in \lbrace A,C,T,G \rbrace} M_{I,i} \log_2 M_{I,i}
+$$
+
+回到 background entropy。The maximum entropy of $B$ is reached when $p(A) = p(T) = p(C) = p(G) = \frac{1}{4}$:
+
+$$
+H_{max} = - \Big ( \frac{1}{4} \log_2 \frac{1}{4} + \frac{1}{4} \log_2 \frac{1}{4} + \frac{1}{4} \log_2 \frac{1}{4} + \frac{1}{4} \log_2 \frac{1}{4} \Big ) = 2
+$$
+
+When the logarithms are base 2, the units for such a quantity is called “bits”, as is with BLAST scores. When using natural logs, the units are “nits”. We can think of this value of 2 bits as the information content associated with knowing a particular nucleotide. A bit of information can also be understood as the number of questions necessary to unambiguously determine an unknown nucleotide. You could ask, “Is it a purine?” If the answer is “no”, you could then ask is it C? The answer to the second question always guarantees, non-canonical nucleotides aside, the nucleotide’s identity.
+
+### 4.2 Information Content / Logo Height
+
+注意我们说 Information Content 其实是 Motif 的 Information Content。
+
+The Information Content of a motif at each position can be defined as the reduction in entropy. That is, the the motif provides information inasmuch as it reduces the uncertainty compared to the background model.
+
+The Information Content of position $i$ is given by:
+
+- For amino acids, $R_{i}=\log_{2}20-(H_{i} + e_{n})$
+- For nucleic acids, $R_{i}=\log_{2}4-(H_{i} + e_{n})$
+    - 这里 $\log_{2}4$ 就是上面的 $H_{max} = 2$
+
+The approximation for the small-sample correction, $e_{n}$, is given by:
+
+$$
+e_{n}=\frac{1}{\ln 2} \times \frac{s-1}{2n}
+$$
+
+where $s$ is 4 for nucleotides, 20 for amino acids, and $n$ is the number of sequences in the alignment (i.e. size of the sequence collection).
+
+这个 $R_i$ 就是 Sequence Logo 第 $i$ 位的总高度。对第 $i$ 位上特定的一个 nucleotide $I$，它的高度是 $R_{I,i} = M_{I,i} \times R_i$。
+
+- 高度越高，说明与 background model 的差异越大，越接近于 motif
+- 高低越低，说明与 background model 的差异越小，越不可能是 motif
