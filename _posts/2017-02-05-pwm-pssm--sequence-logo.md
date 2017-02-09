@@ -3,7 +3,7 @@ layout: post
 title: "PWM (PSSM) / Sequence Logo"
 description: ""
 category: Biology
-tags: [Biology-101, Markov]
+tags: [Biology-101, Markov, Entropy]
 ---
 {% include JB/setup %}
 
@@ -189,7 +189,15 @@ The Information Content of position $i$ is given by:
 - For amino acids, $R_{i}=\log_{2}20-(H_{i} + e_{n})$
 - For nucleic acids, $R_{i}=\log_{2}4-(H_{i} + e_{n})$
     - 这里 $\log_{2}4$ 就是上面的 $H_{max} = 2$
-
+    - If $H_i = 0$, $R_i \rightarrow 2$:
+        - No uncertainty at all: the nucleotide is completely specified (e.g. $p=\lbrace 1,0,0,0 \rbrace$) 
+    - If $H_i = 1$, $R_i \rightarrow 1$:
+        - Uncertainty between two letters (e.g. $p=\lbrace 0.5,0,0,0.5 \rbrace$)
+        - Need 1 extra bit to determine which nucleotide it is.
+    - If $H_i = 2$, $R_i \rightarrow 0$:
+        - Totally uncertainty ($p=\lbrace 0.25,0.25,0.25,0.25 \rbrace$)
+        - 2 extra bits are required to specify a nucleotide in a 4-letter alphabet
+    
 The approximation for the small-sample correction, $e_{n}$, is given by:
 
 $$
