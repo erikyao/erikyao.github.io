@@ -68,7 +68,7 @@ From the title of the post [bedtools 2.18.2 and pybedtools 0.6.4](https://groups
 
 ```bash
 tar -zxvf bedtools-2.18.2.tar.gz
-cd BEDTools-2.18.2
+cd bedtools-2.18.2
 make
 cp ./bin/bedtools /usr/local/bin
 ```
