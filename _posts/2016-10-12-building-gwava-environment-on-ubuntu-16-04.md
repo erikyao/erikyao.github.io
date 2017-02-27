@@ -46,10 +46,9 @@ To install the specific version manually, go to [SAM tools](https://sourceforge.
 ```bash
 tar jxvf tabix-0.2.5.tar.bz2
 cd tabix-0.2.5/python
-python2 setup.py install
+make
+cp bgzip tabix /YourBinFolder
 ```
-
-However, somehow misleading, `tabix --version` would show "Version: 1.0" because of the information written in `setup.py`.
 
 ## Issue 3: `pybedtools`, the python interface, needs its implementation, a binary lib `bedtools`
 
