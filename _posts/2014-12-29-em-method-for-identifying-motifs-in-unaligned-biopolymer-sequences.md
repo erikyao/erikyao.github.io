@@ -119,7 +119,7 @@ $$
 where $ fout_l $ is the frequency of the letter $ l $ in all positions of the sequences outside the instance of the shared motif.
 
 * 注 5：请仔细阅读这段话
-* 注 6：我们知道 binomial distribution 的情形是：黑球概率 $ p_1 $，白球概率 $ p _2 = 1 - p_1 $，摸 $ n $ 次，黑球 $ k_1 $ 个，白球 $ k_2 = n - k_1 $ 个的概率是 $ C_{k_1 + k_2}^{k_1} p_1^{k_1} p_2^{k_2} $。那么 multinomial 就是扩展到了多种颜色的球：假设球的颜色有 $ m $ 种，颜色为 $ c_i $ 的球概率为 $ p_i $（$ \sum_{i=1}^{m}{p_i} = 1 $），还是摸 $ n $ 次，摸出 $ k_1 $ 个 $ c_1 $，$ k_2 $ 个 $ c_2 $，……，$ k_m $ 个 $ c_m $（$ \sum_{j=1}^{m}{k_j} = n $）的概率是 $ \frac{n!}{k_1! \ldots k_m!}p_1^{k_1} \ldots p_m^{k_m} $ 
+* 注 6：我们知道 binomial distribution 的情形是：黑球概率 $ p_1 $，白球概率 $ p_2 = 1 - p_1 $，摸 $ n $ 次，黑球 $ k_1 $ 个，白球 $ k_2 = n - k_1 $ 个的概率是 $ C_{k_1 + k_2}^{k_1} p_1^{k_1} p_2^{k_2} $。那么 multinomial 就是扩展到了多种颜色的球：假设球的颜色有 $ m $ 种，颜色为 $ c_i $ 的球概率为 $ p_i $（$ \sum_{i=1}^{m}{p_i} = 1 $），还是摸 $ n $ 次，摸出 $ k_1 $ 个 $ c_1 $，$ k_2 $ 个 $ c_2 $，……，$ k_m $ 个 $ c_m $（$ \sum_{j=1}^{m}{k_j} = n $）的概率是 $ \frac{n!}{k_1! \ldots k_m!}p_1^{k_1} \ldots p_m^{k_m} $ 
 * 注 7：这一段说了： motif model 是 multinomial，那么这里 letter 就是球，alphabet 就是球的颜色，$ freq $ 就是 $ p $
 * 注 8："The likelihood of the model given the training data is just the probability of the data given the model" 这一句看上去很屌的样子，其实说的就是 $ \mathcal{L}(\Theta \vert \mathcal{X}) = p(\mathcal{X} \vert \Theta) $……
 * 注 9：这个式子拿出来得太快了，具体一点的推导可以参见 `[1]`。（本篇讲 EM 是 "太简"，`[1]` 这一篇讲 EM 是 "太散"，不过它的 problem 描述还是很到位的，不明白 problem 的时候可以参考一下），更具体的可能需要参考 `[1]` 引用的 `[2]`
