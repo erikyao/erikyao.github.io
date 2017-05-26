@@ -20,15 +20,15 @@ This chapter focus on special methods, i.e. dunder methods。
 | ---- | -------------- | ------- |
 | `obj[key]` | `obj.__getitem__(key)` | |
 | `len(obj)` | `obj.__len__(key)` | |
-| if `x` in `obj`: | if `obj.__contains__(x)`: | If `__contains__` is not available, Python will scan with `__getitem__`. |
-| for `x` in `obj`: | `iterator = obj.__iter__()` is implicitly called at the start of loops; `x = iterator.__next__()` is the next value and is implicitly called at each loop increment. | If neither is available, Python will scan with `__getitem__`. |
+| if `x` in `obj`: | if `obj.__contains__(x)`: | If `__contains__()` is not available, Python will scan with `__getitem__()`. |
+| for `x` in `obj`: | `iterator = obj.__iter__()` is implicitly called at the start of loops; `x = iterator.__next__()` is the next value and is implicitly called at each loop increment. | If neither is available, Python will scan with `__getitem__()`. |
 | `o1` + `o2` | `o1.__add__(o2)` | |
-| `o1` += `o2` | `o1.__iadd__(o2)` | "in-place addition". If `__iadd__` is not implemented, `+=` falls back to calling `__add__` |
+| `o1` += `o2` | `o1.__iadd__(o2)` | "in-place addition". If `__iadd__()` is not implemented, `+=` falls back to calling `__add__()` |
 | `abs(obj)` | `obj.__abs__()` | |
 | `obj` * 3 | `obj.__mul__(3)` | |
-| if `obj`: | if `obj.__bool__()`: | If `__bool__` is not implemented, Python tries to invoke `__len__`, and if $>0$, returns `False`. Otherwise `True`. |
+| if `obj`: | if `obj.__bool__()`: | If `__bool__()` is not implemented, Python tries to invoke `__len__()`, and if $>0$, returns `False`. Otherwise `True`. |
 | `repr(obj)` | `obj.__rper__()` | `"%s" % obj` will call `repr(obj)`. |
-| `str(obj)` | `obj.__str__()` | `print(obj)`, `"%s" % obj` and `"{}".format(obj)` will call `str(obj)`; if `__str__` is not available, will fall back to `__repr__`. | |
+| `str(obj)` | `obj.__str__()` | `print(obj)`, `"%s" % obj` and `"{}".format(obj)` will call `str(obj)`; if `__str__` is not available, will fall back to `__repr__()`. | |
 
 ### `__getitem__()`
 
@@ -70,15 +70,15 @@ if __name__ == '__main__':
 
 ### `__iter__()` and `__next__()`
 
-You can treat your own object as an iterator, so `obj.__iter__()` can `return self` and a `__next__` implementation can be put inside your own object. 
+You can treat your own object as an iterator, so `obj.__iter__()` can `return self` and a `__next__()` implementation can be put inside your own object. 
 
 ### `__repr__()` vs `__str__()`
 
-The string returned by `__repr__` should be unambiguous and, if possible, match the source code necessary to re-create the object being represented. 
+The string returned by `__repr__()` should be unambiguous and, if possible, match the source code necessary to re-create the object being represented. 
 
-`__str__` should return a string suitable for display to end users.
+`__str__()` should return a string suitable for display to end users.
 
-If you only implement one of these special methods, choose `__repr__`, because when no custom `__str__` is available, Python will call `__repr__` as a fallback.
+If you only implement one of these special methods, choose `__repr__()`, because when no custom `__str__()` is available, Python will call `__repr__()` as a fallback.
 
 ## Chapter 2 - An array of Sequences
 
