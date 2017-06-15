@@ -263,7 +263,7 @@ we will sometimes need to be careful to distinguish between
 
 An ***ensemble*** $X$ is a triple $(x, \mathcal{A}\_X, \mathcal{P}\_X)$, where the ***outcome*** $x$ is the value of a random variable, which takes on one of a set of possible values, $\mathcal{A}\_X = \lbrace a_1, a_2, \dots, a_I \rbrace$, having probabilities $\mathcal{P}\_X = \lbrace p_1, p_2, \dots, p_I \rbrace$, with $P(x = a_i ) = p_i$, $pi \geq 0$ and $\sum_{a_i \in \mathcal{A}\_X} P(x = a_i) = 1$.
 
-- $\mathcal{A}$ means 'alphanet'.
+- $\mathcal{A}$ means 'alphabet'.
 
 $P(x = a_i)$ may be written as $P(a_i)$ or $P(x)$.
 
@@ -322,5 +322,105 @@ In non-Bayesian methods probabilities are allowed to describe ***only*** random 
 
 ### 2.3 Forward probabilities and inverse probabilities
 
-https://stats.stackexchange.com/questions/12421/generative-vs-discriminative
-https://en.wikipedia.org/wiki/Generative_model
+我们先研究下 Generative Model 和 Discriminative Model。
+
+#### Digress: Generative Models
+
+[wikipedia: Generative model](https://en.wikipedia.org/wiki/Generative_model):
+
+> In probability and statistics, a generative model is a model for randomly generating observable data values, typically given some hidden parameters.
+
+有点难懂，啥叫 "randomly generating"？我们再看 [Quora: What is a generative model? - Jack Rae](https://www.quora.com/What-is-a-generative-model/answer/Jack-Rae?srid=mncz):
+
+> A generative model describes how data is generated, in terms of a probabilistic model.
+
+另外在 ML context 下：
+
+> In the scenario of supervised learning, a generative model estimates the joint probability distribution of data $P(X, Y)$ between the observed data $X$ and corresponding labels $Y$.
+
+这个描述就好懂多了。换言之，generative model 描述生成 examples 的规律，比如 $P(X=x_1) = 0.6$ 就表示 "生成 $x_1$ 的概率是 60%"；又比如 $X \sim \mathcal {N}(\mu ,\sigma ^{2})$ 就表示 "$X$ 的生成遵循高斯分布"。
+
+也正如 [Quora: What is a generative model? - Eren Golge](https://www.quora.com/What-is-a-generative-model/answer/Eren-Golge?srid=mncz) 所说:
+
+> Generative model assumes data is created by a particular distribution which is defined by a couple of parameters (Gaussian Distribution) or non-parametric variants...
+
+常见的 generative models 有：
+
+- Gaussians
+- Mixtures of multinomials
+- Naive Bayes
+- Hidden Markov Models
+- Latent Dirichlet Allocation
+
+另外 [Generative vs. Discriminative Models](http://luizcoletta.com/blog/2015/09/07/generative-vs-discriminative-models/) 谈到：
+
+- Pros:
+    - We have the knowledge about the data distribution.
+- Cons:
+    - Very expensive to get (a lot of parameters);
+    - Need lots of data.
+
+这里谈到 parameter 又涉及到另外一个问题，如 [Cross Validated: Generative vs. discriminative - raegtin](https://stats.stackexchange.com/a/12456) 所言：
+
+> Another way of thinking about this is that generative algorithms make some kind of structure assumptions on your model, but discriminative algorithms make fewer assumptions.
+
+比如我们说 $X \sim \mathcal {N}(\mu ,\sigma ^{2})$ 是假设了它满足高斯分布的条件；必须先有这些假设，我们才能接着谈 parameter 的问题。
+
+#### Digress: Discriminative Model
+
+Discriminative 向来比 Generative 好理解，还是用 [Generative vs. Discriminative Models](http://luizcoletta.com/blog/2015/09/07/generative-vs-discriminative-models/) 的说法吧：
+
+> Algorithms aim at learning $P(y|x)$ by using probabilistic approaches (e.g., logistic regression), or non-probabilistically by mapping classes from a set of points (e.g., perceptrons and SVMs).
+
+- Pros:
+    - Easy to model.
+- Cons:
+    - To classify, but not to generate the data.
+
+回到正题。Probability calculations often fall into one of two categories: ***forward probability*** and ***inverse probability***. 
+
+- Forward probability problems 
+    - Involve a generative model of a process (这里这个 process 的意思就是指生成 examples 的 process)
+    - The task is to compute the probability distribution.
+        - 提出假设并求 parameter、计算 expectation、variance 等都算 forward problems
+- Inverse probability problems 
+    - Also involve a generative model of a process
+    - Instead, we compute the conditional probability of one or more of the unobserved variables in the process, given the observed variables. 
+        - 比如 HMM
+    - This invariably requires the use of Bayes’ theorem.
+
+#### Digress: Marginal Probability
+
+大家都知道 $P(a,b)$ 是 joint probability ($P(A,B)$ 是 joint distribution)，$P(a \vert b)$ 是 conditional probability ($P(A \vert B)$ 是 conditional distribution)。那 marginal probability 是啥？其实很简单，marginal 一定是来自 joint 的 (by sum rule)，比如 $P(a) = \sum_{b \in B} P(a, b)$ 就是一个 marginal probability。有时候文章里会简单粗暴地说 "$P(a)$ 是一个 marginal probability；$P(A)$ 是一个 marginal distribution"，你要知道它一定是来自某个 joint，然后是 marginalized over 某个 $B$。
+
+复杂一点的例子：$P(a \vert N) = \sum_{b \in B} P(a, b \vert N)$ 也是一个 marginal probability (of $a$ conditional on $N$).
+
+#### Terminology of inverse probability
+
+If $\theta$ denotes the unknown parameters, $D$ denotes the data, and $\mathcal{H}$ denotes the overall hypothesis space, the general equation:
+
+$$
+P(\theta \vert D, \mathcal{H}) = \frac{P(D \vert \theta, \mathcal{H}) P(\theta \vert \mathcal{H})}{P(D \vert \mathcal{H})}
+$$
+
+can be written:
+
+$$
+\text{posterior} = \frac{\text{likelihood} \times \text{prior}}{\text{evidence}}
+$$
+
+For a fixed $\theta_1 \in \theta$ and a fixed $D_1 \in D$:
+
+- The conditional probability $P(\theta_1 \vert D_1, \mathcal{H})$ is called the ***posterior probability*** of $\theta_1$ given $D_1$
+- The conditional probability $P(D_1 \vert \theta_1, \mathcal{H})$ is called the ***likelihood*** of parameter $\theta_1$
+    - also probability of $D_1$ given $\theta_1$
+- The marginal probability $P(\theta_1 \vert \mathcal{H})$ is called the ***prior probability*** of parameter $\theta_1$
+- $P(D \vert \mathcal{H})$ is known as the ***evidence*** or ***marginal likelihood***
+
+#### The likelihood principle
+
+**The likelihood principle:** given a generative model for data $d$ given parameters $\theta$, $P(d \vert \theta)$, and having observed a particular outcome $d_1$, all inferences and predictions should depend only on the function $P (d_1 \vert \theta)$.
+
+In spite of the simplicity of this principle, many classical statistical methods violate it.
+
+### 2.4 Definition of entropy and related functions
