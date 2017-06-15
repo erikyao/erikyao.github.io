@@ -225,7 +225,7 @@ Reading Frame:
 
 Each transcript is associated with 3 reading frames:
 
-- `AGG·TGA·CAC·CGC·AAG·CCT·TAT·ATT·AGC`
+- `AGG·TGA·CAC·CGC·AAG·CCT·TAT·ATT·AGC·`
 - `A·GGT·GAC·ACC·GCA·AGC·CTT·ATA·TTA·GC`
 - `AG·GTG·ACA·CCG·CAA·GCC·TTA·TAT·TAG·C`
 
@@ -248,7 +248,7 @@ Genome:
         - http://dharmacon.gelifesciences.com/applications/rna-interference/sirna/?rdr=true&LangType=2052&pageid=2147484497
         - https://www.thebalance.com/the-differences-between-sirna-and-mirna-375536
 - lncRNA (long non-coding RNA)
-    - >= 2000 nt
+    - $\ge$ 2000 nt
     - variety of functions
 - transposon (TE - transposoble element)
     - DNA elements that can 'jump' to a new genomic location
@@ -289,11 +289,13 @@ How are genes "interacting"?
 
 Human is diploid organism
 
+```
 5' ----------------------- 3' chr1 (mom)
 3' ------<<<<<------------ 5'
 
 5' ----------------------- 3' chr1 (dad)
 3' ------<<<<<------------ 5' (some mutation here; or different transcript expression)
+```
 
 Assume this pair of genes controls eye color. Different phenotypes.
 
@@ -319,7 +321,7 @@ We call `BB` homozygous dominant
 
 ## 6. Gene Interactions: Networks
 
-A -> B -> C -| D
+$A \rightarrow B \rightarrow C \dashv D$
 
 Interaction type:
 
