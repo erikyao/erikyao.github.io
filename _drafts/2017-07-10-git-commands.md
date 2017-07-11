@@ -21,3 +21,8 @@ git show <revision>:main.cpp > old_main.cpp
 
 `<revision>` examples: `HEAD`, `HEAD^`, `master`, `9f3dbbb` etc.
 
+## Change commit message after commit
+
+```bash
+git commit --amend -m 'new message'
+```
