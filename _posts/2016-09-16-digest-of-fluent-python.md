@@ -725,6 +725,12 @@ from operator import add
 reduce(add, [1,2,3,4,5])  # == (((1+2)+3)+4)+5 == 15
 ```
 
+If `seq=[s1, s2, s3, ... , sn]`, calling `reduce(func, seq)` works like this:
+
+- At first the first two elements of `seq` will be applied to `func`, i.e. `func(s1, s2)`. The list on which `reduce()` works looks now like this: `[func(s1, s2), s3, ..., sn]`
+- In the next step `func` will be applied on the previous result and the third element of the list, i.e. `func(func(s1, s2), s3)`. The list looks like this now: `[func(func(s1, s2),s3), s4, ..., sn]`
+- Continue like this until just one element is left and return this element as the result of `reduce()`
+
 P.S. Other reducing built-ins are `all` and `any`:
 
 - `all(iterable)`
@@ -904,3 +910,12 @@ def func3(b = None):
 
 注意这章一开始有说 Python functions are first-class objects，所以 default parameter value 也有点像 object 的 attribute。
 
+### 5.7 Packages for Functional Programming: `operator` and `functools`
+
+Python does not aim to be a functional programming language, but a functional coding style can be used to good extent, thanks to the support of packages like `operator` and `functools`.
+
+To save you the trouble of writing trivial anonymous functions like `lambda a, b: a*b`, the `operator` module provides function equivalents for dozens of arithmetic operators.
+
+```python
+
+```
