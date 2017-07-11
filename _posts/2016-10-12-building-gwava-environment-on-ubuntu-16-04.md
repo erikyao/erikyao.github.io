@@ -72,7 +72,13 @@ make
 cp ./bin/bedtools /usr/local/bin
 ```
 
-Yes, you can get other versions rather than `2.25.0` of `bedtools` by `apt`, but I am not sure whether those versions are compatible or not. See [Ubuntu - bedtools package](https://launchpad.net/ubuntu/+source/bedtools) for more details.
+If you don't want to mess up your `bin` directory, add the following line to `gwava_annotate.py`:
+
+```python
+pybedtools.set_bedtools_path("~/Downloads/bedtools-2.18.2/bin")
+```  
+
+You can get other versions rather than `2.25.0` of `bedtools` by `apt`, but I am not sure whether those versions are compatible or not. See [Ubuntu - bedtools package](https://launchpad.net/ubuntu/+source/bedtools) for more details.
 
 ## Issue 4: nobody ever told me that `samtools` is required...
 
