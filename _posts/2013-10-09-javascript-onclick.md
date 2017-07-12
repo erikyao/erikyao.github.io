@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "JavaScript: onclick"
+title: "JavaScript: onclick 注意事项"
 description: ""
 category: JavaScript
 tags: [JavaScript-101]
