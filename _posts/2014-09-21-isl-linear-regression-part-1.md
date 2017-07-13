@@ -36,7 +36,7 @@ tags: [ML-101]
 		- [Hypothesis Tests on the Coefficients (t-statistic and t-test)](#Hypothesis-Tests-on-beta)
 - [1.4 Assessing the Accuracy of the Model](#Assessing the-Accuracy-of-the-Model)
 	- [1.4.1 RSE: Residual Standard Error](#RSE)
-	- [1.4.2 R^2 Statistic](#R-squared)
+	- [1.4.2 $R^2$ Statistic](#R-squared)
 
 ### 2. [Multiple Linear Regression](#Multiple-Linear-Regression)
 
@@ -312,7 +312,7 @@ We reject the null hypothesis — that is, we declare a relationship to exist be
 
 好，下面开始正文。  
 
-Once we have rejected the null hypothesis $ \beta_1 = 0 $ in favor of the alternative hypothesis $ \beta_1 \neq 0 $, it is natural to want to quantify **the extent to which the model fits the data**. The quality of a linear regression fit is typically assessed using two related quantities: the residual standard error (RSE) and the R^2 statistic.
+Once we have rejected the null hypothesis $ \beta_1 = 0 $ in favor of the alternative hypothesis $ \beta_1 \neq 0 $, it is natural to want to quantify **the extent to which the model fits the data**. The quality of a linear regression fit is typically assessed using two related quantities: the residual standard error (RSE) and the $R^2$ statistic.
 
 #### <a name="RSE"></a>1.4.1 RSE: Residual Standard Error
 
@@ -331,7 +331,7 @@ This means, if the model were correct and the true values of the unknown coeffic
 
 The RSE is considered a measure of the lack of fit of the model $ (\ref{eq1.3}) $ to data, i.e. if underfitting, RSE may be quite large.  
 
-#### <a name="R-squared"></a>1.4.2 R^2 Statistic
+#### <a name="R-squared"></a>1.4.2 $R^2$ Statistic
 
 The RSE provides an absolute measure of lack of fit of the model $ (\ref{eq1.3}) $ to the data. But since it is measured in the units of Y , it is not always clear what constitutes a good RSE.
 
@@ -356,10 +356,10 @@ Notes:
 
 * TSS measures the total variance in the response $ Y $, and can be thought of as the amount of variability inherent in the response $ Y $ before the regression is performed. 
 * In contrast, RSS measures the amount of variability that is left unexplained after performing the regression. 
-* Hence, TSS−RSS measures the amount of variability in the response that is explained by performing the regression, and R^2 measures the proportion of variability in $ Y $ that can be explained using $ X $.
-* An R^2 near 0 indicates that the regression did not explain much of the variability in the response; this might occur because the linear model is wrong, or the inherent error $ Var(\epsilon) $ is high, or both
+* Hence, TSS−RSS measures the amount of variability in the response that is explained by performing the regression, and $R^2$ measures the proportion of variability in $ Y $ that can be explained using $ X $.
+* An $R^2$ near 0 indicates that the regression did not explain much of the variability in the response; this might occur because the linear model is wrong, or the inherent error $ Var(\epsilon) $ is high, or both
 
-Though a proportion, it can still be challenging to determine what is a good R^2 value, and in general, this will depend on the application. For instance, in certain problems in physics, we may know that the data truly comes from a linear model with a small residual error. In this case, we would expect to see an R^2 value that is extremely close to 1, and a substantially smaller R^2 value might indicate a serious problem with the experiment in which the data were generated. On the other hand, in typical applications in biology, psychology, marketing, and other domains, the linear model $ (\ref{eq1.3}) $ is at best an extremely rough approximation to the data, and residual errors due to other unmeasured factors are often very large. In this setting, we would expect only a very small proportion of the variance in the response to be explained by the predictor, and an R^2 value well below 0.1 might be more realistic.
+Though a proportion, it can still be challenging to determine what is a good $R^2$ value, and in general, this will depend on the application. For instance, in certain problems in physics, we may know that the data truly comes from a linear model with a small residual error. In this case, we would expect to see an $R^2$ value that is extremely close to 1, and a substantially smaller $R^2$ value might indicate a serious problem with the experiment in which the data were generated. On the other hand, in typical applications in biology, psychology, marketing, and other domains, the linear model $ (\ref{eq1.3}) $ is at best an extremely rough approximation to the data, and residual errors due to other unmeasured factors are often very large. In this setting, we would expect only a very small proportion of the variance in the response to be explained by the predictor, and an $R^2$ value well below 0.1 might be more realistic.
 
 Only in simple linear regression setting, $ R^2 = Cor(X, Y)^2 $.  
 
@@ -492,9 +492,9 @@ Notes:
 
 Recall that in simple linear regression setting, $ R^2 = Cor(X, Y)^2 $. While in multiple linear regression setting, it turns out $ R^2 = Cor(Y, \hat Y)^2 $. In fact one property of the fitted linear model is that it maximizes this correlation among all possible linear models.  
 
-R^2 will always increase when more variables are added to the model, even if those variables are only weakly associated with the response. This is due to the fact that adding another variable to the least squares equations must allow us to fit the training data (though not necessarily the testing data) more accurately. Thus, the R^2 statistic, which is also computed on the training data, must increase. Therefore just a tiny increase in R^2 may provides additional evidence that this predictor can be dropped from the model.  
+$R^2$ will always increase when more variables are added to the model, even if those variables are only weakly associated with the response. This is due to the fact that adding another variable to the least squares equations must allow us to fit the training data (though not necessarily the testing data) more accurately. Thus, the $R^2$ statistic, which is also computed on the training data, must increase. Therefore just a tiny increase in $R^2$ may provides additional evidence that this predictor can be dropped from the model.  
 
-In addition to looking at the RSE and R^2 statistics just discussed, it can be useful to plot the data. 书中提到了观测到 synergy 现象的例子：
+In addition to looking at the RSE and $R^2$ statistics just discussed, it can be useful to plot the data. 书中提到了观测到 synergy 现象的例子：
 
 > In particular, the linear model seems to overestimate `sales` for instances in which most of the advertising money was spent exclusively on either `TV` or `radio`. It underestimates `sales` for instances where the budget was split between the two media. This pronounced non-linear pattern cannot be modeled accurately using linear regression. It suggests a _synergy_ or _interaction_ effect between the advertising media, whereby combining the media together results in a bigger boost to sales than using any single medium.
 
