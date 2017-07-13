@@ -335,7 +335,7 @@ The RSE is considered a measure of the lack of fit of the model $ (\ref{eq1.3}) 
 
 The RSE provides an absolute measure of lack of fit of the model $ (\ref{eq1.3}) $ to the data. But since it is measured in the units of Y , it is not always clear what constitutes a good RSE.
 
-The R2 statistic provides an alternative measure of fit. It takes the form of a proportion — the proportion of variance explained by the model — and so it always takes on a value between 0 and 1, and is independent of the scale of $ Y $(有点像 PCA 的 95% variance retained 的概念).
+The $R^2$ statistic provides an alternative measure of fit. It takes the form of a proportion — the proportion of variance explained by the model — and so it always takes on a value between 0 and 1, and is independent of the scale of $ Y $(有点像 PCA 的 95% variance retained 的概念).
 
 $$
 \begin{equation}
