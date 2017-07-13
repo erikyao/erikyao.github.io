@@ -19,6 +19,7 @@ This chapter focus on special methods, i.e. dunder methods。
 | code | interpreted as | comment |
 | ---- | -------------- | ------- |
 | `obj[key]` | `obj.__getitem__(key)` | |
+| `obj.foo` / `getattr(obj, "foo")` | `obj.__getattribute__(obj, "foo")` | |
 | `len(obj)` | `obj.__len__(key)` | |
 | if `x` in `obj`: | if `obj.__contains__(x)`: | If `__contains__()` is not available, Python will scan with `__getitem__()`. |
 | for `x` in `obj`: | `iterator = obj.__iter__()` is implicitly called at the start of loops; `x = iterator.__next__()` is the next value and is implicitly called at each loop increment. | If neither is available, Python will scan with `__getitem__()`. |
@@ -66,6 +67,48 @@ if __name__ == '__main__':
     print(40 in ml)  # False
 
     print(choice(ml))  # randomly pick an element
+```
+
+### `__getattribute__()` / `__getattr__()` / `getattr()`
+
+- `obj[key] == obj.__getitem__(key)` 
+- `obj.foo == obj.__getattribute__("foo")` (Note the quote marks)
+
+`__getattr__()` does not delegates to `.` operator for attribute accessing, but is called when an attribute lookup **FAILS** (What a misleading function name!).
+
+`getattr()` is a built-in function, whose logic is like:
+
+```python
+def getattr(obj, name[, default]):
+	try:
+		return obj.__getattribute__(name)
+	except AttributeError as ae:
+		if default is passed:
+			return default
+		else:
+			raise ae
+```
+
+Of course you can implement a similar mechanism of default values in `__getattr__()`, e.g. for all `obj.xxx` where `xxx` is not an attribute of `obj`, log this call.
+
+Note that attributes can be functions, so it is possible to write `getattr(obj, func_name)(param)`.
+
+You may not want to override `__getattribute__()` yourself but if you somehow got a chance, pay attention to possible infinite loops caused by any form of `self.xxx` inside the implementation of `__getattribute__()`. Instead use base class method with the same name to access `xxx`, for example, `object.__getattribute__(self, "xxx")`. E.g.
+
+```python
+class C(object):
+    def __init__(self):
+        self.x = 100
+
+    def __getattribute__(self, name):
+        # Wrong! AttributeError
+        # return self.__dict__[name]
+
+        # OK! Calling base class's __getattribute__()
+        return object.__getattribute__(self, name)
+
+        # OK! Calling C's overridden version of __getattribute__() 
+        # return super().__getattribute__(name)
 ```
 
 ### `__iter__()` and `__next__()`
@@ -912,10 +955,120 @@ def func3(b = None):
 
 ### 5.7 Packages for Functional Programming: `operator` and `functools`
 
+#### 5.7.1 `operator`: arithmetic operators / `itemgetter` / `attrgetter` / `methodcaller`
+
 Python does not aim to be a functional programming language, but a functional coding style can be used to good extent, thanks to the support of packages like `operator` and `functools`.
 
 To save you the trouble of writing trivial anonymous functions like `lambda a, b: a*b`, the `operator` module provides function equivalents for dozens of arithmetic operators.
 
 ```python
+from functools import reduce
+from operator import mul
 
+def fact(n):  # lambda version
+	return reduce(lambda a, b: a*b, range(1, n+1))
+
+def fact(n):  # operator version
+	return reduce(mul, range(1, n+1))
+```
+
+Another group of one-trick lambdas that `operator` replaces are functions to pick items from sequences or read attributes from objects: `itemgetter` and `attrgetter` actually build custom functions to do that.
+
+- Essentially, `itemgetter(1)` does the same as `lambda fields: fields[1]`
+- If you pass multiple index arguments to `itemgetter()`, the function it builds will return tuples with the extracted values
+- `itemgetter()` uses the `[]` operator--it supports not only sequences but also mappings and any class that implements `__getitem__()`.
+
+```python
+metro_data = [
+	('Tokyo', 'JP', 36.933, (35.689722, 139.691667)),
+	('Delhi NCR', 'IN', 21.935, (28.613889, 77.208889)),
+	('Mexico City', 'MX', 20.142, (19.433333, -99.133333)),
+	('New York-Newark', 'US', 20.104, (40.808611, -74.020386)),
+	('Sao Paulo', 'BR', 19.649, (-23.547778, -46.635833)),
+]
+
+from operator import itemgetter
+
+for city in sorted(metro_data, key=itemgetter(1)):
+	print(city)
+
+# ('Sao Paulo', 'BR', 19.649, (-23.547778, -46.635833))
+# ('Delhi NCR', 'IN', 21.935, (28.613889, 77.208889))
+# ('Tokyo', 'JP', 36.933, (35.689722, 139.691667))
+# ('Mexico City', 'MX', 20.142, (19.433333, -99.133333))
+# ('New York-Newark', 'US', 20.104, (40.808611, -74.020386))
+
+cc_name = itemgetter(1, 0)
+for city in metro_data:
+	# 注意 itemgetter(...) 等价于一个 lambda
+	# 所以它本身是一个 function
+	# 既然是 function 自然就可以 call 
+	# (换言之 itemgetter 是一个 "return function 的 function")
+	print(cc_name(city))
+
+# ('JP', 'Tokyo')
+# ('IN', 'Delhi NCR')
+# ('MX', 'Mexico City')
+# ('US', 'New York-Newark')
+# ('BR', 'Sao Paulo')
+```
+
+A sibling of `itemgetter` is `attrgetter`, which creates functions to extract object attributes by name. 
+
+- E.g. `attrgetter("__class__")("hello")` return `"hello".__class__` (== `<class 'str'>`)
+- If you pass attrgetter several attribute names as arguments, it also returns a tuple of values. 
+- In addition, if any argument name contains a `.` (dot), attrget ter navigates through nested objects to retrieve the attribute
+	- E.g. `attrgetter('__class__.__name__')("hello")` return `"hello".__class__.__name__` (== `'str'`)
+
+At last we cover `methodcaller`--the function it creates calls a method by name on the object given as argument:
+
+```python
+from operator import methodcaller
+
+s = 'The time has come'
+upcase = methodcaller('upper')
+upcase(s)
+
+# 'THE TIME HAS COME'
+
+hiphenate = methodcaller('replace', ' ', '-')
+hiphenate(s)
+
+# 'The-time-has-come'
+```
+
+总结一下：
+
+```python
+def itemgetter(*keys):
+    if len(keys) == 1:
+        key = keys[0]
+        return lambda x: x[key]
+    else:
+        return lambda x: tuple(x[key] for key in keys)
+
+def attrgetter(*names):
+    if any(not isinstance(name, str) for name in names):
+        raise TypeError('attribute name must be a string')
+    
+	if len(names) == 1:
+        name = names[0]
+        return lambda x: x.__getattribute__(name)
+    else:
+        return lambda x: tuple(x.__getattribute__(name) for name in names)
+
+def methodcaller(name, *args, **kwargs):
+    return lambda x: getattr(x, name)(*args, **kwargs)
+```
+
+#### 5.7.2 `functools`: Freezing Arguments with `partial()`
+
+```python
+from operator import mul
+from functools import partial
+
+triple = partial(mul, 3)
+triple(7)
+
+# 21
 ```
