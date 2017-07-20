@@ -40,20 +40,22 @@ local build 对 `$ ... $` 和 `$$ ... $$` 识别得很好！你在一行文字�
 
 还有，请务必打开这个配置！
 
-	# \_includes\themes\twitter\default-mathjax.html
-	
-	<script type="text/x-mathjax-config">
-	MathJax.Hub.Config({
-		extensions: ["tex2jax.js"],
-		jax: ["input/TeX", "output/HTML-CSS"],
-		tex2jax: {
-			inlineMath: [ ['$','$'] ],
-			displayMath: [ ['$$','$$'] ],
-			processEscapes: true
-		},
-		"HTML-CSS": { availableFonts: ["TeX"] }
-	});
-	</script>
+```html
+<!-- \_includes\themes\twitter\default-mathjax.html -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+	extensions: ["tex2jax.js"],
+	jax: ["input/TeX", "output/HTML-CSS"],
+	tex2jax: {
+		inlineMath: [ ['$','$'] ],
+		displayMath: [ ['$$','$$'] ],
+		processEscapes: true
+	},
+	"HTML-CSS": { availableFonts: ["TeX"] }
+});
+</script>
+```
 
 ## 4. 你搞不清楚是要 `\\` 还是 `\\\\`，那就用 `\newline`
 
