@@ -1072,3 +1072,286 @@ triple(7)
 
 # 21
 ```
+
+## Chapter 6 - Design Patterns with First-Class Functions
+
+### 6.1 Case Study: Refactoring Strategy
+
+第一个例子，注意两点：
+
+1. package `abc` 名字的意思是 abstract base class……
+1. 写 empty function body 的两种方式：
+	- `pass`
+	- 连 `pass` 都不用写，只留下 docstring 
+
+```python
+from abc import ABC, abstractmethod
+
+class Order:
+	def __init__(self, customer, cart, promotion=None):
+		self.customer = customer
+		self.cart = list(cart)
+		self.promotion = promotion
+
+	def due(self):
+		if self.promotion is None:
+			discount = 0
+		else:
+			discount = self.promotion.discount(self)
+		return self.total() - discount
+
+# In Python 3.4, the simplest way to declare an ABC is to subclass `abc.ABC`
+class Promotion(ABC): # the Strategy: an abstract base class
+	@abstractmethod
+	def discount(self, order):
+		"""Return discount as a positive dollar amount"""
+		# pass
+
+class FidelityPromo(Promotion): # first Concrete Strategy
+	"""5% discount for customers with 1000 or more fidelity points"""
+	def discount(self, order):
+		return order.total() * .05 if order.customer.fidelity >= 1000 else 0
+
+class BulkItemPromo(Promotion): # second Concrete Strategy
+	"""10% discount for each LineItem with 20 or more units"""
+	def discount(self, order):
+		discount = 0
+		for item in order.cart:
+			if item.quantity >= 20:
+				discount += item.total() * .1
+		return discount
+
+class LargeOrderPromo(Promotion): # third Concrete Strategy
+	"""7% discount for orders with 10 or more distinct items"""
+	def discount(self, order):
+		distinct_items = {item.product for item in order.cart}
+			if len(distinct_items) >= 10:
+				return order.total() * .07
+		return 0
+```
+
+Each concrete strategy above is a class with a single method, `discount`. Furthermore, the strategy instances have no state (no instance attributes). You could say they look a lot like plain functions, and you would be right. We can refactor this example to function-oriented:
+
+```python
+class Order:
+	def __init__(self, customer, cart, promotion=None):
+		self.customer = customer
+		self.cart = list(cart)
+		self.promotion = promotion
+
+	def due(self):
+		if self.promotion is None:
+			discount = 0
+		else:
+			discount = self.promotion(self)  # 精妙之处在此
+		return self.total() - discount
+
+def fidelity_promo(order):
+	"""5% discount for customers with 1000 or more fidelity points"""
+	return order.total() * .05 if order.customer.fidelity >= 1000 else 0
+
+def bulk_item_promo(order):
+	"""10% discount for each LineItem with 20 or more units"""
+	discount = 0
+	for item in order.cart:
+		if item.quantity >= 20:
+			discount += item.total() * .1
+	return discount
+
+def large_order_promo(order):
+	"""7% discount for orders with 10 or more distinct items"""
+	distinct_items = {item.product for item in order.cart}
+	if len(distinct_items) >= 10:
+		return order.total() * .07
+	return 0
+```
+
+#### 6.1.1 Flyweight Pattern
+
+It is interesting to note that in _Design Patterns_ the authors suggest: “Strategy objects often make good flyweights.” A definition of the Flyweight in another part of that work states: 
+
+> A flyweight is a shared object that can be used in multiple contexts simultaneously.
+
+- flyweight 本意是拳击比赛的 “轻量级”。
+
+这个定义并没有很清楚，这篇 [Flyweight](http://gameprogrammingpatterns.com/flyweight.html) 我觉得写得不错。给出的例子是 game programming 中的地图渲染的场景：
+
+- 你有很多很多个 `Tree` object 要渲染
+- 但是你可以只存一个 static 或者 singleton 的 `TreeModel` object，记录树的多边形、颜色等等信息（假设你地图上所有的树都长一样）
+- 然后你的 `Tree` object 就可以引用或者指向这个 `TreeModel` object，然后再保存 coordinate 这些自身 specific 的信息
+- 这样比较省空间的 `Tree` object 我们成为 flyweight object
+
+总结得也不错：
+
+> Flyweight, like its name implies, comes into play when you have objects that need to be more lightweight, generally because you have too many of them.
+> The Flyweight pattern is purely about efficiency.
+
+极端一点说，所有带 static 的 object 都可以看做 flyweight object
+
+#### 6.1.2 Choosing the Best Strategy: Simple Approach
+
+炫技一波：
+
+```python
+promos = [fidelity_promo, bulk_item_promo, large_order_promo]
+
+def best_promo(order):
+	"""Select best discount available"""
+	return max(promo(order) for promo in promos)
+```
+
+#### 6.1.3 Advanced Approach: Finding Strategies in a Module
+
+```python
+"""
+globals():
+	Return a dictionary representing the current global symbol table. This is always the
+	dictionary of the current module (inside a function or method, this is the module
+	where it is defined, not the module from which it is called).
+"""
+promos = [globals()[name] for name in globals() if name.endswith('_promo') and name != 'best_promo']
+
+def best_promo(order):
+	"""Select best discount available"""
+	return max(promo(order) for promo in promos)
+```
+
+Another way of collecting the available promotions would be to create a module, `promotions.py`, and put all the strategy functions there, except for `best_promo`.
+
+```python
+promos = [func for name, func in inspect.getmembers(promotions, inspect.isfunction)]
+```
+
+### 6.2 Command Pattern
+
+```python
+class MacroCommand:
+	"""A command that executes a list of commands"""
+	
+	def __init__(self, commands):
+		self.commands = list(commands)
+
+	def __call__(self):
+		for command in self.commands:
+			command()  ## Need implementation of `__call__` inside each command object
+```
+
+## 7. Function Decorators and Closures
+
+### 7.1 Decorators 101
+
+A decorator is a callable which can take the decorated function as argument. (另外还有 class decorator)
+
+Assume we have a decorator named `foo`, 
+
+```python
+@foo
+def baz():
+	print('running baz')
+
+# ----- is roughly equivalent to ----- #
+
+def foo(func):
+	print('running foo')
+	return func
+
+def baz():
+	print('running baz')
+
+baz = foo(baz)
+```
+
+注意上面的例子中：
+
+- `baz` 定义结束时，`@foo` 会立即执行（相当于替换了 `baz` 的定义）
+	- 换言之，当 `baz` 所在的 module 被 load 进来的时候，`@foo` 就会执行
+- 调用 `baz()` 时并不会执行 `@foo` 
+
+### 7.2 When Python Executes Decorators
+
+When Python Executes Decorators A key feature of decorators is that they run right after the decorated function is defined. That is usually at _import time_.
+
+- Decorated functions are invoked at _runtime_.
+
+### 7.3 Decorator-Enhanced Strategy Pattern
+
+```python
+promos = []  # promotions registry
+
+def promotion(promo_func):
+	promos.append(promo_func)  # register this promotion
+	return promo_func
+
+@promotion
+def fidelity(order):
+	"""5% discount for customers with 1000 or more fidelity points"""
+	...
+	
+@promotion
+def bulk_item(order):
+	"""10% discount for each LineItem with 20 or more units"""
+	...
+
+@promotion
+def large_order(order):
+	"""7% discount for orders with 10 or more distinct items"""
+	...
+
+def best_promo(order):
+	"""Select best discount available"""
+	return max(promo(order) for promo in promos)
+```
+
+Pros:
+
+- The promotion strategy functions don't have to use special names.
+- The `@promotion` decorator highlights the purpose of the decorated function, and also makes it easy to temporarily disable a promotion
+- Promotional discount strategies may be defined in other modules, anywhere in the system, as long as the `@promotion` decorator is applied to them.
+
+### 7.4 Variable Scope Rules
+
+Code that uses inner functions almost always depends on closures to operate correctly. To understand closures, we need to take a step back a have a close look at how variable scopes work in Python.
+
+```python
+>>> b = 6
+>>> def f2(a):
+...		print(a)
+...		print(b)
+...		b = 9
+...
+>>> f2(3)
+3
+Traceback (most recent call last):
+File "<stdin>", line 1, in <module>
+File "<stdin>", line 3, in f2
+UnboundLocalError: local variable 'b' referenced before assignment
+```
+
+The fact is, when Python compiles the body of the function, it decides that `b` is a local variable because it is assigned within the function. The generated bytecode reflects this decision and will try to fetch `b` from the local environment. Try the following code to see bytecode:
+
+```python
+from dis import dis
+dis(f2)
+```
+
+This is not a bug, but a design choice: Python does not require you to declare variables, but assumes that a variable assigned in the body of a function is local. 
+
+If we want the interpreter to treat `b` as a global variable in spite of the assignment within the function, we use the `global` declaration:
+
+```python
+>>> b = 6
+>>> def f2(a):
+... 	global b
+...		print(a)
+...		print(b)
+...		b = 9
+...
+>>> f2(3)
+3
+6
+>>> b
+9
+```
+
+### 7.5 Closures
+
