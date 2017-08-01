@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "Digest of <i>R in Action</i>"
 description: ""
 category: R
