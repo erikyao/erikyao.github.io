@@ -14,6 +14,9 @@ body {
   font-size: 19px;
   color: #404040;
 }
+pre {
+  tab-size: 4;
+}
 p {
   line-height: 1.5;
   margin: 26px 0;
