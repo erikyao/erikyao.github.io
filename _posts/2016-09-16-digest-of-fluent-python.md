@@ -11,6 +11,7 @@ tags: [Book, Python-101]
 [3-1-generic-mapping-class-diagram]: https://farm6.staticflickr.com/5532/31713578772_56b2bb734c_z_d.jpg
 [3-8-generic-set-class-diagram]: https://farm1.staticflickr.com/605/31059283963_57b19e44a8_z_d.jpg
 [3-9-hash-collision]: https://farm1.staticflickr.com/712/31766685701_de0cb54f86_z_d.jpg
+[7-1-free-variable]: https://farm5.staticflickr.com/4325/36297071625_b624ab287a_o_d.png
 
 ## Chapter 1 - The Python Data Model
 
@@ -1236,7 +1237,7 @@ class MacroCommand:
 			command()  ## Need implementation of `__call__` inside each command object
 ```
 
-## 7. Function Decorators and Closures
+## Chapter 7 - Function Decorators and Closures
 
 ### 7.1 Decorators 101
 
@@ -1355,3 +1356,252 @@ If we want the interpreter to treat `b` as a global variable in spite of the ass
 
 ### 7.5 Closures
 
+A closure is a function with an extended scope that encompasses nonglobal variables referenced in the body of the function but not defined there. It does not matter whether the function is anonymous or not; what matters is that it can access nonglobal variables that are defined outside of its body.
+
+Consider the following example:
+
+![][7-1-free-variable]
+
+```python
+>>> avg = make_averager()
+>>> avg(10)
+10.0
+>>> avg(11)
+10.5
+>>> avg(12)
+11.0
+```
+
+Within averager, `series` is a free variable. This is a technical term meaning a variable that is not bound in the local scope. 我们也称 The closure for `averager` extends the scope of that function to include the binding for the free variable `series`.
+
+Inspecting the free variable:
+
+```python
+>>> avg.__code__.co_varnames
+('new_value', 'total')
+>>> avg.__code__.co_freevars
+('series',)
+```
+
+The binding for `series` is kept in the `__closure__` attribute of the returned function `avg`. Each item in `avg.__closure__` corresponds to a name in `avg.__code__.co_freevars`. These items are "cells", and they have an attribute called `cell_contents` where the actual value can be found. 
+
+```python
+>>> avg.__code__.co_freevars
+('series',)
+>>> avg.__closure__
+(<cell at 0x107a44f78: list object at 0x107a91a48>,)
+>>> avg.__closure__[0].cell_contents
+[10, 11, 12]
+```
+
+### 7.6 The `nonlocal` Declaration
+
+之前的 `make_averager` 实现不够 efficient，一个新的写法是：
+
+```python
+# Wrong!
+def make_averager():
+	count = 0
+	total = 0
+
+	def averager(new_value):
+		count += 1
+		total += new_value
+		return total / count
+	
+	return averager
+```
+
+但是运行时出错：
+
+```python
+>>> avg = make_averager()
+>>> avg(10)
+Traceback (most recent call last):
+...
+UnboundLocalError: local variable 'count' referenced before assignment
+```
+
+原因是：
+
+- 在 closure 范围内，nested function body 内部对 free variable `foo` 的 "rebind" 操作，都会 implicitly create local varible `foo`
+	- 之前的 `series.append(new_value)` 操作不会触发 "创建 local varible `series`" 是因为：
+		1. `list` 是 mutable 的
+		1. `list.append()` 的操作不会创建新的 `list`
+	- 而这里 `count += 1` 和 `total += new_value` 的操作会创建两个 local variable `count` 和 `total` 是因为：
+		1. number 是 immutable 的
+		1. `+=` 操作会创建新的 number
+- 隐式创建的 local variable 会干扰你对 free varible 的引用（编译器不知道你要用的具体是哪一个）
+
+解决这个问题的方法是：用 `nonlocal` 声明。It lets you flag a variable as a free variable even when it is assigned a new value within the function.
+
+```python
+# OK!
+def make_averager():
+	count = 0
+	total = 0
+
+	def averager(new_value):
+		nonlocal count, total  # key statement!
+		count += 1
+		total += new_value
+		return total / count
+	
+	return averager
+```
+
+### 7.7 Decorators in the Standard Library
+
+#### 7.7.1 Memoization with `functools.lru_cache`
+
+注意 decorator 可以多包一层，以达到可以带参初始化的目的。
+
+我们先看原始的写法：
+
+```python
+# 原始 decorator
+def foo(func):
+	print('running foo')
+	return func
+
+@foo
+def baz():
+	print('running baz')
+```
+
+相当于 `baz = foo(baz)`。
+
+带参的写法：
+
+```python
+# 带参 decorator
+def foo(msg):
+	def wrapper(func):
+		print(msg)
+		return func
+	return wrapper
+
+@foo('running foo another way')
+def baz():
+	print('running baz')
+```
+
+相当于 `baz = foo(msg)(baz)`。
+
+`functools.lru_cache` 就是一个带参 decorator，它的作用是 to cache recent call results。它内部会维护一个 `dict` 来记录 `<arg_list, result>`，从而达到 cache 的作用。适用的场景比如：
+
+- http request
+- 递归
+
+```python
+@functools.lru_cache(maxsize=128) 
+def fibonacci(n):
+	if n < 2:
+		return n
+	return fibonacci(n-2) + fibonacci(n-1)
+```
+
+#### 7.7.2 Generic Functions with Single Dispatch
+
+这个厉害了。书上的例子是 "格式输出 html 代码"，针对不同的类型的变量，有不同的输出策略。不用 OO，用 function 就可以实现 overloading。
+
+```python
+from functools import singledispatch
+from collections import abc
+import numbers
+import html
+
+@singledispatch
+def htmlize(obj):
+	content = html.escape(repr(obj))
+	return '<pre>{}</pre>'.format(content)
+
+@htmlize.register(str)
+def _(text):
+	content = html.escape(text).replace('\n', '<br>\n')
+	return '<p>{0}</p>'.format(content)
+
+@htmlize.register(numbers.Integral)
+def _(n):
+	return '<pre>{0} (0x{0:x})</pre>'.format(n)
+
+@htmlize.register(tuple)
+@htmlize.register(abc.MutableSequence)
+def _(seq):
+	inner = '</li>\n<li>'.join(htmlize(item) for item in seq)
+	return '<ul>\n<li>' + inner + '</li>\n</ul>'
+```
+
+- 带 `@singledispatch` 标记的 function 我们称为 *generic function*.
+	- 默认实现是 `htmlize(obj)`
+	- `str` 类型的输入对应的实现是 `_(text)`
+	- 依此类推
+- The name of the *specialized functions* is irrelevant; `_` is a good choice to make this clear.
+- 可以映射多个输入类型到同一个 specialized function
+
+需要注意的是：`@singledispatch` is not designed to bring Java-style method overloading to Python. The advantage of `@sin gledispath` is supporting modular extension: each module can register a specialized function for each type it supports.
+
+### 7.8 Stacked Decorators
+
+```python
+@d1
+@d2
+def foo():
+	pass
+```
+
+等同于 `foo = d1(d2(foo))`，注意顺序
+
+### Digress: `@functools.wrap`
+
+decorator 有个小弊端是：decorated function 的 name 和 docstring 属性会跑到 wrapper function 那里去，比如：
+
+```python
+def foo(func):
+    def func_wrapper(*args, **kwds):
+        """This is foo.func_wrapper()"""
+        return func(*args, **kwds)
+    return func_wrapper
+
+@foo
+def baz():
+    """This is baz()"""
+```
+
+```python
+>>> baz.__name__
+'func_wrapper'
+>>> baz.__doc__
+'This is foo.func_wrapper()'
+```
+
+为了解决这个问题，我们可以用 `@functools.wrap` 来 decorate 这个 wrapper：
+
+```python
+from functools import wraps
+
+def foo(func):
+    @wraps(func)
+    def func_wrapper(*args, **kwds):
+        """This is foo.func_wrapper()"""
+        return func(*args, **kwds)
+    return func_wrapper
+
+@foo
+def baz():
+    """This is baz()"""
+```
+
+```python
+>>> baz.__name__
+'baz'
+>>> baz.__doc__
+'This is baz()'
+```
+
+它的逻辑是：
+
+- `wrap(func)` 返回一个 `functools.partial(functools.update_wrapper, wrapped=func)`
+- `wrap(func)(func_wrapper)` 相当于 `func_wrapper = functools.update_wrapper(wrapper=func_wrapper, wrapped=func)`
+
+## Chapter 8 - Object References, Mutability, and Recycling
