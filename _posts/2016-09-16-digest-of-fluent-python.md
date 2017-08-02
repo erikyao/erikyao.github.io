@@ -1605,3 +1605,498 @@ def baz():
 - `wrap(func)(func_wrapper)` 相当于 `func_wrapper = functools.update_wrapper(wrapper=func_wrapper, wrapped=func)`
 
 ## Chapter 8 - Object References, Mutability, and Recycling
+
+We start the chapter by presenting a metaphor for variables in Python: variables are labels, not boxes. 
+
+### 8.1 Variables Are Not Boxes
+
+Better to say: "Variable `s` is assigned to the seesaw," but never "The seesaw is assigned to variable `s`." With reference variables, it makes much more sense to say that the variable is assigned to an object, and not the other way around. After all, the object is created before the assignment.
+
+To understand an assignment in Python, always read the righthand side first: that’s where the object is created or retrieved. Af‐ ter that, the variable on the left is bound to the object, like a label stuck to it. Just forget about the boxes.
+
+### 8.2 Identity, Equality, and Aliases
+
+Every object has 
+
+- an identity, 
+	- comparable using `is`
+- a type 
+- and a value (the data it holds). 
+	- comparable using `==` (python 的 `foo == bar` 相当于 java 的 `foo.equals(bar)`)
+
+An object’s identity never changes once it has been created; you may think of it as the object’s address in memory. The is operator compares the identity of two objects; the `id()` function returns an integer representing its identity.
+
+The real meaning of an object’s ID is implementation-dependent. In CPython, `id()` returns the memory address of the object, but it may be something else in another Python interpreter. The key point is that the ID is guaranteed to be a unique numeric label, and it will never change during the life of the object.
+
+In practice, we rarely use the `id()` function while programming. Identity checks are most often done with the `is` operator, and not by comparing IDs.
+
+#### 8.2.1 Choosing Between `==` and `is`
+
+The `==` operator compares the values of objects, while is compares their identities.
+
+However, if you are comparing a variable to a singleton, then it makes sense to use `is`. E.g. `if x is None`.
+
+The is operator `is` faster than `==`, because it cannot be overloaded, so Python does not have to find and invoke special methods to evaluate it, and computing is as simplecomparing two integer IDs. In contrast, `a == b` is syntactic sugar for `a.__eq__(b)`. The `__eq__` method inherited from `object` compares object IDs, so it produces the same result as is. But most built-in types override `__eq__` with more meaningful implementations that actually take into account the values of the object attributes. 
+
+#### 8.2.2 The Relative Immutability of Tuples
+
+注意 immutable 的含义是本身的 value 不可变：
+
+```python
+>>> a = (1,2)
+>>> a[0] = 11
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: 'tuple' object does not support item assignment
+
+>>> b = "hello"
+>>> b[0] = "w"
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: 'str' object does not support item assignment
+```
+
+你需要新的值就自己去创建一个新的，不可能把我当前的值修改一下再拿去用。
+
+但是，Tuples, like most Python collections--lists, dicts, sets, etc.--hold references to objects. If the referenced items are mutable, they may change even if the tuple itself does not. 
+
+```python
+>>> t1 = (1, 2, [30, 40])
+>>> id(t1[-1])
+4302515784
+>>> t1[-1].append(99)
+>>> t1
+(1, 2, [30, 40, 99])
+>>> id(t1[-1])
+4302515784
+```
+
+所以我们可以更新下 immutable 的定义：本身的 value 不可变；如果 value 内部包含 reference，这个 reference 不可变，但 reference 对应的 object 可变。
+
+tuple 设计成 immutable 的好处是：
+
+1. python 中必须 immutable 才能 hashable，所以 tuple 可以做 dict 的 key（list 就不可以）
+1. function 接收参数 tuple 时不用担心 tuple 被篡改，可以免去 defensive copy 的操作，算得上是一种 optimization
+
+### 8.3 Copies Are Shallow by Default
+
+For mutable sequences, there are 2 ways of copying:
+
+- By constructor: `a = [1,2]; b = list(a)`
+- By slicing: `a = [1,2]; b = a[:]`
+
+**N.B.** for a tuple `t`, neither `t[:]` nor `tuple(t)` makes a copy, but returns a reference to the same object. The same behavior can be observed with instances of `str`, `bytes`, and `frozenset`.  
+
+但是！这样的 copy 都是 shallow copy。考虑 list 内还有 list 和 tuple 的场景：
+
+```python
+a = [1, [22, 33, 44], (7, 8, 9)]
+b = list(a)
+
+a.append(100)    # changes ONLY a
+a[1].remove(44)  # changes BOTH a and b
+
+print('a:', a)   # a: [1, [22, 33], (7, 8, 9), 100]
+print('b:', b)   # b: [1, [22, 33], (7, 8, 9)]
+
+b[1] += [55, 66] # changes BOTH a and b
+b[2] += (10, 11) # changes ONLY b because tuples are immutable
+
+print('a:', a)   # a: [1, [22, 33, 55, 66], (7, 8, 9), 100]
+print('b:', b)   # b: [1, [22, 33, 55, 66], (7, 8, 9, 10, 11)]
+```
+
+#### 8.3.1 Deep and Shallow Copies of Arbitrary Objects
+
+```python
+from copy import copy, deepcopy
+
+a = [1, [22, 33, 44], (7, 8, 9)]
+
+b = copy(a)      # shallow copy
+c = deepcopy(a)  # as name sugguests
+```
+
+```python
+>>> id(a[1])
+140001961723656
+>>> id(b[1])
+140001961723656
+>>> id(c[1])
+140001961723592
+```
+
+Note that making deep copies is not a simple matter in the general case. 
+
+- Objects may have cyclic references that would cause a naive algorithm to enter an infinite loop. 
+	- The `deepcopy` function remembers the objects already copied to handle cyclic references gracefully. 
+- Also, a deep copy may be too deep in some cases. For example, objects may refer external resources or singletons that should not be copied. 
+	- You can control the behavior of both `copy` and `deepcopy` by implementing the `__copy__()` and `__deepcopy__()` special methods
+
+### 8.4 Function Parameters as References
+
+The only mode of parameter passing in Python is **call by sharing**. That is the same mode used in most OO languages, including Ruby, SmallTalk, and Java (this applies to Java reference types; primitive types use **call by value**). Call by sharing means that each formal parameter of the function gets a copy of each reference in the arguments. In other words, the parameters inside the function become aliases of the actual arguments.
+
+The result of this scheme is that a function may change any mutable object passed as a parameter, but it cannot change the identity of those objects.
+
+#### 8.4.1 Mutable Types as Parameter Defaults: Bad Idea
+
+这个现象前所未见！先上例子
+
+```python
+class HauntedBus:
+	"""A bus model haunted by ghost passengers"""
+	def __init__(self, passengers=[]):  # Tricky Here!
+		self.passengers = passengers
+	
+	def pick(self, name):
+		self.passengers.append(name)
+	
+	def drop(self, name):
+		self.passengers.remove(name)
+```
+
+```python
+>>> bus1 = HauntedBus()
+>>> bus1.pick('Alice')
+
+>>> bus2 = HauntedBus()
+>>> bus2.passengers
+['Alice']
+
+>>> bus2.pick('Bob')
+>>> bus1.passengers
+['Alice', 'Bob']
+```
+
+The problem is that each default value is eval‐ uated when the function is defined--i.e., usually when the module is loaded--and the default values become attributes of the function object. So if a default value is a mutable object, and you change it, the change will affect every future call of the function.
+
+所以，默认参数的逻辑相当于：
+
+```python
+HauntedBus.__init__.__defaults__ = []
+
+bus1 = HauntedBus(HauntedBus.__init__.__defaults__)
+	# bus1.passengers = HauntedBus.__init__.__defaults__ (==[])
+bus1.pick('Alice')
+	# bus1.passengers.append('Alice')
+	# ALSO changes HauntedBus.__init__.__defaults__
+
+bus2 = HauntedBus(HauntedBus.__init__.__defaults__)
+	# bus2.passengers = HauntedBus.__init__.__defaults__ (==['Alice'])
+```
+
+The issue with mutable defaults explains why `None` is often used as the default value for parameters that may receive mutable values. Best practice:
+
+```python
+class Bus:
+	def __init__(self, passengers=None): 
+		if passengers is None:
+			self.passengers = []
+		else:
+			self.passengers = list(passenger)  # or deep copy if necessary
+```
+
+#### 8.4.2 Defensive Programming with Mutable Parameters
+
+When you are coding a function that receives a mutable parameter, you should carefully consider whether the caller expects the argument passed to be changed.
+
+### 8.5 `del` and Garbage Collection
+
+The `del` statement **deletes names, not objects**. An object may be garbage collected as result of a `del` command, but only if the variable deleted holds the last reference to the object, or if the object becomes unreachable. Rebinding a variable may also cause the number of references to an object to reach zero, causing its destruction.
+
+N.B. `__del__` is invoked by the Python interpreter when the instance is about to be destroyed to give it a chance to release external resources. You will seldom need to implement `__del__` in your own code. (感觉和 java 里面你不需要去写 `finalize()` 差不多)
+
+- In CPython, the primary algorithm for garbage collection is reference counting. As soon as that _refcount_ reaches 0, the object is immediately destroyed: CPython calls the `__del__` method on the object (if defined) and then frees the memory allocated to the object. 
+- In CPython 2.0, a generational garbage collection algorithm was added to detect groups of objects involved in reference cycles--which may be unreachable even with outstand‐ ing references to them, when all the mutual references are contained within the group. 
+
+To demonstrate the end of an object’s life, the following example uses `weakref.finalize` to register a callback function to be called when an object is destroyed.
+
+```python
+>>> import weakref
+>>> s1 = {1, 2, 3}
+>>> s2 = s1
+>>> def bye():
+...     print('Gone with the wind...')
+...
+>>> ender = weakref.finalize(s1, bye)
+>>> ender.alive
+True
+>>> del s1
+>>> ender.alive
+True
+>>> s2 = 'spam'
+Gone with the wind...
+>>> ender.alive
+False
+```
+
+### 8.6 Weak References
+
+概念可以参考 [Understanding Weak References](/java/2014/06/04/digest-of-effective-java#weakReference).
+
+Weak references to an object do not increase its reference count. The object that is the target of a reference is called the **referent**. Therefore, we say that a weak reference does not prevent the referent from being garbage collected.
+
+#### 8.6.1 The `WeakValueDictionary` Skit
+
+The class `WeakValueDictionary` implements a mutable mapping where the values are weak references to objects. When a referent is garbage collected elsewhere in the program, the corresponding key is automatically removed from `WeakValueDictionary`. This is commonly used for caching.
+
+#### 8.6.2 Limitations of Weak References
+
+Not every Python object may be the referent of a weak reference. 
+
+- Basic list and dict instances may not be referents, but a plain subclass of either can solve this problem easily.
+- `int` and tuple instances cannot be referents of weak references, even if subclasses of those types are created.
+
+Most of these limitations are implementation details of CPython that may not applyother Python iterpreters.
+
+### 8.7 Tricks Python Plays with Immutables
+
+The sharing of string literals is an optimization technique called **interning**. CPython uses the same technique with small integers to avoid unnecessary duplication of “popular” numbers like 0, –1, and 42. Note that CPython does not intern all strings or integers, and the criteria it uses to do so is an undocumented implementation detail.
+
+## Chapter 9 - A Pythonic Object
+
+### 9.1 Object Representations
+
+- `__repr__()`: returns a string representing the object as the developer wants to see it.
+- `__str__()`: returns a string representing the object as the user wants to see it.
+- `__byte__()`: called by `byte()` to get the object represented as a byte sequence
+- `__format__()`: called by `foramt()` or `str.format()` to get string displays using special formatting codes
+
+### 9.2 Vector Class Redux
+
+没啥特别的，注意写法：
+
+```python
+class Vector2d:
+	typecode = 'd'
+	
+	def __init__(self, x, y):
+		self.x = float(x)
+		self.y = float(y)
+	
+	def __iter__(self):
+		return (i for i in (self.x, self.y))
+	
+	def __repr__(self):
+		class_name = type(self).__name__
+		return '{}({!r}, {!r})'.format(class_name, *self)
+	
+	def __str__(self):
+		return str(tuple(self))
+	
+	def __bytes__(self):
+		return (bytes([ord(self.typecode)]) + bytes(array(self.typecode, self)))
+	def __eq__(self, other):
+		return tuple(self) == tuple(other)
+	def __abs__(self):
+		return math.hypot(self.x, self.y)
+	def__bool__(self):
+		return bool(abs(self))
+```
+
+- `*self` 展开这个写法帅气～
+- 注意 `*foo` 要求 `foo` 是个 iterable（上面有 `__iter__()` 所以满足条件）
+- `__iter__()` 要求返回一个 iterator，上面例子里返回的是一个 generator (from a generator expression)
+	- 注意它不是 tuple-comp，因为 python 不存在 tuple-comp 这种东西
+	- 然后根据 [Iterables vs. Iterators vs. Generators](http://nvie.com/posts/iterators-vs-generators/) 我们得知 a generator is always a iterator，所以这个 `__iter__()` 写法成立
+	- 还有一种写法也可以：`yield self.x; yield.self.y`
+
+### 8.3 `classmethod` vs `staticmethod`
+
+先上例子：
+
+```python
+class Demo:
+    @classmethod
+    def class_method(*args):
+        return args
+
+    @staticmethod
+    def static_method(*args):
+        return args
+```
+
+```python
+>>> Demo.class_method()
+(<class __main__.Demo at 0x7f206749d6d0>,)
+>>> Demo.class_method('Foo')
+(<class __main__.Demo at 0x7f206749d6d0>, 'Foo')
+>>> Demo.static_method()
+()
+>>> Demo.static_method('Foo')
+('Foo',)
+```
+
+- `@staticmethod` 好理解
+- `@classmethod` 第一个参数必定是 class 本身
+	- 注意这里 "class 本身" 指的是 `Demo` 而不是 `Demo.__class__`
+	- 所以类似成员 method 第一个参数默认写 `self` 一样，`@classmethod` 第一个参数默认写 `cls`
+		- `def member_method(self, *args)`
+		- `def class_method(cls, *args)`
+	- 这个 `cls` 可以当 constructor 用
+
+```python
+class Demo:
+    def __init__(self, value):
+        self.value = value 
+
+    @classmethod
+    def class_method(cls, value):
+        return cls(value)
+
+d = Demo.class_method(2)
+print(d.value)  # Output: 2
+```
+
+### 8.4 Making It Hashable
+
+To make `Vector2d` hashable, we must
+
+- Implement `__hash__()`
+	- `__eq__()` is also required then
+- Make it immutable
+
+To make `Vector2d`, we can only expose the getters, like
+
+```python
+class Vector2d:
+	def __init__(self, x, y):
+		self.__x = float(x)
+		self.__y = float(y)
+
+	@property
+	def x(self):
+		return self.__x
+
+	@property
+	def y(self):
+		return self.__y
+
+v = Vector2d(3, 4)
+
+print(v.x)  # accessible
+# v.x = 7   # forbidden!
+```
+
+#### 8.4.1 Digress: `@property` / `__getattribute__()` / `__get__()`
+
+要想搞清楚 `@property` 的工作原理，我们需要先搞清楚 `b.x` 这样一个访问 object 字段的表达式是如何被解析的：
+
+- `b.x`
+	- $\Rightarrow$ `b.__getattribute__('x')`
+		- CASE 1: `b.__dict__['x']` has defined `__get__()` $\Rightarrow$ `b.__dict__['x'].__get__(b, type(b))`
+			- 若是访问 static member `B.x` 则会变成 `B.__dict__['x'].__get__(None, B)`
+		- CASE 2: `b.__dict__['x']` has not defined `__get__()` $\Rightarrow$ just return `b.__dict__['x']`
+			- 若是访问 static member `B.x` 则会变成 `B.__dict__['x']`
+
+如果没有用 `@property`，一般的 `b.x` 都是 CASE 2，因为一般的 int、string 这些基础类型都没有实现 `__get__()`；用了 `@property` 的话，就是强行转成了 CASE 1，因为 `property(x)` 返回的是一个 `property` 对象，它是自带 `__get__` 方法的。
+
+N.B. 我们称实现了以下三个方法的类型为 **descriptor**
+
+- `__get__(self, obj, type=None) --> value`
+- `__set__(self, obj, value) --> None`
+- `__delete__(self, obj) --> None`
+
+`property` 类型是 descriptor
+
+我们来看一下代码分解：
+
+```python
+class B:
+	@property
+	def x(self):
+		return self.__x
+
+##### Is Equivalent TO #####
+
+property_x = property(fget=x)
+x = __dict__['x'] = property_x
+```
+
+然后就有
+
+- `b.x`
+	- $\Rightarrow$ `b.__dict__['x'].__get__(b, type(b))`
+		- $\Rightarrow$ `property_x.__get__(b, type(b))`
+			- $\Rightarrow$ `property_x.fget(b)`
+				- $\Rightarrow$ 实际调用原始的 `x(b)` 方法（TMD 又绕回去了）
+				- 注意：此时 `b.x()` 方法是调用不到的，因为 `b.x` 被优先解析了；这里 `property_x` 内部还能调用 `x(b)` 是因为它保存了这个原始的 `def x(self)` 方法
+
+这里最 confusing 的地方在于：`b.x` 从一个 method 变成了一个 property 对象，而且屏蔽掉了对 `b.x()` 方法的访问。一个不那么 confusing 的写法是：
+
+```python
+class B:
+	def get_x(self):
+		return self.__x
+
+	x = property(fget=get_x, fset=None, fdel=None, "Docstring here")
+```
+
+#### 8.4.2 Digress Further: `x.setter` / `x.deleter`
+
+代码分解：
+
+```python
+# python 2 需要继承 `object` 才是 new-style class
+# python 3 默认是 new-style class，继不继承 `object` 无所谓
+# `x.setter` 和 `x.deleter` 需要在 new-style class 内才能正常工作
+class B(object):
+    def __init__(self):
+        self._x = None
+
+    @property
+    def x(self):         # method-1
+        """I'm the 'x' property."""
+        return self._x
+
+    @x.setter
+    def x(self, value):  # method-2
+        self._x = value
+
+    @x.deleter
+    def x(self):         # method-3
+        del self._x
+
+##### Is Equivalent TO #####
+
+x = property(fget=x)  # 屏蔽了对 method-1 的访问
+x = x.setter(x)       # 屏蔽了对 method-2 的访问
+	# 实际是返回了原来 property 的 copy，并设置了 `fset`
+	# x = property(fget=x.fget, fset=x)
+x = x.deleter(x)      # 屏蔽了对 method-3 的访问
+	# 实际是返回了原来 property 的 copy，并设置了 `fdel`
+	# x = property(fget=x.fget, fset=x.fset, fdel=x)
+```
+
+不那么 confusing 的写法：
+
+```python
+class B(object):  
+    def __init__(self):
+        self._x = None
+
+    def get_x(self):
+        return self._x
+
+    def set_x(self, value):
+        self._x = value
+
+    def del_x(self):
+        del self._x
+
+    x = property(fset=get_x, fset=set_x, fdel=del_x, "Docstring here")
+```
+
+#### 8.4.3 `__hash__()`
+
+The `__hash__` special method documentation suggests using the bitwise XOR operator (`^`) to mix the hashes of the components.
+
+```python
+class Vector2d:
+	def __eq__(self, other):
+		return tuple(self) == tuple(other)
+
+	def __hash__(self):
+		return hash(self.x) ^ hash(self.y)
+```
