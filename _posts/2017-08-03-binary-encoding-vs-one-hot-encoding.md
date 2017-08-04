@@ -7,7 +7,7 @@ tags: []
 ---
 {% include JB/setup %}
 
-https://patsy.readthedocs.io/en/latest/categorical-coding.html
+需要注意的是：one-hot encoding 应该是 binary encoding 的特殊情况。one-hot 的意思就是：只有一个 bit 是高位（1）；类似还有 one-cold encoding
 
 ```python
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder
@@ -142,8 +142,10 @@ def list_categorical_columns(dfm, exclude=['name']):
 
 # DO NOT use `binary_encode` to one-hot-encode although it's feasible
 
-# %timeit -n 100 one_hot_encode(osu18, 'chrom', 'chrom_', integrate=False)
+# %timeit -n 100 one_hot_encode(dfm, 'chrom', 'chrom_', integrate=False)
 #   100 loops, best of 3: 19.6 ms per loop
-# %timeit -n 100 binary_encode(osu18, 'chrom', ',', 'chrom_', integrate=False)
+# %timeit -n 100 binary_encode(dfm, 'chrom', ',', 'chrom_', integrate=False)
 #   100 loops, best of 3: 381 ms per loop
 ```
+
+用 [patsy](https://patsy.readthedocs.io/en/latest/categorical-coding.html) 来处理似乎有点 overkill，而且它默认 encoded 展开后 first column 的名字是 "Intercept"，剩下的 column name 也很难控制。
