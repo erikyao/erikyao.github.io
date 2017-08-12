@@ -12,6 +12,7 @@ tags: [Book, Python-101]
 [3-8-generic-set-class-diagram]: https://farm1.staticflickr.com/605/31059283963_57b19e44a8_z_d.jpg
 [3-9-hash-collision]: https://farm1.staticflickr.com/712/31766685701_de0cb54f86_z_d.jpg
 [7-1-free-variable]: https://farm5.staticflickr.com/4325/36297071625_b624ab287a_o_d.png
+[11-3-collections-abc]: https://farm5.staticflickr.com/4390/36490611835_0c2312925b_z_d.jpg
 
 ## Chapter 1 - The Python Data Model
 
@@ -357,7 +358,7 @@ When creating an `array.array`, you provide a typecode, a letter to determine th
 
 #### 2.8.2 `memoryview(array)`
 
-一个 array 可以有多种表示，比如二进制、八进制。`memoryview` 就是用来显示这些不同的表示的。如果修改 `memoryview` 自然会修改到底层的 array 的值。这进一步说明：sequence
+一个 array 可以有多种表示，比如二进制、八进制。`memoryview` 就是用来显示这些不同的表示的。如果修改 `memoryview` 自然会修改到底层的 array 的值。这进一步说明：sequence 是 mutable 的。
 
 ```python
 >>> numbers = array.array('h', [-2, -1, 0, 1, 2])  # 'h' for signed short
@@ -1879,7 +1880,7 @@ class Vector2d:
 		return (i for i in (self.x, self.y))
 	
 	def __repr__(self):
-		class_name = type(self).__name__
+		class_name = type(self).__name__  # 考虑到继承；灵活获取 class name 而不是写死
 		return '{}({!r}, {!r})'.format(class_name, *self)
 	
 	def __str__(self):
@@ -1887,10 +1888,13 @@ class Vector2d:
 	
 	def __bytes__(self):
 		return (bytes([ord(self.typecode)]) + bytes(array(self.typecode, self)))
+
 	def __eq__(self, other):
 		return tuple(self) == tuple(other)
+	
 	def __abs__(self):
 		return math.hypot(self.x, self.y)
+	
 	def__bool__(self):
 		return bool(abs(self))
 ```
@@ -2077,7 +2081,7 @@ class B(object):
         self._x = None
 
     def get_x(self):
-        return self._x
+        return self._xshiyong
 
     def set_x(self, value):
         self._x = value
@@ -2100,3 +2104,613 @@ class Vector2d:
 	def __hash__(self):
 		return hash(self.x) ^ hash(self.y)
 ```
+
+### 8.5 "Private" and "Protected"
+
+Too prevent accidental overwritting of a private attribute of a class, python would store `__bar` attribute of class `Foo` in `Foo.__dict__` as `_Foo__bar`. This language feature is called **name mangling**.
+
+Name mangling is about safety, not security: it’s designed to prevent accidental access and not intentional wrongdoing.
+
+The single underscore prefix, like `_bar`, has no special meaning to the Python interpreter when used in attribute names, but it’s a very strong convention among Python programmers that you should not access such attributes from outside the class.
+
+### 8.6 Saving Space with the `__slots__` Class Attribute
+
+By default, Python stores instance attributes in a per-instance dict named `__dict__`. Dictinaries have a significant memory overhead, especially when you are dealing with millions of instances with few attributes. The `__slots__` class attribute can save a lot of memory, by letting the interpreter store the instance attributes in a tuple instead of a dict.
+
+- A `__slots__` attribute inherited from a superclass has no effect. Python only takes into account __slots__ attributes defined in each class individually.
+
+```python
+class Vector2d:
+	__slots__ = ('__x', '__y')
+
+	def __init__(self, x, y):
+		self.__x = float(x)
+		self.__y = float(y)
+```
+
+When `__slots__` is specified in a class, its instances will not be allowed to have any other attributes apart from those named in `__slots__`. It’s considered a bad practice to use `__slots__` just to prevent users of your class from creating new attributes. `__slots__` should used for optimization, not for programmer restraint.
+
+It may be possible, however, to “save memory and eat it too”: if you add `__dict__` to the `__slots__` list, your instances will keep attributes named in `__slots__` in the per-instance tuple, but will also support dynamically created attributes, which will be stored in the usual `__dict__`, entirely defeating `__slots__`'s purpose.
+
+There is another special per-instance attribute that you may want to keep: the `__weak ref__` attribute, which exists by default in instances of user-defined classes. However, if the class defines `__slots__`, and you need the instances to be target of weak references, then you need to include `__weakref__` among the attribute named in `__slots__`.
+
+### 8.7 Overriding Class Attributes
+
+比如前面的 `typecode = 'd'` 和 `__slots__` 这样不带 `self` 初始化的都是 class attributes，类似 java 的 static.
+
+If you write to an instance attribute that does not exist, you create a new instance attribute. 假设你有一个 class attribute `Foo.bar` 和 instance `f`，正常情况下 `f.bar` 可以访问到 `Foo.bar`，但你可以重新赋值 `f.bar = 'baz'` 从而覆盖掉原有的 `f.bar` 的值，同时 class attribute `Foo.bar` 不会受影响。这实际上提供了一种新的继承和多态的思路（不用把 `bar` 设计成 `Foo` 的 instance attribute）。
+
+## Chapter 10 - Sequence Hacking, Hashing, and Slicing
+
+In this chapter, we will create a class to represent a multidimensional Vector class--a significant step up from the two-dimensional Vector2d of Chapter 9. 
+
+### 10.1 Vector Take #1: `Vector2d` Compatible
+
+先说个题外话，你在 console 里面直接输入 `f` 然后回车，调用的是 `f.__repr__()`，而 `print(f)` 调用的是 `f.__str__()`（如果有定义的话；没有的话还是会 fall back 到 `f.__repr__()`）
+
+```python
+>>> class Foo:
+...     def __repr__(self):
+...             return "Running Foo.__repr__()"
+...     def __str__(self):
+...             return "Running Foo.__str__()"
+... 
+>>> f = Foo()
+>>> f
+Running Foo.__repr__()
+>>> print(f)
+Running Foo.__str__()
+```
+
+这也说明一点：你在 debug 的时候不应该把 `__repr__` 设计得太复杂，想想一下满屏的字符串看起来是有多头痛。
+
+```python
+from array import array
+import reprlib
+import math
+
+class Vector:
+	typecode = 'd'
+	def __init__(self, components):
+		self._components = array(self.typecode, components)
+	
+	def __iter__(self):
+		return iter(self._components)
+		
+	def __repr__(self):
+		components = reprlib.repr(self._components)
+		components = components[components.find('['):-1]
+		return 'Vector({})'.format(components)
+		
+	def __str__(self):
+		return str(tuple(self))
+		
+	def __bytes__(self):
+		return (bytes([ord(self.typecode)]) + bytes(self._components))
+
+	def __eq__(self, other):
+		return tuple(self) == tuple(other)
+		
+	def __abs__(self):
+		return math.sqrt(sum(x * x for x in self))
+		
+	def __bool__(self):
+		return bool(abs(self))
+		
+	@classmethod
+	def frombytes(cls, octets):
+		typecode = chr(octets[0])
+		memv = memoryview(octets[1:]).cast(typecode)
+		return cls(memv)
+```
+
+上面这个 `__repr__` 的处理就很值得学习：`reprlib.repr()` 的返回值类似 `array('d', [0.0, 1.0, 2.0, 3.0, 4.0, ...])`，超过 6 个元素就会用省略号表示；然后上面的代码再截取出 `[...]` 的部分然后格式化输出。
+
+### Digress: Protocols and Duck Typing
+
+In the context of object-oriented programming, a protocol is an informal interface, defined only in documentation and not in code. 简单说，只要实现了 protocol 要求的函数，你就是 protocol 的实现，并不用显式声明你要实现这个 protocol（反例就是 java 的 `interface`）
+
+Duck Typing 的源起：
+
+> Don’t check whether it **_is-a_** duck: check whether it **_quacks-like-a_** duck, **_walks-like-a_** duck, etc, etc, depending on exactly what subset of duck-like behavior you need to play your language-games with. ([comp.lang.python](https://groups.google.com/forum/#!forum/comp.lang.python), Jul. 26, 2000)
+> — Alex Martelli
+
+简单说就是 python 并不要求显式声明 **_is-a_**（当然你要显式也是可以的--用 ABC，但是需要注意不仅限于 `abc.ABC`，还有 `collections.abc` 等细分的 ABC，比如 `MutableSequence`；参 11.3 章节），**_like-a_** 在 python 里等同于 **_is-a_**。
+
+### 10.2 Vector Take #2: A Sliceable Sequence
+
+Basic sequence protocol: `__len__` and `__getitem__`:
+
+```python
+class Vector:
+	def __len__(self):
+		return len(self._components)
+	
+	def __getitem__(self, index):
+		return self._components[index]
+```
+
+```python
+>>> v1 = Vector([3, 4, 5])
+>>> len(v1)
+3
+>>> v1[0], v1[-1]
+(3.0, 5.0)
+>>> v7 = Vector(range(7))
+>>> v7[1:4]
+array('d', [1.0, 2.0, 3.0])  # It would be better if a slice of Vector is also a Vector
+```
+
+#### 10.2.1 How Slicing Works
+
+```python
+>>> class MySeq:
+... 	def __getitem__(self, index):
+...		return index 
+...
+>>> s = MySeq()
+>>> s[1] 
+1
+>>> s[1:4] 
+slice(1, 4, None)
+>>> s[1:4:2] 
+slice(1, 4, 2)
+>>> s[1:4:2, 9] 
+(slice(1, 4, 2), 9)
+>>> s[1:4:2, 7:9] 
+(slice(1, 4, 2), slice(7, 9, None))
+```
+
+可以看到：
+
+- `s[1]` $\Rightarrow$ `s.__getitem__(1)`
+- `s[1:4]` $\Rightarrow$ `s.__getitem__(slice(1, 4, None))`
+- `s[1:4:2]` $\Rightarrow$ `s.__getitem__(slice(1, 4, 2))`
+- `s[1:4:2, 9]` $\Rightarrow$ `s.__getitem__((slice(1, 4, 2), 9))`
+- `s[1:4:2, 7:9]` $\Rightarrow$ `s.__getitem__((slice(1, 4, 2), slice(7, 9, None)))`
+
+`slice` is a built-in type. `slice(1, 4, 2)` means "start at 1, stop at 4, step by 2". `dir(slice)` you'll find 3 attributes, `start`, `stop`, `step` and 1 method, `indices`.
+
+假设有一个 `s = slice(...)`，那么 `s.indices(n)` 的作用就是：当我们用 `s` 去 slice 一个长度为 `n` 的 sequence 时，`s.indices(n)` 会返回一个 tuple `(start, stop, step)` 表示这个 sequence-specific 的 slice 信息。举个例子说：`slice(0, None, None)` 是一个 general 的 slice，但当它作用于一个长度为 5 和一个长度为 7 的 sequence 时，它内部的逻辑是不一样的，一个会变成 `[1:5]` 另一个会变成 `[1:7]`。
+
+```python
+>>> s = slice(0, None, None)
+>>> s.indices(5)
+(0, 5, 1)
+>>> s.indices(7)
+(0, 7, 1)
+```
+
+slice 有很多类似这样的 "智能的" 处理方法，比如 "如果 `step` 比 `n` 还要大的时候该怎么办"；可以参考这篇 [
+The Intelligence Behind Python Slices](http://avilpage.com/2015/03/a-slice-of-python-intelligence-behind.html)。
+
+另外需要注意的是，如果你自己去实现一个 sequence from scratch，你可能需要类似 [Extended Slices](https://docs.python.org/2.3/whatsnew/section-slices.html) 上这个例子的实现：
+
+```python
+class FakeSeq:
+    def calc_item(self, i):
+        """Return the i-th element"""
+
+    def __getitem__(self, item):
+        if isinstance(item, slice):
+            indices = item.indices(len(self))
+            return FakeSeq([self.calc_item(i) for i in range(*indices)])
+        else:
+            return self.calc_item(i)
+```
+
+如果你是组合了一个 built-in sequence 来实现自己的 sequence，你就不需要用到 `s.indices(n)` 方法，因为可以直接 delegate 给这个 built-in sequence 去处理，书上的例子就是这样的，见下。
+
+
+#### 10.2.2 A Slice-Aware `__getitem__`
+
+```python
+def __getitem__(self, index):
+	cls = type(self)
+	
+	if isinstance(index, slice):
+		return cls(self._components[index])
+	elif isinstance(index, numbers.Integral):
+		return self._components[index]
+	else:
+		msg = '{cls.__name__} indices must be integers'
+		raise TypeError(msg.format(cls=cls))
+```
+
+### 10.3 Vector Take #3: Dynamic Attribute Access
+
+我们想保留 "用 `x`, `y`, `z` 和 `t` 来指代一个 vector 的前 4 个维度" 这么一个 convention，换言之我们想要有 `v.x == v[0]` etc.
+
+方案一：用 `@property` 去写 4 个 getter
+
+方案二：用 `__getattr__`。等 `v.x` 这个 attribute lookup fails，然后 fall back 到 `__getattr__` 处理。这个方案更灵活。
+
+```python
+shortcut_names = 'xyzt'
+
+def __getattr__(self, name):
+	cls = type(self)
+
+	if len(name) == 1:
+		pos = cls.shortcut_names.find(name)
+		if 0 <= pos < len(self._components):
+			return self._components[pos]
+
+	msg = '{.__name__!r} object has no attribute {!r}'
+	raise AttributeError(msg.format(cls, name))
+```
+
+但是这么一来会引入一个新的问题：你如何处理 `v.x = 10` 这样的赋值？是允许它创建一个新的 attribute `x`？还是去修改 `v[0]` 的值？
+
+如果你允许它创建新的 attribute `x`，那么下次 `v.x` 就不会 fall back 到 `__getattr__` 了。去修改 `v[0]` 我觉得是可信的，但是书上决定把 `v.x` 到 `v.t` 这 4 个 attribute 做成 read-only，同时禁止创建名字为单个小写字母的 attribute。这些逻辑的去处是 `__setattr__`:
+
+```python
+def __setattr__(self, name, value):
+	cls = type(self)
+
+	if len(name) == 1:
+		if name in cls.shortcut_names:
+			error = 'readonly attribute {attr_name!r}'
+		elif name.islower():
+			error = "can't set attributes 'a' to 'z' in {cls_name!r}"
+		else:
+			error = ''
+		
+		if error:
+			msg = error.format(cls_name=cls.__name__, attr_name=name)
+			raise AttributeError(msg)
+
+	super().__setattr__(name, value)  # 正常创建名字合法的 attribute
+```
+
+如果你要限定允许的 attribute name，一个可以 work 的方案是用 `__slots__`，但如同前面所说的，这个用途违背了 `__slots__` 的设计初衷，不推荐使用。
+
+### 10.4 Vector Take #4: Hashing and a Faster `==`
+
+```python
+import functools 
+import operator 
+
+class Vector:
+	def __eq__(self, other): #
+		return tuple(self) == tuple(other)
+	
+	def __hash__(self):
+		# Generator expression! 
+		# Lazily compute the hash of each component.
+		# 可以省一点空间，相对于 List 而言（只占用一个元素的内存，而不是一整个 list 的） 
+		hashes = (hash(x) for x in self._components)  
+		return functools.reduce(operator.xor, hashes, 0)
+```
+
+When using `reduce`, it’s good practice to provide the third argument, `reduce(function, iterable, initializer)`, to prevent this exception: `TypeError: reduce() of empty sequence with no initial value` (excellent message: explains the problem and how to fix it). The `initializer` is the value returned if the sequence is empty and is used as the first argument in the reducing loop, so it should be the identity value of the operation. As examples, for `+`, `|`, `^` the `initializer` should be 0, but for `*`, `&` it should be 1.
+
+这个 `__hash__` 的实现也是很好的 map-reduce 的例子：apply function to each item to generate a new series (map), then compute aggregate (reduce)。用下面这个写法就更明显了：
+
+```python
+def __hash__(self):
+	hashes = map(hash, self._components)
+	return functools.reduce(operator.xor, hashes, 0)
+```
+
+对 high-dimensional 的 vector，我们的 `__eq__` 性能可能会有问题。一个更好的实现是：
+
+```python
+def __eq__(self, other):
+	if len(self) != len(other): 
+		return False
+	
+	for a, b in zip(self, other): 
+		if a != b: 
+		return False
+	
+	return True 
+
+# ----- Even Better ----- #
+
+def __eq__(self, other):
+	return len(self) == len(other) and all(a == b for a, b in zip(self, other))
+```
+
+### 10.5 Vector Take #5: Formatting
+
+略
+
+## Chapter 11 - Interfaces: From Protocols to ABCs
+
+### 11.1 Monkey-Patching to Implement a Protocol at Runtime
+
+Monkey patch refers to dynamic modifications of a class or module at runtime, motivated by the intent to patch existing third-party code as a workaround to a bug or feature which does not act as desired.
+
+比如我们第一章的 `FrenchDeck` 不支持 `shuffle()` 操作，error 告诉我们底层原因是因为没有支持 `__setitem__`:
+
+```python
+>>> from random import shuffle
+>>> from frenchdeck import FrenchDeck
+>>> deck = FrenchDeck()
+>>> shuffle(deck)
+Traceback (most recent call last):
+File "<stdin>", line 1, in <module>
+File ".../python3.3/random.py", line 265, in shuffle
+x[i], x[j] = x[j], x[i]
+TypeError: 'FrenchDeck' object does not support item assignment
+```
+
+所以我们可以直接在 runtime 里给 `FrenchDeck` 加一个 `__setitem__` 而不用去修改它的源代码：
+
+```python
+>>> def set_card(deck, position, card):
+...		deck._cards[position] = card
+...
+>>> FrenchDeck.__setitem__ = set_card
+>>> shuffle(deck)
+```
+
+有点像给 JS 元素动态添加 event-listener。
+
+### 11.2 Subclassing an ABC
+
+Python does not check for the implementation of the abstract methods at import time, but only at runtime when we actually try to instantiate the subclass. 
+
+### 11.3 ABCs in the Standard Library
+
+Every ABC depends on `abc.ABC`, but we don’t need to import it ourselves except to create a new ABC.
+
+#### 11.3.1 ABCs in `collections.abc`
+
+![][11-3-collections-abc]
+
+更详细的说明见 [Python documentation - 8.4.1. Collections Abstract Base Classes](https://docs.python.org/3/library/collections.abc.html#collections-abstract-base-classes)
+
+#### 11.3.2 The `numbers` Tower of ABCs
+
+`numbers` package 有如下的的继承关系：
+
+- `Number`
+	- $\Uparrow$ `Complex` (A complex number is a number of the form $a + bi$, where $a$ and $b$ are real numbers and $i$ is the imaginary unit.)
+		- $\Uparrow$ `Real` (A real number can be seen as a special complex where $b=0$; the real numbers include all the rational numbers and all the irrational numbers.)
+			- $\Uparrow$ `Rational` (A Rational Number is a real number that can be written as a simple fraction, i.e. as a ratio. 反例：$\sqrt 2$)
+				- $\Uparrow$ `Integral`
+
+另外有：
+
+- `int` 实现了 `numbers.Integral`，然后 `bool` subclasses `int`，所以 `isinstance(x, numbers.Integral)` 对 `int` 和 `bool` 都有效
+- `isinstance(x, numbers.Real)` 对 `bool`、`int`、`float`、`fractions.Fraction` 都有效（所以这不是一个很好的 check if `x` is float 的方法）
+	- However, `decimal.Decimal` 并没有实现 `numbers.Real`
+
+### 11.4 Defining and Using an ABC
+
+An abstract method can actually have an implementation. Even if it does, subclasses will still be forced to override it, but they will be able to invoke the abstract method with `super()`, adding functionality to it instead of implementing from scratch.
+
+注意版本问题：
+
+```python
+import abc
+
+# ----- Python 3.4 or above ----- #
+class Foo(abc.ABC):
+	pass
+
+# ----- Before Python 3.4 ----- #
+class Foo(metaclass=abc.ABCMeta):  # No `abc.ABC` before Python 3.4
+	pass
+
+# ----- Holy Python 2 ----- #
+class Foo(object):  # No `metaclass` argument in Python 2
+	__metaclass__ = abc.ABCMeta
+	pass
+```
+
+Python 3.4 引入的逻辑其实是 `def abc.ABC(metaclass=abc.ABCMeta)`
+
+另外 `@abc.abstractmethod` 必须是 innermost 的 decorator（i.e. 它与 `def` 之间不能再有别的 decorator）
+
+### 11.5 Virtual Subclasses
+
+我第一个想到的是 [C++: Virtual Inheritance](/c++/2015/04/24/cpp-virtual-inheritance)，但是在 python 这里 virtual subclass 根本不是这个意思。
+
+python 的 virtual subclass 简单说，就是你的 `VirtualExt` 在 `issubclass` 和 `isinstance` 看来都是 `Base` 的子类，但实际上 `VirtualExt` 并不继承 `Base`，即使 `Base` 是 ABC，`VirtualExt` 也不用实现 `Base` 要求的接口。
+
+不过说实话，你 `issubclass` 和 `isinstance` 都已经判断成子类了，我想不出你不用这个多态的理由……
+
+具体写法：
+
+```python
+import abc
+
+class Base(abc.ABC):
+	def __init__(self):
+		self.x = 5
+	
+	@abc.abstractmethod
+	def foo():
+		"""Do nothing"""
+
+class TrueBase():
+	def __init__(self):
+		self.y = 5
+
+@Base.register
+class VirtualExt(TrueBase):
+	pass
+```
+
+```python
+>>> issubclass(VirtualExt, Base)
+True
+>>> issubclass(VirtualExt, TrueBase)
+True
+>>> ve = VirtualExt()
+>>> isinstance(ve, Base)
+True
+>>> isinstance(ve, TrueBase)
+True
+>>> ve.x
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'VirtualExt' object has no attribute 'x'
+>>> ve.foo()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'VirtualExt' object has no attribute 'foo'
+>>> ve.y
+5
+```
+
+说明一下：
+
+- `Base.register()` 其实是继承自 `abc.ABC.register()`，意思是 "把 `VirtualExt` register 成 `Base` 的子类，with no doubt"
+	- 进一步说明你只能 virtually 继承一个 ABC
+- `issubclass(VirtualExt, Base) == True` 和 `isinstance(ve, Base) == True` 都成立但是 `VirtualExt` 既没有 attribute `x` 也没有实现 `foo`
+	- 所以说这是一个 "假" 继承（我觉得叫 Fake Inheritance 更合适……） 
+- `class VirtualExt(TrueBase)` 这是一个 真·继承
+- 这里也不是多重继承
+	- 多重继承你得写成 `class MultiExt(Base, TrueBase)`
+
+Inheritance is guided by a special class attribute named `__mro__`, the **Method Resolution Order**. It basically lists the class and its superclasses in the order Python uses to search for methods. 
+
+```python
+>>> VirtualExt.__mro__
+(<class '__main__.VirtualExt'>, <class '__main__.TrueBase'>, <class 'object'>)
+```
+
+`Base` is not in `VirtualExt.__mro__`. 这进一步验证了我们的结论：`VirtualExt` 并没有实际继承 `Base`。
+
+#### 11.5.1 `issubclass` Alternatives: `__subclasses__` and `_abc_registry`
+
+- `Base.__subclasses__()` (注意这是一个方法) 
+	- 返回所有 `Base` 的 immediate 子类（即不会递归去找子类的子类）
+		- 没有 import 进来的子类是不可能被找到的
+	- 不会列出 virtual 子类
+	- 不 care `Base` 是不是 ABC
+- `Base._abc_registry` (注意这是一个attribute)
+	- 要求 `Base` 是 ABC
+	- 返回所有 `Base` 的 virtual 子类
+	- 返回值类型其实是一个 `WeakSet`，元素是 weak references to virtual subclasses
+
+#### 11.5.2 `__subclasshook__`
+
+- 必须是一个 `@classmethod`
+- 写在 ABC 父类中，如果 `Base.__subclasshook__(Ext) == True`，则 `issubclass(Ext, Base) == True`
+	- 注意这是由父类直接控制 `issubclasses` 的逻辑
+	- 不需要走 `Base.register()` 
+
+书上的例子是 `collections.abc.Sized`，它的逻辑是：只要是实现了 `__len__` 方法的类都是我 `Sized` 的子类：
+
+```python
+class Sized(metaclass=ABCMeta):
+	__slots__ = ()
+	
+	@abstractmethod
+	def __len__(self):
+		return 0
+	
+	@classmethod
+	def __subclasshook__(cls, C):	
+		if cls is Sized:
+			if any("__len__" in B.__dict__ for B in C.__mro__):
+				return True 
+	return NotImplemented  # See https://docs.python.org/3/library/constants.html
+```
+
+但是在你自己的 ABC 业务类中并不推荐使用 `__subclasshook__`，因为它太底层了，多用于 lib 设计中。
+
+## Chapter 12 - Inheritance: For Good or For Worse
+
+本章谈两个问题：
+
+- The pitfalls of subclassing from built-in types
+- Multiple inheritance and the method resolution order
+
+### 12.1 Subclassing Built-In Types Is Tricky
+
+一个很微妙的问题：你无法确定底层函数的调用逻辑。举个例子，我们之前有说 `getattr(obj, name)` 的逻辑是先去取 `obj.__getattribute__(name)`。所以正常的想法是：我子类如果覆写了 `__getattribute__`，那么 `getattr` 作用在子类上的行为也会相应改变。但是实际情况是：`getattr` 不一定会实际调用 `__getattribute__`（比如说有可能去调用公用的更底层的逻辑）。而且这个行为是 language-implementation-specific 的，所以有可能 _PyPy_ 和 _CPython_ 的逻辑还不一样。
+
+[Differences between PyPy and CPython >> Subclasses of built-in types]():
+
+> Officially, CPython has no rule at all for when exactly overridden method of subclasses of built-in types get implicitly called or not. As an approximation, these methods are never called by other built-in methods of the same object. For example, an overridden `__getitem__()` in a subclass of `dict` will not be called by e.g. the built-in `get()` method.
+
+Subclassing built-in types like `dict` or `list` or `str` directly is error-prone because the built-in methods mostly ignore user-defined overrides. Instead of subclassing the built-ins, derive your classes from the `collections` module using `UserDict`, `UserList`, and `UserString`, which are designed to be easily extended.
+
+### 12.2 Multiple Inheritance and Method Resolution Order
+
+首先 python 没有 [C++: Virtual Inheritance](/c++/2015/04/24/cpp-virtual-inheritance) 里的 dread diamond 问题，子类 `D` 定位到父类 `A` 的方法毫无压力，而且查找顺序是固定的--以 `D.__mro__` 的顺序为准。
+
+另外需要注意的是，等价于 `instance.method()`，`Class.method(instance)` 这种有点像 static 的写法的也是可行的：
+
+```python
+>>> class Foo:
+...     def bar(self):
+...             print("bar")
+... 
+>>> f = Foo()
+>>> f.bar()
+bar
+>>> Foo.bar(f)
+bar
+```
+
+所以可以衍生出 `Base.method(ext)` 这种写法，相当于在子类对象 `ext` 上调用父类 `Base` 的方法。当然更好的写法是在 `Ext` 里用 `super().method()`。
+
+从上面这个例子出发，我们还可以引申出另外一个问题：既没有 `self` 参数也没有标注 `@staticmethod` 的方法是怎样的存在？
+
+```python
+>>> class Foo:
+...     def bar():
+...             print("bar")
+...     @staticmethod
+...     def baz():
+...             print("baz")
+... 
+>>> f = Foo()
+>>> f.bar()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: bar() takes 0 positional arguments but 1 was given
+>>> f.baz()
+baz
+>>> Foo.bar()
+bar
+>>> Foo.baz()
+baz
+```
+
+可见：
+
+- 对成员方法 `bar`：`f.bar()` 会无脑转换成 `Foo.bar(f)`
+	- 所以如果不给 `bar` 定一个 `self` 参数的话，它就不可能成为一个成员方法，而是成了一个 ”只能通过 `Foo` 访问的" static 方法
+- 对 static 方法 `baz`：`f.baz()` 转换成 `Foo.baz()` 这是顺理成章的
+
+### 12.3 Coping with Multiple Inheritance
+
+1. Distinguish Interface Inheritance from Implementation Inheritance
+1. Make Interfaces Explicit with ABCs
+1. Use Mixins for Code Reuse
+	- Conceptually, a mixin does not define a new type; it merely bundles methods for reuse.
+	- A mixin should never be instantiated, and concrete classes should not inherit only from a mixin. 
+	- Eachs mixin should provide a single specific behavior, implementing few and very closely related methods.
+1. Make Mixins Explicit by Naming
+1. An ABC May Also Be a Mixin; The Reverse Is Not True
+1. Don’t Subclass from More Than One Concrete Class
+1. Provide Aggregate Classes to Users
+	- If some combination of ABCs or mixins is particularly useful to client code, provide a class that brings them together in a sensible way. Grady Booch calls this an aggregate class.
+1. “Favor Object Composition Over Class Inheritance.”
+	- Universally true.
+
+## Chapter 13 - Operator Overloading: Doing It Right
+
+### 13.1 Operator Overloading 101
+
+Python limitation on operator overloading:
+
+- We cannot overload operators for the built-in types.
+- We cannot create new operators, only overload existing ones.
+- A few operators can’t be overloaded: `is`, `and`, `or`, `not` (but the bitwise `&`, `|`, `~`, can).
+
+### 13.2 Unary Operators
+
+- `+` $\Rightarrow$ `__pos__`
+- `-` $\Rightarrow$ `__neg__`
+- `~` $\Rightarrow$ `__invert__`
+	- Bitwise inverse of an integer, defined as `~x == -(x+1)`
+- `abs` $\Rightarrow$ `__abs__`
