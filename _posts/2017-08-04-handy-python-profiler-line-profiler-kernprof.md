@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Handy Python Profiler: `line_profiler` + `kernprof`"
+title: "Handy Python Profiler: <i>line_profiler</i> + <i>kernprof</i>"
 description: ""
 category: Python
 tags: []
