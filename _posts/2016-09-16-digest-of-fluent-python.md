@@ -13,6 +13,8 @@ tags: [Book, Python-101]
 [3-9-hash-collision]: https://farm1.staticflickr.com/712/31766685701_de0cb54f86_z_d.jpg
 [7-1-free-variable]: https://farm5.staticflickr.com/4325/36297071625_b624ab287a_o_d.png
 [11-3-collections-abc]: https://farm5.staticflickr.com/4390/36490611835_0c2312925b_z_d.jpg
+[13-5-Rich-Comparison-Operators]: https://farm5.staticflickr.com/4340/35696326944_2eea27878a_z_d.jpg
+[14-Iterables-vs-Iterators-vs-Generators]: https://farm5.staticflickr.com/4358/36136184210_35769554c8_z_d.jpg
 
 ## Chapter 1 - The Python Data Model
 
@@ -161,7 +163,7 @@ my_array_1 = array.array("I", (i**2 for i in range(0, 10)))  # generator express
 my_array_2 = array.array("I", [i**2 for i in range(0, 10)])  # list comprehension
 ```
 
-N.B. `my_tuple` above is not a good example of generator because actually `(x**2 for x in range(0, 10))` is indeed a generator expression and returns a generator. The code of `my_tuple` above is not equal to:
+**N.B.** `my_tuple` above is not a good example of generator because actually `(x**2 for x in range(0, 10))` is indeed a generator expression and returns a generator. The code of `my_tuple` above is not equal to:
 
 ```
 my_gen = (x**2 for x in range(0, 10))  # OK. my_gen is a generator object
@@ -1806,7 +1808,7 @@ When you are coding a function that receives a mutable parameter, you should car
 
 The `del` statement **deletes names, not objects**. An object may be garbage collected as result of a `del` command, but only if the variable deleted holds the last reference to the object, or if the object becomes unreachable. Rebinding a variable may also cause the number of references to an object to reach zero, causing its destruction.
 
-N.B. `__del__` is invoked by the Python interpreter when the instance is about to be destroyed to give it a chance to release external resources. You will seldom need to implement `__del__` in your own code. (感觉和 java 里面你不需要去写 `finalize()` 差不多)
+**N.B.** `__del__` is invoked by the Python interpreter when the instance is about to be destroyed to give it a chance to release external resources. You will seldom need to implement `__del__` in your own code. (感觉和 java 里面你不需要去写 `finalize()` 差不多)
 
 - In CPython, the primary algorithm for garbage collection is reference counting. As soon as that _refcount_ reaches 0, the object is immediately destroyed: CPython calls the `__del__` method on the object (if defined) and then frees the memory allocated to the object. 
 - In CPython 2.0, a generational garbage collection algorithm was added to detect groups of objects involved in reference cycles--which may be unreachable even with outstand‐ ing references to them, when all the mutual references are contained within the group. 
@@ -1996,7 +1998,7 @@ print(v.x)  # accessible
 
 如果没有用 `@property`，一般的 `b.x` 都是 CASE 2，因为一般的 int、string 这些基础类型都没有实现 `__get__()`；用了 `@property` 的话，就是强行转成了 CASE 1，因为 `property(x)` 返回的是一个 `property` 对象，它是自带 `__get__` 方法的。
 
-N.B. 我们称实现了以下三个方法的类型为 **descriptor**
+**N.B.** 我们称实现了以下三个方法的类型为 **descriptor**
 
 - `__get__(self, obj, type=None) --> value`
 - `__set__(self, obj, value) --> None`
@@ -2144,7 +2146,7 @@ If you write to an instance attribute that does not exist, you create a new inst
 
 In this chapter, we will create a class to represent a multidimensional Vector class--a significant step up from the two-dimensional Vector2d of Chapter 9. 
 
-### 10.1 Vector Take #1: `Vector2d` Compatible
+### 10.1 `Vector` Take #1: `Vector2d` Compatible
 
 先说个题外话，你在 console 里面直接输入 `f` 然后回车，调用的是 `f.__repr__()`，而 `print(f)` 调用的是 `f.__str__()`（如果有定义的话；没有的话还是会 fall back 到 `f.__repr__()`）
 
@@ -2217,7 +2219,7 @@ Duck Typing 的源起：
 
 简单说就是 python 并不要求显式声明 **_is-a_**（当然你要显式也是可以的--用 ABC，但是需要注意不仅限于 `abc.ABC`，还有 `collections.abc` 等细分的 ABC，比如 `MutableSequence`；参 11.3 章节），**_like-a_** 在 python 里等同于 **_is-a_**。
 
-### 10.2 Vector Take #2: A Sliceable Sequence
+### 10.2 `Vector` Take #2: A Sliceable Sequence
 
 Basic sequence protocol: `__len__` and `__getitem__`:
 
@@ -2317,7 +2319,7 @@ def __getitem__(self, index):
 		raise TypeError(msg.format(cls=cls))
 ```
 
-### 10.3 Vector Take #3: Dynamic Attribute Access
+### 10.3 `Vector` Take #3: Dynamic Attribute Access
 
 我们想保留 "用 `x`, `y`, `z` 和 `t` 来指代一个 vector 的前 4 个维度" 这么一个 convention，换言之我们想要有 `v.x == v[0]` etc.
 
@@ -2365,7 +2367,7 @@ def __setattr__(self, name, value):
 
 如果你要限定允许的 attribute name，一个可以 work 的方案是用 `__slots__`，但如同前面所说的，这个用途违背了 `__slots__` 的设计初衷，不推荐使用。
 
-### 10.4 Vector Take #4: Hashing and a Faster `==`
+### 10.4 `Vector` Take #4: Hashing and a Faster `==`
 
 ```python
 import functools 
@@ -2412,7 +2414,7 @@ def __eq__(self, other):
 	return len(self) == len(other) and all(a == b for a, b in zip(self, other))
 ```
 
-### 10.5 Vector Take #5: Formatting
+### 10.5 `Vector` Take #5: Formatting
 
 略
 
@@ -2714,3 +2716,450 @@ Python limitation on operator overloading:
 - `~` $\Rightarrow$ `__invert__`
 	- Bitwise inverse of an integer, defined as `~x == -(x+1)`
 - `abs` $\Rightarrow$ `__abs__`
+
+When implementing, always return a new object instead of modifying `self`.
+
+### 13.3 `+` for Vector Addition
+
+```python
+import itertools
+
+def __add__(self, other):
+	pairs = itertools.zip_longest(self, other, fillvalue=0.0)
+	return Vector(a + b for a, b in pairs) 
+```
+
+- `zip_longest` 这个是见识到了！这么一来 length 不同的 Vector 也可以相加了
+- `other` 没有类型限制，但是要注意这么一来有个加法顺序的问题：
+	- `Vector([1, 2]) + (3, 4)` 是 OK 的，等同于 `v.__add__((3, 4))`
+	- 反过来 `(3, 4) + Vector([1, 2])` 就不行，因为 tuple 的 `__add__` 处理不了 Vector
+		- 而且 tuple 的加法是被设计成 concat 的，`(1, 2) + (3, 4) == (1, 2, 3, 4)`
+
+To support operations involving objects of different types, Python implements a special dispatching mechanism for the infix operator special methods. Given an expression `a + b`, the interpreter will perform these steps: 
+
+1. Call `a.__add__(b)`. 
+1. If `a` doesn’t have `__add__`, or calling it returns `NotImplemented`, call `b.__radd__(a)`. 
+	- `__radd__` means "reflected", "reversed" or "right" version of `__add__`
+	- 同理还有 `__rsub__`
+1. If `b` doesn’t have `__radd__`, or calling it returns `NotImplemented`, raise `TypeError` with an `unsupported operand types` message.
+
+所以加一个 `__radd__` 就可以解决 `(3, 4) + Vector([1, 2])` 的问题：
+
+```python
+def __radd__(self, other):
+	return self + other
+```
+
+注意这里的逻辑：`tuple.__add__(vector)` $\Rightarrow$ `vector.__radd__(tuple)` $\Rightarrow$ `vector.__add__(tuple)`。
+
+另外一个需要注意的是：如何规范地 return `NotImplemented`？示范代码：
+
+```python
+def __add__(self, other):
+	try:
+		pairs = itertools.zip_longest(self, other, fillvalue=0.0)
+		return Vector(a + b for a, b in pairs) 
+	except TypeError:
+		return NotImplemented
+```
+
+### 13.4 `*` for Scalar Multiplication
+
+这里我们限制一下乘数的类型：
+
+```python
+import numbers
+
+def __mul__(self, scalar):
+	if isinstance(scalar, numbers.Real): 
+		return Vector(n * scalar for n in self)
+	else: 
+		return NotImplemented
+
+def __rmul__(self, scalar):
+	return self * scalar
+```
+
+### Digress: `@` for Matrix Multiplication since Python 3.5 
+
+```python
+>>> import numpy as np
+>>> va = np.array([1, 2, 3])
+>>> vb = np.array([5, 6, 7])
+>>> va @ vb  # 1*5 + 2*6 + 3*7
+38
+>>> va.dot(vb)
+38
+```
+
+### Digress: `__ixxx__` Series In-place Operators
+
+比如 `a += 2` 其实就是 `a.__iadd__(2)`。
+
+另外注意 python 没有 `a++` 和 `++a` 这样的操作
+
+### 13.5 Rich Comparison Operators
+
+![][13-5-Rich-Comparison-Operators]
+
+reverse 的逻辑还是一样的：如果 `a.__eq__(b)` 行不通就调用 `b.__eq__(a)`。需要注意 type checking 的情景，因为有可能存在继承关系：
+
+- 比如 `ext.__eq__(base) == False` 因为 `isinstace(base, Ext) == False`
+- 此时反过来跑去调用 `base.__eq__(ext)`，结果 `isintace(ext, Base) == True`，而且后续的比较也都 OK，最后还是返回了 `True`
+- 相当于强行要求你考虑 reflexivity 自反性
+
+### 13.6 Augmented Assignment Operators
+
+If a class does not implement the in-place operators, the augmented assignment operators are just syntactic sugar: `a += b` is evaluated exactly as `a = a + b`. That’s the expected behavior for immutable types, and if you have `__add__` then `+=` will work with no additional code.
+
+- The in-place special methods should never be implemented for immutable types like our `Vector` class. 
+
+As the name says, these in-place operators are expected to change the lefthand operand in place, and not create a new object as the result.
+
+## Chapter 14 - Iterables, Iterators, and Generators
+
+一篇很好的 blog 以供参考：[nvie.com: Iterables vs. Iterators vs. Generators](http://nvie.com/posts/iterators-vs-generators/)
+
+![][14-Iterables-vs-Iterators-vs-Generators]
+
+### 14.1 `Sentence` Take #1: A Sequence of Words
+
+```python
+import re
+import reprlib
+
+RE_WORD = re.compile('\w+')
+
+class Sentence:
+	def __init__(self, text):
+		self.text = text
+		self.words = RE_WORD.findall(text)
+	
+	def __getitem__(self, index):
+		return self.words[index]
+	
+	def __len__(self):
+		return len(self.words)
+	
+	def __repr__(self):
+		return 'Sentence(%s)' % reprlib.repr(self.text)
+```
+
+Whenever the interpreter needs to iterate over an object `x`, it automatically calls `iter(x)`. It runs like:
+
+1. Call `x.__iter__()` to obtain an iterator.
+1. If `__iter__()` is not implemented in `x`, Python tries to create an iterator that attempts to fetch items in order, using `x.__getitem__()`
+1. If that fails too, Python raises `TypeError`, usually saying “`X` object is not iterable”.
+
+所以即使 python sequence 类没有实现 `__iter__`，它们自带的 `__getitem__` 也能保证它们是 iterable 的。
+
+另外，`collections.abc.Iterable` 在它的 `__subclasshook__` 中认定：所有实现了 `__iter__` 的类都是 `collections.abc.Iterable` 的子类
+
+### 14.2 Iterables Versus Iterators
+
+Any object from which the `iter()` built-in function can obtain an **iterator** is an **iterable**. 
+
+The standard interface for an iterator has two methods:
+
+- `__next__`
+	- Returns the next available item, raising `StopIteration` when there are no more items.
+- `__iter__`
+	- Returns `self`; this allows iterators to be used where an iterable is expected, for example, in a for loop.
+	- 根据 iterable 的定义，iterator 本身也是 iterable
+
+```python
+for i in seq:
+	do_something(i)
+
+# ----- Is Equivalent To ----- #
+
+it = iter(seq)
+
+while True:
+	try:
+		i = next(it)
+		do_something(i)
+	except StopIteration:
+		del it
+		break
+
+# Once exhausted, an iterator becomes useless.
+# To go over the seq again, a new iterator must be built.
+```
+
+### 14.3 `Sentence` Take #2: A Classic Iterator
+
+```python
+import re
+import reprlib
+
+RE_WORD = re.compile('\w+')
+
+class Sentence:
+	def __init__(self, text):
+		self.text = text
+		self.words = RE_WORD.findall(text)
+
+	def __repr__(self):
+		return 'Sentence(%s)' % reprlib.repr(self.text)
+
+	def __iter__(self):
+		return SentenceIterator(self.words)
+
+class SentenceIterator:
+	def __init__(self, words):
+		self.words = words
+		self.index = 0
+	
+	def __next__(self):
+		try:
+			word = self.words[self.index]
+		except IndexError:
+			raise StopIteration()
+		self.index += 1
+		return word
+	
+	def __iter__(self):
+		return self
+```
+
+### 14.4 `Sentence` Take #3: A Generator Function
+
+```python
+import re
+import reprlib
+
+RE_WORD = re.compile('\w+')
+
+class Sentence:
+	def __init__(self, text):
+		self.text = text
+		self.words = RE_WORD.findall(text)
+	
+	def __repr__(self):
+		return 'Sentence(%s)' % reprlib.repr(self.text)
+	
+	def __iter__(self):
+		for word in self.words:
+			yield word
+		# return  # Not necessary
+
+# done!
+```
+
+Any Python function that has the `yield` keyword in its body is a **generator function**: a function which, when called, returns a generator object. In other words, a generator
+function is a generator factory.
+
+Suppose generator function `gen()` returns a generator object `g` by `g = gen()`. When we invoke `next(g)`, execution advances to the next `yield` in the `gen()` function body, and the `next(g)` call evaluates to the value yielded when the `gen()` is suspended. Finally, when `gen()` returns, `g` raises `StopIteration`, in accordance with the `Iterator` protocol.
+
+### 14.5 `Sentence` Take #4: A Lazy Implementation
+
+Nowadays, laziness is considered a good trait, at least in programming languages and APIs. A lazy implementation postpones producing values to the last possible moment. This saves memory and may avoid useless processing as well. (与 lazy evaluation 对应的是 eager evaluation)
+
+```python
+importimportre
+reprlib
+
+RE_WORD = re.compile('\w+')
+
+class Sentence:
+	def __init__(self, text):
+		self.text = text
+	
+	def __repr__(self):
+		return 'Sentence(%s)' % reprlib.repr(self.text)
+	
+	def __iter__(self):
+		for match in RE_WORD.finditer(self.text):
+			yield match.group()
+```
+
+**N.B.** Whenever you are using Python 3 and start wondering “Is there a lazy way of doing this?”, often the answer is “Yes.”
+
+### 14.6 `Sentence` Take #5: A Generator Expression
+
+A generator expression can be understood as a lazy version of a `listcomp`.
+
+```python
+import re
+import reprlib
+
+RE_WORD = re.compile('\w+')
+
+class Sentence:
+	def __init__(self, text):
+		self.text = text
+		
+	def __repr__(self):
+		return 'Sentence(%s)' % reprlib.repr(self.text)
+		
+	def __iter__(self):
+		return (match.group() for match in RE_WORD.finditer(self.text))
+```
+
+Generator expressions are syntactic sugar: they can always be replaced by generator functions, but sometimes are more convenient. 
+
+Syntax Tip: When a generator expression is passed as the single argument to a function or constructor, you don’t need to write its parentheses.
+
+```python
+>>> (i * 5 for i in range(1, 5))
+<generator object <genexpr> at 0x7f54bf32cdb0>
+>>> list(i * 5 for i in range(1, 5))
+[5, 10, 15, 20]
+>>> list((i * 5 for i in range(1, 5)))
+[5, 10, 15, 20]
+```
+
+### 14.7 Generator Functions in the Standard Library
+
+参 [Python Documentation: 10.1. itertools — Functions creating iterators for efficient looping](https://docs.python.org/3/library/itertools.html)
+
+#### 14.7.1 Functions Returning Generators from Filtered Data
+
+- `itertools.compress(Iterable data, Iterable mask)`: 类似于 numpy 的 `data[mask]`，只是返回结果是一个 generator
+	- E.g. `compress([1, 2, 3], [True, False, True])` returns a generator of `yield 1; yield 3`
+- `itertools.dropwhile(Function condition, Iterable data)`：drop `x` in `data` while `condition(x) == True`; return a generator from the leftover in `data`
+	- E.g. `dropwhile(lambda x: x <= 2, [1, 2, 3, 2, 1])` returns a generator of `yield 3; yield 2; yield 1`
+- `itertools.takewhile(Function condition, Iterable data)`: yield `x` in `data` while `condition(x) == True`; stop yielding immediately once `condition(x) == False`
+	- E.g. `takewhile(lambda x: x <= 2, [1, 2, 3, 2, 1])` returns a generator of `yield 1; yield 2`
+- (built-in) `filter(Function condition, Iterable data)`: yield `x` in `data` if `condition(x) == True`
+- `itertools.filterfalse(Function condition, Iterable data)`: yield `x` in `data` if `condition(x) == False`
+- `itertools.islice(Iterable data[, start], stop[, step])`: return a generator from `data[start: stop: step]` 
+
+```python
+def compress(data, mask):
+    # compress('ABCDEF', [1,0,1,0,1,1]) --> A C E F
+    return (d for d, m in zip(data, m) if m)
+
+def dropwhile(condition, iterable):
+    # dropwhile(lambda x: x<5, [1,4,6,4,1]) --> 6 4 1
+    iterable = iter(iterable)
+    for x in iterable:
+        if not condition(x):
+            yield x
+            break
+    for x in iterable:
+        yield x
+
+def takewhile(condition, iterable):
+    # takewhile(lambda x: x<5, [1,4,6,4,1]) --> 1 4
+    for x in iterable:
+        if condition(x):
+            yield x
+        else:
+            break
+
+def filterfalse(condition, iterable):
+    # filterfalse(lambda x: x%2, range(10)) --> 0 2 4 6 8
+	# 相当于 lambda x: x%2 == 1 == True
+    if condition is None:
+        condition = bool
+    for x in iterable:
+        if not condition(x):
+            yield x
+```
+
+#### 14.7.2 Functions Returning Generators from Mapped Data
+
+- `itertools.accumulate(Iterable data, Function f = operator.add`: yield $x_1, \operatorname f(x_2, x_1), \operatorname f(x_3, \operatorname f(x_2, x_1)), \dots$ for $x_i$ in `data`
+- (built-in) `enumerate(Iterable data, start=0)`: yield `(i+start, data[i])` for `i` in `range(0, len(data))`
+- (built-in) `map(Function f, Iterable data_1, ..., Iterable data_n)`: yield `f(x_1, ..., x_n)` for `(x_1, ..., x_n)` in `zip(data_1, ..., data_n)`
+- `itertools.starmap(Function f, Iterable data)`: yield `f(*i)` for `i` in `data`
+
+```python
+def accumulate(iterable, func=operator.add):
+    'Return running totals'
+    # accumulate([1,2,3,4,5]) --> 1 3 6 10 15
+    # accumulate([1,2,3,4,5], operator.mul) --> 1 2 6 24 120
+    it = iter(iterable)
+    try:
+        total = next(it)
+    except StopIteration:
+        return
+    yield total
+    for element in it:
+        total = func(total, element)
+        yield total
+
+def starmap(function, iterable):
+    # starmap(pow, [(2,5), (3,2), (10,3)]) --> 32 9 1000
+    for args in iterable:
+        yield function(*args)
+```
+
+#### 14.7.3 Functions Returning Generators from Merged Data
+
+- `itertools.chain(Iterable A, ..., Iterable Z)`: yield $a_1, \dots, a_{n_A}, b_1, \dots, y_{n_Y}, z_1, \dots, z_{n_Z}$
+- `itertools.chain.from_iterable(Iterable data)`: `== itertools.chain(*data)`
+- (built-in) `zip(Iterable A, ..., Iterable Z)`: 参 [Python: Zip](/python/2016/09/29/python-zip)
+- `itertools.zip_longest(Iterable A, ..., Iterable Z, fillvalue=None)`: 你理解了 `zip` 的话看这个函数名自然就明白它的功能了
+
+```python
+def chain(*iterables):
+    # chain('ABC', 'DEF') --> A B C D E F
+    for it in iterables:
+        for element in it:
+            yield element
+
+def from_iterable(iterables):
+    # chain.from_iterable(['ABC', 'DEF']) --> A B C D E F
+    for it in iterables:
+        for element in it:
+            yield element
+
+class ZipExhausted(Exception):
+    pass
+
+def zip_longest(*args, **kwds):
+    # zip_longest('ABCD', 'xy', fillvalue='-') --> Ax By C- D-
+    fillvalue = kwds.get('fillvalue')
+    counter = len(args) - 1
+    def sentinel():
+        nonlocal counter
+        if not counter:
+            raise ZipExhausted
+        counter -= 1
+        yield fillvalue
+    fillers = repeat(fillvalue)
+    iterators = [chain(it, sentinel(), fillers) for it in args]
+    try:
+        while iterators:
+            yield tuple(map(next, iterators))
+    except ZipExhausted:
+        pass
+```
+
+### 14.7.4 Functions Generating Repetition
+
+- `itertools.count(start=0, step=1)`: yield $start, start+step, start+2 \cdot step, \dots$ endlessly
+- `itertools.repeat(object x[, ntimes])`: yield `x` endlessly or `ntimes` times
+- `itertools.cycle(Iterable data)`: yield $x_1, \dots, x_n, x_1, \dots, x_n, x_1, \dots$ repeatedly and endlessly for $x_i$ in `data`
+
+```python
+def count(start=0, step=1):
+    # count(10) --> 10 11 12 13 14 ...
+    # count(2.5, 0.5) -> 2.5 3.0 3.5 ...
+    n = start
+    while True:
+        yield n
+        n += step
+
+def repeat(object, times=None):
+    # repeat(10, 3) --> 10 10 10
+    if times is None:
+        while True:
+            yield object
+    else:
+        for i in range(times):
+            yield object
+
+def cycle(iterable):
+    # cycle('ABCD') --> A B C D A B C D A B C D ...
+    saved = []
+    for element in iterable:
+        yield element
+        saved.append(element)
+    while saved:
+        for element in saved:
+              yield element
+```
