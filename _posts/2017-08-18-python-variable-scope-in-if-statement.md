@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Python: variable scope in <i>if</i>-statement"
+title: "Python: Variable scope in <i>if</i>-statement"
 description: ""
 category: Python
 tags: [Python-101]
