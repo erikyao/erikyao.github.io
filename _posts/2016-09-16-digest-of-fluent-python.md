@@ -3163,3 +3163,8 @@ def cycle(iterable):
         for element in saved:
               yield element
 ```
+
+### 14.7.5 Functions Returning Generators from Combinations and Permutations
+
+- `itertools.product(Iterable A, ..., Iterable Z, repeat=1)`:
+- `itertools.combinations(Iterable data, )`
