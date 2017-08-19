@@ -38,7 +38,7 @@ tags: [Python-101]
 
 简单说来：list 的 `*` 操作其实是 repetition，并不涉及 copy 操作（shallow 和 deep copy 都没有）。
 
-`bar` 和 `baz` 都是 list repetition，它们的区别在于赋值操作的性质上，而不是因为 repetition 对 int 元素和 list 元素的待遇不同；`qux` 不是 list repetition 而是 generator 得来的，它有实实在在地在 clone。
+`bar` 和 `baz` 都是 list repetition，它们的区别在于赋值操作的性质上，而不是因为 repetition 对 "元素是 `None`" 和 "元素是一个 list" 的待遇不同（看它源码就知道它并没有对 list 的元素做类型检查）；`qux` 不是 list repetition 而是 generator 得来的，它有实实在在地在 clone。
 
 我们来看一下源代码：
 
