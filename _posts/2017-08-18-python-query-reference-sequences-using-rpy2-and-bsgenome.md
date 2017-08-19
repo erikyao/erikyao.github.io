@@ -30,10 +30,10 @@ import rpy2.robjects as robjects
 from rpy2.robjects.packages import importr
 
 
-bs_genome = importr("BSgenome.Hsapiens.UCSC.hg19")
+bs_genome = importr('BSgenome.Hsapiens.UCSC.hg19')
 # You need to import 'Biostrings' explicitly
-# `importr("BSgenome.Hsapiens.UCSC.hg19")` wont load 'Biostrings' automatically
-bio_strings = importr("Biostrings")
+# Loading 'BSgenome.Hsapiens.UCSC.hg19' won't load 'Biostrings' automatically
+bio_strings = importr('Biostrings')
 
 
 # Note that:
@@ -47,6 +47,6 @@ two_seq = bio_strings.getSeq(bs_genome.Hsapiens,
                              robjects.IntVector((10001, 20001)),
                              robjects.IntVector((10005, 20005)),
                              robjects.IntVector((rinterface.NA_Integer, rinterface.NA_Integer)),
-                             robjects.StrVector(("-", "+")),
+                             robjects.StrVector(("+", "+")),
                              True)
 ```
