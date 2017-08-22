@@ -41,6 +41,7 @@ bio_strings = importr('Biostrings')
 #   - `as.character` is not a legal parameter name in python
 #   - `NA` in R, `rinterface.NA_Integer` in `rpy2`
 #   - `robjects.XxxVector` accepts tuples, not lists
+#   - `getSeq` returns a list even if there is only one element
 one_seq = bio_strings.getSeq(bs_genome.Hsapiens, "chr1", 10001, 10005, rinterface.NA_Integer, "+", True) 
 two_seq = bio_strings.getSeq(bs_genome.Hsapiens,
                              robjects.StrVector(("chr1", "chr1")),
@@ -49,4 +50,8 @@ two_seq = bio_strings.getSeq(bs_genome.Hsapiens,
                              robjects.IntVector((rinterface.NA_Integer, rinterface.NA_Integer)),
                              robjects.StrVector(("+", "+")),
                              True)
+
+print(one_seq[0])  # TAACC
+print(two_seq[0])  # GGTTA
+print(two_seq[1])  # CCTGG
 ```
