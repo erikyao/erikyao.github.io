@@ -3014,7 +3014,7 @@ Syntax Tip: When a generator expression is passed as the single argument to a fu
 
 参 [Python Documentation: 10.1. itertools — Functions creating iterators for efficient looping](https://docs.python.org/3/library/itertools.html)
 
-#### 14.7.1 Functions Returning Generators from Filtered Data
+#### 14.7.1 Create Generators Yielding Filtered Data
 
 - `itertools.compress(Iterable data, Iterable mask)`: 类似于 numpy 的 `data[mask]`，只是返回结果是一个 generator
 	- E.g. `compress([1, 2, 3], [True, False, True])` returns a generator of `yield 1; yield 3`
@@ -3059,7 +3059,7 @@ def filterfalse(condition, iterable):
             yield x
 ```
 
-#### 14.7.2 Functions Returning Generators from Mapped Data
+#### 14.7.2 Create Generators Yielding Mapped Data
 
 - `itertools.accumulate(Iterable data, Function f = operator.add`: yield $x_1, \operatorname f(x_2, x_1), \operatorname f(x_3, \operatorname f(x_2, x_1)), \dots$ for $x_i$ in `data`
 - (built-in) `enumerate(Iterable data, start=0)`: yield `(i+start, data[i])` for `i` in `range(0, len(data))`
@@ -3087,7 +3087,7 @@ def starmap(function, iterable):
         yield function(*args)
 ```
 
-#### 14.7.3 Functions Returning Generators from Merged Data
+#### 14.7.3 Create Generators Yielding Merged Data
 
 - `itertools.chain(Iterable A, ..., Iterable Z)`: yield $a_1, \dots, a_{n_A}, b_1, \dots, y_{n_Y}, z_1, \dots, z_{n_Z}$
 - `itertools.chain.from_iterable(Iterable data)`: `== itertools.chain(*data)`
@@ -3129,9 +3129,9 @@ def zip_longest(*args, **kwds):
         pass
 ```
 
-### 14.7.4 Functions Generating Repetition
+### 14.7.4 Create Generators Yielding Repetition
 
-- `itertools.count(start=0, step=1)`: yield $start, start+step, start+2 \cdot step, \dots$ endlessly
+- `itertools.count(start=0, step=1)`: yield $\text{start}, \text{start}+\text{step}, \text{start}+2 \cdot \text{step}, \dots$ endlessly
 - `itertools.repeat(object x[, ntimes])`: yield `x` endlessly or `ntimes` times
 - `itertools.cycle(Iterable data)`: yield $x_1, \dots, x_n, x_1, \dots, x_n, x_1, \dots$ repeatedly and endlessly for $x_i$ in `data`
 
@@ -3164,7 +3164,427 @@ def cycle(iterable):
               yield element
 ```
 
-### 14.7.5 Functions Returning Generators from Combinations and Permutations
+### 14.7.5 Create Generators Yielding Combinations and Permutations
 
-- `itertools.product(Iterable A, ..., Iterable Z, repeat=1)`:
-- `itertools.combinations(Iterable data, )`
+- `itertools.product(Iterable A, ..., Iterable Z, repeat=1)`: yield all $(a_i, b_j, \dots, z_k)$ where $a_i \in A, b_j \in B, \dots, z_k \in Z$
+	- 一共会 yield $(\vert A \vert \cdot \vert B \vert \cdot \ldots \cdot \vert Z \vert)^{\text{repeat}}$ 个 tuple
+	- `repeat=2` 的效果是 yield all $(a_{i_1}, b_{j_1}, \dots, z_{k_1}, a_{i_2}, b_{j_2}, \dots, z_{k_2})$，依此类推
+	- 还有一种用法是 `product(A, repeat=2)`，等价于 `product(A, A)`
+- `itertools.combinations(Iterable X, k)`: yield all $(x_{i_1}, x_{i_2}, \dots, x_{i_k})$ where $x_{i_j} \in X$ and $i_1 < i_2 < \dots < i_k$
+- `itertools.combinations_with_replacement(Iterable X, k)`: yield all $(x_{i_1}, x_{i_2}, \dots, x_{i_k})$ where $x_{i_j} \in X$ and $i_1 \leq i_2 \leq \dots \leq i_k$
+- `itertools.permutations(Iterable X, k)`: yield all $(x_{i_1}, x_{i_2}, \dots, x_{i_k})$ where $x_{i_j} \in X$ and $i_1 \neq i_2 \neq \dots \neq i_k$
+
+```python
+>>> import itertools
+>>> list(itertools.combinations([1,2,3], 2))
+[(1, 2), (1, 3), (2, 3)]
+>>> list(itertools.combinations_with_replacement([1,2,3], 2))
+[(1, 1), (1, 2), (1, 3), (2, 2), (2, 3), (3, 3)]
+>>> list(itertools.permutations([1,2,3], 2))
+[(1, 2), (1, 3), (2, 1), (2, 3), (3, 1), (3, 2)]
+>>> list(itertools.product([1,2,3], repeat=2))
+[(1, 1), (1, 2), (1, 3), (2, 1), (2, 2), (2, 3), (3, 1), (3, 2), (3, 3)]
+```
+
+假设 `len(list(X)) = n`，那么:
+
+- `combinations` 一共会 yield $\operatorname{C}_{n}^{k} = {n \choose k} = \frac{n!}{(n-k)!k!}$ 个 tuple
+- `combinations_with_replacement` 一共会 yield $\operatorname{C}_{n+k-1}^{k} = {n+k-1 \choose k} = \frac{(n+k-1)!}{(n-1)!k!}$ 个 tuple
+- `permutations` 一共会 yield $\operatorname{A}_{n}^{k} = \frac{n!}{(n-k)!}$ 个 tuple
+- 你可能会问 "为啥没有 permutation with replacement 操作？" which yields $n^k$ tuples
+	- 因为可以用 `product(X, repeat=k)` 实现
+
+```python
+def product(*args, repeat=1):
+    # product('ABCD', 'xy') --> Ax Ay Bx By Cx Cy Dx Dy
+    # product(range(2), repeat=3) --> 000 001 010 011 100 101 110 111
+
+	# E.g. product('ABCD', 'xy')
+	# pools = [('A', 'B', 'C', 'D'), ('x', 'y')]
+    pools = [tuple(pool) for pool in args] * repeat
+    result = [[]]
+    for pool in pools:
+		# When pool = ('A', 'B', 'C', 'D')
+		# 	result = [['A'], ['B'], ['C'], ['D']]
+		# Then pool = ('x', 'y')
+		# 	result = [['A', 'x'], ['A', 'y'], ['B', 'x'], ['B', 'y'], ['C', 'x'], ['C', 'y'], ['D', 'x'], ['D', 'y']]
+		# `x+[y]` 里 x 是 list of list 的元素； y 被包装成了 list。这里利用了 list extension 来实现了一个类似集合 ∪ 的效果 
+        result = [x+[y] for x in result for y in pool]
+    for prod in result:
+        yield tuple(prod)
+
+def combinations(iterable, r):
+    # combinations('ABCD', 2) --> AB AC AD BC BD CD
+    # combinations(range(4), 3) --> 012 013 023 123
+
+	# E.g. combinations('ABCD', 2)
+	# pool = [('A', 'B', 'C', 'D')]
+    pool = tuple(iterable)
+    n = len(pool)  # == 4
+    if r > n:
+        return
+    indices = list(range(r))  # == [0, 1]
+    yield tuple(pool[i] for i in indices)  # yield pool(0,1)
+
+	while True:
+        for i in reversed(range(r)):  # for i in [1, 0]
+			# 1st round: i == 1; indices[1] == 1 != 1 + 4 - 2; break
+			# 2nd round: i == 1; indices[1] == 2 != 1 + 4 - 2; break
+			# 3rd round: i == 1; indices[1] == 3 == 1 + 4 - 2; continue
+			# 3rd round: i == 0; indices[0] == 0 != 0 + 4 - 2; break
+			# 4th round: i == 1; indices[1] == 2 != 1 + 4 - 2; break
+			# 5th round: i == 1; indices[1] == 3 == 1 + 4 - 2; continue
+			# 5th round: i == 0; indices[0] == 1 != 0 + 4 - 2; break
+			# 6th round: i == 1; indices[1] == 3 == 1 + 4 - 2; continue
+			# 6th round: i == 0; indices[0] == 2 == 1 + 4 - 2; continue
+            if indices[i] != i + n - r:
+                break
+		# for-else 你可以理解成 for 执行完接了一个 finally
+		# 	然而 java 并没有 for-finally，只有 try-finally (不要 catch)
+		# 6th round ended
+        else:
+            return
+
+		# 1st round: i == 1; indices[1] == 2
+		# 2nd round: i == 1; indices[1] == 3
+		# 3rd round: i == 0; indices[0] == 1
+		# 4th round: i == 1; indices[1] == 3
+		# 5th round: i == 0; indices[0] == 2
+        indices[i] += 1
+		# 1st round: i == 1; for j in []
+		# 2nd round: i == 1; for j in []
+		# 3rd round: i == 0; for j in [1]
+		# 			 indices[1] = indices[0] + 1 == 2
+		# 4th round: i == 1; for j in []
+		# 5th round: i == 0; for j in [1]
+		# 			 indices[1] = indices[0] + 1 == 3
+        for j in range(i+1, r):
+            indices[j] = indices[j-1] + 1
+		# 1st round: i == 1; yield pool(0,2)
+		# 2nd round: i == 1; yield pool(0,3)
+		# 3rd round: i == 0; yield pool(1,2)
+		# 4th round: i == 1; yield pool(1,3)
+		# 5th round: i == 0; yield pool(2,3)
+        yield tuple(pool[i] for i in indices)
+
+def combinations_with_replacement(iterable, r):
+    # combinations_with_replacement('ABC', 2) --> AA AB AC BB BC CC
+    pool = tuple(iterable)
+    n = len(pool)
+    if not n and r:
+        return
+    indices = [0] * r
+    yield tuple(pool[i] for i in indices)
+    while True:
+        for i in reversed(range(r)):
+            if indices[i] != n - 1:
+                break
+        else:
+            return
+        indices[i:] = [indices[i] + 1] * (r - i)
+        yield tuple(pool[i] for i in indices)
+
+def permutations(iterable, r=None):
+    # permutations('ABCD', 2) --> AB AC AD BA BC BD CA CB CD DA DB DC
+    # permutations(range(3)) --> 012 021 102 120 201 210
+    pool = tuple(iterable)
+    n = len(pool)
+    r = n if r is None else r
+    if r > n:
+        return
+    indices = list(range(n))
+    cycles = list(range(n, n-r, -1))
+    yield tuple(pool[i] for i in indices[:r])
+    while n:
+        for i in reversed(range(r)):
+            cycles[i] -= 1
+            if cycles[i] == 0:
+                indices[i:] = indices[i+1:] + indices[i:i+1]
+                cycles[i] = n - i
+            else:
+                j = cycles[i]
+                indices[i], indices[-j] = indices[-j], indices[i]
+                yield tuple(pool[i] for i in indices[:r])
+                break
+        else:
+            return
+```
+
+如果允许用现有的函数，也可以这样实现：
+
+```python
+def combinations(iterable, r):
+    pool = tuple(iterable)
+    n = len(pool)
+    for indices in permutations(range(n), r):
+        if sorted(indices) == list(indices):
+            yield tuple(pool[i] for i in indices)
+
+def combinations_with_replacement(iterable, r):
+    pool = tuple(iterable)
+    n = len(pool)
+    for indices in product(range(n), repeat=r):
+        if sorted(indices) == list(indices):
+            yield tuple(pool[i] for i in indices)
+
+def permutations(iterable, r=None):
+    pool = tuple(iterable)
+    n = len(pool)
+    r = n if r is None else r
+    for indices in product(range(n), repeat=r):
+        if len(set(indices)) == r:
+            yield tuple(pool[i] for i in indices)
+```
+
+#### 14.7.6 Create Generators Yielding Rearranged Data
+
+- `itertools.groupby(Iterable X, key=None)`
+	- If `key` is `None`, set `key = lambda x: x` (identity function)
+	- If $\operatorname{key}(x_i) = \operatorname{key}(x_j) = \dots = \operatorname{key}(x_k) = \kappa$, put $x_i, x_j, \dots, x_k$ into a `itertools._grouper` object $\psi$ (which itself is also a generator). Then yield a tuple $(\kappa, \psi(x_i, x_j, \dots, x_k))$
+	- Yield all such tuples
+- (built-in) `reversed(seq)`: Return a reverse iterator. 
+	- `seq` must be an object which has a `__reversed__()` method
+		- OR
+	- supports the sequence protocol (the `__len__()` method and the `__getitem__()` method with integer arguments starting at 0).
+- `itertools.tee(Iterable X, n=2)`: return a tuple of `n` independent `iter(X)`
+	- E.g. when `n=3`, return a tuple `(iter(X), iter(X), iter(X))` 
+
+```python
+class groupby:
+    # [k for k, g in groupby('AAAABBBCCDAABBB')] --> A B C D A B
+    # [list(g) for k, g in groupby('AAAABBBCCD')] --> AAAA BBB CC D
+    def __init__(self, iterable, key=None):
+        if key is None:
+            key = lambda x: x
+        self.keyfunc = key
+        self.it = iter(iterable)
+        self.tgtkey = self.currkey = self.currvalue = object()
+    
+    def __iter__(self):
+        return self
+    
+    def __next__(self):
+        while self.currkey == self.tgtkey:
+            self.currvalue = next(self.it)    # Exit on StopIteration
+            self.currkey = self.keyfunc(self.currvalue)
+        self.tgtkey = self.currkey
+        return (self.currkey, self._grouper(self.tgtkey))
+    
+    def _grouper(self, tgtkey):
+        while self.currkey == tgtkey:
+            yield self.currvalue
+            try:
+                self.currvalue = next(self.it)
+            except StopIteration:
+                return
+            self.currkey = self.keyfunc(self.currvalue)
+
+def tee(iterable, n=2):
+    it = iter(iterable)
+    deques = [collections.deque() for i in range(n)]
+    
+    def gen(mydeque):
+        while True:
+            if not mydeque:             # when the local deque is empty
+                try:
+                    newval = next(it)   # fetch a new value and
+                except StopIteration:
+                    return
+                for d in deques:        # load it to all the deques
+                    d.append(newval)
+            yield mydeque.popleft()
+
+    return tuple(gen(d) for d in deques)
+```
+
+注意这个 `tee` 的实现：它并不是简单地返回 `(iter(X), iter(X), ...)`
+
+- 首先要牢记的是，你在接收 `tee` 返回值的时候，**`gen` 是没有执行的**！因为 iteration 还没有开始。当 iteration 开始的时候，`gen` 才开始执行
+	- 比如 `a, b, c = tee([1,2,3], 3)` 时，`gen` 没有执行，只是挂到这三个变量上了而已
+	- 如果你来一句 `list(a)`，那么 iteration 就开始了，`gen` 也就开始执行了
+- `a, b, c = tee([1,2,3], 3)` 时：
+	- `a -> deque([])`
+	- `b -> deque([])`
+	- `c -> deque([])`
+- 第一次 `next(a)` 时：
+	- `a -> deque([1])`， 然后 yield `1`，最终 `a -> deque([])`
+	- `b -> deque([1])`
+	- `c -> deque([1])`
+- 第二次 `next(a)` 时：
+	- `a -> deque([2])`， 然后 yield `2`，最终 `a -> deque([])`
+	- `b -> deque([1, 2])`
+	- `c -> deque([1, 2])`
+- 如果此时 `next(b)`:
+	- `a -> deque([3])`
+	- `b -> deque([1, 2, 3])`，然后 yield `1`，最终 `b -> deque([2, 3])` 
+	- `c -> deque([1, 2, 3])`
+- 可见每次某个 deque yield 一个新值，它就给其他所有的 deque 都 append 这么一个新值 
+
+### 14.8 New Syntax in Python 3.3: `yield from`
+
+这里只介绍了最简单最直接的用法：`yield from iterable` 等价于 `for i in iterable: yield i`。所以 `chain` 的实现可以简写一下：
+
+```python
+def chain(*iterables):
+	for it in iterables:
+		for i in it:
+			yield i
+
+def chain(*iterables):
+	for it in iterables:
+		yield from it
+```
+
+Besides replacing a loop, `yield from` creates a channel connecting the inner generator directly to the client of the outer generator. This channel becomes really important when generators are used as coroutines and not only produce but also consume values from the client code. 我们 16 章再深入讨论。
+
+### 14.9 Iterable Reducing Functions
+
+- `all(Iterable X)`: 注意 `all([])` 是 `True`
+- `any(Iterable X)`: 注意 `any([])` 是 `False`
+- `max(Iterable X[, key=,][default=])`: return $x_i$ which maximizes $\operatorname{key}(x_i)$; if `X` is empty, return `default`
+	- May also be invoked as `max(x1, x2, ...[, key=?])`
+- `min(Iterable X[, key=,][default=])`: return $x_i$ which minimizes $\operatorname{key}(x_i)$; if `X` is empty, return `default`
+	- May also be invoked as `min(x1, x2, ...[, key=?])`
+- `sum(Iterable X, start=0)`: returns `sum(X) + start`
+	- Use `math.fsum()` for better precision when adding floats
+- `functools.reduce(Function f, Iterable X[, initial]`
+	- If `initial` is not given:
+		- $r_1 = \operatorname{f}(x_1, x_2)$
+		- $r_2 = \operatorname{f}(r_1, x_3)$
+		- $r_3 = \operatorname{f}(r_2, x_4)$
+		- 依此类推
+		- return $r_{n-1}$ if $\vert X \vert = n$
+	- If `initial = a` is given:
+		- $r_1 = \operatorname{f}(a, x_1)$
+		- $r_2 = \operatorname{f}(r_1, x_2)$
+		- $r_3 = \operatorname{f}(r_2, x_3)$
+		- 依此类推
+		- return $r_{n}$ if $\vert X \vert = n$ 
+
+### 14.10 A Closer Look at the `iter` Function
+
+As we’ve seen, Python calls `iter(x)` when it needs to iterate over an object `x`.
+
+But `iter` has another trick: it can be called with two arguments to create an iterator from a regular function or any callable object. In this usage, the first argument must be a callable to be invoked repeatedly (with no arguments) to yield values, and the second argument is a sentinel: a marker value which, when returned by the callable, causes the iterator to raise `StopIteration` instead of yielding the sentinel. 
+
+The following example shows how to use iter to roll a six-sided die until a 1 is rolled:
+
+```python
+>>> def d6():
+... 	return randint(1, 6)
+...
+>>> d6_iter = iter(d6, 1)
+>>> d6_iter
+<callable_iterator object at 0x00000000029BE6A0>
+>>> for roll in d6_iter:
+... 	print(roll)
+...
+4
+3
+6
+3
+```
+
+Another useful example to read lines from a file until a blank line is found or the end of file is reached:
+
+```python
+with open('mydata.txt') as fp:
+	for line in iter(fp.readline, ''):
+		process_line(line)
+```
+
+### 14.11 Generators as Coroutines
+
+[PEP 342 -- Coroutines via Enhanced Generators](https://www.python.org/dev/peps/pep-0342/) was implemented in Python 2.5. This proposal added extra methods and functionality to generator objects, most notably the `.send()` method.
+
+Like `gtr.__next__()`, `gtr.send()` causes the generator to advance to the next `yield`, but it also allows the client using the generator to send data into it: whatever argument is passed to `.send()` becomes the value of the corresponding `yield` expression inside the generator function body. In other words, `.send()` allows two-way data exchange between the client code and the generator--in contrast with `.__next__()`, which only lets the client receive data from the generator.
+
+看例子
+
+```python
+>>> def double_input():
+...     while True:
+...         x = yield
+...         yield x * 2
+... 
+>>> gen = double_input()
+>>> next(gen)
+>>> gen.send(10)
+20
+>>> next(gen)
+>>> next(gen)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "<stdin>", line 4, in double_input
+TypeError: unsupported operand type(s) for *: 'NoneType' and 'int'
+```
+
+```python
+>>> def add_inputs():
+...     while True:
+...         x = yield
+...         y = yield
+...         yield x + y
+... 
+>>> gen = add_inputs()
+>>> next(gen)
+>>> gen.send(10)
+>>> gen.send(20)
+30
+>>> gen = add_inputs()
+>>> next(gen)
+>>> gen.send(10)
+>>> next(gen)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "<stdin>", line 5, in add_inputs
+TypeError: unsupported operand type(s) for +: 'int' and 'NoneType'
+```
+
+以 `add_input` 为例：
+
+- `next(gen)`，驱动到第一个 `yield`，即执行到 `x = yield`，停住
+- `gen.send(10)`，相当于执行了 `x = 10`，然后驱动到下一个 `yield`，即 `y = yield`，停住
+- `gen.send(20)`，相当于执行了 `y = 20`，然后驱动到下一个 `yield`，即 `yield x + y`，输出
+
+所以大致的 pattern 是：
+
+- `.__next__()` 和 `.send()` 都会驱动到一下个 `yield`，不管是 left-hand `yield` 还是 right-hand `yield`
+- `.send(foo)` 替换当前的 right-hand `yield` 为 `foo`（然后驱动到下一个 yield）
+- 驱动到 right-hand `yield` 时直接输出
+- 你一个循环里有 $N$ 个 `yield`，就要驱动 $N$ 次，i.e. $N_{\text{next}} + N_{\text{send}} = N_{\text{yield}}$
+
+This is such a major “enhancement” that it actually changes the nature of generators: when used in this way, they become **coroutines**. David Beazley--probably the most prolific writer and speaker about coroutines in the Python community--warned in a famous PyCon US 2009 tutorial:
+
+> - Generators produce data for iteration
+> - Coroutines are consumers of data
+> - To keep your brain from exploding, you don’t mix the two concepts together
+> - Coroutines are not related to iteration
+> - Note: There is a use of having yield produce a value in a coroutine, but it’s not tied to iteration.
+> <br/>
+> <p align="right">-- David Beazley</p>
+> <p align="right">“A Curious Course on Coroutines and Concurrency”</p>
+
+### Soapbox
+
+#### Semantics of Generator Versus Iterator
+
+A generator is an iterator; an iterator is not necessarily a generator. 
+
+Proof by code:
+
+```python
+>>> from collections import abc
+>>> e = enumerate('ABC')
+>>> isinstance(e, abc.Iterator)
+True
+```
+
+```python
+>>> import types
+>>> e = enumerate('ABC')
+>>> isinstance(e, types.GeneratorType)
+False
+```
+
+### Chapter 15 - Context Managers and else Blocks
