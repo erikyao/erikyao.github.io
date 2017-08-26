@@ -26,4 +26,4 @@ finally:
 
 然后 `Else-block` （如果被成功触发的话）会先于 `Finally-block` 执行。
 
-`Finally-block` 是不 care 你有没有 raise exception 都会执行的。
+`Finally-block` 是不 care 你有没有 raise exception 的，它永远都会执行。
