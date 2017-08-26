@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Python: <i>with<i/> statement / variable scope in <i>with<i/> statement"
+title: "Python: <i>with</i> statement / variable scope in <i>with</i> statement"
 description: ""
 category: 
 tags: []
