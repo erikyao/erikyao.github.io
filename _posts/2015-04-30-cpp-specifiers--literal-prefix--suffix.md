@@ -14,7 +14,7 @@ Specifiers modify the meanings of the basic built-in types and expand them to a 
 - `long`
 - `short`
 - `signed`
-- `unsigned`.
+- `unsigned`
 
 The size hierarchy for floating point numbers is: `float`, `double`, and `long double`. “long float” is not a legal type. There are no `short` floating-point numbers.
 

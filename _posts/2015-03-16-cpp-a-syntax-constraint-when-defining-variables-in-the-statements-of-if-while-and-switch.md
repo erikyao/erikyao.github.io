@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "C++: A syntax constraint when defining variables in the statements of 'if', 'while' and 'switch'"
+title: "C++: A syntax constraint when defining variables in the statements of <i>if</i>, <i>while</i> and <i>switch</i>"
 description: ""
 category: C++
 tags: [Cpp-101]
