@@ -2,8 +2,8 @@
 layout: post
 title: "Python: <i>with</i>-statement / variable scope in <i>with</i>-statement"
 description: ""
-category: 
-tags: []
+category: Python
+tags: [Python-101]
 ---
 {% include JB/setup %}
 
