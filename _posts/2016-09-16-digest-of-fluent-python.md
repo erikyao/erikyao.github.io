@@ -3587,4 +3587,85 @@ True
 False
 ```
 
-### Chapter 15 - Context Managers and else Blocks
+### Chapter 15 - Context Managers and `else` Blocks
+
+#### 15.1 Do This, Then That: `else` Blocks Beyond `if`
+
+- `for-else`: the `else` block will run if the `for` loop runs to completion
+	- `else` won't run if `for` is aborted by a `break` or `return`
+- `while-else`: ditto
+- `try-else`: the `else` block will run if no exception is raised in the `try` block
+
+The use of `else` in loops generally follows the pattern of this snippet:
+
+```python
+for item in my_list:
+    if item.flavor == 'banana':
+        break
+else:
+    raise ValueError('No banana flavor found!')
+```
+
+In Python, `try-except` is commonly used for control flow, and not just for error han‐ dling. There’s even an acronym/slogan for that documented in the official Python glos‐ sary:
+
+> ##### EAFP  
+> Easier to ask for forgiveness than permission. This common Python coding style assumes the existence of valid keys or attributes and catches exceptions if the as‐ sumption proves false. This clean and fast style is characterized by the presence of many try and except statements. The technique contrasts with the LBYL style common to many other languages such as C.
+
+- 就是你很不喜欢用的 "用 try-except 去判断 object 是否具有某个性质"
+	- 比如：用 `try len(obj)` 去判断 `obj` 是否是 sequence
+
+The glossary then defines LBYL:
+
+> ##### LBYL
+> Look before you leap. This coding style explicitly tests for pre-conditions before making calls or lookups. This style contrasts with the EAFP approach and is characterized by the presence of many if statements. In a multi-threaded environment, the LBYL approach can risk introducing a race condition between “the looking” and “the leaping”. For example, the code, `if key in mapping: return mapping[key]` can fail if another thread removes key from mapping after the test, but before the lookup. This issue can be solved with locks or by using the EAFP approach.
+
+#### 15.2 Context Managers and `with` Blocks
+
+The `with` statement was designed to simplify the "try/finally" pattern, which guarantees that some operation is performed after a block of code, even if the block is aborted because of an exception, a `return` or `sys.exit()` call. The code in the "finally" clause usually releases a critical resource or restores some previous state that was temporarily changed.
+
+The context manager protocol consists of the `__enter__` and `__exit__` methods. At the start of the `with`, `__enter__` is invoked on the context manager object. The role of the "finally" clause is played by a call to `__exit__` on the context manager object at the end of the `with` block.
+
+- `__enter__()`: No argument. Easy.
+- `__exit__(exc_type, exc_value, traceback)`: if an exception is raised inside `with`, these three arguments get the exception data. 参：
+	- [Python: raise / 3 key elements of an exception](/python/2017/08/28/python-raise-3-key-elements-of-an-exception)
+	- [Python: with-statement / variable scope in with-statement](/python/2017/08/25/python-with-statement-variable-scope-in-with-statement)
+
+#### 15.3 The `contextlib` Utilities
+ 
+参 [Python Documentation: 29.6. contextlib — Utilities for with-statement contexts](https://docs.python.org/3/library/contextlib.html)
+
+#### 15.4 Use `@contextlib.contextmanager`
+
+直接作用于一个 generator function `gen` 上，将其包装成一个 context manager（不用你自己定义 class 然后实现 context manager 的 protocol）。但是要求这个 generator function 只能 yield 一个值出来，这个 yield 的值会赋给 `with gen() as g` 的 `g`，同时 `gen()` 的运行停止，`yield` 后面的代码在 `with` block 结束后继续运行。 
+
+如果 `gen` yield 了多个值，系统会抛一个 `RuntimeError: generator didn't stop`。
+
+如果 `with` 结束时，`__exit__` 检测到了异常，`__exit__` 会调用 `gen.throw(exc_value)` 将异常抛到 `gen` 的 yield 后面。
+
+```python
+from contextlib import contextmanager
+
+@contextmanager
+def gen():
+    try:
+        yield 'Foo'
+    except ValueError as ve:
+        print(ve)
+        
+with gen() as g:
+    print(g)
+    raise ValueError('Found Foo!')
+
+# Output:
+# 	Foo
+#	Found Foo!
+```
+
+#### Soapbox
+
+From [Raymond Hettinger: What Makes Python Awesome (23:00 to 26:15)](http://pyvideo.org/pycon-us-2013/keynote-3.html):
+
+> Then--Hettinger told us--he had an insight: subroutines are the most important invention in the history of computer languages. If you have sequences of operations like `A;B;C` and `P;B;Q`, you can factor out `B` in a subroutine. It’s like factoring out the filling in a sandwich: using tuna with different breads. But what if you want to factor out the bread, to make sandwiches with wheat bread, using a different filling each time? That’s what the `with` statement offers. It’s the complement of the subroutine. 
+
+## Chapter 16 - Coroutines
+
