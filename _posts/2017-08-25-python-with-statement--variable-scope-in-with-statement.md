@@ -161,3 +161,8 @@ finally:
     if exc:
         exit(mgr, None, None, None)
 ```
+
+这里需要注意 `__exit__` 的返回值：
+
+- `__exit__` method tells the interpreter that it has handled the exception by returning `True`; in that case, the interpreter suppresses the exception. 
+- On the other hand, if `__exit__` does not explicitly return a value, the interpreter gets the usual `None`, and propgates the exception
