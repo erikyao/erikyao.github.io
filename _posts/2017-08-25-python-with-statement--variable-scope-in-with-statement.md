@@ -131,3 +131,33 @@ further_process()
 ```
 
 你已经把所有的行都读出来了，file 就可以关掉了，file 就算直接被 GC 了也不会影响你的 `lines`，写那么长的一个 `with` 真的很烦，再嵌几个 if、for 之类的，可读性直线下降。Python 真的没有 Java 那么严格，Java 基本是一个 `{ ... }` 或者一个缩进就算 scope，写 Python 时你需要 relax。 
+
+## Supplement： `__exit__(exc_type, exc_value, traceback)` explained
+
+看这个函数签名，联系 [Python: raise / 3 key elements of an exception](/python/2017/08/28/python-raise-3-key-elements-of-an-exception)，我们可以推测 `sys.exc_info()` 一定在 `with` 的展开逻辑中与 `__exit__` 连用了。根据 [PEP 343 -- The "with" Statement](https://www.python.org/dev/peps/pep-0343/#id38)，`with` 的展开逻辑如下：
+
+```python
+with VAR = EXPR:
+    BLOCK
+
+# ----- IS EQUIVALENT TO ----- #
+
+mgr = (EXPR)
+exit = type(mgr).__exit__  # Not calling it yet
+value = type(mgr).__enter__(mgr)
+exc = True
+try:
+    try:
+        VAR = value  # Only if "as VAR" is present
+        BLOCK
+    except:
+        # The exceptional case is handled here
+        exc = False
+        if not exit(mgr, *sys.exc_info()):
+            raise
+        # The exception is swallowed if exit() returns true
+finally:
+    # The normal and non-local-goto cases are handled here
+    if exc:
+        exit(mgr, None, None, None)
+```
