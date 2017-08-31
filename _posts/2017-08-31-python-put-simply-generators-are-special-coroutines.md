@@ -215,17 +215,17 @@ gen_send_ex(PyGenObject *gen, PyObject *arg, int exc, int closing)
 }
 ```
 
-So basically, `next(gen_or_coro)` is identical to `gen_or_coro.send(None)` except that you cannot send a non-`None` value to a just-started generator or coroutine. (shown at `// ANCHOR-1`) That is to say, 
+So basically, `next(gen_or_coro)` is identical to `gen_or_coro.send(None)` except that you cannot send a non-`None` value to a just-started generator or coroutine (shown at `// ANCHOR-1`). That is to say, 
 
 - You can use `.send()` on generators
-- You can use `next()` on corotines, sending `None` values to them underneath.
+- You can use `next()` on coroutines, sending `None` values to them underneath.
 
 Every generator or coroutine maintains a **frame**, something similar to a _stack frame_ or _activity record_ mentioned in [Linking, Loading and Library](/os/2016/06/29/linking-loading-and-library). 
 
 - `PyGenObject` is defined in [`cpython/Include/genobject.h`](https://github.com/python/cpython/blob/master/Include/genobject.h)
 - `PyFrameObject` is defined in [`cpython/Include/frameobject.h`](https://github.com/python/cpython/blob/master/Include/frameobject.h)
 
-Every time you call `gen_or_coro.send(x)`, `x` is pushed the stack in the frame of `gen_or_coro`. (shown at `// ANCHOR-2`). Then python would "evaluate this frame" (shown at `// ANCHOR-3`), or put simply, continue running `gen_or_coro`. 
+Every time you call `gen_or_coro.send(x)`, `x` is pushed the stack in the frame of `gen_or_coro` (shown at `// ANCHOR-2`). Then python would "evaluate this frame" (shown at `// ANCHOR-3`), i.e. continue running `gen_or_coro` to its next `yield`. 
 
 ```c
 /* --------------------------------------------------------------------------
@@ -404,7 +404,7 @@ StopIteration:
 In summary, in the following code, 
 
 ```python
-foo, bar, baz, qux, alpha, beta = range(100, 106)
+foo, bar, baz, qux, alpha, beta = "foo", "bar", "baz", "qux", "alpha", "beta"
 
 def plain_generator():
     yield foo
@@ -457,5 +457,6 @@ foo bar baz qux
     1. Make an assignment `y = beta`
     1. Evaluate `yield qux`; `qux` is returned to this `send` call. 
         - Therefore `ret_4 == qux`
+- P.S. Assignment of `z` does not happen yet
 
 ## Let's move to `yield from`
