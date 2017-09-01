@@ -15,6 +15,7 @@ tags: [Book, Python-101]
 [11-3-collections-abc]: https://farm5.staticflickr.com/4390/36490611835_0c2312925b_z_d.jpg
 [13-5-Rich-Comparison-Operators]: https://farm5.staticflickr.com/4340/35696326944_2eea27878a_z_d.jpg
 [14-Iterables-vs-Iterators-vs-Generators]: https://farm5.staticflickr.com/4358/36136184210_35769554c8_z_d.jpg
+[16-7-yield-from-flow]: https://farm5.staticflickr.com/4407/36117389284_91ae52fe71_z_d.jpg
 
 ## Chapter 1 - The Python Data Model
 
@@ -3669,3 +3670,553 @@ From [Raymond Hettinger: What Makes Python Awesome (23:00 to 26:15)](http://pyvi
 
 ## Chapter 16 - Coroutines
 
+We find two main senses for the verb “to yield” in dictionaries: to produce or to give way. Both senses apply in Python when we use the `yield` keyword in a generator. A line such as `yield item` produces a value that is received by the caller of `next(...)`, and it also gives way, suspending the execution of the generator so that the caller may proceed until it’s ready to consume another value by invoking `next()` again. **The caller pulls values from the generator**.
+
+A coroutine is syntactically like a generator: just a function with the `yield` keyword in its body. However, in a coroutine, `yield` usually appears on the right side of an expression (e.g., `datum = yield`), and it may or may not produce a value--if there is no expression after the `yield` keyword, the generator yields `None`. The coroutine may receive data from the caller, which uses `.send(datum)` instead of `next(...)` to feed the coroutine. **Usually, the caller pushes values into the coroutine**.
+
+**It is even possible that no data goes in or out through the `yield` keyword**. Regardless of the flow of data, `yield` is a control flow device that can be used to implement cooperative multitasking: each coroutine yields control to a central scheduler so that other coroutines can be activated.
+
+When you start thinking of yield primarily in terms of control flow, you have the mindset to understand coroutines.
+
+### 16.1 How Coroutines Evolved from Generators
+
+[PEP 342 -- Coroutines via Enhanced Generators](https://www.python.org/dev/peps/pep-0342/) added 3 methods to generators:
+
+- `gen.send(x)`: allows the caller of `gen` to post data `x` that then becomes the value of the `yield` expression inside the generator function. 
+	- This allows a generator to be used as a coroutine: a procedure that collaborates with the caller, yielding and receiving values.
+- `gen.throw(exc_type[, exc_value[, tb_obj]])`: allows the caller of `gen` to throw an exception to be handled inside the generator
+- `gen.close()`: allows the caller of `gen` to terminate the generator
+
+### 16.2 Basic Behavior of a Generator Used as a Coroutine
+
+```python
+>>> def simple_coroutine():
+...     print("-> coroutine started")
+...     x = yield
+...     print("-> coroutine received:", x)
+... 
+>>> coro = simple_coroutine()
+>>> coro
+<generator object simple_coroutine at 0x7fec75c2e410>
+>>> next(coro)
+-> coroutine started
+>>> coro.send(11)
+-> coroutine received: 11
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+StopIteration
+```
+
+A coroutine can be in one of 4 states, which can be detected by `inspect.getgeneratorstate(coro)`:
+
+- `'GEN_CREATED'`: Waiting to start execution.
+	- This is the state of `coro` just after `coro = simple_coroutine()`
+	- You can start `coro` by `next(coro)` or `coro.send(None)`
+		- You cannot send a non-`None` value to a just-started coroutine
+	- The inital call of `next(coro)` is often described as **priming the coroutine**
+- `'GEN_RUNNING'`: Currently being executed by the interpreter.
+	-  You’ll only see this state in a multithreaded application or if the generator object calls `getgeneratorstate` on itself.
+- `'GEN_SUSPENDED'`: Currently suspended at a `yield` expression.
+- `'GEN_CLOSED'`: Execution has completed.
+
+A much complicated example on a generator-coroutine hybrid:
+
+```python
+>>> def simple_coroutine2(a):
+...     print("-> Started: a = ", a)
+...     b = yield a
+...     print("-> After yield: a = ", a)
+...     print("-> After yield: b = ", b)
+... 
+>>> coro2 = simple_coroutine2(7)
+>>> next(coro2)
+-> Started: a =  7
+7
+>>> coro2.send(14)
+-> After yield: a =  7
+-> After yield: b =  14
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+StopIteration
+>>> 
+```
+
+这一句 `b = yield a` 相当于同一个 yield 连接了一个 block：`{ yield a; b = yield }`，`send()` 对 `a` 的值没有任何影响。
+
+### 16.3 Example: Coroutine to Compute a Running Average
+
+```python
+def averager():
+	total = 0.0
+	count = 0
+	average = None
+	while True:
+		term = yield average
+		total += term
+		count += 1
+		average = total/count
+```
+
+```python
+>>> coro_avg = averager()
+>>> next(coro_avg)
+>>> coro_avg.send(10)
+10.0
+>>> coro_avg.send(30)
+20.0
+>>> coro_avg.send(5)
+15.0
+```
+
+### 16.4 Decorators for Coroutine Priming
+
+```python
+from functools import wraps
+
+def coroutine(func):
+	"""Decorator: primes `func` by advancing to first `yield`"""
+	@wraps(func)
+	def primer(*args,**kwargs):
+		gen = func(*args,**kwargs)
+		next(gen)
+		return gen
+		return primer
+
+@coroutine
+def averager():
+	...
+```
+
+Then you can skip calling `next()` on `coro_avg`:
+
+```python
+>>> coro_avg = averager()
+>>> coro_avg.send(10)
+10.0
+>>> coro_avg.send(30)
+20.0
+>>> coro_avg.send(5)
+15.0
+```
+
+The `yield from` syntax we’ll see later automatically primes the coroutine called by it, making it incompatible with decorators such as `@coroutine`. The `asyncio.coroutine` decorator from the Python 3.4 standard library is designed to work with `yield from` so it does not prime the coroutine.
+
+### 16.5 Coroutine Termination and Exception Handling
+
+- `generator.throw(exc_type[, exc_value[, tb_obj]])`
+	- Causes the `yield` expression where the generator was paused to raise the exception given. 
+	- If the exception is handled by the generator, flow advances to the next `yield`, and the value yielded becomes the value of the `generator.throw` call. 
+		- `generator` itself is still working, state being `'GEN_SUSPENDED'`
+	- If the exception is not handled by the generator, it propagates to the context of the caller. 
+		- `generator` will be terminated with state `'GEN_CLOSED'`
+- `generator.close()`
+	- Causes the `yield` expression where the generator was paused to raise a `GeneratorExit` exception. 
+	- No error is reported to the caller if the generator does not handle that exception or raises `StopIteration`--usually by running to completion. 
+	- When receiving a `GeneratorExit`, the generator must not `yield` a value, otherwise a `RuntimeError` is raised. 
+	- If any other exception is raised by the generator, it propagates to the caller.
+
+### 16.6 Returning a Value from a Coroutine
+
+```python
+from collections import namedtuple
+
+Result = namedtuple('Result', 'count average')
+
+def averager():
+	total = 0.0
+	count = 0
+	average = None
+	while True:
+		term = yield
+		if term is None:
+			break
+		total += term
+		count += 1
+		average = total/count
+	return Result(count, average)
+```
+
+- In order to return a value, a coroutine must terminate normally; this is why we have a `break` in the `while`-loop.
+
+```python
+>>> coro_avg = averager()
+>>> next(coro_avg)
+>>> coro_avg.send(10)
+>>> coro_avg.send(30)
+>>> coro_avg.send(6.5)
+>>> coro_avg.send(None)
+Traceback (most recent call last):
+    ...
+StopIteration: Result(count=3, average=15.5)
+```
+
+注意你不能用 `result = coro_avg.send(None)` 去接收 coroutine 的返回值。The value of the return expression is smuggled to the caller as an attribute， `value`， of the `StopIteration` exception. This is a bit of a hack, but it preserves the existing behavior of generator objects: raising `StopIteration` when exhausted. 所以正确的接收 coroutine 返回值的方式是：
+
+```python
+>>> coro_avg = averager()
+>>> next(coro_avg)
+>>> coro_avg.send(10)
+>>> coro_avg.send(30)
+>>> coro_avg.send(6.5)
+>>> try:
+...     coro_avg.send(None)
+... except StopIteration as exc:
+...     result = exc.value
+...
+>>> result
+Result(count=3, average=15.5)
+```
+
+### 16.7 Using `yield from`
+
+`yield from` does so much more than `yield` that the reuse of the keyword is arguably misleading. Similar constructs in other languages are called `await`, and that is a much better name because it conveys some crucial points: 
+
+- When a generator `gen` calls `yield from subgen()`, the `subgen` takes over and will yield values to the caller of `gen`
+- The caller will in effect drive `subgen` directly
+- Meanwhile `gen` will be blocked, waiting until `subgen` terminates
+
+A good example of `yield from` is in _Recipe 4.14. Flattening a Nested Sequence_ in Beazley and Jones’s _Python Cookbook, 3E_ (source code available on [GitHub](https://github.com/dabeaz/python-cookbook/blob/master/src/4/how_to_flatten_a_nested_sequence/example.py)):
+
+```python
+# Example of flattening a nested sequence using subgenerators
+
+from collections import Iterable
+
+def flatten(items, ignore_types=(str, bytes)):  # `ignore_types` is a good design! 
+    for x in items:
+        if isinstance(x, Iterable) and not isinstance(x, ignore_types):
+            yield from flatten(x)
+        else:
+            yield x
+
+items = [1, 2, [3, 4, [5, 6], 7], 8]
+
+# Produces 1 2 3 4 5 6 7 8
+for x in flatten(items):
+    print(x)
+```
+
+The real nature of `yield from` cannot be demonstrated with simple iterables; it requires the mind-expanding use of nested generators. That’s why PEP 380, which introduced `yield from`, is titled “Syntax for Delegating to a Subgenerator.” PEP 380 defines:
+
+- **delegating generator (delegatee)**: The generator function that contains the `yield from <iterable>` expression.
+- **subgenerator (delegator)**: The generator obtained from the `<iterable>` part of the `yield from` expression. 
+- **caller (client)**: The client code that calls the delegating generator. ("client" might be better according to the book author)
+
+```python
+from collections import namedtuple
+
+
+Result = namedtuple('Result', 'count average')
+
+
+# the subgenerator
+def averager():
+    total = 0.0
+    count = 0
+    average = None
+    while True:
+        term = yield
+        if term is None:
+            break
+        total += term
+        count += 1
+        average = total/count
+    return Result(count, average)
+
+
+# the delegating generator
+def grouper(results, key):
+    while True:
+        results[key] = yield from averager()
+
+        
+# the client code, a.k.a. the caller
+def main(data):
+    results = {}
+    for key, values in data.items():
+        group = grouper(results, key)
+        next(group)
+        for value in values:
+            group.send(value)
+        group.send(None) # important!
+    
+    # print(results)
+    # uncomment to debug
+    report(results)
+
+
+# output report
+def report(results):
+    for key, result in sorted(results.items()):
+        group, unit = key.split(';')
+        print('{:2} {:5} averaging {:.2f}{}'.format(
+            result.count, group, result.average, unit))
+
+
+data = {
+    'girls;kg': [40.9, 38.5, 44.3, 42.2, 45.2, 41.7, 44.5, 38.0, 40.6, 44.5],
+    'girls;m': [1.6, 1.51, 1.4, 1.3, 1.41, 1.39, 1.33, 1.46, 1.45, 1.43],
+    'boys;kg': [39.0, 40.8, 43.2, 40.8, 43.1, 38.6, 41.4, 40.6, 36.3],
+    'boys;m': [1.38, 1.5, 1.32, 1.25, 1.37, 1.48, 1.25, 1.49, 1.46],
+}
+
+main(data)
+
+# Output:
+"""
+ 9 boys  averaging 40.42kg
+ 9 boys  averaging 1.39m
+10 girls averaging 42.04kg
+10 girls averaging 1.43m
+"""
+```
+
+这个例子耍了一个 trick：因为 delegator 的 `yield from` 默认会处理 delegatee 的 `StopIteration` 而 client 需要自己去 try-except delegator 的 `StopIteration`，所以这里 `grouper` 就设计成了永远不 return，也就永远不会抛 `StopIteration`。不这么设计的话，下面这张图的 `grouper` 一样要传 `StopIteration` 给 `main`。
+
+![][16-7-yield-from-flow]
+
+具体的执行过程中的细节，书上并没有讲得很细，可以参考：
+
+- [Python: Yes, coroutines are complicated, but they can be used as simply as generators](/python/2017/08/29/python-yes-coroutines-are-complicated-but-they-can-be-used-as-simply-as-generators)
+- [Python: Put simply, generators are special coroutines](/python/2017/08/31/python-put-simply-generators-are-special-coroutines)
+
+### 16.8 The Meaning of `yield from`
+
+关于 `yield`、assignment 和 return value 的逻辑，讲得基本和你总结的差不多。这里补充一下异常的情况：
+
+- Exceptions other than `GeneratorExit` thrown into the delegator are passed to the `throw()` method of the delegatee. If the call raises `StopIteration`, the delegator is resumed. Any other exception is propagated to the delegator.
+- If a `GeneratorExit` is thrown into the delegator, or the `close()` method of the delegator is called, then the `close()` method of the delegatee is called if it has one. If this call results in an exception, it is propagated to the delegator. Otherwise, `GeneratorExit` is raised in the delegator.
+
+Consider that `yield from` appears in a delegator. The client code drives delegator, which drives the delegatee. So, to simplify the logic involved, let’s pretend the client doesn’t ever call `.throw(...)` or `.close()` on the delegator. Let’s also pretend the delegatee never raises an exception until it terminates, when `StopIteration` is raised by the interpreter. Then a simplified version of pseudocode explaining `RESULT = yield from EXPR` is:
+
+```python
+_i = iter(EXPR)  # Coroutines are also generators and `iter(coro) == coro`
+try:
+	_y = next(_i)
+except StopIteration as _e:
+	_r = _e.value
+else:
+	while 1:
+		_s = yield _y  # Delegator receives a value from client
+		try:
+			_y = _i.send(_s)  # Delegator re-sends this value to its delegatee
+		except StopIteration as _e:
+			_r = _e.value
+		break
+
+RESULT = _r
+```
+
+In this simplified pseudocode, the variable names used in the pseudocode published in PEP 380 are preserved. The variables are:
+
+- `_i` (iterator): The delegetee
+- `_y` (yielded): A value yielded from the delegetee
+- `_r` (result): The eventual result (i.e., the value of the yield from expression when the delegatee ends)
+- `_s` (sent): A value sent by the caller to the delegating generator, which is forwarded to the delegatee 
+- `_e` (exception): An exception (always an instance of `StopIteration` in this simplified pseudocode)
+
+The full explanation in [PEP 380 -- Syntax for Delegating to a Subgenerator: Formal Semantics](https://www.python.org/dev/peps/pep-0380/#formal-semantics) is:
+
+```python
+"""
+1. The statement
+
+	`RESULT = yield from EXPR`
+
+is semantically equivalent to
+"""
+
+_i = iter(EXPR)
+try:
+    _y = next(_i)
+except StopIteration as _e:
+    _r = _e.value
+else:
+    while 1:
+        try:
+            _s = yield _y
+        except GeneratorExit as _e:
+            try:
+                _m = _i.close
+            except AttributeError:
+                pass
+            else:
+                _m()
+            raise _e
+        except BaseException as _e:
+            _x = sys.exc_info()
+            try:
+                _m = _i.throw
+            except AttributeError:
+                raise _e
+            else:
+                try:
+                    _y = _m(*_x)
+                except StopIteration as _e:
+                    _r = _e.value
+                    break
+        else:
+            try:
+                if _s is None:
+                    _y = next(_i)
+                else:
+                    _y = _i.send(_s)
+            except StopIteration as _e:
+                _r = _e.value
+                break
+
+RESULT = _r
+
+
+"""
+2. In a generator, the statement
+
+	`return value`
+
+is semantically equivalent to
+
+	`raise StopIteration(value)`
+
+except that, as currently, the exception cannot be caught by except clauses within the returning generator.
+"""
+
+
+"""
+3. The StopIteration exception behaves as though defined thusly:
+"""
+
+class StopIteration(Exception):
+    def __init__(self, *args):
+        if len(args) > 0:
+            self.value = args[0]
+        else:
+            self.value = None
+        Exception.__init__(self, *args)
+```
+
+You’re not meant to learn about it by reading the expansion—that’s only there to pin down all the details for language lawyers.
+
+### 16.9 Use Case: Coroutines for Discrete Event Simulation
+
+> Coroutines are a natural way of expressing many algorithms, such as simulations, games, asynchronous I/O, and other forms of event-driven programming or co-operative multitasking.
+> <br/>
+> <p align="right">-- Guido van Rossum and Phillip J. Eby</p>
+> <p align="right">PEP 342—Coroutines via Enhanced Generators</p>
+
+Coroutines are the fundamental building block of the `asyncio` package. A simulation shows how to implement concurrent activities using coroutines instead of threads--and this will greatly help when we tackle asyncio with in Chapter 18.
+
+#### 16.9.1 Discrete Event Simulations
+
+A discrete event simulation (DES) is a type of simulation where a system is modeled as a sequence of events. In a DES, the simulation “clock” does not advance by fixed increments, but advances directly to the simulated time of the next modeled event. For example, if we are simulating the operation of a taxi cab from a high-level perspective, one event is picking up a passenger, the next is dropping the passenger off. It doesn’t matter if a trip takes 5 or 50 minutes: when the drop off event happens, the clock is updated to the end time of the trip in a single operation. In a DES, we can simulate a year of cab trips in less than a second. This is in contrast to a continuous simulation where the clock advances continuously by a fixed--and usually small--increment.
+
+Intuitively, turn-based games are examples of DESs: the state of the game only changes when a player moves, and while a player is deciding the next move, the simulation clock is frozen. Real-time games, on the other hand, are continuous simulations where the simulation clock is running all the time, the state of the game is updated many times per second, and slow players are at a real disadvantage.
+
+#### 16.9.2 The Taxi Fleet Simulation
+
+In our simulation program, `taxi_sim.py`, a number of taxi cabs are created. Each will make a fixed number of trips and then go home. A taxi leaves the garage and starts “prowling”--looking for a passenger. This lasts until a passenger is picked up, and a trip starts. When the passenger is dropped off, the taxi goes back to prowling.
+
+The time elapsed during prowls and trips is generated using an exponential distribution.
+
+```python
+# In an Event instance, 
+# 	time is the simulation time when the event will occur (in minute), 
+# 	proc is the identifier of the taxi process instance, and 
+# 	action is a string describing the activity.
+Event = collections.namedtuple('Event', 'time proc action')
+
+def taxi_process(ident, trips, start_time=0):
+	"""Yield to simulator issuing event at each state change"""
+	time = yield Event(start_time, ident, 'leave garage')
+	for i in range(trips):
+		time = yield Event(time, ident, 'pick up passenger')
+		time = yield Event(time, ident, 'drop off passenger')
+
+	yield Event(time, ident, 'going home')
+	# end of taxi process
+```
+
+```python
+>>> from taxi_sim import taxi_process
+>>> taxi = taxi_process(ident=13, trips=2, start_time=0)
+>>> next(taxi)
+Event(time=0, proc=13, action='leave garage')
+>>> taxi.send(_.time + 7)  # In the console, the `_` variable is bound to the last result
+Event(time=7, proc=13, action='pick up passenger')
+>>> taxi.send(_.time + 23)
+Event(time=30, proc=13, action='drop off passenger')
+>>> taxi.send(_.time + 5)
+Event(time=35, proc=13, action='pick up passenger')
+>>> taxi.send(_.time + 48)
+Event(time=83, proc=13, action='drop off passenger')
+>>> taxi.send(_.time + 1)
+Event(time=84, proc=13, action='going home')
+>>> taxi.send(_.time + 10)
+Traceback (most recent call last):
+File "<stdin>", line 1, in <module>
+StopIteration
+```
+
+To instantiate the `Simulator` class, the main function of `taxi_sim.py` builds a taxis dictionary like this:
+
+```python
+# DEPARTURE_INTERVAL == 5
+taxis = {i: taxi_process(ident=i, trips=(i + 1) * 2, start_time=i * DEPARTURE_INTERVAL) for i in range(num_taxis)}
+
+"""
+If num_taxis = 3
+
+	taxis = {0: taxi_process(ident=0, trips=2, start_time=0),
+			 1: taxi_process(ident=1, trips=4, start_time=5),
+			 2: taxi_process(ident=2, trips=6, start_time=10)}
+"""
+```
+
+Priority queues are a fundamental building block of discrete event simulations: events are created in any order, placed in the queue, and later retrieved in order according to the scheduled time of each one. For example, the first two events placed in the queue may be:
+
+```python
+Event(time=14, proc=0, action='pick up passenger')  # taxi 0 (start_time=0) would take 14 minutes to pick up his first passenger 
+Event(time=11, proc=1, action='pick up passenger')  # taxi 1 (start_time=10) would take 1 minute to pick up his first passenger 
+```
+
+The second event holds higher priority because of shorter prowling time.
+
+Code for `Simulator` class is:
+
+```python
+class Simulator:
+	def __init__(self, procs_map):
+		self.events = queue.PriorityQueue()
+		self.procs = dict(procs_map)
+
+	def run(self, end_time):
+		"""Schedule and display events until time is up"""
+		# schedule the first event for each cab
+		for _, proc in sorted(self.procs.items()):
+			first_event = next(proc)  # yield 'leave garage' Event
+			self.events.put(first_event)
+
+		# main loop of the simulation
+		sim_time = 0
+		while sim_time < end_time:
+			if self.events.empty():
+				print('*** end of events ***')
+				break
+
+			current_event = self.events.get()
+			sim_time, proc_id, previous_action = current_event
+			print('taxi:', proc_id, proc_id * ' ', current_event)
+			active_proc = self.procs[proc_id]
+			next_time = sim_time + compute_duration(previous_action)  # Duaration is fixed for a given type of actions
+			try:
+				next_event = active_proc.send(next_time)
+			except StopIteration:
+				del self.procs[proc_id]
+			else:
+				self.events.put(next_event)  # Enqueue the next Event
+		else:
+			msg = '*** end of simulation time: {} events pending ***'
+			print(msg.format(self.events.qsize()))
+
+sim = Simulator(taxis)
+sim.run(end_time)
+```
