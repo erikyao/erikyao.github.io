@@ -11,7 +11,7 @@ tags: [Python-101]
 
 Last post [Python: Yes, coroutines are complicated, but they can be used as simply as generators](/python/2017/08/29/python-yes-coroutines-are-complicated-but-they-can-be-used-as-simply-as-generators) raised me two interesting questions: why can `next(coro)` and `coro.send(None)` both serve as primers of coroutines? Is there any connection between them?
 
-I checked the CPython code and found that, **generators are special coroutines**! Yes, they actually work the same way!
+I checked the CPython code and found that, **generators are special coroutines!** Yes, they actually work the same way!
 
 ```c
 /* --------------------------------------------------------------------------
@@ -225,7 +225,7 @@ Every generator or coroutine maintains a **frame**, something similar to a _stac
 - `PyGenObject` is defined in [`cpython/Include/genobject.h`](https://github.com/python/cpython/blob/master/Include/genobject.h)
 - `PyFrameObject` is defined in [`cpython/Include/frameobject.h`](https://github.com/python/cpython/blob/master/Include/frameobject.h)
 
-Every time you call `gen_or_coro.send(x)`, `x` is pushed the stack in the frame of `gen_or_coro` (shown at `// ANCHOR-2`). Then python would "evaluate this frame" (shown at `// ANCHOR-3`), i.e. continue running `gen_or_coro` to its next `yield`. 
+Every time you call `gen_or_coro.send(x)`, `x` is pushed the stack in the frame of `gen_or_coro` (shown at `// ANCHOR-2`). Then python would "evaluate this frame" (shown at `// ANCHOR-3`), i.e. continue running `gen_or_coro` over its next `yield`. 
 
 ```c
 /* --------------------------------------------------------------------------
@@ -311,7 +311,7 @@ PyInterpreterState_New(void)
 }
 ```
 
-I can't dive into `_PyEval_EvalFrameDefault` to see how it works but experiments told me that `result = PyEval_EvalFrameEx(f, exc);` (at `// ANCHOR-3`) is finally returned at `// ANCHOR-5` to `gen_or_coro.send(x)`, and this is the exactly the valued `yield`ed by `gen_or_coro`.
+I am not going to dive into `_PyEval_EvalFrameDefault` to see how it works but experiments told me that `result = PyEval_EvalFrameEx(f, exc);` (at `// ANCHOR-3`) is finally returned at `// ANCHOR-5` to `gen_or_coro.send(x)`, and this is the exactly the valued `yield`ed by `gen_or_coro`.
 
 _**From the second call**_ of `next()` or `send()` on, the value stored in the top of the frame stack is assigned to some variable `y` if there is a statement `y = yield [whatever]` in `gen_or_coro`, or is discarded at statement `yield [whatever]` if `gen_or_coro` is a plain generator (because you are not going to assign this `x` to any variable). 
 
@@ -459,4 +459,220 @@ foo bar baz qux
         - Therefore `ret_4 == qux`
 - P.S. Assignment of `z` does not happen yet
 
-## Let's move to `yield from`
+## `yield from` and `return`
+
+The structure of a `yield from` application is a little bit complicated than a plain generator or coroutine. It usually consist of 3 parts:
+
+```python
+def gen_or_coro(name):
+    print("[{}] started".format(name))
+
+    x = yield 1
+    print("[{}] x = {}".format(name, x))
+
+    # A function without a return-statement will default to return `None`
+    # An explicit return-statement is not necessary in a generator or coroutine application.
+    print("[{}] returned".format(name))
+    return 2
+
+def delegator():
+    print("[delegator] started")
+
+    delegatee = gen_or_coro('delegatee')
+    
+    y = yield from delegatee
+    print("[delegator] y =", y)
+
+    print("[delegator] returned")
+    return 3
+
+def client():
+    my_dele = delegator()
+
+    print("[client] calling next()...")
+    ret_1 = next(my_dele)
+    print("[client] ret_1 =", ret_1)
+    
+    print("-----------------------")
+    
+    print("[client] sending 100...")
+    ret_2 = my_dele.send(100)
+    print("[client] ret_2 =", ret_2)
+
+client()
+
+# Output
+[client] calling next()...
+[delegator] started
+[delegatee] started
+[client] ret_1 = 1
+-----------------------
+[client] sending 100...
+[delegatee] x = 100
+[delegatee] returned
+[delegator] y = 2
+[delegator] returned
+---------------------------------------------------------------------------
+StopIteration                             Traceback (most recent call last)
+<ipython-input-138-66f27f9fd0d2> in <module>()
+     34     print("[client] ret_2 =", ret_2)
+     35 
+---> 36 client()
+
+<ipython-input-138-66f27f9fd0d2> in client()
+     31 
+     32     print("[client] sending 100...")
+---> 33     ret_2 = my_dele.send(100)
+     34     print("[client] ret_2 =", ret_2)
+     35 
+
+StopIteration: 3
+```
+
+- `delegator` works as a bridge--calls to `next(my_dele)` or `my_dele.send(100)` are transfered to `delegatee`, i.e. equivalent to calling `next(delegatee)` or `delegatee.send(100)`
+    - Everything works the same as a plain generator or coroutine. E.g. on `next(my_dele)`, or equvalently on `next(delegatee)`
+        - `None` is pushed to `delegatee`'s stack top
+        - Assigment `x = ???` is not done yet
+        - `yield 1` is evaluated and `1` is returned to this `next(my_dele)` call, thus `ret_1 == 1`
+    - On `my_dele.send(100)`, or equvalently on `next(delegatee)`
+        - `100` is pushed to stack top
+        - Assignment `x = 100` gets executed
+        - `return 2` triggers a `StopIteration` and the return value `2` is wrapped into `StopIteration.value` (shown at `// ANCHOR-4`)
+- `yield from` in `delegator` can handle `StopIteration` raised by `delegatee` automatically
+    - and `y = yield from` assignment is performed as `y = StopIteration.value = ret_value_of_delegatee`
+    - The assignment is done **immediately** when `StopIteration` is raised. You don't need another call to trigger it.
+- Then `delegator` runs to its end and `return 3`. This would also trigger a `StopIteration` and the return value `3` is wrapped into `StopIteration.value`
+- `client` cannot handle `StopIteration` automatically, nor is equipped with error handlers, so `StopIteration` is brought out to the runtime. 
+
+Note that you need $n$ calls to `next()` and `send()` in total to yield $n$ values while $n+1$ calls to make $n$ assignments. E.g.
+
+```python
+def foo():
+    x = yield 1
+    y = yield 2
+    z = yield 3
+    return 4
+
+f = foo()
+next(f)      # yielding 1
+f.send(100)  # yielding 2; assigning x
+f.send(200)  # yielding 3; assigning y
+f.send(300)  #             assigning z; return 4; StopIteration
+```
+
+| statement   | push to stack top | assign  | yield / return | raise                    |
+|-------------|-------------------|---------|----------------|--------------------------|
+| next(f)     | None              |         | yield 1        |                          |
+| f.send(100) | 100               | x = 100 | yield 2        |                          |
+| f.send(200) | 200               | y = 200 | yield 3        |                          |
+| f.send(300) | 300               | z = 300 | return 4       | StopIteration(value = 4) |
+
+If there are $n$ `yield`-statement in `delegatee`, you need $n+1$ calls to `next()` and `send()` in total to make $1$ `y = yield from delegatee` assignment in `delegator`.
+
+What if there are $m$ `yield from`-statements in `delegator`? The truth is that you only need to prime `delegator` once, and not to prime $m$ `delegatee`s. Therefore $mn + 1$ calls would suffice to bring all the mess to an end.
+
+```python
+def gen_or_coro(name):
+    print("[{}] started".format(name))
+    x = yield 1
+    print("[{}] x = {}".format(name, x))
+
+    print("[{}] returned".format(name))
+    return 2
+
+def delegator():
+    print("[delegator] started")
+    
+    delegatee_1 = gen_or_coro("delegatee_1")
+    
+    y = yield from delegatee_1
+    print("[delegator] y =", y)
+    
+    delegatee_2 = gen_or_coro("delegatee_2")
+    
+    z = yield from delegatee_2
+    print("[delegator] z =", z)
+
+    print("[delegator] returned")
+    return 3
+
+def client():
+    my_dele = delegator()
+
+    print("[client] calling next()...")
+    ret_1 = next(my_dele)
+    print("[client] ret_1 =", ret_1)
+    
+    print("-----------------------")
+    
+    print("[client] sending 100...")
+    ret_2 = my_dele.send(100)
+    print("[client] ret_2 =", ret_2)
+    
+    print("-----------------------")
+    
+    print("[client] sending 200...")
+    try:
+        my_dele.send(200)
+    except StopIteration as si:
+        print("[client] interrupted by StopIteration, no value returned to `my_dele.send(200)`") 
+        print("[client] delegator finally returned", si.value)
+
+client()
+
+# Output
+"""
+[client] calling next()...
+[delegator] started
+[delegatee_1] started
+[client] ret_1 = 1
+-----------------------
+[client] sending 100...
+[delegatee_1] x = 100
+[delegatee_1] returned
+[delegator] y = 2
+[delegatee_2] started
+[client] ret_2 = 1
+-----------------------
+[client] sending 200...
+[delegatee_2] x = 200
+[delegatee_2] returned
+[delegator] z = 2
+[delegator] returned
+[client] interrupted by StopIteration, no value returned to `my_dele.send(200)`
+[client] delegator finally returned 3
+"""
+```
+
+You can see that on calling `my_dele.send(100)`:
+
+1. `100` is pushed to stack top
+1. Assignment `x = 100` is made
+1. `delegatee_1` returned and raised an `StopIteration(value=2)`
+1. Assignment `y = 2` is made
+1. Surprisingly! `delegatee_2` started! And `yield 1`! 
+    - Therefore `ret_2 = 1`
+
+Recall the logic of a call to `next()` or `send()` bridging two `yield` is:
+
+1. [Coroutine] Push `???` to stack top where `???` is the value sent by client
+1. [Coroutine] If the current statement is `y = yield [already_yielded]`, make an assignment `y = ???`
+1. [Coroutine] Keep evaluating all the way to the next `yield`; stop execution after yielding; return the yielded value to `next()` or `send()`
+
+Similarly, the logic of a call to `next()` or `send()` bridging two `yield from` is:
+
+1. [Delegatee] Push `???` to stack top where `???` is the value sent by client
+1. [Delegatee] If the current statment is `y = yield [already_yielded]`, make an assignment `y = ???`
+1. [Delegatee] Returns `z`, then raisees an `StopIteration(value=z)`
+1. [Delegator] If the current statment is `w = yield from delegatee`, make an assignment `w = StopIteration.value`
+1. [Delegator] **Keep evaluating all the way to the next `yield`, even if it's in another delgatee**; stop execution after yielding; return the yielded value to `next()` or `send()`
+
+In short, it's a cycle of 
+
+$$
+\begin{matrix}
+\text{push to stack top} & \Rightarrow & \text{assign sent value to variable if necessary}  \\ 
+\vdots &  &  \Downarrow  \\ 
+\text{return yielded value} & \Leftarrow & \text{evaluate till a new value yielded}
+\end{matrix}
+$$
