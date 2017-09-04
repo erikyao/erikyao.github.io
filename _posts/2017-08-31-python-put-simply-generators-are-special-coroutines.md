@@ -676,3 +676,8 @@ $$
 \text{return yielded value} & \Leftarrow & \text{evaluate till a new value yielded}
 \end{matrix}
 $$
+
+## Further Reading
+
+- [Python’s Innards: Hello, ceval.c!](https://tech.blog.aknin.name/category/my-projects/pythons-innards/)
+- [CPython internals: A ten-hour codewalk through the Python interpreter source code](http://pgbovine.net/cpython-internals.htm)
