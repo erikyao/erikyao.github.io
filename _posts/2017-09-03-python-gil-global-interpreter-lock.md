@@ -55,9 +55,9 @@ tags: [Python-101]
 
 复习指路：[CPU bound vs IO bound](/os/2017/03/20/cpu-bound-vs-io-bound)。
 
-每次谈 IO-Bound task 的速度的时候，总是没有 CPU cores 那么直观，我们以后就举例子好了，比如 “往磁盘写文件” 这个任务。你只有一个磁头、磁盘读写速度一定的前提下，你的 “写文件” 操作是没有办法并行的。不管你是 8 个 threads 还是 8 个 processes 去写 8 个文件，都得排队（考虑到创建、切换、销毁 thread 或是 process 的开销，你并行的速度应该反而比单个 process 去写 8 个文件要慢），这和你有多少个 CPU cores 是没有关系的（8 个 cores 并不意味着磁头数量或是磁盘读写速度是 4-cored 机器的两倍）。所以以你目前的计算机体系结构来说，pure IO task 是无法并行的（如果是 8 个 cores 带 8 个总线、8 个磁头、8 块硬盘这么骨骼清奇的机器，并行写 8 个文件自然是没问题的）。
+每次谈 IO-Bound task 的速度的时候，总是没有 CPU cores 那么直观，我们以后就举例子好了，比如 “往磁盘写文件” 这个任务。你只有一个磁头、磁盘读写速度一定的前提下，你的 “写文件” 操作是没有办法并行的。不管你是 8 个 threads 还是 8 个 processes 去写 8 个文件，都得排队（考虑到创建、切换、销毁 thread 或是 process 的开销，你并行的速度应该反而比单个 process 去写 8 个文件要慢），这和你有多少个 CPU cores 是没有关系的（8 个 cores 并不意味着磁头数量或是磁盘读写速度是 4-cored 机器的两倍）。所以以你目前的计算机体系结构来说，pure IO task 是无法并行的（如果是 8 个 cores 带 8 个总线、8 个磁头、8 块硬盘这么骨骼清奇的机器，并行写 8 个文件自然是可行的）。
 
-所以对 IO-Bound task 来说，你的 pure IO 部分理论上不可能从并行收益，你只能从 CPU 部分动手脚，即在 IO blocking 的时候切换到别的 thread 或是 process 让它们去跑它们自己的 CPU 部分。
+所以对 IO-Bound task 来说，你的 pure IO 部分理论上不可能从并行中受益，你只能从 CPU 部分动手脚，即在 IO blocking 的时候切换到别的 thread 或是 process 让它们去跑它们自己的 CPU 部分。
 
 | Parallelizability | Multi-threading   | Multi-processing |
 |-------------------|-------------------|------------------|
@@ -82,7 +82,7 @@ GIL 的存在让人觉得 Python 的 multi-threading 简直毫无用处（因为
 | IO-bound task       | A little bit because of GIL-releasing on blocking IO, allowing another thread to run its CPU instructions | A little bit because of $N$-fold speed on total CPU instructions |
 | CPU-bound task      | Almost none                                                                                               | Almost $N$-fold                        |
 
-简单来说，python 的 multi-processing 是正常表现；python 的 multi-threading 在 GIL 的约束下，在 CPU-bound task 方面是基本可以说是毫无用处，在 IO-bound task 方面还有点用，尤其是考虑到它比 multi-processing 的 overhead 开销要小，可能会快过 multi-processing
+简单来说，python 的 multi-processing 是正常表现；python 的 multi-threading 在 GIL 的约束下，在 CPU-bound task 方面基本可以说是毫无用处，在 IO-bound task 方面还有点用，尤其是考虑到它比 multi-processing 的 overhead 开销要小，可能会快过 multi-processing。
 
 ## Further Reading
 
