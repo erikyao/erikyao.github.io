@@ -81,3 +81,11 @@ GIL 的存在让人觉得 Python 的 multi-threading 简直毫无用处（因为
 |---------------------|-----------------------------------------------------------------------------------------------------------|----------------------------------------|
 | IO-bound task       | A little bit because of GIL-releasing on blocking IO, allowing another thread to run its CPU instructions | A little bit because of $N$-fold speed on total CPU instructions |
 | CPU-bound task      | Almost none                                                                                               | Almost $N$-fold                        |
+
+## Further Reading
+
+- [Python's Hardest Problem, Revisited](https://jeffknupp.com/blog/2013/06/30/pythons-hardest-problem-revisited/)
+- [stack overflow: Multiprocessing vs Threading Python](https://stackoverflow.com/questions/3044580/multiprocessing-vs-threading-python)
+- [stack overflow: Does multithreading make sense for IO-bound operations?](https://stackoverflow.com/questions/902425/does-multithreading-make-sense-for-io-bound-operations)
+- [David Beazley: Understanding the Python GIL](http://www.dabeaz.com/python/UnderstandingGIL.pdf)
+- [David Beazley: Inside the Python GIL](http://www.dabeaz.com/python/GIL.pdf)
