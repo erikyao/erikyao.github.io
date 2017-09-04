@@ -82,6 +82,8 @@ GIL 的存在让人觉得 Python 的 multi-threading 简直毫无用处（因为
 | IO-bound task       | A little bit because of GIL-releasing on blocking IO, allowing another thread to run its CPU instructions | A little bit because of $N$-fold speed on total CPU instructions |
 | CPU-bound task      | Almost none                                                                                               | Almost $N$-fold                        |
 
+简单来说，python 的 multi-processing 是正常表现；python 的 multi-threading 在 GIL 的约束下，在 CPU-bound task 方面是基本可以说是毫无用处，在 IO-bound task 方面还有点用，尤其是考虑到它比 multi-processing 的 overhead 开销要小，可能会快过 multi-processing
+
 ## Further Reading
 
 - [Python's Hardest Problem, Revisited](https://jeffknupp.com/blog/2013/06/30/pythons-hardest-problem-revisited/)

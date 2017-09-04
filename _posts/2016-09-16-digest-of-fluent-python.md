@@ -4220,3 +4220,251 @@ class Simulator:
 sim = Simulator(taxis)
 sim.run(end_time)
 ```
+
+## Chapter 17 - Concurrency with Futures
+
+This chapter focuses on the `concurrent.futures` library introduced in Python 3.2, but also available for Python 2.5 and newer as the `futures` package on PyPI. 
+
+Here I also introduce the concept of **futures**--objects representing the asynchronous execution of an operation. 
+
+### 17.1 Example: Web Downloads in Three Styles
+
+To handle network I/O efficiently, you need concurrency, as it involves high latency--so instead of wasting CPU cycles waiting, it’s better to do something else until a response comes back from the network.
+
+Three scripts will be shown below to download images of 20 country flags:
+
+- `flags.py`: runs sequentially. Only requests the next image when the previous one is downloaded and saved to disk
+- `flags_threadpool.py`: requests all images practically at the same time. Uses `concurrent.futures` package
+- `flags_asyncio.py`: ditto. Uses `asyncio` package
+
+#### 17.1.1 Style I: Sequential
+
+```python
+import os
+import time
+import sys
+
+import requests
+
+POP20_CC = ('CN IN US ID BR PK NG BD RU JP '
+            'MX PH VN ET EG DE IR TR CD FR').split()
+BASE_URL = 'http://flupy.org/data/flags'
+DEST_DIR = './'
+
+def save_flag(img, filename):
+    path = os.path.join(DEST_DIR, filename)
+    with open(path, 'wb') as fp:
+        fp.write(img)
+
+def get_flag(cc):
+    url = '{}/{cc}/{cc}.gif'.format(BASE_URL, cc=cc.lower())
+    resp = requests.get(url)
+    return resp.content
+
+def show(text):
+    print(text, end=' ')
+    sys.stdout.flush()
+
+def download_many(cc_list):
+    for cc in sorted(cc_list):
+        image = get_flag(cc)
+        show(cc)
+        save_flag(image, cc.lower() + '.gif')
+    return len(cc_list)
+
+def main(download_many):
+    t0 = time.time()
+    count = download_many(POP20_CC)
+    elapsed = time.time() - t0
+    msg = '\n{} flags downloaded in {:.2f}s'
+    print(msg.format(count, elapsed))
+
+main(download_many)
+```
+
+The `requests` library by Kenneth Reitz is available on PyPI and is more powerful and easier to use than the `urllib.request` module from the Python 3 standard library. In fact, `requests` is considered a model Pythonic API. It is also compatible with Python 2.6 and up, while the `urllib2` from Python 2 was moved and renamed in Python 3, so it’s more convenient to use `requests` regardless of the Python version you’re targeting.
+
+#### 17.1.2 Style II: Concurrent with `concurrent.features`
+
+```python
+from concurrent import futures
+from flags import save_flag, get_flag, show, main
+
+MAX_WORKERS = 20
+
+def download_one(cc):
+	image = get_flag(cc)
+	show(cc)
+	save_flag(image, cc.lower() + '.gif')
+	return cc
+
+def download_many(cc_list):
+	workers = min(MAX_WORKERS, len(cc_list))
+	
+	"""
+	The `executor.__exit__` method will call `executor.shutdown(wait=True)`, 
+	which will block until all threads are done.
+	"""
+	with futures.ThreadPoolExecutor(workers) as executor:
+		res = executor.map(download_one, sorted(cc_list))
+	
+	return len(list(res))
+
+main(download_many)
+```
+
+This is a common refactoring when writing concurrent code: turning the body of a sequential for loop into a function to be called concurrently.
+
+#### 17.1.3 Style III: Concurrent with `asyncio`
+
+```python
+import asyncio
+import aiohttp
+from flags import BASE_URL, save_flag, show, main
+
+@asyncio.coroutine
+def get_flag(cc):
+	url = '{}/{cc}/{cc}.gif'.format(BASE_URL, cc=cc.lower())
+	resp = yield from aiohttp.request('GET', url)
+	image = yield from resp.read()
+	return image
+
+@asyncio.coroutine
+def download_one(cc):
+	image = yield from get_flag(cc)
+	show(cc)
+	save_flag(image, cc.lower() + '.gif')
+	return cc
+
+def download_many(cc_list):
+	loop = asyncio.get_event_loop()
+	to_do = [download_one(cc) for cc in sorted(cc_list)]
+	wait_coro = asyncio.wait(to_do)
+	res, _ = loop.run_until_complete(wait_coro)
+	loop.close()
+
+	return len(res)
+
+main(download_many)
+```
+
+Will cover it in next chapter.
+
+#### 17.1.4 What Are the `Future`s?
+
+As of Python 3.4, there are two classes named `Future` in the standard library: `concurrent.futures.Future` and `asyncio.Future`. They serve the same purpose: an instance of either `Future` class represents a deferred computation that may or may not have completed. This is similar to the `Deferred` class in Twisted, the `Future` class in Tornado, and `Promise` objects in various JavaScript libraries.
+
+Futures encapsulate pending operations so that they can be put in queues, their state of completion can be queried, and their results (or exceptions) can be retrieved when available.
+
+- Client code should not create `Future` instances: they are meant to be instantiated exclusively by the concurrency framework, be it `concurrent.futures` or `asyncio`. 
+- Client code is not supposed to change the state of a future.
+- `Future.done()`: nonblocking and returns a bool to tell you whether the callable linked to this future has executed or not
+- `Future.add_done_callback(func)`: Instead of asking whether a future is done, client code usually asks to be notified. If you add `func` as a done-callback to future `f`, `func(f)` will be invoked when `f` is done.
+- `Future.result()`: returns the result of the callable linked to this future
+	- In `concurrent.futures`, calling `f.result()` will block the caller's thread until the result is ready
+		- You can also set a `timeout` argument to raise a `TimeError` if `f` is not done within the specified time
+	- In `asyncio`, `f.result()` is non-blocking and the preferred way to get the result of futures is to use `yield from`--which doesn’t work with `concurrency.futures.Future` instances.
+		- No such `timeout` argument
+
+To get a practical look at futures, we can rewrite last example:
+
+```python
+def download_many(cc_list):
+	cc_list = cc_list[:5]
+	with futures.ThreadPoolExecutor(max_workers=3) as executor:
+		to_do = []
+		for cc in sorted(cc_list):
+			future = executor.submit(download_one, cc)
+			to_do.append(future)
+			msg = 'Scheduled for {}: {}'
+			print(msg.format(cc, future))
+	
+	"""
+	`as_completed` function takes an iterable of futures and 
+	returns an iterator that yields futures as they are done.
+	"""
+	results = []
+	for future in futures.as_completed(to_do):
+		res = future.result()
+		msg = '{} result: {!r}'
+		print(msg.format(future, res))
+		results.append(res)
+	
+	return len(results)
+```
+
+Strictly speaking, none of the concurrent scripts we tested so far can perform downloads in parallel. The `concurrent.futures` examples are limited by the **Global Interpreter Lock (GIL)**, and the `flags_asyncio.py` is single-threaded.
+
+### 17.2 Blocking I/O and the GIL
+
+参 [Python GIL: Global Interpreter Lock](/python/2017/09/03/python-gil-global-interpreter-lock)
+
+When we write Python code, we have no control over the GIL, but a built-in function or an extension written in C can release the GIL while running time-consuming tasks. In fact, a Python library coded in C can manage the GIL, launch its own OS threads, and take advantage of all available CPU cores. This complicates the code of the library considerably, and most library authors don’t do it.
+
+However, all standard library functions that perform blocking I/O release the GIL when waiting for a result from the OS. This means Python programs that are I/O bound can benefit from using threads at the Python level: while one Python thread is waiting for a response from the network, the blocked I/O function releases the GIL so another thread can run.
+
+### 17.3 Launching Processes with `concurrent.futures`
+
+The package enables truly parallel computations because it can distribute work among multiple Python processes (using the `ProcessPoolExecutor` class)--thus bypassing the GIL and leveraging all available CPU cores, if you need to do CPU-bound processing.
+
+```python
+def download_many(cc_list):
+	workers = min(MAX_WORKERS, len(cc_list))
+	with futures.ThreadPoolExecutor(workers) as executor:
+
+def download_many(cc_list):
+	with futures.ProcessPoolExecutor() as executor:
+```
+
+There is an optional argument in `ProcessPoolExecutor` constructor, but most of the time we don’t use it--the default is the number of CPUs returned by `os.cpu_count()`. This makes sense: for CPU-bound processing, it makes no sense to ask for more workers than CPUs.
+
+**There is no advantage in using a `ProcessPoolExecutor` for the flags download example or any I/O-bound job.** 
+
+### 17.4 Experimenting with `executor.map`
+
+The simplest way to run several callables concurrently is with the `executor.map` function.
+
+```python
+from time import sleep, strftime
+from concurrent import futures
+
+def display(*args):
+	print(strftime('[%H:%M:%S]'), end=' ')
+	print(*args)
+
+def loiter(n):
+	msg = '{}loiter({}): doing nothing for {}s...'
+	display(msg.format('\t'*n, n, n))
+	sleep(n)
+	msg = '{}loiter({}): done.'
+	display(msg.format('\t'*n, n))
+	return n * 10
+
+def main():
+	display('Script starting.')
+	executor = futures.ThreadPoolExecutor(max_workers=3)
+	results = executor.map(loiter, range(5))
+	display('results:', results) 
+	display('Waiting for individual results:')
+	for i, result in enumerate(results):  # Note here
+		display('result {}: {}'.format(i, result))
+
+main()
+```
+
+The `enumerate` call in the for loop will implicitly invoke `next(results)`, which in turn will invoke `_f.result()` on the (internal) `_f` future representing the first call, `loiter(0)`. The result method will block until the future is done, therefore each iteration in this loop will have to wait for the next result to be ready.
+
+The `executor.map` function is easy to use but it has a feature that may or may not be helpful, depending on your needs: it returns the results exactly in the same order as the calls are started: if the first call takes 10s to produce a result, and the others take 1s each, your code will block for 10s as it tries to retrieve the first result of the generator returned by `map`. After that, you’ll get the remaining results without blocking because they will be done. That’s OK when you must have all the results before proceeding, but often it’s preferable to get the results as they are ready, regardless of the order they were submitted. To do that, you need a combination of the `executor.submit` method and the `futures.as_completed` function.
+
+The combination of `executor.submit` and `futures.as_completed` is more flexible than `executor.map` because you can submit different callables and arguments, while `executor.map` is designed to run the same callable on the different arguments. In addition, the set of futures you pass to `futures.as_completed` may come from more than one `executor`--perhaps some were created by a `ThreadPoolExecutor` instance while others are from a `ProcessPoolExecutor`.
+
+### 17.5 Downloads with Progress Display and Error Handling
+
+一个完整的例子，用到了 `tqdm`，需要架设 Mozilla Vaurien，略。
+
+#### 17.5.3 `threading` and `multiprocessing`
+
+`threading` 和 `multiprocessing` 都是底层 module，`concurrent.features` 可以看做是 `multiprocessing` 的包装，提供了简单的接口，屏蔽了底层技术细节
+
+## Chapter 18 - Concurrency with `asyncio`
+
