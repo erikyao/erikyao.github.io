@@ -31,7 +31,7 @@ tags: [Python-101]
 
 #### 子问题二：可不可能多个 Python Process 共享一个 Interpreter？
 
-就我目前的认知我觉得不可能。而且如果你是用 `fork` 从当前 process 创建新的 process，则是明确的不可能，因为 `fork` 你可以理解为是一个 deep copy，新创建的 process 内部是一个实打实的 interpreter instance 的 clone。这也从另一个方面说明，multi-process 比 multi-thread 的 overhead 消耗要大。
+就我目前的认知我觉得不可能。而且如果你是用 `fork` 从当前 process 创建新的 process，则是明确的不可能，因为 `fork` 你可以理解为是一个 deep copy，新创建的 process 内部是一个实打实的 interpreter instance 的 clone。这也从另一个方面说明，multi-processing 比 multi-threading 的 overhead 消耗要大。
 
 更多内容参考 [stack overflow: Does python os.fork uses the same python interpreter?](https://stackoverflow.com/questions/30157895/does-python-os-fork-uses-the-same-python-interpreter)
 
@@ -68,7 +68,7 @@ GIL 的存在让人觉得 Python 的 multi-threading 简直毫无用处（因为
 
 假设一个 callable 的 CPU 运行时间是 $\mu$，IO 运行时间是 $\omega$，且 CPU 部分先执行、IO 部分后执行，有 $n$ 个 threads 或者 processes。
 
-- Multi-threading on IO-bound task：第一个 thread 或者 process 的 CPU 部分单独跑，其余 thread 或者 process 的 CPU 部分可以在 IO blocking 的时间内运行，理想状态下总运行时间为 $\mu + n \omega$，speedup 为 $\frac{n \mu + n \omega}{\mu + n \omega}$
+- Multi-threading on IO-bound task：第一个 thread 的 CPU 部分单独跑，其余 thread 的 CPU 部分可以在 IO blocking 的时间内运行，理想状态下总运行时间为 $\mu + n \omega$，speedup 为 $\frac{n \mu + n \omega}{\mu + n \omega}$
     - $\mu \ll \omega \Rightarrow \text{speedup} \to 1$ 
 - Multi-threading on CPU-bound task：CPU 运行时，IO 可能在跑，理想状态下总运行时间为 $n \mu$，speedup 为 $\frac{n \mu + n \omega}{n \mu} = 1 + \frac{\omega}{\mu}$
     - $\mu \gg \omega \Rightarrow \text{speedup} \to 1$ 
