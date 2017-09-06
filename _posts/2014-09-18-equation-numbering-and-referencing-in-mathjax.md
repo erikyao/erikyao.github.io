@@ -73,3 +73,13 @@ According to $ \ref{eq1.1} $, we have ...
 效果是：  
 
 According to $ \ref{eq1.1} $, we have ...
+
+如果想让公式编号自带括号的话，可以用 `amsmath` package 的 `\eqref{}`:
+
+```latex
+According to $ \eqref{eq1.1} $, we have ...
+```
+
+效果是：  
+
+According to $ \eqref{eq1.1} $, we have ...
