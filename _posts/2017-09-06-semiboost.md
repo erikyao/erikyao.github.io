@@ -71,32 +71,107 @@ $$
 H^{(T+1)}(\mathbf x_i) = H_i + \alpha h_i 
 $$
 
-Expand $F(H^{(T+1)}(\mathbf x), S)$ by substituding $\mathbf y^u$ with $H(\mathbf x^u)$:
+Expand $F(\mathbf y, S)$ by substituding $\mathbf y^u$ with $H(\mathbf x^u)$:
 
 $$
 \begin{align*}
-F_l(\mathbf y, S) &= \sum_{i=1}^{n_l} \sum_{j=1}^{n_u} S_{i,j}^{lu} \exp(-2 \cdot y_i^l \cdot H^{(T+1)}(\mathbf x_j)) \newline
-                  &= \sum_{i=1}^{n_l} \sum_{j=1}^{n_u} S_{i,j}^{lu} \{ I(y_i^l, 1) \exp [ -2 (H_j + \alpha h_j ) ] + I(y_i^l, -1) \exp [ 2 (H_j + \alpha h_j ) ] \} \newline
-                  &= \sum_{j=1}^{n_u} \exp(-2 \alpha h_j) \cdot \sum_{i=1}^{n_l} S_{i,j}^{lu} I(y_i^l, 1) \exp(-2H_j) + \sum_{j=1}^{n_u} \exp(2 \alpha h_j) \cdot \sum_{i=1}^{n_l} S_{i,j}^{lu} I(y_i^l, -1) \exp(2H_j) \newline
-
+F_l(\mathbf y, S) &= \sum_{i=1}^{n_l} \sum_{j=1}^{n_u} S_{i,j}^{lu} \exp(-2 \cdot y_i^l \cdot (H_j + \alpha h_j) \newline
 F_u(\mathbf y^u, S) &= \sum_{i,j=1}^{n_u} S_{i,j}^{uu} \exp(H_i + \alpha h_i - H_j - \alpha h_j) \newline
                     &= \sum_{i,j=1}^{n_u} S_{i,j}^{uu} \exp(H_i - H_j ) \cdot \exp[\alpha (h_i - h_j)]
 
 \end{align*}
 $$
 
-$$
-\begin{aligned}
-\because \, & \exp[\alpha (h_i - h_j)] \leq \frac{1}{2} \left [ \exp(2 \alpha h_i) + \exp(-2 \alpha h_j) \right ] \newline
-\therefore \, & F_u(\mathbf y^u, S) \leq F_u'(\mathbf y^u, S) = \sum_{j=1}^{n_u} \exp(-2 \alpha h_j) \cdot \sum_{i=1}^{n_u} \frac{1}{2} S_{i,j}^{uu} \exp(H_i - H_j) + \sum_{j=1}^{n_u} \exp(2 \alpha h_j) \cdot \sum_{i=1}^{n_u} \frac{1}{2} S_{i,j}^{uu} \exp(H_i - H_j)
-\end{aligned}
-$$
-
-And $\exp(x)$ is convex; $\exp(-x)$ is convex. Therefore $\exp(x) + \exp(-x)$ is also convex.
+Now the problem becomes:
 
 $$
 \begin{align*}
-F(H^{(T+1)}(\mathbf x), S) &= F_l(H^{(T+1)}(\mathbf x), S) + C F_u(H^{(T+1)}(\mathbf x_u), S) \newline
-                           &= \sum_{i=1}^{n_l} \sum_{j=1}^{n_u} S_{i,j}^{lu} \exp(-2 y_i^l y_j^u)
+\min_{h(\mathbf x), \alpha} & F(\mathbf y, S) = F_l(\mathbf y, S) + C F_u(\mathbf y^u, S) \\
+&               =\sum_{i=1}^{n_l} \sum_{j=1}^{n_u} S_{i,j}^{lu} \exp(-2 \cdot y_i^l \cdot (H_j + \alpha h_j) + C \sum_{i,j=1}^{n_u} S_{i,j}^{uu} \exp(H_i - H_j ) \cdot \exp[\alpha (h_i - h_j)] 
+                                            \tag{4}
+                                            \label{prob3} \\
+\text{s.t. } & h_i = y_{i}^{l}, i = 1,\dots, n_l 
 \end{align*}
+$$
+
+Problem $\eqref{prob3}$ involves products of $\alpha$ and $h_i$, making it nonlinear and, hence, difficult to optimize. We are going to apply Bound-Optimization below to solve this problem.
+
+We first further expand $F_l(\mathbf y, S)$:
+
+$$
+\begin{align*}
+F_l(\mathbf y, S) &= \sum_{i=1}^{n_l} \sum_{j=1}^{n_u} S_{i,j}^{lu} \exp(-2 \cdot y_i^l \cdot (H_j + \alpha h_j) \newline
+                  &= \sum_{i=1}^{n_l} \sum_{j=1}^{n_u} S_{i,j}^{lu} \{ I(y_i^l, 1) \exp [ -2 (H_j + \alpha h_j ) ] + I(y_i^l, -1) \exp [ 2 (H_j + \alpha h_j ) ] \} \newline
+                  &= \sum_{j=1}^{n_u} \exp(-2 \alpha h_j) \cdot \sum_{i=1}^{n_l} S_{i,j}^{lu} I(y_i^l, 1) \exp(-2H_j) + \sum_{j=1}^{n_u} \exp(2 \alpha h_j) \cdot \sum_{i=1}^{n_l} S_{i,j}^{lu} I(y_i^l, -1) \exp(2H_j) 
+\end{align*}
+$$
+
+Then we find an upper bound of $F_u(\mathbf y^u, S)$:
+
+$$
+\begin{aligned}
+\because \, & \exp[\alpha (h_i - h_j)] \leq \frac{1}{2} \left [ \exp(2 \alpha h_i) + \exp(-2 \alpha h_j) \right ] \newline
+\therefore \, & F_u(\mathbf y^u, S) \leq F_u'(\mathbf y^u, S) = \sum_{i,j=1}^{n_u} \frac{1}{2} S_{i,j}^{uu} \exp(H_i - H_j) \cdot \exp(2 \alpha h_i) + \sum_{i,j=1}^{n_u} \frac{1}{2} S_{i,j}^{uu} \exp(H_i - H_j) \cdot \exp(-2 \alpha h_j)
+\end{aligned}
+$$
+
+Flip $i$ and $j$ of the first term in $F_u'(\mathbf y^u, S)$:
+
+$$
+\begin{aligned}
+\therefore F_u'(\mathbf y^u, S) = & \sum_{i,j=1}^{n_u} \frac{1}{2} S_{i,j}^{uu} \exp(H_j - H_i) \cdot \exp(2 \alpha h_j) + \sum_{i,j=1}^{n_u} \frac{1}{2} S_{i,j}^{uu} \exp(H_i - H_j) \cdot \exp(-2 \alpha h_j) \newline
+                                = & \sum_{j=1}^{n_u} \exp(-2 \alpha h_j) \cdot \sum_{i=1}^{n_u} \frac{1}{2} S_{i,j}^{uu} \exp(H_i - H_j) + \sum_{j=1}^{n_u} \exp(2 \alpha h_j) \cdot \sum_{i=1}^{n_u} \frac{1}{2} S_{i,j}^{uu} \exp(H_j - H_i)
+\end{aligned}
+$$
+
+$$
+\begin{align*}
+\therefore \, F(\mathbf y, S) =& F_l(\mathbf y, S) + C F_u(\mathbf y^u, S) \newline
+\leq \overline{F}_1(\mathbf y, S) =& F_l(\mathbf y, S) + C F_u'(\mathbf y^u, S) \newline
+                      =& \sum_{j=1}^{n_u} \exp(-2 \alpha h_j) \cdot \bigg [ \sum_{i=1}^{n_l} S_{i,j}^{lu} I(y_i^l, 1) \exp(-2H_j) + \sum_{i=1}^{n_u} \frac{C}{2} S_{i,j}^{uu} \exp(H_i - H_j) \bigg ] + \newline
+                       & \sum_{j=1}^{n_u} \exp(2 \alpha h_j) \cdot \bigg [\sum_{i=1}^{n_l} S_{i,j}^{lu} I(y_i^l, -1) \exp(2H_j) + \sum_{i=1}^{n_u} \frac{C}{2} S_{i,j}^{uu} \exp(H_j - H_i) \bigg]
+\end{align*}
+$$
+
+Define:
+
+$$
+\begin{align*}
+p_j =& \sum_{i=1}^{n_l} S_{i,j}^{lu} I(y_i^l, 1) \exp(-2H_j) + \sum_{i=1}^{n_u} \frac{C}{2} S_{i,j}^{uu} \exp(H_i - H_j) \newline
+q_j =& \sum_{i=1}^{n_l} S_{i,j}^{lu} I(y_i^l, -1) \exp(2H_j) + \sum_{i=1}^{n_u} \frac{C}{2} S_{i,j}^{uu} \exp(H_j - H_i)
+\end{align*}
+$$
+
+Note that when calculating $p_j$ and $q_j$, $j$ is fixed and $p_j$ and $q_j$ are functions of $H_j$.
+
+$p_j$ and $q_j$ can be interpreted as the confidence in classifying the unlabeled example $\mathbf x_i$ into the positive class and the negative class, respectively.
+
+$\text{Claim 1}:$ Problem $\eqref{prob3}$ is equivalent to 
+
+$$
+\min_{h(\mathbf x), \alpha} \overline{F}_1(\mathbf y, S) = \sum_{j=1}^{n_u} \exp(-2 \alpha h_j) \cdot p_j + \sum_{j=1}^{n_u} \exp(2 \alpha h_j) \cdot q_j
+\tag{5}
+\label{prob4}
+$$
+
+The expression in $\eqref{prob4}$ is difficult to optimize since the weight $\alpha$ and the classifier $h$ are coupled together. We simplify the problem furhter using the upper bound of $\overline{F}_1$.
+
+$$
+\begin{aligned}
+\because \, & 1 + x \leq \exp(x) \newline
+\therefore \, & \exp(\gamma x) \leq \exp(\gamma) + \exp(-\gamma) -1 + \gamma x, \forall x \in \{ -1, 1 \}\newline
+\therefore \, & \exp(-2 \alpha h_j) \leq \exp(-2 \alpha) + \exp(2 \alpha) - 1 - 2 \alpha h_j \newline
+              & \exp(2 \alpha h_j) \leq \exp(2 \alpha) + \exp(-2 \alpha) - 1 + 2 \alpha h_j \newline
+\therefore \, & \overline{F}_1(\mathbf y, S) \leq \overline{F}_2(\mathbf y, S) = \sum_{j=1}^{n_u}(e^{2 \alpha} + e^{-2 \alpha} - 1)(p_j + q_j) - \sum_{j=1}^{n_u} 2 \alpha h_j (p_j - q_j) 
+\end{aligned}
+$$
+
+- [Simplest or nicest proof that $1+x \leq e^x$](https://math.stackexchange.com/questions/504663/simplest-or-nicest-proof-that-1x-le-ex)
+
+$\text{Claim 2}:$ Problem $\eqref{prob4}$ is equivalent to 
+
+$$
+\min_{h(\mathbf x), \alpha} \overline{F}_2(\mathbf y, S) = \sum_{j=1}^{n_u}(e^{2 \alpha} + e^{-2 \alpha} - 1)(p_j + q_j) - \sum_{j=1}^{n_u} 2 \alpha h_j (p_j - q_j) 
+\tag{6}
+\label{prob5}
 $$

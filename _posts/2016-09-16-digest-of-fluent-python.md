@@ -4468,3 +4468,203 @@ The combination of `executor.submit` and `futures.as_completed` is more flexible
 
 ## Chapter 18 - Concurrency with `asyncio`
 
+> Concurrency is about dealing with lots of things at once.  
+> Parallelism is about doing lots of things at once.  
+> Not the same, but related.  
+> One is about structure, one is about execution.  
+> Concurrency provides a way to structure a solution to solve a problem that may (but not necessarily) be parallelizable.  
+> <br/>
+> <p align="right">-- Rob Pike</p>
+
+This chapter introduces `asyncio`, a package that implements concurrency with corou‐ tines driven by an event loop. 
+
+Because it uses `yield from` expressions extensively, `asyncio` is incompatible with older versions before Python 3.3.
+
+### 18.1 Thread Versus Coroutine: A Comparison
+
+Here we introduce a fun example to display an animated spinner made with the ASCII characters `|/-\` on the console while some long computation is running.
+
+```python
+import threading
+import itertools
+import time
+import sys
+
+
+class Signal:
+	go = True
+
+def spin(msg, signal):
+	write, flush = sys.stdout.write, sys.stdout.flush
+	for char in itertools.cycle('|/-\\'):
+		status = char + ' ' + msg
+		write(status)
+		flush()
+		write('\x08' * len(status))
+		time.sleep(.1)
+		if not signal.go:
+			break
+	write(' ' * len(status) + '\x08' * len(status))
+
+def slow_function():
+	# pretend waiting a long time for I/O
+	time.sleep(3)  # Calling `sleep` would block the `main` thread, but GIL will be released to `spin` thread
+	return 42
+
+def supervisor():
+	signal = Signal()
+	spinner = threading.Thread(target=spin, args=('thinking!', signal))
+	print('spinner object:', spinner)
+	spinner.start()
+	result = slow_function()
+	signal.go = False
+	spinner.join()
+	return result
+
+def main():
+	result = supervisor()
+	print('Answer:', result)
+
+main()
+```
+
+- Note that, by design, there is no API for terminating a thread in Python. You must send it a message to shut down. 
+
+Now let’s see how the same behavior can be achieved with an `@asyncio.coroutine` instead of a thread.
+
+```python
+import asyncio
+import itertools
+import sys
+
+
+@asyncio.coroutine  # ①
+def spin(msg):  
+	write, flush = sys.stdout.write, sys.stdout.flush
+	for char in itertools.cycle('|/-\\'):
+		status = char + ' ' + msg
+		write(status)
+		flush()
+		write('\x08' * len(status))
+		try:
+			yield from asyncio.sleep(.1)  # ②
+		except asyncio.CancelledError:
+			break
+	write(' ' * len(status) + '\x08' * len(status))
+
+@asyncio.coroutine
+def slow_function():
+	# pretend waiting a long time for I/O
+	yield from asyncio.sleep(3)
+	return 42
+
+@asyncio.coroutine  # ③
+def supervisor():
+	spinner = asyncio.async(spin('thinking!'))  # ④
+	print('spinner object:', spinner)
+	result = yield from slow_function()  # ⑤
+	spinner.cancel()  # ⑥
+	return result
+
+def main():
+	loop = asyncio.get_event_loop()
+	result = loop.run_until_complete(supervisor())  # ⑦
+	loop.close()
+	print('Answer:', result)
+
+main()
+```
+
+- ① Coroutines intended for use with `asyncio` should be decorated with `@asyn cio.coroutine`. This not mandatory, but is highly advisable. 
+	- It makes the coroutines stand out among regular functions, and helps with debugging by issuing a warning when a coroutine is garbage collected without being yielded from--which means some operation was left unfinished and is likely a bug. 
+	- This is not a priming decorator.
+- ② Use `yield from asyncio.sleep(.1)` instead of just `time.sleep(.1)`, to sleep without blocking the event loop.
+	- Never use `time.sleep(...)` in `asyncio` coroutines unless you want to block the main thread, therefore freezing the event loop and probably the whole application as well. 
+	- If a coroutine needs to spend some time doing nothing, it should `yield from asyn cio.sleep(DELAY)`.
+- ③ `supervisor` is now a coroutine as well, so it can drive `slow_function` with `yield from`.
+- ④ `asyncio.async(...)` schedules the `spin` coroutine to run, wrapping it in a `Task` object, which is returned immediately.
+- ⑤ Drive the `slow_function()`. When that is done, get the returned value. Meanwhile, the event loop will continue running because `slow_function` ultimately uses `yield from asyncio.sleep(3)` to hand control back to the main loop.
+- ⑥ A `Task` object can be cancelled; this raises `asyncio.CancelledError` at the` yield` line where the coroutine is currently suspended. 
+- ⑦ Drive the `supervisor` coroutine to completion; the return value of the coroutine is the return value of this call.
+	- Just imagine that `loop.run_until_complete` is calling `next()` or `.send()` on `supervisor()`
+
+Here is a summary of the main differences to note between the two supervisor implementations:
+
+- An `asyncio.Task` is roughly the equivalent of a` threading.Thread`.
+- A `Task` drives a coroutine, and a `Thread` invokes a callable.
+- You don’t instantiate `Task` objects yourself, you get them by passing a coroutine to `asyncio.async(...)` or `loop.create_task(...)`.
+- When you get a `Task` object, it is already scheduled to run (e.g., by `asyn cio.async`); a `Thread` instance must be explicitly told to run by calling its `start` method.
+
+#### 18.1.1 `asyncio.Future`: Nonblocking by Design
+
+In `asyncio`, `BaseEventLoop.create_task(...)` takes a coroutine, schedules it to run, and returns an `asyncio.Task` instance--which is also an instance of `asyncio.Future` because `Task` is a subclass of `Future` designed to wrap a coroutine. This is analogous to how we create `concurrent.futures.Future` instances by invoking `Executor.submit(...)`.
+
+In `asyncio.Future`, the `.result()` method takes no arguments, so you can’t specify a timeout. Also, if you call `.result()` and the future is not done, it does not block waiting for the result. Instead, an `asyncio.InvalidStateError` is raised.
+
+However, the usual way to get the result of an asyncio.Future is to `yield from` it, which automatically takes care of waiting for it to finish, without blocking the event loop--because in `asyncio`, `yield from` is used to give control back to the event loop.
+
+Note that using `yield from` with a future is the coroutine equivalent of the functionality offered by `add_done_callback`: instead of triggering a callback, when the delayed operation is done, the event loop sets the result of the future, and the `yield from` expression produces a return value inside our suspended coroutine, allowing it to resume.
+
+- So basically you won't call `my_future.result()` nor `my_future.add_done_callback(...)` with `asyncio.Future`
+
+#### 18.1.2 Yielding from Futures, Tasks, and Coroutines
+
+In `asyncio`, there is a close relationship between futures and coroutines because you can get the result of an `asyncio.Future` by yielding from it. This means that `res = yield from foo()` works 
+
+- if `foo` is a coroutine function or 
+- if `foo` is a plain function that returns a `Future` or `Task` instance.
+
+In order to execute, a coroutine must be scheduled, and then it’s wrapped in an `asyncio.Task`. Given a coroutine, there are two main ways of obtaining a `Task`:
+
+- `asyncio.async(coro_or_future, *, loop=None)`
+	- If `coro_or_future` is a `Future` or `Task`, `coro_or_future` will be returned unchanged.
+	- If `coro_or_future` is a coroutine, `loop.create_task(...)` will be called on it to create a `Task`
+		- If `loop` is not passed in, `loop = asyncio.get_event_loop()`
+- `BaseEventLoop.create_task(coro)`
+
+Several `asyncio` functions accept coroutines and wrap them in `asyncio.Task` objects automatically, using `asyncio.async` internally. One example is `BaseEventLoop.run_until_complete(...)`.
+
+### 18.2 Downloading with `asyncio` and `aiohttp`
+
+Previously we used `requests` library, which performs blocking I/O. To leverage `asyncio`, we must replace every function that hits the network with an asynchronous version that is invoked with `yield from`. And that's why we use `aiohttp` here.
+
+```python
+import asyncio
+import aiohttp
+from flags import BASE_URL, save_flag, show, main
+
+
+@asyncio.coroutine
+def get_flag(cc):
+	url = '{}/{cc}/{cc}.gif'.format(BASE_URL, cc=cc.lower())
+	resp = yield from aiohttp.request('GET', url)
+	image = yield from resp.read()
+	return image
+
+@asyncio.coroutine
+def download_one(cc):
+	image = yield from get_flag(cc)
+	show(cc)
+	save_flag(image, cc.lower() + '.gif')
+	return cc
+
+def download_many(cc_list):
+	loop = asyncio.get_event_loop()
+	to_do = [download_one(cc) for cc in sorted(cc_list)]
+	wait_coro = asyncio.wait(to_do)  # ①
+	res, _ = loop.run_until_complete(wait_coro)  # ②
+	loop.close()
+	return len(res)
+
+main(download_many)
+```
+
+- ① Despite its name, `wait` is not a blocking function. It’s a coroutine that completes when all the coroutines passed to it are done.
+- ② To drive the coroutine created by `wait`, we pass it to `loop.run_until_complete(...)`
+	- When `wait_coro` completes, it returns a tuple where the first item is the set of completed futures and the second is the set of those not completed. 
+
+There are a lot of new concepts to grasp in `asyncio` but the overall logic is easy to follow if you employ a trick suggested by Guido van Rossum himself: squint (look at someone or something with one or both eyes partly closed in an attempt to see more clearly or as a reaction to strong light) and pretend the `yield from` keywords are not there. If you do that, you’ll notice that the code is as easy to read as plain old sequential code.
+
+Using the `yield from foo` syntax avoids blocking because the current coroutine is suspended, but the control flow goes back to the event loop, which can drive other coroutines. When the `foo` future or coroutine is done, it returns a result to the suspended coroutine, resuming it.
+
+### 18.3 Running Circling Around Blocking Calls
