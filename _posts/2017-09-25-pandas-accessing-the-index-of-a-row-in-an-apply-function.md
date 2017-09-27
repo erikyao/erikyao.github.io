@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Pandas: Accessing the index of a row in an `apply` function"
+title: "Pandas: Accessing the index of a row in an <i>apply</i> function"
 description: ""
 category: Python
 tags: [Pandas, apply]
