@@ -11,7 +11,7 @@ tags: [Python-101]
 
 -----
 
-When you **reference** a variable in an expression, the Python interpreter will traverse the scope to resolve the reference in this order:
+When you _**reference**_ a variable in an expression, the Python interpreter will traverse the scope to resolve the reference in this order:
 
 1. The current function's scope
 2. Any enclosing scopes (like other containing functions)
@@ -20,7 +20,7 @@ When you **reference** a variable in an expression, the Python interpreter will 
 
 If none of these places have a defined variable with the referenced name, then a `NameError` exception is raised.
 
-**Assigning a value to a variable works differently**. If the variable is already defined in the current scope, then it will just take on the new value. If the variable doesn't exist in the current scope, then Python **treats the assignment as a variable definition**. The scope of the newly defined variable is the function that contains the assignment.
+_**Assigning a value to a variable works differently**_. If the variable is already defined in the current scope, then it will just take on the new value. If the variable doesn't exist in the current scope, then _**Python treats the assignment as a variable definition**_. The scope of the newly defined variable is the function that contains the assignment.
 
 -----
 
@@ -72,10 +72,10 @@ foo_3()
 # Output: True
 ```
 
-- `foo_1` 里的 `bar` 的 `found = True` 是一句 assignment，但是 `found` 在 `bar` 的 scope 下找不到，所以变成了 variable definition，相当于内部外部各有一个 `found`，你内部的 `found` 的赋值不会影响到外部的值
-- `foo_2` 这是最常见的解决 `foo_1` 问题的写法，用 `nonlocal`，告诉 interpreter 不要在 `bar` 的 scope 下去找 `found`。这么一来内外 reference 到的都是同一个 `found`
-- `foo_3` 是 python 2 里 `nonlocal` 的 workaround，因为 python 2 里并没有 `nonlocal`。它的巧妙之处在于 `found[0] = True` 这句并不是对 `found` 的赋值，这里内外都是 reference 到同一个 `found`，相当于是改变了 `found` 的内部状态，但是改变 `found` 所指向的对象
-    - 同理可知，你在 inner function 里修改外部对象的状态也不算是 assignment，比如下面的 `foo_4`
+- `foo_1` 里的 `bar` 的 `found = True` 是一句 assignment，但是 `found` 在 `bar` 的 scope 下找不到，所以变成了 variable definition，相当于内部外部各有一个 `found`，你内部的 `found` 的赋值不会影响到外部的值。
+- `foo_2` 这是最常见的解决 `foo_1` 问题的写法，用 `nonlocal`，告诉 interpreter 不要在 `bar` 的 scope 下去找 `found`。这么一来内外 reference 到的都是同一个 `found`。
+- `foo_3` 是 python 2 里 `nonlocal` 的 workaround，因为 python 2 里并没有 `nonlocal`。它的巧妙之处在于 `found[0] = True` 这句并不是对 `found` 的赋值。所以这里内外都是 reference 到同一个 `found`，相当于是改变了 `found` 的内部状态，但是并没有 assign 一个新对象给 `found`。
+    - 同理可知，你在 inner function 里修改外部对象的状态也不算是 assignment，比如下面的 `foo_4`。
 
 ```python
 class Found:
