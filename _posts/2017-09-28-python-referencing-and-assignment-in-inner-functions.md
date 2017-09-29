@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Python: referencing and assignment in inner functions"
+title: "Python: Referencing and assignment in inner functions"
 description: ""
 category: Python
 tags: [Python-101]
