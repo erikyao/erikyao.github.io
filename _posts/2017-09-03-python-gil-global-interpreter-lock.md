@@ -84,6 +84,16 @@ GIL 的存在让人觉得 Python 的 multi-threading 简直毫无用处（因为
 
 简单来说，python 的 multi-processing 是正常表现；python 的 multi-threading 在 GIL 的约束下，在 CPU-bound task 方面基本可以说是毫无用处，在 IO-bound task 方面还有点用，尤其是考虑到它比 multi-processing 的 overhead 开销要小，可能会快过 multi-processing。
 
+## 2017-10-03 补充
+
+_Effective Python Item 37: Use Threads for Blocking I/O, Avoid for Parallelism_
+
+> The GIL prevents my Python code from running in parallel, but it has no negative effect on system calls. This works because Python threads release the GIL just before they make system calls and reacquire the GIL as soon as the system calls are done.
+
+_Effective Python Item 38: Use Lock to Prevent Data Races in Threads_
+
+> The Python interpreter enforces fairness between all of the threads that are executing to ensure they get a roughly equal amount of processing time. To do this, Python will suspend a thread as it’s running and will resume another thread in turn. The problem is that you don’t know exactly when Python will suspend your threads. A thread can even be paused seemingly halfway through what looks like an atomic operation. 
+
 ## Further Reading
 
 - [Python's Hardest Problem, Revisited](https://jeffknupp.com/blog/2013/06/30/pythons-hardest-problem-revisited/)
