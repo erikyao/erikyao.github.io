@@ -74,7 +74,7 @@ The problem here is the platform-dependent nature of the `time` module. Its actu
 
 ## The built-in `datetime` module + `pytz`
 
-`datetime` module is totally object-oriented, with 6 classes:
+`datetime` module is totally object-oriented, containing 6 classes:
 
 - `date` with attributes `year`, `month` and `day`
 - `time` with attributes `hour`, `minute`, `second`, `microsecond`, and `tzinfo`
@@ -90,10 +90,10 @@ However, there is only one time zone defined in `datetime`, `timezone.utc`. `pyt
 >>> import pytz
 >>> pdt = pytz.timezone('US/Pacific')
 >>> edt = pytz.timezone('US/Eastern')
->>> pdt_now = datetime.now()  # local time in your time zone
+>>> pdt_now = datetime.now()  # local time in my time zone, PDT
 >>> pdt_now
 datetime.datetime(2017, 10, 4, 14, 36, 33, 786393)
->>> pdt_now = pdt.localize(pdt_now)  # add `tzinfo` to your naive `datetime` object
+>>> pdt_now = pdt.localize(pdt_now)  # add `tzinfo` to the naive `datetime` object
 >>> pdt_now
 datetime.datetime(2017, 10, 4, 14, 36, 33, 786393, tzinfo=<DstTzInfo 'US/Pacific' PDT-1 day, 17:00:00 DST>)
 >>> edt_now = pdt_now.astimezone(edt)  # change time zone to EDT
