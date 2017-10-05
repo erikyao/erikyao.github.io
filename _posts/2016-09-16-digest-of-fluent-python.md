@@ -397,7 +397,23 @@ You can treat your own object as an iterator, so `obj.__iter__()` can `return se
 
 ### `__repr__()` vs `__str__()` <a name="--repr---vs---str--"></a>
 
-The string returned by `__repr__()` should be unambiguous and, if possible, match the source code necessary to re-create the object being represented. 
+The string returned by `__repr__()` should be unambiguous and, if possible, match the source code necessary to re-create the object being represented. I.e. if possible, we would have
+
+```python
+b = eval(repr(a))
+assert a == b
+```
+
+A recommended way of implementing `__repr__` is to return a string of a constructor call:
+
+```python
+class BetterClass(object):
+    def __init__(self, x, y):
+		...
+
+	def __repr__(self):
+        return "BetterClass(%d,	%d)" % (self.x, self.y)
+```
 
 `__str__()` should return a string suitable for display to end users.
 
