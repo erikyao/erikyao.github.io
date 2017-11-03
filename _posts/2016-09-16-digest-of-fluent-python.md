@@ -2644,7 +2644,7 @@ def __getattr__(self, name):
 
 但是这么一来会引入一个新的问题：你如何处理 `v.x = 10` 这样的赋值？是允许它创建一个新的 attribute `x`？还是去修改 `v[0]` 的值？
 
-如果你允许它创建新的 attribute `x`，那么下次 `v.x` 就不会 fall back 到 `__getattr__` 了。去修改 `v[0]` 我觉得是可信的，但是书上决定把 `v.x` 到 `v.t` 这 4 个 attribute 做成 read-only，同时禁止创建名字为单个小写字母的 attribute。这些逻辑的去处是 `__setattr__`:
+如果你允许它创建新的 attribute `x`，那么下次 `v.x` 就不会 fall back 到 `__getattr__` 了。去修改 `v[0]` 我觉得是可行的，但是书上决定把 `v.x` 到 `v.t` 这 4 个 attribute 做成 read-only，同时禁止创建名字为单个小写字母的 attribute。这些逻辑的去处是 `__setattr__`:
 
 ```python
 def __setattr__(self, name, value):
