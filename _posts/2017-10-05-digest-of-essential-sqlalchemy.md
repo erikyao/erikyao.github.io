@@ -264,3 +264,208 @@ tb_A = Table('tb_A', metadata,
 Using strings instead of an actual column allows us to separate the table definitions across multiple modules and not have to worry about the order in which our tables are loaded. This is because SQLAlchemy will only perform the resolution of that string to a table name and column the first time it is accessed. If we use hard references, such as `mytable.c.col9`, in our `ForeignKey` definitions, it will perform that resolution during module initialization and could fail depending on the order in which the tables are loaded.
 
 ## Chapter 2 - Working with Data via SQLAlchemy Core
+
+### 2.1 Inserting Data
+
+```python
+ins = cookies.insert().values(
+    cookie_name="chocolate chip",
+    cookie_recipe_url="http://some.aweso.me/cookie/recipe.html",
+    cookie_sku="CC01",
+    quantity="12",
+    unit_cost="0.50"
+)
+print(str(ins))
+
+# Output:
+"""
+INSERT INTO cookies
+    (cookie_name, cookie_recipe_url, cookie_sku, quantity, unit_cost)
+VALUES
+    (:cookie_name, :cookie_recipe_url, :cookie_sku, :quantity, :unit_cost)
+"""
+```
+
+Our supplied values have been replaced with `:column_name` in this SQL statement, which is how SQLAlchemy represents parameters displayed via the `str()` function. Parameters are used to help ensure that our data has been properly escaped, which mitigates security issues such as SQL injection attacks. 
+
+The `compile()` method on the `ins` object returns a `SQLCompiler` object that gives us access to the actual parameters that will be sent with the query via the params attribute:
+
+```python
+print(ins.compile().params)
+
+# Output:
+"""
+{
+    'cookie_name': 'chocolate chip',
+    'cookie_recipe_url': 'http://some.aweso.me/cookie/recipe.html',
+    'cookie_sku': 'CC01',
+    'quantity': '12',
+    'unit_cost': '0.50'
+}
+"""
+```
+
+To execute this query:
+
+```python
+result = connection.execute(ins)
+```
+
+We can also get the ID of the record we just inserted by accessing:
+
+```python
+result.inserted_primary_key
+```
+
+Another way of executing:
+
+```python
+ins = cookies.insert()
+result = connection.execute(ins,
+    cookie_name="chocolate chip",
+    cookie_recipe_url="http://some.aweso.me/cookie/recipe.html",
+    cookie_sku="CC01",
+    quantity="12",
+    unit_cost="0.50"
+)
+```
+
+It's also possible to pass a list of records to `execute`:
+
+```python
+inventory_list = [
+    {
+        'cookie_name': 'peanut butter',
+        'cookie_recipe_url': 'http://some.aweso.me/cookie/peanut.html',
+        'cookie_sku': 'PB01',
+        'quantity': '24',
+        'unit_cost': '0.25'
+    },
+    {
+        'cookie_name': 'oatmeal raisin',
+        'cookie_recipe_url': 'http://some.okay.me/cookie/raisin.html',
+        'cookie_sku': 'EWW01',
+        'quantity': '100',
+        'unit_cost': '1.00'
+    }
+]
+
+result = connection.execute(ins, inventory_list)
+```
+
+When the `Table` object is not initially known, we can use top-level function `ins = insert(table)` instead of `ins = table.insert()`:
+
+```python
+from sqlalchemy import insert
+
+ins = insert(cookies).values(
+    cookie_name="chocolate chip",
+    cookie_recipe_url="http://some.aweso.me/cookie/recipe.html",
+    cookie_sku="CC01",
+    quantity="12",
+    unit_cost="0.50"
+)
+```
+
+For example, our company might run two separate divisions, each with its own separate inventory tables. Using the `insert` function above would allow us to use one statement and just swap the tables.
+
+### 2.2 Querying Data
+
+```python
+from sqlalchemy.sql import select
+
+s = select([cookies])
+rp = connection.execute(s)  # ResultProxy
+results = rp.fetchall()
+```
+
+The `select` method expects a list of columns to select; however, for convenience, it also accepts `Table` objects and selects all the columns on the table. 
+
+It is also OK to use `s = table.select()`.
+
+#### 2.2.1 `ResultProxy`
+
+```python
+results = rp.fetchall()
+
+first_row = results[0]  # first row
+first_row[1]  # access column by index
+first_row.cookie_name  # access column by name
+first_row[cookies.c.cookie_name]  # access column by `Column` object
+```
+
+```python
+s = select([cookies.c.cookie_name, cookies.c.quantity])
+rp = connection.execute(s)
+print(rp.keys())  # column names
+
+# output:
+#   ['cookie_name', 'quantity']
+```
+
+```python
+record = rp.first()
+print(record.items())  # A list of `(column_name, value)`
+```
+
+#### 2.2.2 Ordering
+
+```python
+s = select([cookies.c.cookie_name, cookies.c.quantity])
+s = s.order_by(cookies.c.quantity)
+
+from sqlalchemy import desc
+s = s.order_by(desc(cookies.c.quantity))
+```
+
+#### 2.2.3 Limiting
+
+```python
+s = select([cookies.c.cookie_name, cookies.c.quantity])
+s = s.order_by(cookies.c.quantity)
+s = s.limit(2)
+```
+
+#### 2.2.4 Built-In SQL Functions and Labels
+
+SQLAlchemy can also leverage SQL functions found in the backend database. Two very commonly used database functions are `SUM()` and `COUNT()`. To use these functions, we need to import the `sqlalchemy.sql.func` module where they are found.
+
+```python
+from sqlalchemy.sql import func
+
+s = select([func.sum(cookies.c.quantity)])
+rp = connection.execute(s)
+print(rp.scalar())  # `scalar()` returns a single value if a query results in a single record with one column.
+```
+
+```python
+s = select([func.count(cookies.c.cookie_name)])
+rp = connection.execute(s)
+record = rp.first()
+print(record.keys())  # ['count_1']
+print(record.count_1)
+```
+
+The `COUNT()` column name is autogenerated and is commonly `<func_name>_<position>`. This column name is annoying and cumbersome. Thankfully, SQLAlchemy provides a way to fix this via the `label()` function, which could give us a more useful name to this column.
+
+```python
+s = select([func.count(cookies.c.cookie_name).label('inventory_count')])
+rp = connection.execute(s)
+record = rp.first()
+print(record.keys())  # ['inventory_count']
+print(record.inventory_count)
+```
+
+#### 2.2.5 Filtering
+
+```python
+s = select([cookies]).where(cookies.c.cookie_name == 'chocolate chip')
+
+s = select([cookies]).where(cookies.c.cookie_name.like('%chocolate%'))
+```
+
+#### 2.2.6 `ClauseElement`
+
+`ClauseElement`s are just an entity we use in a clause, and they are typically columns; however, `ClauseElement`s also come with many methods.
+
+
