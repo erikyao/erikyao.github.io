@@ -672,7 +672,8 @@ When creating an `array.array`, you provide a typecode, a letter to determine th
 
 An object is hashable if it has a hash value which never changes during its lifetime (it needs a `__hash__()` method), and can be compared to other objects (it needs an `__eq__()` method). Hashable objects which compare equal must have the same hash value.
 
-- The atomic immutable types (str, bytes, numeric types) are all hashable. - A `frozenset` is always hashable, because its elements must be hashable by definition. 
+- The atomic immutable types (str, bytes, numeric types) are all hashable. 
+- A `frozenset` is always hashable, because its elements must be hashable by definition. 
 - A `tuple` is hashable only if all its items are hashable.
 	- At the time of this writing, the [Python Glossary](https://docs.python.org/3/glossary.html#term-hashable) states: "All of Python’s immutable built-in objects are hashable" but that is inaccurate because a tuple is immutable, yet it may contain references to unhashable objects.
 	
@@ -1915,7 +1916,7 @@ We start the chapter by presenting a metaphor for variables in Python: variables
 
 Better to say: "Variable `s` is assigned to the seesaw," but never "The seesaw is assigned to variable `s`." With reference variables, it makes much more sense to say that the variable is assigned to an object, and not the other way around. After all, the object is created before the assignment.
 
-To understand an assignment in Python, always read the righthand side first: that’s where the object is created or retrieved. Af‐ ter that, the variable on the left is bound to the object, like a label stuck to it. Just forget about the boxes.
+To understand an assignment in Python, always read the righthand side first: that’s where the object is created or retrieved. After that, the variable on the left is bound to the object, like a label stuck to it. Just forget about the boxes.
 
 ### 8.2 Identity, Equality, and Aliases <a name="8-2-Identity-Equality-and-Aliases"></a>
 
