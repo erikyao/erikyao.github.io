@@ -29,6 +29,6 @@ Let's find a better explanation for this term.
 > - For `Select` statements, the statement is complete when the associated result set is closed.  
 > - For `CallableStatement` objects or for statements that return multiple results, the statement is complete when all of the associated result sets have been closed, and all update counts and output parameters have been retrieved.  
 
-Take `Insert` for example. The question now is: does the returning of my function call `session.run('insert-query')` mean my `insert-query` is "complete"? No, because it's underlying implememtation might be a message queue and asynchronous execution (and the return result is lazily initialized.) If your programme just exits before `insert-query` is "complete", your data will not be inserted at all and you may blame autocommit.
+Take `Insert` for example. The question now is: does the returning of my function call `session.run('insert-query')` mean my `insert-query` is "complete"? No, because its underlying implememtation might be a message queue and asynchronous execution (and the return result is lazily initialized.) If your programme just exits before `insert-query` is "complete", your data will not be inserted at all and you may blame autocommit.
 
 Always manage your own transactions in your client programmes.
