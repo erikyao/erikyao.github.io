@@ -466,6 +466,257 @@ s = select([cookies]).where(cookies.c.cookie_name.like('%chocolate%'))
 
 #### 2.2.6 `ClauseElement`
 
-`ClauseElement`s are just an entity we use in a clause, and they are typically columns; however, `ClauseElement`s also come with many methods.
+`ClauseElement`s are just an entity we use in a clause, and they are typically columns; however, `ClauseElement`s also come with many methods just like `like` above.
 
+- `between(left, right)`
+- `concat(column_two)`: Concatenate column with column_two
+- `distinct()`
+- `in_([list])`
+- `is_(None)`
+- `contains(string)`
+- `startswith(string)`
+- `endswith(string)`
+- `like(string)`
+- `ilike(string)`: case-insensitive
 
+There are also negative versions of these methods, such as `notlike()` and `notin_()`. The only exception to the `not<method>` naming convention is the `isnot()` method, which also drops the underscore.
+
+If we don’t use one of the methods listed, then we will have an operator in our `where` clauses, e.g. `==`. 
+
+#### 2.2.7 Operators
+
+`== None` will be converted to `IS NULL`.
+
+`+`， `-`， `*`, `/` can be used to do colum-wise arithmetic：
+
+```python
+from sqlalchemy import cast
+s = select([cookies.c.cookie_name, 
+            cast(cookies.c.quantity * cookies.c.unit_cost,
+                 Numeric(12,2)).label('inv_cost')])
+
+# Cast() is a function that allows us to convert types
+```
+
+`+` can also be used to concatenate a string to all values of a column:
+
+```python
+s = select([cookies.c.cookie_name, 'SKU-' + cookies.c.cookie_sku])
+for row in connection.execute(s):
+    print(row)
+
+# Output:
+"""
+('chocolate chip', 'SKU-CC01')
+('dark chocolate chip', 'SKU-CC02')
+('peanut butter', 'SKU-PB01')
+('oatmeal raisin', 'SKU-EWW01')
+"""
+```
+
+`AND`, `OR` and `NOT` are supported by `&`, `|` and `~`. However, the precedence rules need special care. E.g. `A < B & C < D` is actually `A < (B & C) < D`. USe conjuncations in such cases.
+
+#### 2.2.8 Conjunctions
+
+`AND`, `OR` and `NOT` are also supported by `and_()`, `or_()` and `not_()`:
+
+```python
+from sqlalchemy import and_, or_, not_
+
+s = select([cookies]).where(
+    and_(
+        cookies.c.quantity > 23,
+        cookies.c.unit_cost < 0.40
+    )
+)
+
+s = select([cookies]).where(
+    or_(
+        cookies.c.quantity.between(10, 50),
+        cookies.c.cookie_name.contains('chip')
+    )
+)
+```
+
+### 2.3 Updating Data
+
+```python
+from sqlalchemy import update
+
+u = update(cookies).where(cookies.c.cookie_name == "chocolate chip")
+u = u.values(quantity=(cookies.c.quantity + 120))
+
+result = connection.execute(u)
+
+print(result.rowcount)  # print how many rows were updated
+```
+
+### 2.4 Deleting Data
+
+```python
+from sqlalchemy import delete
+
+u = delete(cookies).where(cookies.c.cookie_name == "dark chocolate chip")
+
+result = connection.execute(u)
+
+print(result.rowcount)  # print how many rows were deleted
+```
+
+### 2.5 Joins
+
+Typically, `select(table.c.column)` would genereate an SQL statement `SELECT table.column FROM table`. We can apply `select(table.c.column).select_from('XXX')` to set the `FROM` clause to `FROM XXX`. This can be used together with `joins`.
+
+```python
+columns = [orders.c.order_id, users.c.username, users.c.phone,
+           cookies.c.cookie_name, line_items.c.quantity,
+           line_items.c.extended_cost]
+cookiemon_orders = select(columns)
+cookiemon_orders = cookiemon_orders.select_from(orders.join(users).join(line_items).join(cookies)).where(users.c.username == 'cookiemon')
+
+result = connection.execute(cookiemon_orders).fetchall()
+
+for row in result:
+    print(row)
+```
+
+The SQL generated is like:
+
+```sql
+SELECT orders.order_id, users.username, users.phone, cookies.cookie_name, line_items.quantity, line_items.extended_cost 
+FROM users 
+     JOIN orders ON users.user_id = orders.user_id 
+     JOIN line_items ON orders.order_id = line_items.order_id 
+     JOIN cookies ON cookies.cookie_id = line_items.cookie_id
+WHERE users.username = 'cookiemon'
+```
+
+Similarly, we have `outjoin`:
+
+```python
+columns = [users.c.username, func.count(orders.c.order_id)]
+all_orders = select(columns)
+all_orders = all_orders.select_from(users.outerjoin(orders))
+# SQLAlchemy knows how to join the users and orders tables because of the foreign key defined in the orders table.
+all_orders = all_orders.group_by(users.c.username)
+
+result = connection.execute(all_orders).fetchall()
+
+for row in result:
+    print(row)
+```
+
+### 2.6 Aliases
+
+Suppose we have a table:
+
+```python
+employee_table = Table(
+    'employee', metadata,
+    Column('id', Integer, primary_key=True),
+    Column('manager', None, ForeignKey('employee.id')),
+    Column('name', String(255)))
+```
+
+and we want to query:
+
+```sql
+SELECT employee.name
+FROM employee, employee AS manager
+WHERE employee.manager_id = manager.id
+      AND manager.name = 'Fred'
+```
+
+We can do:
+
+```python
+manager = employee_table.alias('mgr')
+stmt = select([employee_table.c.name]).where(and_(employee_table.c.manager_id==manager.c.id, manager.c.name=='Fred'))
+```
+
+the statement generated is:
+
+```sql
+SELECT employee.name
+FROM employee, employee AS mgr
+WHERE employee.manager_id = mgr.id AND mgr.name = 'Fred'
+```
+
+SQLAlchemy can also choose the alias name automatically, which is useful for guaranteeing that there are no name collisions:
+
+```python
+# manager = employee_table.alias('mgr')
+# You never used the string 'mgr' in your python code so you don't have to care what it is.
+manager = employee_table.alias()
+```
+
+### 2.7 Grouping
+
+```python
+columns = [users.c.username, func.count(orders.c.order_id)]
+all_orders = select(columns)
+all_orders = all_orders.select_from(users.outerjoin(orders))
+all_orders = all_orders.group_by(users.c.username)
+
+result = connection.execute(all_orders).fetchall()
+
+for row in result:
+    print(row)
+```
+
+### 2.8 Chaining Clauses
+
+E.g.
+
+```python
+columns = [orders.c.order_id, users.c.username, users.c.phone]
+joins = users.join(orders)
+
+cust_orders = select(columns)
+cust_orders = cust_orders.select_from(joins)
+
+cust_orders = cust_orders.where(users.c.username == cust_name)
+cust_orders = cust_orders.where(orders.c.shipped == shipped)  # Chain another .where() method
+```
+
+Chained `.where()` generates `AND` logic.
+
+It's implementation:
+
+```python
+# ----- https://github.com/zzzeek/sqlalchemy/blob/master/lib/sqlalchemy/sql/base.py#L41 ---- #
+
+@util.decorator
+def _generative(fn, *args, **kw):
+    """Mark a method as generative."""
+
+    self = args[0]._generate()
+    fn(self, *args[1:], **kw)
+    return self
+```
+
+```python
+# ----- https://github.com/zzzeek/sqlalchemy/blob/master/lib/sqlalchemy/sql/selectable.py#L3164 ----- #
+
+class Select(HasPrefixes, HasSuffixes, GenerativeSelect):
+    @_generative
+    def where(self, whereclause):
+        """return a new select() construct with the given expression added to
+        its WHERE clause, joined to the existing clause via AND, if any.
+        """
+
+        self.append_whereclause(whereclause)
+
+    def append_whereclause(self, whereclause):
+        """append the given expression to this select() construct's WHERE
+        criterion.
+        The expression will be joined to existing WHERE criterion via AND.
+        This is an **in-place** mutation method; the
+        :meth:`~.Select.where` method is preferred, as it provides standard
+        :term:`method chaining`.
+        """
+
+        self._reset_exported()
+        self._whereclause = and_(
+            True_._ifnone(self._whereclause), whereclause)
+```
