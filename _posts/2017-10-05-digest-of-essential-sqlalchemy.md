@@ -720,3 +720,32 @@ class Select(HasPrefixes, HasSuffixes, GenerativeSelect):
         self._whereclause = and_(
             True_._ifnone(self._whereclause), whereclause)
 ```
+
+### 2.9 Raw Queries
+
+It still returns a `ResultProxy`:
+
+```python
+result = connection.execute("select * from orders").fetchall()
+
+print(result)
+```
+
+While I rarely use a full raw SQL statement, I will often use small `text` snippets to help make a query clearer.
+
+```python
+from sqlalchemy import text
+
+stmt = select([users]).where(text("username='cookiemon'"))
+
+print(connection.execute(stmt).fetchall())
+```
+
+## Chapter 3 - Exceptions and Transactions
+
+### 3.1 Exceptions
+
+Most common ones are `AttributeError`s and `IntegrityError`s
+
+#### 3.1.2 `AttributeError`
+
