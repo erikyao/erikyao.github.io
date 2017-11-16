@@ -15,12 +15,12 @@ Python can limit the "interface" exposed to API consumers who use `import *` by 
 
 [__all__ and wild imports in Python](http://xion.io/post/code/python-all-wild-imports.html):
 
-> `__all__` doesn’t prevent any of the module symbols (functions, classes, etc.) from being **directly** imported. In our the example, the seemingly omitted `baz` function (which is not included in `__all__`), is still **perfectly** importable by writing `from module import baz`.
-> <br/>
-> Similarly, `__all__` doesn’t influence what symbols are included in the results of `dir(module)` or `vars(module)`. So in the case above, a `dir` call would result in a `['Foo', 'bar', 'baz']` list, even though `'baz'` does not occur in `__all__`.
-> <br/>
-> In other words, the content of `__all__` is **more of a convention rather than a strict limitation**. Regardless of what you put there, every symbol defined in your module will still be accessible from the outside.
-> <br/>
+> `__all__` doesn’t prevent any of the module symbols (functions, classes, etc.) from being **directly** imported. In our the example, the seemingly omitted `baz` function (which is not included in `__all__`), is still **perfectly** importable by writing `from module import baz`.  
+> <br/>  
+> Similarly, `__all__` doesn’t influence what symbols are included in the results of `dir(module)` or `vars(module)`. So in the case above, a `dir` call would result in a `['Foo', 'bar', 'baz']` list, even though `'baz'` does not occur in `__all__`.  
+> <br/>  
+> In other words, the content of `__all__` is **more of a convention rather than a strict limitation**. Regardless of what you put there, every symbol defined in your module will still be accessible from the outside.  
+> <br/>  
 > This is a clear reflection of the common policy in Python: [assume everyone is a consenting adult](https://mail.python.org/pipermail/tutor/2003-October/025932.html), and that visibility controls are not necessary.
 
 ~~~~~ 2017-11-16 补充结束 ~~~~~ 
