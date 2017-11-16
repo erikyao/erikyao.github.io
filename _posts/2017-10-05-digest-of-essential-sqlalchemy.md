@@ -747,5 +747,36 @@ print(connection.execute(stmt).fetchall())
 
 Most common ones are `AttributeError`s and `IntegrityError`s
 
-#### 3.1.2 `AttributeError`
+- `AttributeError` often occurs when you attempt to access an attribute that doesn’t exist.
+- `IntegrityError` occurs when we try to do something that would violate the constraints configured on a Column or Table.
+
+### 3.2 Transactions
+
+```python
+transaction = connection.begin()
+
+try:
+    connection.execute(...)
+    connection.execute(...)
+    connection.execute(...)
+
+    transaction.commit()
+except IntegrityError as error:
+    transaction.rollback()
+    print(error)
+```
+
+## Chapter 4 - Testing
+
+This chapter covers how to perform functional tests against a database, and how to mock out SQLAlchemy queries and connections.
+
+你记住 url 可以用 `'sqlite:///:memory:'` 这样的纯 in-memory 的数据库就可以了。剩下的无非是动态创建表、添加测试数据之类的，并没有什么简单的方法，setup 的代码量还是会远超测试逻辑本身。
+
+另外 python 3 的 `unittest` 自带 mock，需要用的时候再研究。
+
+```python
+from unittest import mock
+```
+
+## Chapter 5 - Reflection
 
