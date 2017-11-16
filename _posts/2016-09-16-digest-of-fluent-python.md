@@ -1366,6 +1366,23 @@ def methodcaller(name, *args, **kwargs):
     return lambda x: getattr(x, name)(*args, **kwargs)
 ```
 
+```python
+get_first_two_items = itemgetter(0, 1)
+	# is equivalent to define
+def get_first_two_items(x):
+	return (x[0], x[1])
+
+get_foo_and_bar = attrgetter("foo", "bar")
+	# is equivalent to define
+def get_foo_and_bar(x):
+	return (x.foo, x.bar)
+
+call_foo_with_bar_and_baz = methodcaller("foo", "bar", baz="baz")
+call_foo_with_bar_and_baz(f)
+	# is equivalent to call
+f.foo("bar", baz="baz")
+```
+
 #### 5.7.2 `functools`: Freezing Arguments with `partial()` <a name="5-7-2-functools-Freezing-Arguments-with-partial"></a>
 
 ```python
