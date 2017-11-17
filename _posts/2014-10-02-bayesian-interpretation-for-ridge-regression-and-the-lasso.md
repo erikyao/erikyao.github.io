@@ -57,14 +57,14 @@ $$
 
 还是以摸球为例：
 
-* B: 袋子里黑白球的比例是 blah blah blah
-* A：在不知道袋子里面黑白球比例的情况下，摸了 xxx 个球，yyy 个白的，zzz 个黑的
+* $B$: 袋子里黑白球的比例是 blah blah blah
+* $A$: 在不知道袋子里面黑白球比例的情况下，摸了 xxx 个球，yyy 个白的，zzz 个黑的
 
 再根据这篇 [Understand Bayes Theorem (prior/likelihood/posterior/evidence)](http://www.lichun.cc/blog/2013/07/understand-bayes-theorem-prior-likelihood-posterior-evidence)，有：
 
 * $ p(B \vert A) $ is **posterior** (probablity) distribution
 	* the probablity of $ B $ posterior to (after) the observation of $ A $
-	* 注意我们这里不说 $ p(B \vert A) $ 是 posterior probablity。因为严格说来 $ p(B \vert A) $ 是一个分布律，是一个概率函数，从定义上说 是一个分布，而不是一个具体的概率值。当然你理解成一个概率值也无可厚非。prior 同。
+	* 注意我们这里不说 $ p(B \vert A) $ 是 posterior probablity。因为严格说来 $ p(B \vert A) $ 是一个分布律，是一个概率函数，从定义上说是一个分布，而不是一个具体的概率值。当然你理解成一个概率值也无可厚非。prior 同。
 * $ p(A \vert B) $ is **likelihood**
 	* reversely, when $ B $ happened, how likely will $ A $ happen?
 	* 从 1.4 来看，似乎不能直接叫 likelihood，待调查
