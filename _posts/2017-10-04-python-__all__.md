@@ -13,7 +13,7 @@ Python can limit the "interface" exposed to API consumers who use `import *` by 
 
 ~~~~~ 2017-11-16 补充开始 ~~~~~ 
 
-[Karol Kuczmarski: __all__ and wild imports in Python](http://xion.io/post/code/python-all-wild-imports.html):
+[Karol Kuczmarski: `__all__` and wild imports in Python](http://xion.io/post/code/python-all-wild-imports.html):
 
 > `__all__` doesn’t prevent any of the module symbols (functions, classes, etc.) from being **directly** imported. In our the example, the seemingly omitted `baz` function (which is not included in `__all__`), is still **perfectly** importable by writing `from module import baz`.  
 > <br/>
