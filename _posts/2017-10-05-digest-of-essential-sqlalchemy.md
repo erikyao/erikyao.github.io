@@ -898,3 +898,188 @@ class Cookie(Base):
     quantity = Column(Integer())
     unit_cost = Column(Numeric(12, 2))
 ```
+
+```python
+>>> Cookie.__table__
+Table('cookies', MetaData(bind=None),
+    Column('cookie_id', Integer(), table=<cookies>, primary_key=True, nullable=False),
+    Column('cookie_name', String(length=50), table=<cookies>),
+    Column('cookie_recipe_url', String(length=255), table=<cookies>),
+    Column('cookie_sku', String(length=15), table=<cookies>),
+    Column('quantity', Integer(), table=<cookies>),
+    Column('unit_cost', Numeric(precision=12, scale=2), table=<cookies>), 
+    schema=None)
+```
+
+Additional keywords work the same in both ORM and Core schemas:
+
+```python
+from datetime import datetime
+from sqlalchemy import DateTime
+
+class User(Base):
+    __tablename__ = 'users'
+
+    user_id = Column(Integer(), primary_key=True)
+    username = Column(String(15), nullable=False, unique=True)
+    email_address = Column(String(255), nullable=False)
+    phone = Column(String(20), nullable=False)
+    password = Column(String(25), nullable=False)
+    created_on = Column(DateTime(), default=datetime.now)
+    updated_on = Column(DateTime(), default=datetime.now, onupdate=datetime.now)
+```
+
+Keys, constraints and indices can also be added by using `__table_args__` attribute:
+
+```python
+class SomeDataClass(Base):
+    __tablename__ = 'somedatatable'
+    __table_args__ = (ForeignKeyConstraint(['id'], ['other_table.id']),
+                      CheckConstraint(unit_cost >= 0.00, name='unit_cost_positive'))
+```
+
+### 6.2 Relationships
+
+The ORM uses a similar `ForeignKey` column to constrain and link the objects; however, it also uses a `relationship` directive to provide a property that can be used to access the related object. This does add some extra database usage and overhead when using the ORM; however, the pluses of having this capability far outweigh the drawbacks. 
+
+```python
+from sqlalchemy import ForeignKey, Boolean
+from sqlalchemy.orm import relationship, backref
+
+class Order(Base):
+    __tablename__ = 'orders'
+
+    order_id = Column(Integer(), primary_key=True)
+    user_id = Column(Integer(), ForeignKey('users.user_id'))
+    shipped = Column(Boolean(), default=False)
+
+    user = relationship("User", backref=backref('orders', order_by=order_id))
+```
+
+- We can get the `User` object related to this `Order` object by accessing the `user` property. 
+- This relationship also establishes an `orders` property on the `User` class via the `backref` keyword argument, which is ordered by the `order_id`. 
+
+The relationship directive needs a **target class** for the relationship, and can optionally include a **back reference** to be added to target class. SQLAlchemy knows to use the `ForeignKey` we defined that matches the class we defined in the relationship. In the preceding example, the `ForeignKey(users.user_id)`, which has the `users` table’s `user_id` column, maps to the `User` class via the `__tablename__` attribute of `users` and forms the relationship.
+
+It is also possible to establish a one-to-one relationship by `uselist=False` argument:
+
+```python
+class LineItem(Base):
+    __tablename__ = 'line_items'
+
+    ......
+
+    cookie = relationship("Cookie", uselist=False)
+```
+
+### 6.3 Persisiting the Schema
+
+你可以先 reflect 出来，修改一番然后再存回 database 里面（意义不大，不如直接改 schema，就举个例子），或是转存到另外一个 database 里。比如你可以从线上库 reflect 出来，然后转存到 in-memory 库做测试：
+
+```python
+from sqlalchemy import create_engine
+
+engine = create_engine('sqlite:///:memory:')
+
+Base.metadata.create_all(engine)
+```
+
+## Chapter 7 - Working with Data via SQLAlchemy ORM
+
+### 7.1 The session
+
+A session: 
+
+- Wraps a database connection via an engine, 
+- Provides an identity map for objects that you load via the session or associate with the session. 
+    - The identity map is a cache-like data structure that contains a unique list of objects determined by the object’s table and primary key. 
+- Wraps a transaction, and that transaction will be open until the session is committed or rolled back.
+
+To create a new session, SQLAlchemy provides the `sessionmaker` class to ensure that sessions can be created with the same parameters throughout an application. The sessionmaker factory should be used just once in your application global scope, and treated like a configuration setting. 
+
+```python
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+
+engine = create_engine('sqlite:///:memory:')
+
+Session = sessionmaker(bind=engine)
+
+session = Session()
+```
+
+### 7.2 Inserting Data
+
+#### 7.2.1 `session.commit()`
+
+```python
+cc_cookie = Cookie(cookie_name='chocolate chip',
+                   cookie_recipe_url='http://some.aweso.me/cookie/recipe.html',
+                   cookie_sku='CC01',
+                   quantity=12,
+                   unit_cost=0.50)
+
+session.add(cc_cookie)
+session.commit()
+```
+
+When we create the instance of the `Cookie` class and then add it to the `session`, nothing is sent to the database. It’s not until we call `commit()` on the `session` that anything is sent to the database. When `commit()` is called, the following happens:
+
+1. `INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)`
+1. `INFO:sqlalchemy.engine.base.Engine:INSERT INTO cookies (cookie_name, cookie_recipe_url, cookie_sku, quantity, unit_cost) VALUES (?, ?, ?, ?, ?)`
+1. `INFO:sqlalchemy.engine.base.Engine:('chocolate chip', 'http://some.aweso.me/cookie/recipe.html', 'CC01', 12, 0.5)`
+1. `INFO:sqlalchemy.engine.base.Engine:COMMIT`
+
+P.S. If you want to see the details of what is happening here, you can add `echo=True` to your `create_engine` statement as a keyword argument after the connection string. Make sure to only do this for testing, and don’t use `echo=True` in production!
+
+First, a fresh transaction is started, and the record is inserted into the database. Next, the engine sends the values of our insert statement. Finally, the transaction is committed to the database, and the transaction is closed. This method of processing is often called the **Unit of Work** pattern.
+
+#### 7.2.2 `session.flush()`
+
+[Full API](http://docs.sqlalchemy.org/en/latest/orm/session_api.html#sqlalchemy.orm.session.Session.flush):
+
+> Flush all the object changes to the database.  
+> <br/>
+> Writes out all pending object creations, deletions and modifications to the database as INSERTs, DELETEs, UPDATEs, etc. Operations are automatically ordered by the Session’s unit of work dependency solver.  
+> <br/>
+> Database operations will be issued in the current transactional context and **do not affect the state of the transaction**, unless an error occurs, in which case the entire transaction is rolled back. You may `flush()` as often as you like within a transaction to move changes from Python to the database’s transaction buffer.  
+> <br/>
+> For `autocommit` Sessions with no active manual transaction, `flush()` will create a transaction on the fly that surrounds the entire set of operations into the flush.
+
+注意 `commit()` 是一个完整的 Unit of Work，包括完整的 transaction creation 和 commit；`flush()` 相当于是把当前已有的 operations append 到 transaction，但是并不会 commit。
+
+```python
+dcc = Cookie(cookie_name='dark chocolate chip', ...)
+mol = Cookie(cookie_name='molasses', ...)
+
+session.add(dcc)
+session.add(mol)
+
+session.flush()
+# session.commit()
+```
+
+#### 7.2.3 `session.bulk_save_object()`
+
+[Full API](http://docs.sqlalchemy.org/en/latest/orm/session_api.html#sqlalchemy.orm.session.Session.bulk_save_objects):
+
+> Perform a bulk save of the given list of objects.  
+> <br/>
+> The bulk save feature allows mapped objects to be used as the source of simple INSERT and UPDATE operations which can be more easily grouped together into higher performing “executemany” operations; the extraction of data from the objects is also performed using a lower-latency process that ignores whether or not attributes have actually been modified in the case of UPDATEs, and also ignores SQL expressions.  
+> <br/>
+> **The objects as given are not added to the session** and no additional state is established on them, unless the `return_defaults` flag is also set, in which case primary key attributes and server-side default values will be populated.
+
+```python
+c1 = Cookie(cookie_name='peanut butter', ...)
+c2 = Cookie(cookie_name='oatmeal raisin', ...)
+
+session.bulk_save_objects([c1,c2])
+session.commit()
+```
+
+注意，"object added to the session" 的一个后果是：比如说 `session.add(c1)` 后，`session` 会 update `c1` 的状态，比如 auto-generated primary key 会设置到 `c1` 的字段里。`bulk_save_object()` 并没有 add objects to session，所以你无法获取到更新后的属性，比如 `print(c1.cookie_id)` 就打不出任何值。
+
+另外 `bulk_save_object()` 会快过 multiple `add()`
+
+### 7.3 Querying Data
+
