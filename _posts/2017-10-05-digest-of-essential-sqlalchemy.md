@@ -1083,3 +1083,415 @@ session.commit()
 
 ### 7.3 Querying Data
 
+```python
+from sqlalchemy.ext.declarative import declarative_base
+
+Base = declarative_base()
+
+class Cookie(Base):
+    __tablename__ = 'cookies'
+
+    ......
+
+cookies = session.query(Cookie).all()
+print(cookies)
+
+# output:
+"""
+[
+    Cookie(cookie_name='chocolate chip', ......),
+    Cookie(cookie_name='dark chocolate chip', ......),
+    Cookie(cookie_name='molasses', ......),
+    Cookie(cookie_name='peanut butter', ......),
+    Cookie(cookie_name='oatmeal raisin', ......)
+]
+"""
+```
+
+- `session.query(ReflectClass)` returns an iterable of results.
+    - `query().all()` returns a list of this iterable.
+    - `query().first()` return the first result of this Query or None if the result doesn’t contain any row..
+    - `query().one()` return exactly one result or raise an exception.
+    - `query().scalar()` return the first element of the first result or `None` if no rows present. If multiple rows are returned, raises `MultipleResultsFound`.
+- See [SQLAlchemy 1.2 Documentation - Query API](http://docs.sqlalchemy.org/en/latest/orm/query.html)
+
+#### 7.3.1 Controlling the Columns in the Query
+
+```python
+session.query(Cookie.cookie_name, Cookie.quantity)
+```
+
+#### 7.3.2 Ordering
+
+```python
+session.query(Cookie).order_by(Cookie.quantity)
+
+from sqlalchemy import desc
+session.query(Cookie).order_by(desc(Cookie.quantity))
+```
+
+#### 7.3.3 Limiting
+
+```python
+session.query(Cookie).order_by(Cookie.quantity)[:2]  # ineffecient with a large result set
+
+session.query(Cookie).order_by(Cookie.quantity).limit(2)
+```
+
+#### 7.3.4 Built-In SQL Functions and Labels
+
+```python
+from sqlalchemy import func
+
+session.query(func.sum(Cookie.quantity)).scalar()  # Returns a scalar, 128
+
+session.query(func.count(Cookie.cookie_name)).first()  # Returns a tuple, (5,)
+```
+
+Using functions such as `count()` and `sum()` will end up returning tuples or results with column names like `count_1` (Similarly, the 4th `count()` function would be `count_4`). This simply is not as explicit and clear as we should be in our naming, especially when surrounded with other Python code. Thankfully, SQLAlchemy provides a way to fix this via the `label()` function.
+
+```python
+rec_count = session.query(func.count(Cookie.cookie_name).label('inventory_count')).first()  # Now returns a dict
+
+print(rec_count.keys())  # ['inventory_count']
+print(rec_count.inventory_count)  # 5
+```
+
+#### 7.3.5 Filtering
+
+```python
+session.query(Cookie).filter(Cookie.cookie_name == 'chocolate chip').first()
+
+session.query(Cookie).filter_by(cookie_name='chocolate chip').first()
+```
+
+- `filter()` needs a filter expression
+- `filter_by()` needs keyword arguments from the class attributes
+
+```python
+session.query(Cookie).filter(Cookie.cookie_name.like('%chocolate%'))
+```
+
+#### 7.3.6 Operators
+
+```python
+session.query(Cookie.cookie_name, 'SKU-' + Cookie.cookie_sku).all()  # add a 'SKU-' prefix to the `cookie_sku` column in the result
+
+from sqlalchemy import cast
+session.query(Cookie.cookie_name, cast((Cookie.quantity * Cookie.unit_cost), Numeric(12,2)).label('inv_cost'))
+```
+
+#### 7.3.7 Conjunctions
+
+3 ways to add multiple filtering conditions:
+
+- Chain multiple `filter()` clauses together
+- Use Boolean operators
+- Use conjunctions `and_()`, `or_()`, and `not_()`.
+    - Often more readable and functional
+
+```python
+query = session.query(Cookie).filter(
+    Cookie.quantity > 23,
+    Cookie.unit_cost < 0.40
+)
+
+from sqlalchemy import and_, or_, not_
+query = session.query(Cookie).filter(
+    or_(
+        Cookie.quantity.between(10, 50),
+        Cookie.cookie_name.contains('chip')
+    )
+)
+```
+
+### 7.4 Updating Data
+
+2 ways:
+
+- Get the record object out from `session.query()`; change its state; then `session.commit()` since this object is attached to this `session`
+- `query.update()`
+
+```python
+query = session.query(Cookie)
+cc_cookie = query.filter(Cookie.cookie_name == "chocolate chip").first()
+cc_cookie.quantity = cc_cookie.quantity + 120
+session.commit()
+```
+
+```python
+query = session.query(Cookie)
+query = query.filter(Cookie.cookie_name == "chocolate chip")
+query.update({Cookie.quantity: Cookie.quantity + 120})
+```
+
+### 7.5 Deleting Data
+
+2 ways:
+
+- `session.delete(record_object); session.commit()`
+- `query.delete()`
+
+```python
+query = session.query(Cookie)
+query = query.filter(Cookie.cookie_name == "dark chocolate chip")
+dcc_cookie = query.one()
+session.delete(dcc_cookie)
+session.commit()
+```
+
+```python
+query = session.query(Cookie)
+query = query.filter(Cookie.cookie_name == "molasses")
+query.delete()
+```
+
+### 7.6 Joins
+
+```python
+query = session.query(Order.order_id, 
+                      User.username User.phone, 
+                      Cookie.cookie_name, 
+                      LineItem.quantity, LineItem.extended_cost)
+query = query.join(User).join(LineItem).join(Cookie)
+results = query.filter(User.username == 'cookiemon').all()
+```
+
+```python
+query = session.query(User.username, func.count(Order.order_id))
+query = query.outerjoin(Order).group_by(User.username)
+```
+
+### 7.7 Conditional Chaining
+
+```python
+def get_orders_by_customer(cust_name, shipped=None, details=False):
+    query = session.query(Order.order_id, User.username, User.phone)
+    query = query.join(User)
+    
+    if details:
+        query = query.add_columns(Cookie.cookie_name, LineItem.quantity, LineItem.extended_cost)
+        query = query.join(LineItem).join(Cookie)
+
+    if shipped is not None:
+        query = query.where(Order.shipped == shipped)
+    
+    results = query.filter(User.username == cust_name).all()
+    return results
+```
+
+### 7.8 Raw Queries
+
+```python
+from sqlalchemy import text
+
+query = session.query(User).filter(text("username='cookiemon'"))
+```
+
+## Chapter 8 - Understanding the Session and Exceptions
+
+### 8.1 The SQLAlchemy Session
+
+4 possible states of a record object in a session:
+
+- _Transient:_ The instance is not in session, and is not in the database.
+- _Pending:_ The instance has been added to the session with `add()`, but hasn’t been flushed or committed.
+- _Persistent:_ The instance has a corresponding record in the database.
+- _Detached:_ The instance is no longer attached to the session, but has a record in the database.
+
+Suppose we have a `cc_cookie` object, to see the instance state, we can use the powerful `inspect()` method provided by
+SQLAlchemy:
+
+```python
+from sqlalchemy import inspect
+
+insp = inspect(cc_cookie)
+
+for state in ['transient', 'pending', 'persistent', 'detached']:
+    print('{:>10}: {}'.format(state, getattr(insp, state)))
+```
+
+If we just created the `cc_cookie` object:
+
+```python
+cc_cookie = Cookie('chocolate chip',
+                   'http://some.aweso.me/cookie/recipe.html',
+                   'CC01', 12, 0.50)
+```
+
+The `inspect` result would be:
+
+```python
+ transient: True
+   pending: False
+persistent: False
+  detached: False 
+```
+
+After `session.add(cc_cookie)`:
+
+```python
+ transient: False
+   pending: True
+persistent: False
+  detached: False 
+```
+
+After `session.commit()`:
+
+```python
+ transient: False
+   pending: False
+persistent: True
+  detached: False 
+```
+
+Finally, to get `cc_cookie` into the detached state, we want to call the `expunge()` method on the `session`. You might do this if you are moving data from one session to another. One case in which you might want to move data from one session to another is when you are archiving or consolidating data from your primary database to your data warehouse:
+
+```python
+session.expunge(cc_cookie)
+```
+
+Then its states would be:
+
+```python
+ transient: False
+   pending: False
+persistent: False
+  detached: True 
+```
+
+We can also use the inspector to see the history of an instance prior to committing it. First, we’ll add our object back to the `session` and change the `cookie_name` attribute:
+
+```python
+session.add(cc_cookie)
+cc_cookie.cookie_name = 'Change chocolate chip'
+```
+
+Then `inspect(cc_cookie).modified` would be `True` and we can use the inspector’s attrs collection to find what has changed:
+
+```python
+for attr, attr_state in insp.attrs.items():
+    if attr_state.history.has_changes():
+        print('{}: {}'.format(attr, attr_state.value))
+        print('History: {}\n'.format(attr_state.history))
+
+# output:
+"""
+cookie_name: Change chocolate chip
+History: History(added=['Change chocolate chip'], unchanged=(), deleted=())
+"""
+```
+
+### 8.2 Exceptions
+
+- `MultipleResultsFound` Exception
+    - This exception occurs when we use the `.one()` query method, but get more than one result back.
+- `DetachedInstanceError`
+    - This exception occurs when we attempt to access an attribute on an instance that needs to be loaded from the database, but the instance we are using is not currently attached to the database.
+- `ObjectDeletedError`, `StaleDataError`, and `Concur rentModificationError`
+    - Are related to information differing between the instance, the session, and the database.
+
+A `DetachedInstanceError` example:
+
+```python
+# ----- The Reflection ----- #
+class Order(Base):
+    __tablename__ = 'orders'
+
+    user = relationship("User", backref=backref('orders', order_by=order_id))
+
+class LineItem(Base):
+    __tablename__ = 'line_items'
+
+    order = relationship("Order", backref=backref('line_items', order_by=line_item_id))
+    cookie = relationship("Cookie", uselist=False)
+
+# ----- Construct the Order record ----- #
+
+cookiemon = User('cookiemon', 'mon@cookie.com', '111-111-1111', 'password')
+session.add(cookiemon)
+
+o1 = Order()
+o1.user = cookiemon
+session.add(o1)
+
+cc = session.query(Cookie).filter(Cookie.cookie_name == "Change chocolate chip").one()
+line1 = LineItem(order=o1, cookie=cc, quantity=2, extended_cost=1.00)
+session.add(line1)
+
+session.commit()
+
+# ----- Query the constructed Order ----- #
+
+order = session.query(Order).first()
+session.expunge(order)
+order.line_items  # DetachedInstanceError
+```
+
+Because `Order.line_items` is a `relationship`, by default it doesn’t load all that data until you ask for it. In our case, we detached the instance from the session and the `relationship` doesn’t have a session to execute a query to load the itself, and it raises the `DetachedInstanceError`.
+
+### 8.3 Transactions
+
+Transactions are a group of statements that we need to succeed or fail as a group. When we first create a session, it is not connected to the database. When we undertake our first action with the session such as a query, it starts a connection and a transaction. This means that by default, we don’t need to manually create transactions. However, if we need to handle any exceptions where part of the transaction succeeds and another part fails or where the result of a transaction creates an exception, then we must know how to control the transaction manually.
+
+E.g.:
+
+```python
+def ship_it(order_id):
+    order = session.query(Order).get(order_id)
+    for li in order.line_items:
+        li.cookie.quantity = li.cookie.quantity - li.quantity
+        session.add(li.cookie)
+
+    order.shipped = True
+    session.add(order)
+
+    session.commit()
+
+    print("shipped order ID: {}".format(order_id))
+```
+
+We have a constraint on `Cookie.quantity` that it cannot go below 0. If violated, an `IntegrityError` will be raised but only at the `session.commit()` statement--the `session.add(li.cookie)` statement will be fine. 
+
+This actually breaks our current `session`. If we attempt to issue any more statements via the `session` such as a query to get the list of cookies, we’ll get the output:
+
+```python
+print(session.query(Cookie.cookie_name, Cookie.quantity).all())
+
+InvalidRequestError                  Traceback (most recent call last)
+<ipython-input-8-90b93364fb2d> in <module>()
+---> 1 print(session.query(Cookie.cookie_name, Cookie.quantity).all())
+
+...
+
+InvalidRequestError: This Session's transaction has been rolled back due to a
+previous exception during flush.
+```
+
+注意这里这个 error message 是说 `session.query(Cookie.cookie_name, Cookie.quantity).all()` 这个 transaction 被 roll back 了。
+
+To recover from this session state, we need to manually roll back the `ship_it` transaction.
+
+```python
+from sqlalchemy.exc import IntegrityError
+
+def ship_it(order_id):
+    order = session.query(Order).get(order_id)
+    for li in order.line_items:
+        li.cookie.quantity = li.cookie.quantity - li.quantity
+        session.add(li.cookie)
+
+    order.shipped = True
+    session.add(order)
+
+    try:
+        session.commit()
+        print("shipped order ID: {}".format(order_id))
+    except IntegrityError as error:
+        print('ERROR: {!s}'.format(error.orig))
+        session.rollback()
+```
+
+## Chapter 9 - Testing with SQLAlchemy ORM
+
