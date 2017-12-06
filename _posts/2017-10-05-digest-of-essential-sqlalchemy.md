@@ -893,16 +893,16 @@ Testing:
 >>> from sqlalchemy import select
 >>> s = select([artist]).limit(10)
 >>> engine.execute(s).fetchall()
-[(1, u'AC/DC'),
-(2, u'Accept'),
-(3, u'Aerosmith'),
-(4, u'Alanis Morissette'),
-(5, u'Alice In Chains'),
-(6, u'Ant\xf4nio Carlos Jobim'),
-(7, u'Apocalyptica'),
-(8, u'Audioslave'),
-(9, u'BackBeat'),
-(10, u'Billy Cobham')]
+[(1, 'AC/DC'),
+(2, 'Accept'),
+(3, 'Aerosmith'),
+(4, 'Alanis Morissette'),
+(5, 'Alice In Chains'),
+(6, 'Ant\xf4nio Carlos Jobim'),
+(7, 'Apocalyptica'),
+(8, 'Audioslave'),
+(9, 'BackBeat'),
+(10, 'Billy Cobham')]
 ```
 
 Similarly:
