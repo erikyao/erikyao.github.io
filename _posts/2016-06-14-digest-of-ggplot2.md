@@ -7,6 +7,8 @@ tags: [R-101, Book]
 ---
 {% include JB/setup %}
 
+[6-5-legend-position]: https://farm5.staticflickr.com/4682/39207350172_fe5b317949_m_d.jpg
+
 ## 第一章 - 简介
 
 ### 1.1 Welcome to ggplot2
@@ -43,7 +45,7 @@ The first description of the components follows below:
 			- $f$: data space $\rightarrow$ aesthetic space
 				- 比如给 dot 上颜色
 			- $f^{-1}$ (inverse): aesthetic space $\rightarrow$ data space
-				- 比如画颜色的 legend、给 axes 标指
+				- 比如画颜色的 legend
 - _**coord**_: A coordinate system, describes how data coordinates are mapped to the plane of the graphic.
 	- We normally use a Cartesian coordinate system, but a number of others are available, including polar coordinates and map projections.
 		
@@ -116,19 +118,13 @@ qplot(carat, price, data = dsmall, shape = cut)
 qplot(carat, price, data = dsmall, size = x * y * z)
 ```
 
-- 注意：上面三幅都是 xy-scatterplot，区别是：
-	- `color` 修改了 data point 的颜色
-	- `shape` 修改了 data point 的符号（比如用 `*` 代替了圆点）
-	- `size` 修改了 data point 的符号的大小
-- 另外自带 legend 真是好！
-
 `colour`, `size` and `shape` are all examples of _**aesthetic attributes**_, visual properties that affect the way observations are displayed.
 
 For every aesthetic attribute, there is a function, called a _scale_, which maps data values to valid values for that aesthetic. It is this _scale_ that controls the appearance of the points and associated legend. For example, in the above plots, the `colour` _scale_ maps `J` to purple and `F` to green.
 	
 scale 有默认实现。You can also manually set the aesthetics using `I()`, e.g., `colour = I("red")` or `size = I(2)`.
 
-注意：这里 `I(x)` 的作用是 "to inhibit interpretation or conversion of `x`"，也可以描述为 "indicate that `x` should be treated ‘as is’"。具体是实现是 `"AsIs" <- attr(x, "class")`。那么不用 `I()` 会导致什么后果呢？比较下面两句：
+注意：这里 `I(x)` 的作用是 "to inhibit interpretation or conversion of `x`"，也可以描述为 "indicate that `x` should be treated as-is"。具体是实现是 `"AsIs" <- attr(x, "class")`。那么不用 `I()` 会导致什么后果呢？比较下面两句：
 
 ```r
 qplot(carat, price, data = dsmall, colour = I("blue"))	# (1)
@@ -396,10 +392,6 @@ qplot(carat, price/carat, data = dsmall, xlab = "Weight (carats)", ylab = expres
 qplot(carat, price, data = dsmall, log = "xy")
 ```
 
-### 2.8 Differences from `plot`
-
-- With base graphics, to add further graphic elements to a plot, you can use `points()`, `lines()` and `text()`. With ggplot2, you need to add additional **layers** to the existing plot, described in the next chapter.
-
 ## 第三章 - 语法突破
 
 ### 3.2 mpg 数据集
@@ -544,7 +536,7 @@ p <- ggplot(diamonds, aes(carat, price, colour = cut))
 
 This ggplot object cannot be displayed until we add a layer: there is nothing to see!
 
-### 4.3 创建图层 (layer) 的语法
+### 4.3 添加图层 (layer)
 
 A minimal scatterplot layer:
 
@@ -638,7 +630,7 @@ Note that functions of variables can be used:
 aes(x = weight, y = height, colour = sqrt(age))
 ```
 
-#### 4.5.1 aes 的扩展、覆盖、移除
+#### 4.5.1 `aes` 的扩展、覆盖、移除
 
 The default aesthetic mappings can be set when the plot is initialised or modified later using `+`:
 
@@ -676,7 +668,7 @@ qplot(mpg, wt, data = mtcars, colour = I("darkblue"))
 
 但是 we CANNOT use `aes(colour = I("darkblue"))`。
 
-#### 4.5.3 分组: aes(group=?)
+#### 4.5.3 分组: `aes(group=?)`
 
 We use `Oxboys` dataset in `nlme` library here for demostration. It records the heights (`height`) and centered ages (`age`) of 26 boys (`Subject`), measured on nine occasions (`Occasion`).
 
@@ -909,7 +901,7 @@ A number of the geoms available in ggplot2 were derived from other geoms.
 | 离散型        | `geom_errorbar`  | `geom_crossbar`                  |
 |               | `geom_linerange` | `geom_pointrange`                |
 
-### 5.9 统计摘要: stat_summary()
+### 5.9 统计摘要: `stat_summary()`
 
 参考：
 
@@ -949,9 +941,340 @@ To change the default scales, use `set_default_scale()`.
 
 ### 6.4 scale 详解
 
-#### 6.4.1 通用参数
-
-##### `scale_*_*(name=?)`
+#### 6.4.1 `scale_*_*(name=?)` 与 `labs()`
 
 设置 axis (比如 `scale_x_*`) 或者 legend (比如 `scale_color_*`) 上出现的标签。
+
+注意标签可以使用 latex，具体参考 `?plotmath`。
+
+因为修改 labels 这个操作经常用到，所以设计了 `labs()` 以及衍生的一些函数来简化操作：
+
+- `xlab("Foo") == labs(x = "Foo")`
+- `ylab("Bar") == labs(y = "Bar")`
+- `ggtitle(label = "Foo", subtitle = "bar") == labs(title = "Foo", subtitle = "bar")`
+
+而且，比如说你用了 `colour` 的 scale，就可以用 `labs(colour = "Foo")` 来设置 legend 上方的 label：
+
+```r
+p <- ggplot(mtcars, aes(mpg, wt, colour = cyl)) + geom_point()
+
+p + labs(colour = "Cylinders")
+
+p + labs(x = "New x label")
+
+p + labs(title = "New plot title")
+
+p + labs(caption = "(based on data from ...)")  # 加在 plot 的右下方
+```
+
+#### 6.4.2 `scale_x_*(limits=?, breaks=?, labels=?)` 与 formatter
+
+以 $x$-axis 为例：
+
+- `limits` 指 $x$-axis 的范围
+	- 对 continuous 的 $X$ 而言，`limits = c(a, b)` 就设置了 $x$-axis 在 `[a, b]` 区间上
+	- 对 discrete 的 $X$ 而言，`limits` 实际的作用相当于 `breaks`，而且 $x$-axis 上 breaks 的顺序和 `limits` 的一致。
+		- 比如说 `limits = c("#3", "#2", "#1")`，你 $x$-axis 上就是 `#3`、`#2`、`#1` 的顺序
+	- 类似 `xlab` 与 `ylab`，有 `xlim` 与 `ylim` 来简化操作
+- `breaks` 指刻度线
+	- 比如 `limits = c(0, 1), breaks = c(0, 0.5, 1)` 就是 3 个刻度 `0`、`0.5`、`1`
+- `labels` 指自定义的刻度显示
+	- 比如 `breaks = c(0, 0.5, 1), labels = c("zero", "half", "whole")` 就是在 `0` 刻度显示 `zero`、在 `0.5` 刻度显示 `half`、在 `1` 刻度显示 `whole`
+
+此外，还可以指定 `labels = formatter` 而不是具体的值：
+
+```r
+library(scales)
+# Format labels as percents
+p + scale_x_continuous(labels = percent)
+# Format labels as scientific
+p + scale_x_continuous(labels = scientific)
+```
+
+- 对 continuous 的 $X$ 而言，可用的 formatter 有：
+	- `comma`
+	- `percent`
+	- `dollar`
+	- `scientific`
+- 对 discrete 的 $X$ 而言，可用的 formatter 有：
+	- `abbreviate`
+
+另外对 continuous 的 $X$ 而言，`scale_x_log10() == scale_x_continuous(trans = "log10")`。类似的 `trans` 还可以设置为：
+
+| Name     | Function $\operatorname f(x)$ |
+|----------|-------------------------------|
+| asn      | $\operatorname{tanh}^{−1}(x)$ |
+| exp      | $e^x$                         |
+| identity | $x$                           |
+| log      | $\log(x)$                     |
+| log10    | $\log_{10}(x)$                |
+| log2     | $\log_{2}(x)$                 |
+| logit    | $\log(\frac{1−x}{x})$         |
+| pow10    | $10^x$                        |
+| probit   | $\phi(x)$                     |
+| recip    | $x^{−1}$                      |
+| reverse  | $−x$                          |
+| sqrt     | $\sqrt{x}$                    | 
+
+注意 `trans = "log10"` 只会 plot `log10(y) ~ log10(x)`，并不会修改 limits、breaks 和 labels；如果你是直接 `ggplot(log10(x), log10(y), data)`，图形和 `trans = "log10"` 是一样的，但是 limits、breaks 和 labels 都会变成 log10。具体可以试验：
+
+```r
+qplot(carat, price, data = diamonds) + scale_x_log10() + scale_y_log10()
+
+qplot(log10(carat), log10(price), data = diamonds)
+```
+
+#### 6.4.3 `scale_colour_*` 与 `scale_fill_*`
+
+连续型：颜色梯度，即渐变色
+
+- `scale_*_gradient(low, high)`：双色梯度
+- `scale_*_gradient2(low, mid, high)`：三色梯度
+- `scale_*_gradientn()`：自定义 $n$ 色梯度
+
+离散型：
+
+- `scale_*_hue`：延着 hcl (hue 色相 / chroma 彩度 / luminance 明度) 色轮选取均匀分布的色相来生成颜色
+	- 生成 $\leq 8$ 种颜色时,区分度较高
+- `scale_*_brewer()`：使用 [ColorBrewer](https://cran.r-project.org/web/packages/RColorBrewer/RColorBrewer.pdf) 配色方案：
+	- 比如 `scale_colour_brewer(pal = "Set1")`
+		- `pal` for "palette" 
+	- 使用 `RColorBrewer::display.brewer.all()` 查看所有配色方案
+- `scale_*_manual(values = ?)`：手动设置颜色
+	- 比如 `unique(mpg$drv) == c("f", "4", "r")`，如果是 `aes(x = drv, data = mpg)`，那么可以设置：
+		- `scale_fill_manual(values = c("red", "yellow", "green"))` 或者
+		- `scale_fill_manual(values = c(f = "red", "1" = "yellow", r = "green"))`
+
+#### 6.4.4 `scale_*_manual`
+
+注意书上这个例子不错：
+
+```r
+huron <- data.frame(year = 1875:1972, level = LakeHuron)
+
+# 没有 legend
+ggplot(huron, aes(year)) 
+	+ geom_line(aes(y = level - 5), colour = "blue")
+	+ geom_line(aes(y = level + 5), colour = "red")
+
+# 有 legend 但是 label 和颜色都不对
+ggplot(huron, aes(year))
+	+ geom_line(aes(y = level - 5, colour = "below"))
+	+ geom_line(aes(y = level + 5, colour = "above"))
+
+# 有正确的 legend 和颜色
+ggplot(huron, aes(year))
+	+ geom_line(aes(y = level - 5, colour = "below")) +
+	+ geom_line(aes(y = level + 5, colour = "above")) +
+	+ scale_colour_manual("Direction", c("below" = "blue", "above" = "red"))
+```
+
+注意最后这个例子里，`color` 是在 `aes` 里面的，所以第一条 line 的颜色是映射到常量 `"below"` 的，然后 `"below"` 在 scale 中映射到颜色 `"blue"`。这里明显不能用 `I("below")`。
+
+#### 6.4.5 `scale_*_identity`
+
+略
+
+### 6.5 legend and axis
+
+The theme settings `axis.*` and `legend.*` control the visual appearance of axes and legends. See Section 8.1.
+
+调整 legend 的位置：
+
+```r
+# get rid of the legend
+p + theme(legend.position = 'none')
+
+# Put legend outside the plotting area
+# On left, right, top or bottom margin
+p + theme(legend.position = 'left')
+
+# Put legend inside the plotting area
+# 放到左下角
+p + theme(legend.justification = c(0, 0), legend.position = c(0, 0))
+```
+
+- 注意在 `legend.justification` 和 `legend.position` 中：
+	- `c(0, 0)` 指左下角
+	- `c(0, 1)` 指左上角
+	- `c(1, 1)` 指右上角
+	- `c(1, 0)` 指右下角
+- `legend.justification` 指 legend 本身这个 rectangle 中的一个锚点，这个锚点会与 `legend.position` 指定的点重合，这就形成了 legend 在图中的位置
+- `legend.position` 是 legend 锚点要对齐的点。注意 `legend.position = c(0, 0)` 并不是指坐标轴 $(0, 0)$ 这个点，而是整个画图区域（默认灰色背景方格区域）的左下角
+- 同时指定 `legend.justification = c(0, 0)` 和 `legend.position = c(0, 0)` 的意思就是：“把 legend rectangle 的左下角与画图区域的左下角重合”
+- 默认情况下，`legend.justification == "center" == c(0.5, 0.5)`，此外还可以指定：
+	- `legend.justification = "left" = c(0, 0.5)`
+	- `legend.justification = "right" = c(1, 0.5)`
+
+举例：
+
+```r
+library(ggplot2)
+
+xy <- data.frame(x=1:10, y=10:1, type = rep(LETTERS[1:2], each=5))
+
+plot <- ggplot(data = xy) + geom_point(aes(x = x, y = y, color=type))
+plot + theme(legend.justification = c(.1, .1), legend.position = c(0, 0), 
+             legend.background= element_rect(colour = "pink", fill = "transparent"), 
+             legend.key = element_rect(colour = "transparent", fill = "transparent"))
+```
+
+![][6-5-legend-position]
+
+## 第七章 - Facet and coord system
+
+### 7.2 分面 (facet)
+
+两种分面方式：
+
+- `facet_grid`：如果 formula 是 `x ~ y` 且 $\vert X \vert = m, \vert Y \vert = n$，则最终结果是 $m \times n$ 的 grid
+	- 这个 grid 中的一个子图，或者说一个 cell，我们称为一个 "panel"
+- `facet_wrap`：不管你有多少个 panel，统一按参数 `nrow = m` 或者 `ncol = n` 排成 $m$ 行或者 $n$ 列
+
+默认不使用分面的效果是 `facet_null()`。
+
+#### 7.2.1 `facet_grid`
+
+formula 参 2.6
+
+另外可以使用 `facet_grid(margins=TRUE)` 来添加 marginal 统计列和统计行
+
+#### 7.2.2 `facet_wrap`
+
+formula 是 ` ~ x` (没有 `.` placeholder) 或者 ` ~ x + y + ...`。
+
+比如 ` ~ x + y` 且 $\vert X \vert = m, \vert Y \vert = n$，则一共有 $m \times n$ 个 panel，然后按 `nrow` 或者 `ncol` 排列
+
+#### 7.2.3 `facet_*(scales=?, space=?)` 参数设置
+
+对于 `facet_wrap`:
+
+- 每个 panel 都可以拥有单独的 scale
+
+对于 `facet_grid`:
+
+- All panels in a column must share the same `x` scale
+- All panels in a row must share the same `y` scale
+
+`scales` 参数:
+
+- `scales = "fixed"`: `x` and `y` scales are fixed across all panels.
+- `scales = "free"`: `x` and `y` scales vary across panels.
+- `scales = "free_x`": the `x` scale can vary, and the `y` scale is fixed.
+- `scales = "free_y"`: the `y` scale can vary, and the `x` scale is fixed.
+
+`space` 参数的设置同上。
+
+When the space can vary freely, each column (or row) will have width (or height) proportional to the range of the scale for that column (or row)
+
+这俩参数的效果非常微妙，实践中自己尝试即可。一个例子：
+
+```r
+mpg2 <- subset(mpg, cyl != 5 & drv %in% c("4", "f"))
+
+mpg3 <- within(mpg2, {
+  model <- reorder(model, cty)
+  manufacturer <- reorder(manufacturer, -cty)
+})
+
+models <- qplot(cty, model, data = mpg3)
+
+models
+
+models + facet_grid(manufacturer ~ ., scales = "free", space = "free")
+
+models + facet_grid(manufacturer ~ ., scales = "free", space = "free") 
+       + theme(strip.text.y = element_text(angle=0))  # 右侧的 facet label (mpg3$manufacturer)，默认是竖排的，改成横排
+```
+
+#### 7.2.4 如果某个图层的 data 没有 formula 指定的变量
+
+略
+
+#### 7.2.5 `aes(group=?)` vs faceting
+
+When using `aes(group=?)`, the groups are close together and may overlap, but small differences are easier to see.
+
+略
+
+#### 7.2.6 `geom_*(position="dodge")` vs faceting
+
+Faceting is more useful as we can control whether the splitting is local (`scales = "free_x", space = "free"`) or global (`scales = "fixed"`).
+
+略
+
+#### 7.2.7 如何处理连续型的 facet variable
+
+- `cut_interval(x, n = 10)`: 将 $x$ 分入 $n$ 个 bin，每个 bin 的长度都是 $\frac{\operatorname{max}(x) - \operatorname{min}(x)}{n}$
+- `cut_interval(x, length = 1)`: 将 $x$ 分入若干个 bin，每个 bin 的长度都是 1
+- `cut_number(x, n = 10)`: 将 $x$ 分入若干个 bin，每个 bin 内都有 10 个元素
+
+```r
+> mpg2 <- subset(mpg, cyl != 5 & drv %in% c("4", "f"))
+> cut_interval(mpg2$displ, n = 6)
+  [1] [1.6,2.42]  [1.6,2.42]  [1.6,2.42] 
+  [4] [1.6,2.42]  (2.42,3.23] (2.42,3.23]
+  ......
+  [205] (3.23,4.05]
+> cut_interval(mpg2$displ, length = 1)
+  [1] [1,2] [1,2] [1,2] [1,2] (2,3] (2,3] (3,4]
+  [8] [1,2] [1,2] [1,2] [1,2] (2,3] (2,3] (3,4]
+  ......
+  [204] (2,3] (3,4]
+> cut_number(mpg2$displ, n = 6)
+  [1] [1.6,2]   [1.6,2]   [1.6,2]   [1.6,2]  
+  [5] (2.5,3]   (2.5,3]   (3,3.8]   [1.6,2]
+  ......
+  [205] (3,3.8]
+```
+
+```r
+mpg2$disp_ww <- cut_interval(mpg2$displ, length = 1)
+mpg2$disp_wn <- cut_interval(mpg2$displ, n = 6)
+mpg2$disp_nn <- cut_number(mpg2$displ, n = 6)
+
+plot <- qplot(cty, hwy, data = mpg2) + labs(x = NULL, y = NULL)
+
+plot + facet_wrap(~ disp_ww, nrow = 1)
+plot + facet_wrap(~ disp_wn, nrow = 1)
+plot + facet_wrap(~ disp_nn, nrow = 1)
+```
+
+### 7.3 Coord system
+
+#### 7.3.1 坐标系变换
+
+略
+
+#### 7.3.2 stat 依赖于坐标系
+
+略
+
+#### 7.3.3 Cartesian 坐标系
+
+There are 4 Cartesian-based coordinate systems:
+
+- `coord_cartesian`
+- `coord_fixed`
+- `coord_flip`
+- `coord_trans`
+
+`coord_cartesian` 也有 `xlim` 和 `ylim` 参数。
+
+`coord_cartesian(xlim = ?, ylim = ?)` 与 `lims(x = ?, y = ?)` 的区别：
+
+- 首先 `xlim(...) == lims(x = ...)`；`ylim` 同理
+- `lims` 可以设置所有 scale 的 limits。比如你有 `aes(colour = df$x)`，然后 `df$x` 取值是 2、4、6、8，我可以 `p + lims(colour = c(2, 4))` 只显示其中两种颜色，另外两种颜色的 point 根本就不会出现在图上
+- 同理，如果设置了 `lims(x = ?, y = ?)`，范围之外的 point 也不会出现在图上 (相当于找不到映射关系，数据无法映射到一个点上)
+	- 如果此时你画 smooth，和整体数据的 smooth 曲线是不一样的
+- `coord_cartesian(xlim = ?, ylim = ?)` 不会排除任何一个 point，永远是使用全部的数据。它的作用相当于是 zoom-in (设置为小范围) 或是 zoom-out (设置为大范围)
+	- smooth 永远是整体数据的 smooth，只是不同的范围你会看到 smooth 曲线不同的段
+
+更多内容参考书上。
+
+#### 7.3.4 Non-Cartesian 坐标系
+
+略
+
+## 第八章 - Polishing your plots for publication
 
