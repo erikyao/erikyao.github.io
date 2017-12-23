@@ -7,13 +7,15 @@ tags: [R-101, Book]
 ---
 {% include JB/setup %}
 
-## Chapter 1. Introduction
+## 第一章 - 简介
 
 ### 1.1 Welcome to ggplot2
 
 ... it has a deep underlying grammar. This grammar, based on the _Grammar of Graphics_ (Wilkinson, 2005), is composed of a set of independent components that can be composed in many different ways. This makes `ggplot2` very powerful, because you are not limited to a set of pre-specified graphics, but you can create new graphics that are precisely tailored for your problem.
 
 `ggplot2` is designed to work in a layered fashion, starting with a layer showing the raw data then adding layers of annotations and statistical summaries. It allows you to produce graphics using the same structured thinking that you use to design an analysis, reducing the distance between a plot in your head and one on the page.
+
+- [ggplot2 Reference](http://ggplot2.tidyverse.org/reference/index.html)
 
 ### 1.3 What is the grammar of graphics?
 
@@ -22,7 +24,7 @@ In brief, the grammar tells us that **a statistical graphic is a mapping from da
 The first description of the components follows below:
 
 - _**geoms**_: Geometric objects
-	- 其实是指图像类型 (scatter, smooth, histogram, boxplot, etc.)
+	- 其实是指图像类型 (scatterplot, smooth, histogram, boxplot, etc.)
 - _**data**_: What you want to visualise 
 	- _**facet**_: how to break up the data into subsets and how to display those subsets as small multiples. 
 		- a.k.a conditioning or latticing/trellising.
@@ -38,9 +40,9 @@ The first description of the components follows below:
 		- 比如我们常用的 `colour=?` 是一个 scale，`size=?` 是一个 scale，`shape=?` 也是一个 scale
 			- `x=?` 和 `y=?` 其实也是 scale
 		- scale 可以做两个方向的 mapping：
-			- $f$: data space $righarrow$ aesthetic space
+			- $f$: data space $\rightarrow$ aesthetic space
 				- 比如给 dot 上颜色
-			- $f^{-1}$ (inverse): aesthetic space $righarrow$ data space
+			- $f^{-1}$ (inverse): aesthetic space $\rightarrow$ data space
 				- 比如画颜色的 legend、给 axes 标指
 - _**coord**_: A coordinate system, describes how data coordinates are mapped to the plane of the graphic.
 	- We normally use a Cartesian coordinate system, but a number of others are available, including polar coordinates and map projections.
@@ -60,9 +62,9 @@ It is also important to talk about what the grammar doesn’t do:
 - `ggplot2` is an attempt to take the good things about base and lattice graphics and improve on them with a strong underlying model which supports the production of any kind of statistical graphic.
 	- Like `lattice`, `ggplot2` uses grid to draw the graphics, which means you can exercise much low-level control over the appearance of the plot.
 	
-## Chapter 2. Getting started with `qplot`
+## 第二章 - 从 `qplot` 入门
 
-### 2.2 Datasets
+### 2.2 diamonds / dsmall 数据集
 
 ```r
 > library(ggplot2)
@@ -80,9 +82,9 @@ It is also important to talk about what the grammar doesn’t do:
 > dsmall <- diamonds[sample(nrow(diamonds), 100), ]
 ```
 
-### 2.3 Basic use
+### 2.3 基本用法
 
-Simple xy-scatter-plots:
+Simple xy-scatterplots:
 
 ```r
 qplot(x = carat, y = price, data = diamonds)
@@ -104,9 +106,9 @@ Arguments can also be combinations of existing variables:
 qplot(carat, x * y * z, data = diamonds)
 ```
 
-### 2.4 Colour, size, shape and other aesthetic attributes
+### 2.4 图形属性 (aesthetic attributes, e.g. color, size and shape) 
 
-With `plot`, it’s your responsibility to convert a categorical variable in your data (e.g., “apples”, “bananas”, “pears”) into something that plot knows how to use (e.g., “red”, “yellow”, “green”). `qplot` can do this for you automatically, and it will automatically provide a legend that maps the displayed attributes to the data values.
+With `plot`, it’s your responsibility to convert a categorical variable in your data (e.g., "apples", "bananas", "pears") into something that plot knows how to use (e.g., "red", "yellow", "green"). `qplot` can do this for you automatically, and it will automatically provide a legend that maps the displayed attributes to the data values.
 
 ```r
 qplot(carat, price, data = dsmall, colour = color) # or `color = color`
@@ -114,13 +116,13 @@ qplot(carat, price, data = dsmall, shape = cut)
 qplot(carat, price, data = dsmall, size = x * y * z)
 ```
 
-- 注意：上面三幅，本质还是 xy-scatter-plot 没跑：
+- 注意：上面三幅都是 xy-scatterplot，区别是：
 	- `color` 修改了 data point 的颜色
 	- `shape` 修改了 data point 的符号（比如用 `*` 代替了圆点）
 	- `size` 修改了 data point 的符号的大小
 - 另外自带 legend 真是好！
 
-`Colour`, `size` and `shape` are all examples of _**aesthetic attributes**_, visual properties that affect the way observations are displayed.
+`colour`, `size` and `shape` are all examples of _**aesthetic attributes**_, visual properties that affect the way observations are displayed.
 
 For every aesthetic attribute, there is a function, called a _scale_, which maps data values to valid values for that aesthetic. It is this _scale_ that controls the appearance of the points and associated legend. For example, in the above plots, the `colour` _scale_ maps `J` to purple and `F` to green.
 	
@@ -155,9 +157,7 @@ The amount of data also makes a difference:
 - If there is a lot of data, it can be hard to distinguish the different groups. 
 - An alternative solution is to use _**faceting**_.
 
-### 2.5 Plot `geoms`
-
-Geom, short for geometric object, describes the type of object that is used to display the data. Some geoms have an associated statistical transformation, for example, a histogram is a binning statistic plus a bar geom. 
+### 2.5 几何对象 (geom)
 
 `qplot` is not limited to scatterplots, but can produce almost any kind of plot by varying the `geom`.
 
@@ -181,7 +181,7 @@ For 1d data $X$:
 		- histogram 是先分 bin，然后统计落到每个 bin 的数量。所以 histogram 用于 continuous variable
 		- discrete variable 不需要分 bin，直接统计每一个具体值的数量就可以了。所以在形状上这两个图有点类似。
 		
-#### 2.5.1 Adding a smoother to a plot: $y = f(x)$
+#### 2.5.1 添加 smooth 曲线
 
 ```r
 qplot(carat, price, data = dsmall, geom = c("point", "smooth"))
@@ -254,7 +254,7 @@ p + stat_smooth(method = "gam", formula = y ~ s(x, k = 3), size = 1)
 
 更多内容可以参考 [How can I explore different smooths in ggplot2?](http://www.ats.ucla.edu/STAT/r/faq/smooths.htm)。
 
-#### 2.5.2 Boxplots and jittered points (value of $y$ categorized on $x$)
+#### 2.5.2 jitter plot 与 boxplot
 
 When a set of data includes a categorical variable and one or more continuous variables, you will probably be interested to know how the values of the continuous variables vary with the levels of the categorical variable. Boxplots and jittered points offer two ways to do this.
 
@@ -276,7 +276,7 @@ qplot(color, price / carat, data = diamonds, geom = "jitter", alpha = I(1 / 200)
 
 Another way to look at conditional distributions is to use faceting to plot a separate histogram or density plot for each value of the categorical variable.
 
-#### 2.5.3 Histogram and density plots (count of $x$ categorized on $x$)
+#### 2.5.3 histogram 与 density plot
 
 Histogram and density plots show the distribution of a single variable. 
 
@@ -295,28 +295,19 @@ qplot(carat, data = diamonds, geom = "histogram", binwidth = 0.1, xlim = c(0,3))
 qplot(carat, data = diamonds, geom = "histogram", binwidth = 0.01, xlim = c(0,3))
 ```
 
-<del>To compare the distributions of different subgroups, just add an aesthetic mapping, as in the following code.</del>
-
-```r
-## Hard to interpret ##
-
-# qplot(carat, data = diamonds, geom = "density", colour = color) 
-# qplot(carat, data = diamonds, geom = "histogram", fill = color) 
-```
-
 另外注意 histogram 的 $y$-axis 默认是 count，可以改成 density：
 
 ```r
+# histogram 默认情况是用 stat_bin 的 ..count.. 输出
 qplot(x = carat, y = ..count.., data = diamonds, geom = "histogram")
 	## OR equivalently ##
-qplot(carat, ..count.., data = diamonds, geom = "histogram") # 这里啰嗦一下是为了确认你看得懂不指定 `y = ...` 的写法
+qplot(carat, ..count.., data = diamonds, geom = "histogram")
 
-qplot(carat, ..density.., data = diamonds, geom = "histogram") # 用 histogram 的形式显示 density
+# 可以改用 stat_bin 的 ..density.. 输出
+qplot(carat, ..density.., data = diamonds, geom = "histogram")
 ```
 
-注意 `geom = "density"` 是曲线，而这里 `..density..` 任然是 histogram，数据上有关联但形式上是截然不同的。
-
-#### 2.5.4 Bar charts (count of $x$ for each value of $x$; extensible)
+#### 2.5.4 Bar charts
 
 1. 基本用法：对每一个 $x_i$，计算 $y_i = nrow(df[X == x_i,])$
 1. 扩展用法：对每一个 $x_i$，计算 $y_i = sum(df[X == x_i,]\\$foo)$
@@ -332,7 +323,7 @@ qplot(color, data = diamonds, geom = "bar", weight = x*y*z) + scale_y_continuous
 
 #### 2.5.5 Time series with line and path plots
 
-其实这两个图不一定非要用于 time series。简单来说，这两个图的画法就是：在 scatter plot $n$ 个 data point $p_1,\dots,p_n$ 的过程中，将 $p_1 \rightarrow p_2 \rightarrow \dots \rightarrow p_n$ 在坐标系内按顺序连起来。区别在于：
+其实这两个图不一定非要用于 time series。简单来说，这两个图的画法就是：在 scatterplot $n$ 个 data point $p_1,\dots,p_n$ 的过程中，将 $p_1 \rightarrow p_2 \rightarrow \dots \rightarrow p_n$ 在坐标系内按顺序连起来。区别在于：
 
 - line plot 会将 data point 按 $x$ 排序。如果 $x$-axis 是时间，那就正好反映了 how $y$ has changed over time
 - path plot 不会排序，完全按照 appear in dataset 的顺序来，所以它反映的是 how $x$ and $y$ have simultaneously changed
@@ -349,16 +340,21 @@ qplot(unemploy / pop, uempmed, data = economics, geom = c("point", "path"))
 qplot(unemploy / pop, uempmed, data = economics, geom = "path", colour = year(date)) + scale_area()
 ```
 
-### 2.6 Faceting
+### 2.6 分面 (facet)
 
-We have already discussed using aesthetics (colour and shape) to compare subgroups, drawing all groups on the same plot. Faceting takes an alternative approach: It creates tables of graphics by splitting the data into subsets and displaying the same graph for each subset in an arrangement that facilitates comparison.
+Faceting creates tables of graphics by splitting the data into subsets and displaying the same graph for each subset in an arrangement that facilitates comparison.
 
-The default faceting method in `qplot()` creates plots arranged on a grid specified by a faceting formula which looks like `row_var ~ col_var`. 简单说，`x ~ y` 的意思就是把 `df` group by `df$x` and `df$y`； `x + y ~ z` 的意思就是把 `df` group by `df$x`， `df$y` and `df$z`。所有出现在 formula 里的 column name 都是 group by 的标准，出现在 `~` 左边或是右边的区别在于，say `x ~ y`：
+The default faceting method in `qplot()` creates plots arranged on a grid specified by a faceting formula which looks like `row_var ~ col_var`. 简单说，
+
+- `x ~ y` 的意思就是把 `df` group by `df$x` and `df$y`
+- `x + y ~ z` 的意思就是把 `df` group by `df$x`， `df$y` and `df$z`
+
+所有出现在 formula 里的 column name 都是 group by 的标准，出现在 `~` 左边或是右边的区别在于，以 `x ~ y` 为例：
 
 - 最终的 grid plot 按 `~` 左边的 column name，i.e. `df$x` 的值排列 row
 - 最终的 grid plot 按 `~` 右边的 column name，i.e. `df$y` 的值排列 column
 
-而 `.` 是一个 place holder，表示 “我没有 column name 需要指定在 formula 的这一边”,也就是 “我只要 1 row 或者 1 column”。比较下面两句：
+而 `.` 是一个 place holder，表示 “我没有 column name 需要指定在 formula 的这一边”，也就是 “我只要 1 row 或者 1 column”。比较下面两句：
 
 ```r
 qplot(carat, data = diamonds, facets = color ~ ., geom = "histogram", binwidth = 0.1, xlim = c(0, 3)) # Grid Plot 1
@@ -404,11 +400,11 @@ qplot(carat, price, data = dsmall, log = "xy")
 
 - With base graphics, to add further graphic elements to a plot, you can use `points()`, `lines()` and `text()`. With ggplot2, you need to add additional **layers** to the existing plot, described in the next chapter.
 
-## Chapter 3. Mastering the grammar
+## 第三章 - 语法突破
 
-### 3.2 Fuel economy data
+### 3.2 mpg 数据集
 
-这一章我们使用 `mpg` 这个 dataset
+这一章我们使用 `mpg` 这个 dataset：
 
 ```r
 > library(ggplot2)
@@ -430,7 +426,7 @@ qplot(carat, price, data = dsmall, log = "xy")
 	- `p`: premium
 	- `c`: CNG, Compressed Natural Gas 
 
-### 3.3 Building a scatterplot
+### 3.3 散点图绘制的详细过程
 
 ```r
 qplot(displ, hwy, data = mpg, colour = factor(cyl))
@@ -441,16 +437,9 @@ But what is going on underneath the surface? How does ggplot2 draw this plot?
 1. Mapping aesthetics to data
 	- 上图我们没有指定 size 和 shape，我们说 "Size and shape are not mapped to variables, but remain at their default values."
 	- 这个 mapping 相当创建了一个 mapped dataframe，在我们的例子中，它有三列：
-		- `x`: <- `mpg$displ`
-		- `y`: <- `mpg$hwy`
-		- `color`: <- `factor(mpg$cyl)`
-	- 我们有了这个 mapped dataframe，就可以不局限于 scatterplot。在 `qplot` 中，我们还可以指定：
-		- `geom = "point"`: scatterplot
-		- `geom = "point"` + `size = foo`: bubblechart, 实质还是 scatterplot
-		- `geom = "bar"`: barchart
-		- `geom = "boxplot"`: boxplot
-		- `geom = "line"`: line chart
-		- Points, lines and bars are all examples of geometric objects, or `geom`s.
+		- `mdf$x` := `mpg$displ`
+		- `mdf$y` := `mpg$hwy`
+		- `mdf$color` := `factor(mpg$cyl)`
 1. Scaling
 	- Convert the mapped dataframe from data units to physical units (e.g. pixels and colors) that computer can display. 
 		- 我们说："we have three aesthetics that need to be scaled: horizontal position (`x`), vertical position (`y`) and `colour`."
@@ -458,14 +447,8 @@ But what is going on underneath the surface? How does ggplot2 draw this plot?
 			- A scale is a function, and its inverse.
 				- function 负责转换
 				- inverse 负责 axis marks 和 legends
-	- Physical units are meaningful to the computer, they may not be meaningful to us:
-		- colours are represented by a six-letter hexadecimal string, 
-		- sizes by a number
-		- and shapes by an integer. 
 	- Scaling position is easy in this example because we are using the default **linear scales**. 
 		- We need only a linear mapping from the range of the data to [0, 1], 这是 `ggplot2` 的底层 drawing system, `grid`, 要求的
-	- Scaling color, size or shape 的工作，简单说就是 mapping each value to a point in color-space, size-space or shape-space
-	- 算上默认的 size 和 shape，这下我们的 mapped dataframe 就变成了一个 5 列的 scaled mapped dataframe
 1. 有了 scaled mapped dataframe，现在就可以开始画了：
 	- Coordinate system, `coord`, 负责：
 		- 确定每个 scaled $(x,y)$ 在画出来的图中的位置；
@@ -474,43 +457,38 @@ But what is going on underneath the surface? How does ggplot2 draw this plot?
 		- 画 legends
 	- 最后添加 plot annotation，包括 background、title、axis labels 等等 
 
-### 3.4 A more complex plot
+### 3.4 更复杂的图形示例
 
 ```r
 qplot(displ, hwy, data=mpg, facets = . ~ year) + geom_smooth()
 ```
 
-`facets` 相当于把我们的 scaled mapped dataframe 变成了一个 3-D array；smooth layer 属于 statistics layers 的范畴，it doesn’t display the raw data, but instead displays a statistical transformation of the data.
-
-- Extra step: after mapping the data to aesthetics, the data is passed to a statistical transformation, or `stat`
-- 在我们这个例子中，我们说："The `stat` fits the data to a loess smoother."
-- Other useful `stat`s include 1 and 2d binning, group means, quantile regression and contouring.
-
-### 3.5 Components of the layered grammar
+### 3.5 图层 (layer) 的组件
 
 The layered grammar defines a plot as the combination of:
 
-- A default dataset and set of mappings from variables to aesthetics.
+- Data 
+- Mappings from variables to aesthetics
 - One or more layers, each composed of 
-	- a geometric object (`geom`), 
-	- a statistical transformation (`stat`), 
-	- and a position adjustment (which deals with overlapping graphic objects, will be introduced later), 
+	- a `geom`, 
+	- a `stat`, 
+	- a `position` adjustment (See 4.8), 
 	- and optionally (因为一般可以继承自原有的，所以不需要特别指定，比如我们的 `geom_smooth()` 就没有指定，但它还是知道哪个是 `x` 哪个是 `y`), 
-		- a dataset and 
-		- aesthetic mappings.
-- One scale for each aesthetic mapping.
-- A coordinate system (`coord`).
-- The faceting specification.
+		- Data
+		- Mappings from variables to aesthetics
+- One `scale` for each aesthetic mapping.
+- A coordinate system (`coord`)
+- Faceting specification
 
 举个例子：
 
 ```r
-ggplot(mpg, aes(hwy, cty)) + 		# data and mapping
-	geom_point(aes(color = cyl)) +	# layer
-	geom_smooth(method ="lm") +	# layer
-	coord_cartesian() +
-	scale_color_gradient() +
-	theme_bw()			# additional elements
+ggplot(mpg, aes(hwy, cty)) +        # data and mapping
+	geom_point(aes(color = cyl)) +  # layer
+	geom_smooth(method ="lm") +     # layer
+	coord_cartesian() +             # coord
+	scale_color_gradient() +        # scale
+	theme_bw()                      # additional elements
 ```
 
 你可以简单认为每个 `geom_*()` 或者 `stat_*()` 函数都是一个 layer。
@@ -523,9 +501,9 @@ ggplot(mpg, aes(hwy, cty)) + 		# data and mapping
 - Chapter 7: coordinate system + faceting
 - Chapter 8: plot-specific theme options
 
-### 3.6 The plot object
+### 3.6 ggplot 对象
 
-A plot object is a list with components `data`, `mapping` (the default aesthetic mappings), `layers`, `scales` (functions carrying out `mapping`), `coordinates`, `facet` and `options`.
+A ggplot object is a list with components `data`, `mapping` (the default aesthetic mappings), `layers`, `scales` (functions carrying out `mapping`), `coordinates`, `facet` and `options`.
 
 ```r
 > p <- qplot(displ, hwy, data = mpg, colour = factor(cyl))
@@ -550,13 +528,13 @@ position_identity: (width = NULL, height = NULL)
 > ggsave("plot.png", width = 5, height = 5)	# Save png to disk
 ```
 
-## Chapter 4. Build a plot layer by layer
+## 第四章 - 用图层构建图像
 
-### 4.2 Creating a plot
+### 4.2 创建 ggplot 对象
 
-When we used `qplot()`, it did a lot of things for us: it created a plot object, added layers, and displayed the result, using many default values along the way. 
+When we used `qplot()`, it did a lot of things for us: it created a ggplot object, added layers, and displayed the result, using many default values along the way. 
 
-To create the plot object ourselves, we use `ggplot()`. It has two arguments: `data` and aesthetic `mapping`
+To create the ggplot object ourselves, we use `ggplot()`. It has two arguments: `data` and aesthetic `mapping`
 
 - These 2 arguments set up defaults for the plot and can be omitted if you specify data and aesthetics when adding layers later. 
 
@@ -564,9 +542,9 @@ To create the plot object ourselves, we use `ggplot()`. It has two arguments: `d
 p <- ggplot(diamonds, aes(carat, price, colour = cut))
 ```
 
-This plot object cannot be displayed until we add a layer: there is nothing to see!
+This ggplot object cannot be displayed until we add a layer: there is nothing to see!
 
-### 4.3 Layers
+### 4.3 创建图层 (layer) 的语法
 
 A minimal scatterplot layer:
 
@@ -582,7 +560,7 @@ A more fully specified layer can take any or all of these arguments:
 layer(geom, geom_params, stat, stat_params, data, mapping, position)
 ```
 
-Here is what a more complicated call looks like. It produces a histogram (a combination of bars and binning) coloured “steelblue” with a bin width of 2:
+Here is what a more complicated call looks like. It produces a histogram coloured “steelblue” with a bin width of 2:
 
 ```r
 p <- ggplot(diamonds, aes(x = carat))
@@ -623,11 +601,11 @@ qplot(awake, brainwt, data = msleep, log = "y") + bestfit
 qplot(bodywt, brainwt, data = msleep, log = "xy") + bestfit
 ```
 
-### 4.4 Data
+### 4.4 `ggplot(data=?)` 参数设置
 
 The `data` parameter must be a data frame and this is the only restriction.
 
-This restriction also makes it very easy to produce the same plot for different data: you can update your current data frame and pass it to your plot object via `%+%` operator:
+This restriction also makes it very easy to produce the same plot for different data: you can update your current data frame and pass it to your ggplot object via `%+%` operator:
 
 ```r
 p <- ggplot(mtcars, aes(mpg, wt, colour = cyl)) + geom_point()
@@ -641,12 +619,12 @@ Any change of values or dimensions is legitimate. However, if a variable changes
 
 It is not necessary to specify a default dataset except when using faceting; faceting is a global operation (i.e., it works on all layers).
 
-The `data` data frame is stored in the plot object **as a copy, not a reference**. This has two important consequences: 
+The `data` data frame is stored in the ggplot object **as a copy, not a reference**. This has two important consequences: 
 
 - if your data changes, the plot will not; 
 - and ggplot2 objects are entirely self-contained so that they can be `save()`d to disk and later `load()`ed and plotted without needing anything else from that session.
 
-### 4.5 Aesthetic mappings
+### 4.5 `ggplot(mapping=aes(...))` 参数设置
 
 The `aes` function takes a list of aesthetic-variable pairs like these:
 
@@ -660,7 +638,7 @@ Note that functions of variables can be used:
 aes(x = weight, y = height, colour = sqrt(age))
 ```
 
-#### 4.5.1 Adding, extending, overriding and removing aesthetic mappings
+#### 4.5.1 aes 的扩展、覆盖、移除
 
 The default aesthetic mappings can be set when the plot is initialised or modified later using `+`:
 
@@ -677,7 +655,7 @@ p + geom_point(aes(y = disp))		# override
 p + geom_point(aes(y = NULL))		# remove
 ```
 
-#### 4.5.2 Setting vs mapping
+#### 4.5.2 图形属性：设定 (setting) 与映射 (mapping) 的区别
 
 注意 `aes` 是 "**map** an aesthetic to a variable"，不用 `aes` 的时候我们可以 "**set** an aesthetic to a constant":
 
@@ -698,7 +676,7 @@ qplot(mpg, wt, data = mtcars, colour = I("darkblue"))
 
 但是 we CANNOT use `aes(colour = I("darkblue"))`。
 
-#### 4.5.3 Grouping
+#### 4.5.3 分组: aes(group=?)
 
 We use `Oxboys` dataset in `nlme` library here for demostration. It records the heights (`height`) and centered ages (`age`) of 26 boys (`Subject`), measured on nine occasions (`Occasion`).
 
@@ -744,7 +722,7 @@ p + geom_smooth(aes(group = 1), method="lm", size = 2, se = F)
 
 注意，要画整个数据集的 smooth，我们要覆盖掉之前的 group 设定。这从另外一个角度说明，我们对不同的 layer，可以有不同的 group 设定。
 
-#### 4.5.4 Matching aesthetics to graphic objects
+#### 4.5.4 匹配图形属性与图形对象
 
 Stacked bar chart:
 
@@ -752,7 +730,9 @@ Stacked bar chart:
 p <- ggplot(diamonds, aes(x = color, color=cut, fill=cut)) + geom_bar()
 ```
 
-### 4.6 geom
+### 4.6 几何对象 (geom)
+
+geom 列表：
 
 | geom_\*                                                      | Description                                                                                                                                                                                                                                                                           | 描述                                        |
 |--------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------|
@@ -770,23 +750,208 @@ p <- ggplot(diamonds, aes(x = color, color=cut, fill=cut)) + geom_bar()
 | histogram                                                    | Histogram                                                                                                                                                                                                                                                                             | 直方图                                      |
 | hline                                                        | Line, horizontal                                                                                                                                                                                                                                                                      | 水平线                                      |
 | interval                                                     | Base for all interval (range) geoms                                                                                                                                                                                                                                                   |                                             |
-| jitter                                                       | Points, jittered to reduce overplotting                                                                                                                                                                                                                                               | 本质是个 scatter，dots 被添加扰动，减少重叠 |
+| jitter                                                       | Points, jittered to reduce overplotting                                                                                                                                                                                                                                               | 本质是个 scatterplot，dots 被添加扰动，减少重叠 |
 | line                                                         | Connect observations, in order of $x$ value                                                                                                                                                                                                                                           | 按 $x$-axis 的顺序连接各个点   |
 | linerange                                                    | An interval represented by a vertical line                                                                                                                                                                                                                                            | 一条竖线，表示 $y$-axis 的一个区间          |
 | path                                                         | Connect observations, in original order                                                                                                                                                                                                                                               | 与 line 不同，path 是按数据的原始 $x$ 顺序连接各个点 |
 | point                                                        | Points, as for a scatterplot                                                                                                                                                                                                                                                          | 散点图                                      |
 | pointrange                                                   | An interval represented by a vertical line, with a point in the middle                                                                                                                                                                                                                | 在 linerange 的基础上，在中点处添加一个 dot |
 | polygon                                                      | Polygon, a filled path                                                                                                                                                                                                                                                                | 多边形，相当于一个有填充的 path             |
-| quantile                                                     | Add quantile lines from a [quantile regression](https//stackoverflow.com/a/37160755)                                                                                                                                                                                                  | 分位数回归线                                |
+| quantile                                                     | Add quantile lines from a [quantile regression](https://stackoverflow.com/a/37160755)                                                                                                                                                                                                  | 分位数回归线                                |
 | ribbon                                                       | Ribbons, $y$ range with continuous $x$ values                                                                                                                                                                                                                                         | 色带图                                      |
-| [rug](http//ggplot2.tidyverse.org/reference/geom_rug.html)   | rug plots in the margins                                                                                                                                                                                                                                                              | 边界地毯图                                  |
+| [rug](http://ggplot2.tidyverse.org/reference/geom_rug.html)   | rug plots in the margins                                                                                                                                                                                                                                                              | 边界地毯图                                  |
 | segment                                                      | Single line segments                                                                                                                                                                                                                                                                  | 线段（可带箭头）                             |
 | smooth                                                       | Add a smoothed condition mean                                                                                                                                                                                                                                                         | 光滑的条件均值线                            |
 | step                                                         | Connect observations by stairs                                                                                                                                                                                                                                                        | 类似方波信号图                              |
 | text                                                         | Textual annotations                                                                                                                                                                                                                                                                   |                                             |
-| [tile](http//ggplot2.tidyverse.org/reference/geom_tile.html) | `geom_rect` and `geom_tile` do the same thing (其实都是 heat map), but are parameterised differently `geom_rect` uses the locations of the four corners (`xmin`, `xmax`, `ymin` and `ymax`), while `geom_tile` uses the center of the tile and its size (`x`, `y`, `width`, `height`) | 瓦片图                                      |
+| [tile](http://ggplot2.tidyverse.org/reference/geom_tile.html) | `geom_rect` and `geom_tile` do the same thing (其实都是 heat map), but are parameterised differently `geom_rect` uses the locations of the four corners (`xmin`, `xmax`, `ymin` and `ymax`), while `geom_tile` uses the center of the tile and its size (`x`, `y`, `width`, `height`) | 瓦片图                                      |
 | vline                                                        | Line, vertical                                                                                                                                                                                                                                                                        | 垂直线                                      |
 
-### 4.7 stat
+geom aes 参数：
 
-Every geom has a default statistic, and every statistic a default geom.
+| Name       | Default Stat | Required Aesthetics              | Optional Aesthetics                         |
+|------------|--------------|----------------------------------|---------------------------------------------|
+| abline     | abline       |                                  | colour, linetype, size                      |
+| area       | identity     | x, y                             | colour, fill, linetype, size                |
+| bar        | bin          | x                                | colour, fill, linetype, size, weight        |
+| bin2d      | bin2d        | xmax, xmin, ymax, ymin           | colour, fill, linetype, size, weight        |
+| blank      | identity     |                                  |                                             |
+| boxplot    | boxplot      | lower, middle, upper, ymax, ymin | colour, fill, size, weight, x               |
+| contour    | contour      | x, y                             | colour, linetype, size, weight              |
+| crossbar   | identity     | x, y, ymax, ymin                 | colour, fill, linetype, size                |
+| density    | density      | x, y                             | colour, fill, linetype, size, weight        |
+| density2d  | density2d    | x, y                             | colour, linetype, size, weight              |
+| errorbar   | identity     | x, ymax, ymin                    | colour, linetype, size, width               |
+| freqpoly   | bin          |                                  | colour, linetype, size                      |
+| hex        | binhex       | x, y                             | colour, fill, size                          |
+| histogram  | bin          | x                                | colour, fill, linetype, size, weight        |
+| hline      | hline        |                                  | colour, linetype, size                      |
+| jitter     | identity     | x, y                             | colour, fill, shape, size                   |
+| line       | identity     | x, y                             | colour, linetype, size                      |
+| linerange  | identity     | x, ymax, ymin                    | colour, linetype, size                      |
+| path       | identity     | x, y                             | colour, linetype, size                      |
+| point      | identity     | x, y                             | colour, fill, shape, size                   |
+| pointrange | identity     | x, y, ymax, ymin                 | colour, fill, linetype, shape, size         |
+| polygon    | identity     | x, y                             | colour, fill, linetype, size                |
+| quantile   | quantile     | x, y                             | colour, linetype, size, weight              |
+| rect       | identity     | xmax, xmin, ymax, ymin           | colour, fill, linetype, size                |
+| ribbon     | identity     | x, ymax, ymin                    | colour, fill, linetype, size                |
+| rug        | identity     |                                  | colour, linetype, size                      |
+| segment    | identity     | x, xend, y, yend                 | colour, linetype, size,                     |
+| smooth     | smooth       | x, y                             | alpha, colour, fill, linetype, size, weight |
+| step       | identity     | x, y                             | colour, linetype, size                      |
+| text       | identity     | label, x, y                      | angle, colour, hjust, size, vjust           |
+| tile       | identity     | x, y                             | colour, fill, linetype, size                |
+| vline      | vline        |                                  | colour, linetype, size                      |
+
+### 4.7 统计变换 (stat)
+
+Every geom has a default stat, and every stat a default geom.
+
+| stat_\*   | Description                                                | 描述             |
+|-----------|------------------------------------------------------------|------------------|
+| bin       | Bin data                                                   | 分 bin           |
+| boxplot   | Calculate components of box-and-whisker plot               |                  |
+| contour   | Contours of 3d data                                        |                  |
+| density   | Density estimation, 1d                                     |                  |
+| density2d | Density estimation, 2d                                     |                  |
+| function  | Superimpose a function                                     | 自定义 stat 变换 |
+| identity  | No transformation                                          |                  |
+| qq        | Calculation for quantile-quantile plot                     |                  |
+| quantile  | Continuous quantiles                                       | 计算连续的分位数 |
+| smooth    | Add a smoother                                             |                  |
+| spoke     | Convert angle and radius to `xend` and `yend`              |                  |
+| step      | Create stair steps                                         |                  |
+| sum       | Sum unique values. Useful for overplotting on scatterplots |                  |
+| summary   | Summarise `y` values at every unique `x`                   |                  |
+| unique    | Remove duplicates                                          |                  |
+
+A stat takes a dataset as input and returns a dataset as output, and so a stat can add new variables to the original dataset. It is possible to map aesthetics to these new variables. For example, `stat_bin` produces the following variables:
+
+- `count`, the number of observations in each bin
+- `density`, the density of observations in each bin (percentage of total / bar width)
+- `x`, the centre of the bin
+
+These generated variables can be used instead of the variables present in the original dataset. E.g.
+
+```r
+ggplot(diamonds, aes(carat)) +
++ geom_histogram(aes(y = ..density..), binwidth = 0.1)
+```
+
+The names of generated variables must be surrounded with `..` when used.
+
+### 4.8 `geom_xxx(position=?)` 或 `stat_xxx(position=?)` 参数设置
+
+| Position | Description                                                         | 描述                       |
+|----------|---------------------------------------------------------------------|----------------------------|
+| dodge    | Descriptionodging overlaps to the side                              | 避免重叠，并排放置         |
+| fill     | Stack overlapping objects and standardise them to have equal height | 堆叠元素并将高度标准化为 1 |
+| identity | No position adjustment                                              |                            |
+| jitter   | Jitter points to avoid overplotting                                 | 给 dots 添加扰动避免重合   |
+| stack    | Stack overlapping objects on top of one another                     | 堆叠元素                   |
+
+### 4.9 整合
+
+#### 4.9.1 灵活使用 geom 与 stat
+
+A number of the geoms available in ggplot2 were derived from other geoms.
+
+| Alias            | Equivalence                                              |
+|------------------|----------------------------------------------------------|
+| `geom_area`      | `geom_ribbon(aes(min = 0, max = y), position = "stack")` |
+| `geom_density`   | `geom_area(stat = "density")`                            |
+| `geom_freqpoly`  | `geom_line(stat = "bin")`                                |
+| `geom_histogram` | `geom_bar(stat = "bin")`                                 |
+| `geom_jitter`    | `geom_point(position = "jitter")`                        |
+| `geom_quantile`  | `geom_line(stat = "quantile")`                           |
+| `geom_smooth`    | `geom_ribbon(stat = "smooth")`                           |
+
+#### 4.9.2 统计量复用: `stat_identity()`
+
+如果你已经有变换过的数据，并且想再次使用，可以用 `stat_identity(geom=?)` 将原有的变化过的数据画到新的图层里。
+
+#### 4.9.3 不同图层可以使用不同的 `data=?`和 `mapping=aes(...)` 设置
+
+略
+
+## 第五章 - ggplot2 工具箱
+
+### 5.2 图层的分类
+
+略
+
+### 5.3 基本的 geom
+
+略
+
+### 5.4 展示数据分布的 geom
+
+略
+
+### 5.5 处理遮盖 (overplotting)
+
+略
+
+### 5.6 如何绘制曲面图
+
+略
+
+### 5.7 如何绘制地图
+
+略
+
+### 5.8 如何展示 uncertainty
+
+| 变量 $X$ 类型 | 仅展示区间       | 同时展现区间和中间值             |
+|---------------|------------------|----------------------------------|
+| 连续型        | `geom_ribbon`    | `geom_smooth(stat = "identity")` |
+| 离散型        | `geom_errorbar`  | `geom_crossbar`                  |
+|               | `geom_linerange` | `geom_pointrange`                |
+
+### 5.9 统计摘要: stat_summary()
+
+参考：
+
+- [Reference - Summarise y values at unique/binned x](http://ggplot2.tidyverse.org/reference/stat_summary.html)
+- [Reference - Vector Helpers](http://ggplot2.tidyverse.org/reference/index.html#section-vector-helpers)
+
+Summary functions from the `Hmisc` package that have special wrappers to make them easy to use with `stat_summary()`:
+
+| Function           | `Hmisc` original  | Middle | Range                                    |
+|--------------------|-------------------|--------|------------------------------------------|
+| `mean_cl_normal()` | `smean.cl.boot()` | Mean   | Standard error from normal approximation |
+| `mean_cl_boot()`   | `smean.cl.boot()` | Mean   | Standard error from bootstrap            |
+| `mean_sdl()`       | `smean.sdl()`     | Mean   | Multiple of standard deviation           |
+| `median_hilow()`   | `smedian.hilow()` | Median | Outer quantiles with equal tail areas    |
+
+### 5.10 如何添加图形注解 (label, text, etc.)
+
+略。图例精彩，可参考。
+
+### 5.11 如何体现数据的 weight
+
+略
+
+## 第六章 - Scale, coord and legend
+
+### 6.2 scale 的工作原理
+
+略
+
+### 6.3 scale 的用法
+
+See [Reference - Scales](http://ggplot2.tidyverse.org/reference/index.html#section-scales).
+
+All scale constructors have a common naming scheme. They start with `scale_`, followed by the name of the aesthetic (e.g., `colour_`, `shape_` or `x_`), and finally by the name of the scale (e.g., `gradient`, `hue` or `manual`)
+
+To change the default scales, use `set_default_scale()`.
+
+### 6.4 scale 详解
+
+#### 6.4.1 通用参数
+
+##### `scale_*_*(name=?)`
+
+设置 axis (比如 `scale_x_*`) 或者 legend (比如 `scale_color_*`) 上出现的标签。
+
