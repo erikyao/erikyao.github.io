@@ -77,7 +77,7 @@ tags: [R-101, Book]
 		- [7.2.3 `facet_*(scales=?, space=?)` 参数设置](#7-2-3-facet-*scales=-space=-参数设置)
 		- [7.2.4 如果某个图层的 data 没有 formula 指定的变量](#7-2-4-如果某个图层的-data-没有-formula-指定的变量)
 		- [7.2.5 `aes(group=?)` vs faceting](#7-2-5-aesgroup=-vs-faceting)
-		- [7.2.6 `geom_*(position="dodge")` vs faceting](#7-2-6-geom-*position="dodge"-vs-faceting)
+		- [7.2.6 `geom_*(position="dodge")` vs faceting](#7-2-6-geom-*position=dodge-vs-faceting)
 		- [7.2.7 如何处理连续型的 facet variable](#7-2-7-如何处理连续型的-facet-variable)
 	- [7.3 Coord system](#7-3-Coord-system)
 		- [7.3.1 坐标系变换](#7-3-1-坐标系变换)
@@ -1282,7 +1282,7 @@ When using `aes(group=?)`, the groups are close together and may overlap, but sm
 
 略
 
-#### 7.2.6 `geom_*(position="dodge")` vs faceting <a name="7-2-6-geom-*position="dodge"-vs-faceting"></a>
+#### 7.2.6 `geom_*(position="dodge")` vs faceting <a name="7-2-6-geom-*position=dodge-vs-faceting"></a>
 
 Faceting is more useful as we can control whether the splitting is local (`scales = "free_x", space = "free"`) or global (`scales = "fixed"`).
 
