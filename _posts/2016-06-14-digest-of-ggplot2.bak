@@ -9,94 +9,9 @@ tags: [R-101, Book]
 
 [6-5-legend-position]: https://farm5.staticflickr.com/4682/39207350172_fe5b317949_m_d.jpg
 
-## ToC
+## 第一章 - 简介
 
-- [第一章 - 简介](#第一章---简介)
-	- [1.1 Welcome to ggplot2](#1-1-Welcome-to-ggplot2)
-	- [1.3 What is the grammar of graphics?](#1-3-What-is-the-grammar-of-graphics)
-	- [1.4 How does ggplot2 fit in with other R graphics?](#1-4-How-does-ggplot2-fit-in-with-other-R-graphics)
-- [第二章 - 从 `qplot` 入门](#第二章---从-qplot-入门)
-	- [2.2 diamonds / dsmall 数据集](#2-2-diamonds---dsmall-数据集)
-	- [2.3 基本用法](#2-3-基本用法)
-	- [2.4 图形属性 (aesthetic attributes, e.g. color, size and shape)](#2-4-图形属性-aesthetic-attributes-e-g--color-size-and-shape)
-	- [2.5 几何对象 (geom)](#2-5-几何对象-geom)
-		- [2.5.1 添加 smooth 曲线](#2-5-1-添加-smooth-曲线)
-		- [2.5.2 jitter plot 与 boxplot](#2-5-2-jitter-plot-与-boxplot)
-		- [2.5.3 histogram 与 density plot](#2-5-3-histogram-与-density-plot)
-		- [2.5.4 Bar charts](#2-5-4-Bar-charts)
-		- [2.5.5 Time series with line and path plots](#2-5-5-Time-series-with-line-and-path-plots)
-	- [2.6 分面 (facet)](#2-6-分面-facet)
-	- [2.7 Other options for `qplot`](#2-7-Other-options-for-qplot)
-- [第三章 - 语法突破](#第三章---语法突破)
-	- [3.2 mpg 数据集](#3-2-mpg-数据集)
-	- [3.3 散点图绘制的详细过程](#3-3-散点图绘制的详细过程)
-	- [3.4 更复杂的图形示例](#3-4-更复杂的图形示例)
-	- [3.5 图层 (layer) 的组件](#3-5-图层-layer-的组件)
-	- [3.6 ggplot 对象](#3-6-ggplot-对象)
-- [第四章 - 用图层构建图像](#第四章---用图层构建图像)
-	- [4.2 创建 ggplot 对象](#4-2-创建-ggplot-对象)
-	- [4.3 添加图层 (layer)](#4-3-添加图层-layer)
-	- [4.4 `ggplot(data=?)` 参数设置](#4-4-ggplotdata=-参数设置)
-	- [4.5 `ggplot(mapping=aes(...))` 参数设置](#4-5-ggplotmapping=aes----参数设置)
-		- [4.5.1 `aes` 的扩展、覆盖、移除](#4-5-1-aes-的扩展、覆盖、移除)
-		- [4.5.2 图形属性：设定 (setting) 与映射 (mapping) 的区别](#4-5-2-图形属性：设定-setting-与映射-mapping-的区别)
-		- [4.5.3 分组: `aes(group=?)`](#4-5-3-分组-aesgroup=)
-		- [4.5.4 匹配图形属性与图形对象](#4-5-4-匹配图形属性与图形对象)
-	- [4.6 几何对象 (geom)](#4-6-几何对象-geom)
-	- [4.7 统计变换 (stat)](#4-7-统计变换-stat)
-	- [4.8 `geom_xxx(position=?)` 或 `stat_xxx(position=?)` 参数设置](#4-8-geom-xxxposition=-或-stat-xxxposition=-参数设置)
-	- [4.9 整合](#4-9-整合)
-		- [4.9.1 灵活使用 geom 与 stat](#4-9-1-灵活使用-geom-与-stat)
-		- [4.9.2 统计量复用: `stat_identity()`](#4-9-2-统计量复用-stat-identity)
-		- [4.9.3 不同图层可以使用不同的 `data=?`和 `mapping=aes(...)` 设置](#4-9-3-不同图层可以使用不同的-data=和-mapping=aes----设置)
-- [第五章 - ggplot2 工具箱](#第五章---ggplot2-工具箱)
-	- [5.2 图层的分类](#5-2-图层的分类)
-	- [5.3 基本的 geom](#5-3-基本的-geom)
-	- [5.4 展示数据分布的 geom](#5-4-展示数据分布的-geom)
-	- [5.5 处理遮盖 (overplotting)](#5-5-处理遮盖-overplotting)
-	- [5.6 如何绘制曲面图](#5-6-如何绘制曲面图)
-	- [5.7 如何绘制地图](#5-7-如何绘制地图)
-	- [5.8 如何展示 uncertainty](#5-8-如何展示-uncertainty)
-	- [5.9 统计摘要: `stat_summary()`](#5-9-统计摘要-stat-summary)
-	- [5.10 如何添加图形注解 (label, text, etc.)](#5-10-如何添加图形注解-label-text-etc-)
-	- [5.11 如何体现数据的 weight](#5-11-如何体现数据的-weight)
-- [第六章 - Scale, coord and legend](#第六章---Scale-coord-and-legend)
-	- [6.2 scale 的工作原理](#6-2-scale-的工作原理)
-	- [6.3 scale 的用法](#6-3-scale-的用法)
-	- [6.4 scale 详解](#6-4-scale-详解)
-		- [6.4.1 `scale_*_*(name=?)` 与 `labs()`](#6-4-1-scale-*-*name=-与-labs)
-		- [6.4.2 `scale_x_*(limits=?, breaks=?, labels=?)` 与 formatter](#6-4-2-scale-x-*limits=-breaks=-labels=-与-formatter)
-		- [6.4.3 `scale_colour_*` 与 `scale_fill_*`](#6-4-3-scale-colour-*-与-scale-fill-*)
-		- [6.4.4 `scale_*_manual`](#6-4-4-scale-*-manual)
-		- [6.4.5 `scale_*_identity`](#6-4-5-scale-*-identity)
-	- [6.5 legend and axis](#6-5-legend-and-axis)
-- [第七章 - Facet and coord system](#第七章---Facet-and-coord-system)
-	- [7.2 分面 (facet)](#7-2-分面-facet)
-		- [7.2.1 `facet_grid`](#7-2-1-facet-grid)
-		- [7.2.2 `facet_wrap`](#7-2-2-facet-wrap)
-		- [7.2.3 `facet_*(scales=?, space=?)` 参数设置](#7-2-3-facet-*scales=-space=-参数设置)
-		- [7.2.4 如果某个图层的 data 没有 formula 指定的变量](#7-2-4-如果某个图层的-data-没有-formula-指定的变量)
-		- [7.2.5 `aes(group=?)` vs faceting](#7-2-5-aesgroup=-vs-faceting)
-		- [7.2.6 `geom_*(position="dodge")` vs faceting](#7-2-6-geom-*position="dodge"-vs-faceting)
-		- [7.2.7 如何处理连续型的 facet variable](#7-2-7-如何处理连续型的-facet-variable)
-	- [7.3 Coord system](#7-3-Coord-system)
-		- [7.3.1 坐标系变换](#7-3-1-坐标系变换)
-		- [7.3.2 stat 依赖于坐标系](#7-3-2-stat-依赖于坐标系)
-		- [7.3.3 Cartesian 坐标系](#7-3-3-Cartesian-坐标系)
-		- [7.3.4 Non-Cartesian 坐标系](#7-3-4-Non-Cartesian-坐标系)
-- [第八章 - Polishing your plots for publication](#第八章---Polishing-your-plots-for-publication)
-	- [8.1 主题 (theme)](#8-1-主题-theme)
-		- [8.1.1 内置主题](#8-1-1-内置主题)
-		- [8.1.2 主题元素的设置](#8-1-2-主题元素的设置)
-	- [8.2 自定义 scale 和 geom](#8-2-自定义-scale-和-geom)
-	- [8.3 保存作图到文件](#8-3-保存作图到文件)
-	- [8.4 多图排列](#8-4-多图排列)
-- [第九章 - Data Manipulation](#第九章---Data-Manipulation)
-- [第十章 - 减少重复性的工作](#第十章---减少重复性的工作)
-
-## 第一章 - 简介 <a name="第一章---简介"></a>
-
-### 1.1 Welcome to ggplot2 <a name="1-1-Welcome-to-ggplot2"></a>
+### 1.1 Welcome to ggplot2
 
 ... it has a deep underlying grammar. This grammar, based on the _Grammar of Graphics_ (Wilkinson, 2005), is composed of a set of independent components that can be composed in many different ways. This makes `ggplot2` very powerful, because you are not limited to a set of pre-specified graphics, but you can create new graphics that are precisely tailored for your problem.
 
@@ -104,7 +19,7 @@ tags: [R-101, Book]
 
 - [ggplot2 Reference](http://ggplot2.tidyverse.org/reference/index.html)
 
-### 1.3 What is the grammar of graphics? <a name="1-3-What-is-the-grammar-of-graphics"></a>
+### 1.3 What is the grammar of graphics?
 
 In brief, the grammar tells us that **a statistical graphic is a mapping from data to aesthetic attributes (colour, shape, size) of geometric objects (points, lines, bars)**.
 
@@ -140,7 +55,7 @@ It is also important to talk about what the grammar doesn’t do:
 - Ironically, the grammar doesn’t specify what a graphic should look like. The finer points of display, for example, font size or background colour, are not specified by the grammar. In practice, a useful plotting system will need to describe these, as `ggplot2` does with its theming system.
 - It does not describe interaction: the grammar of graphics describes only static graphics.
 
-### 1.4 How does ggplot2 fit in with other R graphics? <a name="1-4-How-does-ggplot2-fit-in-with-other-R-graphics"></a>
+### 1.4 How does ggplot2 fit in with other R graphics?
 
 - Base graphics has a pen on paper model: you can only draw on top of the plot, you cannot modify or delete existing content.
 - Grid graphics have a system of viewports (each containing its own coordinate system) that makes it easier to lay out complex graphics.
@@ -149,9 +64,9 @@ It is also important to talk about what the grammar doesn’t do:
 - `ggplot2` is an attempt to take the good things about base and lattice graphics and improve on them with a strong underlying model which supports the production of any kind of statistical graphic.
 	- Like `lattice`, `ggplot2` uses grid to draw the graphics, which means you can exercise much low-level control over the appearance of the plot.
 	
-## 第二章 - 从 `qplot` 入门 <a name="第二章---从-qplot-入门"></a>
+## 第二章 - 从 `qplot` 入门
 
-### 2.2 diamonds / dsmall 数据集 <a name="2-2-diamonds---dsmall-数据集"></a>
+### 2.2 diamonds / dsmall 数据集
 
 ```r
 > library(ggplot2)
@@ -169,7 +84,7 @@ It is also important to talk about what the grammar doesn’t do:
 > dsmall <- diamonds[sample(nrow(diamonds), 100), ]
 ```
 
-### 2.3 基本用法 <a name="2-3-基本用法"></a>
+### 2.3 基本用法
 
 Simple xy-scatterplots:
 
@@ -193,7 +108,7 @@ Arguments can also be combinations of existing variables:
 qplot(carat, x * y * z, data = diamonds)
 ```
 
-### 2.4 图形属性 (aesthetic attributes, e.g. color, size and shape) <a name="2-4-图形属性-aesthetic-attributes-e-g--color-size-and-shape"></a>
+### 2.4 图形属性 (aesthetic attributes, e.g. color, size and shape) 
 
 With `plot`, it’s your responsibility to convert a categorical variable in your data (e.g., "apples", "bananas", "pears") into something that plot knows how to use (e.g., "red", "yellow", "green"). `qplot` can do this for you automatically, and it will automatically provide a legend that maps the displayed attributes to the data values.
 
@@ -238,7 +153,7 @@ The amount of data also makes a difference:
 - If there is a lot of data, it can be hard to distinguish the different groups. 
 - An alternative solution is to use _**faceting**_.
 
-### 2.5 几何对象 (geom) <a name="2-5-几何对象-geom"></a>
+### 2.5 几何对象 (geom)
 
 `qplot` is not limited to scatterplots, but can produce almost any kind of plot by varying the `geom`.
 
@@ -262,7 +177,7 @@ For 1d data $X$:
 		- histogram 是先分 bin，然后统计落到每个 bin 的数量。所以 histogram 用于 continuous variable
 		- discrete variable 不需要分 bin，直接统计每一个具体值的数量就可以了。所以在形状上这两个图有点类似。
 		
-#### 2.5.1 添加 smooth 曲线 <a name="2-5-1-添加-smooth-曲线"></a>
+#### 2.5.1 添加 smooth 曲线
 
 ```r
 qplot(carat, price, data = dsmall, geom = c("point", "smooth"))
@@ -290,9 +205,9 @@ qplot(carat, price, data = dsmall, geom = c("point", "smooth"), span = 1)
 		- `bs = "cs"` specifies a shrinkage version of `bs = "cr"`, the cubic regression.
 
 ```r
-## Obsolete ## 
+## Obsolete ##
 
-# library(mgcv) 
+# library(mgcv)
 
 # qplot(carat, price, data = dsmall, geom = c("point", "smooth"), method = "gam", formula = y ~ s(x))
 # qplot(carat, price, data = dsmall, geom = c("point", "smooth"), method = "gam", formula = y ~ s(x, bs = "cs"))
@@ -305,12 +220,12 @@ qplot(carat, price, data = dsmall, geom = c("point", "smooth"), span = 1)
 	- etc.
 	
 ```r
-## Obsolete ## 
+## Obsolete ##
 
-# library(splines) 
+# library(splines)
 
-# qplot(carat, price, data = dsmall, geom = c("point", "smooth"), method = "lm") 
-# qplot(carat, price, data = dsmall, geom = c("point", "smooth"), method = "lm", formula = y ~ ns(x,5)) 
+# qplot(carat, price, data = dsmall, geom = c("point", "smooth"), method = "lm")
+# qplot(carat, price, data = dsmall, geom = c("point", "smooth"), method = "lm", formula = y ~ ns(x,5))
 ```
 
 - <del>`method = "rlm"`</del>: Robust Linear Model
@@ -335,7 +250,7 @@ p + stat_smooth(method = "gam", formula = y ~ s(x, k = 3), size = 1)
 
 更多内容可以参考 [How can I explore different smooths in ggplot2?](http://www.ats.ucla.edu/STAT/r/faq/smooths.htm)。
 
-#### 2.5.2 jitter plot 与 boxplot <a name="2-5-2-jitter-plot-与-boxplot"></a>
+#### 2.5.2 jitter plot 与 boxplot
 
 When a set of data includes a categorical variable and one or more continuous variables, you will probably be interested to know how the values of the continuous variables vary with the levels of the categorical variable. Boxplots and jittered points offer two ways to do this.
 
@@ -357,7 +272,7 @@ qplot(color, price / carat, data = diamonds, geom = "jitter", alpha = I(1 / 200)
 
 Another way to look at conditional distributions is to use faceting to plot a separate histogram or density plot for each value of the categorical variable.
 
-#### 2.5.3 histogram 与 density plot <a name="2-5-3-histogram-与-density-plot"></a>
+#### 2.5.3 histogram 与 density plot
 
 Histogram and density plots show the distribution of a single variable. 
 
@@ -379,16 +294,16 @@ qplot(carat, data = diamonds, geom = "histogram", binwidth = 0.01, xlim = c(0,3)
 另外注意 histogram 的 $y$-axis 默认是 count，可以改成 density：
 
 ```r
-# histogram 默认情况是用 stat_bin 的 ..count.. 输出 
+# histogram 默认情况是用 stat_bin 的 ..count.. 输出
 qplot(x = carat, y = ..count.., data = diamonds, geom = "histogram")
 	## OR equivalently ##
 qplot(carat, ..count.., data = diamonds, geom = "histogram")
 
-# 可以改用 stat_bin 的 ..density.. 输出 
+# 可以改用 stat_bin 的 ..density.. 输出
 qplot(carat, ..density.., data = diamonds, geom = "histogram")
 ```
 
-#### 2.5.4 Bar charts <a name="2-5-4-Bar-charts"></a>
+#### 2.5.4 Bar charts
 
 1. 基本用法：对每一个 $x_i$，计算 $y_i = nrow(df[X == x_i,])$
 1. 扩展用法：对每一个 $x_i$，计算 $y_i = sum(df[X == x_i,]\\$foo)$
@@ -402,7 +317,7 @@ qplot(color, data = diamonds, geom = "bar", weight = x*y*z) + scale_y_continuous
 
 `scale_y_continuous` 表示 “我需要一个 continuous 的 $y$-axis”.
 
-#### 2.5.5 Time series with line and path plots <a name="2-5-5-Time-series-with-line-and-path-plots"></a>
+#### 2.5.5 Time series with line and path plots
 
 其实这两个图不一定非要用于 time series。简单来说，这两个图的画法就是：在 scatterplot $n$ 个 data point $p_1,\dots,p_n$ 的过程中，将 $p_1 \rightarrow p_2 \rightarrow \dots \rightarrow p_n$ 在坐标系内按顺序连起来。区别在于：
 
@@ -412,7 +327,7 @@ qplot(color, data = diamonds, geom = "bar", weight = x*y*z) + scale_y_continuous
 ```r
 qplot(carat, price, data = dsmall, geom = c("point", "line"))
 
-## Time Series using `ecnomics` dataset ## 
+## Time Series using `ecnomics` dataset ##
 qplot(date, unemploy / pop, data = economics, geom = "line") # unemploy / pop = unemployment rate
 qplot(date, uempmed, data = economics, geom = "line") # uempmed = median number of weeks unemployed
 
@@ -421,7 +336,7 @@ qplot(unemploy / pop, uempmed, data = economics, geom = c("point", "path"))
 qplot(unemploy / pop, uempmed, data = economics, geom = "path", colour = year(date)) + scale_area()
 ```
 
-### 2.6 分面 (facet) <a name="2-6-分面-facet"></a>
+### 2.6 分面 (facet)
 
 Faceting creates tables of graphics by splitting the data into subsets and displaying the same graph for each subset in an arrangement that facilitates comparison.
 
@@ -450,7 +365,7 @@ qplot(carat, data = diamonds, facets = . ~ color, geom = "histogram", binwidth =
 	- Grid Plot 1 是 $7 \times 1$ 排列
 	- Grid Plot 2 是 $1 \times 7$ 排列
 
-### 2.7 Other options for `qplot` <a name="2-7-Other-options-for-qplot"></a>
+### 2.7 Other options for `qplot`
 
 - `xlim = c(a,b)`: 必须是一个 length 2 vector，表示 "$x$-axis 只要画 `[a,b]` 这一段就好了"，如果 `[a,b]` 范围之外还有点或者线，直接截掉。一般是先在草图里确定了 $x$-axis 的有效范围后再指定
 	- `ylim = c(a,b)`: 同上
@@ -477,9 +392,9 @@ qplot(carat, price/carat, data = dsmall, xlab = "Weight (carats)", ylab = expres
 qplot(carat, price, data = dsmall, log = "xy")
 ```
 
-## 第三章 - 语法突破 <a name="第三章---语法突破"></a>
+## 第三章 - 语法突破
 
-### 3.2 mpg 数据集 <a name="3-2-mpg-数据集"></a>
+### 3.2 mpg 数据集
 
 这一章我们使用 `mpg` 这个 dataset：
 
@@ -503,7 +418,7 @@ qplot(carat, price, data = dsmall, log = "xy")
 	- `p`: premium
 	- `c`: CNG, Compressed Natural Gas 
 
-### 3.3 散点图绘制的详细过程 <a name="3-3-散点图绘制的详细过程"></a>
+### 3.3 散点图绘制的详细过程
 
 ```r
 qplot(displ, hwy, data = mpg, colour = factor(cyl))
@@ -534,13 +449,13 @@ But what is going on underneath the surface? How does ggplot2 draw this plot?
 		- 画 legends
 	- 最后添加 plot annotation，包括 background、title、axis labels 等等 
 
-### 3.4 更复杂的图形示例 <a name="3-4-更复杂的图形示例"></a>
+### 3.4 更复杂的图形示例
 
 ```r
 qplot(displ, hwy, data=mpg, facets = . ~ year) + geom_smooth()
 ```
 
-### 3.5 图层 (layer) 的组件 <a name="3-5-图层-layer-的组件"></a>
+### 3.5 图层 (layer) 的组件
 
 The layered grammar defines a plot as the combination of:
 
@@ -578,7 +493,7 @@ ggplot(mpg, aes(hwy, cty)) +        # data and mapping
 - Chapter 7: coordinate system + faceting
 - Chapter 8: plot-specific theme options
 
-### 3.6 ggplot 对象 <a name="3-6-ggplot-对象"></a>
+### 3.6 ggplot 对象
 
 A ggplot object is a list with components `data`, `mapping` (the default aesthetic mappings), `layers`, `scales` (functions carrying out `mapping`), `coordinates`, `facet` and `options`.
 
@@ -605,9 +520,9 @@ position_identity: (width = NULL, height = NULL)
 > ggsave("plot.png", width = 5, height = 5)	# Save png to disk
 ```
 
-## 第四章 - 用图层构建图像 <a name="第四章---用图层构建图像"></a>
+## 第四章 - 用图层构建图像
 
-### 4.2 创建 ggplot 对象 <a name="4-2-创建-ggplot-对象"></a>
+### 4.2 创建 ggplot 对象
 
 When we used `qplot()`, it did a lot of things for us: it created a ggplot object, added layers, and displayed the result, using many default values along the way. 
 
@@ -621,7 +536,7 @@ p <- ggplot(diamonds, aes(carat, price, colour = cut))
 
 This ggplot object cannot be displayed until we add a layer: there is nothing to see!
 
-### 4.3 添加图层 (layer) <a name="4-3-添加图层-layer"></a>
+### 4.3 添加图层 (layer)
 
 A minimal scatterplot layer:
 
@@ -678,7 +593,7 @@ qplot(awake, brainwt, data = msleep, log = "y") + bestfit
 qplot(bodywt, brainwt, data = msleep, log = "xy") + bestfit
 ```
 
-### 4.4 `ggplot(data=?)` 参数设置 <a name="4-4-ggplotdata=-参数设置"></a>
+### 4.4 `ggplot(data=?)` 参数设置
 
 The `data` parameter must be a data frame and this is the only restriction.
 
@@ -701,7 +616,7 @@ The `data` data frame is stored in the ggplot object **as a copy, not a referenc
 - if your data changes, the plot will not; 
 - and ggplot2 objects are entirely self-contained so that they can be `save()`d to disk and later `load()`ed and plotted without needing anything else from that session.
 
-### 4.5 `ggplot(mapping=aes(...))` 参数设置 <a name="4-5-ggplotmapping=aes----参数设置"></a>
+### 4.5 `ggplot(mapping=aes(...))` 参数设置
 
 The `aes` function takes a list of aesthetic-variable pairs like these:
 
@@ -715,7 +630,7 @@ Note that functions of variables can be used:
 aes(x = weight, y = height, colour = sqrt(age))
 ```
 
-#### 4.5.1 `aes` 的扩展、覆盖、移除 <a name="4-5-1-aes-的扩展、覆盖、移除"></a>
+#### 4.5.1 `aes` 的扩展、覆盖、移除
 
 The default aesthetic mappings can be set when the plot is initialised or modified later using `+`:
 
@@ -732,7 +647,7 @@ p + geom_point(aes(y = disp))		# override
 p + geom_point(aes(y = NULL))		# remove
 ```
 
-#### 4.5.2 图形属性：设定 (setting) 与映射 (mapping) 的区别 <a name="4-5-2-图形属性：设定-setting-与映射-mapping-的区别"></a>
+#### 4.5.2 图形属性：设定 (setting) 与映射 (mapping) 的区别
 
 注意 `aes` 是 "**map** an aesthetic to a variable"，不用 `aes` 的时候我们可以 "**set** an aesthetic to a constant":
 
@@ -753,7 +668,7 @@ qplot(mpg, wt, data = mtcars, colour = I("darkblue"))
 
 但是 we CANNOT use `aes(colour = I("darkblue"))`。
 
-#### 4.5.3 分组: `aes(group=?)` <a name="4-5-3-分组-aesgroup="></a>
+#### 4.5.3 分组: `aes(group=?)`
 
 We use `Oxboys` dataset in `nlme` library here for demostration. It records the heights (`height`) and centered ages (`age`) of 26 boys (`Subject`), measured on nine occasions (`Occasion`).
 
@@ -799,7 +714,7 @@ p + geom_smooth(aes(group = 1), method="lm", size = 2, se = F)
 
 注意，要画整个数据集的 smooth，我们要覆盖掉之前的 group 设定。这从另外一个角度说明，我们对不同的 layer，可以有不同的 group 设定。
 
-#### 4.5.4 匹配图形属性与图形对象 <a name="4-5-4-匹配图形属性与图形对象"></a>
+#### 4.5.4 匹配图形属性与图形对象
 
 Stacked bar chart:
 
@@ -807,7 +722,7 @@ Stacked bar chart:
 p <- ggplot(diamonds, aes(x = color, color=cut, fill=cut)) + geom_bar()
 ```
 
-### 4.6 几何对象 (geom) <a name="4-6-几何对象-geom"></a>
+### 4.6 几何对象 (geom)
 
 geom 列表：
 
@@ -881,7 +796,7 @@ geom aes 参数：
 | tile       | identity     | x, y                             | colour, fill, linetype, size                |
 | vline      | vline        |                                  | colour, linetype, size                      |
 
-### 4.7 统计变换 (stat) <a name="4-7-统计变换-stat"></a>
+### 4.7 统计变换 (stat)
 
 Every geom has a default stat, and every stat a default geom.
 
@@ -918,7 +833,7 @@ ggplot(diamonds, aes(carat)) +
 
 The names of generated variables must be surrounded with `..` when used.
 
-### 4.8 `geom_xxx(position=?)` 或 `stat_xxx(position=?)` 参数设置 <a name="4-8-geom-xxxposition=-或-stat-xxxposition=-参数设置"></a>
+### 4.8 `geom_xxx(position=?)` 或 `stat_xxx(position=?)` 参数设置
 
 | Position | Description                                                         | 描述                       |
 |----------|---------------------------------------------------------------------|----------------------------|
@@ -928,9 +843,9 @@ The names of generated variables must be surrounded with `..` when used.
 | jitter   | Jitter points to avoid overplotting                                 | 给 dots 添加扰动避免重合   |
 | stack    | Stack overlapping objects on top of one another                     | 堆叠元素                   |
 
-### 4.9 整合 <a name="4-9-整合"></a>
+### 4.9 整合
 
-#### 4.9.1 灵活使用 geom 与 stat <a name="4-9-1-灵活使用-geom-与-stat"></a>
+#### 4.9.1 灵活使用 geom 与 stat
 
 A number of the geoms available in ggplot2 were derived from other geoms.
 
@@ -944,41 +859,41 @@ A number of the geoms available in ggplot2 were derived from other geoms.
 | `geom_quantile`  | `geom_line(stat = "quantile")`                           |
 | `geom_smooth`    | `geom_ribbon(stat = "smooth")`                           |
 
-#### 4.9.2 统计量复用: `stat_identity()` <a name="4-9-2-统计量复用-stat-identity"></a>
+#### 4.9.2 统计量复用: `stat_identity()`
 
 如果你已经有变换过的数据，并且想再次使用，可以用 `stat_identity(geom=?)` 将原有的变化过的数据画到新的图层里。
 
-#### 4.9.3 不同图层可以使用不同的 `data=?`和 `mapping=aes(...)` 设置 <a name="4-9-3-不同图层可以使用不同的-data=和-mapping=aes----设置"></a>
+#### 4.9.3 不同图层可以使用不同的 `data=?`和 `mapping=aes(...)` 设置
 
 略
 
-## 第五章 - ggplot2 工具箱 <a name="第五章---ggplot2-工具箱"></a>
+## 第五章 - ggplot2 工具箱
 
-### 5.2 图层的分类 <a name="5-2-图层的分类"></a>
-
-略
-
-### 5.3 基本的 geom <a name="5-3-基本的-geom"></a>
+### 5.2 图层的分类
 
 略
 
-### 5.4 展示数据分布的 geom <a name="5-4-展示数据分布的-geom"></a>
+### 5.3 基本的 geom
 
 略
 
-### 5.5 处理遮盖 (overplotting) <a name="5-5-处理遮盖-overplotting"></a>
+### 5.4 展示数据分布的 geom
 
 略
 
-### 5.6 如何绘制曲面图 <a name="5-6-如何绘制曲面图"></a>
+### 5.5 处理遮盖 (overplotting)
 
 略
 
-### 5.7 如何绘制地图 <a name="5-7-如何绘制地图"></a>
+### 5.6 如何绘制曲面图
 
 略
 
-### 5.8 如何展示 uncertainty <a name="5-8-如何展示-uncertainty"></a>
+### 5.7 如何绘制地图
+
+略
+
+### 5.8 如何展示 uncertainty
 
 | 变量 $X$ 类型 | 仅展示区间       | 同时展现区间和中间值             |
 |---------------|------------------|----------------------------------|
@@ -986,7 +901,7 @@ A number of the geoms available in ggplot2 were derived from other geoms.
 | 离散型        | `geom_errorbar`  | `geom_crossbar`                  |
 |               | `geom_linerange` | `geom_pointrange`                |
 
-### 5.9 统计摘要: `stat_summary()` <a name="5-9-统计摘要-stat-summary"></a>
+### 5.9 统计摘要: `stat_summary()`
 
 参考：
 
@@ -1002,21 +917,21 @@ Summary functions from the `Hmisc` package that have special wrappers to make th
 | `mean_sdl()`       | `smean.sdl()`     | Mean   | Multiple of standard deviation           |
 | `median_hilow()`   | `smedian.hilow()` | Median | Outer quantiles with equal tail areas    |
 
-### 5.10 如何添加图形注解 (label, text, etc.) <a name="5-10-如何添加图形注解-label-text-etc-"></a>
+### 5.10 如何添加图形注解 (label, text, etc.)
 
 略。图例精彩，可参考。
 
-### 5.11 如何体现数据的 weight <a name="5-11-如何体现数据的-weight"></a>
+### 5.11 如何体现数据的 weight
 
 略
 
-## 第六章 - Scale, coord and legend <a name="第六章---Scale-coord-and-legend"></a>
+## 第六章 - Scale, coord and legend
 
-### 6.2 scale 的工作原理 <a name="6-2-scale-的工作原理"></a>
+### 6.2 scale 的工作原理
 
 略
 
-### 6.3 scale 的用法 <a name="6-3-scale-的用法"></a>
+### 6.3 scale 的用法
 
 See [Reference - Scales](http://ggplot2.tidyverse.org/reference/index.html#section-scales).
 
@@ -1024,9 +939,9 @@ All scale constructors have a common naming scheme. They start with `scale_`, fo
 
 To change the default scales, use `set_default_scale()`.
 
-### 6.4 scale 详解 <a name="6-4-scale-详解"></a>
+### 6.4 scale 详解
 
-#### 6.4.1 `scale_*_*(name=?)` 与 `labs()` <a name="6-4-1-scale-*-*name=-与-labs"></a>
+#### 6.4.1 `scale_*_*(name=?)` 与 `labs()`
 
 设置 axis (比如 `scale_x_*`) 或者 legend (比如 `scale_color_*`) 上出现的标签。
 
@@ -1052,7 +967,7 @@ p + labs(title = "New plot title")
 p + labs(caption = "(based on data from ...)")  # 加在 plot 的右下方
 ```
 
-#### 6.4.2 `scale_x_*(limits=?, breaks=?, labels=?)` 与 formatter <a name="6-4-2-scale-x-*limits=-breaks=-labels=-与-formatter"></a>
+#### 6.4.2 `scale_x_*(limits=?, breaks=?, labels=?)` 与 formatter
 
 以 $x$-axis 为例：
 
@@ -1070,9 +985,9 @@ p + labs(caption = "(based on data from ...)")  # 加在 plot 的右下方
 
 ```r
 library(scales)
-# Format labels as percents 
+# Format labels as percents
 p + scale_x_continuous(labels = percent)
-# Format labels as scientific 
+# Format labels as scientific
 p + scale_x_continuous(labels = scientific)
 ```
 
@@ -1109,7 +1024,7 @@ qplot(carat, price, data = diamonds) + scale_x_log10() + scale_y_log10()
 qplot(log10(carat), log10(price), data = diamonds)
 ```
 
-#### 6.4.3 `scale_colour_*` 与 `scale_fill_*` <a name="6-4-3-scale-colour-*-与-scale-fill-*"></a>
+#### 6.4.3 `scale_colour_*` 与 `scale_fill_*`
 
 连续型：颜色梯度，即渐变色
 
@@ -1130,7 +1045,7 @@ qplot(log10(carat), log10(price), data = diamonds)
 		- `scale_fill_manual(values = c("red", "yellow", "green"))` 或者
 		- `scale_fill_manual(values = c(f = "red", "1" = "yellow", r = "green"))`
 
-#### 6.4.4 `scale_*_manual` <a name="6-4-4-scale-*-manual"></a>
+#### 6.4.4 `scale_*_manual`
 
 注意书上这个例子不错：
 
@@ -1142,12 +1057,12 @@ ggplot(huron, aes(year))
 	+ geom_line(aes(y = level - 5), colour = "blue")
 	+ geom_line(aes(y = level + 5), colour = "red")
 
-# 有 legend 但是 label 和颜色都不对 
+# 有 legend 但是 label 和颜色都不对
 ggplot(huron, aes(year))
 	+ geom_line(aes(y = level - 5, colour = "below"))
 	+ geom_line(aes(y = level + 5, colour = "above"))
 
-# 有正确的 legend 和颜色 
+# 有正确的 legend 和颜色
 ggplot(huron, aes(year))
 	+ geom_line(aes(y = level - 5, colour = "below")) +
 	+ geom_line(aes(y = level + 5, colour = "above")) +
@@ -1156,26 +1071,26 @@ ggplot(huron, aes(year))
 
 注意最后这个例子里，`color` 是在 `aes` 里面的，所以第一条 line 的颜色是映射到常量 `"below"` 的，然后 `"below"` 在 scale 中映射到颜色 `"blue"`。这里明显不能用 `I("below")`。
 
-#### 6.4.5 `scale_*_identity` <a name="6-4-5-scale-*-identity"></a>
+#### 6.4.5 `scale_*_identity`
 
 略
 
-### 6.5 legend and axis <a name="6-5-legend-and-axis"></a>
+### 6.5 legend and axis
 
 The theme settings `axis.*` and `legend.*` control the visual appearance of axes and legends. See Section 8.1.
 
 调整 legend 的位置：
 
 ```r
-# get rid of the legend 
+# get rid of the legend
 p + theme(legend.position = 'none')
 
-# Put legend outside the plotting area 
-# On left, right, top or bottom margin 
+# Put legend outside the plotting area
+# On left, right, top or bottom margin
 p + theme(legend.position = 'left')
 
-# Put legend inside the plotting area 
-# 放到左下角 
+# Put legend inside the plotting area
+# 放到左下角
 p + theme(legend.justification = c(0, 0), legend.position = c(0, 0))
 ```
 
@@ -1206,9 +1121,9 @@ plot + theme(legend.justification = c(.1, .1), legend.position = c(0, 0),
 
 ![][6-5-legend-position]
 
-## 第七章 - Facet and coord system <a name="第七章---Facet-and-coord-system"></a>
+## 第七章 - Facet and coord system
 
-### 7.2 分面 (facet) <a name="7-2-分面-facet"></a>
+### 7.2 分面 (facet)
 
 两种分面方式：
 
@@ -1218,19 +1133,19 @@ plot + theme(legend.justification = c(.1, .1), legend.position = c(0, 0),
 
 默认不使用分面的效果是 `facet_null()`。
 
-#### 7.2.1 `facet_grid` <a name="7-2-1-facet-grid"></a>
+#### 7.2.1 `facet_grid`
 
 formula 参 2.6
 
 另外可以使用 `facet_grid(margins=TRUE)` 来添加 marginal 统计列和统计行
 
-#### 7.2.2 `facet_wrap` <a name="7-2-2-facet-wrap"></a>
+#### 7.2.2 `facet_wrap`
 
 formula 是 ` ~ x` (没有 `.` placeholder) 或者 ` ~ x + y + ...`。
 
 比如 ` ~ x + y` 且 $\vert X \vert = m, \vert Y \vert = n$，则一共有 $m \times n$ 个 panel，然后按 `nrow` 或者 `ncol` 排列
 
-#### 7.2.3 `facet_*(scales=?, space=?)` 参数设置 <a name="7-2-3-facet-*scales=-space=-参数设置"></a>
+#### 7.2.3 `facet_*(scales=?, space=?)` 参数设置
 
 对于 `facet_wrap`:
 
@@ -1272,23 +1187,23 @@ models + facet_grid(manufacturer ~ ., scales = "free", space = "free")
        + theme(strip.text.y = element_text(angle=0))  # 右侧的 facet label (mpg3$manufacturer)，默认是竖排的，改成横排
 ```
 
-#### 7.2.4 如果某个图层的 data 没有 formula 指定的变量 <a name="7-2-4-如果某个图层的-data-没有-formula-指定的变量"></a>
+#### 7.2.4 如果某个图层的 data 没有 formula 指定的变量
 
 略
 
-#### 7.2.5 `aes(group=?)` vs faceting <a name="7-2-5-aesgroup=-vs-faceting"></a>
+#### 7.2.5 `aes(group=?)` vs faceting
 
 When using `aes(group=?)`, the groups are close together and may overlap, but small differences are easier to see.
 
 略
 
-#### 7.2.6 `geom_*(position="dodge")` vs faceting <a name="7-2-6-geom-*position="dodge"-vs-faceting"></a>
+#### 7.2.6 `geom_*(position="dodge")` vs faceting
 
 Faceting is more useful as we can control whether the splitting is local (`scales = "free_x", space = "free"`) or global (`scales = "fixed"`).
 
 略
 
-#### 7.2.7 如何处理连续型的 facet variable <a name="7-2-7-如何处理连续型的-facet-variable"></a>
+#### 7.2.7 如何处理连续型的 facet variable
 
 - `cut_interval(x, n = 10)`: 将 $x$ 分入 $n$ 个 bin，每个 bin 的长度都是 $\frac{\operatorname{max}(x) - \operatorname{min}(x)}{n}$
 - `cut_interval(x, length = 1)`: 将 $x$ 分入若干个 bin，每个 bin 的长度都是 1
@@ -1325,17 +1240,17 @@ plot + facet_wrap(~ disp_wn, nrow = 1)
 plot + facet_wrap(~ disp_nn, nrow = 1)
 ```
 
-### 7.3 Coord system <a name="7-3-Coord-system"></a>
+### 7.3 Coord system
 
-#### 7.3.1 坐标系变换 <a name="7-3-1-坐标系变换"></a>
-
-略
-
-#### 7.3.2 stat 依赖于坐标系 <a name="7-3-2-stat-依赖于坐标系"></a>
+#### 7.3.1 坐标系变换
 
 略
 
-#### 7.3.3 Cartesian 坐标系 <a name="7-3-3-Cartesian-坐标系"></a>
+#### 7.3.2 stat 依赖于坐标系
+
+略
+
+#### 7.3.3 Cartesian 坐标系
 
 There are 4 Cartesian-based coordinate systems:
 
@@ -1357,15 +1272,15 @@ There are 4 Cartesian-based coordinate systems:
 
 更多内容参考书上。
 
-#### 7.3.4 Non-Cartesian 坐标系 <a name="7-3-4-Non-Cartesian-坐标系"></a>
+#### 7.3.4 Non-Cartesian 坐标系
 
 略
 
-## 第八章 - Polishing your plots for publication <a name="第八章---Polishing-your-plots-for-publication"></a>
+## 第八章 - Polishing your plots for publication
 
-### 8.1 主题 (theme) <a name="8-1-主题-theme"></a>
+### 8.1 主题 (theme)
 
-#### 8.1.1 内置主题 <a name="8-1-1-内置主题"></a>
+#### 8.1.1 内置主题
 
 - `theme_gray()`：默认主题。淡灰色背景 + 白色网格线
 - `theme_bw()`：白色背景 + 深灰色网格线
@@ -1388,7 +1303,7 @@ theme_set(previous_theme)  # 恢复原有主题
 p + theme_bw()
 ```
 
-#### 8.1.2 主题元素的设置 <a name="8-1-2-主题元素的设置"></a>
+#### 8.1.2 主题元素的设置
 
 参 [Modify components of a theme](http://ggplot2.tidyverse.org/reference/theme.html)。
 
@@ -1396,11 +1311,11 @@ p + theme_bw()
 
 注意主题是样式的修改，不涉及内容的修改。比如 `element_text` 就只能修改 label 的样式 (比如 font、size 之类)，而无法设置 label 的内容（你必须用 `labs()`）。
 
-### 8.2 自定义 scale 和 geom <a name="8-2-自定义-scale-和-geom"></a>
+### 8.2 自定义 scale 和 geom
 
 略
 
-### 8.3 保存作图到文件 <a name="8-3-保存作图到文件"></a>
+### 8.3 保存作图到文件
 
 往大了说，图片有两种存储类型：
 
@@ -1432,7 +1347,7 @@ Recommended graphics device:
 - pdflatex: pdf, png (600 dpi)
 - web: png (72 dpi)
 
-### 8.4 多图排列 <a name="8-4-多图排列"></a>
+### 8.4 多图排列
 
 略。需要的时候再查。
 
@@ -1441,11 +1356,11 @@ Recommended graphics device:
 - [Multiple graphs on one page (ggplot2)](http://www.cookbook-r.com/Graphs/Multiple_graphs_on_one_page_(ggplot2)/)
 - [Multiple plots on a page](http://stat545.com/block020_multiple-plots-on-a-page.html)
 
-## 第九章 - Data Manipulation <a name="第九章---Data-Manipulation"></a>
+## 第九章 - Data Manipulation
 
 略
 
-## 第十章 - 减少重复性的工作 <a name="第十章---减少重复性的工作"></a>
+## 第十章 - 减少重复性的工作
 
 只说一点：如果是设计一个函数去包括一系列的绘图操作，且允许用户输入变量名时，可以用 `aes_string` 代替 `aes`，他们本质是一样，只是 `aes_string` 接收的字符串：
 
