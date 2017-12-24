@@ -1394,7 +1394,7 @@ p + theme_bw()
 
 另外 `theme_update()` 可以修改当前主题的单个元素。
 
-注意主题是样式的修改，不涉及内容的修改。比如 `element_text` 就只能修改 label 的样式 (比如 font、size 之类)，而无法设置 label 的内容（你必须用 `labs()`）。
+注意主题是样式的修改，不涉及内容的修改。比如 `element_text` 就只能修改 label 的样式 (比如 font、size 之类)，而无法设置 label 的内容 (你必须用 `labs()`)。
 
 ### 8.2 自定义 scale 和 geom <a name="8-2-自定义-scale-和-geom"></a>
 
