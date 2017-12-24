@@ -60,7 +60,7 @@ tags: [R-101, Book]
 	- [5.9 统计摘要: `stat_summary()`](#5-9-统计摘要-stat-summary)
 	- [5.10 如何添加图形注解 (label, text, etc.)](#5-10-如何添加图形注解-label-text-etc-)
 	- [5.11 如何体现数据的 weight](#5-11-如何体现数据的-weight)
-- [第六章 - Scale, coord and legend](#第六章---Scale-coord-and-legend)
+- [第六章 - Scale, axis and legend](#第六章---Scale-axis-and-legend)
 	- [6.2 scale 的工作原理](#6-2-scale-的工作原理)
 	- [6.3 scale 的用法](#6-3-scale-的用法)
 	- [6.4 scale 详解](#6-4-scale-详解)
@@ -1010,7 +1010,7 @@ Summary functions from the `Hmisc` package that have special wrappers to make th
 
 略
 
-## 第六章 - Scale, coord and legend <a name="第六章---Scale-coord-and-legend"></a>
+## 第六章 - Scale, axis and legend <a name="第六章---Scale-axis-and-legend"></a>
 
 ### 6.2 scale 的工作原理 <a name="6-2-scale-的工作原理"></a>
 
