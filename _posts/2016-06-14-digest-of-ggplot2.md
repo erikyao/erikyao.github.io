@@ -1388,6 +1388,8 @@ theme_set(previous_theme)  # 恢复原有主题
 p + theme_bw()
 ```
 
+注：第三方的主题可以用 `ggthemr` package；参考 [The ggthemr package – Theme and colour your ggplot figures](https://www.shanelynn.ie/themes-and-colours-for-r-ggplots-with-ggthemr/)
+
 #### 8.1.2 主题元素的设置 <a name="8-1-2-主题元素的设置"></a>
 
 参 [Modify components of a theme](http://ggplot2.tidyverse.org/reference/theme.html)。
