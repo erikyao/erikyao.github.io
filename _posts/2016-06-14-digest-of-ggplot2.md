@@ -922,7 +922,7 @@ The names of generated variables must be surrounded with `..` when used.
 
 | Position | Description                                                         | 描述                       |
 |----------|---------------------------------------------------------------------|----------------------------|
-| dodge    | Descriptionodging overlaps to the side                              | 避免重叠，并排放置         |
+| dodge    | Dodging overlaps to the side                                        | 避免重叠，并排放置         |
 | fill     | Stack overlapping objects and standardise them to have equal height | 堆叠元素并将高度标准化为 1 |
 | identity | No position adjustment                                              |                            |
 | jitter   | Jitter points to avoid overplotting                                 | 给 dots 添加扰动避免重合   |
