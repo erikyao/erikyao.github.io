@@ -142,7 +142,7 @@ It is also important to talk about what the grammar doesn’t do:
 
 ### 1.4 How does ggplot2 fit in with other R graphics? <a name="1-4-How-does-ggplot2-fit-in-with-other-R-graphics"></a>
 
-- Base graphics has a pen on paper model: you can only draw on top of the plot, you cannot modify or delete existing content.
+- Base graphics has a pen-on-paper model: you can only draw on top of the plot, you cannot modify or delete existing content.
 - Grid graphics have a system of viewports (each containing its own coordinate system) that makes it easier to lay out complex graphics.
 - The `lattice` package uses grid graphics to implement the trellis graphics system and is a considerable improvement over base graphics. 
 	- However, lattice graphics lacks a formal model, which can make it hard to extend.
@@ -220,7 +220,7 @@ qplot(carat, price, data = dsmall, colour = "blue")		# (2)
 - (2) 句的 `"blue"` 有被 interpret，所以所有的 data point 显示出来的是……浅红色
 	- 这个浅红色其实是 `colour = color` 的 legend 的第一个颜色
 	
-For large datasets, like the diamonds data, semitransparent points are often useful to alleviate some of the overplotting. To make a semi-transparent colour you can use the `alpha` aesthetic, which takes a value between 0 (completely transparent) and 1 (complete opaque). It’s often useful to specify the transparency as a fraction, e.g., `1/10` or `1/20`, as the denominator specifies the number of points that must overplot to get a completely opaque colour.
+For large datasets, like the diamonds data, semi-transparent points are often useful to alleviate some of the overplotting. To make a semi-transparent colour you can use the `alpha` aesthetic, which takes a value between 0 (completely transparent) and 1 (complete opaque). It’s often useful to specify the transparency as a fraction, e.g., `1/10` or `1/20`, as the denominator specifies the number of points that must overplot to get a completely opaque colour.
 
 ```r
 qplot(carat, price, data = diamonds, alpha = I(1/10))
@@ -1449,7 +1449,7 @@ Recommended graphics device:
 
 ## 第十章 - 减少重复性的工作 <a name="第十章---减少重复性的工作"></a>
 
-只说一点：如果是设计一个函数去包括一系列的绘图操作，且允许用户输入变量名时，可以用 `aes_string` 代替 `aes`，他们本质是一样，只是 `aes_string` 接收的字符串：
+只说一点：如果是设计一个函数去包括一系列的绘图操作，且允许用户输入变量名时，可以用 `aes_string` 代替 `aes`，他们本质是一样，只是 `aes_string` 接收的是字符串：
 
 ```r
 aes_string("cty", colour = "hwy") 
