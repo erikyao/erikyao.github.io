@@ -123,7 +123,7 @@ $$
 \end{equation}
 $$
 
-The left-hand side is called the log-odds or logit. We see that the logistic regression model $ (\ref{eq3.2}) $ has a logit that is linear in X.
+The left-hand side is called the **log-odds** or **logit**. We see that the logistic regression model $ (\ref{eq3.2}) $ has a logit that is linear in X.
 
 Therefore increasing $ X $ by one unit changes the log odds by $ \beta_1 $, or equivalently it multiplies the odds by $ e^{\beta_1} $.
 
@@ -202,9 +202,9 @@ Logistic Regression 是直接求的 $ Pr(Y=k \vert X=x) $ (model the conditional
 
 Suppose that we wish to classify an observation into one of $ K $ classes, where $ K \geq 2 $.
 
-Let $ \pi_k $ represent the overall or **prior** probability that a randomly chosen observation comes from the k^th class, i.e. $ \pi_k = Pr(Y=k) $.
+Let $ \pi_k $ represent the overall or **prior** probability that a randomly chosen observation comes from the $k^{\text{th}}$ class, i.e. $ \pi_k = Pr(Y=k) $.
 
-Let $ f_k(X) \equiv Pr(X = x \vert Y = k) $ denote the **density function** of $ X $ for an observation that comes from the k^th class. In other words, $ f_k(X) $ is relatively large if there is a high probability that an observation in the k^th class has $ X \approx x $, and $ f_k(X) $ is small if it is very unlikely that an observation in the k^th class has $ X \approx x $.
+Let $ f_k(X) \equiv Pr(X = x \vert Y = k) $ denote the **density function** of $ X $ for an observation that comes from the $k^{\text{th}}$ class. In other words, $ f_k(X) $ is relatively large if there is a high probability that an observation in the $k^{\text{th}}$ class has $ X \approx x $, and $ f_k(X) $ is small if it is very unlikely that an observation in the $k^{\text{th}}$ class has $ X \approx x $.
 
 Then Bayes' theorem states that
 
@@ -215,28 +215,28 @@ $$
 \end{equation}
 $$
 
-In accordance with our earlier notation, we will use the abbreviation $ p_k(X) = Pr(Y = k \vert X) $. We refer to $ p_k(X) $ as the **posterior** probability that an observation $ X = x $ belongs to the k^th class. That is, it is the probability that the observation belongs to the k^th class, given the predictor value for that observation.
+In accordance with our earlier notation, we will use the abbreviation $ p_k(X) = Pr(Y = k \vert X) $. We refer to $ p_k(X) $ as the **posterior** probability that an observation $ X = x $ belongs to the $k^{\text{th}}$ class. That is, it is the probability that the observation belongs to the $k^{\text{th}}$ class, given the predictor value for that observation.
 
-In general, estimating $ \pi_k $ is easy if we have a random sample of $Y $s from the population: we simply compute the fraction of the training observations that belong to the k^th class. However, estimating $ f_k(X) $ tends to be more challenging, unless we assume some simple forms for these densities. If we can find a way to estimate $ f_k(X) $, then we can develop a classifier that approximates the Bayes classifier. Such an approach is the topic of the following sections.
+In general, estimating $ \pi_k $ is easy if we have a random sample of $Y $s from the population: we simply compute the fraction of the training observations that belong to the $k^{\text{th}}$ class. However, estimating $ f_k(X) $ tends to be more challenging, unless we assume some simple forms for these densities. If we can find a way to estimate $ f_k(X) $, then we can develop a classifier that approximates the Bayes classifier. Such an approach is the topic of the following sections.
 
-### <a name="LDA-p-eq-1"></a>4.2 Linear Discriminant Analysis for p = 1
+### <a name="LDA-p-eq-1"></a>4.2 Linear Discriminant Analysis for $p = 1$
 
 P139-142。这公式搬过来我手就要断了……
 
 简单说就是为了 estimate $ f_k(X) $ 做了两点 assumption：
 
 1. Assume that $ f_k(x) $ is normal or Gaussian
-2. Let $ \sigma_k^2 $ be the variance parameter for the k^th class. Then assume $ \sigma_1^2 = \cdots = \sigma_K^2 $
+2. Let $ \sigma_k^2 $ be the variance parameter for the $k^{\text{th}}$ class. Then assume $ \sigma_1^2 = \cdots = \sigma_K^2 $
 
-然后不停地套公式，用 estimate 代替 paramter……
+然后不停地套公式，用 estimate 代替 parameter……
 
-### <a name="LDA-p-gt-1"></a>4.3 Linear Discriminant Analysis for p > 1
+### <a name="LDA-p-gt-1"></a>4.3 Linear Discriminant Analysis for $p > 1$
 
 We now extend the LDA classifier to the case of multiple predictors. To do this, we will assume that $ X = (X_1, X_2, \cdots, X_p) $ is drawn from a multivariate Gaussian (or multivariate normal) distribution, with a class-specific mean vector and a common covariance matrix.
 
 The multivariate Gaussian distribution assumes that each individual predictor follows a one-dimensional normal distribution, with some correlation between each pair of predictors.
 
-P142 起先是介绍了下啥是 multivariate Gaussian distribution，然后又是不停地套公式，用 estimate 代替 paramter……
+P142 起先是介绍了下啥是 multivariate Gaussian distribution，然后又是不停地套公式，用 estimate 代替 parameter……
 
 P145 起又是 True Positive、Sensitivity 那一套，就不赘述了。
 
@@ -253,8 +253,7 @@ P145 结尾解释了 why may LDA have a low sensitivity sometimes：
 * $ P(+ \vert D) = Sensitivity $ 上升
 * $ P(- \vert D^c) = Specificity $ 下降
 
-所以这是一个 trade-off。How can we decide which threshold value is
-best? Such a decision must be based on _domain knowledge_.
+所以这是一个 trade-off。How can we decide which threshold value is best? Such a decision must be based on _domain knowledge_.
 
 The **ROC curve** is a popular graphic for simultaneously displaying the TP and FP rate for all possible thresholds. The name "ROC" is historic, and comes from communications theory. It is an acronym for _receiver operating characteristics_.
 
@@ -266,7 +265,7 @@ The overall performance of a classifier, summarized over all possible thresholds
 
 ### <a name="QDA"></a>4.4 Quadratic Discriminant Analysis
 
-LDA assumes that the observations within each class are drawn from a multivariate Gaussian distribution with a classspecific mean vector and a covariance matrix that is common to all $ K $ classes.
+LDA assumes that the observations within each class are drawn from a multivariate Gaussian distribution with a class-specific mean vector and a covariance matrix that is common to all $ K $ classes.
 
 Like LDA, the QDA classifier results from assuming that the observations from each class are drawn from a Gaussian distribution, and plugging estimates for the parameters into Bayes’ theorem in order to perform prediction.
 
@@ -290,8 +289,7 @@ KNN:
 
 * a completely non-parametric approach
 * no assumptions are made about the shape of the decision boundary.
-* We can expect this approach to dominate LDA and logistic regression
-when the decision boundary is highly non-linear.
+* We can expect this approach to dominate LDA and logistic regression when the decision boundary is highly non-linear.
 * On the other hand, KNN does not tell us which predictors are important; we don't get a table of coefficients out of KNN.
 
 QDA:
@@ -443,13 +441,12 @@ It also provides the group means; these are the average of each predictor within
 
 The _coefficients of linear discriminants_ output provides the linear combination of Lag1 and Lag2 that are used to form the LDA decision rule, i.e $ (-0.642*Lag1) + (-0.514*Lag2) $.
 
-The `plot()` function produces plots of the **linear discriminants**, obtained by computing $ (-0.642*Lag1) + (-0.514*Lag2) $ for each of the training observations.
+The `plot()` function produces plots of the **linear discriminants**, obtained by computing $ (-0.642 \times Lag1) + (-0.514 \times Lag2) $ for each of the training observations.
 
 The `predict()` function returns a list with three elements.
 
 * `class`, contains LDA’s predictions.
-* `posterior`, is a matrix whose k^th column contains the posterior probability that the corresponding observation belongs to the k^th
-class, i.e the $ p_k(X) = Pr(Y = k \vert X = x) $.
+* `posterior`, is a matrix whose $k^{\text{th}}$ column contains the posterior probability that the corresponding observation belongs to the $k^{\text{th}}$ class, i.e the $ p_k(X) = Pr(Y = k \vert X = x) $.
 * `x`, contains the linear discriminants.
 
 <!-- -->
