@@ -10,9 +10,9 @@ tags: []
 需要注意的是：one-hot encoding 应该是 binary encoding 的特殊情况。one-hot 的意思就是：只有一个 bit 是高位（1）；类似还有 one-cold encoding
 
 ```python
-from sklearn.preprocessing import LabelEncoder, OneHotEncoder
-import pandas as pd
 import numpy as np
+import pandas as pd
+from sklearn.preprocessing import LabelEncoder, OneHotEncoder
 
 
 def binary_encode(dfm, cat_col_name, cat_col_sep, new_col_prefix=None, integrate=False):
@@ -42,8 +42,15 @@ def binary_encode(dfm, cat_col_name, cat_col_sep, new_col_prefix=None, integrate
         tfName               tf_ARID3A   tf_ATF1  tf_ATF2
         ARID3A,ATF1,ATF2  =>     1           1        1
         ARID3A                   1           0        0
+
+    It could handle NaN values. E.g.
+
+        tfName               tf_ARID3A   tf_ATF1  tf_ATF2
+        ARID3A,ATF1,ATF2         1           1        1
+        ARID3A            =>     1           0        0
+        NaN                      0           0        0
     """
-    encoded = dfm.loc[:, cat_col_name].str.get_dummies(sep=cat_col_sep)
+    encoded = dfm.loc[:, cat_col_name].str.get_dummies(sep=cat_col_sep)  # dfm's index is kept
 
     if new_col_prefix is not None:
         # Add a prefix to all column names
@@ -103,7 +110,7 @@ def one_hot_encode(dfm, cat_col_name, new_col_prefix=None, integrate=False):
 
     `le.classes_` stores the original categorical values; it would be ['A', 'C', 'G', 'T'] in the example.
     """
-    ohe_data = pd.DataFrame(data=ohe_data, columns=le.classes_)
+    ohe_data = pd.DataFrame(data=ohe_data, columns=le.classes_, index=dfm.index)
 
     if new_col_prefix is not None:
         # Add a prefix to all column names
