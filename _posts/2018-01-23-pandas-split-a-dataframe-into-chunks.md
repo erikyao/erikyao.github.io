@@ -26,7 +26,7 @@ Introduce [`np.split(ary, indices_or_sections, axis=0)`](https://docs.scipy.org/
 
 > If `indices_or_sections` is a 1-D array of sorted integers, the entries indicate where along axis the array is split. For example, `[2, 3]` would, for `axis=0`, result in `[ary[:2], ary[2:3], ary[3:]]`.
 
-First we define a function to generate such a `indices_or_sections` based on the DataFrame's size and the chunk's size:
+First we define a function to generate such a `indices_or_sections` based on the DataFrame's number of rows and the chunk size:
 
 ```python
 def index_marks(nrows, chunk_size):
@@ -39,7 +39,7 @@ print("Marks: {}".format(indices))
 #   Marks: [100, 200, 300, 400, 500]
 ```
 
-So here we are going to cut `dfm` into a list of sub DataFrames, `[ dfm[0:100], dfm[100:200], dfm[200:300], dfm[300:400], dfm[400:500], dfm[500:569] ]`.
+So here we are going to cut `dfm` into a list of sub DataFrames, `[dfm[0:100], dfm[100:200], dfm[200:300], dfm[300:400], dfm[400:500], dfm[500:569]]`.
 
 ```python
 import numpy as np
