@@ -46,7 +46,7 @@ From the output we can see that:
 
 -----
 
-Update: Thanks to Iuliana Ionita-Laza, `zcat` is a better command. It works directly on `.bgz` files.
+Update: Thanks to _Iuliana Ionita-Laza_, `zcat` is a better command. It works directly on `.bgz` files.
 
 ```bash
 Erik:Downloads$ zcat Eigen_hg19_noncoding_annot_chr21.tab.bgz | head -n1
