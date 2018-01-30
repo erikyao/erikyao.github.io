@@ -43,3 +43,13 @@ From the output we can see that:
 - `Eigen-phred` the 31st  
 - `Eigen-PC-raw` the 32nd
 - `Eigen-PC-phred` the 33rd
+
+-----
+
+Update: Thanks to Iuliana Ionita-Laza, `zcat` is a better command. It works directly on `.bgz` files.
+
+```bash
+Erik:Downloads$ zcat Eigen_hg19_noncoding_annot_chr21.tab.bgz | head -n1
+chr  position  ref  alt  GERP_NR  GERP_RS  PhyloPri  PhyloPla  PhyloVer  PhastPri  PhastPla  PhastVer  H3K4Me1  H3K4Me3  H3K27ac  TFBS_max  TFBS_sum  TFBS_num  OCPval  DnaseSig  DnasePval  FaireSig  FairePval  PolIISig  PolIIPval  ctcfSig  ctcfPval  cmycSig  cmycPval  Eigen-raw  Eigen-phred  Eigen-PC-raw  Eigen-PC-phred
+```
+
