@@ -43,6 +43,6 @@ for name, param in six.iteritems(new_object_params):
 init = getattr(cls.__init__, 'deprecated_original', cls.__init__)
 ```
 
-So basically what you list in your estimator's `__init__` will be DEEP copied. Once I initialized my estimator with a 6GB matrix and run `cross_validate(n_jobs = 10)`...My workstation exploded that day.
+So basically what you list in your estimator's `__init__` signature will be DEEP copied. Once I initialized my estimator with a 6GB matrix and run `cross_validate(n_jobs = 10)`...My workstation exploded that day.
 
 If possible, put all those heavy parameters to your `fit` method. Afterall, we can call `cross_validate(n_jobs > 1, fit_params=kwargs)`.
