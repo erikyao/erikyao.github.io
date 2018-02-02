@@ -46,3 +46,12 @@ init = getattr(cls.__init__, 'deprecated_original', cls.__init__)
 So basically what you list in your estimator's `__init__` signature will be DEEP copied. Once I initialized my estimator with a 6GB matrix and run `cross_validate(n_jobs = 10)`...My workstation exploded that day.
 
 If possible, put all those heavy parameters to your `fit` method. Afterall, we can call `cross_validate(n_jobs > 1, fit_params=kwargs)`.
+
+-----
+
+Update: It's not enough. `fit_params` will be copied as well!
+
+Solution: `numpy.memmap`. See discussions:
+
+- [scikit-learn joblib bug: multiprocessing pool self.value out of range for 'i' format code, only with large numpy arrays](https://stackoverflow.com/a/24411581)
+- [Working with numerical data in shared memory (memmaping)](https://pythonhosted.org/joblib/parallel.html#working-with-numerical-data-in-shared-memory-memmaping)
