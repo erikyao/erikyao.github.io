@@ -1226,9 +1226,9 @@ formula 参 2.6
 
 #### 7.2.2 `facet_wrap` <a name="7-2-2-facet-wrap"></a>
 
-formula 是 ` ~ x` (没有 `.` placeholder) 或者 ` ~ x + y + ...`。
+formula 是 `~ x` (没有 `.` placeholder) 或者 `~ x + y + ...`。
 
-比如 ` ~ x + y` 且 $\vert X \vert = m, \vert Y \vert = n$，则一共有 $m \times n$ 个 panel，然后按 `nrow` 或者 `ncol` 排列
+比如 `~ x + y` 且 $\vert X \vert = m, \vert Y \vert = n$，则一共有 $m \times n$ 个 panel，然后按 `nrow` 或者 `ncol` 排列
 
 #### 7.2.3 `facet_*(scales=?, space=?)` 参数设置 <a name="7-2-3-facet-*scales=-space=-参数设置"></a>
 
