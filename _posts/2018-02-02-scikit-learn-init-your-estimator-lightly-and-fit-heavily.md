@@ -49,9 +49,24 @@ If possible, put all those heavy parameters to your `fit` method. Afterall, we c
 
 -----
 
-Update: It's not enough. `fit_params` will be copied as well!
+Update: <del>It's not enough. `fit_params` will be copied as well!</del>
 
 Solution: `numpy.memmap`. See discussions:
 
 - [scikit-learn joblib bug: multiprocessing pool self.value out of range for 'i' format code, only with large numpy arrays](https://stackoverflow.com/a/24411581)
 - [Working with numerical data in shared memory (memmaping)](https://pythonhosted.org/joblib/parallel.html#working-with-numerical-data-in-shared-memory-memmaping)
+
+-----
+
+Update: Objects in `fit_params` won't be copied, only references of them will be. By default, `sklearn.externals.joblib.Parallel` uses `MultiprocessingBackend`, so there would be $n$ `python3` **processes** in the background. However, my ubuntu task manager shown that each `python3` process had taken a big chunk of memory while the total memory usage had not boomed. It looked like each process copied the parameter objects.
+
+On the other hand, a *memory map* is like an in-memory index of its `.joblib` file (and it's much smaller!). The memory map will be read first to determine the index of data, then the corresponding positions of the `.joblib` file will be accessed.
+
+The `mmap_mode` parameter of `joblib.load(filename, mmap_mode)` actually means:
+
+- If `None`, **do not use memory mapping**
+- If not `None`, use memory mapping with the mode of `mmap_mode`. Available modes are the the same with [`numpy.memmap`](https://docs.scipy.org/doc/numpy/reference/generated/numpy.memmap.html):
+    - `'r'`: Open existing file for reading only.
+    - `'r+'`: Open existing file for reading and writing.
+    - `'w+'`: Create or overwrite existing file for reading and writing.
+    - `'c'`: Copy-on-write: assignments affect data in memory, but changes are not saved to disk. The file on disk is read-only.
