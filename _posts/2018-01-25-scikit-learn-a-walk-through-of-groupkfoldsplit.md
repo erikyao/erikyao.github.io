@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "scikit-learn: A walk through of GroupKFold.split()"
+title: "scikit-learn: A walk through of <i>GroupKFold.split()</i>"
 description: ""
 category: sklearn
 tags: [cross-validation, np.unique]
