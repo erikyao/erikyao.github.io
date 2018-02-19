@@ -60,7 +60,7 @@ Solution: `numpy.memmap`. See discussions:
 
 Update: Objects in `fit_params` won't be copied, only references of them will be. By default, `sklearn.externals.joblib.Parallel` uses `MultiprocessingBackend`, so there would be $n$ `python3` **processes** in the background. However, my ubuntu task manager showed that each `python3` process had taken a big chunk of memory while the total memory usage had not boomed. It looked like each process copied the parameter objects.
 
-On the other hand, a *memory map* is like an in-memory index of its `.joblib` file (and it's much smaller!). The memory map will be read first to determine the positions of data in that `.joblib` file, then the corresponding positions will be accessed.
+On the other hand, a *memory map* is like an in-memory index of its `.joblib` file (and it's much smaller!). The memory map will be read first to find the positions of data in that `.joblib` file, then the corresponding positions will be accessed.
 
 The `mmap_mode` parameter of `joblib.load(filename, mmap_mode)` actually means:
 
