@@ -1245,7 +1245,7 @@ formula 是 `~ x` (没有 `.` placeholder) 或者 `~ x + y + ...`。
 
 - `scales = "fixed"`: `x` and `y` scales are fixed across all panels.
 - `scales = "free"`: `x` and `y` scales vary across panels.
-- `scales = "free_x`": the `x` scale can vary, and the `y` scale is fixed.
+- `scales = "free_x"`: the `x` scale can vary, and the `y` scale is fixed.
 - `scales = "free_y"`: the `y` scale can vary, and the `x` scale is fixed.
 
 `space` 参数的设置同上。
