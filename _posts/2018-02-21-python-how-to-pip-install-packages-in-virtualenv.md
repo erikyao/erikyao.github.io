@@ -47,7 +47,7 @@ Install packages by `pip3`. E.g.:
 pip3 install scikit-learn==0.19.1
 ```
 
-**Caution:** if you are not going to use `sudo`, the above command works well. `skleran` package will be directly installed to `myvirtualenvs/my-project-virtualenv/lib/python3.5/site-packages`. HOWEVER, if you need `sudo`, even your are in the activated environment, it will be installed to the global destination (i.e. `/usr/lib/python3.5/site-packages`). 
+**Caution:** if you are not going to use `sudo`, the above command works well. `skleran` package will be directly installed to `myvirtualenvs/my-project-virtualenv/lib/python3.5/site-packages`. HOWEVER, if you need `sudo`, even when your are in the activated environment, it will be installed to the global destination (i.e. `/usr/lib/python3.5/site-packages`). 
 
 An explanation I found is from [stackoverflow: How to install a package inside virtualenv?](https://stackoverflow.com/a/44075783):
 
