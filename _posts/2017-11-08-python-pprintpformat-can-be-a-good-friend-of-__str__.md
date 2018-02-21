@@ -2,7 +2,7 @@
 layout: post
 title: "Python: <i>pprint.pformat</i> can be a good friend of <i>__str__</i>"
 description: ""
-category: Python-101
+category: Python
 tags: []
 ---
 {% include JB/setup %}
