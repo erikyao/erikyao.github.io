@@ -27,11 +27,9 @@ tags: [Math-Algebra]
 * 导数 dy/dx，在几何图形上，是斜率的意思，是 y 随着 x 的变化而变化的 “比率”；    
 * 导数 dx/dt，在运动学上，是速度的意思，是 x  随着时间 t 的变化而变化的 “比率”。  
 
-dy/dx，读成 d y over d x (都按字母读)；  
-国内的普遍嗜好是，将 dy/dx 写成 y'，读成 y prime。  
+dy/dx，读成 d y over d x (都按字母读)；国内的普遍嗜好是，将 dy/dx 写成 y'，读成 y prime。  
 
-上面是按符号读音，出题时，不是 find the dy/dx，就是 differentiate with respect to x 
-= 对 x 求导，缩写是 differentiate y w.r.t. x. = 求 y 对 x 的导数。  
+上面是按符号读音，出题时，不是 find the dy/dx，就是 differentiate with respect to x = 对 x 求导，缩写是 differentiate y w.r.t. x. = 求 y 对 x 的导数。  
 
 在中文中，导数有两个含混不清的意思：
 
@@ -81,7 +79,7 @@ n：No of moles = 摩尔数；R ：Gas constant = 气体常数。
 
 (1/V)∂V/∂P：
 
-* > 0 时，是 Expansivity = 体积膨胀率；
+* \> 0 时，是 Expansivity = 体积膨胀率；
 * < 0 时，是 Comprssibility = 体积的压缩率。 
 
 ∂T/∂P：Joule-Thomson coefficient = 焦耳-汤姆孙温压系数 = 压强增加引起升温的比率、变化率。  
