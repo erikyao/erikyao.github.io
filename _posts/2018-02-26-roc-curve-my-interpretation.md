@@ -192,7 +192,7 @@ ROC 在处理 imbalanced data 时的不足是：**False Positive Rate 不足以�
 
 ## 待续：更复杂的积分形式
 
-首先复习一下符号：假设 $\operatorname f(x) = \frac{1}{2} x^2$，那么 $\operatorname f'(x) = x$。一般有 $\operatorname f(x) = \int \operatorname f'(x) dx$，$\operatorname f' = \frac{df}{dx}$。算 $\operatorname f'$ 的面积则是 $A = \int_{a}^{b} \operatorname f'(x) dx = \operatorname f(x) \rvert_{a}^{b}$
+复习一下符号：假设 $\operatorname f(x) = \frac{1}{2} x^2$，那么 $\operatorname f'(x) = x$。一般有 $\operatorname f(x) = \int \operatorname f'(x) dx$，$\operatorname f' = \frac{df}{dx}$。算 $\operatorname f'$ 的面积则是 $A = \int_{a}^{b} \operatorname f'(x) dx = \operatorname f(x) \rvert_{a}^{b}$
 
 [wikipedia: Receiver operating characteristic](https://en.wikipedia.org/wiki/Receiver_operating_characteristic#Area_under_the_curve) 上的这个式子我推不出来：
 
@@ -205,3 +205,15 @@ A &=\int_{\infty}^{-\infty} \operatorname{TPR}(T) (- \operatorname{FPR}'(T))\,dT
 $$
 
 到底是 $dT$ 还是 $dp$ 很容易混淆，有需要的时候再研究
+
+## 更新：等价形式
+
+[The meaning and use of the area under a receiver operating characteristic (ROC) curve](http://pubs.rsna.org/doi/10.1148/radiology.143.1.7063747) 是篇很好的文章。它提到：这 3 种 metrics 是等价的：
+
+1. "True" AUROC
+    - "True" 的意思是 sample 数要够多，有限的 sample 数不能代表 population，只能算是 estimate
+1. $\operatorname P(X_{1}>X_{0})$ （即上面 wikipedia 的那个大积分形式）
+    - where $X_{1}$ is the score for a positive instance and $X_{0}$ is the score for a negative instance
+    - That is to say, AUROC is equal to the probability that a classifier will rank a randomly chosen positive instance higher than a randomly chosen negative one (assuming 'positive' ranks higher than 'negative')
+    - 这个积分的证明在文章的 reference [6] [Green D, Swets J. Signal detection theory and psychophysics. New York: John Wiley and Sons, 1966: 45-49](https://books.google.com/books/about/Signal_Detection_Theory_and_Psychophysic.html) 里。（原书我找不到，目前看来只能去买了……）
+1. Wilcoxon statistic (as in [Wilcoxon-Mann-Whitney test](https://en.wikipedia.org/wiki/Mann%E2%80%93Whitney_U_test))
