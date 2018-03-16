@@ -3,7 +3,7 @@ layout: post
 title: "Digest of <i>ggplot2</i>"
 description: ""
 category: R
-tags: [R-101, Book]
+tags: [Book, ggplot]
 ---
 {% include JB/setup %}
 
