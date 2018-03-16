@@ -15,8 +15,11 @@ tags: [ROC, PRC]
 首先我们来看个例子：
 
 ```python
+import pandas as pd
+import numpy as np
 from sklearn.datasets import load_breast_cancer
 from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import roc_curve
 
 bc = load_breast_cancer()
 
@@ -90,7 +93,10 @@ ggplot(data=auroc_df[0:10, ], mapping=aes(x=False.Positive.Rate, y=True.Positive
 
 ![][t_monotonically_decreasing]
 
-注意用 python 画图时，会出现 $tpr_j > tpr_{j+1}$ 的情况。看上去是违背了单调性。其原因是对 float 处理的误差。比如其实是 $tpr_j = tpr_{j+1} = 0.81366$，但 python 读取后变成了 $tpr_j = 0.81366001 > tpr_{j+1} = 0.81365999$。误差导致的作图如下：
+注意用 python 画图时，会出现 $tpr_j > tpr_{j+1}$ 的情况。看上去是违背了单调性。<del>其原因是对 float 处理的误差</del>。比如其实是 $tpr_j = tpr_{j+1} = 0.81366$，但 python 读取后变成了 $tpr_j = 0.81366001 > tpr_{j+1} = 0.81365999$。（此处存疑；参 [ggplot2: use geom_line() carefully when your x-axis data are descending](/r/2018/03/15/ggplot2-use-geom_line-carefully-when-your-x-axis-data-are-descending)）
+
+
+误差导致的作图如下：
 
 ```python
 p = ggplot(aesthetics=aes(x="False Positive Rate", y="True Positive Rate"), data=auroc_df.loc[0:20,:]) + geom_line() + geom_point(color="blue")
