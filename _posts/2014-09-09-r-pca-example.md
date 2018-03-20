@@ -19,11 +19,11 @@ $$
 	X = U*D*V^T 
 $$
 
-_**P.S.**_ Octave 里是 `[U, S, V] = svd(X)`，$ X = U*S*V^T $，只是记号不同而已)
+_**P.S.**_ Octave 里是 `[U, S, V] = svd(X)`，$X = U \ast S \ast V^T$，只是记号不同而已)
 	
 where the columns of `U` are orthogonal ([ɔ:'θɒgənl], 正交的) (`U` a.k.a **left singular vectors**), the columns of `V` are orthogonal (`V` a.k.a **right singular vectors**) and `D` is a diagonal matrix (`D` a.k.a **singular values**).
 
-* 注：如果向量 $x$ 和 $y$ 的点积为 0，i.e. $ x*y^T = 0 $，则称 $x$ 和 $y$ 正交。上面说 "columns of `U` are orthogonal" 意思是 "`U` 的 columns （转置后）是两两正交的"，用 Octave 的写法就是 `U(:,i)' * U(:,j) = 0`。
+* 注：如果向量 $x$ 和 $y$ 的点积为 0，i.e. $x*y^T = 0$，则称 $x$ 和 $y$ 正交。上面说 "columns of `U` are orthogonal" 意思是 "`U` 的 columns （转置后）是两两正交的"，用 Octave 的写法就是 `U(:,i)' * U(:,j) = 0`。
 * 注2：`U` 的 column（转置后）还是个单位向量，i.e. `U(:,i)' * U(:,i) = 1`
 * 注3：结合 注1 和 注2，有 `U' * U = U * U' = I`
 * 注4：其实 `V` 就是 `U'`，i.e. `U * V = I`
@@ -95,7 +95,7 @@ image(t(faceData)[, nrow(faceData):1], main = "(d)") ## Original data
 
 ![][4_faces]
 
--> _~~~~~~~~~~ 2015-12-06 补充：开始 ~~~~~~~~~~*_ <-
+~~~~~~~~~~ 2015-12-06 补充：开始 ~~~~~~~~~~
 
 以下参考 [Running PCA and SVD in R](http://genomicsclass.github.io/book/pages/pca_svd.html)。
 
@@ -121,4 +121,4 @@ names(pc)
 ## pc$sdev^2 == sv$d^2/(ncol(e) - 1)
 ```
 
--> _~~~~~~~~~~ 2015-12-06 补充：结束 ~~~~~~~~~~_ <-
+~~~~~~~~~~ 2015-12-06 补充：结束 ~~~~~~~~~~
