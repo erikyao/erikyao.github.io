@@ -32,7 +32,7 @@ sum([x*x for x in range(10)])
 sum(x*x for x in range(10))
 ```
 
-`joblib.Parallel` 里的一个用法是：
+[`joblib.Parallel`](https://github.com/scikit-learn/scikit-learn/blob/master/sklearn/externals/joblib/parallel.py#L272) 里的一个用法是：
 
 ```python
 scores = parallel(
@@ -43,7 +43,7 @@ scores = parallel(
     for train, test in cv.split(X, y, groups))
 ```
 
-这里 `delayed` 其实是个 decorator，整体上看来，它的作用相当于：
+这里 [`delayed`](https://github.com/scikit-learn/scikit-learn/blob/master/sklearn/externals/joblib/parallel.py#L169) 其实是个 decorator，整体上看来，它的作用相当于：
 
 ```python
 def delayed(func)(*args, **kwargs):
