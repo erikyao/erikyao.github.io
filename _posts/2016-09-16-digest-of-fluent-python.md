@@ -3482,6 +3482,17 @@ def cycle(iterable):
               yield element
 ```
 
+注意这两种 repeat a list 的方式：
+
+```python
+>>> from itertools import chain, repeat
+>>> import numpy as np
+>>> list(chain(*repeat([1, 2, 3], 3)))
+[1, 2, 3, 1, 2, 3, 1, 2, 3]
+>>> np.repeat([1,2,3], 3).tolist()
+[1, 1, 1, 2, 2, 2, 3, 3, 3]
+```
+
 ### 14.7.5 Create Generators Yielding Combinations and Permutations <a name="14-7-5-Create-Generators-Yielding-Combinations-and-Permutations"></a>
 
 - `itertools.product(Iterable A, ..., Iterable Z, repeat=1)`: yield all $(a_i, b_j, \dots, z_k)$ where $a_i \in A, b_j \in B, \dots, z_k \in Z$
