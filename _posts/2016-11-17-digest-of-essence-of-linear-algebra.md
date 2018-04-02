@@ -17,6 +17,11 @@ $$
 }
 $$
 
+Greatest thanks to [3Blue1Brown](http://www.3blue1brown.com/)!
+
+- [Bilibili](https://space.bilibili.com/88461692#/channel/detail?cid=9450)
+- [YouTube](https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab)
+
 ## Chapter 1 - Vectors, what even are they?
 
 > The introduction of numbers as coordinates (by reference to the the particular division scheme of the open one-dimensional continuum) is an act of violence. ―Hermann Weyl
