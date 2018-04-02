@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Digest of Essence of Linear Algebra"
+title: "Digest of <i>Essence of Linear Algebra</i>"
 description: ""
 category: Math
 tags: [Math-Algebra]
