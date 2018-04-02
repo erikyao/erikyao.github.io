@@ -57,9 +57,9 @@ Mathematicians' perspective:
     - First walk along 1st axis for $2a$ units;
     - then walk along 2nd axis for $2b$ units.
 - $-2 \cdot \vec v$ means first flip $\vec v$ then stretch it out by factor of $2$.
-- $\frac{1}{3} \cdot \vec v$ means you squish it down so that it's $\frac{1}{3}$ of the original length.
+- $\frac{1}{3} \cdot \vec v$ means you squash it down so that it's $\frac{1}{3}$ of the original length.
 
-This process of 1) stretching or 2) squishing or 3) sometimes reversing the direction of a vector is called **_scaling_**. The number you used to scale the vector is called a **_scalar_**. (翻译为 “标量”. Never mind.) In fact, throughout linear algebra, one of main things that numbers do is to scale vectors.
+This process of 1) stretching or 2) squashing or 3) sometimes reversing the direction of a vector is called **_scaling_**. The number you used to scale the vector is called a **_scalar_**. (翻译为 “标量”. Never mind.) In fact, throughout linear algebra, one of main things that numbers do is to scale vectors.
 
 ## Chapter 2 - Linear combinations, span, and basis vectors
 
@@ -158,7 +158,7 @@ $\vec v = \icol{x \newline y} = x \icol{1 \newline 0} + y \icol{0 \newline 1} \R
 
 Matrix-vector multiplication is just a way to compute what the linear transformation does to a given vector. 矩阵向量乘法就是计算线性变换作用于给定向量的一种途径。
 
-If $\text{Transformed } \hat i$ and $\text{Transformed } \hat j$ are linear dependent, it means the linear transformation squishes all of 2-D space on the line where those two vectors sit, also known as the 1-D span of those two linearly dependent vectors.
+If $\text{Transformed } \hat i$ and $\text{Transformed } \hat j$ are linear dependent, it means the linear transformation squashes all of 2-D space on the line where those two vectors sit, also known as the 1-D span of those two linearly dependent vectors.
 
 ## Chapter 4 - Matrix multiplication as composition (of linear transformations)
 
@@ -176,13 +176,13 @@ $$
 
 > The purpose of computation is insight, not numbers. ―Richard Hamming
 
-Among those linear transformations, some of them seemed to stretch space out, while others squish it in. One thing that turns out to be pretty useful for understanding one of these transformations is to measure exactly how much it stretches or squishes things. More specificantly, to measure the factor by which the area of a given region increases or decreases.
+Among those linear transformations, some of them seemed to stretch space out, while others squash it in. One thing that turns out to be pretty useful for understanding one of these transformations is to measure exactly how much it stretches or squashes things. More specificantly, to measure the factor by which the area of a given region increases or decreases.
 
 比如 $\icol{3 & 0 \newline 0 & 2}$ 就是把 $\hat i$ 拉伸 3 倍、$\hat j$ 拉伸 2 倍，这样每个网格的面积就变成了原来的 6 倍。(这个面积的计算依赖于我们的前提："keeping grid lines parallel and evenly spaced"，你试想一下如果变换后变曲线了，面积就不好算了)
 
 **This very special scaling factor is called the determinant of that transformation**.
 
-If the determinant of a 2-D transformation is 0, it squishes all of space onto a line, or even a single point. Since then, the area of any region would become 0.
+If the determinant of a 2-D transformation is 0, it squashes all of space onto a line, or even a single point. Since then, the area of any region would become 0.
 
 However, in fact, a determinant can be negative. How could you scale an area by a negative amount? This has to do with the idea of orientation. Any transformation that turn over the area (想象把一张纸从正面翻到背面) is said to **invert the orientation of space**. 
 
@@ -198,7 +198,7 @@ $$
 \operatorname{det}(M_2M_1) = \operatorname{det}(M_2) \operatorname{det}(M_1)
 $$
 
-## Chapter 6 - Inverse matrices, column space, rank and null space
+## Chapter 6 - Inverse matrices, column space, rank and null space (lernel)
 
 > To ask the right question is harder than to answer it. ―Georg Cantor
 
@@ -220,6 +220,116 @@ $$
 A^{-1}A = I
 $$
 
-But when $\operatorname{det}(A) = 0$, there is no inverse of $A$ (i.e. $A^{-1}$ does not exist). You cannot "unsquish" a line into a plane. At least that's not something a function can do because that would require transforming each individual vector on the line into a bunch of vectors on that plane but a function can only take a single input to a single output.
+But when $\operatorname{det}(A) = 0$, there is no inverse of $A$ (i.e. $A^{-1}$ does not exist). You cannot "unsquash" a line into a plane. At least that's not something a function can do because that would require transforming each individual vector on the line into a bunch of vectors on that plane but a function can only take a single input to a single output.
 
-However, solution can still exist when $\operatorname{det}(A) = 0$. E.g. if your transformation $A$ squishes the space into a line and you're lucky that $\vec v$ lives on that line.
+However, solution can still exist when $\operatorname{det}(A) = 0$. E.g. if your transformation $A$ squashes the space into a line and you're lucky that $\vec v$ lives on that line.
+
+You might notice that some of those zero determinant cases feel a lot more restrictive than others (有的是降二维有的只降一维). When the output of a transformation is a line, i.e. 1-D, we say the transformation has a rank of 1. So the **rank** of a matrix is the number of dimensions in the output of the transformation.
+
+The set of all possible outputs from a matrix, is called the **column space** of the matrix. In other words, the column space is the span of the columns of the matrix. So a more precise definition of rank would be that it's the number of dimensions in the column space.
+
+When its rank is equal to the number of columns, we call a matrix **full rank**.
+
+Note that $\icol{0 \newline 0}$ is always in the column space since linear transformations must keep the origin fixed in place. For a full rank transformation $A$, the only vector $\vec x$ that lands at the origin is the zero vector itself, but for a matrix $A'$ that are not full rank, which squash to a smaller dimension, you can have a whole bunch of vectors $\lbrace \vec{x'} \rbrace$ that land at the origin (比如 2-D 压缩到 1-D 就会有一条直线上的所有 vectors 被压缩到原点；3-D 压缩到 1-D 是有一整个平面上的 vectors 被压缩到原点). This set of vectors $\lbrace \vec{x'} \rbrace$ that lands on the origin is called the **null space** or the **kernel** of matrix $A'$. In terms of the linear system of equations, when $\vec v$ happens to be the zero vector, the null space of $A$ gives you all the possible solutions to $A \vec x = \vec v$.
+
+反过来我们可以定义：The null space of matrix $A$ is the set of all vectors $\vec v$ such that $A \vec v = \vec 0$
+
+## Chapter 6 Supplement - Nonsquare matrices as transformations between dimensions
+
+首先只有 square matrix 才有 determinant。
+
+A $3\times2$ matrix $A=\icol{a & b \newline c & d \newline e & f}$ would transform a 2-D vector $\vec x=\icol{x_1 \newline x_2}$ in 2-D space into a 3-D vector in 3-D space. 原来 2-D space 里的两个 2-D basis, $\icol{1 \newline 0}$ 和 $\icol{0 \newline 1}$, 现在变成了两个 3-D basis, $\icol{a \newline c \newline e}$ 和 $\icol{b \newline d \newline f}$。但是正常 3-D space 应该有 3 个 3-D basis vector，这说明 $A$ 的 column space 只可能是这个 3-D space 中的一个 plane。
+
+A $2\times3$ matrix $A=\icol{a & b & c \newline d & e & f}$ would transform a 3-D vector $\vec x=\icol{x_1 \newline x_2 \newline x_3}$ in 3-D space into a 2-D vector in 2-D space. 原来 3-D space 里的三个 3-D basis, $\icol{1 \newline 0 \newline 0}$、$\icol{0 \newline 1 \newline 0}$ 和 $\icol{0 \newline 0 \newline 1}$, 现在变成了三个 2-D basis, $\icol{a \newline d}$、$\icol{b \newline e}$ 和 $\icol{c \newline f}$。虽然 2-D space 不需要 3 个 basis，但是不妨碍你用 3 个 basis 来 span 这个 2-D space。
+
+## Chapter 7 - Dot products and duality
+
+Let $\vec v = \icol{a \newline b}$, $\vec w = \icol{c \newline d}$ and $\theta$ be the angle between them.
+
+$$
+\begin{aligned}
+\vec v \cdot \vec w &= \icol{a \newline b} \cdot \icol{c \newline d} = ac + bd \newline
+                    &= (\vec v)^{T} \vec w = (\vec w)^{T} \vec v \newline
+                    &= \vert \vec v \vert \times \vert \vec w \vert \times \cos \theta \newline
+\vert \vec v \cdot \vec w \vert &= (\text{length of projected } \vec v) \times (\text{length of } \vec w) \newline
+                                &= (\text{length of projected } \vec w) \times (\text{length of } \vec v)
+\end{aligned}
+$$
+
+$(\vec v)^{T}$ 是这么一个 transformation：将 2-D space squash 到 1-D 数轴，basis $\icol{1 \newline 0}$ 压到数轴上 $a$ 这个点，basis $\icol{0 \newline 1}$ 压到数轴上 $b$ 这个点，$(\vec v)^{T} \vec w$ 就表示 $\vec w$ 会被压到数轴上 $ac + bd$ 这个点。
+
+反之 $(\vec w)^{T} \vec v$ 也可以这么理解。
+
+![](https://farm1.staticflickr.com/788/39364279940_6cb5d99125_z_d.jpg)
+![](https://farm1.staticflickr.com/798/39364280100_c7f948a764_z_d.jpg)
+
+## Chapter 8 - Cross products
+
+### 8.1 Standard introduction
+
+#### 非标准定义
+
+$\vert \vec v \times \vec w \vert = \text{Area of parallelogram}$ (以 $\vec v$ 和 $\vec w$ 为两条边的平行四边形的面积). 当 $\vec v$ 在沿 $\vec w$ 切开的左侧时（此时 $\vec w$ 在沿 $\vec v$ 切开的右侧），符号为正；否则符号为负。
+
+$\vec v \times \vec w = -\vec w \times \vec v$
+
+Suppose $\vec v = \icol{a \newline b}$ and $\vec w = \icol{c \newline d}$
+
+$\vec v \times \vec w = \operatorname{det} \big (\icol{a & c \newline b & d} \big )$ (叉乘等于向量合并成的矩阵的 determinant). 令这个合并而成的矩阵为 $A$。
+
+$\because A \hat i = \icol{a & c \newline b & d} \icol{1 \newline 0} = \icol{a \newline b} = \vec v$
+
+$\,\,\,\, A \hat j = \icol{a & c \newline b & d} \icol{0 \newline 1} = \icol{c \newline d} = \vec w$
+
+$\,\,\,\, \text{and } \hat i \times \hat j = 1$
+
+$\therefore \vec v \times \vec w = \operatorname{det}(A) \times (\hat i \times \hat j) = \operatorname{det}(A)$
+
+#### 标准定义
+
+The cross product is not a number, but a vector. $\vec v \times \vec w = \vec p$. The resulted-in vector $\vec p$'s length will be the area of the $vw$ parallelogram, and its direction will be perpendicular (垂直) to that parallelogram. But there are two directions perpendicular to that parallelogram. Here we need the "Right Hand Rule" (右手定则): 右手食指顺着 $\vec v$ 方向，中指顺着 $\vec w$ 方向，大拇指即为 $\vec p$ 的方向。
+
+按这个定义：两个 2-D vectors 不可能求出叉积，虽然你可以按 determinant 来算出一个 scalar。所以一般叉积是指两个 3-D vectors 的叉积。
+
+死记硬背式：$\icol{v_1 \newline v_2 \newline v_3} \times \icol{w_1 \newline w_2 \newline w_3} = \operatorname{det} \big (\icol{\hat i & v_1 & w_1 \newline \hat j & v_2 & w_2 \newline \hat k & v_3 & w_3} \big )$ (这里这个 determinant 得到不是一个 scalar 而是一个由 $\hat i$、$\hat j$ 和 $\hat k$ 表示的 3-D vector)
+
+### 8.2 Deeper understanding with linear transformations
+
+考虑 Chapter 7 - Dot products and duality 时我们说过的 $\vec v \cdot \vec w = (\vec v)^{T} \vec w$。The takeaway is that whenever you're out in the mathematical wild and you find a linear transformation to the number line (数轴), you'll be able to match it to some vector, which is called the **dual vector** of that transformation, so that performing the linear transformation is the same as taking a dot product with that dual vector. 比如 transformation $(\vec v)^{T}$ 的 dual vector 就是 $\vec v$。
+
+Our plan:
+
+1. Define a 3D-to-1D linear transformation in terms of $\vec v$ and $\vec w$
+1. Find its dual vector
+1. Show that this dual vector is $\vec v \times \vec w$
+
+我们注意到：$\operatorname{det} \big (\icol{x & v_1 & w_1 \newline y & v_2 & w_2 \newline z & v_3 & w_3} \big )$ 其实是关于 $\icol{x \newline y \newline z}$ 的一个函数 (这里 $x$、$y$ 和 $z$ 是 scalar，不是前面的 $\hat i$、$\hat j$ 和 $\hat k$；所以这个 determinant 得出来是一个具体值)，而且这是一个 3D-to-1D 的 linear transformation。我们就会想知道是否存在一个 dual vector 满足 $\icol{? & ? & ?} \icol{x \newline y \newline z} = \operatorname{det} \big (\icol{x & v_1 & w_1 \newline y & v_2 & w_2 \newline z & v_3 & w_3} \big )$。我们称 $\vec p = \icol{? & ? & ?}^T$，这么一来 $\vec p \cdot \icol{x \newline y \newline z} = \operatorname{det} \big (\icol{x & v_1 & w_1 \newline y & v_2 & w_2 \newline z & v_3 & w_3} \big )$.
+
+Question: what 3-D vector $\vec p$ has the special property that when you take a dot product between $\vec p$ and some other vector $\icol{x \newline y \newline z}$, it gives the same result as if you took the same signed volumn of a parallelepiped (平行六面体) defined by this $\icol{x \newline y \newline z}$ along with $\vec v$ and $\vec w$
+
+Answer: $\vec p = \vec v \times \vec w$
+
+因为 $\vec p$ 的长度等于 $vw$ 平行四边形的面积，且垂直于 $vw$ 平行四边形，然后 $\icol{x \newline y \newline z}$ 到 $\vec p$ 的投影相当于 $\icol{x \newline y \newline z}$-$vw$ 平行六面体的高；所以 $\vec p \cdot \icol{x \newline y \newline z}$ 即是平行六面体的体积，也就是 $\operatorname{det} \big (\icol{x & v_1 & w_1 \newline y & v_2 & w_2 \newline z & v_3 & w_3} \big )$
+
+## Chapter 9 - Change of basis (基变换)
+
+> Mathematics is the art of giving the same name to different things. ―Henri Poincaré
+
+A space has no grid. 所有的坐标系都是我们人为加上去的。如果一个 vector 用 basis $\hat i$ 和 $\hat j$ 表示为 $\icol{x \newline y}$，那么它在另外一组 basis $\hat{i'}$ 和 $\hat{j'}$ 应该如何表示？ (相当于从一个坐标系"翻译"到另外一个坐标系；坐标系的 origin 重合)
+
+假定 $\hat{i'} = \icol{a \newline b}, \hat{j'} = \icol{c \newline d}$，那么 $\icol{a & c \newline b & d} \icol{x' \newline y'} = \icol{1 & 0 \newline 0 & 1} \icol{x \newline y}$ $\Rightarrow$ 在 $\hat{i'} \hat{j'}$ 坐标系内就应该表示为 $\icol{x' \newline y'} = \icol{a & c \newline b & d}^{-1} \icol{x \newline y}$
+
+反过来"翻译"的话就是给定 $\icol{x' \newline y'}$ 然后推出 $\icol{x \newline y} = \icol{a & c \newline b & d} \icol{x' \newline y'}$
+
+### How to translate a matrix?
+
+假定我们在 $\hat i \hat j$ 坐标系下有一个 transformation $M$，那么这个 transformation $M$ 在 $\hat{i'} \hat{j'}$ 坐标系内如何表示？
+
+同理：$\icol{a & c \newline b & d} \big ( M' \icol{x' \newline y'} \big ) = \icol{1 & 0 \newline 0 & 1} \big ( M \icol{x \newline y} \big )$ $\Rightarrow$ $M' \icol{x' \newline y'} = \icol{a & c \newline b & d}^{-1} \big ( M \icol{x \newline y} \big ) = \icol{a & c \newline b & d}^{-1} \big ( M \icol{a & c \newline b & d} \icol{x' \newline y'} \big )$
+
+$\therefore M' = \icol{a & c \newline b & d}^{-1} M \icol{a & c \newline b & d}$
+
+In general, whenever you see an expression like $A^{-1}MA$, it suggests a mathematical sort of empathy (同理心、换位思考、共情). The middle $M$ represents a transformation of some kind as you see it, and the outer two matrices represent the emapathy, the shift in perspective. And the full matrix product represents that same transformation, but as someone else sees it.
+
+## Chapter 10 - Eigenvectors and eigenvalues
+
