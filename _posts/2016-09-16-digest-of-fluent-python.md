@@ -3489,7 +3489,7 @@ def cycle(iterable):
 >>> import numpy as np
 >>> list(chain(*repeat([1, 2, 3], 3)))
 [1, 2, 3, 1, 2, 3, 1, 2, 3]
->>> np.repeat([1,2,3], 3).tolist()
+>>> np.repeat([1, 2, 3], 3).tolist()
 [1, 1, 1, 2, 2, 2, 3, 3, 3]
 ```
 
