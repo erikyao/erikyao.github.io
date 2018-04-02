@@ -95,7 +95,7 @@ The **_span_** of $\vec p$ and $\vec q$ is the set of all possible vectors you c
 - When they line up, their span is all vectors whose tips sit on that line.
 - The span of two vectors is basically a way of asking what are all the possible vector you can reach using only the 2 fundamental operations of vectors--vector addition and scalar multiplication.
 
-### 2.1 Vectors vs Points
+### Vectors vs Points
 
 In general, if you're thinking about a vector on its own, think of it as an arrow. And if you're dealing with a collections of vectors, it's convenient to think of them all as points.
 
