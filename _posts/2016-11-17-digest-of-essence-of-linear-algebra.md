@@ -333,3 +333,86 @@ In general, whenever you see an expression like $A^{-1}MA$, it suggests a mathem
 
 ## Chapter 10 - Eigenvectors and eigenvalues
 
+考虑单个 vector 和它所张成的一条直线。经历一个 linear transformation 之后，有些 vector 会偏离它原来张成的这条直线，有的仍然会留在它自己张成的直线上（只是长度或者方向发生了变化，相当于乘以了一个 scalar）。
+
+All these special vectors that remain on their spans after a lienar transformation are called the **eigenvectors** of the transformation. Each eigenvector has associated with it, what's called an **eigenvalue**, which is just the factor by which it stretched or squashed during the transformation.
+
+With any linear transformation described by a matrix, you could understand what it's doing by reading off the columns of this matrix as the landing spots for basis vectors. But often a better way to get at the heart of what the linear transformation actually does, less dependent on your particular coordinate system, is to find the eigenvectors and eigenvalues.
+
+作用举例：Consider some 3-D rotation. If you can find an eigenvector for that rotation, what you found is the axis of rotation. (rotation 只旋转不拉伸，eigenvalue 为 1)
+
+公式定义：
+
+$$
+A \vec v = \lambda \vec v
+$$
+
+(现在这个公式看起来多好懂！$\lambda$ 是 eigenvalue，$\vec v$ 是 eigenvector)
+
+求解步骤：
+
+$$
+\begin{aligned}
+A \vec v = \lambda I \vec v \newline
+(A - \lambda I) \vec v = \vec 0
+\end{aligned}
+$$
+
+If $\vec v = \vec 0$, it always stands. 如果 $\vec v \neq \vec 0$，我们可以看出 $(A - \lambda I)$ 是一个降维的 transformation，直接把 $\vec v$ squash 到原点，所以我们有 $\operatorname{det}(A-\lambda I) = 0$
+
+A 2-D transformation doesn't have to have (real) eigenvectors. 即 $\operatorname{det}(A-\lambda I) = 0$ 可能没有实数解。(但 complex eigenvector 和 complex eigenvalue 是存在的，这里不讨论)
+
+如果 $A-\lambda I = 0_{n,n}$ (zero matrix)，那么这个 transforamtion 只有一个 eigenvalue $\lambda$，但是所有的 vector 会是 eigenvector。此时 $A = \lambda I$，即只拉伸、不旋转。
+
+What if both basis vectors are eigenvectors? 如果 $A$ 是一个 diagonal matrix，说明所有的 basis vector 都是 $A$ 的 eigenvector，对角线的值都是 eigenvalue。（diagonal matrix 相当于是 n 个 scalar，分别乘以 n 个 basis vector，即拉伸了 n 个 basis vector、并没有旋转）。所以 diagonal matrix 有这么一个特点：$A(A \vec v) = A^2 \vec v, A(A^2 \vec v) = A^3 \vec v, \dots$。
+
+如果我们想利用这一特性计算 $A \cdots A(A \vec v)$，但是 $A$ 并不是 diagonal matrix 该怎么办？ If your transformation has a lot of eigenvectors, enough so that you can choose a set of them to span the full space, then you could change your coordinate system so that these eigenvectors are your basis vectors.
+
+假定在 coordinate system $\Theta$ 中, $A$ 的 eigen vector 是 $\icol{a \newline b}$ 和 $\icol{c \newline d}$。以这两个 eigenvector 做 basis 得到新的 coordinate system $\Theta'$，对应的有 transformation $A' = \icol{a & c \newline b & d}^{-1} A \icol{a & c \newline b & d}$。注意，从 space 的角度来看，$A$ 和 $A'$ 是同一个 linear transformation，只是在不同的 coordinate system 下的表示不同。在 $\Theta'$ 视角下，原 $\Theta$ 下的 $\icol{a \newline b}$ 和 $\icol{c \newline d}$ 这两个 vectors 同样也是 $A'$ 的 eigenvector（只是表示方法还没有变到 $\Theta'$），同时恰好它们又是 $\Theta'$ 的 basis，这就说明 $A'$ 必然是一个 diagonal matrix。所以我们先计算 $A'^{n} \vec{v'}$，然后再"翻译"回 $A \cdots A(A \vec v)$。
+
+(如果没有足够的 eigenvector 能 span the full space，你就拼不出足够的 column 到 $\icol{a & c \newline b & d}$ 去给 $A$ 做 basis change)
+
+## Chapter 11 - Abstract vector spaces
+
+### Linear transformation for functions
+
+Formal definition of linearity:
+
+1. Additivity: $L(\vec v + \vec w) = L(\vec v) + L(\vec w)$
+1. Scaling: $L(c \vec v) = c L(\vec v)$
+
+"keeping grid lines parallel and evenly spaced" is really just an illustration of what these 2 properties mean in the specific case of points in 2-D space.
+
+Another example: $\frac{d}{dx}$ operator is linear. $\frac{d}{dx}(f(x) + g(x)) = \frac{d}{dx}(f(x)) + \frac{d}{dx}(g(x)), \frac{d}{dx}(c f(x)) = c \frac{d}{dx}(f(x))$
+
+To really drill in the parallele, let's describe the derivative with a matrix. Let's limit ourselves on polynomials (i.e. we have a space of all polynomials).
+
+Define basis functions $b_n(x) = x^{n}$. Their roles are similar to $\hat i$, $\hat j$ and $\hat k$ in a 3-D space. Polynomial $a x^2 + bx + c$ can be rewritten as $\icol{c \newline b \newline a \newline \vdots}$. In this way, we can define
+
+$$
+\frac{d}{dx} = \icol{0 & 1 & 0 & 0 & \cdots \newline 0 & 0 & 2 & 0 & \cdots \newline 0 & 0 & 0 & 3 & \cdots \newline 0 & 0 & 0 & 0 & \cdots \newline \vdots & \vdots & \vdots & \vdots & \ddots }
+$$
+
+注意这个矩阵的第一列相当于 $\frac{d}{dx}(b_0(x))$，第二列相当于 $\frac{d}{dx}(b_1(x))$，etc.
+
+| Linear algebra concepts | Alternative names when applied to functions |
+|-------------------------|---------------------------------------------|
+| Linear transformations  | Linear operators                            |
+| Dot products            | Inner products                              |
+| Eigenvectors            | Eigenfunctions                              |
+
+### What is a vector?
+
+As long as you're dealing with a set of objects where there's a reasonable notion of scaling and adding, whether that's a set of arrows in apce, list of numbers, functions or whatever you choose to define, all the tools developed in linear algebra regarding vectors, linear transformations and all that stuff, should be able to apply.
+
+Thses sets of vetor-ish things (arrows, lists of numbers, functions, etc) are called **vector spaces**.
+
+我们有 8 条 rules for vectors addition and scaling:
+
+![](https://farm1.staticflickr.com/870/39382665400_86c741a816_z_d.jpg)
+
+These rules are called **axioms**. If a space statisfies these 8 axioms, it is a vector space. **Axioms are not rules of nature, but an interface** (consider Java Interface!)
+
+The form that your vectors take doesn't really matter as long as there is some notion of adding and scaling vectors that follow these axioms.
+
+**Abstractness is the price of generality**.
