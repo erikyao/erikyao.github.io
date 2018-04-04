@@ -15,7 +15,7 @@ tags: [Paper, ML-101, EM]
 
 ## 1. Maximum-likelihood
 
-Recall the definition of the maximum-likelihood estimation problem. We have a _**density**_ function $ p(x \vert \Theta) $ that is governed by the set of parameters $ \Theta $. We also have a data set of size $ m $, supposedly drawn from this distribution, i.e., $ \mathcal{X} = \{ x^{(1)},x^{(2)},\cdots,x^{(m)} \} $. We assume that these data vectors are independent and identically distributed (i.i.d.) with distribution $ p $. Therefore, the resulting density for the samples is:
+Recall the definition of the maximum-likelihood estimation problem. We have a _**density**_ function $p(x \vert \Theta)$ that is governed by the set of parameters $\Theta$. We also have a data set of size $m$, supposedly drawn from this distribution, i.e., $\mathcal{X} = \{ x^{(1)},x^{(2)},\cdots,x^{(m)} \}$. We assume that these data vectors are independent and identically distributed (i.i.d.) with distribution $p$. Therefore, the resulting density for the samples is:
 
 $$
 \begin{align}
@@ -23,14 +23,14 @@ $$
 \end{align}
 $$
 
-* 注 1-1：举个例子，假设 $ \mathcal{X} $ 是某班上 $ m $ 个学生的成绩，最常见的一个模型就是 "假设 $ \mathcal{X} $ 满足 Gaussian 分布"。于是问题来了：$ \mu $ 和 $ \sigma $ 是多少？对于这个具体的问题，$ \mu $ 和 $ \sigma $ 是好求的，直接计算统计量就好了。现在我们把问题抽象化，或者说是 generalize 一下：如果 $ \mathcal{X} $ 满足某个分布 $ D(\Theta) $，如何估计 $ \Theta $？$ \Theta $ 可能是单个的 parameter，或者是一个 parameter vector (e.g. $ \Theta = (\mu, \sigma^2) $)。
-* 注 1-2：另外注意这里虽然写的是 $ p $，但的确是 _**density**_ function（我们常用 $ f(x) $ 表示）而不是 mass function。
-* 注 1-3：我们直接用了 $ p $ 来表示 distribution（"iid with distribution $ p $"），联系到 "看到 $ f(x) = \frac{1}{\sqrt{2 \pi \sigma^2} } e^{ - \frac{(x-\mu)^2}{2 \sigma^2}} $ 就知道是 Gaussian distribution"，这么直接指代也没什么不妥。
+* 注 1-1：举个例子，假设 $\mathcal{X}$ 是某班上 $m$ 个学生的成绩，最常见的一个模型就是 "假设 $\mathcal{X}$ 满足 Gaussian 分布"。于是问题来了：$\mu$ 和 $\sigma$ 是多少？对于这个具体的问题，$\mu$ 和 $\sigma$ 是好求的，直接计算统计量就好了。现在我们把问题抽象化，或者说是 generalize 一下：如果 $\mathcal{X}$ 满足某个分布 $D(\Theta)$，如何估计 $\Theta$？$\Theta$ 可能是单个的 parameter，或者是一个 parameter vector (e.g. $\Theta = (\mu, \sigma^2)$)。
+* 注 1-2：另外注意这里虽然写的是 $p$，但的确是 _**density**_ function（我们常用 $f(x)$ 表示）而不是 mass function。
+* 注 1-3：我们直接用了 $p$ 来表示 distribution（"iid with distribution $p$"），联系到 "看到 $f(x) = \frac{1}{\sqrt{2 \pi \sigma^2} } e^{ - \frac{(x-\mu)^2}{2 \sigma^2}}$ 就知道是 Gaussian distribution"，这么直接指代也没什么不妥。
 
-This function $ \mathcal{L}(\Theta \vert \mathcal{X}) $ is called the likelihood of the parameters given the data, or just the likelihood
-function. The likelihood is thought of as a function of the parameters $ \Theta $ where the data $ \mathcal{X} $ is fixed.
-In the maximum likelihood problem, our goal is to find the $ \Theta $ that maximizes $ \mathcal{L} $. That is, we wish
-to find $ \Theta^* $ where 
+This function $\mathcal{L}(\Theta \vert \mathcal{X})$ is called the likelihood of the parameters given the data, or just the likelihood
+function. The likelihood is thought of as a function of the parameters $\Theta $ where the data $ \mathcal{X}$ is fixed.
+In the maximum likelihood problem, our goal is to find the $\Theta $ that maximizes $ \mathcal{L}$. That is, we wish
+to find $ Theta^*$ where 
 
 $$
 \begin{align}
@@ -38,10 +38,10 @@ $$
 \end{align}
 $$
 
-Often we maximize $ \ell(\Theta \vert \mathcal{X}) = \log(\mathcal{L}(\Theta \vert \mathcal{X})) $ instead because it is analytically easier.
+Often we maximize $\ell(\Theta \vert \mathcal{X}) = \log(\mathcal{L}(\Theta \vert \mathcal{X}))$ instead because it is analytically easier.
 
-* 注 1-4：我们在估计 Gaussian 分布的 $ \mu $ 和 $ \sigma $ 时不这么干是因为我们知道样本统计量已经是很好的估计了，不需要走极大似然估计这么一个搜索的过程
-* 注 1-5：至于具体的求法，第一个想到的肯定是拿 $ \ell(\Theta \vert X) $ 对 $ \Theta $ 求导（如果 $ \Theta $ 是 parameter vector，就对 vector 的各个小项求偏导，比如 $ \frac{\partial \ell}{\partial \mu} $ 和 $ \frac{\partial \ell}{\partial \sigma} $）。然后还有牛顿法或者梯度下降法等等，这里就不展开了。
+* 注 1-4：我们在估计 Gaussian 分布的 $\mu$ 和 $\sigma$ 时不这么干是因为我们知道样本统计量已经是很好的估计了，不需要走极大似然估计这么一个搜索的过程
+* 注 1-5：至于具体的求法，第一个想到的肯定是拿 $\ell(\Theta \vert X)$ 对 $\Theta$ 求导（如果 $\Theta$ 是 parameter vector，就对 vector 的各个小项求偏导，比如 $\frac{\partial \ell}{\partial \mu}$ 和 $\frac{\partial \ell}{\partial \sigma}$）。然后还有牛顿法或者梯度下降法等等，这里就不展开了。
 
 For many problems, however, it is not possible to find such analytical expressions, and we must resort to more elaborate techniques.
 
@@ -57,16 +57,16 @@ There are two main applications of the EM algorithm. The first occurs when the *
 	* latent: [ˈleɪtnt], Existing but concealed or inactive
 		* He has a latent talent for acting that he hasn't had a chance to express yet
 		* {a latent infection}
-	* 举个例子就好懂了：我现在告诉你，$ \mathcal{X} $ 是某班上 $ m $ 个学生的成绩没错，但是这 $ m $ 个成绩中，一部分是语文成绩，剩下的是数学成绩；但是哪些是语文哪些是数学我没法告诉你。
+	* 举个例子就好懂了：我现在告诉你，$\mathcal{X}$ 是某班上 $m$ 个学生的成绩没错，但是这 $m$ 个成绩中，一部分是语文成绩，剩下的是数学成绩；但是哪些是语文哪些是数学我没法告诉你。
 	* 所以 latent variable 简单理解就是：
-		* 一个 feature，我知道它的定义，比如 $ \mathcal{Y} = 0 $ 表示语文成绩，$ \mathcal{Y} = 1 $ 表示数学成绩
+		* 一个 feature，我知道它的定义，比如 $\mathcal{Y} = 0$ 表示语文成绩，$\mathcal{Y} = 1$ 表示数学成绩
 		* 但是我不知道这个 feature 在 dataset 中各个 point 里的值
 	* latent variable 为什么会搅局呢？是因为我们贪心。我们企图用两个 feature 来建模，哪怕其中一个 feature 是 missing value
 		* 第一种情况是 "对不起啊，我们真的有 missing value，而且是一整 column 的 missing value"
 		* 第二种情况是 "虽然没有观测到 latent feature 的值，但是加上 latent feature 我们这个模型更 make sense"
 		* 两种情况都是 "尽管如此，请将全 NA 的这一 column 也算作 feature 来建模吧，拜托了！"
 		
-As before, we assume that data $ \mathcal{X} $ is observed and is generated by some distribution. We call $ \mathcal{X} $ the **incomplete data**. We assume that a complete data set exists $ \mathcal{Z} = (\mathcal{X},\mathcal{Y}) $ and also assume (or specify) a joint density function:
+As before, we assume that data $\mathcal{X}$ is observed and is generated by some distribution. We call $\mathcal{X}$ the **incomplete data**. We assume that a complete data set exists $\mathcal{Z} = (\mathcal{X},\mathcal{Y})$ and also assume (or specify) a joint density function:
 
 $$
 \begin{align}
@@ -74,15 +74,15 @@ $$
 \end{align}
 $$
 
-* 注 2-2：这里粗体的 $ \mathbf{x} $ 相当于 $ x^{(i)} $；$ \mathbf{y} $ 和 $ \mathbf{z} $ 同理
+* 注 2-2：这里粗体的 $\mathbf{x}$ 相当于 $x^{(i)}$；$\mathbf{y}$ 和 $\mathbf{z}$ 同理
 * 注 2-3：[Joint probability distribution - wikipedia](http://en.wikipedia.org/wiki/Joint_probability_distribution) 的写法是：
-	* $ f_{X,Y}(x,y) = f_{Y \mid X}(y \mid x)f_X(x) = f_{X \mid Y}(x \mid y)f_Y(y) $
-	* where $ f_{Y \mid X}(y \mid x) $ and $ f_{X \mid Y}(x \mid y) $ give the **conditional distributions** of $ Y $ given $ X = x $ and of $ X $ given $ Y = y $ respectively, 
-	* and $ f_X(x) $ and $ f_Y(y) $ give the **marginal distributions** for $ X $ and $ Y $ respectively.
+	* $f_{X,Y}(x,y) = f_{Y \mid X}(y \mid x)f_X(x) = f_{X \mid Y}(x \mid y)f_Y(y)$
+	* where $f_{Y \mid X}(y \mid x)$ and $f_{X \mid Y}(x \mid y)$ give the **conditional distributions** of $Y$ given $X = x$ and of $X$ given $Y = y$ respectively, 
+	* and $f_X(x)$ and $f_Y(y)$ give the **marginal distributions** for $X$ and $Y$ respectively.
 
-With this new density function, we can define a new likelihood function, $ \mathcal{L}(\Theta \vert \mathcal{Z}) = \mathcal{L}(\Theta \vert \mathcal{X},\mathcal{Y}) = p(\mathcal{X},\mathcal{Y} \vert \Theta) $, called the complete-data likelihood. Note that this function is in fact a random variable since the missing information $ \mathcal{Y} $ is unknown, random, and presumably governed by an underlying distribution. That is, we can think of $ \mathcal{L}(\Theta \vert \mathcal{X},\mathcal{Y}) = h_{\mathcal{X},\Theta}(\mathcal{Y}) $ for some function $ h_{\mathcal{X},\Theta}(\cdot) $ where $ \mathcal{X} $ and $ \Theta $ are constant and $ \mathcal{Y} $ is a random variable. The original likelihood $ \mathcal{L}(\Theta \vert \mathcal{X}) $ is referred to as the incomplete-data likelihood function.
+With this new density function, we can define a new likelihood function, $\mathcal{L}(\Theta \vert \mathcal{Z}) = \mathcal{L}(\Theta \vert \mathcal{X},\mathcal{Y}) = p(\mathcal{X},\mathcal{Y} \vert \Theta)$, called the complete-data likelihood. Note that this function is in fact a random variable since the missing information $\mathcal{Y}$ is unknown, random, and presumably governed by an underlying distribution. That is, we can think of $\mathcal{L}(\Theta \vert \mathcal{X},\mathcal{Y}) = h_{\mathcal{X},\Theta}(\mathcal{Y})$ for some function $h_{\mathcal{X},\Theta}(\cdot)$ where $\mathcal{X}$ and $\Theta$ are constant and $\mathcal{Y}$ is a random variable. The original likelihood $\mathcal{L}(\Theta \vert \mathcal{X})$ is referred to as the incomplete-data likelihood function.
 
-The EM algorithm first finds the expected value of the complete-data log-likelihood $ \log \, p(\mathcal{X},\mathcal{Y} \vert \Theta) $ with respect to the unknown data $ \mathcal{Y} $ given the observed data $ \mathcal{X} $ and the current parameter estimates $ \Theta^{(i-1)} $. That is, we define:
+The EM algorithm first finds the expected value of the complete-data log-likelihood $\log \, p(\mathcal{X},\mathcal{Y} \vert \Theta)$ with respect to the unknown data $\mathcal{Y}$ given the observed data $\mathcal{X}$ and the current parameter estimates $\Theta^{(i-1)}$. That is, we define:
 
 $$
 \begin{equation}
@@ -92,9 +92,9 @@ $$
 \end{equation}
 $$
 
-Where $ \Theta^{(i-1)} $ are the current parameters estimates that we used to evaluate the expectation and $ \Theta $ are the new parameters that we optimize to increase $ Q $.
+Where $\Theta^{(i-1)}$ are the current parameters estimates that we used to evaluate the expectation and $\Theta$ are the new parameters that we optimize to increase $Q$.
 
-The key thing to understand is that $ \mathcal{X} $ and $ \Theta^{(i-1)} $ are constants, $ \Theta $ is a normal variable that we wish to adjust, and $ \mathcal{Y} $ is a random variable governed by the distribution $ f_{\mathbf{Y}}(\mathbf{y}  \vert  \mathcal{X}, \Theta^{(i-1)}) $. The right side of Equation $ (\ref{eq1}) $ can therefore be re-written as:
+The key thing to understand is that $\mathcal{X}$ and $\Theta^{(i-1)}$ are constants, $\Theta$ is a normal variable that we wish to adjust, and $\mathcal{Y}$ is a random variable governed by the distribution $f_{\mathbf{Y}}(\mathbf{y}  \vert  \mathcal{X}, \Theta^{(i-1)})$. The right side of Equation $(\ref{eq1})$ can therefore be re-written as:
 
 $$
 \begin{align}
@@ -106,16 +106,18 @@ $$
 \end{align}
 $$
 
-* 注 2-4：一般有 $ E[h(Y) \vert X = x] = \int_{y}{h(y)f_{Y \vert X}(y \vert x)dy} $ 
-* 注 2-5：回头看 $ (\ref{eq2}) $ 式：$ \mathcal{Y} $ 是未知的，但是我可以假设 $ f_{\mathcal{Y}} $，比如假设它是一个 Gaussian distribution；$ p $ 是假设的；$ \mathcal{X} $ 是已知的；$ \Theta^{(i-1)} $ 是已知的；再结合取值范围 $ \mathbf{y} \in \Upsilon $，求 $ \Theta $ 使 $ (\ref{eq2}) $ 式最大化是完全可行的。
+* 注 2-4：一般有 $E[h(Y) \vert X = x] = \int_{y}{h(y)f_{Y \vert X}(y \vert x)dy}$ 
+* 注 2-5：回头看 $(\ref{eq2})$ 式：$\mathcal{Y}$ 是未知的，但是我可以假设 $f_{\mathcal{Y}}$，比如假设它是一个 Gaussian distribution；$p$ 是假设的；$\mathcal{X}$ 是已知的；$\Theta^{(i-1)}$ 是已知的；再结合取值范围 $\mathbf{y} \in \Upsilon$，求 $\Theta$ 使 $(\ref{eq2})$ 式最大化是完全可行的。
 
-Note that $ f_{\mathcal{Y}}(\mathbf{y}  \vert  \mathcal{X}, \Theta^{(i-1)}) $ is the **marginal distribution** of the unobserved data $ \mathcal{Y} $ and is dependent on both the observed data $ \mathcal{X} $ and on the current parameters $ \Theta^{(i-1)} $, and $ \Upsilon $ is the space of values $ \mathbf{y} $ can take on. In the best of cases, this marginal distribution is a simple analytical expression of the assumed parameters $ \Theta^{(i-1)} $ and perhaps the data. In the worst of cases, this density might be very hard to obtain. Sometimes, in fact, the density actually used is $ f_{\mathcal{Y},\mathcal{X}}(\mathbf{y},\mathcal{X}  \vert  \Theta^{(i-1)}) = f_{\mathcal{Y}}(\mathbf{y}  \vert  \mathcal{X}, \Theta^{(i-1)}) f_{\mathcal{X}}(\mathcal{X} \vert \Theta^{(i-1)}) $ but this doesn’t effect subsequent steps since the extra factor, $ f_{\mathcal{X}}(\mathcal{X} \vert \Theta^{(i-1)}) $ is not dependent on $ \Theta $.
+Note that $f_{\mathcal{Y}}(\mathbf{y}  \vert  \mathcal{X}, \Theta^{(i-1)})$ is the **marginal distribution** of the unobserved data $\mathcal{Y}$ and is dependent on both the observed data $\mathcal{X}$ and on the current parameters $\Theta^{(i-1)}$, and $\Upsilon$ is the space of values $\mathbf{y}$ can take on. In the best of cases, this marginal distribution is a simple analytical expression of the assumed parameters $\Theta^{(i-1)}$ and perhaps the data. In the worst of cases, this density might be very hard to obtain. Sometimes, in fact, the density actually used is $f_{\mathcal{Y},\mathcal{X}}(\mathbf{y},\mathcal{X}  \vert  \Theta^{(i-1)}) = f_{\mathcal{Y}}(\mathbf{y}  \vert  \mathcal{X}, \Theta^{(i-1)}) f_{\mathcal{X}}(\mathcal{X} \vert \Theta^{(i-1)})$ but this doesn’t effect subsequent steps since the extra factor, $f_{\mathcal{X}}(\mathcal{X} \vert \Theta^{(i-1)})$ is not dependent on $\Theta$.
 
-As an analogy, suppose we have a function $ h(\cdot,\cdot) $ of two variables. Consider $ h(\theta,Y) $ where $ \theta $ is a constant and $ Y $ is a random variable governed by some distribution $ f_{Y}(y) $. Then $ q(\theta) = E_{Y}[h(\theta,Y)] = \int_{y}{h(\theta,y)f_{Y}(y)dy} $ is now a deterministic function that could be maximized if desired.
+<!--
+As an analogy, suppose we have a function $h(\cdot,\cdot)$ of two variables. Consider $h(\theta,Y)$ where $\theta$ is a constant and $Y$ is a random variable governed by some distribution $f_{Y}(y)$. Then $q(\theta) = E_{Y}[h(\theta,Y)] = \int_{y}{h(\theta,y)f_{Y}(y)dy}$ is now a deterministic function that could be maximized if desired.
+-->
 
-The evaluation of this expectation is called the E-step of the algorithm.
+The evaluation of this expectation $(\ref{eq2})$ is called the **E-step** of the algorithm.
 
-The second step (the M-step) of the EM algorithm is to maximize the expectation we computed in the first step. That is, we find:
+The second step (the **M-step**) of the EM algorithm is to maximize the expectation we computed in the first step. That is, we find:
 
 $$
 \begin{align}
