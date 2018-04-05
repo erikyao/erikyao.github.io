@@ -125,13 +125,13 @@ $$
 \end{align}
 $$
 
-* 注 2-6：我们可以随机取一个初始值给 $ \Theta^{(1)} $
+* 注 2-6：我们可以随机取一个初始值给 $\Theta^{(1)}$
 
 These two steps are repeated as necessary. Each iteration is guaranteed to increase the loglikelihood and the algorithm is guaranteed to converge to a local maximum of the likelihood function.
 
 * 注 2-7：证明的部分见 [Expectation–maximization algorithm: Proof of correctness - wikipedia](http://en.wikipedia.org/wiki/Expectation%E2%80%93maximization_algorithm#Proof_of_correctness)
 
-A modified form of the M-step is to, instead of maximizing $ Q(\Theta,\Theta^{(i-1)}) $, we find some $ \Theta^{(i)} $ such that $ Q(\Theta^{(i)},\Theta^{(i-1)}) > Q(\Theta,\Theta^{(i-1)}) $. This form of the algorithm is called Generalized EM (GEM) and is also guaranteed to converge.
+A modified form of the M-step is to, instead of maximizing $Q(\Theta,\Theta^{(i-1)})$, we find some $\Theta^{(i)}$ such that $Q(\Theta^{(i)},\Theta^{(i-1)}) > Q(\Theta,\Theta^{(i-1)})$. This form of the algorithm is called **Generalized EM (GEM)** and is also guaranteed to converge.
 
 -----
 
@@ -141,9 +141,9 @@ algorithm` 这两节太吓人了，需要研究的时候再搬运。
 最后强调一点：EM 的目标是 ~~_神奇宝贝大师_~~ **参数估计**，所以以后遇到有算法说用到了 EM，你自己要问自己这几个问题：
 
 * latent variable $ \mathcal{Y} $ 是什么数据？
-* $ p $ 是什么分布？
-* $ \Theta $ 的组成？
-* $ f_{\mathcal{Y}} $ 是假设的什么分布？
+* $p$ 是什么分布？
+* $\Theta$ 的组成？
+* $f_{\mathcal{Y}}$ 是假设的什么分布？
 
 -----
 
@@ -151,7 +151,7 @@ algorithm` 这两节太吓人了，需要研究的时候再搬运。
 
 不少中文 blog 里的证明都用到了 Jensen's Inequality，这里姑且提一下：
 
-* For any concave function $ f $, $ E[f(X)] \leq f(E[X]) $
-	* 注意老外的 concave function (凹函数) 是开口向下的，也叫 concave downwards，比如 $ y = -x^2 $
-* For any convex function $ f $, $ E[f(X)] \geq f(E[X]) $
-	* convex function 是凸函数，是开口向上的，比如 $ y = x^2 $
+* For any concave function $f$, $E[f(X)] \leq f(E[X])$
+	* 注意老外的 concave function (凹函数) 是开口向下的，也叫 concave downwards，比如 $y = -x^2$
+* For any convex function $f$, $E[f(X)] \geq f(E[X])$
+	* convex function 是凸函数，是开口向上的，比如 $y = x^2$
