@@ -40,7 +40,7 @@ tagline: Site Tagline
 #
 production_url : http://erikyao.github.io
 
-gems: [jekyll-sitemap, jekyll-paginate, jekyll-feed]
+plugins: [jekyll-sitemap, jekyll-paginate, jekyll-feed]
 
 paginate: 10
 paginate_path: "p-:num"
