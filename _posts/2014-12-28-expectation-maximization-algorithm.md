@@ -86,7 +86,7 @@ The EM algorithm first finds the expected value of the complete-data log-likelih
 
 $$
 \begin{equation}
-	Q(\Theta,\Theta^{(i-1)}) = E \left [ \log \, p(\mathcal{X},\mathcal{Y} \vert \Theta) \mid \mathcal{X}, \Theta^{(i-1)} \right ] 
+	Q(\Theta \mid \Theta^{(i-1)}) = E \left [ \log \, p(\mathcal{X},\mathcal{Y} \vert \Theta) \mid \mathcal{X}, \Theta^{(i-1)} \right ] 
 	\tag{1}
 	\label{eq1}
 \end{equation}
@@ -99,8 +99,8 @@ The key thing to understand is that $\mathcal{X}$ and $\Theta^{(i-1)}$ are const
 $$
 \begin{align}
 	E \left [ \log \, p(\mathcal{X},\mathcal{Y} \vert \Theta) \mid \mathcal{X}, \Theta^{(i-1)} \right ] 
-	& = \int_{\mathbf{y} \in \Upsilon}{\log \, p(\mathcal{X},\mathbf{y} \vert \Theta) \, f_{\mathcal{Y}}(\mathbf{y}  \vert  \mathcal{X}, \Theta^{(i-1)}) \, d\mathbf{y} } \newline
-	& = \sum_{\mathbf{y} \in \Upsilon}{\log \, p(\mathcal{X},\mathbf{y} \vert \Theta) \, P_{\mathcal{Y}}(\mathbf{y}  \vert  \mathcal{X}, \Theta^{(i-1)})}
+	& = \int_{\mathbf{y} \in \Upsilon}{f_{\mathcal{Y}}(\mathbf{y}  \vert  \mathcal{X}, \Theta^{(i-1)}) \, \log \, p(\mathcal{X},\mathbf{y} \vert \Theta) \, d\mathbf{y} } \newline
+	& = \sum_{\mathbf{y} \in \Upsilon}{P_{\mathcal{Y}}(\mathbf{y}  \vert  \mathcal{X}, \Theta^{(i-1)}) \, \log \, p(\mathcal{X},\mathbf{y} \vert \Theta)}
 	\tag{2}
 	\label{eq2}
 \end{align}
@@ -121,7 +121,7 @@ The second step (the **M-step**) of the EM algorithm is to maximize the expectat
 
 $$
 \begin{align}
-	\Theta^{(i)} = \underset{\Theta}{\operatorname{argmax}} Q(\Theta,\Theta^{(i-1)})
+	\Theta^{(i)} = \underset{\Theta}{\operatorname{argmax}} Q(\Theta \mid \Theta^{(i-1)})
 \end{align}
 $$
 
@@ -131,16 +131,15 @@ These two steps are repeated as necessary. Each iteration is guaranteed to incre
 
 * 注 2-7：证明的部分见 [Expectation–maximization algorithm: Proof of correctness - wikipedia](http://en.wikipedia.org/wiki/Expectation%E2%80%93maximization_algorithm#Proof_of_correctness)
 
-A modified form of the M-step is to, instead of maximizing $Q(\Theta,\Theta^{(i-1)})$, we find some $\Theta^{(i)}$ such that $Q(\Theta^{(i)},\Theta^{(i-1)}) > Q(\Theta,\Theta^{(i-1)})$. This form of the algorithm is called **Generalized EM (GEM)** and is also guaranteed to converge.
+A modified form of the M-step is to, instead of maximizing $Q(\Theta \mid \Theta^{(i-1)})$, we find some $\Theta^{(i)}$ such that $Q(\Theta^{(i)} \mid \Theta^{(i-1)}) > Q(\Theta \mid \Theta^{(i-1)})$. This form of the algorithm is called **Generalized EM (GEM)** and is also guaranteed to converge.
 
 -----
 
-`3. Finding Maximum Likelihood Mixture Densities Parameters via EM` 和 `4. Learning the parameters of an HMM, EM, and the Baum-Welch
-algorithm` 这两节太吓人了，需要研究的时候再搬运。
+_3. Finding Maximum Likelihood Mixture Densities Parameters via EM_ 和 _4. Learning the parameters of an HMM, EM, and the Baum-Welchalgorithm_ 这两节太吓人了，需要研究的时候再搬运。
 
-最后强调一点：EM 的目标是 ~~_神奇宝贝大师_~~ **参数估计**，所以以后遇到有算法说用到了 EM，你自己要问自己这几个问题：
+最后强调一点：EM 的目标是**参数估计**，所以以后遇到有算法说用到了 EM，你自己要问自己这几个问题：
 
-* latent variable $ \mathcal{Y} $ 是什么数据？
+* latent variable $\mathcal{Y}$ 是什么数据？
 * $p$ 是什么分布？
 * $\Theta$ 的组成？
 * $f_{\mathcal{Y}}$ 是假设的什么分布？
