@@ -52,16 +52,62 @@ EM 算法最后输出的是：model 的参数。所以它理所当然是一个 e
 
 - A common choice of $\theta^{(0)}$ is the MLE on the labeled dataset
 
-然后在重新估新的参数的时候，你需要 ”照顾“ 到这些 labeled data，比如你可以令 $p(y=y_i \mid \mathbf{x}_i, \theta^{(t)}) = 1, i \leq l$。总体上你需要取 latent variable 的整个 column 来处理，也就是说 $y\_1, \dots, y\_l$ 虽然是 $\in \mathcal{D}$，但是它们是和 $\mathcal{H}$ 一起被视为 missing $y_{train}$ 的。这个时候，EM 的 intuition 就是：我随机给你 distribution 参数，你先生成一组 $y_{train}$，其中 $y\_1, \dots, y\_l$ 要特殊处理，要对得上。
+然后在重新估新的参数的时候，你需要 ”照顾“ 到这些 labeled data，比如你可以令 $p(y=y\_i \mid \mathbf{x}\_i, \theta^{(t)}) = 1, i \leq l$。总体上你需要取 latent variable 的整个 column 来处理，也就是说 $y\_1, \dots, y\_l$ 虽然是 $\in \mathcal{D}$，但是它们是和 $\mathcal{H}$ 一起被视为 missing $y_{train}$ 的。这个时候，EM 的 intuition 就是：我随机给你 distribution 参数，你先生成一组 $y_{train}$，其中 $y\_1, \dots, y\_l$ 要特殊处理，要对得上。
 
-## 5. 迭代目的：提升 $p(\mathcal{D} \mid \theta)$ 的 lower bound
+## 5. 迭代目的：提升 $\log p(\mathcal{D} \mid \theta)$ 的 lower bound
 
-我们把 observed data 记做 $\mathcal{D}$，hidden data 记做 $\mathcal{H}$。在 complete training data 的情况下，MLE 的做法是求 $\hat \theta = \underset{\theta}{\operatorname{argmax}} p(\mathcal{D} \mid \theta)$；在 imcomplete 的情况下，EM 的做法是逐步更新 $\theta$ 来提升 $E \left [ \log \, p(\mathcal{D},\mathcal{H} \vert \theta) \mid \mathcal{D}, \theta^{(t-1)} \right ]$，从而提升 $p(\mathcal{D} \mid \theta)$ 的 lower bound，而且它只能保证收敛到 local optimum。
+我们把 observed data 记做 $\mathcal{D}$，hidden data 记做 $\mathcal{H}$。在 complete training data 的情况下，MLE 的做法是求 $\hat \theta = \underset{\theta}{\operatorname{argmax}} p(\mathcal{D} \mid \theta)$；在 imcomplete 的情况下，EM 的做法是逐步更新 $\theta$ 来提升 $E \left [ \log \, p(\mathcal{D},\mathcal{H} \vert \theta) \mid \mathcal{D}, \theta^{(t-1)} \right ]$，从而提升 $\log p(\mathcal{D} \mid \theta)$ 的 lower bound，而且它只能保证收敛到 local optimum。
 
 - 这里要记住一点是 MLE 和 EM 的目地都是找尽可能大的 $p(\mathcal{D} \mid \theta)$
 
 我们回头整理下 [Expectation-Maximization Algorithm](/machine-learning/2014/12/28/expectation-maximization-algorithm) 里的公式：
 
-- E-step：写出 $Q(\theta,\theta^{(t-1)}) = E \left [ \log \, p(\mathcal{D},\mathcal{H} \vert \theta) \mid \mathcal{D}, \theta^{(i-1)} \right ] = \sum_{\mathcal{H}} p(\mathcal{H} \mid \mathcal{D}, \theta^{t-1}) \log \, p(\mathcal{D}, \mathcal{H} \mid \theta)$。注意这是 general 的写法，具体对 latent label 的情况，有 $Q(\theta,\theta^{(t-1)}) = \sum_{\mathbf{\psi_i} \in \Psi}{p(\mathbf{y} =\psi_i \vert  \mathcal{X}, \theta^{(t-1)}) \log \, p(\mathcal{X},\mathbf{y} = \psi_i \vert \theta)}$
-- M-step：求 \theta^{(t)} = \underset{\theta}{\operatorname{argmax}} Q(\theta,\theta^{(t-1)})
+- E-step：写出 $Q(\theta \mid \theta^{(t-1)}) = E \left [ \log \, p(\mathcal{D},\mathcal{H} \vert \theta) \mid \mathcal{D}, \theta^{(i-1)} \right ] = \sum_{\mathcal{H}} p(\mathcal{H} \mid \mathcal{D}, \theta^{(t-1)}) \log \, p(\mathcal{D}, \mathcal{H} \mid \theta)$。注意这是 general 的写法，具体对 latent label 的情况，有 $Q(\theta \mid \theta^{(t-1)}) = \sum_{\mathbf{\psi_i} \in \Psi}{p(\mathbf{y} =\psi_i \vert  \mathcal{X}, \theta^{(t-1)}) \log \, p(\mathcal{X},\mathbf{y} = \psi_i \vert \theta)}$
+- M-step：求 $\theta^{(t)} = \underset{\theta}{\operatorname{argmax}} Q(\theta \mid \theta^{(t-1)})$
 - Repeat E- and M-steps until $\theta^{(t)}$ converges
+
+### Proof of correctness
+
+Generally $\forall \theta$, we have
+
+$$
+\begin{aligned}
+\log p(\mathcal{D} \mid \theta) &= \log p(\mathcal{D},\mathcal{H} \mid \theta) - \log p(\mathcal{H} \mid \mathcal{D},\theta) \newline
+                                &= \sum_{\mathcal{H}} p(\mathcal{H} \mid \mathcal{D}, \theta^{(t)}) \log p(\mathcal{D},\mathcal{H} \mid \theta) - \sum_{\mathcal{H}} p(\mathcal{H} \mid \mathcal{D}, \theta^{(t)}) \log p(\mathcal{H} \mid \mathcal{D},\theta) \newline
+                                &= Q(\theta \mid \theta^{(t)}) + H(\theta \mid \theta^{(t)})
+\end{aligned}
+$$
+
+Therefore:
+
+$$
+\begin{aligned}
+\log p(\mathcal{D} \mid \theta^{(t+1)}) &= Q(\theta^{(t+1)} \mid \theta^{(t)}) + H(\theta^{(t+1)} \mid \theta^{(t)}) \newline
+\log p(\mathcal{D} \mid \theta^{(t)}) &= Q(\theta^{(t)} \mid \theta^{(t)}) + H(\theta^{(t)} \mid \theta^{(t)}) 
+\end{aligned}
+$$
+
+And then:
+
+$$
+\log p(\mathcal{D} \mid \theta^{(t+1)}) - \log p(\mathcal{D} \mid \theta^{(t)}) = Q(\theta^{(t+1)} \mid \theta^{(t)}) - Q(\theta^{(t)} \mid \theta^{(t)}) + H(\theta^{(t+1)} \mid \theta^{(t)}) - H(\theta^{(t)} \mid \theta^{(t)}) 
+$$
+
+Further:
+
+$$
+\begin{aligned}
+\because & \theta^{(t+1)} = \underset{\theta}{\operatorname{argmax}} Q(\theta \mid \theta^{(t)}) \newline
+\therefore & Q(\theta^{(t+1)} \mid \theta^{(t)}) - Q(\theta^{(t)} \mid \theta^{(t)}) \geq 0 \newline
+\because & \text{Gibbs' inequality} \newline
+\therefore & H(\theta^{(t+1)} \mid \theta^{(t)}) - H(\theta^{(t)} \mid \theta^{(t)}) \geq 0
+\end{aligned}
+$$
+
+So at last:
+
+$$
+\log p(\mathcal{D} \mid \theta^{(t+1)}) - \log p(\mathcal{D} \mid \theta^{(t)}) \geq 0 
+$$
+
+也有其他的一些证明方式用的是 Jensen's inequality，但其实本质是一样的（Gibbs' inequality 是 Jensen's inequality 的特殊形式）；而且我觉得 Gibbs' inequality 已经很好理解了。具体参 []()
