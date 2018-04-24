@@ -54,7 +54,7 @@ cp bgzip tabix /YourBinFolder
 
 I met a make error today:
 
-```bash
+```make
 erik:tabix-0.2.5$ make
 make[1]: Entering directory '/home/erik/Downloads/tabix-0.2.5'
 gcc -g -Wall -O2 -fPIC  -o tabix main.o -lm  -lz -L. -ltabix
@@ -95,7 +95,7 @@ I am not a C++ expert but I found a possible cause mentioned by [djcsdy](https:/
 
 > The problem was that the dynamic linking policy has changed in recent versions of GNU ld.
 
-More details from [djcsdy]'s comments:
+More details from [djcsdy](https://github.com/djcsdy/swfmill/commit/ecc04cfbd658d24ffd7de67d34963b2ee1aafb36)'s comments:
 
 > This is required due to changes in DSO linking policy in recent versions of GNU ld.  
 > <br/>
