@@ -103,7 +103,7 @@ More details from [djcsdy](https://github.com/djcsdy/swfmill/commit/ecc04cfbd658
 > <br/>
 > libpng depends on zlib, so we must now also explicitly link in zlib.  
 
-The workaround is mentioned in [Undefined reference to _gzopen etc](https://stackoverflow.com/a/13149696). In my case, simply modifying line 41 of the Makefile would do:
+The workaround is mentioned in [Undefined reference to _gzopen etc](https://stackoverflow.com/a/13149696). In my case, simply moving the `-lz` option to the end of line 41 of the Makefile would do:
 
 ```make
 tabix:lib $(AOBJS)
