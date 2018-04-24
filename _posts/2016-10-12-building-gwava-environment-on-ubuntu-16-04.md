@@ -45,9 +45,69 @@ To install the specific version manually, go to [SAM tools](https://sourceforge.
 
 ```bash
 tar jxvf tabix-0.2.5.tar.bz2
-cd tabix-0.2.5/python
+cd tabix-0.2.5
 make
 cp bgzip tabix /YourBinFolder
+```
+
+### Update 2018-04-23
+
+I met a make error today:
+
+```bash
+erik:tabix-0.2.5$ make
+make[1]: Entering directory '/home/erik/Downloads/tabix-0.2.5'
+gcc -g -Wall -O2 -fPIC  -o tabix main.o -lm  -lz -L. -ltabix
+./libtabix.a(bgzf.o): In function `deflate_block':
+/home/erik/Downloads/tabix-0.2.5/bgzf.c:311: undefined reference to `deflate'
+/home/erik/Downloads/tabix-0.2.5/bgzf.c:313: undefined reference to `deflateEnd'
+/home/erik/Downloads/tabix-0.2.5/bgzf.c:305: undefined reference to `deflateInit2_'
+/home/erik/Downloads/tabix-0.2.5/bgzf.c:329: undefined reference to `deflateEnd'
+/home/erik/Downloads/tabix-0.2.5/bgzf.c:345: undefined reference to `crc32'
+/home/erik/Downloads/tabix-0.2.5/bgzf.c:346: undefined reference to `crc32'
+./libtabix.a(bgzf.o): In function `inflate_block':
+/home/erik/Downloads/tabix-0.2.5/bgzf.c:380: undefined reference to `inflateInit2_'
+/home/erik/Downloads/tabix-0.2.5/bgzf.c:385: undefined reference to `inflate'
+/home/erik/Downloads/tabix-0.2.5/bgzf.c:391: undefined reference to `inflateEnd'
+/home/erik/Downloads/tabix-0.2.5/bgzf.c:387: undefined reference to `inflateEnd'
+./libtabix.a(bedidx.o): In function `ks_getuntil':
+/home/erik/Downloads/tabix-0.2.5/bedidx.c:11: undefined reference to `gzread'
+./libtabix.a(bedidx.o): In function `bed_read':
+/home/erik/Downloads/tabix-0.2.5/bedidx.c:103: undefined reference to `gzdopen'
+/home/erik/Downloads/tabix-0.2.5/bedidx.c:138: undefined reference to `gzclose'
+./libtabix.a(bedidx.o): In function `ks_getc':
+/home/erik/Downloads/tabix-0.2.5/bedidx.c:11: undefined reference to `gzread'
+./libtabix.a(bedidx.o): In function `bed_read':
+/home/erik/Downloads/tabix-0.2.5/bedidx.c:103: undefined reference to `gzopen64'
+collect2: error: ld returned 1 exit status
+Makefile:41: recipe for target 'tabix' failed
+make[1]: *** [tabix] Error 1
+make[1]: Leaving directory '/home/erik/Downloads/tabix-0.2.5'
+Makefile:18: recipe for target 'all-recur' failed
+make: *** [all-recur] Error 1
+erik:tabix-0.2.5$ make
+make[1]: Entering directory '/home/erik/Downloads/tabix-0.2.5'
+gcc -g -Wall -O2 -fPIC  -o tabix main.o -lm  -L. -ltabix -lz
+gcc -c -g -Wall -O2 -fPIC  -D_FILE_OFFSET_BITS=64 -D_USE_KNETFILE  bgzip.c -o bgzip.o
+```
+
+I am not a C++ expert but I found a possible cause mentioned by [djcsdy](https://github.com/djcsdy/swfmill/issues/37#issuecomment-336618361):
+
+> The problem was that the dynamic linking policy has changed in recent versions of GNU ld.
+
+More details from [djcsdy]'s comments:
+
+> This is required due to changes in DSO linking policy in recent versions of GNU ld.  
+> <br/>
+> Previously ld would automatically link transitive dependencies, but it no longer does so.  
+> <br/>
+> libpng depends on zlib, so we must now also explicitly link in zlib.  
+
+The workaround is mentioned in [Undefined reference to _gzopen etc](https://stackoverflow.com/a/13149696). In my case, simply modifying line 41 of the Makefile would do:
+
+```make
+tabix:lib $(AOBJS)
+		$(CC) $(CFLAGS) -o $@ $(AOBJS) -lm $(LIBPATH) -L. -ltabix -lz
 ```
 
 ## Issue 3: `pybedtools`, the python interface, needs its implementation, a binary lib `bedtools`
