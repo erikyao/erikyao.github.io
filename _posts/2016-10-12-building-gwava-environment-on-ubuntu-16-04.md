@@ -54,7 +54,7 @@ cp bgzip tabix /YourBinFolder
 
 I met a make error today:
 
-```make
+```txt
 erik:tabix-0.2.5$ make
 make[1]: Entering directory '/home/erik/Downloads/tabix-0.2.5'
 gcc -g -Wall -O2 -fPIC  -o tabix main.o -lm  -lz -L. -ltabix
