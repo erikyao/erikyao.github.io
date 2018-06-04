@@ -3,7 +3,7 @@ layout: post
 title: "ISL: Linear Regression - Part 1"
 description: ""
 category: Machine-Learning
-tags: [ML-101]
+tags: []
 ---
 {% include JB/setup %}
 

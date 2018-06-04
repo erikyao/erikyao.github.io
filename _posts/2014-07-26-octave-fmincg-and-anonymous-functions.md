@@ -3,7 +3,7 @@ layout: post
 title: "Octave: fmincg and Anonymous Functions"
 description: ""
 category: Octave
-tags: [ML-101]
+tags: []
 ---
 {% include JB/setup %}
 

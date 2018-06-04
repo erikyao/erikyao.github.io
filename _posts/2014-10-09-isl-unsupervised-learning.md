@@ -3,7 +3,7 @@ layout: post
 title: "ISL: Unsupervised Learning"
 description: ""
 category: Machine-Learning
-tags: [ML-101, PCA, Cluster]
+tags: [PCA, Cluster]
 ---
 {% include JB/setup %}
 

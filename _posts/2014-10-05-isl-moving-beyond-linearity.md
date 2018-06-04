@@ -3,7 +3,7 @@ layout: post
 title: "ISL: Moving Beyond Linearity"
 description: ""
 category: Machine-Learning
-tags: [ML-101, Spline, GAM]
+tags: [Spline, GAM]
 ---
 {% include JB/setup %}
 

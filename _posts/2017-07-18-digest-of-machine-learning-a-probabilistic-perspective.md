@@ -3,7 +3,7 @@ layout: post
 title: "Digest of <i>Machine Learning - A Probabilistic Perspective</i>"
 description: ""
 category: Machine-Learning
-tags: [ML-101]
+tags: []
 ---
 {% include JB/setup %}
 

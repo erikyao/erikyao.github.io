@@ -3,7 +3,7 @@ layout: post
 title: "ISL: Classification"
 description: ""
 category: Machine-Learning
-tags: [ML-101, LDA]
+tags: [LDA]
 ---
 {% include JB/setup %}
 

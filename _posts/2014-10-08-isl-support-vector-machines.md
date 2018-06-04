@@ -3,7 +3,7 @@ layout: post
 title: "ISL: Support Vector Machines"
 description: ""
 category: Machine-Learning
-tags: [ML-101, SVM]
+tags: [SVM]
 ---
 {% include JB/setup %}
 

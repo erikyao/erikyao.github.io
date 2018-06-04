@@ -3,7 +3,7 @@ layout: post
 title: "Naive Bayes classifier"
 description: ""
 category: Machine-Learning
-tags: [ML-101, Bayes]
+tags: [Bayes]
 ---
 {% include JB/setup %}
 

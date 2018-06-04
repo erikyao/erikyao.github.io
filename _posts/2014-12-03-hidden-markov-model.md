@@ -3,7 +3,7 @@ layout: post
 title: "Hidden Markov Models"
 description: ""
 category: Machine-Learning
-tags: [ML-101, HMM]
+tags: [HMM]
 ---
 {% include JB/setup %}
 

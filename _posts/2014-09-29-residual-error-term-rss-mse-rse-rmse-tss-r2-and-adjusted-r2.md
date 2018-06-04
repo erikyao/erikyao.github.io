@@ -3,7 +3,7 @@ layout: post
 title: "Residual, Error Term, RSS, MSE, RSE (RMSE), TSS, R<sup>2</sup> and Adjusted R<sup>2</sup>"
 description: ""
 category: Machine-Learning
-tags: [ML-101]
+tags: []
 ---
 {% include JB/setup %}
 

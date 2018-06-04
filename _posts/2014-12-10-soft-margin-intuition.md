@@ -3,7 +3,7 @@ layout: post
 title: "Soft Margin Intuition"
 description: ""
 category: Machine-Learning
-tags: [ML-101, SVM]
+tags: [SVM]
 ---
 {% include JB/setup %}
 

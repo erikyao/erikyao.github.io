@@ -3,7 +3,7 @@ layout: post
 title: "Types of Data Science Questions"
 description: ""
 category: Machine-Learning
-tags: [ML-101]
+tags: []
 ---
 {% include JB/setup %}
 

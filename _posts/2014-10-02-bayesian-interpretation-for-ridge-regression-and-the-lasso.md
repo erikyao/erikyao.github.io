@@ -3,7 +3,7 @@ layout: post
 title: "Bayesian Interpretation for Ridge Regression and the Lasso + Exercise 7"
 description: ""
 category: Machine-Learning
-tags: [ML-101, Bayes]
+tags: [Bayes]
 ---
 {% include JB/setup %}
 

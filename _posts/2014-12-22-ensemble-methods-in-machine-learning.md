@@ -3,7 +3,7 @@ layout: post
 title: "Ensemble Methods in Machine Learning"
 description: ""
 category: Machine-Learning
-tags: [ML-101, Bagging, Boosting]
+tags: [Bagging, Boosting]
 ---
 {% include JB/setup %}
 

@@ -3,7 +3,7 @@ layout: post
 title: "Lagrange duality"
 description: ""
 category: Machine-Learning
-tags: [ML-101, SVM]
+tags: [SVM]
 ---
 {% include JB/setup %}
 

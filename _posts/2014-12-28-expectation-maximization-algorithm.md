@@ -3,7 +3,7 @@ layout: post
 title: "Expectation-Maximization Algorithm"
 description: "Digest of <i>A Gentle Tutorial of the EM Algorithm and its Application to Parameter Estimation for Gaussian Mixture and Hidden Markov Models</i>"
 category: Machine-Learning
-tags: [Paper, ML-101, EM]
+tags: [Paper, EM]
 ---
 {% include JB/setup %}
 

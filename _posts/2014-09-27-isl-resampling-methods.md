@@ -3,7 +3,7 @@ layout: post
 title: "ISL: Resampling Methods"
 description: ""
 category: Machine-Learning
-tags: [ML-101, Bootstrap]
+tags: [Bootstrap]
 ---
 {% include JB/setup %}
 

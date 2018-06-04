@@ -3,7 +3,7 @@ layout: post
 title: "ISL: Linear Model Selection and Regularization - Part 1"
 description: ""
 category: Machine-Learning
-tags: [ML-101]
+tags: []
 ---
 {% include JB/setup %}
 

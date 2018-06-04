@@ -3,7 +3,7 @@ layout: post
 title: "ISL: Statistical Learning"
 description: ""
 category: Machine-Learning
-tags: [ML-101]
+tags: []
 ---
 {% include JB/setup %}
 
