@@ -3,7 +3,7 @@ layout: post
 title: "Python: Use <i>datatime</i> instead of <i>time</i> for local clocks"
 description: ""
 category: Python
-tags: [Python-101]
+tags: []
 ---
 {% include JB/setup %}
 

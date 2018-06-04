@@ -3,7 +3,7 @@ layout: post
 title: "Python: IDLE won't display anything for an expression evaluated to None"
 description: ""
 category: Python
-tags: [Python-101]
+tags: []
 ---
 {% include JB/setup %}
 

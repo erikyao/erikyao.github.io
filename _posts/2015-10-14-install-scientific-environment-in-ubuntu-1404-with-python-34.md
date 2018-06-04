@@ -3,7 +3,7 @@ layout: post
 title: "Install Scientific Environment in Ubuntu 14.04 With Python 3.4"
 description: ""
 category: Python
-tags: [Python-101]
+tags: []
 ---
 {% include JB/setup %}
 

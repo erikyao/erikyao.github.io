@@ -3,7 +3,7 @@ layout: post
 title: "Python: Yes, coroutines are complicated, but they can be used as simply as generators"
 description: ""
 category: Python
-tags: [Python-101]
+tags: []
 ---
 {% include JB/setup %}
 

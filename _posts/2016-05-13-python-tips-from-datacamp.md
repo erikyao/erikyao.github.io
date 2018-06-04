@@ -3,7 +3,7 @@ layout: post
 title: "Python tips from Datacamp"
 description: ""
 category: Python
-tags: [Python-101]
+tags: []
 ---
 {% include JB/setup %}
 

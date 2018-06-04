@@ -3,7 +3,7 @@ layout: post
 title: "Python 3: Keyword-Only Arguments"
 description: ""
 category: Python
-tags: [Python-101]
+tags: []
 ---
 {% include JB/setup %}
 

@@ -3,7 +3,7 @@ layout: post
 title: "Python: Variable scope in <i>if</i>-statement"
 description: ""
 category: Python
-tags: [Python-101]
+tags: []
 ---
 {% include JB/setup %}
 

@@ -3,7 +3,7 @@ layout: post
 title: "Python: sequences of booleans"
 description: ""
 category: Python
-tags: [pandas, Python-101]
+tags: [pandas, numpy]
 ---
 {% include JB/setup %}
 

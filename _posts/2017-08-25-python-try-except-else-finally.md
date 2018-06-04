@@ -3,7 +3,7 @@ layout: post
 title: "Python: <i>try-except-else-finally</i>"
 description: ""
 category: Python
-tags: [Python-101]
+tags: []
 ---
 {% include JB/setup %}
 

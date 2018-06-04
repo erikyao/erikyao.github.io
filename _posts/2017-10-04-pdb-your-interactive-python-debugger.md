@@ -3,7 +3,7 @@ layout: post
 title: "pdb: Your interactive python debugger"
 description: ""
 category: Python
-tags: [Python-101]
+tags: []
 ---
 {% include JB/setup %}
 

@@ -3,7 +3,7 @@ layout: post
 title: "Digest of <i>Dive into Python 3</i>"
 description: ""
 category: Python
-tags: [Python-101, Book]
+tags: [Book]
 ---
 {% include JB/setup %}
 
