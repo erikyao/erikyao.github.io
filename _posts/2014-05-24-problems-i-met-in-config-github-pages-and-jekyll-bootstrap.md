@@ -2,7 +2,7 @@
 layout: post
 title: "调教 GitHub Pages 与 jekyll bootstrap 时遇到的一些问题"
 description: ""
-category: jekyll
+category: Jekyll
 tags: [MathJax]
 ---
 {% include JB/setup %}

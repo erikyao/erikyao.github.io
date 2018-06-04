@@ -2,7 +2,7 @@
 layout: post
 title: "MathJax 血泪史"
 description: ""
-category: jekyll
+category: Jekyll
 tags: [MathJax]
 ---
 {% include JB/setup %}
