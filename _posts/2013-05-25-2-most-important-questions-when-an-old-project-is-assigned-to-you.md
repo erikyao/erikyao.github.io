@@ -2,8 +2,8 @@
 layout: post
 title: "2 most important questions when an old project is assigned to you"
 description: ""
-category: as-a-coder
-tags: [Discernment-Maintenance]
+category: Thought
+tags: [Experience]
 ---
 {% include JB/setup %}
 

@@ -2,7 +2,7 @@
 layout: post
 title: "scikit-learn: Pipeline"
 description: ""
-category: scikit-learn
+category: sklearn
 tags: [ML-101]
 ---
 {% include JB/setup %}
