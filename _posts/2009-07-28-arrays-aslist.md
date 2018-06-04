@@ -3,7 +3,7 @@ layout: post
 title: "Arrays.asList()"
 description: ""
 category: Java
-tags: [Java-101]
+tags: []
 ---
 {% include JB/setup %}
 

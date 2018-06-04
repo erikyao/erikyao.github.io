@@ -3,7 +3,7 @@ layout: post
 title: "有关 Java 的 main 方法"
 description: ""
 category: Java
-tags: [Java-101]
+tags: []
 ---
 {% include JB/setup %}
 

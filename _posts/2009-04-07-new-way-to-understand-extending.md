@@ -3,7 +3,7 @@ layout: post
 title: "关于继承的新认识：导出类调用基类方法其实是向上转型"
 description: ""
 category: Java
-tags: [Java-101]
+tags: []
 ---
 {% include JB/setup %}
 

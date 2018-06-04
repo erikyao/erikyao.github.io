@@ -3,7 +3,7 @@ layout: post
 title: "primitive type 可以为 null"
 description: ""
 category: Java
-tags: [Java-101]
+tags: []
 ---
 {% include JB/setup %}
 

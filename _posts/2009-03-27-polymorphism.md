@@ -3,7 +3,7 @@ layout: post
 title: "多态"
 description: ""
 category: Java
-tags: [Java-101]
+tags: []
 ---
 {% include JB/setup %}
 

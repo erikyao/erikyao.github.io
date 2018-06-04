@@ -3,7 +3,7 @@ layout: post
 title: "private、package 权限字段不可继承 + 向上转型的新理解"
 description: ""
 category: Java
-tags: [Java-101]
+tags: []
 ---
 {% include JB/setup %}
 

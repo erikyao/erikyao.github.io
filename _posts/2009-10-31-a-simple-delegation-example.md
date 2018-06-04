@@ -3,7 +3,7 @@ layout: post
 title: "a simple delegation example"
 description: ""
 category: Java
-tags: [Java-101, Delegate]
+tags: [Delegate]
 ---
 {% include JB/setup %}
 
@@ -13,4 +13,4 @@ public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOEx
 }  
 ```
 
-　　简直是最简单也最直白的例子了。我们称 `doPost()` delegates its function to `doGet()` 或者说 `doPost()` delegates `doGet()` to function。
+简直是最简单也最直白的例子了。我们称 `doPost()` delegates its function to `doGet()` 或者说 `doPost()` delegates `doGet()` to function。

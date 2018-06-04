@@ -3,7 +3,7 @@ layout: post
 title: "shallow copy v.s. deep clone"
 description: ""
 category: Java
-tags: [Java-101]
+tags: []
 ---
 {% include JB/setup %}
 
