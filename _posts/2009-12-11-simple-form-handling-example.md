@@ -3,7 +3,7 @@ layout: post
 title: "Simple Form Handling Example"
 description: ""
 category: SpringMVC
-tags: [SpringMVC-101]
+tags: []
 ---
 {% include JB/setup %}
 

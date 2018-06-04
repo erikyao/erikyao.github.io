@@ -3,7 +3,7 @@ layout: post
 title: "Spring MVC example anatomy"
 description: ""
 category: SpringMVC
-tags: [SpringMVC-101]
+tags: []
 ---
 {% include JB/setup %}
 
