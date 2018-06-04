@@ -3,7 +3,7 @@ layout: post
 title: "jBPM-4.3 流程定义 zip 包中的所有文件都是资源"
 description: ""
 category: jBPM-4.3
-tags: [jbpm-101]
+tags: []
 ---
 {% include JB/setup %}
 

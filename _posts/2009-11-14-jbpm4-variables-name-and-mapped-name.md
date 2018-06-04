@@ -3,7 +3,7 @@ layout: post
 title: "jbpm 4.3 variable 的 name 和 mapped-name"
 description: ""
 category: jBPM-4.3
-tags: [jbpm-101]
+tags: []
 ---
 {% include JB/setup %}
 

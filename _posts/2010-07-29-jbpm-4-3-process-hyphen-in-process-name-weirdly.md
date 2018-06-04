@@ -3,7 +3,7 @@ layout: post
 title: "jBPM-4.3 &lt;process&gt; 标签 name 属性中的短横线会变成下划线赋给 key 属性"
 description: ""
 category: jBPM-4.3
-tags: [jbpm-101]
+tags: []
 ---
 {% include JB/setup %}
 

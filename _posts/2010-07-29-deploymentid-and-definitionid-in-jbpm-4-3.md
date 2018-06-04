@@ -3,7 +3,7 @@ layout: post
 title: "jBPM-4.3 中 deploymentId 和definitionId 应该是一对一的关系"
 description: ""
 category: jBPM-4.3
-tags: [jbpm-101]
+tags: []
 ---
 {% include JB/setup %}
 
