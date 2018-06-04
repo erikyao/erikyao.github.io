@@ -3,7 +3,7 @@ layout: post
 title: "C++: There are void pointers but no void references"
 description: ""
 category: C++
-tags: [Cpp-101]
+tags: []
 ---
 {% include JB/setup %}
 

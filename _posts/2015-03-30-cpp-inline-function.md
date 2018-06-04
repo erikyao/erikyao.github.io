@@ -3,7 +3,7 @@ layout: post
 title: "C++: inline function"
 description: ""
 category: C++
-tags: [Cpp-101]
+tags: []
 ---
 {% include JB/setup %}
 

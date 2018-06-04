@@ -3,7 +3,7 @@ layout: post
 title: "C++: <i>=default</i> & <i>=delete</i>"
 description: ""
 category: C++
-tags: [Cpp-101, C++11, copy-constructor]
+tags: [C++11, copy-constructor]
 ---
 {% include JB/setup %}
 

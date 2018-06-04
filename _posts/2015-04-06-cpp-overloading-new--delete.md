@@ -3,7 +3,7 @@ layout: post
 title: "C++: overloading <i>new</i> & <i>delete</i>"
 description: ""
 category: C++
-tags: [Cpp-101]
+tags: []
 ---
 {% include JB/setup %}
 

@@ -3,7 +3,7 @@ layout: post
 title: "C++: <i>typename</i> & <i>template</i>"
 description: ""
 category: C++
-tags: [Cpp-101, template]
+tags: [template]
 ---
 {% include JB/setup %}
 

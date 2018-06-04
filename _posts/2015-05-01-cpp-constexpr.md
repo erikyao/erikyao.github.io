@@ -3,7 +3,7 @@ layout: post
 title: "C++: constexpr"
 description: ""
 category: C++
-tags: [Cpp-101, const, C++11]
+tags: [const, C++11]
 ---
 {% include JB/setup %}
 

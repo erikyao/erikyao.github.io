@@ -3,7 +3,7 @@ layout: post
 title: "C++ Type Specifiers: auto / decltype"
 description: ""
 category: C++
-tags: [Cpp-101, C++11, const]
+tags: [C++11, const]
 ---
 {% include JB/setup %}
 

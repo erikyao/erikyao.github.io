@@ -3,7 +3,7 @@ layout: post
 title: "C++: A quick view of design pattern"
 description: ""
 category: C++
-tags: [Cpp-101]
+tags: []
 ---
 {% include JB/setup %}
 

@@ -3,7 +3,7 @@ layout: post
 title: "C++: Null Pointer"
 description: ""
 category: C++
-tags: [Cpp-101, C++11]
+tags: [C++11, pointer]
 ---
 {% include JB/setup %}
 

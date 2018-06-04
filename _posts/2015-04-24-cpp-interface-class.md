@@ -3,7 +3,7 @@ layout: post
 title: "C++: Interface Class"
 description: ""
 category: C++
-tags: [Cpp-101]
+tags: []
 ---
 {% include JB/setup %}
 

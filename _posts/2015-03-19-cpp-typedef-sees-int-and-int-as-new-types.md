@@ -3,7 +3,7 @@ layout: post
 title: "C++: typedef sees <i>int*</i> and <i>int&</i> as new types"
 description: ""
 category: C++
-tags: [Cpp-101]
+tags: []
 ---
 {% include JB/setup %}
 

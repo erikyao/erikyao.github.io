@@ -3,7 +3,7 @@ layout: post
 title: "C++: const object / const member & const member function / mutable"
 description: ""
 category: C++
-tags: [Cpp-101, const]
+tags: [const]
 ---
 {% include JB/setup %}
 

@@ -3,7 +3,7 @@ layout: post
 title: "C++: A quick view of STL algorithms"
 description: ""
 category: C++
-tags: [Cpp-101]
+tags: []
 ---
 {% include JB/setup %}
 

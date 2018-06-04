@@ -3,7 +3,7 @@ layout: post
 title: "C++: pass-by-value / pass-by-pointer / pass-by-reference"
 description: ""
 category: C++
-tags: [Cpp-101]
+tags: []
 ---
 {% include JB/setup %}
 

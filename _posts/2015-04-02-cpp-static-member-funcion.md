@@ -3,7 +3,7 @@ layout: post
 title: "C++: static member funcion"
 description: ""
 category: C++
-tags: [Cpp-101]
+tags: []
 ---
 {% include JB/setup %}
 

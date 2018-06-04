@@ -3,7 +3,7 @@ layout: post
 title: "C++: Default function arguments & Placeholder arguments"
 description: ""
 category: C++
-tags: [Cpp-101]
+tags: []
 ---
 {% include JB/setup %}
 

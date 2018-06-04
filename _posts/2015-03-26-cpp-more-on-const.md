@@ -3,7 +3,7 @@ layout: post
 title: "C++: More on const"
 description: ""
 category: C++
-tags: [Cpp-101, const]
+tags: [const, pointer]
 ---
 {% include JB/setup %}
 

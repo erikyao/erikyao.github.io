@@ -3,7 +3,7 @@ layout: post
 title: "C++: The multiple-declaration problem / Never put <i>using</i> in headers"
 description: ""
 category: C++
-tags: [Cpp-101]
+tags: []
 ---
 {% include JB/setup %}
 

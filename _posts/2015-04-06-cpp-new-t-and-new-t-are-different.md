@@ -3,7 +3,7 @@ layout: post
 title: "C++: <i>new T</i> and <i>new T()</i> are different!"
 description: ""
 category: C++
-tags: [Cpp-101]
+tags: []
 ---
 {% include JB/setup %}
 

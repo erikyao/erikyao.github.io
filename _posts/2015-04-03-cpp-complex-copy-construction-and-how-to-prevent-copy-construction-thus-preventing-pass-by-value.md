@@ -3,7 +3,7 @@ layout: post
 title: "C++: Complex copy-construction & How to prevent copy-construction (thus preventing pass-by-value)"
 description: ""
 category: C++
-tags: [Cpp-101, copy-constructor]
+tags: [copy-constructor]
 ---
 {% include JB/setup %}
 

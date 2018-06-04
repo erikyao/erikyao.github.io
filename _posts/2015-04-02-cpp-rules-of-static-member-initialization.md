@@ -3,7 +3,7 @@ layout: post
 title: "C++: Rules of static member initialization"
 description: ""
 category: C++
-tags: [Cpp-101, const]
+tags: [const]
 ---
 {% include JB/setup %}
 

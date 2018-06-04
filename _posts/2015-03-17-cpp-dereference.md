@@ -3,7 +3,7 @@ layout: post
 title: "C++: dereference"
 description: ""
 category: C++
-tags: [Cpp-101]
+tags: []
 ---
 {% include JB/setup %}
 

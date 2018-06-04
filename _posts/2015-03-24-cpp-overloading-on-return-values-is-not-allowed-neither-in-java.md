@@ -3,7 +3,7 @@ layout: post
 title: "C++: Overloading on return values is NOT allowed (neither in java)"
 description: ""
 category: C++
-tags: [Cpp-101]
+tags: []
 ---
 {% include JB/setup %}
 

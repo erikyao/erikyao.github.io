@@ -3,7 +3,7 @@ layout: post
 title: "C++ overloading `operator=`: shallow copy vs. deep copy / reference counting / copy on write"
 description: ""
 category: C++
-tags: [Cpp-101, copy-constructor]
+tags: [copy-constructor]
 ---
 {% include JB/setup %}
 

@@ -3,7 +3,7 @@ layout: post
 title: "C++: Copy-constructor & the return value on the stack"
 description: ""
 category: C++
-tags: [Cpp-101, copy-constructor]
+tags: [copy-constructor]
 ---
 {% include JB/setup %}
 

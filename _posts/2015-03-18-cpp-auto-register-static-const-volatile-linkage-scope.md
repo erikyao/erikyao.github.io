@@ -3,7 +3,7 @@ layout: post
 title: "C++: auto / register / static / const / volatile / linkage / scope"
 description: ""
 category: C++
-tags: [Cpp-101, const]
+tags: [const]
 ---
 {% include JB/setup %}
 

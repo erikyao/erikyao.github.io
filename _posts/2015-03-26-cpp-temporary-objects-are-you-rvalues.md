@@ -3,7 +3,7 @@ layout: post
 title: "C++: Temporary Objects, are you Rvalues?"
 description: ""
 category: C++
-tags: [Cpp-101, const]
+tags: [const]
 ---
 {% include JB/setup %}
 

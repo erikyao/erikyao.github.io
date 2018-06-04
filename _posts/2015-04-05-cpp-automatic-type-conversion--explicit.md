@@ -3,7 +3,7 @@ layout: post
 title: "C++: Automatic type conversion / explicit"
 description: ""
 category: C++
-tags: [Cpp-101, copy-constructor]
+tags: [copy-constructor]
 ---
 {% include JB/setup %}
 

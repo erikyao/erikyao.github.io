@@ -3,7 +3,7 @@ layout: post
 title: "C++: Using struct like a class / Nested struct / Global scope resolution inside struct"
 description: ""
 category: C++
-tags: [Cpp-101]
+tags: []
 ---
 {% include JB/setup %}
 

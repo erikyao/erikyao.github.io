@@ -3,7 +3,7 @@ layout: post
 title: "C++ Exception Handling / auto_ptr"
 description: ""
 category: C++
-tags: [Cpp-101]
+tags: []
 ---
 {% include JB/setup %}
 
