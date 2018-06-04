@@ -3,7 +3,7 @@ layout: post
 title: "GWAS / SNP / eQTLs"
 description: ""
 category: Biology
-tags: [Biology-101]
+tags: []
 ---
 {% include JB/setup %}
 

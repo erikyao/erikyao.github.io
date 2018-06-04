@@ -3,7 +3,7 @@ layout: post
 title: "@Transactional throws \"no matching editors or conversion strategy found\""
 description: ""
 category: Spring
-tags: [Spring-101, Config-Spring]
+tags: []
 ---
 {% include JB/setup %}
 

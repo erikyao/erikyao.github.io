@@ -3,7 +3,7 @@ layout: post
 title: "Computational Complexity Review"
 description: ""
 category: Algorithm
-tags: [Algorithm-101]
+tags: []
 ---
 {% include JB/setup %}
 

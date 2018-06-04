@@ -3,7 +3,7 @@ layout: post
 title: "PWM (PSSM) / Sequence Logo"
 description: ""
 category: Biology
-tags: [Biology-101, Markov, Entropy]
+tags: [Markov, Entropy]
 ---
 {% include JB/setup %}
 

@@ -3,7 +3,7 @@ layout: post
 title: "Notepad++ is a better Markdown editor"
 description: ""
 category: Notepad++
-tags: [Config-NotePad++]
+tags: []
 ---
 {% include JB/setup %}
 

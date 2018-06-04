@@ -3,7 +3,7 @@ layout: post
 title: "ML Terminology"
 description: ""
 category: Machine-Learning
-tags: [ML-101]
+tags: []
 ---
 {% include JB/setup %}
 

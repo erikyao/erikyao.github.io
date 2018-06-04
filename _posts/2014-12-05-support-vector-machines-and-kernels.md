@@ -3,7 +3,7 @@ layout: post
 title: "Support Vector Machines and Kernels"
 description: ""
 category: Machine-Learning
-tags: [ML-101, BioInformatics-101, SVM]
+tags: [SVM, Paper]
 ---
 {% include JB/setup %}
 

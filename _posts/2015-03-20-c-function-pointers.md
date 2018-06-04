@@ -3,7 +3,7 @@ layout: post
 title: "C: function pointers"
 description: ""
 category: C
-tags: [C-101]
+tags: [pointer]
 ---
 {% include JB/setup %}
 

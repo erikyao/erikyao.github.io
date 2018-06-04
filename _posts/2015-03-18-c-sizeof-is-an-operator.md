@@ -3,7 +3,7 @@ layout: post
 title: "C: sizeof is an operator"
 description: ""
 category: C
-tags: [C-101]
+tags: []
 ---
 {% include JB/setup %}
 

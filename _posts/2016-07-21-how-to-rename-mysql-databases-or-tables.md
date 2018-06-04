@@ -3,7 +3,7 @@ layout: post
 title: "How to rename MySQL databases or tables?"
 description: ""
 category: MySQL
-tags: [Config-MySQL]
+tags: []
 ---
 {% include JB/setup %}
 

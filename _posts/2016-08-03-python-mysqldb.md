@@ -3,7 +3,7 @@ layout: post
 title: "Python: MySQLdb"
 description: ""
 category: Python
-tags: [Python-101, Config-MySQL]
+tags: [MySQL-client]
 ---
 {% include JB/setup %}
 

@@ -3,7 +3,7 @@ layout: post
 title: "Digest of <i>Short introduction to log4j</i>"
 description: ""
 category: log4j
-tags: [Article, Config-log4j]
+tags: [Article]
 ---
 {% include JB/setup %}
 

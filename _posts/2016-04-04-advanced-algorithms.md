@@ -3,7 +3,7 @@ layout: post
 title: "Advanced Algorithms"
 description: ""
 category: Algorithm
-tags: [Algorithm-101]
+tags: []
 ---
 {% include JB/setup %}
 

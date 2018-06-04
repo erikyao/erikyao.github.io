@@ -3,7 +3,7 @@ layout: post
 title: "@Autowired not working 的问题"
 description: ""
 category: Spring
-tags: [Spring-101, Config-Spring]
+tags: []
 ---
 {% include JB/setup %}
 

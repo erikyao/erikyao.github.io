@@ -3,7 +3,7 @@ layout: post
 title: "Genome / Gene, Locus, Allele, Genotype & Phenotype / Gene Regulation"
 description: ""
 category: Biology
-tags: [Biology-101]
+tags: []
 ---
 {% include JB/setup %}
 

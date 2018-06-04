@@ -3,7 +3,7 @@ layout: post
 title: "How to import data to MySQL? / How to change MySQL data directory?"
 description: ""
 category: MySQL
-tags: [Config-MySQL]
+tags: []
 ---
 {% include JB/setup %}
 

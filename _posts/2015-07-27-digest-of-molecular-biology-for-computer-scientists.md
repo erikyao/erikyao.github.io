@@ -3,7 +3,7 @@ layout: post
 title: "Digest of <i>Molecular Biology for Computer Scientists</i>"
 description: ""
 category: Biology
-tags: [Biology-101]
+tags: [Book]
 ---
 {% include JB/setup %}
 

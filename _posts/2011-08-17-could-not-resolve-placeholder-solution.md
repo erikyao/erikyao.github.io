@@ -3,7 +3,7 @@ layout: post
 title: "\"Could not resolve placeholder\" 解决方案"
 description: ""
 category: Spring
-tags: [Spring-101, Config-Spring]
+tags: []
 ---
 {% include JB/setup %}
 

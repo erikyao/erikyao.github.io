@@ -3,7 +3,7 @@ layout: post
 title: "The MEME algorithm"
 description: ""
 category: Machine-Learning
-tags: [ML-101, BioInformatics-101, Paper]
+tags: [Paper]
 ---
 {% include JB/setup %}
 

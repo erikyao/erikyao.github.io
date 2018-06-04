@@ -3,7 +3,7 @@ layout: post
 title: "The aims of Transcriptome Profiling, ChIP-seq and DNase-seq"
 description: ""
 category: Biology
-tags: [Biology-101]
+tags: []
 ---
 {% include JB/setup %}
 

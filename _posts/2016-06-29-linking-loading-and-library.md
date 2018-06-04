@@ -3,7 +3,7 @@ layout: post
 title: "Linking, Loading and Library"
 description: ""
 category: OS
-tags: [C-101, Book]
+tags: [Book]
 ---
 {% include JB/setup %}
 

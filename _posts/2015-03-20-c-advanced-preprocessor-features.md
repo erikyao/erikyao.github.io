@@ -3,7 +3,7 @@ layout: post
 title: "C: Advanced Preprocessor Features"
 description: ""
 category: C
-tags: [C-101]
+tags: []
 ---
 {% include JB/setup %}
 

@@ -3,7 +3,7 @@ layout: post
 title: "Basic Graph Algorithms"
 description: ""
 category: Algorithm
-tags: [Algorithm-101]
+tags: []
 ---
 {% include JB/setup %}
 
