@@ -3,7 +3,7 @@ layout: post
 title: "Scripting Life"
 description: ""
 category: Linux
-tags: [Shell]
+tags: [Experience]
 ---
 {% include JB/setup %}
 
