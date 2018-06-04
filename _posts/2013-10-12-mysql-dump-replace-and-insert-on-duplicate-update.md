@@ -3,7 +3,7 @@ layout: post
 title: "MySQL dump, replace and insert-on-duplicate-update"
 description: ""
 category: MySQL
-tags: [Database-101]
+tags: []
 ---
 {% include JB/setup %}
 

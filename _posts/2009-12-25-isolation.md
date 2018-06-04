@@ -3,7 +3,7 @@ layout: post
 title: "Isolation"
 description: ""
 category: Database
-tags: [Database-101]
+tags: []
 ---
 {% include JB/setup %}
 

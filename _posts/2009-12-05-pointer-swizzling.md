@@ -3,7 +3,7 @@ layout: post
 title: "Pointer Swizzling"
 description: ""
 category: OS
-tags: [Database-101]
+tags: []
 ---
 {% include JB/setup %}
 

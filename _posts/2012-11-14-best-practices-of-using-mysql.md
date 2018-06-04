@@ -3,7 +3,7 @@ layout: post
 title: "MySQL 使用和优化基础"
 description: ""
 category: MySQL
-tags: [Database-101]
+tags: []
 ---
 {% include JB/setup %}
 
