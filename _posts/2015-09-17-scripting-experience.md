@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Scripting Life"
+title: "Scripting Experience"
 description: ""
 category: Linux
 tags: [Experience]
