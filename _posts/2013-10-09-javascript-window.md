@@ -3,7 +3,7 @@ layout: post
 title: "JavaScript: window 注意事项"
 description: ""
 category: JavaScript
-tags: [JavaScript-101]
+tags: [1]
 ---
 {% include JB/setup %}
 

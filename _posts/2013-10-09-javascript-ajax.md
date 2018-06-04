@@ -3,7 +3,7 @@ layout: post
 title: "JavaScript: ajax 注意事项"
 description: ""
 category: JavaScript
-tags: [JavaScript-101]
+tags: [ajax]
 ---
 {% include JB/setup %}
 

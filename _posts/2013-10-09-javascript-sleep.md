@@ -3,7 +3,7 @@ layout: post
 title: "JavaScript: sleep"
 description: ""
 category: JavaScript
-tags: [JavaScript-101]
+tags: []
 ---
 {% include JB/setup %}
 

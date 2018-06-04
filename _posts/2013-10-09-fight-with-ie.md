@@ -3,7 +3,7 @@ layout: post
 title: "IE 下的奇葩注意事项"
 description: ""
 category: JavaScript
-tags: [JavaScript-101]
+tags: [IE]
 ---
 {% include JB/setup %}
 

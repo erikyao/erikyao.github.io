@@ -3,7 +3,7 @@ layout: post
 title: "never fake a &lt;input type=file&gt;"
 description: ""
 category: JavaScript
-tags: [JavaScript-101]
+tags: [IE]
 ---
 {% include JB/setup %}
 

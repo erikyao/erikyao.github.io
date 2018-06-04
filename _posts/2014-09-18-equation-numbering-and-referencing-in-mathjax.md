@@ -3,7 +3,7 @@ layout: post
 title: "Equation Numbering and Referencing in MathJax"
 description: ""
 category: Latex
-tags: [Latex-101]
+tags: [MathJax]
 ---
 {% include JB/setup %}
 

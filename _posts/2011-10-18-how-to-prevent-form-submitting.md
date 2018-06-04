@@ -3,7 +3,7 @@ layout: post
 title: "阻止 form submit 的方法"
 description: ""
 category: JavaScript
-tags: [JavaScript-101]
+tags: []
 ---
 {% include JB/setup %}
 
