@@ -3,7 +3,7 @@ layout: post
 title: "Algorithm Quizzes"
 description: ""
 category: Interview
-tags: [Interview-101]
+tags: []
 ---
 {% include JB/setup %}
 

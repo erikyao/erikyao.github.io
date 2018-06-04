@@ -2,8 +2,8 @@
 layout: post
 title: "常见 HTTP Status Code 及场景"
 description: ""
-category: HTTP
-tags: [HTTP-101]
+category: Network
+tags: []
 ---
 {% include JB/setup %}
 

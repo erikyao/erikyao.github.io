@@ -3,7 +3,7 @@ layout: post
 title: "IR 经典模型之布尔模型"
 description: ""
 category: Information-Retrieval
-tags: [IR-101]
+tags: []
 ---
 {% include JB/setup %}
 
