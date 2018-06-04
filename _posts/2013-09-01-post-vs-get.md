@@ -3,7 +3,7 @@ layout: post
 title: "GET 与 POST 的区别"
 description: ""
 category: Network
-tags: [Network-101]
+tags: []
 ---
 {% include JB/setup %}
 

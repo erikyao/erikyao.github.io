@@ -3,7 +3,7 @@ layout: post
 title: "SO_TIMEOUT and CONNECTION_TIMEOUT"
 description: ""
 category: Network
-tags: [Network-101]
+tags: []
 ---
 {% include JB/setup %}
 

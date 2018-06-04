@@ -3,7 +3,7 @@ layout: post
 title: "Network Protocols"
 description: ""
 category: Network
-tags: [Network-101]
+tags: []
 ---
 {% include JB/setup %}
 
