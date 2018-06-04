@@ -3,7 +3,7 @@ layout: post
 title: "R Data Types - Part 2: Factors"
 description: ""
 category: R
-tags: [R-101]
+tags: []
 ---
 {% include JB/setup %}
 

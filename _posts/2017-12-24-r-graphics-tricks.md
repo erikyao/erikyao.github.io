@@ -3,7 +3,7 @@ layout: post
 title: "R: Graphics Tricks"
 description: ""
 category: R
-tags: [R-101, Book]
+tags: [Book]
 ---
 {% include JB/setup %}
 

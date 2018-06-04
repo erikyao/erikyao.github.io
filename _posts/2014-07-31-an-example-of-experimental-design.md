@@ -3,7 +3,7 @@ layout: post
 title: "An Example of Experimental Design"
 description: ""
 category: R
-tags: [R-101]
+tags: []
 ---
 {% include JB/setup %}
 

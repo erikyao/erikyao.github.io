@@ -3,7 +3,7 @@ layout: post
 title: "Digest of <i>R in Action</i>"
 description: ""
 category: R
-tags: [R-101, Book]
+tags: [Book]
 ---
 {% include JB/setup %}
 

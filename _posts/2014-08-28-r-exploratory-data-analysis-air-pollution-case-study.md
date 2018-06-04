@@ -3,7 +3,7 @@ layout: post
 title: "R Exploratory Data Analysis: Air Pollution Case Study"
 description: ""
 category: R
-tags: [R-101]
+tags: []
 ---
 {% include JB/setup %}
 

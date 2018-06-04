@@ -3,7 +3,7 @@ layout: post
 title: "R PCA Example"
 description: ""
 category: Machine-Learning
-tags: [ML-101, R-101, PCA]
+tags: [PCA]
 ---
 {% include JB/setup %}
 

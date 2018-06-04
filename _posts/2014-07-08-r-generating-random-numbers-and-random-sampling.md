@@ -3,7 +3,7 @@ layout: post
 title: "R Generating Random Numbers and Random Sampling"
 description: ""
 category: R
-tags: [R-101]
+tags: []
 ---
 {% include JB/setup %}
 

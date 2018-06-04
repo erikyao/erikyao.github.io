@@ -3,7 +3,7 @@ layout: post
 title: "R Data Types - Part 1: Basis, Vectors, Matrices & Lists"
 description: ""
 category: R
-tags: [R-101]
+tags: []
 ---
 {% include JB/setup %}
 

@@ -3,7 +3,7 @@ layout: post
 title: "R: <i>commandArgs(trailingOnly)</i> and <i>--args</i>"
 description: ""
 category: R
-tags: [R-101]
+tags: []
 ---
 {% include JB/setup %}
 
