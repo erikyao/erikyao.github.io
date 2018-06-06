@@ -203,7 +203,7 @@ $$
 \operatorname{det}(M_2M_1) = \operatorname{det}(M_2) \operatorname{det}(M_1)
 $$
 
-## Chapter 6 - Inverse matrices, column space, rank and null space (lernel)
+## Chapter 6 - Inverse matrices, column space, rank and null space (kernel)
 
 > To ask the right question is harder than to answer it. ―Georg Cantor
 
