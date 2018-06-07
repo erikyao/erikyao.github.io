@@ -3,7 +3,7 @@ layout: post
 title: "Gradient and Directional Derivative"
 description: ""
 category: Math
-tags: []
+tags: [Math-Algebra]
 ---
 {% include JB/setup %}
 
