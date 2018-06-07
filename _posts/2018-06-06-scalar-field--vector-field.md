@@ -61,3 +61,31 @@ VectorPlot[{y, -x}, {x, -3, 3}, {y, -3, 3}]
 ![](https://farm2.staticflickr.com/1723/27765941507_04df6b9893_z_d.jpg)
 
 ![](https://farm2.staticflickr.com/1737/42584095012_4fce9c8369_z_d.jpg)
+
+所以 vector field 无非是用向量表示空间内每个点的 "运动趋势"，只是 $\vec F(\dots)$ 这个向量需要移动到对应的点上。
+
+另外需要注意的一个问题是：维度要匹配，即你不能从一个 $n$-D space 的点 map 到一个 $(n-1)$-D vector 或者 $(n+1)$-D vector，只能是 map 到 $n$-D vector
+
+从这个角度来看，没有降维也没有升维的 linear transformation 与 vector field 的区别在于：$A \vec x$ 并没有移动到 $\vec x$ 的终点上，而是任然以原点为起点。
+
+降维的 linear transformation 好理解；升维的 linear transformation 会有很神奇的拓扑变形效果，比如 [YouTube: Transformations, part 3 \| Multivariable calculus \| Khan Academy](https://www.youtube.com/watch?v=U2SQXHMqclc&list=PLSQl0a2vh4HC5feHa6Rc5c0wbRTx56nF7&index=14) 介绍的这个：
+
+$$
+\vec F(t, s) = \icol{3\cos(t) + \cos(t)\cos(s) \newline 3\sin(t) + \sin(t)\cos(s) \newline \sin(s)}
+$$
+
+限定 $0 \leq t \leq 2 \pi, 0 \leq s \leq 2 \pi$，可以从一个正方形变形成一个 donut。
+
+## Scalar Field
+
+A **scalar field** in a space is a map, which assigns each point $(x, y, z, \dots)$ to a scalar.
+
+典型的应用：heat map
+
+注意要与曲线方程区别。比如 $y = x$ 是对角直线，和 field $F(x, y) = x - y$ 是不同的，后者是 heat map，只是对角线上的值为 0：
+
+```r
+DensityPlot[x-y,{x,-10000,10000},{y,-10000,10000}]
+```
+
+![](https://farm2.staticflickr.com/1736/41935536714_0993d10b50_z_d.jpg)
