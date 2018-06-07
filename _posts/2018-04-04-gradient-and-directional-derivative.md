@@ -41,7 +41,7 @@ $$
 
 There is a nice way to describe the gradient geometrically. Consider $z=f(x,y)=4x^2+y^2$. The surface defined by this function is an elliptical paraboloid (椭圆抛物面). This is a bowl-shaped surface. The bottom of the bowl lies at the origin. The figure below shows the **level curves**, defined by $f(x,y)=c$, of the surface. The level curves are the ellipses $4x^2+y^2=c$.
 
-- 注：A **level set** of a real-valued function $f$ of $n$ real variables is defined as $L_c(f) = {(x_1, \dots, x_n) \mid f(x_1, \dots, x_n) = c}$ where $c$ is a constant. 
+- 注：A **level set** of a real-valued function $f$ of $n$ real variables is defined as $L_c(f) = \left \\{ (x_1, \dots, x_n) \mid f(x_1, \dots, x_n) = c \right \\}$ where $c$ is a constant. 
     - When $n=2$, a level set is generally a curve, called a **level curve**, **contour line** or **isoline**
     - When $n=3$, a level set is called a **level surface**
     - When $n>3$, a level set is called a **level hypersurface**
