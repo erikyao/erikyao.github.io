@@ -54,6 +54,10 @@ Show[%2,ViewPoint->{0,0,\[Infinity]}]
 
 它和 $\nabla f(x,y) = \icol{8x \newline 2y}$ 其实是一样的，即你用任意的 $z=c$ 平面去截这个 3-D space，得到的平面内都是 $\nabla f(x,y)$ 这个 field。这和 level set 的解释是一样的。但是明显更好理解了。
 
+从这个视角来看，考虑 gradient 的几何意义：gradient vector 的方向是 "the direction of steepest ascending"，即你站在 $(x,y)$ 这一点，在平面内沿 $\nabla f(x,y)$ 的方向走可以最高效地获取在椭圆抛物面 $4x^2 + y^2 + 0 \cdot z = c$ 上的 altitude，即获取更大的 $c$ 值。**注意你是根据 2-D 平面上的方向去指引 3-D space 内的行动**。
+
+优化问题里用的 gradient descend 即是取 gradient vector 的反方向，进而取更小的 $c$ 值。
+
 ## Clairaut's Test
 
 Given a vector field $\vec F(x, y) = \langle P(x, y), Q(x, y) \rangle$, how do you tell whether it's a gradient field, i.e. $\exists G(x,y)$ such that $\nabla G = \vec F$?
