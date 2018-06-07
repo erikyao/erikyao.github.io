@@ -21,9 +21,9 @@ $$
 
 Quote from [Lecture 19: Vectorfields, Math S21a: Multivariable calculus by Oliver Knill, Harvard Summer School](http://www.math.harvard.edu/~knill/teaching/summer2011/handouts/53-vectorfield.pdf):
 
-A **vector field** in a plane is a map, which assigns each point $(x, y)$ to a vector $\vec F(x, y) = \langle P(x, y), Q(x, y) \rangle$. 
+A **vector field** in a plane is a map, which assigns each point $(x, y)$ to a vector $\vec F(x, y) = \langle P(x, y), Q(x, y) \rangle = \icol{P(x, y) \newline Q(x, y)}$. 
 
-A **vector field** in a 3D space is a map, which assigns each point $(x, y, z)$ to a vector $\vec F(x, y, z) = \langle P(x, y, z), Q(x, y, z), R(x, y, z) \rangle$.
+A **vector field** in a 3D space is a map, which assigns each point $(x, y, z)$ to a vector $\vec F(x, y, z) = \langle P(x, y, z), Q(x, y, z), R(x, y, z) \rangle = \icol{P(x, y, z) \newline Q(x, y, z) \newline R(x, y, z)}$.
 
 Quote from [Wikipedia: Vector field](https://en.wikipedia.org/wiki/Vector_field):
 
