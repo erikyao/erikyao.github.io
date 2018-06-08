@@ -19,7 +19,7 @@ tags: []
 
 考虑到 liner regression 的一个最常见的 regularization 就是 $\\| \mathbf{w} \\|^2 < s$，理由是：如果 $w_i$ 很大，那么 $x_i$ 上很小的变动都可能会引起 predcition 的大变动，容易引起 overfitting。你仔细看一下这个 regularization，不就是相当于把 searching 的空间限定在了 $\\| \mathbf{w} \\|^2 < s$ 这个圆（2D space）或者球体（3D space）里么？
 
-有了 $\\| \mathbf{w} \\|^2 < s$ 这个 constraint 之后，我们 searching 的条件就从 optimization 变成了 constrained optimization，然后就可以把 object 写成 [lagrangian](http://mat.gsia.cmu.edu/classes/QUANT/NOTES/chap4.pdf) 形式：$\min \operatorname{cost\_function(X, Y, \mathbf{w})} - \theta \cdot \operatorname{constraint(\mathbf{w})}$。我们常见的 Ridge Regression (i.e. Regression with $\ell^2$ Regularization)、Lasso Regression (i.e. Regression with $\ell^1$ Regularization) 就是这么来的。
+有了 $\\| \mathbf{w} \\|^2 < s$ 这个 constraint 之后，我们 searching 的条件就从 optimization 变成了 constrained optimization，然后就可以把 object 写成 [lagrangian](http://mat.gsia.cmu.edu/classes/QUANT/NOTES/chap4.pdf) 形式：$\min \operatorname{cost\\_function}(X, Y, \mathbf{w}) - \theta \cdot \operatorname{constraint}(\mathbf{w})$。我们常见的 Ridge Regression (i.e. Regression with $\ell^2$ Regularization)、Lasso Regression (i.e. Regression with $\ell^1$ Regularization) 就是这么来的。
 
 [ISL](http://www-bcf.usc.edu/~gareth/ISL/ISLR%20Seventh%20Printing.pdf) 有图：
 
