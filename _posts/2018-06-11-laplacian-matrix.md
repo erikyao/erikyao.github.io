@@ -303,8 +303,6 @@ $$
 L^{(w)} = \underset{(u, v) \in E}{\sum} \operatorname{expand}_{\vert V \vert}(L^{(w)}_{u, v})
 $$
 
-E.g. consider a simple graph $(a)---(b)---(c)$
-
 E.g. consider a simple weighted graph $(a)\overset{3}{---}(b)\overset{2}{---}(c)$
 
 $$
