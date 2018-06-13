@@ -184,7 +184,7 @@ $$
 
 ### 3.1 可以定义不同的 $f$
 
-$K^{T}Kf$ 表示的就是 **"extends to which values of $f$ change from one vertex to another connected vertex in $G$"**。更直观一点描述的话：
+$K^{T}Kf$ 表示的就是 **"extent to which values of $f$ change from one vertex to another connected vertex in $G$"**。更直观一点描述的话：
 
 - 考虑 $K^{T}Kf$ vector 元素全部为 0 的情况。这说明在 $G$ 上沿着 vertex 一步一步前进时，$f$ 的值是绝对 **smooth** 的，没有变化。
 - 如果 $K^{T}Kf$ vector 元素 highly postive 或者 highly nagative，说明 $f$ 的起伏很大。
