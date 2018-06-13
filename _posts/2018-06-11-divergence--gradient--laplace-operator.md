@@ -64,3 +64,8 @@ which happens to be the $lap$ of $f(x, y, z)$.
 I.e. $\operatorname{lap} f = \operatorname{div}(\operatorname{grad} f)$
 
 注意 $\nabla \cdot \nabla$ 仍然不是 dot product，而且我们把这个结果写成 $\nabla^2$ 也是人为规定的，完全是为了简便记法，所以并不什么特别的 operator 叠加法则。
+
+考虑 $\nabla^2 f$ 的物理含义：
+
+- 如果你在 $f$ 的 local minimum $a$，你周围的 gradient 全部流出 $a$ (任意方向都是 ascending)，divergence 是 highly positive，所以 $a$ 是 gradient 的 source
+- 如果你在 $f$ 的 local maximum $b$，你周围的 gradient 全部流入 $b$ (任意方向都是 descending)，divergence 是 highly negative，所以 $b$ 是 gradient 的 sink 
