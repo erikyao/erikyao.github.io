@@ -1192,7 +1192,7 @@ print_hello()  # Output: Hello
 - The function object itself (i.e. `print_hello` here)
 - A phenomenon which happens when a function has access to a local variable from an enclosing scope.
 
-这些统统没有 `func.__closure__` 直观，所以暂且按 `func.__closure__` 来记好了。若是以后对 closure 的理解出了偏差，还可以刷锅给 python 说它变量名起得不对 www
+这些统统没有 `func.__closure__` 直观，所以暂且按 `func.__closure__` 来记好了。若是以后对 closure 的理解出了偏差，还可以甩锅给 python 说它变量名起得不对 www
 
 #### Default Parameter Values vs Default Keyword-Only Parameter Values <a name="Default-Parameter-Values-vs-Default-Keyword-Only-Parameter-Values"></a>
 
