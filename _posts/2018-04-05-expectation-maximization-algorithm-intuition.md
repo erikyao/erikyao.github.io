@@ -110,4 +110,4 @@ $$
 \log p(\mathcal{D} \mid \theta^{(t+1)}) - \log p(\mathcal{D} \mid \theta^{(t)}) \geq 0 
 $$
 
-也有其他的一些证明方式用的是 Jensen's inequality，但其实本质是一样的（Gibbs' inequality 是 Jensen's inequality 的特殊形式）；而且我觉得 Gibbs' inequality 已经很好理解了。具体参 []()
+也有其他的一些证明方式用的是 Jensen's inequality，但其实本质是一样的（Gibbs' inequality 是 Jensen's inequality 的特殊形式）；而且我觉得 Gibbs' inequality 已经很好理解了。具体参 [Wikipedia: Jensen's inequality](https://en.wikipedia.org/wiki/Jensen%27s_inequality#Information_theory)
