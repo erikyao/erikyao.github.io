@@ -590,7 +590,7 @@ detach(mtcars)
 
 ### 6.5 Box Plots
 
-box plot 的示意可以参考 [题外话：boxplot 示意](/r/2014/08/02/r-getting-and-cleaning-data/#boxplot)。
+box plot 的示意可以参考 [题外话：boxplot 示意](/r/2014/08/02/r-getting-and-cleaning-data#boxplot)。
 
 #### 6.5.1 Using parallel box plots to compare groups
 
