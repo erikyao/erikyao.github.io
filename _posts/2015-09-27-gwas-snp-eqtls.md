@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "GWAS / SNP / eQTLs"
+title: "GWAS / SNP / SNV / eQTLs"
 description: ""
 category: Biology
 tags: []
@@ -49,6 +49,14 @@ The terms _**synonymous**_ and _**non-synonymous**_ are used for SNPs that are i
 - synonymous: [sɪˈnɑ:nɪməs], 同义(词)的
 - Synonymous SNPs are those SNPs that have different alleles that encode for the same amino acid. 
 - Non-synonymous SNPs are SNPs that have different alleles that encode different amino acids.
+
+## SNV
+
+[Neha Deshpande's answer to "Genomics: What is the difference between an SNP and an SNV?"](https://www.quora.com/Genomics-What-is-the-difference-between-an-SNP-and-an-SNV/answer/Neha-Deshpande-2):
+
+> A polymorphism is something which is seen in atleast 1% of a population. An SNP is a single nucleotide change(substitution) which we see in more than 1% members of a population.  
+> <br/>
+> A single nucleotide variation is just a variation in a single nucleotide without any limitations of frequency.
 	
 ## Expression quantitative trait loci (eQTLs)
 	
