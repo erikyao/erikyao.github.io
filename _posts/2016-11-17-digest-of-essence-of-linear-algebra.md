@@ -298,6 +298,13 @@ The cross product is not a number, but a vector. $\vec v \times \vec w = \vec p$
 
 死记硬背式：$\icol{v_1 \newline v_2 \newline v_3} \times \icol{w_1 \newline w_2 \newline w_3} = \operatorname{det} \big (\icol{\hat i & v_1 & w_1 \newline \hat j & v_2 & w_2 \newline \hat k & v_3 & w_3} \big )$ (这里这个 determinant 得到不是一个 scalar 而是一个由 $\hat i$、$\hat j$ 和 $\hat k$ 表示的 3-D vector)
 
+### Digress: dot product 与 cross product 的几何意义
+
+假定我们限定 $\vec v$ 和 $\vec w$ 的长度而不限定它们的方向，那么：
+
+- 令 $p = \vec v \cdot \vec w$，则 $p$ 值的大小代表 **$\vec v$ 和 $\vec w$ 共线的程度**
+- 令 $\vec p = \vec v \times \vec w$，则 $p$ 的长度代表 **$\vec v$ 和 $\vec w$ 垂直的程度**
+
 ### 8.2 Deeper understanding with linear transformations
 
 考虑 Chapter 7 - Dot products and duality 时我们说过的 $\vec v \cdot \vec w = (\vec v)^{T} \vec w$。The takeaway is that whenever you're out in the mathematical wild and you find a linear transformation to the number line (数轴), you'll be able to match it to some vector, which is called the **dual vector** of that transformation, so that performing the linear transformation is the same as taking a dot product with that dual vector. 比如 transformation $(\vec v)^{T}$ 的 dual vector 就是 $\vec v$。
@@ -404,6 +411,7 @@ $$
 |-------------------------|---------------------------------------------|
 | Linear transformations  | Linear operators                            |
 | Dot products            | Inner products                              |
+| Cross products          | N/A                                         |
 | Eigenvectors            | Eigenfunctions                              |
 
 ### What is a vector?
