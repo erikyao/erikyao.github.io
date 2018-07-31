@@ -86,7 +86,9 @@ tags: []
 
 ### 6.4 boundedness
 
-**Definition 6.1.16** (Bounded sequences). A sequence $(a_n)_{n=m}^{\infty}$ of real numbers is bounded by a real number $Μ>0$ $\iff \forall i$, $\vert a_i \vert \leq Μ$.
+**Definition 6.1.16** (Bounded sequences). A sequence $(a_n)_{n=m}^{\infty}$ of real numbers is bounded by a real number $M>0$ $\iff \forall i$, $\vert a_i \vert \leq M$.
+
+**Definition 9.1.22** (Bounded sets). A subset $X$ of the real line is said to be bounded if for some real number $M>0$ we have $X \subset [-M, M]$.
 
 ### 6.5 收敛 & 有界 & Cauchy (Part 1)
 
@@ -227,3 +229,92 @@ $$
 - 收敛 $\iff$ Cauchy $\iff$ 有界且极限点唯一（结论一、二、三、六、九、十）
 - 收敛 $_{\nLeftarrow}^{\Rightarrow}$ 有界 $\Rightarrow$ 有子序列收敛 $\Rightarrow$ 存在一个对应的极限点（结论四、Bolzano-Weierstrass theorem、Proposition 6.6.6）
 - 收敛 $_{\nLeftarrow}^{\Rightarrow}$ 有唯一极限点（结论七）
+
+## Chapter 9 - Continuous functions on $\mathbb{R}$
+
+### 9.1 $\mathbb{R}$ set: adherent point / limit point / isolated point / closure / relations to subsequences
+
+adherent point、limit point、isolated point 的定义参 Section 6.2。需要注意的是：
+
+- sequence 的 adherent point == limit point，但是 set 的 limit point 是 adherent point 的特殊情况
+- 但是从后面的结论来看，关于 **"序列、子序列、极限点"** 的一些结论可以近似地迁移到 **"集合、集合元素构成的序列、附着点"** 上，这个对应关系希望你牢记
+
+**Lemma 9.1.14** Let $X$ be a subset of $\mathbb{R}$, and let $L \in \mathbb{R}$ (注意并没有要求 $L \in X$). 以下两命题等价 (注意联系 Proposition 6.6.6)：
+
+- $L$ 是 $X$ 的附着点 
+    - $\iff$
+- $\exists$ sequence $(a_n)$ where all $a_i \in X$，并且 $(a_n)$ 收敛到 $L$
+    - 注意：考虑到序列是可以有重复元素的，所以 **"由 $X$ 元素组成的序列 $(a_n)$" 并不要求 $(a_n)$ 使用 $X$ 中的全部元素**
+- 这个 lemma 简单说就是：$X$ 的附着点可以通过 $X$ 的元素的极限获得
+
+**Definition 9.1.10** (Closure). Let $X$ be a subset of $\mathbb{R}$. The **closure** of $X$, sometimes denoted $\overline X$ is defined to be the set of all the adherent points of $X$.
+
+- 考虑到 "所有 $x \in X$ 都是 $X$ 的附着点" (See section 6.2)，可以有 $\overline X = X \cup \lbrace l \mid l \text{ is an adherent point outside } X \rbrace$
+- Elementary properties of closures:
+    - $X \subseteq \overline{X}$
+    - $\overline{X \cup Y} = \overline{X} \cup \overline{Y}$
+    - $\overline{X \cap Y} \subseteq \overline{X} \cap \overline{Y}$
+    - If $X \subseteq Y \Rightarrow$ then $\overline{X} \subseteq \overline{Y}$
+- 举例：
+    - $(a, b)$, $(a, b]$, $[a, b)$, $[a, b]$ 的闭包都是 $[a, b]$
+    - $(a, \infty)$, $[a, \infty)$ 的闭包都是 $[a, \infty)$
+    - $(-\infty, a)$, $(\infty, a]$ 的闭包都是 $(\infty, a]$
+    - $\overline{\mathbb{N}} = \mathbb{N}$
+    - $\overline{\mathbb{Z}} = \mathbb{Z}$
+    - $\overline{\mathbb{Q}} = \mathbb{R}$ (注意 $\mathbb{Q}$ 是开集)
+    - $\overline{\mathbb{R}} = \mathbb{R}$
+    - $\overline{\emptyset} = \emptyset$
+
+**Definition 9.1.15** (Closed sets). A set $X \subseteq \mathbb{R}$ is said to be **closed** if $\overline{X} = X$, i.e. $X$ contains all of its adherent points.
+
+- 也相当于：闭集不存在 adherent point outside itself
+- 所以 $\mathbb{N}$, $\mathbb{Z}$, $\mathbb{R}$, $\emptyset$ 是闭集，$\mathbb{Q}$ 是开集
+
+我们可以看到，现在有一条 "集合闭包 $\to$ 附着点 $\to$ 序列极限" 的证据链：
+
+**Corollary 9.1.17** 设 $X \subseteq \mathbb{R}$:
+
+- If $X$ is closed, then $\forall$ 由 $X$ 元素组成的收敛序列 $(a_n)$ $\Rightarrow \underset{n \to \infty}{\lim} a_n \in X$
+- If $\forall$ 由 $X$ 元素组成的收敛序列 $(a_n)$ 都有 $\underset{n \to \infty}{\lim} a_n \in X$ $\Rightarrow$ $X$ is closed
+
+**Theorem 9.1.24** (Heine-Borel theorem for the line). 设 $X \subseteq \mathbb{R}$，以下两命题等价:
+
+- $X$ 是闭集且有界
+    - $\iff$
+- $\forall$ 由 $X$ 元素组成的序列 $(a_n)$，存在它的一个子序列 $(a_{n_j})$ 收敛到 $L$ 并且 $L \in X$
+
+**[Proof](https://math.stackexchange.com/questions/659249/the-heine-borel-theorem-for-the-real-line):**
+
+(1) $\Rightarrow$
+
+- $X$ 有界，所以 $(a_n)$ 有界，所以存在一个子序列 $(a_{n_j})$ 收敛 (Bolzano-Weierstrass)
+- 因为 $X$ 是闭集，所以 $(a_{n_j})$ 极限必然 $\in X$
+
+(2) $\Leftarrow$
+
+Proof by contradiction:
+
+(2.1) 假设 $X$ 无界
+
+Let's construct a family of sets, $A_n = \lbrace a \in X \mid \vert x \vert > n \rbrace$. Each $A_i$ is non-empty. 根据选择公理 (AC, Axiom of Choice：Given index set $I$，若 $\forall i \in I$, 集合 $X_i$ 不空，那么 $\underset{i \in I}{\prod} X_i$ 也不空)，存在序列 $(a_n)$ where $a_i \in A_i$, $\forall i$
+
+序列 $(a_n)$ 由 $X$ 的元素构成，所以存在一个子序列 $(a_{n_j})$ 收敛到 $L \in X$。
+
+但是 $\forall j \geq L + 1$, $\vert a_j \vert > L + 1$，所以 $L$ 不可能是 $(a_n)$ 的极限点。矛盾 (Proposition 6.6.6)
+
+(2.2) 假设 $X$ 是开集
+
+那么存在一个 $X$ 的附着点 $L' \notin X$，同时存在一个由 $X$ 的元素构成的序列 $(a_n)$ 收敛到 $L'$ (Lemma 9.1.14)。
+
+因为 $(a_n)$ 收敛到 $L$，所以 $(a_n)$ 所有的子序列都收敛到 $L' \notin X$ (Proposition 6.6.5)，所以不可能存在一个子序列 $(a_{n_j})$ 收敛到 $L \in X$。矛盾。$\blacksquare$
+
+## Notes
+
+- Theorem 6.4.18 (Completeness of the reals). 实数序列 Cauchy $\iff$ 收敛
+    - In the language of metric spaces (see Chapter 12), Theorem 6.4.18 asserts that the real numbers are a **complete** metric space--hat they do not contain "holes" the same way the rationale do. (Certainly the rationale have lots of Cauchy sequences which do not converge to other rationale; take for instance the sequence $1,1.4,1.41,1.414,1.4142,\dots$ which converges to the irrational $\sqrt{2}$.) 
+    - This property is closely related to the least upper bound property (Theorem 5.5.9), and is one of the principal characteristics which make the real numbers superior to the rational numbers for the purposes of doing analysis (taking limits, taking derivatives and integrals, finding zeroes of functions, that kind of thing), as we shall see in later chapters.
+- Bolzano-Weierstrass theorem: 
+    - It says that if a sequence is bounded, then eventually it has no choice but to converge in some places; it has "no room" to spread out and stop itself from acquiring limit points. It is not true for unbounded sequences; for instance, the sequence $1,2,3,\dots$ has no convergent subsequences whatsoever. 
+    - In the language of topology, this means that the interval $\lbrace x \in \mathbb{R}: -Μ < x < Μ \rbrace$ is **compact**, whereas an unbounded set such as the real line $\mathbb{R}$ is not compact. The distinction between compact sets and non-compact sets will be very important in later chapters--of similar importance to the distinction between finite sets and infinite sets.
+- Heine-Borel theorem for the line: 
+    - In the language of metric space topology, it asserts that every subset of the real line which is closed and bounded, is also **compact**. A more general version of this theorem can be found in Theorem 12.5.7.
