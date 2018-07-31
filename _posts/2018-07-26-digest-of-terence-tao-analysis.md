@@ -32,8 +32,11 @@ tags: []
 
 **Definition 6.1.3** (Cauchy sequences of reals). Let $\epsilon > 0$ be a real number. A sequence $(a_n)^{\infty}\_{n=m}$ is a **Cauchy sequence** $\iff \forall \epsilon$, it's eventually $\epsilon$-steady.
 
+这张图有助理解：Cauchy 就是这么一种 "振幅越来越小" 的感觉：
 
-### adherent point (附着点) / limit point (极限点) / isolated point (孤立点)
+![](https://farm1.staticflickr.com/932/42850172585_8ec7e1da33_z_d.jpg)
+
+### 6.2 adherent point (附着点) / limit point (极限点) / isolated point (孤立点)
 
 | System                | Concept                                                              | Definition                                                                                                                                                                                      |
 |-----------------------|----------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -64,7 +67,7 @@ tags: []
 - 如果我们把 sequence 看做一个 set 的话，并定义 tail of sequence $(a_n)\_{n=m}^{\infty}$ after $n = N \geq m$ 为 $T((a_n)_{n=m}^{\infty}, N) = \lbrace a_i \mid N \leq i \leq \infty, i \in \mathbb{N} \rbrace$
     - $x$ is **continually $\epsilon$-adherent** to $(a_n)\_{n=m}^{\infty}$ $\iff$ $\forall N$, $\phi(x, \epsilon) \cap T((a_n)_{n=m}^{\infty}, N) \neq \emptyset$
 
-### 6.2 convergence & limit
+### 6.3 convergence & limit
 
 注意收敛与极限本身就是连体概念，"收敛到 $L$" 也就意味着 "极限为 $L$"
 
@@ -81,11 +84,11 @@ tags: []
     - A sequence is close to a point. 这要求明显就严格了，你 sequence 的全员，或者 tail 的全员必须都要 close 才行
     - 明显 limit $L$ is a limit point
 
-### 6.3 boundedness
+### 6.4 boundedness
 
 **Definition 6.1.16** (Bounded sequences). A sequence $(a_n)_{n=m}^{\infty}$ of real numbers is bounded by a real number $Μ>0$ $\iff \forall i$, $\vert a_i \vert < Μ$.
 
-### 6.4 收敛 & 有界 & Cauchy (Part 1)
+### 6.5 收敛 & 有界 & Cauchy (Part 1)
 
 #### 结论一：收敛必定 Cauchy
 
@@ -144,7 +147,7 @@ Then:
 
 Thus, taking $b=x_{N_1}$ and $K=\max \lbrace K′,1 \rbrace$, we have shown that each $a_i$ satisfies $d(a_n, b) \leq K$.
 
-So, $(a_n)$ is bounded.
+So, $(a_n)$ is bounded. $\blacksquare$
 
 #### 结论三：收敛必定有界（由结论一与结论二推出）
 
@@ -156,7 +159,7 @@ $$
 a_n =\begin{cases}0 & \text{if } n \text{ is even} \\1 & \text{if } n \text{ is odd}\end{cases} 
 $$
 
-### 6.5 Subsequence (子序列)
+### 6.6 Subsequence (子序列)
 
 **Definition 6.6.1** (Subsequences). Let $(a_n)\_{n=0}^{\infty}$ and $(b_n)\_{n=0}^{\infty}$ be sequences of real numbers. We say that $(b_n)$ is a subsequence of $(a_n)$ $\iff$ $\exists$ function $f: \mathbb{N} \to \mathbb{N}$ which is strictly increasing (i.e., $f(n + 1) > f(n)$, $\forall n \in \mathbb{N}$) such that $b_i = a_{f(i)}$, $\forall i \in \mathbb{N}$.
 
@@ -174,11 +177,11 @@ $$
 
 **Theorem 6.6.8** (Bolzano-Weierstrass theorem). 序列有界 $\Rightarrow$ 序列至少有一个子序列收敛 (亦即，序列至少有一个极限点，See Proposition 6.6.6)
 
-### 6.6 收敛 & 有界 & Cauchy (Part 2)
+### 6.7 收敛 & 有界 & Cauchy (Part 2)
 
 #### 结论六：如果序列收敛，那么极限是序列唯一的极限点
 
-**Proof:** 因为序列收敛（假设收敛到 $L$），那么它的所有的子序列都收敛到 $L$，从而不可能有子序列收敛到其他的值，亦即所有子序列对应的极限点都是 $L$ (See Proposition 6.6.6)，亦即 $L$ 是唯一的极限点
+**Proof:** 因为序列收敛（假设收敛到 $L$），那么它的所有的子序列都收敛到 $L$，从而不可能有子序列收敛到其他的值，亦即所有子序列对应的极限点都是 $L$ (See Proposition 6.6.6)，亦即 $L$ 是唯一的极限点。 $\blacksquare$
 
 #### 结论七：有唯一极限点不一定收敛
 
@@ -190,7 +193,7 @@ $$
 
 因为 $(a_n)$ 发散，所以 $(a_n)$ 不收敛到 $p$，所以存在 $\epsilon'$，对任意 $N$，都存在 $i_N \geq N$ 使得 $\vert a_{i\_N} - p \vert > \epsilon'$。取这样所有的 $a_{i\_N}$ 构成序列 $(a_n')$，它也是 $(a_n)$ 的子序列，所以 $(a_n')$ 也有界，再根据 Theorem 6.6.8，$(a_n')$ 有一个子序列 $(a_n'')$ 收敛到 $q$。因为 $(a_n')$ 每一项都远离 $p$，所以 $(a_n'')$ 的每一项都远离 $p$，所以 $(a_n'')$ 不可能收敛到 $p$，亦即 $q \neq p$。
 
-又因为 $(a_n'')$ 同时也是 $(a_n)$ 的子序列，所以相当于 $(a_n)$ 有两个极限点：$p$ 和 $q$
+又因为 $(a_n'')$ 同时也是 $(a_n)$ 的子序列，所以相当于 $(a_n)$ 有两个极限点：$p$ 和 $q$。$\blacksquare$
 
 - $(a_n)$ 明显不可能每一项都远离 $p$ 但它的子序列 $(a_n')$ 可以做到每一项都远离 $p$，这看上去有点矛盾，但我可以举一个例子：
     - $a_n = \begin{cases}1 & \text{if } n \text{ is odd} \\\\ 2 & \text{if } n \text{ is even}\end{cases}$ 有界且发散
@@ -199,6 +202,28 @@ $$
 
 #### 结论九：如果序列有界且极限点唯一，那么序列收敛
 
-**Proof:** 假设 $(a_n)$ 有界且有唯一极限点 $L$，那么根据 Proposition 6.6.6，$(a_n)$ 存在子序列 $(b_n)$ 收敛到 $L$。若 $(a_n)$ 还存在子序列 $(c_n)$ 发散，根据结论八，$(c_n)$ 可以有两个极限点，换言之 $(a_n)$ 也可以有两个极限点，矛盾。所以 $(a_n)$ 所有子序列收敛，又因为极限点唯一，所以 $(a_n)$ 收敛 (根据 Proposition 6.6.5)
+**Proof:** 假设 $(a_n)$ 有界且有唯一极限点 $L$，那么根据 Proposition 6.6.6，$(a_n)$ 存在子序列 $(b_n)$ 收敛到 $L$。若 $(a_n)$ 还存在子序列 $(c_n)$ 发散，根据结论八，$(c_n)$ 可以有两个极限点，换言之 $(a_n)$ 也可以有两个极限点，矛盾。所以 $(a_n)$ 所有子序列收敛，又因为极限点唯一，所以 $(a_n)$ 收敛 (根据 Proposition 6.6.5)。 $\blacksquare$
 
-#### 结论九：Cauchy 必收敛
+#### 结论十：Cauchy 必收敛
+
+**[Proof](http://www.maths.qmul.ac.uk/~ig/MAS111/Cauchy%20Criterion.pdf):** 设 $(a_n)$ 是 Cauchy。根据结论二 "Cauchy 必定有界" 和 Theorem 6.6.8 "有界比有子序列收敛"，可以假设 $(a_{n\_k})$ 是一个收敛的子序列，并收敛到 $L$，即 $\underset{k \to \infty}{a_{n\_k}} = L$
+
+现在要证明 $(a_n)$ 也收敛到 $L$。
+
+固定一个 $\epsilon > 0$。$\exists N_1$ such that $\forall i,j \geq N_1$ we have $\vert a_i - a_j \vert < \frac{\epsilon}{2}$ (根据 Cauchy 定义)。
+
+同时 $\exists N_2$ such that $\forall n_i \geq N_2$ we have $\vert a_{n\_i} - L \vert < \frac{\epsilon}{2}$ (根据子序列收敛)
+
+Set $N = \max \lbrace N_1, N_2 \rbrace$. Then $\forall i \geq N$, fix a $n_j > N$ and we have
+
+$$
+\vert a_i - L \vert = \vert (a_i - a_{n_j}) + (a_{n_j} - L) \vert \leq \vert a_i - a_{n_j} \vert + \vert a_{n_j} - L \vert < \frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon
+$$
+
+所以 $(a_n)$ 也收敛到 $L$。$\blacksquare$
+
+#### 大总结
+
+- 收敛 $\iff$ Cauchy $\iff$ 有界且极限点唯一（结论一、二、三、六、九、十）
+- 收敛 $_{\nLeftarrow}^{\Rightarrow}$ 有界 $\Rightarrow$ 有子序列收敛 $\Rightarrow$ 存在一个对应的极限点（结论四、Theorem 6.6.8、Proposition 6.6.6）
+- 收敛 $_{\nLeftarrow}^{\Rightarrow}$ 有唯一极限点（结论七）
