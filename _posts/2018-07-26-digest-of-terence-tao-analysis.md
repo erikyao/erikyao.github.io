@@ -86,7 +86,7 @@ tags: []
 
 ### 6.4 boundedness
 
-**Definition 6.1.16** (Bounded sequences). A sequence $(a_n)_{n=m}^{\infty}$ of real numbers is bounded by a real number $Μ>0$ $\iff \forall i$, $\vert a_i \vert < Μ$.
+**Definition 6.1.16** (Bounded sequences). A sequence $(a_n)_{n=m}^{\infty}$ of real numbers is bounded by a real number $Μ>0$ $\iff \forall i$, $\vert a_i \vert \leq Μ$.
 
 ### 6.5 收敛 & 有界 & Cauchy (Part 1)
 
@@ -189,9 +189,9 @@ $$
 
 #### 结论八：如果序列有界且发散，则序列可以有两个不同的极限点
 
-**[Proof](https://math.stackexchange.com/a/298828):** 序列 $(a_n)$ 有界，根据 Theorem 6.6.8，我们可以构建一个子序列，假设收敛到 $p$。
+**[Proof](https://math.stackexchange.com/a/298828):** 序列 $(a_n)$ 有界，根据 Bolzano-Weierstrass theorem，我们可以构建一个子序列，假设收敛到 $p$。
 
-因为 $(a_n)$ 发散，所以 $(a_n)$ 不收敛到 $p$，所以存在 $\epsilon'$，对任意 $N$，都存在 $i_N \geq N$ 使得 $\vert a_{i\_N} - p \vert > \epsilon'$。取这样所有的 $a_{i\_N}$ 构成序列 $(a_n')$，它也是 $(a_n)$ 的子序列，所以 $(a_n')$ 也有界，再根据 Theorem 6.6.8，$(a_n')$ 有一个子序列 $(a_n'')$ 收敛到 $q$。因为 $(a_n')$ 每一项都远离 $p$，所以 $(a_n'')$ 的每一项都远离 $p$，所以 $(a_n'')$ 不可能收敛到 $p$，亦即 $q \neq p$。
+因为 $(a_n)$ 发散，所以 $(a_n)$ 不收敛到 $p$，所以存在 $\epsilon'$，对任意 $N$，都存在 $i_N \geq N$ 使得 $\vert a_{i\_N} - p \vert > \epsilon'$。取这样所有的 $a_{i\_N}$ 构成序列 $(a_n')$，它也是 $(a_n)$ 的子序列，所以 $(a_n')$ 也有界，再根据 Bolzano-Weierstrass theorem，$(a_n')$ 有一个子序列 $(a_n'')$ 收敛到 $q$。因为 $(a_n')$ 每一项都远离 $p$，所以 $(a_n'')$ 的每一项都远离 $p$，所以 $(a_n'')$ 不可能收敛到 $p$，亦即 $q \neq p$。
 
 又因为 $(a_n'')$ 同时也是 $(a_n)$ 的子序列，所以相当于 $(a_n)$ 有两个极限点：$p$ 和 $q$。$\blacksquare$
 
@@ -206,7 +206,7 @@ $$
 
 #### 结论十：Cauchy 必收敛
 
-**[Proof](http://www.maths.qmul.ac.uk/~ig/MAS111/Cauchy%20Criterion.pdf):** 设 $(a_n)$ 是 Cauchy。根据结论二 "Cauchy 必定有界" 和 Theorem 6.6.8 "有界比有子序列收敛"，可以假设 $(a_{n\_k})$ 是一个收敛的子序列，并收敛到 $L$，即 $\underset{k \to \infty}{a_{n\_k}} = L$
+**[Proof](http://www.maths.qmul.ac.uk/~ig/MAS111/Cauchy%20Criterion.pdf):** 设 $(a_n)$ 是 Cauchy。根据结论二 "Cauchy 必定有界" 和 Bolzano-Weierstrass theorem "有界必有子序列收敛"，可以假设 $(a_{n\_k})$ 是一个收敛的子序列，并收敛到 $L$，即 $\underset{k \to \infty}{a_{n\_k}} = L$
 
 现在要证明 $(a_n)$ 也收敛到 $L$。
 
@@ -225,5 +225,5 @@ $$
 #### 大总结
 
 - 收敛 $\iff$ Cauchy $\iff$ 有界且极限点唯一（结论一、二、三、六、九、十）
-- 收敛 $_{\nLeftarrow}^{\Rightarrow}$ 有界 $\Rightarrow$ 有子序列收敛 $\Rightarrow$ 存在一个对应的极限点（结论四、Theorem 6.6.8、Proposition 6.6.6）
+- 收敛 $_{\nLeftarrow}^{\Rightarrow}$ 有界 $\Rightarrow$ 有子序列收敛 $\Rightarrow$ 存在一个对应的极限点（结论四、Bolzano-Weierstrass theorem、Proposition 6.6.6）
 - 收敛 $_{\nLeftarrow}^{\Rightarrow}$ 有唯一极限点（结论七）
