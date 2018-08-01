@@ -71,18 +71,34 @@ tags: []
 
 注意收敛与极限本身就是连体概念，"收敛到 $L$" 也就意味着 "极限为 $L$"
 
-| System                | Concept                                                              | Definition                                                                                    |
-|-----------------------|----------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|
-| $\mathbb{R}$ sequence | $(a_n)_{n=m}^{\infty}$ is **$\epsilon$-close** to $L$                | $\iff \forall i$, $a_i$ is $\epsilon$-close to $L$                                            |
-|                       | $(a_n)_{n=m}^{\infty}$ is **eventually $\epsilon$-close** to $L$     | $\iff \exists N \geq m$, such that starting from $i \geq N$, $a_i$ is $\epsilon$-close to $L$ |
-|                       | $(a_n)_{n=m}^{\infty}$ **converges to** $L$                          | $\iff \forall \epsilon > 0$, $(a_n)_{n=m}^{\infty}$ is eventually $\epsilon$-close to $L$     |
-|                       | $\underset{n \to \infty}{\lim}a_n = L$                               | == $(a_n)_{n=m}^{\infty}$ converges to $L$                                                    |
+| System                | Concept                                                          | Definition                                                                                    |
+|-----------------------|------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|
+| $\mathbb{R}$ sequence | $(a_n)_{n=m}^{\infty}$ is **$\epsilon$-close** to $L$            | $\iff \forall i$, $a_i$ is $\epsilon$-close to $L$                                            |
+|                       | $(a_n)_{n=m}^{\infty}$ is **eventually $\epsilon$-close** to $L$ | $\iff \exists N \geq m$, such that starting from $i \geq N$, $a_i$ is $\epsilon$-close to $L$ |
+|                       | $(a_n)_{n=m}^{\infty}$ **converges to** $L$                      | $\iff \forall \epsilon > 0$, $(a_n)_{n=m}^{\infty}$ is eventually $\epsilon$-close to $L$     |
+|                       | $\underset{n \to \infty}{\lim}a_n = L$                           | == $(a_n)_{n=m}^{\infty}$ converges to $L$                                                    |
+| $f: X \to \mathbb{R}$ | $f$ is **$\epsilon$-close** to $L$                                                           | $\iff \forall x \in X$, $f(x)$ is $\epsilon$-close to $L$                                  |
+|                       | $x_0$ is an adherent point of $X$; $f$ is **$\epsilon$-close** to $L$ near $x_0$             | $\iff \exists \delta>0$ such that $f \vert_{\Phi(x_0, \delta)}$ is $\epsilon$-close to $L$ |
+|                       | $x_0$ is an adherent point of $X$; $E \subseteq X$; $f$ **converges** to $L$ at $x_0$ in $E$ | $\iff \forall \epsilon>0$, $f \vert_E$ is **$\epsilon$-close** to $L$ near $x_0$           |
+|                       | $\underset{x \to x_0; x \in E}{\lim}f(x) = L$                                                | == $f$ **converges** to $L$ at $x_0$ in $E$                                                |
+
+对 $\mathbb{R}$ sequence：
 
 - $(a_n)_{n=m}^{\infty}$ is **divergent** == $\underset{n \to \infty}{\lim}a_n$ is undefined
 - 注意与 adherence 的区别：
     - A point is adherent to a sequence. 是个 touchpoint 的概念，有一个点 close 就可以
     - A sequence is close to a point. 这要求明显就严格了，你 sequence 的全员，或者 tail 的全员必须都要 close 才行
     - 明显 limit $L$ is a limit point
+
+对 $f: X \to \mathbb{R}$：
+
+- $X \in \mathbb{R}$
+- $f \vert_E$ 表示缩小 $f$ 的定义域到 $E$ 上
+- 对比一下，可以发现 $f$ 其实可以理解为两个 sequence，一个 sequence 由定义域的元素构成，另一个由值域的元素构成：
+    - "$f$ is locally close to $L$ at $x_0$" 可以看做从值域，i.e. 所有 $f(x)$ 值中构建一个 sequence，使得所有 $\lbrace f(x) \mid x \in E \cap \Phi(x_0, \delta) \rbrace$ 的值都排在 sequence 的尾部并从这个部分起 eventually $\epsilon$-close to $L$
+    - 可见这两组概念是高度统一的
+- **Definition 9.3.6** 等价定义：$\underset{x \to x_0; x \in E}{\lim}f(x) = L$ $\iff$ $\forall \epsilon > 0$, $\exists \delta > 0$ such that $\forall x \in E$, if $\vert x - x_0 \vert < \delta$ then $\vert f(x) - L \vert \leq \epsilon$
+    - 可以把函数收敛看做是 "定义域元素序列" 与 "值域元素序列" 联动的过程
 
 ### 6.4 boundedness
 
@@ -275,6 +291,7 @@ adherent point、limit point、isolated point 的定义参 Section 6.2。需要�
 **Corollary 9.1.17** 设 $X \subseteq \mathbb{R}$:
 
 - If $X$ is closed, then $\forall$ 由 $X$ 元素组成的收敛序列 $(a_n)$ $\Rightarrow \underset{n \to \infty}{\lim} a_n \in X$
+    - > [so by closed it means that "we can't escape by limit"](https://math.stackexchange.com/a/299767)
 - If $\forall$ 由 $X$ 元素组成的收敛序列 $(a_n)$ 都有 $\underset{n \to \infty}{\lim} a_n \in X$ $\Rightarrow$ $X$ is closed
 
 **Theorem 9.1.24** (Heine-Borel theorem for the line). 设 $X \subseteq \mathbb{R}$，以下两命题等价:
@@ -308,7 +325,73 @@ Let's construct a family of sets, $A_n = \lbrace a \in X \mid \vert x \vert > n 
 
 因为 $(a_n)$ 收敛到 $L$，所以 $(a_n)$ 所有的子序列都收敛到 $L' \notin X$ (Proposition 6.6.5)，所以不可能存在一个子序列 $(a_{n_j})$ 收敛到 $L \in X$。矛盾。$\blacksquare$
 
-## Notes
+### 9.2 Limits of functions
+
+部分概念 See Section 6.3
+
+**Proposition 9.3.9** Let $X \subseteq \mathbb{R}$, $f: X \to \mathbb{R}$, $E \subseteq X$, $x_0$ be an adherent point of $E$, and $L$ be a real number. 以下两命题等价：
+
+- $\underset{x \to x_0; x \in E}{\lim}f(x) = L$
+    - $\iff$
+- $\forall$ 由 $E$ 元素构成并收敛到 $x_0$ 的序列 $(a_n)\_{n=0}^{\infty}$，函数值序列 $(f(a_n))\_{n=0}^{\infty}$ 收敛到 $L$
+
+**[Proof](https://proofwiki.org/wiki/Limit_of_Function_by_Convergent_Sequences):**
+
+(1) $\Rightarrow$
+
+(Definition 9.3.6) $\underset{x \to x_0; x \in E}{\lim}f(x) = L$ $\iff$ $\forall \epsilon > 0$, $\exists \delta > 0$ such that $\forall x \in E$, if $\vert x - x_0 \vert < \delta$ then $\vert f(x) - L \vert \leq \epsilon$
+
+Now suppose $(a_n)$ converges to $x_0$, so $\forall \delta: \exists N: \forall i > N: \vert a_i - x_0 \vert < \delta$.
+
+Therefore $\forall \epsilon > 0: \exists N: \forall i > N： \vert f(a_i) - L \vert \leq \epsilon$, i.e. $\underset{n \to \infty}{\lim}f(a_n) = L$
+
+- 注意 $\underset{n \to \infty}{\lim}f(a_n)$ 是序列极限而不是函数极限
+
+(2) $\Leftarrow$
+
+Proof by contradiction. Suppose $\underset{x \to x_0; x \in E}{\lim}f(x) \neq L$, then 
+
+$$
+\exists \epsilon > 0: \forall \delta > 0: \text{ if } \vert x - x_0 \vert < \delta, \text{ then } \vert f(x) - L \vert > \epsilon
+$$
+
+Construct a family of sets $S_n = \lbrace x \in E \mid \vert x - x_0 \vert < \frac{1}{n} \text{ and } \vert f(x) - L \vert > \epsilon \rbrace$
+
+$S_i$ is non-empty for all $i \in \mathbb{N}\_{>0}$. By AC, $\exists$ a sequence $(a_n)$ such that $a_i \in S_i$ for all $i \in \mathbb{N}_{>0}$.
+
+Obviously $(a_n)$ is a sequence of $E$ and converges to $x_0$, but sequence $(f(a_n))$ diverges from $L$ from our construction. This is our contradiction, and so the assumption does not hold. $\blacksquare$
+
+**Corollary 9.3.10** Following Proposition 9.3.9, we have:
+
+$$
+\text{if } \underset{x \to x_0; x \in E}{\lim}f(x) = L \text{, and } \underset{n \to \infty}{\lim}a_n = x_0 (a_i \in E) \Rightarrow \text{ then } \underset{n \to \infty}{\lim} f(a_n) = L
+$$
+
+- 注：我们值考虑 $x_0$ 是 $E$ 的附着点的情况，是因为根据 Corollary 9.3.10，如果 $x_0$ 不是 $E$ 的附着点，不可能有 $\underset{n \to \infty}{\lim}a_n = x_0$ (极限是极限点，极限点必然是附着点)
+
+**Proposition 9.3.18** (Limits are local). Let $X \subseteq \mathbb{R}$, $f: X \to \mathbb{R}$, $E \subseteq X$, $x_0$ be an adherent point of $E$, $L$ be a real number, and $\delta > 0$. Then:
+
+$$
+\underset{x \to x_0; x \in E}{\lim}f(x) = L \iff \underset{x \to x_0; x \in E \cap (x_0 - \delta, x_0 + \delta)}{\lim}f(x) = L
+$$
+
+**[Proof](http://www.math.ucla.edu/~tao/resource/general/131ah.1.03w/HW6.pdf):**
+
+(1) $\Rightarrow$
+
+Obviously
+
+(2) $\Leftarrow$
+
+Suppose that $(x_n)$ is a sequence of terms in $X$, not necessarily $\delta$-close to $x_0$, converging to $x_0$. Then by definition, $\exists M$ such that the sequence $(x_n)_{n \geq M}$ is $\delta$-close to $x_0$. Therefore, we may apply the hypothesis and conclude that $\underset{n \to \infty; n \geq M}{\lim}f(x_n) = L$. But this is the same as $\underset{n \to \infty}{\lim}f(x_n) = L$. 
+
+Thus for any sequence $(x_n)$ converging to $x_0$, $(f(x_n))$ converges to $L$. $\blacksquare$
+
+### 9.4 Continuous functions
+
+
+
+### Notes
 
 - Theorem 6.4.18 (Completeness of the reals). 实数序列 Cauchy $\iff$ 收敛
     - In the language of metric spaces (see Chapter 12), Theorem 6.4.18 asserts that the real numbers are a **complete** metric space--hat they do not contain "holes" the same way the rationale do. (Certainly the rationale have lots of Cauchy sequences which do not converge to other rationale; take for instance the sequence $1,1.4,1.41,1.414,1.4142,\dots$ which converges to the irrational $\sqrt{2}$.) 
