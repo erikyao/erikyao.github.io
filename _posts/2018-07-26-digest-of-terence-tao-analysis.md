@@ -387,9 +387,49 @@ Suppose that $(x_n)$ is a sequence of terms in $X$, not necessarily $\delta$-clo
 
 Thus for any sequence $(x_n)$ converging to $x_0$, $(f(x_n))$ converges to $L$. $\blacksquare$
 
-### 9.4 Continuous functions
+### 9.3 Continuous functions
 
+**Definition 9.4.1** (Continuity). Let $X \subseteq \mathbb{R}$, $f: X \to \mathbb{R}$, $x_0 \in X$ (所以 $x_0$ 必然是 adherent point).
 
+$f$ is **continuous** at $x_0$ $\iff$ $\underset{x \to x_0; x \in X}{\lim}f(x) = f(x_0)$
+
+- 简单点说：连续 $\iff$ 收敛到自己的函数值本身
+
+$f$ is **continuous** on $X$ $\iff$ $\forall x_0 \in X$, $f$ is continuous at $x_0$
+
+**Proposition 9.4.7** (Equivalent formulations of continuity). Let $X \subseteq \mathbb{R}$, $f: X \to \mathbb{R}$, $x_0 \in X$. 以下三命题等价：
+
+- $f$ is continuous at $x_0$
+    - $\iff$
+- $\forall$ 由 $X$ 元素构成并收敛到 $x_0$ 的序列 $(a_n)\_{n=0}^{\infty}$，函数值序列 $(f(a_n))\_{n=0}^{\infty}$ 收敛到 $f(x_0)$ (Proposition 9.3.9)
+    - $\iff$
+- $\forall \epsilon > 0$, $\exists \delta > 0$ such that $\forall x \in X$, if $\vert x - x_0 \vert < \delta$ then $\vert f(x) - L \vert \leq \epsilon$ (Definition 9.3.6)
+
+### 9.4 Uniform continuity (一致连续性)
+
+考虑 "定义域序列" 与 "值域序列" 联动时，这两个序列的震荡幅度。假设 $f$ 在 $x_1$, $x_2$ 两点上连续，所以 $\forall \epsilon: \exists \delta_1, \delta_2$ such that $f \vert_{x \in \Phi(x_1, \delta_1)}$ is $\epsilon$-close to $f(x_1)$, and $f \vert_{x \in \Phi(x_2, \delta_2)}$ is $\epsilon$-close to $f(x_2)$. 对同一个固定的 $\epsilon$，"值域序列" 的震荡区间 $\Phi(f(x_1), \epsilon)$ 与 $\Phi(f(x_2), \epsilon)$ 的 size 是一样大的，但是 "定义域序列" 的震荡区间 $\Phi(x_1, \delta_1)$ 和 $\Phi(x_2, \delta_2)$ 的差别可能会很大。尤其当定义域是开区间时，越靠近边缘 adherent point 时，"定义域序列" 的震荡区间的变化可能会越大。
+
+如果对任意的 $x_1$、$x_2$，对任意固定的 $\epsilon$，我们都能有 $\delta_1 = \delta_2$，我们称 $f$ 是一致连续的。正式定义如下：
+
+**Definition 9.9.2** (Uniform continuity). Let $X \subseteq \mathbb{R}$, $f: X \to \mathbb{R}$. 
+
+$f$ is **uniformly continuous** $\iff \forall \epsilon: \exists$ a uniform $\delta > 0$ such that whenever $x$ and $x_0$ are $\delta$-close, $f(x)$ and $f(x_0)$ are $\epsilon$-close.
+
+- 考虑与 "连续" 概念的 quantifier order 的区别：
+    - 函数连续：$\forall x_0: \forall \epsilon: \exists \delta: \vert x - x_0 \vert < \delta \Rightarrow \vert f(x) - f(x_0) \vert < \epsilon$
+    - 一致连续：$\forall \epsilon: \exists \delta: \forall x_0: \vert x - x_0 \vert < \delta \Rightarrow \vert f(x) - f(x_0) \vert < \epsilon$
+
+待补充：
+
+- Proposition 9.3.9：连续函数把收敛序列映射成收敛序列
+- Proposition 9.9.12：一致连续函数把 Cauchy 序列映射成 Cauchy 序列
+    - 这两条看上去有点奇怪，因为前面我们说 "收敛" 和 "Cauchy" 等价。但是这是有前提的，这个前提就是序列要在 $\mathbb{R}$ 上
+        - 收敛必定 Cauchy，这是 universally true 的
+        - Cauchy 在 incomplete space 上不一定收敛。[A metric space X is said to be complete if every Cauchy sequence is convergent](https://math.stackexchange.com/a/728780). 比如 $\mathbb{Q}$ 上的一个 Cauchy 可能会收敛到一个实数上，但这个序列在 $\mathbb{Q}$ 上不收敛
+        - Proposition 9.9.12 的这个描述不 care 你的 space 的
+        - 更严格的性质描述更 general 的操作
+- $f(x) = x^2$，若定义域是 $\mathbb{R}$，则它不是一致收敛；若定义域是闭区间 $[a,b]$，则它一致收敛。[证明](https://math.stackexchange.com/a/503101)
+    - 思路：最终得到类似 $\vert g(x, \delta) \vert < \epsilon$ 的形式，若 $x$ 有界，可以对 $\forall \epsilon$ 找到一个足够大或者足够小的 $\delta$ 满足条件；若 $x$ 本身可以足够大或者足够小，这时你的 $\delta$ 就固定不了了
 
 ### Notes
 
