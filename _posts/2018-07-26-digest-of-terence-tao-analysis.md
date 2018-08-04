@@ -77,6 +77,9 @@ tags: []
 |                       | $(a_n)_{n=m}^{\infty}$ is **eventually $\epsilon$-close** to $L$ | $\iff \exists N \geq m$, such that starting from $i \geq N$, $a_i$ is $\epsilon$-close to $L$ |
 |                       | $(a_n)_{n=m}^{\infty}$ **converges to** $L$                      | $\iff \forall \epsilon > 0$, $(a_n)_{n=m}^{\infty}$ is eventually $\epsilon$-close to $L$     |
 |                       | $\underset{n \to \infty}{\lim}a_n = L$                           | == $(a_n)_{n=m}^{\infty}$ converges to $L$                                                    |
+| $\mathbb{R}$ sequence | $(a_n)\_{n=m}^{\infty}$ is **$\epsilon$-close** to $(b_n)\_{n=m}^{\infty}$            | $\iff \forall i$, $a_i$ is $\epsilon$-close to $b_i$                                            |
+|                       | $(a_n)\_{n=m}^{\infty}$ is **eventually $\epsilon$-close** to $(b_n)\_{n=m}^{\infty}$ | $\iff \exists N \geq m$, such that starting from $i \geq N$, $a_i$ is $\epsilon$-close to $b_i$ |
+|                       | $(a_n)\_{n=m}^{\infty}$ is **equivalent to** $(b_n)\_{n=m}^{\infty}$                  | $\iff \forall \epsilon > 0$, $(a_n)\_{n=m}^{\infty}$ is eventually $\epsilon$-close to $(b_n)\_{n=m}^{\infty}$ |
 | $f: X \to \mathbb{R}$ | $f$ is **$\epsilon$-close** to $L$                                                           | $\iff \forall x \in X$, $f(x)$ is $\epsilon$-close to $L$                                  |
 |                       | $x_0$ is an adherent point of $X$; $f$ is **$\epsilon$-close** to $L$ near $x_0$             | $\iff \exists \delta>0$ such that $f \vert_{\Phi(x_0, \delta)}$ is $\epsilon$-close to $L$ |
 |                       | $x_0$ is an adherent point of $X$; $E \subseteq X$; $f$ **converges** to $L$ at $x_0$ in $E$ | $\iff \forall \epsilon>0$, $f \vert_E$ is **$\epsilon$-close** to $L$ near $x_0$           |
@@ -99,6 +102,7 @@ tags: []
     - 可见这两组概念是高度统一的
 - **Definition 9.3.6** 等价定义：$\underset{x \to x_0; x \in E}{\lim}f(x) = L$ $\iff$ $\forall \epsilon > 0$, $\exists \delta > 0$ such that $\forall x \in E$, if $\vert x - x_0 \vert < \delta$ then $\vert f(x) - L \vert \leq \epsilon$
     - 可以把函数收敛看做是 "定义域元素序列" 与 "值域元素序列" 联动的过程
+- **Lemma 9.9.7** $(a_n)$ and $(b_n)$ are equivalent $\iff$ $\underset{n \to \infty}{\lim} (a_n - b_n) = 0$
 
 ### 6.4 boundedness
 
@@ -419,17 +423,41 @@ $f$ is **uniformly continuous** $\iff \forall \epsilon: \exists$ a uniform $\del
     - 函数连续：$\forall x_0: \forall \epsilon: \exists \delta: \vert x - x_0 \vert < \delta \Rightarrow \vert f(x) - f(x_0) \vert < \epsilon$
     - 一致连续：$\forall \epsilon: \exists \delta: \forall x_0: \vert x - x_0 \vert < \delta \Rightarrow \vert f(x) - f(x_0) \vert < \epsilon$
 
-待补充：
+**Proposition 9.9.8** Let $X \subseteq \mathbb{R}$, $f: X \to \mathbb{R}$. 以下两命题等价：
+
+- $f$ is uniformly continuous on $X$
+    - $\iff$
+- $\forall$ 由 $X$ 元素构成的等价序列 $(a_n)$ 和 $(b_n)$，$(f(a_n))$ 与 $(f(b_n))$ 也等价
+
+**Proposition 9.9.12** Let $X \subseteq \mathbb{R}$, $f: X \to \mathbb{R}$ be a uniformly continuous function. 若由 $X$ 元素构成的序列$(a_n)$ 是 Cauchy，则 $(f(a_n))$ 也是 Cauchy
+
+**Proposition 9.9.15** Let $X \subseteq \mathbb{R}$, $f: X \to \mathbb{R}$ be a uniformly continuous function. If $E$ is a bounded subset of $X$，then $f(E)$ is also bounded.
+
+**Proposition 9.9.16** Let $a < b$ be real numbers, $f: [a, b] \to \mathbb{R}$ be a continuous function on $[a, b]$. Then $f$ is actually uniformly continuous.
+
+- 亦即：定义域是闭区间的连续函数必定一致连续
+- 举例：$f(x) = x^2$，(1) 若定义域是 $\mathbb{R}$，则它不是一致收敛；(2) 若定义域是闭区间 $[a,b]$，则它一致收敛。
+
+**[Proof](https://math.stackexchange.com/a/503101):** 
+
+欲证明：$\forall \epsilon: \exists \delta$ such that $\vert x-y \vert < \delta \Rightarrow \vert x^2 - y^2 \vert < \epsilon$.
+
+(1) Consider $\epsilon = 1$. Then $\delta$ is fixed, and let $y = x + \frac{\delta}{2}$. Therefore $\forall x$, we should have $\vert x^2 - (x+\frac{\delta}{2})^2 \vert = \vert x\delta + \frac{\delta^2}{4} \vert  < 1$. This cannot hold when $x$ is sufficiently large.
+
+(2) $\vert x^2 - y^2 \vert = \vert x - y \vert \times \vert x + y \vert \leq \vert x - y \vert \times 2b$
+
+$\forall \epsilon: \exists \delta = \frac{\epsilon}{2b}$ such that $\vert x-y \vert < \delta \Rightarrow \vert x^2 - y^2 \vert < \epsilon$
+
+### 9.5 连续、一致连续与函数映射性质
 
 - Proposition 9.3.9：连续函数把收敛序列映射成收敛序列
 - Proposition 9.9.12：一致连续函数把 Cauchy 序列映射成 Cauchy 序列
-    - 这两条看上去有点奇怪，因为前面我们说 "收敛" 和 "Cauchy" 等价。但是这是有前提的，这个前提就是序列要在 $\mathbb{R}$ 上
-        - 收敛必定 Cauchy，这是 universally true 的
-        - Cauchy 在 incomplete space 上不一定收敛。[A metric space X is said to be complete if every Cauchy sequence is convergent](https://math.stackexchange.com/a/728780). 比如 $\mathbb{Q}$ 上的一个 Cauchy 可能会收敛到一个实数上，但这个序列在 $\mathbb{Q}$ 上不收敛
-        - Proposition 9.9.12 的这个描述不 care 你的 space 的
-        - 更严格的性质描述更 general 的操作
-- $f(x) = x^2$，若定义域是 $\mathbb{R}$，则它不是一致收敛；若定义域是闭区间 $[a,b]$，则它一致收敛。[证明](https://math.stackexchange.com/a/503101)
-    - 思路：最终得到类似 $\vert g(x, \delta) \vert < \epsilon$ 的形式，若 $x$ 有界，可以对 $\forall \epsilon$ 找到一个足够大或者足够小的 $\delta$ 满足条件；若 $x$ 本身可以足够大或者足够小，这时你的 $\delta$ 就固定不了了
+    - 这两条看上去有点奇怪，因为前面我们说 "收敛 $\iff$ Cauchy"。但是这是有前提的，这个前提就是序列要在 $\mathbb{R}$ 上. 
+        - **A metric space $X$ is said to be complete if every Cauchy sequence is convergent**. $\mathbb{R}$ 是 complete 的；$\mathbb{Q}$ 是 incomplete 的
+        - Cauchy 在 incomplete space 上不一定收敛. 比如 $\mathbb{Q}$ 上的一个 Cauchy 可能会收敛到一个实数上，但这个序列在 $\mathbb{Q}$ 上不收敛
+    - Proposition 9.9.12 的这个描述是对 complete space 和 incomplete space 都成立的
+- Proposition 9.9.8：一对等价序列，经过一致连续函数映射，得到的两个结果序列仍然等价
+- Proposition 9.9.15：一致连续函数把有界集映射成有界集
 
 ### Notes
 
