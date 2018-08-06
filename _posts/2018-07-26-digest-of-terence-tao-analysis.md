@@ -447,7 +447,7 @@ $f$ is **uniformly continuous** $\iff \forall \epsilon: \exists$ a uniform $\del
 
 (2) $\vert x^2 - y^2 \vert = \vert x - y \vert \times \vert x + y \vert \leq \vert x - y \vert \times 2b$
 
-$\forall \epsilon: \exists \delta = \frac{\epsilon}{2b}$ such that $\vert x-y \vert < \delta \Rightarrow \vert x^2 - y^2 \vert < \epsilon$
+$\forall \epsilon: \exists \delta = \frac{\epsilon}{2b}$ such that $\vert x-y \vert < \delta \Rightarrow \vert x^2 - y^2 \vert < \epsilon$. $\blacksquare$
 
 ### 9.5 连续、一致连续与函数映射性质
 
@@ -459,6 +459,69 @@ $\forall \epsilon: \exists \delta = \frac{\epsilon}{2b}$ such that $\vert x-y \v
     - Proposition 9.9.12 的这个描述是对 complete space 和 incomplete space 都成立的
 - Proposition 9.9.8：一对等价序列，经过一致连续函数映射，得到的两个结果序列仍然等价
 - Proposition 9.9.15：一致连续函数把有界集映射成有界集
+
+## Chapter 10 - Differentiation of functions (函数的微分)
+
+**Definition 10.1.1** (Differentiability at a point). Let $X \subset \mathbb{R}$, and let $x \in X$ and also a limit point of $X$. Let $f: X \to \mathbb{R}$ be a function. If 
+
+$$
+\underset{x \to x_0; x \in X - \lbrace x_0 \rbrace}{\lim} \frac{f(x) - f(x_0)}{x - x_0} = L
+$$
+
+then we say $f$ is **differentiable at $x_0$ on $X$ with derivative $L$**, and write $f'(x_0) := L$.
+
+If:
+
+- the limit does not exist, or
+- $x_0 \notin X$, or
+- $x_0$ is not a limit point of $X$,
+
+we leave $f'(x_0)$ undefined and say $f$ is not differentiable at $x_0$ on $X$.
+
+注：
+
+- We need $x_0$ to be a limit point in order for $x_0$ to be adherent to $X - \lbrace x_0 \rbrace$, otherwise the limit would automatically be undefined.
+- 实际应用中 $X$ 大多为区间，区间上的所有点都是 limit point (Lemma 9.1.21)，所以一般也无需注意这个问题
+- 函数可以看做是 "定义域序列" 和 "值域序列" 的联动，i.e. $(x) \vert_{x \in X}$ vs $(f(x)) \vert_{x \in X}$，那么导数就可以看做是 "定义域序列" 与 "微分序列" 的联动，i.e. $(x) \vert_{x \in X}$ vs $(\frac{f(x) - f(x_0)}{x - x_0}) \vert_{x \in X}$
+
+**Proposition 10.1.10** (Differentiability implies continuity). 若 $f$ 在 $x_0$ 处可微，则 $f$ 在 $x_0$ 处连续
+
+**[Proof No.1](http://www-math.mit.edu/~djk/18_01/chapter02/proof04.html):**
+
+已知 $f$ 在 $x_0$ 处可微，则 $\underset{x \to x_0}{\lim} \frac{f(x) - f(x_0)}{x - x_0} = f'(x_0)$。考虑以下极限及变形 (参考 Proposition 9.3.14, Limit laws for functions)：
+
+$$
+\begin{align*}
+\underset{x \to x_0}{\lim} \left [ f(x) - f(x_0) \right ] & = \underset{x \to x_0}{\lim} \left [ (x - x_0) \cdot \frac{f(x) - f(x_0)}{x - x_0} \right ] \newline
+                                                          & = \left [ \underset{x \to x_0}{\lim}(x - x_0) \right ] \cdot \left [ \underset{x \to x_0}{\lim} \frac{f(x) - f(x_0)}{x - x_0} \right ] \newline
+                                                          & = 0 \cdot f'(x_0) \newline 
+                                                          & = 0
+\end{align*}
+$$
+
+which implies $\underset{x \to x_0}{\lim} f(x) = f(x_0)$. $\blacksquare$
+
+**[Proof No.2](https://math.stackexchange.com/a/269671):**
+
+已知 $f$ 在 $x_0$ 处可微，根据 Proposition 10.1.7 (Newton's approximation) 可得：$\forall \epsilon: \exists \delta$ such that $\vert x - x_0 \vert \leq \delta \Rightarrow \left \| \frac{f(x) - f(x_0)}{x - x_0} - f'(x_0) \right \| \leq \epsilon$。
+
+另有：
+
+$$
+\left | \frac{f(x) - f(x_0)}{x - x_0} \right |  - \left | f'(x_0) \right | \leq \left| \frac{f(x) - f(x_0)}{x - x_0} - f'(x_0) \right| \leq \epsilon
+$$
+
+所以有：$\left \| f(x) - f(x_0) \right \| \leq \vert x - x_0 \vert \cdot \left ( \epsilon + \left \| f'(x_0) \right \| \right )$
+
+根据 Proposition 9.4.7 (Equivalent formulations of continuity)，用反证法，假设 $\exists \epsilon': \forall \delta'$ such that $\vert x - x_0 \vert \leq \delta' \Rightarrow \left \| f(x) - f(x_0) \right \| > \epsilon'$. 
+
+取 $\delta' = \min\left(\delta, \frac{\epsilon'}{\epsilon + \left \| f'(x_0) \right \|} \right)$. 
+
+因为 $\vert x - x_0 \vert \leq \delta' \leq \delta$，所以满足 $\left \| f(x) - f(x_0) \right \| \leq \vert x - x_0 \vert \cdot \left ( \epsilon + \left \| f'(x_0) \right \| \right ) \leq \delta' \cdot \left ( \epsilon + \left \| f'(x_0) \right \| \right )$。
+
+又因为 $\delta' \leq \frac{\epsilon'}{\epsilon + \left \| f'(x_0) \right \|}$，所以有 $\left \| f(x) - f(x_0) \right \| \leq \frac{\epsilon'}{\epsilon + \left \| f'(x_0) \right \|} \cdot \left ( \epsilon + \left \| f'(x_0) \right \| \right ) = \epsilon'$，矛盾。$\blacksquare$
+
+
 
 ### Notes
 
