@@ -460,6 +460,17 @@ $\forall \epsilon: \exists \delta = \frac{\epsilon}{2b}$ such that $\vert x-y \v
 - Proposition 9.9.8：一对等价序列，经过一致连续函数映射，得到的两个结果序列仍然等价
 - Proposition 9.9.15：一致连续函数把有界集映射成有界集
 
+### Extra Notes
+
+- Theorem 6.4.18 (Completeness of the reals). 实数序列 Cauchy $\iff$ 收敛
+    - In the language of metric spaces (see Chapter 12), Theorem 6.4.18 asserts that the real numbers are a **complete** metric space--hat they do not contain "holes" the same way the rationale do. (Certainly the rationale have lots of Cauchy sequences which do not converge to other rationale; take for instance the sequence $1,1.4,1.41,1.414,1.4142,\dots$ which converges to the irrational $\sqrt{2}$.) 
+    - This property is closely related to the least upper bound property (Theorem 5.5.9), and is one of the principal characteristics which make the real numbers superior to the rational numbers for the purposes of doing analysis (taking limits, taking derivatives and integrals, finding zeroes of functions, that kind of thing), as we shall see in later chapters.
+- Bolzano-Weierstrass theorem: 
+    - It says that if a sequence is bounded, then eventually it has no choice but to converge in some places; it has "no room" to spread out and stop itself from acquiring limit points. It is not true for unbounded sequences; for instance, the sequence $1,2,3,\dots$ has no convergent subsequences whatsoever. 
+    - In the language of topology, this means that the interval $\lbrace x \in \mathbb{R}: -Μ < x < Μ \rbrace$ is **compact**, whereas an unbounded set such as the real line $\mathbb{R}$ is not compact. The distinction between compact sets and non-compact sets will be very important in later chapters--of similar importance to the distinction between finite sets and infinite sets.
+- Heine-Borel theorem for the line: 
+    - In the language of metric space topology, it asserts that every subset of the real line which is closed and bounded, is also **compact**. A more general version of this theorem can be found in Theorem 12.5.7.
+
 ## Chapter 10 - Differentiation of functions (函数的微分)
 
 **Definition 10.1.1** (Differentiability at a point). Let $X \subset \mathbb{R}$, and let $x \in X$ and also a limit point of $X$. Let $f: X \to \mathbb{R}$ be a function. If 
@@ -521,15 +532,94 @@ $$
 
 又因为 $\delta' \leq \frac{\epsilon'}{\epsilon + \left \| f'(x_0) \right \|}$，所以有 $\left \| f(x) - f(x_0) \right \| \leq \frac{\epsilon'}{\epsilon + \left \| f'(x_0) \right \|} \cdot \left ( \epsilon + \left \| f'(x_0) \right \| \right ) = \epsilon'$，矛盾。$\blacksquare$
 
+### 10.2 Local maxima, local minima, and derivatives (局部最大最小值与导数)
 
+**Definition 10.2.1** (Local maxima and minima). Let $X \subset \mathbb{R}$, and $f: X \to \mathbb{R}$ be a function. $f$ **attains a local maximum/minimum at $x_0$** $\iff$ $\exists \delta > 0$ such that $f\vert_{x \cap (x_0 - \delta, x_0 + \delta)}$ attains a maximum/minimum at $x_0$.
 
-### Notes
+- Makes sense. 你要达到局部最大最小，那一定要有一个 "局部" 才行，这个 "局部" 就是 neighborhood $\Phi(x_0, \delta)$
 
-- Theorem 6.4.18 (Completeness of the reals). 实数序列 Cauchy $\iff$ 收敛
-    - In the language of metric spaces (see Chapter 12), Theorem 6.4.18 asserts that the real numbers are a **complete** metric space--hat they do not contain "holes" the same way the rationale do. (Certainly the rationale have lots of Cauchy sequences which do not converge to other rationale; take for instance the sequence $1,1.4,1.41,1.414,1.4142,\dots$ which converges to the irrational $\sqrt{2}$.) 
-    - This property is closely related to the least upper bound property (Theorem 5.5.9), and is one of the principal characteristics which make the real numbers superior to the rational numbers for the purposes of doing analysis (taking limits, taking derivatives and integrals, finding zeroes of functions, that kind of thing), as we shall see in later chapters.
-- Bolzano-Weierstrass theorem: 
-    - It says that if a sequence is bounded, then eventually it has no choice but to converge in some places; it has "no room" to spread out and stop itself from acquiring limit points. It is not true for unbounded sequences; for instance, the sequence $1,2,3,\dots$ has no convergent subsequences whatsoever. 
-    - In the language of topology, this means that the interval $\lbrace x \in \mathbb{R}: -Μ < x < Μ \rbrace$ is **compact**, whereas an unbounded set such as the real line $\mathbb{R}$ is not compact. The distinction between compact sets and non-compact sets will be very important in later chapters--of similar importance to the distinction between finite sets and infinite sets.
-- Heine-Borel theorem for the line: 
-    - In the language of metric space topology, it asserts that every subset of the real line which is closed and bounded, is also **compact**. A more general version of this theorem can be found in Theorem 12.5.7.
+**Proposition 10.2.6** (Fermat's Theorem on stationary points). Let $a < b$ be real numbers, and $f: (a,b) \to \mathbb{R}$ be a function. 如果 $x_0 \in (a, b)$、$f$ 在 $x_0$ 处可微、且 $f$ 在 $x_0$ 处达到局部最大最小值 $\Rightarrow$ 那么 $f'(x_0) = 0$.
+
+**[Proof](http://mathonline.wikidot.com/fermat-s-theorem-for-extrema):**
+
+假设 $f$ 在 $x_0$ 处达到局部最大，那么 $f(x_0) \geq f(x)$ for all $x$ with $\vert x−x_0 \vert < \delta$. 假设 $x = x_0 + h$，$h \in (-\delta,\delta)$, 那么 $f(x_0) - f(x) \geq 0$，$x_0 - x = h$。所以：
+
+- $\underset{h \to 0^+}{\lim} \frac{f(x_0) - f(x)}{x_0 - x} \geq 0$
+- $\underset{h \to 0^-}{\lim} \frac{f(x_0) - f(x)}{x_0 - x} \leq 0$
+
+补充知识点：
+
+- **Definition 9.5.1** (Left and right limits):
+    - **右极限** $\underset{x \to x_0^+}{\lim} f(x) := \underset{x \to x_0; x \in X \cap (x_0, \infty)}{\lim} f(x)$
+    - **左极限** $\underset{x \to x_0^-}{\lim} f(x) := \underset{x \to x_0; x \in X \cap (-\infty， x_0)}{\lim} f(x)$
+- 当 $\underset{x \to x_0^+}{\lim} f(x) \neq \underset{x \to x_0^-}{\lim} f(x)$ 时，我们称 $f$ 在 $x_0$ 处有一个 **jump discontinuity**
+- 当 $\underset{x \to x_0^+}{\lim} f(x) = \underset{x \to x_0^-}{\lim} f(x)$ 但都 $\neq \underset{x \to x_0}{\lim} f(x)$ 时，我们称 $f$ 在 $x_0$ 处有一个 **removable discontinuity**
+    - 虽然书上没有明说，但是，这都叫 discontinuity 了，说明**这两种情况下，$f$ 在 $x_0$ 处必定不连续**
+
+因为 $f$ 在 $x_0$ 处可微，说明 $f$ 在 $x_0$ 处必定连续 (Proposition 10.1.10, Differentiability implies continuity)，所以只能有 $\underset{h \to 0^+}{\lim} \frac{f(x_0) - f(x)}{x_0 - x} = \underset{h \to 0^-}{\lim} \frac{f(x_0) - f(x)}{x_0 - x} = \underset{h \to 0}{\lim} \frac{f(x_0) - f(x)}{x_0 - x} = 0$，亦即 $f'(x_0) = 0$。
+
+假设 $f$ 在 $x_0$ 处达到局部最小同理。$\blacksquare$
+
+注意：
+
+- 从证明可以看出，"$f$ 在 $x_0$ 处可微" 这个条件非常重要
+- 如果定义域是开区间 $[a, b]$，命题不成立，因为最大最小值可能在端点 $a$、$b$ 处取得，但 $f'(a)$、$f'(b)$ 可以不为 0
+- **逆命题不成立**
+    - 这里涉及到 convex function 的问题。注意：如果 $-f$ 是 convex 的话，那么 $f$ 称为 concave。这并不构成一个 "非黑即白" 的关系。事实上存在 "既不 convex 也不 concave" 的函数，比如 $f(x) = x^3$
+    - $f(x) = x^3$ 在 $x=0$ 处有 $f'(0) = 0$，但 $f(0)$ 既不是最大值也不是最小值
+    - 对 convex 而言，$f'(x) = 0$ 的点是 global minimum；对 concave 而言，$f'(x) = 0$ 的点是 global maximum。(See Corollary 1 of [Theory of convex functions, A.A. Ahmadi@Princeton](http://www.princeton.edu/~amirali/Public/Teaching/ORF523/S16/ORF523_S16_Lec7_gh.pdf))
+
+**Theorem 10.2.7** (Rolle's theorem). Let $a < b$ be real numbers, and $f: [a,b] \to \mathbb{R}$. $f$ 连续且在 $(a,b)$ 上可微. 如果 $f(a) = f(b)$ $\Rightarrow$ 那么 $\exists x \in (a,b)$ 使得 $f'(x) = 0$.
+
+**[Proof](https://en.wikipedia.org/wiki/Rolle%27s_theorem#Proof_of_the_generalized_version):**
+
+补充知识点：**Proposition 9.6.7** (Maximum principle, 最大值原理). 如果 $f: [a,b] \to \mathbb{R}$ 连续，那么 $\exists x_{\text{max}} \in [a, b]$ 使得 $f(x_{\text{max}})$ 达到最大值，也 $\exists x_{\text{min}} \in [a, b]$ 使得 $f(x_{\text{min}})$ 达到最小值
+
+- 注：更准确的名字应该是 extremum principle, 极值原理
+
+ (1) 如果最大值/最小值出现在端点 $x=a$ 或者 $x=b$，因为 $f(a) = f(b)$，所以要么存在一点 $c \in (a, b)$ 使得 $f(c)$ 达到最小值/最大值；要么 $f(x)$ 是一条水平线段，其上任意一点都有 $f'(x) = 0$
+ 
+ (2) 如果最大值/最小值出现在一点 $c \in (a, b)$，那么根据 Proposition 10.2.6 (Fermat's Theorem on stationary points)，$f'(c) = 0$。$\blacksquare$
+
+**Corollary 10.2.9** (Mean value theorem, 平均值定理; Rolle's theorem 的重要推论). Let $a < b$ be real numbers, and $f: [a,b] \to \mathbb{R}$. $f$ 连续且在 $(a,b)$ 上可微 $\Rightarrow$ 那么 $\exists x \in (a, b)$ 使得 $f'(x) = \frac{f(b) - f(a)}{b-a}$.
+
+**[Proof](http://math.caltech.edu/~nets/lecture9.pdf):**
+
+Construct $g(x) = f(x) - \frac{f(b) - f(a)}{b-a} \cdot (x - a)$. Note that $g(a) = g(b) = f(a)$. 
+
+根据 Proposition 9.4.9 (Arithmetic preserves continuity) 和 Theorem 10.1.13 (Differential calculus) 的 sum rule (和法则)，$g(x)$ 与 $f(x)$ 一样连续且在 $(a,b)$ 上可微。根据 Rolle's theorem，$\exists c \in (a,b)$ 使得 $g'(x) = f'(x) - \frac{f(b) - f(a)}{b-a} = 0$，亦即 $f'(x) = \frac{f(b) - f(a)}{b-a}$。$\blacksquare$
+
+**Definition 10.2.10** (Lipschitz continuous function). Let $a < b$ be real numbers, and $f: [a,b] \to \mathbb{R}$. If $\forall x,y \in [a, b]$ such that $\vert f(x) - f(y) \vert \leq M \cdot \vert x - y \vert$, we call $f$ a **Lipschitz continuous function** and $M > 0$ the **Lipschitz constant**.
+
+**Corollary 10.2.11** (具有有界导数的函数必定 Lipschitz 连续). Let $M > 0$, $a < b$ be real numbers, and $f: [a,b] \to \mathbb{R}$. $f$ 连续、在 $(a,b)$ 上可微、且 $\forall x \in (a, b)$ 有 $\vert f'(x) \vert \leq M$ (即 $f'(x)$ 在 $(a, b)$ 上有界)，则 $f$ 是 $M$-Lipschitz 连续函数。
+
+**Proof:** 
+
+根据 Corollary 10.2.9 (Mean value theorem)，$\forall x,y \in [a, b]:\exists c \in (x, y)$ 使得 $f'(c) = \frac{f(x) - f(y)}{x-y}$。
+
+又因为 $\vert f'(c) \vert \leq M$，所以 $\vert f(x) - f(y) \vert \leq M \cdot \vert x - y \vert$。$\blacksquare$
+
+### 10.3 Monotone functions and derivatives (单调性与导数)
+
+**Proposition 10.3.1** Let $X \subset \mathbb{R}$, and let $x \in X$ and also a limit point of $X$. Let $f: X \to \mathbb{R}$ be a function. 如果 $f$ 单调增且在 $x_0$ 可微，则 $f'(x_0) \geq 0$; 如果 $f$ 单调减且在 $x_0$ 可微，则 $f'(x_0) \leq 0$。
+
+- 存在单调但并不总是可微的函数，比如 $f(x) =\begin{cases}x - 1 & x < 0 \\\\ x + 1 & x > 0\end{cases}$
+- 严格单调增并不意味着 $f'(x_0) > 0$，比如 $f(x) = x^3, f'(0) = 0$。严格单调减同理。
+    - 但是反过来，**在闭区间**上如果恒有 $f'(x) > 0$，则必定严格单调增。严格单调减同理。
+
+**Proposition 10.3.3** Let $a < b$ be real numbers, and $f: [a,b] \to \mathbb{R}$. $f$ 在整个 $[a,b]$ 上都可微. 
+
+- 如果 $\forall x \in [a, b]$，$f'(x) > 0$，则 $f$ 严格单调增
+- 如果 $\forall x \in [a, b]$，$f'(x) < 0$，则 $f$ 严格单调减
+- 如果 $\forall x \in [a, b]$，$f'(x) = 0$，则 $f$ 是常值函数
+
+**Proof:** 对 $\forall p, q \in [a, b]$，假设 $p < q$，用 Corollary 10.2.9 (Mean value theorem) $\blacksquare$
+
+- 注意：如果定义域不是一个闭区间的形式，那么可能存在 "处处$f'(x) > 0$，但 $f$ 并不严格单调增" 的情况
+    - 注意开区间 $(a, b) \subset [a, b]$，所以如果不是闭区间而是一个开区间的话，Proposition 10.3.3 也成立
+    - 但对于 "有洞" 的情况，就不好说了
+        - 比如 $X = \mathbb{R} - \lbrace 0 \rbrace$，$f: X \to \mathbb{R}$ 定义为 $f(x) = \begin{cases}x + 1 & x < 0 \\\\ x - 1 & x > 0\end{cases}$，$f(-0.5) > f(0.5)$
+
+### 10.4 Inverse functions and derivatives (反函数与导数)
+
+https://www.khanacademy.org/math/algebra2/manipulating-functions/introduction-to-inverses-of-functions/a/intro-to-inverse-functions
