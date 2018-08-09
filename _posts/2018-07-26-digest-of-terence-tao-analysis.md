@@ -620,6 +620,124 @@ Construct $g(x) = f(x) - \frac{f(b) - f(a)}{b-a} \cdot (x - a)$. Note that $g(a)
     - 但对于 "有洞" 的情况，就不好说了
         - 比如 $X = \mathbb{R} - \lbrace 0 \rbrace$，$f: X \to \mathbb{R}$ 定义为 $f(x) = \begin{cases}x + 1 & x < 0 \\\\ x - 1 & x > 0\end{cases}$，$f(-0.5) > f(0.5)$
 
-### 10.4 Inverse functions and derivatives (反函数与导数)
+### 10.4 L'Hopital's rule
 
-https://www.khanacademy.org/math/algebra2/manipulating-functions/introduction-to-inverses-of-functions/a/intro-to-inverse-functions
+[知乎：如何解释洛必达法则？](https://www.zhihu.com/question/28862411)
+
+## Chapter 11 - The Riemann integral
+
+Riemann 积分定义的是 **定积分** (**definite integral**)，即定义在固定区间上的积分。
+
+### 11.1 Upper and lower Riemann integrals (上 Riemann 积分 / 下 Riemann 积分 / Riemann 积分)
+
+首先复习一下 $\sup$ 和 $\inf$：
+
+System | Concept | Definition
+-------|---------|-----------
+$\mathbb{R}$ set $E$ | supremum (上确界) or least upper bound (最小上界)    | $\sup(E)$
+                     | infmum (下确界) or greatest lower bound (最大下界)   | $\inf(E) = -\sup(-E)$ where $-E = \lbrace -x \mid x \in E \rbrace$
+$\mathbb{R}$ sequence $(a_n)\_{n=m}^{\infty}$ | supremum | $\underset{n \geq m}{\sup} a_n = \sup(A)$ where $A = \lbrace a_i \mid i \geq m \rbrace$
+                                              | infmum   | $\underset{n \geq m}{\inf} a_n = \inf(A)$ where $A = \lbrace a_i \mid i \geq m \rbrace$
+                                              | limsup (上极限) | $\underset{n \to \infty}{\lim\sup} \, a_n := \underset{N \geq m}{\inf} a_{N}^{+}$ where $a_{i}^{+} = \underset{n \geq i}{\sup} a_n$ (换言之，$a_{i}^{+}$ 是 $a_i$ 起尾部序列的上确界；上极限即 "尾部序列上确界序列" 的下确界)
+                                              | liminf (下极限) | $\underset{n \to \infty}{\lim\inf} \, a_n := \underset{N \geq m}{\sup} a_{N}^{-}$ where $a_{i}^{-} = \underset{n \geq i}{\inf} a_n$ (换言之，$a_{i}^{-}$ 是 $a_i$ 起尾部序列的下确界；下极限即 "尾部序列下确界序列" 的上确界)
+
+简单说几个概念和记号：
+
+- 逐段常值函数：Piecewise Constant Functions，简写为 p.c. function
+- 逐段常值积分：写作 $p.c. \int_{I} f$ (其实 $\int_{I} f == \int_{I} f(x) dx$ 是一回事)
+- 设 $f: I \to \mathbb{R}$ 和 $g: I \to \mathbb{R}$：
+    - 如果 $\forall x \in I: g(x) \geq f(x)$，我们称 "$g$ **majorizes** $f$" (或者称 $g$ 为 $f$ 的 "**上方控制**函数") 
+    - 如果 $\forall x \in I: g(x) \leq f(x)$，我们称 "$g$ **minorizes** $f$" (或者称 $g$ 为 $f$ 的 "**下方控制**函数") 
+
+Riemann 积分：
+
+- 设 $f: I \to \mathbb{R}$ 是定义在有界区间 $I$ 上的有界函数
+    - 令 $\overline{F}\_{p.c. \int} = \lbrace p.c. \int_I g \mid g \text { majorizes } f \text{ and } g \text { is p.c.} \rbrace$
+        - **Upper Riemann integral** (**上 Riemann 积分**) $\overline{\int}\_{I} f := \inf(\overline{F}\_{p.c. \int})$
+    - 令 $\underline{F}\_{p.c. \int} = \lbrace p.c. \int_I g \mid g \text { minorizes } f \text{ and } g \text { is p.c.} \rbrace$
+        - **Lower Riemann integral** (**下 Riemann 积分**) $\underline{\int}\_{I} f := \sup(\underline{F}\_{p.c. \int})$
+- 类似于 limsup (上极限) 和 liminf (下极限)，换言之：
+    - $f$ 的上 Riemann 积分即 "f 的所有 p.c. 的上方控制函数的 p.c. 积分" 集合的下确界
+    - $f$ 的下 Riemann 积分即 "f 的所有 p.c. 的下方控制函数的 p.c. 积分" 集合的上确界
+- 如果 $\overline{\int}\_{I} f = \underline{\int}\_{I} f$，我们称 $f$ 在 $I$ 上 **Riemann integrable** (**Riemann 可积**)，并定义 **Riemann integral** $\int\_{I} f := \overline{\int}\_{I} f = \underline{\int}\_{I} f$
+    - 如果不相等的话，我们称 "非 Riemann 可积"
+- 如果 $I$ 是单点集或者 $\emptyset$，那么对一切函数 $f$ 都有 $\int_{I} f = 0$ (注意这种情况下 $f$ 也被认为是 constant 的)
+- **无界函数不是 Riemann 可积的**；这种函数的积分称为 **improper integral**，需要用更高级的积分方法，比如 Lebesgue 积分来计算
+
+Riemann 可积性的保持：假设 $I$ 是有界区间，$f: I \to \mathbb{R}$ 和 $g: I \to \mathbb{R}$ Riemann 可积，$c$ 为常数：
+
+- 相反数函数 $(-f)$ 可积，且等于积分相反数
+- 倒数函数 $(\frac{1}{f})$ 可积，且等于积分倒数。证明需要限制积分为 0 的情况，参 [Prove that $1/f$ is Riemann integrable on $[a,b]$](https://math.stackexchange.com/questions/257916/prove-that-1-f-is-riemann-integrable-on-a-b)
+- 函数 $(f+g)$ 与 $(f-g)$ 均可积，且积分等于各自的积分和/差
+- 函数 $(cf)$ 可积，且积分等于 $c \times \int_I f$
+- 函数 $\max(f, g)(x) = \max \lbrace f(x), g(x) \rbrace$ 与 $\min(f, g)(x) = \min \lbrace f(x), g(x) \rbrace$ 均可积，证明见书上
+- $f$ 的正部 (positive part) $f_+ := \max(f, 0)$ 与负部 (negative part) $f_- := \min(f, 0)$ 均可积
+- 绝对值函数 $\vert f \vert = f\_+ - f\_+$ 可积
+- 函数 $(f \times g)$ 可积
+    - $f = f_{+} + f_{-}$
+    - $g = g_{+} + g_{-}$
+    - $f \times g = f_{+} g_{+} + f_{+} g_{-} + f_{-} g_{+} + f_{-} g_{-}$，四个小项都可积，所以整体可积，证明见书上
+
+### 11.2 连续函数的 Riemann 可积性
+
+**Theorem 11.5.1** (有界区间上的一致连续函数可积). 设 $I$ 是有界区间，$f: I \to \mathbb{R}$ 一致连续，则 $f$ Riemann 可积
+
+考虑 Proposition 9.9.16 (闭区间上的连续函数一致连续)，我们可以有：
+
+**Corollary 11.5.2** (闭区间上的连续函数可积). 设 $I$ 是闭区间 $[a, b]$，$f: I \to \mathbb{R}$ 连续，则 $f$ Riemann 可积
+
+- 如果是开区间，$f$ 可能无界，也就必然不可积。比如 $f(x) = \frac{1}{x}$ 在 $(0,1)$ 上就不可积
+
+**Proposition 11.5.3** (有界区间上的连续有界函数可积). 设 $I$ 是有界区间，$f: I \to \mathbb{R}$ 连续且有界，则 $f$ Riemann 可积
+
+**Proposition 11.5.6** (有界区间上的逐段连续有界函数可积). 设 $I$ 是有界区间，$f: I \to \mathbb{R}$ 有界且逐段连续，则 $f$ Riemann 可积
+
+### 11.3 连续函数的 Riemann 可积性
+
+**Proposition 11.6.1** (闭区间上的单调函数可积). 设 $I$ 是闭区间 $[a, b]$，$f: I \to \mathbb{R}$ 单调，则 $f$ Riemann 可积
+
+**Corollary 11.6.2** (有界区间上的有界单调函数可积). 设 $I$ 是有界区间，$f: I \to \mathbb{R}$ 单调且有界，则 $f$ Riemann 可积
+
+### 11.3 Fundamental theorems of calculus
+
+- 注意单词：
+    - calculus 指 "微积分学"
+    - differentiation 是 "微分"，联系 "导数" derivative $f'(x)$
+    - integration 是 "积分"，联系 "积分" integral $\int_{I} f$
+
+**Theorem 11.9.1** (1st Fundamental Theorem of Calculus). Let $a<b$ be real numbers. 设 $f: [a, b] \to \mathbb{R}$ Riemann 可积。$F: [a, b] \to \mathbb{R}$ 定义为：
+
+$$
+F(x) = \int_{[a, b]} f
+$$
+
+则 $F$ 连续。进而，如果 $x_0 \in [a, b]$ 且 $f$ 在 $x_0$ 处连续，则 $F$ 在 $x_0$ 处可微并且 $F'(x_0) = f(x_0)$
+
+- 这个 $f$ 与 $F$ 的关系总是有点拎不清，举例子是最好的方法
+    - 比如 $f(x) = 2x$，$F(x) = x^2 - a^2$
+- 粗略地说，有 $(\int_{[0, x]} f)' = f$
+    - **积分的导数等于本身**
+- 若 $f$ 连续 (即在 $I$ 上处处连续)，那么 $F$ 就是处处可微，那么也就有 $F' = f$，即 $F$ 是 $f$ 的 antiderivative
+    - **每个连续的 Riemann 可积函数都有 antiderivative**
+        - 但是要注意：不是每个有 antiderivative 的函数都是 Riemann 可积
+
+**Definition 11.9.3** (Antiderivatives). 设 $I$ 是有界区间，$f: I \to \mathbb{R}$, $F: I \to \mathbb{R}$. 如果 $F$ 在 $I$ 上可微且 $\forall x \in I: F'(x) = f(x)$，则称 $F$ 为 $f$ 的 **antiderivative**。
+
+- 又是个拎不清的概念，简单说：
+    - $f'$ is the derivative of $f$. (已知 $f$ 求它的导数 $f'$)
+    - $f$ is the antiderivative of $f'$. (已知导数 $f'$ 反推 $f$)
+    - The antiderivate of the derivative of $f$ is $f$ itself. ($f$ 的导数的反导数就是 $f$ 本身)
+    - The derivative of the antiderivative of $f'$ is $f'$ itself. ($f'$ 的反导数的导数还是 $f'$)
+
+**Theorem 11.9.4** (2nd Fundamental Theorem of Calculus). Let $a<b$ be real numbers. 设 $f: [a, b] \to \mathbb{R}$ Riemann 可积。$F: [a, b] \to \mathbb{R}$ 是 $f$ 的 antiderivative，那么：
+
+$$
+\int_{[a,b]} f = F(b) - F(a)
+$$
+
+- 拎不清拎不清！简单说就是 $\int_{[a,b]} f' = f(b) - f(a)$
+    - **导数的积分等于本身的差**
+- 注意 Theorem 11.9.1 讲 **积分的导数等于本身**，Theorem 11.9.4 讲 **导数的积分等于本身的差**，区别在于：
+    - 求导数得到的是一个函数
+    - 求积分得到的是一个值
+- 结合 Theorem 11.9.1 说到的 **每个连续的 Riemann 可积函数都有 antiderivative**，可以推出：**每个连续的 Riemann 可积函数的积分都可以用它的 antiderivative 的差求得**
