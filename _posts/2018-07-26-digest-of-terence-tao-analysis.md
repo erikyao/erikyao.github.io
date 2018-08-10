@@ -698,7 +698,7 @@ Riemann 可积性的保持：假设 $I$ 是有界区间，$f: I \to \mathbb{R}$ 
 
 **Corollary 11.6.2** (有界区间上的有界单调函数可积). 设 $I$ 是有界区间，$f: I \to \mathbb{R}$ 单调且有界，则 $f$ Riemann 可积
 
-### 11.3 Fundamental theorems of calculus
+### 11.4 Fundamental theorems of calculus
 
 - 注意单词：
     - calculus 指 "微积分学"
@@ -741,3 +741,215 @@ $$
     - 求导数得到的是一个函数
     - 求积分得到的是一个值
 - 结合 Theorem 11.9.1 说到的 **每个连续的 Riemann 可积函数都有 antiderivative**，可以推出：**每个连续的 Riemann 可积函数的积分都可以用它的 antiderivative 的差求得**
+
+## Chapter 12 - Metric Spaces
+
+### 12.1 基本定义
+
+**Lemma 12.1.1** Let $(x_n)$ be a sequence of real numbers, and let $x$ be another real number. Then $\underset{n \to \infty}{\lim} x_n = x \iff \underset{n \to \infty}{\lim} d(x_n - x) = 0$.
+
+现在我们想把这个收敛的概念推广，比如说使其可以应用到 complex 序列、vector 序列、matrix 序列、function 序列或者序列的序列等等。一个高效一点的方法是定义一个抽象的 space，它包括 complex space、vector space 等等这些 space，让后我们在这个抽象的 space 上一次性定义收敛的概念。这种抽象的空间，目前我们会遇到的有两类：
+
+1. Metric spaces
+1. 更 general 的 topological spaces
+
+Metric (度量)：
+
+- 必须满足的 [4 条性质](/math/2018/05/09/kernel)我就不多说了
+- 假设有 metric space $(X, d)$。要注意 $d$ 其实是个函数：$d: X \times X \to [0, \infty)$，它的定义域是和 $X$ 挂钩的。当你由子集 $Y \subset X$ induce 一个 subspace $(Y, d')$ 时，$d'$ 其实变成了 $d': Y \times Y \to [0, \infty)$，定义域发生了变化。虽然函数表达式没变，但是要注意 $d'$ 和 $d'$ 其实是两个函数
+
+常见的 metric：
+
+- Standard metric on $\mathbb{R}$: $d(x,y) := \vert x - y \vert$
+- Euclidean metric (or $\ell^2$ metric): $d_{\ell^2}((x_1, \cdots, x_n),(y_1, \cdots, y_n)) := \sqrt{(x_1 - y_1)^2 + \cdots + (x_n - y_n)^2}$
+    - $(\mathbb{R}^n, d_{\ell^2})$ 称为 Euclidean space
+- Taxi-cab metric (or Manhattan distance, $\ell^1$ metric): $d_{\ell^1}((x_1, \cdots, x_n),(y_1, \cdots, y_n)) := \vert x_1 - y_1 \vert + \cdots + \vert x_n - y_n \vert$
+    - 叫 taxi-cab 是考虑在一个网格地图内 (类似城市的 block 结构)，你只能走直线 (东南西北) 不能走斜线，所以从 $(0, 0)$ 走到 $(1, 1)$ 需要走距离 $2$ 而不是 $\sqrt{2}$
+- Sup norm metric (上确界范数度量, 或者 $\ell^{\infty}$ metric): $d_{\ell^{\infty}}((x_1, \cdots, x_n),(y_1, \cdots, y_n)) := \sup \lbrace \vert x_i - y_i \vert \mid 1 \leq i \leq n \rbrace$
+- Discrete metric: $d_{disc}(x, y) := \begin{cases} 0 & \text{if } x = y \\\\ 1 & \text{if } x \neq y \end{cases} $
+
+**Proposition 1.1.18** 已知 $d_{\ell^1}$、$d_{\ell^2}$、$d_{\ell^{\infty}}$ 三者[等价](/math/2018/07/18/equivalence-of-metrics)，这意味着：
+
+- 若 $R^{n}$ 上的序列 $(x^{(k)})$ 依上述某一个 metric 收敛到一点 $x$，则依其他两个 metric 也会收敛到 $x$
+- $n$ 个分量序列 (on $\mathbb{R}$) 也会收敛到 $x$ 的分量上，即下图：
+
+vector       |   1st         | 2nd           | $\cdots$     | $n$-th      
+-------------| ------------- | ------------- | ------------ | ------------ 
+$x^{(1)}$    | $x_1^{(1)}$   | $x_2^{(1)}$   | $\cdots$     | $x_n^{(1)}$
+$x^{(2)}$    | $x_1^{(2)}$   | $x_2^{(2)}$   | $\cdots$     | $x_n^{(2)}$
+$\cdots$     | $\cdots$      | $\cdots$      | $\cdots$     | $\cdots$   
+$x^{(k)}$    | $x_1^{(k)}$   | $x_2^{(k)}$   | $\cdots$     | $x_n^{(k)}$
+$\downarrow$ | $\downarrow$  | $\downarrow$  | $\downarrow$ | $\downarrow$
+$x$          | $x_1$         | $x_2$         | $\cdots$     | $x_n$      
+
+可能出现 "依 $d_1$ 收敛到 $x_1$" 但是 "依 $d_2$ 收敛到 $x_2$" 或者 "依 $d_2$ 发散" 这种类似的情况，说明 **changing the metric on a space can greatly affect the nature of convergence (also called the topology) on that space**
+
+### 12.2 Point-set topology of metric spaces
+
+Having defined the operation of convergence on metric spaces, we now define a couple other related notions, including that of open set, closed set, interior, exterior, boundary, and adherent point. The study of such notions is known as **point-set topology** (点集拓扑).
+
+- 讲真，我前面写了那么多 [open set](http://yaoyao.codes/math/2018/06/28/open-set)，还是大神的描述更好懂
+
+**Definition 12.2.1** (Balls). 这个基本就是 neighborhood $\Phi(x_0, r)$，不过书上的符号更精确：
+
+$$
+B_{(X, d)}(x_0, r) := \lbrace x \in X \mid d(x, x_0) < r \rbrace
+$$
+
+**Definition 12.2.5** (Interior, exterior, boundary). 已知 metric space $(X, d)$, $E \subset X$, $x_0 \in X$:
+
+- $x_0$ is an **interior point** of $E$ $\iff \exists r > 0: B(x_0, r) \subseteq E$
+    - $int(E) = \lbrace x \mid x \text{ is an interior point of } E \rbrace$
+- $x_0$ is an **exterior point** of $E$ $\iff \exists r > 0: B(x_0, r) \cap E = \emptyset$
+    - $ext(E) = \lbrace x \mid x \text{ is an exterior point of } E \rbrace$
+- $x_0$ is a **boundary point** of $E$ $\iff$ its either an interior point nor an exterior point of $E$
+    - $\partial E = \lbrace x \mid x \text{ is a boundary point of } E \rbrace$
+
+注意：
+
+- 内点必定 $\in E$
+- 外点必定 $\notin E$
+- 边界点可能 $\in E$ 也可能 $\notin E$
+
+**Definition 12.2.9** (Closure). 已知 metric space $(X, d)$, $E \subset X$, $x_0 \in X$. $x_0$ is an **adherent point** of $E$ $\iff \forall r > 0: B(x_0, r) \cap E \neq \emptyset$. $\overline{E} = \lbrace x \mid x \text{ is an adherent point of } E \rbrace$
+
+**Proposition 12.2.10**. 已知 metric space $(X, d)$, $E \subset X$, $x_0 \in X$. 下列命题等价：
+
+- $x_0$ is an adherent point of $E$
+    - $\iff$
+- $x_0$ is either an interior point or a boundary point of $E$
+    - $\iff$
+- 存在由 $E$ 中元素构成的序列 $(x_n)$ 依 $d$ 收敛到 $x_0$
+
+**[Proof](http://mathonline.wikidot.com/adherent-points-and-convergent-sequences-in-metric-spaces):**
+
+前面两条等价好证，我们主要看第三条。
+
+假设 $x_0$ is an adherent point of $E$，则 $\forall r > 0: B(x_0, r) \cap E \neq \emptyset$。选择 $r = \frac{1}{n}$，构建一个 family of sets $A_n = B(x_0, \frac{1}{n}) \cap E$。已知所有 $A_n$ 非空，根据 AC，可以得到一个序列 $(x_n)$ where $x_i \in A_i$。又因为 $0 \leq d(x_0, x_i) \leq \frac{1}{n}$，所以有：
+
+$$
+0 \leq \underset{n \to \infty}{\lim} (x_0 - x_n) \leq \underset{n \to \infty}{\lim} \frac{1}{n} = 0
+$$
+
+所以 $\underset{n \to \infty}{\lim} (x_0 - x_n) = 0$。根据 Lemma 12.1.1，$(x_n)$ 收敛到 $x_0$。$\blacksquare$
+
+注意：
+
+- $\overline{E} = \lbrace x \mid x \text{ is an adherent point of } E \rbrace = int(E) \cup \partial E = X - ext(E)$
+- **由 $E$ 中元素构成的序列 $(x_n)$ 若是依 $d$ 收敛，它一定只能收敛到一个附着点，亦即只能收敛到 $\overline{E}$ 的一个元素上**
+
+**Definition 12.2.12** (Open and closed sets). 已知 metric space $(X, d)$, $E \subset X$：
+
+- $E$ is **closed** $\iff E$ 包含它的所有 boundary points，亦即 $\partial E \subset E$
+    - 亦即 $E = \overline E$
+    - 亦即 $E$ 上所有的点都是它的 adherent points
+- $E$ is **open** $\iff E$ 不包含它的 boundary points，亦即 $\partial E \cap E = \emptyset$
+    - 亦即 $E \cap \overline E = E$
+    - 亦即 $E = int(E)$
+- 如果 $E$ 只包含部分 boundary point，则称它既不是 open 也不是 closed
+- 如果 $E$ 没有 boundary point，那么它既是 open 也是 closed
+    - 比如 $(X, d)$ 的 whole space $X$ 它没有 boundary point (every point in $X$ is an interior point of $X$)
+    - $\emptyset$ 也没有 boundary (every point in $X$ is an exterior point of $\emptyset$)
+    - 如果使用 $d_{disc}$，那么任意集合都是 open & closed
+    - 所以，"不是开集" 不能推出 "一定是闭集"；"不是闭集" 也不能推出 "一定是开集"
+
+注意：
+
+- 结合 Proposition 12.2.10 说的：**由 $E$ 中元素构成的序列 $(x_n)$ 若是依 $d$ 收敛，它一定只能收敛到一个附着点，亦即只能收敛到 $\overline{E}$ 的一个元素上**，可以得出：
+    - **由 closed set 元素构成的序列若是收敛，它一定只能收敛到这个 closed set 中的一个元素上**
+        - 参 9.1
+    - **由 open set 元素构成的序列若是收敛，它要么收敛到这个 open set 中的一个元素上，要么收敛到这个 open set 以外的一个 boundary point 上**
+
+**Proposition 12.2.15** (Basic properties of open and closed sets). Let $(X, d)$ be a metric space, $E \subset X$, and $x_0 \in X$.
+
+1. 球 $B_{(X, d)}(x_0, r) := \lbrace x \in X \mid d(x, x_0) < r \rbrace$ 是开集；闭球 $\lbrace x \in X \mid d(x, x_0) < r \rbrace$ 是闭集
+1. 任何单点集 $\lbrace x_0 \rbrace$ 是闭集
+1. 有限个开集的 $\cap$ 也是开集；有限个闭集的 $\cup$ 也是闭集
+1. 假设有 index set $I$ (可以是有限的、可数的或者不可数的)：
+    - 若 $\lbrace E_i \rbrace_{i \in I}$ 是 $X$ 上的一族开集，则 $\underset{i \in I}{\bigcup} E_i$ 也是开集
+    - 若 $\lbrace E_i \rbrace_{i \in I}$ 是 $X$ 上的一族闭集，则 $\underset{i \in I}{\bigcap} E_i$ 也是闭集
+1. $int(E)$ 是 $E$ 内的最大开集，i.e. $\forall V \subset E$ where $V$ is open, $V \subseteq int(E)$
+1. $\overline{E}$ 是包含 $E$ 的最小闭集，i.e. $\forall V \supset E$ where $V$ is open, $V \supseteq \overline{E}$
+
+注意：
+
+- 开集的 infinite union 是开集；但 infinite intersection 不一定开。参 [Neighborhood / Open Set / Continuity / Limit Points / Closure / Interior / Exterior / Boundary](/math/2018/06/28/open-set)
+- 闭集是反过来的：infinite intersection 继续闭；infinite union 不一定闭
+
+### 12.3 Relative Topology (相对拓扑)
+
+metric 的选择会影响开集、闭集的判定；同样，**ambient space** (环境空间) $X$ 的选择也会对判定有影响，比如：
+
+- 给定 Euclidean space $(\mathbb{R}^2, d_{\ell^2})$ 和 $x$-axis 上 $(-1,1)$ 区间的集合 $E = \lbrace (x, 0) \mid -1 < x < 1 \rbrace$，$E$ 中每个点都是 boundary point，所以 $E$ 是闭集
+- 令 $x$-axis 上的所有元素构成集合 $X = \lbrace (x, 0) \mid x \in \mathbb{R} \rbrace$，导出一个子空间 $(X, d_{\ell^2}\vert_{X \times X})$. $E$ 在 $X$ 上是开集 (等价于开区间 $(-1, 1)$)
+
+注意这里还有一个非常重要的概念！
+
+- 子空间 $(X, d_{\ell^2}\vert_{X \times X})$ 本质就是 Euclidean space 的 $x$-axis，所以它和 real line (实直线) $(\mathbb{R}, d)$ 是等价的；我们称 $(X, d_{\ell^2}\vert_{X \times X})$ 与 $(\mathbb{R}, d)$ 是 **isometric (等距同构)**
+
+后略。
+
+### 12.4  Cauchy sequences and complete metric spaces
+
+**Definition 12.4.10** (Complete metric spaces). A metric space $(X, d)$ is said to be **complete** $\iff$ $\forall$ Cauchy sequence $(x_n)$ in $(X, d)$, $(x_n)$ converges in $(X, d)$.
+
+- Complete metric spaces have some nice properties. For instance, they are **intrinsically closed**: 它们在任何其他空间上，都是 closed 
+- 这很好理解，closed set 的一个特点就是其上收敛的序列一定会收敛到 closed set 内部；complete space 也是一样，收敛一定会收敛到自己内部，所以 complete space 是 closed set
+
+**Proposition 12.4.12**. (a) Let $(X, d)$ be a metric space, and let $(Y, d \vert_{Y \times Y})$ be a subspace of $(X, d)$. If $(Y, d \vert_{Y \times Y})$ is complete, then $Y$ must be closed in $X$.
+
+(b) Conversely, suppose that $(X, d)$ is a complete metric space, and $Y$ is a closed subset of $X$. Then the subspace $(Y, d \vert_{Y \times Y})$ is also complete.
+
+- 一个 incomplete 的 metric space，可能在某些空间上是 closed 但在另外一些空间内就不是 closed
+    - 比如 $\mathbb{Q}$ 在 $\mathbb{Q}$ 上就是 closed 的 (Definition 12.2.12 全集既 open 又 closed)
+    - 但 $\mathbb{Q}$ 在 $\mathbb{R}$ 上就不是 closed 的 ($\mathbb{Q}$ 序列可能会收敛到一个 real number 上，这个实数是 $\mathbb{Q}$ 的附着点但又不可能是 $\mathbb{Q}$ 的内点，所以只能是边界点，所以 $\mathbb{Q}$ 不可能为 closed；注意这里我并没有说 $\mathbb{Q}$ 在 $\mathbb{R}$ 上是 open 的)
+- 给定一个 incomplete 的 metric space $(X, d)$，都可以得到一个 **completion (完备化)** $(\overline X, \overline d)$
+    - $(X, d) \subsetneq (\overline X, \overline d)$
+    - $(\overline X, \overline d)$ 是 complete 的
+    - $X$ 在 $\overline X$ 上不是 closed 的
+    - 比如 $\mathbb{Q}$ 一个可能的 completion 就是 $\mathbb{R}$
+
+### 12.5  Compact metric spaces
+
+首先复习一下 real line 上的 Heine-Borel theorem：
+
+**Theorem 9.1.24** (Heine-Borel theorem for the line). 设 $X \subseteq \mathbb{R}$，以下两命题等价:
+
+- (a-1) $X$ 是闭集；(a-2) 且有界
+    - $\iff$
+- (b-1) $\forall$ 由 $X$ 元素组成的序列 $(a_n)$，存在它的一个子序列 $(a_{n_j})$ 收敛到 $L$；(b-2) 并且 $L \in X$
+
+现在我们想把这个定理推广到一般的 metric space 上。对于一般的 metric space：
+
+1. 针对 (a-1): 我们已经知道啥样的 space 是闭集
+1. 针对 (a-2): 但是我们不知道 "有界" 在 space 上如何定义
+1. 针对 (b-1): "$\forall$ 由 $X$ 元素组成的序列 $(a_n)$，存在它的一个子序列 $(a_{n_j})$ 收敛到 $L$" 这个性质太长了，我们给它起一个新名字：compactness (紧致性)
+    - 注意 (b-2) "并且 $L \in X$" 这个性质并不在 compactness 的定义中
+
+以下我们先完成两个新 definition 的任务：
+
+**Definition 12.5.3** (Bounded sets). Let $(X, d)$ be a metric space, and let $Y \subset X$. We say that $Y$ is **bounded** $\iff \exists$ a ball $B(x, r)$ in $X$ which contains $Y$.
+
+**Definition 12.5.1** (Compactness). A metric space $(X, d)$ is said to be **compact** $\iff$ every sequence in (X, d) has at least one convergent subsequence. A subset $Y$ of a metric space $(X, d)$ is said to be compact if the subspace $(Y, d\vert_{Y \times Y} )$ is compact.
+
+我们本是希望把 Heine-Borel theorem 推广到一般的 metric space 上，但是实际上情况有点复杂：
+
+**Theorem 1.5.7** (Heine-Borel theorem). Let $(\mathbb{R}^{n}, d)$ be a Euclidean space where $d \in \lbrace d_{\ell^1}, d_{\ell^2}, d_{\ell^{\infty}} \rbrace$. Let $E \subset \mathbb{R}^{n}$. 以下两命题等价：
+
+- (a) $E$ 是闭集且有界
+    - $\iff$
+- (b) $E$ 是 compact 的
+
+注意这里的情况比较复杂是因为：
+
+- $(a) \Rightarrow (b)$ 方向**仅对 Euclidean space 成立**
+- $(a) \Leftarrow (b)$ 方向**对一般 metric space 都成立**
+    - 我们对比一下这里的 (b) 和 Theorem 9.1.24 的 (b-1)、(b-2)，你会发现这里其实隐藏了一个线索：(b-1) $\Rightarrow$ (b-2)
+        - 进一步推理：如果 (b-1) $\Rightarrow$ (b-2)，因为子序列收敛到极限点 (Proposition 6.6.6)，那么相当于所有的极限点都在 $X$ 内部；又因为极限是极限点 (Proposition 6.4.5)，那么相当于所有的极限都在 $X$ 内部，亦即 $X$ 是 complete 的！
+        - 再进一步：$X$ 已经是 complete 的了，那必然是 closed 的
+    - 所以严格来说 Theorem 9.1.24 (Heine-Borel theorem for the line) 应该分开写成两个定理
+    - 我们在 Theorem 1.5.7 这里沿这个思路先解决 (b-1) $\Rightarrow$ (b-2) 的问题
+
+**Proposition 1.5.5**. Let $(X, d)$ be a compact metric space. Then $(X, d)$ is both complete and bounded.
+
+**Proof:**
