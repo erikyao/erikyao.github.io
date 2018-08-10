@@ -755,7 +755,7 @@ $$
 
 Metric (度量)：
 
-- 必须满足的 [4 条性质](/math/2018/05/09/kernel)我就不多说了
+- 必须满足的 [4 条性质](/math/2018/05/09/kernel) 我就不多说了
 - 假设有 metric space $(X, d)$。要注意 $d$ 其实是个函数：$d: X \times X \to [0, \infty)$，它的定义域是和 $X$ 挂钩的。当你由子集 $Y \subset X$ induce 一个 subspace $(Y, d')$ 时，$d'$ 其实变成了 $d': Y \times Y \to [0, \infty)$，定义域发生了变化。虽然函数表达式没变，但是要注意 $d'$ 和 $d'$ 其实是两个函数
 
 常见的 metric：
@@ -768,10 +768,15 @@ Metric (度量)：
 - Sup norm metric (上确界范数度量, 或者 $\ell^{\infty}$ metric): $d_{\ell^{\infty}}((x_1, \cdots, x_n),(y_1, \cdots, y_n)) := \sup \lbrace \vert x_i - y_i \vert \mid 1 \leq i \leq n \rbrace$
 - Discrete metric: $d_{disc}(x, y) := \begin{cases} 0 & \text{if } x = y \\\\ 1 & \text{if } x \neq y \end{cases} $
 
-**Proposition 1.1.18** 已知 $d_{\ell^1}$、$d_{\ell^2}$、$d_{\ell^{\infty}}$ 三者[等价](/math/2018/07/18/equivalence-of-metrics)，这意味着：
+**Proposition 12.1.18** 已知 $d_{\ell^1}$、$d_{\ell^2}$、$d_{\ell^{\infty}}$ 三者[等价](/math/2018/07/18/equivalence-of-metrics)，这意味着下述命题等价：
 
-- 若 $R^{n}$ 上的序列 $(x^{(k)})$ 依上述某一个 metric 收敛到一点 $x$，则依其他两个 metric 也会收敛到 $x$
-- $n$ 个分量序列 (on $\mathbb{R}$) 也会收敛到 $x$ 的分量上，即下图：
+- $R^{n}$ 上的序列 $(x^{(k)})$ 依 $d_{\ell^1}$ 收敛到一点 $x$
+    - $\iff$
+- $(x^{(k)})$ 依 $d_{\ell^2}$ 收敛到 $x$
+    - $\iff$
+- $(x^{(k)})$ 依 $d_{\ell^{\infty}}$ 收敛到 $x$
+    - $\iff$
+- $n$ 个分量序列 (on $\mathbb{R}$) 收敛到 $x$ 的分量上，即下图：
 
 vector       |   1st         | 2nd           | $\cdots$     | $n$-th      
 -------------| ------------- | ------------- | ------------ | ------------ 
@@ -889,7 +894,7 @@ metric 的选择会影响开集、闭集的判定；同样，**ambient space** (
 
 后略。
 
-### 12.4  Cauchy sequences and complete metric spaces
+### 12.4 Cauchy sequences and complete metric spaces
 
 **Definition 12.4.10** (Complete metric spaces). A metric space $(X, d)$ is said to be **complete** $\iff$ $\forall$ Cauchy sequence $(x_n)$ in $(X, d)$, $(x_n)$ converges in $(X, d)$.
 
@@ -911,6 +916,8 @@ metric 的选择会影响开集、闭集的判定；同样，**ambient space** (
 
 ### 12.5  Compact metric spaces
 
+#### 12.5.1 引子
+
 首先复习一下 real line 上的 Heine-Borel theorem：
 
 **Theorem 9.1.24** (Heine-Borel theorem for the line). 设 $X \subseteq \mathbb{R}$，以下两命题等价:
@@ -930,11 +937,13 @@ metric 的选择会影响开集、闭集的判定；同样，**ambient space** (
 
 **Definition 12.5.3** (Bounded sets). Let $(X, d)$ be a metric space, and let $Y \subset X$. We say that $Y$ is **bounded** $\iff \exists$ a ball $B(x, r)$ in $X$ which contains $Y$.
 
-**Definition 12.5.1** (Compactness). A metric space $(X, d)$ is said to be **compact** $\iff$ every sequence in (X, d) has at least one convergent subsequence. A subset $Y$ of a metric space $(X, d)$ is said to be compact if the subspace $(Y, d\vert_{Y \times Y} )$ is compact.
+**Definition 12.5.1** (Compactness). A metric space $(X, d)$ is said to be **compact** $\iff$ every sequence in $(X, d)$ has at least one convergent subsequence. A subset $Y$ of a metric space $(X, d)$ is said to be compact if the subspace $(Y, d\vert_{Y \times Y} )$ is compact.
+
+#### 12.5.2 推广 Heine-Borel theorem 到一般 metric space 并不那么简单
 
 我们本是希望把 Heine-Borel theorem 推广到一般的 metric space 上，但是实际上情况有点复杂：
 
-**Theorem 1.5.7** (Heine-Borel theorem). Let $(\mathbb{R}^{n}, d)$ be a Euclidean space where $d \in \lbrace d_{\ell^1}, d_{\ell^2}, d_{\ell^{\infty}} \rbrace$. Let $E \subset \mathbb{R}^{n}$. 以下两命题等价：
+**Theorem 12.5.7** (Heine-Borel theorem). Let $(\mathbb{R}^{n}, d)$ be a Euclidean space where $d \in \lbrace d_{\ell^1}, d_{\ell^2}, d_{\ell^{\infty}} \rbrace$. Let $E \subset \mathbb{R}^{n}$. 以下两命题等价：
 
 - (a) $E$ 是闭集且有界
     - $\iff$
@@ -945,11 +954,54 @@ metric 的选择会影响开集、闭集的判定；同样，**ambient space** (
 - $(a) \Rightarrow (b)$ 方向**仅对 Euclidean space 成立**
 - $(a) \Leftarrow (b)$ 方向**对一般 metric space 都成立**
     - 我们对比一下这里的 (b) 和 Theorem 9.1.24 的 (b-1)、(b-2)，你会发现这里其实隐藏了一个线索：(b-1) $\Rightarrow$ (b-2)
-        - 进一步推理：如果 (b-1) $\Rightarrow$ (b-2)，因为子序列收敛到极限点 (Proposition 6.6.6)，那么相当于所有的极限点都在 $X$ 内部；又因为极限是极限点 (Proposition 6.4.5)，那么相当于所有的极限都在 $X$ 内部，亦即 $X$ 是 complete 的！
-        - 再进一步：$X$ 已经是 complete 的了，那必然是 closed 的
+        - 进一步推理：如果 (b-1) $\Rightarrow$ (b-2)，因为子序列收敛到极限点 (Proposition 6.6.6)，那么相当于所有的极限点都在 $X$ 内部；又因为极限是极限点 (Proposition 6.4.5)，那么相当于所有的极限都在 $X$ 内部，我们有理由怀疑 $X$ 是 complete 的！
+        - 再进一步：如果 $X$ 已经是 complete 的了，那必然是 closed 的
     - 所以严格来说 Theorem 9.1.24 (Heine-Borel theorem for the line) 应该分开写成两个定理
-    - 我们在 Theorem 1.5.7 这里沿这个思路先解决 (b-1) $\Rightarrow$ (b-2) 的问题
+    - 我们在 Theorem 12.5.7 这里沿这个思路先解决 (b-1) $\Rightarrow$ (b-2) 的问题
 
-**Proposition 1.5.5**. Let $(X, d)$ be a compact metric space. Then $(X, d)$ is both complete and bounded.
+#### 12.5.3 证明 $(a) \Leftarrow (b)$ 对一般 metric space 成立
 
-**Proof:**
+**Proposition 12.5.5**. Let $(X, d)$ be a compact metric space. Then $(X, d)$ is both complete and bounded.
+
+**Proof:** 基本可以照搬 Theorem 9.1.24 的 $\Leftarrow$ 方向的证明 $\blacksquare$
+
+于是顺利成章我们有：
+
+**Corollary 12.5.6** (Compact sets are closed and bounded). Let $(X, d)$ be a metric space, and let $Y$ be a compact subset of $X$. Then $Y$ is closed and bounded. $\blacksquare$
+
+#### 12.5.4 证明 $(a) \Rightarrow (b)$ 对 Euclidean space 成立
+
+接着我们处理 $(a) \Rightarrow (b)$ 的部分。
+
+首先我们看 Proposition 12.1.18 的那个图。
+
+vector       |   1st         | 2nd           | $\cdots$     | $n$-th      
+-------------| ------------- | ------------- | ------------ | ------------ 
+$x^{(1)}$    | $x_1^{(1)}$   | $x_2^{(1)}$   | $\cdots$     | $x_n^{(1)}$
+$x^{(2)}$    | $x_1^{(2)}$   | $x_2^{(2)}$   | $\cdots$     | $x_n^{(2)}$
+$\cdots$     | $\cdots$      | $\cdots$      | $\cdots$     | $\cdots$   
+$x^{(k)}$    | $x_1^{(k)}$   | $x_2^{(k)}$   | $\cdots$     | $x_n^{(k)}$
+$\downarrow$ | $\downarrow$  | $\downarrow$  | $\downarrow$ | $\downarrow$
+$x$          | $x_1$         | $x_2$         | $\cdots$     | $x_n$      
+
+如果 $E \subset \mathbb{R}^n$ 是闭集且有界，那么它的每一个分量空间 $E_i \subset \mathbb{R}, i=1,2,\dots,n$ 应该也是闭集且有界的。
+
+我们用反证法：假设 $\exists (x^{k})$ 没有子序列收敛。根据 Proposition 12.1.18，这意味着分量序列 $(x_i^{k})$ 也没有子序列收敛 (注意这里下标 $i$ 表示 “第 $i$-th 分量”；上标 $(k)$ 才是 cursor)。
+
+但由于 $E_i \subset \mathbb{R}, i=1,2,\dots,n$ 是闭集且有界的，根据 Theorem 9.1.24 (Heine-Borel theorem for the line)， $\forall$ 由 $E_i$ 元素组成的序列都应该有一个收敛子序列，矛盾.$\blacksquare$
+
+另外一个思路是：
+
+1. $E$ 是闭集且有界的 $\Rightarrow$ 各个分量集合都是实数线段 (实数线段自然是闭集且有界的)
+1. 证明 "实数线段" 是 compact 的
+1. 在 Prodcut Topology (积空间) 领域有 **[Tychonoff's theorem](http://pi.math.cornell.edu/~kbrown/4530/tychonoff.pdf):** compact space 的笛卡尔积也是 compact 的
+
+#### 12.5.5 为什么 $(a) \Rightarrow (b)$ 对一般 metric space 不成立
+
+考虑 $(\mathbb{Z}, d_{disc})$。首先它是 complete 的 (序列只可能收敛到整数)；然后它是有界的 (任意两个整数的距离不超过 1，所以一个 $r=1$ 的球就可以包含 $\mathbb{Z}$)。但是序列 $1,2,3,\cdots$ 没有收敛的子序列 (你要收敛必须有 $\cdots, x, x, x, \cdots$ 这样连续相等的 tail 序列)。
+
+这个例子也说明分析学的作用，因为这个空间完全没有办法用几何学来表示，但是不妨碍我们研究出它的性质。
+
+#### 12.5.6 强推 Heine-Borel theorem 到一般 metric space：将条件 (a) "闭集且有界" 改成 "complete 且 totally bounded (全有界)"
+
+**Definition 12.5.10** (Totally bounded sets; Exercise 12.5.10) A metric space $(X, d)$ is **called totally** bounded if $\forall \epsilon > 0: \exists$ a positive integer $n$ and a finite number of $n$ balls $B(x^{(1)}, \epsilon), \dots, B(x^{(n)}, \epsilon)$ which cover $X$ (i.e., $X = \bigcup_{i = 1}^{n} B(x^{(i)}, \epsilon)$. 
