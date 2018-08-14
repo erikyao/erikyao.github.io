@@ -40,8 +40,8 @@ tags: []
 
 | System                | Concept                                                              | Definition                                                                                                                                                                                      |
 |-----------------------|----------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| $\mathbb{R}$ sequence | $x$ is **$\epsilon$-adherent** to $(a_n)_{n=m}^{\infty}$             | $\iff \exists i \geq m$ such that $a_i$ is $\epsilon$-close to $x$                                                                                                                              |
-|                       | $x$ is **continually $\epsilon$-adherent** to $(a_n)_{n=m}^{\infty}$ | $\iff \forall N \geq m$, $x$ is $\epsilon$-adherent to $(a_n)_{n=N}^{\infty}$ (注意这个定义并不是说 $x$ is $\epsilon$-close to 任意 $a_i$; 而是 $\epsilon$-adherent to 任意 tail sequence)                                                      |
+| $\mathbb{R}$ sequence | $x$ is **$\epsilon$-adherent** to $(a_n)_{n=m}^{\infty}$             | $\iff \exists i \geq m$ such that $a_i$ is $\epsilon$-close to $x$ (只要求有一项与 $x$ 接近即可)                                                                                                    |
+|                       | $x$ is **continually $\epsilon$-adherent** to $(a_n)_{n=m}^{\infty}$ | $\iff \forall N \geq m$, $x$ is $\epsilon$-adherent to $(a_n)_{n=N}^{\infty}$ (对任意的 tail sequence $(a_n)_{n=N}^{\infty}$，它都至少有一项与 $x$ 接近)                                             |
 |                       | $x$ is an **adherent point** of $(a_n)_{n=m}^{\infty}$               | $\iff \forall \epsilon > 0$, $x$ is continually $\epsilon$-adherent to $(a_n)_{n=m}^{\infty}$                                                                                                   |
 |                       | limit point                                                          | == adherent point                                                                                                                                                                               |
 |                       | isolated point                                                       | N/A                                                                                                                                                                                             |
@@ -185,6 +185,8 @@ $$
 ### 6.6 Subsequence (子序列)
 
 **Definition 6.6.1** (Subsequences). Let $(a_n)\_{n=0}^{\infty}$ and $(b_n)\_{n=0}^{\infty}$ be sequences of real numbers. We say that $(b_n)$ is a subsequence of $(a_n)$ $\iff$ $\exists$ function $f: \mathbb{N} \to \mathbb{N}$ which is strictly increasing (i.e., $f(n + 1) > f(n)$, $\forall n \in \mathbb{N}$) such that $b_i = a_{f(i)}$, $\forall i \in \mathbb{N}$.
+
+- 也就是说：**你只能沿着原始序列 $1 \to \infty$ 的大方向去取小项构成子序列**，比方说你只能 $a_1, a_3, a_{99}, \cdots$ 而不能 $a_3, a_1, a_{99}, \cdots$。
 
 **Proposition 6.6.5** (Subsequences related to limits). 以下两命题等价：
 
@@ -896,6 +898,33 @@ metric 的选择会影响开集、闭集的判定；同样，**ambient space** (
 
 ### 12.4 Cauchy sequences and complete metric spaces
 
+**Proposition** (12.4 补充一) Cauchy 序列的子序列任然是 Cauchy
+
+**Proof:** 假设 $(x_n)$ 是 Cauchy，那么 $\forall \epsilon > 0: \exists n_{\epsilon}: \forall p,q \geq n_{\epsilon}: d(x_p, x_q) \leq \epsilon$。
+
+对于子序列 $(y_n)$ where $y_i = x_{f(i)}$，也必然 $\exists n'\_{\epsilon} \geq f^{-1}(n\_{\epsilon})$ (也就是说 $f(n'\_{\epsilon}) \geq n\_{\epsilon}$；注意 $f$ 是严格增) such that $\forall p,q \geq n'_{\epsilon}: d(y_p, y_q) \leq \epsilon$。$\blacksquare$
+
+**Proposition** (12.4 补充二) 如果 Cauchy 序列有子序列收敛到 $L$，则 Cauchy 序列本身也收敛到 $L$
+
+**[Proof](https://proofwiki.org/wiki/Convergent_Subsequence_of_Cauchy_Sequence_in_Metric_Space):** 假设 $(x_n)$ 是 Cauchy，它的子序列 $(y_n)$ 收敛到 $L$
+
+因为 $(x_n)$ 是 Cauchy，所以 $\forall \frac{\epsilon}{2}: \exists M: \forall i, j > M: d(x_i, x_j) < \frac{\epsilon}{2}$
+
+因为子序列 $(y_n)$ 收敛到 $L$，所以 $\forall \frac{\epsilon}{2}: \exists N: \forall k > N: d(y_k, L) < \frac{\epsilon}{2}$
+
+又因为 $y_k = x_{f(k)}$，取 $P = \max \lbrace M, N \rbrace$，有：
+
+- $\forall \frac{\epsilon}{2}: \exists P: \forall i, j > P: d(x_i, x_j) < \frac{\epsilon}{2}$
+- $\forall \frac{\epsilon}{2}: \exists P: \forall k > P: d(x_{f(k)}, L) < \frac{\epsilon}{2}$
+
+因为 **必定有 $f(k) \geq k$**，所以 $f(k) > P$，进而有：
+
+$$
+\forall \epsilon: \exists P: \forall p > P: d(x_p, L) \leq d(x_p, x_{f(k)}) + d(x_{f(k)}, L) < \frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon
+$$
+
+即 $(x_n)$ 收敛到 $L$。$\blacksquare$
+
 **Definition 12.4.10** (Complete metric spaces). A metric space $(X, d)$ is said to be **complete** $\iff$ $\forall$ Cauchy sequence $(x_n)$ in $(X, d)$, $(x_n)$ converges in $(X, d)$.
 
 - Complete metric spaces have some nice properties. For instance, they are **intrinsically closed**: 它们在任何其他空间上，都是 closed 
@@ -951,8 +980,8 @@ metric 的选择会影响开集、闭集的判定；同样，**ambient space** (
 
 注意这里的情况比较复杂是因为：
 
-- $(a) \Rightarrow (b)$ 方向**仅对 Euclidean space 成立**
-- $(a) \Leftarrow (b)$ 方向**对一般 metric space 都成立**
+- $(a) \Rightarrow (b)$ 方向 **仅对 Euclidean space 成立**
+- $(a) \Leftarrow (b)$ 方向 **对一般 metric space 都成立**
     - 我们对比一下这里的 (b) 和 Theorem 9.1.24 的 (b-1)、(b-2)，你会发现这里其实隐藏了一个线索：(b-1) $\Rightarrow$ (b-2)
         - 进一步推理：如果 (b-1) $\Rightarrow$ (b-2)，因为子序列收敛到极限点 (Proposition 6.6.6)，那么相当于所有的极限点都在 $X$ 内部；又因为极限是极限点 (Proposition 6.4.5)，那么相当于所有的极限都在 $X$ 内部，我们有理由怀疑 $X$ 是 complete 的！
         - 再进一步：如果 $X$ 已经是 complete 的了，那必然是 closed 的
@@ -988,7 +1017,7 @@ $x$          | $x_1$         | $x_2$         | $\cdots$     | $x_n$
 
 我们用反证法：假设 $\exists (x^{k})$ 没有子序列收敛。根据 Proposition 12.1.18，这意味着分量序列 $(x_i^{k})$ 也没有子序列收敛 (注意这里下标 $i$ 表示 “第 $i$-th 分量”；上标 $(k)$ 才是 cursor)。
 
-但由于 $E_i \subset \mathbb{R}, i=1,2,\dots,n$ 是闭集且有界的，根据 Theorem 9.1.24 (Heine-Borel theorem for the line)， $\forall$ 由 $E_i$ 元素组成的序列都应该有一个收敛子序列，矛盾.$\blacksquare$
+但由于 $E_i \subset \mathbb{R}, i=1,2,\dots,n$ 是闭集且有界的，根据 Theorem 9.1.24 (Heine-Borel theorem for the line)， $\forall$ 由 $E_i$ 元素组成的序列都应该有一个收敛子序列，矛盾。$\blacksquare$
 
 另外一个思路是：
 
@@ -1004,4 +1033,96 @@ $x$          | $x_1$         | $x_2$         | $\cdots$     | $x_n$
 
 #### 12.5.6 强推 Heine-Borel theorem 到一般 metric space：将条件 (a) "闭集且有界" 改成 "complete 且 totally bounded (全有界)"
 
-**Definition 12.5.10** (Totally bounded sets; Exercise 12.5.10) A metric space $(X, d)$ is **called totally** bounded if $\forall \epsilon > 0: \exists$ a positive integer $n$ and a finite number of $n$ balls $B(x^{(1)}, \epsilon), \dots, B(x^{(n)}, \epsilon)$ which cover $X$ (i.e., $X = \bigcup_{i = 1}^{n} B(x^{(i)}, \epsilon)$. 
+**Definition 12.5.10** (Totally bounded sets; Exercise 12.5.10) A metric space $(X, d)$ is called **totally bounded** if $\forall \epsilon > 0: \exists$ $n$ ($n$ is a positive integer) points $x^{(1)}, \dots, x^{(n)}$ and $n$ balls $B(x^{(1)}, \epsilon), \dots, B(x^{(n)}, \epsilon)$ which cover $X$ (i.e., $X = \bigcup_{i = 1}^{n} B(x^{(i)}, \epsilon)$. 
+
+- 不同的 $\epsilon$ 可以有不同的 $n$
+
+**Proposition 12.5.10 (a)** (Exercise 12.5.10). Totally Bounded Metric Space is Bounded.
+
+**[Proof](http://www.math.ucla.edu/~tao/resource/general/121.1.00s/compact.pdf):** Let $(X, d)$ be totally bounded so $\forall \epsilon > 0$ there exist $B(x^{(1)}, \epsilon), \dots, B(x^{(n)}, \epsilon)$ that cover $X$. 
+
+Define a new radius for $x^{(1)}$: $r = \epsilon + \underset{1 \leq i \leq n}{\max} d(x^{(i)}, x^{(1)})$. Then:
+
+$$
+\forall 1 \leq i \leq n: B(x^{(i)}, \epsilon) \subset B(x^{(i)}, \epsilon) \cup B(x^{(1)}, \epsilon) \subset B(x^{(1)}, r)
+$$
+
+Because $X = \bigcup_{i = 1}^{n} B(x^{(i)}, \epsilon)$, we can conclude that $X \subset B(x^{(1)}, r)$, i.e. $(X, d)$ is bounded. $\blacksquare$
+
+**Proposition 12.5.10 (b)(c)** (增强版 Heine-Borel theorem). Let $(X, d)$ be a metric space. 以下两命题等价：
+
+- (a) $(X,d)$ complete 且 totally bounded
+    - $\iff$
+- (b) $(X,d)$ 是 compact 的
+
+**Proof:**
+
+(1) $\Rightarrow$ ([参考](https://math.stackexchange.com/a/109555))
+
+考虑到：
+
+- complete：Cauchy 必收敛，且收敛到内部
+- compact：每个序列必有一个子序列收敛
+
+相当于要证明：
+
+- 每个序列必有一个子序列是 Cauchy
+
+考虑一个 general 形式的序列 $(x^{(n)})_{n=1}^{\infty}$。
+
+因为 $(X,d)$ 是 totally bounded，我们有：
+
+- 对 $r = 1$, $\exists n_1$ 个点构成 $D_1 = \lbrace y^{(1;1)}, y^{(2;1)}, \dots, y^{(n_1;1)} \rbrace$ 使得 $X = \bigcup_{i = 1}^{n_1} B(y^{(i;1)}, 1)$
+- 对 $r = \frac{1}{2}$, $\exists n_2$ 个点构成 $D_2 = \lbrace y^{(1;2)}, y^{(2;2)}, \dots, y^{(n_2;2)} \rbrace$ 使得 $X = \bigcup_{i = 1}^{n_2} B(y^{(i;2)}, \frac{1}{2})$
+- $\cdots$
+- 对 $r = \frac{1}{j}$, $\exists n_j$ 个点构成 $D_j = \lbrace y^{(1;j)}, y^{(2;j)}, \dots, y_j^{(n_j;j)} \rbrace$ 使得 $X = \bigcup_{i = 1}^{n_j} B(y^{(i;j)}, \frac{1}{j})$
+
+取子序列：
+
+- $(x^{(n;1)})_{n=1}^{\infty}$ where $x^{(i;1)} := (x^{(n)}) \text{中第 } i \text{个} \in B(y^{(1;1)}, 1) \text{ 的元素}$
+    - 注意这里子序列 $(x^{(n;1)})\_{n=1}^{\infty}$ 也是无限序列，有点类似 "把一个无限序列 $a_1, a_2, \cdots, a_n$ 拆成两个无限子序列 $a_1, a_3, \cdots, a_{2n+1}$ 和 $a_2, a_4, \cdots, a_{2n}$" 的逻辑。
+- $(x^{(n;2)})_{n=1}^{\infty}$ where $x^{(i;2)} := (x^{(i;1)}) \text{中第 } i \text{个} \in B(y^{(2;2)}, \frac{1}{2}) \text{ 的元素}$
+    - 注意这里 $(x^{(n;2)})$ 是 $(x^{(n;1)})$ 的子序列
+    - $(x^{(n;1)})$ 是原始序列 $(x^{(n)})$ 的子序列
+    - 必然 $(x^{(n;2)})$ 也是原始序列 $(x^{(n)})$ 的子序列
+- $(x^{(n;3)})_{n=1}^{\infty}$ where $x^{(i;3)} := (x^{(i;2)}) \text{中第 } i \text{个} \in B(y^{(3;3)}, \frac{1}{3}) \text{ 的元素}$
+- $\cdots$
+- $(x^{(n;j)})_{n=1}^{\infty}$ where $x^{(i;j)} := (x^{(i;j-1)}) \text{中第 } i \text{个} \in B(y^{(j;j)}, \frac{1}{j}) \text{ 的元素}$
+
+考虑序列 $x' = x^{(1;1)}, x^{(2;2)}, \cdots, x^{(j;j)}, \cdots$ (联系 [Cantor's diagonal argument](https://en.wikipedia.org/wiki/Cantor%27s_diagonal_argument) 的构造)。
+
+首先 $x'$ 是满足子序列的条件的，即：对子序列中的任意两项 $x^{(p;p)}$ 和 $x^{(q;q)}$，假设回溯到原始序列中有 $x^{(p;p)} = (x^{(p')}), x^{(q;q)} = (x^{(q')})$，如果 $p < q$ 则 $p' < q'$。也就是说：你只能沿着原始序列 $1 \to \infty$ 的大方向去取小项构成子序列，比方说你只能 $a_1, a_3, a_{99}, \cdots$ 而不能 $a_3, a_1, a_{99}, \cdots$。
+
+其次 $x'$ 是 Cauchy。因为 $\forall \epsilon > 0$，我们都能找到一个正整数 $j$ 满足 $\frac{1}{j} \leq \epsilon$；然后从 $x^{(2j;2j)}$ 项开始，后续所有的项都在 $B(y^{(2j;2j)}, \frac{1}{2j})$ 这个球中，任意两项 $x^{(p;p)}$ 和 $x^{(q;q)}$ 的距离都满足：
+
+$$
+d(x^{(p;p)}, x^{(q;q)}) \leq d(x^{(p;p)}, y^{(2j;2j)}) + d(y^{(2j;2j)}, x^{(q;q)}) < \frac{1}{2j} + \frac{1}{2j} = \frac{1}{j} \leq \epsilon
+$$
+
+(2) $\Leftarrow$ 
+
+(2.1) compact: 每个序列必有一个子序列收敛。所以每一个 Cauchy 序列也必有一个子序列收敛。根据 Proposition (12.4 补充二) "如果 Cauchy 序列有子序列收敛到 $L$，则 Cauchy 序列本身也收敛到 $L$"，这意味着所有的 Cauchy 序列都收敛，complete 成立
+
+(2.2) 假设 $(X,d)$ 是 compact。反证法：假设 $(X,d)$ 不是 totally bounded (参考 [P57, Compactness by Kris Wysocki@PSU](http://www.math.psu.edu/wysocki/M403/Notes403_9.pdf)).
+
+我们 construct 一个序列 $(x_n)$ 使它没有子序列收敛。先任取一个 $x_1 \in X$
+
+因为 $(X,d)$ 不是 totally bounded，所以存在 $r>0$ 使得 $X$ 不能被有限的 radius-$r$ balls cover。所以明显 $B(x_1, r)$ 是不可能 cover 到整个 $X$ 的。然后我们取 $x_2 \in X - B(x_1, r)$，一路有：
+
+- $x_1 \in X$
+- $x_2 \in X - B(x_1, r)$
+- $x_3 \in X - \big ( B(x_1, r) \cup B(x_2, r) \big )$
+- $\cdots$
+- $x_{n+1} \in X - \bigcup_{i=1}^{n} B(x_i, r)$
+
+若序列 $(x_n)$ 有子序列收敛，假设收敛到 $x'$，则 $x'$ 是 $(x_n)$ 的极限点，所以 $\forall \epsilon > 0$，$x'$ 持续附着 $(x_n)$，即 $\forall N \geq m$，$(x_n)\_{n=N}^{\infty}$ 都有一项 $\epsilon$-close to $x'$。取 $\epsilon = \frac{r}{2}$，假设有两点 $x_i, x_j$ 满足 $d(x_i, x') < \frac{r}{2}$ 和 $d(x_j, x') < \frac{r}{2}$。
+
+从 $(x_n)$ 的构造来看，任意两项的距离都大于 $r$，即 $\forall i,j:d(x_i, x_j) > r$。但根据三角不等式：
+
+$$
+d(x_i, x_j) \leq d(x_i, x') + d(x_j, x') < \frac{r}{2} + \frac{r}{2} = r
+$$
+
+矛盾。所以序列 $(x_n)$ 不可能有子序列收敛，但这又与 compact 的定义矛盾，得证。$\blacksquare$
+
+
