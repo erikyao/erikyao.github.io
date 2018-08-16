@@ -18,9 +18,14 @@ tags: []
 |         |                                                | $\mathbb{Q}$            | formal quotients of $\mathbb{Z}$, $a//b$                       | real division operation $\div$ |
 | 5       | The real numbers                               | $\mathbb{R}$            | formal limit of $\mathbb{Q}$ sequence, $\operatorname{LIM}a_n$ |                                             |
 | 6       | Limits of sequences                            | $\mathbb{R}$ / sequence |                                                                | real limit operation $\operatorname{lim}$   |
-| 7       | Series                                         | $\mathbb{R}$ / series   | 转化成 paritial sum 的 sequence $(S_N)$，再用 limit 研究       |                                             |
+| 7       | Series                                         | $\mathbb{R}$ / series   | 转化成 paritial sum 的 sequence $(S_N)$，再用 limit 研究          |                                             |
 | 8       | Infinite sets                                  | set                     |                                                                |                                             |
-| 9       | Continuous functions on $\mathbb{R}$           | function                | 考虑 function 与 sequence 的等价性                             |                                             |
+| 9       | Continuous functions on $\mathbb{R}$           | function on $\mathbb{R}$| 考虑 function 与 sequence 的等价性                               |                                             |
+| 10      | Differentialtion of functions                  | function on $\mathbb{R}$|                                                                |                                             |
+| 11      | The Riemann Integral                           | function on $\mathbb{R}$|                                                                |                                             |
+| 12      | Metric Spaces                                  | $(X, d)$                | 从 $\mathbb{R}$ sequence 过渡到抽象空间；考虑 space 和 set 的相似性 |                                             |
+| 13      | Continuous functions on metric spaces          | function on $(X, d)$    | 从 "定义域序列"、"值域序列" 过渡到 "定义域空间"、"值域空间"            |                                             |
+| 14      | Uniform convergence                            | function sequence / function space / function series | 拓扑空间上的收敛；function space 的 metric |                                             |
 
 ## Chapter 6 - Limits of sequences
 
@@ -1125,4 +1130,46 @@ $$
 
 矛盾。所以序列 $(x_n)$ 不可能有子序列收敛，但这又与 compact 的定义矛盾，得证。$\blacksquare$
 
+### 12.6 [Cover (覆盖)](https://en.wikipedia.org/wiki/Cover_(topology))
 
+待续。
+
+- 注意 metric space 里，compactness 和 sequential compactness 本质上等价
+- 但是在 general topological space 里，这俩概念不同
+- 参考 https://math.stackexchange.com/questions/44907/whats-going-on-with-compact-implies-sequentially-compact
+
+[抽象猴：如何清晰、形象化地解释点集拓扑中“紧”这个概念？](https://www.zhihu.com/question/19593104/answer/87795807):
+
+> compact 本来应翻译作 "小巧的", 把 compact 翻译成 "紧" 是积重难返误译, 造成理解困难。如果把开集当作一种广义的测量单位, 那覆盖就是一种测量的步骤, compact 是指 "需要多少个开集才能测量待测集合？"。若是一个集合 S 需要用无限多开集合来测量(覆盖), 那 S 就不是小巧的 (compact)
+
+[Jason Huang：如何直观地解释「紧致性」？](https://www.zhihu.com/question/31734712/answer/148576610)
+
+> 根据定义，紧空间的任意开覆盖有有限子覆盖，必须要好好体会“任意”这个词，显然，我们可以用一个很大的瓶子把所有东西装进去，但这只是一种情况，紧空间说的是“任意”，对使用“任意”大小的瓶子来装进这些元素，都能挑选出有限多个瓶子结束战斗...这就表明，这些元素只有分布的很紧时，才能够使用有限的任意小的瓶子来装。
+
+更多参考：[pluskid：拓扑空间的紧性](http://blog.pluskid.org/?p=785)
+
+另外感觉涉及到 cover 的部分就需要 "Chapter 8 - 无限集合" 的理论辅助了。
+
+## Chapter 13 - Continuous functions on metric spaces
+
+### 13.5 拓扑空间
+
+metric space 的部分概念可以推广到 topological space。这个推广的思路是：不要把 $d$ 看做 topological space 的基础对象，因为一般的 topological space 中根本就没有 metric (所以明显有些 topological space 不是 metric space)。**代替 metric 的是 open set family (开集族)**：
+
+- metric space 中是先有 $d$，然后有球，然后定义 open set
+- topological space 直接从 open set 开始
+
+注意 topology 有一个原始释义是：
+
+> topographic (测绘学) study of a particular place; specifically : the history of a region as indicated by its topography
+
+每个 metric space $(X, d)$ 自动是一个 topological space：因为你知道了 $d$ 就可以定义 $X$ 上的 open set，把这所有的 open set 收集到 $\mathcal{T}$ 就可以得到一个 topological space $(X, \mathcal{T})$ 了。但是反过来，存在 topological space which 不是由 metric space 产生的，比如 trivial topology $(X, \mathcal{T}=\lbrace \emptyset, X \rbrace)$。
+
+- 由 metric space 生成的 topological space 都是 **Hausdorff space**
+    - Hausdorff space 上的极限具有唯一性
+- trivial topology 不是 Hausdorff space
+- **实践中我们遇到的 topological space 一般都是 Hausdorff space**；non-Hausdorff space 有 "很病态的倾向" 以至于研究它们没有太大用处
+
+topological space 不存在 Cauchy、complete、bounded 这三个概念，有 compact 的概念。
+
+- [Why is Completeness not a Topological Property?](https://math.stackexchange.com/questions/1565350/why-is-completeness-not-a-topological-property)
