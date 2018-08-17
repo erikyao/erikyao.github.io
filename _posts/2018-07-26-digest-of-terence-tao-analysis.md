@@ -20,12 +20,17 @@ tags: []
 | 6       | Limits of sequences                            | $\mathbb{R}$ / sequence |                                                                | real limit operation $\operatorname{lim}$   |
 | 7       | Series                                         | $\mathbb{R}$ / series   | 转化成 paritial sum 的 sequence $(S_N)$，再用 limit 研究          |                                             |
 | 8       | Infinite sets                                  | set                     |                                                                |                                             |
-| 9       | Continuous functions on $\mathbb{R}$           | function on $\mathbb{R}$| 考虑 function 与 sequence 的等价性                               |                                             |
-| 10      | Differentialtion of functions                  | function on $\mathbb{R}$|                                                                |                                             |
-| 11      | The Riemann Integral                           | function on $\mathbb{R}$|                                                                |                                             |
-| 12      | Metric Spaces                                  | $(X, d)$                | 从 $\mathbb{R}$ sequence 过渡到抽象空间；考虑 space 和 set 的相似性 |                                             |
+| 9       | Continuous functions on $\mathbb{R}$           | $f: \mathbb{R} \to \mathbb{R}$ | 考虑 function 与 sequence 的等价性                         |                                             |
+| 10      | Differentialtion of functions                  | $f: \mathbb{R} \to \mathbb{R}$ |                                                         |                                             |
+| 11      | The Riemann integral                           | $f: \mathbb{R} \to \mathbb{R}$ |                                                         |                                             |
+| 12      | Metric spaces                                  | $(X, d)$                | 从 $\mathbb{R}$ sequence 过渡到抽象空间；考虑 space 和 set 的相似性 |                                             |
 | 13      | Continuous functions on metric spaces          | function on $(X, d)$    | 从 "定义域序列"、"值域序列" 过渡到 "定义域空间"、"值域空间"            |                                             |
 | 14      | Uniform convergence                            | function sequence / function space / function series | 拓扑空间上的收敛；function space 的 metric |                                             |
+| 15      | Power series                                   |                         |                                                                |                                             |
+| 16      | Fourier series                                 |                         |                                                                |                                             |
+| 17      | Several variable differential calculus (多元微分)| $f: \mathbb{R}^n \to \mathbb{R}^m$ |                                                     |                                             |
+| 18      | Lebesgue measure                               | $f: \mathbb{R}^n \to \mathbb{R}$ | Open set / Cover                                      |                                             |
+| 19      | Lebesgue integration (多元积分)                  | $f: \mathbb{R}^n \to \mathbb{R}$ | Lebesgue measure / Riemann integral                   |                                             |
 
 ## Chapter 6 - Limits of sequences
 
@@ -1173,3 +1178,73 @@ metric space 的部分概念可以推广到 topological space。这个推广的�
 topological space 不存在 Cauchy、complete、bounded 这三个概念，有 compact 的概念。
 
 - [Why is Completeness not a Topological Property?](https://math.stackexchange.com/questions/1565350/why-is-completeness-not-a-topological-property)
+
+## Chapter 17 - 多元微分
+
+### 17.8 The implicit function theorem (隐函数)
+
+#### 17.8.1 函数图像 (graph) 与集合曲线 (curve)
+
+先考虑 $\mathbb{R}^2$ 的情况。假设有函数 $f: X \to \mathbb{R}$ 和集合 $A = \lbrace (x, y) \mid \text{some condition} \rbrace$
+
+- 我们说函数构成图像 $\lbrace (x, f(x)) \mid x \in X \rbrace$
+- 我们说集合构成曲线 $\lbrace (x, y) \mid (x, y) \in A \rbrace$
+- 函数图像一定是集合曲线，因为 $\lbrace (\text{定义域}, \text{值域}) \rbrace$ 一定构成集合
+- 集合曲线不一定是函数图像，因为有可能有 "一对多" 的情况
+    - 据此有 "垂线判别法" 来判断一个曲线是否是函数图像：对每一个 $x$ 做垂线与曲线相交，函数图像一定只可能有一个交点
+- 集合常用代数的方式给出，比如 $\lbrace (x, y) \mid f(x, y) = c \rbrace$，但是你也可以写成 $\lbrace (x, y) \mid g(x, y) = f(x, y) - c = 0 \rbrace$
+    - 注意这种情况你看到有函数 $g$，但它其实是一个集合，也就是说它不一定是一个函数图像
+    - 再者，你这个 $g$ 是 $g: \mathbb{R}^2 \to \mathbb{R}$，你要构成图像也应该是个三维图像，但是你的集合曲线是个二维
+        - 也就是说：即使你这个集合曲线是个函数图像，它也不可能是 $g$ 的函数图像
+
+举例：
+
+- $f(x) = \sqrt{1 - x^2}$ 的图像是 x-axis 上方的半圆
+- $\lbrace (x, y) \mid x^2 + y^2 = 1 \rbrace$ 的曲线是个整圆，但是它不是个函数图像
+    - 但是你限定 $0 \leq y \leq 1$ 或者 $-1 \leq y \leq 0$ 的话，得到一个 x-axis 上方或者下方的半圆，这个曲线就是一个函数图像
+
+扩展到高维并 generalize，我们可能会问：给定一个集合 $\lbrace \mathbf{x} \in \mathbb{R}^{n} \mid f(\mathbf{x}) = 0 \rbrace$, where $f: \mathbb{R}^n \to \mathbb{R}$，这个集合曲面 (surface; 扩展到高维就从曲线升级到曲面了) 是否是一个函数 $g: \mathbb{R}^{n-1} \to \mathbb{R}$ 的图像？
+
+#### 17.8.2 隐函数定理
+
+**Theorem 17.8.1** (Implicit function theorem). 假设有：
+
+- $E$ 是 $\mathbb{R}^n$ ($n > 1$) 的 open 子集
+- 函数 $f: E \to \mathbb{R}$ 连续、可微
+- 存在一点 $\mathbf{y} = (y_1, \cdots, y_n) \in E$ 满足 $f(\mathbf{y}) = 0$ 且 $\frac{\partial f}{\partial x_n} (\mathbf{y}) \neq 0$
+
+那么存在：
+
+- 一个集合 $U$ 是 $\mathbb{R}^{n-1}$ 的 open 子集，它包含点 $\mathbf{y_{\bar n}} = (y_1, \cdots, y_{n-1})$
+- 一个集合 $V$ 是 $E \subset \mathbb{R}^n$ 的 open 子集，它包含 $\mathbf{y} = (y_1, \cdots, y_n)$
+- 函数 $g: U \to \mathbb{R}$ 满足 $g(\mathbf{y_{\bar n}}) = y_n$
+- $g$ 在 $\mathbf{y_{\bar n}}$ 处可微且有 $\frac{\partial g}{\partial x_j} (\mathbf{y_{\bar n}}) = - \frac{\frac{\partial f}{\partial x_j} (\mathbf{y})}{\frac{\partial f}{\partial x_n} (\mathbf{y})}, \forall 1 \leq j \leq n-1$
+    - 所以我们要要求 $\frac{\partial f}{\partial x_n} (\mathbf{y}) \neq 0$
+- 集合曲面 $\lbrace \mathbf{x} \in V \mid f(\mathbf{x}) = 0 \rbrace$ 是函数 $g$ 的图像
+    - 我们把 $(x_1, \cdots, x_{n-1})$ 写作 $\mathbf{x_{\bar n}}$，那么函数 $g$ 的图像就是 $\lbrace (\mathbf{x_{\bar n}}, g(\mathbf{x_{\bar n}})) \mid \mathbf{x_{\bar n}} \in U \rbrace$
+
+注意几个原始概念：
+
+- 形如 $f(\mathbf{x}) = 0$ 的 relation 我们称为 **implicit equation**
+- 如果我们把 $f(\mathbf{x}) = 0$ 中的 $\mathbf{x}$ 的其中一项用其余的 $n-1$ 项表达出来的话，比方说得到 $x_n = g(\mathbf{x_{\bar n}})$，那么这个函数 $g: \mathbb{R}^{n-1} \to \mathbb{R}$ 就称为 $f(\mathbf{x}) = 0$ 定义的 **implicit function**
+
+#### 17.8.3 关于 $\frac{\partial f}{\partial x_n} (\mathbf{y}) \neq 0$ 的讨论 / gradient / manifold
+
+我们在前面看到 $\frac{\partial f}{\partial x_n} (\mathbf{y}) \neq 0$ 这个条件的重要性。但是什么情况下会有 $\frac{\partial f}{\partial x_n} (\mathbf{y}) = 0$？
+
+- 最简单的想法就是 $f(\mathbf{x})$ 表达式中 $x_n$ 只有 $0 \cdot x_n$ 这么一项，也就是说你不可能得到 $x_n = g(\mathbf{x_{\bar n}})$ 这样的形式，也就得不到 implicit function
+    - 这种情况下 $\frac{\partial f}{\partial x_n}$ 根本就没有 $x_0$ 的项 
+    - $\mathbf{y}$ 的值是多少根本不重要
+- 如果 $\frac{\partial f}{\partial x_n}$ 有 $x_0$ 的项，$\mathbf{y}$ 的值也可能导致 $\frac{\partial f}{\partial x_n} (\mathbf{y}) = 0$
+
+考虑 gradient $\nabla f(\mathbf{y}) = (\frac{\partial f}{\partial x_1}(\mathbf{y}), \cdots, \frac{\partial f}{\partial x_n}(\mathbf{y}))$
+
+- 只要 $\nabla f(\mathbf{y}) \neq \mathbf{0}$，我们就能找到一个 $x_i$ 去做 implicit function
+- 如果存在 $\mathbf{y}$ 使得 $\nabla f(\mathbf{y}) = \mathbf{0}$，我们称 $\mathbf{y}$ 为 $f$ 的 **critical point (临界点)**
+
+流形：
+
+- 假设有一个集合 $A$，如果它的集合曲面上的每一点的邻近区域本质上都是连续函数的图像，我们称 $A$ 为 **manifold (流形)**
+- 如果集合 $\lbrace \mathbf{x} \in \mathbb{R}^n \mid f(\mathbf{x}) = 0 \rbrace$ 不包含 $f$ 的 critical point，那么 $\lbrace \mathbf{x} \in \mathbb{R}^n \mid f(\mathbf{x}) = 0 \rbrace$ 就是个流形
+    - 不包含 $f$ 的 critical point，也就是说所有满足 $f(\mathbf{x}) = 0$ 的点都是上面的 $\mathbf{y}$，我们也就总能找到一个 implict function $g$
+    - 但是隐函数定理只说了 "$g$ 在 $\mathbf{y_{\bar n}}$ 处可微"，根据 Proposition 10.1.10 (可微必定连续)，也只能说明 "$g$ 在 $\mathbf{y_{\bar n}}$ 处连续"，并没有保证 $g$ 在 $U$ 上都连续；但是这个 "邻近区域" 是可以操纵的，我觉得你定义一个 $\Phi(y_{\bar n}, \delta)$，应该是可以证明 $g$ 在这个球上是连续的 ([参考](https://sites.math.washington.edu/~morrow/334_15/IFT.pdf))。
