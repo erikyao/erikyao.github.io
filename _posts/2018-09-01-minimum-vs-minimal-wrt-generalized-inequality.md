@@ -25,7 +25,7 @@ tags: []
     - 亦即不存在与 $x$ "不可比" 的元素
 - $x$ is minimal：$S$ 内所有与 $x$ "可比" 的元素皆小于等于 $x$
     - 所以可能存在与 $x$ "不可比" 的元素
-- 用英语描述的话:
+- 用英语描述的话：
     - minimum 是 "I am definitely the smallest"
     - minimal 是 "Nothing is smaller than me"
 
@@ -35,4 +35,4 @@ tags: []
 - Minimum 必定是 minimal，反之不成立
 - 对 $\mathbb{R}$ 上的 $\leq$ 而言，minimum 和 minimal 等价 (这条性质应该对 linear ordering 都有效)
 
-[Dr. Robert Harron 在 Quora 上举了个很好的例子](https://www.quora.com/Whats-the-difference-between-minimum-and-minimal-in-mathematics/answer/Robert-Harron)：假设 $S$ 是所有大于等于 2 的整数的集合，$x \preceq y \iff x \text{ divides } y$ ($x$ 整除 $y$；$y$ 被 $x$ 整除)，那么所有的 prime number 都是 minimal，不存在 minimum
+[Dr. Robert Harron 在 Quora 上举了个很好的例子](https://www.quora.com/Whats-the-difference-between-minimum-and-minimal-in-mathematics/answer/Robert-Harron)：假设 $S$ 是所有大于等于 2 的整数的集合，$x \preceq y \iff x \text{ divides } y$ ($x$ 可以整除 $y$；$y$ 可以被 $x$ 整除)，那么所有的 prime number 都是 minimal，不存在 minimum
