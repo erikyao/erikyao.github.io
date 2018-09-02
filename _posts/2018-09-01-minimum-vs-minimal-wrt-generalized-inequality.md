@@ -25,6 +25,7 @@ tags: []
     - 亦即不存在与 $x$ "不可比" 的元素
 - $x$ is minimal：$S$ 内所有与 $x$ "可比" 的元素皆小于等于 $x$
     - 所以可能存在与 $x$ "不可比" 的元素
+    - 一个极端的情况：如果 $S$ 内除了 $x$ 以外的所有元素都与 $x$ "不可比"，那么按照定义，$x$ 也是 minimal
 - 用英语描述的话：
     - minimum 是 "I am definitely the smallest"
     - minimal 是 "Nothing is smaller than me"
