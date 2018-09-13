@@ -252,3 +252,4 @@ http://mathworld.wolfram.com/DiagonalizableMatrix.html
 http://www.math.harvard.edu/archive/20_spring_05/handouts/ch05_notes.pdf
 http://www.math.ku.edu/~lerner/LAnotes/Chapter16.pdf
 https://www.adelaide.edu.au/mathslearning/play/seminars/evalue-magic-tricks-handout.pdf
+http://archive.nathangrigg.net/teaching/linear-algebra/eigenbasis.pdf
