@@ -113,21 +113,35 @@ $$
 - $\operatorname{diag}(\mathbf{\lambda})$ stretch 这个新的 basis
 - 再实施 $V$ 变换将 basis 再变回来
 
+Eigen-decomposable 的 matrix 也称为 **diagonalizable** 的。Generally 我们有：
+
+**Definition:** $n \times n$ matrices $A$ and $B$ are said to be **similar** if there is an invertible $n \times n$ matrix $P$ such that $A = P B P^{−1}$.
+
+**Definition:** $n \times n$ matrix $A$ is said to be **diagonalizable** if it is similar to a diagonal matrix $D$.
+
+考虑到 diagonal matrix $D$ 计算 $D^n$ 十分方便，我们利用它来计算任意 square matrix $A$ 的 $A^n$:
+
+$$
+A^n = (P D P^{−1})^n = P D (P^{−1} P) D (P^{−1} \cdots) \cdots (\cdots P) D P^{−1} = P D^n P^{−1}
+$$
+
 ## 3. Sufficient conditions of Eigen-decomposition
 
-亦即研究 $\text{condition } ? \Rightarrow n \times n \text{ matrix } A \text{ has } n \text{ linearly independent eigenvectors}$
+亦即研究 $\text{condition } ? \Rightarrow n \times n \text{ matrix } A \text{ is diagonalizable }$
 
-Eigen-decomposable 的 matrix 也称为 **diagonalizable** 的。
+### 3.1 Condition 1: $A$ has $n$ linearly independent eigenvectors
 
-### 3.1 Condition 1: $A$ has $n$ unique eigenvalues
+Obvious.
+
+### 3.2 Condition 2: $A$ has $n$ unique eigenvalues
 
 Almost obvious.
 
-### 3.2 Condition 2: $A$ is symmetric
+### 3.3 Condition 3: $A$ is symmetric
 
 实际上 symmetric matrix 是 orthogonally diagonalizable，即：它不光是 diagonalizable 的，而且它的 eigenvectors 是 orthogonal 的 (如果我们进一步 normalize 每个 eigenvector 的话，得到的 $V = [\mathbf{v}_1 \, \dots \, \mathbf{v}_n]$ 会是一个 orthogonal matrix)
 
-**Definition:** A real square matrix $A$ is orthogonally diagonalizable if there exist an orthogonal matrix $U$ and a diagonal matrix $D$ such that $A=UDU^{-1}$
+**Definition:** A real square matrix $A$ is **orthogonally diagonalizable** if there exist an orthogonal matrix $U$ and a diagonal matrix $D$ such that $A=UDU^{-1}$
 
 - 注意 orthogonal matrix 有 $U^{-1} = U^T$。参 [Hadamard Product / Diagonal Matrix / Orthogonal Matrix](/math/2018/09/06/hadamard-product-diagonal-matrix-orthogonal-matrix)
 
@@ -138,7 +152,7 @@ Almost obvious.
 
 这个证明异常地复杂，需要几个结论来铺垫。([参考](https://www.math.wustl.edu/~freiwald/309orthogdiag.pdf))
 
-#### 3.2.1 Fundamental theorem of algebra
+#### 3.3.1 Fundamental theorem of algebra
 
 [Wikipedia: Fundamental theorem of algebra](https://en.wikipedia.org/wiki/Fundamental_theorem_of_algebra):
 
@@ -150,7 +164,7 @@ Almost obvious.
 > <br/> 
 > In spite of its name, there is no purely algebraic proof of the theorem, since any proof must use some form of completeness, which is not an algebraic concept. Additionally, it is not fundamental for modern algebra; its name was given at a time when algebra was synonymous with theory of equations.
 
-#### 3.2.2 每个 symmetric real matrix 至少有一个 unique 的 real eigenvalue
+#### 3.3.2 每个 symmetric real matrix 至少有一个 unique 的 real eigenvalue
 
 根据 Fundamental theorem of algebra，$p_A(\lambda) = \vert \lambda I - A \vert = 0$ 至少有一个 complex 的解，亦即任意 matrix 至少有一个 complex 的 eigenvalue (我们在 1.4 节讲一个 general 的 matrix 可能有 $0 \leq \cdot \leq n$ 个 unique eigenvalues 是限定在了 $\mathbb{R}$)。
 
@@ -182,7 +196,7 @@ $$
 
 因为 $\overline{\mathbf{z}}^T A \mathbf{z}$ 是个 real，$\sum_{i=1}^{n} \vert z_i \vert^2$ 也是 real 且 $> 0$ (eigenvector 不能是零向量)，所以 $\lambda$ 也必定是个 real。$\blacksquare$ 
 
-#### 3.2.3 Final Proof
+#### 3.3.3 Final Proof
 
 **Proof:** 
 
@@ -239,17 +253,56 @@ $$
 
 所以 $A$ 是 symmetric。$\blacksquare$
 
-### 3.3 Condition 3: $A$ is symmetric
+### 3.4 Condition 4: Minimal polynomial of $A$ has no repeated factors (i.e. no repeated roots)
 
-https://www.quora.com/What-conditions-does-a-matrix-need-to-be-diagonalizable
-http://mathworld.wolfram.com/MatrixMinimalPolynomial.html
-https://en.wikipedia.org/wiki/Idempotent_matrix
-https://math.stackexchange.com/questions/600745/idempotent-matrix-is-diagonalizable
-https://en.wikipedia.org/wiki/Minimal_polynomial_(linear_algebra)
-https://yutsumura.com/idempotent-projective-matrices-are-diagonalizable/
-https://en.wikipedia.org/wiki/Cayley%E2%80%93Hamilton_theorem#Proving_the_theorem_in_general
-http://mathworld.wolfram.com/DiagonalizableMatrix.html
-http://www.math.harvard.edu/archive/20_spring_05/handouts/ch05_notes.pdf
-http://www.math.ku.edu/~lerner/LAnotes/Chapter16.pdf
-https://www.adelaide.edu.au/mathslearning/play/seminars/evalue-magic-tricks-handout.pdf
-http://archive.nathangrigg.net/teaching/linear-algebra/eigenbasis.pdf
+**Definition:** A **monic polynomial** is a single-variable polynomial (that is, a univariate polynomial) in which the leading coefficient (the nonzero coefficient of highest degree) is 1. Therefore, a monic polynomial has the form 
+
+$$
+x^{n} + c_{n-1}x^{n-1} + \cdots + c_{2}x^{2} + c_{1}x + c_{0}
+$$
+
+**Definition:** A **minimal polynomial** of $x$ is a monic polynomial $m(x)$ which:
+
+1. satisfies $m(x) = 0$ and
+    - 此时也称 $m(x)$ 是 annihilating polynomial (零化多项式) for $x$
+2. has the smallest possible degree (degree 即最高项的次数)
+
+举例：
+
+- 令 $A = I\_{2 \times 2}$，$p_A(A) = (A - 1)^2$，但由于 $A - 1\_{2 \times 2} = 0\_{2 \times 2}$，所以 minimal polynomial 只需要 $m_A(A) = A - 1$ 就可以了，不需要到 degree 2
+- 令 $A = \begin{bmatrix} 1 & 1 \\\\ 0 & 1 \end{bmatrix}$，同样有 $p_A(A) = (A - 1)^2$，但只有 $(A - 1\_{2 \times 2})^2 = 0\_{2 \times 2}$ 而 $A - 1\_{2 \times 2} \neq 0\_{2 \times 2}$，所以 minimal polynomial 需要到 degree 2，即 $m_A(A) = p_A(A) = (A - 1)^2$
+
+**Theorem:** (Cayley-Hamilton theorem) Every square matrix over a commutative ring (such as the real or complex field) satisfies its own characteristic equation. I.e Substituting matrix $A$ for $\lambda$ in $A$'s characteristic polynomial results in the zero matrix. I.e.
+
+$$
+\begin{align}
+p_A(\lambda) &= \vert \lambda I_n - A_{n \times n} \vert \newline 
+p_A(A)       &= 0_{n \times n}
+\end{align}
+$$
+
+- 注意：实际计算时应该先把 $p_A(\lambda)$ 展开得到关于 $\lambda$ 的多项式，再将 $\lambda$ 替换成 $A$。直接去求 $\vert A I - A \vert$ 看起来有点 confusing
+- When the ring is a field, Cayley–Hamilton theorem is equivalent to the statement that **the minimal polynomial of a square matrix divides its characteristic polynomial**. (即 $p_A(A)$ 可以被 $m_A(A)$ 整除)
+
+**Proposition:** $m_A(x)$ has no repeated roots $\iff$ $A$ is diagonalizable.
+
+证明略。([参考](http://www.mathe2.uni-bayreuth.de/stoll/lecture-notes/LinearAlgebraII.pdf))
+
+举例：
+
+- 令 $A = I\_{2 \times 2}$，$m_A(x) = x - 1$，只有一个 root 1，所以 $A$ is diagonalizable
+- 令 $A = \begin{bmatrix} 1 & 1 \\\\ 0 & 1 \end{bmatrix}$，$m_A(x) = (x - 1)^2$，root 1 是 repeated，所以 $A$ is not diagonalizable
+
+**Proposition:** Any idempotent matrix is diagonalizable.
+
+**Proof:**
+
+Idempotent matrix $A$ 满足 $A^2 = A$，即 $A(A - I) = 0$，所以潜在的 $m_A(x)$ 可能是：
+
+- $m_A(x) = x$，或者
+- $m_A(x) = x - 1$，或者
+- $m_A(x) = x(x-1)$
+
+无论哪种情况，$m_A(x)$ 都没有 repeated roots，所以 $A$ is diagonalizable. $\blacksquare$
+
+- [另一种证明思路](https://yutsumura.com/idempotent-projective-matrices-are-diagonalizable/)
