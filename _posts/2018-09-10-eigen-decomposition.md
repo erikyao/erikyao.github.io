@@ -103,13 +103,143 @@ AV &= A [\mathbf{v}_1 \, \dots \, \mathbf{v}_n] \newline
    &= [A\mathbf{v}_1 \, \dots \, A\mathbf{v}_n] \newline
    &= [\lambda_1\mathbf{v}_1 \, \dots \, \lambda_n\mathbf{v}_n] \newline
    &= [\mathbf{v}_1 \, \dots \, \mathbf{v}_n] \operatorname{diag}(\mathbf{\lambda}) \newline
-   &= V \operatorname{diag}(\mathbf{\lambda})
+   &= V \operatorname{diag}(\mathbf{\lambda}) \,\,\,\, \blacksquare
 \end{align*}
 $$
+
+这个 linear transformation 可以这么理解：
+
+- 先实施 $V^{-1}$ 变换，将 basis 换成 $V^{-1}$ 的 column vectors
+- $\operatorname{diag}(\mathbf{\lambda})$ stretch 这个新的 basis
+- 再实施 $V$ 变换将 basis 再变回来
 
 ## 3. Sufficient conditions of Eigen-decomposition
 
 亦即研究 $\text{condition } ? \Rightarrow n \times n \text{ matrix } A \text{ has } n \text{ linearly independent eigenvectors}$
+
+Eigen-decomposable 的 matrix 也称为 **diagonalizable** 的。
+
+### 3.1 Condition 1: $A$ has $n$ unique eigenvalues
+
+Almost obvious.
+
+### 3.2 Condition 2: $A$ is symmetric
+
+实际上 symmetric matrix 是 orthogonally diagonalizable，即：它不光是 diagonalizable 的，而且它的 eigenvectors 是 orthogonal 的 (如果我们进一步 normalize 每个 eigenvector 的话，得到的 $V = [\mathbf{v}_1 \, \dots \, \mathbf{v}_n]$ 会是一个 orthogonal matrix)
+
+**Definition:** A real square matrix $A$ is orthogonally diagonalizable if there exist an orthogonal matrix $U$ and a diagonal matrix $D$ such that $A=UDU^{-1}$
+
+- 注意 orthogonal matrix 有 $U^{-1} = U^T$。参 [Hadamard Product / Diagonal Matrix / Orthogonal Matrix](/math/2018/09/06/hadamard-product-diagonal-matrix-orthogonal-matrix)
+
+**Theorem:** (The Spectral Theorem) $A$ is symmetric $\iff$ $A$ is orthogonally diagonalizable
+
+- 叫 Spectral Theorem 是因为：特征分解 (Eigen-decomposition)又称谱分解 (Spectral decomposition)
+- **矩阵的频谱 (spectrum)** 即矩阵的 eigenvalues 的集合
+
+这个证明异常地复杂，需要几个结论来铺垫。([参考](https://www.math.wustl.edu/~freiwald/309orthogdiag.pdf))
+
+#### 3.2.1 Fundamental theorem of algebra
+
+[Wikipedia: Fundamental theorem of algebra](https://en.wikipedia.org/wiki/Fundamental_theorem_of_algebra):
+
+> The fundamental theorem of algebra states that every non-constant single-variable polynomial with complex coefficients has at least one complex root. This includes polynomials with real coefficients, since every real number is a complex number with an imaginary part equal to zero.  
+> <br/>
+> Equivalently (by definition), the theorem states that the field of complex numbers is algebraically closed.  
+> <br/>
+> The theorem is also stated as follows: every non-zero, single-variable, degree n polynomial with complex coefficients has, counted with multiplicity, exactly n complex roots. The equivalence of the two statements can be proven through the use of successive polynomial division.  
+> <br/> 
+> In spite of its name, there is no purely algebraic proof of the theorem, since any proof must use some form of completeness, which is not an algebraic concept. Additionally, it is not fundamental for modern algebra; its name was given at a time when algebra was synonymous with theory of equations.
+
+#### 3.2.2 每个 symmetric real matrix 至少有一个 unique 的 real eigenvalue
+
+根据 Fundamental theorem of algebra，$p_A(\lambda) = \vert \lambda I - A \vert = 0$ 至少有一个 complex 的解，亦即任意 matrix 至少有一个 complex 的 eigenvalue (我们在 1.4 节讲一个 general 的 matrix 可能有 $0 \leq \cdot \leq n$ 个 unique eigenvalues 是限定在了 $\mathbb{R}$)。
+
+我们要证明，对 symmetric 而言，它所有的 complex eigenvalues 其实都是 real。
+
+**Theorem:** If $A$ is a real matrix, then it has $n$ real eigenvalues (counted by their multiplicities; 即不考虑 uniqueness). For each eigenvalue, we can find a real eigenvector associated with it.
+
+**Proof:** 首先说一个现象：对任意 complex vector $\mathbf{z} = [z\_1 \, \dots \, z\_n]^T \in \mathbb{C}^n$，scalar $q = \overline{\mathbf{z}}^T A \mathbf{z}$ 其实是个 real，因为 $q = \overline{q}$ 永远成立：
+
+$$
+\begin{align}
+q &= \overline{\mathbf{z}}^T A \mathbf{z} \newline
+  &= \mathbf{z}^T A \overline{\mathbf{z}} \, (\text{because } A \text{ is symmetric}) \newline
+  &= \mathbf{z}^T \overline{A} \overline{\mathbf{z}} \, (\text{because } A \text{ is real}) \newline
+  &= \overline{q}
+\end{align}
+$$
+
+现在假设 $\mathbf{z} = [z\_1 \, \dots \, z\_n]^T \in \mathbb{C}^n$ 是一个 eigenvector，它的 eigenvalue 是 $\lambda$，那么：
+
+$$
+\begin{align}
+\overline{\mathbf{z}}^T A \mathbf{z} &= \overline{\mathbf{z}}^T \lambda \mathbf{z} \newline
+                                     &= \lambda (\overline{\mathbf{z}}^T \mathbf{z}) \newline
+                                     &= \lambda \sum_{i=1}^{n} \overline{z_i} z_i \newline
+                                     &= \lambda \sum_{i=1}^{n} \vert z_i \vert^2
+\end{align}
+$$
+
+因为 $\overline{\mathbf{z}}^T A \mathbf{z}$ 是个 real，$\sum_{i=1}^{n} \vert z_i \vert^2$ 也是 real 且 $> 0$ (eigenvector 不能是零向量)，所以 $\lambda$ 也必定是个 real。$\blacksquare$ 
+
+#### 3.2.3 Final Proof
+
+**Proof:** 
+
+(1) $\Rightarrow$
+
+这里我们对 $A$ 的 size $n \times n$ 做归纳证明。
+
+当 $n=1$ 时，$U = I_{1 \times 1}, D=A$，得证。
+
+假定结论对 $(n-1) \times (n-1)$ symmetric matrix 成立。
+
+现在有 $n \times n$ symmetric matrix $A$。从 3.2.2 得知它一定有一个 real eigenvalue $\lambda_1$，我们把它对应的 eigenvector 做 normalization 得到 unit eigenvector $\mathbf{v}_1$。从 $\mathbf{v}_1$ 出发，我们选取 $n-1$ 个向量与 $\mathbf{v}_1$ 一起构成 $\mathbb{R}^n$ 的一组合法的 basis，然后我们可以实施 [Gram-Schmidt process](http://www.math.tamu.edu/~yvorobet/MATH304-503/Lect3-07web.pdf) 得到 $\mathbb{R}^n$ 的一组 orthonormal 的 basis $\mathcal{B} = \lbrace \mathbf{v}_1, \dots, \mathbf{v}_n \rbrace$。
+
+我们定义 change-of-coordinates matrix w.r.t. $\mathcal{B}$ 为 $P = P_{\mathcal{B}} = [\mathbf{v}_1 \, \dots \, \mathbf{v}_n]$。明显 $P$ 是 orthogonal，所以 $P^{-1} = P^T$。我们考虑 matrix $P^{-1}AP$:
+
+- $P^{-1}AP$ is symmetric because $(P^{-1}AP)^T = (P^{T}AP)^T = P^T A^T (P^T)^T = P^T A P = P^{-1} A P$
+- 它的 first column 是 $P^{-1}AP \mathbf{e}_1 = P^{-1}A \mathbf{v}_1 = P^{-1} \lambda_1 \mathbf{v}_1 = \lambda_1 \mathbf{e}_1$
+
+所以我们可以把 $P^{-1}AP$ 写成 $P^{-1}AP = \begin{bmatrix} \lambda_1 & \mathbf{0} \\\\ \mathbf{0} & B \end{bmatrix}$ where $B$ is a $(n-1) \times (n-1)$ symmetric matrix. 根据假设，有 $B = QD'Q^{-1}$。
+
+令 $R = \begin{bmatrix} 1 & \mathbf{0} \\\\ \mathbf{0} & Q \end{bmatrix}$。因为 $\begin{bmatrix} 1 & \mathbf{0} \\\\ \mathbf{0} & Q \end{bmatrix} \begin{bmatrix} 1 & \mathbf{0} \\\\ \mathbf{0} & Q^{-1} \end{bmatrix} = \begin{bmatrix} 1 & \mathbf{0} \\\\ \mathbf{0} & I \end{bmatrix}$，所以 $R$ 可逆且 $R^{-1} = \begin{bmatrix} 1 & \mathbf{0} \\\\ \mathbf{0} & Q^{-1} \end{bmatrix}$
+
+再令 $U = PR$。注意 $U^T U = (PR)^T (PR) = R^T P^T P R = I$，亦即 $U$ 也是 orthogonal (参 [Hadamard Product / Diagonal Matrix / Orthogonal Matrix](/math/2018/09/06/hadamard-product-diagonal-matrix-orthogonal-matrix)；这也说明：任意 orthogonal matrices 的 dot product 也是 orthogonal)。
+
+最终，我们有：
+
+$$
+\begin{align}
+U^{-1}AU &= (PR)^{-1} A (PR) \newline
+         &= R^{-1} P^{-1} A P R \newline
+         &= R^{-1} \begin{bmatrix} \lambda_1 & \mathbf{0} \\ \mathbf{0} & B \end{bmatrix} R \newline
+         &= \begin{bmatrix} 1 & \mathbf{0} \\ \mathbf{0} & Q^{-1} \end{bmatrix} \begin{bmatrix} \lambda_1 & \mathbf{0} \\ \mathbf{0} & B \end{bmatrix} \begin{bmatrix} 1 & \mathbf{0} \\ \mathbf{0} & Q \end{bmatrix} \newline
+         &= \begin{bmatrix} \lambda_1 & \mathbf{0} \\ \mathbf{0} & Q^{-1}BQ \end{bmatrix} \newline
+         &= \begin{bmatrix} \lambda_1 & \mathbf{0} \\ \mathbf{0} & D' \end{bmatrix} \newline
+\end{align}
+$$
+
+亦即 $A = U D U^{-1}$ where $D = \begin{bmatrix} \lambda_1 & \mathbf{0} \\\\ \mathbf{0} & D' \end{bmatrix}$。得证。
+
+(注：其实还有有 $A = P^{-1} \begin{bmatrix} \lambda_1 & \mathbf{0} \\\\ \mathbf{0} & B \end{bmatrix} P$，这个式子可以把 $A,B$ 直接联系起来)
+
+(2) $\Leftarrow$
+
+Suppose $A = UDU^{-1} = UDU^{T}$ ($U$ is orthogonal). Then:
+
+$$
+\begin{align}
+A^T &= (UDU^{T})^T \newline 
+    &= (U^T)^T D^T U^T \newline
+    &= UDU^T \, \text{(} D \text{ is diagonal thus of course symmetric)} \newline
+    &=A
+\end{align}
+$$
+
+所以 $A$ 是 symmetric。$\blacksquare$
+
+### 3.3 Condition 3: $A$ is symmetric
 
 https://www.quora.com/What-conditions-does-a-matrix-need-to-be-diagonalizable
 http://mathworld.wolfram.com/MatrixMinimalPolynomial.html
