@@ -82,3 +82,6 @@ $$
 - In the context of **machine learning**, $D_{KL}(p \Vert q)$ is often called the **information gain** achieved if $q$ is used instead of $p$ (This is why it's also called the **relative entropy** of $p$ with respect to $q$). 
 - In the context of **coding theory**, $D_{KL}(p \Vert q)$ can be construed as measuring the expected number of extra bits required to code samples from $p$ using a code optimized for $q$ rather than the code optimized for $p$.
 - In the context of **Bayesian inference**, $D_{KL}(p \Vert q)$ is amount of information lost when $q$ is used to approximate $p$.
+- 简单说，$D_{KL}(p \Vert q)$ 可以衡量两个 distribution $p$ 和 $q$ 的 "接近程度"
+    - 如果 $p=q$，那么 $D_{KL}(p \Vert q) = 0$
+    - $p$ 和 $q$ 差异越大，$D_{KL}(p \Vert q)$ 越大
