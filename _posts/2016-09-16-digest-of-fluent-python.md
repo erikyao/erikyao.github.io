@@ -4108,7 +4108,8 @@ def coroutine(func):
 		gen = func(*args,**kwargs)
 		next(gen)
 		return gen
-		return primer
+	
+	return primer
 
 @coroutine
 def averager():
