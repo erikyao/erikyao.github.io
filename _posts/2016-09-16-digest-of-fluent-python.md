@@ -130,7 +130,7 @@ tags: [Book]
 			- [8.4.1 Digress: `@property` / `__getattribute__()` / `__get__()`](#8-4-1-Digress-@property-----getattribute-------get--)
 			- [8.4.2 Digress Further: `x.setter` / `x.deleter`](#8-4-2-Digress-Further-x-setter---x-deleter)
 			- [8.4.3 `__hash__()`](#8-4-3---hash--)
-		- [8.5 "Private" and "Protected"](#8-5-"Private"-and-"Protected")
+		- [8.5 "Private" and "Protected"](#8-5-Private-and-Protected)
 		- [8.6 Saving Space with the `__slots__` Class Attribute](#8-6-Saving-Space-with-the---slots---Class-Attribute)
 		- [8.7 Overriding Class Attributes](#8-7-Overriding-Class-Attributes)
 	- [Chapter 10 - Sequence Hacking, Hashing, and Slicing](#Chapter-10---Sequence-Hacking-Hashing-and-Slicing)
@@ -2425,7 +2425,7 @@ class Vector2d:
 		return hash(self.x) ^ hash(self.y)
 ```
 
-### 8.5 "Private" and "Protected" <a name="8-5-"Private"-and-"Protected""></a>
+### 8.5 "Private" and "Protected" <a name="8-5-Private-and-Protected"></a>
 
 Too prevent accidental overwritting of a private attribute of a class, python would store `__bar` attribute of class `Foo` in `Foo.__dict__` as `_Foo__bar`. This language feature is called **name mangling**.
 
