@@ -67,6 +67,7 @@ In general topology, **an embedding is a homeomorphism onto its image**.
 More explicitly, an injective continuous function $f:X \to Y$ between two topological spaces $(X, \tau_{X})$ and $(Y,\tau_{Y})$ is a topological **embedding** if $f: X \to f(X)$ is a homeomorphism between $X$ and $f(X)$ (where $f(X)$ carries the subspace topology inherited from $Y$). 
 
 - 注意：如果 $f$ 是 injective 的，那么 $f: X \to f(X)$ 必然是 surjective 的，进而必然是 bijective 的
+- A homeomorphism is natually an embedding；反之不成立
 
 Intuitively then, **the embedding $f:X \to Y$ lets us treat $X$ as a subspace of $Y$**.
 
