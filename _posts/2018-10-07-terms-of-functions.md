@@ -43,7 +43,11 @@ $X$ 称为 **domain** (domain of definition，定义域)，$Y$ 称为 **codomain
 
 概念挺简单，我大概 15 年前就学会了，但是这三个词真的是难记，这里简单说一下：
 
-- 这三个词的原作者，Nicolas Bourbaki，显然是把 $f: X \to Y$ 看做了一种类似 "转移" 的动作。"ject" 的原意是 "to throw"，所以 $f: X \to Y$ 大概就是 "把 $X$ 转移到另外一个集合里，这个集合我们称作 $Y$"
+- 这三个词的原作者，_Nicolas Bourbaki_，显然是把 $f: X \to Y$ 看做了一种类似 "转移" 的动作。"ject" 的原意是 "to throw"，所以 $f: X \to Y$ 大概就是 "把 $X$ 转移到另外一个集合里，这个集合我们称作 $Y$"
 - injection 的话，"注入"，你联想到 "皮下注射" 的话，可以发现这个 **转移的过程是没有 $X$ 的损失的**，给你开了 50 ml 的药，注射到你皮下还是 50 ml
     - 如果有损失的话，那成了 "squeeze"
-- surjection 的话，这个 "sur-" 表示 "on, over"，我觉得你可以解释为 "**被动**"，即 "**我的 $Y$ 是被 inject 进来的**"，亦即存在一个 $X' \subseteq X$，把 $X'$ inject 过来，就成了 $Y$ 
+- surjection 的话，这个 "sur-" 表示 "on, over"，我觉得你可以解释为 "**被动**"，即 "**我的 $Y$ 是被 inject 进来的**"，亦即存在一个 $X' \subseteq X$ 以及一个对应的 injection，把 $X'$ inject 过来，就成了 $Y$
+    - 至于 $X - X'$ 中的元素是怎么联系到 $Y$ 的，这个问题 $X' \leftrightarrow Y$ injection 并不需要关心
+- 这么一来，bijection 就好理解了：
+    1. 我的 $X$ 没有损失，我有 $n$ 个 $x$ 就对应 $n$ 个 $y$
+    2. 我的 $Y$ 全部来自 injection，所以不存在 $y$ 找不到 injection 的来源
