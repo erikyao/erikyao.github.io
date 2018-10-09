@@ -75,7 +75,7 @@ $\forall c \in F, \mathbf{u}, \mathbf{v} \in V$,
 
 **我觉得统计学上 normalization 定义的最大的问题是：我看不到这些变形与 norm 的关系。**
 
-让后随之而来的第二个问题：我怎么知道你说的 normalization 是 algebra 的还是 statistics 的？
+然后随之而来的第二个问题：我怎么知道你说的 normalization 是 algebra 的还是 statistics 的？
 
 比如 `sklearn.preprocessing.normalize`，我一直以为它做的是 standardization，但其实不是！
 
