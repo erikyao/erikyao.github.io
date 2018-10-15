@@ -2,8 +2,8 @@
 layout: post
 title: "Pandas: split a DataFrame into chunks"
 description: ""
-category: Python
-tags: [Pandas]
+category: Pandas
+tags: 
 ---
 {% include JB/setup %}
 

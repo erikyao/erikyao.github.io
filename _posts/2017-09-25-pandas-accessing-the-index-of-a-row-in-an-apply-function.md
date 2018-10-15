@@ -2,8 +2,8 @@
 layout: post
 title: "Pandas: Accessing the index of a row in an <i>apply</i> function"
 description: ""
-category: Python
-tags: [Pandas, apply]
+category: Pandas
+tags: [apply]
 ---
 {% include JB/setup %}
 

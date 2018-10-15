@@ -26,5 +26,5 @@ df_b = df_b.set_index("xxx").sort_index()
 >>> True
 ```
 
-- `sort_index()` is a MUST because `DataFrame.equals()` is weak in that it won't compare records with the same index automatically! Instead it seems to compare row-wise.
+- `sort_index()` is a MUST because `DataFrame.equals()` is weak in that it won't compare records with the same index automatically! Instead it seems to compare row-wise brutally.
 - `df_a == df_b` also performs row-wise comparison but if the indices of those 2 DataFrames were not exactly the same (in values and orders), it will throw `ValueError: Can only compare identically-labeled DataFrame objects`.
