@@ -38,7 +38,7 @@ RNA polymerase:
     - RNA pol I transcribes ribosomal RNAs (rRNAs)
     - RNA pol II transcribes messenger RNAs (mRNAs) and also small regulatory RNAs
     - RNA pol III transcribes small RNAs such as transfer RNAs (tRNAs).
-    - 目前在我们这个 transcription 的 context 下，我们只考虑 RNA poly II
+    - 目前在我们这个 transcription 的 context 下，我们只考虑 _RNA poly II_
 
 ## 1. Transcription in detail
 
@@ -48,26 +48,20 @@ A promoter is a region of DNA that initiates transcription of a particular gene.
 
 Promoter elements can be categorized as: 
 
-- $\text{core} \in \text{proximal}$ 
-- $\text{proximal} \cap \text{distal} = \emptyset$
-- $\text{proximal} \cup \text{distal} = \text{promoter}$
-
-<!-- -->
-
-- Proximal promoter elements (proximal means "next to or nearest the point of attachment or origin, a central point, or the point of view")
+- **Proximal** promoter elements (proximal means "next to or nearest the point of attachment or origin, a central point, or the point of view")
     - Approximately 250 bp upstream of TSS
     - Contains specific TFBS
-    - Includes core promoter elements:
+    - Includes **core** promoter elements:
         - TSS (transcription start site)
             - Core promoter elements start approximately 34 bp upstream from the TSS
-        - A binding site for RNA poly II
+        - A binding site for _RNA poly II_
         - General TFBS
             - General transcription factors (GTFs), a.k.a. basal transcriptional factors, aim to activate transcription
             - E.g. `TATA` box
                 - For approximately 24% of human genes, a `TATA` box can be found within the core promoter.
                 - TATA binding protein (TBP) binds to the `TATA`-box sequence, and then unwinds the DNA and bends it through 80°.
                 - The `AT`-rich sequence of the `TATA`-box facilitates easy unwinding, due to weaker base-pairing interactions between `A` and `T` bases, as compared to between `G` and `C`
-- Distal promoter elements 
+- **Distal** promoter elements 
     - Anything further upstream, often with a weaker influence than the proximal promoter (but not an enhancer or other regulatory region whose influence is positional/orientation independent)
     - Contains specific TFBS
         - Either enhancers or silencers.
@@ -89,7 +83,7 @@ A promoter may contain enhancers. An enhancer is not necessarily part of a promo
 
 A silencer is a DNA sequence capable of binding repressors.
 
-- When a repressor binds to the silencer of DNA, RNA poly II is prevented from transcribing the DNA sequence into RNA.
+- When a repressor binds to the silencer of DNA, _RNA poly II_ is prevented from transcribing the DNA sequence into RNA.
 - With transcription blocked, the translation of RNA into proteins is impossible. Thus, silencers prevent genes from being expressed as proteins.
 - The most common position of a silencer is found upstream of the target gene, with distance varying greatly between approximately -20 bp to -2000 bp
     - Certain silencers can be found downstream of a promoter, located within the intron or exon of the gene itself
@@ -113,7 +107,7 @@ Two types of TF:
 
 Regulation Mechanism:
 
-- Stabilize or block the binding of RNA poly II to DNA
+- Stabilize or block the binding of _RNA poly II_ to DNA
 - Catalyze the acetylation or deacetylation of histone proteins
     - HAT: histone acetyltransferase
         - HAT acetylates histone proteins, and thus weakens the association of DNA with histones, which makes the DNA more accessible to transcription, thereby up-regulating transcription
@@ -125,11 +119,11 @@ General transcription factors (GTF):
 
 - In eukaryotes. 
 - Necessary for transcription to occur.
-- Some GTF bind to the promoter first, helping the RNA poly II get a foothold on the DNA.
-    - Together, the GTF and RNA poly II form a complex called the transcription preinitiation complex (PIC)  
+- Some GTF bind to the promoter first, helping the _RNA poly II_ get a foothold on the DNA.
+    - Together, the GTF and _RNA poly II_ form a complex called the transcription preinitiation complex (PIC)  
         - Some other GTF do not actually bind DNA, but are part of the PIC (bound to other GTF)
-    - PIC positions RNA poly II at TSS, denatures the DNA, and positions the DNA in the RNA poly II active site for transcription.
-- The minimal PIC includes RNA poly II and 6 GTF: TFIIA, TFIIB, TFIID (see also [TATA binding protein](https://en.wikipedia.org/wiki/TATA_binding_protein)), TFIIE, TFIIF, and TFIIH.
+    - PIC positions _RNA poly II_ at TSS, denatures the DNA, and positions the DNA in the _RNA poly II_ active site for transcription.
+- The minimal PIC includes _RNA poly II_ and 6 GTF: TFIIA, TFIIB, TFIID (see also [TATA binding protein](https://en.wikipedia.org/wiki/TATA_binding_protein)), TFIIE, TFIIF, and TFIIH.
 
 ### 1.5 RNA poly II
 
@@ -228,34 +222,6 @@ Each transcript is associated with 3 reading frames:
 - `AGG·TGA·CAC·CGC·AAG·CCT·TAT·ATT·AGC·`
 - `A·GGT·GAC·ACC·GCA·AGC·CTT·ATA·TTA·GC`
 - `AG·GTG·ACA·CCG·CAA·GCC·TTA·TAT·TAG·C`
-
-## 3. Genes in Genomes: What's in a genome?
-
-Genome:
-
-- protein-coding genes
-- rRNA (ribosomal RNA)
-- tRNA (transfer RNA)
-- pseudogenes
-- short non-coding RNA
-    - miRNA (microRNA)
-        - MicroRNAs usually induce gene silencing by binding to target sites found within the 3’UTR of the targeted mRNA. This interaction prevents protein production by suppressing protein synthesis and/or by initiating mRNA degradation.
-        - MicroRNAs are partially complementary to one or more messenger RNA (mRNA) molecules, and their main function is to downregulate gene expression in a variety of manners, including translational repression, mRNA cleavage, and deadenylation.
-    - siRNA (short interfering RNA, double-stranded)
-        - may come from outside the cell (e.g. virus); endo-siRNA also discovered, transcribed from cell's own DNA
-        - the most commonly used RNA interference (RNAi) tool for inducing short-term silencing of protein coding genes
-        - siRNA is a synthetic RNA duplex designed to specifically target a particular mRNA for degradation.
-        - http://dharmacon.gelifesciences.com/applications/rna-interference/sirna/?rdr=true&LangType=2052&pageid=2147484497
-        - https://www.thebalance.com/the-differences-between-sirna-and-mirna-375536
-- lncRNA (long non-coding RNA)
-    - $\ge$ 2000 nt
-    - variety of functions
-- transposon (TE - transposoble element)
-    - DNA elements that can 'jump' to a new genomic location
-
-1. be aware of these different DNA entities when you encounter them in a genome annotation
-1. be aware of the complexity and importance of the many types of elements encoded in DNA
-1. genomes are still under exploration; many of the functions and locations of important information encoded in DNA are yet to be discovered
 
 ## 4. Genes in Genomes: How is the genome 'packaged'?
 

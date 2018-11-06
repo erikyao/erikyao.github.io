@@ -9,7 +9,30 @@ tags: []
 
 ## Genome 
 
-Genome is the genetic material of an organism. It consists of DNA, or RNA in RNA viruses.
+Genome is the genetic material of an organism. It consists of DNA, or RNA in RNA viruses. 具体说来，下列元素都属于 genome：
+
+- DNA
+    - protein-coding genes
+    - pseudogenes
+    - transposon (TE - transposoble element)
+    - DNA elements that can 'jump' to a new genomic location
+- RNA
+    - rRNA (ribosomal RNA)
+    - tRNA (transfer RNA)
+    - short non-coding RNA
+        - miRNA (microRNA)
+            - MicroRNAs usually induce gene silencing by binding to target sites found within the 3’UTR of the targeted mRNA. This interaction prevents protein production by suppressing protein synthesis and/or by initiating mRNA degradation.
+            - MicroRNAs are partially complementary to one or more messenger RNA (mRNA) molecules, and their main function is to downregulate gene expression in a variety of manners, including translational repression, mRNA cleavage, and deadenylation.
+        - siRNA (short interfering RNA, double-stranded)
+            - may come from outside the cell (e.g. virus); endo-siRNA also discovered, transcribed from cell's own DNA
+            - the most commonly used RNA interference (RNAi) tool for inducing short-term silencing of protein coding genes
+            - siRNA is a synthetic RNA duplex designed to specifically target a particular mRNA for degradation.
+        - 参考：
+            - [siRNA Applications](http://dharmacon.gelifesciences.com/applications/rna-interference/sirna/?rdr=true&LangType=2052&pageid=2147484497)
+            - [Learn the Distinction Between siRNA and miRNA](https://www.thebalance.com/the-differences-between-sirna-and-mirna-375536)
+    - lncRNA (long non-coding RNA)
+        - $\ge$ 2000 nt
+        - variety of functions
 
 DNA/RNA 其实是 molecule 的名称，所以 genome 和 DNA/RNA 的关系大致相当于 "一坨炭" 和 "碳分子" 的关系
 
