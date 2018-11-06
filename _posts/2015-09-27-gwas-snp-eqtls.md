@@ -114,18 +114,6 @@ Not sure whether they are correct or accurate, but a good start for further unde
 
 ### SNP and Zygosity
 
-[Zygosity](https://en.wikipedia.org/wiki/Zygosity) ([zaɪˈgɒsɪti]) is the degree of similarity of the alleles for a trait in an organism.
-
-Most eukaryotes have two matching sets of chromosomes; that is, they are _**diploid**_. Diploid organisms have the same loci on each of their two sets of homologous chromosomes, except that the sequences at these loci may differ between the two chromosomes in a matching pair and that a few chromosomes may be mismatched as part of a chromosomal sex-determination system.
-
-- If both alleles of a diploid organism are the same, the organism is _**homozygous**_ ([ˌhoʊməˈzaɪgəs]) at that locus. 
-	- An individual that is _**homozygous-dominant**_ for a particular trait carries two copies of the allele that codes for the dominant trait. This allele, often called the "dominant allele", is normally represented by a capital letter, e.g. `A`. Then the genetype can be represented by `AA`.
-	- An individual that is _**homozygous-recessive**_ for a particular trait carries two copies of the allele that codes for the recessive trait. This allele, often called the "recessive allele", is usually represented by the lowercase form of the letter, e.g. `a`. Then the genetype can be represented by `aa`.
-- If they are different, the organism is _**heterozygous**_ ([ˌhɛtərəˈzaɪgəs]) at that locus. 
-- If one allele is missing, it is _**hemizygous**_ ([ˌhɛmɪˈzaɪgəs]).
-	- hemizygote: [ˌhɛmɪˈzaɪgoʊt], a hemizygous individual
-- If both alleles are missing, it is _**nullizygous**_.
-
 A diploid organism contains two copies of each chromosome. If there is a SNP at a particular position then there are 3 possibilties:
 
 - both chromosomes contain the SNP (homozygous for the SNP) 
@@ -151,10 +139,6 @@ The SNP's on one chromosome are described as a _**haplotype**_ ([ˈhæpləˌtaɪ
 	- A second specific meaning of the term haplotype: a set of SNPs on one chromosome that tend to always occur together, i.e., that are associated statistically.
 	- Another specific definition of haplotype: Many human genetic testing companies use the term 'haplotype' to refer to an individual collection of specific mutations within a given genetic segment. 
 		- The term 'haplogroup' refers to the SNP/unique-event polymorphism (UEP) mutations that represent the clade to which a collection of particular human haplotypes belong. (Clade here refers to a set of people sharing a common ancestor.)
-
-### Genotyping 
-
-Genotyping is the process of determining differences in the genetic make-up (genotype) of an individual. (E.g. by sequencing DNA)
 
 ### SNP vs SNV
 

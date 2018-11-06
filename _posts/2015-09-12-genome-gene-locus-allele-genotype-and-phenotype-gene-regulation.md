@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Genome / Gene, Locus, Allele, Genotype & Phenotype / Gene Regulation"
+title: "Gene / Gene Regulation"
 description: ""
 category: Biology
 tags: []
@@ -9,8 +9,6 @@ tags: []
 
 参考：
 
-- [Chromatin vs. Chromosome](http://www.diffen.com/difference/Chromatin_vs_Chromosome)
-- [Chromosome Banding and Nomenclature](http://www.ncbi.nlm.nih.gov/Class/MLACourse/Original8Hour/Genetics/chrombanding.html)
 - [Exons, Introns, Codons, & their equivalents](http://www.mun.ca/biology/scarr/Exons_Introns_Codons.html)
 - [Transcription (genetics)](https://en.wikipedia.org/wiki/Transcription_(genetics\))
 - [Coding strand](https://en.wikipedia.org/wiki/Coding_strand)
@@ -20,48 +18,7 @@ tags: []
 
 -----
 
-## Genome
-
-Genome：基因組，包括
-
-- RNA
-- DNA
-
-DNA 的宏观物理结构是 Chromosome (染色体)：
-
-- Chromosome 物理结构上可以进一步细分为 Chromatin / Chromatid
-	- Cell 在不分裂的时候，Chromosome 以 Chromatin (['krəʊmətɪn], 染色质) 的形式存在
-		- DNA double helix is packaged by histones to form a complex called _**chromatin**_.
-		- The chromatin undergoes further condensation to form the _**chromosome**_.
-		- So while the chromatin is a lower order of DNA organization; chromosomes are the higher order of DNA organization.
-	- 在 [Cell Cycle](/biology/2015/07/29/cell-cycle) 的 S phase，一条 Chromatin 会分裂成两条 Chromatids (['krəʊmətɪd], 染色单体)
-		- Every chromatid has a short _**p-arm**_ ("p" for "petit") and a long _**q-arm**_ ("q" for "queue")
-		- Every 2 chromatids are connected by a _**centromere**_.
-		- 我们在研究单条 Chromosome 的时候仍然会使用 p-arm、q-arm 和 centromere 来细分单条 Chromosome 的结构
-- Chromosome 按功能分类可以分为 Allosome (['ælʊsəʊm], 性染色体) / Autosome (['ɔ:təsəʊm], 常染色体)
-	- 人体的 Autosome 是按长度从长到短编号的，最长的是 1 号，最短的是 22 号
-	- For a specific chromosome, say _Chromosome 18_, we can specify it by _**maternal**_ chromosome 18 and _**paternal**_ chromosome 18 to indicate from which parent it is inherited.
-	- 我自己姑且造一个记号：$ m_is $ 表示 maternal chromosome $ i $ 的 single strand，$ m_is' $ 表示 maternal chromosome $ i $ 的 complementary strand；同理有 $ p_is $ 和 $ p_is' $
-
-DNA 的微观物理结构是 Double strands 或者叫 Double helix：
-
-- Double strands 物理结构上可以进一步细分为 Nucleotide (['nju:klɪətaɪd], 核苷酸) + Sugar-Phosphate Backbone
-	- Adenine (['ædənɪn], 腺嘌吟)
-	- Cytosine (['saɪtəʊsi:n], 胞嘧啶)
-	- Guanine (['gwɑ:ni:n], 鸟嘌呤)
-	- Thymine (['θaɪmi:n], 胸腺嘧啶)
-
-Double strands 与 Chromosome 的关系：
-
-- 我们不考虑细胞分裂的情形。此时基本可以认为一条 Chromatin 就是一条 Chromosome。
-- 我们称一个连续的 double strands 为一个 "DNA molecule" (我没有找到准确的科学定义，姑且这么认为)
-- 那么一个 DNA molecule 就是一条 Chromosome。又因为人体的每一个 cell 都有 23 pairs of Chromosomes，所以每个 cell 就有 46 个 DNA molecules，有 46 个 double strands，有 92 个 single strand
-	- 每一个 pair 的两条 chromosomes are considered _**homologous**_, meaning that the paired chromosomes are identical to one another in shape and size.
-		- For example, your two single chromosome 2s are paired up because they're identical in shape and size.
-	- "identical in shape and size" 并不意味着 "identical in sequence" 
-	- These homologous chromosomes are sometimes referred to as homologs for short.
-
-## Gene, Locus, Allele, Genotype & Phenotype
+## Gene
 
 Gene: a length of DNA that codes for a specific protein
 
@@ -78,23 +35,6 @@ Gene: a length of DNA that codes for a specific protein
 		- exon 和 intron 一定是位于 coding strand 上的
 
 注意 gene 虽然是 codes for a specific protein，但并不意味着有 gene 就会有 protein。protein 的产生还要靠下面的 Gene Regulation 把关。
-
-_**Each person has the same set of genes**_ - about 20,000 in all. The differences between people come from slight variations in these genes. For example, neither a person with red hair has the "red hair gene" nor a person with brown hair has the "brown hair gene." Instead, all people have genes for hair color, and different versions of these genes dictate whether someone will be a redhead or a brunette. 一个 variant form of a gene 我们称为一个 allele。
-
-A _**locus**_ is the specific physical location of a gene or other DNA sequence on a chromosome, like a genetic street address.
-
-从上面两端来看，gene 更像是一个 "表示位置" 的、universal 的概念，类似 locus。比如假定 7 号 chromosome 的 $ s_{100-200} $ 是一个 gene，那么全世界所有人的 7 号 chromosome 的 $ s_{100-200} $ 都是 gene，只是 expression 有差异而已。
-
-如果我们单看一个个体，因为我们的 chromosome 是成对的，所以如果 7 号 chromosome 的 $ s_{100-200} $ 是一个 gene，那么 $ m_7s_{100-200} $ 和 $ p_7s_{100-200} $ 都是 gene，这就成了 "2 versions of a gene"，换言之，2 alleles。
-
-Each pair of alleles represents the _**genotype**_ of a specific gene. Genotypes are described
-
-- as homozygous if there are two identical alleles at a particular locus and
-- as heterozygous if the two alleles differ.
-
-_**Phenotype**_ is the outward appearance of the organism, resulted from the genotype.
-
-- When an organism is heterozygous at a specific locus and carries one _**dominant**_ and one _**recessive**_ allele, the organism will express the dominant phenotype.
 
 ## Gene Regulation
 
