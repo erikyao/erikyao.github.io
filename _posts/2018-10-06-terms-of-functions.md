@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Terms of Functions"
+title: "Terminology Recap: Functions"
 description: ""
 category: Math
 tags: []
