@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Terminology Recap: Genome / Chromosome / Chromatin / Chromatid / DNA / Double Strands"
+title: "Terminology Recap: Genome / Chromosome / Nucleosome / Chromatin / Chromatid / DNA / Double Strands"
 description: ""
 category: Biology
 tags: []
@@ -36,7 +36,7 @@ Genome is the genetic material of an organism. It consists of DNA, or RNA in RNA
 
 DNA/RNA 其实是 molecule 的名称，所以 genome 和 DNA/RNA 的关系大致相当于 "一坨炭" 和 "碳分子" 的关系
 
-## Chromosome / Chromatin / Chromatid / DNA / Double Strands
+## Chromosome / Chromatin / Nucleosome / Chromatid / DNA / Double Strands
 
 DNA 是大分子名，Double Strand 是它的物理结构，所以大致上可以认为 DNA == Double Strand
 
@@ -47,6 +47,9 @@ DNA 是大分子名，Double Strand 是它的物理结构，所以大致上可�
     - Thymine ([‘θaɪmi:n], 胸腺嘧啶)
 - `Nucleotide + Sugar-Phosphate Backbone == 1 DNA Double Strand` (or Double Helix)
 - `1 DNA Double Strand + Histones == 1 Chromatin`
+    - DNA-histone complex 整体叫做 **chromotin**
+    - The basic repeating structural (and functional) unit of chromatin is the **nucleosome**, which contains 8 histone proteins and about 146 bp of DNA
+    - 参 [DNA Packaging: Nucleosomes and Chromatin](https://www.nature.com/scitable/topicpage/dna-packaging-nucleosomes-and-chromatin-310)
 - cell 在不分裂的情况下：further condensed `1 Chromatin == 1 Chromosome`
     - chromosome 按功能分类可以分为 allosome ([‘ælʊsəʊm], 性染色体) / autosome ([‘ɔ:təsəʊm], 常染色体)
     - 人体的 autosome 是按长度从长到短编号的，最长的是 1 号，最短的是 22 号
