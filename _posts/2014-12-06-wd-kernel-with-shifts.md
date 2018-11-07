@@ -11,22 +11,6 @@ tags: [Paper, SVM]
 
 -----
 
-有必要先科普下啥是 alternative splicing。这里有篇很好的科普文 [Introduction to Split Genes and Splicing](http://www.clarkfrancis.com/docs/Intro_to_Splicing.html)。
-
-简单说就是在 DNA → mRNA 的 transcription 过程中，有个中间产物 pre-mRNA。pre-mRNA 是 exon 和 intron 交替排列的一个结构，比如 [exon1, _intron1_, exon2, _intro2_, exon3] 这样。spliceosome 的 splicing 过程会减掉 intron，把 exon 拼接起来形成最终的 mRNA，比如 [exon1, exon2, exon3] 这样。alternative splicing 的意思就是 "我不一定只有一种拼接方式"，比如我最终的 mRNA 可能只有 [exon1, exon2]。这样的结果就是同一段 DNA，可能 transcribe 成不同的 mRNA，进一步 translate 成不同的 protein。
-
-alternative splicing 也不止 "漏掉 exon" 这么一种形式，具体可以看 [wikipedia](http://en.wikipedia.org/wiki/Alternative_splicing#Modes)。
-
-另外说一下术语：
-
-* donor (splice) site: 5' end of the intron
-* branch site: somewhere near the 3' end of the intron
-* acceptor (splice) site: 3' end of the intron
-
-为什么命名成 donor 和 acceptor 我一直没查到，应该是类似 "甲基供体" "氢离子受体" 这样的化学概念，由 splicing 化学反应的特点来命名的。
-
------
-
 ## 1. Introduction
 
 作者先列举了一系列新的 feature 成果，指出：
