@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Terminology Recap: Pre-transcriptional Gene Regulation / Transcription / Translation / mRNA / TF / TFBS / Promoter / Enhancer / Silencer / Insulator / Exon / Intron / Codon / Alternative Splicing / Gene Isoform / Proten Isoform / ORF"
+title: "Terminology Recap: Pre-transcriptional Gene Regulation / Transcription / Translation / mRNA / TF / TFBS / Promoter / Enhancer / Silencer / Insulator / Exon / Intron / Codon / Alternative Splicing / Gene Isoform / Protein Isoform / ORF"
 description: ""
 category: Biology
 tags: []
