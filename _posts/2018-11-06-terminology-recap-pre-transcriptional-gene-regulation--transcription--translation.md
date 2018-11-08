@@ -12,9 +12,9 @@ tags: []
 - [1. Overview](#1-overview)
 - [2. Transcription](#2-transcription)
     - [2.1 Transcription Initiation](#21-transcription-initiation)
-        - [2.1.1 预备知识：Histone Acetylation (乙酰化) / Deacetylation (去乙酰化)](#211-预备知识histone-acetylation-乙酰化--deacetylation-去乙酰化)
-        - [2.1.2 预备知识：RNA / RNA Polymerase](#212-预备知识rna--rna-polymerase)
-        - [2.1.3 预备知识：TF / GTF](#213-预备知识tf--gtf)
+        - [2.1.1 预备知识：Histone Acetylation (乙酰化) / Deacetylation (去乙酰化)](#211-%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86histone-acetylation-%E4%B9%99%E9%85%B0%E5%8C%96--deacetylation-%E5%8E%BB%E4%B9%99%E9%85%B0%E5%8C%96)
+        - [2.1.2 预备知识：RNA / RNA Polymerase](#212-%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86rna--rna-polymerase)
+        - [2.1.3 预备知识：TF / GTF](#213-%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86tf--gtf)
         - [2.1.4 PIC](#214-pic)
     - [2.2 Post-transcriptional Modification](#22-post-transcriptional-modification)
         - [2.2.1 5' Capping](#221-5-capping)
@@ -27,6 +27,7 @@ tags: []
     - [3.1 Codon / Start Codon](#31-codon--start-codon)
     - [3.2 Related Topics: Coding Strand (Sense Strand) / Non-coding Strand (Template Strand)](#32-related-topics-coding-strand-sense-strand--non-coding-strand-template-strand)
     - [3.3 Related Topics: Reading Frame / Open Reading Frame](#33-related-topics-reading-frame--open-reading-frame)
+    - [3.4 tRNA 是 amino acid 的搬运工](#34-trna-%E6%98%AF-amino-acid-%E7%9A%84%E6%90%AC%E8%BF%90%E5%B7%A5)
 - [4. Pre-transcriptional Gene Regulation](#4-pre-transcriptional-gene-regulation)
     - [4.1 Regulatory regions in DNA: promoters, enhancers, silencers, and insulators / TFBS](#41-regulatory-regions-in-dna-promoters-enhancers-silencers-and-insulators--tfbs)
         - [4.1.1 Promoter](#411-promoter)
@@ -373,6 +374,14 @@ DNA 的 **coding strand** (a.k.a **sense strand**) 指与 mRNA sequence 相同�
 > An ORF is a continuous stretch of codons that contain a start codon (usually `AUG`) and a stop codon (usually `UAA`, `UAG` or `UGA`).
 
 ![](https://farm5.staticflickr.com/4890/31902798608_fd14bd8410_o_d.png)
+
+### 3.4 tRNA 是 amino acid 的搬运工
+
+tRNA (Transfer RNA): 每一个 tRNA 都是一个 3nt 的 sequence 并携带一个 amino acid，在 translation 阶段，tRNA 与 mRNA 对接 (每个 tRNA 的 3nt 对应 mRNA 上的一个 codon)，形成 amino acids 链 (多肽)
+
+一图胜千言：
+
+![](https://upload.wikimedia.org/wikipedia/commons/0/0f/Peptide_syn.png)
 
 ## 4. Pre-transcriptional Gene Regulation
 
