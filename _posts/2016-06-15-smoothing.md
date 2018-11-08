@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "smoothing"
+title: "Smoothing"
 description: ""
 category: Math
 tags: [Math-Statistics]

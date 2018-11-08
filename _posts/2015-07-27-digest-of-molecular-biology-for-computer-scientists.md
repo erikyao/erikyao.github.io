@@ -164,7 +164,7 @@ When a peptide bond is formed, the amino acid is changed (losing two hydrogen at
 
 It is interesting to note that only a small proportion of the very many possible polypeptide chains are naturally occurring proteins. Computationally, this is unsurprising.
 
-The twenty naturally occuring amino acids all have the common elements shown in Figure 2. The varying parts are called **sidechains**; the two carbons and the nitrogen in the core are sometimes called the **backbone**. Peptide bonds link together the backbones of a sequence of amino acids. That link can be characterized as having two degrees of rotational freedom, the phi ($ \phi $) and psi ($ \psi $) angles (although from the point of view of physics this is a drastic simplification, in most biological contexts it is valid). The conformation of a protein backbone (i.e. its shape when folded) can be adequately described as a series of $ \phi/\psi $ angles, although it is also possible to represent the shape using the Cartesian coordinates ([kɑ:ˈti:ziən], 笛卡尔坐标系) of the central backbone atom (the alpha carbon, written $ C\alpha $), or using various other representational schemes (see, e.g., Hunter or Zhang & Waltz in this volume).
+The twenty naturally occuring amino acids all have the common elements shown in Figure 2. The varying parts are called **sidechains**; the two carbons and the nitrogen in the core are sometimes called the **backbone**. Peptide bonds link together the backbones of a sequence of amino acids. That link can be characterized as having two degrees of rotational freedom, the phi ($\phi$) and psi ($\psi$) angles (although from the point of view of physics this is a drastic simplification, in most biological contexts it is valid). The conformation of a protein backbone (i.e. its shape when folded) can be adequately described as a series of $\phi/\psi$ angles, although it is also possible to represent the shape using the Cartesian coordinates ([kɑ:ˈti:ziən], 笛卡尔坐标系) of the central backbone atom (the alpha carbon, written $C\alpha$), or using various other representational schemes (see, e.g., Hunter or Zhang & Waltz in this volume).
 
 Exactly how the properties of the amino acids in the primary structure of a protein interact to determine the protein’s ultimate conformation remains unknown. The chemical properties of the individual amino acids, however, are known with great precision. These properties form the basis for many representations of amino acids, e.g. in programs attempting to predict structure from sequence. Here is a brief summary of some of them:
 
@@ -326,14 +326,14 @@ The genetic code specifies only the amino acid sequence of a protein. As a new p
 
 - The protein primary structure is the amino acid sequence.
 - The protein tertiary structure is the position of the atoms in a folded protein.
-- The protein secondary structure is the general three-dimensional form of local segments of proteins which can be formally defined by the pattern of hydrogen bonds of the protein (such as $ \alpha $-helices and $ \beta $-sheets) that are observed in an atomic-resolution structure. More specifically, the secondary structure is defined by the patterns of hydrogen bonds formed between amine hydrogen and carbonyl oxygen atoms contained in the backbone peptide bonds of the protein. 
+- The protein secondary structure is the general three-dimensional form of local segments of proteins which can be formally defined by the pattern of hydrogen bonds of the protein (such as $\alpha$-helices and $\beta$-sheets) that are observed in an atomic-resolution structure. More specifically, the secondary structure is defined by the patterns of hydrogen bonds formed between amine hydrogen and carbonyl oxygen atoms contained in the backbone peptide bonds of the protein. 
 	- There are two main kinds of secondary structure:
-		- $ \alpha $-helices are corkscrew-shaped conformations where the amino acids are packed tightlytogether
-		- $ \beta $-sheets are long flat sheets made up of two or more adjacent strands of the molecule, extended so that the amino acids are stretched out as far from each other as they can be. 
-			- Each extended chain is called a $ \beta $-strand, and two or more $ \beta $-strands held together by hydrogen bonds are called a $ \beta $-sheet. 
-			- $ \beta $-sheets can be composed of strands running in the same direction (called a parallel $ \beta $-sheet) or running in the opposite direction (antiparallel). 
-	- Other kinds of secondary structure include structures that are even more tightly packed than $ \alpha $-helices called $ 3-10 $ helices, and a variety of small structures that link other structures, called $ \beta $-turns.
-	- Some local combinations of secondary structures have been observed in a variety of different proteins. For example, two $ \alpha $-helices linked by a turn with an approximately 60° angle have been observed in a variety of proteins that bind to DNA. This pattern is called the **helix-turn-helix** motif, and is an example of what is known as super-secondary structure.	
+		- $\alpha$-helices are corkscrew-shaped conformations where the amino acids are packed tightlytogether
+		- $\beta$-sheets are long flat sheets made up of two or more adjacent strands of the molecule, extended so that the amino acids are stretched out as far from each other as they can be. 
+			- Each extended chain is called a $\beta$-strand, and two or more $beta$-strands held together by hydrogen bonds are called a $\beta$-sheet. 
+			- $\beta$-sheets can be composed of strands running in the same direction (called a parallel $\beta$-sheet) or running in the opposite direction (antiparallel). 
+	- Other kinds of secondary structure include structures that are even more tightly packed than $\alpha$-helices called $3-10$ helices, and a variety of small structures that link other structures, called $\beta$-turns.
+	- Some local combinations of secondary structures have been observed in a variety of different proteins. For example, two $\alpha$-helices linked by a turn with an approximately 60° angle have been observed in a variety of proteins that bind to DNA. This pattern is called the **helix-turn-helix** motif, and is an example of what is known as super-secondary structure.	
 
 Finally, some proteins only become functional when assembled with other molecules. Additions necessary to make the folded protein active are termed the protein’s quaternary structure.
 
@@ -365,9 +365,9 @@ In most biological circumstances, the DNA forms a classic double helix, called B
 
 The genetic information of an organism can be stored in one or more distinct DNA molecules; each is called a **chromosome**. In some sexually reproducing organisms, called **diploids**, each chromosome contains two similar DNA molecules physically bound together, one from each parent. Sexually reproducing organisms with single DNA molecules in their chromosomes are called **haploid**. Human beings are diploid with 23 pairs of linear chromosomes. In Bacteria, it is common for the ends of the DNA molecule to bind together, forming a circular chromosome. All of the genetic information of an organism, taken together as a whole, is refered to as its **genome**.
 
-The primary role of nucleic acids is to carry the encoding of the primary structure of proteins. Each non-overlapping triplet of nucleotides, called a **codon**, corresponds to a particular amino acid. Most amino acids are encoded by more than one codon. For example, alanine is represented in DNA by the codons GCT, GCC, GCA and GCG. Notice that the first two nucleotides of these codons are all identical, and that the third is redundant. Although this is not true for all of the amino acids, most codon synonyms differ only in the last nucleotide. This phenomenon is called the degeneracy of the code.
+The primary role of nucleic acids is to carry the encoding of the primary structure of proteins. Each non-overlapping triplet of nucleotides, called a **codon**, corresponds to a particular amino acid. Most amino acids are encoded by more than one codon. For example, alanine is represented in DNA by the codons `GCT`, `GCC`, `GCA` and `GCG`. Notice that the first two nucleotides of these codons are all identical, and that the third is redundant. Although this is not true for all of the amino acids, most codon synonyms differ only in the last nucleotide. This phenomenon is called the degeneracy of the code.
 
-Since codons come in triples, there are three possible places to start parsing a segment of DNA. For example, the chain ...AATGCGATAAG... could be read ...AAT-GCG-ATA... or ...ATG-CGATAA... or ...TGC-GAT-AAG.... This problem is similar to decoding an asynchronous serial bit stream into bytes. Each of these parsings is called a **reading frame**. A parsing with a long enough string of codons with no intervening stop codons is called an **open reading frame**, or **ORF**; and could be translated into a protein.
+Since codons come in triples, there are three possible places to start parsing a segment of DNA. For example, the chain `...AATGCGATAAG...` could be read `...AAT-GCG-ATA...` or `...ATG-CGATAA...` or `...TGC-GAT-AAG....` This problem is similar to decoding an asynchronous serial bit stream into bytes. Each of these parsings is called a **reading frame**. A parsing with a long enough string of codons with no intervening stop codons is called an **open reading frame**, or **ORF**; and could be translated into a protein.
 
 Not only are there three possible reading frames in a DNA sequence, it is possible to read off either strand of the double helix (但是读的顺序是定死的，一定是 5' end 到 3' end). This is sometimes called reading from the **antisense** or **complementary** strand. An antisense message can also be parsed three ways, making a total of 6 possible reading frames for every DNA sequence.
 
@@ -398,7 +398,7 @@ Many regulatory proteins recognize and bind to very specific sequences in the DN
 
 - Sequences that occur just upstream (towards the 5' end) of the coding region that encourage the production of the protein are called **promoters**. 
 - Similar regions either downstream of the coding region or relatively far upstream are called **enhancers**. 
-- Sequences that tend to prevent the production of a protein are called **repressors**.
+- Sequences that tend to prevent the production of a protein are called **silencers**.
 
 Cells need to turn entire suites of genes on and off in response to many different events, ranging from normal development to trying to repair damage to the cell. The control mechanisms are responsive to the level of a product already in the cell (for homeostatic control) as well as to a tremendous variety of extracellular signals. Perhaps the most amazing activities in gene regulation occur during development; not only are genes turned on and off with precise timing, but the control can extend to producing alternative splicings of the nascent primary transcripts (as is the case in the transition from fetal to normal hemoglobin).
 
@@ -443,7 +443,7 @@ The purpose of this section is to describe some of the basic experimental method
 
 The following six organisms form the main collection of models used in molecular biology:
 
-#### E. coli
+#### _E. coli_
 
 - Escherichia coli: [ˌeʃəˈrikiə] ['kəʊlaɪ], 大肠杆菌
 	
@@ -477,13 +477,13 @@ It is one of the simplest creatures with a nervous system (which involves about 
 
 Not only is the complete anatomy of the organism known, but a complete cell fate map has been generated, tracing the developmental lineage of each of each cell throughout the lifespan of the organism.
 
-#### D. melanogaster, i.e. common fruit fly
+#### _D. melanogaster_, i.e. common fruit fly
 
 - Drosophila melanogaster: [drɒˈsɒfɪlə] [mɛ.ɫa.nɔˈɡas.tɛr]
 
 These flies have short generation times, and many different genetically determined morphological characteristics (e.g. eye color) that can readily be determined by visual inspection.
 
-#### M. musculus, i.e. house mouse
+#### _M. musculus_, i.e. house mouse
 
 - Mus musculus: [mʌsk'jʊləs], 
 
@@ -498,8 +498,9 @@ The similarities between mice and people mean also that the mouse is a very comp
 - E.g. light microscope and electon microscope. 
 - New technologies including the Atomic Force Microscope (AFM) and the Scanning Tunnelling Microscope (STM) offer the potential to create images of individual molecules.
 
-### Gel Electrophoresis ([ɪˌlektrəʊfə'ri:sɪs], 凝胶电泳)
+### Gel Electrophoresis
 
+- [ɪˌlektrəʊfə'ri:sɪs], 凝胶电泳
 - A charged molecule, when placed in an electric field, will be accelerated; positively charged molecules will move toward negative electrodes and vice versa. 
 - By placing a mixture of molecules of interest in a medium and subjecting them to an electric charge, the molecules will migrate through the medium and separate from each other. How fast the molecules will move depends on their charge and their size—bigger molecules see more resistance from the medium. 
 - The procedure, called **electrophoresis** involves putting a spot of the mixture to be analyzed at the top of a polyacrylamide ([ˌpɒli:ə'krɪləˌmaɪd], 聚丙烯酰胺) or agarose (['ɑ:gərəʊs], 琼脂糖) gel, and applying an electric field for a period of time. Then the gel is stained so that the molecules become visible; the stains appear as stripes along the gel, and are called **bands**. 

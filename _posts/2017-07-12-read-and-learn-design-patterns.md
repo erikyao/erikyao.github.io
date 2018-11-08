@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Read and Learn Design Patterns"
+title: "Learn Design Patterns: Resources"
 description: ""
 category: Java
 tags: [Java-DesignPattern]
@@ -13,6 +13,8 @@ I really like this table of DP hierarchy from [stackoverflow: Using a strategy p
 
 Then thanks to _BalusC_'s great summary of [Examples of GoF Design Patterns in Java's core libraries](https://stackoverflow.com/a/2707195), we can read the java source code to learn DP.
 
-Finally I'd like to advertise [GrepCode](http://grepcode.com/), a handy tool to locate the java source code.
+Finally I'd like to advertise ~~[GrepCode](http://grepcode.com/)~~, a handy tool to locate the java source code.
+
+P.S. _GrepCode_ is down. Try [zGrepCode](https://zgrepcode.com/)!
 
 Enjoy!
