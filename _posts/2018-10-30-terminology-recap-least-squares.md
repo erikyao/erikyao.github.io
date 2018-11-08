@@ -130,6 +130,10 @@ OLS 是 MLE 的特殊形式：
 
 - [Maximum likelihood estimators and least squares](http://people.math.gatech.edu/~ecroot/3225/maximum_likelihood.pdf)
 
+OLS vs GLM in R code:
+
+- [How does OLS regression relate to generalised linear modelling](https://stats.stackexchange.com/a/211592)
+
 ## 4. Non-linear Least Squares
 
 ## 5. Shrinkage & Regularization (Ridge / Lasso / ElasticNet)

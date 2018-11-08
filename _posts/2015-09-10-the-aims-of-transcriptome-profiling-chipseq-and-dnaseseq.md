@@ -11,9 +11,10 @@ tags: []
 
 其实 Transcriptome Profiling 是个抽象的概念，而且涉及到 profiling (the act or process of learning information about someone based on what is already known)，就可以简单理解为确定某些东西的成分。
 
-[Wiki - Transcription (genetics): Measuring and detecting transcription](https://en.wikipedia.org/wiki/Transcription_(genetics\)#Measuring_and_detecting_transcription) 列的这几个技术中，DNA microarrays 和 RNA-Seq 都是隶属 Transcriptome Profiling 的具体的技术。下面我们稍微说一下 RNA-Seq。
+[Wikipedia - Transcription (biology): Measuring and detecting transcription](https://en.wikipedia.org/wiki/Transcription_(biology)#Measuring_and_detecting) 列的这几个技术中，DNA microarrays 和 RNA-Seq 都是隶属 Transcriptome Profiling 的具体的技术。
 
-RNA-seq (RNA sequencing), also called whole transcriptome shotgun sequencing (WTSS), is a technology that uses the capabilities of next-generation sequencing to reveal a snapshot of RNA presence and quantity from a genome at a given moment in time. 所以明显，RNA-seq 就是给 RNA 测序用的。Transcriptome Profiling 大致也就是这样类似的功能。
+- RNA-seq (RNA sequencing), a.k.a Whole Transcriptome Shotgun Sequencing (WTSS)
+- RNA-seq 就是给 RNA 测序
 
 ## ChIP-seq
 
@@ -24,12 +25,14 @@ ChIP-seq combines **chromatin immunoprecipitation** (ChIP) with massively parall
 		- (meteorology) Any or all of the forms of water particles, whether liquid or solid, that fall from the atmosphere, 降水
 		- (countable, chemistry) A reaction that leads to the formation of a heavier solid in a lighter liquid, 沉淀 (物)
 		
-从 [Genome / Gene, Locus, Allele, Genotype & Phenotype / Gene Regulation](/biology/2015/09/12/genome-gene-locus-allele-genotype-and-phenotype-gene-regulation) 里可以得知，TF 也是一种 protein，所以我们可以使用 ChIP-seq 来发现 TF，进一步发现 Gene control regions。
+因为 TF 也是一种 protein，所以我们可以使用 ChIP-seq 来发现 TF，进一步发现 Gene control regions。
+
+ChIP-seq analysis R 语言实际操作：[ChIP-seq analysis basics](https://www.bioconductor.org/help/course-materials/2015/CSAMA2015/lab/Epigenetics_and_Chip_seqLab.pdf)
 
 ## DNase-Seq
 
 A deoxyribonuclease ([di:'ɒksɪrɑɪbəʊ'nju:klɪeɪs], 脱氧核糖核酸酶, DNAse, for short) is any enzyme that catalyzes the hydrolytic cleavage (cleave, [kli:v], 劈) of phosphodiester linkages in the DNA backbone, thus degrading DNA. Deoxyribonucleases are one type of nuclease, a generic term for enzymes capable of hydrolising phosphodiester bonds that link nucleotides.
 
-从 [Genome / Gene, Locus, Allele, Genotype & Phenotype / Gene Regulation](/biology/2015/09/12/genome-gene-locus-allele-genotype-and-phenotype-gene-regulation) 里可以得知，DNA double helix is packaged by histones to form a complex called chromatin. 当时 DNA 和 histones 缠绕的程度是有不同的，你可以把 histones 想象成是树，DNA 想象成一条绳子，要绕在这些树上；有的时候，几个 histones 聚在一起，DNA 在 histones 中间无法展开；有的时候两棵树离得比较开，DNA 就能拉开。这种拉开的情形，我们称为 open chromatin。Gene control regions 更多是出现在 open chromatin 上的。而 DNase-Seq 的作用就是 to find open chromatin。
+DNA double helix is packaged by histones to form chromatin. 而 DNase-Seq 的作用就是 to find open chromatin (where DNA 从 histone 中解放出来，gene control region 得以暴露出来)。
 
 我们研究的最终目的是 to find gene control regions，所以 DNase-Seq + ChIP-seq 是一个挺好的 combo。
