@@ -135,10 +135,26 @@ cp ./bin/bedtools /usr/local/bin
 If you don't want to mess up your `/usr/local/bin` directory, add the following line to `gwava_annotate.py`:
 
 ```python
-pybedtools.set_bedtools_path("~/Downloads/bedtools-2.18.2/bin")
-```  
+# pybedtools.set_bedtools_path("~/Downloads/bedtools-2.18.2/bin")  # WRONG. See update 2018-11-13
+```
 
 You can get other versions rather than `2.25.0` of `bedtools` by `apt`, but I am not sure whether those versions are compatible or not. See [Ubuntu - bedtools package](https://launchpad.net/ubuntu/+source/bedtools) for more details.
+
+### Update 2018-11-13
+
+Python cannot recognize `~` as home path. So use either full path like
+
+```python
+pybedtools.set_bedtools_path("/home/erik/Downloads/bedtools-2.18.2/bin")
+```
+
+or `os.path.expanduser`:
+
+```python
+import os
+
+pybedtools.set_bedtools_path(os.path.expanduser("~/Downloads/bedtools-2.18.2/bin"))
+```
 
 ## Issue 4: nobody ever told me that `samtools` is required...
 
