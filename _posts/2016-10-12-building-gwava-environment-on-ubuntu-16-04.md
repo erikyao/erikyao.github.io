@@ -7,7 +7,7 @@ tags: []
 ---
 {% include JB/setup %}
 
-[GWAVA](https://www.sanger.ac.uk/sanger/StatGen_Gwava), Genome Wide Annotation of VAriants, is a tool aiming to predict the functional impact of non-coding genetic variants. It consists of two parts:
+[GWAVA](https://www.sanger.ac.uk/sanger/StatGen_Gwava), _Genome Wide Annotation of VAriants_, is a tool aiming to predict the functional impact of non-coding genetic variants. It consists of two parts:
 
 1. a procedure of variant annotation
 2. a random-forest classifier using variant annotations to predict functional variants vs non-functional ones
@@ -26,11 +26,11 @@ The source code can be found in the [_src_](ftp://ftp.sanger.ac.uk/pub/resources
 Of course, it's better to establish an `virtualenv` specially to run GWAVA code. The project folder structure is like:
 
 - {PROJECT}
-    - _src_ (copy fom FTP)
-    - _annotated_ (ditto)
-    - _paper_data_ (ditto)
-    - _source_data_ (ditto. Caution: >22G; plan ahead.)
-    - _training_sets_ (ditto)
+    - _src_ (download fom FTP)
+    - _annotated_ (Ditto)
+    - _paper_data_ (Ditto)
+    - _source_data_ (Ditto. Caution: >22G; plan ahead.)
+    - _training_sets_ (Ditto)
     - _tmp_ (just `mkdir` a new folder; it's required but won't be created automatically by GWAVA)
 
 ## Issue 1: `numpy` compatibility
@@ -52,7 +52,7 @@ cp bgzip tabix /YourBinFolder
 
 ### Update 2018-04-23
 
-I met a make error today:
+I met a `make` error today:
 
 ```txt
 erik:tabix-0.2.5$ make
@@ -123,7 +123,7 @@ even though `-ops` and `freqdesc` are "legal" options listed in its man page... 
 
 From the title of the post [bedtools 2.18.2 and pybedtools 0.6.4](https://groups.google.com/forum/#!topic/bedtools-discuss/8kfkutrodKI) from [Google Group - bedtools-discuss](https://groups.google.com/forum/#!forum/bedtools-discuss) by _Aaron Quinlan_, one of the developers of `bedtools`, we can see that we should use `bedtools 2.18.2`.
 
-`bedtools` was originally hosted on [Google Code - bedtools](https://code.google.com/archive/p/bedtools/), but now has been moved to [Github - arq5x/bedtools2](https://github.com/arq5x/bedtools2/releases). Follow [this document](http://gensoft.pasteur.fr/docs/bedtools/2.19.1/content/installation.html) to install:
+`bedtools` was originally hosted on [Google Code - bedtools](https://code.google.com/archive/p/bedtools/), but now on [Github - arq5x/bedtools2](https://github.com/arq5x/bedtools2/releases). Follow [this document](http://gensoft.pasteur.fr/docs/bedtools/2.19.1/content/installation.html) to install:
 
 ```bash
 tar -zxvf bedtools-2.18.2.tar.gz
@@ -132,7 +132,7 @@ make
 cp ./bin/bedtools /usr/local/bin
 ```
 
-If you don't want to mess up your `bin` directory, add the following line to `gwava_annotate.py`:
+If you don't want to mess up your `/usr/local/bin` directory, add the following line to `gwava_annotate.py`:
 
 ```python
 pybedtools.set_bedtools_path("~/Downloads/bedtools-2.18.2/bin")
@@ -144,8 +144,8 @@ You can get other versions rather than `2.25.0` of `bedtools` by `apt`, but I am
 
 ... and which version?
 
-Luckily, the [Availability and Requirements](http://bmcresnotes.biomedcentral.com/articles/10.1186/1756-0500-7-618#Sec16) section of a 2014 paper, _SPANDx: a genomics pipeline for comparative analysis of large haploid whole genome re-sequencing datasets_, indicates:
+Luckily, the [Availability and Requirements](http://bmcresnotes.biomedcentral.com/articles/10.1186/1756-0500-7-618#Sec16) section of a 2014 paper, _SPANDx: a genomics pipeline for comparative analysis of large haploid whole genome re-sequencing datasets_, indicated:
 
 > Other requirements: ... SAMtools 0.1.19, BEDTools 2.18.2...
 
-Yes, let's use `samtools 0.1.19`. (SMH...) And this time finally we can just use `apt install samtools`! Yikes! See [Ubuntu - samtools package](https://launchpad.net/ubuntu/+source/samtools) for more details.
+Well, let's use `samtools 0.1.19`. (SMH...) And this time finally we can just use `apt install samtools`! Yikes! See [Ubuntu - samtools package](https://launchpad.net/ubuntu/+source/samtools) for more details.
