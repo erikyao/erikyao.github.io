@@ -94,7 +94,7 @@ finally:
     context_manager.__exit__()
 ```
 
-## Variable scope in `with`-statement"
+## Variable scope in `with`-statement
 
 和 `if`-statement 一样，`with` 同样不构成 scope，所以以下两种看上去是 `with` 内部的变量在 `with` 外部是一样可以访问到的：
 
