@@ -171,9 +171,9 @@ Skewness is a measure of asymmetry [əˈsɪmɪtri]:
 
 ![](https://farm5.staticflickr.com/4803/45310349774_48ca18263c_o_d.png)
 
-- 左图：Negative skew ($\gamma_1 < 0$) == The distribution is skewed to the **LEFT** == Long tail is on the left side == Mean is on the left side of the peak 
+- 左图：Negative skew ($\gamma_1 < 0$) == The distribution is skewed to the **LEFT** == Mean is on the left side of the peak 
 	- while the peak is pulled towards **RIGHT**
-- 右图：Positive skew ($\gamma_1 > 0$) == The distribution is skewed to the **RIGHT** == Long tail is on the right side == Mean is on the right side of the peak
+- 右图：Positive skew ($\gamma_1 > 0$) == The distribution is skewed to the **RIGHT** == Mean is on the right side of the peak
 	- while the peak is pulled towards **LEFT**
 
 ## <a name="Kurtosis"></a>5. Kurtosis
