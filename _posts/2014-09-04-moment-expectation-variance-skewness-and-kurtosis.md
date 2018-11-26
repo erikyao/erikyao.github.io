@@ -176,6 +176,10 @@ Skewness is a measure of asymmetry [əˈsɪmɪtri]:
 - 右图：Positive skew ($\gamma_1 > 0$) == The distribution is skewed to the **RIGHT** == Mean is on the right side of the peak
 	- while the peak is pulled towards **LEFT**
 
+所以 skewness 最好不要根据图形去记忆，而应该根据一维坐标轴：[D H@ScienceForums.Net](https://www.scienceforums.net/topic/24013-positive-negative-skewness-please-help/):
+
+> One way to remember the left/right stuff is that it corresponds with the orientation of the numberline. Since negative numbers are to the left of zero, negative skewness is the same as left-skewed. The same goes for positive skewness and right-skewed.
+
 ## <a name="Kurtosis"></a>5. Kurtosis
 
 Kurtosis, from Greek word "kyrtos" for convex, related to word "curve", is mainly defined by $4^{th}$ standardized moment:
