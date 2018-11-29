@@ -703,15 +703,21 @@ The `data` data frame is stored in the ggplot object **as a copy, not a referenc
 
 ### 4.5 `ggplot(mapping=aes(...))` 参数设置 <a name="4-5-ggplotmapping=aes----参数设置"></a>
 
->>>>> 2018-11-29 补充：
-_R for Data Science_ 里推荐的写法是：
-
-```r
-ggplot(data = <DATA>) + <GEOM_FUNCTION>(mapping = aes(<MAPPINGS>))
+```diff
++ <<<<< 2018-11-29 补充：
 ```
 
-可见 `aes` 其实是和 `geom` 作用的。这种写法在处理多个 `geom` 时可以提供一点灵活性 (比如我想同时画 `y~x` 和 `y~log(x)` 这样的场景？)
->>>>> 补充结束
+> _R for Data Science_ 里推荐的写法是：  
+> <br/>
+> ```r
+> ggplot(data = <DATA>) + <GEOM_FUNCTION>(mapping = aes(<MAPPINGS>))
+> ```
+> <br/>
+> 可见 `aes` 其实是和 `geom` 作用的。这种写法在处理多个 `geom` 时可以提供一点灵活性 (比如我想同时画 `y~x` 和 `y~log(x)` 这样的场景？)
+
+```diff
++ 补充结束 >>>>>
+```
 
 The `aes` function takes a list of aesthetic-variable pairs like these:
 
