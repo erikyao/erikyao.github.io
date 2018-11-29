@@ -607,6 +607,28 @@ position_identity: (width = NULL, height = NULL)
 
 ## 第四章 - 用图层构建图像 <a name="第四章---用图层构建图像"></a>
 
+```diff
++ <<<<< 2018-11-29 补充：
+```
+
+> _R for Data Science_ 提到：  
+> <br/>
+> ```r
+> ggplot(data = <DATA>， mapping = aes(<MAPPINGS>)) + <GEOM_FUNCTION>(data = <DATA>， mapping = aes(<MAPPINGS>))
+> ```
+> <br/>
+> `ggplot` 里的 `data` 和 `mapping` 是 plot-global 的，`geom` 里的 `data` 和 `mapping` 是 geom-local 的，你不写就默认全盘使用 global；写了就是在 `geom` 范围内用 local 覆盖掉 global 相应的部分。这样在有多个 `geom` 时就可以灵活组合。比如：  
+> <br/>
+> ```r
+> ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+> 	geom_point(mapping = aes(color = class)) +
+> 	geom_smooth(data = filter(mpg, class == "subcompact"), se = FALSE)
+> ```
+
+```diff
++ 补充结束 >>>>>
+```
+
 ### 4.2 创建 ggplot 对象 <a name="4-2-创建-ggplot-对象"></a>
 
 When we used `qplot()`, it did a lot of things for us: it created a ggplot object, added layers, and displayed the result, using many default values along the way. 
@@ -702,22 +724,6 @@ The `data` data frame is stored in the ggplot object **as a copy, not a referenc
 - and ggplot2 objects are entirely self-contained so that they can be `save()`d to disk and later `load()`ed and plotted without needing anything else from that session.
 
 ### 4.5 `ggplot(mapping=aes(...))` 参数设置 <a name="4-5-ggplotmapping=aes----参数设置"></a>
-
-```diff
-+ <<<<< 2018-11-29 补充：
-```
-
-> _R for Data Science_ 里推荐的写法是：  
-> <br/>
-> ```r
-> ggplot(data = <DATA>) + <GEOM_FUNCTION>(mapping = aes(<MAPPINGS>))
-> ```
-> <br/>
-> 可见 `aes` 其实是和 `geom` 作用的。这种写法在处理多个 `geom` 时可以提供一点灵活性 (比如我想同时画 `y~x` 和 `y~log(x)` 这样的场景？)
-
-```diff
-+ 补充结束 >>>>>
-```
 
 The `aes` function takes a list of aesthetic-variable pairs like these:
 
