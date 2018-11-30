@@ -1,11 +1,15 @@
 ---
 layout: post
-title: "Digest of <i>Advanced R</i>"
+title: "Digest of <i>Advanced R</i> (急待更新)"
 description: ""
 category: R
 tags: [Book, Rcpp]
 ---
 {% include JB/setup %}
+
+P.S. It was 2015 when the 1st edition of this book came out and I wrote this post. Now Hadley Wickham is working on the 2nd edition where a lot contents changed. 
+
+TODO: Update or delete this post.
 
 [curve-demo-1]: https://farm6.staticflickr.com/5650/23292343704_0917e5ef3b_o_d.png
 [lapply]: https://farm2.staticflickr.com/1625/23920545705_e466826c92_o_d.png
