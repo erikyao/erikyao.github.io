@@ -297,7 +297,7 @@ function (..., vars = current_vars())
 
 - `select(flights, tidyselect::last_col())` 选取 last column
 
-#### 3.4.2 `dplyr::select` colnames context
+#### 3.4.2 `dplyr::select()` colnames context
 
 我们注意到这所有的 helper 函数都有一个参数 `vars = current_vars()`，根据文档：
 
@@ -365,13 +365,13 @@ function (x)
 > <br/>
 > If you really want to conceal a function from user-level code, don't export it and it will only be accessible via the ":::" operator.
 
-- 所以 R 的 NAMESPACE file 大抵相当于 python 的 `__all__` (参 [Python: __all__](/python/2017/10/04/python-__all__))
+- 所以 R 的 NAMESPACE file 大抵相当于 python 的 `__all__` (参 [Python: \_\_all\_\_](/python/2017/10/04/python-__all__))
 - 若 `functionName` 出现在 `packageName` 的 NAMESPACE file，说明它随着 `packageName` 被 export，它可以在 `library(packageName)` 之后被直接访问到或是通过 "双冒号式" `packageName::functionName` 访问到
 - 若 `functionName` 没有出现在 `packageName` 的 NAMESPACE file，说明它没有被 export，直接通过函数名或是 "双冒号式" 都无法访问到，但是可以通过 "三冒号式" `packageName:::functionName` 强行访问到
 
 更多关于 NAMESPACE file 的内容可以参考 [Making Your First R Package](http://tinyheero.github.io/jekyll/update/2015/07/26/making-your-first-R-package.html)
 
-### 3.X `dplyr::rename()`
+### 3.5 Digression: `dplyr::rename()` 与 `dplyr::select()` 与
 
 重命名单个 column：
 
