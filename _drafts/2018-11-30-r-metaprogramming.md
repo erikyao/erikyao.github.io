@@ -126,10 +126,11 @@ dplyr::enquo()
             - 比如 `base::as.name("x")` $\Rightarrow$ `name` object `x`
         - `base::quote()`：接收一个 name statement，生成 `name` object 
             - 比如 `base::quote(x)` $\Rightarrow$ `name` object `x`
-- Function
 - `NULL`
+- Function
 - Builtin objects and special forms:
     - 主要指通过 `.Primitive()` 或者 `.Internal()` 实现的函数，分两类：
-        - Builtin functions have all their arguments evaluated and passed to the internal function, in accordance with call-by-value, whereas special functions pass the unevaluated arguments to the internal function.
+        - Builtin functions: have all their arguments evaluated and passed to the internal function, in accordance with _call-by-value_
+        - Special functions: pass the unevaluated arguments to the internal function
    
 
