@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Digest of <i>Advanced R</i> (急待更新)"
+title: "Digest of <i>Advanced R</i> (亟待更新)"
 description: ""
 category: R
 tags: [Book, Rcpp]
