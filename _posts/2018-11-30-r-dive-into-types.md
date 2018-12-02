@@ -158,7 +158,7 @@ knitr::kable(type_info)
     - A statement is a syntactically correct collection of tokens. 
 - Symbol 与 name 的关系：
     - Symbols refer to R objects. 
-    - The name of any R object is usually a symbol. 
+    - The name of any R object is usually a symbol. (whatever. \:frowning\:)
 
 Language objects 的分类与相关的函数:
 
@@ -240,18 +240,28 @@ Language objects 的分类与相关的函数:
 - `formals(f)`: list of formal arguments
 - `environment(f)`
 
-但是要注意一个问题：你在 R console 里直接输入函数名并回车，同样也会显示这个函数的部分信息，我姑且称之函数的格式化输出。
+但是要注意一个问题：你在 R console 里直接输入函数名并回车，同样也会显示这个函数的部分信息，我姑且称之函数的格式化输出。从上面的 4 个例子来看，似乎 `.Primitive()`-caller 没有 environment？对的，而且准确来说，它的 `body(f)`、`formals(f)`、`environment(f)` 都是 `NULL`:
 
-- Function:
-    - 从上面的表来看，有三类 function：_closure_, _builtin_ 和 _special_
-    - 任何一个 R function $f$ 都有 3 个 [components](http://adv-r.had.co.nz/Functions.html#function-components):
-        - `body(f)`: function 的代码 (in R)
-        - `formals(f)`: list of formal arguments
-        - `environment(f)`
-    - 从 component 的角度来看，function 可以分两类：
-        - R-level function (== _closure_ function)，自然包括你自定义的 function
-        - Internal function (== _builtin_ $\cup$ _special_)
-    - 主要指通过 `.Primitive()` 或者 `.Internal()` 实现的函数，分两类：
-        - Builtin functions: have all their arguments evaluated and passed to the internal function, in accordance with _call-by-value_
-        - Special functions: pass the unevaluated arguments to the internal function
+```r
+> body(quote)
+NULL
+> formals(quote)
+NULL
+> environment(quote)
+NULL
+```
+
+只有 `.Primitive()`-caller 有这个特点；`.Internal()`-caller 和 $\texttt{type=closure}$ function 是不会这样的。
+
+看到这里，你可能会觉得：那为什么我们不按 $\texttt{type=closure}$ function、`.Internal()`-caller、`.Primitive()`-caller 这三种情况来分类？$\texttt{type=builtin}$ function 和 $\texttt{type=special}$ function 的区别何在？
+
+其实我们按 $\texttt{type=closure}$、$\texttt{type=builtin}$、$\texttt{type=special}$ 分类的重要依据是：**它们 evaulate arguments 的方式不同**。按 [R Internals - 1.5 Argument evaluation](https://cran.r-project.org/doc/manuals/r-release/R-ints.html#Argument-evaluation) 的说法：
+
+> For a call to a closure, the actual and formal arguments are matched and a matched call (another `LANGSXP`) is constructed. This process first replaces the actual argument list by a list of promises to the values supplied. It then constructs a new environment which contains the names of the formal parameters matched to actual or default values: all the matched values are promises, the defaults as promises to be evaluated in the environment just created. That environment is then used for the evaluation of the body of the function, and promises will be forced (and hence actual or default arguments evaluated) when they are encountered. (Evaluating a promise sets `NAMED = NAMEDMAX` on its value, so if the argument was a symbol its binding is regarded as having multiple references during the evaluation of the closure call.)
+
+> The essential difference5 between special and builtin functions is that the arguments of specials are not evaluated before the C code is called, and those of builtins are.
+
+[R Language Definition - 2.1.7 Builtin objects and special forms](https://cran.r-project.org/doc/manuals/r-patched/R-lang.html#Builtin-objects-and-special-forms) 也提到：
+
+> The difference between the two lies in the argument handling. Builtin functions have all their arguments evaluated and passed to the internal function, in accordance with _call-by-value_, whereas special functions pass the unevaluated arguments to the internal function.
 
