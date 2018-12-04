@@ -26,6 +26,10 @@ tags: [Book]
         - [3.7 `dplyr::summarize()`](#37-dplyrsummarize)
         - [3.8 `dplyr::group_by()`](#38-dplyrgroup_by)
     - [Detour: Chapter 14 - Pipes with `magrittr`](#detour-chapter-14---pipes-with-magrittr)
+        - [14.1 Direct Pipe: `%>%`](#141-direct-pipe)
+        - [14.2 Tee Pipe: `%>T%`](#142-tee-pipe)
+        - [14.3 Exposition Pipe: `%$%`](#143-exposition-pipe)
+        - [14.4 Bidirectional Pipe: `%<>%`](#144-bidirectional-pipe)
     - [Chapter 4 - Workflow: Scripts (RStudio 基础；略)](#chapter-4---workflow-scripts-rstudio-基础略)
     - [Chapter 5 - Exploratory Data Analysis (EDA；略)](#chapter-5---exploratory-data-analysis-eda略)
     - [Chapter 6 - Workflow: Projects (继续 RStudio 基础；略)](#chapter-6---workflow-projects-继续-rstudio-基础略)
@@ -63,6 +67,8 @@ tags: [Book]
         - [22.2 Legend Layout](#222-legend-layout)
     - [Chapter 23 - R Markdown Formats (略)](#chapter-23---r-markdown-formats-略)
     - [Chapter 23 - R Markdown Workflow (略)](#chapter-23---r-markdown-workflow-略)
+
+<!-- /TOC -->
 
 [Chapter 21 - R Markdown]: https://farm5.staticflickr.com/4912/46120175122_3361a842c9_z_d.jpg
 [Part I - Exploration]: https://farm5.staticflickr.com/4866/46120175052_df275ae438_z_d.jpg
@@ -142,15 +148,15 @@ select from df order by x [ASC] [, y [ASC]]
 - `arrange(df, desc(x)[, y])` 等价于：
 ```sql
 select from df order by x DESC [, y [ASC]]
-``` 
+```
 - `select(df, x[, y])` 等价于：
 ```sql
 select x [, y] from df
-``` 
+```
 - `select(df, x = x_prime[, y = y_prime])` 等价于：
 ```sql
 select x as x_prime [, y as y_prime] from df
-``` 
+```
 - `new_df <- mutate(df, xy = x * y)` 等价于：
 ```r
 new_df <- df
@@ -470,7 +476,7 @@ function (x)
 - `select(df, x = x_prime[, y = y_prime])` 等价于：
 ```sql
 select x as x_prime [, y as y_prime] from df
-``` 
+```
 
 这种 named arguments 可以用 `!!!` 来 unpack，类似于 python `**dict` 的用法。具体参 [R: Quasiquotation - Section 6. Unpacking Named Arguments in `dplyr`](/r/2018/11/30/r-quasiquotation)
 
@@ -587,6 +593,8 @@ column-wise 的 opeartor 包括：
 
 ## Detour: Chapter 14 - Pipes with `magrittr`
 
+### 14.1 Direct Pipe: `%>%` <a name="141-direct-pipe"></a>
+
 `%>%` 来自 `magrittr` package，它也是 `tidyverse` 的一部分，所以不需要你显式 import。
 
 考虑下面的应用场景：
@@ -687,6 +695,74 @@ pipe 配上 `dplyr` 和 `ggplot` 简直不要太好用：
  2 Fair  SI2       466
 > diamonds %>% count(cut, clarity) %>%
     ggplot(aes(clarity, cut, fill = n)) + geom_tile()
+```
+
+此外可以用匿名函数写法：
+
+```r
+mtcars %>%
+{ 
+  if (nrow(.) > 0)
+    rbind(head(., 1), tail(., 1))
+  else .
+}
+```
+
+### 14.2 Tee Pipe: `%>T%` <a name="142-tee-pipe"></a>
+
+此外还有 %T>%，它的逻辑是这样的：
+
+- 一般 `LHS %>% RHS %>% foo` 这么个 pipe，到 `foo` 这里，它会接收到 `RHS`
+- 而 `LHS %>T% RHS %>% foo` 是把 `lhs` 传给 `foo`，相当于只在 `RHS` 那里做了个 void 操作，画个图表示的话就是 $\text{LHS} \underset{\text{foo}}{\top} \text{RHS}$
+
+比如下面这个例子：
+
+```r
+rnorm(100) %>%
+  matrix(ncol = 2) %>%
+  plot() %>%
+  str()
+#>  NULL
+```
+
+得到 `NULL` 是因为 `plot` 没有返回值，我们其实应该把 `plot` 前面一步那个 `matrix` 传给 `str`，所以应该写成：
+
+```r
+rnorm(100) %>%
+  matrix(ncol = 2) %T>%
+  plot() %>%
+  str()
+#>  num [1:50, 1:2] -0.387 -0.785 -1.057 -0.796 -1.756 ...
+```
+
+它的效果是既画了图 (`plot`) 又输出了 `str()`
+
+### 14.3 Exposition Pipe: `%$%` <a name="143-exposition-pipe"></a>
+
+If you’re working with LHS functions that don’t have a data frame based API (i.e. do not have a data argument), you might find `%$%` useful.
+
+`%$%` exposes the colnames within the LHS object to the RHS expression. Essentially, it is a short-hand for using the `with` functions. 
+
+This is useful when working with many functions in base R. 举例：
+
+```r
+mtcars %$%
+  cor(disp, mpg)
+#> [1] -0.848
+```
+
+- `cor()` 应该是接受两个 vector 的
+- `cor()` 又不像 `dplyr` 里的 function 那样可以理解你不带引号的 colname
+- 但是你 `%$%` 一下，它就能理解你是要取 `mtcars$disp` 和 `mtcars$mpg` 来做 `cor()`
+
+### 14.4 Bidirectional Pipe: `%<>%` <a name="144-bidirectional-pipe"></a>
+
+其实就是个语法糖：
+
+```r
+mtcars <- mtcars %>% transform(cyl = cyl * 2)
+    # IS EQUIVALENT TO
+mtcars %<>% transform(cyl = cyl * 2)
 ```
 
 ## Chapter 4 - Workflow: Scripts (RStudio 基础；略)
