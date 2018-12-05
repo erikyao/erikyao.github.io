@@ -153,7 +153,7 @@ select from df order by x DESC [, y [ASC]]
 ```sql
 select x [, y] from df
 ```
-- `select(df, x = x_prime[, y = y_prime])` 等价于：
+- `select(df, x_prime = x[, y_prime = y])` 等价于：
 ```sql
 select x as x_prime [, y as y_prime] from df
 ```
@@ -472,8 +472,8 @@ function (x)
 
 ### 3.5 Digression: `dplyr::rename()` 与 `dplyr::select()` 与 Named Arguments
 
-- `rename(df, x = x_prime[, y = y_prime])`：将 column `x` 重命名为 `x_prime`
-- `select(df, x = x_prime[, y = y_prime])` 等价于：
+- `rename(df, x_prime = x[, y_prime = y])`：将 column `x` 重命名为 `x_prime`
+- `select(df, x_prime = x[, y_prime = y])` 等价于：
 ```sql
 select x as x_prime [, y as y_prime] from df
 ```
