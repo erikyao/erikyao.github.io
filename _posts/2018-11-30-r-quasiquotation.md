@@ -275,7 +275,9 @@ env:  empty
 
 ## 6. Unpacking Named Arguments in `dplyr`
 
-`dplyr::rename(df, old_col = new_col)` 可以更改 colname；`dplyr::select(df, x = x_prime)` 相当于 `select x as x_prime from df`。这种需要 named arguments 的 `dplyr` 函数都可以用类似 python 的 `**` 的 unpack 写法，但是要注意，`!!!named_vector` 或者 `!!!named_list` (bang-bang-bang) 才相当于 `**dict`，而不应该用 `!!named_vector` 或者 `!!named_list` (bang-bang)。
+`dplyr::rename(df, new_col = old_col)` 可以更改 colname；`dplyr::select(df, x_prime = x)` 相当于 `select x as x_prime from df`。这种需要 named arguments 的 `dplyr` 函数都可以用类似 python 的 `**` 的 unpack 写法，但是要注意，`!!!named_vector` 或者 `!!!named_list` (bang-bang-bang) 才相当于 `**dict`，而不应该用 `!!named_vector` 或者 `!!named_list` (bang-bang)。
+
+- 注意顺序，LHS 是 new colname，RHS 是 old colname，非常别扭
 
 这是因为，比如用下面这个例子，如果你用 `!!vars` 的话，你的 **`vars` 是被当做单个 statement 处理的**；而且 substitute 之后 name 会消失 (我还不知道这是为何)：
 
