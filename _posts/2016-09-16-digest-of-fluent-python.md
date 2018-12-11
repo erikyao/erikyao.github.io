@@ -2433,6 +2433,9 @@ Name mangling is about safety, not security: it’s designed to prevent accident
 
 The single underscore prefix, like `_bar`, has no special meaning to the Python interpreter when used in attribute names, but it’s a very strong convention among Python programmers that you should not access such attributes from outside the class.
 
+补充：If you use a wildcard import (`from pkg import *`) to import all the names from the module, [Python will not import names with a leading underscore](https://docs.python.org/3/tutorial/modules.html#importing-from-a-package) (unless the module defines an `__all__` list that overrides this behavior). 从这个角度来讲，wild import 应该慎用。
+
+
 ### 8.6 Saving Space with the `__slots__` Class Attribute <a name="8-6-Saving-Space-with-the---slots---Class-Attribute"></a>
 
 By default, Python stores instance attributes in a per-instance dict named `__dict__`. Dictinaries have a significant memory overhead, especially when you are dealing with millions of instances with few attributes. The `__slots__` class attribute can save a lot of memory, by letting the interpreter store the instance attributes in a tuple instead of a dict.
