@@ -2433,7 +2433,7 @@ Name mangling is about safety, not security: it’s designed to prevent accident
 
 The single underscore prefix, like `_bar`, has no special meaning to the Python interpreter when used in attribute names, but it’s a very strong convention among Python programmers that you should not access such attributes from outside the class.
 
-补充：If you use a wildcard import (`from pkg import *`) to import all the names from the module, [Python will not import names with a leading underscore](https://docs.python.org/3/tutorial/modules.html#importing-from-a-package) (unless the module defines an `__all__` list that overrides this behavior). 从这个角度来讲，wild import 应该慎用。
+补充：If you use a wildcard import (`from pkg import *`) to import all the names from the module, [Python will not import names with a leading underscore](https://docs.python.org/3/tutorial/modules.html#importing-from-a-package) (unless the module defines an `__all__` list that overrides this behavior). 从这个角度来讲，wildcard import 应该慎用。
 
 
 ### 8.6 Saving Space with the `__slots__` Class Attribute <a name="8-6-Saving-Space-with-the---slots---Class-Attribute"></a>
