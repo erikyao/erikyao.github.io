@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Terminology Recap: SNP / SNV / LD / GWAS / eQTL"
+title: "Terminology Recap: SNP / SNV / LD / GWAS / eQTL / DNA Microarray (DNA chip)"
 description: ""
 category: Biology
 tags: []
@@ -107,6 +107,8 @@ classical QTL analysis 的过程大概是这样的 ([source](https://www.zhihu.c
 - 我觉得这解释了为什么 eQTL 不缩写成 EQTL，因为 EQT 这个说法解释不通 (但是为何不缩写成 QEL？)
 
 那么 gene expression 如何量化呢？其中一个手段是 [YouTube: DNA microarrays](https://www.youtube.com/watch?v=VNsThMNjKhM) (一个更详细的介绍是 [YouTube: DNA Microarray Methodology](https://www.youtube.com/watch?v=0ATUjAxNf6U))。这一大类的量化 gene expression 的手段，我们统称为 [Gene Expression Profiling](https://en.wikipedia.org/wiki/Gene_expression_profiling)
+
+- DNA Microarray 又叫 DNA Chip
 
 从研究的层次上来看：
 
