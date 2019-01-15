@@ -68,6 +68,8 @@ GWAS == Genome-Wide Association Study
 
 eQTL = Expression Quantitative Trait Loci
 
+### 5.1 QT
+
 我们先看下什么叫 quantitative trait ([source](http://www.ihh.kvl.dk/htm/kc/popgen/genetics/1/1/sld017.htm))：
 
 > **A qualitative trait is expressed qualitatively, which means that the phenotype falls into different categories**. These categories do not necessarily have a certain order. The pattern of inheritance for a qualitative trait is **typically monogenetic, which means that the trait is only influenced by a single gene**. Inherited diseases caused by single mutations are good examples of qualitative traits. Another is blood type. The environment has very little influence on the phenotype of these traits.
@@ -80,6 +82,39 @@ eQTL = Expression Quantitative Trait Loci
 
 ![](https://farm8.staticflickr.com/7804/31802777117_202ce7f82e_z_d.jpg)
 
-https://www.youtube.com/watch?v=xUl6tZsYObY
-https://www.zhihu.com/question/27695566/answer/40741777
-https://warwick.ac.uk/fac/sci/sbdtc/msc/ch927/lecture_4_eqtls_and_networks.pdf
+### 5.2 QTL
+
+那么接下来，QTL 是指 ([source](https://en.wikipedia.org/wiki/Quantitative_trait_locus))：
+
+> A quantitative trait locus (QTL) is a locus (section of DNA) which correlates with variation of a quantitative trait in the phenotype of a population of organisms. QTLs are mapped by identifying which molecular markers (such as SNPs or AFLPs) correlate with an observed trait.
+
+- Wikipedia 这个概念讲得很含蓄，它只说了是 "correlate"，这个 locus 具体是 coding 还是 regulatory 都有可能
+- AFLP 指 Amplified Fragment Length Polymophism，具体可以参考 [YouTube: PCR Genotyping](https://www.youtube.com/watch?v=Z_I1Z427rUw)
+
+classical QTL analysis 的过程大概是这样的 ([source](https://www.zhihu.com/question/27695566/answer/40741777))：
+
+![](https://farm5.staticflickr.com/4815/46755402751_9d33823f27_z_d.jpg)
+
+- x-axis 是 trait (因为是 quantitative 所以才能这么量化) (i.e. phenotype)
+- y-axis 是 population 中 genotype 的数量
+
+### 5.3 eQTL
+
+我觉得关于 eQTL 最简练的解释，来自 [YouTube: MIT CompBio Lecture 15 - eQTLs](https://www.youtube.com/watch?v=xUl6tZsYObY) 的开头：
+
+> ... expression QTLs, ..., where the quantitative trait is expression.
+
+- 我觉得这解释了为什么 eQTL 不缩写成 EQTL，因为 EQT 这个说法解释不通 (但是为何不缩写成 QEL？)
+
+那么 gene expression 如何量化呢？其中一个手段是 [YouTube: DNA microarrays](https://www.youtube.com/watch?v=VNsThMNjKhM) (一个更详细的介绍是 [YouTube: DNA Microarray Methodology](https://www.youtube.com/watch?v=0ATUjAxNf6U))。这一大类的量化 gene expression 的手段，我们统称为 [Gene Expression Profiling](https://en.wikipedia.org/wiki/Gene_expression_profiling)
+
+从研究的层次上来看：
+
+- QTL: Locus $\overset{\text{correlates}}{\longrightarrow}$ Quantitative Trait
+- eQTL: Locus $\overset{\text{correlates}}{\longrightarrow}$ (Quantitative) Gene Expression $\overset{\text{affects}}{\longrightarrow}$ Trait
+
+eQTL 作为和 trait 有关的 locus，自然也是 GWAS 的研究对象
+
+### Digression: DNA Microarray $\in$ Transcriptome Profiling
+
+所以今后看到 profiling 就应该知道它指的是一大类的方法。Transcriptome Profiling 就是量化 transcriptome (the sum total of all the messenger RNA molecules expressed from the genes of an organism) 的手段。那 DNA Microarray 能量化 gene expression，那是自然也能量化 transcriptome 的
