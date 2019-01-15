@@ -202,7 +202,7 @@ The minimal PIC = _RNA pol II_ + 6 GTF
 
 ![](https://farm5.staticflickr.com/4806/43956688730_ef64500cc6_k_d.jpg)
 
-- GAGA factor 的作用是 chromatin priming, which mark genes for future expression
+- `GAGA` factor 的作用是 chromatin priming, which mark genes for future expression
 - INR == INitiator Element
     - INR 下面那个箭头是 TSS
 
