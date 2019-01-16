@@ -18,7 +18,7 @@ tags: []
 
 DHS = DNase I Hypersensitive Site. 
 
-简单来说：DHS 就是 (在 chromatin 存在的大环境下) DNA 中容易被 DNase 斩断的位置
+简单来说：DHS 就是 (在 chromatin 存在的大环境下) DNA 中容易被 DNase I 斩断的位置
 
 - 也就意味着 DHS 是 "没有被 chromatin 裹挟的" DNA 部分
 
@@ -54,4 +54,4 @@ DHS = DNase I Hypersensitive Site.
 
 ## DNase-seq
 
-上面那个视频介绍的方法只能定位 DHS，那具体 DHS 是怎样的一个 sequence，就需要用 DNase-seq 来确定 (那为何不叫 DHS-seq？岂不是更好懂？)
+上面那个视频介绍的方法只能定位 DHS，那具体 DHS 是怎样的一个 sequence？这个 sequence 会 align 到 genome 的哪个位置？这就需要用 DNase-seq 来确定 (那为何不叫 DHS-seq？岂不是更好懂？)
