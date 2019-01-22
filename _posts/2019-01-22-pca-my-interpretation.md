@@ -30,7 +30,7 @@ $$
 
 做完 column-wise centering 之后，才能有 corvariance matrix $\Sigma(X) = \frac{1}{m} X X^{T}$ (因为 column 的 mean 等于 0，所以每个 column 的期望 $E[\cdot]$ 小项就不用考虑了)
 
-## 第二步：Change of basis
+## 第二步：假设一个 change of basis (实际并不需要执行这个 change of basis)
 
 当前的 $n$ 个 bases 是 $\hat i = \begin{bmatrix} 1 \newline 0 \newline \vdots \newline 0 \end{bmatrix}, \hat j = \begin{bmatrix} 0 \newline 1 \newline \vdots \newline 0 \end{bmatrix}, \cdots, \hat z = \begin{bmatrix} 0 \newline 0 \newline \vdots \newline 1 \end{bmatrix}$ (必然都是 $n$ 维)。假设有 $B_{n \times n} = \begin{bmatrix} \vert & \vert & \vert & \vert \newline \hat i & \hat j & \vdots & \hat z \newline \vert & \vert & \vert & \vert \end{bmatrix}$
 
@@ -41,7 +41,7 @@ $$
 - 注意 $X$ 的 row 才是 coordinates，所以应该是 $XB$ 而不是 $BX$
 - 另外有一点：基变换是 linear transformation，所以 $X'$ 的每个 column 的 mean 仍然为 0 (沿袭第一步 centering 的效果)，所以仍然有 $\Sigma(X') = \frac{1}{m} X' {X'}^{T}$
 
-## 第三步：Effect of axis
+## 第三步：定量 Effect of axis
 
 那我们现在研究：$X$ 在 $\hat{i'}$ 方向上的 corvariance 是多少？根据公式：
 
@@ -59,7 +59,7 @@ $$
 \frac{\operatorname{effect}(\hat{i'})}{\operatorname{effect}(\hat{j'})} = \frac{\hat{i'}^T X^T X \hat{i'}}{\hat{j'}^T X^T X \hat{j'}}
 $$
 
-## 第四步：Eigen-decomposition
+## 第四步：通过 Eigen-decomposition 确定 change of basis
 
 那为了让这个比值有意义，我们可能会想说：如果 $\hat{i'}$ 和 $\hat{j'}$ 是 $X^T X$ 的 eigenvectors 就好办了，那么：
 
