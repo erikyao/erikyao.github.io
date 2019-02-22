@@ -438,7 +438,7 @@ There is a general design strategy that typically leads to the strong guarantee,
 
 #### <a name="forward-declaration-lower-compilation-dependency"></a>forward declaration 是减少 compilation dependency 的有效手段
 
-何为 compilation dependency ？简单说，你 `#include` 进来的都是 compilation dependencies。比如你 `#include <string>`，那么你就依赖 string。如果 string 类发生了变化，我们在重编译时，不仅 string 类要重编译，所有 `#include <string>` 的类都要重编译，这是我们不想看到的。
+何为 compilation dependency? 简单说，你 `#include` 进来的都是 compilation dependencies。比如你 `#include <string>`，那么你就依赖 string。如果 string 类发生了变化，我们在重编译时，不仅 string 类要重编译，所有 `#include <string>` 的类都要重编译，这是我们不想看到的。
 
 要减少 compilation dependency，那就是要减少 `#include`。我们的基本原则就是：用 forward declaration 代替 `#include`。
 
@@ -736,7 +736,7 @@ C++ recognizes that base class templates may be specialized and that such specia
 
 解决方法有三：In derived class templates, refer to names in base class templates 
 
-- via a “this->” prefix, 
+- via a `this->` prefix, 
 - via using declarations, 
 - or via an explicit base class qualification.
 
@@ -855,7 +855,7 @@ friend const Rational<T>
 operator*(const Rational<T>& lhs, const Rational<T>& rhs);
 ```
 
-这样每次 `Rational<T>` 初始化了，就会声明一个具体的 `operator*`，而这个声明恰好又会被 `template<typename T> const Rational<T> operator*` 给定义出来，所以就成了一个具体的 function，从而就可以使用 implicit type conversion 了。（Item 24 并没有 template argument deduction 的问题，所以用不用 friend 无所谓。）
+这样每次 `Rational<T>` 初始化了，就会声明一个具体的 `operator*`，而这个声明恰好又会被 `template<typename T> const Rational<T> operator*` 给定义出来，所以就成了一个具体的 function，从而就可以使用 implicit type conversion 了。([Item 24](#item-24-declare-non-member-functions-when-type-conversions-should-apply-to-all-parameters) 并没有 template argument deduction 的问题，所以用不用 friend 无所谓。)
 
 另外还有一个小地方要注意：Inside a class template, the name of the template can be used as shorthand for the template and its parameters, so inside `Rational<T>`, we can just write `Rational` instead of `Rational<T>`. That saves us only a few characters in this example, but when there are multiple parameters or longer parameter names, it can both save typing and make the resulting code clearer. 所以上面那个 friend `operator*` 的声明可以简写为：
 
