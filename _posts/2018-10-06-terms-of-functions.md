@@ -25,7 +25,7 @@ $X$ 称为 **domain** (domain of definition，定义域)，$Y$ 称为 **codomain
     - 这个集合我们中文称值域，也有翻译成 **range** 的；需要注意的是：值域并不是 $Y$
     - Just forget about this translation; it's confusing
 
-对应的有 inverse image，或者称 **preimage**
+对应的有 inverse image，或者称 **preimage**：
     
 - 对 $y \in Y$, its inverse image under $f$ is $x$ such that $f(x) = y$
 - 对 $S \subseteq Y$, its inverse image under $f$ is $\lbrace x \mid f(x) = y, y \in S \rbrace$
