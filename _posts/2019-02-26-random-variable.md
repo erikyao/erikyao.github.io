@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Random Variable"
+title: "Terminology Recap: Random Variable / Distribution"
 description: ""
 category: Math
 tags: []
@@ -39,7 +39,7 @@ tags: []
 **Definition:** Let $(X, \Sigma_X)$ and $(Y, \Sigma_Y)$ be measurable spaces. Function $f:X \to Y$ is called a **measurable function** if $\forall E_Y \in \Sigma_Y, f^{-1}(E_Y) \in \Sigma_X$ 
 
 - $f^{-1}$ 是 inverse function
-- $f^{-1}(E_Y) = \lbrace x \in X \vert f(x) \in E_Y \rbrace$
+- 扩展一下 $f^{-1}$ 的定义：$f^{-1}(E_Y) := \lbrace x \in X \vert f(x) \in E_Y \rbrace$
 - 这个定义相当于：$\forall E_Y \in \Sigma_Y, \exists E_X \in \Sigma_X$ 使得 $f(E_X) = E_Y$
     - 这个 $E_X$ 即 $f^{-1}(E_Y)$
 - 为了强调 $f$ 是一个 measurable function，我们也可以把它写作 $f: (X, \Sigma_X) \to (Y, \Sigma_Y)$
@@ -50,8 +50,8 @@ tags: []
 
 1. **Non-negativity:** $\forall E \in \Sigma, \mu(E) \geq 0$
     - 注：存在 signed measure 可以不满足这个条件
-1. **Null empty set:** $\mu(\varnothing) = 0$
-1. **Countable additivity (or $\sigma$-additivity):** $\forall \text{ countable collection } \lbrace E_i \rbrace^{\infty}_{i=1}$ where $E_i \in \Sigma, \forall i$ and $E_i \cap E_j = \varnothing, \forall i, j$:
+2. **Null empty set:** $\mu(\varnothing) = 0$
+3. **Countable additivity (or $\sigma$-additivity):** $\forall \text{ countable collection } \lbrace E_i \rbrace^{\infty}_{i=1}$ where $E_i \in \Sigma, \forall i$ and $E_i \cap E_j = \varnothing, \forall i, j$:
 
 $$
 \mu \left( \bigcup _ { k = 1 } ^ { \infty } E _ { k } \right) = \sum _ { k = 1 } ^ { \infty } \mu \left( E _ { k } \right)
@@ -80,15 +80,17 @@ $$
     - probability measure $\mathbb{P}$ 是特殊的 measure
     - 装备 probability measure 的 measure space 是 probability space $(\Omega, \mathcal{F}, \mathbb{P})$
 
-注意：measurable function $f$ $\overset{\text{进化}}{\Rightarrow}$ measure $\mu$ 涉及一个定义域转化的问题：
+我们可以把 measurable function $f$ $\overset{\text{进化}}{\Rightarrow}$ measure $\mu$，但注意这里涉及一个定义域转化的问题：
 
 - $f: S \to \mathbb{R}$
 - $\mu: \Sigma \to \mathbb{R}$
-- 我们可以定义 $\mu(\lbrace x \rbrace) = f(x)$ 然后根据 $\sigma$-additivity 有
+- 比如我们可以定义 $\mu(\lbrace x \rbrace) = f(x)$ 然后根据 $\sigma$-additivity 有
 
 $$
 \mu(E) = \sum_{x \in E} \mu({\lbrace x \rbrace}) = \sum_{x \in E} f(x)
 $$
+
+- 注意我这里的意思是：**我们可以这样做，但没有规定说一定要这样做；$\mu$ 也不一定要通过 $f$ 定义，$f$ 也不一定满足进化成 $\mu$ 的要求**
 
 ## 1. Random Variable
 
@@ -106,27 +108,17 @@ $$
 - 首先注意定义域：
     - $X: \Omega \to \mathbb{R}$ (**random variable 接收 outcome**)
     - $\mathbb{P}: \mathcal{F} \to [0, 1]$ (**probability measure 接收 event**)
-- $X$ 和 $\mathbb{P}$ 的关系可以总结为：
-    - `if` $X$ 无法进化成 measure (比如存在 $X(\omega) < 0$)
-        - $X$ 与 $\mathbb{P}$ 无关
-    - `elif` $X$ 无法进化成 probability measure (比如存在 $X(\omega) > 1$) 
-        - $X$ 与 $\mathbb{P}$ 无关
-    - `elif` $X$ $\overset{\text{进化}}{\Rightarrow}$ $\mathbb{Q}$
-        1. 可能有 $\mathbb{Q} \neq \mathbb{P}$ 
-        1. 可能有 $\mathbb{Q} = \mathbb{P}$，亦即 $X$ $\overset{\text{进化}}{\Rightarrow}$ $\mathbb{P}$，此时 **$X$ 和 $\mathbb{P}$ 的关系就如同上文 $f$ 和 $\mu$ 的关系**，此时有
-            - $\mathbb{P}(\lbrace \omega \rbrace) = X(\omega)$
-            - $\mathbb{P}(E) = \sum_{\omega \in E} \mathbb{P}({\lbrace \omega \rbrace}) = \sum_{\omega \in E} X(x)$
+- $X$ 是 measurable function，$\mathbb{P}$ 是 probability measure，我们可以像上面 $f$ $\overset{\text{进化}}{\Rightarrow}$ $\mu$ 一样定义一个 $X$ 使它可以 $X$ $\overset{\text{进化}}{\Rightarrow}$ $\mathbb{P}$，**但是！没有必要**。后面 distribution 的部分会阐述。
 
 以投骰子为例 (一个骰子，仅投一次)：
 
 - $\Omega = \lbrace 1,2,3,4,5,6 \rbrace$
 - $\mathcal{F}$ 包括但不限于 $\Omega$、$\lbrace 1 \rbrace$、$\lbrace 2 \rbrace$、$\lbrace 3 \rbrace$、$\lbrace 4 \rbrace$、$\lbrace 5 \rbrace$、$\lbrace 6 \rbrace$
-- 我们可以定义 $X(1) = X(2) = X(3) = X(4) = X(5) = X(6) = \frac{1}{6}$
-- 把 $X$ 进化成 $\mathbb{P}$，有 $\mathbb{P}(\lbrace 1 \rbrace) = \mathbb{P}(\lbrace 2 \rbrace) = \mathbb{P}(\lbrace 3 \rbrace) = \mathbb{P}(\lbrace 4 \rbrace) = \mathbb{P}(\lbrace 5 \rbrace) = \mathbb{P}(\lbrace 6 \rbrace) = \frac{1}{6}$
+- 假设有 $\mathbb{P}(\lbrace 1 \rbrace) = \mathbb{P}(\lbrace 2 \rbrace) = \mathbb{P}(\lbrace 3 \rbrace) = \mathbb{P}(\lbrace 4 \rbrace) = \mathbb{P}(\lbrace 5 \rbrace) = \mathbb{P}(\lbrace 6 \rbrace) = \frac{1}{6}$
     - **注意 event $\lbrace 1,3 \rbrace$ 表示 "roll 出 1 或者 3"，而不是 "roll 两次，一次是 1 一次是 3"**
         - "roll 两次，一次是 1 一次是 3" 的 event 应该是 $\big \lbrace \lbrace 1,3 \rbrace \big \rbrace$
-    - 所以 $\mathbb{P}(\lbrace 1,3 \rbrace) = X(1) + X(3) = \frac{1}{3}$，进而有 $\mathbb{P}(\Omega) = 1$
-    - "roll 出 1 且 3" 是不可能事件，即 $\varnothing$，它无法通过 $X$ 计算，只能走 measure 的定义得到 $\mathbb{P}(\varnothing) = 0$
+    - 所以 $\mathbb{P}(\lbrace 1,3 \rbrace) = \mathbb{P}(\lbrace 1 \rbrace) + \mathbb{P}(\lbrace 3 \rbrace) = \frac{1}{3}$，同理有 $\mathbb{P}(\Omega) = 1$
+    - "roll 出 1 且 3" 是不可能事件，即 $\varnothing$，由 measure 的定义得到 $\mathbb{P}(\varnothing) = 0$
 
 ## 2. Distribution of a random variable
 
@@ -145,6 +137,39 @@ $$
 - **若 $X = I$，即 $X(\omega) = \omega$，可得 $\mathbb{P}_{X} = \mathbb{P}$**
 
 **我们称 $\mathbb{P}_{X}$ 为 distribution of random variable $X$**.
+
+我们这里重点考察一下 $\mathbb{P}_{X}$ 和 $\mathbb{P}$ 的关系，并引申出 $X$ 在其中的作用：
+
+- $\mathbb{P}: \mathcal{F} \to [0, 1]$
+- $X: (\Omega, \mathcal{F}) \to (\mathbb{R}, \mathcal{B})$
+- 按理来说，$X^{-1}$ 应该是 $X^{-1}: \mathbb{R} \to \Omega$，但是我们通过 $X^{-1}(B)$ 的定义把它扩展成了 $X^{-1}: \mathcal{B} \to \mathcal{F}$
+- 于是 $\mathbb{P}_{X} = \mathbb{P} \circ X^{-1}$ 就成了一个 $\mathcal{B} \to \mathcal{F} \to [0, 1]$ 的函数
+- 所以 $X: \mathcal{F} \to \mathcal{B}$ 就可以看作一个 "**event encoder**"，**它把每一个 event $E \in \mathcal{F}$ 映射到一个 Borel set $B \in \mathcal{B}$**
+- 同理$X^{-1}: \mathcal{B} \to \mathcal{F}$ 就可以看成一个 "**event decoder**"，**它把每一个 Borel set $B \in \mathcal{B}$ 又映射回原来的 event $E \in \mathcal{F}$**
+- **Event encoding 的作用在于：可以把各种不同的、具体的 $(\Omega, \mathcal{F})$ 转化为统一的、抽象的 $(\mathbb{R}, \mathcal{B})$**
+    - 比如 "投骰子" 和 "黑盒子里 6 个不同颜色的球，抓一个出来" 这两个实验，它们的 event 是不一样的，但我们明显可以看出它们的本质是一样的，这个本质体现在它们通过 $X$ encoding 以后，得到的 Borel set 是一样的 (或者说得到的 $\mathbb{P}_X$ 函数是一样的)
+- Event decoding 的作用在于计算，因为 $\mathbb{P}_X$ 需要借助 $\mathbb{P}$ 才能算出具体的值
+- **我们平时根本就没有注意到这个 event encoding/decoding 的过程是因为：它太顺理成章了**。比如上面 "投骰子" 的例子，我们直接就写出了 $\Omega = \lbrace 1,2,3,4,5,6 \rbrace$，所以可以有 $E = B$，亦即 $X = I$，等于没有做 event encoding/decoding，于是我们也没有区分 $\mathbb{P}\_{X}$ 和 $\mathbb{P}$，因为 $\mathbb{P}\_{X} = \mathbb{P}$
+- 但是我也可以定义说 $\Omega = \lbrace \text{I}, \text{II}, \text{III}, \text{IV}, \text{V}, \text{VI}\rbrace$，那你可能需要 encode 一下，得到:
+    - $X(\text{I}) = 1$
+    - $\dots$
+    - $X(\text{VI}) = 6$
+    - 所以 $\mathbb{P}_{X}(\lbrace 3 \rbrace) = \mathbb{P}(X^{-1}(\lbrace 3 \rbrace)) = \mathbb{P}(\lbrace \text{III} \rbrace)$
+    - 当然，你的 $X$ 的定义可以不用与 event 的语义对应，比如我定义 $X(\text{I}) = 100, \dots, X(\text{VI}) = 600$，也是可以的
+
+题外话：$\mathbb{P}(X = 3)$ 这种写法如何解释？
+
+- 先说结论：这是个有点过分的简写
+- 首先 $\mathbb{P}(X = 3)$ 应该是 $\mathbb{P}(\lbrace X = 3 \rbrace)$ ($\mathbb{P}$ 接收 event)
+- 二来 $X = 3$ 应该理解为 $X \in \lbrace 3 \rbrace$
+- 这么一来，令 $B = \lbrace 3 \rbrace$，套公式可得：
+
+$$
+\mathbb{P}(X = 3) \overset{\text{informal}}{=} \mathbb{P}(\lbrace X = 3 \rbrace) \overset{\text{informal}}{=} \mathbb{P}(\lbrace X \in \lbrace 3 \rbrace \rbrace) = \mathbb{P}_X(\lbrace 3 \rbrace)
+$$ 
+
+- 所以 $X = 3$ 整体是一个 event $E \in \mathcal{F}$ (informal)；而 $\lbrace 3 \rbrace$ 是一个 Borel set $B \in \mathcal{B}$
+- 若 $X = I$，则 $E = B$, $\mathbb{P}_{X} = \mathbb{P}$，从而 $\mathbb{P}(X = 3) \overset{\text{informal}}{=} \mathbb{P}_X(\lbrace 3 \rbrace) = \mathbb{P}(\lbrace 3 \rbrace)$
 
 $\mathbb{P}_{X}$ 的性质还有：
 
@@ -166,19 +191,6 @@ F_{\mathbb{P}_{X}}(a) = \mathbb{P}_{X} \big ( (-\infty, a] \big) = \mathbb{P} \B
 $$
 
 严格来说，$F\_{\mathbb{P}\_{X}}$ 应该叫做 **distribution function of the distribution of random variable $X$**，但是非常不幸的是，它也被简称为 **distribution of random variable $X$**，并且简化符号为 $F\_X = F\_{\mathbb{P}\_{X}}$
-
-题外话：写到这里，有一个很严重的问题：$\mathbb{P}(X = 3)$ 这种写法如何解释？
-
-- 先说结论：我觉得这就是个神经病的简写
-- 首先 $\mathbb{P}(X = 3)$ 应该是 $\mathbb{P}(\lbrace X = 3 \rbrace)$ ($\mathbb{P}$ 接收 event)
-- 二来 $X = 3$ 应该理解为 $X \in \lbrace 3 \rbrace$
-- 这么一来，令 $B = \lbrace 3 \rbrace$，套公式可得：
-
-$$
-\mathbb{P}(X = 3) \overset{\text{informal}}{=} \mathbb{P}(\lbrace X = 3 \rbrace) \overset{\text{informal}}{=} \mathbb{P}(\lbrace X \in \lbrace 3 \rbrace \rbrace) = \mathbb{P}_X(\lbrace 3 \rbrace)
-$$ 
-
-- 我觉得它可能默认是给 $X = I$ 的情况用的，此时 $\mathbb{P}_{X} = \mathbb{P}$，所以 $\mathbb{P}(X = 3) \overset{\text{informal}}{=} \mathbb{P}_X(\lbrace 3 \rbrace) = \mathbb{P}(\lbrace 3 \rbrace)$
 
 ## 3. Tilde $\sim$
 
