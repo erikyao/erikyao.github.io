@@ -11,6 +11,7 @@ tags: []
 
 - [NOTES ON PROBABILITY - Greg Lawler](https://www.math.uchicago.edu/~lawler/probnotes.pdf)
 - [Measure theory and probability - Alexander Grigoryan](https://www.math.uni-bielefeld.de/~grigor/mwlect.pdf)
+- [Lebesgue Measure on $\mathbb{R}^n$ - John K. Hunter](https://www.math.ucdavis.edu/~hunter/m206/ch1_measure.pdf)
 
 ## 预备知识 (一) $\sigma$-algebra 
 
@@ -29,6 +30,13 @@ tags: []
 - relative complement of $B$ in $A$ 就是 $B - A$
 
 > For a topological space $X$, the collection of all Borel sets on $X$ forms a $\sigma$-algebra $\mathcal{B}$, known as the Borel algebra or Borel $\sigma$-algebra. The Borel $\sigma$-algebra on $X$ is the smallest $\sigma$-algebra containing all open sets (or, equivalently, all closed sets).
+
+关于可数性：
+
+- A set $S$ is said to be **countable** if it's finite or $\mathbf{card}(S) = \mathbf{card}(\mathbb{N})$
+- $\mathbf{card}(\mathbb{R}) > \mathbf{card}(\mathbb{N})$ (Cantor Diagonal Argument)
+- If $\mathcal{B}$ is a Borel algebra in $\mathbb{R}$, then $\mathbf{card}(\mathcal{B}) = \mathbf{card}(\mathbb{R})$
+- 结论：$\mathcal{B}$ 不可数
 
 ## 预备知识 (三) Measurable Function / Measurable Space
 
@@ -174,6 +182,8 @@ $$
 $\mathbb{P}_{X}$ 的性质还有：
 
 - If $\mathbb{P}_{X}$ gives measure one to a countable set of reals, then $X$ is called a **discrete random variable**. 
+    - $\mathbb{P}_{X}: \mathcal{B} \to [0, 1]$, 然后 $\mathcal{B}$ 不可数
+    - 但 $\mathbb{P}_{X}$ 的 domain 可能只是 $\mathcal{B}$ 的一个可数子集
 - If $\mathbb{P}_{X}$ gives zero measure to every singleton set, and hence to every countable set, $X$ is called a **continuous random variable**. 
     - Every random variable can be written as a sum of a discrete random variable and a continuous random variable. 
     - All random variables defined on a discrete probability space are discrete
@@ -192,7 +202,95 @@ $$
 
 严格来说，$F\_{\mathbb{P}\_{X}}$ 应该叫做 **distribution function of the distribution of random variable $X$**，但是非常不幸的是，它也被简称为 **distribution of random variable $X$**，并且简化符号为 $F\_X = F\_{\mathbb{P}\_{X}}$
 
-## 3. Tilde $\sim$
+## 3. Probability Mass Functions (for discrete), and Probability Density Functions (for continuous)
+
+**Definition:** Probability mass function for discrete random variable $X$, $p_X: \mathbb{R} \to [0, 1]$, can be defined as:
+
+$$
+\begin{aligned}
+p_X(x) &= \mathbb{P}(X = x) = \mathbb{P}_X(\lbrace x \rbrace) \newline
+\sum_{x \in \mathbb{R}} p_X(x) &= 1
+\end{aligned}
+$$
+
+其实就是把 $\mathbb{P}_X$ 的定义域中的 one-element $B \in \mathcal{B}$ 的部分降维到了 $x \in \mathbb{R}$，就是这么简单。
+
+**Definition:** Probability density function for continuous random variable $X$, $f_X: \mathbb{R} \to [0, \infty)$, is one satisfying:
+
+$$
+\begin{aligned}
+\int_{a}^{b} f(x) \mathrm{d}x &= \mathbb{P} \big ( \lbrace a \leq X \leq b \rbrace \big ) = F_X(b) - F_X(a) \newline
+\int_{-\infty}^{\infty} f(x) \mathrm{d}x &= 1
+\end{aligned}
+$$
+
+- 严格来说，$f_X$ 应该叫做 "the density or [Radon–Nikodym derivative](https://en.wikipedia.org/wiki/Radon%E2%80%93Nikodym_theorem) with respect to Lebesgue measure of random variable $X$"
+
+若 $f_X$ 存在：
+
+- 我们可以写 $F_X(x) = \int_{-\infty}^{x} f_X(t) \mathrm{d}t$
+- If $f_X$ is continuous at $t \Rightarrow f_X(x) = F_X'(x)$
+
+## 4. Tilde $\sim$
+
+根据 [Ben O'Neill: Why are probability distributions denoted with a tilde?](https://stats.stackexchange.com/a/46740)，$\sim$ 其实是一个 equivalence relation，所以 $X \sim Y$ **左右两边都是 random variable**，它可以念做 "$X$ has the same distribution as $Y$"。我觉得这基本就是 $X = Y$ 的意思了。
+
+- **所以 $\mathcal{N}(0, 1)$ 它不是 distribution，而是一个 random variable**
+- 如果 $X \sim \mathcal{N}(0, 1)$，那么 $X(x) = \mathcal{N}(x; 0, 1)$
+- 如果 $\mu, \sigma^2$ 不确定，$\mathcal{N}(\mu, \sigma^2)$ 可以看做一个 parametric random variable
+
+那么问题来了："has the same distribution as" 这个 distribution 指的是 $\mathbb{P}\_{X}$ 还是 $F\_X = F\_{\mathbb{P}\_{X}}$？
+
+- 若 $X \sim Y$ 都是 discrete random variable，那么明显 $\mathbb{P}\_{X}$ 更直接，所以一般我们用 $\mathbb{P}\_{X} = \mathbb{P}\_{Y}$ 这个结论
+    - 进而有 $p_X = p_Y$
+- 若 $X \sim Y$ 都是 continuous random variable，那么明显 $F\_X$ 才有意义，所以一般我们用 $F\_X = F\_Y$ 这个结论
+    - 进而有 $f_X = f_Y$
+
+我们直接研究 random variable $X$ 即意味着我们跳过了 event encoding/decoding 的步骤，直接在 $(\mathbb{R}, \mathcal{B}, \mathbb{P}\_{X})$ 这个抽象的 probability space 上工作，至于原来的 $(\Omega, \mathcal{F}, \mathbb{P})$ 长什么样子我们就不关心了。
+
+## 5. Independence / Marginal Distribution / Join Distribution 
+
+我们先从 $(\Omega, \mathcal{F}, \mathbb{P})$ 的层次入手。
+
+**Definition:** (1) Two events $E\_1, E\_2$ are called independent if 
+
+$$
+\mathbb{P}(E_1 \cap E_2) = \mathbb{P}(E_1) \mathbb{P}(E_2)
+$$
+
+(2) A collection of events $\lbrace E_i \rbrace$ is called independent if $\forall$ distinct $E_1, \dots, E_n$,
+
+$$
+\mathbb{P}(E_1 \cap \dots \cap E_n) = \mathbb{P}(E_1) \dots \mathbb{P}(E_n)
+$$
+
+(3) A collection of events $\lbrace E_i \rbrace$ is called pairwise independent if $\forall$ distinct $E_i, E_j$,
+
+$$
+\mathbb{P}(E_i \cap E_j) = \mathbb{P}(E_i) \mathbb{P}(E_j)
+$$
+
+(4) A finite collection of $\sigma$-algebras $\mathcal{F}_1, \dots, \mathcal{F}_n$ is called independent if $\forall$ $E_1 \in \mathcal{F}_1, \dots, E_n \in \mathcal{F}_n$, $\lbrace E_1, \dots, E_n \rbrace$ is independent.
+
+(5) An infinite collection of $\sigma$-algebras is called independent if every subcollection is independent.
+
+**If $X_1, \dots , X_n$ are random variables, we can consider them as a random vector $(X_1, \dots , X_n)$ and hence as ONE random variable $X_{1:n}: \mathcal{B(\mathbb{R}^n)} \to \mathbb{R}^n$**
+
+- Let $\mathcal{T}(\mathbb{R}^n) \subset \mathcal{P}(\mathbb{R}^n)$ denote the standard topology on $\mathbb{R}^n$ n consisting of all open sets
+    - $\mathcal{P}(S) = 2^S$
+- $\mathcal{B(\mathbb{R}^n)}$ is the $\sigma$-algebra generated by all the open set, i.e. $\mathcal{B(\mathbb{R}^n)} = \sigma \big ( \mathcal{T}(\mathbb{R}^n) \big )$
+
+假设原有 probability spaces $(\Omega\_1, \mathcal{F}\_1, \mathbb{P}\_1), \dots, (\Omega\_n, \mathcal{F}\_n, \mathbb{P}\_n)$，令 $\Omega\_{1:n} = \Omega\_1 \times \dots \times \Omega\_n$, $\mathcal{F}\_{1:n} = \mathcal{F}\_1 \otimes \dots \otimes \mathcal{F}\_n$, $\mathbb{P}\_{1:n} = \mathbb{P}\_1 \times \dots \times \mathbb{P}\_n$. 注意，根据 [Wikipedia: Product measure](https://en.wikipedia.org/wiki/Product_measure)：
+
+- $\Omega\_1 \times \Omega\_2$ is the Cartesian product of the two sets
+- $\mathcal{F}\_1 \otimes \mathcal{F}\_2$ is the $\sigma$-algebra on $\Omega\_1 \times \Omega\_2$, generated by subsets of the form $E\_{1} \times E\_{2}$ where $E\_{1} \in \mathcal{F}\_{1}$ and $E\_{2} \in \mathcal{F}\_{2}$
+- A product measure $\mathbb{P}\_1 \times \mathbb{P}\_2$ is defined to be a measure on the measurable space $(\Omega\_1 \times \Omega\_2, \mathcal{F}\_1 \otimes \mathcal{F}\_2)$ satisfying $\forall E\_{1} \in \mathcal{F}\_{1}, \forall E\_{2} \in \mathcal{F}\_{2}$, 
+
+$$
+(\mathbb{P}_1 \times \mathbb{P}_2)(E_{1} \times E_{2}) = \mathbb{P}_1(E_1) \mathbb{P}_2(E_2)
+$$
+
+**Definition:** The joint distribution of the random variable $X_{1:n} = (X_1, \dots , X_n)$ 
 
 <!--
 https://stats.stackexchange.com/questions/348881/why-does-unbiasedness-not-imply-consistency
