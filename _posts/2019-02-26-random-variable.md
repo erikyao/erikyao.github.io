@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Terminology Recap: Random Variable / Distribution"
+title: "Terminology Recap: Random Variable / Distribution / PMF / PDF / Independence / Marginal Distribution / Joint Distribution / Conditional Random Variable"
 description: ""
 category: Math
 tags: []
@@ -12,6 +12,7 @@ tags: []
 - [NOTES ON PROBABILITY - Greg Lawler](https://www.math.uchicago.edu/~lawler/probnotes.pdf)
 - [Measure theory and probability - Alexander Grigoryan](https://www.math.uni-bielefeld.de/~grigor/mwlect.pdf)
 - [Lebesgue Measure on $\mathbb{R}^n$ - John K. Hunter](https://www.math.ucdavis.edu/~hunter/m206/ch1_measure.pdf)
+- [Conditional random variables - Lawrence Pettit](http://www.maths.qmul.ac.uk/~pettit/MTH5122/notes15.pdf)
 
 ## 预备知识 (一) $\sigma$-algebra 
 
@@ -206,7 +207,7 @@ $$
 
 ## 3. Probability Mass Functions (for discrete), and Probability Density Functions (for continuous)
 
-**Definition:** Probability mass function for discrete random variable $X$, $p_X: \mathbb{R} \to [0, 1]$, can be defined as:
+**Definition:** **Probability mass function** for discrete random variable $X$, $p_X: \mathbb{R} \to [0, 1]$, can be defined as:
 
 $$
 \begin{aligned}
@@ -217,12 +218,12 @@ $$
 
 其实就是把 $\mathbb{P}_X$ 的定义域中的 one-element $B \in \mathcal{B}$ 的部分降维到了 $x \in \mathbb{R}$，就是这么简单。
 
-**Definition:** Probability density function for continuous random variable $X$, $f_X: \mathbb{R} \to [0, \infty)$, is one satisfying:
+**Definition:** **Probability density function** for continuous random variable $X$, $f_X: \mathbb{R} \to [0, \infty)$, is one satisfying:
 
 $$
 \begin{aligned}
-\int_{a}^{b} f(x) \mathrm{d}x &= \mathbb{P} \big ( \lbrace a \leq X \leq b \rbrace \big ) = F_X(b) - F_X(a) \newline
-\int_{-\infty}^{\infty} f(x) \mathrm{d}x &= 1
+\int_{a}^{b} f_X(x) \mathrm{d}x &= \mathbb{P} \big ( \lbrace a \leq X \leq b \rbrace \big ) = F_X(b) - F_X(a) \newline
+\int_{-\infty}^{\infty} f_X(x) \mathrm{d}x &= 1
 \end{aligned}
 $$
 
@@ -299,19 +300,108 @@ $$
 - PMF: $p\_{X\_1}, \dots, p\_{X\_n}$
 - PDF: $f\_{X\_1}, \dots, f\_{X\_n}$
 
-**Definition:** The **joint distribution** of random variable $X_{1:n} = (X_1, \dots , X_n)$, $\mathbb{P}\_{X\_{1:n}}: \mathcal{B(\mathbb{R}^n)} \to \mathbb{R}$, can be defined as, $\forall B\_{1:n} = B\_1 \times \dots \times B\_n$, $B\_{1:n} \in \mathcal{B(\mathbb{R}^n)}$
+**Definition:** For random variable $X_{1:n} = (X_1, \dots , X_n)$, its **joint distribution** $\mathbb{P}\_{X\_{1:n}}: \mathcal{B(\mathbb{R}^n)} \to \mathbb{R}$ can be defined as: $\forall B\_{1:n} = B\_1 \times \dots \times B\_n$, $B\_{1:n} \in \mathcal{B(\mathbb{R}^n)}$
 
 $$
 \mathbb{P}_{X_{1:n}}(B_{1:n}) = \mathbb{P}_{1:n} \big (X_{1:n}^{-1}(B_{1:n}) \big) \overset{\text{informal}}{=} \mathbb{P}_{1:n} \big ( \lbrace X_{1:n} \in B_{1:n} \rbrace \big ) \overset{\text{informal}}{=} \mathbb{P}_{1:n} \big ( \lbrace X_1 \in B_1, \dots, X_n \in B_n \rbrace \big )
 $$
 
-**Definition:** The **joint distrbution function of the joint distribution** of random variable $X_{1:n} = (X_1, \dots , X_n)$, $F_{X_{1:n}} \overset{\text{abbrev.}}{=} F_{\mathbb{P}\_{X\_{1:n}}}: \mathbb{R}^n \to [0, 1]$, can be defined as
+**Definition:** For joint distribution $\mathbb{P}\_{X\_{1:n}}$, its **joint distrbution function** $F_{X_{1:n}} \overset{\text{abbrev.}}{=} F_{\mathbb{P}\_{X\_{1:n}}}: \mathbb{R}^n \to [0, 1]$ can be defined as: $\forall t_i \in \mathbb{R}$
 
 $$
 F_{X_{1:n}}(t_1, \dots, t_n) \overset{\text{informal}}{=} \mathbb{P}_{1:n} \big ( \lbrace X_1 \leq t_1, \dots, X_n \leq t_n \rbrace \big ) = \mathbb{P}_{X_{1:n}} \big ( (-\infty, t_1] \times \dots \times (-\infty, t_n] \big )
 $$
 
+**Definition:** For random variable $X_{1:n} = (X_1, \dots , X_n)$, its **joint probability mass function** $p_{X_{1:n}}: \mathbb{R}^n \to [0, 1]$ can be defined as:
 
+$$
+\begin{aligned}
+p_{X_{1:n}}(x_1, \dots, x_n) &= \mathbb{P}_{X_{1:n}} \Big ( \big \lbrace \lbrace x_1, \dots, x_n \rbrace \big \rbrace \Big ) = \mathbb{P}_{1:n}(\lbrace x_1, \dots, x_n \rbrace) \newline
+\sum_{\vec x \in \mathbb{R}^n} p_{X_{1:n}}(\vec x) &= 1
+\end{aligned}
+$$
+
+**Definition:** For random variable $X_{1:n} = (X_1, \dots , X_n)$, its **joint probability density function** $f_{X_{1:n}}: \mathbb{R}^n \to [0, \infty]$ is one statisfying: $\forall B_{1:n} = B_1 \times \dots \times B_n, B_{1:n} \in \mathcal{B(\mathbb{R}^n)}$,
+
+$$
+\begin{aligned}
+\int_{B_{1:n}} f_{X_{1:n}}(x_1, \dots, x_n) \mathrm{d}x_1 \dots \mathrm{d}x_n &= \mathbb{P}_{X_{1:n}}(B_{1:n}) \newline
+\int_{\mathcal{B(\mathbb{R}^n)}} f_{X_{1:n}}(x_1, \dots, x_n) \mathrm{d}x_1 \dots \mathrm{d}x_n &= 1
+\end{aligned}
+$$
+
+**Definition:** Random variables $X_1, \dots, X_n$ are said to be **independent** if any of these (equivalent) conditions hold:
+
+(1) Joint distribution is the product of all marginal distributions:
+
+$$
+\begin{aligned}
+\mathbb{P}_{X_{1:n}}(B_{1:n})  \overset{\text{informal}}{=} & \mathbb{P}_{1:n} \big ( \lbrace X_1 \in B_1, \dots, X_n \in B_n \rbrace \big ) \newline
+                              = &\mathbb{P}_{1}(\lbrace X_1 \in B_1 \rbrace) \dots \mathbb{P}_{n}(\lbrace X_n \in B_n \rbrace) \newline
+                              = &\mathbb{P}_{X_1}(B_1) \dots \mathbb{P}_{X_n}(B_n)
+            
+\end{aligned}
+$$
+
+- This is equivalent of saying "joint distribution is the product measure of all marginal distributions":
+
+$$
+\mathbb{P}_{X_{1:n}} = \mathbb{P}_{X_1} \times \dots \times \mathbb{P}_{X_n}
+$$
+
+- **Marginal** distribution of $X$ 其实就是 $X$'s individual distribution，它只在 joint distribution 这个 context 下有意义。语出二维的 discrete joint distribution table，比如：
+
+![](https://farm8.staticflickr.com/7876/33386079698_41a7ba4624_z_d.jpg)
+
+(2) Joint distribution function is the product of all marginal distribution functions:
+
+$$
+\begin{aligned}
+F_{X_{1:n}}(t_1, \dots, t_n) &= \mathbb{P}_{X_{1:n}} \big ( (-\infty, t_1] \times \dots \times (-\infty, t_n] \big ) \newline
+                             &= \mathbb{P}_{X_1} \big ( (-\infty, t_1] \big ) \dots \mathbb{P}_{X_n} \big ( (-\infty, t_n] \big ) \newline
+                             &= F_{X_1}(t_1) \dots F_{X_n}(t_n)
+\end{aligned}
+$$
+
+(3) Joint PMF is the product of all individual PMFs:
+
+$$
+\begin{aligned}
+p_{X_{1:n}}(x_1, \dots, x_n) &= \mathbb{P}_{X_{1:n}} \Big ( \big \lbrace \lbrace x_1, \dots, x_n \rbrace \big \rbrace \Big ) \newline
+                             &= \mathbb{P}_{X_1} \big ( \lbrace x_1 \rbrace \big ) \dots \mathbb{P}_{X_n} \big ( \lbrace x_n \rbrace \big ) \newline 
+                             &= p_{X_1}(x_1) \dots p_{X_n}(x_n)
+\end{aligned}
+$$
+
+(4) Joint PDF (if exists) is the product of all individual PDFs:
+
+$$
+f_{X_{1:n}}(x_1, \dots, x_n) = f_{X_1}(x_1) \dots f_{X_n}(x_n)
+$$
+
+(5) The $\sigma$-algebras $\mathcal{F}(X_1), \dots \mathcal{F}(X_n)$ are independent.
+
+## 6. Conditional Random Variable
+
+Suppse $X, Y$ are discrete random variables over $(\Omega, \mathcal{F}, \mathbb{P})$. If $\mathbb{P}(Y = y) \neq 0$, then we can define the conditional probability (measure):
+
+$$
+\mathbb{P}(X = x \mid Y = y) = \frac{\mathbb{P}(X = x \text{ and } Y = y)}{\mathbb{P}(Y = y)}
+$$
+
+**Definition:** The discrete conditional random variable $X \mid Y = y$, read "$X$ given $Y = y$", has PMF
+
+$$
+p_{X \mid Y = y}(x) = \mathbb{P} \big ( (X \mid Y = y) = x \big ) = \mathbb{P}(X = x \mid Y = y)
+$$
+
+Similarly, we can have
+
+**Definition:** The continuous conditional random variable $X \mid Y = y$, has PDF
+
+$$
+f_{X \mid Y = y}(x) = \frac{f_{X, Y}(x, y)}{f_Y(y)}
+$$
 
 <!--
 https://stats.stackexchange.com/questions/348881/why-does-unbiasedness-not-imply-consistency
