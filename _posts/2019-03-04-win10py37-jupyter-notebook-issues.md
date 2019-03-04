@@ -18,7 +18,7 @@ sudo pip3 uninstall tornado
 sudo pip3 install tornado==5.1.1
 ```
 
-## 2. Ugly font
+## 2. Ugly fonts
 
 Install [jupyterthemes](https://github.com/dunovank/jupyter-themes):
 
@@ -29,5 +29,5 @@ pip install jupyterthemes
 My current setting is:
 
 ```bash
-jt -t grade3 -f source -fs 9 -ofs 8
+jt -t grade3 -f source -fs 9 -ofs 8 -T -N -kl
 ```
