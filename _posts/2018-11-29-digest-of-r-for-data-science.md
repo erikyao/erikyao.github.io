@@ -1289,7 +1289,7 @@ csl: apa.csl
 
 ## Chapter 22 - Graphics for Communication with `ggplot2`
 
-###　22.1 Annotations
+### 22.1 Annotations
 
 `geom_text` 的 annotation 效果有点挫：
 
