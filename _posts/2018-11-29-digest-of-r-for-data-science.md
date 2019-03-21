@@ -713,7 +713,7 @@ mtcars %>%
 此外还有 %T>%，它的逻辑是这样的：
 
 - 一般 `LHS %>% RHS %>% foo` 这么个 pipe，到 `foo` 这里，它会接收到 `RHS`
-- 而 `LHS %>T% RHS %>% foo` 是把 `lhs` 传给 `foo`，相当于只在 `RHS` 那里做了个 void 操作，画个图表示的话就是 $\text{LHS} \underset{\text{foo}}{\top} \text{RHS}$
+- 而 `LHS %>T% RHS %>% foo` 是把 `LHS` 传给 `foo`，相当于只在 `RHS` 那里做了个 void 操作，画个图表示的话就是 $\text{LHS} \underset{\text{RHS}}{\top} \text{foo}$
 
 比如下面这个例子：
 
