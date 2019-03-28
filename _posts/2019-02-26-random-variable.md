@@ -241,6 +241,7 @@ $$
 - **所以 $\mathcal{N}(0, 1)$ 它不是 distribution，而是一个 random variable**
 - 如果 $X \sim \mathcal{N}(0, 1)$，那么 $X(x) = \mathcal{N}(x; 0, 1)$
 - 如果 $\mu, \sigma^2$ 不确定，$\mathcal{N}(\mu, \sigma^2)$ 可以看做一个 parametric random variable
+    - 注意如果有 $X \sim \mathcal{N}(\mu, \sigma^2)$，那么这里 $\mathcal{N}(\mu, \sigma^2)$ 一定是表示一个具体的 random variable (once $\mu, \sigma^2$ 确定下来)，而不能理解为是一个 family of random variables
 
 那么问题来了："has the same distribution as" 这个 distribution 指的是 $\mathbb{P}\_{X}$ 还是 $F\_X = F\_{\mathbb{P}\_{X}}$？
 
@@ -250,6 +251,11 @@ $$
     - 进而有 $f_X = f_Y$
 
 我们直接研究 random variable $X$ 即意味着我们跳过了 event encoding/decoding 的步骤，直接在 $(\mathbb{R}, \mathcal{B}, \mathbb{P}\_{X})$ 这个抽象的 probability space 上工作，至于原来的 $(\Omega, \mathcal{F}, \mathbb{P})$ 长什么样子我们就不关心了。
+
+另外还有一个常见的概念是 **i.i.d.** (independent and identically distributed)，它是用来形容一组 random variables 的。简单说，如果 $X_1, \dots , X_n$ 是一组 i.i.d. 的 random variables，那么：
+
+- $X_1 \sim X_2 \sim \dots X_{n-1} \sim X_n$ (我觉得诡异的是这么多年我就没见过哪本教材用这个式子来描述 i.i.d.)
+- $X_1, \dots , X_n$ 互相是 independent 的
 
 ## 5. Independence / Marginal Distribution / Join Distribution 
 

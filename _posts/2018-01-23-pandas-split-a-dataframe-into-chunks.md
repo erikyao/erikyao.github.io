@@ -22,7 +22,7 @@ print(dfm.shape)  # (569, 30)
 print(dfm.index)  # RangeIndex(start=0, stop=569, step=1)
 ```
 
-Introduce [`np.split(ary, indices_or_sections, axis=0)`](https://docs.scipy.org/doc/numpy-dev/reference/generated/numpy.split.html):
+Introduce [`np.split(ary, indices_or_sections, axis=0)`](https://docs.scipy.org/doc/numpy/reference/generated/numpy.split.html):
 
 > If `indices_or_sections` is a 1-D array of sorted integers, the entries indicate where along axis the array is split. For example, `[2, 3]` would, for `axis=0`, result in `[ary[:2], ary[2:3], ary[3:]]`.
 
