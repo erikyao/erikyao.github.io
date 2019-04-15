@@ -80,6 +80,9 @@ _Section 5.6 Bayesian Statistics, Deep Learning_ 上说：
 | Generative     | $\mathbb{P}_{\mathbf{Y}, \mathbf{X}}(y, \mathbf{x}; \theta)$           | $\mathbb{P}_{\mathbf{Y}, \mathbf{X}, \Theta}(y, \mathbf{x}, \theta)$           | 
 
 - Items to the right of the semicolon (;) are not modeled probabilistically
+- 注意符号： 
+    - $\mathbb{P}_{\mathbf{Y} \vert \mathbf{X}, \Theta}$ 表示 **"distribution of $\mathbf{Y}$, conditioned on $\mathbf{X}$ and $\Theta$"**
+    - $\mathbb{P}_{(\mathbf{Y} \vert \mathbf{X}), \Theta}$ 表示 **"joint distribution of $\mathbf{Y} \vert \mathbf{X}$ and $\theta$"**
 
 ## 4. Unsupervised vs Supervised
 
