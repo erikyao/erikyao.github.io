@@ -14,6 +14,23 @@ tags: []
 - [Lebesgue Measure on $\mathbb{R}^n$ - John K. Hunter](https://www.math.ucdavis.edu/~hunter/m206/ch1_measure.pdf)
 - [Conditional random variables - Lawrence Pettit](http://www.maths.qmul.ac.uk/~pettit/MTH5122/notes15.pdf)
 
+<!-- TOC -->
+
+- [预备知识 (一) $\sigma$-algebra](#预备知识-一-\sigma-algebra)
+- [预备知识 (二) Borel Set / Borel $\sigma$-algebra](#预备知识-二-borel-set--borel-\sigma-algebra)
+- [预备知识 (三) Measurable Function / Measurable Space](#预备知识-三-measurable-function--measurable-space)
+- [预备知识 (四) Measure / Mesure Space](#预备知识-四-measure--mesure-space)
+- [预备知识 (五) Probability Measure / Probability Space](#预备知识-五-probability-measure--probability-space)
+- [预备知识 (三)(四)(五) 总结](#预备知识-三四五-总结)
+- [1. Random Variable](#1-random-variable)
+- [2. Distribution of a random variable](#2-distribution-of-a-random-variable)
+- [3. Probability Mass Functions (for discrete), and Probability Density Functions (for continuous)](#3-probability-mass-functions-for-discrete-and-probability-density-functions-for-continuous)
+- [4. Tilde $\sim$](#4-tilde-\sim)
+- [5. Independence / Marginal Distribution / Join Distribution](#5-independence--marginal-distribution--join-distribution)
+- [6. Conditional Random Variable](#6-conditional-random-variable)
+
+<!-- /TOC -->
+
 ## 预备知识 (一) $\sigma$-algebra 
 
 非常蛋疼的一个事实：$\sigma$-algebra 并不是一个严格意义上的 algebra……

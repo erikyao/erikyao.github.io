@@ -7,6 +7,17 @@ tags: []
 ---
 {% include JB/setup %}
 
+<!-- TOC -->
+
+- [1. Generative vs Discriminative](#1-generative-vs-discriminative)
+- [2. Frequentist vs Bayesian](#2-frequentist-vs-bayesian)
+- [3. Generative vs Discriminative, Frequentist vs Bayesian](#3-generative-vs-discriminative-frequentist-vs-bayesian)
+- [4. Unsupervised vs Supervised](#4-unsupervised-vs-supervised)
+- [5. Frequentist Discriminative Example: Linear Regression](#5-frequentist-discriminative-example-linear-regression)
+- [6. Bayesian Generative Example: Naive Bayes Classifier](#6-bayesian-generative-example-naive-bayes-classifier)
+
+<!-- /TOC -->
+
 ## 1. Generative vs Discriminative
 
 参考 [Mihaela van der Schaar: Generative vs. Discriminative Models, Maximum Likelihood Estimation, Mixture Models](http://www.stats.ox.ac.uk/~flaxman/HT17_lecture5.pdf):
@@ -179,4 +190,13 @@ $$
 
 <!--
 https://stats.stackexchange.com/questions/252577/bayes-regression-how-is-it-done-in-comparison-to-standard-regression
+    MCMC => https://www.mcmchandbook.net/HandbookChapter1.pdf
+
+conjugacy example => https://blog.csdn.net/Michael_R_Chang/article/details/39188321
+                     https://cedar.buffalo.edu/~srihari/talks/IISc-Sept2008.pdf (P13)
+Mixtures of Gaussians => https://cedar.buffalo.edu/~srihari/CSE574/Chap9/Ch9.2-MixturesofGaussians.pdf
+Bayesian machine learning => https://metacademy.org/roadmaps/rgrosse/bayesian_machine_learning
+
+MLE, MAP, and Bayesian => https://engineering.purdue.edu/kak/Tutorials/Trinity.pdf
+Bayesian Methods for Unsupervised Learning => http://mlg.eng.cam.ac.uk/zoubin/talks/mathpsych03.pdf
 -->
