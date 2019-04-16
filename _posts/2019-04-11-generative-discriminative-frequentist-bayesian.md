@@ -62,6 +62,7 @@ _Section 5.6 Bayesian Statistics, Deep Learning_ 上说：
 - Bayesian $\Rightarrow$ 
     - 变形 $\mathbb{P}\_{\Theta \vert \mathbf{D}}(\theta \vert \mathbf{D}) = \frac{\mathbb{P}\_{\mathbf{D} \vert \Theta}(\mathbf{D} \vert \theta) \, \mathbb{P}\_{\Theta}(\theta)}{\mathbb{P}\_{\mathbf{D}}(\mathbf{D})}$
         - 或者用 $\mathbb{P}\_{\Theta \vert \mathbf{D}}(\theta \vert \mathbf{D}) \propto \mathbb{P}\_{\mathbf{D} \vert \Theta}(\mathbf{D} \vert \theta) \, \mathbb{P}\_{\Theta}(\theta)$ 做 MAP
+        - 注意：做 MAP 会让人觉得这很像是 Frequentist，但注意 Bayesian 的主要特征其实是变形
     - 对 test data 做 prediction：$\mathbb{P}(D_{m+1} \vert \mathbf{D}) = \int \mathbb{P}(D_{m+1} \vert \theta) \, \mathbb{P}(\theta \vert \mathbf{D}) d\theta$
         - 可以得到 $D_{m+1} \vert \mathbf{D}$ 的 distribution
 
@@ -145,6 +146,37 @@ $$
 - 对一个新来的 test data point $\mathbf{x}\_{m+1}$，prediction 很简单：$\hat{y}\_{m+1} = \mathbf{w}\_{\text{ML}} \mathbf{x}\_{m+1}$。但这个式子是怎么得来的呢？
 - 因为我们的 assumption 是 $Y_{m+1} = \mathbf{w} \mathbf{x}\_{m+1} + \epsilon$，所以我觉得应该把 prediction 理解成 $\hat{y}\_{m+1} = \mathbb{E}[Y\_{m+1}] = \mathbf{w}\_{\text{ML}} \mathbf{x}\_{m+1}$
 
-## 6. Frequentist Generative Example: Naive Bayes Classifier
+## 6. Bayesian Generative Example: Naive Bayes Classifier
 
-See [Michael Collins: The Naive Bayes Model, Maximum-Likelihood Estimation, and the EM Algorithm](http://www.cs.columbia.edu/~mcollins/em.pdf)
+参考： 
+
+- [Michael Collins: The Naive Bayes Model, Maximum-Likelihood Estimation, and the EM Algorithm](http://www.cs.columbia.edu/~mcollins/em.pdf)
+- [Yao's Blog: Naive Bayes classifier](/machine-learning/2014/12/25/naive-bayes-classifier)
+
+简单说就是 $\mathbf{D} = \mathbf{Y}, \mathbf{X}$，然后对任意一个 data point $(y^{(i)}, \mathbf{x}^{(i)})$，把 $\mathbf{x}^{(i)}$ 部分看成是一个 feature vector：$\mathbf{x}^{(i)} = \lbrace x^{(i)}_1,x^{(i)}_2,\cdots,x^{(i)}_n \rbrace$；然后 assume feature 之间是 independent 的，于是有：
+
+$$
+\begin{aligned} 
+\mathbb{P}(\mathbf{Y} \vert \mathbf{X}) &\propto \mathbb{P}(\mathbf{X} \vert \mathbf{Y}) \, \mathbb{P}(\mathbf{Y}) \newline
+                                        &\propto \big( \prod_{i=1}^{n} \mathbb{P}(x_i \vert \mathbf{Y}) \big) \, \mathbb{P}(\mathbf{Y})
+\end{aligned}
+$$
+
+**这个时候你把 $\mathbf{Y}$ 当做 $\theta$**，$\mathbb{P}(\theta)$ 可以用 $\mathbf{Y}$ 的 empirical distribution 代替，于是有：
+
+$$
+\begin{aligned} 
+\mathbb{P}(\theta \vert \mathbf{X}) &\propto \big( \prod_{i=1}^{n} \mathbb{P}(x_i \vert \theta) \big) \, \mathbb{P}(\theta) \newline
+                                    &\propto \sum_{i=1}^{n} \log \mathbb{P}(x_i \vert \theta) + \log \mathbb{P}(\theta)
+\end{aligned}
+$$
+
+接着用 MAP 就可以了。
+
+- 注意 [Michael Collins: The Naive Bayes Model, Maximum-Likelihood Estimation, and the EM Algorithm](http://www.cs.columbia.edu/~mcollins/em.pdf) 中经过一番变形后使用了 MLE，我觉得没有必要这么绕
+
+至于 $\mathbb{P}(x_i \vert \theta)$ 的 assumption 和处理，请看 [Yao's Blog: Naive Bayes classifier](/machine-learning/2014/12/25/naive-bayes-classifier)
+
+<!--
+https://stats.stackexchange.com/questions/252577/bayes-regression-how-is-it-done-in-comparison-to-standard-regression
+-->
