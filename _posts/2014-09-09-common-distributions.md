@@ -1,59 +1,89 @@
 ---
 layout: post
-title: "Common Distributions"
+title: "Bernoulli vs Binomial vs Multinomial / Gaussian / Poisson Distributions"
 description: ""
 category: Math
 tags: [Math-Statistics]
 ---
 {% include JB/setup %}
 
-总结自 Coursera lecture [Statistical Inference](https://class.coursera.org/statinference-005/lecture) section [06 Common distributions](https://class.coursera.org/statinference-005/lecture/165)。  
+参考：
 
-部分参考 [The Poisson Distribution](http://www.umass.edu/wsp/resources/poisson)
+- [Section 06 - Common distributions, Statistical Inference@Coursera](https://class.coursera.org/statinference-005/lecture/165)  
+- [The Poisson Distribution](http://www.umass.edu/wsp/resources/poisson)
+- [伯努利分布、二项分布、多项分布、Beta分布、Dirichlet分布](https://blog.csdn.net/Michael_R_Chang/article/details/39188321)
+- [The Multinomial Model](http://www.utstat.toronto.edu/~brunner/oldclass/312f12/lectures/312f12MultinomialHandout.pdf)
 
 -----
 
-## 1. The Bernoulli [bə:ˈnu:li] distribution
+## 0. The "Choose" notation
 
-### 1.1 Definition
+- $n!$ reads "n factorial"
+- ${n \choose x} = \frac{n!}{x!(n-x)!}$ reads "n choose x"
 
-- Bernoulli random variables take a binary outcome, i.e. the value 1 or 0, with probabilities of _**p**_ and _**1-p**_ respectively
-- The PMF for a Bernoulli random variable $ X $  is $ P(X=x) = p^x (1-p)^{1-x} $
-- The mean of a Bernoulli random variable is $ \mu = p $ and the variance is $ \sigma^2 = p(1-p) $
-- If we let $ X $  be a Bernoulli random variable, it is typical to call $ X=1 $ as a "success" and $ X=0 $ as a "failure"
+$n \choose x$ counts the number of ways of selecting $x$ objects out of $n$ without replacement disregarding the order of the items, i.e. $C_n^x$. 
 
-### 1.2 Binomial trials
-
-iid is short for Independent and Identical Distributed
-
-* Independent: statistically unrelated from one and another
-* Identically Distributed: all having been drawn from the same population distribution
-
-Binomial random variables:
-
-- The **binomial random variables** are obtained as the sum of iid Bernoulli trials
-- In specific, let $ X_1,\ldots,X_n$ be iid $ Bernoulli(p) $; then $ X = \sum_{i=1}^n X_i $ is a binomial random variable
-- The binomial mass function is
+Specially, 
 
 $$
-	P(X=x) = {n \choose x} p^x(1 - p)^{n-x}, \text { for } x=0,\ldots,n
+{n \choose 0} = {n \choose n} = 1
 $$
 
-### 1.3 The "Choose" notation
+其实可以扩展一下：假设有 $n$ 个 objects，分成 $c$ 类，我们抽取：
 
-Recall that the notation $ {n \choose x} = \frac{n!}{x!(n-x)!} $ (read "n choose x") (BTW, $ n! $ reads "n factorial") counts the number of ways of selecting $ x $ items out of $ n $ without replacement disregarding the order of the items, i.e. $ C_n^x $. Specially, 
+- $n_1$ 个 ojects of type $1$
+- $n_2$ 个 ojects of type $2$
+- $\dots$
+- $n_c$ 个 ojects of type $c$
+- $\sum_{i=1}^{c} n_i = n$
 
-$$
-	{n \choose 0} = {n \choose n} =  1
-$$
+那么抽取的方式可以有 ${n \choose {n_1, \dots, n_c}} = \frac{n!}{n_{1}! \cdots n_{c}!}$ 种
 
-### 1.4 Exercise
+## 1. Bernoulli vs Binomial vs Multinomial
+
+简单说就是：
+
+- Bernoulli (伯努利分布)：抛硬币 **1次**
+- Binomial (二项分布)：抛硬币 **$n$次**
+- Multinomial (多项分布)：抛骰子 **$n$次**
+
+Bernoulli: if $X \sim \operatorname{Bernoulli}(p)$:
+
+- $X$ is binary (thus **discrete**)
+	- $\mathbb{P}(X=1) = p$
+	- $\mathbb{P}(X=0) = 1-p$
+- PMF $p_X(x) = p^x (1-p)^{1-x}$
+- $\mathbb{E}[X] = p$ 
+- $\operatorname{Var}(X) = p(1-p)$
+
+Binomial: if $\mathbf{X} \sim \operatorname{Binomial}(n, p)$:
+
+- RV $X = (n_1, n_0)$
+	- $n_1$ 表示 $X_i = 1$ 的个数
+	- $n_0$ 表示 $X_i = 0$ 的个数
+- $\mathbb{P}_X(n_1, n_0) = {n \choose {n_1, n_0}} p^{n_1} \, (1-p)^{n_0}$
+- 但有时候为了省事，我们又做了一个 RV $X = n_1 \times 1 + n_0 \times 0 = n_1$，所以有：
+	- PMF $p_{X}(x) = {n \choose x} p^x(1-p)^{n-x}$, where $x = 0,\ldots,n$
+	- 我不喜欢这种省事
+- 简单说就是 $\operatorname{Binomial}(1, p) \sim \operatorname{Bernoulli}(p)$
+
+Multinomial: if $\mathbf{X} \sim \operatorname{Multinomial}(n, \mathbf{\pi})$ where $\mathbf{\pi} = \lbrace \pi_1, \dots, \pi_c \rbrace$:
+
+- RV $X = (n_1, n_2, \dots, n_c)$
+- $\mathbb{P}_X(n_1, \dots, n_c) = {n \choose {n_1, \dots, n_c}} \pi_1^{n_1} \dots \pi_c^{n_c}$
+
+注意 Multinomial 和 Multivariate 的区别：
+
+- Multivariate 一般指 compound RV，比如 $X = X_1,X_2$，然后 $X_1$ 和 $X_2$ 各有一个 distribution，合起来 $X$ 有一个 multivariate distribution
+- Multinomial 有很强的 categorical/count 的性质
+
+Exercise:
 
 - Suppose a friend has 8 children, 7 of which are girls and none are twins
 - If each gender has an independent 50% probability for each birth, what's the probability of getting 7 or more girls out of 8 births?
 
 $$
-	{8 \choose 7} .5^{7}(1-.5)^{1} + {8 \choose 8} .5^{8}(1-.5)^{0} \approx 0.04
+{8 \choose 7} .5^{7}(1-.5)^{1} + {8 \choose 8} .5^{8}(1-.5)^{0} \approx 0.04
 $$
 
 ```r
@@ -64,33 +94,32 @@ pbinom(6, size = 8, prob = .5, lower.tail = FALSE) ## if lower.tail=TRUE (defaul
 ## [1] 0.03516
 ```
 
-## 2. The normal (Gaussian) distribution
+## 2. Normal (Gaussian) Distribution
 
 ### 2.1 Definition
 
-- A random variable is said to follow a **normal** or **Gaussian** distribution with mean $ \mu $ and variance $ \sigma^2 $ if the associated density is
-  $
-	f(x) = \frac{1}{\sqrt{2 \pi \sigma^2} } e^{ - \frac{(x-\mu)^2}{2 \sigma^2} }
-  $
-  If $ X $ is an RV (random variable) with this density, then $ E[X] = \mu $ and $ Var(X) = \sigma^2 $
-- We write $ X\sim \mbox{N}(\mu, \sigma^2) $
-- When $ \mu = 0 $ and $ \sigma = 1 $, the resulting distribution is called **the standard normal distribution**
-- The standard normal density function is labeled $ \phi(x) = \frac{1}{\sqrt{2 \pi} } e^{ - \frac{x^2}{2} } $
-- Standard normal RVs are often labeled $ Z $
+If $X \sim \mathcal{N}(\mu, \sigma^2)$, we call RV $X$ following a **normal** or **Gaussian** distribution with mean $\mu$ and variance $\sigma^2$:
 
-### 2.2 Facts about the normal density
+- PMF $f(x) = \frac{1}{\sqrt{2 \pi \sigma^2} } e^{ - \frac{(x-\mu)^2}{2 \sigma^2}}$
+- $E[X] = \mu$ and $Var(X) = \sigma^2$
 
-- If $ X \sim \mbox{N}(\mu,\sigma^2) $, then $ Z = \frac{X - \mu}{\sigma} \sim \mbox{N}(0,1) $ i.e. $ Z $ is standard normal
-- If $ Z $ is standard normal, then $X = \mu + \sigma Z \sim \mbox{N}(\mu, \sigma^2)$
+The distribution of $\mathcal{N}(0, 1)$ is called **the standard normal distribution**:
+
+- PMF $\phi(x) = \frac{1}{\sqrt{2 \pi} } e^{ - \frac{x^2}{2} }$
+
+Standard normal RVs are often labeled $Z$:
+
+- If $X \sim \mbox{N}(\mu,\sigma^2)$, then $Z = \frac{X - \mu}{\sigma} \sim \mbox{N}(0,1)$ i.e. $Z$ is standard normal
+- If $Z$ is standard normal, then $X = \mu + \sigma Z \sim \mbox{N}(\mu, \sigma^2)$
 - The non-standard normal density is $\frac{\phi(\frac{x - \mu}{\sigma})}{\sigma}$
 
-<!-- -->
+Percentiles:
 
 1. Approximately **68%**, **95%** and **99%** of the normal density lies within **1**, **2** and **3** standard deviations from the mean, respectively
-2. **-1.28**, **-1.645**, **-1.96** and **-2.33** are the **10^th**, **5^th**, **2.5th** and **1^st** percentiles of the standard normal distribution respectively
-3. By symmetry, **1.28**, **1.645**, **1.96** and **2.33** are the **90^th**, **95^th**, **97.5^th** and **99^th** percentiles of the standard normal distribution respectively
+2. **-1.28**, **-1.645**, **-1.96** and **-2.33** are the $10^{\text{th}}$, $5^{\text{th}}$, $2.5^{\text{th}}$ and $10^{\text{st}}$ percentiles of the standard normal distribution respectively
+3. By symmetry, **1.28**, **1.645**, **1.96** and **2.33** are the $90^{\text{th}}$, $95^{\text{th}}$, $97.5^{\text{th}}$ and $99^{\text{th}}$ percentiles of the standard normal distribution respectively
 
-### 2.3 Other properties
+Other properties:
 
 - The normal distribution is symmetric and peaked about its mean, therefore the mean, median and mode are all equal
 - A constant times a normally distributed random variable is also normally distributed
@@ -99,12 +128,12 @@ pbinom(6, size = 8, prob = .5, lower.tail = FALSE) ## if lower.tail=TRUE (defaul
 - The square of a **standard** normal random variable follows what is called the **chi-squared** distribution 
 - The exponent of a normally distributed random variables follows what is called the **log-normal** distribution 
 
-### 2.4 Exercise
+### 2.2 Exercise
 
-#### 2.4.1 What is the 95^th percentile of a $ N(\mu, \sigma^2) $ distribution? 
+#### 2.2.1 What is the $95^{\text{th}}$ percentile of a $N(\mu, \sigma^2)$ distribution? 
 
 - Quick answer in R `qnorm(.95, mean = mu, sd = sd)`
-- We want the point $ x_0 $ so that $ P(X \leq x_0) = .95 $
+- We want the point $x_0$ so that $ P(X \leq x_0) = .95 $
 
 $$
 \begin{eqnarray*}
@@ -114,12 +143,12 @@ $$
 \end{eqnarray*}
 $$
 
-- Therefore $\frac{x_0 - \mu}{\sigma} = 1.645$ or $ x_0 = \mu + 1.645\sigma  $
-- In general $ x_0 = \mu + z_0\sigma $ where $ z_0 $ is the appropriate standard normal quantile
+- Therefore $\frac{x_0 - \mu}{\sigma} = 1.645$ or $x_0 = \mu + 1.645\sigma$
+- In general $x_0 = \mu + z_0 \sigma$ where $z_0$ is the appropriate standard normal quantile
 
-#### 2.4.2 What is the probability that a $ \mbox{N}(\mu,\sigma^2) $ RV is 2 standard deviations above the mean?
+#### 2.2.2 What is the probability that a $\mbox{N}(\mu,\sigma^2)$ RV is 2 standard deviations above the mean?
 
-- We want to know
+I.e. we want to know
 
 $$
 \begin{eqnarray*}
@@ -130,7 +159,7 @@ $$
 \end{eqnarray*}
 $$
 
-#### 2.4.3 Clicks Problem I
+#### 2.2.3 Clicks Problem I
 
 Assume that the number of daily ad clicks for a company is approximately normal distributed with a mean of 1020 and a stadard deviation of 50. What is the probablity of getting more than 1160 clicks in a day?
 
@@ -144,7 +173,7 @@ pnorm(2.8, lower.tail = FALSE)
 ## [1] 0.002555
 ```
 
-#### 2.4.4 Clicks Problem II
+#### 2.2.4 Clicks Problem II
 
 What number of daily ad clicks would represent the one where 75% of days have fewer clicks?
 
@@ -153,17 +182,17 @@ qnorm(0.75, mean = 1020, sd = 50)
 ## [1] 1054
 ```
 
-## 3. The Poisson distribution
+## 3. Poisson distribution
 
 ### 3.1 Definition
 
 * The Poisson mass function is
 $$
-	P(X = x; \lambda) = \frac{\lambda^x e^{-\lambda}}{x!}, \text{ for } x=0,1,\ldots
+P(X = x; \lambda) = \frac{\lambda^x e^{-\lambda}}{x!}, \text{ for } x=0,1,\ldots
 $$
-* The mean of this distribution is $ \mu = \lambda $
-* The variance of this distribution is $ \sigma^2 = \lambda $
-* Notice that $ x $ ranges $ [0,\infty] $
+* The mean of this distribution is $\mu = \lambda$
+* The variance of this distribution is $\sigma^2 = \lambda$
+* Notice that $x$ ranges $[0,\infty]$
 
 ### 3.2 Some uses for the Poisson distribution
 
@@ -176,16 +205,16 @@ The Poisson distribution applies when:
 
 such as the number of times a firefly lights up in my garden in a given 5 seconds, some evening, but meaningless to ask how many such events have not occurred.
 
-When $ n $ is large and $ p $ is small:
+When $n$ is large and $p$ is small:
 
 * Poisson distribution can be used to approximate binomials 
 
 ### 3.3 Rates and Poisson random variables
 
 * Poisson random variables are used to model rates
-* If $ X \sim Poisson(\lambda) $ on 1 unit interval, then $ Y \sim Poisson(k\lambda) $ on $ k $ unit intervals.
-  * $ \lambda = E[\frac{Y}{k}] $ is the expected count per time unit (i.e. rate)
-  * $ k $ means the total monitoring process takes $ k $ time units
+* If $X \sim Poisson(\lambda)$ on 1 unit interval, then $Y \sim Poisson(k\lambda)$ on $k$ unit intervals.
+  * $\lambda = E[\frac{Y}{k}]$ is the expected count per time unit (i.e. rate)
+  * $k$ means the total monitoring process takes $k$ time units
   
 ### 3.4 Exercise: Rate
 
@@ -198,13 +227,13 @@ ppois(3, lambda = 2.5 * 4)
 
 ### 3.5 Poisson approximation to the binomial
 
-* When $ n $ is large and $ p $ is small, the Poisson distribution is an accurate approximation to the binomial distribution
+* When $n$ is large and $p$ is small, the Poisson distribution is an accurate approximation to the binomial distribution
 * Notation
-  * <!-- -->$ X \sim \mbox{Binomial}(n, p) $
-  * $ \lambda = n p $ and
-	  * $ n $ gets large 
-	  * $ p $ gets small
-	  * $ \lambda $ stays constant
+  * <!-- -->$X \sim \mbox{Binomial}(n, p)$
+  * $\lambda = n p$ and
+	  * $n$ gets large 
+	  * $p$ gets small
+	  * $\lambda$ stays constant
 
 ### 3.6 Exercise: Poisson approximation to the binomial
 
