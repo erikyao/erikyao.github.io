@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Bernoulli vs Binomial vs Multinomial / Gaussian / Poisson Distributions"
+title: "Bernoulli vs Multinoulli (Categorical) vs Binomial vs Multinomial / Gaussian / Poisson Distributions"
 description: ""
 category: Math
 tags: [Math-Statistics]
@@ -39,37 +39,67 @@ $$
 
 那么抽取的方式可以有 ${n \choose {n_1, \dots, n_c}} = \frac{n!}{n_{1}! \cdots n_{c}!}$ 种
 
-## 1. Bernoulli vs Binomial vs Multinomial
+## 1. Bernoulli vs Multinoulli (Categorical) vs Binomial vs Multinomial
 
 简单说就是：
 
-- Bernoulli (伯努利分布)：抛硬币 **1次**
-- Binomial (二项分布)：抛硬币 **$n$次**
-- Multinomial (多项分布)：抛骰子 **$n$次**
+- $\operatorname{Bernoulli}(\pi_1)$ (伯努利分布)：抛硬币 **1次** 
+- $\operatorname{Multinoulli}(\boldsymbol{\pi})$ (多努利分布): 投骰子 **$1$次**; a.k.a Categorical (范畴分布)
+- $\operatorname{Binomial}(n, \pi_1)$ (二项分布)：抛硬币 **$n$次**
+- $\operatorname{Multinomial}(n, \boldsymbol{\pi})$ (多项分布)：投骰子 **$n$次**
+	
+注意：
 
-Bernoulli: if $X \sim \operatorname{Bernoulli}(p)$:
+- **严格来说，这应该是 4 个 RVs，而不是 4 个 distributions**，但是这方面的混乱不是一天两天了
+	- 更进一步来说，这是 4 个 **discrete** RVs
+- 单独一个 $\pi_1$ 表示 "每一次 toss，得到 binary outcome $1$ 的概率"
+	- 因为是 binary，所以 $\pi_0 = 1 - \pi_1$ 就省略了
+- $\boldsymbol{\pi}$ 其实是一个 distribution：
+	- $\boldsymbol{\pi} = \lbrace \pi_1, \dots, \pi_c \rbrace$ ($c$ 应该是一个 countable)
+	- $\pi_i$ 表示 "每一次 toss，得到 categorical outcome $i$ 的概率"
+	- $\sum_{i} \pi_i = 1$
 
-- $X$ is binary (thus **discrete**)
-	- $\mathbb{P}(X=1) = p$
-	- $\mathbb{P}(X=0) = 1-p$
-- PMF $p_X(x) = p^x (1-p)^{1-x}$
-- $\mathbb{E}[X] = p$ 
-- $\operatorname{Var}(X) = p(1-p)$
+这 4 者的关系是：
 
-Binomial: if $\mathbf{X} \sim \operatorname{Binomial}(n, p)$:
+- $\operatorname{Multinoulli}(\lbrace \pi_1, 1-\pi_1 \rbrace) \sim \operatorname{Bernoulli}(\pi_1)$
+- $\operatorname{Binomial}(1, \pi_1) \sim \operatorname{Bernoulli}(\pi_1)$
+- $\operatorname{Multinomial}(1, \boldsymbol{\pi}) \sim \operatorname{Multinoulli}(\boldsymbol{\pi})$
 
-- RV $X = (n_1, n_0)$
-	- $n_1$ 表示 $X_i = 1$ 的个数
-	- $n_0$ 表示 $X_i = 0$ 的个数
-- $\mathbb{P}_X(n_1, n_0) = {n \choose {n_1, n_0}} p^{n_1} \, (1-p)^{n_0}$
-- 但有时候为了省事，我们又做了一个 RV $X = n_1 \times 1 + n_0 \times 0 = n_1$，所以有：
-	- PMF $p_{X}(x) = {n \choose x} p^x(1-p)^{n-x}$, where $x = 0,\ldots,n$
+If $X \sim \operatorname{Bernoulli}(\pi_1)$:
+
+- $X$ is binary 
+	- $\mathbb{P}(X=1) = \pi_1$
+	- $\mathbb{P}(X=0) = 1-\pi_1$
+- PMF $p_X(x) = \pi_1^x (1-\pi_1)^{1-x}$
+- $\mathbb{E}[X] = \pi_1$ 
+- $\operatorname{Var}(X) = \pi_1(1-\pi_1)$
+
+If $X \sim \operatorname{Multinoulli}(\boldsymbol{\pi})$:
+
+- $X$ is categorical
+	- $\mathbb{P}(X=1) = \pi_1$
+	- $\cdots$
+	- $\mathbb{P}(X=c) = \pi_c$
+- PMF $p_X(x) = \prod_{i=1}^c \pi_i^{I(x=i)}$
+
+If $\mathbf{X} \sim \operatorname{Binomial}(n, \pi_1)$:
+
+- $X = (n_1, n_0)$
+	- $n_1$ 表示 "出现 outcome $1$ 的个数"
+	- $n_0$ 表示 "出现 outcome $0$ 的个数"
+	- $n_1 + n_0 = n$ (因为 toss 了 $n$ 次)
+- $\mathbb{P}_X(n_1, n_0) = {n \choose {n_1, n_0}} \pi_1^{n_1} \, (1-\pi_1)^{n_0}$
+- 但有时候为了省事，我们又可以令 $X = n_1 \times 1 + n_0 \times 0 = n_1$，所以有：
+	- PMF $p_{X}(x) = {n \choose x} \pi_1^x(1-\pi_1)^{n-x}$, where $x = 0,\ldots,n$
 	- 我不喜欢这种省事
-- 简单说就是 $\operatorname{Binomial}(1, p) \sim \operatorname{Bernoulli}(p)$
 
-Multinomial: if $\mathbf{X} \sim \operatorname{Multinomial}(n, \mathbf{\pi})$ where $\mathbf{\pi} = \lbrace \pi_1, \dots, \pi_c \rbrace$:
+If $\mathbf{X} \sim \operatorname{Multinomial}(n, \boldsymbol{\pi})$:
 
-- RV $X = (n_1, n_2, \dots, n_c)$
+- $X = (n_1, n_2, \dots, n_c)$
+	- $n_1$ 表示 "出现 outcome $1$ 的个数"
+	- $\cdots$
+	- $n_c$ 表示 "出现 outcome $c$ 的个数"
+	- $\sum_{i=1}^c n_i = n$ (因为 toss 了 $n$ 次)
 - $\mathbb{P}_X(n_1, \dots, n_c) = {n \choose {n_1, \dots, n_c}} \pi_1^{n_1} \dots \pi_c^{n_c}$
 
 注意 Multinomial 和 Multivariate 的区别：
