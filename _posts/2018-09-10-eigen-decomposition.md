@@ -147,7 +147,7 @@ Almost obvious.
 
 **Theorem:** (The Spectral Theorem) $A$ is symmetric $\iff$ $A$ is orthogonally diagonalizable
 
-- 叫 Spectral Theorem 是因为：特征分解 (Eigen-decomposition)又称谱分解 (Spectral decomposition)
+- 叫 Spectral Theorem 是因为：特征分解 (Eigen-decomposition) 又称谱分解 (Spectral decomposition)
 - **矩阵的频谱 (spectrum)** 即矩阵的 eigenvalues 的集合
 
 这个证明异常地复杂，需要几个结论来铺垫。([参考](https://www.math.wustl.edu/~freiwald/309orthogdiag.pdf))
