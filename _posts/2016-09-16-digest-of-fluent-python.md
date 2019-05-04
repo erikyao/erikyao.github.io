@@ -2215,7 +2215,7 @@ class Vector2d:
 	def __abs__(self):
 		return math.hypot(self.x, self.y)
 	
-	def__bool__(self):
+	def __bool__(self):
 		return bool(abs(self))
 ```
 
