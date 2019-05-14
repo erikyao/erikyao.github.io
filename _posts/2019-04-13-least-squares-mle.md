@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Terminology Recap: Least Squares (and MLE)"
+title: "Terminology Recap: Method of Least Squares (and its relationship with MLE)"
 description: ""
 category: Machine-Learning
 tags: []
@@ -132,8 +132,9 @@ $$
 
 #### 4.2.1 对 Linear Regression 而言，LSA 等价与 MLE，OLS 等价与 minimizing $\operatorname{MSE}$
 
-- [Regression (statistics): What is the difference between Ordinary least square and generalized least squares?](https://www.quora.com/Regression-statistics-What-is-the-difference-between-Ordinary-least-square-and-generalized-least-squares)
-- [How does OLS regression relate to generalised linear modelling](https://stats.stackexchange.com/questions/211585/how-does-ols-regression-relate-to-generalised-linear-modelling/211592)
+OLS 是 MLE 的特殊形式：
+
+- [Maximum likelihood estimators and least squares](http://people.math.gatech.edu/~ecroot/3225/maximum_likelihood.pdf)
 - [OLS in Matrix Form](https://web.stanford.edu/~mrosenfe/soc_meth_proj3/matrix_OLS_NYU_notes.pdf)
 
 注意：
@@ -144,11 +145,10 @@ $$
     - [Do we need gradient descent to find the coefficients of a linear regression model?](https://stats.stackexchange.com/questions/160179/do-we-need-gradient-descent-to-find-the-coefficients-of-a-linear-regression-mode)
 - 我们并没有一开始就假设 $\mathbf{y} = \mathbf{X} \mathbf{w} + \mathbf{\epsilon}$ 然后 $\epsilon \sim \mathcal{N}$，而是从结果反推，把解析解带入后得到 $r_i$ 的表达式，然后发现 $r \sim \mathcal{N}$
 
-OLS 是 MLE 的特殊形式：
 
-- [Maximum likelihood estimators and least squares](http://people.math.gatech.edu/~ecroot/3225/maximum_likelihood.pdf)
+#### 4.2.2 GLS
 
-OLS vs GLM in R code:
-
-- [How does OLS regression relate to generalised linear modelling](https://stats.stackexchange.com/a/211592)
+- [How does OLS regression relate to generalised linear modelling](https://stats.stackexchange.com/questions/211585/how-does-ols-regression-relate-to-generalised-linear-modelling/211592)
+- [Regression (statistics): What is the difference between Ordinary least square and generalized least squares?](https://www.quora.com/Regression-statistics-What-is-the-difference-between-Ordinary-least-square-and-generalized-least-squares)
+- OLS vs GLM in R code: [How does OLS regression relate to generalised linear modelling](https://stats.stackexchange.com/a/211592)
 
