@@ -167,6 +167,10 @@ $$
 - OLS 本身就是解法，然后可以反推出 property
 - 这是 estimation 和 approximation 两个领域的概念的碰撞：MLE 从理论出发得到实践；OLS 从实践出发反推理论（但其实都是一回事，只不过换了个名字）
 
+按 [Martijn Weterings@Stackoverflow](https://stats.stackexchange.com/a/317631) 的说法，应该是先有的 OLS 再有的 MLE：
+
+> The history of the normal distribution (ignoring deMoivre getting to this distribution as an approximation for the binomial distribution) is actually as the discovery of the distribution that makes the MLE correspond to the least squares method (rather than the the least squares method being a method that can express the MLE of the normal distribution, first came the least squares method, second came the Gaussian distribution)
+
 #### 4.2.2 GLS
 
 GLS 与 OLS 不同，GLS 是又回到了 "从理论到实践" 的道路上，它是 assume $\mathbf{\epsilon}$ 可以有不同的 distribution，不限定于 Gaussian，然后从这个 assumption 出发，再去计算。
