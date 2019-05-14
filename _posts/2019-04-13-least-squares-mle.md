@@ -132,8 +132,8 @@ $$
 
 #### 4.2.1 对 Linear Regression 而言，LSA 等价与 MLE，OLS 等价与 minimizing $\operatorname{MSE}$
 
-关于 MLE 和 minimizing $\operatorname{MSE}$，我们在 [Yao's Blog: Sample](http://yaoyao.codes/math/2019/02/26/sample#85-estimators-used-in-machine-learning)
- 和 [Yao's Blog: Generative/Discriminative/Frequentist/Bayesian](http://yaoyao.codes/machine-learning/2019/04/11/generative-discriminative-frequentist-bayesian#5-frequentist-discriminative-example-linear-regression) 有讲：
+关于 MLE 和 minimizing $\operatorname{MSE}$，我们在 [Yao's Blog: Sample](/math/2019/02/26/sample#85-estimators-used-in-machine-learning)
+ 和 [Yao's Blog: Generative/Discriminative/Frequentist/Bayesian](/machine-learning/2019/04/11/generative-discriminative-frequentist-bayesian#5-frequentist-discriminative-example-linear-regression) 有讲：
 
 - MLE 等价于 minimizing KL divergence $D_{KL}(\hat{\mathbb{P}}\_{\text{data}} \Vert \mathbb{P}\_{\text{model}})$
 - MLE 等价于 minimizing cross-entropy $H(\hat{\mathbb{P}}\_{\text{data}}, \mathbb{P}\_{\text{model}})$

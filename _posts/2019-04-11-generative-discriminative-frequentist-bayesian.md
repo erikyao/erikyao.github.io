@@ -112,7 +112,7 @@ _Section 5.6 Bayesian Statistics, Deep Learning_ 上说：
 
 ## 5. Frequentist Discriminative Example: Linear Regression
 
-我们之前在 [Terminology Recap: Sampling / Sample / Sample Space / Experiment / Statistical Model / Statistic / Estimator / Empirical Distribution / Likelihood / Estimation and Machine Learning](/math/2019/02/26/sample) 有说：
+我们之前在 [Terminology Recap: Sampling / Sample / Sample Space / Experiment / Statistical Model / Statistic / Estimator / Empirical Distribution / Likelihood / Estimation and Machine Learning](/math/2019/02/26/sample#85-estimators-used-in-machine-learning) 有说：
 
 - MLE 等价于 minimizing KL divergence $D_{KL}(\hat{\mathbb{P}}\_{\text{data}} \Vert \mathbb{P}\_{\text{model}})$
 - MLE 等价于 minimizing cross-entropy $H(\hat{\mathbb{P}}\_{\text{data}}, \mathbb{P}\_{\text{model}})$
