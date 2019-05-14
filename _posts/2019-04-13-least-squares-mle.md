@@ -130,7 +130,7 @@ $$
 - Weighted Least Squares (WLS)
 - Generalized Least Squares (GLS)
 
-#### 4.2.1 Linear LSA 对应 MLE；OLS 对应 minimizing $\operatorname{MSE}$
+#### 4.2.1 对 Linear Regression 而言，LSA 等价与 MLE，OLS 等价与 minimizing $\operatorname{MSE}$
 
 - [Regression (statistics): What is the difference between Ordinary least square and generalized least squares?](https://www.quora.com/Regression-statistics-What-is-the-difference-between-Ordinary-least-square-and-generalized-least-squares)
 - [How does OLS regression relate to generalised linear modelling](https://stats.stackexchange.com/questions/211585/how-does-ols-regression-relate-to-generalised-linear-modelling/211592)
