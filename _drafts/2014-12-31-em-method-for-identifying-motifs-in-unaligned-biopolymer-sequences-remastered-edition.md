@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "EM method for identifying motifs in unaligned biopolymer sequences (Remastered Edition)"
 description: ""
 category: Machine-Learning

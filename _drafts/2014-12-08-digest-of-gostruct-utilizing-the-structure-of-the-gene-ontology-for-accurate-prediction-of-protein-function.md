@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "Digest of <i>GOstruct: utilizing the structure of the Gene Ontology for accurate prediction of protein function</i>"
 description: ""
 category: Machine-Learning
