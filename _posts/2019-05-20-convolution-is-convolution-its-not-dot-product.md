@@ -107,13 +107,13 @@ $$
 $$
 \begin{aligned}
 C(0,0) &= \sum_{i'} \sum_{j'} K_{2 - i', 2 - j'} A_{2 - i', 2 - j'} \newline
-       &= K(0,0)A(0,0) + K(0,1)A(0,1) + K(1,0)A(1,0) + K(1,1)A(1,1) \newline
+       &= K_{0,0}A_{0,0} + K_{0,1}A_{0,1} + K_{1,0}A_{1,0} + K_{1,1}A_{1,1} \newline
 C(0,1) &= \sum_{i'} \sum_{j'} K_{2 - i', 2 - j'} A_{2 - i', 3 - j'} \newline
-       &= K(0,0)A(0,1) + K(0,1)A(0,2) + K(1,0)A(1,1) + K(1,1)A(1,2) \newline
+       &= K_{0,0}A_{0,1} + K_{0,1}A_{0,2} + K_{1,0}A_{1,1} + K_{1,1}A_{1,2} \newline
 C(1,0) &= \sum_{i'} \sum_{j'} K_{2 - i', 2 - j'} A_{3 - i', 2 - j'} \newline
-       &= K(0,0)A(1,0) + K(0,1)A(1,1) + K(1,0)A(2,0) + K(1,1)A(2,1) \newline
+       &= K_{0,0}A_{1,0} + K_{0,1}A_{1,1} + K_{1,0}A_{2,0} + K_{1,1}A_{2,1} \newline
 C(1,1) &= \sum_{i'} \sum_{j'} K_{2 - i', 2 - j'} A_{3 - i', 3 - j'} \newline
-       &= K(0,0)A(1,1) + K(0,1)A(1,2) + K(1,0)A(2,1) + K(1,1)A(2,2)
+       &= K_{0,0}A_{1,1} + K_{0,1}A_{1,2} + K_{1,0}A_{2,1} + K_{1,1}A_{2,2}
 \end{aligned}
 $$
 
@@ -124,7 +124,7 @@ $$
 1. 那么 $C(i, j) = \operatorname{sum} \big( K \odot A_{i:i+m_K, j:j+n_K} \big)$ (sum of [Hadamard product](/math/2018/09/06/hadamard-product-diagonal-matrix-orthogonal-matrix))
     - 我再次强调一遍，这不是 dot product！
 
-最后考虑下 matrix $C$ 的 size：
+很明显我们可以把 $C$ 看做一个 matrix $C_{i, j} = C(i, j)$。最后考虑下这个 matrix $C$ 的 size：
 
 $$
 \begin{aligned}
