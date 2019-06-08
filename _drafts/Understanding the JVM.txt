@@ -1,0 +1,90 @@
+# Understanding the JVM #
+
+----------
+
+
+## 目录 ##
+### <a href="#ch2">chapter 2. 内存模型</a> ###
+
+----------
+
+----------
+
+## <a name="ch2">chapter 2. 内存模型</a> ##
+
+----------
+
+----------
+
+### 运行时数据区 ###
+
+1. 程序计数器 (PC, Program Counter) 区
+    * 标识当前线程在执行哪条字节码指令
+    * 所以每个线程都需要一个 PC => PC 是线程私有内存
+2. VM Stack
+    * 线程私有
+    * 用于执行方法
+    * 每个方法在执行时，都会创建一个栈帧 (SF, stack frame)，SF 用来存储局部变量表、Operand 栈、动态链接、方法出口等信息。而 SF 就是存储在 VM Stack 中的。
+    * 局部变量表的大小在编译期已确定，在运行时不会改变局部变量表的大小，也不会分配新的内存给局部变量表。不考虑 JIT 编译器优化等因素，SF 的大小也可以看作在编译期已确定
+    * 当方法开始执行，SF 入栈 VM Stack；当方法执行完，SF 从 VM Stack 出栈
+    * 人们常说的“堆栈”中的“栈”即指 VM Stack，更准确的说是局部变量表
+3. 本地方法栈 (Native Method Stack)
+    * 线程私有
+    * 与 VM Stack 类系，区别在于本地方法栈是为 Native Method 服务的
+4. 堆 (Heap)
+    * 线程共享
+    * 用来存放对象实例 => GC 管理的主要区域
+    * 虽然是线程共享，但可以划分出线程私有的 Thread Local Allocation Buffer (TLAB)，用来存 ThreadLocal 对象
+5. 方法区 (Method Area)
+    * 线程共享
+    * 可以简单为存放 .class 文件内容的内存区域
+    * 运行时常量池 (Runtime Constant Pool) 是方法区的一部分，用于存放各种字面量和符号引用
+    * Java 没有限定“常量只能在编译期放入池中”，运行时也可以将新的常量放入池中 (不然为啥叫运行时常量池 =。=) ，比如 String+intern() 方法
+
+        > public String intern()
+    
+        > Returns a canonical representation for the string object.
+    
+        > A pool of strings, initially empty, is maintained privately by the class String.
+        
+        > When the intern method is invoked, if the pool already contains a string equal to this String object as determined by the equals(Object) method, then the string from the pool is returned. Otherwise, this String object is added to the pool and a reference to this String object is returned.
+
+        > It follows that for any two strings s and t, s.intern() == t.intern() is true if and only if s.equals(t) is true.
+
+        > All literal strings and string-valued constant expressions are interned. String literals are defined in §3.10.5 of the Java Language Specification
+
+### 直接内存 ###
+
+直接内存 (Direct Memory) 并不是虚拟机运行时数据区的一部分，也不是 Java 虚拟机规范中定义的内存区域，但是这部分内存也被频繁地使用，而且也可能导致 OutOfMemoryError。
+
+比如 NIO (New Input/Output) 引入了一种基于通道 (Channel) 与缓冲区 (Buffer) 的I/O方式，它可以使用 Native 函数库直接分配堆外内存，然后通过一个存储在 Java 堆里面的 DirectByteBuffer 对象作为这块内存的引用进行操作。这样能在一些场景中显著提高性能，因为避免了在Java堆和Native堆中来回复制数据。 
+
+### Memory Leak vs. Memory Overflow ###
+
+> 引用1：
+
+> 内存溢出就是你要求的内存超出了 JVM 能给你的，JVM 不能满足需求。
+
+> 内存泄漏是指你向 JVM 申请了内存，可是使用完了以后却不归还（或者是无法被 GC），结果是你自己不再访问该内存，该内存内存也无法被其他人使用。一直下去，程序也逐渐无内存使用，就会溢出。
+
+> 引用2：
+
+> JAVA中的内存溢出的导致原因很多,最主要的可能是
+
+> 1. 由于JVM堆内存设置过小,可以通过-Xms -Xmm设置,
+> 2. JVM堆内存是足够的，但只是没有连续的内存空间导致，比如申请连续内存空间的数组：String[] array = new String[10000].
+> 3. 还有可能是不断的内存泄露导致最后内存不足溢出. 
+
+可见内存泄漏和内存溢出不是同一层次的概念，内存泄漏只是内存溢出的可能原因之一。
+
+死循环就我的理解来看，属于内存溢出（当前线程死循环期间维护的中间变量过多导致栈溢出），网上多说是内存泄漏
+
+----------
+
+----------
+
+## <a name="ch3">chapter 3. GC</a> ##
+
+----------
+
+----------

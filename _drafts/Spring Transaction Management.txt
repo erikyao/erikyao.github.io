@@ -1,0 +1,38 @@
+# Spring Transaction Management
+
+## J2EE Global Transaction
+
+- managed by application server
+- using JTA (Java Transaction API)
+- ability to work with multiple transactional resources (typically relational databases and message queues)
+
+## J2EE Local Transaction
+
+- resource-specific
+
+	- i.e. work with only one transtactional resouce at one time
+	- i.e. cannot help ensure correctness across multiple resources
+	- It is worth noting that most applications use a single transaction resource
+	- the most common example would be a transaction associated with a JDBC connection
+
+- application server NOT involved
+
+## Key Abstraction
+The key to the Spring transaction abstraction is the notion of a transaction strategy. 
+
+A transaction strategy is defined by the `org.springframework.transaction.PlatformTransactionManager` interface, shown below:
+	
+	public interface PlatformTransactionManager {
+    	TransactionStatus getTransaction(TransactionDefinition definition) throws TransactionException;
+    	void commit(TransactionStatus status) throws TransactionException;
+    	void rollback(TransactionStatus status) throws TransactionException;
+	}
+
+The getTransaction(..) method returns a TransactionStatus object, depending on a TransactionDefinition parameter. The returned TransactionStatus might represent a new or existing transaction (if there were a matching transaction in the current call stack - with the **implication** being that (as with J2EE transaction contexts) a TransactionStatus is associated with a thread of execution).
+
+The TransactionDefinition interface specifies:
+
+- Isolation: the degree of isolation this transaction has from the work of other transactions. For example, can this transaction see uncommitted writes from other transactions?
+- Propagation: normally all code executed within a transaction scope will run in that transaction. However, there are several options specifying behavior if a transactional method is executed when a transaction context already exists: for example, simply continue running in the existing transaction (the common case); or suspending the existing transaction and creating a new transaction. Spring offers all of the transaction propagation options familiar from EJB CMT.
+- Timeout: how long this transaction may run before timing out (and automatically being rolled back by the underlying transaction infrastructure).
+- Read-only status: a read-only transaction does not modify any data. Read-only transactions can be a useful optimization in some cases (such as when using Hibernate).

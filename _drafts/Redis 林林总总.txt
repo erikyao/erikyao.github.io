@@ -1,0 +1,48 @@
+# Redis 林林总总
+
+## 需考虑的问题 ##
+
+1. Serialize or not? if serialize, how to handle exception? 
+
+2. compress or not?
+
+## Jedis Config Sample ##
+
+        <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">  
+            <property name="maxActive"  value="50" />  
+            <property name="maxIdle" value="10" />  
+            <property name="maxWait" value="1000" />  
+            <property name="testOnBorrow"  value="true"/>  
+        </bean>  
+      
+        <bean id="jedis.shardInfo" class="redis.clients.jedis.JedisShardInfo">  
+            <constructor-arg index="0" value="reids服务器ip" />  
+            <constructor-arg index="1" value="redis服务器port" type="int"/>  
+        </bean>  
+      
+        <bean id="shardedJedisPool" class="redis.clients.jedis.ShardedJedisPool">  
+            <constructor-arg index="0" ref="jedisPoolConfig" />  
+            <constructor-arg index="1">  
+                <list>  
+                    <ref bean="jedis.shardInfo" />  
+                </list>  
+            </constructor-arg>  
+        </bean>  
+
+        ShardedJedis jedis =  shardedJedisPool.getResource();  
+        jedis.get(key); //从redis服务器获取值  
+        jedis.set(key, value); //将值保存到redis服务器  
+
+## It seems like server has closed the connection 问题 ##
+
+原因分析：
+
+主因是redis server 关闭了此客户端的连接：server端设置了maxidletime（默认是5分钟），服务端会不断循环检测clinet的最后一次通信时间（last interaction），如果大于maxidletime，则关闭连接，并回收相关资源。client在向该连接中写数据后就会由于server端已经关闭而出现 broken pipe的问题。
+
+如果在 spring 中通过 getResource 配置了一个 ShardedJedis，然后每次都用这个 ShardedJedis，长时间闲置的话也会关闭连接
+
+## Basic Usage Example ##
+
+### using Jedis in a multithreaded environment ###
+
+You shouldn't use the same instance from different threads because you'll have strange errors. And sometimes creating lots of Jedis instances is not good enough because it means lots of sockets and connections, which leads to strange errors as well. A single Jedis instance is not threadsafe! To avoid these problems, you should use JedisPool, which is a threadsafe pool of network connections. You can use the pool to reliably create several Jedis instances, given you return the Jedis instance to the pool when done. This way you can overcome those strange errors and achieve great performance.

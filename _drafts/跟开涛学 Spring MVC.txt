@@ -1,0 +1,154 @@
+# 跟开涛学 Spring MVC #
+
+
+----------
+
+
+## 目录 ##
+### <a href="#ch1">chapter 1. MVC模型</a> ###
+### <a href="#ch2">chapter 2. Spring MVC in a shell</a> ###
+### <a href="#ch3">chapter 3. DispatcherServlet 详解</a> ###
+### <a href="#ch4">chapter 4. Controller 详解</a> ###
+
+- <a href="#ch4-1">part 1</a>
+
+----------
+<br>
+<br>
+
+----------
+
+----------
+## <a name="ch1">chapter 1. MVC模型</a> ##
+
+----------
+
+----------
+
+标准的 MVC 模型：
+
+    1. 用户发请求给 controller
+    2. controller 操作 model
+    3. view 整合阶段，有两种方式：
+        3.1. controller merges model and view
+        3.2. model 将自己推送给 view
+    4. view 被返回给用户
+
+Web MVC 模型：
+
+标准的MVC中，模型能主动推数据给视图进行更新（观察者设计模式，在模型上注册视图，当模型更新时自动更新视图），但在Web开发中模型是无法主动推给视图的，因为在Web开发是请求-响应模型，无法主动更新用户界面。
+
+三大逻辑：
+
+对应 MVC，有三大逻辑：
+
+* controller：控制逻辑，比如根据请求确定返回哪个视图（简称为分发）
+* view：显示逻辑，html 代码可以全部看作是显示逻辑，另外 <c:if> 这些控制显示内容的代码也可以看作是显示逻辑
+* model：业务逻辑
+
+开发模式：
+
+* 纯 servlet 或纯 JSP：三种逻辑混合
+* jsp + javabean：在 jsp 页面使用 <jsp:useBean> 标准动作可以简化 javabean 的获取/创建，及将请求参数封装到 javabean。稍微好了一点
+* sevlet as C, jsp as V, javabean as M：（1）分发逻辑写起来麻烦；（2）不能换视图类型
+* service-to-workers：
+
+        1. 用户发请求到 Front Controller
+        2. Front Controller 设置 context（一般用 ThreadLocal），根据 url 选择 Page Controller，然后将 Page Controller 委托给 Application Controller
+        3. Page Controller 操作 model
+        4. Page Controller 返回 model 和 逻辑视图名（比如"index"） 给 Application Contoller
+        5. Applicaton Controller 根据 逻辑视图名，确定视图（比如"index.jsp"）并 merge model
+        
+
+----------
+
+----------
+
+## <a name="ch2">chapter 2. Spring MVC in a shell</a> ##
+
+----------
+
+----------
+
+![spring mvc component](https://9qsmja.bay.livefilestore.com/y1mFiCx_JjPHa2XZt6EfrvSOafBGk94WYSVyBawsmDA--UCvm0ATJ-PEFBFaR828KPlG0OOpQLW5I-AQYqgTRgwN-XA8WO27wAl9IZL60HiecHAujBxfh4bhg/57ea9e7edeebd5ee2ec0cf27313c5fb6__2.JPG?psid=1)
+
+* Front Controller: DispatcherServlet
+* Application Controller: Handler Mapping + View Resolver
+* Page Controller: 我们自己写的@Controller
+
+处理流程：
+1. DispatcherServlet 接受请求
+2. HandlerMapping 告诉 DispatcherServlet 具体去找哪个 Handler
+3. HandlerAdapter 执行 Handler（即@Controller），返回 ModelAndView（model与逻辑视图名）
+4. ViewResolver 根据 ModelAndView 告诉 DispatcherServlet 具体是哪一个 view
+5. DispatcherServlet merges model and view
+6. DispatcherServlet 返回响应
+
+sample config without annotation：
+
+    <!-- HandlerMapping -->  
+    <bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>  
+    <!-- HandlerAdapter -->  
+    <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/>  
+    <!-- 处理器 -->  
+    <bean name="/hello" class="cn.javass.chapter2.web.controller.HelloWorldController"/> 
+
+BeanNameUrlHandlerMapping：表示将请求的URL和Bean名字映射，如URL为 “上下文/hello”，则Spring配置文件必须有一个名字为“/hello”的Bean，上下文默认忽略。
+
+SimpleControllerHandlerAdapter：表示所有实现了org.springframework.web.servlet.mvc.Controller接口的Bean可以作为Spring Web MVC中的处理器。
+
+----------
+
+----------
+
+## <a name="ch3">chapter 3. DispatcherServlet 详解</a> ##
+
+----------
+
+----------
+
+contextConfigLocation 有两种，一个是 DispatcherServlet 自身的，一个是整个 app 的：
+
+* 假设 DispatcherServlet 的 `<servlet-name>` 是 xxx，那么 DispatcherServlet 的 contextConfigLocation 默认是 `/WEB-INF/xxx-servlet.xml`
+* 整个 app 的 contextConfigLocation 定义如下，注意 `<param-name>` 固定是 "contextConfigLocation"：
+    
+        <context-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>
+                WEB-INF/config/spring/datasource.xml
+                WEB-INF/config/spring/dao.xml
+                WEB-INF/config/spring/service.xml
+            </param-value>
+        </context-param>
+        <listener> 
+            <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+        </listener>
+
+DispatcherServlet 的默认配置在 DispatcherServlet.properties（和 DispatcherServlet 类在一个包下）中，而且是当 Spring 配置文件中没有指定配置时使用的默认策略。从默认配置来看，chapter 2 中“sample config without annotation” 部分的配置不写也是可以的
+
+----------
+
+----------
+
+
+## <a name="ch4">chapter 4. Controller 详解</a> ##
+
+----------
+
+----------
+
+### <a name="#ch4-1">part-1</a> ###
+
+
+----------
+
+----------
+
+
+## <a name="ch2">chapter 2. Spring MVC in a shell</a> ##
+
+----------
+
+----------
+
+### <a name="#item8">item 8. 严格的 `equals(Object)` 方法</a> ###
