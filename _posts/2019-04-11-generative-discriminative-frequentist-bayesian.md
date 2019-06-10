@@ -98,7 +98,7 @@ _Section 5.6 Bayesian Statistics, Deep Learning_ 上说：
 
 ## 4. Unsupervised vs Supervised
 
-明显可以看出，无论是 generative 还是 discriminative，它们都是 supervised learning 的范畴，应该它们都有 $\mathbf{Y}$。
+明显可以看出，无论是 generative 还是 discriminative，它们都是 supervised learning 的范畴，因为它们都有 $\mathbf{Y}$。
 
 那么 unsupervised learning 我们可以简单理解为去 learn $\mathbb{P}_{\mathbf{X}}(\mathbf{x})$ 吗？不一定。
 
