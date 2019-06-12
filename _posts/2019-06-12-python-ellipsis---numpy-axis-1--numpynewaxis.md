@@ -2,7 +2,7 @@
 layout: post
 title: "Python: Ellipsis (...) / Numpy: <i>axis=-1</i> / <i>np.newaxis</i>"
 description: ""
-category: 
+category: Numpy
 tags: []
 ---
 {% include JB/setup %}
