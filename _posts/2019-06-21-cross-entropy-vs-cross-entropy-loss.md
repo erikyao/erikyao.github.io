@@ -26,7 +26,7 @@ $$
 
 - $P$ 可以是 labels，比如 $P = \lbrace 1, 1, 0 \rbrace$
 - $Q$ 可以是 predictions，比如 $Q = \lbrace 0.9, 0.8, 0.4 \rbrace$
-- 也就是说 $\sum_i p_i = 1$ 和 $\sum_i q_i = 1$ 也不一定成立了
+    - 也就是说 $\sum_i p_i = 1$ 和 $\sum_i q_i = 1$ 也不一定成立了
 
 我们接着定义：
 
@@ -41,7 +41,7 @@ $$
 \operatorname{L}(P, Q) = \operatorname{H}(P, Q) + \operatorname{H}(\overline P, \overline Q)
 $$
 
-这也就是参见的写法：
+这也就是常见的写法：
 
 $$
 \operatorname{Loss} = - \big( y\log(p) + (1-y)\log(1-p) \big)
