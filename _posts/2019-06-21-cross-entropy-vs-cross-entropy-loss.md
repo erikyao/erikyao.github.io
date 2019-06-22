@@ -35,7 +35,7 @@ $$
 - $\overline Q = \lbrace 1 - q_1, 1- q_2, \dots, 1 - q_n \rbrace$
     - 也就是反向的 predictions，比如 $\overline Q = \lbrace 0.1, 0.2, 0.6 \rbrace$
 
-那么 binary cross entropy 就可以定义为：
+那么 binary cross entropy loss 就可以定义为：
 
 $$
 \operatorname{L}(P, Q) = \operatorname{H}(P, Q) + \operatorname{H}(\overline P, \overline Q)
