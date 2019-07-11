@@ -17,7 +17,7 @@ $$
 }
 $$
 
-合着按着我自己的思路才是最好理解的。PCA 的整个过程其实就是：**寻找一个基变换 (change of basis)，使得新坐标系内的 axes 的功效可以量化**。这个量化的意思是，如果新坐标系内有 x'-axis 和 y'-axis，我可以明确地写出 $\frac{\operatorname{effect}(\text{x'-axis})}{\operatorname{effect}(\text{y'-axis})} = \gamma$ 这么一个比值。那么这个量化是怎么做的呢？用的是原数据集沿该 axis 所保留的 corvariance matrix。
+合着按着我自己的思路才是最好理解的。PCA 的整个过程其实就是：**寻找一个基变换 (change of basis)，使得新坐标系内的 axes 的功效可以量化**。这个量化的意思是，如果新坐标系内有 x'-axis 和 y'-axis，我可以明确地写出 $\frac{\operatorname{effect}(\text{x'-axis})}{\operatorname{effect}(\text{y'-axis})} = \gamma$ 这么一个比值。那么这个量化是怎么做的呢？用的是原数据集沿该 axis 所保留的 covariance matrix。
 
 ## 第一步：Centering
 
@@ -28,7 +28,7 @@ $$
 1. $\mu_j =  \frac{1}{m} \sum_{i=1}^m { x_j^{(i)} }$ (mean of each column)
 2. $x_j^{(i)} = x_j^{(i)} - \mu_j$ (column 整体减去 mean of column)
 
-做完 column-wise centering 之后，才能有 corvariance matrix $\Sigma(X) = \frac{1}{m} X X^{T}$ (因为 column 的 mean 等于 0，所以每个 column 的期望 $E[\cdot]$ 小项就不用考虑了)
+做完 column-wise centering 之后，才能有 covariance matrix $\Sigma(X) = \frac{1}{m} X X^{T}$ (因为 column 的 mean 等于 0，所以每个 column 的期望 $E[\cdot]$ 小项就不用考虑了)
 
 ## 第二步：假设一个 change of basis (实际并不需要执行这个 change of basis)
 
@@ -43,7 +43,7 @@ $$
 
 ## 第三步：定量 Effect of axis
 
-那我们现在研究：$X$ 在 $\hat{i'}$ 方向上的 corvariance 是多少？根据公式：
+那我们现在研究：$X$ 在 $\hat{i'}$ 方向上的 covariance 是多少？根据公式：
 
 $$
 \begin{align}
@@ -76,8 +76,8 @@ $$
 直接 eigen-decompose $X^T X$：
 
 - 因为 $X^T X$ 必定 positive semi-definite，所以 eigenvalues 都是 non-negative
-- 最大的 eigenvalue 对应的 eigenvector 的方向，$X$ 所保留的 corvariance 最大
-- 第二大的 eigenvalue 对应的 eigenvector 的方向，$X$ 所保留的 corvariance 次之
+- 最大的 eigenvalue 对应的 eigenvector 的方向，$X$ 所保留的 covariance 最大
+- 第二大的 eigenvalue 对应的 eigenvector 的方向，$X$ 所保留的 covariance 次之
     - 依此类推
 
 注意很多教程写的是方法是去 SVD $\Sigma(X) = \frac{1}{m} X X^{T}$ 或是直接 SVD $X$ (因为一般情况下都是 $m > n$ 所以 $U_{m \times m}$ 应该也能包含 $n$ 个有效的 eigenvalues)，换汤不换药。
