@@ -113,12 +113,12 @@ minor.tick(nx=n, ny=n, tick.ratio=n)
 ```r
 attach(mtcars)
 	plot(wt, mpg,
-		main="Mileage vs. Car Weight",
-		xlab="Weight", ylab="Mileage",
-		pch=18, col="blue")
+		 main="Mileage vs. Car Weight",
+		 xlab="Weight", ylab="Mileage",
+		 pch=18, col="blue")
 	text(wt, mpg, # (wt, mpg) 标明 (x, y) 位置
-		row.names(mtcars), # 在每个点上写 row.names 这个 text
-		cex=0.6, pos=4, col="red")
+		 row.names(mtcars), # 在每个点上写 row.names 这个 text
+		 cex=0.6, pos=4, col="red")
 detach(mtcars)
 ```
 
@@ -150,8 +150,8 @@ opar <- par(no.readonly=TRUE)
 # 画 scatter plot
 par(fig=c(0, 0.8, 0, 0.8))
 plot(mtcars$wt, mtcars$mpg,
-	xlab="Miles Per Gallon",
-	ylab="Car Weight")
+	 xlab="Miles Per Gallon",
+	 ylab="Car Weight")
 
 # 在 scatter plot 上方画 box plot
 par(fig=c(0, 0.8, 0.55, 1), new=TRUE)
@@ -204,8 +204,7 @@ names(leadership)[1:2] <- c("managerID", "testDate")
 
 # method 3
 library(reshape)
-leadership <- rename(leadership, c(manager="managerID", date="testDate")
-)
+leadership <- rename(leadership, c(manager="managerID", date="testDate"))
 ```
 
 ### Missing values are noncomparable
@@ -233,7 +232,7 @@ Missing values are considered noncomparable, even to themselves. This means that
 	- E.g. `x <- c(1, 5, 23, 29)`, 
 		- `diff(x)` returns `c(4, 18, 6)`; i.e. $x\_n - x\_{n-1}$
 		- `diff(x, lag=2)` returns `c(22 24)`; i.e. $x\_n - x\_{n-2}$
-		- `diff(x, lag=3)` returns `c(28)`; i.e. $x\_n - x\_{n-3})$
+		- `diff(x, lag=3)` returns `c(28)`; i.e. $x\_n - x\_{n-3}$
 
 ### Feature Scaling
 
@@ -258,11 +257,10 @@ sd(y)
 x <- pretty(c(-3,3), 30)
 y <- dnorm(x)
 plot(x, y,
-	type = "l",
-	xlab = "Normal Deviate",
-	ylab = "Density",
-	yaxs = "i"
-)
+	 type = "l",
+	 xlab = "Normal Deviate",
+	 ylab = "Density",
+	 yaxs = "i")
 ```
 
 - `pretty(x, n)`
@@ -314,7 +312,7 @@ switch(attr, color="red", shape="square", length=5) ## 根据 attr 匹配 case
 
 以上这些用法，switch 都是直接返回了一个值，所以可以当 return 值返回来。
 
-如果需要像 java 那样每个 case 执行一些操作，需要这么写（参 [How to use the switch statement in R functions?](http://stackoverflow.com/questions/10393508/how-to-use-the-switch-statement-in-r-functions)）：
+如果需要像 java 那样每个 case 执行一些操作，需要这么写 (参 [How to use the switch statement in R functions?](http://stackoverflow.com/questions/10393508/how-to-use-the-switch-statement-in-r-functions))：
 
 ```r
 action <- "foo"
@@ -389,9 +387,9 @@ If the categorical variable to be plotted is a factor or ordered factor, you can
 ```r
 # 效果同上
 plot(Arthritis$Improved, main="Simple Bar Plot",
-	xlab="Improved", ylab="Frequency")
+	 xlab="Improved", ylab="Frequency")
 plot(Arthritis$Improved, horiz=TRUE, main="Horizontal Bar Plot",
-	xlab="Frequency", ylab="Improved")
+	 xlab="Frequency", ylab="Improved")
 ```
 
 #### 6.1.2 Stacked and Grouped Bar Plots
@@ -463,7 +461,7 @@ pie(slices, labels=lbls2, col=rainbow(length(lbls2)),
 # Pie Chart No.3
 library(plotrix)
 pie3D(slices, labels=lbls, explode=0.1,
-		main="3D Pie Chart")
+	  main="3D Pie Chart")
 
 # Pie Chart No.4
 mytable <- table(state.region)
@@ -505,28 +503,28 @@ hist(mtcars$mpg)
 
 # Hist No.2: With specified bins and color
 hist(mtcars$mpg,
-	breaks=12,
-	col="red",
-	xlab="Miles Per Gallon",
-	main="Colored histogram with 12 bins")
+	 breaks=12,
+	 col="red",
+	 xlab="Miles Per Gallon",
+	 main="Colored histogram with 12 bins")
 
 # Hist No.3: With rug plot and density curve
 hist(mtcars$mpg,
-	freq=FALSE,
-	breaks=12,
-	col="red",
-	xlab="Miles Per Gallon",
-	main="Histogram, rug plot, density curve")
+	 freq=FALSE,
+	 breaks=12,
+	 col="red",
+	 xlab="Miles Per Gallon",
+	 main="Histogram, rug plot, density curve")
 rug(jitter(mtcars$mpg))
 lines(density(mtcars$mpg), col="blue", lwd=2)
 
 # Hist No.4: With normal curve and box
 x <- mtcars$mpg
 h <- hist(x,
-		breaks=12,
-		col="red",
-		xlab="Miles Per Gallon",
-		main="Histogram with normal curve and box")
+		  breaks=12,
+		  col="red",
+		  xlab="Miles Per Gallon",
+		  main="Histogram with normal curve and box")
 xfit <- seq(min(x), max(x), length=40)
 yfit <- dnorm(xfit, mean=mean(x), sd=sd(x))
 yfit <- yfit*diff(h$mids[1:2])*length(x)
@@ -538,7 +536,7 @@ box()
 - `jitter`: add a small random value to each data point (a uniform random variate between ±`amount`)
 	- 这里用 `jitter` 是 in order to avoid overlapping points in `rug`
 - `density`: a kernel density estimate
-- `dnorm`: 计算 x 在这个 `N(mean, sd^2)` 分布上的概率密度，即 f(x)。参 [R Generating Random Numbers and Random Sampling](/r/2014/07/08/r-generating-random-numbers-and-random-sampling/)
+- `dnorm`: 计算 $x$ 在这个 `N(mean, sd^2)` 分布上的概率密度，即 $f(x)$。参 [R Generating Random Numbers and Random Sampling](/r/2014/07/08/r-generating-random-numbers-and-random-sampling/)
 - `h$mids[1:2]`: `hist$mids[n]` 表示第 n 个 cell (bin) 的 midpoint，所以 `diff(h$mids[1:2])` 表示的就是一个 cell 的宽度。
 	- `diff(h$mids[1:2])*length(x)` 表示的就是所有 hist 柱的面积（cell-width × cell-height）
 - 我们为什么要把 `yfit` 乘以这个面积？因为正常情况下 area under f(x) 是 1，与我们 histogram 的比例不符，所以我们乘一个标量使 normal curve 和 histogram 在同一个 scale 上。 
@@ -639,8 +637,8 @@ Violin plots are basically kernel density plots superimposed in a mirror image f
 
 ```r
 dotchart(mtcars$mpg, labels=row.names(mtcars), cex=.7,
-		main="Gas Mileage for Car Models",
-		xlab="Miles Per Gallon")
+		 main="Gas Mileage for Car Models",
+		 xlab="Miles Per Gallon")
 ```
 
 ![][figure-06-16]
@@ -652,14 +650,14 @@ x$color[x$cyl==4] <- "red"
 x$color[x$cyl==6] <- "blue"
 x$color[x$cyl==8] <- "darkgreen"
 dotchart(x$mpg,
-		labels = row.names(x),
-		cex=.7,
-		groups = x$cyl,
-		gcolor = "black",
-		color = x$color,
-		pch=19,
-		main = "Gas Mileage for Car Models\ngrouped by cylinder",
-		xlab = "Miles Per Gallon")
+		 labels = row.names(x),
+		 cex=.7,
+		 groups = x$cyl,
+		 gcolor = "black",
+		 color = x$color,
+		 pch=19,
+		 main = "Gas Mileage for Car Models\ngrouped by cylinder",
+		 xlab = "Miles Per Gallon")
 ```
 
 ![][figure-06-17]
@@ -753,7 +751,7 @@ cast(dfm, am + cyl + variable ~ ., dstats)
 	
 常见的函数有：
 
-- `table(var1, var2, …, varN)` 
+- `table(var1, var2, ..., varN)` 
 - `xtabs(formula, data)` 
 - `prop.table(table, margins)`: 将原 table 的 frequency 替换成 percentage
 	- 注意这个 `margins` 的值表示 formula 的 variable 的 index。
