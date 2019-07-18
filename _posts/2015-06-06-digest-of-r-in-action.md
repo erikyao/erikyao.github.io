@@ -125,7 +125,7 @@ detach(mtcars)
 As a second example, the following code can be used to display font families:
 
 ```r
-opar &lt;- par(no.readonly=TRUE)
+opar <- par(no.readonly=TRUE)
 par(cex=1.5)
 plot(1:7, 1:7, type="n")
 text(3, 3, "Example of default text")
@@ -145,7 +145,7 @@ Finally, you can add mathematical symbols and formulas to a graph using TEX-like
 - `par(new=TRUE)` 表示 adding a figure to an existing graph
 
 ```r
-opar &lt;- par(no.readonly=TRUE)
+opar <- par(no.readonly=TRUE)
 
 # 画 scatter plot
 par(fig=c(0, 0.8, 0, 0.8))
@@ -174,20 +174,20 @@ par(opar)
 ### 使用 transform 来添加 column
 
 ```r
-mydata&lt;-data.frame(x1 = c(2, 2, 6, 4), x2 = c(3, 4, 2, 8))
+mydata<-data.frame(x1 = c(2, 2, 6, 4), x2 = c(3, 4, 2, 8))
 
 # method 1
-mydata$sumx &lt;- mydata$x1 + mydata$x2
-mydata$meanx &lt;- (mydata$x1 + mydata$x2)/2
+mydata$sumx <- mydata$x1 + mydata$x2
+mydata$meanx <- (mydata$x1 + mydata$x2)/2
 
 # method 2
 attach(mydata)
-	mydata$sumx &lt;- x1 + x2
-	mydata$meanx &lt;- (x1 + x2)/2
+	mydata$sumx <- x1 + x2
+	mydata$meanx <- (x1 + x2)/2
 detach(mydata)
 
 # method 3
-mydata &lt;- transform(mydata,
+mydata <- transform(mydata,
 					sumx = x1 + x2,
 					meanx = (x1 + x2)/2)
 ```
@@ -196,16 +196,15 @@ mydata &lt;- transform(mydata,
 
 ```r
 # method 1
-names(leadership)[1] &lt;- "managerID"
-names(leadership)[2] &lt;- "testDate"
+names(leadership)[1] <- "managerID"
+names(leadership)[2] <- "testDate"
 
 # method 2
-names(leadership)[1:2] &lt;- c("managerID", "testDate")
+names(leadership)[1:2] <- c("managerID", "testDate")
 
 # method 3
 library(reshape)
-leadership &lt;- rename(leadership,
-					c(manager="managerID", date="testDate")
+leadership <- rename(leadership, c(manager="managerID", date="testDate")
 )
 ```
 
@@ -232,21 +231,21 @@ Missing values are considered noncomparable, even to themselves. This means that
 - `diff(x, lag=n)` 
 	- Returns lagged differences, with `lag` indicating which lag to use. The default lag is 1.
 	- E.g. `x <- c(1, 5, 23, 29)`, 
-		- `diff(x)` returns `c(4, 18, 6)`; i.e. \\( x\_n - x\_{n-1} \\)
-		- `diff(x, lag=2)` returns `c(22 24)`; i.e. \\( x\_n - x\_{n-2} \\)
-		- `diff(x, lag=3)` returns `c(28)`; i.e. \\( x\_n - x\_{n-3} \\)
+		- `diff(x)` returns `c(4, 18, 6)`; i.e. $x\_n - x\_{n-1}$
+		- `diff(x, lag=2)` returns `c(22 24)`; i.e. $x\_n - x\_{n-2}$
+		- `diff(x, lag=3)` returns `c(28)`; i.e. $x\_n - x\_{n-3})$
 
 ### Feature Scaling
 
 - `scale(x, center=TRUE, scale=TRUE)` 
 	- Column-wise center (`center=TRUE`) or standardize (`center=TRUE, scale=TRUE`) data object x
-	- Standard score 又称 z-score，算法是 \\( z = {x - \mu \over \sigma} \\)。standardize 就是指计算 standard score。
+	- Standard score 又称 z-score，算法是 $z = {x - \mu \over \sigma}$。standardize 就是指计算 standard score。
 	
 反过来，我们可以使用 `scale(x)*SD + M` 来生成一组具有 standard deviation `SD` 和 mean `M` 的数据，比如：
 
 ```r
-x &lt;- c(1,2,3,4,5)
-y &lt;- scale(x, center=TRUE, scale=TRUE)*10 + 50
+x <- c(1,2,3,4,5)
+y <- scale(x, center=TRUE, scale=TRUE)*10 + 50
 mean(y)
 [1] 50
 sd(y)
@@ -256,8 +255,8 @@ sd(y)
 ### 快速画一个钟形曲线 & pretty 函数
 
 ```r
-x &lt;- pretty(c(-3,3), 30)
-y &lt;- dnorm(x)
+x <- pretty(c(-3,3), 30)
+y <- dnorm(x)
 plot(x, y,
 	type = "l",
 	xlab = "Normal Deviate",
@@ -283,12 +282,12 @@ where `n` is the desired sample size, `mean` is the vector of means, and `sigma`
 ### 给 top 20% 的分数打 A，给 buttom 20% 的分数打 F
 
 ```r
-y &lt;- quantile(score, c(.8,.6,.4,.2))
-roster$grade[score &gt;= y[1]] &lt;- "A"
-roster$grade[score &lt; y[1] & score &gt;= y[2]] &lt;- "B"
-roster$grade[score &lt; y[2] & score &gt;= y[3]] &lt;- "C"
-roster$grade[score &lt; y[3] & score &gt;= y[4]] &lt;- "D"
-roster$grade[score &lt; y[4]] &lt;- "F"
+y <- quantile(score, c(.8,.6,.4,.2))
+roster$grade[score >= y[1]] <- "A"
+roster$grade[score < y[1] & score >= y[2]] <- "B"
+roster$grade[score < y[2] & score >= y[3]] <- "C"
+roster$grade[score < y[3] & score >= y[4]] <- "D"
+roster$grade[score < y[4]] <- "F"
 ```
 
 ### R switch-case
@@ -299,7 +298,7 @@ roster$grade[score &lt; y[4]] &lt;- "F"
 switch(2, "red", "green", "blue") # 直接选择第 2 个 case；引号不可省略
 [1] "green"
 
-i &lt;- 1
+i <- 1
 switch(i, "red", "green", "blue") # 选择第 i 个 case
 [1] "red"
 ```
@@ -308,7 +307,7 @@ switch(i, "red", "green", "blue") # 选择第 i 个 case
 switch("color", "color"="red", "shape"="square", "length"=5) ## 匹配 case "color"；引号可以省略
 [1] "red"
 
-attr &lt;- "color"
+attr <- "color"
 switch(attr, color="red", shape="square", length=5) ## 根据 attr 匹配 case
 [1] "red"
 ```
@@ -318,7 +317,7 @@ switch(attr, color="red", shape="square", length=5) ## 根据 attr 匹配 case
 如果需要像 java 那样每个 case 执行一些操作，需要这么写（参 [How to use the switch statement in R functions?](http://stackoverflow.com/questions/10393508/how-to-use-the-switch-statement-in-r-functions)）：
 
 ```r
-action &lt;- "foo"
+action <- "foo"
 switch(action, 
 	foo={ 
 		print('foo') 
@@ -341,12 +340,12 @@ switch(action,
 写 function 要 return 一个复杂的 object 时就会很怀念 class，不过其实是可以用 list 或者 named vector 来替代的：
 
 ```r
-mystats &lt;- function(x, parameter1=TRUE, parameter2=FALSE, ...) {
-	center &lt;- xxx;
-	spread &lt;- zzz;
+mystats <- function(x, parameter1=TRUE, parameter2=FALSE, ...) {
+	center <- xxx;
+	spread <- zzz;
 	
 	# or c(center=center, spread=spread) if center and spread are of the same type
-	result &lt;- list(center=center, spread=spread) 
+	result <- list(center=center, spread=spread) 
 	return(result)
 }
 ```
@@ -354,7 +353,7 @@ mystats &lt;- function(x, parameter1=TRUE, parameter2=FALSE, ...) {
 ### 矩阵转置（Transpose）
 
 ```r
-cars &lt;- mtcars[1:5,1:4]
+cars <- mtcars[1:5,1:4]
 t(cars)
 ```
 
@@ -370,7 +369,7 @@ Bar plots display the distribution (frequencies) of a categorical variable throu
 
 ```r
 library(vcd)
-counts &lt;- table(Arthritis$Improved)
+counts <- table(Arthritis$Improved)
 counts
 None Some Marked
 42 14 28
@@ -406,7 +405,7 @@ If input is a matrix rather than a vector, the resulting graph will be a stacked
 	
 ```r
 library(vcd)
-counts &lt;- table(Arthritis$Improved, Arthritis$Treatment)
+counts <- table(Arthritis$Improved, Arthritis$Treatment)
 counts
 			Treatment
 Improved 	Placebo Treated
@@ -436,7 +435,7 @@ In a spinogram, a stacked bar plot is rescaled so that the height of each bar is
 ```r
 library(vcd)
 attach(Arthritis)
-	counts &lt;- table(Treatment, Improved)
+	counts <- table(Treatment, Improved)
 	spine(counts, main="Spinogram Example")
 detach(Arthritis)
 ```
@@ -449,15 +448,15 @@ detach(Arthritis)
 par(mfrow=c(2, 2))
 
 # data for Pie Chart No.1, No.2 & No.3
-slices &lt;- c(10, 12, 4, 16, 8)
+slices <- c(10, 12, 4, 16, 8)
 
 # Pie Chart No.1
-lbls &lt;- c("US", "UK", "Australia", "Germany", "France") # label
+lbls <- c("US", "UK", "Australia", "Germany", "France") # label
 pie(slices, labels = lbls, main="Simple Pie Chart")
 
 # Pie Chart No.2
-pct &lt;- round(slices/sum(slices)*100) # percentage
-lbls2 &lt;- paste(lbls, " ", pct, "%", sep="")
+pct <- round(slices/sum(slices)*100) # percentage
+lbls2 <- paste(lbls, " ", pct, "%", sep="")
 pie(slices, labels=lbls2, col=rainbow(length(lbls2)), 
 	main="Pie Chart with Percentages")
 
@@ -467,8 +466,8 @@ pie3D(slices, labels=lbls, explode=0.1,
 		main="3D Pie Chart")
 
 # Pie Chart No.4
-mytable &lt;- table(state.region)
-lbls3 &lt;- paste(names(mytable), "\n", mytable, sep="") 
+mytable <- table(state.region)
+lbls3 <- paste(names(mytable), "\n", mytable, sep="") 
 pie(mytable, labels = lbls3,
 	main="Pie Chart from a Table\n (with sample sizes)")
 ```
@@ -481,8 +480,8 @@ pie(mytable, labels = lbls3,
 
 ```r
 library(plotrix)
-slices &lt;- c(10, 12,4, 16, 8)
-lbls &lt;- c("US", "UK", "Australia", "Germany", "France")
+slices <- c(10, 12,4, 16, 8)
+lbls <- c("US", "UK", "Australia", "Germany", "France")
 fan.plot(slices, labels = lbls, main="Fan Plot")
 ```
 
@@ -522,15 +521,15 @@ rug(jitter(mtcars$mpg))
 lines(density(mtcars$mpg), col="blue", lwd=2)
 
 # Hist No.4: With normal curve and box
-x &lt;- mtcars$mpg
-h &lt;- hist(x,
+x <- mtcars$mpg
+h <- hist(x,
 		breaks=12,
 		col="red",
 		xlab="Miles Per Gallon",
 		main="Histogram with normal curve and box")
-xfit &lt;- seq(min(x), max(x), length=40)
-yfit &lt;- dnorm(xfit, mean=mean(x), sd=sd(x))
-yfit &lt;- yfit*diff(h$mids[1:2])*length(x)
+xfit <- seq(min(x), max(x), length=40)
+yfit <- dnorm(xfit, mean=mean(x), sd=sd(x))
+yfit <- yfit*diff(h$mids[1:2])*length(x)
 lines(xfit, yfit, col="blue", lwd=2)
 box()
 ```
@@ -554,11 +553,11 @@ Technically, kernel density estimation is a nonparametric method for estimating 
 par(mfrow=c(2,1))
 
 # density plot No.1
-d &lt;- density(mtcars$mpg)
+d <- density(mtcars$mpg)
 plot(d)
 
 # density plot No.2
-d &lt;- density(mtcars$mpg)
+d <- density(mtcars$mpg)
 plot(d, main="Kernel Density of Miles Per Gallon")
 polygon(d, col="red", border="blue")  
 rug(mtcars$mpg, col="brown")
@@ -573,11 +572,11 @@ par(lwd=2)
 library(sm)
 
 attach(mtcars)
-	cyl.f &lt;- factor(cyl, levels = c(4,6,8), labels = 
+	cyl.f <- factor(cyl, levels = c(4,6,8), labels = 
 						c("4 cylinder", "6 cylinder", "8 cylinder"))
 	sm.density.compare(mpg, cyl, xlab="Miles Per Gallon") 
 	title(main="MPG Distribution by Car Cylinders")
-	colfill &lt;- c(2:(1+length(levels(cyl.f))))
+	colfill <- c(2:(1+length(levels(cyl.f))))
 	legend(locator(1), levels(cyl.f), fill=colfill) 
 detach(mtcars)
 ```
@@ -623,9 +622,9 @@ A violin plot is a combination of a box plot and a kernel density plot.
 ```r
 library(vioplot)
 
-x1 &lt;- mtcars$mpg[mtcars$cyl==4]
-x2 &lt;- mtcars$mpg[mtcars$cyl==6]
-x3 &lt;- mtcars$mpg[mtcars$cyl==8]
+x1 <- mtcars$mpg[mtcars$cyl==4]
+x2 <- mtcars$mpg[mtcars$cyl==6]
+x3 <- mtcars$mpg[mtcars$cyl==8]
 vioplot(x1, x2, x3,
 		names=c("4 cyl", "6 cyl", "8 cyl"),
 		col="gold")
@@ -647,11 +646,11 @@ dotchart(mtcars$mpg, labels=row.names(mtcars), cex=.7,
 ![][figure-06-16]
 
 ```r
-x &lt;- mtcars[order(mtcars$mpg),]
-x$cyl &lt;- factor(x$cyl)
-x$color[x$cyl==4] &lt;- "red"
-x$color[x$cyl==6] &lt;- "blue"
-x$color[x$cyl==8] &lt;- "darkgreen"
+x <- mtcars[order(mtcars$mpg),]
+x$cyl <- factor(x$cyl)
+x$color[x$cyl==4] <- "red"
+x$color[x$cyl==6] <- "blue"
+x$color[x$cyl==8] <- "darkgreen"
 dotchart(x$mpg,
 		labels = row.names(x),
 		cex=.7,
@@ -685,21 +684,21 @@ dotchart(x$mpg,
 #### 计算 Skewness、Kurtosis 并使用 sapply 的一个例子
 
 ```r
-mystats &lt;- function(x, na.omit=FALSE){
+mystats <- function(x, na.omit=FALSE){
 	if (na.omit)
-		x &lt;- x[!is.na(x)]
+		x <- x[!is.na(x)]
 	
-	m &lt;- mean(x)
-	n &lt;- length(x)
-	s &lt;- sd(x)
-	skew &lt;- sum((x-m)^3/s^3)/n
-	kurt &lt;- sum((x-m)^4/s^4)/n - 3
+	m <- mean(x)
+	n <- length(x)
+	s <- sd(x)
+	skew <- sum((x-m)^3/s^3)/n
+	kurt <- sum((x-m)^4/s^4)/n - 3
 	
 	return(c(n=n, mean=m, stdev=s, skew=skew, kurtosis=kurt))
 }
 
 # a good practice
-vars &lt;- c("mpg", "hp", "wt")
+vars <- c("mpg", "hp", "wt")
 sapply(mtcars[vars], mystats)
 			mpg 	hp 		wt
 n 			32.000	32.000	32.0000
@@ -729,8 +728,8 @@ The distribution of `mtcars$mpg` is skewed to the right (+0.61) and somewhat fla
 ```r
 library(reshape)
 
-dstats &lt;- function(x)(c(n=length(x), mean=mean(x), sd=sd(x)))
-dfm &lt;- melt(mtcars, measure.vars=c("mpg", "hp", "wt"), id.vars=c("am", "cyl"))
+dstats <- function(x)(c(n=length(x), mean=mean(x), sd=sd(x)))
+dfm <- melt(mtcars, measure.vars=c("mpg", "hp", "wt"), id.vars=c("am", "cyl"))
 cast(dfm, am + cyl + variable ~ ., dstats)
 	am	cyl	variable	n	mean 	sd
 1 	0 	4 	mpg 		3 	22.90 	1.453
@@ -747,7 +746,7 @@ cast(dfm, am + cyl + variable ~ ., dstats)
 #### 7.2.1 Generating frequency tables
 
 - Frequency Table 的数据只有 1 column，它是把所有的情况都列在同一列，然后填上各自的 frequency
-- Contingency Table 的数据是 \\( m \times n \\) 的，比如 { male, female }x{ fat, thin, avg }
+- Contingency Table 的数据是 $m \times n$ 的，比如 { male, female }x{ fat, thin, avg }
 	- 所以 Contingency Table 也叫 cross tabulation or crosstab
 	- Contingency Table 中，某一 column 或者某一 row 的总计，我们称为 marginal total（因为写在 table 的外侧）
 	- 所有情况的总计我们称为 grand total
@@ -786,7 +785,7 @@ cast(dfm, am + cyl + variable ~ ., dstats)
 
 ```r
 library(vcd)
-mytable &lt;- xtabs(~Treatment+Improved, data=Arthritis)
+mytable <- xtabs(~Treatment+Improved, data=Arthritis)
 
 chisq.test(mytable)
 
@@ -807,10 +806,10 @@ mantelhaen.test(mytable) # Cochran–Mantel–Haenszel test
 
 ```r
 library(vcd)
-mytable &lt;- xtabs(~Treatment+Improved, data=Arthritis)
+mytable <- xtabs(~Treatment+Improved, data=Arthritis)
 
 assocstats(mytable)
-					X^2		df	P(&gt; X^2)
+					X^2		df	P(> X^2)
 Likelihood Ratio	13.530	2	0.0011536
 Pearson 			13.055	2	0.0014626
 
@@ -823,9 +822,9 @@ Likelihood Ratio 参 [Conditional Probability](/math/2014/09/08/conditional-prob
 
 association 简单理解就是 correlation。"coefficient" 这个词单纯表示 "系数"，不要和 correlation 混了。Phi-Coefficient is similar to the correlation coefficient in its interpretation. 而 "correlation coefficient" 其实就是 correlation 的值，[-1, 1] 之间；上面这三个 coefficient 也是一样的，你当做是不同的 correlation 算法就好了。
 
-- small effect size: \\( .10 < \lvert \phi \rvert < .30 \\)
-- medium effect size: \\( .30 < \lvert \phi \rvert < .50 \\)
-- large effect size: \\( \lvert \phi \rvert >.50. \\)
+- small effect size: $.10 < \lvert \phi \rvert < .30$
+- medium effect size: $.30 < \lvert \phi \rvert < .50$
+- large effect size: $\lvert \phi \rvert >.50$
 
 ### 7.3 Correlations
 
@@ -845,7 +844,7 @@ association 简单理解就是 correlation。"coefficient" 这个词单纯表示
 	- `kendall`
 	
 ```r
-states &lt;- state.x77[,1:6]
+states <- state.x77[,1:6]
 cor(states)
 			Population	Income	Illiteracy	Life Exp	Murder	HS Grad
 Population	1.0000		0.208	0.108		-0.068 		0.344 	-0.0985
@@ -855,8 +854,8 @@ Life Exp	-0.0681		0.340	-0.588		1.000		-0.781	0.5822
 Murder		0.3436		-0.230	0.703		-0.781		1.000	-0.4880
 HS Grad		-0.0985		0.620	-0.657		0.582		-0.488	1.0000
 
-x &lt;- states[,c("Population", "Income", "Illiteracy", "HS Grad")]
-y &lt;- states[,c("Life Exp", "Murder")]
+x <- states[,c("Population", "Income", "Illiteracy", "HS Grad")]
+y <- states[,c("Life Exp", "Murder")]
 cor(x,y)
 			Life Exp	Murder
 Population	-0.068		0.344
@@ -951,7 +950,7 @@ with(UScrime, t.test(U1, U2, paired=TRUE))
 		Paired t-test
 		
 data: U1 and U2
-t = 32.4066, df = 46, p-value &lt; 2.2e-16
+t = 32.4066, df = 46, p-value < 2.2e-16
 alternative hypothesis: true difference in means is not equal to 0
 95 percent confidence interval:
 	57.67003 65.30870
