@@ -7,14 +7,10 @@ tags: []
 ---
 {% include JB/setup %}
 
-主要参考：
-
-- [NOTES ON PROBABILITY - Greg Lawler](https://www.math.uchicago.edu/~lawler/probnotes.pdf)
-- [Measure theory and probability - Alexander Grigoryan](https://www.math.uni-bielefeld.de/~grigor/mwlect.pdf)
-- [Lebesgue Measure on $\mathbb{R}^n$ - John K. Hunter](https://www.math.ucdavis.edu/~hunter/m206/ch1_measure.pdf)
-- [Conditional random variables - Lawrence Pettit](http://www.maths.qmul.ac.uk/~pettit/MTH5122/notes15.pdf)
 
 <!-- TOC -->
+
+TOC:
 
 - [预备知识 (一) $\sigma$-algebra](#预备知识-一-\sigma-algebra)
 - [预备知识 (二) Borel Set / Borel $\sigma$-algebra](#预备知识-二-borel-set--borel-\sigma-algebra)
@@ -30,6 +26,14 @@ tags: []
 - [6. Conditional Random Variable](#6-conditional-random-variable)
 
 <!-- /TOC -->
+
+主要参考：
+
+- [NOTES ON PROBABILITY - Greg Lawler](https://www.math.uchicago.edu/~lawler/probnotes.pdf)
+- [Measure theory and probability - Alexander Grigoryan](https://www.math.uni-bielefeld.de/~grigor/mwlect.pdf)
+- [Lebesgue Measure on $\mathbb{R}^n$ - John K. Hunter](https://www.math.ucdavis.edu/~hunter/m206/ch1_measure.pdf)
+- [Conditional random variables - Lawrence Pettit](http://www.maths.qmul.ac.uk/~pettit/MTH5122/notes15.pdf)
+
 
 ## 预备知识 (一) $\sigma$-algebra 
 
