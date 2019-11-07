@@ -19,7 +19,7 @@ tags: []
 
 第一个问题有点难解释主要是因为我们对 gene 的定义。我个人比较喜欢的一个 gene 的定义来自 [Neilfws@Biostars: Question: Difference Between Gene Expression And Transcript Expression](https://www.biostars.org/p/91173/#91201):
 
-> In a sense, there is no such thing as a gene. A gene is a concept: **a fuzzy bounded region of a chromosome within which transcription occurs**. So really there is no gene expression, only transcript expression.  
+> In a sense, there is no such thing as a gene. A gene is a concept: **a fuzzy bounded region of a chromosome within which transcription occurs**. So really there is no gene expression, only transcript expression.
 > <br/>  
 > I'd even argue that "expression" itself is not a very useful term and we should simply use "transcription".
 
