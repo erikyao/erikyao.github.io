@@ -23,32 +23,58 @@ tags: []
 > <br/>  
 > I'd even argue that "expression" itself is not a very useful term and we should simply use "transcription".
 
-按这个理解，在理想状态下，即不考虑 mutation 等异常情况的状态下，所有人的 "region of a chromosome within which transcription occurs" 是相同的。比如我们假定 `chr1:0-7` 是一个 gene，它控制头发的颜色，那么所有人的 `chr1:0-7` 应该都是这个控制头发颜色的 gene region。是 gene 的 allele、haplotype、genotype 的不同才导致了人有不同的头发颜色。
-
-所以总结起来就是：可以认为 "所有人都有相同的 gene"，是 genotype 的不同导致了个体差异 (i.e. 不同的 phenotype)。
+按这个理解，在理想状态下，即不考虑 mutation 等异常情况的状态下，所有人的 "region of a chromosome within which transcription occurs" 是相同的。
 
 ### 1.2 问题二
 
-第二个问题的困惑来自于我们没有限定 gene 的 strand 和 父系/母系 chromosome。假定我们用 `(p)` 表示父系、用 `(m)` 表示母系，那么人体的 23 对 chromosome 可以表示为：
+第二个问题的困惑来自于我们没有搞清楚：
 
-- `chr1(p)` + `chr1(m)`
-- ……
-- `chr22(p)` + `chr22(m)`
-- 男性：`chrY(p)` + `chrX(m)`；女性：`chrX(p)` + `chrX(m)`
+- "gene 是在 homologous chromosomes 的具体哪一条 chromosome 上（父系 vs 母系）?"
+- "如果确定了 chromosome，那么 gene 是在 chromosome 的哪条 strand 上?" 
 
-然后 gene 的位置是 strand-specific 的，一个 gene 不可能既在 forward strand 同时又在 reverse strand 上 (可以参考 [DNA Strand / Upstream and Downstream / TSS Distance](/biology/2016/04/21/dna-strand-upstream-and-downstream-tss-distance))。下面我们假定 `chr1:0-7` 就是 forward strand 上的，并用 `(+)` 和 `(-)` 表示 strand。
+先说结论：
 
-结合上面三点理解：
+- 单个 gene 在 maternal chromosome 和 paternal chromosome 上都存在
+- 在单个 chromosome 上，gene 是 strand-specific 的，即一个 gene 不可能既在 forward strand 同时又在 reverse strand 上 
+    - 可以参考 [Terminology Recap: Genome / Chromosome / Nucleosome / Chromatin / Chromatid / DNA / Double Strands / Coordinates System / Upstream & Downstream / TSS Distance](/biology/2018/11/05/terminology-recap-genome-dna-chromosome-chromatin-chromatid-double-strands)
+
+假定我们用 `(p)` 表示父系、用 `(m)` 表示母系，那么人体的 23 对、46 条 chromosomes 可以表示为：
+
+- Autosomes:
+    - `chr1(p)` $\otimes$ `chr1(m)`
+    - ……
+    - `chr22(p)` $\otimes$ `chr22(m)`
+- Allosomes:
+    - 男性：`chrY(p)` $\otimes$ `chrX(m)`
+    - 女性：`chrX(p)` $\otimes$ `chrX(m)`
+
+如果继续细分 `(+)` 和 `(-)` strands，那么我们的 92 条 strands 可以表示为：
+
+- Autosome strands:
+    - (`chr1(p)(+)`,`chr1(p)(-)`) $\otimes$ (`chr1(m)(+)`,`chr1(m)(-)`)
+    - ……
+    - (`chr22(p)(+)`,`chr22(p)(-)`) $\otimes$ (`chr1(m)(+)`,`chr22(m)(-)`)
+- Allosome strands:
+    - 男性：(`chrY(p)(+)`，`chrY(p)(-)`) $\otimes$ (`chrX(m)(+)`,`chrX(m)(-)`)
+    - 女性：(`chrX(p)(+)`,`chrX(m)(-)`) $\otimes$ (`chrX(m)(+)`,`chrX(m)(-)`)
+
+我们假定 `chr1` 的 forward strand 上的 `0-7` 位置有一个 gene，那么这个 gene 的位置就可以表示为：
+
+- `chr1(p)(+):0-7` 
+- `chr1(m)(+):0-7` 
+
+这不应该称为是两个 gene，而是 "单个 gene 的两个 alleles"：
+
+- 这两个 gene 的 allele 可能是相同的，也可能不同，它们一起构成一个 genotype，最终表达成一个 phenotype (参下文)
+
+回到问题一，若我们假定 `chr1(+):0-7` 是一个 gene，它控制头发的颜色，那么所有人的 `chr1(+):0-7` 应该都是这个控制头发颜色的 gene region。是 gene 的 allele、haplotype、genotype 的不同才导致了人有不同的头发颜色。
+
+总结一下：
 
 1. A gene is a bounded region of a chromosome within which transcription occurs
-1. A gene location is strand-specifc
+1. A gene location is strand-specifc, but not homologous-chromosome-specific
 1. "所有人都有相同的 gene" (所以你的父亲和母亲的 gene 也是相同的)
-
-那么我们说 "`chr1:0-7` 是一个 gene"，它在单个人体的 DNA 里面的结构是：
-
-- `chr1(p)(+):0-7` 是一个 gene
-- `chr1(m)(+):0-7` 是一个相同的 gene
-- 这两个 gene 的 allele 可能是相同的，也可能不同，它们一起构成一个 genotype，最终表达成一个 phenotype
+    - 是 genotype 的不同导致了个体差异 (i.e. 不同的 phenotype)
 
 ### 1.3 问题三
 
@@ -62,17 +88,22 @@ tags: []
 
 > Borrowed from German **Allel**, shortened from **Allelomorph**, from English **allelomorph**. Ultimately from the Ancient Greek prefix **ἀλληλ- (allēl-)** from **ἄλλος (állos, "other")**.
 
-你看到 "-morph" 这个 suffix 就应该好理解了：allele 在 gene 层面的意思就是 "**variant form of a gene**"。比如，假定 `chr1:0-7` 是一个 gene (假定 0-based，下同)，那么：
+你看到 "-morph" 这个 suffix 就应该好理解了：allele 在 gene 层面的意思就是 "**variant form of a gene**"。比如，假定 `chr1(+):0-7` 是一个 gene (假定 0-based，下同)，那么：
 
-- `chr1:0-7`: `AAGC<C>TA`
-- `chr1:0-7`: `AAGC<T>TA`
+- `chr1(p)(+):0-7`: `AAGC<C>TA`
+- `chr1(m)(+):0-7`: `AAGC<T>TA`
 
 这就是两个 allele。当然，并没有限定说 gene allele 间只能有 1bp 的不同。
 
 把 allele 扩展到 SNP level 就是 "**variant form of a SNP**"，因为 SNP 只有 1bp，所以 SNP allele 就不同的 1bp，比如：
 
-- `chr1:4-5`: `<C>`
-- `chr1:4-5`: `<T>`
+- `chr1(p)(+):4-5`: `<C>`
+- `chr1(m)(+):4-5`: `<T>`
+
+注意：gene 是 strand-specific 的，所以同一条 chromosome 上的 double strands 不可能构成 alleles。比如下面这个结构就不构成 allele：
+
+- `chr1(p)(+):0-7`: `AAGCCTA`
+- `chr1(p)(-):0-7`: `TTCGGAT`
 
 ## 3. Haplotype / Genotype 
 
@@ -85,12 +116,12 @@ tags: []
 > A **haplotype** is a group of genes within an organism that was inherited together from a single parent. The word "**haplotype**" is derived from the word "**haploid**," which describes cells with only one set of chromosomes, and from the word "**genotype**," which refers to the genetic makeup of an organism.
 
 - 中学生物学到的 `AA`、`Aa`、`aa` 中的 `A` 和 `a` 其实是 2 个 allele，但是它假定了一个非常简单的 haplotype：直接由单个 gene 的 allele 构成。所以我们可以简单理解为：
-    - `allele A == chr1:0-7 : AAGC<C>TA`
-        - `haplotype 1 == {allele A of gene chr1:0-7}`
-    - `allele a == chr1:0-7 : AAGC<T>TA`
-        - `haplotype 2 == {allele a of gene chr1:0-7}`
+    - `allele A == chr1(p)(+):0-7 : AAGC<C>TA`
+        - `haplotype 1 == {allele A of gene chr1(p)(+):0-7}`
+    - `allele a == chr1(m)(+):0-7 : AAGC<T>TA`
+        - `haplotype 2 == {allele a of gene chr1(m)(+):0-7}`
 - 这两个 haplotype 构成一个 genotype `Aa`
-    - 严格来说 geneotype 应该是一个 haplotype tuple：`genotype 1 == (haplotype 1, haplotype 2) == ({allele A of gene chr1:0-7}, {allele a of gene chr1:0-7})`
+    - 严格来说 geneotype 应该是一个 haplotype tuple：`genotype 1 == (haplotype 1, haplotype 2) == ({allele A of gene chr1(p)(+):0-7}, {allele a of gene chr1(m)(+):0-7})`
 - 最多可以有 3 个 genotypes `AA`、`Aa`、`aa`
 
 ## 4. Phenotype
