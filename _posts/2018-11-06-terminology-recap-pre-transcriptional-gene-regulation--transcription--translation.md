@@ -85,7 +85,7 @@ gene regulation 其实是指 regulation of gene expression，所以它在 transc
     - HAT (Histone AcetylTransferase) acetylates histone proteins，弱化 DNA 与 histone 的 association，使 DNA 暴露出来，more accessible to transcription, thereby up-regulating transcription
     - Relaxed, transcriptionally-active DNA is referred to as **euchromatin**
 - **Histone deacetylation**
-    - HDAC (Histone DeAcetylase) deacetylates histone proteins, 强化化 DNA 与 histone 的 association, 使 DNA 隐藏起来，less accessible to transcription, thereby down-regulating transcription
+    - HDAC (Histone DeAcetylase) deacetylates histone proteins, 强化 DNA 与 histone 的 association, 使 DNA 隐藏起来，less accessible to transcription, thereby down-regulating transcription
     - Condensed (tightly packed) DNA is referred to as **heterochromatin**
     - It may combined with DNA methylation (gene silencing)
         - 作用是在 methyltransferase 的作用下添加甲基 $CH_3$ 到 DNA 的 `C`
