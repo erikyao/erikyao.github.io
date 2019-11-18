@@ -71,10 +71,10 @@ $$
 **如果我们把 matrix $A$ 看做其自身 indice 的函数** (所以自然是 discrete 的函数) (而不是把 matrix $A$ 看做是关于 vector $\mathbf{x}$ 的函数)，比如最基本的：
 
 $$
-A(i, j) = A_{i,j} \text{ where } 0 \leq i < m, 0 \leq j < n
+A(i, j) = A_{i,j} 
 $$
 
-那么两个 matrice 也可以做 convolution。(以下下标都从 `0` 记起)
+where $0 \leq i < m, 0 \leq j < n$. 那么两个 matrice 也可以做 convolution (以下下标都从 `0` 记起)。
 
 但是要注意在 image processing 领域，这个 matrix 的函数式写法没有这么简单。一般有一个 image matrix $A_{m_A \times n_A}$，一个 kernel matrix $K_{m_K \times n_K}$，$m_K < m_A, n_K < n_A$。然后我们有函数：
 
