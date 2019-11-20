@@ -13,103 +13,136 @@ tags: []
 [IID]: https://farm8.staticflickr.com/7786/27414670346_2e21a634c7_o_d.png
 [IID_2]: https://farm8.staticflickr.com/7405/27449203455_b6320e6f58_o_d.png
 
-## Turing Machines @ [Automata](https://class.coursera.org/automata-003/lecture) by Jeff Ullman
+## 1. Turing Machines @ [Automata by Jeff Ullman](https://class.coursera.org/automata-003/lecture)
+
+### 1.1 Introduction
 
 Questions:
 
-- How to show that certain tasks are impossible, or in some cases, possible but intractable--that is, they can be solved but only by very slow algorithms?
+- How to show that certain tasks are **impossible**, or in some cases, **possible but intractable**?
+	- **Intractable** means solvable but only by very slow algorithms
 - What can be solved by computer algorithms?
 
-Turing machine:
+Turing machine (**TM**):
 
 - In some sense an ultimate automaton.
 - A formal computing model that can compute anything we can do with computer or with any other realistic model that we might think of as computing.
 - TMs define the class of recursively enumerable languages which thus the largest class of languages about which we can compute anything.
 	- There is another smaller class called recursive languages that can be thought of as modeling algorithms--computer programs that answer a particular question and then finish.
+
+### 1.2 Data
 	
 Data types:
 
-- int, float, string, etc.
-- But at another level, there is only one type--string of bit.
+- `int`, `float`, `string`, etc.
+- But at another level, there is only one type $\Rightarrow$ `string of bit`.
 	- It is more convenient to think of binary strings as integers. 
-- Programs are also strings and thus strings of bits.
-	- The fact that programs and data are at heart the same thing is what let us build a powerful theory about what is not computable.
+- **Programs are also strings and thus strings of bits.**
+	- **The fact that programs and data are at heart the same thing is what let us build a powerful theory about what is not computable.**
 	
 "The $i^{th}$ data":
 
-- Integers are 1,2,3...
-- "Data" can also be assigned to 1,2,3...
-	- Need some tricks from coding or cryptography.
-	- Then it makes sense to talk about "the $i^{th}$ data".
+- Integers $\Rightarrow 1, 2, 3, \dots$
+- "Data" can also be mapped to $1, 2, 3, \dots$ (with some tricks from coding or cryptography)
+	- Then it makes sense to talk about "the $i^{th}$ data"
 - E.g. "the $i^{th}$ string":
-	- Strings of ASCII or Unicode characters can be thought of as binary strings.
-	- There’s a small glitch: If you think simply of binary integers, then strings like $101, 0101, 00101,\dots$ all appear to be “the $5^{th}$ string.”
-		- Fix by prepending a $1$ to the string before converting to an integer. 
-		- Thus, $101$, $0101$, and $00101$ are the $13^{th}$ ($\color{red}{1}101 = 13$), $21^{st}$, and $37^{th}$ strings, respectively.
+	- Text strings (ASCII or Unicode) $\Rightarrow$ Binary strings $\overset{\textrm{encode}}{\Rightarrow}$ Integers
+		- A small glitch: If you think simply of binary integers, then 
+			- $101$ $\Rightarrow$ “the $5^{th}$ string”
+			- $0101$ $\Rightarrow$ “the $5^{th}$ string”
+			- $00101$ $\Rightarrow$ “the $5^{th}$ string”
+	- This can be fixed by prepending a $1$ to the string before converting to an integer. Thus,
+		- $101$ $\Rightarrow$ “the $13^{th}$ string” ($\color{red}{1}101 = 13$)
+		- $0101$ $\Rightarrow$ “the $21^{st}$ string” ($\color{red}{1}0101 = 21$)
+		- $00101$ $\Rightarrow$ “the $37^{th}$ string” ($\color{red}{1}00101 = 37$)
 - E.g. "the $i^{th}$ proof":
 	- A formal proof is a sequence of logical expressions.
-	- We can encode mathematical expressions of any kind in Unicode.
-	- Convert expression to a binary string and then an integer.
+		- We can encode mathematical expressions of any kind in Unicode.
+		- Convert expression to a binary string and then an integer.
 	- Problems:
 		- A proof is a sequence of expressions, so we need a way to separate them. 
 		- Also, we need to indicate which expressions are given and which follow from previous expressions.
 	- Quick-and-dirty way to introduce special symbols into binary strings: 
-		- Given a binary string, precede each bit by 0. 
-			- Example: $101$ becomes $010001$. 
-		- Use strings of two or more $1$’s as the special symbols. 
-			- Example: $111$ = “the following expression is given”; $11$ = “end of expression.”
-		- E.g. $\color{blue}{111}\color{red}{0}\underline{1}\color{red}{0}\underline{0}\color{red}{0}\underline{1}\color{blue}{11}\color{cyan}{111}\color{red}{0}\underline{0}\color{red}{0}\underline{0}\color{red}{0}\underline{1}\color{red}{0}\underline{1}\color{cyan}{11} = \underline{101},\underline{0011}$
+		1. Given a binary string, precede each bit by 0. E.g.:
+			- $101$ becomes $010001$. 
+		1. Use strings of two or more $1$’s as the special symbols. E.g.:
+			- Let $111$ mean “start of expression”
+			- Let $11$ mean “end of expression”
+	- E.g. $\color{blue}{111}\color{red}{0}\underline{1}\color{red}{0}\underline{0}\color{red}{0}\underline{1}\color{blue}{11}\color{cyan}{111}\color{red}{0}\underline{0}\color{red}{0}\underline{0}\color{red}{0}\underline{1}\color{red}{0}\underline{1}\color{cyan}{11} = \underline{101},\underline{0011}$
 
-Orders of infinity:
+### 1.3 Orders of infinity
 		
 - There aren't more "data" than there are integers.
 - While the number is infinite, you may aware that there are different orders of infinity, and the integers is of the smallest one. 
-	- E.g. there are more real numbers than there are integers, so there are more real numbers than there are "programs" (think of programs as data). 
-		- This immediately tells you that some real numbers cannot be computed by programs.
+	- E.g. there are more real numbers than there are integers, so there are more real numbers than there are "programs" (**think of programs as data**). 
+		- **This immediately tells you that some real numbers cannot be computed by programs.**
 		
-Finite sets:
+#### 1.3.1 Finite sets
 
-- A finite set has a particular integer that is the count of the number of members--the cardinality. 
-	- Example: $\lbrace a, b, c \rbrace$ is a finite set; its cardinality is 3. 
-- It is impossible to find a 1-1 mapping between a finite set and a proper subset of itself.
+- A finite set has a particular integer that is the count of the number of members--the **cardinality**. 
+	- E.g. $\operatorname{card}(\lbrace a, b, c \rbrace) = 3$
+- It is impossible to find a 1-to-1 mapping between a finite set and a proper subset of itself.
 
-Infinite Sets:
+#### 1.3.2 Infinite Sets
 
-- Formally, an infinite set is a set for which there is a 1-1 correspondence between itself and a proper subset of itself. 
-	- Example: the positive integers $\lbrace 1, 2, 3,\dots \rbrace$ is an infinite set. 
-		- There is a 1-1 correspondence 1<->2, 2<->4, 3<->6,… between this set and a proper subset (the set of even integers).
+- Formally, an infinite set is a set for which there is a 1-to-1 mapping between itself and a proper subset of itself. 
+	- E.g. the positive integers $\lbrace 1, 2, 3, \dots \rbrace$ is an infinite set. 
+		- There is a 1-to-1 mapping $1 \mapsto 2, 2 \mapsto 4, 3 \mapsto 6, \dots$ between this set and a proper subset (the set of even integers).
 		
-Countable Sets:
+#### 1.3.3 Countable Sets
 
-- A countable set is a set with a 1-1 correspondence with the positive integers. 
-	- Hence, all countable sets are infinite. 
-	- Example: set of all integers. 
-		- 0 <-> 1; $-i$ <-> $2i$; $+i$ <-> $2i+1$. 
-		- Thus, order is 0, -1, 1, -2, 2, -3, 3,...
-			- I.e. the $1^{st}$ integer is 0; $2^{nd}$ is -1; ...
-	- Examples: set of binary strings, set of Java programs.
-	- Example: pairs of integers
-		- Order the pairs of positive integers first by sum, then by first component: [1,1], [2,1], [1,2], [3,1], [2,2], [1,3], [4,1], [3,2], ..., [1,4], [5,1], ... 
-		- $[i,j]$ <-> $f(i,j) = \frac{(i+j)(i+j-1)}{2} - i + 1 = \frac{(i+j-1)(i+j-2)}{2} + j$.
+- A countable set is a set with a 1-to-1 mapping with the positive integers. 
+	- $\Rightarrow$ Hence, all countable sets are infinite. 
+- E.g. set of all integers: 
+	- $0 \mapsto 1$
+	- $-x \mapsto 2x$
+	- $+x \mapsto 2x+1$ 
+	- Thus, order is $0, -1, 1, -2, 2, -3, 3,...$, i.e. 
+		- $1^{st}$ integer is $0$
+		- $2^{nd}$ integer is $-1$
+		- etc.
+- E.g. set of binary strings, set of Java programs.
+- E.g. pairs of integers
+	- Order the pairs of positive integers first by sum, then by first component: 
+		$[1,1], [2,1], [1,2], [3,1], [2,2], [1,3], [4,1], [3,2], \dots, [1,4], [5,1], \dots$
+	- $[i,j] \mapsto f(i,j) = \frac{(i+j)(i+j-1)}{2} - i + 1 = \frac{(i+j-1)(i+j-2)}{2} + j$
 		
-Enumerations: 
+#### 1.3.4 Enumerations
 
-- An enumeration of a set is a 1-1 correspondence between the set and the positive integers.
+- An enumeration of a set is a 1-to-1 mapping between the set and the positive integers.
 - Thus, we have seen enumerations for strings, programs, proofs, and pairs of integers.
 
-Set of all languages over some fixed alphabet:
+#### 1.3.5 Set of all languages over some fixed alphabet
 
-- Are the languages over $\lbrace 0,1 \rbrace$ countable?
-- No. Proof by Diagonalization. (a table of $m$ strings $\times$ $n$ languages)
-	- Suppose we could enumerate all languages over $\lbrace 0,1 \rbrace$ and talk about "the $i^{th}$ language."
-	- Consider the language $L = \lbrace w \vert w \text{ is the } i^{th} \text{ binary string and } w \text{ is not in the } i^{th} \text{ language } \rbrace$.
-	- Clearly, $L$ is a language over $\lbrace 0,1 \rbrace$.
-	- Thus, it is the $j^{th}$ language for some particular $j$.
-	- Let $x$ be the $j^{th}$ string. Is $x$ in $L$?
-		- If so, $x$ is not in $L$ by definition of $L$.
-		- If not, then $x$ is in $L$ by definition of $L$.
-	- We have a contradiction: $x$ is neither in $L$ nor not in $L$, so our sole assumption (that there was an enumeration of the languages) is wrong.
-- Comment: This is really bad; there are more languages than programs.
+**Question:** Are the languages over $\lbrace 0,1 \rbrace$ countable?
+
+**Answer:** No. Proof by Diagonalization (a table of $m$ strings $\times$ $n$ languages):
+
+Suppose we could enumerate all languages over $\lbrace 0,1 \rbrace$ and talk about "the $i^{th}$ language."
+
+Consider the language: 
+
+$$
+L = \lbrace w \vert w \, \text{is the} \, i^{th} \, \text{binary string and} \, w \, \text{is not in the} \, i^{th} \, \text{language} \, \rbrace
+$$
+
+Clearly, $L$ is a language over $\lbrace 0,1 \rbrace$.
+
+Thus, $L$ is the $j^{th}$ language for some particular $j$.
+
+Let $x$ be the $j^{th}$ string. Is $x$ in $L$?
+
+- If so, $x$ is not in $L$ by definition of $L$.
+- If not, then $x$ is in $L$ by definition of $L$.
+
+We have a contradiction: $x$ is neither in $L$ nor not in $L$, so our sole assumption (that there was an enumeration of the languages) is wrong. $\blacksquare$
+
+**This is really bad; there are more languages than programs:**
+
+- The set of all programs are countable
+- The set of all languages are not countable
+
+### 1.4 Turing-Machine
 
 Turing-Machine Theory:
 
@@ -122,47 +155,53 @@ Picture of a Turing Machine:
 - Finite number of _**states**_.
 - Infinite _**tape**_ with cells containing tape _**symbols**_ chosen from a finite alphabet.
 	- Tape head: always points to one of the tape cells.
-- _**Action**_: based on the state and the tape symbol under the head, 
-	- change state, 
-	- overwrite the current symbol or 
-	- move the head one cell left or right.
+- _**Action**_: based on the state and the tape symbol under the head, a TM can
+	- change state 
+	- overwrite the current symbol
+	- move the head one cell left or right
 	
-Why Turing Machines?
+Why Turing Machines? Why not represent computation by C programs or something like that?
 
-- Question: Why not represent computation by C programs or something like that?
-- Answer: 
-	- You can develop a theory about programs without using Turing machines, but it is easier to prove things about TM’s, because they are so simple.
-	- And yet they are as powerful as any computer.
-		- More so (i.e. more powerful than any computer), in fact, since they have infinite memory.
-			- Computers always have a finite amount of storage, however large that may be. But this difference is not that essential, since in principle, we could always buy more storage for a computer.
-			- A good counter argument is the universe is finite so where are you going to get the atoms from which to build all of those discs? But even if you accept that the universe is finite, the limitation doesn't seem to be effecting what we can compute in practice. So we are not going to argue that a computer is weaker than a Turing machine in a meaningful way.
-			
-Turing-Machine Formalism:
+- You can develop a theory about programs without using Turing machines, but it is easier to prove things about TM’s, because they are so simple.
+- And yet they are as powerful as any computer. 
+	- In fact, TMs are more powerful than any computer, since they have infinite memory
+		- Yes, we could always buy more storage for a computer.
+		- But the universe is finite so where are you going to get the atoms from which to build all of those discs? 
+		- However, once you accept that the universe is finite, the limitation doesn't seem to be effecting what we can compute in practice. 
+		- So we are not going to argue that a computer is weaker than a Turing machine in a meaningful way.
 
-- A TM is described by: 
-	1. A finite set of _**states**_ => $Q$, typically 
-	1. An _**input alphabet**_ => $\Sigma$, typically
-		- symbol 和 alphabet 的关系是 $\text{symbol} \in \text{alphabet}$
-	1. A _**tape alphabet**_ => $\Gamma$, typically; $\Sigma \subseteq \Gamma$
-	1. A _**transition function**_ => $\delta$, typically
-	1. A _**start state**_ => $q_0 \in Q$, typically 
-	1. A _**blank symbol**_ => $B \in \Gamma \setminus \Sigma$, typically 
-		- All tape except for the input is blank initially. 
-		- $B$ is never an input symbol.
-	1. A set of _**final states**_ => $F \subseteq Q$, typically
-- Conventions:
-	- $a, b, \dots$ are input symbols.
-	- $\dots, X, Y, Z$ are tape symbols.
-	- $\dots, w, x, y, z$ are strings of input symbols.
-	- $\alpha, \beta, \dots$ are strings of tape symbols.
-- The Transition Function:
-	- Takes two arguments:
-		1. Current state $q \in Q$.
-		1. Current tape symbol $Z \in \Gamma$.
-	- $\delta(q, Z)$ is either undefined or a triple of the form $(p, Y, D)$.
-		- $p$ is a state.
-		- $Y$ is the new tape symbol (to replace the current symbol on the tape head).
-		- $D$ is a direction, $L$ or $R$.
+#### 1.4.1 Turing-Machine Formalism
+
+A TM is typically described by: 
+
+1. A finite set of _**states**_, $Q$  
+1. An _**input alphabet**_, $\Sigma$
+	- symbol 和 alphabet 的关系是 $\text{symbol} \in \text{alphabet}$
+1. A _**tape alphabet**_, $\Gamma$
+	- $\Sigma \subseteq \Gamma$
+1. A _**transition function**_, $\delta$
+1. A _**start state**_, $q_0 \in Q$
+1. A _**blank symbol**_, $B \in \Gamma \setminus \Sigma$
+	- All tape except for the input is blank initially. 
+	- $B$ is never an input symbol.
+1. A set of _**final states**_, $F \subseteq Q$
+
+Conventions:
+
+- $a, b, \dots$ are input symbols.
+- $\dots, X, Y, Z$ are tape symbols.
+- $\dots, w, x, y, z$ are strings of input symbols.
+- $\alpha, \beta, \dots$ are strings of tape symbols.
+
+Transition Function $\delta(q, Z) = (p, Y, D)$:
+
+- Arguments:
+	1. Current state $q \in Q$
+	1. Current tape symbol $Z \in \Gamma$
+- Return value (when $\delta(q, Z)$ in not undefined):
+	- $p$ is a state
+	- $Y$ is the new tape symbol (to replace the current symbol on the tape head)
+	- $D$ is a direction, $L$ or $R$
 		
 TM Example:
 
@@ -171,19 +210,19 @@ TM Example:
 	- If it finds 1, it changes it to a 0, goes to final state $f$, and halts. 
 	- If it reaches a blank, it changes it to a 1 and moves left.
 - Formalism:
-	- States $Q = \lbrace q \text{ (start)}, f \text{ (final)} \rbrace$.
+	- States $Q = \lbrace q \, \text{(start)}, f \, \text{(final)} \rbrace$.
 	- Input symbols $\Sigma = \lbrace 0, 1 \rbrace$.
 	- Tape symbols $\Gamma = \lbrace 0, 1, B \rbrace$.
 	- $\delta(q, 0) = (q, 0, R)$.
 	- $\delta(q, 1) = (f, 0, R)$.
 	- $\delta(q, B) = (q, 1, L)$.
 - Example tape: $BB00BB$; starts from the first 0
-	- $BB\color{red}{0}0BB$, $(q, 0)$ => $(q, 0, R)$, move right
-	- $BB0\color{red}{0}BB$, $(q, 0)$ => $(q, 0, R)$, move right
-	- $BB00\color{red}{B}B$, $(q, B)$ => $(q, 1, L)$, move left
-	- $BB0\color{red}{0}1B$, $(q, 0)$ => $(q, 0, R)$, move right
-	- $BB00\color{red}{1}B$, $(q, 1)$ => $(f, 0, R)$, move right
-	- $BB000\color{red}{B}$, no transition defined, halt.
+	- $BB\color{red}{0}0BB$, $\delta(q, 0) = (q, 0, R)$, move right
+	- $BB0\color{red}{0}BB$, $\delta(q, 0) = (q, 0, R)$, move right
+	- $BB00\color{red}{B}B$, $\delta(q, B) = (q, 1, L)$, move left
+	- $BB0\color{red}{0}1B$, $\delta(q, 0) = (q, 0, R)$, move right
+	- $BB00\color{red}{1}B$, $\delta(q, 1) = (f, 0, R)$, move right
+	- $BB000\color{red}{B}$, undefined, halt.
 
 Instantaneous Descriptions of a Turing Machine:
 
@@ -207,27 +246,36 @@ Instantaneous Descriptions of a Turing Machine:
 		- For any $X$, $\alpha XqZ \beta \vdash \alpha pXY \beta$		
 		- In addition, $qZ \beta \vdash pBY \beta$
 		
-Languages of a TM:
+#### 1.4.2 Languages of a TM
 
-- There are actually two ways to define the language of a TM.
-	- A TM defines a language by final state.
-		- $L(M) = \lbrace w \vert q_0 w \vdash^{\star} I, \text{ where } I \text{ is an ID with a final state} \rbrace$. 
-	- Or, a TM can accept a language by halting. 
-		- $H(M) = \lbrace w \vert q_0 w \vdash^{\star} I, \text{ and there is no move possible from ID } I \rbrace$.
-- Equivalence of Accepting and Halting
-	1. If $L = L(M)$, then there is a TM $M’$ such that $L = H(M’)$.
-	1. If $L = H(M)$, then there is a TM $M”$ such that $L = L(M”)$.
-- Proof of 1: Final State -> Halting
-	- Modify $M$ to become $M’$ as follows:
-		1. For each final state of $M$, remove any moves, so $M’$ halts in that state.
-		1. Avoid having $M’$ accidentally halt.
-			- Introduce a new state $s$, which runs to the right forever; that is $\delta(s, X) = (s, X, R)$ for all symbols $X$.
-			- If $q$ is not a final state, and $\delta(q, X)$ is undefined, let $\delta(q, X) = (s, X, R)$.
-- Proof of 2: Halting -> Final State
-	- Modify $M$ to become $M”$ as follows:
-		1. Introduce a new state $f$, the only final state of $M”$.
-		1. $f$ has no moves.
-		1. If $\delta(q, X)$ is undefined for any state $q$ and symbol $X$, define it by $\delta(q, X) = (f, X, R)$.
+There are actually two ways to define the language of a TM:
+
+- A TM defines a language by final state.
+	- $L(M) = \lbrace w \vert q_0 w \vdash^{\star} I, \, \text{where I is an ID with a final state} \rbrace$
+- Or, a TM can accept a language by halting. 
+	- $H(M) = \lbrace w \vert q_0 w \vdash^{\star} I, \, \text{and there is no move possible from ID} \, I \rbrace$
+
+Equivalence of Accepting and Halting:
+
+1. If $L = L(M)$, then there is a TM $M’$ such that $L = H(M’)$.
+1. If $L = H(M)$, then there is a TM $M”$ such that $L = L(M”)$.
+
+**Proof:** 
+
+Final State => Halting:
+
+- Modify $M$ to become $M’$ as follows:
+	1. For each final state of $M$, remove any moves, so $M’$ halts in that state.
+	1. Avoid having $M’$ accidentally halt.
+		- Introduce a new state $s$, which runs to the right forever; that is $\delta(s, X) = (s, X, R)$ for all symbols $X$.
+		- If $q$ is not a final state, and $\delta(q, X)$ is undefined, let $\delta(q, X) = (s, X, R)$.
+
+Halting => Final State:
+
+- Modify $M$ to become $M”$ as follows:
+	1. Introduce a new state $f$, the only final state of $M”$.
+	1. $f$ has no moves.
+	1. If $\delta(q, X)$ is undefined for any state $q$ and symbol $X$, define it by $\delta(q, X) = (f, X, R)$. $\blacksquare$
 		
 Recursively Enumerable Languages:
 
@@ -246,7 +294,7 @@ Recursive Languages:
 - Example: Every CFL (Context-free language) is a recursive language.
 	- By the CYK algorithm.
 	
-## Decidability @ [Automata](https://class.coursera.org/automata-003/lecture) by Jeff Ullman
+## 2. Decidability @ [Automata by Jeff Ullman](https://class.coursera.org/automata-003/lecture)
 
 Central Ideas:
 
@@ -415,7 +463,7 @@ $\tag*{$\square$}$
 	- 给定一个 $\langle M, w \rangle$，没有 algorithm 确定是否有 $M$ accepts $w$
 	- 还是回到 "$w$ accepts $w$" 这个逻辑上，然后我们可以把 $\langle w, w \rangle$ 写成 $w \, 111 \, w$，所以针对这个输入，没有 algorithm 可以确定是否有 $w$ accepts $w$
 	
-## Extensions and properties of Turing machines @ [Automata](https://class.coursera.org/automata-003/lecture) by Jeff Ullman
+## 3. Extensions and properties of Turing machines @ [Automata by Jeff Ullman](https://class.coursera.org/automata-003/lecture) 
 
 ### 17.1 Programming Tricks
 
@@ -468,7 +516,7 @@ How a TM can simulate a <name-value> store (a storage system that allow us to as
 
 待续
 
-## Specific undecidable problems
+## 4. Specific undecidable problems
 
 Rice's theorem: tells us that almost every question we can ask about the recursively enumerable languae is undecidable.
 
@@ -555,7 +603,7 @@ Proof of Rice’s Theorem
 
 -----
 
-## Turing Machines @ [Erickson §6](http://jeffe.cs.illinois.edu/teaching/algorithms/notes/models/06-turing-machines.pdf)
+## 5. Turing Machines @ [Erickson §6](http://jeffe.cs.illinois.edu/teaching/algorithms/notes/models/06-turing-machines.pdf)
 
 ### 6.1 Why Bother?
 
@@ -572,7 +620,7 @@ But here we are not interested in finding _**fast**_ algorithms, or indeed in fi
 
 -----
 
-## Turing Machines @ class
+## 7. Turing Machines @ Computational Complexity by Mike Rosulek
 
 ### Languages and UTM (Lecture 1 & 2)
 
@@ -715,7 +763,7 @@ Diagonalization:
 				- 如果不能，考虑 $\text{if } M_i(x_j) = \text{yes}, \text{return } function(z)$ 这样的形式
 		- 然后根据 $L_2$ 的输出决定 $L_1$ 的输出。
 
-```
+```cpp
 // Reduce L_acc to L_empty
 M_acc(<M_i,x_j>) {
 	M*_ij = TurningMachine(z) {
