@@ -458,11 +458,11 @@ function (x)
 
 这个问题在 [Re: [R] How to export a function from a package and access it only by specifying the namespace?](https://www.mail-archive.com/r-help@r-project.org/msg77742.html) 有讲：
 
-> ...you did not export my_test_f in your NAMESPACE file. To access unexported functions, you must use the ':::' operator ...
+> ...you did not export my_test_f in your NAMESPACE file. To access unexported functions, you must use the `:::` operator...
 
-> The purpose of the '::' operator is for those cases where multiple packages are loaded that each export a function with the same name.  This is known as "masking" and the last loaded package will contribute the dominant function-- i.e. the function the gets called when the user types "functionName()" and not "packageName::functionName()". The "::" operator allows the selection of functions that are masked by the dominant function.  
+> The purpose of the `::` operator is for those cases where multiple packages are loaded that each export a function with the same name. This is known as "masking" and the last loaded package will contribute the dominant function--i.e. the function the gets called when the user types `functionName()` and not `packageName::functionName()`. The `::` operator allows the selection of functions that are masked by the dominant function.  
 > <br/>
-> If you really want to conceal a function from user-level code, don't export it and it will only be accessible via the ":::" operator.
+> If you really want to conceal a function from user-level code, don't export it and it will only be accessible via the `:::` operator.
 
 - 所以 R 的 NAMESPACE file 大抵相当于 python 的 `__all__` (参 [Python: \_\_all\_\_](/python/2017/10/04/python-__all__))
 - 若 `functionName` 出现在 `packageName` 的 NAMESPACE file，说明它随着 `packageName` 被 export，它可以在 `library(packageName)` 之后被直接访问到或是通过 "双冒号式" `packageName::functionName` 访问到
@@ -1239,7 +1239,7 @@ x %>% accumulate(`+`)
 
 ## Chapter 18 - Model Basics with `modelr` (略)
 
-## Chapter 19 - Model Basics with `modelr` (略)
+## Chapter 19 - Model Building (略)
 
 ## Chapter 20 - Many Models with `purrr` and `broom` (略)
 
