@@ -46,7 +46,7 @@ $$
 
 ```python
 def swap_reverse(array):
-    for i in range(len(array)):
+    for i in range(len(array) // 2):
         array[i], array[~i] = array[~i], array[i]
 ```
 
