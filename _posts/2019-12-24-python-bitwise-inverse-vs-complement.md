@@ -7,11 +7,13 @@ tags: []
 ---
 {% include JB/setup %}
 
+参考 [Stack Overflow: How does the bitwise complement operator (~ tilde) work? Answer by Anthony](https://stackoverflow.com/a/791340/11640888)。
+
 这三个概念总是容易搞混，但其实只要记住：
 
 - `~` 用于 `int` 就是 bitwise inverse **操作**，也就 flip **操作**，它的本质是一个 **operator**，完成一个**操作**
 - 通过 `~` 操作 (或者在其基础上还有额外的操作) 得到 inversed bit string，我们给它起个**名字**，叫 complement
-- 那我们得到这个 complement，它 **represent** 什么？machine 如何 **interpret**？那是解析器/编译器的问题
+- 那我们得到这个 complement，它 **represent** 什么？machine 如何把它 **interpret** 成负数？那是解析器/编译器的问题
 
 你把 "操作 => 产物 => 解析" 分开考虑，概念就简单了。
 
@@ -32,7 +34,7 @@ $$
 
 ## 3. Negatives
 
-某些语言中，负数 `-x` 的 bit string 会被直接定义成 "`x` 的 one's complement"，i.e. $-x := \mathord{\sim} x$。但在 python 中，负数 `-x` 是用 two's complement 定义的，i.e.
+某些语言中，负数 `-x` 的 bit string 会被直接定义成 `x` 的 one's complement，i.e. $-x := \mathord{\sim} x$。但在 python 中，负数 `-x` 是用 two's complement 定义的，i.e.
 
 $$
 -x := \mathord{\sim} x + 1
