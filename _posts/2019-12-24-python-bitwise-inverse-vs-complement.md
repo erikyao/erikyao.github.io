@@ -2,7 +2,7 @@
 layout: post
 title: "Python: Bitwise Inverse Operator vs Complements vs Nagatives"
 description: ""
-category: python
+category: Python
 tags: []
 ---
 {% include JB/setup %}
