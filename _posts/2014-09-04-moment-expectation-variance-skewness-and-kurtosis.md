@@ -36,7 +36,7 @@ tags: [Math-Statistics]
 | English               | Chinese  | Symbol           |
 |-----------------------|----------|------------------|
 | Moment                | 矩       |                  |
-| n^th                  | n 阶     |                  |
+| $n^{th}$              | n 阶     |                  |
 | Raw Moment            | 原点矩    | $\mu'_n$  |
 | Central Moment        | 中心矩    | $\mu_n$    |
 | Standardized Moment   | 标准矩    | $\alpha_n$ |
@@ -141,7 +141,7 @@ $$
 
 * $E[X^n] = \mu'_n$ 
 * $E[(X-\mu)^n] = \mu_n$
-* $E \left [ (\frac{X-\mu}{\sigma})^n \right ] = \frac{E[(X-\mu)^n]}{\sigma^n} = \alpha_n$
+* $E \left [ \big(\frac{X-\mu}{\sigma} \big)^n \right ] = \frac{E[(X-\mu)^n]}{\sigma^n} = \alpha_n$
 
 ## <a name="Variance"></a>3. Variance
 

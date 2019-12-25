@@ -1,13 +1,13 @@
 ---
 layout: post
-title: "Terminology Recap: Genome / Chromosome / Nucleosome / Chromatin / Chromatid / DNA / Double Strands"
+title: "Terminology Recap: Genome / Chromosome / Nucleosome / Chromatin / Chromatid / DNA / Double Strands / Coordinates System / Upstream & Downstream / TSS Distance"
 description: ""
 category: Biology
 tags: []
 ---
 {% include JB/setup %}
 
-## Genome 
+## 1. Genome 
 
 Genome is the genetic material of an organism. It consists of DNA, or RNA in RNA viruses. 具体说来，下列元素都属于 genome：
 
@@ -36,28 +36,26 @@ Genome is the genetic material of an organism. It consists of DNA, or RNA in RNA
 
 DNA/RNA 其实是 molecule 的名称，所以 genome 和 DNA/RNA 的关系大致相当于 "一坨炭" 和 "碳分子" 的关系
 
-## Chromosome / Chromatin / Nucleosome / Chromatid / DNA / Double Strands
+## 2. Chromosome / Chromatin / Nucleosome / Chromatid / DNA / Double Strands
 
-DNA 是大分子名，Double Strand 是它的物理结构，所以大致上可以认为 DNA == Double Strand
-
-- Nucleotide ([‘nju:klɪətaɪd], 核苷酸)，包括：
-    - Adenine ([‘ædənɪn], 腺嘌吟)
-    - Cytosine ([‘saɪtəʊsi:n], 胞嘧啶)
-    - Guanine ([‘gwɑ:ni:n], 鸟嘌呤)
-    - Thymine ([‘θaɪmi:n], 胸腺嘧啶)
-- `Nucleotide + Sugar-Phosphate Backbone == 1 DNA Double Strand` (or Double Helix)
-- `1 DNA Double Strand + Histones == 1 Chromatin`
-    - DNA-histone complex 整体叫做 **chromotin**
+- DNA 是大分子名，Double Strand (or Double Helix) 是它的物理结构，它由下面两类元素构成：
+    - Nucleotide ([‘nju:klɪətaɪd], 核苷酸)，包括：
+        - Adenine ([‘ædənɪn], 腺嘌吟)
+        - Cytosine ([‘saɪtəʊsi:n], 胞嘧啶)
+        - Guanine ([‘gwɑ:ni:n], 鸟嘌呤)
+        - Thymine ([‘θaɪmi:n], 胸腺嘧啶)
+    - Sugar-Phosphate Backbone
+- DNA + histone 的 complex 整体叫做 **chromotin**
     - The basic repeating structural (and functional) unit of chromatin is the **nucleosome**, which contains 8 histone proteins and about 146 bp of DNA
     - 参 [DNA Packaging: Nucleosomes and Chromatin](https://www.nature.com/scitable/topicpage/dna-packaging-nucleosomes-and-chromatin-310)
-- cell 在不分裂的情况下：further condensed `1 Chromatin == 1 Chromosome`
+- cell 在不分裂的情况下，可以认为：一条 further condensed chromatin 就是一条 chromosome
     - chromosome 按功能分类可以分为 allosome ([‘ælʊsəʊm], 性染色体) / autosome ([‘ɔ:təsəʊm], 常染色体)
     - 人体的 autosome 是按长度从长到短编号的，最长的是 1 号，最短的是 22 号
     - 类似 _chr18_ 这样的都是 1 条 chromosome 的名字，我们说人体每个细胞都有 a pair of _chr18_'s
-        - pair up 的两条 chromosomes 称为 homologous chromosomes (或 homologs for short), 原义是指 identical to one another in shape and size，但明显 `XY` 不能算
+        - pair up 的两条 chromosomes 称为 **homologous** chromosomes (或 homologs for short), 原义是指 identical to one another in shape and size，但明显 `XY` 不能算
         - "identical in shape and size" 明显不意味着 "identical in sequence"
         - We can specify **maternal** _chr18_ and **paternal** _chr18_ to indicate from which parent it is inherited.
-- cell 在分裂的情况下 (具体在 [Cell Cycle](/biology/2015/07/29/cell-cycle) 的 S phase)：一条 chromatin 会分裂成两条 chromatids
+- cell 在分裂的情况下 (具体在 [Cell Cycle](/biology/2015/07/29/cell-cycle) 的 S phase)，一条 chromatin 会分裂成两条 chromatids
     - Every chromatid has a short **p-arm** ("p" for "petit") and a long **q-arm** ("q" for "queue")
     - Every 2 chromatids are connected by a **centromere**.
     - 我们在研究单条 chromosome 的时候仍然会使用 p-arm、q-arm 和 centromere 来细分单条 chromosome 的结构
@@ -69,3 +67,63 @@ DNA 是大分子名，Double Strand 是它的物理结构，所以大致上可�
 - Every human cell has `23 pairs == 46 chromosomes`
 - `1 chromosome == 2 strands`
 - So every human cell has 92 strands 
+
+## 3. Coordinates Systems / Upstream & Downstream / TSS Distance
+
+我们前面一路从 DNA zoom in 到 chromosome，现在进一步 zoom in 到 strand：
+
+![](https://farm2.staticflickr.com/1569/26527566606_8d3e8d559b_o_d.png)
+
+- `chromStart` and `chromEnd` are columns from table `snp142` of database `hg19` in UCSC Genome Browser
+- `txStart` and `txEnd` are columns from table `ensGene` of database `hg19` in UCSC Genome Browser
+- 0-based coordinate system is used here
+
+### 3.1 Coordinates Systems
+
+参考 [Tutorial: Cheat Sheet For One-Based Vs Zero-Based Coordinate Systems](https://www.biostars.org/p/84686/):
+
+- 0-based：
+    - UCSC Genome Browser
+    - `BED`, `BAM` formats
+- 1-based
+    - HGMD
+    - Ensembl
+    - `GFF`, `SAM`, `VCF` formats
+- 转换规则：
+    - $chromStart_{0} = chromStart_{1} - 1$
+    - $chromEnd_{0} = chromEnd_{1}$
+
+### 3.2 Upstream & Downstream
+
+- **Upstream:** direction $\Rightarrow 5'$
+- **Downstream:** direction $\Rightarrow 3'$
+    - 参考 [Upstream and downstream (DNA)](https://en.wikipedia.org/wiki/Upstream_and_downstream_(DNA))
+
+### 3.3 Directions of Strands
+
+- 参考 [Question: Forward And Reverse Strand Conventions](https://www.biostars.org/p/3423/)
+- This designation of `(+)`/`(-)` strand is arbitrary.
+    - Once fixed, the `(+)` strand determines the direction of coordinate axis;
+    - then `(-)` strand goes reversely.
+- A gene $g$ can be on the `(+)` strand or `(-)` strand:
+    - The strand that $g$ is on is called $g$'s __*coding strand*__ (a.k.a. its __*sense strand*__).
+    - The other strand is called $g$'s __*template strand*__ (a.k.a. its __*antisense strand*__)
+    - If $\operatorname{strand}(g) =$ `(+)` $\Rightarrow \operatorname{TSS}(g) = g.txStart$
+    - If $\operatorname{strand}(g) =$ `(-)` $\Rightarrow \operatorname{TSS}(g) = g.txEnd$
+        - N.B. $g.txStart < g.txEnd$ always holds
+
+### 3.4 TSS Distance
+
+- **TSS:** Transcription Start Site`
+    - **TSS distance:** actually means "distance to TSS"
+- Given a SNP $s$ and a gene $g$:
+    - If $\operatorname{strand}(g) =$ `(+)` $\Rightarrow \operatorname{TSS-dist}(s,g) = s.chromStart - g.txStart$;
+    - If $\operatorname{strand}(g) =$ `(-)` $\Rightarrow \operatorname{TSS-dist}(s,g) = g.txEnd - s.chromStart$.
+    - In other words, suppose:
+        - $\operatorname{strand}(g) = \begin{cases} 1 & \text{ g is on (+) strand} \newline -1 & \text{otherwise} \end{cases}$
+        - $\operatorname{TSS}(g) = \begin{cases} g.txStart & \text{ g is on (+) strand} \newline g.txEnd & \text{otherwise} \end{cases}$
+            - $\Rightarrow \operatorname{TSS-dist}(s,g) = (s.chromStart - \operatorname{TSS}(g)) \times \operatorname{strand}(g)$
+    - If $s$ is in the upstream of $g$, $\operatorname{TSS-dist}(s,g) < 0$, whichever strand $g$ is on
+    - If $s$ is in the downstream of $g$, $\operatorname{TSS-dist}(s,g) > 0$, whichever strand $g$ is on
+
+

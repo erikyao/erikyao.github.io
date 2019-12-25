@@ -7,6 +7,25 @@ tags: []
 ---
 {% include JB/setup %}
 
+TOC:
+
+<!-- TOC -->
+
+- [Prerequisite #1 : $\sigma$-algebra](#prerequisite-1--\sigma-algebra)
+- [Prerequisite #2 : Borel Set / Borel $\sigma$-algebra](#prerequisite-2--borel-set--borel-\sigma-algebra)
+- [Prerequisite #3 : Measurable Function / Measurable Space](#prerequisite-3--measurable-function--measurable-space)
+- [Prerequisite #4 : Measure / Measure Space](#prerequisite-4--measure--measure-space)
+- [Prerequisite #5 : Probability Measure / Probability Space](#prerequisite-5--probability-measure--probability-space)
+- [Prerequisite #3/#4/#5 Summary](#prerequisite-345-summary)
+- [1. Random Variable](#1-random-variable)
+- [2. Distribution of a Random Variable](#2-distribution-of-a-random-variable)
+- [3. Probability Mass Functions (for the discrete), and Probability Density Functions (for the continuous)](#3-probability-mass-functions-for-the-discrete-and-probability-density-functions-for-the-continuous)
+- [4. Tilde $\sim$ / i.i.d.](#4-tilde-\sim--iid)
+- [5. Independence / Marginal Distribution / Join Distribution](#5-independence--marginal-distribution--join-distribution)
+- [6. Conditional Random Variable](#6-conditional-random-variable)
+
+<!-- /TOC -->
+
 主要参考：
 
 - [NOTES ON PROBABILITY - Greg Lawler](https://www.math.uchicago.edu/~lawler/probnotes.pdf)
@@ -14,24 +33,8 @@ tags: []
 - [Lebesgue Measure on $\mathbb{R}^n$ - John K. Hunter](https://www.math.ucdavis.edu/~hunter/m206/ch1_measure.pdf)
 - [Conditional random variables - Lawrence Pettit](http://www.maths.qmul.ac.uk/~pettit/MTH5122/notes15.pdf)
 
-<!-- TOC -->
 
-- [预备知识 (一) $\sigma$-algebra](#预备知识-一-\sigma-algebra)
-- [预备知识 (二) Borel Set / Borel $\sigma$-algebra](#预备知识-二-borel-set--borel-\sigma-algebra)
-- [预备知识 (三) Measurable Function / Measurable Space](#预备知识-三-measurable-function--measurable-space)
-- [预备知识 (四) Measure / Mesure Space](#预备知识-四-measure--mesure-space)
-- [预备知识 (五) Probability Measure / Probability Space](#预备知识-五-probability-measure--probability-space)
-- [预备知识 (三)(四)(五) 总结](#预备知识-三四五-总结)
-- [1. Random Variable](#1-random-variable)
-- [2. Distribution of a random variable](#2-distribution-of-a-random-variable)
-- [3. Probability Mass Functions (for discrete), and Probability Density Functions (for continuous)](#3-probability-mass-functions-for-discrete-and-probability-density-functions-for-continuous)
-- [4. Tilde $\sim$](#4-tilde-\sim)
-- [5. Independence / Marginal Distribution / Join Distribution](#5-independence--marginal-distribution--join-distribution)
-- [6. Conditional Random Variable](#6-conditional-random-variable)
-
-<!-- /TOC -->
-
-## 预备知识 (一) $\sigma$-algebra 
+## Prerequisite #1 : $\sigma$-algebra 
 
 非常蛋疼的一个事实：$\sigma$-algebra 并不是一个严格意义上的 algebra……
 
@@ -40,7 +43,7 @@ tags: []
 - 因为 $S \in \Sigma$ 同时它是 closed under complement，所以 $\varnothing \in \Sigma$
 - $\sigma$-algebra, $\sigma$-ring 和 $\sigma$-field 都是有关系的，但这里不表
 
-## 预备知识 (二) Borel Set / Borel $\sigma$-algebra
+## Prerequisite #2 : Borel Set / Borel $\sigma$-algebra
 
 > In mathematics, a Borel set is any set in a topological space that can be formed from open sets (or, equivalently, from closed sets) through the operations of countable union, countable intersection, and relative complement.
 
@@ -54,9 +57,9 @@ tags: []
 - A set $S$ is said to be **countable** if it's finite or $\mathbf{card}(S) = \mathbf{card}(\mathbb{N})$
 - $\mathbf{card}(\mathbb{R}) > \mathbf{card}(\mathbb{N})$ (Cantor Diagonal Argument)
 - If $\mathcal{B}$ is a Borel algebra in $\mathbb{R}$, then $\mathbf{card}(\mathcal{B}) = \mathbf{card}(\mathbb{R})$
-- 结论：$\mathcal{B}$ 不可数
+    - 结论：$\mathcal{B}$ 不可数
 
-## 预备知识 (三) Measurable Function / Measurable Space
+## Prerequisite #3 : Measurable Function / Measurable Space
 
 **Definition:** A **measurable space** is a tuple of $(S, \Sigma)$ where $S$ is a set and $\Sigma$ is a $\sigma$-algebra over $S$.
 
@@ -70,12 +73,12 @@ tags: []
     - 这个 $E_X$ 即 $f^{-1}(E_Y)$
 - 为了强调 $f$ 是一个 measurable function，我们也可以把它写作 $f: (X, \Sigma_X) \to (Y, \Sigma_Y)$
 
-## 预备知识 (四) Measure / Mesure Space
+## Prerequisite #4 : Measure / Measure Space
 
 **Definition:** Let $(S, \Sigma)$ be a measurable space. Function $\mu: \Sigma \to \mathbb{R} \cup \lbrace -\infty, \infty \rbrace$ is called a **measure** if it satisfies the following properties:
 
 1. **Non-negativity:** $\forall E \in \Sigma, \mu(E) \geq 0$
-    - 注：存在 signed measure 可以不满足这个条件
+    - 注：不满足这个条件的 measure 是存在的，比如 signed measure
 2. **Null empty set:** $\mu(\varnothing) = 0$
 3. **Countable additivity (or $\sigma$-additivity):** $\forall \text{ countable collection } \lbrace E_i \rbrace^{\infty}_{i=1}$ where $E_i \in \Sigma, \forall i$ and $E_i \cap E_j = \varnothing, \forall i, j$:
 
@@ -85,7 +88,7 @@ $$
 
 **Definition:** A **measure space** is such a triple of $(S, \Sigma, \mu)$
 
-## 预备知识 (五) Probability Measure / Probability Space
+## Prerequisite #5 : Probability Measure / Probability Space
 
 **Definition:** Measure $\mu$ is probability measure if $\mu(S) = 1$.
 
@@ -98,7 +101,7 @@ $$
 - $\mathbb{P}: \mathcal{F} \to [0,1]$ is a probability measure
     - $\mathbb{P}(E)$ is the probability of $E$
 
-## 预备知识 (三)(四)(五) 总结
+## Prerequisite #3/#4/#5 Summary
 
 - measurable function $f$ 定义在 measurable space $(S, \Sigma)$ 上
 - measurable function $f$ 有潜力构成一个 measure $\mu$
@@ -148,7 +151,7 @@ $$
     - 所以 $\mathbb{P}(\lbrace 1,3 \rbrace) = \mathbb{P}(\lbrace 1 \rbrace) + \mathbb{P}(\lbrace 3 \rbrace) = \frac{1}{3}$，同理有 $\mathbb{P}(\Omega) = 1$
     - "roll 出 1 且 3" 是不可能事件，即 $\varnothing$，由 measure 的定义得到 $\mathbb{P}(\varnothing) = 0$
 
-## 2. Distribution of a random variable
+## 2. Distribution of a Random Variable
 
 感谢 [PhoemueX: On clarifying the relationship between distribution functions in measure theory and probability theory](https://math.stackexchange.com/a/976852)
 
@@ -222,7 +225,7 @@ $$
 
 严格来说，$F\_{\mathbb{P}\_{X}}$ 应该叫做 **distribution function of the distribution of random variable $X$**，但是非常不幸的是，它也被简称为 **distribution of random variable $X$**，并且简化符号为 $F\_X = F\_{\mathbb{P}\_{X}}$
 
-## 3. Probability Mass Functions (for discrete), and Probability Density Functions (for continuous)
+## 3. Probability Mass Functions (for the discrete), and Probability Density Functions (for the continuous)
 
 **Definition:** **Probability mass function** for discrete random variable $X$, $p_X: \mathbb{R} \to [0, 1]$, can be defined as:
 
@@ -251,7 +254,7 @@ $$
 - 我们可以写 $F_X(x) = \int_{-\infty}^{x} f_X(t) \mathrm{d}t$
 - If $f_X$ is continuous at $t \Rightarrow f_X(x) = F_X'(x)$
 
-## 4. Tilde $\sim$
+## 4. Tilde $\sim$ / i.i.d.
 
 根据 [Ben O'Neill: Why are probability distributions denoted with a tilde?](https://stats.stackexchange.com/a/46740)，$\sim$ 其实是一个 equivalence relation，所以 $X \sim Y$ **左右两边都是 random variable**，它可以念做 "$X$ has the same distribution as $Y$"。我觉得这基本就是 $X = Y$ 的意思了。
 

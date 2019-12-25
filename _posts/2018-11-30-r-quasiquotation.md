@@ -64,7 +64,7 @@ quasi- 念 [ˈkweɪ.zaɪ]，意思是:
 - 为何 `plot(x, y)` 它知道 x-label 是 string `"x"`, y-label 是 string `"y"`? (使用的是 `deparse()`，但是我们下面不讲这个)
 - 为何 `dplyr:select(df, x)` 的 `x` 不用写引号？ 你这里 `x` 又不是 variable
 
-与之相关的一个概念是 Non-Standard Evalution (NSE)。其实这个词有点 misleading。它的 non-standard 并不是说它 evaluation 的**结果**, 并不是说 standard 是 evaluate 成 5 你 non-standard 就 evaluate 成 6，而是指 evaluation 的**场合**：你自己手动去 evaluate 的，不是 interpreter 自己去 evaluate 的，那就是 non-standard evaluation。
+与之相关的一个概念是 Non-Standard Evalution (NSE)。其实这个词有点 misleading：它的 non-standard 并不是说它 evaluation 的**结果**，并不是说 standard 是 evaluate 成 5 你 non-standard 就 evaluate 成 6；而是指 evaluation 的**场合**：你自己手动去 evaluate 的，不是 interpreter 自己去 evaluate 的，那就是 non-standard evaluation。
 
 ## 3. Base API: `base::quote()` / `base::substitute()` / `base::bquote()`
 
@@ -275,7 +275,12 @@ env:  empty
 
 ## 6. Unpacking Named Arguments in `dplyr`
 
-`dplyr::rename(df, new_col = old_col)` 可以更改 colname；`dplyr::select(df, x_prime = x)` 相当于 `select x as x_prime from df`。这种需要 named arguments 的 `dplyr` 函数都可以用类似 python 的 `**` 的 unpack 写法，但是要注意，`!!!named_vector` 或者 `!!!named_list` (bang-bang-bang) 才相当于 `**dict`，而不应该用 `!!named_vector` 或者 `!!named_list` (bang-bang)。
+举例：
+
+- `dplyr::rename(df, new_col = old_col)` 可以更改 colname
+- `dplyr::select(df, x_prime = x)` 相当于 `select x as x_prime from df`
+
+这种需要 named arguments 的 `dplyr` 函数都可以用类似 python 的 `**` 的 unpack 写法，但是要注意，`!!!named_vector` 或者 `!!!named_list` (bang-bang-bang) 才相当于 `**dict`，而不应该用 `!!named_vector` 或者 `!!named_list` (bang-bang)。
 
 - 注意顺序，LHS 是 new colname，RHS 是 old colname，非常别扭
 

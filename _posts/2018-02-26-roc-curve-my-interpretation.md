@@ -10,7 +10,7 @@ tags: [ROC, PRC]
 [roc_curve]: https://farm5.staticflickr.com/4782/40747956572_b8cf50ecdc_z_d.jpg
 [roc_curve_error]: https://farm5.staticflickr.com/4774/38980106050_aebae1d24a_z_d.jpg
 [t_monotonically_decreasing]: https://farm5.staticflickr.com/4779/40747956412_96d23250c2_z_d.jpg
-[tpr_gt_fpr]: https://farm5.staticflickr.com/4773/39897435045_3c3c4c27aa_z_d.jpg
+[tpr_gt_fpr]: https://live.staticflickr.com/65535/39897435045_3b9afeede4_z_d.jpg
 
 首先我们来看个例子：
 

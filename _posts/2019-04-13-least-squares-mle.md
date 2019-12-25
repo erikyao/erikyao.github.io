@@ -104,15 +104,15 @@ $$
 
 ### 4.1 LSA 求解 Regression 问题的一般形式
 
-令 **residual** $r\_i = y\_i - f(\mathbf{x\_i} , \mathbf{w})$，LSA 即是一个优化问题：
+令 **residual** $\epsilon\_i = y\_i - f(\mathbf{x\_i} , \mathbf{w})$，LSA 即是一个优化问题：
 
 $$
-\argmin_{\mathbf{w}} \sum_{i=1}^{n} r_i^2
+\argmin_{\mathbf{w}} \sum_{i=1}^{n} \epsilon_i^2
 $$
 
 - 所以 LSA 本质上是 least sum of squared residuals
 
-恶心的部分：这个 $\sum_{i=1}^{n} r_i^2$ 又可以叫做：
+恶心的部分：这个 $\sum_{i=1}^{n} \epsilon_i^2$ 又可以叫做：
 
 - RSS: Residual Sum of Squares
 - SSR: Sum of Squared Residuals
@@ -132,23 +132,77 @@ $$
 
 #### 4.2.1 对 Linear Regression 而言，LSA 等价与 MLE，OLS 等价与 minimizing $\operatorname{MSE}$
 
-OLS 是 MLE 的特殊形式：
+关于 MLE 和 minimizing $\operatorname{MSE}$，我们在 [Yao's Blog: Sample](/math/2019/02/26/sample#85-estimators-used-in-machine-learning)
+ 和 [Yao's Blog: Generative/Discriminative/Frequentist/Bayesian](/machine-learning/2019/04/11/generative-discriminative-frequentist-bayesian#5-frequentist-discriminative-example-linear-regression) 有讲：
 
-- [Maximum likelihood estimators and least squares](http://people.math.gatech.edu/~ecroot/3225/maximum_likelihood.pdf)
-- [OLS in Matrix Form](https://web.stanford.edu/~mrosenfe/soc_meth_proj3/matrix_OLS_NYU_notes.pdf)
+- MLE 等价于 minimizing KL divergence $D_{KL}(\hat{\mathbb{P}}\_{\text{data}} \Vert \mathbb{P}\_{\text{model}})$
+- MLE 等价于 minimizing cross-entropy $H(\hat{\mathbb{P}}\_{\text{data}}, \mathbb{P}\_{\text{model}})$
+    - When $\mathbb{P}_{\text{model}}$ is Gaussian，等价于 minimizing $\operatorname{MSE}$
+    - 亦即 $\operatorname{MSE}$ is the cross-entropy between the empirical distribution and a Gaussian model.
 
-注意：
+那其实 OLS 其实殊途同归，从它的解法反推我们可以发现 $\mathbf{\epsilon} \sim \mathcal{N}(0, \sigma^2 I)$
 
-- OLS 是可以给出解析解的：$\hat{\mathbf{w}}=(\mathbf{X}^T \mathbf{X})^{-1} \mathbf{X}^T \mathbf {y}$，用 $\frac{\partial \sum_{i=1}^{n} r_i^2}{\partial \mathbf{w}} = 0$ 推导即可
-- 但是这个计算可能会很 expensive，这时候一个 workaround 是 Gradient Descent:
+- 参考 [OLS in Matrix Form](https://web.stanford.edu/~mrosenfe/soc_meth_proj3/matrix_OLS_NYU_notes.pdf)
+- 再次强调一下，在 OLS 中我们并没有 assume $\mathbf{\epsilon} \sim \mathcal{N}(\cdot, \cdot)$，而是从结果反推，把解析解带入后得到 $\epsilon_i$ 的表达式，然后发现 $\mathbf{\epsilon} \sim \mathcal{N}(0, \sigma^2 I)$
+
+那既然说到了解析解：
+
+- OLS 的解析解是：$\hat{\mathbf{w}}=(\mathbf{X}^T \mathbf{X})^{-1} \mathbf{X}^T \mathbf {y}$，用 $\frac{\partial \sum_{i=1}^{n} \epsilon_i^2}{\partial \mathbf{w}} = 0$ 推导即可
+- 但是这个计算可能会很 expensive，与 machine learning 的场景一样，这时候一个 workaround 是 Gradient Descent，参考:
     - [Why use gradient descent for linear regression, when a closed-form math solution is available?](https://stats.stackexchange.com/questions/278755/why-use-gradient-descent-for-linear-regression-when-a-closed-form-math-solution)
     - [Do we need gradient descent to find the coefficients of a linear regression model?](https://stats.stackexchange.com/questions/160179/do-we-need-gradient-descent-to-find-the-coefficients-of-a-linear-regression-mode)
-- 我们并没有一开始就假设 $\mathbf{y} = \mathbf{X} \mathbf{w} + \mathbf{\epsilon}$ 然后 $\epsilon \sim \mathcal{N}$，而是从结果反推，把解析解带入后得到 $r_i$ 的表达式，然后发现 $r \sim \mathcal{N}$
 
+
+从而 OLS 和 MLE 的逻辑关系是：
+
+$$
+\begin{align}
+\text{MLE} \overset{\text{with assumption}}{\rightarrow}  \mathbf{\epsilon} \sim \mathcal{N}(\cdot, \cdot)  \overset{\text{equivalent to}}{\Rightarrow} & \text{minimizing} \operatorname{MSE} \newline
+                                                                                             & \Updownarrow \small{\text{equivalent}} \newline
+ \mathbf{\epsilon} \sim \mathcal{N}(\cdot, \cdot)  \overset{\text{has property}}{\Leftarrow} & \text{OLS}
+\end{align}
+$$
+
+- MLE 是先 assumption 然后得到解法
+- OLS 本身就是解法，然后可以反推出 property
+- 这是 estimation 和 approximation 两个领域的概念的碰撞：MLE 从理论出发得到实践；OLS 从实践出发反推理论（但其实都是一回事，只不过换了个名字）
+
+按 [Martijn Weterings@Stackoverflow](https://stats.stackexchange.com/a/317631) 的说法，应该是先有的 OLS 再有的 MLE：
+
+> The history of the normal distribution (ignoring deMoivre getting to this distribution as an approximation for the binomial distribution) is actually as the discovery of the distribution that makes the MLE correspond to the least squares method (rather than the the least squares method being a method that can express the MLE of the normal distribution, first came the least squares method, second came the Gaussian distribution)
 
 #### 4.2.2 GLS
 
-- [How does OLS regression relate to generalised linear modelling](https://stats.stackexchange.com/questions/211585/how-does-ols-regression-relate-to-generalised-linear-modelling/211592)
-- [Regression (statistics): What is the difference between Ordinary least square and generalized least squares?](https://www.quora.com/Regression-statistics-What-is-the-difference-between-Ordinary-least-square-and-generalized-least-squares)
-- OLS vs GLM in R code: [How does OLS regression relate to generalised linear modelling](https://stats.stackexchange.com/a/211592)
+GLS 与 OLS 不同，GLS 是又回到了 "从理论到实践" 的道路上，它是 assume $\mathbf{\epsilon}$ 可以有不同的 distribution，不限定于 Gaussian，然后从这个 assumption 出发，再去计算。
 
+R code 可以参考 [How does OLS regression relate to generalised linear modelling](https://stats.stackexchange.com/questions/211585/how-does-ols-regression-relate-to-generalised-linear-modelling/211592)：
+
+```r
+# create data
+x <- 1:20
+y <- 2*x + 3 + rnorm(20)
+
+# OLS
+lm(y~x)
+
+# Output：
+    # Call: lm(formula = y ~ x)
+
+    # Coefficients: (Intercept) x
+    # 2.706 2.011
+
+# GLM
+glm(y~x, family=gaussian(identity))
+
+# Output：
+    # Call: glm(formula = y ~ x, family = gaussian(identity))
+
+    # Coefficients: (Intercept) x
+    # 2.706 2.011
+
+    # Degrees of Freedom: 19 Total (i.e. Null); 18 Residual Null Deviance: 2717 Residual Deviance: 28.98 AIC: 70.18
+```
+
+#### 4.2.3 WLS
+
+待续

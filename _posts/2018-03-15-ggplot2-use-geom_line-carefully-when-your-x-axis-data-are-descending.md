@@ -7,7 +7,7 @@ tags: [ggplot]
 ---
 {% include JB/setup %}
 
-Given 3 points, $(1,1), (2,1), (2,2)$，how would you connect them with 2 segments? Subtly, `geom_line` of `ggplot2` thinks in a different way when you order the points by $x$ descendingly.
+Given 3 points, $(1,1), (2,1), (2,2)$, how would you connect them with 2 segments? Subtly, `geom_line` of `ggplot2` thinks in a different way when you order the points by $x$ descendingly.
 
 ```r
 library(ggplot2)

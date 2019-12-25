@@ -1,5 +1,5 @@
 ---
-layout: post-mathjax
+layout: post
 title: "Digest of <i>Multi-view prediction of protein function</i>"
 description: ""
 category: Machine-Learning

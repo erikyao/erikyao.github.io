@@ -98,7 +98,7 @@ _Section 5.6 Bayesian Statistics, Deep Learning_ 上说：
 
 ## 4. Unsupervised vs Supervised
 
-明显可以看出，无论是 generative 还是 discriminative，它们都是 supervised learning 的范畴，应该它们都有 $\mathbf{Y}$。
+明显可以看出，无论是 generative 还是 discriminative，它们都是 supervised learning 的范畴，因为它们都有 $\mathbf{Y}$。
 
 那么 unsupervised learning 我们可以简单理解为去 learn $\mathbb{P}_{\mathbf{X}}(\mathbf{x})$ 吗？不一定。
 
@@ -112,7 +112,7 @@ _Section 5.6 Bayesian Statistics, Deep Learning_ 上说：
 
 ## 5. Frequentist Discriminative Example: Linear Regression
 
-我们之前在 [Terminology Recap: Sampling / Sample / Sample Space / Experiment / Statistical Model / Statistic / Estimator / Empirical Distribution / Likelihood / Estimation and Machine Learning](/math/2019/02/26/sample) 有说：
+我们之前在 [Terminology Recap: Sampling / Sample / Sample Space / Experiment / Statistical Model / Statistic / Estimator / Empirical Distribution / Likelihood / Estimation and Machine Learning](/math/2019/02/26/sample#85-estimators-used-in-machine-learning) 有说：
 
 - MLE 等价于 minimizing KL divergence $D_{KL}(\hat{\mathbb{P}}\_{\text{data}} \Vert \mathbb{P}\_{\text{model}})$
 - MLE 等价于 minimizing cross-entropy $H(\hat{\mathbb{P}}\_{\text{data}}, \mathbb{P}\_{\text{model}})$
