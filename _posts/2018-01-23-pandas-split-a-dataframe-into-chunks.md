@@ -66,7 +66,9 @@ for c in chunks:
 
 ### 01/06/2020 Update
 
-Thank Kurt Wheeler for the comment below! When `nrows` is devisible by `chunk_size` (e.g. `nrow == 1000` and `chunk_size == 100`), my `index_marks()` function will generate an index marker that is equal to the number of rows of the matrix, and `np.split()` will thus output an empty chunk in the end. Kurt Wheeler has proposed a better solution for `index_marks()`:
+Thank Kurt Wheeler for the comments below! When `nrows` is devisible by `chunk_size` (e.g. `nrow == 1000` and `chunk_size == 100`), my `index_marks()` function will generate an index marker that is equal to the number of rows of the matrix, and `np.split()` will thus output an empty chunk in the end. 
+
+Kurt Wheeler has proposed a better solution for `index_marks()`:
 
 ```python
 import math
