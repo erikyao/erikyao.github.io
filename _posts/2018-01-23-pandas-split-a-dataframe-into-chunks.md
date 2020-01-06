@@ -29,6 +29,7 @@ Introduce [`np.split(ary, indices_or_sections, axis=0)`](https://docs.scipy.org/
 First we define a function to generate such a `indices_or_sections` based on the DataFrame's number of rows and the chunk size:
 
 ```python
+# FIXME: See update below
 def index_marks(nrows, chunk_size):
     return range(1 * chunk_size, (nrows // chunk_size + 1) * chunk_size, chunk_size)
 
@@ -62,3 +63,16 @@ for c in chunks:
     Shape: (69, 30); RangeIndex(start=500, stop=569, step=1)
 """
 ```
+
+### 01/06/2020 Update
+
+Thank Kurt Wheeler for the comment below! When `nrows` is devisible by `chunk_size` (e.g. `nrow == 1000` and `chunk_size == 100`), my `index_marks()` function will generate an index marker that is equal to the number of rows of the matrix, and `np.split()` will thus output an empty chunk in the end. Kurt Wheeler has proposed a better solution for `index_marks()`:
+
+```python
+import math
+
+def index_marks(nrows, chunk_size):
+    return range(chunk_size, math.ceil(nrows / chunk_size) * chunk_size, chunk_size)
+```
+
+On the other hand, you can iterate all the chunks returned by `np.split()` and exclude the last one if it's empty.
