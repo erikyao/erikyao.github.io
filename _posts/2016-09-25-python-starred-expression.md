@@ -15,7 +15,7 @@ From [The Python Language Reference - 6.3.4. Calls](https://docs.python.org/dev/
 
 > If the syntax `**expression` appears in the function call, `expression` must evaluate to a **_mapping_**, the contents of which are treated as additional keyword arguments. If a keyword is already present (as an explicit keyword argument, or from another unpacking), a `TypeError` exception is raised.
 
-Pay attention to the parameter order: `*expression` syntax may appear after explicit keyword arguments, it is processed before the keyword arguments and any `**expression` arguments. E.g.
+Pay attention to the parameter order: `*expression` syntax can appear after explicit keyword arguments, and be processed prior to the keyword arguments and any `**expression` arguments. E.g.
 
 ```python
 def func(a, b ,c):
@@ -35,7 +35,7 @@ On the other hand, from [The Python Language Reference - 8.6. Function definitio
 
 > If the form `**identifier` is present, it is initialized to a new dictionary receiving any excess keyword arguments, defaulting to a new empty dictionary.
 
-（注意 `*args` 是 tuple！钦定的 tuple！）
+- So `*args` is definitely a tuple!
 
 Let's construct an example:
 
@@ -53,13 +53,13 @@ func(1, a=2)
 #   {'kwargs': {'a': 2}, 'args': (1,)}
 ```
 
-The syntax of one-elemented tuples is kind of weird, as [The Python Language Reference - 6.14. Expression lists](https://docs.python.org/3/reference/expressions.html#expression-lists) indicates:
+The syntax of one-elemented tuples is kind of weird. Just get used to it. [The Python Language Reference - 6.14. Expression lists](https://docs.python.org/3/reference/expressions.html#expression-lists) indicates:
 
 > The trailing comma is required only to create a single tuple (a.k.a. a singleton); it is optional in all other cases. A single expression without a trailing comma doesn’t create a tuple, but rather yields the value of that expression.
 
 ## Unpacking inside tuple, list, set and dictionary **_displays_**
 
-N.B. This PEP does NOT include unpacking operators inside list, set and dictionary **_comprehensions_**. 
+- N.B. This PEP does NOT specify unpacking operators inside list, set or dictionary **_comprehensions_**. 
 
 From [PEP 448 -- Additional Unpacking Generalizations](https://www.python.org/dev/peps/pep-0448/):
 
@@ -74,7 +74,7 @@ From [PEP 448 -- Additional Unpacking Generalizations](https://www.python.org/de
 {'x': 1, 'y': 2}
 ```
 
-In dictionaries, later values will always override earlier ones:
+In dictionaries, latter values will always override former ones:
 
 ```python
 >>> {'x': 1, **{'x': 2}}
@@ -83,14 +83,20 @@ In dictionaries, later values will always override earlier ones:
 {'x': 1}
 ```
 
-N.B. We can also call
-
-- `*`: iterable unpacking operator and 
-- `**`: dictionary unpacking operator
+- N.B. We can also call
+    - `*`: iterable unpacking operator and 
+    - `**`: dictionary unpacking operator
 
 ## Extended Unpacking: `*expression` on LHS of assignments
 
-From [PEP 3132 -- Extended Iterable Unpacking](https://www.python.org/dev/peps/pep-3132/), if `seq` is a slicable sequence, all the following assignments are equivalent if `seq` has at least 3 elements:
+From [PEP 3132 -- Extended Iterable Unpacking](https://www.python.org/dev/peps/pep-3132/): 
+
+> A tuple (or list) on the left side of a simple assignment may contain at most one expression prepended with a single asterisk (which is henceforth called a "starred" expression, while the other expressions in the list are called "mandatory").
+
+- Mandatory expressions will be assigned the corresponding values of RHS according to their positions in the tuple (or list)
+- The starred expression will catch the remainder values of RHS
+
+E.g. if `seq` is a slicable sequence, all the following assignments are equivalent if `seq` has at least 2 elements:
 
 ```python
 a, *b, c = seq
@@ -98,7 +104,13 @@ a, *b, c = seq
 a, b, c = seq[0], list(seq[1:-1]), seq[-1]
 ```
 
-It is an error to use the starred expression as a lone assignment target, as in
+- `seq[0]` is guaranteed to be assigned to `a`
+- `seq[-1]` is guaranteed to be assigned to `c`
+- All the remainder values in `seq` will be assigned to `b`
+    - `b` is always a list as far as I experimented
+- If `len(seq) == 2`, `b` will be empty
+
+It is also an error to use the starred expression as a lone assignment target, as in
 
 ```python
 *a = range(5)  # Error
