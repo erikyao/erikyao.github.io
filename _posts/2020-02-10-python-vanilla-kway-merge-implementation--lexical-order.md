@@ -122,9 +122,9 @@ class CachedIterator:
 
 > According to the [heapq documentation](https://docs.python.org/3/library/heapq.html), the way to customize the heap order is to have each element on the heap to be a tuple, with the first tuple element being one that accepts normal Python comparisons.
 
-用 tuple 固然是比自定义 class 要简单的 (你还可以用 `namedtuple`)，但要注意我们的 `heappush` 是不接受 `key` 的，那以及如何比较 tuple 的大小？
+用 tuple 固然是比自定义 class 要简单的 (你还可以用 `namedtuple`)，但要注意我们的 `heappush` 是不接受 `key` 的，那 tuple 的大小如何比较？
 
-## `<` means Lexical Order Test for Tuples
+## `x < y` means Lexical Order Test for Tuples
 
 lexicographic order, lexicographical order, lexical order, dictionary order, alphabetical order 这几个词全部都是表示 "字典序"。
 
@@ -140,7 +140,7 @@ $$
 
 然后 `<` 作用于两个 tuples 时其实在 **test 它们是否满足 lexical order**。按照 [How does tuple comparison work in Python?](https://stackoverflow.com/a/5292332) 的说法，这里 `<` 应该理解为 "comes before" 而不是 "is less than"
 
-- 另外注意不同 type 的 collection 做比较的话是直接判 False (比如 `(1, 2) == [1, 2]` 是 False)，必须先保证 type 相同才能进行 lexical order test
+- 另外注意不同 type 的 collection 做比较的话是直接判 False 的 (比如 `(1, 2) == [1, 2]` 是 False)，必须先保证 type 相同才能进行 lexical order test
 
 那这个 lexical order test 的逻辑我觉得可以大概用 `zip_longest` 模拟一下：
 
@@ -169,6 +169,6 @@ def __lt__(self, other):
 
 这个逻辑相当于：先比较第一对元素，如果不等，直接返回第一对的大小关系；如果相等，就继续比较下一对；然后谁先出现 `None` 说明谁的 string 短，在前面的字符都相同的情况下，短的 string 肯定要先出现在字典中，e.g. $\text{ab} \lt_{l} \text{abc}$。
 
-这么一来，用 `(value, iterator_index)` 就的优势就在于很好地规避了 "两个 tuple 的 value 相同" 这个 scenario，因为此时会接着比较两个 `itertor_index`，谁大谁小对 heap 的结构没有影响 (两个相同的元素，挂在 left child 和挂在 right child 没区别)。但如果是 `(value, iterator)` 的话，你直接比较两个 iterator 的话会是 `TypeError`。这里用 `(value, iterator_index)` 这个 tuple 就精妙在此
+这么一来，用 `(value, iterator_index)` 就的优势就在于很好地规避了 "两个 tuple 的 `value` 相同" 这个 scenario，因为此时会接着比较两个 `itertor_index`，它的大小关系对 heap 的结构没有影响 (因为你两个 `value` 相等，不管你怎么排列 node，heap 的 property 永远 valid)。但如果是 `(value, iterator)` 的话，你直接比较两个 `iterator` 的话会是 `TypeError`。这里用 `(value, iterator_index)` 这个 tuple 就精妙在此
 
 - 你做一个 `namedtuple("CachedIterator", ("value", "iterator_index"))` 也是可以的，但上面那个实现已经很精炼了，没有必要 elaborate
