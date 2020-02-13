@@ -215,8 +215,8 @@ def binary_search(a, x, lo=0, hi=None):
 
 关于这个三个函数我想强调的是：
 
-1. `bisect` module **并没有** 提供 binary search 的接口，所以不能用 `bisect_left` 和 `bisect_right` 去做 binary search
-1. 在强假设 `x in a` 存在时，`bisect_left(a, x)` **碰巧** 返回的是 the index of the first occurence of `x`，但它的逻辑 **并不是** binary search
+1. `bisect` module **并没有** 提供 binary search 的接口
+1. 在强假设 `x in a` 存在时，`bisect_left(a, x)` **碰巧** 返回的是 the index of the first occurence of `x`，但它的逻辑 **并不是** 严格的 binary search
 
 如果你坚持要用 `bisect_left` 来实现 binary search，可以这样：
 
