@@ -139,6 +139,24 @@ a = [0, 1, 1, 1, ?, 2]
                  j 
 ```
 
+然后有两个特殊情况要额外考虑一下：
+
+1. `a[0] == x` 然后做 `bisect_left(a, x)` $\Rightarrow$ 会得到 `i == 0`
+1. `a[-1] == x` 然后做 `bisect_right(a, x)` $\Rightarrow$ 会得到 `j == len(a)`
+
+```python
+from bisect import bisect_left, bisect_right
+
+a = [0, 1, 1, 1, 2]
+
+i = bisect_left(a, 0)   # i == 0
+j = bisect_right(a, 2)  # j == 5
+
+a = [0, 1, 1, 1, 2] _
+     ^              ^
+     i              j
+```
+
 ### 2.2 When `x not in a`
 
 当 `x not in a` 的时候， `# ANCHOR` 的两句，`if a[mid] < x` 和 `if a[mid] <= x` 都会跨越到 first occurrence of `> x`，所以此时这两个函数是相同的逻辑，偏 `bisect_right` 的风格：
@@ -199,6 +217,21 @@ def binary_search(a, x, lo=0, hi=None):
 
 1. `bisect` module **并没有** 提供 binary search 的接口，所以不能用 `bisect_left` 和 `bisect_right` 去做 binary search
 1. 在强假设 `x in a` 存在时，`bisect_left(a, x)` **碰巧** 返回的是 the index of the first occurence of `x`，但它的逻辑 **并不是** binary search
+
+如果你坚持要用 `bisect_left` 来实现 binary search，可以这样：
+
+```python
+from bisect import bisect_left
+
+def binary_search(a, x):
+    i = bisect_left(a, x)
+
+    # bisect_left 不会 return -1
+    if a[i] != x:
+        return -1
+
+    return i
+```
 
 ## 4. A Subtle Bug in Above Code
 
