@@ -190,6 +190,13 @@ a = [0, 0, 0, 0, 22]
 - `a.insert(i, 1)` 可以把 `1` 放置到正确的地方并保持 `a` sorted
 - insert 之后一般都会有 `a[i-1] < a[i] == 1 < a[i+1]` (边界的特殊情况不考虑)
 
+### 2.3 总结
+
+无论我们有没有 `x in a`，我们似乎都可以说：
+
+- `bisect_left(a, x)` returns the index of the last occurrence of `< x` plus 1
+- `bisect_right(a, x)` returns the index of the first occurrence of `> x`
+
 ## 3. Binary Search
 
 代码完全可以从 `bisect_left` 或者 `bisect_right` 引申而来，只需要加一个 condition 也就是 `if a[mid] == x` 单独处理一下就可以了：
