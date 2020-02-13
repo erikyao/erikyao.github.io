@@ -25,7 +25,7 @@ tags: []
 
 那在 python 有 `bisect.bisect_left` 和 `bisect.bisect_right`，为什么要分两个？它们有什么区别？
 
-这是因为几何学不用考虑这个问题：$x=1$ 这个点，到底是属于左半边，还是右半边？(这肯定要涉及到度量) 但是你在实际应用中，比如我用在 array 上时，这个问题我必须要考虑。那这两个方法不严格地可以理解为：假设我有一个 $x=1$ 有一个任意小的 neighborhood $\Phi(1, \epsilon)$，那么：
+这是因为几何学不用考虑这个问题：$x=1$ 这个点，到底是属于左半边，还是右半边？(这肯定要涉及到度量) 但是你在实际应用中，比如我用在 array 上时，这个问题我必须要考虑。那这两个函数不严格地可以理解为：假设我在 $x=1$ 处有一个任意小的 neighborhood $\Phi(1, \epsilon)$，那么：
 
 - `bisect.bisect_left(X, 1)` 就等价于 bisect `X` at the left boundary of (the neighborhood of) `1`
     - 那么 $x=1$ 这个点就属于右半边
@@ -43,7 +43,7 @@ tags: []
 
 `bisect.bisect_left` 和 `bisect.bisect_right` 主要用来切 sequence，当然前提是假设 sequence 是 sorted (like an $x$-axis)。
 
-那假设我有一个 sequence `a`，我想在 **value** `x` 处切割 `a`，那么你 `bisect_left(a, x)` 和 `bisect_right(a, x)` 返回的其实是 `a` 中的一个 **index**，**这个 index 标志了 bisector 在 `a` 中的位置**。
+那假设我有一个 sorted sequence `a`，我想在 **value** `x` 处切割 `a`，那么你 `bisect_left(a, x)` 和 `bisect_right(a, x)` 返回的其实是 `a` 中的一个 **index**，**这个 index 标志了 bisector 在 `a` 中的位置**。
 
 我把参考实现 [cpython/Lib/bisect.py](https://github.com/python/cpython/blob/3.8/Lib/bisect.py) 稍微修改了一下，如下：
 
@@ -111,7 +111,7 @@ a = [0, 1, 1, 1, 2]
         i        j
 ```
 
-那关于 slice 我们可以有一些结论。假设 `i = bisect_left(a, x)` 和 `j = bisect_right(a, 1)`
+那关于 slice 我们可以有一些结论。假设 `i = bisect_left(a, x)` 和 `j = bisect_right(a, 1)`：
 
 - $\forall e \in$ `a[:i]`, $e < x$
 - $\forall e \in$ `a[i:]`, $e \geq x$
@@ -144,6 +144,8 @@ a = [0, 1, 1, 1, ?, 2]
 当 `x not in a` 的时候， `# ANCHOR` 的两句，`if a[mid] < x` 和 `if a[mid] <= x` 都会跨越到 first occurrence of `> x`，所以此时这两个函数是相同的逻辑，偏 `bisect_right` 的风格：
 
 ```python
+from bisect import bisect_left, bisect_right
+
 a = [0, 0, 0, 0, 22]
 
 i, j = bisect_left(a, 1), bisect_right(a, 1)
@@ -155,7 +157,7 @@ print(i, j)
 相当于就是：
 
 ```python
-a = [0, 0, 0, 0, 22 ]
+a = [0, 0, 0, 0, 22]
                  ^^
                  ij
 ```
@@ -172,7 +174,7 @@ a = [0, 0, 0, 0, 22 ]
 
 ## 3. Binary Search
 
-代码完全可以从 `bisect_left` 或者 `bisect_right` 引申而来，其实你只需要加一个 condition 也就是 `if a[mid] == x` 单独处理一下就可以了：
+代码完全可以从 `bisect_left` 或者 `bisect_right` 引申而来，只需要加一个 condition 也就是 `if a[mid] == x` 单独处理一下就可以了：
 
 ```python
 def binary_search(a, x, lo=0, hi=None):
@@ -191,7 +193,7 @@ def binary_search(a, x, lo=0, hi=None):
     return -1  # -1 is the error code if x not found in a
 ```
 
-不同的实现，细节会不同，比如有初始化 `hi = len(a) - 1` 的，有 `else: hi = mid - 1` 的，这些都是边界的问题。我们这三个实现其实遵循了一个原则就是 `lo` 和 `hi` 组了一个半闭半开区间 `[lo, hi)`：在执行 `while lo < hi` 的时候，这个区间一直是合法的；当你 `lo == high` 的时候， `[lo, high)` 这个区间就坍缩了，此时 `while` 就要结束了。你也可以理解称 `a[lo:hi]` 这个 slice 如果为空的时候，`while` 结束。
+不同的实现，细节会不同，比如有初始化 `hi = len(a) - 1` 的，有 `else: hi = mid - 1` 的，这些都是边界的问题。我们这三个实现其实遵循了一个原则就是 `lo` 和 `hi` 组了一个半闭半开区间 `[lo, hi)`：在执行 `while lo < hi` 的时候，这个区间一直是合法的；当你 `lo == high` 的时候， `[lo, high)` 这个区间就坍缩了，此时 `while` 就要结束了。你也可以理解为当 `a[lo:hi]` 这个 slice 如果为空的时候，`while` 结束。
 
 关于这个三个函数我想强调的是：
 
