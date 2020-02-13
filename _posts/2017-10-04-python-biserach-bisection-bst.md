@@ -111,7 +111,7 @@ a = [0, 1, 1, 1, 2]
         i        j
 ```
 
-那关于 slice 我们可以有一些结论。假设 `i = bisect_left(a, x)` 和 `j = bisect_right(a, 1)`：
+那关于 slice 我们可以有一些结论。假设对同一个 `x`，`i = bisect_left(a, x)` 和 `j = bisect_right(a, x)`：
 
 - $\forall e \in$ `a[:i]`, $e < x$
 - $\forall e \in$ `a[i:]`, $e \geq x$
