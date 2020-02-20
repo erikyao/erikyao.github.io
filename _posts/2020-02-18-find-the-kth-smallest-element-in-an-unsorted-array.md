@@ -94,3 +94,10 @@ def find_kth_smallest(xs, k):
 find_kth_smallest([5, 2, 3, 3, 3, 6, 1, 4, 9, 8, 7], 4)
 # Output: 3
 ```
+
+- space complexity: $O(1)$
+- time complexity:
+    - $T(n) = O(n) + T(\frac{n}{2}) \Rightarrow T(n) = O(n)$
+    - worst case 和 quick sort 一样，是 $O(n^2)$
+        - 比如每次都 select 到 min 或者 max 做 pivot
+        - 但在一个足够长的 random 排列的 array 里面，worst case 的概率会很低
