@@ -123,6 +123,27 @@ def d.pop(key, default):
             raise KeyError()
 ```
 
+`setdefault()` 最佳的使用场景是给 dict 中 (我以为不存在的) `key` 做初始化，比如下面这个不怎么优雅的写法：
+
+```python
+# NOT COOL; anti-pattern
+dictionary = {}
+
+if "list" not in dictionary:
+    dictionary["list"] = []
+
+dictionary["list"].append("list_item")
+```
+
+就可以改写成：
+
+```python
+# ELEGANT!
+dictionary = {}
+
+dictionary.setdefault("list", []).append("list_item")
+```
+
 ### 2.4 其余
 
 - `d.update(other)`：更新一对或多对 `<key, value>`。这个 other 的形式可以有多种：
