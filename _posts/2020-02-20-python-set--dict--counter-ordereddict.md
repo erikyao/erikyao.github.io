@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Python: set / dict / Counter"
+title: "Python: set / dict / Counter / OrderedDict"
 description: ""
 category: Python
 tags: []
@@ -9,28 +9,31 @@ tags: []
 
 <!-- TOC -->
 
-Table of Contents:
-
-- [1. `set` Operations](#1-set-operations)
+- [1. `set`](#1-set)
     - [1.1 测试集合间的关系](#11-测试集合间的关系)
     - [1.2 多个集合做运算](#12-多个集合做运算)
     - [1.3 用其他的集合更新自己](#13-用其他的集合更新自己)
     - [1.4 操作自己的元素](#14-操作自己的元素)
-- [2. `dict` Operations](#2-dict-operations)
+- [2. `dict`](#2-dict)
     - [2.1 primitive 操作](#21-primitive-操作)
     - [2.2 获取 key/value 集合的操作](#22-获取-keyvalue-集合的操作)
     - [2.3 默认值的操作](#23-默认值的操作)
     - [2.4 其余](#24-其余)
-- [3. `collections.Counter` Operations](#3-collectionscounter-operations)
+- [3. `collections.Counter`](#3-collectionscounter)
     - [3.1 初始化](#31-初始化)
     - [3.2 与 `dict` 不同的实现](#32-与-dict-不同的实现)
     - [3.3 `dict` 没有的新接口](#33-dict-没有的新接口)
     - [3.4 Mathematical Operators (binary)](#34-mathematical-operators-binary)
     - [3.5 Mathematical Operators (unary)](#35-mathematical-operators-unary)
+- [4. `collections.OrderedDict`](#4-collectionsordereddict)
+    - [4.1 顺序性](#41-顺序性)
+    - [4.2 与 `dict` 不同的实现](#42-与-dict-不同的实现)
+    - [4.3 `dict` 没有的新接口](#43-dict-没有的新接口)
+    - [4.4 应用](#44-应用)
 
 <!-- /TOC -->
 
-## 1. `set` Operations
+## 1. `set`
 
 ### 1.1 测试集合间的关系
 
@@ -72,7 +75,7 @@ Table of Contents:
 - `e = s.pop()`: remove and return an arbitary element; `KeyError` empty set
 - `s.clear()`: remove all elements
 
-## 2. `dict` Operations
+## 2. `dict`
 
 ### 2.1 primitive 操作
 
@@ -152,7 +155,7 @@ dictionary.setdefault("list", []).append("list_item")
     - `other` 也可以是 keyword augments，比如 `d.update(red=1, blue=2)`
 - `d.popitem()`: remove and return an arbitrary `(key, value)` pair
 
-## 3. `collections.Counter` Operations
+## 3. `collections.Counter`
 
 `Counter` 是 `dict` 的 subclass! 所以你把它想成是一个 `<key, count>` 的 dict 就可以了
 
@@ -291,3 +294,51 @@ z - c == Counter({'b': 4})
 ```
 
 我觉得 `Counter` 的实现是有点撕裂的。按常理来说肯定要 `count > 0` 才是有意义的，但它又允许 `count <= 0` 的 entry 存在，所以在实现接口的时候添加了很多 implicit 的操作
+
+## 4. `collections.OrderedDict`
+
+`OrderedDict` 也是 `dict` 的 subclass，所以也是继承了 `dict` 很多接口
+
+### 4.1 顺序性
+
+- 顺序是按 `key` 被 insert 进 dict 的先后决定的
+- update 已有的 `key` 不会影响它的顺序
+
+所以两个 OrderedDict 的比较是需要考虑顺序的，参考实现是：
+
+```python
+def __eq__(self, other):
+    return list(self.items()) == list(other.items())
+```
+
+### 4.2 与 `dict` 不同的实现
+
+- `od.popitem(last=True)`: pop and return 第一个或者最后一个 `<key, value>`
+    - 如果 `last == True`，pop 出的是 last entry
+        - 那 last entry 即是 the most recently inserted 的 entry
+        - 这是 LIFO 的节奏
+    - 如果 `last == False`，pop 出的是 first entry
+        - 那 first entry 即是 the very first inserted 的 entry
+        - 这是 FIFO 的节奏
+
+### 4.3 `dict` 没有的新接口
+
+- `od.move_to_end(key, last=True)`: 将 entry 移动到 first 或者 last
+
+### 4.4 应用
+
+这个 `OrderedDict` 非常 exciting 啊！
+
+- 用 `od.popitem(last=True)` 可以做 **stack**！
+- 用 `od.popitem(last=False)` 可以做 **queue**！
+    - 然后你的 stack 和 queue 还是 hash table！继承了 hash table 的速度！
+- `od.popitem(last=False)` 加 `od.move_to_end(key, last=True)` 可以做 **LRU cache**！
+    - pop 掉队首的 old entry，保留 recently hit 的 entry
+    - 如果有 entry 被 hit，可以把它挪到队尾，表示它是 most recently hit 的 entry
+
+如果你记不住 `od.move_to_end(key, last=True)` 的话，可以用下面的操作代替：
+
+```python
+value = od.pop(key)  # 这是 dict 的接口，OrderedDict 继承过来的
+od[key] = value  # 重新加回 OrderedDict，自然是在队尾
+```
