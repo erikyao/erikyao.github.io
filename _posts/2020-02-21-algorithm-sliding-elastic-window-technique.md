@@ -245,11 +245,43 @@ def len_of_longest_distinct_substring(s):
 
 for s in ["abcabcbb", "bbbbb", "pwwkew", " ", "au"]:
     print(len_of_longest_distinct_substring(s))
-
 # Output: 3 1 3 1 2
 ```
 
 注意这题的 `longest` 应该每个 loop 都算一次，而不是放到 `if` 里面，否则对一个 distinct 的 string，`right` 一直往右直到 `while` 退出，longest 也更新不了一次。
+
+你如果硬要按 "Minimum Window Substring" 的那个风格写也可以：
+
+```python
+def len_of_longest_distinct_substring(s):
+    if not s: return 0
+    if len(s) == 1: return 1
+
+    element_set = set()
+    left, max_length = 0, 1
+
+    for right, char in enumerate(s):  # `right` is actually useless here
+        if char not in element_set:
+            element_set.add(char)
+        else:
+            while s[left] != char:
+                element_set.remove(s[left])
+                left += 1
+
+            # remove the previous x
+            element_set.remove(s[left])
+            # add the new x
+            element_set.add(char)
+            left += 1
+
+        max_length = max(max_length, len(element_set))
+
+    return max_length
+
+for s in ["abcabcbb", "bbbbb", "pwwkew", " ", "au"]:
+    print(len_of_longest_distinct_substring(s))
+# Output: 3 1 3 1 2
+```
 
 ## 3. The "Max Consecutive Ones" Problems
 
