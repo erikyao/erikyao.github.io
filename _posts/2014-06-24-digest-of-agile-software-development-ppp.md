@@ -66,10 +66,10 @@ tags: [Book, Java-DesignPattern]
 	- [chapter 22. 薪水支付案例研究（第2部分）](#ch22)
 - Part 5. 气象站案例研究
 	- [chapter 23. Composite 模式](#ch23)
-	- chapter 24. Observer 模式（以及一个如何渐进到模式的例子）（这个例子我看得头晕，不如直接看 [Observer 模式是咋回事](http://erikyao.github.io/java/2014/06/04/digest-of-effective-java#dp_observer)）
+	- chapter 24. Observer 模式（以及一个如何渐进到模式的例子）（这个例子我看得头晕，不如直接看 [Observer 模式是咋回事](/java/2014/06/04/digest-of-effective-java#dp_observer)）
 	- [chapter 25. Abstract Server 模式、Adapter 模式和 Bridge 模式](#ch25)
 		- Abstract Server 模式的作用其实是为了引出后面两个模式
-		- Adapter 模式可以直接 [看这个](http://erikyao.github.io/java/2014/06/04/digest-of-effective-java#dp_adapter)
+		- Adapter 模式可以直接 [看这个](/java/2014/06/04/digest-of-effective-java#dp_adapter)
 		- [Bridge 模式](#dp_bridge)
 	- [chapter 26. Proxy 模式 和 Stairway To Heaven 模式：管理第三方 API](#ch26)
 		- [Proxy 模式](#dp_proxy)
@@ -118,7 +118,7 @@ tags: [Book, Java-DesignPattern]
   
 ### 论交付   
   
-1. you'd better 尽早地、经常地交付  
+1. You'd better 尽早地、经常地交付  
 2. 交付物是可工作的软件（working software）。我们不赞成交付文档或者计划，我们也不认为那是真正的交付  
   
 ### 论进度   
@@ -624,6 +624,7 @@ null object 在实现上比空列表要复杂一点，它是正常业务类的 s
 
 * 前 4 个原则的原文描述见这篇 pdf：[Granularity](http://www.objectmentor.com/resources/articles/granularity.pdf)
 * 后 2 个原则的原文描述见这篇 pdf：[Stability](http://www.objectmentor.com/resources/articles/stability.pdf)
+	- 2020 年补充说明：这两篇文章仍然可以通过 [Wayback Machine](https://web.archive.org/) 搜索到 (直接搜索 link address)
 
 ### <a name="pkg_granule"></a>粒度：包的内聚性原则
 
@@ -806,12 +807,12 @@ Stack Overflow 还举了个例子：
 
 ![][bridge_pattern_example]
 
-Bridge 模式和 [Adapter 模式](http://erikyao.github.io/java/2014/06/04/digest-of-effective-java#dp_adapter) 是有一点像，不同之处在于：
+Bridge 模式和 [Adapter 模式](/java/2014/06/04/digest-of-effective-java#dp_adapter) 是有一点像，不同之处在于：
 
 |x                 | Bridge 模式                                           | Adapter 模式                         |
 |------------------|-------------------------------------------------------|--------------------------------------|
-| 暴露的接口       | client 调用的是 Abstracion（抽象类）        | client 调用的是 Target（接口）                 |
-| 具体实现的接入点 | Abstracion 直接包含 Implementor             | Adapter（implements Target）包含或继承 Adaptee |
+| 暴露的接口       | client 调用的是 Abstraction（抽象类）        | client 调用的是 Target（接口）                 |
+| 具体实现的接入点 |  Abstraction 直接包含 Implementor             | Adapter（implements Target）包含或继承 Adaptee |
 | 类图形状         | 看做梯形的话，真的很像是一座钢结构的 bridge | Target-Adapter-Adaptee 构成一个倒三角          |
 
 还是来自上面 Stack Overflow 的说明：
@@ -1000,7 +1001,7 @@ Double Dispatch 可以简单理解成 `infA.do(InfB infB)`， 就是在 infA 和
 
 ### <a name="dp_decorator"></a>Decorator 模式
 
-还是老样子，Decorator 模式具体见[这篇](http://erikyao.github.io/java/2014/06/04/digest-of-effective-java#dp_decorator)。  
+还是老样子，Decorator 模式具体见[这篇](/java/2014/06/04/digest-of-effective-java#dp_decorator)。  
 
 不过书上提了个很有意思的观点：
 
