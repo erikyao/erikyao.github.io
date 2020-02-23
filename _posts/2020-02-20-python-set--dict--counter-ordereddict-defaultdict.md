@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Python: set / dict / Counter / OrderedDict"
+title: "Python: set / dict / Counter / OrderedDict / defaultdict"
 description: ""
 category: Python
 tags: []
@@ -30,6 +30,9 @@ tags: []
     - [4.2 与 `dict` 不同的实现](#42-与-dict-不同的实现)
     - [4.3 `dict` 没有的新接口](#43-dict-没有的新接口)
     - [4.4 应用](#44-应用)
+- [5. `collections.defaultdict`](#5-collectionsdefaultdict)
+    - [5.1 构造器](#51-构造器)
+    - [5.2 `__missing__(self, key)`](#52-__missing__self-key)
 
 <!-- /TOC -->
 
@@ -342,3 +345,48 @@ def __eq__(self, other):
 value = od.pop(key)  # 这是 dict 的接口，OrderedDict 继承过来的
 od[key] = value  # 重新加回 OrderedDict，自然是在队尾
 ```
+
+## 5. `collections.defaultdict`
+
+这个命名的不规范我也是醉了，为什么能允许 `defaultdict` 和 `OrderedDict` 这里两种类名同时存在在同一个 package 里面？！
+
+`defaultdict` 也是 `dict` 的 subclass，所以 `dict` 的接口它都能用。它额外加的内容并不多。
+
+### 5.1 构造器
+
+- `defaultdict([default_factory[, ...]])`
+
+注意这个 `default_factory` 应该是个 function，后面的部分应该和 `dict` 的构造器一致
+
+如果不指定 `default_factory`，它默认为 `None`
+
+### 5.2 `__missing__(self, key)`
+
+`__missing__()` 只会被 `__getitem__()` 唯一调用，逻辑类似于：
+
+```python
+def dd.__missing__(key):
+    if dd.default_factory:
+        dd[key] = dd.default_factory()  # 无参数调用 default_factory
+        return dd[key]
+    else:
+        raise KeyError()
+
+def dd.__getitem__(key):
+    if key not in dd:
+        return dd.__missing__(key)
+    else:
+        return dd[key]
+```
+
+注意 `__missing__()` 会无参数调用 `default_factory`，所以：
+
+- 如果你要默认值为 `0`，应该写 
+    - `defaultdict(lambda : 0)` 或者
+    - `defaultdict(int)`
+        - 对的，`int()` returns `0`
+    - 而不是 `defaultdict(0)`
+- 如果你要默认值为 `[]`，应该写 
+    - `defaultdict(lambda : [])` 或者
+    - `defaultdict(list)`
+    - 而不是 `defaultdict([])`
