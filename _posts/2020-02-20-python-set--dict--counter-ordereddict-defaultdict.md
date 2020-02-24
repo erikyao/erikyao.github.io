@@ -15,7 +15,7 @@ tags: []
     - [1.3 用其他的集合更新自己](#13-用其他的集合更新自己)
     - [1.4 操作自己的元素](#14-操作自己的元素)
 - [2. `dict`](#2-dict)
-    - [2.1 primitive 操作](#21-primitive-操作)
+    - [2.1 built-in 操作](#21-built-in-操作)
     - [2.2 获取 key/value 集合的操作](#22-获取-keyvalue-集合的操作)
     - [2.3 默认值的操作](#23-默认值的操作)
     - [2.4 其余](#24-其余)
@@ -80,7 +80,7 @@ tags: []
 
 ## 2. `dict`
 
-### 2.1 primitive 操作
+### 2.1 built-in 操作
 
 - `del d[key]`：删除 key
 - `iter(d)`: 其实等价于 `iter(d.keys())`，并不会 access 到 `d.values()`
