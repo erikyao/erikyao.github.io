@@ -51,8 +51,9 @@ sort(...)
             - **返回的是 sorted keys**
         - generator
     - **返回值一定是个新 list**
-- `list.sort()` 竟然是 `list` 类型专属的 method，有点出乎我的意料
+- `sort()` 竟然是 `list` 类型**专属**的 method，有点出乎我的意料
     - 它是 in-place 操作
+    - 号称是 stable 的但是我没有研究它具体是怎么实现的
 
 这两个函数的 `key` 参数的用法是一样的，都应该是一个 function，表示用 `key(x1) < key(x2)` 而不是 `x1 < x2` 的关系来决定 `x1, x2` 的顺序。`key = None` 是应该是默认使用 `x1.__lt__(x2)`
 
