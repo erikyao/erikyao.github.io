@@ -87,12 +87,35 @@ tags: []
 
 ### 2.2 获取 key/value 集合的操作
 
-- `d.keys()`
-- `d.values()`
-- `d.items()`: 返回 `(key, value)` 的集合
-- 注意这三个方法返回的对象是 "view object"
+- `d.keys()`：返回类型是一个 `dict_keys` object
+- `d.values()`：返回类型是一个 `dict_values` object
+- `d.items()`: 返回 `(key, value)` 的集合，类型是一个 `dict_items` object
+
+注意这三个方法返回的对象都是 "view object"：
 
 > ... view objects. They provide a dynamic view on the dictionary’s entries, which means that when the dictionary changes, the view reflects these changes.
+
+另外要注意这三个 view object 都不是 list，都不支持 `[x]` indexing 操作。所以如果你要获取 (按 dict 的 internal 顺序排列的，而不是你输入顺序的) 第一个 key、value 或者 pair，你应该这么操作：
+
+```python
+first_internal_key = next(iter(d))  # OK
+first_internal_value = next(iter(d.values()))  # OK
+first_internal_pair = next(iter(d.items()))  # OK
+
+first_internal_key = list(d)[0]  # OK
+first_internal_value = list(d.values())[0]  # OK
+first_internal_pair = list(d.items())[0]  # OK
+```
+
+- `iter(d)` 和 `list(d)` 都是默认 access `d.keys()` 的
+
+下面的操作是不行的：
+
+```python
+d.keys()[0]  # WRONG! TypeError: 'dict_keys' object does not support indexing
+d.values()[0]  # WRONG! TypeError: 'dict_values' object does not support indexing
+d.items()[0]  # WRONG! TypeError: 'dict_items' object does not support indexing
+```
 
 ### 2.3 默认值的操作
 
