@@ -494,7 +494,7 @@ GenericSSSP(s):
 				put v in the bag
 ```
 
-Just as with graph traversal, different “bag” data structures for the give us different algorithms. There are three obvious choices to try: a stack, a queue, and a priority queue. Unfortunately, if we use a stack, the resulting algorithm performs $ O(2^V) $ relaxation steps in the worst case!  The other two possibilities are much more efficient.
+Just as with graph traversal, different “bag” data structures for the give us different algorithms. There are three obvious choices to try: a stack, a queue, and a priority queue. Unfortunately, if we use a stack, the resulting algorithm performs $ O(V^2) $ relaxation steps in the worst case!  The other two possibilities are much more efficient.
 
 ### <a name="8-2-dijkstra-alg"></a>8.2 Dijkstra’s Algorithm
 
