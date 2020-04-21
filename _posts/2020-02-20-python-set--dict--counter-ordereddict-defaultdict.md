@@ -196,6 +196,11 @@ c = Counter(cats=4, dogs=8)             # a new counter from keyword args
 
 ### 3.2 与 `dict` 不同的实现
 
+- `Counter` 不会抛 `KeyError`，貌似它的 `__missing__(key)` 会返回 0，保证 `c[key]` 有值
+    - 但如果 `key` 真的不在 `c` 里的话，`key in c` 还是和 `dict` 一样会返回 `False`
+    - 换言之 `__missing__(key)` 并不会给 `key` 建一个新的 entry
+      - 但你如果显式地赋值 `c[key] = 0` 的话，会新建一个 entry，此时 `key in c` 是 `True`
+        - 换言之，如果 `key` 原来就存在于 `c` 的话，用 `c[key] = 0` 并不会消除 entry；消除 entry 你还是应该用 `del c[key]`
 - `c.update([iterable-or-mapping])`
     - 如果是 iterable，会 count 元素的个数，然后加入到 counter 中
     - 如果是 mapping，会直接合并 `<key, count>`
@@ -203,7 +208,16 @@ c = Counter(cats=4, dogs=8)             # a new counter from keyword args
 ```python
 from collections import Counter
 
-c = Counter('aaabbb')  # Counter({'a': 3, 'b': 3})
+c = Counter('aaabbbc')  # Counter({'a': 3, 'b': 3, "c": 1})
+
+c["x"]  # return 0
+"x" in c  # False
+
+c["c"] = 0
+"c" in c  # True
+
+del c["c"]
+"c" in c  # False
 
 # update with iterable
 c.update("bbb")  # Counter({'a': 3, 'b': 6})
