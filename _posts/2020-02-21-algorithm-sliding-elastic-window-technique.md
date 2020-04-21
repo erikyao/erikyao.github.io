@@ -28,7 +28,10 @@ Table of Contents:
     - [4.2 LeetCode #1004 实现一](#42-leetcode-1004-实现一)
     - [4.3 LeetCode #1004 实现二](#43-leetcode-1004-实现二)
 - [5. LeetCode #209: The "Minimum Size Subarray Sum" Problem](#5-leetcode-209-the-minimum-size-subarray-sum-problem)
-- [6. 反面教材：LeetCode #560：The "Subarray Sum Equals $k$" Problem](#6-反面教材leetcode-560the-subarray-sum-equals-k-problem)
+- [6. 反面教材 - LeetCode #560: The "Subarray Sum Equals $k$" Problem](#6-反面教材---leetcode-560-the-subarray-sum-equals-k-problem)
+    - [6.1 这题不能用 min sub 的套路](#61-这题不能用-min-sub-的套路)
+    - [6.2 思路：巧妙利用 cumulative sum 的特性](#62-思路巧妙利用-cumulative-sum-的特性)
+    - [6.3 用 `Counter` 改进](#63-用-counter-改进)
 
 <!-- /TOC -->
 
