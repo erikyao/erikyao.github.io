@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Algorithm: Min Sub and Max Sub Problems"
+title: "LeetCode: Min Sub and Max Sub Problems"
 description: ""
-category: Algorithm
+category: LeetCode
 tags: []
 ---
 {% include JB/setup %}
