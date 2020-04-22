@@ -32,6 +32,10 @@ Table of Contents:
     - [6.1 这题不能用 min sub 的套路](#61-这题不能用-min-sub-的套路)
     - [6.2 思路：巧妙利用 cumulative sum 的特性](#62-思路巧妙利用-cumulative-sum-的特性)
     - [6.3 用 `Counter` 改进](#63-用-counter-改进)
+- [7. LeetCode #55: The "Jump Game" Problem](#7-leetcode-55-the-jump-game-problem)
+    - [7.1 首先这题其实可以用 DP (top-down)](#71-首先这题其实可以用-dp-top-down)
+    - [7.2 但这题也能转化成一个 max sub 的问题](#72-但这题也能转化成一个-max-sub-的问题)
+    - [7.3 Max Sub + Early Termination](#73-max-sub--early-termination)
 
 <!-- /TOC -->
 
@@ -623,3 +627,134 @@ num_of_subarrays([3, 4, 7, 2, -3, 1, 4, 2], 7)
 - 注意 `Counter` 的初始化写法
 - `Counter` 的 `__missing__(key)` 是会返回 0 的，所以不用担心 `KeyError`
 - 这个写法可以把 time 降到 $O(n)$
+
+## 7. LeetCode #55: The "Jump Game" Problem
+
+_EPI in Python_ 5.4 叫这个问题是 "Advance Through An Array"，不知所谓。
+
+题目是：考虑一种 board game：`array[i] == k` 表示从 `array[i]` 起最远可以跳到 `array[i+k]` (跳到中间的任意位置也是可以的，但最远就 `array[i+k]`)。给定一个 array，判断能否从 `array[0]` 一路跳到 `array[-1]` (超过 `array[-1]` 自然也是算成功的)。
+
+比如 `array = [3, 3, 1, 0, 2, 0, 1]`，可以走 `[0] -> [1] -> [4] -> [6]` 这个路线：
+
+```python
+    i = 0  1  2  3  4  5  6
+array = 3  3  1  0  2  0  1
+        |->|------->|---->|
+```
+
+### 7.1 首先这题其实可以用 DP (top-down)
+
+考虑 `array[0]`:
+
+- 如果 `array[0] == 0`，第一步都迈不出去，False
+- 如果 `array[0] >= len(array) - 1`，可以一步走到末端，True
+- 如果 `array[0]` 可以 reach 到 `array[1:k+1]`，那么只要 `array[1:k+1]` 中有一个能 reach 到末端，那 `array[0]` 也一定能 reach 到末端
+
+```python
+def can_reach_end(array):
+    reachable = [None] * len(array)
+    reachable[-1] = True
+    
+    def reach_helper(i):
+        if reachable[i] is None:
+            if array[i] == 0:
+                reachable[i] = False
+            elif array[i] >= len(array) - i - 1:
+                reachable[i] = True
+            else:
+                reachable[i] = any(reach_helper(j) for j in range(i+1, i+array[i]+1))
+        
+        return reachable[i]
+    
+    return reach_helper(0)
+
+print(can_reach_end([3, 3, 1, 0, 2, 0, 1]))
+# Output: True
+```
+
+Complexity:
+
+- time: $O(n)$
+- space: $O(n)$
+
+### 7.2 但这题也能转化成一个 max sub 的问题
+
+即：求一个从 `array[0]` 开始的 longest reachable 的位置。求出来再看这个位置是否能达到 `array[-1]` 即可。
+
+上 max sub 的套路：
+
+- 我们用 `subs[i]` 表示 `array[0]` "如果有 `array[i]` 做跳板" 能 reach 的最远的 index
+- 由于我们的 `left` 固定在了 `array[0]`，所以这个 max sub 问题只需要一个 `right` 指针即可
+
+```python
+def can_reach_end(array):
+    furthest_index = 0
+    last_index = len(array) - 1
+    
+    for i in range(len(array)):
+        if i <= furthest_index:
+            furthest_index = max(furthest_index, i + array[i])
+    
+    return furthest_index >= last_index
+
+print(can_reach_end([3, 3, 1, 0, 2, 0, 1]))
+# Output: True
+```
+
+我们用一个具体的例子来看下这个 `subs[i]` 到底是啥意思：
+
+```python
+       i = 0 1 2 3 4 5 6
+   array = 3 3 1 0 2 0 1
+furthest = 3 4 4 4 6 6 7
+```
+
+- `subs[0]`：只有 `array[0]` 自己是自己的跳板
+  - 所以 `furthest_index` 即是 `array[0]` 能到达的最远的 index
+- `subs[1]`：相当于在问："现在有 `array[1]` 可以做跳板，要不要考虑一下？"
+  - 我们发现从 `array[1]` 跳一下的确能跑远一点，于是更新了 `furthest_index`
+- `subs[2]`：相当于又有一个新跳板 `array[2]`，但可跳可不跳，所以 `furthest_index` 没有更新
+- `subs[3]`：新跳板 `array[3]` 完全没用，所以 `furthest_index` 没有更新
+- `subs[4]`：新跳板 `array[4]` 有用，更新 `furthest_index`
+- 依此类推
+
+代码里有一个条件 `if i <= furthest_index:`，它非常关键。我们想一下 `i > furthest_index` 代表啥意思？
+
+- 你有了一个新跳板 `array[i]`
+- 但是你从 `array[0]` 开始根本就不可能跳到 `array[i]`
+
+比如下面这个例子，你根本就不可能跳到 `array[4]`：
+
+```python
+       i = 0 1 2 3 4 5 6
+   array = 0 0 0 0 2 0 1
+furthest = 0 0 0 0 0 0 0
+```
+
+Complexity:
+
+- time: $O(n)$
+- space: $O(1)$
+
+### 7.3 Max Sub + Early Termination
+
+上面的 max sub 实现可以加两个 early termination 的条件：
+
+```python
+def can_reach_end(array):
+    furthest_index = 0
+    last_index = len(array) - 1
+    
+    for i in range(len(array)):
+        if i <= furthest_index:
+            furthest_index = max(furthest_index, i + array[i])
+        else: 
+            # Early Termination Case 1: 已经不可能 reach 到 array[i] 了，后面 array[i:] 的部分更不可能 reach 到
+            return False
+        
+        if furthest_index >= last_index:
+            # Early Termination Case 2: 已经可以 reach 到 array[-1] 了，没有必要把 i 遍历完
+            return True
+    
+    return furthest_index >= last_index
+```
