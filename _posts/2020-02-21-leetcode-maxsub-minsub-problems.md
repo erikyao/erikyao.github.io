@@ -15,27 +15,31 @@ Table of Contents:
     - [1.1 思路套路](#11-思路套路)
     - [1.2 求 min sub 问题的代码套路](#12-求-min-sub-问题的代码套路)
     - [1.3 求 max sub 问题的代码套路](#13-求-max-sub-问题的代码套路)
-- [2. LeetCode #76: The "Minimum Window Substring" Problem](#2-leetcode-76-the-minimum-window-substring-problem)
+    - [1.4 min/max sub 与 DP (buttom-up) 与 MI 的关系](#14-minmax-sub-与-dp-buttom-up-与-mi-的关系)
+        - [1.4.1 举例：LeetCode #121: Stock I](#141-举例leetcode-121-stock-i)
+        - [1.4.2 举例：LeetCode #53: Max-sum Subarray](#142-举例leetcode-53-max-sum-subarray)
+            - [1.4.2.1 这题在 EPI 书上错得离谱](#1421-这题在-epi-书上错得离谱)
+            - [1.4.2.2 MI 思路](#1422-mi-思路)
+- [2. LeetCode #76: Minimum Window Substring](#2-leetcode-76-minimum-window-substring)
     - [2.1 问题描述 / 变体](#21-问题描述--变体)
     - [2.2 变体其实是陷阱](#22-变体其实是陷阱)
-    - [2.3 我的实现](#23-我的实现)
+    - [2.3 min sub 套路实现](#23-min-sub-套路实现)
 - [3. LeetCode #3: The "Longest Substring Without Repeating Characters" Problem](#3-leetcode-3-the-longest-substring-without-repeating-characters-problem)
-    - [3.1 问题描述](#31-问题描述)
-    - [3.2 实现一](#32-实现一)
-    - [3.2 实现二](#32-实现二)
-- [4. LeetCode #487 & #1004: The "Max Consecutive Ones" Problems](#4-leetcode-487--1004-the-max-consecutive-ones-problems)
-    - [4.1 LeetCode #487 实现](#41-leetcode-487-实现)
-    - [4.2 LeetCode #1004 实现一](#42-leetcode-1004-实现一)
-    - [4.3 LeetCode #1004 实现二](#43-leetcode-1004-实现二)
-- [5. LeetCode #209: The "Minimum Size Subarray Sum" Problem](#5-leetcode-209-the-minimum-size-subarray-sum-problem)
-- [6. 反面教材 - LeetCode #560: The "Subarray Sum Equals $k$" Problem](#6-反面教材---leetcode-560-the-subarray-sum-equals-k-problem)
+    - [3.1 max sub 套路实现](#31-max-sub-套路实现)
+    - [3.2 min sub 套路实现](#32-min-sub-套路实现)
+- [4. LeetCode #487 & #1004: Max Consecutive Ones](#4-leetcode-487--1004-max-consecutive-ones)
+    - [4.1 LeetCode #487 的 max sub 套路实现](#41-leetcode-487-的-max-sub-套路实现)
+    - [4.2 LeetCode #1004 的 max sub 套路实现](#42-leetcode-1004-的-max-sub-套路实现)
+    - [4.3 LeetCode #1004 的 min sub 套路实现](#43-leetcode-1004-的-min-sub-套路实现)
+- [5. LeetCode #209: Minimum Size Subarray Sum](#5-leetcode-209-minimum-size-subarray-sum)
+- [6. 反面教材 - LeetCode #560: Subarray Sum Equals $k$](#6-反面教材---leetcode-560-subarray-sum-equals-k)
     - [6.1 这题不能用 min sub 的套路](#61-这题不能用-min-sub-的套路)
     - [6.2 思路：巧妙利用 cumulative sum 的特性](#62-思路巧妙利用-cumulative-sum-的特性)
     - [6.3 用 `Counter` 改进](#63-用-counter-改进)
-- [7. LeetCode #55: The "Jump Game" Problem](#7-leetcode-55-the-jump-game-problem)
+- [7. LeetCode #55: Jump Game](#7-leetcode-55-jump-game)
     - [7.1 首先这题其实可以用 DP (top-down)](#71-首先这题其实可以用-dp-top-down)
     - [7.2 但这题也能转化成一个 max sub 的问题](#72-但这题也能转化成一个-max-sub-的问题)
-    - [7.3 Max Sub + Early Termination](#73-max-sub--early-termination)
+    - [7.3 小改进：Early Termination](#73-小改进early-termination)
 
 <!-- /TOC -->
 
@@ -76,7 +80,6 @@ array = x x ... x x ... x x ...
 
 - 假设你要算 `subs[m]`，你固定 `left` 指针在 $m$ 位置，然后往右 slide `right` 指针。当 slide 到 $e$ 位置时发现了第一个合法的 sub-array，那它肯定是最小的，因为再往右 slide 到 $e+1$ 肯定会得到一个更长的 sub-array。所以我们我们可以下定论 `subs[m]` 就在 $[m, e]$
 - 此时我们要接着算 `subs[m+1]`。非常顺理成章地，我们把 `left` 右移一位到新起点 $m+1$，然后继续右移 `right` 就能接着计算了
-- 它有一点像 buttom-up 的 DP
 
 考虑求 max sub 的场景：
 
@@ -92,15 +95,6 @@ array = x x ... x x ... x x ...
   - 这里可能存在一个疑问：我们在考虑 `subs[m+1]` 的时候，不用再考虑 `left` 左边的元素了么？
   - 这的确是个需要考虑的问题，但很多题目的性质可以让你忽略这个问题。比如 "寻找由重复元素构成的 max substring" (比如 `Foooobaar` 中的 `oooo` 和 `aa`)，如果你的 `subs[m]` 是 $[s_m, m]$，那说明 $[s_m, m]$ 上都是同一个元素 $d$， $i < s_m$ 的位置上肯定是一个 $\neq d$ 的元素，你在算 `subs[m+1]` 的时候就不用考虑前面的元素的 (Instead，这个场合下你其实只需要考虑 `subs[m+1] ?= d`)
     - 换言之，在这个问题里，`subs[m+1]` 要么是 `subs[m]` 的 super-array，要么不存在
-
-回想一下 "卖股票" 那个问题：一个交易窗口 (array) 包括多个交易日，我们要找一买一卖能获得的最大利润。它非常像一个求 max sub 的问题：
-
-- `subs[0]`: 如果允许我在第 `0` 天 sell，我能获得的最大利润
-- `subs[1]`: 如果允许我在第 `1` 天 sell，我能获得的最大利润
-    - 但你不一定非要在第 `1` 天 sell，这个时候依然是允许你在第 `0` 天 sell 的，下同
-- `subs[m]`: 如果允许我在第 `m` 天 sell，我能获得的最大利润
-- 换言之，`subs[m]` 即是交易窗口 $[0, m]$ 内的最大利润
-- 那么这个交易窗口最大的利润必然是 `max(subs)`
 
 ### 1.2 求 min sub 问题的代码套路
 
@@ -209,7 +203,129 @@ s = "p w w k e w"
                   # 返回长度 3 (subs[4] 和 subs[5] 都满足)
 ```
 
-## 2. LeetCode #76: The "Minimum Window Substring" Problem
+### 1.4 min/max sub 与 DP (buttom-up) 与 MI 的关系
+
+先说与 DP 的关系。先说结论：min/max sub 就是个稍微有点特殊的 DP (buttom-up)。因为一般的 DP (buttom-up) 只需要保存 $O(1)$ 的 cache，而这个 $O(1)$ 一般是 individual 的 scalar(s)，而 min/max sub 的 $O(1)$ 是一个 `(left, right)` 的 tuple。
+
+但话又说回来，有些问题看起来是 DP (buttom-up)，但其实可以转换成 min/max sub，因为有时候你的 individual 的 scalar(s) 是可以由你的 `(left, right)` tuple 算出来的。
+
+另外还要一个问题，虽然你理解题目经常用 `subs`，但写代码的时候经常不需要显式地 new 这个数组出来，因为你最终的目的是求 `min(subs)` 或 `max(subs)`，所以经常是在 iterate 的过程中滚动地保持一个 min/max value。也正是这个原因，有时候 `subs` 可以有不同的解读。下面 "卖股票" 的问题里我们就可以举个例子。
+
+然后说说与 MI (Mathematical Induction, 数学归纳法) 的关系。虽然 DP (buttom-up) 和 MI 看上去有天然的对应关系，但做题的思路里往往没有考虑 MI (可能是因为不太好描述)，但如果有好描述的 min/max sub 问题能用 MI 解释的话，凑齐 "min/max sub $\rightarrow$ DP (buttom-up) $\rightarrow$ MI" 的推理链也是一个 wow moment。下面 XXX 的的问题里我们可以看一个具体的 MI 的例子
+
+#### 1.4.1 举例：LeetCode #121: Stock I
+
+原题是 [LeetCode #121, Easy](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/)：一个交易窗口 (array) 包括多个交易日，我们要找一买一卖能获得的最大利润。
+
+我们先直接上代码：
+
+```python
+def max_profit(prices):
+    max_profit = 0
+    min_buy_price = prices[0]
+    
+    for today_price in prices[1:]:
+        # What if we sell at today's price? 
+        today_profit = today_price - min_buy_price
+        
+        # Is today's profit big enough?
+        max_profit = max(max_profit, today_profit)
+        
+        # Is today's price a good one for buying?
+        min_buy_price = min(min_buy_price, today_price)
+        
+    return max_profit
+
+max_profit([310, 315, 275, 295, 260, 270, 290, 230, 255, 250])
+# Output: 30  
+    # buy at 260; sell at 290 
+```
+
+这个问题是个典型的 DP (buttom-up)，虽然它的问题描述非常像一个求 max sub 的问题，但代码又不是很像，不过仔细观察就能发现一些对应：
+
+- `left` 指针相当于是 `min_buy_price`
+- `right` 指针相当于是 `today_price`
+
+对 `subs` 可以有两种解读：
+
+- 如果认为 `subs` 是 `today_profit`，那么：
+  - `subs[i]` 表示 "如果**一定要**我在第 `i` 天 sell，我能获得的最大利润"
+- 如果认为 `subs` 是 (滚动更新的) `max_profit`，那么： 
+  - `subs[i]` 表示 "如果**允许**我在第 `i` 天 sell，我能获得的最大利润"
+  - 换言之，`subs[i]` 即是交易窗口 $[0, i]$ 内的最大利润
+
+#### 1.4.2 举例：LeetCode #53: Max-sum Subarray
+
+原题是 [LeetCode #53, Easy](https://leetcode.com/problems/maximum-subarray/)：在一个 array `A` 中找 sub array，要求 `sum(sub_array)` 最大；返回这个最大的 sum 即可。
+
+##### 1.4.2.1 这题在 EPI 书上错得离谱
+
+这题在 _EPI in Python_ 16 章作为 DP 的一个例子引入，但错得离谱。
+
+书上的思路是：定义 $S(n) = \sum_{i=0}^{n-1} A[i]$，所以任意一个 sub-array 的和 `sum(A[i:j])` 都可以定义为 $S(j) - S(i)$，所以问题可以转化成求 $\max S(j) - S(i), \text{where }j \geq i$
+
+```python
+# CAUTION: WRONG IDEA & WRONG CODE!
+
+from itertools import accumulate
+
+def find_max_subarray_sum(A):
+    min_acc = max_sum = 0
+    
+    for running_acc in accumulate(A):
+        min_acc = min(min_acc, running_acc)
+        max_sum = max(max_sum, running_acc - min_acc)
+        
+    return max_sum
+
+find_max_subarray_sum([1, 3, 5, -11, 9, 7])
+# Output: 16
+```
+
+首先这个思路的问题在于：
+
+- 你的 $S(i)$，起始点是 $i=1$ 而不是 $i=0$，换言之你能探索的最长的 sub-array 只能是 `A[1:]`，那我如果 max sum 包含 `A[0]` 呢？
+- 你可能想说为了修补这个问题，我自己定一个 $S(0) == 0$ 可以吗？不行，因为这题可以负数。你会发现，你这个 $S(0)$ 根本没法弄
+
+代码层面的错误：
+
+1. 你的返回值 `max_sum` 初始是 0，然后后面是用 `max()` 更新，那我整个 array 都是负数咋办？
+1. 如果我的 `len(array) == 1`，那么必然有 `running_acc == min_acc`，接着必然有 `max_sum = max(max_sum, 0) == max(0, 0) == 0`
+    - 你说我可以把初始化 `max_sum = A[0]`，那如果我 `A[0] < 0` 呢？你还是会得到 `max_sum == 0`，还是不对
+
+##### 1.4.2.2 MI 思路
+
+考虑 `subs[i]`: **一定**以 `A[i]` 结尾的 max-sum sub-array (的 sum)
+
+1. `subs[0] == A[0]`
+2. 假定你已经有了 `subs[i]`，现在考虑 `subs[i+1]`，只可能有两种情况：
+    1. `subs[i] >= 0`，表示我们可以 append `A[i+1]` 来造一个更大的 sub-array
+        - 此时有 `subs[i+1] = subs[i] + A[i+1]`
+    2. `subs[i] < 0`，表示前面以 `A[i]` 结尾的 sub-array 其实是累赘，不如从 `A[i+1]` 另起一个 sub-array
+        - 此时有 `subs[i+1] = A[i+1]`
+    3. 你 `subs[i+1]` 取这两者的 `max` 就可以了
+3. 最终的解是 `max(subs)`
+
+```python
+def find_max_subarray_sum(A):
+    max_running_sum = max_global_sum = A[0]
+    
+    for num in A[1:]:
+        max_running_sum = max(num, num + max_running_sum)
+        max_global_sum = max(max_global_sum, max_running_sum)
+        
+    return max_global_sum
+
+find_max_subarray_sum([-2,1,-3,4,-1,2,1,-5,4])
+# Output: 6
+```
+
+上面的实现虽然看起来没有 max sub 的套路，但可以理解成：
+
+- 隐藏了 `left` 指针 (被 `max` 操作取代了)
+- `right` 指针相当于就是 `num`
+
+## 2. LeetCode #76: Minimum Window Substring
 
 ### 2.1 问题描述 / 变体
 
@@ -274,9 +390,7 @@ text = [A A A B]
           >>>>>   # 现在怎么办？！这个 `A` 要遣返回 set 吗？你会发现，遣返也不是，不遣返也不是
 ```
 
-### 2.3 我的实现
-
-按求 min sub 的套路来：
+### 2.3 min sub 套路实现
 
 ```python
 from collections import Counter
@@ -345,8 +459,6 @@ find_minimum_window(text, keywords)
 
 ## 3. LeetCode #3: The "Longest Substring Without Repeating Characters" Problem
 
-### 3.1 问题描述
-
 原题是 [Leetcode 3, Medium](https://leetcode.com/problems/longest-substring-without-repeating-characters/)：Given a string, find the length of the longest substring without repeating characters.
 
 ```python
@@ -364,9 +476,7 @@ s = "pwwkew"  # 返回 3
 
 思路已经在 [1.3 求 max sub 问题的代码套路](#13-求-max-sub-问题的代码套路) 里说过了。
 
-### 3.2 实现一
-
-按求 max sub 的套路来：
+### 3.1 max sub 套路实现
 
 ```python
 def len_of_longest_distinct_substring(s):
@@ -394,7 +504,7 @@ def len_of_longest_distinct_substring(s):
 # Output: 3 1 3 1 2
 ```
 
-### 3.2 实现二
+### 3.2 min sub 套路实现
 
 这题很有意思地也可以用类似 min sub 的套路来实现，但我觉得写起来稍微有点复杂，不如用 max sub 的套路直接：
 
@@ -428,13 +538,13 @@ def len_of_longest_distinct_substring(s):
 # Output: 3 1 3 1 2
 ```
 
-## 4. LeetCode #487 & #1004: The "Max Consecutive Ones" Problems
+## 4. LeetCode #487 & #1004: Max Consecutive Ones
 
 - Max Consecutive Ones II 是 [Leetcode 487](https://leetcode.com/problems/max-consecutive-ones-ii/)，但是是 locked！
   - 我们参考的是 [Max Consecutive Ones II (leetcode 487)](https://eugenejw.github.io/2017/08/leetcode-487)
 - Max Consecutive Ones III 是 [Leetcode 1004, medium](https://leetcode.com/problems/max-consecutive-ones-iii/).
 
-### 4.1 LeetCode #487 实现
+### 4.1 LeetCode #487 的 max sub 套路实现
 
 题目是：Given a binary array, find the maximum number of consecutive 1s in this array if you can flip at most one 0.
 
@@ -464,7 +574,7 @@ find_max_consecutive_ones([1, 0, 1, 1, 0])
 # Output: 4
 ```
 
-### 4.2 LeetCode #1004 实现一
+### 4.2 LeetCode #1004 的 max sub 套路实现
 
 在 LeetCode #487 的基础上，允许你 flip $k$ 次
 
@@ -494,7 +604,7 @@ find_max_consecutive_ones([1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0], 2)
 # Output: 6
 ```
 
-### 4.3 LeetCode #1004 实现二
+### 4.3 LeetCode #1004 的 min sub 套路实现
 
 这题也可以用类似 min sub 的套路：
 
@@ -522,7 +632,7 @@ find_max_consecutive_ones([1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0], 2)
 
 - 需要注意边界的判定 (`# ANCHOR 1`) 和长度的计算 (`# ANCHOR 2`) 稍微有点不同
 
-## 5. LeetCode #209: The "Minimum Size Subarray Sum" Problem
+## 5. LeetCode #209: Minimum Size Subarray Sum
 
 [Leetcode 209, medium](https://leetcode.com/problems/minimum-size-subarray-sum/)，题目是：给定一个正整数 array 和一个正整数 `s`，求一个 shortest sub 满足 `sum(sub) >= s`。返回 shortest length 即可，不用返回 sub。
 
@@ -548,7 +658,7 @@ len_of_min_subarray([1,2,3,4,5], 11)
 # Output: 3
 ```
 
-## 6. 反面教材 - LeetCode #560: The "Subarray Sum Equals $k$" Problem
+## 6. 反面教材 - LeetCode #560: Subarray Sum Equals $k$
 
 ### 6.1 这题不能用 min sub 的套路
 
@@ -630,7 +740,7 @@ num_of_subarrays([3, 4, 7, 2, -3, 1, 4, 2], 7)
 - `Counter` 的 `__missing__(key)` 是会返回 0 的，所以不用担心 `KeyError`
 - 这个写法可以把 time 降到 $O(n)$
 
-## 7. LeetCode #55: The "Jump Game" Problem
+## 7. LeetCode #55: Jump Game
 
 _EPI in Python_ 5.4 叫这个问题是 "Advance Through An Array"，不知所谓。
 
@@ -738,7 +848,7 @@ Complexity:
 - time: $O(n)$
 - space: $O(1)$
 
-### 7.3 Max Sub + Early Termination
+### 7.3 小改进：Early Termination
 
 上面的 max sub 实现可以加两个 early termination 的条件：
 
