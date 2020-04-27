@@ -464,7 +464,7 @@ def max_profit_with_cd(prices):
 
 原题是 [LeetCode #714, Medium](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/)
 
-这题又回到了 Stock I、II、III、IV 的节奏，允许 void transaction 和 void sale
+这题看上去又回到了 Stock I、II、III、IV 的节奏，即允许 void transaction 和 void sale
 
 ### 6.2 受状态机启发的、使用 $O(2n)$ space 的 DP (buttom-up)
 
@@ -524,7 +524,7 @@ $$
 
 ```python
 # 在 BOUGHT 时扣 transaction fee
-def max_profit_with_cd(prices, fee):
+def max_profit_with_fees(prices, fee):
     if not prices:
         return 0
 
@@ -545,7 +545,7 @@ def max_profit_with_cd(prices, fee):
 
 ```python
 # 在 SOLD 时扣 transaction fee
-def max_profit_with_cd(prices, fee):
+def max_profit_with_fees(prices, fee):
     if not prices:
         return 0
 
