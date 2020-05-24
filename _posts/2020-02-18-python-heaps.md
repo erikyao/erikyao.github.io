@@ -8,12 +8,9 @@ tags: []
 {% include JB/setup %}
 
 <!-- TOC -->
-
-Table of Contents:
-
 - [1. Heaps](#1-heaps)
     - [1.1 Definition](#11-definition)
-    - [1.2 Array Implementation for Heaps](#12-array-implementation-for-heaps)
+    - [1.2 Array Implementation of Heaps / Index 换算](#12-array-implementation-of-heaps--index-换算)
     - [1.3 Internal Heap Operations](#13-internal-heap-operations)
         - [1.3.1 Insert A New Node & `sift_up`](#131-insert-a-new-node--sift_up)
         - [1.3.2 Delete The Root & `sift_down`](#132-delete-the-root--sift_down)
@@ -52,7 +49,7 @@ heap 从结构上来说是一个 complete binary tree，数据上它要满足 **
     
 ![](https://live.staticflickr.com/65535/49554518236_e9cde373c8_w_d.jpg)
 
-### 1.2 Array Implementation for Heaps
+### 1.2 Array Implementation of Heaps / Index 换算
 
 complete binary tree 有一个特点：**它可以 uniquely 被它的 level-order traversal 表示**。换言之，我们可以用一个 list `N` 来表示一个 complete binary tree，`N` 中的节点满足下列关系：
 
