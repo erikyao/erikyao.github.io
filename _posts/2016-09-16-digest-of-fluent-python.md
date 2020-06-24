@@ -1175,16 +1175,19 @@ print_hello()  # Output: Hello
 
 这里的 `msg = 'Hello'` 是 `print_hello` 的一个 free variable。我们先来看下 free variable 的定义：
 
-- In mathematics, a _**free variable**_ is a variable in an expression where substitution may take place. 也就是说，能做替换操作的 variable 都是 free variable
-- In mathematics, a _**bound variable**_ is a variable that was previously free, but has been bound to a specific value or set of values.
+- In mathematics:
+  - a _**free variable**_ is a variable in an expression where substitution may take place. 
+    - 也就是说，能做替换操作的 variable 都是 free variable
+  - a _**bound variable**_ is a variable that was previously free, but has been bound to a specific value or set of values.
 	- E.g., the variable $x$ becomes a bound variable when we write: 	
 		- $\forall x, (x + 1)^2 = x^2 + 2x + 1$ or 
 		- $\exists x \text{ such that } x^2 = 2$
 	- Some older books use the terms _**real variable**_ and _**apparent variable**_ for free variable and bound variable.
-- In computer programming, the term _**free variable**_ refers to variables used in a function that are neither local variables nor parameters of that function.
-- 这个场合下，bound variable 就不好定义了，也没有必要往这个方向去考虑。
+- In computer programming:
+  - the term _**free variable**_ refers to variables used in a function that are neither local variables nor parameters of that function.
+  - 这个场合下，bound variable 就不好定义了，也没有必要往这个方向去考虑。
 
-所以在 python 这儿，如果 `func.__closure__` 就是 closure 的话，那 closure 相当于被定义成了 free variable 的一个 enviroment 或者 namespace。我觉得这么理解其实挺好记的，非常直观（毕竟你可以直接 print 到 console……）。
+所以在 python 这儿，如果 `func.__closure__` 就是 closure 的话，那 closure 相当于被定义成了 free variable 的一个 enviroment 或者 namespace。我觉得这么理解其实挺好记的，非常直观 (毕竟你可以直接 print 到 console……)。
 
 我对 closure 一直不理解是因为我看到了各种各样的定义，比如：
 
@@ -1211,9 +1214,9 @@ def func(a, b = 1, *args, kwa, kwb = 2):
 >>> {'kwb': 2}
 ```
 
-从逻辑上，keyword-only parameter 是 parameter 的一种（其实一个就两种，一个 positional 一个 keyword-only），但是上面这个例子里 `__kwdefaults__.values` $\not \subset$ `__defaults__`.
+从逻辑上，keyword-only parameter 是 parameter 的一种 (其实一共就两种，一个 positional 一个 keyword-only)，但是上面这个例子里 `__kwdefaults__.values` $\not \subset$ `__defaults__`.
 
-另外一个需要注意的问题是：default parameter value 只在 `def` 的被执行的时候初始化一次，而不是每次调用 function 的时候都初始化一次（有点类似 static； Ruby 也是这样的）。比如下面这个例子：
+另外一个需要注意的问题是：default parameter value 只在 `def` 的被执行的时候初始化一次，而不是每次调用 function 的时候都初始化一次 (有点类似 static；Ruby 也是这样的)。比如下面这个例子：
 
 ```python
 def func2(b = [], *args, kwb = []):
@@ -1499,7 +1502,7 @@ It is interesting to note that in _Design Patterns_ the authors suggest: “Stra
 这个定义并没有很清楚，这篇 [Flyweight](http://gameprogrammingpatterns.com/flyweight.html) 我觉得写得不错。给出的例子是 game programming 中的地图渲染的场景：
 
 - 你有很多很多个 `Tree` object 要渲染
-- 但是你可以只存一个 static 或者 singleton 的 `TreeModel` object，记录树的多边形、颜色等等信息（假设你地图上所有的树都长一样）
+- 但是你可以只存一个 static 或者 singleton 的 `TreeModel` object，记录树的多边形、颜色等等信息 (假设你地图上所有的树都长一样)
 - 然后你的 `Tree` object 就可以引用或者指向这个 `TreeModel` object，然后再保存 coordinate 这些自身 specific 的信息
 - 这样比较省空间的 `Tree` object 我们成为 flyweight object
 
@@ -1585,7 +1588,7 @@ baz = foo(baz)
 
 注意上面的例子中：
 
-- `baz` 定义结束时，`@foo` 会立即执行（相当于替换了 `baz` 的定义）
+- `baz` 定义结束时，`@foo` 会立即执行 (相当于替换了 `baz` 的定义)
 	- 换言之，当 `baz` 所在的 module 被 load 进来的时候，`@foo` 就会执行
 - 调用 `baz()` 时并不会执行 `@foo` 
 
@@ -1752,7 +1755,7 @@ UnboundLocalError: local variable 'count' referenced before assignment
 	- 而这里 `count += 1` 和 `total += new_value` 的操作会创建两个 local variable `count` 和 `total` 是因为：
 		1. number 是 immutable 的
 		1. `+=` 操作会创建新的 number
-- 隐式创建的 local variable 会干扰你对 free varible 的引用（编译器不知道你要用的具体是哪一个）
+- 隐式创建的 local variable 会干扰你对 free varible 的引用 (编译器不知道你要用的具体是哪一个)
 
 解决这个问题的方法是：用 `nonlocal` 声明。It lets you flag a variable as a free variable even when it is assigned a new value within the function.
 
@@ -1996,7 +1999,7 @@ TypeError: 'str' object does not support item assignment
 
 tuple 设计成 immutable 的好处是：
 
-1. python 中必须 immutable 才能 hashable，所以 tuple 可以做 dict 的 key（list 就不可以）
+1. python 中必须 immutable 才能 hashable，所以 tuple 可以做 dict 的 key (list 就不可以)
 1. function 接收参数 tuple 时不用担心 tuple 被篡改，可以免去 defensive copy 的操作，算得上是一种 optimization
 
 ### 8.3 Copies Are Shallow by Default <a name="8-3-Copies-Are-Shallow-by-Default"></a>
@@ -2220,7 +2223,7 @@ class Vector2d:
 ```
 
 - `*self` 展开这个写法帅气～
-- 注意 `*foo` 要求 `foo` 是个 iterable（上面有 `__iter__()` 所以满足条件）
+- 注意 `*foo` 要求 `foo` 是个 iterable (上面有 `__iter__()` 所以满足条件)
 - `__iter__()` 要求返回一个 iterator，上面例子里返回的是一个 generator (from a generator expression)
 	- 注意它不是 tuple-comp，因为 python 不存在 tuple-comp 这种东西
 	- 然后根据 [Iterables vs. Iterators vs. Generators](http://nvie.com/posts/iterators-vs-generators/) 我们得知 a generator is always a iterator，所以这个 `__iter__()` 写法成立
@@ -2344,7 +2347,7 @@ x = __dict__['x'] = property_x
 	- $\Rightarrow$ `b.__dict__['x'].__get__(b, type(b))`
 		- $\Rightarrow$ `property_x.__get__(b, type(b))`
 			- $\Rightarrow$ `property_x.fget(b)`
-				- $\Rightarrow$ 实际调用原始的 `x(b)` 方法（TMD 又绕回去了）
+				- $\Rightarrow$ 实际调用原始的 `x(b)` 方法 (TMD 又绕回去了)
 				- 注意：此时 `b.x()` 方法是调用不到的，因为 `b.x` 被优先解析了；这里 `property_x` 内部还能调用 `x(b)` 是因为它保存了这个原始的 `def x(self)` 方法
 
 这里最 confusing 的地方在于：`b.x` 从一个 method 变成了一个 property 对象，而且屏蔽掉了对 `b.x()` 方法的访问。一个不那么 confusing 的写法是：
@@ -2463,7 +2466,7 @@ There is another special per-instance attribute that you may want to keep: the `
 
 比如前面的 `typecode = 'd'` 和 `__slots__` 这样不带 `self` 初始化的都是 class attributes，类似 java 的 static.
 
-If you write to an instance attribute that does not exist, you create a new instance attribute. 假设你有一个 class attribute `Foo.bar` 和 instance `f`，正常情况下 `f.bar` 可以访问到 `Foo.bar`，但你可以重新赋值 `f.bar = 'baz'` 从而覆盖掉原有的 `f.bar` 的值，同时 class attribute `Foo.bar` 不会受影响。这实际上提供了一种新的继承和多态的思路（不用把 `bar` 设计成 `Foo` 的 instance attribute）。
+If you write to an instance attribute that does not exist, you create a new instance attribute. 假设你有一个 class attribute `Foo.bar` 和 instance `f`，正常情况下 `f.bar` 可以访问到 `Foo.bar`，但你可以重新赋值 `f.bar = 'baz'` 从而覆盖掉原有的 `f.bar` 的值，同时 class attribute `Foo.bar` 不会受影响。这实际上提供了一种新的继承和多态的思路 (不用把 `bar` 设计成 `Foo` 的 instance attribute)。
 
 ## Chapter 10 - Sequence Hacking, Hashing, and Slicing <a name="Chapter-10---Sequence-Hacking-Hashing-and-Slicing"></a>
 
@@ -2471,7 +2474,7 @@ In this chapter, we will create a class to represent a multidimensional Vector c
 
 ### 10.1 `Vector` Take #1: `Vector2d` Compatible <a name="10-1-Vector-Take-1-Vector2d-Compatible"></a>
 
-先说个题外话，你在 console 里面直接输入 `f` 然后回车，调用的是 `f.__repr__()`，而 `print(f)` 调用的是 `f.__str__()`（如果有定义的话；没有的话还是会 fall back 到 `f.__repr__()`）
+先说个题外话，你在 console 里面直接输入 `f` 然后回车，调用的是 `f.__repr__()`，而 `print(f)` 调用的是 `f.__str__()` (如果有定义的话；没有的话还是会 fall back 到 `f.__repr__()`)
 
 ```python
 >>> class Foo:
@@ -2533,14 +2536,14 @@ class Vector:
 
 ### Digress: Protocols and Duck Typing <a name="Digress-Protocols-and-Duck-Typing"></a>
 
-In the context of object-oriented programming, a protocol is an informal interface, defined only in documentation and not in code. 简单说，只要实现了 protocol 要求的函数，你就是 protocol 的实现，并不用显式声明你要实现这个 protocol（反例就是 java 的 `interface`）
+In the context of object-oriented programming, a protocol is an informal interface, defined only in documentation and not in code. 简单说，只要实现了 protocol 要求的函数，你就是 protocol 的实现，并不用显式声明你要实现这个 protocol (反例就是 java 的 `interface`)
 
 Duck Typing 的源起：
 
 > Don’t check whether it **_is-a_** duck: check whether it **_quacks-like-a_** duck, **_walks-like-a_** duck, etc, etc, depending on exactly what subset of duck-like behavior you need to play your language-games with. ([comp.lang.python](https://groups.google.com/forum/#!forum/comp.lang.python), Jul. 26, 2000)
 > — Alex Martelli
 
-简单说就是 python 并不要求显式声明 **_is-a_**（当然你要显式也是可以的--用 ABC，但是需要注意不仅限于 `abc.ABC`，还有 `collections.abc` 等细分的 ABC，比如 `MutableSequence`；参 11.3 章节），**_like-a_** 在 python 里等同于 **_is-a_**。
+简单说就是 python 并不要求显式声明 **_is-a_** (当然你要显式也是可以的--用 ABC，但是需要注意不仅限于 `abc.ABC`，还有 `collections.abc` 等细分的 ABC，比如 `MutableSequence`；参 11.3 章节)，**_like-a_** 在 python 里等同于 **_is-a_**。
 
 ### 10.2 `Vector` Take #2: A Sliceable Sequence <a name="10-2-Vector-Take-2-A-Sliceable-Sequence"></a>
 
@@ -2703,7 +2706,7 @@ class Vector:
 	def __hash__(self):
 		# Generator expression! 
 		# Lazily compute the hash of each component.
-		# 可以省一点空间，相对于 List 而言（只占用一个元素的内存，而不是一整个 list 的） 
+		# 可以省一点空间，相对于 List 而言 (只占用一个元素的内存，而不是一整个 list 的) 
 		hashes = (hash(x) for x in self._components)  
 		return functools.reduce(operator.xor, hashes, 0)
 ```
@@ -2800,7 +2803,7 @@ Every ABC depends on `abc.ABC`, but we don’t need to import it ourselves excep
 另外有：
 
 - `int` 实现了 `numbers.Integral`，然后 `bool` subclasses `int`，所以 `isinstance(x, numbers.Integral)` 对 `int` 和 `bool` 都有效
-- `isinstance(x, numbers.Real)` 对 `bool`、`int`、`float`、`fractions.Fraction` 都有效（所以这不是一个很好的 check if `x` is float 的方法）
+- `isinstance(x, numbers.Real)` 对 `bool`、`int`、`float`、`fractions.Fraction` 都有效 (所以这不是一个很好的 check if `x` is float 的方法)
 	- However, `decimal.Decimal` 并没有实现 `numbers.Real`
 
 ### 11.4 Defining and Using an ABC <a name="11-4-Defining-and-Using-an-ABC"></a>
@@ -2828,7 +2831,7 @@ class Foo(object):  # No `metaclass` argument in Python 2
 
 Python 3.4 引入的逻辑其实是 `def abc.ABC(metaclass=abc.ABCMeta)`
 
-另外 `@abc.abstractmethod` 必须是 innermost 的 decorator（i.e. 它与 `def` 之间不能再有别的 decorator）
+另外 `@abc.abstractmethod` 必须是 innermost 的 decorator (i.e. 它与 `def` 之间不能再有别的 decorator)
 
 ### 11.5 Virtual Subclasses <a name="11-5-Virtual-Subclasses"></a>
 
@@ -2887,7 +2890,7 @@ AttributeError: 'VirtualExt' object has no attribute 'foo'
 - `Base.register()` 其实是继承自 `abc.ABC.register()`，意思是 "把 `VirtualExt` register 成 `Base` 的子类，with no doubt"
 	- 进一步说明你只能 virtually 继承一个 ABC
 - `issubclass(VirtualExt, Base) == True` 和 `isinstance(ve, Base) == True` 都成立但是 `VirtualExt` 既没有 attribute `x` 也没有实现 `foo`
-	- 所以说这是一个 "假" 继承（我觉得叫 Fake Inheritance 更合适……） 
+	- 所以说这是一个 "假" 继承 (我觉得叫 Fake Inheritance 更合适……) 
 - `class VirtualExt(TrueBase)` 这是一个 真·继承
 - 这里也不是多重继承
 	- 多重继承你得写成 `class MultiExt(Base, TrueBase)`
@@ -2904,7 +2907,7 @@ Inheritance is guided by a special class attribute named `__mro__`, the **Method
 #### 11.5.1 `issubclass` Alternatives: `__subclasses__` and `_abc_registry` <a name="11-5-1-issubclass-Alternatives---subclasses---and--abc-registry"></a>
 
 - `Base.__subclasses__()` (注意这是一个方法) 
-	- 返回所有 `Base` 的 immediate 子类（即不会递归去找子类的子类）
+	- 返回所有 `Base` 的 immediate 子类 (即不会递归去找子类的子类)
 		- 没有 import 进来的子类是不可能被找到的
 	- 不会列出 virtual 子类
 	- 不 care `Base` 是不是 ABC
@@ -2949,7 +2952,7 @@ class Sized(metaclass=ABCMeta):
 
 ### 12.1 Subclassing Built-In Types Is Tricky <a name="12-1-Subclassing-Built-In-Types-Is-Tricky"></a>
 
-一个很微妙的问题：你无法确定底层函数的调用逻辑。举个例子，我们之前有说 `getattr(obj, name)` 的逻辑是先去取 `obj.__getattribute__(name)`。所以正常的想法是：我子类如果覆写了 `__getattribute__`，那么 `getattr` 作用在子类上的行为也会相应改变。但是实际情况是：`getattr` 不一定会实际调用 `__getattribute__`（比如说有可能去调用公用的更底层的逻辑）。而且这个行为是 language-implementation-specific 的，所以有可能 _PyPy_ 和 _CPython_ 的逻辑还不一样。
+一个很微妙的问题：你无法确定底层函数的调用逻辑。举个例子，我们之前有说 `getattr(obj, name)` 的逻辑是先去取 `obj.__getattribute__(name)`。所以正常的想法是：我子类如果覆写了 `__getattribute__`，那么 `getattr` 作用在子类上的行为也会相应改变。但是实际情况是：`getattr` 不一定会实际调用 `__getattribute__` (比如说有可能去调用公用的更底层的逻辑)。而且这个行为是 language-implementation-specific 的，所以有可能 _PyPy_ 和 _CPython_ 的逻辑还不一样。
 
 [Differences between PyPy and CPython >> Subclasses of built-in types]():
 
@@ -3884,7 +3887,7 @@ TypeError: unsupported operand type(s) for +: 'int' and 'NoneType'
 所以大致的 pattern 是：
 
 - `.__next__()` 和 `.send()` 都会驱动到一下个 `yield`，不管是 left-hand `yield` 还是 right-hand `yield`
-- `.send(foo)` 替换当前的 right-hand `yield` 为 `foo`（然后驱动到下一个 yield）
+- `.send(foo)` 替换当前的 right-hand `yield` 为 `foo` (然后驱动到下一个 yield)
 - 驱动到 right-hand `yield` 时直接输出
 - 你一个循环里有 $N$ 个 `yield`，就要驱动 $N$ 次，i.e. $N_{\text{next}} + N_{\text{send}} = N_{\text{yield}}$
 
@@ -3970,7 +3973,7 @@ The context manager protocol consists of the `__enter__` and `__exit__` methods.
 
 ### 15.4 Use `@contextlib.contextmanager` <a name="15-4-Use-@contextlib-contextmanager"></a>
 
-直接作用于一个 generator function `gen` 上，将其包装成一个 context manager（不用你自己定义 class 然后实现 context manager 的 protocol）。但是要求这个 generator function 只能 yield 一个值出来，这个 yield 的值会赋给 `with gen() as g` 的 `g`，同时 `gen()` 的运行停止，`yield` 后面的代码在 `with` block 结束后继续运行。 
+直接作用于一个 generator function `gen` 上，将其包装成一个 context manager (不用你自己定义 class 然后实现 context manager 的 protocol)。但是要求这个 generator function 只能 yield 一个值出来，这个 yield 的值会赋给 `with gen() as g` 的 `g`，同时 `gen()` 的运行停止，`yield` 后面的代码在 `with` block 结束后继续运行。 
 
 如果 `gen` yield 了多个值，系统会抛一个 `RuntimeError: generator didn't stop`。
 
