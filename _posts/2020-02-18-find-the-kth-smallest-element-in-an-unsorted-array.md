@@ -1,11 +1,13 @@
 ---
 layout: post
-title: "Find the $k$-th Smallest Element in an Unsorted Array / Heap Select / Quick Select"
+title: "Python: Heap Select / Quick Select"
 description: ""
 category: Algorithm
 tags: []
 ---
 {% include JB/setup %}
+
+Question: Find the $k$-th Smallest Element in an Unsorted Array
 
 ## 解法一：Sort
 
