@@ -7,6 +7,11 @@ tags: []
 ---
 {% include JB/setup %}
 
+- [1. 预备知识：`class()` / `typeof()` / `mode()` / `storage.mode()`](#1-预备知识class--typeof--mode--storagemode)
+- [2. 预备知识：R Basic Types 总览](#2-预备知识r-basic-types-总览)
+- [3. 深入 Language Objects](#3-深入-language-objects)
+- [4. 深入 Function Types](#4-深入-function-types)
+
 ## 1. 预备知识：`class()` / `typeof()` / `mode()` / `storage.mode()`
 
 [Stack Overflow: Mode, Class and Type of R objects](https://stats.stackexchange.com/a/3213) 曰：
@@ -128,11 +133,11 @@ knitr::kable(type_info)
 
 - Vector
 - List
-- Language ([第 3 节](#3. 深入 Language Objects)详述):
+- Language ([第 3 节](#3-深入-language-objects)详述):
     - $\texttt{class=expression}$ object
     - $\texttt{class=call}$ object
     - $\texttt{class=name}$ object
-- Function ([第 4 节](#4. 深入 Function Types)详述):
+- Function ([第 4 节](#4-深入-function-types)详述):
     - $\texttt{type=closure}$ function
     - $\texttt{type=builtin}$ function
     - $\texttt{type=special}$ function
