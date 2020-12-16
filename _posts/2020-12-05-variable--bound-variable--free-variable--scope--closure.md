@@ -85,7 +85,7 @@ def f(x):
 
 - formal parameter (形参) 的 name (这里是 `x`；formal parameter 也是个 variable，所以这里的 name 就是 identifier) 对 function `f` 的定义是没有影响的；换言之，the sematic meaning of function `f` is independent of the name of its formal paramaters
   - **在 function `f` 的 definition 的范围内**，把 `x` 替换成其他的 name，对 `f` 的 functionality 不会有任何的影响
-- 我们从 formal parameter 扩展到任意的 variable：我们称具有上述特点的 variable 称为 function `f` 的 **bound variable**，说 function `f` binds the variable
+- 我们从 formal parameter 扩展到任意的 variable：我们称具有上述特点的 variable 称为 function `f` 的 **bound variable**，说 function `f` binds the variable to `f`'s definition
   - 这不是一个好的定义，但目前我们先姑且这么着
   - **注意 bound variable 和 name binding 这两个概念的 bind 不是一回事**
 - 反之，如果 variable 不是 function `f` 的 bound variable，我们称其为 function `f` 的 **free variable**
