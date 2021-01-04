@@ -7,6 +7,10 @@ tags: []
 ---
 {% include JB/setup %}
 
+2021-01-03 更新：大一统至 [Single Dispatch in Java and Python](/java/2021/01/03/single-dispatch-in-java-and-python)
+
+-----
+
 整理自：
 
 - [Double Dispatch Example](http://c2.com/cgi/wiki?DoubleDispatchExample)

@@ -7,6 +7,10 @@ tags: []
 ---
 {% include JB/setup %}
 
+2021-01-03 更新：大一统至 [Single Dispatch in Java and Python](/java/2021/01/03/single-dispatch-in-java-and-python)
+
+---
+
 ## 1. 向上转型 (upcast)
 
 一个子类的 object 可以用父类的 reference 来指向，即我们可以不用子类的 reference 而是升级使用父类的 reference。如：`Base b = new Ext();`

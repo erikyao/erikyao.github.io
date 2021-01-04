@@ -7,6 +7,10 @@ tags: []
 ---
 {% include JB/setup %}
 
+2021-01-03 更新：大一统至 [Single Dispatch in Java and Python](/java/2021/01/03/single-dispatch-in-java-and-python)
+
+---
+
 在 [多态](/java/2009/03/27/polymorphism) 里面说过：
 
 > 除了 static 方法和 final 方法 (final 包含 private) 外，Java 对其他所有的方法都采用 dynamic binding. -- _P151, Chapter 8, Thinking in Java, Fourth Edition_
