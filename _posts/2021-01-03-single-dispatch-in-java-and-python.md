@@ -7,6 +7,16 @@ tags: []
 ---
 {% include JB/setup %}
 
+## ToC
+
+- [1. 基本概念](#1-基本概念)
+- [2. Java 的 Single Dispatch 与多态](#2-java-的-single-dispatch-与多态)
+- [3. Java 的 Single Dispatch 与 Override、Overload、Static Binding、Dynamic Binding](#3-java-的-single-dispatch-与-overrideoverloadstatic-bindingdynamic-binding)
+- [4. Python 对 method 的 Single Dispatch](#4-python-对-method-的-single-dispatch)
+- [5. Python 对 function 的 Single Dispatch](#5-python-对-function-的-single-dispatch)
+- [6. 模拟实现 Double Dispatch](#6-模拟实现-double-dispatch)
+- [7. 更多讨论](#7-更多讨论)
+
 ## 1. 基本概念
 
 dispatch 是个相对高一级别的概念，可以很好地统一多态、override、overload、static binding、dynamic binding 这些概念。
@@ -42,7 +52,7 @@ Java 里的 "[多态](/java/2009/03/27/polymorphism)" 一般指 object/reference
 
 这里的 `b.overloadMethod()` 我要强调一下：这里还要求 `Ext` 的子类 (`Base` 的孙子辈类) 没有 override 这个 `overloadMethod()`；其实也就是要求 `overloadMethod()` 的 signature 在整个 `Base` class hierarchy 中是 unique 的。这其实是为了方便 JVM 做 binding 而设计的，因为从上面的归纳来看，JVM 做 binding 有这么个趋势：
 
-- 先 compiler time 尽量做 static binding
+- 先 compiler time 尽全力做 static binding
 - 实在做不了 static binding 的，再 runtime 做 dynamic biding
 
 这个从设计的角度应该很好理解。
@@ -107,3 +117,16 @@ foo("Fourty Two")
 ## 6. 模拟实现 Double Dispatch
 
 这个其实在 [C++ double dispatch: 函数参数并不支持多态](/c++/2015/04/26/cpp-double-dispatch) 和 [PPP: Visitor Pattern](http://yaoyao.codes/java/2014/06/24/digest-of-agile-software-development-ppp#ch28) 有讲，暂时不重复了。
+
+## 7. 更多讨论
+
+如果想从 compiled code 研究 Java 的 Single Dispatch 的实现，可以参考：
+
+- [Naresh Joshi's answer to _Static Vs. Dynamic Binding in Java_](https://stackoverflow.com/a/54252812)
+- [Method Invocation and Return](https://www.artima.com/underthehood/invocation.html)
+
+至于 Multiple Dispatch 的好处，我觉得 [John Gould on _Julia (programming language): What are the advantages of multiple dispatch?_](https://www.quora.com/Julia-programming-language-What-are-the-advantages-of-multiple-dispatch/answer/John-Gould-6) 里说得很好：
+
+> Multiple dispatch can be used to implement things like subject oriented programming and context oriented programming. It's main advantage is that it can, like object oriented programming, avoid the use of explicit control flow statements like case or switch statements. It also introduces some problems. The main type theoretic problem for an object-oriented language is to avoid "method not understood" errors. Multiple dispatch languages also have to avoid this error, but also have to avoid "method ambiguous" errors.
+
+这个 "subject oriented programming" 的说法非常棒！
