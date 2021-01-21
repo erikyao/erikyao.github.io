@@ -39,7 +39,7 @@ Java 里的 "[多态](/java/2009/03/27/polymorphism)" 一般指 object/reference
 
 ## 2. Java 的 Single Dispatch 与多态
 
-我们说 Java 支持只 single dispatch，按 Python 的方式比较好理解。举个例子：假设有 `Base b = new Ext();`，然后我们调用 `b.foo(...)`，如果需要 single dispatch 的话，这里相当于是 Python 的 `foo(b, ...)` (`b` 相当于 `self`)，于是按多态的逻辑，`b` 实际 reference 的 object 的类型决定了具体是调用 `Base.foo(...)` 还是 `Ext.foo(...)`。换言之，Java 支持 object/reference 的多态，其实就是支持了 method 的 single dispatch
+我们说 Java 只支持到 single dispatch，按 Python 的方式比较好理解。举个例子：假设有 `Base b = new Ext();`，然后我们调用 `b.foo(...)`，如果需要 single dispatch 的话，这里相当于是 Python 的 `foo(b, ...)` (`b` 相当于 `self`)，于是按多态的逻辑，`b` 实际 reference 的 object 的类型决定了具体是调用 `Base.foo(...)` 还是 `Ext.foo(...)`。换言之，Java 支持 object/reference 的多态，其实就是支持了 method 的 single dispatch
 
 ## 3. Java 的 Single Dispatch 与 Override、Overload、Static Binding、Dynamic Binding
 
