@@ -40,7 +40,7 @@ SICP 的 _Section 1.2.1 Linear Recursion and Iteration_ 着重强调了 "无论�
 - 前提：Scheme 这门语言是 applicative-order evaluation
   - 这一点其实直接影响 linear recursion 的展开
 - procedure $f(n)$ 必须要 somehow "依赖于" $f(n-1)$
-  - 这一点很好理解，比如像 `for i in range(10): print(i)` 这种也叫 iteration，但是 `print(1)` 和 `print(2)` 之间没有啥联系，这样的 procedure 就不找我们讨论的范围内
+  - 这一点很好理解，比如像 `for i in range(10): print(i)` 这种也叫 iteration，但是 `print(1)` 和 `print(2)` 之间没有啥联系，这样的 procedure 就不在我们讨论的范围内
 
 我们用数学的形式来描述。linear recursion 展开应该是这样的形式：
 
