@@ -20,7 +20,7 @@ SICP 的 _Section 1.2.1 Linear Recursion and Iteration_ 着重强调了 "无论�
 - [Non-linear 的情况？](#non-linear-的情况)
 - [Tail Recursion / Tail Call](#tail-recursion--tail-call)
 - [Procedure vs Process](#procedure-vs-process)
-- [`for`-loop / 不同语言对 Iteration 的实现 / Tail Call Optimization](#for-loop--不同语言对-iteration-的实现--tail-call-optimization)
+- [Looping Constructs / 不同语言对 Iteration 的实现 / Tail Call Optimization](#looping-constructs--不同语言对-iteration-的实现--tail-call-optimization)
 - [LeetCode 答题技巧：Recursion](#leetcode-答题技巧recursion)
   - [CASE 1: 如何改写成 tail recursion?](#case-1-如何改写成-tail-recursion)
   - [CASE 2: `while stack:` 模拟 call stack](#case-2-while-stack-模拟-call-stack)
@@ -161,7 +161,7 @@ linear iteration $f(\alpha^{(1)}, \beta^{(1)}, \dots, n) = \dots = f(\alpha^{(n)
 
 也正因为如此，从编程语言的 syntax 的角度来说，满足 "the procedure definition refers (either directly or indirectly) to the procedure itself" 的 procedure 都叫 recursive，就没有分那么细。
 
-## `for`-loop / 不同语言对 Iteration 的实现 / Tail Call Optimization
+## Looping Constructs / 不同语言对 Iteration 的实现 / Tail Call Optimization
 
 SICP 花了很长的一个篇幅来说：
 
@@ -175,7 +175,7 @@ SICP 花了很长的一个篇幅来说：
 - 二来是相当于说：这些 "looping constructs" are basically non-necessary (in Scheme)
 - 三来指出了某些语言会把 iterative procedure 执行成一个 recursive process
   - 这可能是引起 procedure vs process 概念上的混乱的原因
-  - 于是顺理成章就出现了 Tail Call Optimization 这个编译器的优化技术，确保把 iterative procedure 执行成 iterative process
+  - 于是顺理成章就出现了 Tail Call Optimization (TCO) 这个编译器的优化技术，确保把 iterative procedure 执行成 iterative process
 
 ## LeetCode 答题技巧：Recursion
 
@@ -358,14 +358,14 @@ def f(n):
 
 ```python
 def f(n):
-    cache = [None] * (n + 1)
+    if n < 3:
+        return n
+    
+    cache = [0, 1, 2] + [None] * (n - 2)
 
     def f_helper(n):
         if cache[n] is None:
-            if n < 3:
-                cache[n] = n
-            else:
-                cache[n] = f_helper(n-1) + 2 * f_helper(n-2) + 3 * f_helper(n-3)
+            cache[n] = f_helper(n-1) + 2 * f_helper(n-2) + 3 * f_helper(n-3)
         
         return cache[n]
     
