@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "use ${fn:escapeXml()} to escape double quote"
+title: "JSP: use ${fn:escapeXml()} to escape double quotes"
 description: ""
 category: JSP
 tags: [escape]
