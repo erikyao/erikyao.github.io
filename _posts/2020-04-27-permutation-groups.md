@@ -21,10 +21,10 @@ Table of Contents:
 - [1. Permutation Groups](#1-permutation-groups)
 - [2. Permutation Notations / Order of A Permutation](#2-permutation-notations--order-of-a-permutation)
 - [3. Transpositions](#3-transpositions)
-    - [3.1 Transposition Decomposition and Commutativity](#31-transposition-decomposition-and-commutativity)
-    - [3.2 How to Decompose a $k$-Cycle into Transpositions: $c_k = \tau_1 \tau_2 \dots \tau_{k-1}$](#32-how-to-decompose-a-k-cycle-into-transpositions-c_k--\tau_1-\tau_2-\dots-\tau_k-1)
-    - [3.3 How to Compose a Permutation with A Transposition: $\sigma \tau = ?, \tau \sigma = ?$](#33-how-to-compose-a-permutation-with-a-transposition-\sigma-\tau---\tau-\sigma--)
-    - [3.4 Inversions / Parity / Sign of A Permutation](#34-inversions--parity--sign-of-a-permutation)
+  - [3.1 Transposition Decomposition and Commutativity](#31-transposition-decomposition-and-commutativity)
+  - [3.2 How to Decompose a $k$-Cycle into Transpositions: $c_k = \tau_1 \tau_2 \dots \tau_{k-1}$](#32-how-to-decompose-a-k-cycle-into-transpositions-c_k--tau_1-tau_2-dots-tau_k-1)
+  - [3.3 How to Compose a Permutation with A Transposition: $\sigma \tau = ?, \tau \sigma = ?$](#33-how-to-compose-a-permutation-with-a-transposition-sigma-tau---tau-sigma--)
+  - [3.4 Inversions / Parity / Sign of A Permutation](#34-inversions--parity--sign-of-a-permutation)
 
 <!-- /TOC -->
 
@@ -78,11 +78,12 @@ $$
 举例：
 
 $$
-\sigma = \left(\begin{smallmatrix} 
+\begin{aligned}
+\sigma &= \left(\begin{smallmatrix} 
 1 & 2 & 3 & 4 \\
 4 & 3 & 2 & 1 
-\end{smallmatrix}\right) \\
-\sigma \circ \sigma = \left(\begin{smallmatrix} 
+\end{smallmatrix}\right) \newline
+\sigma \circ \sigma &= \left(\begin{smallmatrix} 
 1 & 2 & 3 & 4 \\
 4 & 3 & 2 & 1 
 \end{smallmatrix}\right) \circ \left(\begin{smallmatrix} 
@@ -92,6 +93,7 @@ $$
 1 & 2 & 3 & 4 \\
 1 & 2 & 3 & 4 
 \end{smallmatrix}\right) = I
+\end{aligned}
 $$
 
 为此我们需要一种 "表达能力" 更强的 notation，于是我们有了下文的 cycle notation.
@@ -126,10 +128,8 @@ $$
 \sigma = \left(\begin{smallmatrix} 
 1 & 2 & 3 & 4 & 5 \\
 3 & 4 & 1 & 5 & 2
-\end{smallmatrix}\right) \Rightarrow \sigma = (1,3)(2,4,5)
+\end{smallmatrix}\right) \Rightarrow \sigma = (1,3)(2,4,5) \Rightarrow \text{ cycle type of } \sigma \text{ is } (2,3)
 $$
-
-- cycle type of $\sigma$ is $(2,3)$
 
 注意这里应该这么看：$k$-cycle 本身也是 permutation，所以上面其实是说：任意一个 permutation 都能看做是几个 disjoint 的 $k$-cycle-styled 的 permutation 的 **composition**, i.e. $\sigma = c_{k_1} \circ c_{k_2} \circ \dots \circ c_{k_l}$
 
