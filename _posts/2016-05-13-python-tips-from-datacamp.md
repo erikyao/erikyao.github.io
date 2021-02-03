@@ -26,18 +26,20 @@ x.extend(["d", "e"])    # x == ['a', 'b', 'c', ['d', 'e'], 'd', 'e']
 
 ```python
 areas = ["hallway", 11.25, "kitchen", 18.0,
-        "chill zone", 20.0, "bedroom", 10.75,
+         "chill zone", 20.0, "bedroom", 10.75,
          "bathroom", 10.50, "poolhouse", 24.5,
          "garage", 15.45]
 
 # How to delete "poolhouse" and 24.5?
-del(areas[-4:-2])               # CORRECT
-del(areas[10:12])               # CORRECT
-del(areas[10]); del(areas[11])  # WRONG
+del areas[-4:-2]                # CORRECT
+del areas[10:12]               # CORRECT
+del areas[10]; del areas[11]  # WRONG
 ```
 
-- After a `del` operation, the indices will be changed! So `del(areas[10]); del(areas[11])` is wrong.
+- After a `del` operation, the indices will be changed! So `del areas[10]; del areas[11]` is wrong.
 - The `;` sign is used to place commands on the same line.
+
+注：原文的写法是 `del(areas[10:12])`，我十分不推荐这么写，因为 `del` 是关键字，你的 `del(areas[10:12])` 会先被解析成 `del (areas[10:12])`，然后因为这里括号没有意义，所以等价于 `del areas[10:12]` 
 
 ### 3. Shallow copy v.s. deep copy of lists
 
@@ -99,8 +101,6 @@ array([[  1.9558  ,  95.25432 ,  25.82    ],
 ```
 
 ### 2.3 Basic Statistics
-
-注意它既不是函数，也不是 `Numpy.array` 的 method，而是 `Numpy` 的 method。可以类比为 `Numpy` 的 static util method。
 
 ```python
 np.mean(np_height)
