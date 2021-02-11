@@ -273,7 +273,7 @@ This chapter focus on special methods, i.e. dunder methods。
 | ---- | -------------- | ------- |
 | `f = Foo(arg)` | `f = Foo.__new__(arg).__init__(arg)` | |
 | `obj[key]` | `obj.__getitem__(key)` | |
-| `obj.foo` / `getattr(obj, "foo")` | `obj.__getattribute__(obj, "foo")` | |
+| `obj.foo` / `getattr(obj, "foo")` | `obj.__getattribute__("foo")` | |
 | `len(obj)` | `obj.__len__(key)` | |
 | if `x` in `obj`: | if `obj.__contains__(x)`: | If `__contains__()` is not available, Python will scan with `__getitem__()`. |
 | for `x` in `obj`: | `iterator = obj.__iter__()` is implicitly called at the start of loops; `x = iterator.__next__()` is the next value and is implicitly called at each loop increment. | If neither is available, Python will scan with `__getitem__()`. |
