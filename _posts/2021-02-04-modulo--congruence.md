@@ -22,7 +22,7 @@ tags: []
 - modulo: _preposition_. (in number theory) with respect to a modulus of 
   - 所以 "modulo $n$" 的意思就是 "w.r.t. modulus $n$"
 
-顺便讲一下 congruence。如果 $a \bmod n = b \bmod n$，那么我们称：
+顺便讲一下 **congruence**。如果 $a \bmod n = b \bmod n$，那么我们称：
 
 - $a$ is congruent to $b$ modulo $n$
   - 你知道 modulo 是个介词之后就不会把这里的 "$b$ modulo $n$" 理解成 "$b \bmod n$" 了
