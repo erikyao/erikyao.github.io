@@ -28,7 +28,7 @@ Python 3.8.2 (default, Dec 21 2020, 15:06:04)
 - [无参形式 `super()`](#无参形式-super)
 - [二参形式 `super(T, obj)`](#二参形式-supert-obj)
   - [`super(T, obj)` 如何查找 `T` 的父类？](#supert-obj-如何查找-t-的父类)
-  - [为何能找到 sibling class](#为何能找到-sibling-class)
+  - [为何能找到 sibling class？](#为何能找到-sibling-class)
 - [二参形式 `super(T, S)`](#二参形式-supert-s)
 - [一参形式 `super(T)`](#一参形式-supert)
 - [Method invocation from a super object](#method-invocation-from-a-super-object)
@@ -186,7 +186,7 @@ def ___:
 
 一个常用的 rule 是：如果有 `Z(K1, K2, ...)`，那么一般是 `Z -> K1 -> K2 -> ...`，**和括号里的 inheritance list 的顺序一致**。
 
-### 为何能找到 sibling class
+### 为何能找到 sibling class？
 
 现在我们来回答疑问 3。假定有一个 diamond inheritance：
 
