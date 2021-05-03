@@ -7,6 +7,17 @@ tags: []
 ---
 {% include JB/setup %}
 
+## ToC
+
+- [1. `yield` is a pun](#1-yield-is-a-pun)
+- [2. blocking / non-blocking](#2-blocking--non-blocking)
+  - [应该尽量避免 main process/thread 被 block](#应该尽量避免-main-processthread-被-block)
+  - [IO-bound vs CPU-bound tasks wrapped in coroutines](#io-bound-vs-cpu-bound-tasks-wrapped-in-coroutines)
+- [3. Why asyncio is fast?](#3-why-asyncio-is-fast)
+- [4. Race Conditions?](#4-race-conditions)
+- [5. 题外话：`time.sleep()` vs `asyncio.sleep()`](#5-题外话timesleep-vs-asynciosleep)
+- [6. 题外话：与 GIL 的区别与联系](#6-题外话与-gil-的区别与联系)
+
 ## 1. `yield` is a pun
 
 感觉 python 把 `yield` 设计成了双关：
@@ -137,3 +148,53 @@ async def sleep(delay, result=None, *, loop=None):
 File:      /Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.8/lib/python3.8/asyncio/tasks.py
 Type:      function
 ```
+
+## 6. 题外话：与 GIL 的区别与联系
+
+GIL 参见 [Python GIL: Global Interpreter Lock](/python/2017/09/03/python-gil-global-interpreter-lock)
+
+仔细研究下就会发现："GIL 控制下的 multi-thread" 和 "multi-corotine" 的协作方式是一样的：
+
+- CPU instructions 无法并行，必须 serial 执行 (文中为了简化局势，姑且假设了单个 thread/corotine 在执行 CPU instructions 不会被 switch)
+- IO 部分都是 concurrent 运行
+
+总结一下：
+
+|                | Task Scheduler    | Task Spawner          | Task Runner | Blockable? |
+|----------------|-------------------|-----------------------|-------------|------------|
+| multi-thread   | Interpreter + GIL | Main Process (single) | thread      | ?          |
+| multi-corotine | Event Loop        | Main Thread (single)  | corotine    | ?          |
+
+注意：
+
+- 说 multi-thread 的 scheduler 是 Interpreter + GIL 不一定准确，宽泛一点可以认为这个 scheduler 直接就是 OS
+- multi-thread 的场景下，OS 凌驾于 main process 之上
+  - 但在 multi-thread 的场景下，main thread 可以控制 event loop
+- python 有 lib 可以自定义 event scheduler，支持 thread 的 scheduling，但这不在本文的讨论范围内
+
+我们接着讨论 blocking 的问题：
+
+- 首先，被 blocked 的对象一定要一分为二地讨论，即它到底：
+  - 是 task runner 被 blocked 了？ 
+  - 还是 scheduler 被 blocked 了？
+- 其次，引起 blocking 的原因也有两种，即：
+  - IO-bound (极端点，考虑 "read a 10GB file")，和
+  - CPU-bound (极端点，考虑 "an infinite loop")
+
+对 multi-thread 而言：
+
+| Blockability        | IO-bound Task | CPU-bound Task |
+|---------------------|---------------|----------------|
+| Task Runner: thread | blocked       | thread 一直在跑，所以 not blocked |
+| Task Scheduler: OS  | not blocked   | 如果一直不 switch 到另外的 thread 的话 => "表现为" blocked |
+|                     |               | 如果 switch 到另外的 thread 的话 => not blocked |
+
+对 multi-corotine 而言：
+
+| Blockability               | IO-bound Task | CPU-bound Task |
+|----------------------------|---------------|----------------|
+| Task Runner: corotine      | blocked       | corotine 一直在跑，所以 not blocked |
+| Task Scheduler: Event Loop | async io => not blocked | main thread 被单个 corotine 一直占据，且无法 switch 到另外的 corotine，所以一定是 blocked |
+|                            | sync io => blocked      | |
+
+对比一下就能发现：asynchronous IO 并不是啥新鲜玩意儿，OS 级别早就实现了 (参考 [Does all asynchronous I/O ultimately implemented in polling?](https://stackoverflow.com/a/19395425)），而 `asyncio` 做的无法就是把 OS 处理 thread 级别的 asynchronous IO 的逻辑搬运到 corotine 的场景下。
