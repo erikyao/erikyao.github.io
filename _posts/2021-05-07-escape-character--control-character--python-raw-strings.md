@@ -47,9 +47,7 @@ tags: [escape]
 - 举个例子，即不要把 `\n` 理解成单个的字符，而是看成 "enter another mode; input `n`" 这个动态的过程
   - 类似于输入 `shift + 5` 得到 `%` 一样
   - 或者类比于 vim 的 `:q` 命令
-- 从英语语法的角度来看，"escape a character $c$" 的意思就是：
-  - escape out of parsing the text (entering a new mode)
-  - input $c$, and parse it in the new mode
+- 从英语语法的角度来看，"escape a character $c$" 的意思就是 "put $c$ into the new mode"
 
 ## Control Character
 
