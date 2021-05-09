@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Escape Character / Control Character / Python Raw Strings / Python String and Bytes Literals"
+title: "Escape Character / Control Character / Python Raw Strings / Python Bytes Literals"
 description: ""
 category: Compiler
 tags: [escape]
@@ -11,46 +11,131 @@ tags: [escape]
 
 ## Escape / Escape Character
 
-我们先看下 escape 的意思。[Sean on What does backslash “\” escape character really escape?](https://softwareengineering.stackexchange.com/a/112733):
+我们先看下 escape 的意思。根据 [两仪识：为啥叫 escape character 呢？这里的 escape 如何理解比较好？](https://www.zhihu.com/question/41364226/answer/90676139):
 
-> The backslash is used as a marker character to tell the compiler/interpreter that the next character has some special meaning. What that next character means is up to the implementation. For example C-style languages use `\n` to mean newline and `\t` to mean tab.  
+> 你看键盘上的 Esc 键也是 Escape  
 > <br/>
-> The use of the word "escape" really means to temporarily escape out of parsing the text and into another mode where the subsequent character is treated differently.
+> 这个键是 1960 年 IBM 码农 Bob Bemer 设计出来的，目的是在不同机器码之间切换  
+> 后来逐渐变成了跳出当前环境（比如录入数据）开始输入控制命令的开关  
+> 所以这些控制命令被称为 escape sequence  
+> <br/>
+> 再后来控制命令越来越多，不一定是 Esc 键开始了，用 `\` 之类的  
+> 于是用来表示 escape sequence 开始的那个字符就叫做 escape character  
+> 而现在使用的转义字符也都是从当年特定的控制操作来的，所以名称一直沿用  
 
-我觉得这段总结得挺好。但看几个例子就会发现这个 "another mode" 的行为并不统一：
+用 vim 举例子最好不过。参照 [Vim Editor Modes Explained](https://www.freecodecamp.org/news/vim-editor-modes-explained/):
 
-- `\'`, `\"`, and `\\`
-  - Enter a new mode where `'`, `"`, and `\` are literals
-    - 即不会被理解成 `单引号 which ends the string`, `双引号 which ends the stirng`, 以及 `escape character`
-  - The new mode quits after receiving one character
-- `\n`, `\r`, and `\t`
-  - Enter another new mode where `n`, `r`, and `t` are **NOT** literals
-  - The new mode also quits after receiving one character
-- 或者你可以认为这两个 mode 隶属同一个大的 mode
+- 启动 vim 默认是 normal mode
+  - 此时按 `h`, `j`, `k`, `l` 可以移动 cursor，另有其他的一些定位的功能
+- 在 normal mode 下按 `i` 进入 insert mode
+  - 此外按 `a` 是 append mode
+- 在 insert mode 下按 `Esc` 退出 insert mode，返回 normal mode
+- 在 normal mode 下按 `:` 进入 command mode
 
-根据 [Wikipedia: Escape character](https://en.wikipedia.org/wiki/Escape_character)，the functions of escape sequences include:
+那这里 "按 `Esc`" 就是 escape from the current mode 的意思。
 
-- To represent characters, referred to as **character quoting**, which cannot be typed in the current context, or would have an undesired interpretation. 
-  - In this case, an **escape sequence** is a **digraph** consisting of an **escape character** itself and a **"quoted" character**.
-    - A diagraph is a sequences of two characters, that should be treated as if it is a single character, according to a programming language's specification.
-- To encode a syntactic entity, which cannot be directly represented by the alphabet.
+因为 vim 只接收字符，我们可以把 vim 想象成一个 tokenizer，比如 vim 可能接收一串 `iHello,world!<Esc>:wq`，它能很清楚地解析出中间那串 `Hello,world!`:
 
-这个总结和我们的观察是一致的。更简略一点来说，escape 的作用是：
+| normal mode | insert mode     | normal mode | command mode |
+|-------------|-----------------|-------------|--------------|
+| `i`         | `Hello, world!` | `<Esc>`     | `:wq`        |
 
-- De-specialize metacharacters into literals
-- Encode literals into special characters
+这个过程和 python string 的 tokenize 的过程是类似的。严谨一点，我们上 python string literal 的 lexical definitions:
 
-这两种行为的矛盾之处可能是造成我没有牢记 escape 作用的原因 (contradicting intuitions)。
+```php
+stringliteral   ::=  [stringprefix](shortstring | longstring)
+stringprefix    ::=  "r" | "u" | "R" | "U" | "f" | "F"
+                     | "fr" | "Fr" | "fR" | "FR" | "rf" | "rF" | "Rf" | "RF"
+shortstring     ::=  "'" shortstringitem* "'" | '"' shortstringitem* '"'
+longstring      ::=  "'''" longstringitem* "'''" | '"""' longstringitem* '"""'
+shortstringitem ::=  shortstringchar | stringescapeseq
+longstringitem  ::=  longstringchar | stringescapeseq
+shortstringchar ::=  <any source character except "\" or newline or the quote>
+longstringchar  ::=  <any source character except "\">
+stringescapeseq ::=  "\" <any source character>
+```
 
-舍弃静态上的功能的不同，我觉得动态地记忆 escape 更方便：
+- The **source character** set is defined by the encoding declaration; it is `UTF-8` if no encoding declaration is given in the source file.
 
-- 举个例子，即不要把 `\n` 理解成单个的字符，而是看成 "enter another mode; input `n`" 这个动态的过程
-  - 类似于输入 `shift + 5` 得到 `%` 一样
-  - 或者类比于 vim 的 `:q` 命令
-- 从英语语法的角度来看，"escape a character $c$" 的意思就是：
-  - "put $c$ into the new mode"
-  - 或者 "make $c$ escape (from current compiler/interpreter mode)"
-    - 这个使动用法我始料未及！
+为了方便描述，我们简化一下局面：
+
+```php
+stringliteral ::=  shortstring
+shortstring   ::=  '"' shortstringitem* '"'
+```
+
+- 即只考虑无前缀的 `shortstring` 
+- 限定只能使用 `"`
+
+然后我们加上 `leftquote` 和 `rightquote` 这两种 term：
+
+```php
+leftquote     ::=  '"'
+rightquote    ::=  '"'  # when leftquote is present
+shortstring   ::=  leftquote shortstringitem* rightquote
+stringliteral ::=  shortstring
+```
+
+这么一来 `"` 就有可能被识别成：
+
+- `leftquote`, or
+- `rightquote`, or
+- `shortstringchar` (因为 `"` 也隶属于 source character)
+
+看个例子。假设有一个 string `"Hi!"`，解析起来就是：
+
+| leftquote | shortstringchar* | rightquote |
+|-----------|------------------|------------|
+| `"`       | `Hi!`            | `"`        |
+
+得到的是这么一个格式：
+
+$$
+\begin{aligned}
+\operatorname{stringliteral} &= \operatorname{shortstring} \newline
+                             &= \operatorname{leftquote} + \operatorname{shortstringitem*} + \operatorname{rightquote}  \newline
+                             &= \operatorname{leftquote} + \operatorname{shortstringchar*} + \operatorname{rightquote}  
+\end{aligned}
+$$
+
+那如果我们需要在 stirng 内部显示一个 quote，就要避免它被识别成 `leftquote` 或者 `rightquote`，换言之，我们要 **make this quote escape from `leftquote` or `rightquote` term**。
+
+我们可以通过在 string 内部给这个 quote 加上 escape character 来实现这个目的。比如 `"Say \"Hi\""`: 
+
+| leftquote | shortstringchar* | stringescapeseq | shortstringchar* | stringescapeseq | rightquote |
+|-----------|------------------|-----------------|------------------|-----------------|------------|
+| `"`       | `Say `           | `\"`            | `Hi!`            | `\"`            | `"`        |
+
+得到的是这么一个格式：
+
+$$
+\begin{aligned}
+\operatorname{stringliteral} &= \operatorname{shortstring} \newline
+                             &= \operatorname{leftquote} + \operatorname{shortstringitem*} + \operatorname{rightquote}  \newline
+                             &= \operatorname{leftquote} + \operatorname{shortstringchar*} + \operatorname{stringescapeseq} + \operatorname{shortstringchar*} + \operatorname{stringescapeseq} +\operatorname{rightquote}  
+\end{aligned}
+$$
+
+同理，如果我们定义：
+
+```php
+escapecharacter ::= '\'
+```
+
+那么 `\\` 就是 **make `\` escape from `escapecharacter` term**.
+
+还有一类 escape sequence 是要 **esacape from `shortstringchar` term**，比如 `\n`, `\r`, `\t`.
+
+这些行为联合起来，escape character `\` 的作用会被统一解释成：invokes an alternative interpretation on the following characters，但从 compiler 的角度来看，应该解释成：make the following character escape from being recognized as certain term:
+
+- `\'`, `\"`: escape from being recognized as starting/ending quotes of strings
+- `\\`: escape from being recognized as the escape character (有点绕 :joy:)
+- `\n`, `\r`, `\t`: escape from being recognized as source characters
+
+最后说下 "escape the character $c$" 这种句式。老实说，我觉得这句话语法上是讲不通的，因为 escape 这个词没有这种用法。我只能理解成老外把它引申成了：
+
+- to put an escape character before $c$
+- thus making $c$ escape from being recognized as...
 
 ## Control Character
 
@@ -62,20 +147,19 @@ Control character 是一个相关的概念。根据 [Wikipedia: Control characte
 
 [Wikipedia: Escape character](https://en.wikipedia.org/wiki/Escape_character) 又说：
 
-> Generally, an escape character is not a particular case of (device) control characters, **nor** vice versa.
-> ...
+> Generally, an escape character is not a particular case of (device) control characters, **nor** vice versa.  
+> ...  
 > In many programming languages, an escape character also forms some escape sequences which are referred to as control characters. For example, line break has an escape sequence of `\n`.
 
 总结一下：
 
 - escape character 和 control character 最大的区别是：前者是 printable，后者是 non-printable
 - 但是 escape sequence 可以是 non-printable 的，比如 `\n`
+- 某些 escape sequence 可以看做是一个 control character，比如 `\n`
 
 ## Raw Strings in Python
 
-你看到 `"\t"` 或者 `"\n"` 这样的字符，你会很敏感，知道它们是 escape sequence。如果我就要输出 literal `\t` 和 `\n`，那就需要 escape `\` 变成 `"\\t"` 和 `"\\n"`。
-
-但你看到 `"\a"` 和 `"\b"` 呢？你不会那么敏感，但其实它们也是 escape sequence (但是 `"\c"` 又不是)：
+python 的 interpreter 有足够聪明，如果它遇到一个 `stringescapeseq`，它会判断说这个到底是不是一个合法的 escape sequence，如果不是的话，它会自动 escape `\`，比如下面的 `\c`：
 
 ```python
 >>> "\a"
@@ -86,9 +170,12 @@ Control character 是一个相关的概念。根据 [Wikipedia: Control characte
 '\\c'
 ```
 
-python 的 string literal 在 "输入了 `\` 但无法构成 escape sequence" 的时候会自动 escape `\`，但你不应该依赖这个行为，因为你不知道到底 escape sequence 到底有哪些。
+- 是不是很惊喜 `\a` 和 `\b` 都是 escape sequence？
+    - 假如有个 Windows 的 path `C:\Program Files\apps`，你得写成 `"C:\Program Files\\apps"` (已知 `\P` 不是 escape sequence)
+    - 或者秉持 **defensive programming** 的原则，我们应该写成 `"C:\\Program Files\\apps"`
+- 至于哪些 `stringescapeseq` 是 escape sequence，这是 programming language 自己决定的，你也可以认为是 compiler/interpreter-specific 的
 
-用 raw string 的好处就是：它天生 escape 了 `\`。这是一种 **defensive programming**。raw string 的 prefix 是 `r`，比如：
+用 raw string 的好处就是：它天生 escape 了 `\`。raw string 的 prefix 是 `r`，所以 `r` 后面接的 `shortstring|longstring` 有一种 "所见即所想" 的效果，比如：
 
 ```python
 >>> r"\a"
@@ -97,22 +184,15 @@ python 的 string literal 在 "输入了 `\` 但无法构成 escape sequence" �
 '\\b'
 >>> r"\c"
 '\\c'
+>>> r"C:\Program Files\apps"
+'C:\\Program Files\\apps'
 ```
 
-## 题外话：String and Bytes Literals in Python
+主要还是用起来方便，免得你自己动手去 escape.
 
-```ebnf
-stringliteral   ::=  [stringprefix](shortstring | longstring)
-stringprefix    ::=  "r" | "u" | "R" | "U" | "f" | "F"
-                     | "fr" | "Fr" | "fR" | "FR" | "rf" | "rF" | "Rf" | "RF"
-shortstring     ::=  "'" shortstringitem* "'" | '"' shortstringitem* '"'
-longstring      ::=  "'''" longstringitem* "'''" | '"""' longstringitem* '"""'
-shortstringitem ::=  shortstringchar | stringescapeseq
-longstringitem  ::=  longstringchar | stringescapeseq
-shortstringchar ::=  <any source character except "\" or newline or the quote>
-longstringchar  ::=  <any source character except "\">
-stringescapeseq ::=  "\" <any source character>
+## 题外话：Bytes Literals in Python
 
+```php
 bytesliteral   ::=  bytesprefix(shortbytes | longbytes)
 bytesprefix    ::=  "b" | "B" | "br" | "Br" | "bR" | "BR" | "rb" | "rB" | "Rb" | "RB"
 shortbytes     ::=  "'" shortbytesitem* "'" | '"' shortbytesitem* '"'
@@ -124,10 +204,5 @@ longbyteschar  ::=  <any ASCII character except "\">
 bytesescapeseq ::=  "\" <any ASCII character>
 ```
 
-简单说就是：
-
-- `(long|short)stringchar` 的 sequence 构成 `(long|short)stringitem`
-- `(long|short)stringitem` 加上引号构成 `(long|short)string`
-- `stringliteral` 就是 0 个或者 1 个 `stringprefix` 拼接一个 `(long|short)string`
-- `bytesliteral` 的构成类似，但是一定要有 1 个 `bytesprefix`
+- `bytesliteral` 的构成和 `stringliteral` 类似，但是一定要有 1 个 `bytesprefix`
   
