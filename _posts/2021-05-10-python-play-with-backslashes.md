@@ -74,6 +74,21 @@ tags: [escape]
 
 `print()` 打印出的是 `str` 的义，后面我们也会了解到 `re.compile()` 要的也是 `str` 的义。
 
+我举个最极端的例子：
+
+```
+>>> str("\a")
+'\x07'
+>>> print("\a")
+  # no display; play terminal bell sound
+```
+
+首先 `\a` 是 recognized escape sequence，表示 ASCII BELL。不知道为何 python 为何把它直接 autobox 成了它的 ASCII 码 `\x07` (即 `7`)。这是它的形。
+
+它的义就更特殊了，因为它不是个 printable 的字符，而是响一声 terminal bell 的音效。
+
+这个例子里的 string literal、`str` 的形、`str` 的义三者大相径庭，所以我说这是个最极端的例子。
+
 ## 3. Raw string literals
 
 这个简单，就是把 `\` 都 escape 的 string literal (然后再 autoboxing)。
