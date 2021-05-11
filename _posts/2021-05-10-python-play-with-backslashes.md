@@ -55,7 +55,7 @@ tags: [escape]
 
 > Unlike Standard C, all unrecognized escape sequences are left in the string unchanged, i.e., **the backslash is left in the result**.
 
-但实验结果明显说明了，**在这个 autoboxing 过程中，unrecognized escape sequence 的 backslash 是被 escaped 的**，处理之后的 `str` (的形式、以及内容) 就脱离了 escape sequence 的结构了。
+但实验结果明显说明了，**在这个 autoboxing 过程中，unrecognized escape sequence 的 backslash 是被 escaped 的**。这样处理之后，就从一个 "unrecognized 的 `\x`" 单体变成了一个 "recognized 的 `\\` + source character `x`" 的组合。
 
 按 [The Python Standard Library » Built-in Types » Text Sequence Type — `str`](https://docs.python.org/3.8/library/stdtypes.html#text-sequence-type-str) 的说法：
 
