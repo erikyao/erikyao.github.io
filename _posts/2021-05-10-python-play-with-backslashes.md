@@ -76,7 +76,7 @@ tags: [escape]
 
 我举个最极端的例子：
 
-```
+```python
 >>> str("\a")
 '\x07'
 >>> print("\a")
