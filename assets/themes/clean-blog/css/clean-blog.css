@@ -5,7 +5,7 @@
  */
 
 /*!
- * Modified by Erik Yao, 2016/05/09
+ * Modified by Yao Yao, 2021/05/22
  */
 
 body {
@@ -70,7 +70,7 @@ ul:not(.nav):not(.pager):not(.list-inline):not(.tag_box_meta) li a:hover,a:focus
 blockquote {
   background-color: antiquewhite;
   color: #656765;
-  font-style: italic;
+  font-family: monospace
 }
 blockquote p {
   line-height: 1.5;
