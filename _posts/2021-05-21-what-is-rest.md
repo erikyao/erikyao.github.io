@@ -167,7 +167,7 @@ stateless communication 意味着没有 session 这个玩意儿了，我有点�
 
 ### 3.3 演化第三步：REST 使用 cache $\Rightarrow$ REST 是一种 client-cache-stateless-server (C$SS) style
 
-他原文的缩写就是 "C$SS"，他也没有解释为啥 cache 的缩写是 $，难道是谐音梗 "cash"？
+他原文的缩写就是 "C\\$SS"，他也没有解释为啥 cache 的缩写是 \\$，难道是谐音梗 "cash"？
 
 cache 的好处毋庸置疑，但是原文并没有明说这个 cache 是 server 端的还是 client 端的。[Caching REST API Response](https://restfulapi.net/caching/) 这篇文章说：
 
