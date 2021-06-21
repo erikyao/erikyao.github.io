@@ -150,7 +150,7 @@ c #match c
 
 ## 6. 总结
 
-我们用 $\ell$ 表示 plain string literal，用 $\operatorname{raw}(ell)$ 表示 raw string literal:
+我们用 $\ell$ 表示 plain string literal，用 $\operatorname{raw}(\ell)$ 表示 raw string literal:
 
 - $\ell:$ return autoboxed string **representation**
 - $\operatorname{raw}(\ell): $ escape `\` in $\ell$, then autobox. return the string **representation**
