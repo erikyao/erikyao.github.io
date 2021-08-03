@@ -83,7 +83,7 @@ tags: [escape]
   # no display; play terminal bell sound
 ```
 
-首先 `\a` 是 recognized escape sequence，表示 ASCII BELL。不知道为何 python 为何把它直接 autobox 成了它的 ASCII 码 `\x07` (即 `7`)。这是它的形。
+首先 `\a` 是 recognized escape sequence，表示 ASCII BELL。不知道为何 python 把它直接 autobox 成了它的 ASCII 码 `\x07` (即 `7`)。这是它的形。
 
 它的义就更特殊了，因为它不是个 printable 的字符，而是响一声 terminal bell 的音效。
 
