@@ -157,9 +157,9 @@ c #match c
 - $\operatorname{str}(\ell): $ return autoboxed string **representation**
 - $\operatorname{repr}(\ell): $ return a plain string literal $\ell'$ where $\operatorname{eval}(\ell') == \operatorname{str}(\ell)$
   - 注意是复原成 autoboxed 的 string **representation**
-- $\operatorname{repr}(\ell): $ print out the autoboxed string **content**
+- $\operatorname{print}(\ell): $ print out the autoboxed string **content**
 - $\operatorname{re.escape}(\ell): $ escape all special characters in $\ell$, return the string **representation**
   - 那至于哪些 character 是 special character，我觉得你要去看源码，[文档](https://docs.python.org/3/library/re.html#re.escape)并没有讲
 - $\operatorname{re.compile}(\ell): $ compile the autoboxed string **content**, return a `MatchObject`
 
-这里我们就能看出为啥 `re.compile()` 的 pattern 的 escape 会把人绕晕，因为它要求的 $\ell$ 的义是 escape sequence，所以 $\ell$ 的形就必须是 escaped escape sequence.
+这里我们就能看出为啥 `re.compile()` 的 pattern 的 escape 会把人绕晕，因为它要求的 $\ell$ 的 content 是 escape sequence，所以 $\ell$ 的 representation 就必须是 escaped escape sequence.
