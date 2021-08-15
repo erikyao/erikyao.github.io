@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "static 属性的注入必须使用非 static 的 setter"
+title: "Spring: static 属性的注入必须使用非 static 的 setter"
 description: ""
 category: Spring
 tags: []

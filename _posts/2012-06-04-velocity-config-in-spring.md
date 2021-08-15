@@ -1,13 +1,11 @@
 ---
 layout: post
-title: "Velocity Config in Spring"
+title: "Spring: Velocity config"
 description: ""
 category: Spring
 tags: []
 ---
 {% include JB/setup %}
-
-#Spring Velocity Config
 
 Example from project: 
 
@@ -61,12 +59,12 @@ Example from project:
 
 > This is the number of seconds between modification checks when caching is turned on. When this is an integer 0, this represents the number of seconds between checks to see if the template was modified. If the template has been modified since last check, then it is reloaded and reparsed. Otherwise nothing is done. When <= 0, no modification checks will take place, and assuming that the property cache (above) is true, once a template is loaded and parsed the first time it is used, it will not be checked or reloaded after that until the application or servlet engine is restarted.
 
-To illustrate, here is an example taken right from the default Velocity properties, showing how setting up the FileResourceLoader is managed
+To illustrate, here is an example taken right from the default Velocity properties, showing how setting up the `FileResourceLoader` is managed
 
-- resource.loader = file
-- file.resource.loader.description = Velocity File Resource Loader
-- file.resource.loader.class = org.apache.velocity.runtime.resource.loader.FileResourceLoader
-- file.resource.loader.path = .
-- file.resource.loader.cache = false
-- file.resource.loader.modificationCheckInterval = 2
+- `resource.loader = file`
+- `file.resource.loader.description = "Velocity File Resource Loader"`
+- `file.resource.loader.class = org.apache.velocity.runtime.resource.loader.FileResourceLoader`
+- `file.resource.loader.path = .`
+- `file.resource.loader.cache = false`
+- `file.resource.loader.modificationCheckInterval = 2`
 

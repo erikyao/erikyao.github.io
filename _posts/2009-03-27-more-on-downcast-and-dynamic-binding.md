@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "有关向下转型的必要性和动态绑定的细节"
+title: "Java: 有关向下转型的必要性和动态绑定的细节"
 description: ""
 category: Java
 tags: []

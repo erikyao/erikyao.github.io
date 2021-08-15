@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "多态"
+title: "Java: 多态"
 description: ""
 category: Java
 tags: []
