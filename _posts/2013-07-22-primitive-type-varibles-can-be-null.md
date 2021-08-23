@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "primitive type 可以为 null"
+title: "Java: primitive type 可以为 null"
 description: ""
 category: Java
 tags: []
