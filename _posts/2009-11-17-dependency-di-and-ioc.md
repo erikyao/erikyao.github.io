@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "依赖、依赖注入（DI）以及控制反转（IoC）"
+title: "Java: 依赖、依赖注入（DI）以及控制反转（IoC）"
 description: ""
 category: Spring
 tags: [Java-DesignPattern]

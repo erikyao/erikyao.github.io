@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "url-patttern"
+title: "JSP: url-patttern"
 description: ""
 category: Java
 tags: [Servlet]

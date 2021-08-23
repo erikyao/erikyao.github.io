@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "class loading: further discussion involving steps of instance creation"
+title: "Java Class Loading: further discussion involving steps of instance creation"
 description: ""
 category: Java
 tags: [JVM]
@@ -26,12 +26,12 @@ tags: [JVM]
 	2. resolution (optional)
 3. inintialization
 
-在 [class loading: an example](/java/2009/03/25/class-loading-an-example)、[warning: 在构造器中请谨慎使用被覆写方法](/java/2009/03/27/using-overridden-method-in-constructor-is-dangerous) 中，我们使用的loading (加载)，其实是统指了以上三个步骤。
+在 [Java Class Loading: an example](/java/2009/03/25/class-loading-an-example)、[Java: 在构造器中请谨慎使用被覆写方法](/java/2009/03/27/using-overridden-method-in-constructor-is-dangerous) 中，我们使用的loading (加载)，其实是统指了以上三个步骤。
 
-- _**loading**_ 指从 \.class 文件中读取类的 binary representation (即类的 Class 对象) 的过程。  
+- _**loading**_ 指从 `.class` 文件中读取类的 binary representation (即类的 `Class` 对象) 的过程。  
 - _**verfication**_ 过程验证 binary representation 的结构是否正确。  
 - _**preparation**_ 过程为类的 static field 申请空间并赋默认值，同时为类的一些内部数据结构 (如方法列表) 申请空间。  
-- _**resolution**_ 过程分析类中的引用。resolution 过程是一个 optional 的过程，在 resolution 过程中可以有不同的 loading 策略，比如说，在 resolve class A 的时候，发现 class A 中有一个 class B 的引用，此时可以立即加载 class B，也可以 do nothing。  
+- _**resolution**_ 过程分析类中的引用。resolution 过程是一个 optional 的过程，在 resolution 过程中可以有不同的 loading 策略，比如说，在 resolve class `A` 的时候，发现 class `A` 中有一个 class `B` 的引用，此时可以立即加载 class `B`，也可以 do nothing。  
 - _**initialization**_ 过程执行 static initializer 和 initializer for static field (i.e. static variable initializer)。如：
 
 ```java
@@ -60,9 +60,9 @@ private int i = StaticFunction(); // 虽然涉及到了 static 方法，不过 f
 initialization 三原则：
 
 1. 触发原则：以下三种场景 _**执行之前**_ 会触发 initialization
-    * 创建类的实例 (constrcutor or Class.newInstance())
+    * 创建类的实例 (constrcutor or `Class.newInstance()`)
 	* 调用类的 static 方法 (包括 constructor)
-	* _**非**_ final 的 static field is used or assigned
+	* _**非**_ `final` 的 static field is used or assigned
 2. 父类原则：子类 initialization 之前，其 direct 父类必须 initialization，and so recursively. (p.s. 类实现的接口无需 initialization，类实现的接口的父接口亦无需如此)
 3. 引发原则：如果子类 initialization 引发了父类的 initialization，而此时父类还没有 loading 和 linking，则父类的 loading 和 linking 也会被引发 (_p.s._ 我觉得子类的 initialization 同样可以引发子类的 loading 和 linking，如果 loading 和 linking 还没有执行的话)。  
 
@@ -76,7 +76,7 @@ constructor 执行的过程：
 
 ---
 
-回头看 [class loading: an example](/java/2009/03/25/class-loading-an-example) 的例子：
+回头看 [Java Class Loading: an example](/java/2009/03/25/class-loading-an-example) 的例子：
 
 ```java
 import static java.lang.System.out;  
@@ -136,7 +136,7 @@ public class Beetle extends Insect {
 
 ---
 
-回头看 [warning: 在构造器中请谨慎使用被覆写方法](/java/2009/03/27/using-overridden-method-in-constructor-is-dangerous) 的例子：
+回头看 [Java: 在构造器中请谨慎使用被覆写方法](/java/2009/03/27/using-overridden-method-in-constructor-is-dangerous) 的例子：
 
 ```java
 class Glyph {  

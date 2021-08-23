@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "class loading: an example"
+title: "Java Class Loading: an example"
 description: ""
 category: Java
 tags: [JVM]
@@ -81,4 +81,4 @@ _2009年03月27日补充_：more details see [warning: 在构造器中请谨慎�
 
 <br/>
 
-_2009年09月04日归纳_：[class loading: further discussion involving steps of instance creation](/java/2009/09/04/class-loading-further-discussion-involving-steps-of-instance-creation)
+_2009年09月04日归纳_：[Java Class Loading: further discussion involving steps of instance creation](/java/2009/09/04/class-loading-further-discussion-involving-steps-of-instance-creation)

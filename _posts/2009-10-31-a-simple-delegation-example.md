@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "a simple delegation example"
+title: "Java: a simple delegation example"
 description: ""
 category: Java
 tags: [Delegate]

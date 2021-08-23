@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "struts2 interceptor config"
+title: "struts2: interceptor config"
 description: ""
 category: Struts
 tags: []

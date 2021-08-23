@@ -36,15 +36,15 @@ public class MultiThreadTest {
 }  
 ```
 
-　　Runnable 接口和 Thread 类的关系：
+`Runnable` 接口和 `Thread` 类的关系：
 
-1. 首先有 Thread implememts Runnable
-2. 虽说 Runnable 有一个方法 run()，但基本上 Runnable 可以看做是一个标记接口；Runnable 本身并不提供多线程机制，只有 Thread 类才能启动新线程；Runnable 的实现类只有传递给 Thread 构造器才有意义
-3. Thread.run() 默认会调用传递给 Thread 构造器的 Runnable 实现类的 run()，如果没有 Runnable 实现类传进来的话，Thraed.run() 方法什么都不做直接返回
-4. Thread.run() _**并不能**_ 启动新线程（相当于一般的方法调用，直接调用 Runnable 实现类的 run() 方法亦是如此），_**只有**_ Thread.start() 方法才能启动新线程；Thread.start() 方法会调用 Thread.run() 方法
+1. 首先有 `Thread implememts Runnable`
+2. 虽说 `Runnable` 有一个方法 `run()`，但基本上 `Runnable` 可以看做是一个标记接口；`Runnable` 本身并不提供多线程机制，只有 `Thread` 类才能启动新线程；`Runnable` 的实现类只有传递给 `Thread` 构造器才有意义
+3. `Thread.run()` 默认会调用传递给 `Thread` 构造器的 `Runnable` 实现类的 `run()`，如果没有 `Runnable` 实现类传进来的话，`Thraed.run()` 方法什么都不做直接返回
+4. `Thread.run()` _**并不能**_ 启动新线程（相当于一般的方法调用，直接调用 `Runnable` 实现类的 `run()` 方法亦是如此），_**只有**_ `Thread.start()` 方法才能启动新线程；`Thread.start()` 方法会调用 `Thread.run()` 方法
 5. 定制自己的线程类的方法：
 
-	* class Runner implements Runnable，实现 run() 方法，然后 Thread t = new Thread(new Ruuner()); t.start();
-	* class MyThread extends Thread，覆写 run() 方法，然后 MyThread mt = new MyThread(); mt.start();
+	* `class Runner implements Runnable`，实现 `run()` 方法，然后 `Thread t = new Thread(new Ruuner()); t.start();`
+	* `class MyThread extends Thread`，覆写 `run()` 方法，然后 `MyThread mt = new MyThread(); mt.start();`
 
-	这两种方式又涉及到 “接口还是继承” 的设计原则问题了
+	这两种方式又涉及到 "接口还是继承" 的设计原则问题了
