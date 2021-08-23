@@ -9,7 +9,7 @@ tags: []
 
 ## Quiz 1
 
-Question: Sort the following terms from slowest growing to fastest growing.
+Sort the following terms from slowest growing to fastest growing.
 
 $$
 (\log_2 n + 1)^3 \quad 7^{2n} \quad n^{\frac{1}{2}} \quad n^{\log_3 7} \quad 2^{7n} \quad 1000 (\log_2 n)^3 \quad 2^{\log_2 n} \quad n \log n \quad 5^{\log_3 n}
