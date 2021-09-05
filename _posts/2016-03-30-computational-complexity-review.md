@@ -2,7 +2,7 @@
 layout: post
 title: "Computational Complexity Review"
 description: ""
-category: Algorithm
+category: Compiler
 tags: []
 ---
 {% include JB/setup %}
