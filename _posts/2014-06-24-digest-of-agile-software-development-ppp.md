@@ -897,9 +897,9 @@ public static void main(String[] args) {
 
 这也说明了应用场景和使用 visitor 的初衷：
 
-1. 我想给每个 Modem 子类都加个 `setConfigString()` 的功能 (the ability to add new operations to existing object structures)。
-2. 但是我觉得把这个逻辑 (或者上面说的 "an algorithm") 集中到一个类中比较好，不想分散到各个子类 (separating an algorithm from an object structure)。
-3. 或者我觉得这个逻辑和 `Modem` 接口无关，我并不想在 `Modem` 子类中关注这个 `setConfigString()` 具体是怎么实现的。
+- 我想给每个 Modem 子类都加个 `setConfigString()` 的功能 (the ability to add new operations to existing object structures)。
+- 但是我觉得把这个逻辑 (或者上面说的 "an algorithm") 集中到一个类中比较好，不想分散到各个子类 (separating an algorithm from an object structure)。
+- 或者我觉得这个逻辑和 `Modem` 接口无关，我并不想在 `Modem` 子类中关注这个 `setConfigString()` 具体是怎么实现的。
 
 _Thinking in C++, Volume 2_ 的说法是：
 
@@ -914,9 +914,8 @@ _Thinking in C++, Volume 2_ 的说法是：
 
 另外注意几点：
 
-1. `UnixModemConfigurator` 里<del>并没有用 `Modem` 的多态</del> (并不是你想用就能用，因为 Java 的方法参数根本就不支持多态！否则就是 [Dual Dispatch](/java/2021/01/03/single-dispatch-in-java-and-python#2-java-的-single-dispatch-与多态) 了)，也没有 if-else 判断子类型，而是每个 `Modem` 子类单独写了一个 `visit` 方法，这样如果有 N 个 `Modem` 子类就要写 N 个 `visit` 重载方法。这必然是比 if-else 判断子类型来得要好。
-2. 我自然是可以定义多个 `ModemVistor` 实现，都让 Modem 去 `accept`。
-3. 感觉这 Visitor 模式有点像 AOP 的横切面概念。
+1. `UnixModemConfigurator` 里<del>并没有用 `Modem` 的多态</del> (并不是你想用就能用，因为 Java 的方法参数根本就不支持多态！否则就是 [Double Dispatch](/java/2021/01/03/single-dispatch-in-java-and-python#3-java-的-single-dispatch-与-overrideoverloadstatic-bindingdynamic-binding) 了)，也没有 if-else 判断子类型，而是每个 `Modem` 子类单独写了一个 `visit` 方法，这样如果有 N 个 `Modem` 子类就要写 N 个 `visit` 重载方法。这必然是比 if-else 判断子类型来得要好。
+2. 我自然是可以定义多个 `ModemVistor` 实现，都让 `Modem` 去 `accept`。
 
 #### <a name="acyclic_visitor"></a>Acyclic Visitor 模式
 
