@@ -9,6 +9,7 @@ tags: []
 
 ## ToC
 
+- [ToC](#toc)
 - [1. 基本概念](#1-基本概念)
 - [2. Java 的 Single Dispatch 与多态](#2-java-的-single-dispatch-与多态)
 - [3. Java 的 Single Dispatch 与 Override、Overload、Static Binding、Dynamic Binding](#3-java-的-single-dispatch-与-overrideoverloadstatic-bindingdynamic-binding)
@@ -57,10 +58,50 @@ Java 里的 "[多态](/java/2009/03/27/polymorphism)" 一般指 object/reference
 
 这个从设计的角度应该很好理解。
 
-- 那如果一个重载方法 (overloading method) 的 signature 在整个 class hierarchy 中是唯一的，那 compiler 可以根据 signature 直接判断是具体调用的哪个类的 method
+- 那如果一个重载方法 (overloaded method) 的 signature 在整个 class hierarchy 中是唯一的，那 compiler 可以根据 signature 直接判断是具体调用的哪个类的 method
   - 不需要看 `b` reference 的对象的类型，亦即不需要走多态，也就不需要 single dispatch
 - 但是对覆写方法 (overriding method)，通过 signature 是无法确定确定具体调用哪个类的 method
   - 所以就只能等到 runtime 走 dynamic binding/single dispatch
+
+-----
+20210907 补充：我还是补充个例子吧，overloading 有时候真的看起来有点像 double dispatch (但其实不是)
+
+```java
+class Base {}
+
+class Ext1 extends Base {}
+class Ext2 extends Base {}
+
+public class Main {
+	private static void foo(Ext1 e1) {
+		System.out.println("Received Ext1");
+	}
+
+	private static void foo(Ext2 e2) {
+		System.out.println("Received Ext2");
+	}
+
+	public void main(String[] args) {
+		Main m = new Main();
+
+	    // Base b = new Ext1();
+	    // m.foo(b);  // error: no suitable method found for foo(Base)
+
+		Ext1 e1 = new Ext1();
+		m.foo(e1);  // OK. Output: "Received Ext1"
+
+		Ext2 e2 = new Ext2();
+		m.foo(e2);  // OK. Output: "Received Ext2"
+	}
+}
+```
+
+这里的 `m.foo(Ext1 e1)` 和 `m.foo(Ext2 e2)` 看起来像是实现了 double dispatch，但其实不是：
+
+- 首先这里 `m.foo(Ext1 e1)` 和 `m.foo(Ext2 e2)` 是 overloaded 方法，在 `m` 类型确定的情况下，static binding 就成了，轮不到 dispatch
+- 若是 double dispatch，那 `m.foo(b);` 应该能 work
+
+-----
 
 ## 4. Python 对 method 的 Single Dispatch
 
