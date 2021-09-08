@@ -62,3 +62,8 @@ $$
 $$
 
 那至于 class hierarchy，我觉得这是 Java 的设计技巧，这里就不谈了。这三个 patterns 都有一个明显的特点是：_中间商_ holds an instance of `RealObject`，再次体现 "组合优先于继承"。
+
+扩展：
+
+- 可以有 Proxy Chain (体现 Single Responsibility Principle，一个 Proxy 只做一方面的功能)
+- 同理可以有 Decorator Chain
