@@ -3,7 +3,7 @@ layout: post
 title: "Visitor Pattern Revisited"
 description: ""
 category: Java
-tags: []
+tags: [Java-DesignPattern]
 ---
 {% include JB/setup %}
 
