@@ -1084,61 +1084,35 @@ if (obj.actionPermitted(args)) {
 
 #### <a name="dp_observer"></a> Observer 模式
 
-其实结构很好理解，考虑我们常见的方法中打日志的情况：
-
-```java
-@Override
-public boolean addLot(Lot l) {
-	boolean added = lotDao.add(l);
-	log.info("...");
-	return added;
-}
-```
-
-我们把打日志的部分抽出来放到 `LotObserver` 里：
-
-```java
-public class LotObserver {
-	void whenAdd(Lot l) {
-		log.info("...");
-	}
-}
-```
-
-```java
-@Override
-public boolean addLot(Lot l) {
-	boolean added = lotDao.add(l);
-	lotObserver.whenAdd(l);
-	return added;
-}
-```
-
-这就是一个观察者模式的雏形了，当然实际运用中要复杂的多：
-
-1. `LotObserver` 会抽出一个 `Observer` 接口，可能有多个方法，比如还有 `whenDelete` 之类的
-2. `LotService` 里可以有多个 `Observer`，所以要维护一个 `List<Observer>`，然后暴露两个接口：
-	* `addObserver()`
-	* `removeObserver()`
-3. `addLot()` 时需要可能需要 notify `List<Observer>` 里的所有 `Observer`
+Observer 模式通常被用在 Event Handling 方面。
 
 ![][item_67_Observer]
 
-Observer 模式通常被用在 Event Handling 方面。
+注意：
+
+- 我觉得 `Subject` 的方法叫 `notifyObservers()` 是 OK 的
+- 但是 `Observer` 对应的方法也叫 `notify()` 我觉得不太行，主动被动还是要分一下的吧？叫 `on_notification()` 就清楚很多
 
 _2014.06.16 补充_：
 
-Observer 模式还有 push 和 pull 两种模式，这是从被观察对象的角度来看的。如果被观察对象调用的是 `observer.update(xxx)`，`xxx` 可以是对象、enum 或是被观察对象自身，反正就是一种消息，这就相当于是被观察对象 push 一个消息给 observer；如果没有任何参数，只调用一个 `observer.update()`，则 observer 需要自己去查找有哪些内容被修改的，可能要去查询被观察者的状态，这就相当于是 observer 从被观察对象 pull 消息。  
+Observer 模式还有 push 和 pull 两种模式，这是从 `Subject` 的角度来看的：
+
+- push 模式：
+  - `Subject` 调用的是 `observer.on_notification(xxx)`，其中 `xxx` 代表一个 message (甚至可以是 `Subject` 对象自身)
+  - 这就相当于是 `Subject` push 一个消息给 observer；
+- pull 模式：
+  - `Subject` 调用的是 `observer.on_notification()`，没有任何参数
+  - 则 observer 需要自己去查找有哪些内容被修改的，可能要去查询 `Subject` 的状态，这可以看做是 observer 从 `Subject` pull 消息。
+
+push 模式的优缺点：
+
+* 实现可能会复杂 (可能有多个 message 类型，每个类型都要写一个对应的方法)
+* 消息精确，利于控制
 
 pull 模式的优缺点：
 
 * 实现简单
-* 如果需要查询被观察者的状态的话，在并发条件下可能会读到错误的状态
-
-push 模式的优缺点：
-
-* 消息精确，利于控制
-* 实现略复杂
+* 可能有并发问题 (比如多个 observer 同时去查询 `Subject` 的状态，并做出相应的修改)
 
 -----
 

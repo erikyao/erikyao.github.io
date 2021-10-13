@@ -65,7 +65,7 @@ tags: [Book, Java-DesignPattern]
 	- [chapter 22. 薪水支付案例研究 (第2部分)](#ch22)
 - Part 5. 气象站案例研究
 	- [chapter 23. Composite 模式](#ch23)
-	- [chapter 24. Observer 模式](#ch23)
+	- [chapter 24. Observer 模式](#ch24)
 	- [chapter 25. Adapter 模式 / Bridge 模式](#ch25)
 		- [Adapter 模式](#dp_adapter)
 		- [Bridge 模式](#dp_bridge)
