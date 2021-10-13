@@ -148,49 +148,49 @@ tags: [Book, Java-InnerClass, Java-Exception, Java-Concurrency, Java-Collection,
 
 ### <a name="item1"></a>item 1. 考虑用 static factory 方法代替 constructor  
 
-好处1：语义更清晰，参数列表更短    
+好处 1：语义更清晰，参数列表更短    
 
 - `CustomLPaper.aNewTemporaryOne()` 比 `new CustomLPaper(isTemporary = true)` 意义更清晰  
 - 不需要再为 constructor 的参数列表写 javadoc  
 - 如果定义了 `public static HashSet<K> newInstance()`，可以直接写 `Set<String> set = HashSet.newInstance()`，比 `Set<String> set = new HashSet<String>()` 来得方便  
 
-好处2：不用每次都 new 对象    
+好处 2：不用每次都 new 对象    
 
 - 比如 enum、singleton  
 
-好处3：可以用 `Base` 的 static factory 方法返回 `Ext` 对象    
+好处 3：可以用 `Base` 的 static factory 方法返回 `Ext` 对象    
 
 - 可以隐藏 `Ext` 类  
 - `Ext` 也可以设计成 interface，此时在设计 `Base` 的 static factory 方法时，可以不关心 `Ext` 的具体实现，比如 `List Collections.unmodifiableList()`  
-- 可以实现 Service Provide Framework （参考实现有JDBC）   
-- 可以方便改造成 adapter 模式  
+- 可以实现 Service Provide Framework (参考实现有JDBC)   
+- 可以方便改造成 Adapter 模式  
 
 ### <a name="service_provider_framework"></a>Service Provide Framework
 
-组件1：Service Interface  
+组件 1：Service Interface  
 
 - 可以理解为一个 PO，调用者拿到这个 PO 可以实现他想要的功能  
 - 如 JDBC 的 `Connection`  
 
-组件2：Provider Registration API  
+组件 2：Provider Registration API  
 
 - 可以理解为 Service 层的一个方法，调用者通过将配置信息传参给这个方法，framework 根据配置确认可以提供这个类型的 Service Interface  
 - 如 `DriverManager.registerDriver(new com.mysql.jdbc.Driver()) `  
 - 题外话：如果是直接调用 `class.forName('com.mysql.jdbc.Driver')`，那么会 `new com.mysql.jdbc.Driver()`，而 `com.mysql.jdbc.Driver` 有一个 static initializer 会调用 `DriverManager.registerDriver(new Driver())`  
 
-组件3：Service Access API  
+组件 3：Service Access API  
 
 - 可以理解为 Service 层的一个方法，通过 Service Provider Interface 或者 反射 来获取 Service Interface  
 - 如 `DriverManager.getConnection("jdbc:mysql://192.168.194.4:3306/letterpaper?user=user&password=password")`  
 
-组件4 (option)：Service Proveider Interface (SPI)  
+组件 4 (option)：Service Proveider Interface (SPI)  
 
 - 可以理解为一个高级的 PO，负责生成 Service Interface  
 - 其实我更倾向于称其为 Service Interface Provider，与组件1对应嘛 =。=  
-- 像上述 `getConnection()` 方法，接受了一个字符串参数，包含了 Service Interface 的名称（"mysql"），如果不用 反射 的话，可以用类似 `Map<String, ConnectionProvider>` 的结构来存一个 `<"mysql", MySQLConnectionProvider>`，然后用 `MySQLConnectionProvider` 来生成 Connection  
+- 像上述 `getConnection()` 方法，接受了一个字符串参数，包含了 Service Interface 的名称（"mysql"），如果不用 _反射_ 的话，可以用类似 `Map<String, ConnectionProvider>` 的结构来存一个 `<"mysql", MySQLConnectionProvider>`，然后用 `MySQLConnectionProvider` 来生成 Connection  
 - JDBC 中，SPI 实际是 `interface java.sql.Driver`，具体到上述例子中就是 `com.mysql.jdbc.Driver`  
 
-很明显，组件3 Service Access API 是一个 static factory 方法  
+很明显，组件 3 Service Access API 是一个 static factory 方法  
 
 ----------  
 
@@ -246,7 +246,7 @@ LPaper lp = LPaperBuilder.docId(1003401).font("SimHei").bgColor("red").build();
 
 进行状态检验的时机：  
 
-- build 过程中，Builder 的字段 copy 到目标对象后，在 对象域 而不是 Builder 域中做状态检验（why? see [item 39](#item39)）  
+- build 过程中，Builder 的字段 copy 到目标对象后，在 _对象域_ 而不是 _Builder域_ 中做状态检验（why? see [item 39](#item39)）  
 - 类似层叠构造器的一种变种，比如有两个字段需要满足一个特定状态，可以定义一个包含两参数的方法：  
 
 ```java
@@ -264,9 +264,9 @@ LPaperBuilder init(arg1, arg2) {
 
 该方法的好处是：不用等到 build 时才发现问题。  
 
-注意，此时 目标对象 可以是 **不可变** 的，因为可以没有 setter。  
+注意，此时 _目标对象_ 可以是 **不可变** 的，因为可以没有 setter。  
 
-另外，Builder 很适合 抽象工厂（Abstract Factory）。可以定义一个  
+另外，Builder 很适合 _抽象工厂_（Abstract Factory）。可以定义一个  
 
 ```java
 public interface Builder<T> {  
@@ -359,9 +359,9 @@ public Object serialize() throws IOException, ClassNotFoundException {
 
 ### <a name="item5"></a>item 5. 避免创建不必要的对象
 
-典型的例子是方法中每次都创建的 日期对象，完全可以在定义为 static field；但也没有必要用懒加载，把事情搞复杂了。  
+典型的例子是方法中每次都创建的 _日期对象_，完全可以在定义为 static field；但也没有必要用懒加载，把事情搞复杂了。  
 
-避免自动装箱（autoboxing）：比如 `Long l = 0L; l++;` 因为 `l` 声明为 `Long` 对象，所以每次 `l++` 都会创建一个 `Long` 对象（详见 item 49）。  
+避免自动装箱 (autoboxing)：比如 `Long l = 0L; l++;` 因为 `l` 声明为 `Long` 对象，所以每次 `l++` 都会创建一个 `Long` 对象（详见 item 49）。  
 
 [item 39. defensive copy](#item39) 的场合与本 item 不同：当重用对象的代价远大于创建新对象的时候，请使用 defensive copy；与本 item 并不矛盾。  
 
@@ -369,7 +369,7 @@ public Object serialize() throws IOException, ClassNotFoundException {
 
 ### <a name="item6"></a>item 6. 消除过期引用
 
-过期引用，obsolete reference，is simply a reference that will never be dereferenced again。  
+过期引用，即 obsolete reference，is simply a reference that will never be dereferenced again。  
 
 比如说你自定义一个 stack，然后 pop 操作只是 `top--`，那么 `stack[top+1]`，i.e. 原 top 元素就可能成为一个 obsolete reference。  
 
@@ -397,7 +397,7 @@ public Object serialize() throws IOException, ClassNotFoundException {
 
 #### 1. Strong Reference
 
-我们说一个 reference 是 strong 的，表示在定义 reference 的定义域内，这个 reference 指向的 object 是无法被 GC 的，这个 object 有被称为 strongly reachable （if an object is reachable via a chain of strong references (strongly reachable), it is not eligible for garbage collection）。  
+我们说一个 reference 是 strong 的，表示在定义 reference 的定义域内，这个 reference 指向的 object 是无法被 GC 的，这个 object 有被称为 strongly reachable (if an object is reachable via a chain of strong references (strongly reachable), it is not eligible for garbage collection)。  
 
 #### 2. Weak Reference
 
@@ -617,7 +617,7 @@ True Delegation 有被运用在 State Pattern 里。
 
 比如一个 `Class Shape`，有一个 `String type`，`type == "circle"` 时表示 Shape 是圆形，`type == "rectangle"` 时表示 Shape 是长方形。这样的类就是标签类（tagged class）。
 
-标签类过于冗长，容易出错，效率低下。还是以上面的 Shape 为例，它必须要有 `radius`/`length`/`width` 三个 field 才能支持圆形和长方形这两种可能性，但圆形只会用到 `radius` 而长方形只用 `length` 和 `width`。这三个 field 也不能都标为 final，否则构造器要一次性把这三个 field 都初始化掉，这明显是不合逻辑的。
+标签类过于冗长，容易出错，效率低下。还是以上面的 `Shape` 为例，它必须要有 `radius`/`length`/`width` 三个 field 才能支持圆形和长方形这两种可能性，但圆形只会用到 `radius` 而长方形只用 `length` 和 `width`。这三个 field 也不能都标为 final，否则构造器要一次性把这三个 field 都初始化掉，这明显是不合逻辑的。
 
 -----
 
@@ -640,7 +640,7 @@ True Delegation 有被运用在 State Pattern 里。
 
 静态内部类的一个常见的用法是作为辅助类，把它放在内部是为了说明 “这个辅助类仅在与其外部类一起使用时才有意义”，比如 `Map.Entry` 和 `Calculator.Operation` (可以设计成内部 enum) 都是很好的例子。  
 
-非静态内部类的一个常见的用法是定义一个 adapter。
+非静态内部类的一个常见的用法是定义一个 Adapter。
 
 <a name="dp_adapter"></a>Adapter 模式其实是这样的：
 
@@ -1025,7 +1025,7 @@ Error 常常被 JVM 保留用于表示资源不足、约束失败或者恰使程
 
 如果你的 API 决定抛出 unchecked exception，那么就表示：如果调用者真的触发了这个 unchecked exception，说明调用者违反了 API 规范（比如数组下标越界），违反了底线，程序继续执行下去有害无益，不如干脆直接给你停掉。
 
-另外，你其实可以自己定义一个 `Throwable`，它可以不是 `Exception`、`RuntimeException` 或是 `Error` 的子类。但 JLS 指出：这样的 `hrowable` 行为上会等同于 `Exception` 的子类。所以没有必要去这么做。
+另外，你其实可以自己定义一个 `Throwable`，它可以不是 `Exception`、`RuntimeException` 或是 `Error` 的子类。但 JLS 指出：这样的 `throwable` 行为上会等同于 `Exception` 的子类。所以没有必要去这么做。
 
 -----
 
@@ -1091,17 +1091,17 @@ Observer 模式通常被用在 Event Handling 方面。
 注意：
 
 - 我觉得 `Subject` 的方法叫 `notifyObservers()` 是 OK 的
-- 但是 `Observer` 对应的方法也叫 `notify()` 我觉得不太行，主动被动还是要分一下的吧？叫 `on_notification()` 就清楚很多
+- 但是 `Observer` 对应的方法也叫 `notify()` 我觉得不太行，主动被动还是要分一下的吧？我宁愿麻烦一点叫 `receive_notification()`
 
 _2014.06.16 补充_：
 
 Observer 模式还有 push 和 pull 两种模式，这是从 `Subject` 的角度来看的：
 
 - push 模式：
-  - `Subject` 调用的是 `observer.on_notification(xxx)`，其中 `xxx` 代表一个 message (甚至可以是 `Subject` 对象自身)
+  - `Subject` 调用的是 `observer.receive_notification(xxx)`，其中 `xxx` 代表一个 message (甚至可以是 `Subject` 对象自身)
   - 这就相当于是 `Subject` push 一个消息给 observer；
 - pull 模式：
-  - `Subject` 调用的是 `observer.on_notification()`，没有任何参数
+  - `Subject` 调用的是 `observer.receive_notification()`，没有任何参数
   - 则 observer 需要自己去查找有哪些内容被修改的，可能要去查询 `Subject` 的状态，这可以看做是 observer 从 `Subject` pull 消息。
 
 push 模式的优缺点：
