@@ -185,7 +185,7 @@ socket.socket(type=socket.SOCK_STREAM | socket.SOCK_NONBLOCK)
 
 ## Prerequisite: Connection Queue / IO Buffer
 
-那既然出现了 blocking vs non-blocking，我们就应该能联想到 Producer-Consumer 问题的中心——the "bounded buffer" ("bounded" 表示 limited capacity)，所以 socket 的阻塞其实也涉及 bounded buffer，而且有两个:
+那既然出现了 blocking vs non-blocking，我们就应该能联想到 Producer-Consumer 问题的中心——the bounded buffer ("bounded" 表示 limited capacity)。socket 的阻塞其实也涉及 bounded buffer，而且有两个:
 
 1. Connection Queue
 2. IO Buffer
@@ -211,7 +211,7 @@ socket.socket(type=socket.SOCK_STREAM | socket.SOCK_NONBLOCK)
 
 `listen()` has an optional `backlog` parameter. It specifies the number of unaccepted connections that the system will allow before refusing new connections.
 
-- 这个 `backlog` 其实就是 connection queue 的长度
+- 这个 `backlog` 其实就是设置了 connection queue 的长度
 - 如果不设置的话，OS 会指定一个默认值
 
 ## 4. `socket.accept()`
@@ -224,7 +224,7 @@ When a client connects, it returns a new socket object representing the connecti
 
 blocking 的行为我们就不讨论了。
 
-这里要注意的是 `bufsize` 其实是单次读操作的 maximum amount of data (in bytes) to be received，然后 `recv()` 的返回值是实际读取的 data (python 下是 byte string)，它的长度可能会小于 `bufsize` (当 receive buffer 的 data 不足时)
+这里要注意的是 `bufsize` 其实是单次读操作的 maximum amount of data (in bytes) to be received，然后 `recv()` 的返回值是实际读取的 data，它的长度可能会小于 `bufsize` (当 receive buffer 的 data 不足时)。
 
 你可以试试把 `echo-server.py` 的 `data = conn_socket.recv(1024)` 改成 `data = conn_socket.recv(1)`，结果是：
 
@@ -234,16 +234,16 @@ blocking 的行为我们就不讨论了。
 - 由于 client 关闭，server 端剩下的 byte 会 echo 不出去
   - 具体的异常是 `BrokenPipeError: [Errno 32] Broken pipe`
 
-第二个点是：`recv()` returns an empty string (`b''`) if the peer performed shutdown (disconnect)
+第二个点是：`recv()` returns an empty string (`b''`) if the peer performed shutdown (disconnect).
 
 - 这也是 `echo-server.py` 的 `if not data: break` 能触发的原因
-- 注意不要理解成 "peer shutdown 的时候会发送一个 empty string"
+- 注意不要理解成 ~~"peer shutdown 的时候会发送一个 empty string"~~
 
 注意这个行为在 [Python Docs: socket - Low-level networking interface](https://docs.python.org/3/library/socket.html) 里并没有写，你需要参考 [recv(2) — Linux manual page](https://man7.org/linux/man-pages/man2/recv.2.html#RETURN_VALUE):
 
 > When a stream socket peer has performed an orderly shutdown, the return value will be 0 (the traditional "end-of-file" return).
 
-linux 下返回 0，转换到 python 里就是返回 `receive_buffer[0:0]`，即是 `b''`。
+linux 下返回长度 0，转换到 python 里就是返回 `receive_buffer[0:0]`，即是 `b''`。
 
 ## 6. `socket.send()` / `socket.sendall()`
 
