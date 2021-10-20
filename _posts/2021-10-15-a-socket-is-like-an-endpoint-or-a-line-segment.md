@@ -9,7 +9,7 @@ tags: [socket]
 
 ## 如何形象理解 socket
 
-首相 socket 这个词实在是太具象了，以至于我上学的时候总以为它是个 physical 的 device，但其实 socket 是一个 pure 的 software 概念，你可以把它理解成是一个 data structure 或者是建立在这个 data struture 之上的一整套 lib。
+首先 socket 这个词实在是太具象了，以至于我上学的时候总以为它是个 physical 的 device，但其实 socket 是一个 pure 的 software 概念，你可以把它理解成是一个 data structure 或者是建立在这个 data struture 之上的一整套 lib。
 
 理解 socket 的第二个难点在于：它是个只完成了 50% 的 metaphor，因为它既可以表示 (网络通信中的) 一个 endpoint，又能代表一个 channel/pipe/connection。用伪代码表示一下，大概是：
 
