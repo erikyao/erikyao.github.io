@@ -67,3 +67,27 @@ $$
 
 - 可以有 Proxy Chain (体现 Single Responsibility Principle，一个 Proxy 只做一方面的功能)
 - 同理可以有 Decorator Chain
+
+-----
+
+20211021 补充：
+
+我们这一篇的侧重点是接口和行为，但 Decorator 也可以作为一种 "组合" 的方式 (用来生产子类)。比如 _Head First Design Patterns_ 的例子：如何给 coffee shop 设计一个 "Dark Roast with Mocha and Whip" 类？
+
+我们可以简单地用组合，比如：
+
+```python
+class DarkRoastWithMochaAndWhip:
+    def __init__(self):
+        self.ingredients = [DarkRoast(), Mocha(), Whip()]
+```
+
+也可以用 Decorator Chain：
+
+```python
+class DarkRoastWithMochaAndWhip:
+    def __init__(self):
+        self.ingredients = Whip(Mocha(DarkRoast(None)))
+```
+
+假设现在我要实现 `def get_price(self): ...`，那么上面两种写法的实现方式是不同的。简单说就是 "平铺式组合" 和 "嵌套式组合" 的区别。另外在实际应用中，是否需要定义 `DarkRoastWithMochaAndWhip` 这么一个子类？还是直接用组合来代替？这是另外需要考虑的问题，并不是说本文的写法就是最合适的。
