@@ -32,8 +32,8 @@ urlparse(url, scheme='', allow_fragments=True)
 
 简单来说就是：
 
-- `<path>` 后面 `;` 接着的就是 URL Parameters (注意是用词是复数)
-- `<path>` 后面 `?` 接着的就是 URL Query (注意是用词是单数)
+- `<path>` 后面 `;` 接着的就是 URL Parameters (注意用词是复数)
+- `<path>` 后面 `?` 接着的就是 URL Query (注意用词是单数)
   - 单数说明即使你是多个 pair，比如 `k1=v1&k2=v2` 这样的形式，它整体是被视为 1 个 query 的
   - 也有把这个部分整体叫 "query string" 的，更能体现它的整体性 (虽然是 non-standard)
 
