@@ -13,7 +13,7 @@ tags: [URL]
 
 首先 URL Parameters 和 URL Query 在一个完备的 URL 中是两个不同的位置，现在常见的现象是 "不使用 URL Query 这个词"，然后 "又用 parameter 来指代 URL Query"，就 whatever 吧……
 
-它俩的区别，粗略来说可以看 `help(urlparse.urlparse)`:
+它俩的区别，粗略来说可以看 `help(urlparse)`:
 
 ```python
 In [39]: from urllib.parse import urlparse
