@@ -11,14 +11,14 @@ tags: [copy-constructor]
 
 -----
 
-## 目录
+ToC:
 
-- [1. Constructor conversion](#constructor-conversion)
-- [2. `explicit`: banning constructor conversion](#explicit)
-- [3. Operator conversion](#operator-conversion)
-- [4. Operand Reflexivity](#operand-reflexivity)
+- [1. Constructor conversion](#1-constructor-conversion)
+- [2. explicit: banning constructor conversion](#2-explicit-banning-constructor-conversion)
+- [3. Operator conversion](#3-operator-conversion)
+- [4. Operand Reflexivity](#4-operand-reflexivity)
 
-## <a name="constructor-conversion"></a>1. Constructor conversion
+## 1. Constructor conversion
 
 直接上例子：
 
@@ -93,7 +93,7 @@ int main() {
 * Creating a single-argument constructor always defines an automatic type conversion (even if it’s got more than one argument, if the rest of the arguments are defaulted).
 * An example in which automatic type conversion is extremely helpful occurs with any class that encapsulates character strings.
 
-## <a name="explicit"></a>2. explicit: banning constructor conversion
+## 2. explicit: banning constructor conversion
 
 你觉得这个 constructor conversion 太智能了或者是影响了 type checking（至少我是这么觉得的），可以把 constructor 声明为 `explicit` 把这个功能 ban 掉。
 
@@ -131,7 +131,7 @@ int main() {
 
 需要注意的是，copy-constructor 也可以声明为 `explicit`，只是这么做以后，所有后台隐式调用 copy-constructor 的地方（比如 pass-by-value）的地方都会报错。
 
-## <a name="operator-conversion"></a>3. Operator conversion
+## 3. Operator conversion
 
 ```cpp
 #include <iostream>
@@ -213,7 +213,7 @@ int main() {
 	* const 不是必须的
 	* 这个 operator 必须用 member function 来实现，不能用 non-member friend
 
-## <a name="operand-reflexivity"></a>4. Operand Reflexivity
+## 4. Operand Reflexivity
 
 比如我们重载了 `operator+`，我们可以自然地写 `t1+t2`；再加上 automatic type conversion，我们可以进一步写 `t1+2`。但是你实现 `operator+` 的方式会限制 type conversion（这里我们并不关心 type conversion 的实现方式）。具体说来就是：
 

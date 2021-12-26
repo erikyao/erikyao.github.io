@@ -11,66 +11,56 @@ tags: [PCA, Cluster]
 
 -----
 
-## 目录
+ToC:
 
-### 0. [Overview](#Overview)
-
-### 1. [The Challenge of Unsupervised Learning](#Challenge)
-
-### 2. [Principal Components Analysis](#PCA)
-
-- [2.1 What Are Principal Components?](#PC)
-- [2.2 Another Interpretation of Principal Components](#PC-Cont)
-- [2.3 More on PCA](#PCA-More)
-	- [Scaling the Variables](#Scale-Var)
-	- [Uniqueness of the Principal Components](#Uniqueness)
-	- [The Proportion of Variance Explained](#Propo-Variance)
-	- [Deciding How Many Principal Components to Use](#How-Many-PC)
-- [2.4 Other Uses for Principal Components](#Other-PC)
-
-### 3. [Clustering Methods](#Cluster)
-
-- [3.1 K-Means Clustering](#K-Means)
-- [3.2 Hierarchical Clustering](#HClust)
-	- [Interpreting a Dendrogram](#Dendrogram)
-	- [The Hierarchical Clustering Algorithm](#HClust-Algor)
-	- [Choice of Dissimilarity Measure](#Dissimilarity-Measure)
-- [3.3 Practical Issues in Clustering](#Practical-Clust)
-	- [Small Decisions with Big Consequences](#Consequences)
-	- [Validating the Clusters Obtained](#Validate-Clust)
-	- [Other Considerations in Clustering](#Other-Clust)
-	- [A Tempered Approach to Interpreting the Results of Clustering](#Tempered-Clust)
-
-### 4. [Lab 1: Principal Components Analysis](#Lab-PCA)	
-
-### 5. [Lab 2: Clustering](#Lab-Clust)
-
-- [5.1 K-Means Clustering](#Lab-K-Means)
-- [5.2 Hierarchical Clustering](#Lab-HClust)
-
-### 6. [Lab 3: NCI60 Data Example](#Lab-NCI60)
-	
-- [6.1 PCA on the NCI60 Data](#Lab-PCA-NCI60)
-- [6.2 Clustering the Observations of the NCI60 Data](#Lab-Clust-NCI60)
+- [0. Overview](#0-overview)
+- [1. The Challenge of Unsupervised Learning](#1-the-challenge-of-unsupervised-learning)
+- [2. Principal Components Analysis](#2-principal-components-analysis)
+	- [2.1 What Are Principal Components?](#21-what-are-principal-components)
+	- [2.2 Another Interpretation of Principal Components](#22-another-interpretation-of-principal-components)
+	- [2.3 More on PCA](#23-more-on-pca)
+		- [Scaling the Variables](#scaling-the-variables)
+		- [Uniqueness of the Principal Components](#uniqueness-of-the-principal-components)
+		- [The Proportion of Variance Explained](#the-proportion-of-variance-explained)
+		- [Deciding How Many Principal Components to Use](#deciding-how-many-principal-components-to-use)
+	- [2.4 Other Uses for Principal Components](#24-other-uses-for-principal-components)
+- [3. Clustering Methods](#3-clustering-methods)
+	- [3.1 K-Means Clustering](#31-k-means-clustering)
+	- [3.2 Hierarchical Clustering](#32-hierarchical-clustering)
+		- [Interpreting a Dendrogram](#interpreting-a-dendrogram)
+		- [The Hierarchical Clustering Algorithm](#the-hierarchical-clustering-algorithm)
+		- [Choice of Dissimilarity Measure](#choice-of-dissimilarity-measure)
+	- [3.3 Practical Issues in Clustering](#33-practical-issues-in-clustering)
+		- [Small Decisions with Big Consequences](#small-decisions-with-big-consequences)
+		- [Validating the Clusters Obtained](#validating-the-clusters-obtained)
+		- [Other Considerations in Clustering](#other-considerations-in-clustering)
+		- [A Tempered Approach to Interpreting the Results of Clustering](#a-tempered-approach-to-interpreting-the-results-of-clustering)
+- [4. Lab 1: Principal Components Analysis](#4-lab-1-principal-components-analysis)
+- [5. Lab 2: Clustering](#5-lab-2-clustering)
+	- [5.1 K-Means Clustering](#51-k-means-clustering)
+	- [5.2 Hierarchical Clustering](#52-hierarchical-clustering)
+- [6. Lab 3: NCI60 Data Example](#6-lab-3-nci60-data-example)
+	- [6.1 PCA on the NCI60 Dat](#61-pca-on-the-nci60-dat)
+	- [6.2 Clustering the Observations of the NCI60 Data](#62-clustering-the-observations-of-the-nci60-data)
 
 -----
 
-## <a name="Overview"></a>0. Overview
+## 0. Overview
 
 In this chapter, we will focus on two particular types of unsupervised learning:
 
 * principal components analysis: a tool used for data visualization or data pre-processing before supervised techniques are applied
 * clustering: a broad class of methods for discovering unknown subgroups in data
 
-## <a name="Challenge"></a>1. The Challenge of Unsupervised Learning
+## 1. The Challenge of Unsupervised Learning
 
 P374，没啥技术性的内容，只有这一句我稍微有一点在意：Unsupervised learning is often performed as part of an **exploratory data analysis**.
 
-## <a name="PCA"></a>2. Principal Components Analysis
+## 2. Principal Components Analysis
 
 Principal component analysis (PCA) refers to the process by which principal components are computed, and the subsequent use of these components in understanding the data.
 
-### <a name="PC"></a>2.1 What Are Principal Components?
+### 2.1 What Are Principal Components?
 
 The $ 1^{st} $ **principal component** of a set of features $ X_1,X_2,\cdots,X_p $ is the normalized linear combination of the features
 
@@ -147,7 +137,7 @@ biplot 的看法：
 		* Indiana, close to 0 scores on both PCs, has approximately average levels of both crime and urbanization.
 		* Vermont has both a low crime rate and a low level of urbanization.
 
-### <a name="PC-Cont"></a>2.2 Another Interpretation of Principal Components
+### 2.2 Another Interpretation of Principal Components
 
 In the previous section, we describe the PC loading vectors as the directions in feature space along which the data vary the most (i.e. have the highest variance), and the PC scores as projections along these directions.
 
@@ -185,9 +175,9 @@ $$
 
 你把 $ X_{approx} $ 的元素展开，应该能得到 $ (\ref{eq2.3}) $。
 
-### <a name="PCA-More"></a>2.3 More on PCA
+### 2.3 More on PCA
 
-#### <a name="Scale-Var"></a>Scaling the Variables
+#### Scaling the Variables
 
 就是说不光要 feature centering，还要 scaling，主要的作用是统一 variance 的度量。
 
@@ -195,27 +185,27 @@ P381 对比了一下 scaled 和 unscaled 的两个结果。
 
 P382 提到了一种可能不需要 scaling 的情况：the variables are measured in the same units.
 
-#### <a name="Uniqueness"></a>Uniqueness of the Principal Components
+#### Uniqueness of the Principal Components
 
 a sign flip 对 loading vector 和 score vector 是没有什么影响的，符号相反的 vector 可以视为相同（唯一有影响的应该是对 PC 和 score 的 interpretation）。
 
-#### <a name="Propo-Variance"></a>The Proportion of Variance Explained
+#### The Proportion of Variance Explained
 
 P382-383
 
 这个 Ng 的课上说的很清楚了，P383 有 $ Var(PC) $ 的计算公式，然后 $ PVE = \frac{Var(PC)}{Var(X)} $。
 
-#### <a name="How-Many-PC"></a>Deciding How Many Principal Components to Use
+#### Deciding How Many Principal Components to Use
 
 In general, a $ n \times p $ data matrix $ X $ has $ \min(n − 1, p)$ distinct PCs.
 
 P384，讲得不错。
 
-### <a name="Other-PC"></a>2.4 Other Uses for Principal Components
+### 2.4 Other Uses for Principal Components
 
 在实施其他的 method 之前，我们都可以用 PCA 来降维，有 make less noise 的功效。
 
-## <a name="Cluster"></a>3. Clustering Methods
+## 3. Clustering Methods
 
 Clustering refers to a very broad set of techniques for finding homogeneous ([ˌhɒməˈdʒi:niəs]) **subgroups**, or **clusters**, in a data set. When we cluster the observations of a data set, we seek to partition them into distinct groups so that the observations within each group are quite similar to each other, while observations in different groups are quite different from each other. Of course, to make this concrete, we must define what it means for two or more observations to be _similar_ or _different_. Indeed, this is often a domain-specific consideration that must be made based on knowledge of the data being studied.
 
@@ -234,7 +224,7 @@ In this section we focus on perhaps the two best-known clustering approaches:
 
 我们讨论的是第一种。The converse can be performed by simply transposing the data matrix.
 
-### <a name="K-Means"></a>3.1 K-Means Clustering
+### 3.1 K-Means Clustering
 
 P386-390，Ng 的课上已经说得很清楚了，这里简单说下：
 
@@ -243,11 +233,11 @@ P386-390，Ng 的课上已经说得很清楚了，这里简单说下：
 * 因为可能收敛到 local optimum，所以要随机初始化 centroid 跑多次
 * $ K $ 值的选择也需要跑多次试验决定
 
-### <a name="HClust"></a>3.2 Hierarchical Clustering
+### 3.2 Hierarchical Clustering
 
 In this section, we describe bottom-up or agglomerative ([ə'glɒmərətɪv], tending to agglomerate, 聚集) clustering. This is the most common type of hierarchical clustering, and refers to the fact that a dendrogram (generally depicted as an upside-down tree) is built starting from the leaves and combining clusters up to the trunk.
 
-#### <a name="Dendrogram"></a>Interpreting a Dendrogram
+#### Interpreting a Dendrogram
 
 * Each **leaf** of the dendrogram represents one observations.
 * As we move up the tree, some leaves begin to **fuse** into branches.
@@ -262,7 +252,7 @@ P393 说得是：横着一刀下去，上半部分剩下几个 branch 就相当�
 
 However, often the choice of where to cut the dendrogram is not so clear.
 
-#### <a name="HClust-Algor"></a>The Hierarchical Clustering Algorithm
+#### The Hierarchical Clustering Algorithm
 
 * 先定一个指标：**dissimilarity** measure between each pair of observations. 
 	* Most often, Euclidean distance is used
@@ -285,7 +275,7 @@ linkage 有 4 常用的计算方法：
 	* Average and complete linkage are generally preferred over single linkage, as they tend to yield more balanced dendrograms.
 * Centroid linkage is often used in genomics, but suffers from a major drawback in that an inversion can occur, whereby two clusters are fused at a height below (这个 below 不需要倒着看。如果把树倒过来，root 最低，leaves 最高，那这里 inversion 的意思就是 fusion 点比 leaves 还要高) either of the individual clusters in the dendrogram.
 
-#### <a name="Dissimilarity-Measure"></a>Choice of Dissimilarity Measure
+#### Choice of Dissimilarity Measure
 
 P396-399，阐述得很详细。
 
@@ -295,9 +285,9 @@ It turns out that these two measures are almost equivalent: if each observation 
 
 另外是否要做 scaling 也是值得考虑的问题，一般都是按 application 实际情况决定。具体的例子见 P398-399。
 
-### <a name="Practical-Clust"></a>3.3 Practical Issues in Clustering
+### 3.3 Practical Issues in Clustering
 
-#### <a name="Consequences"></a>Small Decisions with Big Consequences
+#### Small Decisions with Big Consequences
 
 * Should the observations or features first be standardized in some way?
 	* i.e. centered to have mean zero and scaled to have standard deviation one
@@ -309,21 +299,21 @@ It turns out that these two measures are almost equivalent: if each observation 
 
 In practice, we try several different choices, and look for the one with the most useful or interpretable solution. With these methods, there is no single right answer—any solution that exposes some interesting aspects of the data should be considered.
 
-#### <a name="Validate-Clust"></a>Validating the Clusters Obtained
+#### Validating the Clusters Obtained
 
 There has been no consensus on a single best approach. P400
 
-#### <a name="Other-Clust"></a>Other Considerations in Clustering
+#### Other Considerations in Clustering
 
 P400
 
-#### <a name="Tempered-Clust"></a>A Tempered Approach to Interpreting the Results of Clustering
+#### A Tempered Approach to Interpreting the Results of Clustering
 
 P401
 
 These results should not be taken as the absolute truth about a data set. Rather, they should constitute a starting point for the development of a scientific hypothesis and further study, preferably on an independent data set.
 
-## <a name="Lab-PCA"></a>4. Lab 1: Principal Components Analysis
+## 4. Lab 1: Principal Components Analysis
 
 In this lab, we perform PCA on the `USArrests` data set, which is part of the base R package. The rows of the data set contain the 50 states, in alphabetical order.
 
@@ -445,9 +435,9 @@ We can plot the PVE explained by each component, as well as the cumulative PVE, 
 	
 The result is shown in Figure 10.4 (i.e. scree plot). Note that the function `cumsum()` computes the cumulative sum of the elements of a numeric vector.
 
-## <a name="Lab-Clust"></a>5. Lab 2: Clustering
+## 5. Lab 2: Clustering
 
-### <a name="Lab-K-Means"></a>5.1 K-Means Clustering
+### 5.1 K-Means Clustering
 
 The function `kmeans()` performs K-means clustering in R. We begin with a simple simulated example in which there truly are two clusters in the data: the first 25 observations have a mean shift relative to the next 25 observations.
 
@@ -497,7 +487,7 @@ We _strongly_ recommend always running K-means clustering with a large value of 
 
 When performing K-means clustering, in addition to using multiple initial cluster assignments, it is also important to set a random seed using the `set.seed()` function. This way, the initial cluster assignments in Step 1 can be replicated, and the K-means output will be fully reproducible.
 
-### <a name="Lab-HClust"></a>5.2 Hierarchical Clustering
+### 5.2 Hierarchical Clustering
 
 The `hclust()` function implements hierarchical clustering in R. In the following example we use the data from Section 10.5.1 to plot the hierarchical clustering dendrogram using complete, single, and average linkage clustering, with Euclidean distance as the dissimilarity measure. 
 
@@ -555,7 +545,7 @@ Correlation-based distance can be computed using the `as.dist()` function, which
 > plot(hclust(dd, method="complete"), main="Complete Linkage with Correlation-Based Distance", xlab="", sub ="")
 ```
 
-## <a name="Lab-NCI60"></a>6. Lab 3: NCI60 Data Example
+## 6. Lab 3: NCI60 Data Example
 
 We illustrate these techniques on the `NCI60` cancer cell line microarray data, which consists of 6,830 gene expression measurements (features) on 64 cancer cell lines (observation).
 
@@ -573,7 +563,7 @@ We begin by examining the cancer types for the cell lines.
 > table(nci.labs)
 ```
 
-### <a name="Lab-PCA-NCI60"></a>6.1 PCA on the NCI60 Dat
+### 6.1 PCA on the NCI60 Dat
 
 We first perform PCA on the data after scaling the variables (genes) to have standard deviation one, although one could reasonably argue that it is better not to scale the genes.
 
@@ -623,7 +613,7 @@ Or we can plot the scree plot manually by:
 	
 Note that the elements of `pve` can also be computed directly from `summary(pr.out)$importance[2,]`, and the elements of `cumsum(pve)` are given by `summary(pr.out)$importance[3,]`.
 
-### <a name="Lab-Clust-NCI60"></a>6.2 Clustering the Observations of the NCI60 Data
+### 6.2 Clustering the Observations of the NCI60 Data
 
 To begin, we standardize the variables to have mean zero and standard deviation one. As mentioned earlier, this step is optional and should be performed only if we want each gene to be on the same scale.
 

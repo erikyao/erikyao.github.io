@@ -11,38 +11,33 @@ tags: [Bootstrap, Bagging, Boosting]
 
 -----
 
-## 目录
+ToC:
 
-### 0. [Overview](#Overview)
-
-### 1. [The Basics of Decision Trees](#Dec-Tree)
-
-- [1.1 Regression Trees](#Reg-Tree)
-	- [Predicting Baseball Players’ Salaries Using Regression Trees](#Predict-with-Reg-Tree)
-	- [Prediction via Stratification of the Feature Space](#Stratify-Feat-Space)
-	- [Tree Pruning](#Tree-Pruning)
-- [1.2 Classification Trees](#Class-Tree)
-	- [Out-of-Bag Error Estimation](#OOG)
-	- [Variable Importance Measures](#VIM)
-- [1.3 Trees Versus Linear Models](#Tree-vs-Linear)
-- [1.4 Advantages and Disadvantages of Trees](#Adv-Disadv-of-Tree)
-
-### 2. [Bagging, Random Forests, Boosting](#BBB)
-
-- [2.1 Bagging](#Bagging)
-- [2.2 Random Forests](#Random-Forests)
-- [2.3 Boosting](#Boosting)
-
-### 3. [Lab: Decision Trees](#Lab)
-
-- [3.1 Fitting Classification Trees](#Lab-Class-Tree)
-- [3.2 Fitting Regression Trees](#Lab-Reg-Tree)
-- [3.3 Bagging and Random Forests](#Lab-Bagging-RF)
-- [3.4 Boosting](#Lab-Boosting)
+- [0. Overview](#0-overview)
+- [1. The Basics of Decision Trees](#1-the-basics-of-decision-trees)
+	- [1.1 Regression Trees](#11-regression-trees)
+		- [Predicting Baseball Players’ Salaries Using Regression Trees](#predicting-baseball-players-salaries-using-regression-trees)
+		- [Prediction via Stratification of the Feature Space](#prediction-via-stratification-of-the-feature-space)
+		- [Tree Pruning](#tree-pruning)
+	- [1.2 Classification Trees](#12-classification-trees)
+	- [1.3 Trees Versus Linear Models](#13-trees-versus-linear-models)
+	- [1.4 Advantages and Disadvantages of Trees](#14-advantages-and-disadvantages-of-trees)
+- [2. Bagging, Random Forests, Boosting](#2-bagging-random-forests-boosting)
+	- [2.1 Bagging](#21-bagging)
+		- [Out-of-Bag Error Estimation](#out-of-bag-error-estimation)
+		- [Variable Importance Measures](#variable-importance-measures)
+	- [2.2 Random Forests](#22-random-forests)
+	- [2.3 Boosting](#23-boosting)
+		- [Boosting for binary categorization](#boosting-for-binary-categorization)
+- [3. Lab: Decision Trees](#3-lab-decision-trees)
+	- [3.1 Fitting Classification Trees](#31-fitting-classification-trees)
+	- [3.2 Fitting Regression Trees](#32-fitting-regression-trees)
+	- [3.3 Bagging and Random Forests](#33-bagging-and-random-forests)
+	- [3.4 Boosting](#34-boosting)
 
 -----
 
-## <a name="Overview"></a>0. Overview
+## 0. Overview
 
 Tree-based methods for regression and classification involves **stratifying** or **segmenting** the predictor space into a number of simple regions.
 
@@ -58,16 +53,16 @@ Tree-based methods are simple and useful for interpretation. However, they typic
 
 Hence in this chapter we also introduce bagging, random forests, and boosting, which combines a large number of trees and can result in dramatic improvements in prediction accuracy, at the expense of some loss in interpretation.
 
-## <a name="Dec-Tree"></a>1. The Basics of Decision Trees
+## 1. The Basics of Decision Trees
 
 Decision trees can be applied to both regression and classification problems. 所以：
 
 * 用于 regression 的 decision trees 我们简称为 regression trees
 * 用于 classification 的 decision trees 我们简称为 classification trees
 
-### <a name="Reg-Tree"></a>1.1 Regression Trees
+### 1.1 Regression Trees
 
-#### <a name="Predict-with-Reg-Tree"></a>Predicting Baseball Players’ Salaries Using Regression Trees
+#### Predicting Baseball Players’ Salaries Using Regression Trees
 
 P304-306，主要是通过例子介绍了些概念。
 
@@ -77,7 +72,7 @@ P304-306，主要是通过例子介绍了些概念。
 	* internal nodes 就是分叉点，有 condition 写在上面的那种
 * The segments of the trees that connect the nodes is known as **branches**.
 
-#### <a name="Stratify-Feat-Space"></a>Prediction via Stratification of the Feature Space
+#### Prediction via Stratification of the Feature Space
 
 We now discuss the process of building a regression tree. Roughly speaking, there are two steps.
 
@@ -102,7 +97,7 @@ Unfortunately, it is computationally infeasible to consider every possible parti
 
 P307 详述了这一过程。
 
-#### <a name="Tree-Pruning"></a>Tree Pruning
+#### Tree Pruning
 
 * prune: [pru:n] (transitive) To remove excess material from a tree or shrub (灌木).
 
@@ -114,7 +109,7 @@ Therefore, a better strategy is to grow a very large tree, and then **prune** it
 
 所以我们改用 **cost complexity pruning**, a.k.a **weakest link pruning**. 具体的算法见 P309。简单说就是 pruning 也要 min 一个 loss function + penalty term，然后这个 penalty term 是 $ \alpha \lvert T \rvert $，其中 $ \lvert T \rvert $ 是 subtree 的 size，这样就约束了 subtree 的 size。这个 $ \alpha $ 和 $ \lambda $ 一样，也是要 CV 来调的，这些基本都是固定套路了。 
 
-### <a name="Class-Tree"></a>1.2 Classification Trees
+### 1.2 Classification Trees
 
 For a classification tree, we predict that each observation belongs to the _most commonly occurring class_ of training observations in the region to which it belongs.
 
@@ -155,17 +150,17 @@ Similarly, the cross-entropy will take on a value near 0 if the $ \hat{p}_{mk} $
 
 Any of these three approaches might be used when pruning the tree, but the classification error rate is preferable if prediction accuracy of the final pruned tree is the goal.
 
-### <a name="Tree-vs-Linear"></a>1.3 Trees Versus Linear Models
+### 1.3 Trees Versus Linear Models
 
 P314-315
 
 FIGURE 8.7. 非常能说明问题。
 
-### <a name="Adv-Disadv-of-Tree"></a>1.4 Advantages and Disadvantages of Trees
+### 1.4 Advantages and Disadvantages of Trees
 
 P315
 
-## <a name="BBB"></a>2. Bagging, Random Forests, Boosting
+## 2. Bagging, Random Forests, Boosting
 
 Bagging, random forests, and boosting use trees as building blocks to construct more powerful prediction models.
 
@@ -177,7 +172,7 @@ Bagging, random forests, and boosting use trees as building blocks to construct 
 	* Random Forests 是 bagged trees 的升级版
 * boosting: 是一种 ensemble 的算法思想，同时实现了这种思想的算法也叫 boosting
 
-### <a name="Bagging"></a>2.1 Bagging
+### 2.1 Bagging
 
 Decision trees suffer from high variance. This means that if we split the training data into two parts at random, and fit a decision tree to both halves (这种做法其实就是 bootstrap 的思想), the results that we get could be quite different. In contrast, a procedure with low variance will yield similar results if applied repeatedly to distinct data sets.
 
@@ -193,7 +188,7 @@ A natural way to reduce the variance and hence increase the prediction accuracy 
 
 The number of trees $ B $ is not a critical parameter with bagging; using a very large value of $ B $ will not lead to overfitting. In practice we use a value of $ B $ sufficiently large that the error has settled down. Using $ B=100 $ is sufficient to achieve good performance in this example.
 
-#### <a name="OOG"></a>Out-of-Bag Error Estimation
+#### Out-of-Bag Error Estimation
 
 One can show that on average, each bagged tree makes use of around 2/3 of the observations (see Exercise 2 of Chapter 5). The remaining 1/3 of the observations not used to fit a given bagged tree are referred to as the out-of-bag (OOB) observations.
 
@@ -201,13 +196,13 @@ One can show that on average, each bagged tree makes use of around 2/3 of the ob
 
 It can be shown that with $ B $ sufficiently large, OOB error is virtually equivalent to leave-one-out cross-validation error.
 
-#### <a name="VIM"></a>Variable Importance Measures
+#### Variable Importance Measures
 
 As we have discussed, bagging typically results in improved accuracy over prediction using a single tree. Unfortunately, however, it can be difficult to interpret the resulting model. Recall that one of the advantages of decision trees is the attractive and easily interpreted diagram that results. However, when we bag a large number of trees, it is no longer possible to represent the resulting statistical learning procedure using a single tree, and it is no longer clear which variables are most important to the procedure. Thus, bagging improves prediction accuracy at the expense of interpretability.
 
 Although the collection of bagged trees is much more difficult to interpret than a single tree, one can obtain an overall summary of the importance of each predictor using the RSS (for bagging regression trees) or the Gini index (for bagging classification trees). In the case of bagging regression trees, we can record the total amount that the RSS is decreased due to splits over a given predictor, averaged over all $B$ trees. A large value indicates an important predictor. Similarly, in the context of bagging classification trees, we can add up the total amount that the Gini index is decreased by splits over a given predictor, averaged over all $B$ trees.
 
-### <a name="Random-Forests"></a>2.2 Random Forests
+### 2.2 Random Forests
 
 RF 是 bagging 的升级版。RF 的区别在于：在确定 split, i.e. internal nodes 的时候，我们不是像  bagging 那样全盘考察所有 $ p $ 个 predictors (i.e. features)，而是只考察一个 **random sample of $ m $ 个 predictors**。random 就 random 在这里。
 
@@ -219,7 +214,7 @@ RF 是 bagging 的升级版。RF 的区别在于：在确定 split, i.e. interna
 
 As with bagging, random forests will not overfit if we increase $ B $, so in practice we use a value of $ B $ sufficiently large for the error rate to have settled down.
 
-### <a name="Boosting"></a>2.3 Boosting
+### 2.3 Boosting
 
 boost: [bu:st]
 
@@ -286,9 +281,9 @@ After boosting, a classifier constructed from 200 features could yield a 95% det
 
 ===== 2016.08.16 补充 end =====
 
-## <a name="Lab"></a>3. Lab: Decision Trees
+## 3. Lab: Decision Trees
 
-### <a name="Lab-Class-Tree"></a>3.1 Fitting Classification Trees
+### 3.1 Fitting Classification Trees
 
 ```r
 > library(tree)
@@ -385,7 +380,7 @@ tree.pred	No	Yes
 [1] 0.77 ## a litte better than 0.715
 ```
 
-### <a name="Lab-Reg-Tree"></a>3.2 Fitting Regression Trees
+### 3.2 Fitting Regression Trees
 
 ```r
 > library(MASS)
@@ -430,7 +425,7 @@ In keeping with the cross-validation results, we use the unpruned tree to make p
 [1] 25.05
 ```
 
-### <a name="Lab-Bagging-RF"></a>3.3 Bagging and Random Forests
+### 3.3 Bagging and Random Forests
 
 Recall that bagging is simply a special case of a random forest with m = p. Therefore, the randomForest() function can be used to perform both random forests and bagging. We perform bagging as follows:
 
@@ -490,7 +485,7 @@ Plots of these importance measures can be produced using the `varImpPlot()` func
 	
 The results indicate that across all of the trees considered in the random forest, the wealth level of the community (`lstat`) and the house size (`rm`) are by far the two most important variables.
 
-### <a name="Lab-Boosting"></a>3.4 Boosting
+### 3.4 Boosting
 
 Here we use the `gbm` package, and within it the `gbm()` function, to fit boosted regression trees to the `Boston` data set. We run `gbm()` with the option `distribution="gaussian"` since this is a regression problem; if it were a binary classification problem, we would use `distribution="bernoulli"`. The argument `n.trees=5000` indicates that we want 5000 trees, and the option `interaction.depth=4` limits the depth of each tree.
 

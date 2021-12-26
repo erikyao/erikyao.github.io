@@ -11,37 +11,28 @@ tags: [LDA]
 
 -----
 
-## 目录
+ToC:
 
-### 1. [An Overview of Classification](#Overview)
-
-### 2. [Why Not Linear Regression?](#Why-not-LR)
-
-### 3. [Logistic Regression](#Logistic-Regression)
-
-- [3.1 The Logistic Model](#LgR-Model)
-- [3.2 Estimating the Regression Coefficients](#Est-Coef)
-- [3.3 Making Predictions](#Making-Predictions)
-- [3.4 Multiple Logistic Regression](#MLgR)
-- [3.5 Logistic Regression for >2 Response Classes](#LgR-for-multi-resp)
-
-### 4. [Linear Discriminant Analysis](#LDA)
-
-- [4.1 Using Bayes’ Theorem for Classification](#Using-Bayes)
-- [4.2 Linear Discriminant Analysis for p = 1](#LDA-p-eq-1)
-- [4.3 Linear Discriminant Analysis for p > 1](#LDA-p-gt-1)
-- [4.4 Quadratic Discriminant Analysis](#QDA)
-
-### 5. [A Comparison of Classification Methods](#Comparison)
-
-### 6. [Lab: Logistic Regression, LDA, QDA, and KNN](#Lab)
-
-- 6.1 The Stock Market Data
-- [6.2 Logistic Regression](#Lab-LgR)
-- [6.3 Linear Discriminant Analysis](#Lab-LDA)
-- [6.4 Quadratic Discriminant Analysis](#Lab-QDA)
-- [6.5 K-Nearest Neighbors](#Lab-KNN)
-- [6.6 An Application to Caravan Insurance Data](#Lab-Caravan)
+- [1. An Overview of Classification](#1-an-overview-of-classification)
+- [2. Why Not Linear Regression?](#2-why-not-linear-regression)
+- [3. Logistic Regression](#3-logistic-regression)
+	- [3.1 The Logistic Model](#31-the-logistic-model)
+	- [3.2 Estimating the Regression Coefficients](#32-estimating-the-regression-coefficients)
+	- [3.3 Making Predictions](#33-making-predictions)
+	- [3.4 Multiple Logistic Regression](#34-multiple-logistic-regression)
+	- [3.5 Logistic Regression for >2 Response Classes](#35-logistic-regression-for-2-response-classes)
+- [4. Linear Discriminant Analysis](#4-linear-discriminant-analysis)
+	- [4.1 Using Bayes’ Theorem for Classification](#41-using-bayes-theorem-for-classification)
+	- [4.2 Linear Discriminant Analysis for $p = 1$](#42-linear-discriminant-analysis-for-p--1)
+	- [4.3 Linear Discriminant Analysis for $p > 1$](#43-linear-discriminant-analysis-for-p--1)
+	- [4.4 Quadratic Discriminant Analysis](#44-quadratic-discriminant-analysis)
+- [5. A Comparison of Classification Methods](#5-a-comparison-of-classification-methods)
+- [6. Lab: Logistic Regression, LDA, QDA, and KNN](#6-lab-logistic-regression-lda-qda-and-knn)
+	- [6.2 Logistic Regression](#62-logistic-regression)
+	- [6.3 Linear Discriminant Analysis](#63-linear-discriminant-analysis)
+	- [6.4 Quadratic Discriminant Analysis](#64-quadratic-discriminant-analysis)
+	- [6.5 K-Nearest Neighbors](#65-k-nearest-neighbors)
+	- [6.6 An Application to Caravan Insurance Data](#66-an-application-to-caravan-insurance-data)
 
 -----
 
@@ -53,11 +44,11 @@ In this chapter we discuss three of the most widely-used classifiers:
 * linear discriminant analysis
 * K-nearest neighbors
 
-## <a name="Overview"></a>1. An Overview of Classification
+## 1. An Overview of Classification
 
 P128
 
-## <a name="Why-not-LR"></a>2. Why Not Linear Regression?
+## 2. Why Not Linear Regression?
 
 P129
 
@@ -65,11 +56,11 @@ The codings of response would produce fundamentally different linear models that
 
 Curiously, it turns out that the classifications that we get if we use linear regression to predict a binary response will be the same as for the linear discriminant analysis (LDA) procedure.
 
-## <a name="Logistic-Regression"></a>3. Logistic Regression
+## 3. Logistic Regression
 
 Rather than modeling this response $ Y $ directly, logistic regression models the probability that $ Y $ belongs to a particular category.
 
-### <a name="LgR-Model"></a>3.1 The Logistic Model
+### 3.1 The Logistic Model
 
 注意下写法：$ Pr(Y=yes \vert X=x_i) $ 被简写成 $ p(x_i) $。比如对 $ x_1 = 233 $ 有 $ p(233) > 0.5 $，那么我们就把 $ x_1 = 233 $ 归为 $ y = yes $.
 
@@ -131,7 +122,7 @@ Therefore increasing $ X $ by one unit changes the log odds by $ \beta_1 $, or e
 * If $ \beta_1 $ is negative then increasing $ X $ will be associated with decreasing
 $ p(X) $.
 
-### <a name="Est-Coef"></a>3.2 Estimating the Regression Coefficients
+### 3.2 Estimating the Regression Coefficients
 
 Although we could use (non-linear) least squares to fit the model $ (\ref{eq3.4}) $, the more general method of **maximum likelihood** is preferred, since it has better statistical properties.
 
@@ -160,11 +151,11 @@ $$
 
 Then a large absolute value of the z-statistic and a vitual value 0 of p-value indicate evidence to reject the null hypothesis $ H_0 : \beta_1 = 0 $.
 
-### <a name="Making-Predictions"></a>3.3 Making Predictions
+### 3.3 Making Predictions
 
 P134
 
-### <a name="MLgR"></a>3.4 Multiple Logistic Regression
+### 3.4 Multiple Logistic Regression
 
 By analogy with the extension from simple to multiple linear regression, we can generalize $ (\ref{eq3.4}) $ as follows:
 
@@ -190,15 +181,15 @@ Still we use the maximum likelihood method to estimate $ \beta_0, \beta_1, \cdot
 
 As in the linear regression setting, the results obtained using one predictor may be quite different from those obtained using multiple predictors, especially when there is correlation among the predictors. In general, the phenomenon is known as **confounding**. 具体见 P136，例子和阐述都不错。
 
-### <a name="LgR-for-multi-resp"></a>3.5 Logistic Regression for >2 Response Classes
+### 3.5 Logistic Regression for >2 Response Classes
 
 The two-class logistic regression models discussed in the previous sections have multiple-class extensions, but in practice they tend not to be used all that often. One of the reasons is that the method we discuss in the next section, discriminant analysis, is popular for multiple-class classification. So we just stop here. Simply note that such an approach is possible and is available in R.
 
-## <a name="LDA"></a>4. Linear Discriminant Analysis
+## 4. Linear Discriminant Analysis
 
 Logistic Regression 是直接求的 $ Pr(Y=k \vert X=x) $ (model the conditional distribution of the response $ Y $, given the predictor(s) $ X $)，LDA 是先求 $ Pr(X=x \vert Y=k) $ 再用 Bayes' theorem 导成 $ Pr(Y=k \vert X=x) $。比 Logistic Regression 的优点是 stability.
 
-### <a name="Using-Bayes"></a>4.1 Using Bayes’ Theorem for Classification
+### 4.1 Using Bayes’ Theorem for Classification
 
 Suppose that we wish to classify an observation into one of $ K $ classes, where $ K \geq 2 $.
 
@@ -219,7 +210,7 @@ In accordance with our earlier notation, we will use the abbreviation $ p_k(X) =
 
 In general, estimating $ \pi_k $ is easy if we have a random sample of $Y $s from the population: we simply compute the fraction of the training observations that belong to the $k^{\text{th}}$ class. However, estimating $ f_k(X) $ tends to be more challenging, unless we assume some simple forms for these densities. If we can find a way to estimate $ f_k(X) $, then we can develop a classifier that approximates the Bayes classifier. Such an approach is the topic of the following sections.
 
-### <a name="LDA-p-eq-1"></a>4.2 Linear Discriminant Analysis for $p = 1$
+### 4.2 Linear Discriminant Analysis for $p = 1$
 
 P139-142。这公式搬过来我手就要断了……
 
@@ -230,7 +221,7 @@ P139-142。这公式搬过来我手就要断了……
 
 然后不停地套公式，用 estimate 代替 parameter……
 
-### <a name="LDA-p-gt-1"></a>4.3 Linear Discriminant Analysis for $p > 1$
+### 4.3 Linear Discriminant Analysis for $p > 1$
 
 We now extend the LDA classifier to the case of multiple predictors. To do this, we will assume that $ X = (X_1, X_2, \cdots, X_p) $ is drawn from a multivariate Gaussian (or multivariate normal) distribution, with a class-specific mean vector and a common covariance matrix.
 
@@ -263,7 +254,7 @@ The **ROC curve** is a popular graphic for simultaneously displaying the TP and 
 
 The overall performance of a classifier, summarized over all possible thresholds, is given by the _area under the (ROC) curve_ (**AUC**).
 
-### <a name="QDA"></a>4.4 Quadratic Discriminant Analysis
+### 4.4 Quadratic Discriminant Analysis
 
 LDA assumes that the observations within each class are drawn from a multivariate Gaussian distribution with a class-specific mean vector and a covariance matrix that is common to all $ K $ classes.
 
@@ -275,7 +266,7 @@ P149 小幅数学内容。
 
 Roughly speaking, LDA tends to be a better bet than QDA if there are relatively few training observations and so reducing variance is crucial. In contrast, QDA is recommended if the training set is very large, so that the variance of the classifier is not a major concern, or if the assumption of a common covariance matrix for the $ K $ classes is clearly untenable.
 
-## <a name="Comparison"></a>5. A Comparison of Classification Methods
+## 5. A Comparison of Classification Methods
 
 logistic regression vs LDA
 
@@ -307,9 +298,9 @@ P153-154 设计了 6 个 Scenario 来测试这些方法的 performance。
 
 最后还提到了加 transformation 越是可行的，但是 performance 需要重新测。If we added all possible quadratic terms and cross-products to LDA, the form of the model would be the same as the QDA model, although the parameter estimates would be different. This device allows us to move somewhere between an LDA and a QDA model.
 
-## <a name="Lab"></a>6. Lab: Logistic Regression, LDA, QDA, and KNN
+## 6. Lab: Logistic Regression, LDA, QDA, and KNN
 
-### <a name="Lab-LgR"></a>6.2 Logistic Regression
+### 6.2 Logistic Regression
 
 ```r
 > library(ISLR)
@@ -406,7 +397,7 @@ P159 起就是在说做 training set 的事情，只用注意一个 `glm()` 的 
 > glm.fit = glm(Direction~Lag1+Lag2+Lag3+Lag4+Lag5+Volume, data=Smarket, family=binomial, subset=train)
 ```
 
-### <a name="Lab-LDA"></a>6.3 Linear Discriminant Analysis
+### 6.3 Linear Discriminant Analysis
 
 We fit a LDA model using the `lda()` function, which is part of the `MASS` library. Notice that the  syntax for the `lda()` function is identical to that of `lm()`.
 
@@ -482,7 +473,7 @@ Notice that the posterior probability output by the model corresponds to the pro
 > lda.class[1:20]
 ```
 
-### <a name="Lab-QDA"></a>6.4 Quadratic Discriminant Analysis
+### 6.4 Quadratic Discriminant Analysis
 
 QDA is implemented in R using the `qda()` function, which is also part of the `MASS` library. The syntax is identical to that of `lda()`.
 
@@ -503,7 +494,7 @@ Up		81 121
 [1] 0.599
 ```
 
-### <a name="Lab-KNN"></a>6.5 K-Nearest Neighbors
+### 6.5 K-Nearest Neighbors
 
 `knn()` function is part of the `class` library. Rather than a two-step approach in which we first fit the model and then we use the model to make predictions, `knn()` forms predictions using a single command. The function requires four inputs.
 
@@ -537,7 +528,7 @@ Up		68 83
 
 The results using $ K = 1 $ are not very good, since only 50% of the observations are correctly predicted. We repeat the analysis using $ K = 2,3,\cdots $ for improvements.
 
-### <a name="Lab-Caravan"></a>6.6 An Application to Caravan Insurance Data
+### 6.6 An Application to Caravan Insurance Data
 
 P165，一个具体的例子，业务分析值得一看。技术上需要注意的一个地方是: The `scale()` function standardize the data so that all  variables are given a mean of zero and a standard deviation of one.
 

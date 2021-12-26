@@ -17,20 +17,20 @@ tags: [const]
 
 -----
 
-## 目录
+ToC:
 
-- [1. const object](#const-object)
-- [2. const member](#const-member)
-	- [2.1 Non-static const member (runtime constant)](#runtime-const-member)
-	- [2.2 static const member (compile-time constant)](#compile-time-const-member)
-- [3. const member function](#const-member-function)
-	- [3.1 武学正统](#const-member-function-definition)
-	- [3.2 旁门左道：mutable member](#mutable-member)
-- [4. 总结](#summary)
+- [1. const object](#1-const-object)
+- [2. const member](#2-const-member)
+	- [2.1 Non-static const member (runtime constant)](#21-non-static-const-member-runtime-constant)
+	- [2.2 static const member (compile-time constant)](#22-static-const-member-compile-time-constant)
+- [3. const member function](#3-const-member-function)
+	- [3.1 武学正统](#31-武学正统)
+	- [3.2 旁门左道：mutable member](#32-旁门左道mutable-member)
+- [4. 总结](#4-总结)
 	
 -----
 
-## <a name="const-object"></a>1. const object
+## 1. const object
 
 NO **non-static** data member of the const object can be changed during the object’s lifetime. 用 java 的话说就是 "const 对象的状态不可变"。
 
@@ -56,9 +56,9 @@ int main() {
 }
 ```
 
-## <a name="const-member"></a>2. const member
+## 2. const member
 
-### <a name="runtime-const-member"></a>2.1 Non-static const member (runtime constant)
+### 2.1 Non-static const member (runtime constant)
 
 Const member means “This member is constant for the lifetime of the object.” However, each different object may contain a different value for that constant.
 
@@ -105,7 +105,7 @@ int main() {
 
 注释说得够清楚了，就不啰嗦了。
 
-### <a name="compile-time-const-member"></a>2.2 static const member (compile-time constant)
+### 2.2 static const member (compile-time constant)
 
 Static const member means “there’s only one instance of the member, regardless of how many objects of the class are created”.
 
@@ -120,9 +120,9 @@ private:
 };
 ```
 
-## <a name="const-member-function"></a>3. const member function
+## 3. const member function
 
-### <a name="const-member-function-definition"></a>3.1 武学正统
+### 3.1 武学正统
 
 * A member function that is not specifically declared `const` is treated as one that will modify data members in an object, and the compiler will not allow you to call it for a const object.
 * Declaring a member function with the `const` keyword specifies that the function is a "read-only" function that does not modify the object for which it is called. 声明为 const 的 member function 编译器就允许 const object 来 call。
@@ -205,7 +205,7 @@ int main() {
 * const member function 可以修改 non-const static member
 	* 从这个角度也说明：修改 static member 不算修改 object 的状态，毕竟 static member 可以看做是 class 所有，不计入 object 的状态内
 
-### <a name="mutable-member"></a>3.2 旁门左道：mutable member
+### 3.2 旁门左道：mutable member
 
 上一节说道：A const member function CANNOT modify any non-static data members，那对一般的 non-static + non-const 的 common member 而言，可以开一个后门使其被 const member 修改，这个后门就是 `mutable`.
 
@@ -246,7 +246,7 @@ int main() {
 
 我们对标准的、严格要求的 const object 称为 bitwise const，意思是 every bit is const；对 mutable 这样开后门的 const object 称为 logical const，嗯，原则上的 const。
 
-## <a name="summary"></a>4. 总结
+## 4. 总结
 
 const object:
 

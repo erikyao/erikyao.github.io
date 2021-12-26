@@ -11,60 +11,53 @@ tags: []
 
 -----
 
-## 目录
-  
+ToC:
 
-### 3. [Other Considerations in the Regression Model](#Other-Considerations-in-the-Regression-Model)
-  
-- [3.1 Qualitative Predictors](#Qualitative-Predictors)   
-	- [3.1.1 Qualitative predictors with only 2 levels](#2-Level-Qualitative)
-		- [baseline 渐进法](#baseline-way)
-		- [mean 中心法](#mean-way)
-	- [3.1.2 Qualitative predictors with more than 2 levels](#Multi-Level-Qualitative)
-- [3.2 Extensions of the Linear Model](#Extensions-of-the-Linear-Model)
-	- [3.2.1 Removing the Additive Assumption by Adding Interaction Term](#Removing-the-Additive-Assumption)
-		- [Interaction Term](#Interaction-Term)
-		- [Main Effect and Hierarchical Principle](#Main-Effect-and-Hierarchical-Principle)
-		- [Interaction Term with Qualitative Predictors](#Interaction-Term-with-Qualitative-Predictors)
-	- [3.2.2 Non-linear Relationships](#Non-linear-Relationships)
-- [3.3 Potential Problems](#Potential-Problems)
-	- [3.3.1. Non-linearity of the Response-Predictor Relationships](#Non-linearity)
-	- [3.3.2. Correlation of Error Terms](#Correlation-of-Error-Terms)
-	- [3.3.3 Non-constant Variance of Error Terms](#Non-constant-Variance-of-Error-Terms)
-	- [3.3.4 Outliers](#Outliers)
-	- [3.3.5 High Leverage Points (leverage-statistic)](#High-Leverage-Points)
-	- [3.3.6 Collinearity (共线性) (VIF)](#Collinearity)
-	
-### 4. [The Marketing Plan](#The-Marketing-Plan)
-
-### 5. [Comparison of Linear Regression with K-Nearest Neighbors](#LR-vs-KNN)
-
-### 6. [Lab: Linear Regression](#Lab)
-
-- 6.1 Libraries
-- [6.2 Simple Linear Regression](#Lab-SLR) 
-- [6.3 Multiple Linear Regression](#Lab-MLR)
-- [6.4 Interaction Terms](#Lab-IT)
-- [6.5 Non-linear Transformations of the Predictors](#Lab-Non-Linear-Trans)
-- [6.6 Qualitative Predictors](#Lab-QP)
-- [6.7 Writing Functions](#Lab-Writing-Functions)
+- [3. Other Considerations in the Regression Model](#3-other-considerations-in-the-regression-model)
+	- [3.1 Qualitative Predictors](#31-qualitative-predictors)
+		- [3.1.1 Qualitative predictors with only 2 levels](#311-qualitative-predictors-with-only-2-levels)
+			- [baseline 渐进法](#baseline-渐进法)
+			- [mean 中心法](#mean-中心法)
+		- [3.1.2 Qualitative predictors with more than 2 levels](#312-qualitative-predictors-with-more-than-2-levels)
+	- [3.2 Extensions of the Linear Model](#32-extensions-of-the-linear-model)
+		- [3.2.1 Removing the Additive Assumption by Adding Interaction Term](#321-removing-the-additive-assumption-by-adding-interaction-term)
+			- [Interaction Term](#interaction-term)
+			- [Main Effect and Hierarchical Principle](#main-effect-and-hierarchical-principle)
+			- [Interaction Term with Qualitative Predictors](#interaction-term-with-qualitative-predictors)
+		- [3.2.2 Non-linear Relationships](#322-non-linear-relationships)
+	- [3.3 Potential Problems](#33-potential-problems)
+		- [3.3.1. Non-linearity of the Response-Predictor Relationships](#331-non-linearity-of-the-response-predictor-relationships)
+		- [3.3.2. Correlation of Error Terms](#332-correlation-of-error-terms)
+		- [3.3.3 Non-constant Variance of Error Terms](#333-non-constant-variance-of-error-terms)
+		- [3.3.4 Outliers](#334-outliers)
+		- [3.3.5 High Leverage Points (leverage-statistic)](#335-high-leverage-points-leverage-statistic)
+		- [3.3.6 Collinearity (共线性) (VIF)](#336-collinearity-共线性-vif)
+- [4. The Marketing Plan](#4-the-marketing-plan)
+- [5. Comparison of Linear Regression with K-Nearest Neighbors](#5-comparison-of-linear-regression-with-k-nearest-neighbors)
+- [6. Lab: Linear Regression](#6-lab-linear-regression)
+	- [6.2 Simple Linear Regression](#62-simple-linear-regression)
+	- [6.3 Multiple Linear Regression](#63-multiple-linear-regression)
+	- [6.4 Interaction Terms](#64-interaction-terms)
+	- [6.5 Non-linear Transformations of the Predictors](#65-non-linear-transformations-of-the-predictors)
+	- [6.6 Qualitative Predictors](#66-qualitative-predictors)
+	- [6.7 Writing Functions](#67-writing-functions)
 	
 -----
 	
-## <a name="Other-Considerations-in-the-Regression-Model"></a>3. Other Considerations in the Regression Model
+## 3. Other Considerations in the Regression Model
 
-### <a name="Qualitative-Predictors"></a>3.1 Qualitative Predictors
+### 3.1 Qualitative Predictors
 
 qualitative 就是 categorical，与 R 的 factor 是一个概念。
 
-#### <a name="2-Level-Qualitative"></a>3.1.1 Qualitative predictors with only 2 levels
+#### 3.1.1 Qualitative predictors with only 2 levels
 
 对于 qualitative predictors with only 2 levels 而言，构造 dummy variable 有两种方法：
 
 * baseline 渐进法
 * mean 中心法
 
-##### <a name="baseline-way"></a>baseline 渐进法
+##### baseline 渐进法
 
 baseline 渐进法比如：
 
@@ -90,7 +83,7 @@ The level with no dummy variable — male in this example — is known as the **
 
 Now $ \beta_0 $ can be interpreted as the average response among males, $ \beta_0 + \beta_1 $ as the average response among females, and $ \beta_1 $ as the average difference in response between females and males.
 
-##### <a name="mean-way"></a>mean 中心法
+##### mean 中心法
 
 mean 中心法比如：
 
@@ -116,7 +109,7 @@ Now $ \beta_0 $ can be interpreted as the overall average response (ignoring the
 
 这两种方法没有本质的区别，除了 the way they are interpreted.
 
-#### <a name="Multi-Level-Qualitative"></a>3.1.2 Qualitative predictors with more than 2 levels
+#### 3.1.2 Qualitative predictors with more than 2 levels
 
 对于 qualitative predictors with more than 2 levels，一般用 baseline 渐进法。这样 there will always be one fewer dummy variable than the number of levels.
 
@@ -158,7 +151,7 @@ $$
 
 The level `African American` now is the baseline. $ \beta_0 $ can be interpreted as the average response for `African Americans`, $ \beta_{i1} $ can be interpreted as the difference of `(Asian - African American)` in the average response, and $ \beta_{i2} $ can be interpreted as the difference of `(Caucasian - African American)`
 
-### <a name="Extensions-of-the-Linear-Model"></a>3.2 Extensions of the Linear Model
+### 3.2 Extensions of the Linear Model
 
 The standard linear regression model makes several highly restrictive assumptions that are often violated in practice.
 
@@ -167,9 +160,9 @@ The standard linear regression model makes several highly restrictive assumption
 	* 也就是说没有体现出 _synergy_ or _interaction_ effect
 * The **linear assumption** states that the change in the response $ Y $ due to a one-unit change in $ X_i $ is constant, regardless of the value of $ X_i $
 
-#### <a name="Removing-the-Additive-Assumption"></a>3.2.1 Removing the Additive Assumption by Adding Interaction Term
+#### 3.2.1 Removing the Additive Assumption by Adding Interaction Term
 
-##### <a name="Interaction-Term"></a>Interaction Term
+##### Interaction Term
 
 P88 举了个很好的例子 for _synergy_
 
@@ -199,7 +192,7 @@ Since $ \hat{\beta}_1 $ changes with $ X_2 $, the effect of $ X_1 $ on $ Y $ is 
 
 We can interpret $ \beta_3 $ as the increase in the effectiveness of $ X_1 $ for a one unit increase in $ X_2 $ (or vice-versa). 
 
-##### <a name="Main-Effect-and-Hierarchical-Principle"></a>Main Effect and Hierarchical Principle
+##### Main Effect and Hierarchical Principle
 
 我们把 $ \beta_0 + \beta_1 X_1 + \cdots + \beta_n X_n $ 这样不包含 Interaction Term 的部分（或者这部分所代表的 relationship）称为 **Main Effect**。
 
@@ -208,7 +201,7 @@ It is sometimes the case that an interaction term has a very small p-value, but 
 * 没有了 main effect，interaction term 的意义就不完整了
 * 而且就算是 main effect 的 coefficients are not significant，它们在 prediction 时也不会造成什么影响（计算出来都接近于零）
 
-##### <a name="Interaction-Term-with-Qualitative-Predictors"></a>Interaction Term with Qualitative Predictors
+##### Interaction Term with Qualitative Predictors
 
 The concept of interactions applies just as well to qualitative variables, or to a combination of quantitative and qualitative variables. In fact, an interaction between a qualitative variable and a quantitative variable has a particularly nice interpretation.
 
@@ -244,7 +237,7 @@ $$
 
 这样在 $ X_2 $ 的两种情况下，$ X_1 $ 的 slope 和 intercept 都是不同的，体现了两种不同的变化模式。如果不做 interaction 的话画出来的是两条平行线（slope 相同），忽略了 $ X_2 $ 对 $ X_1 $ 的 slope 的影响。
 
-#### <a name="Non-linear-Relationships"></a>3.2.2 Non-linear Relationships
+#### 3.2.2 Non-linear Relationships
 
 前脚提到 interaction term，后面马上就接 polynomial regression 实在是太默契了。  
 
@@ -259,11 +252,11 @@ $$
 
 But it is still a linear model! Because we can treat $ X_1 = X $ and $ X_2 = X^2 $
 
-### <a name="Potential-Problems"></a>3.3 Potential Problems
+### 3.3 Potential Problems
 
 书上说的很简略，我也不详细摘录了。做到 "有印象" 就好了，暂不深究。
 
-#### <a name="Non-linearity"></a>3.3.1. Non-linearity of the Response-Predictor Relationships
+#### 3.3.1. Non-linearity of the Response-Predictor Relationships
 
 说的就是 true relationship 是否是 linear 的问题。
 
@@ -278,7 +271,7 @@ If the residual plot indicates that there are non-linear associations in the dat
 
 具体见 P92。
 
-#### <a name="Correlation-of-Error-Terms"></a>3.3.2. Correlation of Error Terms
+#### 3.3.2. Correlation of Error Terms
 
 An important assumption of the linear regression model is that the error
 terms, $ \epsilon_1, \epsilon_2, \cdots, \epsilon_n $, are uncorrelated.
@@ -295,7 +288,7 @@ correlation of error terms 在 time series 里比较常见. If we plot the resid
 
 具体见 P94。
 
-#### <a name="Non-constant-Variance-of-Error-Terms"></a>3.3.3 Non-constant Variance of Error Terms
+#### 3.3.3 Non-constant Variance of Error Terms
 
 Another important assumption of the linear regression model is that the error terms have a constant variance, $ Var(\epsilon_i) = \sigma^2 $. The standard errors, confidence intervals, and hypothesis tests associated with the linear model rely upon this assumption.
 
@@ -307,7 +300,7 @@ When faced with this problem, one possible solution is to transform the response
 
 还有个 weighted least squares 我不是很懂，待查。
 
-#### <a name="Outliers"></a>3.3.4 Outliers
+#### 3.3.4 Outliers
 
 An outlier is a point for which $ y_i $ is far from the value predicted by the model.
 
@@ -317,7 +310,7 @@ If we believe that an outlier has occurred due to an error in data collection or
 
 具体见 P97。
 
-#### <a name="High-Leverage-Points"></a>3.3.5 High Leverage Points (leverage-statistic)
+#### 3.3.5 High Leverage Points (leverage-statistic)
 
 首先 leverage 是 "杠杆" 的意思，可以引申成 "influence or power used to achieve a desired result". 在 statistics 领域的 [解释](http://onlinestatbook.com/2/regression/influential.html) 是：
 
@@ -329,7 +322,7 @@ If we believe that an outlier has occurred due to an error in data collection or
 
 P99 还提到一个点可以同时是 outlier 和 high leverage point，这种情况非常复杂，需要慎重处理。
 
-#### <a name="Collinearity"></a>3.3.6 Collinearity (共线性) (VIF)
+#### 3.3.6 Collinearity (共线性) (VIF)
 
 Collinearity refers to the situation in which two or more predictor variables  are closely related to one another. If two preditors are very highly correlated with each other, we say that they are **collinear**.
 
@@ -357,7 +350,7 @@ When faced with the problem of collinearity, there are two simple solutions:
 * The first is to drop one of the problematic variables from the regression. This can usually be done without much compromise to the regression fit.
 * The second solution is to combine the collinear variables together into a single predictor. E.g. take the average of standardized versions of them.
 
-## <a name="The-Marketing-Plan"></a>4. The Marketing Plan
+## 4. The Marketing Plan
 
 P102 起，正式回答了开篇 7 问。没啥新内容，可以学习下答题的角度和方式。
 
@@ -382,7 +375,7 @@ P102 起，正式回答了开篇 7 问。没啥新内容，可以学习下答题
 7. Is there synergy among $ x_i $'s?
 	* try interaction term
 	
-## <a name="LR-vs-KNN"></a>5. Comparison of Linear Regression with K-Nearest Neighbors
+## 5. Comparison of Linear Regression with K-Nearest Neighbors
 
 P104
 
@@ -396,13 +389,13 @@ As a general rule, parametric methods will tend to outperform non-parametric app
 
 这一节 comparison 的设计和作图都值得学习，很有 paper 范儿。
 
-## <a name="Lab"></a>6. Lab: Linear Regression
+## 6. Lab: Linear Regression
 
 P109
 
 已经熟练掌握的内容就不记录了。
 
-### <a name="Lab-SLR"></a>6.2 Simple Linear Regression
+### 6.2 Simple Linear Regression
 
 ```r
 > library(MASS)
@@ -492,7 +485,7 @@ On the basis of the residual plots, there is some evidence of non-linearity. Lev
 375 ## it tells us which observation has the largest leverage statistic
 ```
 	
-### <a name="Lab-MLR"></a>6.3 Multiple Linear Regression
+### 6.3 Multiple Linear Regression
 
 ```r
 > lm.fit = lm(medv~lstat+age, data=Boston)
@@ -533,7 +526,7 @@ The `vif()` function, part of the `car` package, can be used to compute variance
 		
 还有在 [6.2 Simple Linear Regression](#Lab-SLR) 里能用的这里也能用。
 
-### <a name="Lab-IT"></a>6.4 Interaction Terms
+### 6.4 Interaction Terms
 
 It is easy to include interaction terms in a linear model using the `lm()` function. The syntax `lstat:black` tells R to include an interaction term between `lstat` and `black`. The syntax `lstat*age` simultaneously includes `lstat`, `age`, and the interaction term `lstat:age` as predictors; it is a shorthand for `lstat+age+lstat:age`.
 
@@ -541,7 +534,7 @@ It is easy to include interaction terms in a linear model using the `lm()` funct
 > summary(lm(medv~lstat*age, data=Boston))
 ```
 	
-### <a name="Lab-Non-Linear-Trans"></a>6.5 Non-linear Transformations of the Predictors
+### 6.5 Non-linear Transformations of the Predictors
 
 Given a predictor X, we can create a predictor X^2 using `I(X^2)`. The function `I()` is needed since the `^` has a special meaning in a formula; wrapping with `I()` allows the standard usage in R, which is to raise X to the power 2. We now perform a regression of medv onto `lstat` and `lstat^2`.
 
@@ -595,7 +588,7 @@ We can also give a try of log transformation.
 > summary(lm(medv~log(rm), data=Boston))
 ```
 	
-### <a name="Lab-QP"></a>6.6 Qualitative Predictors
+### 6.6 Qualitative Predictors
 
 ```r
 > library(ISLR)
@@ -624,7 +617,7 @@ Good		1      0
 Medium		0      1
 ```
 
-### <a name="Lab-Writing-Functions"></a>6.7 Writing Functions
+### 6.7 Writing Functions
 
 ```r
 > LoadLibraries=function() {

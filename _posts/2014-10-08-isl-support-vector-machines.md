@@ -11,47 +11,36 @@ tags: [SVM]
 
 -----
 
-## 目录
+ToC:
 
-### 0. [Overview](#Overview)
-
-### 1. [Maximal Margin Classifier](#MMC)
-
-- [1.1 What Is a Hyperplane?](#Hyperplane)
-- [1.2 Classification Using a Separating Hyperplane](#Class-Hyperplane)
-- [1.3 The Maximal Margin Classifier](#MMClassifier)
-- [1.4 Construction of the Maximal Margin Classifier](#Construction-of-MMC)
-- [1.5 The Non-separable Case](#The-Non-separable-Case) 
-
-### 2. [Support Vector Classifiers](#SVC)
-
-- [2.1 Overview of the Support Vector Classifier](#Overview-of-SVC)
-- [2.2 Details of the Support Vector Classifier](#Details-of-SVC)
-
-### 3. [Support Vector Machines](#SVM)
-
-- [3.1 Classification with Non-linear Decision Boundaries](#Class-Non-linear-DB)
-- [3.2 The Support Vector Machine](#The-SVM)
-- [3.3 An Application to the Heart Disease Data](#Eg-HDD)
-
-### 4. [SVMs with More than Two Classes](#SVM-for-Multi)
-
-- [4.1 One-Versus-One Classification](#One-vs-One)
-- [4.2 One-Versus-All Classification](#One-vs-All)
-
-### 5. [Relationship to Logistic Regression](#Re-to-LogR)
-
-### 6. [Lab: Support Vector Machines](#Lab)
-
-- [6.1 Support Vector Classifier](#Lab-SVC)
-- [6.2 Support Vector Machine](#Lab-SVM)
-- [6.3 ROC Curves](#Lab-ROC)
-- [6.4 SVM with Multiple Classes](#Lab-SVM-Multi)
-- [6.5 Application to Gene Expression Data](#Lab-GED)
+- [0. Overview](#0-overview)
+- [1. Maximal Margin Classifier](#1-maximal-margin-classifier)
+	- [1.1 What Is a Hyperplane?](#11-what-is-a-hyperplane)
+	- [1.2 Classification Using a Separating Hyperplane](#12-classification-using-a-separating-hyperplane)
+	- [1.3 The Maximal Margin Classifier](#13-the-maximal-margin-classifier)
+	- [1.4 Construction of the Maximal Margin Classifier](#14-construction-of-the-maximal-margin-classifier)
+	- [1.5 The Non-separable Case](#15-the-non-separable-case)
+- [2. Support Vector Classifiers](#2-support-vector-classifiers)
+	- [2.1 Overview of the Support Vector Classifier](#21-overview-of-the-support-vector-classifier)
+	- [2.2 Details of the Support Vector Classifier](#22-details-of-the-support-vector-classifier)
+- [3. Support Vector Machines](#3-support-vector-machines)
+	- [3.1 Classification with Non-linear Decision Boundaries](#31-classification-with-non-linear-decision-boundaries)
+	- [3.2 The Support Vector Machine](#32-the-support-vector-machine)
+	- [3.3 An Application to the Heart Disease Data](#33-an-application-to-the-heart-disease-data)
+- [4. SVMs with More than Two Classes](#4-svms-with-more-than-two-classes)
+	- [4.1 One-Versus-One Classification](#41-one-versus-one-classification)
+	- [4.2 One-Versus-All Classification](#42-one-versus-all-classification)
+- [5. Relationship to Logistic Regression](#5-relationship-to-logistic-regression)
+- [6. Lab: Support Vector Machines](#6-lab-support-vector-machines)
+	- [6.1 Support Vector Classifier](#61-support-vector-classifier)
+	- [6.2 Support Vector Machine](#62-support-vector-machine)
+	- [6.3 ROC Curves](#63-roc-curves)
+	- [6.4 SVM with Multiple Classes](#64-svm-with-multiple-classes)
+	- [6.5 Application to Gene Expression Data](#65-application-to-gene-expression-data)
 
 -----
 
-## <a name="Overview"></a>0. Overview
+## 0. Overview
 
 首先，SVM 是用于 classification 的；然后，SVM 是 MMC (maximal margin classifier) 的扩展。
 
@@ -61,9 +50,9 @@ tags: [SVM]
 
 SVM are intended for the binary classification setting in which there are two classes. 对于 multi class 的情况要用 one-vs-all。
 
-## <a name="MMC"></a>1. Maximal Margin Classifier
+## 1. Maximal Margin Classifier
 
-### <a name="Hyperplane"></a>1.1 What Is a Hyperplane?
+### 1.1 What Is a Hyperplane?
 
 In a $ p $-dimensional space, a **hyperplane** is a flat affine subspace of dimension $ p − 1$.
 
@@ -84,7 +73,7 @@ defines a $ p $-dimensional hyperplane.
 
 If a point $ X = (X_1, X_2, \cdots, X_p)^T $ in $ p $-dimensional space (i.e. $ X $ is a vector of length $ p $) satisfies ($ \ref{eq1.1} $), then $ X $ lies on the hyperplane. 如果代入 ($ \ref{eq1.1} $) 得到的是 > 0 或者 < 0，我们视为 $ X $ 在 hyperplane 的两侧。
 
-### <a name="Class-Hyperplane"></a>1.2 Classification Using a Separating Hyperplane
+### 1.2 Classification Using a Separating Hyperplane
 
 separating 是指 hyperplane 把 space 切成两半的情形。
 
@@ -121,7 +110,7 @@ If a separating hyperplane exists, we can use it to construct a very natural cla
 
 Not surprisingly, a classifier that is based on a separating hyperplane leads to a linear decision boundary.
 
-### <a name="MMClassifier"></a>1.3 The Maximal Margin Classifier
+### 1.3 The Maximal Margin Classifier
 
 In general, if our data can be perfectly separated using a hyperplane, then there will in fact exist an infinite number of such hyperplanes. This is because a given separating hyperplane can usually be shifted a tiny bit up or down, or rotated, without coming into contact with any of the observations. In order to construct a classifier based upon a separating hyperplane, we must have a reasonable way to decide which one of the infinite possible separating hyperplanes to use.
 
@@ -136,17 +125,17 @@ A natural choice is the **maximal margin hyperplane** (a.k.a the **optimal separ
 
 Interestingly, the maximal margin hyperplane depends directly on the support vectors, but not on the other observations: a movement to any of the other observations would not affect the separating hyperplane, provided that the observation’s movement does not cause it to cross the boundary set by the margin.
 
-### <a name="Construction-of-MMC"></a>1.4 Construction of the Maximal Margin Classifier
+### 1.4 Construction of the Maximal Margin Classifier
 
 P343。不难，解释得很清楚，一看就懂。公式太多我就不搬运了。
 
-### <a name="The-Non-separable-Case"></a>1.5 The Non-separable Case
+### 1.5 The Non-separable Case
 
 In this case, we can extend the concept of a separating hyperplane in order to develop a hyperplane that _almost_ separates the classes, using a so-called **soft margin**. The generalization of the maximal margin classifier to the non-separable case is known as the **support vector classifier**, discussed in the next chapter.
 
-## <a name="SVC"></a>2. Support Vector Classifiers
+## 2. Support Vector Classifiers
 
-### <a name="Overview-of-SVC"></a>2.1 Overview of the Support Vector Classifier
+### 2.1 Overview of the Support Vector Classifier
 
 MMC 有两个缺点：
 
@@ -165,7 +154,7 @@ That is, it could be worthwhile to misclassify a few training observations in or
 
 The **support vector classifier**, sometimes called a **soft margin classifier**, does exactly this. Rather than seeking the largest possible margin, we instead allow some observations to be on the incorrect side of the margin (这里是把 margin 也看做是一个 hyperplane，有的点离 MM Hyperplane 更近，但是没有根据它来定 margin，也就说这些点在 margin 和 MM Hyperplane 的夹层内), or even the incorrect side of the hyperplane. (The margin is _soft_ because it can be violated by some of the training observations.)
 
-### <a name="Details-of-SVC"></a>2.2 Details of the Support Vector Classifier
+### 2.2 Details of the Support Vector Classifier
 
 P346。在 P343 的公式基础上做了扩展。
 
@@ -199,15 +188,15 @@ $$
 
 The fact that the support vector classifier’s decision rule is based only on a potentially small subset of the training observations (the support vectors) means that it is quite robust to the behavior of observations that are far away from the hyperplane. This property is distinct from some of the other classification methods that we have seen in preceding chapters, such as linear discriminant analysis.
 
-## <a name="SVM"></a>3. Support Vector Machines
+## 3. Support Vector Machines
 
-### <a name="Class-Non-linear-DB"></a>3.1 Classification with Non-linear Decision Boundaries
+### 3.1 Classification with Non-linear Decision Boundaries
 
 与 linear regression 面对 Non-linear Decision Boundaries 时采取的措施一样，SVC 也是把 quadratic、cubic、polynomial 什么的加进来来解决这个问题。具体见 P350
 
 It is not hard to see that there are many possible ways to enlarge the feature space, and that unless we are careful, we could end up with a huge number of features. Then computations would become unmanageable. The SVM, which we present next, allows us to enlarge the feature space used by the SVC in a way that leads to efficient computations. 
 
-### <a name="The-SVM"></a>3.2 The Support Vector Machine
+### 3.2 The Support Vector Machine
 
 The SVM is an extension of the SVC that results from enlarging the feature space in a specific way, using **kernels**.
 
@@ -223,21 +212,21 @@ FIGURE 9.9. 值得一看，比较形象。
 
 使用 kernel 的好处，相对与考虑所有的 polynomial SVC 而言，自然是 computationally less expensive，具体在 P353 的最后一段。
 
-### <a name="Eg-HDD"></a>3.3 An Application to the Heart Disease Data
+### 3.3 An Application to the Heart Disease Data
 
 P354-355
 
-## <a name="SVM-for-Multi"></a>4. SVMs with More than Two Classes
+## 4. SVMs with More than Two Classes
 
-### <a name="One-vs-One"></a>4.1 One-Versus-One Classification
+### 4.1 One-Versus-One Classification
 
 假设一共有 $ K $ 个 class，每次只选出两个 class 来建 SVM，这样一共就有 $ \binom{K}{2} $ 个 SVM。这时来一个 test point，我们把这 $ \binom{K}{2} $ 个 SVM 都跑一遍，统计 classification 结果，最多的那个 class 作为最终的 prediction。
 
-### <a name="One-vs-All"></a>4.2 One-Versus-All Classification
+### 4.2 One-Versus-All Classification
 
 每次选一个 class，其余的 $ K-1 $ 个 class 当做一个 class，这样来建一个 SVM。最终会建 $ K $ 个 SVM。这时来一个 test point $ x^* $，我们会计算出 $ K $ 个 $ f(x^*) $，选最大那一个作为最终的 class。
 
-## <a name="Re-to-LogR"></a>5. Relationship to Logistic Regression
+## 5. Relationship to Logistic Regression
 
 P356-358
 
@@ -245,14 +234,14 @@ P356-358
 
 这一节是很好的总结，建议与 Ng 的课连起来看。
 
-## <a name="Lab"></a>6. Lab: Support Vector Machines
+## 6. Lab: Support Vector Machines
 
 有两个 lib 可以用：
 
 * `e1071`
 * `LiblineaR`, which is useful for very large linear problems.
 
-### <a name="Lab-SVC"></a>6.1 Support Vector Classifier
+### 6.1 Support Vector Classifier
 
 The `e1071` library contains implementations for a number of statistical learning methods. In particular, the `svm()` function can be used to fit a SVC when the argument `kernel="linear"` is used. This function uses a slightly different formulation from (9.14) and (9.25) for the SVC. A `cost` argument allows us to specify the cost of a violation to the margin. 
 
@@ -386,7 +375,7 @@ Now the observations are just barely linearly separable. We fit the SVC and plot
 
 No training errors were made and only three support vectors were used. However, we can see from the figure that the margin is very narrow (because the observations that are not support vectors, indicated as circles, are very close to the decision boundary). It seems likely that this model will perform poorly on test data.
 
-### <a name="Lab-SVM"></a>6.2 Support Vector Machine
+### 6.2 Support Vector Machine
 
 In order to fit an SVMusing a non-linear kernel, we once again use the `svm()` function. However, now we use a different value of the parameter `kernel`.
 
@@ -439,7 +428,7 @@ Therefore, the best choice of parameters involves `cost=1` and `gamma=2`. We can
 
 39% of test observations are misclassified by this SVM.
 
-### <a name="Lab-ROC"></a>6.3 ROC Curves
+### 6.3 ROC Curves
 
 The `ROCR` package can be used to produce ROC curves. We first write a short function to plot an ROC curve given a vector containing a numerical score for each observation, `pred`, and a vector containing the class label for each observation, `truth`.
 
@@ -483,7 +472,7 @@ However, these ROC curves are all on the training data. We are really more inter
 > rocplot(fitted, dat[-train,"y"], add=T, col ="red")
 ```
 
-### <a name="Lab-SVM-Multi"></a>6.4 SVM with Multiple Classes
+### 6.4 SVM with Multiple Classes
 
 If the response is a factor containing more than two levels, then the `svm()` function will perform multi-class classification using the one-versus-one approach.
 
@@ -502,7 +491,7 @@ If the response is a factor containing more than two levels, then the `svm()` fu
 
 The `e1071` library can also be used to perform support vector regression, if the response vector that is passed in to `svm()` is numerical rather than a factor.
 
-### <a name="Lab-GED"></a>6.5 Application to Gene Expression Data
+### 6.5 Application to Gene Expression Data
 
 We now examine the `Khan` data set, which consists of a number of tissue samples corresponding to four distinct types of small round blue cell tumors. For each tissue sample, gene expression measurements are available. The data set consists of training data, `xtrain` and `ytrain`, and testing data, `xtest` and `ytest`.
 

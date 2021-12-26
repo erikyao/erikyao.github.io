@@ -11,32 +11,27 @@ tags: [Bootstrap]
 
 -----
 
-## 目录
+ToC:
 
-### 0. [Overview](#Overview)
-
-### 1. [Cross-Validation](#CV)
-
-- [1.1 The Validation Set Approach](#VSA)
-- [1.2 Leave-One-Out Cross-Validation](#LOOCV)
-- [1.3 k-Fold Cross-Validation](#k-fold)
-- [1.4 Bias-Variance Trade-Off for k-Fold Cross-Validation](#k-fold-trade-off)
-- [1.5 Cross-Validation on Classification Problems](#CV-on-classification)
-
-### 2. [The Bootstrap](#Bootstrap)
-
-### 3. [Lab: Cross-Validation and the Bootstrap](#Lab)
-
-- [3.1 The Validation Set Approach](#Lab-VSA)
-- [3.2 Leave-One-Out Cross-Validation](#Lab-LOOCV)
-- [3.3 k-Fold Cross-Validation](#Lab-k-fold)
-- [3.4 The Bootstrap](#Lab-Bootstrap)
-	- [3.4.1 Estimating the Accuracy of a Statistic of Interest](#Lab-Bootstrap-1)
-	- [3.4.2 Estimating the Accuracy of a Linear Regression Model](#Lab-Bootstrap-2)
+- [0. Overview](#0-overview)
+- [1. Cross-Validation](#1-cross-validation)
+	- [1.1 The Validation Set Approach](#11-the-validation-set-approach)
+	- [1.2 Leave-One-Out Cross-Validation](#12-leave-one-out-cross-validation)
+	- [1.3 k-Fold Cross-Validation](#13-k-fold-cross-validation)
+	- [1.4 Bias-Variance Trade-Off for k-Fold Cross-Validation](#14-bias-variance-trade-off-for-k-fold-cross-validation)
+	- [1.5 Cross-Validation on Classification Problems](#15-cross-validation-on-classification-problems)
+- [2. The Bootstrap](#2-the-bootstrap)
+- [3. Lab: Cross-Validation and the Bootstrap](#3-lab-cross-validation-and-the-bootstrap)
+	- [3.1 The Validation Set Approach](#31-the-validation-set-approach)
+	- [3.2 Leave-One-Out Cross-Validation](#32-leave-one-out-cross-validation)
+	- [3.3 k-Fold Cross-Validation](#33-k-fold-cross-validation)
+	- [3.4 The Bootstrap](#34-the-bootstrap)
+		- [3.4.1 Estimating the Accuracy of a Statistic of Interest](#341-estimating-the-accuracy-of-a-statistic-of-interest)
+		- [3.4.2 Estimating the Accuracy of a Linear Regression Model](#342-estimating-the-accuracy-of-a-linear-regression-model)
 
 -----
 
-## <a name="Overview"></a>0. Overview
+## 0. Overview
 
 Resampling methods involve:
 
@@ -51,11 +46,11 @@ used resampling methods:
 	* **model selection**, the process of selecting the proper level of flexibility for a model
 * bootstrap, which is used most commonly to provide a measure of accuracy of a parameter estimate or of a given statistical learning method.
 
-## <a name="CV"></a>1. Cross-Validation
+## 1. Cross-Validation
 
 注意我们的目的是 estimate the test error rate，因为真实的 test error rate 是不可测量的。
 
-### <a name="VSA"></a>1.1 The Validation Set Approach
+### 1.1 The Validation Set Approach
 
 The validation set approach involves randomly dividing the available set of observations into two parts, a **training set** and a **validation set** (a.k.a. hold-out set). 
 
@@ -78,7 +73,7 @@ Cross-validation is a refinement of the validation set approach that addresses t
 	- 所以可以在多个 validation set 上 estimate 再求平均
 - validation set == hold-out set
 
-### <a name="LOOCV"></a>1.2 Leave-One-Out Cross-Validation
+### 1.2 Leave-One-Out Cross-Validation
 
 P178
 
@@ -114,7 +109,7 @@ $$
 
 where $h_i$ is the [leverage-statistic](http://erikyao.github.io/machine-learning/2014/09/21/machine-learning-linear-regression-part-2#High-Leverage-Points). The leverage lies between $\frac{1}{n}$ and 1, and reflects the amount that an observation influences its own fit. Hence the residuals for high-leverage points are inflated (inflate = enlarge) in this formula.
 
-### <a name="k-fold"></a>1.3 k-Fold Cross-Validation
+### 1.3 k-Fold Cross-Validation
 
 This approach involves randomly dividing the set of observations into $k$ groups, or folds, of approximately equal size. On the $i^{th}$ loop, keep the $i^{th}$ fold as a validation set, and the model is fit on the remaining $k-1$ folds. Repeat this procedure $k$ times.
 
@@ -131,7 +126,7 @@ It is not hard to see that LOOCV is a special case of $k$-fold CV in which $k$ i
 
 The most obvious advantage over LOOCV is computational.
 
-### <a name="k-fold-trade-off"></a>1.4 Bias-Variance Trade-Off for k-Fold Cross-Validation
+### 1.4 Bias-Variance Trade-Off for k-Fold Cross-Validation
 
 On bias:
 
@@ -147,7 +142,7 @@ On variance: It turns out that LOOCV has higher variance than does k-fold CV wit
 
 $k = 5$ or $k = 10$ been shown empirically to yield test error rate estimates that suffer neither from excessively high bias nor from very high variance.
 
-### <a name="CV-on-classification"></a>1.5 Cross-Validation on Classification Problems
+### 1.5 Cross-Validation on Classification Problems
 
 Cross-validation works the same way on classification problems, except that rather than using MSE, we instead use the number of misclassified observations, i.e. error rate to quantify test error.
 
@@ -160,7 +155,7 @@ $$
 
 P185-186 是一个借助 CV 来选择 Order of Polynomials 的例子，其实挺简单的，用 $k = 5$ or $k = 10$ 来 estimate 不同 order 的 Polynomial model 的 test error rate，选最小的 test error rate estimate 对应的 order 即可。
 
-## <a name="Bootstrap"></a>2. The Bootstrap
+## 2. The Bootstrap
 
 先解释下 bootstrap 这个词是啥意思吧，用了这么久的 jekyll bootstrap 也没认真查过……
 
@@ -205,9 +200,9 @@ P189 阐述了 bootstrap 的做法，其实挺简单：
 
 ~~~~~ 2016.08.16 补充 end ~~~~~
 
-## <a name="Lab"></a>3. Lab: Cross-Validation and the Bootstrap
+## 3. Lab: Cross-Validation and the Bootstrap
 
-### <a name="Lab-VSA"></a>3.1 The Validation Set Approach
+### 3.1 The Validation Set Approach
 
 ```r
 > library(ISLR)
@@ -218,7 +213,7 @@ P189 阐述了 bootstrap 的做法，其实挺简单：
 > mean((Auto$mpg - predict(lm.fit, Auto))[-train]^2) ## MSE
 ```
 	
-### <a name="Lab-LOOCV"></a>3.2 Leave-One-Out Cross-Validation
+### 3.2 Leave-One-Out Cross-Validation
 
 The LOOCV estimate can be automatically computed for any generalized linear model using the `glm()` and `cv.glm()` functions together.
 
@@ -242,7 +237,7 @@ The `cv.glm()` function is part of the `boot` library.
 
 所以这个 adjusted cross-validation estimate 是仅当用 $k$-fold 时才有点意义，在用 LOOCV 时，这两个值是基本 identical 的。而且目前我们也只用第一个值就够了。
 
-### <a name="Lab-k-fold"></a>3.3 k-Fold Cross-Validation
+### 3.3 k-Fold Cross-Validation
 
 ```r
 > set.seed(17)
@@ -257,9 +252,9 @@ The `cv.glm()` function is part of the `boot` library.
 	
 In principle, the computation time for LOOCV for a least squares linear model should be faster than for $k$-fold CV, due to the availability of the formula $(\ref{eq1.2})$ for LOOCV; however, unfortunately the `cv.glm()` function does not make use of this formula.
 
-### <a name="Lab-Bootstrap"></a>3.4 The Bootstrap
+### 3.4 The Bootstrap
 
-#### <a name="Lab-Bootstrap-1"></a>3.4.1 Estimating the Accuracy of a Statistic of Interest
+#### 3.4.1 Estimating the Accuracy of a Statistic of Interest
 
 Performing a bootstrap analysis in R entails only two steps.
 
@@ -301,7 +296,7 @@ original     bias  std . error
 t1*   0.5758  -7.315e   -05 0.0886
 ```
 	
-#### <a name="Lab-Bootstrap-2"></a>3.4.2 Estimating the Accuracy of a Linear Regression Model
+#### 3.4.2 Estimating the Accuracy of a Linear Regression Model
 
 P195 没啥新内容
 

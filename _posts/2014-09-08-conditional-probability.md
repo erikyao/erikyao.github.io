@@ -97,7 +97,7 @@ $$
 \end{align}
 $$
 
-## <a name="ex2"></a>5. Exercise 2 (draft)
+## 5. Exercise 2 (draft)
 
 Let $S=\{1,2,\cdots,n\}$. Suppose $A$ and $B$ are two random choices of subsets of $S$; they are independent, and each of them is equally likely to be any of the $2^n$ subsets of $S$ (including the empty set or $S$ itself). Prove that $P(A \subset B) = {(\frac{3}{4})}^n$. $P$ is the uniform distribution.
 

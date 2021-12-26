@@ -11,47 +11,38 @@ tags: []
 
 -----
 
-## 目录
+ToC:
 
-### 3. [Dimension Reduction Methods](#DR)
-
-- [3.1 Principal Components Regression](#PCR)
-- [3.2 Partial Least Squares](#PLS)
-
-### 4. [Considerations in High Dimensions](#HD-Considerations)
-
-- [4.1 High-Dimensional Data](#HD-data)
-- [4.2 What Goes Wrong in High Dimensions](#HD-wrong)
-- [4.3 Regression in High Dimensions](#HD-regression)
-- [4.4 Interpreting Results in High Dimensions](#HD-interpreting)
-
-### 5. [Lab 1: Subset Selection Methods](#Lab1)
-
-- [5.1 Best Subset Selection](#Lab-BSS)
-- [5.2 Forward and Backward Stepwise Selection](#Lab-FBSS)
-- [5.3 Choosing Among Models Using the Validation Set Approach and Cross-Validation](#Lab-CV)
-
-### 6. [Lab 2: Ridge Regression and the Lasso](#Lab2)
-
-- [6.1 Ridge Regression](#Lab-RR)
-- [6.2 The Lasso](#Lab-Lasso)
-
-### 7. [Lab 3: PCR and PLS Regression](#Lab3)
-
-- [7.1 Principal Components Regression](#Lab-PCR)
-- [7.2 Partial Least Squares](#Lab-PLS)
+- [3. Dimension Reduction Methods](#3-dimension-reduction-methods)
+  - [3.1 Principal Components Regression](#31-principal-components-regression)
+  - [3.2 Partial Least Squares](#32-partial-least-squares)
+- [4. Considerations in High Dimensions](#4-considerations-in-high-dimensions)
+  - [4.1 High-Dimensional Data](#41-high-dimensional-data)
+  - [4.2 What Goes Wrong in High Dimensions](#42-what-goes-wrong-in-high-dimensions)
+  - [4.3 Regression in High Dimensions](#43-regression-in-high-dimensions)
+  - [4.4 Interpreting Results in High Dimensions](#44-interpreting-results-in-high-dimensions)
+- [5. Lab 1: Subset Selection Methods](#5-lab-1-subset-selection-methods)
+  - [5.1 Best Subset Selection](#51-best-subset-selection)
+  - [5.2 Forward and Backward Stepwise Selection](#52-forward-and-backward-stepwise-selection)
+  - [5.3 Choosing Among Models Using the Validation Set Approach and Cross-Validation](#53-choosing-among-models-using-the-validation-set-approach-and-cross-validation)
+- [6. Lab 2: Ridge Regression and the Lasso](#6-lab-2-ridge-regression-and-the-lasso)
+  - [6.1 Ridge Regression](#61-ridge-regression)
+  - [6.2 The Lasso](#62-the-lasso)
+- [7. Lab 3: PCR and PLS Regression](#7-lab-3-pcr-and-pls-regression)
+  - [7.1 Principal Components Regression](#71-principal-components-regression)
+  - [7.2 Partial Least Squares](#72-partial-least-squares)
 
 -----
 	
-## <a name="DR"></a>3. Dimension Reduction Methods
+## 3. Dimension Reduction Methods
 
 P229 有些铺垫用的变换，看看就好。
 
-### <a name="PCR"></a>3.1 Principal Components Regression
+### 3.1 Principal Components Regression
 
 P230-236
 	
-### <a name="PLS"></a>3.2 Partial Least Squares
+### 3.2 Partial Least Squares
 
 PCA involves identifying linear combinations, or directions, that best represent the predictors $ X_1, \cdots, X_p$. These directions are identified in an unsupervised way, since 
 
@@ -64,15 +55,15 @@ PLS is a supervised alternative to partial least PCA. Roughly speaking, the PLS 
 
 * [Partial Least Square Regression PLS-Regression ](http://www.utdallas.edu/~herve/Abdi-PLSR2007-pretty.pdf)
 
-## <a name="HD-Considerations"></a>4. Considerations in High Dimensions
+## 4. Considerations in High Dimensions
 
-### <a name="HD-data"></a>4.1 High-Dimensional Data
+### 4.1 High-Dimensional Data
 
 Throughout most of the field's history, the bulk of scientific problems requiring the use of statistics have been low-dimensional. 
 
 但是现在时代不同了。Data sets containing more features than observations are often referred to as high-dimensional.
 
-### <a name="HD-wrong"></a>4.2 What Goes Wrong in High Dimensions
+### 4.2 What Goes Wrong in High Dimensions
 
 We examine least squares regression here, but the same concepts apply to logistic regression, linear discriminant analysis, and other classical statistical approaches.
 
@@ -82,7 +73,7 @@ We saw a number of approaches for adjusting the training set RSS or $R^2$ in ord
 
 Clearly, alternative approaches that are better-suited to the high-dimensional setting are required.
 
-### <a name="HD-regression"></a>4.3 Regression in High Dimensions
+### 4.3 Regression in High Dimensions
 
 本章所讨论的 forward stepwise selection、ridge、lasso、PCA are particularly useful for performing regression in the high-dimensional setting.
 
@@ -90,13 +81,13 @@ In general, adding additional signal features that are truly associated with the
 
 However, adding noise features that are not truly associated with the response will lead to a deterioration in the fitted model, and consequently an increased test set error. This is because noise features increase the dimensionality of the problem, exacerbating the risk of overfitting (since noise features may be assigned nonzero coefficients due to chance associations with the response on the training set) without any potential upside in terms of improved test set error.
 
-### <a name="HD-interpreting"></a>4.4 Interpreting Results in High Dimensions
+### 4.4 Interpreting Results in High Dimensions
 
 P243
 
-## <a name="Lab1"></a>5. Lab 1: Subset Selection Methods
+## 5. Lab 1: Subset Selection Methods
 
-### <a name="Lab-BSS"></a>5.1 Best Subset Selection
+### 5.1 Best Subset Selection
 
 ```r
 > library(ISLR)
@@ -189,7 +180,7 @@ The top row of each plot contains a black square for each variable selected acco
   -122.952    0.264
 ```
 	    
-### <a name="Lab-FBSS"></a>5.2 Forward and Backward Stepwise Selection	  
+### 5.2 Forward and Backward Stepwise Selection	  
 
 ```r
 > regfit.fwd = regsubsets(Salary~., data=Hitters, nvmax=19, method="forward")
@@ -199,7 +190,7 @@ The top row of each plot contains a black square for each variable selected acco
 > summary(regfit.bwd)
 ```
 
-### <a name="Lab-CV"></a>5.3 Choosing Among Models Using the Validation Set Approach and Cross-Validation
+### 5.3 Choosing Among Models Using the Validation Set Approach and Cross-Validation
 	
 ```r
 > set.seed(1)
@@ -281,7 +272,7 @@ We see that cross-validation selects an 11-variable model. We now perform best s
 > coef(reg.best, 11)
 ```
 	
-## <a name="Lab2"></a>6. Lab 2: Ridge Regression and the Lasso
+## 6. Lab 2: Ridge Regression and the Lasso
 
 Function `glmnet()` in `glmnet` package can be used to fit ridge regression models, lasso models, and more.
 
@@ -294,7 +285,7 @@ The syntax is slightly different as we must pass in an `x` matrix as well as a `
 	
 The `model.matrix()` function is particularly useful for creating `x`; not only does it produce a matrix corresponding to the 19 predictors but it also automatically transforms any qualitative variables into dummy variables. The latter property is important because `glmnet()` can only take numerical, quantitative inputs.
 
-### <a name="Lab-RR"></a>6.1 Ridge Regression
+### 6.1 Ridge Regression
 
 The `glmnet()` function has an `alpha` argument that determines what type of model is fit. If `alpha=0` then a ridge regression model is fit, and if `alpha=1` then a lasso model is fit. We first fit a ridge regression model.
 
@@ -387,7 +378,7 @@ Finally, we refit our ridge regression model on the full data set, using the val
 > predict(out, type="coefficients", s=bestlam)[1:20,]
 ```
 
-### <a name="Lab-Lasso"></a>6.2 The Lasso
+### 6.2 The Lasso
 
 ```r
 > lasso.mod = glmnet(x[train,], y[train], alpha=1, lambda=grid)
@@ -408,9 +399,9 @@ Finally, we refit our ridge regression model on the full data set, using the val
 	
 Here we see that 12 of the 19 coefficient estimates are exactly zero.
 
-## <a name="Lab3"></a>7. Lab 3: PCR and PLS Regression
+## 7. Lab 3: PCR and PLS Regression
 
-### <a name="Lab-PCR"></a>7.1 Principal Components Regression
+### 7.1 Principal Components Regression
 
 PCR can be performed using the `pcr()`  function, which is part of the `pls` library. Again, ensure that the missing values have been removed from the data.
 
@@ -462,7 +453,7 @@ Finally, we fit PCR on the full data set, using $ M = 7 $, the number of compone
 > summary(pcr.fit)
 ```
 	
-### <a name="Lab-PLS"></a>7.2 Partial Least Squares
+### 7.2 Partial Least Squares
 
 We implement PLS using the `plsr()` function, also in the `pls` library. The syntax is just like that of the `pcr()` function.
 

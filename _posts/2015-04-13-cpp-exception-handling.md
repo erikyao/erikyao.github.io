@@ -11,18 +11,18 @@ tags: []
 
 -----
 
-## 目录
+ToC:
 
-- [1. Throwing](#throw)
-- [2. Catching all](#catch-all)
-- [3. Re-throwing](#re-throw)
-- [4. When an exception is never caught](#never-caught)
-- [5. Exceptions during construction](#construction-exception)
-	- [`auto_ptr`](#auto_ptr)
-- [6. Function-level try-blocks](#try-function)
-- [7. Standard exceptions](#standard-exception)
-- [8. Declaring a throw](#exception-specification)
-- [9. Exception safety](#exception-safety)
+- [1. Throwing](#1-throwing)
+- [2. Catching all](#2-catching-all)
+- [3. Re-throwing](#3-re-throwing)
+- [4. When an exception is never caught](#4-when-an-exception-is-never-caught)
+- [5. Exceptions during construction](#5-exceptions-during-construction)
+	- [auto_ptr](#auto_ptr)
+- [6. Function-level try-blocks](#6-function-level-try-blocks)
+- [7. Standard exceptions](#7-standard-exceptions)
+- [8. Declaring a throw](#8-declaring-a-throw)
+- [9. Exception safety](#9-exception-safety)
 
 -----
 
@@ -31,7 +31,7 @@ There are two basic models in exception-handling theory: termination and resumpt
 * C++ and Java both support termination, which means there’s no way to automatically resume execution at the point where the exception occurred.
 * Using resumption semantics means that the exception handler is expected to do something to rectify the situation, and then the faulting code is automatically retried, presuming success the second time.
 
-## <a name="throw"></a>1. Throwing 
+## 1. Throwing 
 
 You can use any type (including built-in types) as an exception when you throw, but usually you’ll create special classes for throwing exceptions.
 
@@ -54,7 +54,7 @@ int main() {
 }
 ```
 
-## <a name="catch-all"></a>2. Catching all
+## 2. Catching all
 	
 如果想像 Java 的 `catch(Exception e)` 一样来抓所有的 exception，C++ 需要写成 `catch (...)`：
 
@@ -66,7 +66,7 @@ catch(...) {
 
 The ellipsis ([ɪˈlɪpsɪs], (语法结构上的)省略) gives you no possibility to have an argument, so you can’t know anything about the exception or its type. It’s a “catch-all.” Such a catch clause is often used to clean up some resources and then re-throw the exception.
 
-## <a name="re-throw"></a>3. Re-throwing
+## 3. Re-throwing
 
 You re-throw an exception by using `throw` with no argument inside a handler:
 
@@ -79,7 +79,7 @@ catch(...) {
 
 In addition, everything about the exception object is preserved, so the handler at the higher context that catches the specific exception type can extract any information the object may contain.
 
-## <a name="never-caught"></a>4. When an exception is never caught
+## 4. When an exception is never caught
 
 If no handler at any level catches the exception, the special library function `terminate()` (declared in the `<exception>` header) is automatically called. By default, `terminate()` calls the Standard C library function `abort()`, which abruptly exits the program. 
 
@@ -87,7 +87,7 @@ You can install your own `terminate()` function using the standard `set_terminat
 
 书上还有一种写法要注意下：在 destructor 中 throw 一个 exception 是不可能被 catch 到的，所以会直接到 `terminate()` 手上。所以 destructor 中必须是不能 throw 的。
 
-## <a name="construction-exception"></a>5. Exceptions during construction
+## 5. Exceptions during construction
 
 If an exception is thrown inside a constructor, the associated destructor will not be called for that object. 对这个 object 而言，这并不是内存泄露，因为这个 object 并没有被创建成功。
 
@@ -119,7 +119,7 @@ If an exception is thrown inside a constructor, the associated destructor will n
 		- This technique is called _Resource Acquisition Is Initialization_ (**RAII** for short)
 	- `ResA` 和 `ResB` 可以用 template 来写
 	
-### <a name="auto_ptr"></a>auto_ptr
+### auto_ptr
 
 `auto_ptr` 是 `#include <memory>` 自带的 RAII wrapper for pointers. `auto_ptr<A>` 就相当于上面的 `ResA`。
 
@@ -141,7 +141,7 @@ Both `auto_ptr` and `tr1::shared_ptr` use `delete` in their destructors, not `de
 
 _~~~~~~~~~~ 2015-05-21 补充完毕 ~~~~~~~~~~_
 
-## <a name="try-function"></a>6. Function-level try-blocks
+## 6. Function-level try-blocks
 
 所谓 function–level try-block，就是把整个 function body 当做 try-block。那 try 写在哪儿？写在 function name 和 `{` 中间：
 
@@ -166,7 +166,7 @@ Ext(int i) try : Base(i) { // Base 的 constructor 可能抛异常
 }
 ```
 
-## <a name="standard-exception"></a>7. Standard exceptions
+## 7. Standard exceptions
 
 - All standard exception classes derive ultimately from the class `exception`, defined in the header `<exception>`.
 - The two main derived classes are `logic_error` and `runtime_error`, which are found in `<stdexcept>` (which itself includes `<exception>`). 
@@ -194,7 +194,7 @@ Ext(int i) try : Base(i) { // Base 的 constructor 可能抛异常
 | overflow_error        | Reports an arithmetic overflow.        |
 | bad_alloc             | Reports a failure to allocate storage. |
 
-## <a name="exception-specification"></a>8. Declaring a throw
+## 8. Declaring a throw
 
 标准用词是 exception specification，懂了就好。注意语法：
 
@@ -217,7 +217,7 @@ Since exception specifications are logically part of a function’s declaration,
 - You can, however, specify fewer exceptions or none at all.
 - You can also specify `ExtException` for `Ext` if there is `BaseException` for `Base`. (可以理解为协变类型)
 
-## <a name="exception-safety"></a>9. Exception safety
+## 9. Exception safety
 
 书上举了个例子：Standard C++ Library 的 `stack`，`pop()` 是个 void 函数。To retrieve the top value, call `top()` before you call `pop()`. 为什么要这么设计？直接把 `pop()` 设计为 int 不好吗？比如：
 

@@ -11,36 +11,32 @@ tags: []
 
 -----
 
-## 目录
+ToC:
 
-### 1. [What Is Statistical Learning?](#What-Is-Statistical-Learning)
-  
-- [1.1 Why Estimate $ f $?](#Why-Estimate-f)   
-	- [1.1.1 For Prediction](#Prediction)
-	- [1.1.2 For Inference](#Inference)
-	- [1.1.3 Prediction vs Inference](#Prediction-vs-Inference)
-- [1.2 How Do We Estimate $ f $?](#How-Do-We-Estimate-f)
-	- [1.2.1 Parametric Methods](#Parametric-Methods)
-	- [1.2.2 Non-parametric Methods](#Non-parametric-Methods)
-- [1.3 The Trade-Off Between Prediction Accuracy and Model Interpretability](#Trade-Off)
-- 1.4 Supervised Versus Unsupervised Learning
-- 1.5 Regression Versus Classification Problems
-
-### 2. [Assessing Model Accuracy](#Assessing-Model-Accuracy)
-
-- [2.1 Measuring the Quality of Fit](#Measuring-the-Quality-of-Fit)   
-- [2.2 The Bias-Variance Trade-Off](#The-Bias-Variance-Trade-Off)   
-- 2.3 The Classification Setting
-	- [2.3.1 The Bayes Classifier](#The-Bayes-Classifier)
-	- [2.3.2 K-Nearest Neighbors](#K-Nearest-Neighbors)
-
-### 3. [Lab: Introduction to R](#Lab)
+- [1. What Is Statistical Learning?](#1-what-is-statistical-learning)
+	- [1.1 Why Estimate f?](#11-why-estimate-f)
+		- [1.1.1 For Prediction](#111-for-prediction)
+		- [1.1.2 For Inference](#112-for-inference)
+		- [1.1.3 Prediction vs Inference](#113-prediction-vs-inference)
+	- [1.2 How Do We Estimate $ f $?](#12-how-do-we-estimate--f-)
+		- [1.2.1 Parametric Methods](#121-parametric-methods)
+		- [1.2.2 Non-parametric Methods](#122-non-parametric-methods)
+	- [1.3 The Trade-Off Between Prediction Accuracy and Model Interpretability](#13-the-trade-off-between-prediction-accuracy-and-model-interpretability)
+	- [1.4 Supervised Versus Unsupervised Learning](#14-supervised-versus-unsupervised-learning)
+	- [1.5 Regression Versus Classification Problems](#15-regression-versus-classification-problems)
+- [2.2 Assessing Model Accuracy](#22-assessing-model-accuracy)
+	- [2.1 Measuring the Quality of Fit](#21-measuring-the-quality-of-fit)
+	- [2.2 The Bias-Variance Trade-Off](#22-the-bias-variance-trade-off)
+	- [2.3 The Classification Setting](#23-the-classification-setting)
+		- [2.3.1 The Bayes Classifier](#231-the-bayes-classifier)
+		- [2.3.2 K-Nearest Neighbors](#232-k-nearest-neighbors)
+- [3 Lab: Introduction to R](#3-lab-introduction-to-r)
 
 [trade-off]: https://farm2.staticflickr.com/1647/23894467586_88c19382ff_o_d.png
 		
 -----
 	
-## <a name="What-Is-Statistical-Learning"></a>1. What Is Statistical Learning?
+## 1. What Is Statistical Learning?
 
 The inputs go by different names, such as: 
 
@@ -69,13 +65,13 @@ In this formulation, we say $f $ represents the **systematic** information that 
 
 In essence, statistical learning refers to a set of approaches for estimating $ f $.
 
-### <a name="Why-Estimate-f"></a>1.1 Why Estimate f?
+### 1.1 Why Estimate f?
 
 There are two main reasons that we may wish to estimate f: prediction and inference.
 
 简单说就是：prediction 注重结果（一个预测的 $ Y $ 值），inference 注重关系（比如：哪个 $ X_j $ 最重要？$ X_j $ 与 $ Y $ 是正相关还是负相关？）
 
-#### <a name="Prediction"></a>1.1.1 For Prediction
+#### 1.1.1 For Prediction
 
 In many situations, a set of inputs $ X $ are readily available, but the output $ Y $ cannot be easily obtained. In this setting, since the error term averages to zero, we can predict $ Y $ using 
 
@@ -106,7 +102,7 @@ $$
 
 The focus of this book is on techniques for estimating $ f $ with the aim of minimizing the reducible error. It is important to keep in mind that the irreducible error will always provide an upper bound on the accuracy of our prediction for $ Y $. This bound is almost always unknown in practice.
 
-#### <a name="Inference"></a>1.1.2 For Inference
+#### 1.1.2 For Inference
 
 We instead want to understand the relationship between $ X $ and $ Y $, or more specifically, to understand how $ Y $ changes as a function of $ X_1, \cdots, X_p $. Now $ \hat f $ cannot be treated as a black box, because we need to know its exact form.
 
@@ -120,7 +116,7 @@ In contrast, one may be interested in answering questions such as:
 
 This situation falls into the inference paradigm.
 
-#### <a name="Prediction-vs-Inference"></a>1.1.3 Prediction vs Inference
+#### 1.1.3 Prediction vs Inference
 
 Depending on whether our ultimate goal is prediction, inference, or a combination of the two, different methods for estimating $ f $ may be appropriate. For example, linear models allow for relatively simple and interpretable inference, but may not yield as accurate predictions as some other approaches. In contrast, some of the highly non-linear approaches that we discuss in the later chapters of this book can potentially provide quite accurate predictions for $ Y $, but this comes at the expense of a less interpretable model for which inference is more challenging.
 
@@ -136,13 +132,13 @@ non-linear models:
 * better for predictions due to accuracy
 * less interpretable for inference
 
-### <a name="How-Do-We-Estimate-f"></a>1.2 How Do We Estimate $ f $?
+### 1.2 How Do We Estimate $ f $?
 
 Our goal is to apply a statistical learning method to the training data in order to estimate the unknown function $ f $. In other words, we want to find a function $ \hat f $ such that $ Y \approx \hat{f}(X) $ for any observation $ (X, Y) $.
 
 Broadly speaking, most statistical learning methods for this task can be characterized as either **parametric** or **non-parametric**.
 
-#### <a name="Parametric-Methods"></a>1.2.1 Parametric Methods
+#### 1.2.1 Parametric Methods
 
 其实挺简单的。
 
@@ -158,7 +154,7 @@ The potential disadvantage of a parametric approach is that the model we choose 
 
 We can try to address this problem by choosing flexible models that can fit many different possible functional forms for $ f $. But in general, fitting a more flexible model requires estimating a greater number of parameters. These more complex models can lead to a phenomenon known as **overfitting** the data, which essentially means they follow the errors, or **noise**, too closely.
 
-#### <a name="Non-parametric-Methods"></a>1.2.2 Non-parametric Methods
+#### 1.2.2 Non-parametric Methods
 
 Non-parametric methods do not make explicit assumptions about the functional form of $ f $. Instead they seek an estimate of $ f $ that gets as close to the data points as possible without being too rough or wiggly (constantly moving, especially with small, undirected movements).
 
@@ -176,7 +172,7 @@ E.g. spline:
 * It instead attempts to produce an estimate for $ f $ that is as close as possible to the observed data.
 	* usually a lower level of smoothness for a rougher fit
 		
-### <a name="Trade-Off"></a>1.3 The Trade-Off Between Prediction Accuracy and Model Interpretability
+### 1.3 The Trade-Off Between Prediction Accuracy and Model Interpretability
 
 Of the many methods that we examine in this book, some are less flexible, or more restrictive, in the sense that they can produce just a relatively small range of shapes to estimate $ f $. 
 
@@ -206,9 +202,9 @@ P26
 
 P28
 
-## <a name="Assessing-Model-Accuracy"></a>2.2 Assessing Model Accuracy
+## 2.2 Assessing Model Accuracy
 
-### <a name="Measuring-the-Quality-of-Fit"></a>2.1 Measuring the Quality of Fit
+### 2.1 Measuring the Quality of Fit
 
 In the regression setting, the most commonly-used measure is the **Mean Squared Error (MSE)**
 
@@ -229,7 +225,7 @@ As model flexibility increases, training MSE will decrease, but the test MSE may
 
 Overfitting refers specifically to the case in which a less flexible model would have yielded a smaller test MSE.
 
-### <a name="The-Bias-Variance-Trade-Off"></a>2.2 The Bias-Variance Trade-Off
+### 2.2 The Bias-Variance Trade-Off
 
 The expected test MSE, for a given value $ x_0 $, can always be decomposed into the sum of three fundamental quantities: 
 
@@ -274,7 +270,7 @@ The Bayes Classifier is a very simple classifier that assigns each observation t
 
 The Bayes classifier produces the lowest possible test error rate, called the Bayes error rate. The Bayes error rate is analogous to the irreducible error, discussed earlier.
 
-#### <a name="K-Nearest-Neighbors"></a>2.3.2 K-Nearest Neighbors
+#### 2.3.2 K-Nearest Neighbors
 
 E.g. we have plotted a small training data set consisting of six blue and six orange observations. Our goal is to make a prediction for the point labeled by the black cross. Suppose that we choose $ K = 3 $. Then KNN will first identify the three observations that are closest to the cross. This neighborhood is shown as a circle. It consists of two blue points and one orange point, resulting in estimated probabilities of 2/3 for the blue class and 1/3 for the orange class. Hence KNN will predict that the black cross belongs to the blue class.
 
@@ -291,7 +287,7 @@ $K$ too large:
 * a decision boundary that is close to linear
 * low variance but high bias
 
-## <a name="Lab"></a>3 Lab: Introduction to R
+## 3 Lab: Introduction to R
 
 只记录了新遇到的 function。
 

@@ -7,31 +7,24 @@ tags: [Math-Statistics]
 ---
 {% include JB/setup %}
 
-## Table of content
+ToC:
 
-### 0. [Dictionary](#Dictionary)
-
-### 1. [Moment](#Moment)
-  
-- [1.1 Definition in Physics](#definition-in-physics)
-- [1.2 Raw Moment](#raw-moment)
-- [1.3 Central Moment](#central-moment)   
-- [1.4 Standardized Moment](#standardized-moment)
-
-### 2. [Expectation](#Expectation)
-
-- [2.1 Expectation Equals Arithmetic Mean](#expectation-eq-mean)
-- [2.2 Expectation Operator](#expectation-operator)
-
-### 3. [Variance](#Variance)
-
-### 4. [Skewness](#Skewness)
-
-### 5. [Kurtosis](#Kurtosis)
+- [0. Dictionary](#0-dictionary)
+- [1. Moment](#1-moment)
+	- [1.1 Definition in Physics](#11-definition-in-physics)
+	- [1.2 Raw Moment](#12-raw-moment)
+	- [1.3 Central Moment](#13-central-moment)
+	- [1.4 Standardized Moment](#14-standardized-moment)
+- [2. Expectation](#2-expectation)
+	- [2.1 Expectation Equals Arithmetic Mean](#21-expectation-equals-arithmetic-mean)
+	- [2.2 Expectation Operator](#22-expectation-operator)
+- [3. Variance](#3-variance)
+- [4. Skewness](#4-skewness)
+- [5. Kurtosis](#5-kurtosis)
 
 -----
 
-## <a name="Dictionary"></a>0. Dictionary
+## 0. Dictionary
 
 | English               | Chinese  | Symbol           |
 |-----------------------|----------|------------------|
@@ -49,9 +42,9 @@ tags: [Math-Statistics]
 | Skewness [sk'ju:nes]  | 偏度     | $\gamma_1$ |
 | Kurtosis [kɜ:'təʊsɪs] | 峰度     | $\gamma_2$ |
 
-## <a name="Moment"></a>1. Moment
+## 1. Moment
 
-### <a name="definition-in-physics"></a>1.1 Definition in Physics
+### 1.1 Definition in Physics
 
 数学中矩的概念来自于物理学。在物理学中，矩，又称动差，是用来表示物体形状的物理量。  
 
@@ -69,7 +62,7 @@ $$
 \mu'_n = \int^\infty_{-\infty} (x-c)^n f(x) dx
 $$
 
-### <a name="raw-moment"></a>1.2 Raw Moment
+### 1.2 Raw Moment
 
 主要参考 [Raw Moment](http://mathworld.wolfram.com/RawMoment.html)。  
 
@@ -89,7 +82,7 @@ $$
 
 特定地，有 $\mu'_0 = 1$
 
-### <a name="central-moment"></a>1.3 Central Moment
+### 1.3 Central Moment
 
 主要参考 [Central Moment](http://mathworld.wolfram.com/CentralMoment.html)。  
 
@@ -101,7 +94,7 @@ $$
 
 特定地，有 $\mu_0 = 1$ 和 $\mu_1 = 0$
 
-### <a name="standardized-moment"></a>1.4 Standardized Moment
+### 1.4 Standardized Moment
 
 $$
 \alpha_n =  \frac{\mu_n}{\sigma^n} 
@@ -109,9 +102,9 @@ $$
 
 特定地，有 $\alpha_1 = 0$ 和 $\alpha_2 = 1$
 
-## <a name="Expectation"></a>2. Expectation
+## 2. Expectation
 
-### <a name="expectation-eq-mean"></a>2.1 Expectation Equals Arithmetic Mean
+### 2.1 Expectation Equals Arithmetic Mean
 
 Expectation is defined as $1^{st}$ raw moment: 
 
@@ -121,7 +114,7 @@ $$
 
 Expectation is the arithmetic mean of any random variable coming from any probability distribution，这个不用怀疑，可以参见这篇 [Why is expectation the same as the arithmetic mean?](http://stats.stackexchange.com/questions/30365/why-is-expectation-the-same-as-the-arithmetic-mean)。
 
-### <a name="expectation-operator"></a>2.2 Expectation Operator
+### 2.2 Expectation Operator
 
 其实就是把 $\mu$ 看做 a function of $x$:
 
@@ -143,7 +136,7 @@ $$
 * $E[(X-\mu)^n] = \mu_n$
 * $E \left [ \big(\frac{X-\mu}{\sigma} \big)^n \right ] = \frac{E[(X-\mu)^n]}{\sigma^n} = \alpha_n$
 
-## <a name="Variance"></a>3. Variance
+## 3. Variance
 
 Variance is defined as $2^{nd}$ central moment:
 
@@ -151,7 +144,7 @@ $$
 \sigma^2 = \mu_2 = \int^\infty_{-\infty} (x-\mu)^2 f(x) dx = E[(X-\mu)^2] = E[X^2] - \mu^2 
 $$
 
-## <a name="Skewness"></a>4. Skewness
+## 4. Skewness
 
 Skewness is defined as $3^{rd}$ standardized moment: 
 
@@ -180,7 +173,7 @@ Skewness is a measure of asymmetry [əˈsɪmɪtri]:
 
 > One way to remember the left/right stuff is that it corresponds with the orientation of the numberline. Since negative numbers are to the left of zero, negative skewness is the same as left-skewed. The same goes for positive skewness and right-skewed.
 
-## <a name="Kurtosis"></a>5. Kurtosis
+## 5. Kurtosis
 
 Kurtosis, from Greek word "kyrtos" for convex, related to word "curve", is mainly defined by $4^{th}$ standardized moment:
 

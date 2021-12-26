@@ -11,18 +11,18 @@ tags: []
 
 -----
 
-## 目录
+ToC:
 
-- [1. `copy`(a.begin, a.end, b.begin) & `equal`(a.begin, a.end, b.begin) & `back_inserter`(vector)](#ga1)
-- [2. `remove_copy_if`(a.begin, a.end, b.begin, predicateA) & `remove_copy_if`(a.begin, a.end, b.begin, predicateA, replacement) & `replace_if`(a.begin, a.end, predicateA, replacement)](#ga2)
-- [3. `count_if`(a.begin, a.end, predicateA) & `find`(a.begin, a.end, target)](#ga3)
-- [4. `ostream_iterator`(ostream, delimiter) & `istream_iterator`(istream)](#ga4)
-- [5. `for_each`(a.begin, a.end, func)](#ga5)
-- [6. `transform`(a.begin, a.end, b.begin, func)](#ga6)
+- [1. `copy(a.begin, a.end, b.begin)` / `equal(a.begin, a.end, b.begin)` / `back_inserter(vector)`](#1-copyabegin-aend-bbegin--equalabegin-aend-bbegin--back_insertervector)
+- [2. `remove_copy_if(a.begin, a.end, b.begin, predicateA)` / `remove_copy_if(a.begin, a.end, b.begin, predicateA, replacement)` / `replace_if(a.begin, a.end, predicateA, replacement)`](#2-remove_copy_ifabegin-aend-bbegin-predicatea--remove_copy_ifabegin-aend-bbegin-predicatea-replacement--replace_ifabegin-aend-predicatea-replacement)
+- [3. `count_if(a.begin, a.end, predicateA)` / `find(a.begin, a.end, target)`](#3-count_ifabegin-aend-predicatea--findabegin-aend-target)
+- [4. `ostream_iterator<T>(ostream, delimiter)` / `istream_iterator<T>(istream)`](#4-ostream_iteratortostream-delimiter--istream_iteratortistream)
+- [5. `for_each(a.begin, a.end, func)`](#5-for_eachabegin-aend-func)
+- [6. `transform(a.begin, a.end, b.begin, func)`](#6-transformabegin-aend-bbegin-func)
 
 -----
 
-## <a name="ga1"></a>1. copy(a.begin, a.end, b.begin) & equal(a.begin, a.end, b.begin) & back_inserter(vector)
+## 1. `copy(a.begin, a.end, b.begin)` / `equal(a.begin, a.end, b.begin)` / `back_inserter(vector)`
 
 ```cpp
 #include <algorithm>
@@ -97,7 +97,7 @@ void copy(Iterator begin, Iterator end, Iterator dest) {
 
 Whichever argument type you use in the call, `copy()` assumes it properly implements `operator*` and `operator++`. If it doesn’t, you’ll get a compile-time error.
 
-## <a name="ga2"></a>2. remove_copy_if(a.begin, a.end, b.begin, predicateA) & remove_copy_if(a.begin, a.end, b.begin, predicateA, replacement) & replace_if(a.begin, a.end, predicateA, replacement)
+## 2. `remove_copy_if(a.begin, a.end, b.begin, predicateA)` / `remove_copy_if(a.begin, a.end, b.begin, predicateA, replacement)` / `replace_if(a.begin, a.end, predicateA, replacement)`
 
 先来个例子看下什么叫 predicate。注意这里 predicate 是 noun，读作 /'predɪkət/，意思是谓语，(grammar) The part of the sentence (or clause) which states something about the subject or the object of the sentence.
 
@@ -191,7 +191,7 @@ int main() {
 */
 ```
 
-## <a name="ga3"></a>3. count_if(a.begin, a.end, predicateA) & find(a.begin, a.end, target)
+## 3. `count_if(a.begin, a.end, predicateA)` / `find(a.begin, a.end, target)`
 
 `count_if(a.begin, a.end, predicateA)` 返回容器 `a` 内满足条件 `predicateA` 的元素的个数：
 
@@ -239,7 +239,7 @@ int main() {
 }
 ```
 
-## <a name="ga4"></a>4. ostream_iterator<T>(ostream, delimiter) & istream_iterator<T>(istream)
+## 4. `ostream_iterator<T>(ostream, delimiter)` / `istream_iterator<T>(istream)`
 
 ```cpp
 #include <algorithm>
@@ -297,7 +297,7 @@ int main() {
 
 The first argument `istream_iterator<int>(inf)` attaches an `istream_iterator` object to the input file stream `inf`. The second argument `istream_iterator<int>()` uses the default constructor which builds a special `istream_iterator` that indicates EOF, so that when the first iterator finally encounters the end of the physical file, the algorithm is terminated correctly.
 
-## <a name="ga5"></a>5. for_each(a.begin, a.end, func)
+## 5. `for_each(a.begin, a.end, func)`
 
 ```cpp
 #include <algorithm>
@@ -329,7 +329,7 @@ int main() {
 
 对，这就是 R 里面的 apply！
 
-## <a name="ga6"></a>6. transform(a.begin, a.end, b.begin, func)
+## 6. `transform(a.begin, a.end, b.begin, func)`
 
 ```cpp
 #include <string>

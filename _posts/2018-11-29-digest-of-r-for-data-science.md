@@ -7,68 +7,66 @@ tags: [Book]
 ---
 {% include JB/setup %}
 
-<!-- TOC -->
+ToC:
 
 - [Part 0 - Overview](#part-0---overview)
 - [Part I - Exploration](#part-i---exploration)
-    - [Chapter 1 - Data Visualization with `ggplot2`](#chapter-1---data-visualization-with-ggplot2)
-    - [Chapter 2 - Workflow: Basics (R 语言基础；略)](#chapter-2---workflow-basics-r-语言基础略)
-    - [Chapter 3 - Data Transformation with `dplyr`](#chapter-3---data-transformation-with-dplyr)
-        - [3.1 `dplyr` Basics](#31-dplyr-basics)
-        - [3.2 `dplyr::filter()`](#32-dplyrfilter)
-        - [3.3 `dplyr::arrange()`](#33-dplyrarrange)
-        - [3.4 `dplyr::select()`](#34-dplyrselect)
-            - [3.4.1 `dplyr::select()` helpers](#341-dplyrselect-helpers)
-            - [3.4.2 `dplyr::select()` colnames context](#342-dplyrselect-colnames-context)
-            - [3.4.3 Digression: `::` 与 `:::`](#343-digression--与-)
-        - [3.5 Digression: `dplyr::rename()` 与 `dplyr::select()` 与 Named Arguments](#35-digression-dplyrrename-与-dplyrselect-与-named-arguments)
-        - [3.6 `dplyr::mutate()` 与 `dplyr::transmutate()`](#36-dplyrmutate-与-dplyrtransmutate)
-        - [3.7 `dplyr::summarize()`](#37-dplyrsummarize)
-        - [3.8 `dplyr::group_by()`](#38-dplyrgroup_by)
-    - [Detour: Chapter 14 - Pipes with `magrittr`](#detour-chapter-14---pipes-with-magrittr)
-        - [14.1 Direct Pipe: `%>%`](#141-direct-pipe)
-        - [14.2 Tee Pipe: `%>T%`](#142-tee-pipe)
-        - [14.3 Exposition Pipe: `%$%`](#143-exposition-pipe)
-        - [14.4 Bidirectional Pipe: `%<>%`](#144-bidirectional-pipe)
-    - [Chapter 4 - Workflow: Scripts (RStudio 基础；略)](#chapter-4---workflow-scripts-rstudio-基础略)
-    - [Chapter 5 - Exploratory Data Analysis (EDA；略)](#chapter-5---exploratory-data-analysis-eda略)
-    - [Chapter 6 - Workflow: Projects (继续 RStudio 基础；略)](#chapter-6---workflow-projects-继续-rstudio-基础略)
+  - [Chapter 1 - Data Visualization with `ggplot2`](#chapter-1---data-visualization-with-ggplot2)
+  - [Chapter 2 - Workflow: Basics (R 语言基础；略)](#chapter-2---workflow-basics-r-语言基础略)
+  - [Chapter 3 - Data Transformation with `dplyr`](#chapter-3---data-transformation-with-dplyr)
+    - [3.1 `dplyr` Basics](#31-dplyr-basics)
+    - [3.2 `dplyr::filter()`](#32-dplyrfilter)
+    - [3.3 `dplyr::arrange()`](#33-dplyrarrange)
+    - [3.4 `dplyr::select()`](#34-dplyrselect)
+      - [3.4.1 `dplyr::select()` helpers](#341-dplyrselect-helpers)
+      - [3.4.2 `dplyr::select()` colnames context](#342-dplyrselect-colnames-context)
+      - [3.4.3 Digression: `::` 与 `:::`](#343-digression--与-)
+    - [3.5 Digression: `dplyr::rename()` 与 `dplyr::select()` 与 Named Arguments](#35-digression-dplyrrename-与-dplyrselect-与-named-arguments)
+    - [3.6 `dplyr::mutate()` 与 `dplyr::transmutate()`](#36-dplyrmutate-与-dplyrtransmutate)
+    - [3.7 `dplyr::summarize()`](#37-dplyrsummarize)
+    - [3.8 `dplyr::group_by()`](#38-dplyrgroup_by)
+  - [Detour: Chapter 14 - Pipes with `magrittr`](#detour-chapter-14---pipes-with-magrittr)
+    - [14.1 Direct Pipe: `%>%`](#141-direct-pipe-)
+    - [14.2 Tee Pipe: `%>T%`](#142-tee-pipe-t)
+    - [14.3 Exposition Pipe: `%$%`](#143-exposition-pipe-)
+    - [14.4 Bidirectional Pipe: `%<>%`](#144-bidirectional-pipe-)
+  - [Chapter 4 - Workflow: Scripts (RStudio 基础；略)](#chapter-4---workflow-scripts-rstudio-基础略)
+  - [Chapter 5 - Exploratory Data Analysis (EDA；略)](#chapter-5---exploratory-data-analysis-eda略)
+  - [Chapter 6 - Workflow: Projects (继续 RStudio 基础；略)](#chapter-6---workflow-projects-继续-rstudio-基础略)
 - [Part II - Wrangle](#part-ii---wrangle)
-    - [Chapter 7 - Tibbles with `tibble`](#chapter-7---tibbles-with-tibble)
-    - [Chapter 8 - Data Import with `readr`](#chapter-8---data-import-with-readr)
-    - [Chapter 9 - Tidy Data with `tidyr`](#chapter-9---tidy-data-with-tidyr)
-        - [9.1 `tidyr::gather()` == `melt()` / `tidyr::spread()` == `cast()`](#91-tidyrgather--melt--tidyrspread--cast)
-        - [9.2 `tidyr::separate()` / `tidyr::unite()`: 处理包含复合值的 column](#92-tidyrseparate--tidyrunite-处理包含复合值的-column)
-    - [Chapter 10 - Relational Data with `dplyr`](#chapter-10---relational-data-with-dplyr)
-    - [Chapter 11 - Strings with `stringr`](#chapter-11---strings-with-stringr)
-    - [Chapter 12 - Factors with `forcats` (略)](#chapter-12---factors-with-forcats-略)
-    - [Chapter 13 - Dates and Times with `lubridate` (略)](#chapter-13---dates-and-times-with-lubridate-略)
+  - [Chapter 7 - Tibbles with `tibble`](#chapter-7---tibbles-with-tibble)
+  - [Chapter 8 - Data Import with `readr`](#chapter-8---data-import-with-readr)
+  - [Chapter 9 - Tidy Data with `tidyr`](#chapter-9---tidy-data-with-tidyr)
+    - [9.1 `tidyr::gather()` == `melt()` / `tidyr::spread()` == `cast()`](#91-tidyrgather--melt--tidyrspread--cast)
+    - [9.2 `tidyr::separate()` / `tidyr::unite()`: 处理包含复合值的 column](#92-tidyrseparate--tidyrunite-处理包含复合值的-column)
+  - [Chapter 10 - Relational Data with `dplyr`](#chapter-10---relational-data-with-dplyr)
+  - [Chapter 11 - Strings with `stringr`](#chapter-11---strings-with-stringr)
+  - [Chapter 12 - Factors with `forcats` (略)](#chapter-12---factors-with-forcats-略)
+  - [Chapter 13 - Dates and Times with `lubridate` (略)](#chapter-13---dates-and-times-with-lubridate-略)
 - [Part III - Program](#part-iii---program)
-    - [Chapter 14 - Pipes with `magrittr` (Relocated 到 Chapter 3 和 Chapter 4 之间)](#chapter-14---pipes-with-magrittr-relocated-到-chapter-3-和-chapter-4-之间)
-    - [Chapter 15 - Functions (竟然还是 R 语言基础；略)](#chapter-15---functions-竟然还是-r-语言基础略)
-    - [Chapter 16 - Vectors (竟然还是 R 语言基础；略)](#chapter-16---vectors-竟然还是-r-语言基础略)
-    - [Chapter 17 - Iteration with `purrr`](#chapter-17---iteration-with-purrr)
-        - [17.1 Shortcuts](#171-shortcuts)
-        - [17.2 Dealing with Failure: `purrr::safely()` / `purrr::possibly()` / `purrr::quietly()`](#172-dealing-with-failure-purrrsafely--purrrpossibly--purrrquietly)
-        - [17.3 多路 Iteration：`purrr:map2()` / `purrr:pmap()` / `purrr:invoke_map()`](#173-多路-iterationpurrrmap2--purrrpmap--purrrinvoke_map)
-        - [17.4 Element-wise 的 void 操作：`purrr:walk()`](#174-element-wise-的-void-操作purrrwalk)
-        - [17.5 Predicate Functions](#175-predicate-functions)
-        - [17.6 `purrr::reduce()` and `purrr::accumulate()`](#176-purrrreduce-and-purrraccumulate)
+  - [Chapter 14 - Pipes with `magrittr` (Relocated 到 Chapter 3 和 Chapter 4 之间)](#chapter-14---pipes-with-magrittr-relocated-到-chapter-3-和-chapter-4-之间)
+  - [Chapter 15 - Functions (竟然还是 R 语言基础；略)](#chapter-15---functions-竟然还是-r-语言基础略)
+  - [Chapter 16 - Vectors (竟然还是 R 语言基础；略)](#chapter-16---vectors-竟然还是-r-语言基础略)
+  - [Chapter 17 - Iteration with `purrr`](#chapter-17---iteration-with-purrr)
+    - [17.1 Shortcuts](#171-shortcuts)
+    - [17.2 Dealing with Failure: `purrr::safely()` / `purrr::possibly()` / `purrr::quietly()`](#172-dealing-with-failure-purrrsafely--purrrpossibly--purrrquietly)
+    - [17.3 多路 Iteration：`purrr:map2()` / `purrr:pmap()` / `purrr:invoke_map()`](#173-多路-iterationpurrrmap2--purrrpmap--purrrinvoke_map)
+    - [17.4 Element-wise 的 void 操作：`purrr:walk()`](#174-element-wise-的-void-操作purrrwalk)
+    - [17.5 Predicate Functions](#175-predicate-functions)
+    - [17.6 `purrr::reduce()` and `purrr::accumulate()`](#176-purrrreduce-and-purrraccumulate)
 - [Part IV - Model](#part-iv---model)
-    - [Chapter 18 - Model Basics with `modelr` (略)](#chapter-18---model-basics-with-modelr-略)
-    - [Chapter 19 - Model Basics with `modelr` (略)](#chapter-19---model-basics-with-modelr-略)
-    - [Chapter 20 - Many Models with `purrr` and `broom` (略)](#chapter-20---many-models-with-purrr-and-broom-略)
+  - [Chapter 18 - Model Basics with `modelr` (略)](#chapter-18---model-basics-with-modelr-略)
+  - [Chapter 19 - Model Building (略)](#chapter-19---model-building-略)
+  - [Chapter 20 - Many Models with `purrr` and `broom` (略)](#chapter-20---many-models-with-purrr-and-broom-略)
 - [Part V - Communicate](#part-v---communicate)
-    - [Chapter 21 - R Markdown](#chapter-21---r-markdown)
-        - [21.2 The process of `knitr`](#212-the-process-of-knitr)
-        - [21.2 Bibliographies and Citations](#212-bibliographies-and-citations)
-    - [Chapter 22 - Graphics for Communication with `ggplot2`](#chapter-22---graphics-for-communication-with-ggplot2)
-        - [22.1 Annotations](#221-annotations)
-        - [22.2 Legend Layout](#222-legend-layout)
-    - [Chapter 23 - R Markdown Formats (略)](#chapter-23---r-markdown-formats-略)
-    - [Chapter 23 - R Markdown Workflow (略)](#chapter-23---r-markdown-workflow-略)
-
-<!-- /TOC -->
+  - [Chapter 21 - R Markdown](#chapter-21---r-markdown)
+    - [21.2 The process of `knitr`](#212-the-process-of-knitr)
+    - [21.2 Bibliographies and Citations](#212-bibliographies-and-citations)
+  - [Chapter 22 - Graphics for Communication with `ggplot2`](#chapter-22---graphics-for-communication-with-ggplot2)
+    - [22.1 Annotations](#221-annotations)
+    - [22.2 Legend Layout](#222-legend-layout)
+  - [Chapter 23 - R Markdown Formats (略)](#chapter-23---r-markdown-formats-略)
+  - [Chapter 23 - R Markdown Workflow (略)](#chapter-23---r-markdown-workflow-略)
 
 [Chapter 21 - R Markdown]: https://farm5.staticflickr.com/4912/46120175122_3361a842c9_z_d.jpg
 [Part I - Exploration]: https://farm5.staticflickr.com/4866/46120175052_df275ae438_z_d.jpg
@@ -593,7 +591,7 @@ column-wise 的 opeartor 包括：
 
 ## Detour: Chapter 14 - Pipes with `magrittr`
 
-### 14.1 Direct Pipe: `%>%` <a name="141-direct-pipe"></a>
+### 14.1 Direct Pipe: `%>%` 
 
 `%>%` 来自 `magrittr` package，它也是 `tidyverse` 的一部分，所以不需要你显式 import。
 
@@ -708,7 +706,7 @@ mtcars %>%
 }
 ```
 
-### 14.2 Tee Pipe: `%>T%` <a name="142-tee-pipe"></a>
+### 14.2 Tee Pipe: `%>T%` 
 
 此外还有 %T>%，它的逻辑是这样的：
 
@@ -737,7 +735,7 @@ rnorm(100) %>%
 
 它的效果是既画了图 (`plot`) 又输出了 `str()`
 
-### 14.3 Exposition Pipe: `%$%` <a name="143-exposition-pipe"></a>
+### 14.3 Exposition Pipe: `%$%` 
 
 If you’re working with LHS functions that don’t have a data frame based API (i.e. do not have a data argument), you might find `%$%` useful.
 
@@ -755,7 +753,7 @@ mtcars %$%
 - `cor()` 又不像 `dplyr` 里的 function 那样可以理解你不带引号的 colname
 - 但是你 `%$%` 一下，它就能理解你是要取 `mtcars$disp` 和 `mtcars$mpg` 来做 `cor()`
 
-### 14.4 Bidirectional Pipe: `%<>%` <a name="144-bidirectional-pipe"></a>
+### 14.4 Bidirectional Pipe: `%<>%` 
 
 其实就是个语法糖：
 

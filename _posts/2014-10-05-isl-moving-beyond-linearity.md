@@ -11,45 +11,33 @@ tags: [Spline, GAM]
 
 -----
 
-## 目录
+ToC:
 
-### 0. [Overview](#Overview)
-
-### 1. [Polynomial Regression](#PolyR)
-
-### 2. [Step Functions](#Step-Functions)
-
-### 3. [Basis Functions](#Basis-Functions)
-
-### 4. [Regression Splines](#Regression-Splines)
-
-- [4.1 Piecewise Polynomials](#Piecewise-Polynomials)
-- [4.2 Constraints and Splines](#Constraints-and-Splines)
-- [4.3 The Spline Basis Representation](#Spline-Basis-Rep)
-- [4.4 Choosing the Number and Locations of the Knots](#Choosing-Knots)
-- [4.5 Comparison to Polynomial Regression](#Comparison-to-PolyR)
-
-### 5. [Smoothing Splines](#Smoothing-Splines)
-
-- [5.1 An Overview of Smoothing Splines](#SS-Overview)
-- [5.2 Choosing the Smoothing Parameter $ \lambda $](#Choose-S-Parameter)
-
-### 6. [Local Regression](#Local-Regression)
-
-### 7. [Generalized Additive Models](#GAMs)
-
-- [7.1 GAMs for Regression Problems](#GAMs-Reg)
-- [7.2 GAMs for Classification Problems](#GAMs-Class)
-
-### 8. [Lab: Non-linear Modeling](#Lab)
-
-- [8.1 Polynomial Regression and Step Functions](#Lab-PolyR-SF)
-- [8.2 Splines](#Lab-Splines)
-- [8.3 GAMs](#Lab-GAMs)
+- [0. Overview](#0-overview)
+- [1. Polynomial Regression](#1-polynomial-regression)
+- [2. Step Functions](#2-step-functions)
+- [3. Basis Functions](#3-basis-functions)
+- [4. Regression Splines](#4-regression-splines)
+	- [4.1 Piecewise Polynomials](#41-piecewise-polynomials)
+	- [4.2 Constraints and Splines](#42-constraints-and-splines)
+	- [4.3 The Spline Basis Representation](#43-the-spline-basis-representation)
+	- [4.4 Choosing the Number and Locations of the Knots](#44-choosing-the-number-and-locations-of-the-knots)
+	- [4.5 Comparison to Polynomial Regression](#45-comparison-to-polynomial-regression)
+- [5. Smoothing Splines](#5-smoothing-splines)
+	- [5.1 An Overview of Smoothing Splines](#51-an-overview-of-smoothing-splines)
+	- [5.2 Choosing the Smoothing Parameter $ \lambda $](#52-choosing-the-smoothing-parameter--lambda-)
+- [6. Local Regression](#6-local-regression)
+- [7. Generalized Additive Models](#7-generalized-additive-models)
+	- [7.1 GAMs for Regression Problems](#71-gams-for-regression-problems)
+	- [7.2 GAMs for Classification Problems](#72-gams-for-classification-problems)
+- [8. Lab: Non-linear Modeling](#8-lab-non-linear-modeling)
+	- [8.1 Polynomial Regression and Step Functions](#81-polynomial-regression-and-step-functions)
+	- [8.2 Splines](#82-splines)
+	- [8.3 GAMs](#83-gams)
 	
 -----
 
-## <a name="Overview"></a>0. Overview
+## 0. Overview
 
 Methods in this chapter:
 
@@ -62,7 +50,7 @@ Methods in this chapter:
 * **Local regression** is similar to splines, but differs in an important way. The regions are allowed to overlap, and indeed they do so in a very smooth way. 
 * **Generalized additive models** allow us to extend the methods above to deal with multiple predictors.
 
-## <a name="PolyR"></a>1. Polynomial Regression
+## 1. Polynomial Regression
 
 Polynomial function goes 
 
@@ -81,13 +69,13 @@ Generally speaking, it is unusual to use $ d $ greater than 3 or 4 because for l
 
 P268
 
-## <a name="Step-Functions"></a>2. Step Functions
+## 2. Step Functions
 
 简单说就是把 $ X $ 分段，我们称为 break the range of $ X $ into **bins**。分段的结果是多个 dummy variable (binary factor)，我们以这多个 dummy variable 为 predictor 来 regression。
 
 具体见 P268-270
 
-## <a name="Basis-Functions"></a>3. Basis Functions
+## 3. Basis Functions
 
 Polynomial and piecewise-constant regression (i.e. Step Functions) models are in fact special cases of a basis function approach. The idea is to have at hand a family of functions or transformations, $ b_1(X), b_2(X), \cdots, b_K(X) $, that can be applied to a variable $ X $. Then we fit the model
 
@@ -105,9 +93,9 @@ We can think of $ (\ref{eq3.1}) $ as a standard linear model with predictors $ b
 
 Many alternatives for $ b_1(), b_2(), \cdots, b_K() $ are possible. For instance, we can use wavelets or Fourier series to construct basis functions. In the next section, we investigate a very common choice for a basis function: regression splines.
 
-## <a name="Regression-Splines"></a>4. Regression Splines
+## 4. Regression Splines
 
-### <a name="Piecewise-Polynomials"></a>4.1 Piecewise Polynomials
+### 4.1 Piecewise Polynomials
 
 举个例子就很好懂了：
 
@@ -125,7 +113,7 @@ The points where the coefficients change are called knots, in this case, $ c $.
 
 Using more knots leads to a more flexible piecewise polynomial. In general, if we place $ K $ different knots throughout the range of $ X $, then we will end up fitting $ K + 1 $ different polynomials. And cubic polynomial is not necessary here, for example, we can instead fit piecewise linear functions.
 
-### <a name="Constraints-and-Splines"></a>4.2 Constraints and Splines
+### 4.2 Constraints and Splines
 
 The curve of piecewise polynomials may be discontinuous, which is a sign of overfitting. To remedy this problem, we can fit a piecewise polynomial under a **constraint** that the fitted curve must be continuous. In other
 words, there cannot be a jump when $ X = c $.
@@ -156,7 +144,7 @@ More generally, a degree-$ d $ spline is that it is a piecewise degree-$ d $ pol
 * 我们起手有一个 $ d $ 阶的 piecewise polynomial（knot 的数量和划分在这里没有限制）
 * 如果在所有的 knot 上，这个 piecewise polynomial 本身连续，而且其 1 阶、2 阶、……、$ d-1 $ 阶导数都连续，则我们可以称这个 $ d $ 阶的 piecewise polynomial 为一个 $ d $ 阶的 spline
 
-### <a name="Spline-Basis-Rep"></a>4.3 The Spline Basis Representation
+### 4.3 The Spline Basis Representation
 
 Generally, a cubic spline with $ K $ knots can be modeled as
 
@@ -197,19 +185,19 @@ with $ K+4 $ degrees of freedom.
 
 A **natural spline** is a regression spline with additional boundary constraints: the function is required to be linear at the boundary (in the region where X is smaller than the smallest knot, or larger than the largest knot). This additional constraint means that natural splines generally produce more stable estimates at the boundaries.
 
-### <a name="Choosing-Knots"></a>4.4 Choosing the Number and Locations of the Knots
+### 4.4 Choosing the Number and Locations of the Knots
 
 One option is to place more knots in places where we feel the function might vary most rapidly, and to place fewer knots where it seems more stable. While this option can work well, in practice it is common to place knots in a uniform fashion. One way to do this is to specify the desired degrees of freedom, and then have the software automatically place the corresponding number of knots at uniform **quantiles** of the data. E.g. for a cubic spline with 4 degrees of freedom, 25^th, 50^th and 75^th quantiles may be used as knots.
 
 How many knots should we use, or equivalently how many degrees of freedom should our spline contain? One option is to try out different numbers of knots and see which produces the best looking curve, often with the help of cross-validation.
 
-### <a name="Comparison-to-PolyR"></a>4.5 Comparison to Polynomial Regression
+### 4.5 Comparison to Polynomial Regression
 
 P276
 
-## <a name="Smoothing-Splines"></a>5. Smoothing Splines
+## 5. Smoothing Splines
 
-### <a name="SS-Overview"></a>5.1 An Overview of Smoothing Splines
+### 5.1 An Overview of Smoothing Splines
 
 首先提出了 smooth 的意义：我们想要的是 min RSS，但其实定义一个非常扭曲的分段函数 g，让所有的 $ x_i $ 都有 $ g(x_i) = y_i $ 可以很容易让 RSS = 0，但这种极端 overfitting 没有任何实用价值。于是我们提出了一个新的要求：What we really want is a function g that makes RSS small, but that is also **smooth**.
 
@@ -241,7 +229,7 @@ The function g that minimizes $ (\ref{eq5.1}) $ can be shown to have some specia
 * Furthermore, it is linear in the region outside of the extreme knots.
 * In other words, the function g that minimizes $ (\ref{eq5.1}) $ is a natural cubic spline with knots at $ x_1, \cdots, x_n $.
 
-### <a name="Choose-S-Parameter"></a>5.2 Choosing the Smoothing Parameter $ \lambda $
+### 5.2 Choosing the Smoothing Parameter $ \lambda $
 
 The tuning parameter $ \lambda $ controls the roughness of the smoothing spline, and hence the **effective degrees of freedom**. It is possible to show that as $ \lambda $ increases from 0 to $ \infty $, the effective degrees of freedom, which we write $ df_{\lambda} $ decrease from $ n $ to 2.
 
@@ -290,7 +278,7 @@ $$
 
 A model with less effective degrees of freedom is considered as a simpler model, which is in general better unless the data provides evidence in support of a more complex model.
 
-## <a name="Local-Regression"></a>6. Local Regression
+## 6. Local Regression
 
 Local regression is a different approach for fitting flexible non-linear functions, which involves computing the fit at a target point $ x_0 $ using only the nearby training observations.
 
@@ -314,14 +302,14 @@ $$
 * One very useful generalization involves fitting a multiple linear regression model that is global in some variables, but local in another, such as time. Such **varying coefficient models** are a useful way of adapting a model to the most recently gathered data.
 * 和 KNN 一样，neighborhood 可以是立体的、多维的，但同样也面临 curse of dimensionality 的问题，超过 4 维时就很容易 perform poorly
 
-## <a name="GAMs"></a>7. Generalized Additive Models
+## 7. Generalized Additive Models
 
 GAMs is a general framework for：
 
 * extending a standard linear model by allowing non-linear functions of each of the variables
 * maintaining additivity at the same time
 
-### <a name="GAMs-Reg"></a>7.1 GAMs for Regression Problems
+### 7.1 GAMs for Regression Problems
 
 与 $ (\ref{eq3.1}) $ 的 Basic Functiion 的形式很像。
 
@@ -352,15 +340,15 @@ Because the model is additive, we can still examine the effect of each $ X_j $ o
 
 For fully general models, we have to look for even more flexible approaches such as randomforests and boosting. GAMs provide a useful compromise between linear and fully nonparametric models.
 
-### <a name="GAMs-Class"></a>7.2 GAMs for Classification Problems
+### 7.2 GAMs for Classification Problems
 
 P286
 
 其实和 "把 logistic regression 从 Simple 扩展到 Multiple" 的思路一样，我们把 logit $ \log \left ( \frac{p(X)}{1-p(X)} \right ) = \beta_0 + \cdots $ 右边的部分变成 GAMs 就可以了。
 
-## <a name="Lab"></a>8. Lab: Non-linear Modeling
+## 8. Lab: Non-linear Modeling
 
-### <a name="Lab-PolyR-SF"></a>8.1 Polynomial Regression and Step Functions
+### 8.1 Polynomial Regression and Step Functions
 
 We now examine how Figure 7.1 was produced. 
 
@@ -524,7 +512,7 @@ In order to fit a step function, we use the `cut()` function.
 > coef(summary(fit))
 ```
 	
-### <a name="Lab-Splines"></a>8.2 Splines
+### 8.2 Splines
 
 The `bs()` function generates the entire matrix of basis functions for splines with the specified set of knots. By default, cubic splines are produced.
 
@@ -591,7 +579,7 @@ In order to perform local regression, we use the `loess()` function.
 	
 The `locfit` library can also be used for fitting local regression models in R.
 
-### <a name="Lab-GAMs"></a>8.3 GAMs
+### 8.3 GAMs
 
 We now fit a GAM to predict `wage` using natural spline functions of `year` and `age`, treating `education` as a qualitative predictor. We can simply do this using the `lm()` function.
 

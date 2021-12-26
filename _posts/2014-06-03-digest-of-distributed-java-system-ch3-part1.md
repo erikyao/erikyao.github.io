@@ -7,7 +7,7 @@ tags: [Book, JVM]
 ---
 {% include JB/setup %}
 
-## 目录   
+Toc: 
 
 - [0. JVM 大概](#session0)  
 - [1. Java 代码的执行](#session1)
@@ -22,7 +22,7 @@ tags: [Book, JVM]
   
 ----------  
 
-## <a name="session0"></a>0. JVM 大概
+## 0. JVM 大概
   
 ----------  
   
@@ -39,13 +39,13 @@ tags: [Book, JVM]
   
 ----------  
 
-## <a name="session1"></a>1. Java 代码的执行
+## 1. Java 代码的执行
   
 ----------  
   
 ----------  
 
-### <a name="javac"></a>1.1 编译（javac）
+### 1.1 编译（javac）
 
 以下还参考了：
 

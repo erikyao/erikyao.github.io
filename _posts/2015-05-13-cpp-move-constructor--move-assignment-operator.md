@@ -11,14 +11,14 @@ tags: [C++11, copy-constructor]
 
 -----
 
-## 目录
+ToC:
 
 - [1. Rvalue References](#1-rvalue-references)
 	- [1.1 Lvalues Persist; Rvalues Are Ephemeral](#11-lvalues-persist-rvalues-are-ephemeral)
 	- [1.2 Variables Are Lvalues](#12-variables-are-lvalues)
 	- [1.3 The Library move() Function](#13-the-library-move-function)
 - [2. Move Constructor and Move Assignment](#2-move-constructor-and-move-assignment)
-	- [2.1 Move Constructor 的 Exception 的问题](#21-move-constructor-exception)
+	- [2.1 Move Constructor 的 Exception 的问题](#21-move-constructor-的-exception-的问题)
 	- [2.2 Move-Assignment Operator](#22-move-assignment-operator)
 	- [2.3 A Moved-from Object Must Be Destructible](#23-a-moved-from-object-must-be-destructible)
 	- [2.4 The Synthesized Move Operations](#24-the-synthesized-move-operations)
@@ -27,7 +27,7 @@ tags: [C++11, copy-constructor]
 	- [2.7 Advice: Don’t Be Too Quick to Move](#27-advice-dont-be-too-quick-to-move)
 	- [2.8 Defining a Derived Move Constructor](#28-defining-a-derived-move-constructor)
 - [3. Rvalue References and Member Functions](#3-rvalue-references-and-member-functions)
-	- [Reference Qualifier](#reference qualifier)
+	- [Reference Qualifier](#reference-qualifier)
 
 -----
 
@@ -37,7 +37,7 @@ In some of these circumstances, an object is immediately destroyed after it is c
 - A second reason to move rather than copy occurs in classes such as the IO or `unique_ptr` classes. These classes have a resource (such as a pointer or an IO buffer) that may not be shared. Hence, objects of these types can’t be copied but can be moved.
 - Actually, the library containers, `string`, and `shared_ptr` classes support move as well as copy. The IO and `unique_ptr` classes can be moved but not copied.
 
-## <a name="1-rvalue-references"></a>1. Rvalue References
+## 1. Rvalue References
 
 To support move operations, the new standard introduced a new kind of reference, an **rvalue reference**. An **rvalue reference** is a reference that must be bound to an rvalue. An rvalue reference is obtained by using `&&` rather than `&`.
 
@@ -58,7 +58,7 @@ const int &ri4 = i * 42;	// OK. we can bind a reference to const to an rvalue
 int &&ri4 = i * 42;			// OK. bind ri4 to the result of the multiplication
 ```
 
-### <a name="11-lvalues-persist-rvalues-are-ephemeral"></a>1.1 Lvalues Persist; Rvalues Are Ephemeral
+### 1.1 Lvalues Persist; Rvalues Are Ephemeral
 
 - ephemeral: [ɪˈfemərəl], 短暂的
 
@@ -69,7 +69,7 @@ Because **rvalue reference**s can only be bound to temporaries, we know that
 - The referred-to object is about to be destroyed
 - There can be no other users of that object
 
-### <a name="12-variables-are-lvalues"></a>1.2 Variables Are Lvalues
+### 1.2 Variables Are Lvalues
 
 A variable is an lvalue; we cannot directly bind an **rvalue reference** to a variable even if that variable was defined as an **rvalue reference** type.
 
@@ -78,7 +78,7 @@ int &&rr1 = 42;		// OK. literals are rvalues
 int &&rr2 = rr1;	// ERROR. the expression rr1 is an lvalue!
 ```
 
-### <a name="13-the-library-move-function"></a>1.3 The Library move() Function
+### 1.3 The Library move() Function
 
 Although we cannot directly bind an **rvalue reference** to an lvalue, we can explicitly cast an lvalue to its corresponding **rvalue reference** type by calling a new library function `move()`, which is defined in the `<utility>` header. 
 
@@ -90,7 +90,7 @@ int &&rr3 = std::move(rr1); // OK
 
 We can destroy a moved-from object (e.g. `rr1` above) and can assign a new value to it, but we cannot use the value of a moved-from object.
 
-## <a name="2-move-constructor-and-move-assignment"></a>2. Move Constructor and Move Assignment
+## 2. Move Constructor and Move Assignment
 
 To enable move operations for our own types, we define a move constructor and a move-assignment operator.
 
@@ -98,7 +98,7 @@ The move constructor must ensure that the moved-from object is left in a state s
 
 Move constructor、move `operator=` 和 copy-constructor、`operator=` 的格式基本一致，唯一的区别是 move 操作的参数必须是 **Rvalue Reference**.
 
-### <a name="21-move-constructor-exception"></a>2.1 Move Constructor 的 Exception 的问题
+### 2.1 Move Constructor 的 Exception 的问题
 
 这里以 `vector` reallocate 的场景为例。
 
@@ -118,7 +118,7 @@ Because a move operation executes by “stealing” resources, it ordinarily doe
 	- On the other hand, if vector uses the copy constructor and an exception happens, it can easily meet this requirement. In this case, while the elements are being constructed in the new memory, the old elements remain unchanged. If an exception happens, vector can free the space it allocated (but could not successfully construct) and return. The original vector elements still exist.
 	- To avoid this potential problem, vector must use a copy constructor instead of a move constructor during reallocation _**unless**_ it knows that the element type’s move constructor cannot throw an exception.
 	
-### <a name="22-move-assignment-operator"></a>2.2 Move-Assignment Operator
+### 2.2 Move-Assignment Operator
 
 As with the move constructor, if our move-assignment operator won’t throw any exceptions, we should make it `noexcept`. Like a copy-assignment operator, a move-assignment operator must guard against self-assignment:
 
@@ -138,13 +138,13 @@ StrVec &StrVec::operator=(StrVec &&rhs) noexcept {
 }
 ```
 
-### <a name="23-a-moved-from-object-must-be-destructible"></a>2.3 A Moved-from Object Must Be Destructible
+### 2.3 A Moved-from Object Must Be Destructible
 
 Moving from an object does not destroy that object: It is sometime after the move operation completes that the moved-from object will be destroyed. 
 
 After a move operation, the “moved-from” object must remain a valid, destructible one but users may make no assumptions about its value.
 
-### <a name="24-the-synthesized-move-operations"></a>2.4 The Synthesized Move Operations
+### 2.4 The Synthesized Move Operations
 
 If a class defines its own copy constructor, copy-assignment operator, or destructor, the move constructor and moveassignment operator are not synthesized.
 
@@ -154,7 +154,7 @@ The compiler will synthesize a move constructor or a move-assignment operator on
 
 If the class defines either a move constructor and/or a move-assignment operator, then the synthesized copy constructor and copy-assignment operator for that class will be defined as `=delete`. 更多 `=delete` 规则参 [C++: The Rule of Three/Five](/c++/2015/05/13/cpp-the-rule-of-threefive)。
 
-### <a name="25-rvalues-are-moved-lvalues-are-copied"></a>2.5 Rvalues Are Moved, Lvalues Are Copied...
+### 2.5 Rvalues Are Moved, Lvalues Are Copied...
 
 When a class has both a move constructor and a copy constructor, the compiler uses ordinary function matching to determine which constructor to use:
 
@@ -166,7 +166,7 @@ v1 = v2; 			// v2 is an lvalue; copy assignment
 v2 = getVec(cin);	// getVec(cin) is an rvalue; move assignment
 ```
 
-### <a name="26-but-rvalues-are-copied-if-there-is-no-move-constructor"></a>2.6 ...But Rvalues Are Copied If There Is No Move Constructor
+### 2.6 ...But Rvalues Are Copied If There Is No Move Constructor
 
 If a class has no move constructor, function matching ensures that objects of that type are copied, even if we attempt to move them by calling `move`:
 
@@ -183,11 +183,11 @@ Foo y(x);				// copy constructor; x is an lvalue
 Foo z(std::move(x));	// copy constructor, because there is no move constructor
 ```
 
-### <a name="27-advice-dont-be-too-quick-to-move"></a>2.7 Advice: Don’t Be Too Quick to Move
+### 2.7 Advice: Don’t Be Too Quick to Move
 
 Judiciously used inside class code, `move` can offer significant performance benefits. Casually used in ordinary user code (as opposed to class implementation code), moving an object is more likely to lead to mysterious and hard-to-find bugs than to any improvement in the performance of the application.
 
-### <a name="28-defining-a-derived-move-constructor"></a>2.8 Defining a Derived Move Constructor
+### 2.8 Defining a Derived Move Constructor
 
 When a derived class defines a copy or move operation, that operation is responsible for copying or moving the entire object, including base-class members.
 
@@ -208,7 +208,7 @@ public:
 };
 ```
 
-## <a name="3-rvalue-references-and-member-functions"></a>3. Rvalue References and Member Functions
+## 3. Rvalue References and Member Functions
 
 For example, the library containers that define `push_back` provide two versions:
 
@@ -239,7 +239,7 @@ vec.push_back(s);		// calls push_back(const string&)
 vec.push_back("bar");	// calls push_back(string&&)
 ```
 
-### <a name="reference-qualifier"></a>Reference Qualifier
+### Reference Qualifier
 
 Ordinarily, we can call a member function on an object, regardless of whether that object is an lvalue or an rvalue. 
 

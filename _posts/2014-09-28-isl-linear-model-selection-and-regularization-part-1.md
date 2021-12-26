@@ -11,30 +11,26 @@ tags: []
 
 -----
 
-## 目录
+ToC:
 
-### 0. [Overview](#Overview)
-
-### 1. [Subset Selection](#SS)
-
-- [1.1 Best Subset Selection](#BSS)
-- [1.2 Stepwise Selection](#SwS)
-	- [1.2.1 Forward Stepwise Selection](#FSwS)
-	- [1.2.2 Backward Stepwise Selection](#BSwS)
-	- [1.2.3 Hybrid Approaches](#HSwS)
-- [1.3 Choosing the Optimal Model](#Choosing-the-Optimal-Model)
-	- [1.3.1 $ C_p $, AIC, BIC, and Adjusted $R^2$](#adjusted-statistic)
-	- [1.3.2 Validation and Cross-Validation](#Validation-and-CV)
-
-### 2. [Shrinkage Methods](#Shrinkage)
-
-- [2.1 Ridge Regression](#RidgeR)
-- [2.2 The Lasso](#Lasso)
-- [2.3 Selecting the Tuning Parameter](#Select-lambda)
+- [0. Overview](#0-overview)
+- [1. Subset Selection](#1-subset-selection)
+	- [1.1 Best Subset Selection](#11-best-subset-selection)
+	- [1.2 Stepwise Selection](#12-stepwise-selection)
+		- [1.2.1 Forward Stepwise Selection](#121-forward-stepwise-selection)
+		- [1.2.2 Backward Stepwise Selection](#122-backward-stepwise-selection)
+		- [1.2.3 Hybrid Approaches](#123-hybrid-approaches)
+	- [1.3 Choosing the Optimal Model](#13-choosing-the-optimal-model)
+	- [1.3.1 $ C_p $, AIC, BIC, and Adjusted $R^2$](#131--c_p--aic-bic-and-adjusted-r2)
+	- [1.3.2 Validation and Cross-Validation](#132-validation-and-cross-validation)
+- [2. Shrinkage Methods](#2-shrinkage-methods)
+	- [2.1 Ridge Regression](#21-ridge-regression)
+	- [2.2 The Lasso](#22-the-lasso)
+	- [2.3 Selecting the Tuning Parameter](#23-selecting-the-tuning-parameter)
 
 -----
 
-## <a name="Overview"></a>0. Overview
+## 0. Overview
 
 In the regression setting, the standard linear model
 
@@ -78,11 +74,11 @@ In this chapter, we discuss three important alternatives.
 	* by computing $M$ different linear combinations, or projections, of the variables
 	* 说得这么玄乎其实就是 PCA 那些
 	
-## <a name="SS"></a>1. Subset Selection
+## 1. Subset Selection
 
 这里说的其实就是 Linear Regression - Part 1 那篇的 [2.4 Question 2: How to Decide on Important Variables? Or, do all the predictors help to explain $ Y $, or is only a subset of the predictors useful?](http://erikyao.github.io/machine-learning/2014/09/21/isl-linear-regression-part-1#Mlr-Q2)
 
-### <a name="BSS"></a>1.1 Best Subset Selection
+### 1.1 Best Subset Selection
 
 简单说就是试遍 $ p $ 个 predictor 的所有组合，从中选取 best model fit。
 
@@ -111,11 +107,11 @@ Best subset selection becomes computationally infeasible for values of p greater
 	* There are computational shortcuts — so called branch-and-bound techniques — for eliminating some choices, but they have their limitations as $ p $ gets large. 
 	* They also only work for least squares linear regression.
 	
-### <a name="SwS"></a>1.2 Stepwise Selection
+### 1.2 Stepwise Selection
 
 我们称这个搜索空间是 model space。相比 Best Subset Selection 而言，Stepwise Selection performs a **guided** search over model space, and so the **effective** model space will be greatly smaller when $ p $ is large.
 
-#### <a name="FSwS"></a>1.2.1 Forward Stepwise Selection
+#### 1.2.1 Forward Stepwise Selection
 
 The Forward Stepwise Selection algorithm goes here:
 
@@ -132,7 +128,7 @@ The Forward Stepwise Selection algorithm goes here:
 
 Forward stepwise selection can be applied even in the high-dimensional setting where $ n < p $; however, in this case, it is possible to construct submodels $ M_0, \cdots, M_{n-1} $ only.
 
-#### <a name="BSwS"></a>1.2.2 Backward Stepwise Selection
+#### 1.2.2 Backward Stepwise Selection
 
 The Backward Stepwise Selection algorithm goes here:
 
@@ -149,13 +145,13 @@ Also like forward stepwise selection, backward stepwise selection is not guarant
 
 Differently, backward stepwise selection requires $ n>p $ (so that the full model can be fit).
 
-#### <a name="HSwS"></a>1.2.3 Hybrid Approaches
+#### 1.2.3 Hybrid Approaches
 
 * Variables are added to the model sequentially, in analogy to forward selection. 
 * However, after adding each new variable, the method may also remove any variables that no longer provide an improvement in the model fit. 
 * Such an approach attempts to more closely mimic best subset selection while retaining the computational advantages.
 
-### <a name="Choosing-the-Optimal-Model"></a>1.3 Choosing the Optimal Model
+### 1.3 Choosing the Optimal Model
 
 前面已经说过：
 
@@ -169,7 +165,7 @@ Differently, backward stepwise selection requires $ n>p $ (so that the full mode
 	* 也就是下面要说的、Subset Selection 的 Step 3 里用到的 $ C_p $, AIC, BIC, or adjusted $R^2$
 * Directly estimate the test error using either a validation set approach or a CV approach.
 
-### <a name="adjusted-statistic"></a>1.3.1 $ C_p $, AIC, BIC, and Adjusted $R^2$
+### 1.3.1 $ C_p $, AIC, BIC, and Adjusted $R^2$
 
 We show in Chapter 2 that the training set MSE is generally an underestimate of the test MSE. (Recall that $ MSE = RSS/n $.) This is because when we fit a model to the training data using least squares, we specifically estimate the regression coefficients such that the training RSS (but not the test RSS) is as small as possible. In particular, the training error will decrease as more variables are included in the model, but the test error may not. Therefore, training set RSS and training set $R^2$ cannot be used to select from among a set of models with different numbers of variables.
 
@@ -238,7 +234,7 @@ $$
 
 Unlike $ C_p $, AIC, and BIC, for which a small value indicates a model with a low test error, a large value of adjusted $R^2$ indicates a model with a small test error. Maximizing the adjusted $R^2$ is equivalent to minimizing $ RSS/(n−d−1) $.While RSS always decreases as the number of variables in the model increases, $ RSS/(n−d−1) $ may increase or decrease, due to the presence of $ d $ in the denominator.
 
-### <a name="Validation-and-CV"></a>1.3.2 Validation and Cross-Validation
+### 1.3.2 Validation and Cross-Validation
 
 This procedure has an advantage relative to $ C_p $, AIC, BIC, and adjusted $R^2$, in that it provides a direct estimate of the test error, and makes fewer assumptions about the true underlying model.
 
@@ -248,7 +244,7 @@ This procedure has an advantage relative to $ C_p $, AIC, BIC, and adjusted $R^2
 * And then select the smallest model for which the estimated test error is within one $ sd $ of the lowest point on the curve. 
 * The rationale here is that if a set of models appear equally good, then we might as well choose the simplest model — that is, the model with the smallest number of predictors.
 
-## <a name="Shrinkage"></a>2. Shrinkage Methods
+## 2. Shrinkage Methods
 
 Shrinkage is a technique that **constrains** or **regularizes** the coefficient estimates, or equivalently, that **shrinks** the coefficient estimates towards zero which can significantly reduce model variance.  
 
@@ -257,7 +253,7 @@ The two best-known shrinkage methods are:
 * ridge regression
 * the lasso
 
-### <a name="RidgeR"></a>2.1 Ridge Regression
+### 2.1 Ridge Regression
 
 其实就是 Ng 课上的 Regression with Regularization，只不过 Ng 没有取这么多名字。
 
@@ -284,7 +280,7 @@ P218 讨论了 Why Does Ridge Regression Improve Over Least Squares? 其实很�
 
 Hence, ridge regression works best in situations where the least squares estimates have high variance.
 
-### <a name="Lasso"></a>2.2 The Lasso
+### 2.2 The Lasso
 
 Ridge regression does have one obvious disadvantage that, unlike subset selection, ridge regression will include all $ p $ predictors in the final model because the shrinkage penalty does shrink all of the coefficients towards zero but it will not set any of them exactly to zero (unless $ \lambda = \infty $). This may not be a problem for prediction accuracy, but it can create a challenge in model interpretation when $ p $ is quite large
 
@@ -315,6 +311,6 @@ P224-225 写的是 A Simple Special Case for Ridge Regression and the Lasso。�
 
 P226 是 Bayesian Interpretation for Ridge Regression and the Lasso，我会单独开一篇来科普一下。
 
-### <a name="Select-lambda"></a>2.3 Selecting the Tuning Parameter
+### 2.3 Selecting the Tuning Parameter
 
 P227。主要说的是用 CV 来选 $ \lambda $（但是选完之后要 re-fit 一下）。举了两个例子，告诉我们 CV 测量得来的几种图应该怎么分析，值得一看（尤其是 FIGURE 6.13）。

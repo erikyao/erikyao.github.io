@@ -37,26 +37,39 @@ ToC:
 - [4. Preorder and Postorder Labeling](#4-preorder-and-postorder-labeling)
 - [5. Acyclicity in Directed Graphs](#5-acyclicity-in-directed-graphs)
 - [6. Topological Sort](#6-topological-sort)
-- [7. Strongly Connected Components (SCC)](#7-scc)
-- [8. Shortest Paths / Single Source Shortest Paths (SSSP)](#8-shortest-paths)
-	- [8.1 The Only SSSP Algorithm](#8-1-the-only-sssp-alg)
-	- [8.2 Dijkstra’s Algorithm](#8-2-dijkstra-alg)
-	- [8.3 Shimbel’s Algorithm](#8-3-shimbel-alg)
-- [9. All-Pairs Shortest Paths (APSP)](#9-all-pairs-shortest-paths)
-- [10. Minimum Spanning Trees (MST)](#10-minimum-spanning-trees)
-	- [10.1 The Only MST Algorithm](#10-1-the-only-mst-alg)
-	- [10.2 Borvka’s Algorithm](#10-2-borvka-alg)
-	- [10.3 Prim's Algorithm](#10-3-prim-alg)
-	- [10.4 Kruskal’s Algorithm](#10-4-kruskal-alg)
-- [11. Matroids](#11-matroids)
-- [12. Matching](#12-matching)
-- [13. Testing Polynomial Identity](#13-testing-polynomial-identity)
+- [7. Strongly Connected Components (SCC)](#7-strongly-connected-components-scc)
+- [8. Shortest Paths](#8-shortest-paths)
+	- [8.1 The Only SSSP Algorithm](#81-the-only-sssp-algorithm)
+	- [8.2 Dijkstra’s Algorithm](#82-dijkstras-algorithm)
+	- [8.3 Shimbel’s Algorithm](#83-shimbels-algorithm)
+- [9. All-Pairs Shortest Paths (APSP)](#9-all-pairs-shortest-paths-apsp)
+	- [9.1 Intuition 1: Run SSSP for every vertex](#91-intuition-1-run-sssp-for-every-vertex)
+	- [9.2 Johnson’s Algorithm](#92-johnsons-algorithm)
+	- [9.3 Intuition 2: Dynamic Programming](#93-intuition-2-dynamic-programming)
+	- [9.4 Intuition 3: DP + Divide and Conquer](#94-intuition-3-dp--divide-and-conquer)
+	- [9.5 Floyd-Warshall: an $ O(V^3) $ DP Alg](#95-floyd-warshall-an--ov3--dp-alg)
+	- [9.6 APSP in unweighted undirected graphs: Seidel's Alg](#96-apsp-in-unweighted-undirected-graphs-seidels-alg)
+- [10. Minimum Spanning Trees](#10-minimum-spanning-trees)
+	- [10.1 The Only MST Algorithm](#101-the-only-mst-algorithm)
+	- [10.2 Borvka’s Algorithm](#102-borvkas-algorithm)
+	- [10.3 Prim's Algorithm](#103-prims-algorithm)
+	- [10.4 Kruskal’s Algorithm](#104-kruskals-algorithm)
+- [11. Matroids (待续)](#11-matroids-待续)
+	- [11.1 Definitions (待续)](#111-definitions-待续)
+	- [11.2 Matroid Optimization Problem (待续)](#112-matroid-optimization-problem-待续)
+- [12. Matching (待续)](#12-matching-待续)
+	- [12.1 The Maximum Matching Problem](#121-the-maximum-matching-problem)
+	- [12.2 Alternating and Augmenting Paths (待续)](#122-alternating-and-augmenting-paths-待续)
+- [13. Testing Polynomial Identity (待续)](#13-testing-polynomial-identity-待续)
+	- [13.1 The Schwartz-Zippel Algorithm (待续)](#131-the-schwartz-zippel-algorithm-待续)
+	- [Digress: Permutation / Matrix Determinant (行列式)](#digress-permutation--matrix-determinant-行列式)
+	- [13.2 Application to Bipartite Matching](#132-application-to-bipartite-matching)
 - [14. Eulerian Graph](#14-eulerian-graph)
 - [15. Hamiltonian Path](#15-hamiltonian-path)
 
 -----
 
-## <a name="1-definition"></a>1. Definition
+## 1. Definition
 
 _**Simple Graph:**_
 
@@ -135,7 +148,7 @@ _**Walk**_, _**Path**_, _**Cycle**_ and _**Connectivity**_:
 	
 Any vertex in a DAG that has no incoming vertices is called a _**source**_; any vertex with no outgoing edges is called a _**sink**_. Every DAG has at least one source and one sink, but may have more than one of each. For example, in the graph with `n` vertices but no edges, every vertex is a source and every vertex is a sink.
 	
-## <a name="2-traversing-connected-graphs"></a>2. Traversing Connected Graphs
+## 2. Traversing Connected Graphs
 
 To keep things simple, we'll consider only undirected graphs here, although the algorithms also work for directed graphs with minimal changes.
 
@@ -200,7 +213,7 @@ For any node `v`, the path of parent edges `(v, parent(v), parent(parent(v)), . 
 
 题外话：If $ G $ is not connected, then `Traverse(s)` only visits the nodes in the connected component of the start vertex `s`. If we want to visit all the nodes in every component, run `Traverse` on every node. (Let's call it `TraverseAll`.) Since `Traverse` computes a spanning tree of one component, `TraverseAll` computes a spanning forest of $ G $.
 
-## <a name="3-more-on-dfs"></a>3. More on DFS
+## 3. More on DFS
 
 首先补充两个概念。Graph 里我们说 predecessor 和 successor，Tree 里面我们用 ancestor 和 descendant；不仅如此，我们还有 proper ancestor 和 proper descendant:
 
@@ -221,7 +234,7 @@ _**Lemma 2.**_ For every edge `vw` in $ G $, either `v` is an ancestor of `w` in
 
 _**Proof:**_ Assume without loss of generality that `v` is marked before `w`. Then `w` is unmarked when `DFS(v)` is invoked, but marked when `DFS(v)` returns, so the previous lemma implies that `w` is a proper descendant of `v` in $ T $.
 
-## <a name="4-preorder-and-postorder-labeling"></a>4. Preorder and Postorder Labeling
+## 4. Preorder and Postorder Labeling
 
 ```ruby
 PrePostLabel(G):
@@ -277,7 +290,7 @@ Consider `a` and `b`, where `b` is marked after `a`. Then we must have `prev(a) 
 
 Thus, for any two vertices `a` and `b`, the intervals `[prev(a), post(a)]` and `[prev(b), post(b)]` are either disjoint or nested; in particular, if `ab` is an edge, _**Lemma 2**_ implies that the intervals must be nested.
 
-## <a name="5-acyclicity-in-directed-graphs"></a>5. Acyclicity in Directed Graphs
+## 5. Acyclicity in Directed Graphs
 
 Lemma 2 implies that any depth-first spanning tree $ T $ divides the edges of $ G $ into two classes: _**tree edges**_, which appear in $ T $, and _**back(ward) edges**_, which connect some node in $ T $ to one of its ancestors.
 
@@ -336,7 +349,7 @@ IsAcyclicDFS(v):
 	return True
 ```
 
-## <a name="6-topological-sort"></a>6. Topological Sort
+## 6. Topological Sort
 
 A topological ordering of a directed graph $ G $ is a total order $ \prec $ on the vertices such that $ a \prec b $ for every edge `a → b`. Less formally, a topological ordering arranges the vertices along a horizontal line so that all edges point from left to right. 
 
@@ -381,7 +394,7 @@ DFSAll(G)
 
 _**RT:**_ 所以 Topological Sort 的时间复杂度和 `DFSAll` 是一样的，都是 $ O(V+E) $
 
-## <a name="7-scc"></a>7. Strongly Connected Components (SCC)
+## 7. Strongly Connected Components (SCC)
 
 In a directed graph $ G = (V,E) $, vertex `a` is _**connected**_ to vertex `b` if there exists a path `a → b`.
 
@@ -443,7 +456,7 @@ Actually you even don't have to repeat the "find-remove" procedure. The Kosaraju
 		- If `a` can reach a vertex `i`, because `post(a) > post(i)`, then `a` and `i` are strongly connected. 
 			- The current iteration in `DFSALL(G)` calling `DFS` goes further and will find an SCC at last.
 
-## <a name="8-shortest-paths"></a>8. Shortest Paths
+## 8. Shortest Paths
 
 Given a weighted directed graph $ G = (V,E,w) $, a source vertex `s` and a target vertex `t`, find the shortest `s → t` regarding `w`.
 
@@ -451,7 +464,7 @@ A more general problem is called _**single source shortest path**_ or _**SSSP**_
 
 _**N.B.**_ Throughout this post, we will explicitly consider only directed graphs. All of the algorithms described in this lecture also work for undirected graphs with some minor modifications, but only if negative edges are prohibited. On the other hand, it's OK for directed graphs to have negative edges in this problem. However, negative cycles, which make this problem meaningless, are prohibited.
 
-### <a name="8-1-the-only-sssp-alg"></a>8.1 The Only SSSP Algorithm
+### 8.1 The Only SSSP Algorithm
 
 Let's define:
 
@@ -496,7 +509,7 @@ GenericSSSP(s):
 
 Just as with graph traversal, different “bag” data structures for the give us different algorithms. There are three obvious choices to try: a stack, a queue, and a priority queue. Unfortunately, if we use a stack, the resulting algorithm performs $ O(V^2) $ relaxation steps in the worst case!  The other two possibilities are much more efficient.
 
-### <a name="8-2-dijkstra-alg"></a>8.2 Dijkstra’s Algorithm
+### 8.2 Dijkstra’s Algorithm
 
 If we implement the bag using a priority queue, where the priority of a vertex `v` is its tentative distance `dist(v)`, we obtain Dijkstra’s Algorithm
 
@@ -508,7 +521,7 @@ Dijkstra’s algorithm is particularly well-behaved if the graph has _**NO negat
 
 Since the priority of each vertex in the priority queue is its tentative distance from `s`, the algorithm performs a `decreasePriority` operation every time an edge is relaxed. Thus, the algorithm performs at most $ E $ `decreasePriority`. Similarly, there are at most $ V $ `enqueue` and `getMinPriority` operations. Thus, if we implement the priority queue with a Fibonacci heap, the total running time of Dijkstra’s algorithm is $ O(E + V \log V) $; if we use a regular binary heap, the running time is $ O(E \log V) $.
 
-### <a name="8-3-shimbel-alg"></a>8.3 Shimbel’s Algorithm
+### 8.3 Shimbel’s Algorithm
 
 If we replace the heap in Dijkstra’s algorithm with a FIFO queue, we obtain Shimbel’s Algorithm. Shimbel’s algorithm is efficient even if there are negative edges, and it can be used to quickly detect the presence of negative cycles. If there are no negative edges, however, Dijkstra’s algorithm is faster.
 
@@ -529,7 +542,7 @@ Repeat $ V-1 $ 次的考虑是，从 `s` 到某个 `t` 的路径最多有 $ V $ 
 
 In each phase, we scan each vertex at most once, so we relax each edge at most once, so the running time of a single phase is $ O(E) $. Thus, the overall running time of Shimbel’s algorithm is $ O(VE) $.
 
-## <a name="9-all-pairs-shortest-paths"></a>9. All-Pairs Shortest Paths (APSP)
+## 9. All-Pairs Shortest Paths (APSP)
 
 - `dist(u, v)` is the length of the shortest $ s \rightsquigarrow b $ path.
 - `pred(u, v)` is the second-to-last vertex on the shortest $ s \rightsquigarrow b $ path, i.e. the vertex before `v` on the path.
@@ -768,7 +781,7 @@ _**RT:**_ $ O(V^3) $ for 3 for-loops over $ V $.
 
 待续
 
-## <a name="10-minimum-spanning-trees"></a>10. Minimum Spanning Trees
+## 10. Minimum Spanning Trees
 
 和 Shortest Path 一样，MST 的 minimum 指的也是 tree 的各个 edges 的 weight 之和，$ w(T)=\sum_{e \in T}{w(e)} $最小。所以也可以理解为 lightest spanning tree。
 
@@ -779,7 +792,7 @@ _**P.S.**_ 注意用词：
 
 To keep things simple, I’ll assume that all the edge weights are distinct: $ w(e) \neq w(e') $ for any pair of edges $ e $ and $ e' $. Distinct weights guarantee that the minimum spanning tree of the graph is unique. For example, if all the edges have weight 1, then every spanning tree is a minimum spanning tree with weight $ V − 1 $.
 
-### <a name="10-1-the-only-mst-alg"></a>10.1 The Only MST Algorithm
+### 10.1 The Only MST Algorithm
 
 The generic minimum spanning tree algorithm MAINTAINS an acyclic subgraph $ F $ of the input graph $ G=(V,E) $, which we will call an _intermediate spanning forest_. $ F $ is a subgraph of the minimum spanning tree of $ G $, and every component of $ F $ is a minimum spanning tree of its vertices. Initially, $ F $ consists of $ n $ one-node trees. The generic algorithm merges trees together by adding certain edges between them. When the algorithm halts, $ F $ consists of a single $ n $-node tree, which must be the minimum spanning tree. Obviously, we have to be careful about which edges we add to the evolving forest, since not every edge is in the minimum spanning tree.
 
@@ -818,7 +831,7 @@ _**Proof:**_ Adding any useless edge to F would introduce a cycle.
 
 Our generic minimum spanning tree algorithm repeatedly adds one or more safe edges to the evolving forest $ F $. Whenever we add new edges to $ F $, some undecided edges become safe, and others become useless. To specify a particular algorithm, we must decide which safe edges to add, and we must describe how to identify new safe and new useless edges, at each iteration of our generic template.
 
-### <a name="10-2-borvka-alg"></a>10.2 Borvka’s Algorithm
+### 10.2 Borvka’s Algorithm
 
 The Borvka algorithm can be summarized in one line:
 
@@ -854,7 +867,7 @@ _**RT:**_
 
 In short, if you ever need to implement a minimum-spanning-tree algorithm, use Borvka. On the other hand, if you want to _**prove things**_ about minimum spanning trees effectively, you really need to know the next two algorithms as well.
 
-### <a name="10-3-prim-alg"></a>10.3 Prim's Algorithm
+### 10.3 Prim's Algorithm
 
 Initially, $ T $ consists of an arbitrary vertex of the graph. The algorithm repeats the following step until $ T $ spans the whole graph:
 
@@ -877,7 +890,7 @@ To implement Jarník’s algorithm, we keep all the edges adjacent to $ T $ in a
 
 Similar to Dijkstra’s algorithm, if we implement the priority queue with a Fibonacci heap, the total running time would be $ O(E + V \log V) $.
 
-### <a name="10-4-kruskal-alg"></a>10.4 Kruskal’s Algorithm
+### 10.4 Kruskal’s Algorithm
 
 > Kruskal: Scan all edges in increasing weight order; if an edge is safe, add it to F.
 
@@ -899,7 +912,7 @@ Kruskal(G):
 
 _**RT:**_ $ O(E \log E) = O(E \log V) $, dominated by the sorting.
 
-## <a name="11-matroids"></a>11. Matroids (待续)
+## 11. Matroids (待续)
 
 ### 11.1 Definitions (待续)
 
@@ -971,7 +984,7 @@ _**RT:**_ $ O(n \log n) + n F(n) $. $ F(n) $ 应该是 depends on 具体的应�
 
 _**TODO:**_ 补充 proof
 
-## <a name="12-matching"></a>12. Matching (待续)
+## 12. Matching (待续)
 
 ### 12.1 The Maximum Matching Problem
 
@@ -1039,7 +1052,7 @@ MaxMatching(G):
 
 _**TODO:**_ bipartite graphs & `AltBFS` alg
 
-## <a name="13-testing-polynomial-identity"></a>13. Testing Polynomial Identity (待续)
+## 13. Testing Polynomial Identity (待续)
 
 ### 13.1 The Schwartz-Zippel Algorithm (待续)
 
@@ -1107,7 +1120,7 @@ _**Claim 2.3**_ $ G $ contains a perfect matching if and only if $ Det(A_G) \not
 
 $ Det(A) = - x_{11} \cdot x_{23} \cdot x_{32} $. 根据 $ x_{ij} $ 的下标，我们可以看出 $ \lbrace (p_1, q_1), (p_2, q_3), (p_3, q_2) \rbrace $ 是一个 perfect matching。
 
-## <a name="14-eulerian-graph"></a>14. Eulerian Graph
+## 14. Eulerian Graph
 
 _**Eulerian path:**_ a path, $ e_1 e_2 \cdots e_E $, which contains each edge exactly once.
 
@@ -1142,7 +1155,7 @@ We describe an Euler cycle in $ G $ like this:
 - If $ n $ is even, then $ K_n $ is traversable iff $ n=2 $.
 	- If a graph is not traversable, it cannot be Eulerian.
 
-## <a name="15-hamiltonian-path"></a>15. Hamiltonian Path
+## 15. Hamiltonian Path
 
 _**Hamiltonian path:**_ a simple path that contains all vertices.
 

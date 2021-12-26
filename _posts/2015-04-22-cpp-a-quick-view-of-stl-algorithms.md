@@ -13,23 +13,24 @@ tags: []
 
 -----
 
-## 目录
+ToC:
 
-- [1. Filling and generating](#fill-gen)
-- [2. Counting](#count)
-- [3. Manipulating sequences](#manipulate-seq)
-- [4. Searching and replacing](#search-replace)
-- [5. Comparing ranges](#compare)
-- [6. Removing elements](#remove)
-- [7. Sorting and operations on sorted ranges](#sort-op)
-	- [7.1 Sorting](#sort)
-	- [7.2 Locating elements in sorted ranges](#locate-in-sorted)
-	- [7.3 Merging sorted ranges](#merge-sorted)
-	- [7.4 Set operations on sorted ranges](#set-op)
-- [8. Heap operations](#heap-op)
-- [9. Applying an operation to each element in a range](#apply)
-- [10. Numeric algorithms](#numeric)
-- [11. General utilities](#util)
+- [缩写](#缩写)
+- [1. Filling and generating](#1-filling-and-generating)
+- [2. Counting](#2-counting)
+- [3. Manipulating sequences](#3-manipulating-sequences)
+- [4. Searching and replacing](#4-searching-and-replacing)
+- [5. Comparing ranges](#5-comparing-ranges)
+- [6. Removing elements](#6-removing-elements)
+- [7. Sorting and operations on sorted ranges](#7-sorting-and-operations-on-sorted-ranges)
+	- [7.1 Sorting](#71-sorting)
+	- [7.2 Locating elements in sorted ranges](#72-locating-elements-in-sorted-ranges)
+	- [7.3 Merging sorted ranges](#73-merging-sorted-ranges)
+	- [7.4 Set operations on sorted ranges](#74-set-operations-on-sorted-ranges)
+- [8. Heap operations](#8-heap-operations)
+- [9. Applying an operation to each element in a range](#9-applying-an-operation-to-each-element-in-a-range)
+- [10. Numeric algorithms](#10-numeric-algorithms)
+- [11. General utilities](#11-general-utilities)
 
 -----
 
@@ -49,7 +50,7 @@ tags: []
 
 -----
 	
-## <a name="fill-gen"></a>1. Filling and generating
+## 1. Filling and generating
 	
 - void **fill**(ForwI first, ForwI last, const T& value): 
 	- assigns `value` to every element in the range [first, last)
@@ -60,14 +61,14 @@ tags: []
 - void **generate_n**(OutI first, Size n, Generator gen): 
 	- calls `gen()` `n` times and assigns each result to `n` elements starting at `first`.
 	
-## <a name="count"></a>2. Counting
+## 2. Counting
 	
 - **count**(InI first, InI last, const EqualityComparable& value):
 	- returns the number of elements in [first, last) that are equivalent to `value` (when tested using `operator==`).
 - **count_if**(InI first, InI last, Predicate pred):
 	- returns the number of elements in [first, last`) that each cause `pred` to return true.
 	
-## <a name="manipulate-seq"></a>3. Manipulating sequences
+## 3. Manipulating sequences
 	
 - OutI **copy**(InI first, InI last, OutI destination)
 - BiI2 **copy_backward**(BiI1 first, BiI1 last, BiI2 destinationEnd)
@@ -102,7 +103,7 @@ tags: []
 		- which is, in effect, an “end iterator” for the initial subsequence of elements that satisfy pred. 
 		- This location is often called the “partition point.”
 		
-## <a name="search-replace"></a>4. Searching and replacing
+## 4. Searching and replacing
 
 - InI **find**(InI first, InI last, const EqualityComparable& value)
 - InI **find_if**(InI first, InI last, Predicate pred)
@@ -145,7 +146,7 @@ tags: []
 - OutI **replace_copy**(InI first, InI last, OutI result, const T& old_value, const T& new_value)
 - OutI **replace_copy_if**(InI first, InI last, OutI result, Predicate pred, const T& new_value)
 
-## <a name="compare"></a>5. Comparing ranges
+## 5. Comparing ranges
 
 - bool **equal**(InI first1, InI last1, InI first2)
 - bool **equal**(InI first1, InI last1, InI first2, BinPred binary_pred)
@@ -167,7 +168,7 @@ tags: []
 	- The `pair` template class is a struct with two members defined in the `<utility>` header.
 	- The first function tests for equality using `operator==` while the second one uses `binary_pred`.
 	
-## <a name="remove"></a>6. Removing elements
+## 6. Removing elements
 
 首先要说下 remove 操作。remove 的时候，STL 的想法是维持 [first, last) 这个 range，不直接干掉元素而是把要删除的元素挪到了容器末尾，同时 remove 会 return 一个 new_last，这样 [first, new_last) 就成了新的 range，[new_last, last) is the sequence of removed elements，而 iterators in [new_last, last) are dereferenceable, and the element values are unspecified.
 
@@ -186,9 +187,9 @@ tags: []
 	- 如果有连续的重复元素，则只保留一个，比如 aaaabbcd 会变成 abcd。但是这个操作和 remove 一样，要维持 [first, last) 这个 range；同时也是一样返回一个 new_last。
 	- 用 `binary_pred` 的版本，如果 `binary_pred(*i, *(i-1))` 返回 true，我们则认为这两个相邻的元素是重复的。
 
-## <a name="sort-op"></a>7. Sorting and operations on sorted ranges
+## 7. Sorting and operations on sorted ranges
 
-### <a name="sort"></a>7.1 Sorting
+### 7.1 Sorting
 
 - void **sort**(RAI first, RAI last)
 	- Use `operator<` to sort the range into ascending order.
@@ -212,7 +213,7 @@ tags: []
 	- If you want to answer "which element is the 4^th-smallest?" or "which elements are the 4 smallest ones?", use `nth_element(first, first+3, last)`
 	- If you want to get the 4 smallest elements _in order_, you may want to consider using `partial_sort(first, first+3, last)`
 	
-### <a name="locate-in-sorted"></a>7.2 Locating elements in sorted ranges
+### 7.2 Locating elements in sorted ranges
 
 - bool **binary_search**(ForwI first, ForwI last, const T& value)
 - bool **binary_search**(ForwI first, ForwI last, const T& value, SWO binary_pred)
@@ -229,7 +230,7 @@ tags: []
 - pair<ForwI, ForwI> **equal_range**(ForwI first, ForwI last, const T& value, SWO binary_pred)
 	- Essentially returns `lower_bound()` and `upper_bound()` results in a `pair`
 
-### <a name="merge-sorted"></a>7.3 Merging sorted ranges
+### 7.3 Merging sorted ranges
 
 - OutI **merge**(InI1 first1, InI1 last1, InI2 first2, InI2 last2, OutI result)
 - OutI **merge**(InI1 first1, InI1 last1, InI2 first2, InI2 last2, OutI result, SWO binary_pred)
@@ -238,7 +239,7 @@ tags: []
 - void **inplace_merge**(BiI first, BiI middle, BiI last, SWO binary_pred)
 	- Assumes that [first, middle) and [middle, last) are both sorted ranges in the same sequence. Merge these two sub-ranges in sorted order.
 	
-### <a name="set-op"></a>7.4 Set operations on sorted ranges
+### 7.4 Set operations on sorted ranges
 
 - bool **includes**(InI1 first1, InI1 last1, InI2 first2, InI2 last2)
 - bool **includes**(InI1 first1, InI1 last1, InI2 first2, InI2 last2, SWO binary_pred)
@@ -262,7 +263,7 @@ tags: []
 	- 所谓 symmetric difference 就是 A-B 并上 B-A，等价于 A、B 的并集减去 A、B 的交集
 	- 返回 `result` 的 last
 
-## <a name="heap-op"></a>8. Heap operations
+## 8. Heap operations
 
 这里 heap 并不是内存的那个 heap，单指 heap 这种数据结构。
 
@@ -285,7 +286,7 @@ The element with the highest value is always pointed by `first`. The order of th
 	- This could be thought of as the complement to `make_heap()`. It takes a range that is in heap order and turns it into ordinary sorted order, so it is no longer a heap. 
 	- That means that if you call `sort_heap()`, `push_heap()` or `pop_heap()` no longer make any sense.
 
-## <a name="apply"></a>9. Applying an operation to each element in a range
+## 9. Applying an operation to each element in a range
 
 - UnaFunc **for_each**(InI first, InI last, UnaFunc f)
 	- Applies the function object `f` to each element in [first, last)
@@ -295,7 +296,7 @@ The element with the highest value is always pointed by `first`. The order of th
 	- Applies the function object `f` to each element in the range1 [first, last), or along with each element in range2 in the second version. 
 	- Copies the return value (using `operator=`) into *result, incrementing `result` after each copy
 
-## <a name="numeric"></a>10. Numeric algorithms
+## 10. Numeric algorithms
 
 From `<numeric>`.
 
@@ -323,7 +324,7 @@ From `<numeric>`.
 	- version 2 是用 `op` 替代了 version 1 的 `operator-`
 	- 返回 result 的 last
 	
-## <a name="util"></a>11. General utilities
+## 11. General utilities
 
 - const LessThanComparable& **min**(const LessThanComparable& a, const LessThanComparable& b)
 - const T& **min**(const T& a, const T& b, BinPred binary_pred)

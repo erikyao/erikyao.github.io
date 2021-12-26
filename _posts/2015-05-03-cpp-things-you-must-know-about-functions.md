@@ -11,18 +11,18 @@ tags: [C++11]
 
 -----
 
-## 目录
+ToC:
 
-- [Never Return a Reference or Pointer to a Local Object](#thing1)
-- [Reference Returns Are Lvalues](#thing2)
-- [List Initializing the Return Value](#thing3)
-- [Using a Trailing Return Type](#thing4)
-- [Return from main](#thing5)
-- [Empty argument list](#thing6)
+- [Never Return a Reference or Pointer to a Local Object](#never-return-a-reference-or-pointer-to-a-local-object)
+- [Reference Returns Are Lvalues](#reference-returns-are-lvalues)
+- [List Initializing the Return Value](#list-initializing-the-return-value)
+- [Using a Trailing Return Type](#using-a-trailing-return-type)
+- [Return from main](#return-from-main)
+- [Empty argument list](#empty-argument-list)
 
 -----
 
-## <a name="thing1"></a>Never Return a Reference or Pointer to a Local Object
+## Never Return a Reference or Pointer to a Local Object
 
 这个其实挺好懂的，但是要注意：在返回 string reference 的时候 return string literal 也是会出问题的：
 
@@ -52,7 +52,7 @@ int main() {
 
 return value placeholder 请参见 [C++: Copy-constructor and the return value on the stack](/c++/2015/04/02/cpp-copy-constructor-and-the-return-value-on-the-stack) 
 
-## <a name="thing2"></a>Reference Returns Are Lvalues
+## Reference Returns Are Lvalues
 
 Calls to functions that return references are lvalues; other return types yield rvalues. 
 
@@ -77,7 +77,7 @@ int main() {
 
 因为是 lvalue 所以才敢这么用啊~
 
-## <a name="thing3"></a>List Initializing the Return Value
+## List Initializing the Return Value
 
 有的类，比如 vector，可以用 list initialization，所以你在 return vector 的函数里可以 return initializer_list：
 
@@ -87,7 +87,7 @@ vector<string> process() {
 }
 ```
 
-## <a name="thing4"></a>Using a Trailing Return Type
+## Using a Trailing Return Type
 
 In general, the new keyword `auto` in C++11 indicates that the type of the expression (in this case the return type of a function) should be inferred from the result of what occurs after the `->`.
 
@@ -114,11 +114,11 @@ auto fcn(It beg, It end) -> decltype(*beg) {
 }
 ```
 
-## <a name="thing5"></a>Return from main
+## Return from main
 
 The standard for `main()` is to return an int, but Standard C++ states that if there is no return statement inside `main()`, the compiler will automatically generate a `return 0;`.
 
-## <a name="thing6"></a>Empty argument list
+## Empty argument list
 
 If you have an empty argument list, you can declare it as `func();` in C++, which tells the compiler there are exactly zero arguments. You should be aware that this only means an empty argument list in C++. In C it means “an indeterminate number of arguments (which is a “hole” in C since it disables type checking in that case). 
 

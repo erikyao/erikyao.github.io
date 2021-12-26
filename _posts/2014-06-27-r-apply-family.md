@@ -13,28 +13,22 @@ tags: []
 
 -----
 
-## Table of Contents
+ToC:
 
-### The Apply Family
-
-* [1. `lapply`: Apply a Function to Each Element of a List or Vector](#lapply)
-* [2. `sapply` & `vapply`: Simplify the Result of `lapply`](#sapply)
-	* [2.1 `sapply` example: Removing low-correlation variables from a set of predictors](#sapply-example)
-     * [2.2 `vapply`: Safer `sapply`](#vapply)
-* [3. `mapply`: Apply a Function to Parallel Vectors or Lists (i.e. a Multivariate Version of `sapply`)](#mapply)
-* [4. `apply`: Apply a Function over Array Margins (e.g. to Every Row or to Every Column)](#apply)
-* [5. `tapply`: Apply a Function over a Ragged Array (i.e. `lapply` after `splitting` a column)](#tapply)
-
-### Their Cousins
-
-* [6. `split`: Split a Vector (or list) or Data Frame into Groups by a Factor or List of Factors](#split)
-* [7. `by`: Applying a Function to Groups of Rows (i.e. `lapply` after `splitting` a data frame)](#by)
-
-### [Family Tree](#family-tree)
+- [1. `lapply`: Apply a Function to Each Element of a List or Vector](#1-lapply-apply-a-function-to-each-element-of-a-list-or-vector)
+- [2. `sapply`: Simplify the Result of `lapply`](#2-sapply-simplify-the-result-of-lapply)
+  - [2.1 `sapply` example: Removing low-correlation variables from a set of predictors](#21-sapply-example-removing-low-correlation-variables-from-a-set-of-predictors)
+  - [2.2 `vapply`: Safer `sapply`](#22-vapply-safer-sapply)
+- [3. `mapply`: Apply a Function to Parallel Vectors or Lists (a Multivariate Version of `sapply`)](#3-mapply-apply-a-function-to-parallel-vectors-or-lists-a-multivariate-version-of-sapply)
+- [4. `apply`: Apply a Function over Array Margins (e.g. to Every Row or to Every Column)](#4-apply-apply-a-function-over-array-margins-eg-to-every-row-or-to-every-column)
+- [5. `tapply`: Apply a Function over a Ragged Array (i.e. lapply after splitting a column)](#5-tapply-apply-a-function-over-a-ragged-array-ie-lapply-after-splitting-a-column)
+- [6. `split`: Split a Vector (or list) or Data Frame into Groups by a Factor or List of Factors](#6-split-split-a-vector-or-list-or-data-frame-into-groups-by-a-factor-or-list-of-factors)
+- [7. `by`: Apply a Function to Groups of Rows (i.e. `lapply` after splitting a data frame)](#7-by-apply-a-function-to-groups-of-rows-ie-lapply-after-splitting-a-data-frame)
+- [Family Tree](#family-tree)
 
 -----
 
-## <a name="lapply"></a>1. `lapply`: Apply a Function to Each Element of a List or Vector
+## 1. `lapply`: Apply a Function to Each Element of a List or Vector
 
 `lapply(X, func, ...)` 可以理解成：
 
@@ -59,7 +53,7 @@ lapply always returns a list, regardless of the class of the input.
 
 apply family 里常见 anonymous function，比如这个 `lapply(x, function(x) x[,1])` 就是取 `list<Matrix>` 中每个 matrix 的第一列。
 
-## <a name="sapply"></a>2. `sapply`: Simplify the Result of `lapply`
+## 2. `sapply`: Simplify the Result of `lapply`
 
 The simplification rule is:
 
@@ -82,7 +76,7 @@ The simplification rule is:
  "factor" "factor" "integer" "numeric"
 ```
 
-### <a name="sapply-example"></a>2.1 `sapply` example: Removing low-correlation variables from a set of predictors
+### 2.1 `sapply` example: Removing low-correlation variables from a set of predictors
 
 Suppose that `resp` is a response variable (a vector) and `pred` is a data frame of predictor variables. Suppose further that we have too many predictors and therefore want to select the top 10 as measured by correlation with the response.
 
@@ -111,11 +105,11 @@ At this point, we can regress `resp` against `best.pred`, knowing that we have c
 
 	> lm(resp ~ best.pred)
 	
-### <a name="vapply"></a>2.2 `vapply`: Safer `sapply`
+### 2.2 `vapply`: Safer `sapply`
 
 `vapply` is similar to `sapply`, but has a pre-specified type of return value, so it can be safer (and sometimes faster) to use.
 
-## <a name="mapply"></a>3. `mapply`: Apply a Function to Parallel Vectors or Lists (a Multivariate Version of `sapply`)
+## 3. `mapply`: Apply a Function to Parallel Vectors or Lists (a Multivariate Version of `sapply`)
 
 举个例子：
 
@@ -151,7 +145,7 @@ return list;
 	> mapply(f, vec1, vec2, ..., vecN)
 	> mapply(f, list1, list2, ..., listN)
 
-## <a name="apply"></a>4. `apply`: Apply a Function over Array Margins (e.g. to Every Row or to Every Column)
+## 4. `apply`: Apply a Function over Array Margins (e.g. to Every Row or to Every Column)
 
 `apply(X, MARGIN, FUN, ...)`  
 
@@ -268,7 +262,7 @@ For sums and means of matrix dimensions, we have some shortcuts.
 
 The shortcut functions are much faster，因为有专门优化过.
 
-## <a name="tapply"></a>5. `tapply`: Apply a Function over a Ragged Array (i.e. lapply after splitting a column)
+## 5. `tapply`: Apply a Function over a Ragged Array (i.e. lapply after splitting a column)
 
 `function (X, INDEX, FUN = NULL, ..., simplify = TRUE)`  
 
@@ -312,7 +306,7 @@ The shortcut functions are much faster，因为有专门优化过.
 
 说白了就是 `tapply(X, INDEX, fun)` == `lapply(split(X, INDEX), fun)`，我们先用 `split` 来对某一个 column 做 grouping，得到一个 list of vectors，也就是 list of groups，然后对这个 list of groups 做 `lapply`
 
-## <a name="split"></a>6. `split`: Split a Vector (or list) or Data Frame into Groups by a Factor or List of Factors
+## 6. `split`: Split a Vector (or list) or Data Frame into Groups by a Factor or List of Factors
 
 最常见的就是 data frame 中有一个 column 是 factor，我们称其为 grouping factor。`split(x,y)` 的意思就是 `split x by factor y into a list of vectors`。
 
@@ -408,7 +402,7 @@ Both functions return a list of vectors, where each vector contains the elements
  
 The `unstack` function goes one step further: if all vectors have the same length, it converts the list into a data frame.
 
-## <a name="by"></a>7. `by`: Apply a Function to Groups of Rows (i.e. `lapply` after splitting a data frame)
+## 7. `by`: Apply a Function to Groups of Rows (i.e. `lapply` after splitting a data frame)
 
 `split` 一个 column 得到一个 list of vectors，`split` 一个 data frame 会得到一个 list of data frames。所以 `by(dfrm, factor, fun)` 就是先 `split` 这个 `dfrm` by `factor`，然后在得到的 list of data frames 上 `lapply` 执行 `fun`。与 `tapply` 很像，我们可以直接理解为：`by(dfrm, factor, fun)` == `lapply(split(dfrm, factor), fun)`。
 
@@ -425,6 +419,6 @@ The `unstack` function goes one step further: if all vectors have the same lengt
 > lapply(models, confint) ## print confidence intervals of each linear model
 ```
 
-## <a name="family-tree"></a>Family Tree
+## Family Tree
 
 ![](https://farm6.staticflickr.com/5823/23624880050_d664616d41_o_d.png)

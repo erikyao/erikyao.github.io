@@ -17,17 +17,20 @@ tags: [Math-Statistics]
 
 -----
 
-## 目录
-  
-1. [Statistic](#Statistic)
-2. [Statistical Hypothesis Test(ing)](#Statistical-Hypothesis-Test)
-3. [Test Statistic](#Test-Statistic)
-4. [t-test](#t-test)
-5. [p-value](#p-value)
+ToC:
+
+- [1. Statistic](#1-statistic)
+	- [1.1 Definition](#11-definition)
+	- [1.2 Types](#12-types)
+	- [1.3 Statistical Properties](#13-statistical-properties)
+- [2. Statistical Hypothesis Test(ing)](#2-statistical-hypothesis-testing)
+- [3. Test Statistic](#3-test-statistic)
+- [4. t-test](#4-t-test)
+- [5. p-value](#5-p-value)
 
 -----
 
-## <a name="Statistic"></a>1. Statistic
+## 1. Statistic
 
 ### 1.1 Definition
 
@@ -66,7 +69,7 @@ Important potential properties of statistics include
 * robustness
 * computational convenience
 
-## <a name="Statistical-Hypothesis-Test"></a>2. Statistical Hypothesis Test(ing)
+## 2. Statistical Hypothesis Test(ing)
 
 A statistical hypothesis test is a method of statistical inference. In statistics, a result is called **statistically significant** if it has been predicted as unlikely to have occurred by chance alone, according to a pre-determined threshold probability, the significance level.  
 
@@ -80,15 +83,15 @@ Statistical hypothesis testing is sometimes called **confirmatory data analysis*
 
 这么一套流程和方法。
 
-## <a name="Test-Statistic"></a>3. Test Statistic
+## 3. Test Statistic
 
 A test statistic is a statistic used in statistical hypothesis testing.
 
-## <a name="t-test"></a>4. t-test
+## 4. t-test
 
 A t-test is a statistical hypothesis test in which the test statistic follows a Student's t distribution if the null hypothesis is supported.
 
-## <a name="p-value"></a>5. p-value
+## 5. p-value
 
 以 t-test 为例。  
 
