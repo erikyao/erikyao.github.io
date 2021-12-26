@@ -19,253 +19,255 @@ tags: [Book]
 [21-4-object-type]: https://farm5.staticflickr.com/4333/37163854232_ee8efc2396_z_d.jpg
 [21-4-metaclass]: https://farm5.staticflickr.com/4358/36498898824_16ac200d04_z_d.jpg
 
-## TOC
+ToC:
 
-- Part I - Prologue
-	- [Chapter 1 - The Python Data Model](#Chapter-1---The-Python-Data-Model)
-		- [`__new__(cls, arg)` / `__init__(self, arg)`](#--new--cls-arg-----init--self-arg)
-		- [`__getitem__()`](#--getitem--)
-		- [`__getattribute__()` / `__getattr__()` / `getattr()`](#--getattribute-------getattr-----getattr)
-		- [`__iter__()` and `__next__()`](#--iter---and---next--)
-		- [`__repr__()` vs `__str__()`](#--repr---vs---str--)
-- Part II - Data Structures
-	- [Chapter 2 - An array of Sequences](#Chapter-2---An-array-of-Sequences)
-		- [2.1 Overview of Built-In Sequences](#2-1-Overview-of-Built-In-Sequences)
-		- [2.2 _listcomps_ and _genexps_](#2-2--listcomps--and--genexps-)
-		- [2.3 Tuples Are Not Just Immutable Lists](#2-3-Tuples-Are-Not-Just-Immutable-Lists)
-			- [2.3.1 Tuples as records](#2-3-1-Tuples-as-records)
-			- [2.3.2 Tuple Unpacking](#2-3-2-Tuple-Unpacking)
-			- [2.3.3 Nested Tuple Unpacking](#2-3-3-Nested-Tuple-Unpacking)
-			- [2.3.4 `namedtuple`](#2-3-4-namedtuple)
-		- [2.4 Slicing](#2-4-Slicing)
-		- [2.5 Using `+` and `*` with Sequences](#2-5-Using-+-and-*-with-Sequences)
-		- [2.6 `lst.sort()` vs `sorted(lst)`](#2-6-lst-sort-vs-sortedlst)
-		- [2.7 Managing Ordered Sequences with `bisect` Module](#2-7-Managing-Ordered-Sequences-with-bisect-Module)
-		- [2.8 When a List Is Not the Answer](#2-8-When-a-List-Is-Not-the-Answer)
-			- [2.8.1 `array.array`](#2-8-1-array-array)
-			- [2.8.2 `memoryview(array)`](#2-8-2-memoryviewarray)
-			- [2.8.3 `collections.deque` and Other Queues](#2-8-3-collections-deque-and-Other-Queues)
-	- [Chapter 3 - Dictionaries and Sets](#Chapter-3---Dictionaries-and-Sets)
-		- [Digress: What Is Hashable?](#Digress-What-Is-Hashable)
-		- [3.1 Generic Mapping Types](#3-1-Generic-Mapping-Types)
-		- [3.2 _dictcomp_](#3-2--dictcomp-)
-		- [3.3 Handling Missing Keys with `dict.setdefault()`](#3-3-Handling-Missing-Keys-with-dict-setdefault)
-		- [3.4 Handling Missing Keys with `collections.defaultdict` or `__missing__()`](#3-4-Handling-Missing-Keys-with-collections-defaultdict-or---missing--)
-		- [3.5 Variations of `dict`](#3-5-Variations-of-dict)
-		- [3.6 Subclassing `UserDict`](#3-6-Subclassing-UserDict)
-		- [3.7 Immutable Mappings](#3-7-Immutable-Mappings)
-		- [3.8 `set`](#3-8-set)
-			- [3.8.1 `set` Literals](#3-8-1-set-Literals)
-			- [3.8.2 _setcomp_](#3-8-2--setcomp-)
-			- [3.8.3 Set Operations](#3-8-3-Set-Operations)
-		- [3.9 `dict` and `set` Under the Hood](#3-9-dict-and-set-Under-the-Hood)
+- [Part I - Prologue](#part-i---prologue)
+	- [Chapter 1 - The Python Data Model](#chapter-1---the-python-data-model)
+		- [`__new__(cls, arg)` / `__init__(self, arg)`](#__new__cls-arg--__init__self-arg)
+		- [`__getitem__()`](#__getitem__)
+		- [`__getattribute__()` / `__getattr__()` / `getattr()`](#__getattribute__--__getattr__--getattr)
+		- [`__iter__()` and `__next__()`](#__iter__-and-__next__)
+		- [`__repr__()` vs `__str__()`](#__repr__-vs-__str__)
+- [Part II - Data Structures](#part-ii---data-structures)
+	- [Chapter 2 - An array of Sequences](#chapter-2---an-array-of-sequences)
+		- [2.1 Overview of Built-In Sequences](#21-overview-of-built-in-sequences)
+		- [2.2 _listcomps_ and _genexps_](#22-listcomps-and-genexps)
+		- [2.3 Tuples Are Not Just Immutable Lists](#23-tuples-are-not-just-immutable-lists)
+			- [2.3.1 Tuples as Records](#231-tuples-as-records)
+			- [2.3.2 Tuple Unpacking](#232-tuple-unpacking)
+			- [2.3.3 Nested Tuple Unpacking](#233-nested-tuple-unpacking)
+			- [2.3.4 `namedtuple`](#234-namedtuple)
+		- [2.4 Slicing](#24-slicing)
+		- [2.5 Using `+` and `*` with Sequences](#25-using--and--with-sequences)
+		- [2.6 `lst.sort()` vs `sorted(lst)`](#26-lstsort-vs-sortedlst)
+		- [2.7 Managing Ordered Sequences with `bisect` Module](#27-managing-ordered-sequences-with-bisect-module)
+		- [2.8 When a List Is Not the Answer](#28-when-a-list-is-not-the-answer)
+			- [2.8.1 `array.array`](#281-arrayarray)
+			- [2.8.2 `memoryview(array)`](#282-memoryviewarray)
+			- [2.8.3 `collections.deque` and Other Queues](#283-collectionsdeque-and-other-queues)
+	- [Chapter 3 - Dictionaries and Sets](#chapter-3---dictionaries-and-sets)
+		- [Digress: What Is Hashable?](#digress-what-is-hashable)
+		- [3.1 Generic Mapping Types](#31-generic-mapping-types)
+		- [3.2 _dictcomp_](#32-dictcomp)
+		- [3.3 Handling Missing Keys with `dict.setdefault()`](#33-handling-missing-keys-with-dictsetdefault)
+		- [3.4 Handling Missing Keys with `collections.defaultdict` or `__missing__()`](#34-handling-missing-keys-with-collectionsdefaultdict-or-__missing__)
+		- [3.5 Variations of `dict`](#35-variations-of-dict)
+		- [3.6 Subclassing `UserDict`](#36-subclassing-userdict)
+		- [3.7 Immutable Mappings](#37-immutable-mappings)
+		- [3.8 `set`](#38-set)
+			- [3.8.1 `set` Literals](#381-set-literals)
+			- [3.8.2 _setcomp_](#382-setcomp)
+			- [3.8.3 Set Operations](#383-set-operations)
+		- [3.9 `dict` and `set` Under the Hood](#39-dict-and-set-under-the-hood)
 			- [`dict`s have significant memory overhead](#dicts-have-significant-memory-overhead)
-			- [Key search is very fast](#Key-search-is-very-fast)
-			- [Adding items to a `dict` may change the order of existing keys](#Adding-items-to-a-dict-may-change-the-order-of-existing-keys)
-			- [How Sets Work](#How-Sets-Work)
-	- [Chapter 4 - Text vs Bytes](#Chapter-4---Text-vs-Bytes)
-		- [4.1 Character Issues](#4-1-Character-Issues)
-			- [Digress: BOM](#Digress-BOM)
-		- [4.2 Byte Essentials](#4-2-Byte-Essentials)
-		- [4.3 Basic Encoders/Decoders](#4-3-Basic-Encoders-Decoders)
-		- [4.4 Understanding Encode/Decode Problems (略)](#4-4-Understanding-Encode-Decode-Problems-略)
-		- [4.5 Handling Text Files](#4-5-Handling-Text-Files)
-		- [4.6 Normalizing Unicode for Saner Comparisons (略)](#4-6-Normalizing-Unicode-for-Saner-Comparisons-略)
-		- [4.7 Sorting Unicode Text (略)](#4-7-Sorting-Unicode-Text-略)
-		- [4.8 The Unicode Database (略)](#4-8-The-Unicode-Database-略)
-		- [4.9 Dual-Mode `str` and `bytes` APIs (略)](#4-9-Dual-Mode-str-and-bytes-APIs-略)
-- Part III - Functions as Objects
-	- [Chapter 5 - Python Functions are First-Class Objects](#Chapter-5---Python-Functions-are-First-Class-Objects)
-		- [5.1 Treating a Function Like an Object](#5-1-Treating-a-Function-Like-an-Object)
-		- [5.2 Higher-Order Functions (e.g. `map`, `filter` and `reduce`)](#5-2-Higher-Order-Functions-e-g--map-filter-and-reduce)
-		- [5.3 Anonymous Functions](#5-3-Anonymous-Functions)
-		- [5.4 The 7 Flavors of Callable Objects](#5-4-The-7-Flavors-of-Callable-Objects)
-		- [5.5 User-Defined Callable Types](#5-5-User-Defined-Callable-Types)
-		- [5.6 Function Introspection](#5-6-Function-Introspection)
-			- [Function Annotations](#Function-Annotations)
-			- [Function Closure](#Function-Closure)
-			- [Default Parameter Values vs Default Keyword-Only Parameter Values](#Default-Parameter-Values-vs-Default-Keyword-Only-Parameter-Values)
-		- [5.7 Packages for Functional Programming: `operator` and `functools`](#5-7-Packages-for-Functional-Programming-operator-and-functools)
-			- [5.7.1 `operator`: arithmetic operators / `itemgetter` / `attrgetter` / `methodcaller`](#5-7-1-operator-arithmetic-operators---itemgetter---attrgetter---methodcaller)
-			- [5.7.2 `functools`: Freezing Arguments with `partial()`](#5-7-2-functools-Freezing-Arguments-with-partial)
-	- [Chapter 6 - Design Patterns with First-Class Functions](#Chapter-6---Design-Patterns-with-First-Class-Functions)
-		- [6.1 Case Study: Refactoring Strategy](#6-1-Case-Study-Refactoring-Strategy)
-			- [6.1.1 Flyweight Pattern](#6-1-1-Flyweight-Pattern)
-			- [6.1.2 Choosing the Best Strategy: Simple Approach](#6-1-2-Choosing-the-Best-Strategy-Simple-Approach)
-			- [6.1.3 Advanced Approach: Finding Strategies in a Module](#6-1-3-Advanced-Approach-Finding-Strategies-in-a-Module)
-		- [6.2 Command Pattern](#6-2-Command-Pattern)
-- Part IV - Object-Oriented Idioms
-	- [Chapter 7 - Function Decorators and Closures](#Chapter-7---Function-Decorators-and-Closures)
-		- [7.1 Decorators 101](#7-1-Decorators-101)
-		- [7.2 When Python Executes Decorators](#7-2-When-Python-Executes-Decorators)
-		- [7.3 Decorator-Enhanced Strategy Pattern](#7-3-Decorator-Enhanced-Strategy-Pattern)
-		- [7.4 Variable Scope Rules](#7-4-Variable-Scope-Rules)
-		- [7.5 Closures](#7-5-Closures)
-		- [7.6 The `nonlocal` Declaration](#7-6-The-nonlocal-Declaration)
-		- [7.7 Decorators in the Standard Library](#7-7-Decorators-in-the-Standard-Library)
-			- [7.7.1 Memoization with `functools.lru_cache`](#7-7-1-Memoization-with-functools-lru-cache)
-			- [7.7.2 Generic Functions with Single Dispatch](#7-7-2-Generic-Functions-with-Single-Dispatch)
-		- [7.8 Stacked Decorators](#7-8-Stacked-Decorators)
-		- [Digress: `@functools.wrap`](#Digress-@functools-wrap)
-	- [Chapter 8 - Object References, Mutability, and Recycling](#Chapter-8---Object-References-Mutability-and-Recycling)
-		- [8.1 Variables Are Not Boxes](#8-1-Variables-Are-Not-Boxes)
-		- [8.2 Identity, Equality, and Aliases](#8-2-Identity-Equality-and-Aliases)
-			- [8.2.1 Choosing Between `==` and `is`](#8-2-1-Choosing-Between-==-and-is)
-			- [8.2.2 The Relative Immutability of Tuples](#8-2-2-The-Relative-Immutability-of-Tuples)
-		- [8.3 Copies Are Shallow by Default](#8-3-Copies-Are-Shallow-by-Default)
-			- [8.3.1 Deep and Shallow Copies of Arbitrary Objects](#8-3-1-Deep-and-Shallow-Copies-of-Arbitrary-Objects)
-		- [8.4 Function Parameters as References](#8-4-Function-Parameters-as-References)
-			- [8.4.1 Mutable Types as Parameter Defaults: Bad Idea](#8-4-1-Mutable-Types-as-Parameter-Defaults-Bad-Idea)
-			- [8.4.2 Defensive Programming with Mutable Parameters](#8-4-2-Defensive-Programming-with-Mutable-Parameters)
-		- [8.5 `del` and Garbage Collection](#8-5-del-and-Garbage-Collection)
-		- [8.6 Weak References](#8-6-Weak-References)
-			- [8.6.1 The `WeakValueDictionary` Skit](#8-6-1-The-WeakValueDictionary-Skit)
-			- [8.6.2 Limitations of Weak References](#8-6-2-Limitations-of-Weak-References)
-		- [8.7 Tricks Python Plays with Immutables](#8-7-Tricks-Python-Plays-with-Immutables)
-	- [Chapter 9 - A Pythonic Object](#Chapter-9---A-Pythonic-Object)
-		- [9.1 Object Representations](#9-1-Object-Representations)
-		- [9.2 Vector Class Redux](#9-2-Vector-Class-Redux)
-		- [8.3 `classmethod` vs `staticmethod`](#8-3-classmethod-vs-staticmethod)
-		- [8.4 Making It Hashable](#8-4-Making-It-Hashable)
-			- [8.4.1 Digress: `@property` / `__getattribute__()` / `__get__()`](#8-4-1-Digress-@property-----getattribute-------get--)
-			- [8.4.2 Digress Further: `x.setter` / `x.deleter`](#8-4-2-Digress-Further-x-setter---x-deleter)
-			- [8.4.3 `__hash__()`](#8-4-3---hash--)
-		- [8.5 "Private" and "Protected"](#8-5-Private-and-Protected)
-		- [8.6 Saving Space with the `__slots__` Class Attribute](#8-6-Saving-Space-with-the---slots---Class-Attribute)
-		- [8.7 Overriding Class Attributes](#8-7-Overriding-Class-Attributes)
-	- [Chapter 10 - Sequence Hacking, Hashing, and Slicing](#Chapter-10---Sequence-Hacking-Hashing-and-Slicing)
-		- [10.1 `Vector` Take #1: `Vector2d` Compatible](#10-1-Vector-Take-1-Vector2d-Compatible)
-		- [Digress: Protocols and Duck Typing](#Digress-Protocols-and-Duck-Typing)
-		- [10.2 `Vector` Take #2: A Sliceable Sequence](#10-2-Vector-Take-2-A-Sliceable-Sequence)
-			- [10.2.1 How Slicing Works](#10-2-1-How-Slicing-Works)
-			- [10.2.2 A Slice-Aware `__getitem__`](#10-2-2-A-Slice-Aware---getitem--)
-		- [10.3 `Vector` Take #3: Dynamic Attribute Access](#10-3-Vector-Take-3-Dynamic-Attribute-Access)
-		- [10.4 `Vector` Take #4: Hashing and a Faster `==`](#10-4-Vector-Take-4-Hashing-and-a-Faster-==)
-		- [10.5 `Vector` Take #5: Formatting](#10-5-Vector-Take-5-Formatting)
-	- [Chapter 11 - Interfaces: From Protocols to ABCs](#Chapter-11---Interfaces-From-Protocols-to-ABCs)
-		- [11.1 Monkey-Patching to Implement a Protocol at Runtime](#11-1-Monkey-Patching-to-Implement-a-Protocol-at-Runtime)
-		- [11.2 Subclassing an ABC](#11-2-Subclassing-an-ABC)
-		- [11.3 ABCs in the Standard Library](#11-3-ABCs-in-the-Standard-Library)
-			- [11.3.1 ABCs in `collections.abc`](#11-3-1-ABCs-in-collections-abc)
-			- [11.3.2 The `numbers` Tower of ABCs](#11-3-2-The-numbers-Tower-of-ABCs)
-		- [11.4 Defining and Using an ABC](#11-4-Defining-and-Using-an-ABC)
-		- [11.5 Virtual Subclasses](#11-5-Virtual-Subclasses)
-			- [11.5.1 `issubclass` Alternatives: `__subclasses__` and `_abc_registry`](#11-5-1-issubclass-Alternatives---subclasses---and--abc-registry)
-			- [11.5.2 `__subclasshook__`](#11-5-2---subclasshook--)
-	- [Chapter 12 - Inheritance: For Good or For Worse](#Chapter-12---Inheritance-For-Good-or-For-Worse)
-		- [12.1 Subclassing Built-In Types Is Tricky](#12-1-Subclassing-Built-In-Types-Is-Tricky)
-		- [12.2 Multiple Inheritance and Method Resolution Order](#12-2-Multiple-Inheritance-and-Method-Resolution-Order)
-		- [12.3 Coping with Multiple Inheritance](#12-3-Coping-with-Multiple-Inheritance)
-	- [Chapter 13 - Operator Overloading: Doing It Right](#Chapter-13---Operator-Overloading-Doing-It-Right)
-		- [13.1 Operator Overloading 101](#13-1-Operator-Overloading-101)
-		- [13.2 Unary Operators](#13-2-Unary-Operators)
-		- [13.3 `+` for Vector Addition](#13-3-+-for-Vector-Addition)
-		- [13.4 `*` for Scalar Multiplication](#13-4-*-for-Scalar-Multiplication)
-		- [Digress: `@` for Matrix Multiplication since Python 3.5](#Digress-@-for-Matrix-Multiplication-since-Python-3-5)
-		- [Digress: `__ixxx__` Series In-place Operators](#Digress---ixxx---Series-In-place-Operators)
-		- [13.5 Rich Comparison Operators](#13-5-Rich-Comparison-Operators)
-		- [13.6 Augmented Assignment Operators](#13-6-Augmented-Assignment-Operators)
-- Part V - Control Flow
-	- [Chapter 14 - Iterables, Iterators, and Generators](#Chapter-14---Iterables-Iterators-and-Generators)
-		- [14.1 `Sentence` Take #1: A Sequence of Words](#14-1-Sentence-Take-1-A-Sequence-of-Words)
-		- [14.2 Iterables Versus Iterators](#14-2-Iterables-Versus-Iterators)
-		- [14.3 `Sentence` Take #2: A Classic Iterator](#14-3-Sentence-Take-2-A-Classic-Iterator)
-		- [14.4 `Sentence` Take #3: A Generator Function](#14-4-Sentence-Take-3-A-Generator-Function)
-		- [14.5 `Sentence` Take #4: A Lazy Implementation](#14-5-Sentence-Take-4-A-Lazy-Implementation)
-		- [14.6 `Sentence` Take #5: A Generator Expression](#14-6-Sentence-Take-5-A-Generator-Expression)
-		- [14.7 Generator Functions in the Standard Library](#14-7-Generator-Functions-in-the-Standard-Library)
-			- [14.7.1 Create Generators Yielding Filtered Data](#14-7-1-Create-Generators-Yielding-Filtered-Data)
-			- [14.7.2 Create Generators Yielding Mapped Data](#14-7-2-Create-Generators-Yielding-Mapped-Data)
-			- [14.7.3 Create Generators Yielding Merged Data](#14-7-3-Create-Generators-Yielding-Merged-Data)
-		- [14.7.4 Create Generators Yielding Repetition](#14-7-4-Create-Generators-Yielding-Repetition)
-		- [14.7.5 Create Generators Yielding Combinations and Permutations](#14-7-5-Create-Generators-Yielding-Combinations-and-Permutations)
-			- [14.7.6 Create Generators Yielding Rearranged Data](#14-7-6-Create-Generators-Yielding-Rearranged-Data)
-		- [14.8 New Syntax in Python 3.3: `yield from`](#14-8-New-Syntax-in-Python-3-3-yield-from)
-		- [14.9 Iterable Reducing Functions](#14-9-Iterable-Reducing-Functions)
-		- [14.10 A Closer Look at the `iter` Function](#14-10-A-Closer-Look-at-the-iter-Function)
-		- [14.11 Generators as Coroutines](#14-11-Generators-as-Coroutines)
-		- [Soapbox](#14-Soapbox)
-			- [Semantics of Generator Versus Iterator](#Semantics-of-Generator-Versus-Iterator)
-	- [Chapter 15 - Context Managers and `else` Blocks](#Chapter-15---Context-Managers-and-else-Blocks)
-		- [15.1 Do This, Then That: `else` Blocks Beyond `if`](#15-1-Do-This-Then-That-else-Blocks-Beyond-if)
-		- [15.2 Context Managers and `with` Blocks](#15-2-Context-Managers-and-with-Blocks)
-		- [15.3 The `contextlib` Utilities](#15-3-The-contextlib-Utilities)
-		- [15.4 Use `@contextlib.contextmanager`](#15-4-Use-@contextlib-contextmanager)
-		- [Soapbox](#15-Soapbox)
-	- [Chapter 16 - Coroutines](#Chapter-16---Coroutines)
-		- [16.1 How Coroutines Evolved from Generators](#16-1-How-Coroutines-Evolved-from-Generators)
-		- [16.2 Basic Behavior of a Generator Used as a Coroutine](#16-2-Basic-Behavior-of-a-Generator-Used-as-a-Coroutine)
-		- [16.3 Example: Coroutine to Compute a Running Average](#16-3-Example-Coroutine-to-Compute-a-Running-Average)
-		- [16.4 Decorators for Coroutine Priming](#16-4-Decorators-for-Coroutine-Priming)
-		- [16.5 Coroutine Termination and Exception Handling](#16-5-Coroutine-Termination-and-Exception-Handling)
-		- [16.6 Returning a Value from a Coroutine](#16-6-Returning-a-Value-from-a-Coroutine)
-		- [16.7 Using `yield from`](#16-7-Using-yield-from)
-		- [16.8 The Meaning of `yield from`](#16-8-The-Meaning-of-yield-from)
-		- [16.9 Use Case: Coroutines for Discrete Event Simulation](#16-9-Use-Case-Coroutines-for-Discrete-Event-Simulation)
-			- [16.9.1 Discrete Event Simulations](#16-9-1-Discrete-Event-Simulations)
-			- [16.9.2 The Taxi Fleet Simulation](#16-9-2-The-Taxi-Fleet-Simulation)
-	- [Chapter 17 - Concurrency with Futures](#Chapter-17---Concurrency-with-Futures)
-		- [17.1 Example: Web Downloads in Three Styles](#17-1-Example-Web-Downloads-in-Three-Styles)
-			- [17.1.1 Style I: Sequential](#17-1-1-Style-I-Sequential)
-			- [17.1.2 Style II: Concurrent with `concurrent.features`](#17-1-2-Style-II-Concurrent-with-concurrent-features)
-			- [17.1.3 Style III: Concurrent with `asyncio`](#17-1-3-Style-III-Concurrent-with-asyncio)
-			- [17.1.4 What Are the `Future`s?](#17-1-4-What-Are-the-Futures)
-		- [17.2 Blocking I/O and the GIL](#17-2-Blocking-I-O-and-the-GIL)
-		- [17.3 Launching Processes with `concurrent.futures`](#17-3-Launching-Processes-with-concurrent-futures)
-		- [17.4 Experimenting with `executor.map`](#17-4-Experimenting-with-executor-map)
-		- [17.5 Downloads with Progress Display and Error Handling](#17-5-Downloads-with-Progress-Display-and-Error-Handling)
-			- [17.5.3 `threading` and `multiprocessing`](#17-5-3-threading-and-multiprocessing)
-	- [Chapter 18 - Concurrency with `asyncio`](#Chapter-18---Concurrency-with-asyncio)
-		- [18.1 Thread Versus Coroutine: A Comparison](#18-1-Thread-Versus-Coroutine-A-Comparison)
-			- [18.1.1 `asyncio.Future`: Nonblocking by Design](#18-1-1-asyncio-Future-Nonblocking-by-Design)
-			- [18.1.2 Yielding from Futures, Tasks, and Coroutines](#18-1-2-Yielding-from-Futures-Tasks-and-Coroutines)
-		- [18.2 Downloading with `asyncio` and `aiohttp`](#18-2-Downloading-with-asyncio-and-aiohttp)
-		- [18.3 Running Circling Around Blocking Calls](#18-3-Running-Circling-Around-Blocking-Calls)
-		- [18.4 Enhancing the `asyncio` downloader Script](#18-4-Enhancing-the-asyncio-downloader-Script)
-			- [18.4.1 Using `asyncio.as_completed`](#18-4-1-Using-asyncio-as-completed)
-			- [18.4.2 Using an `Executor` to Avoid Blocking the Event Loop](#18-4-2-Using-an-Executor-to-Avoid-Blocking-the-Event-Loop)
-		- [18.5 From Callbacks to Futures and Coroutines](#18-5-From-Callbacks-to-Futures-and-Coroutines)
-		- [18.6 Writing asyncio Servers](#18-6-Writing-asyncio-Servers)
-- Part VI - Metaprogramming
-	- [Chapter 19 - Dynamic Attributes and Properties](#Chapter-19---Dynamic-Attributes-and-Properties)
-		- [19.1 Data Wrangling with Dynamic Attributes](#19-1-Data-Wrangling-with-Dynamic-Attributes)
-			- [19.1.1 Exploring JSON-Like Data with Dynamic Attributes](#19-1-1-Exploring-JSON-Like-Data-with-Dynamic-Attributes)
-			- [19.1.2 The Invalid Attribute Name Problem](#19-1-2-The-Invalid-Attribute-Name-Problem)
-			- [19.1.3 Flexible Object Creation with `__new__`](#19-1-3-Flexible-Object-Creation-with---new--)
-			- [19.1.4 Restructuring the OSCON Feed with `shelve`](#19-1-4-Restructuring-the-OSCON-Feed-with-shelve)
-			- [19.1.5 Linked Record Retrieval with Properties](#19-1-5-Linked-Record-Retrieval-with-Properties)
-		- [19.2 Using a Property for Attribute Validation](#19-2-Using-a-Property-for-Attribute-Validation)
-			- [19.2.1 `LineItem` Take #1: Class for an Item in an Order](#19-2-1-LineItem-Take-1-Class-for-an-Item-in-an-Order)
-			- [19.2.2 `LineItem` Take #2: A Validating Property](#19-2-2-LineItem-Take-2-A-Validating-Property)
-		- [19.3 A Proper Look at Properties](#19-3-A-Proper-Look-at-Properties)
-			- [19.3.1 Properties Override Instance Attributes](#19-3-1-Properties-Override-Instance-Attributes)
-			- [19.3.2 Property Documentation](#19-3-2-Property-Documentation)
-		- [19.4 Coding a Property Factory](#19-4-Coding-a-Property-Factory)
-		- [19.5 Handling Attribute Deletion](#19-5-Handling-Attribute-Deletion)
-		- [19.6 Essential Attributes and Functions for Attribute Handling](#19-6-Essential-Attributes-and-Functions-for-Attribute-Handling)
-	- [Chapter 20 - Attribute Descriptors](#Chapter-20---Attribute-Descriptors)
-		- [20.1 Descriptor Example: Attribute Validation](#20-1-Descriptor-Example-Attribute-Validation)
-			- [20.1.1 `LineItem` Take #3: A Simple Descriptor](#20-1-1-LineItem-Take-3-A-Simple-Descriptor)
-			- [20.1.2 `LineItem` Take #4: Automatic Storage Attribute Names](#20-1-2-LineItem-Take-4-Automatic-Storage-Attribute-Names)
-			- [20.1.3 `LineItem` Take #5: A New Descriptor Type](#20-1-3-LineItem-Take-5-A-New-Descriptor-Type)
-		- [20.2 Overriding Versus Nonoverriding Descriptors](#20-2-Overriding-Versus-Nonoverriding-Descriptors)
-			- [20.2.1 Overriding Descriptor (a.k.a. Data Descriptor / Enforced Descriptor)](#20-2-1-Overriding-Descriptor-a-k-a--Data-Descriptor---Enforced-Descriptor)
-			- [20.2.2 Overriding Descriptor Without `__get__`](#20-2-2-Overriding-Descriptor-Without---get--)
-			- [20.2.3 Nonoverriding Descriptor (a.k.a. Nondata Descriptor / Shadowable Descriptor)](#20-2-3-Nonoverriding-Descriptor-a-k-a--Nondata-Descriptor---Shadowable-Descriptor)
-			- [20.2.4 Overwriting a Descriptor in the Class](#20-2-4-Overwriting-a-Descriptor-in-the-Class)
-		- [20.3 Methods Are (Nonoverriding) Descriptors](#20-3-Methods-Are-Nonoverriding-Descriptors)
-		- [20.4 Descriptor Usage Tips](#20-4-Descriptor-Usage-Tips)
-	- [Chapter 21 - Class Metaprogramming](#Chapter-21---Class-Metaprogramming)
-		- [21.1 A Class Factory](#21-1-A-Class-Factory)
-		- [21.2 A Class Decorator for Customizing Descriptors](#21-2-A-Class-Decorator-for-Customizing-Descriptors)
-		- [21.3 What Happens When: Import Time Versus Runtime](#21-3-What-Happens-When-Import-Time-Versus-Runtime)
-		- [21.4 Metaclasses 101](#21-4-Metaclasses-101)
-		- [21.5 A Metaclass for Customizing Descriptors](#21-5-A-Metaclass-for-Customizing-Descriptors)
-		- [21.6 The Metaclass `__prepare__` Special Method (only available in Python 3)](#21-6-The-Metaclass---prepare---Special-Method-only-available-in-Python-3)
-		- [21.7 Classes as Objects](#21-7-Classes-as-Objects)
-		- [21.8 Advices on Metaclasses](#21-8-Advices-on-Metaclasses)
+			- [Key search is very fast](#key-search-is-very-fast)
+			- [Adding items to a `dict` may change the order of existing keys](#adding-items-to-a-dict-may-change-the-order-of-existing-keys)
+			- [How Sets Work](#how-sets-work)
+	- [Chapter 4 - Text vs Bytes](#chapter-4---text-vs-bytes)
+		- [4.1 Character Issues](#41-character-issues)
+			- [Digress: BOM](#digress-bom)
+		- [4.2 Byte Essentials](#42-byte-essentials)
+		- [4.3 Basic Encoders/Decoders](#43-basic-encodersdecoders)
+		- [4.4 Understanding Encode/Decode Problems (略)](#44-understanding-encodedecode-problems-略)
+		- [4.5 Handling Text Files](#45-handling-text-files)
+		- [4.6 Normalizing Unicode for Saner Comparisons (略)](#46-normalizing-unicode-for-saner-comparisons-略)
+		- [4.7 Sorting Unicode Text (略)](#47-sorting-unicode-text-略)
+		- [4.8 The Unicode Database (略)](#48-the-unicode-database-略)
+		- [4.9 Dual-Mode `str` and `bytes` APIs (略)](#49-dual-mode-str-and-bytes-apis-略)
+- [Part III - Functions as Objects](#part-iii---functions-as-objects)
+	- [Chapter 5 - Python Functions are First-Class Objects](#chapter-5---python-functions-are-first-class-objects)
+		- [5.1 Treating a Function Like an Object](#51-treating-a-function-like-an-object)
+		- [5.2 Higher-Order Functions (e.g. `map`, `filter` and `reduce`)](#52-higher-order-functions-eg-map-filter-and-reduce)
+		- [5.3 Anonymous Functions](#53-anonymous-functions)
+		- [5.4 The 7 Flavors of Callable Objects](#54-the-7-flavors-of-callable-objects)
+		- [5.5 User-Defined Callable Types](#55-user-defined-callable-types)
+		- [5.6 Function Introspection](#56-function-introspection)
+			- [Function Annotations](#function-annotations)
+			- [Function Closure](#function-closure)
+			- [Default Parameter Values vs Default Keyword-Only Parameter Values](#default-parameter-values-vs-default-keyword-only-parameter-values)
+		- [5.7 Packages for Functional Programming: `operator` and `functools`](#57-packages-for-functional-programming-operator-and-functools)
+			- [5.7.1 `operator`: arithmetic operators / `itemgetter` / `attrgetter` / `methodcaller`](#571-operator-arithmetic-operators--itemgetter--attrgetter--methodcaller)
+			- [5.7.2 `functools`: Freezing Arguments with `partial()`](#572-functools-freezing-arguments-with-partial)
+	- [Chapter 6 - Design Patterns with First-Class Functions](#chapter-6---design-patterns-with-first-class-functions)
+		- [6.1 Case Study: Refactoring Strategy](#61-case-study-refactoring-strategy)
+			- [6.1.1 Flyweight Pattern](#611-flyweight-pattern)
+			- [6.1.2 Choosing the Best Strategy: Simple Approach](#612-choosing-the-best-strategy-simple-approach)
+			- [6.1.3 Advanced Approach: Finding Strategies in a Module](#613-advanced-approach-finding-strategies-in-a-module)
+		- [6.2 Command Pattern](#62-command-pattern)
+- [Part IV - Object-Oriented Idioms](#part-iv---object-oriented-idioms)
+	- [Chapter 7 - Function Decorators and Closures](#chapter-7---function-decorators-and-closures)
+		- [7.1 Decorators 101](#71-decorators-101)
+		- [7.2 When Python Executes Decorators](#72-when-python-executes-decorators)
+		- [7.3 Decorator-Enhanced Strategy Pattern](#73-decorator-enhanced-strategy-pattern)
+		- [7.4 Variable Scope Rules](#74-variable-scope-rules)
+		- [7.5 Closures](#75-closures)
+		- [7.6 The `nonlocal` Declaration](#76-the-nonlocal-declaration)
+		- [7.7 Decorators in the Standard Library](#77-decorators-in-the-standard-library)
+			- [7.7.1 Memoization with `functools.lru_cache`](#771-memoization-with-functoolslru_cache)
+			- [7.7.2 Generic Functions with Single Dispatch](#772-generic-functions-with-single-dispatch)
+		- [7.8 Stacked Decorators](#78-stacked-decorators)
+		- [Digress: `@functools.wrap`](#digress-functoolswrap)
+	- [Chapter 8 - Object References, Mutability, and Recycling](#chapter-8---object-references-mutability-and-recycling)
+		- [8.1 Variables Are Not Boxes](#81-variables-are-not-boxes)
+		- [8.2 Identity, Equality, and Aliases](#82-identity-equality-and-aliases)
+			- [8.2.1 Choosing Between `==` and `is`](#821-choosing-between--and-is)
+			- [8.2.2 The Relative Immutability of Tuples](#822-the-relative-immutability-of-tuples)
+		- [8.3 Copies Are Shallow by Default](#83-copies-are-shallow-by-default)
+			- [8.3.1 Deep and Shallow Copies of Arbitrary Objects](#831-deep-and-shallow-copies-of-arbitrary-objects)
+		- [8.4 Function Parameters as References](#84-function-parameters-as-references)
+			- [8.4.1 Mutable Types as Parameter Defaults: Bad Idea](#841-mutable-types-as-parameter-defaults-bad-idea)
+			- [8.4.2 Defensive Programming with Mutable Parameters](#842-defensive-programming-with-mutable-parameters)
+		- [8.5 `del` and Garbage Collection](#85-del-and-garbage-collection)
+		- [8.6 Weak References](#86-weak-references)
+			- [8.6.1 The `WeakValueDictionary` Skit](#861-the-weakvaluedictionary-skit)
+			- [8.6.2 Limitations of Weak References](#862-limitations-of-weak-references)
+		- [8.7 Tricks Python Plays with Immutables](#87-tricks-python-plays-with-immutables)
+	- [Chapter 9 - A Pythonic Object](#chapter-9---a-pythonic-object)
+		- [9.1 Object Representations](#91-object-representations)
+		- [9.2 Vector Class Redux](#92-vector-class-redux)
+		- [8.3 `classmethod` vs `staticmethod`](#83-classmethod-vs-staticmethod)
+		- [8.4 Making It Hashable](#84-making-it-hashable)
+			- [8.4.1 Digress: `@property` / `__getattribute__()` / `__get__()`](#841-digress-property--__getattribute__--__get__)
+			- [8.4.2 Digress Further: `x.setter` / `x.deleter`](#842-digress-further-xsetter--xdeleter)
+			- [8.4.3 `__hash__()`](#843-__hash__)
+		- [8.5 "Private" and "Protected"](#85-private-and-protected)
+		- [8.6 Saving Space with the `__slots__` Class Attribute](#86-saving-space-with-the-__slots__-class-attribute)
+		- [8.7 Overriding Class Attributes](#87-overriding-class-attributes)
+	- [Chapter 10 - Sequence Hacking, Hashing, and Slicing](#chapter-10---sequence-hacking-hashing-and-slicing)
+		- [10.1 `Vector` Take #1: `Vector2d` Compatible](#101-vector-take-1-vector2d-compatible)
+		- [Digress: Protocols and Duck Typing](#digress-protocols-and-duck-typing)
+		- [10.2 `Vector` Take #2: A Sliceable Sequence](#102-vector-take-2-a-sliceable-sequence)
+			- [10.2.1 How Slicing Works](#1021-how-slicing-works)
+			- [10.2.2 A Slice-Aware `__getitem__`](#1022-a-slice-aware-__getitem__)
+		- [10.3 `Vector` Take #3: Dynamic Attribute Access](#103-vector-take-3-dynamic-attribute-access)
+		- [10.4 `Vector` Take #4: Hashing and a Faster `==`](#104-vector-take-4-hashing-and-a-faster-)
+		- [10.5 `Vector` Take #5: Formatting](#105-vector-take-5-formatting)
+	- [Chapter 11 - Interfaces: From Protocols to ABCs](#chapter-11---interfaces-from-protocols-to-abcs)
+		- [11.1 Monkey-Patching to Implement a Protocol at Runtime](#111-monkey-patching-to-implement-a-protocol-at-runtime)
+		- [11.2 Subclassing an ABC](#112-subclassing-an-abc)
+		- [11.3 ABCs in the Standard Library](#113-abcs-in-the-standard-library)
+			- [11.3.1 ABCs in `collections.abc`](#1131-abcs-in-collectionsabc)
+			- [11.3.2 The `numbers` Tower of ABCs](#1132-the-numbers-tower-of-abcs)
+		- [11.4 Defining and Using an ABC](#114-defining-and-using-an-abc)
+		- [11.5 Virtual Subclasses](#115-virtual-subclasses)
+			- [11.5.1 `issubclass` Alternatives: `__subclasses__` and `_abc_registry`](#1151-issubclass-alternatives-__subclasses__-and-_abc_registry)
+			- [11.5.2 `__subclasshook__`](#1152-__subclasshook__)
+	- [Chapter 12 - Inheritance: For Good or For Worse](#chapter-12---inheritance-for-good-or-for-worse)
+		- [12.1 Subclassing Built-In Types Is Tricky](#121-subclassing-built-in-types-is-tricky)
+		- [12.2 Multiple Inheritance and Method Resolution Order](#122-multiple-inheritance-and-method-resolution-order)
+		- [12.3 Coping with Multiple Inheritance](#123-coping-with-multiple-inheritance)
+	- [Chapter 13 - Operator Overloading: Doing It Right](#chapter-13---operator-overloading-doing-it-right)
+		- [13.1 Operator Overloading 101](#131-operator-overloading-101)
+		- [13.2 Unary Operators](#132-unary-operators)
+		- [13.3 `+` for Vector Addition](#133--for-vector-addition)
+		- [13.4 `*` for Scalar Multiplication](#134--for-scalar-multiplication)
+		- [Digress: `@` for Matrix Multiplication since Python 3.5](#digress--for-matrix-multiplication-since-python-35)
+		- [Digress: `__ixxx__` Series In-place Operators](#digress-__ixxx__-series-in-place-operators)
+		- [13.5 Rich Comparison Operators](#135-rich-comparison-operators)
+		- [13.6 Augmented Assignment Operators](#136-augmented-assignment-operators)
+- [Part V - Control Flow](#part-v---control-flow)
+	- [Chapter 14 - Iterables, Iterators, and Generators](#chapter-14---iterables-iterators-and-generators)
+		- [14.1 `Sentence` Take #1: A Sequence of Words](#141-sentence-take-1-a-sequence-of-words)
+		- [14.2 Iterables Versus Iterators](#142-iterables-versus-iterators)
+		- [14.3 `Sentence` Take #2: A Classic Iterator](#143-sentence-take-2-a-classic-iterator)
+		- [14.4 `Sentence` Take #3: A Generator Function](#144-sentence-take-3-a-generator-function)
+		- [14.5 `Sentence` Take #4: A Lazy Implementation](#145-sentence-take-4-a-lazy-implementation)
+		- [14.6 `Sentence` Take #5: A Generator Expression](#146-sentence-take-5-a-generator-expression)
+		- [14.7 Generator Functions in the Standard Library](#147-generator-functions-in-the-standard-library)
+			- [14.7.1 Create Generators Yielding Filtered Data](#1471-create-generators-yielding-filtered-data)
+			- [14.7.2 Create Generators Yielding Mapped Data](#1472-create-generators-yielding-mapped-data)
+			- [14.7.3 Create Generators Yielding Merged Data](#1473-create-generators-yielding-merged-data)
+		- [14.7.4 Create Generators Yielding Repetition](#1474-create-generators-yielding-repetition)
+		- [14.7.5 Create Generators Yielding Combinations and Permutations](#1475-create-generators-yielding-combinations-and-permutations)
+			- [14.7.6 Create Generators Yielding Rearranged Data](#1476-create-generators-yielding-rearranged-data)
+		- [14.8 New Syntax in Python 3.3: `yield from`](#148-new-syntax-in-python-33-yield-from)
+		- [14.9 Iterable Reducing Functions](#149-iterable-reducing-functions)
+		- [14.10 A Closer Look at the `iter` Function](#1410-a-closer-look-at-the-iter-function)
+		- [14.11 Generators as Coroutines](#1411-generators-as-coroutines)
+		- [Soapbox](#soapbox)
+			- [Semantics of Generator Versus Iterator](#semantics-of-generator-versus-iterator)
+	- [Chapter 15 - Context Managers and `else` Blocks](#chapter-15---context-managers-and-else-blocks)
+		- [15.1 Do This, Then That: `else` Blocks Beyond `if`](#151-do-this-then-that-else-blocks-beyond-if)
+		- [15.2 Context Managers and `with` Blocks](#152-context-managers-and-with-blocks)
+		- [15.3 The `contextlib` Utilities](#153-the-contextlib-utilities)
+		- [15.4 Use `@contextlib.contextmanager`](#154-use-contextlibcontextmanager)
+		- [Soapbox](#soapbox-1)
+	- [Chapter 16 - Coroutines](#chapter-16---coroutines)
+		- [16.1 How Coroutines Evolved from Generators](#161-how-coroutines-evolved-from-generators)
+		- [16.2 Basic Behavior of a Generator Used as a Coroutine](#162-basic-behavior-of-a-generator-used-as-a-coroutine)
+		- [16.3 Example: Coroutine to Compute a Running Average](#163-example-coroutine-to-compute-a-running-average)
+		- [16.4 Decorators for Coroutine Priming](#164-decorators-for-coroutine-priming)
+		- [16.5 Coroutine Termination and Exception Handling](#165-coroutine-termination-and-exception-handling)
+		- [16.6 Returning a Value from a Coroutine](#166-returning-a-value-from-a-coroutine)
+		- [16.7 Using `yield from`](#167-using-yield-from)
+		- [16.8 The Meaning of `yield from`](#168-the-meaning-of-yield-from)
+		- [16.9 Use Case: Coroutines for Discrete Event Simulation](#169-use-case-coroutines-for-discrete-event-simulation)
+			- [16.9.1 Discrete Event Simulations](#1691-discrete-event-simulations)
+			- [16.9.2 The Taxi Fleet Simulation](#1692-the-taxi-fleet-simulation)
+	- [Chapter 17 - Concurrency with Futures](#chapter-17---concurrency-with-futures)
+		- [17.1 Example: Web Downloads in Three Styles](#171-example-web-downloads-in-three-styles)
+			- [17.1.1 Style I: Sequential](#1711-style-i-sequential)
+			- [17.1.2 Style II: Concurrent with `concurrent.features`](#1712-style-ii-concurrent-with-concurrentfeatures)
+			- [17.1.3 Style III: Concurrent with `asyncio`](#1713-style-iii-concurrent-with-asyncio)
+			- [17.1.4 What Are the `Future`s?](#1714-what-are-the-futures)
+		- [17.2 Blocking I/O and the GIL](#172-blocking-io-and-the-gil)
+		- [17.3 Launching Processes with `concurrent.futures`](#173-launching-processes-with-concurrentfutures)
+		- [17.4 Experimenting with `executor.map`](#174-experimenting-with-executormap)
+		- [17.5 Downloads with Progress Display and Error Handling](#175-downloads-with-progress-display-and-error-handling)
+			- [17.5.3 `threading` and `multiprocessing`](#1753-threading-and-multiprocessing)
+	- [Chapter 18 - Concurrency with `asyncio`](#chapter-18---concurrency-with-asyncio)
+		- [18.1 Thread Versus Coroutine: A Comparison](#181-thread-versus-coroutine-a-comparison)
+			- [18.1.1 `asyncio.Future`: Nonblocking by Design](#1811-asynciofuture-nonblocking-by-design)
+			- [18.1.2 Yielding from Futures, Tasks, and Coroutines](#1812-yielding-from-futures-tasks-and-coroutines)
+		- [18.2 Downloading with `asyncio` and `aiohttp`](#182-downloading-with-asyncio-and-aiohttp)
+		- [18.3 Running Circling Around Blocking Calls](#183-running-circling-around-blocking-calls)
+		- [18.4 Enhancing the `asyncio` downloader Script](#184-enhancing-the-asyncio-downloader-script)
+			- [18.4.1 Using `asyncio.as_completed`](#1841-using-asyncioas_completed)
+			- [18.4.2 Using an `Executor` to Avoid Blocking the Event Loop](#1842-using-an-executor-to-avoid-blocking-the-event-loop)
+		- [18.5 From Callbacks to Futures and Coroutines](#185-from-callbacks-to-futures-and-coroutines)
+		- [18.6 Writing asyncio Servers](#186-writing-asyncio-servers)
+- [Part VI - Metaprogramming](#part-vi---metaprogramming)
+	- [Chapter 19 - Dynamic Attributes and Properties](#chapter-19---dynamic-attributes-and-properties)
+		- [19.1 Data Wrangling with Dynamic Attributes](#191-data-wrangling-with-dynamic-attributes)
+			- [19.1.1 Exploring JSON-Like Data with Dynamic Attributes](#1911-exploring-json-like-data-with-dynamic-attributes)
+			- [19.1.2 The Invalid Attribute Name Problem](#1912-the-invalid-attribute-name-problem)
+			- [19.1.3 Flexible Object Creation with `__new__`](#1913-flexible-object-creation-with-__new__)
+			- [19.1.4 Restructuring the OSCON Feed with `shelve`](#1914-restructuring-the-oscon-feed-with-shelve)
+			- [19.1.5 Linked Record Retrieval with Properties](#1915-linked-record-retrieval-with-properties)
+		- [19.2 Using a Property for Attribute Validation](#192-using-a-property-for-attribute-validation)
+			- [19.2.1 `LineItem` Take #1: Class for an Item in an Order](#1921-lineitem-take-1-class-for-an-item-in-an-order)
+			- [19.2.2 `LineItem` Take #2: A Validating Property](#1922-lineitem-take-2-a-validating-property)
+		- [19.3 A Proper Look at Properties](#193-a-proper-look-at-properties)
+			- [19.3.1 Properties Override Instance Attributes](#1931-properties-override-instance-attributes)
+			- [19.3.2 Property Documentation](#1932-property-documentation)
+		- [19.4 Coding a Property Factory](#194-coding-a-property-factory)
+		- [19.5 Handling Attribute Deletion](#195-handling-attribute-deletion)
+		- [19.6 Essential Attributes and Functions for Attribute Handling](#196-essential-attributes-and-functions-for-attribute-handling)
+	- [Chapter 20 - Attribute Descriptors](#chapter-20---attribute-descriptors)
+		- [20.1 Descriptor Example: Attribute Validation](#201-descriptor-example-attribute-validation)
+			- [20.1.1 `LineItem` Take #3: A Simple Descriptor](#2011-lineitem-take-3-a-simple-descriptor)
+			- [20.1.2 `LineItem` Take #4: Automatic Storage Attribute Names](#2012-lineitem-take-4-automatic-storage-attribute-names)
+			- [20.1.3 `LineItem` Take #5: A New Descriptor Type](#2013-lineitem-take-5-a-new-descriptor-type)
+		- [20.2 Overriding Versus Nonoverriding Descriptors](#202-overriding-versus-nonoverriding-descriptors)
+			- [20.2.1 Overriding Descriptor (a.k.a. Data Descriptor / Enforced Descriptor)](#2021-overriding-descriptor-aka-data-descriptor--enforced-descriptor)
+			- [20.2.2 Overriding Descriptor Without `__get__`](#2022-overriding-descriptor-without-__get__)
+			- [20.2.3 Nonoverriding Descriptor (a.k.a. Nondata Descriptor / Shadowable Descriptor)](#2023-nonoverriding-descriptor-aka-nondata-descriptor--shadowable-descriptor)
+			- [20.2.4 Overwriting a Descriptor in the Class](#2024-overwriting-a-descriptor-in-the-class)
+		- [20.3 Methods Are (Nonoverriding) Descriptors](#203-methods-are-nonoverriding-descriptors)
+		- [20.4 Descriptor Usage Tips](#204-descriptor-usage-tips)
+	- [Chapter 21 - Class Metaprogramming](#chapter-21---class-metaprogramming)
+		- [21.1 A Class Factory](#211-a-class-factory)
+		- [21.2 A Class Decorator for Customizing Descriptors](#212-a-class-decorator-for-customizing-descriptors)
+		- [21.3 What Happens When: Import Time Versus Runtime](#213-what-happens-when-import-time-versus-runtime)
+		- [21.4 Metaclasses 101](#214-metaclasses-101)
+		- [21.5 A Metaclass for Customizing Descriptors](#215-a-metaclass-for-customizing-descriptors)
+		- [21.6 The Metaclass `__prepare__` Special Method (only available in Python 3)](#216-the-metaclass-__prepare__-special-method-only-available-in-python-3)
+		- [21.7 Classes as Objects](#217-classes-as-objects)
+		- [21.8 Advices on Metaclasses](#218-advices-on-metaclasses)
 
-## Chapter 1 - The Python Data Model <a name="Chapter-1---The-Python-Data-Model"></a>
+# Part I - Prologue
+
+## Chapter 1 - The Python Data Model 
 
 This chapter focus on special methods, i.e. dunder methods。
 
@@ -285,7 +287,7 @@ This chapter focus on special methods, i.e. dunder methods。
 | `repr(obj)` | `obj.__rper__()` | `"%s" % obj` will call `repr(obj)`. |
 | `str(obj)` | `obj.__str__()` | `print(obj)`, `"%s" % obj` and `"{}".format(obj)` will call `str(obj)`; if `__str__` is not available, will fall back to `__repr__()`. | |
 
-### `__new__(cls, arg)` / `__init__(self, arg)` <a name="--new--cls-arg-----init--self-arg"></a>
+### `__new__(cls, arg)` / `__init__(self, arg)` 
 
 We often refer to `__init__` as the constructor method, but that’s because we adopted jargon from other languages. The special method that actually constructs an instance is `__new__`: 
 
@@ -311,7 +313,7 @@ x = object_maker(Foo, 'bar')
 
 `__new__()` is intended mainly to allow subclasses of immutable types (like `int`, `str`, or `tuple`) to customize instance creation. It is also commonly overridden in custom metaclasses in order to customize class creation.
 
-### `__getitem__()` <a name="--getitem--"></a>
+### `__getitem__()` 
 
 We say "`__getitem__` method delegates to `[]` operator". And once the delegation is implemented, slicing, `if-in` boolean operation, `for-in` iteration, and `random.choice()` on the object is automatically supported.
 
@@ -349,7 +351,7 @@ if __name__ == '__main__':
     print(choice(ml))  # randomly pick an element
 ```
 
-### `__getattribute__()` / `__getattr__()` / `getattr()` <a name="--getattribute-------getattr-----getattr"></a>
+### `__getattribute__()` / `__getattr__()` / `getattr()` 
 
 - `obj[key] == obj.__getitem__(key)` 
 - `obj.foo == obj.__getattribute__("foo")` (Note the quote marks)
@@ -391,11 +393,11 @@ class C(object):
         # return super().__getattribute__(name)
 ```
 
-### `__iter__()` and `__next__()` <a name="--iter---and---next--"></a>
+### `__iter__()` and `__next__()` 
 
 You can treat your own object as an iterator, so `obj.__iter__()` can `return self` and a `__next__()` implementation can be put inside your own object. 
 
-### `__repr__()` vs `__str__()` <a name="--repr---vs---str--"></a>
+### `__repr__()` vs `__str__()` 
 
 The string returned by `__repr__()` should be unambiguous and, if possible, match the source code necessary to re-create the object being represented. I.e. if possible, we would have
 
@@ -419,9 +421,10 @@ class BetterClass(object):
 
 If you only implement one of these special methods, choose `__repr__()`, because when no custom `__str__()` is available, Python will call `__repr__()` as a fallback.
 
-## Chapter 2 - An array of Sequences <a name="Chapter-2---An-array-of-Sequences"></a>
+# Part II - Data Structures
+## Chapter 2 - An array of Sequences 
 
-### 2.1 Overview of Built-In Sequences <a name="2-1-Overview-of-Built-In-Sequences"></a>
+### 2.1 Overview of Built-In Sequences 
 
 Python inherited from ABC the uniform handling of sequences. Strings, lists, byte sequences, arrays, XML elements, and database results share a rich set of common operations including iteration, slicing, sorting, and concatenation.
 
@@ -443,7 +446,7 @@ Group sequence types by mutability:
 
 ![][2-1-mutable-seq-class-diagram]
 
-### 2.2 _listcomps_ and _genexps_ <a name="2-2--listcomps--and--genexps-"></a>
+### 2.2 _listcomps_ and _genexps_ 
 
 ```python
 my_list = [x**2 for x in range(0, 10)]  # list comprehension
@@ -472,16 +475,16 @@ To better understand generators, please read:
 - [PEP 255 -- Simple Generators](https://www.python.org/dev/peps/pep-0255/)
 - [stack overflow: Understanding Generators in Python](http://stackoverflow.com/a/1756156)
 
-### 2.3 Tuples Are Not Just Immutable Lists <a name="2-3-Tuples-Are-Not-Just-Immutable-Lists"></a>
+### 2.3 Tuples Are Not Just Immutable Lists 
 
-#### 2.3.1 Tuples as Records <a name="2-3-1-Tuples-as-records"></a>
+#### 2.3.1 Tuples as Records 
 
 ```python
 point_a = (-1, 1)
 point_b = (2, 3)
 ```
 
-#### 2.3.2 Tuple Unpacking <a name="2-3-2-Tuple-Unpacking"></a>
+#### 2.3.2 Tuple Unpacking 
 
 ```python
 point_a = (-1, 1)
@@ -497,7 +500,7 @@ An elegant application of tuple unpacking is swapping the values of variables wi
 b, a = a, b
 ```
 
-#### 2.3.3 Nested Tuple Unpacking <a name="2-3-3-Nested-Tuple-Unpacking"></a>
+#### 2.3.3 Nested Tuple Unpacking 
 
 ```python
 top_left, top_right, bottom_left, bottom_right = (0, 1), (1, 1), (0, 0), (1, 0)
@@ -507,7 +510,7 @@ square = (top_left, top_right, bottom_left, bottom_right)
 
 Note that: `square[0:2]` == `((0, 1), (1, 1))` while `square[0]` == `(0, 1)` not `((0, 1))`. In fact, python will evaluate `((0, 1))` as `(0, 1)`.
 
-#### 2.3.4 `namedtuple` <a name="2-3-4-namedtuple"></a>
+#### 2.3.4 `namedtuple` 
 
 The `collections.namedtuple(typename, field_names)` is a factory function that produces subclasses of `tuple` named `typename` and enhanced with accessibility via `field_names`.
 
@@ -532,7 +535,7 @@ print(p_a[1])	# 1
 - [Be careful with exec and eval in Python](http://lucumr.pocoo.org/2011/2/1/exec-in-python/)
 - [Python collections source code](https://svn.python.org/projects/python/trunk/Lib/collections.py)
 
-### 2.4 Slicing <a name="2-4-Slicing"></a>
+### 2.4 Slicing 
 
 在 2.1 我们讲过，所有的 sequence type 都支持 "iteration, slicing, sorting, and concatenation"。
 
@@ -585,7 +588,7 @@ Digress: The `[]` operator can also take multiple indexes or slices separated by
 
 Digress: The `Ellipsis` object--written as three full stops (`...`)--is the single instance of the `ellipsis` class. `NumPy` uses `...` as a shortcut when slicing arrays of many dimensions; for example, if `x` is a fourdimensional array, `x[i, ...]` is a shortcut for `x[i, :, :, :,]`.
 
-### 2.5 Using `+` and `*` with Sequences <a name="2-5-Using-+-and-*-with-Sequences"></a>
+### 2.5 Using `+` and `*` with Sequences 
 
 Beware of expressions like `a * n` when `a` is a sequence containing mutable items. E.g. `my_list = [[]] * 3` will result in a list **with three references to the same inner list**.
 
@@ -614,7 +617,7 @@ In [5]: for lst in lref:
 2343148276680
 ```
 
-### 2.6 `lst.sort()` vs `sorted(lst)` <a name="2-6-lst-sort-vs-sortedlst"></a>
+### 2.6 `lst.sort()` vs `sorted(lst)` 
 
 - `lst.sort()` sorts in place—that is, without making a copy of `lst`.
 	- A drawback: cannot cascade calls to other methods.
@@ -629,7 +632,7 @@ In [5]: for lst in lref:
 	- 比如 `key = len` means sorting by the length of each item
 	- 比如 `key = int` means sorting by values of `int(item)`
 
-### 2.7 Managing Ordered Sequences with `bisect` Module <a name="2-7-Managing-Ordered-Sequences-with-bisect-Module"></a>
+### 2.7 Managing Ordered Sequences with `bisect` Module 
 
 bisection 中文意思就是 "二分法"。
 
@@ -637,9 +640,9 @@ bisection 中文意思就是 "二分法"。
 
 You could use the result of `bisect.bisect(haystack, needle)` as the index argument to `haystack.insert(index, needle)`--however, using `bisect.insort(haystack, needle)` does both steps, and is faster.
 
-### 2.8 When a List Is Not the Answer <a name="2-8-When-a-List-Is-Not-the-Answer"></a>
+### 2.8 When a List Is Not the Answer 
 
-#### 2.8.1 `array.array` <a name="2-8-1-array-array"></a>
+#### 2.8.1 `array.array` 
 
 If the list will only contain numbers, an `array.array` is more efficient than a list.
 
@@ -650,7 +653,7 @@ When creating an `array.array`, you provide a typecode, a letter to determine th
 	- E.g. an `array('f')` does not hold `float` objects but only the bytes representing the values.
 - And Python will not let you put any number that does not match the type for the array.
 
-#### 2.8.2 `memoryview(array)` <a name="2-8-2-memoryviewarray"></a>
+#### 2.8.2 `memoryview(array)` 
 
 一个 array 可以有多种表示，比如二进制、八进制。`memoryview` 就是用来显示这些不同的表示的。如果修改 `memoryview` 自然会修改到底层的 array 的值。这进一步说明：sequence 是 mutable 的。
 
@@ -662,13 +665,13 @@ When creating an `array.array`, you provide a typecode, a letter to determine th
 [254, 255, 255, 255, 0, 0, 1, 0, 2, 0]
 ```
 
-#### 2.8.3 `collections.deque` and Other Queues <a name="2-8-3-collections-deque-and-Other-Queues"></a>
+#### 2.8.3 `collections.deque` and Other Queues 
 
 `collections.deque` is a thread-safe double-ended queue designed for fast inserting and removing from both ends.
 
-## Chapter 3 - Dictionaries and Sets <a name="Chapter-3---Dictionaries-and-Sets"></a>
+## Chapter 3 - Dictionaries and Sets 
 
-### Digress: What Is Hashable? <a name="Digress-What-Is-Hashable"></a>
+### Digress: What Is Hashable? 
 
 An object is hashable if it has a hash value which never changes during its lifetime (it needs a `__hash__()` method), and can be compared to other objects (it needs an `__eq__()` method). Hashable objects which compare equal must have the same hash value.
 
@@ -693,7 +696,7 @@ TypeError: unhashable type: 'list'
 
 User-defined types are hashable by default because their hash value is their `id()` and they all compare not equal.
 
-### 3.1 Generic Mapping Types <a name="3-1-Generic-Mapping-Types"></a>
+### 3.1 Generic Mapping Types 
 
 ![][3-1-generic-mapping-class-diagram]
 
@@ -705,7 +708,7 @@ Out[7]: True
 
 All mapping types in the standard library use the basic `dict` in their implementation, so they share the limitation that the keys must be hashable.
 
-### 3.2 _dictcomp_ <a name="3-2--dictcomp-"></a>
+### 3.2 _dictcomp_ 
 
 创建 dict 的语法真是多种多样……
 
@@ -743,7 +746,7 @@ In addition to the literal syntax and the flexible `dict` constructor, we can us
 {1: 'UNITED STATES', 55: 'BRAZIL', 62: 'INDONESIA', 7: 'RUSSIA'}
 ```
 
-### 3.3 Handling Missing Keys with `dict.setdefault()` <a name="3-3-Handling-Missing-Keys-with-dict-setdefault"></a>
+### 3.3 Handling Missing Keys with `dict.setdefault()` 
 
 `d.get(k, default)` is an alternative to `d[k]` whenever a default value is more convenient than handling `KeyError`.
 
@@ -762,7 +765,7 @@ d.setdefault(key, []).append(new_value)
 - 如果 `d[key]` 存在，就 append
 - 如果 `d[key]` 不存在，就创建一个 `[]` 然后 append
 
-### 3.4 Handling Missing Keys with `collections.defaultdict` or `__missing__()` <a name="3-4-Handling-Missing-Keys-with-collections-defaultdict-or---missing--"></a>
+### 3.4 Handling Missing Keys with `collections.defaultdict` or `__missing__()` 
 
 `defaultdict(default_factory)`:
 
@@ -775,7 +778,7 @@ Another way to handle missing keys is to extend a `dict` and implement the `__mi
 
 - `__missing__()` is just called by `__getitem__()`
 
-### 3.5 Variations of `dict` <a name="3-5-Variations-of-dict"></a>
+### 3.5 Variations of `dict` 
 
 - `collections.OrderedDict`: Maintains keys in insertion order.
 - `collections.ChainMap(dict1, dict2)`: 
@@ -784,7 +787,7 @@ Another way to handle missing keys is to extend a `dict` and implement the `__mi
 	- 查找的顺序只和构造器的参数顺序有关。
 - `collections.Counter`: A mapping that holds an integer count for each key. Updating an existing key adds to its count.
 
-### 3.6 Subclassing `UserDict` <a name="3-6-Subclassing-UserDict"></a>
+### 3.6 Subclassing `UserDict` 
 
 `UserDict` is designed to be subclassed. It’s almost always easier to create a new mapping type by extending `UserDict` rather than `dict`.
 
@@ -793,7 +796,7 @@ Note that `UserDict` does not inherit from `dict`, but has an internal `dict` in
 - 组合优于继承 again!
 - 所以 `UserDict` 既不是一个 interface 也不是一个 abstract class，它是一个 Mixin
 
-### 3.7 Immutable Mappings <a name="3-7-Immutable-Mappings"></a>
+### 3.7 Immutable Mappings 
 
 The mapping types provided by the standard library are _**all mutable**_, but you may need to guarantee that a user cannot change a mapping by mistake.
 
@@ -818,12 +821,12 @@ mappingproxy({1: 'A', 2: 'B'})
 'B'
 ```
 
-### 3.8 `set` <a name="3-8-set"></a>
+### 3.8 `set` 
 
 - `set` elements must be hashable. `set` itself is not hashable.
 - `frozenset` is hashable, so you can have `frozenset` inside a `set`
 
-#### 3.8.1 `set` Literals <a name="3-8-1-set-Literals"></a>
+#### 3.8.1 `set` Literals 
 
 ```python
 s = {1, 2, 3}
@@ -831,7 +834,7 @@ s = {1, 2, 3}
 - To create an empty set, you should use the constructor without an argument: `s = set()`. 
 - If you write `s = {}`, you're creating an empty `dict`.
 
-#### 3.8.2 _setcomp_ <a name="3-8-2--setcomp-"></a>
+#### 3.8.2 _setcomp_ 
 
 ```python
 >>> from unicodedata import name
@@ -840,7 +843,7 @@ s = {1, 2, 3}
 '°', '+', '÷', '±', '>', '¬', '®', '%'}
 ```
 
-#### 3.8.3 Set Operations <a name="3-8-3-Set-Operations"></a>
+#### 3.8.3 Set Operations 
 
 ![][3-8-generic-set-class-diagram]
 
@@ -856,7 +859,7 @@ Given two sets `a` and `b` and an element `e`:
 - `a.discard(e)`: remove `e` from `a` if it is present
 - `a.remove(e)`: remove `e` from `a`, raising `KeyError` if `e` not in `a`
 
-### 3.9 `dict` and `set` Under the Hood <a name="3-9-dict-and-set-Under-the-Hood"></a>
+### 3.9 `dict` and `set` Under the Hood 
 
 A hash table is a sparse array (i.e., an array that always has empty cells). In standard data structure texts, the cells in a hash table are often called "buckets." In a `dict` hash table, there is a bucket for each item, and it contains two fields: a reference to the key and a reference to the value of the item. Because all buckets have the same size, access to an individual bucket is done by offset.
 
@@ -872,7 +875,7 @@ The process to insert or update an item is the same, except that when an empty b
 
 Additionally, when inserting items, Python may determine that the hash table is too crowded and rebuild it to a new location with more room. As the hash table grows, so does the number of hash bits used as bucket offsets, and this keeps the rate of collisions low.
 
-#### `dict`s have significant memory overhead <a name="dicts-have-significant-memory-overhead"></a>
+#### `dict`s have significant memory overhead 
 
 Because a `dict` uses a hash table internally, and hash tables must be sparse to work, they are not space efficient. For example, if you are handling a large quantity of records, it makes sense to store them in a list of tuples or named tuples instead.
 
@@ -880,17 +883,17 @@ But remember:
 
 > Optimization is the altar where maintainability is sacrificed.
 
-#### Key search is very fast <a name="Key-search-is-very-fast"></a>
+#### Key search is very fast 
 
 The `dict` implementation is an example of trading space for time: dictionaries have significant memory overhead, but they provide fast access regardless of the size of the dictionary--as long as it fits in memory.
 
-#### Adding items to a `dict` may change the order of existing keys <a name="Adding-items-to-a-dict-may-change-the-order-of-existing-keys"></a>
+#### Adding items to a `dict` may change the order of existing keys 
 
 Whenever you add a new item to a `dict`, the Python interpreter may decide that the hash table of that dictionary needs to grow. This entails building a new, bigger hash table, and adding all current items to the new table. During this process, new (but different) hash collisions may happen, with the result that the keys are likely to be ordered differently in the new hash table. All of this is implementation-dependent, so you cannot reliably predict when it will happen. If you are iterating over the dictionary keys and changing them at the same time, your loop may not scan all the items as expected.
 
 This is why modifying the contents of a `dict` while iterating through it is a bad idea. If you need to scan and add items to a dictionary, do it in two steps: read the `dict` from start to finish and collect the needed additions in a second `dict`. Then update the first one with it.
 
-#### How Sets Work <a name="How-Sets-Work"></a>
+#### How Sets Work 
 
 The `set` and `frozenset` types are also implemented with a hash table, except that each bucket holds only a reference to the element.
 
@@ -901,9 +904,9 @@ The underlying hash table determines the behavior of a `dict` applies to a `set`
 - Membership testing is very efficient.
 - Adding elements to a `set` may change the order of other elements.
 
-## Chapter 4 - Text vs Bytes <a name="Chapter-4---Text-vs-Bytes"></a>
+## Chapter 4 - Text vs Bytes 
 
-### 4.1 Character Issues <a name="4-1-Character-Issues"></a>
+### 4.1 Character Issues 
 
 The Unicode standard explicitly separates the identity of characters from specific byte representations. 我们来学习一下相关的词汇：
 
@@ -925,7 +928,7 @@ b'caf\xc3\xa9' # `bytes` literals start with a `b` prefix.
 'café'
 ```
 
-#### Digress: BOM <a name="Digress-BOM"></a>
+#### Digress: BOM 
 
 _**BOM**_ stands for byte-order mark. 
 
@@ -941,7 +944,7 @@ Normally, the BOM is used to signal the endianness of an encoding, but since end
 | "FF FE"       | UTF-16, little-endian |
 | "EF BB BF"    | UTF-8                 |
 
-### 4.2 Byte Essentials <a name="4-2-Byte-Essentials"></a>
+### 4.2 Byte Essentials 
 
 The new binary sequence types are unlike the Python 2 `str` in many regards. The first thing to know is that there are two basic built-in types for binary sequences: the **immutable** `bytes` type introduced in Python 3 and the **mutable** `bytearray`, added in Python 2.6. (Python 2.6 also introduced `bytes`, but it’s just an alias to the `str` type, and does not behave like the Python 3 `bytes` type.)
 
@@ -951,7 +954,7 @@ Each item in bytes or bytearray is an integer from 0 to 255, and not a one-chara
 - `my_bytes[:1]` returns a bytes object of length 1 (i.e. always a sequence)
 - however, `my_str[0] == my_str[:1]`
 
-### 4.3 Basic Encoders/Decoders <a name="4-3-Basic-Encoders-Decoders"></a>
+### 4.3 Basic Encoders/Decoders 
 
 Each codec has a name, like 'utf_8', and often aliases, such as 'utf8', 'utf-8', and 'U8'. 其他常见的 codec 还有：
 
@@ -961,24 +964,25 @@ Each codec has a name, like 'utf_8', and often aliases, such as 'utf8', 'utf-8',
 - 'gb2312'
 - 'utf-16le'
 
-### 4.4 Understanding Encode/Decode Problems (略) <a name="4-4-Understanding-Encode-Decode-Problems-略"></a>
+### 4.4 Understanding Encode/Decode Problems (略) 
 
-### 4.5 Handling Text Files <a name="4-5-Handling-Text-Files"></a>
+### 4.5 Handling Text Files 
 
 If the encoding argument was omitted when opening the file to write, the locale default encoding would be used. Always pass an explicit `encoding=` argument when opening text files.
 
 - On GNU/Linux and OSX all of these encodings are set to UTF-8 by default, and have been for several years.
 - On Windows, not only are different encodings used in the same system, but they are usually codepages like 'cp850' or 'cp1252' that support only ASCII with 127 additional characters that are not the same from one encoding to the other.
 
-### 4.6 Normalizing Unicode for Saner Comparisons (略) <a name="4-6-Normalizing-Unicode-for-Saner-Comparisons-略"></a>
+### 4.6 Normalizing Unicode for Saner Comparisons (略) 
 
-### 4.7 Sorting Unicode Text (略) <a name="4-7-Sorting-Unicode-Text-略"></a>
+### 4.7 Sorting Unicode Text (略) 
 
-### 4.8 The Unicode Database (略) <a name="4-8-The-Unicode-Database-略"></a>
+### 4.8 The Unicode Database (略) 
 
-### 4.9 Dual-Mode `str` and `bytes` APIs (略) <a name="4-9-Dual-Mode-str-and-bytes-APIs-略"></a>
+### 4.9 Dual-Mode `str` and `bytes` APIs (略) 
 
-## Chapter 5 - Python Functions are First-Class Objects <a name="Chapter-5---Python-Functions-are-First-Class-Objects"></a>
+# Part III - Functions as Objects
+## Chapter 5 - Python Functions are First-Class Objects 
 
 Programming language theorists define a "first-class object" as a program entity that can be:
 
@@ -989,7 +993,7 @@ Programming language theorists define a "first-class object" as a program entity
 
 Integers, strings, and dictionaries are other examples of first-class objects in Python.
 
-### 5.1 Treating a Function Like an Object <a name="5-1-Treating-a-Function-Like-an-Object"></a>
+### 5.1 Treating a Function Like an Object 
 
 ```python
 >>> def factorial(n):
@@ -1023,7 +1027,7 @@ def map(func, iterable):
         yield func(i)
 ```
 
-### 5.2 Higher-Order Functions (e.g. `map`, `filter` and `reduce`) <a name="5-2-Higher-Order-Functions-e-g--map-filter-and-reduce"></a>
+### 5.2 Higher-Order Functions (e.g. `map`, `filter` and `reduce`) 
 
 A function that takes a function as argument or returns a function as the result is a _higher-order function_. E.g. `map`, `filter` and `reduce`.
 
@@ -1080,13 +1084,13 @@ P.S. Other reducing built-ins are `all` and `any`:
 	- Returns `True` if any element of the `iterable` is truthy; 
 	- `any([])` returns `False`.
 
-### 5.3 Anonymous Functions <a name="5-3-Anonymous-Functions"></a>
+### 5.3 Anonymous Functions 
 
 The `lambda` keyword creates an anonymous function within a Python expression.
 
 The body of lambda functions must be pure expressions. In other words, the body of a lambda cannot make assignments or use any other Python statement such as `while`, `try`, etc. 
 
-### 5.4 The 7 Flavors of Callable Objects <a name="5-4-The-7-Flavors-of-Callable-Objects"></a>
+### 5.4 The 7 Flavors of Callable Objects 
 
 `()` in `func()` can be called a "call opertor". To determine whether an object is callable, use the `callable()` built-in function.
 
@@ -1098,13 +1102,13 @@ The body of lambda functions must be pure expressions. In other words, the body 
 1. _Callable class instances_. If a class implements a `__call__` method, then its instances can be invoked as functions.
 1. _Generators_. Functions or methods that use `yield`.
 
-### 5.5 User-Defined Callable Types <a name="5-5-User-Defined-Callable-Types"></a>
+### 5.5 User-Defined Callable Types 
 
 A class implementing `__call__` is an easy way to create functions that have some internal state that must be kept across invocations. 注意这句其实说的就是：在某些需要 function 的场合，我们可以用 callable class instance 来代替 function，从而可以给这个 "function" 一些 state 来实现更多的功能。原文说的是 "...to create function-like objects that..."，不知道为何要这么拐弯抹角的表示……E.g. **decorators** must be functions, 但比如你要做一个 cache decorator，这时就需要将这个 decorator 用 callable class instance 来实现，把 cache 封装到 class 内部。
 
 A totally different approach to creating functions with internal state is to use **closures**. Closures, as well as decorators, are the subject of Chapter 7.
 
-### 5.6 Function Introspection <a name="5-6-Function-Introspection"></a>
+### 5.6 Function Introspection 
 
 General way to introspect an object:
 
@@ -1120,7 +1124,7 @@ Exclusive way to introspect a user-defined function:
 - `func.__defaults__`: a tuple of default values for the formal parameters
 - `func.__kwdefaults__`: a dict of default values for the keyword-only formal parameters
 
-#### Function Annotations <a name="Function-Annotations"></a>
+#### Function Annotations 
 
 注意 python 的 annotation 不同于的 java 的 annotation；python 的 annotation 是为 documentation 服务的，最详细的说明在 [PEP 3107 -- Function Annotations](https://www.python.org/dev/peps/pep-3107/)。annotation 可以有两种形式：一是 string，二是 type，我们来看下规范：
 
@@ -1149,7 +1153,7 @@ def bar(a: int = 1) -> ReturnType:
 >>> {'a': int, 'return': __main__.ReturnType}
 ```
 
-#### Function Closure <a name="Function-Closure"></a>
+#### Function Closure 
 
 先看例子：
 
@@ -1197,7 +1201,7 @@ print_hello()  # Output: Hello
 
 这些统统没有 `func.__closure__` 直观，所以暂且按 `func.__closure__` 来记好了。若是以后对 closure 的理解出了偏差，还可以甩锅给 python 说它变量名起得不对 www
 
-#### Default Parameter Values vs Default Keyword-Only Parameter Values <a name="Default-Parameter-Values-vs-Default-Keyword-Only-Parameter-Values"></a>
+#### Default Parameter Values vs Default Keyword-Only Parameter Values 
 
 按 [PEP 3102 -- Keyword-Only Arguments](https://www.python.org/dev/peps/pep-3102/) 的说法，kwyword-only argument 是：
 
@@ -1253,9 +1257,9 @@ def func3(b = None):
 
 注意这章一开始有说 Python functions are first-class objects，所以 default parameter value 也有点像 object 的 attribute。
 
-### 5.7 Packages for Functional Programming: `operator` and `functools` <a name="5-7-Packages-for-Functional-Programming-operator-and-functools"></a>
+### 5.7 Packages for Functional Programming: `operator` and `functools` 
 
-#### 5.7.1 `operator`: arithmetic operators / `itemgetter` / `attrgetter` / `methodcaller` <a name="5-7-1-operator-arithmetic-operators---itemgetter---attrgetter---methodcaller"></a>
+#### 5.7.1 `operator`: arithmetic operators / `itemgetter` / `attrgetter` / `methodcaller` 
 
 Python does not aim to be a functional programming language, but a functional coding style can be used to good extent, thanks to the support of packages like `operator` and `functools`.
 
@@ -1386,7 +1390,7 @@ call_foo_with_bar_and_baz(f)
 f.foo("bar", baz="baz")
 ```
 
-#### 5.7.2 `functools`: Freezing Arguments with `partial()` <a name="5-7-2-functools-Freezing-Arguments-with-partial"></a>
+#### 5.7.2 `functools`: Freezing Arguments with `partial()` 
 
 ```python
 from operator import mul
@@ -1398,9 +1402,9 @@ triple(7)
 # Output: 21
 ```
 
-## Chapter 6 - Design Patterns with First-Class Functions <a name="Chapter-6---Design-Patterns-with-First-Class-Functions"></a>
+## Chapter 6 - Design Patterns with First-Class Functions 
 
-### 6.1 Case Study: Refactoring Strategy <a name="6-1-Case-Study-Refactoring-Strategy"></a>
+### 6.1 Case Study: Refactoring Strategy 
 
 第一个例子，注意两点：
 
@@ -1491,7 +1495,7 @@ def large_order_promo(order):
 	return 0
 ```
 
-#### 6.1.1 Flyweight Pattern <a name="6-1-1-Flyweight-Pattern"></a>
+#### 6.1.1 Flyweight Pattern 
 
 It is interesting to note that in _Design Patterns_ the authors suggest: “Strategy objects often make good flyweights.” A definition of the Flyweight in another part of that work states: 
 
@@ -1513,7 +1517,7 @@ It is interesting to note that in _Design Patterns_ the authors suggest: “Stra
 
 极端一点说，所有带 static 的 object 都可以看做 flyweight object
 
-#### 6.1.2 Choosing the Best Strategy: Simple Approach <a name="6-1-2-Choosing-the-Best-Strategy-Simple-Approach"></a>
+#### 6.1.2 Choosing the Best Strategy: Simple Approach 
 
 炫技一波：
 
@@ -1525,7 +1529,7 @@ def best_promo(order):
 	return max(promo(order) for promo in promos)
 ```
 
-#### 6.1.3 Advanced Approach: Finding Strategies in a Module <a name="6-1-3-Advanced-Approach-Finding-Strategies-in-a-Module"></a>
+#### 6.1.3 Advanced Approach: Finding Strategies in a Module 
 
 ```python
 """
@@ -1547,7 +1551,7 @@ Another way of collecting the available promotions would be to create a module, 
 promos = [func for name, func in inspect.getmembers(promotions, inspect.isfunction)]
 ```
 
-### 6.2 Command Pattern <a name="6-2-Command-Pattern"></a>
+### 6.2 Command Pattern 
 
 ```python
 class MacroCommand:
@@ -1561,9 +1565,10 @@ class MacroCommand:
 			command()  ## Need implementation of `__call__` inside each command object
 ```
 
-## Chapter 7 - Function Decorators and Closures <a name="Chapter-7---Function-Decorators-and-Closures"></a>
+# Part IV - Object-Oriented Idioms
+## Chapter 7 - Function Decorators and Closures 
 
-### 7.1 Decorators 101 <a name="7-1-Decorators-101"></a>
+### 7.1 Decorators 101 
 
 A decorator is a callable which can take the decorated function as argument. (另外还有 class decorator)
 
@@ -1592,13 +1597,13 @@ baz = foo(baz)
 	- 换言之，当 `baz` 所在的 module 被 load 进来的时候，`@foo` 就会执行
 - 调用 `baz()` 时并不会执行 `@foo` 
 
-### 7.2 When Python Executes Decorators <a name="7-2-When-Python-Executes-Decorators"></a>
+### 7.2 When Python Executes Decorators 
 
 When Python Executes Decorators A key feature of decorators is that they run right after the decorated function is defined. That is usually at _import time_.
 
 - Decorated functions are invoked at _runtime_.
 
-### 7.3 Decorator-Enhanced Strategy Pattern <a name="7-3-Decorator-Enhanced-Strategy-Pattern"></a>
+### 7.3 Decorator-Enhanced Strategy Pattern 
 
 ```python
 promos = []  # promotions registry
@@ -1633,7 +1638,7 @@ Pros:
 - The `@promotion` decorator highlights the purpose of the decorated function, and also makes it easy to temporarily disable a promotion
 - Promotional discount strategies may be defined in other modules, anywhere in the system, as long as the `@promotion` decorator is applied to them.
 
-### 7.4 Variable Scope Rules <a name="7-4-Variable-Scope-Rules"></a>
+### 7.4 Variable Scope Rules 
 
 Code that uses inner functions almost always depends on closures to operate correctly. To understand closures, we need to take a step back a have a close look at how variable scopes work in Python.
 
@@ -1678,7 +1683,7 @@ If we want the interpreter to treat `b` as a global variable in spite of the ass
 9
 ```
 
-### 7.5 Closures <a name="7-5-Closures"></a>
+### 7.5 Closures 
 
 A closure is a function with an extended scope that encompasses nonglobal variables referenced in the body of the function but not defined there. It does not matter whether the function is anonymous or not; what matters is that it can access nonglobal variables that are defined outside of its body.
 
@@ -1718,7 +1723,7 @@ The binding for `series` is kept in the `__closure__` attribute of the returned 
 [10, 11, 12]
 ```
 
-### 7.6 The `nonlocal` Declaration <a name="7-6-The-nonlocal-Declaration"></a>
+### 7.6 The `nonlocal` Declaration 
 
 之前的 `make_averager` 实现不够 efficient，一个新的写法是：
 
@@ -1774,9 +1779,9 @@ def make_averager():
 	return averager
 ```
 
-### 7.7 Decorators in the Standard Library <a name="7-7-Decorators-in-the-Standard-Library"></a>
+### 7.7 Decorators in the Standard Library 
 
-#### 7.7.1 Memoization with `functools.lru_cache` <a name="7-7-1-Memoization-with-functools-lru-cache"></a>
+#### 7.7.1 Memoization with `functools.lru_cache` 
 
 注意 decorator 可以多包一层，以达到可以带参初始化的目的。
 
@@ -1825,7 +1830,7 @@ def fibonacci(n):
 	return fibonacci(n-2) + fibonacci(n-1)
 ```
 
-#### 7.7.2 Generic Functions with Single Dispatch <a name="7-7-2-Generic-Functions-with-Single-Dispatch"></a>
+#### 7.7.2 Generic Functions with Single Dispatch 
 
 这个厉害了。书上的例子是 "格式输出 html 代码"，针对不同的类型的变量，有不同的输出策略。不用 OO，用 function 就可以实现 overloading。
 
@@ -1865,7 +1870,7 @@ def _(seq):
 
 需要注意的是：`@singledispatch` is not designed to bring Java-style method overloading to Python. The advantage of `@sin gledispath` is supporting modular extension: each module can register a specialized function for each type it supports.
 
-### 7.8 Stacked Decorators <a name="7-8-Stacked-Decorators"></a>
+### 7.8 Stacked Decorators 
 
 ```python
 @d1
@@ -1876,7 +1881,7 @@ def foo():
 
 等同于 `foo = d1(d2(foo))`，注意顺序
 
-### Digress: `@functools.wrap` <a name="Digress-@functools-wrap"></a>
+### Digress: `@functools.wrap` 
 
 decorator 有个小弊端是：decorated function 的 name 和 docstring 属性会跑到 wrapper function 那里去，比如：
 
@@ -1928,17 +1933,17 @@ def baz():
 - `wrap(func)` 返回一个 `functools.partial(functools.update_wrapper, wrapped=func)`
 - `wrap(func)(func_wrapper)` 相当于 `func_wrapper = functools.update_wrapper(wrapper=func_wrapper, wrapped=func)`
 
-## Chapter 8 - Object References, Mutability, and Recycling <a name="Chapter-8---Object-References-Mutability-and-Recycling"></a>
+## Chapter 8 - Object References, Mutability, and Recycling 
 
 We start the chapter by presenting a metaphor for variables in Python: variables are labels, not boxes. 
 
-### 8.1 Variables Are Not Boxes <a name="8-1-Variables-Are-Not-Boxes"></a>
+### 8.1 Variables Are Not Boxes 
 
 Better to say: "Variable `s` is assigned to the seesaw," but never "The seesaw is assigned to variable `s`." With reference variables, it makes much more sense to say that the variable is assigned to an object, and not the other way around. After all, the object is created before the assignment.
 
 To understand an assignment in Python, always read the righthand side first: that’s where the object is created or retrieved. After that, the variable on the left is bound to the object, like a label stuck to it. Just forget about the boxes.
 
-### 8.2 Identity, Equality, and Aliases <a name="8-2-Identity-Equality-and-Aliases"></a>
+### 8.2 Identity, Equality, and Aliases 
 
 Every object has 
 
@@ -1954,7 +1959,7 @@ The real meaning of an object’s ID is implementation-dependent. In CPython, `i
 
 In practice, we rarely use the `id()` function while programming. Identity checks are most often done with the `is` operator, and not by comparing IDs.
 
-#### 8.2.1 Choosing Between `==` and `is` <a name="8-2-1-Choosing-Between-==-and-is"></a>
+#### 8.2.1 Choosing Between `==` and `is` 
 
 The `==` operator compares the values of objects, while is compares their identities.
 
@@ -1962,7 +1967,7 @@ However, if you are comparing a variable to a singleton, then it makes sense to 
 
 The is operator `is` faster than `==`, because it cannot be overloaded, so Python does not have to find and invoke special methods to evaluate it, and computing is as simplecomparing two integer IDs. In contrast, `a == b` is syntactic sugar for `a.__eq__(b)`. The `__eq__` method inherited from `object` compares object IDs, so it produces the same result as is. But most built-in types override `__eq__` with more meaningful implementations that actually take into account the values of the object attributes. 
 
-#### 8.2.2 The Relative Immutability of Tuples <a name="8-2-2-The-Relative-Immutability-of-Tuples"></a>
+#### 8.2.2 The Relative Immutability of Tuples 
 
 注意 immutable 的含义是本身的 value 不可变：
 
@@ -2002,7 +2007,7 @@ tuple 设计成 immutable 的好处是：
 1. python 中必须 immutable 才能 hashable，所以 tuple 可以做 dict 的 key (list 就不可以)
 1. function 接收参数 tuple 时不用担心 tuple 被篡改，可以免去 defensive copy 的操作，算得上是一种 optimization
 
-### 8.3 Copies Are Shallow by Default <a name="8-3-Copies-Are-Shallow-by-Default"></a>
+### 8.3 Copies Are Shallow by Default 
 
 For mutable sequences, there are 2 ways of copying:
 
@@ -2030,7 +2035,7 @@ print('a:', a)   # a: [1, [22, 33, 55, 66], (7, 8, 9), 100]
 print('b:', b)   # b: [1, [22, 33, 55, 66], (7, 8, 9, 10, 11)]
 ```
 
-#### 8.3.1 Deep and Shallow Copies of Arbitrary Objects <a name="8-3-1-Deep-and-Shallow-Copies-of-Arbitrary-Objects"></a>
+#### 8.3.1 Deep and Shallow Copies of Arbitrary Objects 
 
 ```python
 from copy import copy, deepcopy
@@ -2057,13 +2062,13 @@ Note that making deep copies is not a simple matter in the general case.
 - Also, a deep copy may be too deep in some cases. For example, objects may refer external resources or singletons that should not be copied. 
 	- You can control the behavior of both `copy` and `deepcopy` by implementing the `__copy__()` and `__deepcopy__()` special methods
 
-### 8.4 Function Parameters as References <a name="8-4-Function-Parameters-as-References"></a>
+### 8.4 Function Parameters as References 
 
 The only mode of parameter passing in Python is **call by sharing**. That is the same mode used in most OO languages, including Ruby, SmallTalk, and Java (this applies to Java reference types; primitive types use **call by value**). Call by sharing means that each formal parameter of the function gets a copy of each reference in the arguments. In other words, the parameters inside the function become aliases of the actual arguments.
 
 The result of this scheme is that a function may change any mutable object passed as a parameter, but it cannot change the identity of those objects.
 
-#### 8.4.1 Mutable Types as Parameter Defaults: Bad Idea <a name="8-4-1-Mutable-Types-as-Parameter-Defaults-Bad-Idea"></a>
+#### 8.4.1 Mutable Types as Parameter Defaults: Bad Idea 
 
 这个现象前所未见！先上例子
 
@@ -2121,11 +2126,11 @@ class Bus:
 			self.passengers = list(passenger)  # or deep copy if necessary
 ```
 
-#### 8.4.2 Defensive Programming with Mutable Parameters <a name="8-4-2-Defensive-Programming-with-Mutable-Parameters"></a>
+#### 8.4.2 Defensive Programming with Mutable Parameters 
 
 When you are coding a function that receives a mutable parameter, you should carefully consider whether the caller expects the argument passed to be changed.
 
-### 8.5 `del` and Garbage Collection <a name="8-5-del-and-Garbage-Collection"></a>
+### 8.5 `del` and Garbage Collection 
 
 The `del` statement **deletes names, not objects**. An object may be garbage collected as result of a `del` command, but only if the variable deleted holds the last reference to the object, or if the object becomes unreachable. Rebinding a variable may also cause the number of references to an object to reach zero, causing its destruction.
 
@@ -2155,17 +2160,17 @@ Gone with the wind...
 False
 ```
 
-### 8.6 Weak References <a name="8-6-Weak-References"></a>
+### 8.6 Weak References 
 
 概念可以参考 [Understanding Weak References](/java/2014/06/04/digest-of-effective-java#weakReference).
 
 Weak references to an object do not increase its reference count. The object that is the target of a reference is called the **referent**. Therefore, we say that a weak reference does not prevent the referent from being garbage collected.
 
-#### 8.6.1 The `WeakValueDictionary` Skit <a name="8-6-1-The-WeakValueDictionary-Skit"></a>
+#### 8.6.1 The `WeakValueDictionary` Skit 
 
 The class `WeakValueDictionary` implements a mutable mapping where the values are weak references to objects. When a referent is garbage collected elsewhere in the program, the corresponding key is automatically removed from `WeakValueDictionary`. This is commonly used for caching.
 
-#### 8.6.2 Limitations of Weak References <a name="8-6-2-Limitations-of-Weak-References"></a>
+#### 8.6.2 Limitations of Weak References 
 
 Not every Python object may be the referent of a weak reference. 
 
@@ -2174,20 +2179,20 @@ Not every Python object may be the referent of a weak reference.
 
 Most of these limitations are implementation details of CPython that may not applyother Python iterpreters.
 
-### 8.7 Tricks Python Plays with Immutables <a name="8-7-Tricks-Python-Plays-with-Immutables"></a>
+### 8.7 Tricks Python Plays with Immutables 
 
 The sharing of string literals is an optimization technique called **interning**. CPython uses the same technique with small integers to avoid unnecessary duplication of “popular” numbers like 0, –1, and 42. Note that CPython does not intern all strings or integers, and the criteria it uses to do so is an undocumented implementation detail.
 
-## Chapter 9 - A Pythonic Object <a name="Chapter-9---A-Pythonic-Object"></a>
+## Chapter 9 - A Pythonic Object 
 
-### 9.1 Object Representations <a name="9-1-Object-Representations"></a>
+### 9.1 Object Representations 
 
 - `__repr__()`: returns a string representing the object as the developer wants to see it.
 - `__str__()`: returns a string representing the object as the user wants to see it.
 - `__byte__()`: called by `byte()` to get the object represented as a byte sequence
 - `__format__()`: called by `foramt()` or `str.format()` to get string displays using special formatting codes
 
-### 9.2 Vector Class Redux <a name="9-2-Vector-Class-Redux"></a>
+### 9.2 Vector Class Redux 
 
 没啥特别的，注意写法：
 
@@ -2229,7 +2234,7 @@ class Vector2d:
 	- 然后根据 [Iterables vs. Iterators vs. Generators](http://nvie.com/posts/iterators-vs-generators/) 我们得知 a generator is always a iterator，所以这个 `__iter__()` 写法成立
 	- 还有一种写法也可以：`yield self.x; yield.self.y`
 
-### 8.3 `classmethod` vs `staticmethod` <a name="8-3-classmethod-vs-staticmethod"></a>
+### 8.3 `classmethod` vs `staticmethod` 
 
 先上例子：
 
@@ -2276,7 +2281,7 @@ d = Demo.class_method(2)
 print(d.value)  # Output: 2
 ```
 
-### 8.4 Making It Hashable <a name="8-4-Making-It-Hashable"></a>
+### 8.4 Making It Hashable 
 
 To make `Vector2d` hashable, we must
 
@@ -2306,7 +2311,7 @@ print(v.x)  # accessible
 # v.x = 7   # forbidden!
 ```
 
-#### 8.4.1 Digress: `@property` / `__getattribute__()` / `__get__()` <a name="8-4-1-Digress-@property-----getattribute-------get--"></a>
+#### 8.4.1 Digress: `@property` / `__getattribute__()` / `__get__()` 
 
 要想搞清楚 `@property` 的工作原理，我们需要先搞清楚 `b.x` 这样一个访问 object 字段的表达式是如何被解析的：
 
@@ -2360,7 +2365,7 @@ class B:
 	x = property(fget=get_x, fset=None, fdel=None, "Docstring here")
 ```
 
-#### 8.4.2 Digress Further: `x.setter` / `x.deleter` <a name="8-4-2-Digress-Further-x-setter---x-deleter"></a>
+#### 8.4.2 Digress Further: `x.setter` / `x.deleter` 
 
 代码分解：
 
@@ -2415,7 +2420,7 @@ class B(object):
     x = property(fset=get_x, fset=set_x, fdel=del_x, "Docstring here")
 ```
 
-#### 8.4.3 `__hash__()` <a name="8-4-3---hash--"></a>
+#### 8.4.3 `__hash__()` 
 
 The `__hash__` special method documentation suggests using the bitwise XOR operator (`^`) to mix the hashes of the components.
 
@@ -2428,7 +2433,7 @@ class Vector2d:
 		return hash(self.x) ^ hash(self.y)
 ```
 
-### 8.5 "Private" and "Protected" <a name="8-5-Private-and-Protected"></a>
+### 8.5 "Private" and "Protected" 
 
 Too prevent accidental overwritting of a private attribute of a class, python would store `__bar` attribute of class `Foo` in `Foo.__dict__` as `_Foo__bar`. This language feature is called **name mangling**.
 
@@ -2441,7 +2446,7 @@ The single underscore prefix, like `_bar`, has no special meaning to the Python 
 - 补充：If you use a wildcard import (`from pkg import *`) to import all the names from the module, [Python will not import names with a leading underscore](https://docs.python.org/3/tutorial/modules.html#importing-from-a-package) (unless the module defines an `__all__` list that overrides this behavior). 从这个角度来讲，wildcard import 应该慎用。
 
 
-### 8.6 Saving Space with the `__slots__` Class Attribute <a name="8-6-Saving-Space-with-the---slots---Class-Attribute"></a>
+### 8.6 Saving Space with the `__slots__` Class Attribute 
 
 By default, Python stores instance attributes in a per-instance dict named `__dict__`. Dictinaries have a significant memory overhead, especially when you are dealing with millions of instances with few attributes. The `__slots__` class attribute can save a lot of memory, by letting the interpreter store the instance attributes in a tuple instead of a dict.
 
@@ -2462,17 +2467,17 @@ It may be possible, however, to “save memory and eat it too”: if you add `__
 
 There is another special per-instance attribute that you may want to keep: the `__weak ref__` attribute, which exists by default in instances of user-defined classes. However, if the class defines `__slots__`, and you need the instances to be target of weak references, then you need to include `__weakref__` among the attribute named in `__slots__`.
 
-### 8.7 Overriding Class Attributes <a name="8-7-Overriding-Class-Attributes"></a>
+### 8.7 Overriding Class Attributes 
 
 比如前面的 `typecode = 'd'` 和 `__slots__` 这样不带 `self` 初始化的都是 class attributes，类似 java 的 static.
 
 If you write to an instance attribute that does not exist, you create a new instance attribute. 假设你有一个 class attribute `Foo.bar` 和 instance `f`，正常情况下 `f.bar` 可以访问到 `Foo.bar`，但你可以重新赋值 `f.bar = 'baz'` 从而覆盖掉原有的 `f.bar` 的值，同时 class attribute `Foo.bar` 不会受影响。这实际上提供了一种新的继承和多态的思路 (不用把 `bar` 设计成 `Foo` 的 instance attribute)。
 
-## Chapter 10 - Sequence Hacking, Hashing, and Slicing <a name="Chapter-10---Sequence-Hacking-Hashing-and-Slicing"></a>
+## Chapter 10 - Sequence Hacking, Hashing, and Slicing 
 
 In this chapter, we will create a class to represent a multidimensional Vector class--a significant step up from the two-dimensional Vector2d of Chapter 9. 
 
-### 10.1 `Vector` Take #1: `Vector2d` Compatible <a name="10-1-Vector-Take-1-Vector2d-Compatible"></a>
+### 10.1 `Vector` Take #1: `Vector2d` Compatible 
 
 先说个题外话，你在 console 里面直接输入 `f` 然后回车，调用的是 `f.__repr__()`，而 `print(f)` 调用的是 `f.__str__()` (如果有定义的话；没有的话还是会 fall back 到 `f.__repr__()`)
 
@@ -2534,7 +2539,7 @@ class Vector:
 
 上面这个 `__repr__` 的处理就很值得学习：`reprlib.repr()` 的返回值类似 `array('d', [0.0, 1.0, 2.0, 3.0, 4.0, ...])`，超过 6 个元素就会用省略号表示；然后上面的代码再截取出 `[...]` 的部分然后格式化输出。
 
-### Digress: Protocols and Duck Typing <a name="Digress-Protocols-and-Duck-Typing"></a>
+### Digress: Protocols and Duck Typing 
 
 In the context of object-oriented programming, a protocol is an informal interface, defined only in documentation and not in code. 简单说，只要实现了 protocol 要求的函数，你就是 protocol 的实现，并不用显式声明你要实现这个 protocol (反例就是 java 的 `interface`)
 
@@ -2545,7 +2550,7 @@ Duck Typing 的源起：
 
 简单说就是 python 并不要求显式声明 **_is-a_** (当然你要显式也是可以的--用 ABC，但是需要注意不仅限于 `abc.ABC`，还有 `collections.abc` 等细分的 ABC，比如 `MutableSequence`；参 11.3 章节)，**_like-a_** 在 python 里等同于 **_is-a_**。
 
-### 10.2 `Vector` Take #2: A Sliceable Sequence <a name="10-2-Vector-Take-2-A-Sliceable-Sequence"></a>
+### 10.2 `Vector` Take #2: A Sliceable Sequence 
 
 Basic sequence protocol: `__len__` and `__getitem__`:
 
@@ -2569,7 +2574,7 @@ class Vector:
 array('d', [1.0, 2.0, 3.0])  # It would be better if a slice of Vector is also a Vector
 ```
 
-#### 10.2.1 How Slicing Works <a name="10-2-1-How-Slicing-Works"></a>
+#### 10.2.1 How Slicing Works 
 
 ```python
 >>> class MySeq:
@@ -2630,7 +2635,7 @@ class FakeSeq:
 如果你是组合了一个 built-in sequence 来实现自己的 sequence，你就不需要用到 `s.indices(n)` 方法，因为可以直接 delegate 给这个 built-in sequence 去处理，书上的例子就是这样的，见下。
 
 
-#### 10.2.2 A Slice-Aware `__getitem__` <a name="10-2-2-A-Slice-Aware---getitem--"></a>
+#### 10.2.2 A Slice-Aware `__getitem__` 
 
 ```python
 def __getitem__(self, index):
@@ -2645,7 +2650,7 @@ def __getitem__(self, index):
 		raise TypeError(msg.format(cls=cls))
 ```
 
-### 10.3 `Vector` Take #3: Dynamic Attribute Access <a name="0-3-Vector-Take-3-Dynamic-Attribute-Access"></a>
+### 10.3 `Vector` Take #3: Dynamic Attribute Access 
 
 我们想保留 "用 `x`, `y`, `z` 和 `t` 来指代一个 vector 的前 4 个维度" 这么一个 convention，换言之我们想要有 `v.x == v[0]` etc.
 
@@ -2693,7 +2698,7 @@ def __setattr__(self, name, value):
 
 如果你要限定允许的 attribute name，一个可以 work 的方案是用 `__slots__`，但如同前面所说的，这个用途违背了 `__slots__` 的设计初衷，不推荐使用。
 
-### 10.4 `Vector` Take #4: Hashing and a Faster `==` <a name="10-4-Vector-Take-4-Hashing-and-a-Faster-=="></a>
+### 10.4 `Vector` Take #4: Hashing and a Faster `==` 
 
 ```python
 import functools 
@@ -2740,13 +2745,13 @@ def __eq__(self, other):
 	return len(self) == len(other) and all(a == b for a, b in zip(self, other))
 ```
 
-### 10.5 `Vector` Take #5: Formatting <a name="10-5-Vector-Take-5-Formatting"></a>
+### 10.5 `Vector` Take #5: Formatting 
 
 略
 
-## Chapter 11 - Interfaces: From Protocols to ABCs <a name="Chapter-11---Interfaces-From-Protocols-to-ABCs"></a>
+## Chapter 11 - Interfaces: From Protocols to ABCs 
 
-### 11.1 Monkey-Patching to Implement a Protocol at Runtime <a name="11-1-Monkey-Patching-to-Implement-a-Protocol-at-Runtime"></a>
+### 11.1 Monkey-Patching to Implement a Protocol at Runtime 
 
 Monkey patch refers to dynamic modifications of a class or module at runtime, motivated by the intent to patch existing third-party code as a workaround to a bug or feature which does not act as desired.
 
@@ -2776,21 +2781,21 @@ TypeError: 'FrenchDeck' object does not support item assignment
 
 有点像给 JS 元素动态添加 event-listener。
 
-### 11.2 Subclassing an ABC <a name="11-2-Subclassing-an-ABC"></a>
+### 11.2 Subclassing an ABC 
 
 Python does not check for the implementation of the abstract methods at import time, but only at runtime when we actually try to instantiate the subclass. 
 
-### 11.3 ABCs in the Standard Library <a name="11-3-ABCs-in-the-Standard-Library"></a>
+### 11.3 ABCs in the Standard Library 
 
 Every ABC depends on `abc.ABC`, but we don’t need to import it ourselves except to create a new ABC.
 
-#### 11.3.1 ABCs in `collections.abc` <a name="11-3-1-ABCs-in-collections-abc"></a>
+#### 11.3.1 ABCs in `collections.abc` 
 
 ![][11-3-collections-abc]
 
 更详细的说明见 [Python documentation - 8.4.1. Collections Abstract Base Classes](https://docs.python.org/3/library/collections.abc.html#collections-abstract-base-classes)
 
-#### 11.3.2 The `numbers` Tower of ABCs <a name="11-3-2-The-numbers-Tower-of-ABCs"></a>
+#### 11.3.2 The `numbers` Tower of ABCs 
 
 `numbers` package 有如下的的继承关系：
 
@@ -2806,7 +2811,7 @@ Every ABC depends on `abc.ABC`, but we don’t need to import it ourselves excep
 - `isinstance(x, numbers.Real)` 对 `bool`、`int`、`float`、`fractions.Fraction` 都有效 (所以这不是一个很好的 check if `x` is float 的方法)
 	- However, `decimal.Decimal` 并没有实现 `numbers.Real`
 
-### 11.4 Defining and Using an ABC <a name="11-4-Defining-and-Using-an-ABC"></a>
+### 11.4 Defining and Using an ABC 
 
 An abstract method can actually have an implementation. Even if it does, subclasses will still be forced to override it, but they will be able to invoke the abstract method with `super()`, adding functionality to it instead of implementing from scratch.
 
@@ -2833,7 +2838,7 @@ Python 3.4 引入的逻辑其实是 `def abc.ABC(metaclass=abc.ABCMeta)`
 
 另外 `@abc.abstractmethod` 必须是 innermost 的 decorator (i.e. 它与 `def` 之间不能再有别的 decorator)
 
-### 11.5 Virtual Subclasses <a name="11-5-Virtual-Subclasses"></a>
+### 11.5 Virtual Subclasses 
 
 我第一个想到的是 [C++: Virtual Inheritance](/c++/2015/04/24/cpp-virtual-inheritance)，但是在 python 这里 virtual subclass 根本不是这个意思。
 
@@ -2904,7 +2909,7 @@ Inheritance is guided by a special class attribute named `__mro__`, the **Method
 
 `Base` is not in `VirtualExt.__mro__`. 这进一步验证了我们的结论：`VirtualExt` 并没有实际继承 `Base`。
 
-#### 11.5.1 `issubclass` Alternatives: `__subclasses__` and `_abc_registry` <a name="11-5-1-issubclass-Alternatives---subclasses---and--abc-registry"></a>
+#### 11.5.1 `issubclass` Alternatives: `__subclasses__` and `_abc_registry` 
 
 - `Base.__subclasses__()` (注意这是一个方法) 
 	- 返回所有 `Base` 的 immediate 子类 (即不会递归去找子类的子类)
@@ -2916,7 +2921,7 @@ Inheritance is guided by a special class attribute named `__mro__`, the **Method
 	- 返回所有 `Base` 的 virtual 子类
 	- 返回值类型其实是一个 `WeakSet`，元素是 weak references to virtual subclasses
 
-#### 11.5.2 `__subclasshook__` <a name="11-5-2---subclasshook--"></a>
+#### 11.5.2 `__subclasshook__` 
 
 - 必须是一个 `@classmethod`
 - 写在 ABC 父类中，如果 `Base.__subclasshook__(Ext) == True`，则 `issubclass(Ext, Base) == True`
@@ -2943,14 +2948,14 @@ class Sized(metaclass=ABCMeta):
 
 但是在你自己的 ABC 业务类中并不推荐使用 `__subclasshook__`，因为它太底层了，多用于 lib 设计中。
 
-## Chapter 12 - Inheritance: For Good or For Worse <a name="Chapter-12---Inheritance-For-Good-or-For-Worse"></a>
+## Chapter 12 - Inheritance: For Good or For Worse 
 
 本章谈两个问题：
 
 - The pitfalls of subclassing from built-in types
 - Multiple inheritance and the method resolution order
 
-### 12.1 Subclassing Built-In Types Is Tricky <a name="12-1-Subclassing-Built-In-Types-Is-Tricky"></a>
+### 12.1 Subclassing Built-In Types Is Tricky 
 
 一个很微妙的问题：你无法确定底层函数的调用逻辑。举个例子，我们之前有说 `getattr(obj, name)` 的逻辑是先去取 `obj.__getattribute__(name)`。所以正常的想法是：我子类如果覆写了 `__getattribute__`，那么 `getattr` 作用在子类上的行为也会相应改变。但是实际情况是：`getattr` 不一定会实际调用 `__getattribute__` (比如说有可能去调用公用的更底层的逻辑)。而且这个行为是 language-implementation-specific 的，所以有可能 _PyPy_ 和 _CPython_ 的逻辑还不一样。
 
@@ -2960,7 +2965,7 @@ class Sized(metaclass=ABCMeta):
 
 Subclassing built-in types like `dict` or `list` or `str` directly is error-prone because the built-in methods mostly ignore user-defined overrides. Instead of subclassing the built-ins, derive your classes from the `collections` module using `UserDict`, `UserList`, and `UserString`, which are designed to be easily extended.
 
-### 12.2 Multiple Inheritance and Method Resolution Order <a name="12-2-Multiple-Inheritance-and-Method-Resolution-Order"></a>
+### 12.2 Multiple Inheritance and Method Resolution Order 
 
 首先 python 没有 [C++: Virtual Inheritance](/c++/2015/04/24/cpp-virtual-inheritance) 里的 dread diamond 问题，子类 `D` 定位到父类 `A` 的方法毫无压力，而且查找顺序是固定的--以 `D.__mro__` 的顺序为准。
 
@@ -3009,7 +3014,7 @@ baz
 	- 所以如果不给 `bar` 定一个 `self` 参数的话，它就不可能成为一个成员方法，而是成了一个 ”只能通过 `Foo` 访问的" static 方法
 - 对 static 方法 `baz`：`f.baz()` 转换成 `Foo.baz()` 这是顺理成章的
 
-### 12.3 Coping with Multiple Inheritance <a name="12-3-Coping-with-Multiple-Inheritance"></a>
+### 12.3 Coping with Multiple Inheritance 
 
 1. Distinguish Interface Inheritance from Implementation Inheritance
 1. Make Interfaces Explicit with ABCs
@@ -3025,9 +3030,9 @@ baz
 1. “Favor Object Composition Over Class Inheritance.”
 	- Universally true.
 
-## Chapter 13 - Operator Overloading: Doing It Right <a name="Chapter-13---Operator-Overloading-Doing-It-Right"></a>
+## Chapter 13 - Operator Overloading: Doing It Right 
 
-### 13.1 Operator Overloading 101 <a name="13-1-Operator-Overloading-101"></a>
+### 13.1 Operator Overloading 101 
 
 Python limitation on operator overloading:
 
@@ -3035,7 +3040,7 @@ Python limitation on operator overloading:
 - We cannot create new operators, only overload existing ones.
 - A few operators can’t be overloaded: `is`, `and`, `or`, `not` (but the bitwise `&`, `|`, `~`, can).
 
-### 13.2 Unary Operators <a name="13-2-Unary-Operators"></a>
+### 13.2 Unary Operators 
 
 - `+` $\Rightarrow$ `__pos__`
 - `-` $\Rightarrow$ `__neg__`
@@ -3045,7 +3050,7 @@ Python limitation on operator overloading:
 
 When implementing, always return a new object instead of modifying `self`.
 
-### 13.3 `+` for Vector Addition <a name="13-3-+-for-Vector-Addition"></a>
+### 13.3 `+` for Vector Addition 
 
 ```python
 import itertools
@@ -3089,7 +3094,7 @@ def __add__(self, other):
 		return NotImplemented
 ```
 
-### 13.4 `*` for Scalar Multiplication <a name="13-4-*-for-Scalar-Multiplication"></a>
+### 13.4 `*` for Scalar Multiplication 
 
 这里我们限制一下乘数的类型：
 
@@ -3106,7 +3111,7 @@ def __rmul__(self, scalar):
 	return self * scalar
 ```
 
-### Digress: `@` for Matrix Multiplication since Python 3.5 <a name="Digress-@-for-Matrix-Multiplication-since-Python-3-5"></a>
+### Digress: `@` for Matrix Multiplication since Python 3.5 
 
 ```python
 >>> import numpy as np
@@ -3118,13 +3123,13 @@ def __rmul__(self, scalar):
 38
 ```
 
-### Digress: `__ixxx__` Series In-place Operators <a name="Digress---ixxx---Series-In-place-Operators"></a>
+### Digress: `__ixxx__` Series In-place Operators 
 
 比如 `a += 2` 其实就是 `a.__iadd__(2)`。
 
 另外注意 python 没有 `a++` 和 `++a` 这样的操作
 
-### 13.5 Rich Comparison Operators <a name="13-5-Rich-Comparison-Operators"></a>
+### 13.5 Rich Comparison Operators 
 
 ![][13-5-Rich-Comparison-Operators]
 
@@ -3134,7 +3139,7 @@ reverse 的逻辑还是一样的：如果 `a.__eq__(b)` 行不通就调用 `b.__
 - 此时反过来跑去调用 `base.__eq__(ext)`，结果 `isintace(ext, Base) == True`，而且后续的比较也都 OK，最后还是返回了 `True`
 - 相当于强行要求你考虑 reflexivity 自反性
 
-### 13.6 Augmented Assignment Operators <a name="13-6-Augmented-Assignment-Operators"></a>
+### 13.6 Augmented Assignment Operators 
 
 If a class does not implement the in-place operators, the augmented assignment operators are just syntactic sugar: `a += b` is evaluated exactly as `a = a + b`. That’s the expected behavior for immutable types, and if you have `__add__` then `+=` will work with no additional code.
 
@@ -3142,13 +3147,14 @@ If a class does not implement the in-place operators, the augmented assignment o
 
 As the name says, these in-place operators are expected to change the lefthand operand in place, and not create a new object as the result.
 
-## Chapter 14 - Iterables, Iterators, and Generators <a name="Chapter-14---Iterables-Iterators-and-Generators"></a>
+# Part V - Control Flow
+## Chapter 14 - Iterables, Iterators, and Generators 
 
 一篇很好的 blog 以供参考：[nvie.com: Iterables vs. Iterators vs. Generators](http://nvie.com/posts/iterators-vs-generators/)
 
 ![][14-Iterables-vs-Iterators-vs-Generators]
 
-### 14.1 `Sentence` Take #1: A Sequence of Words <a name="14-1-Sentence-Take-1-A-Sequence-of-Words"></a>
+### 14.1 `Sentence` Take #1: A Sequence of Words 
 
 ```python
 import re
@@ -3181,7 +3187,7 @@ Whenever the interpreter needs to iterate over an object `x`, it automatically c
 
 另外，`collections.abc.Iterable` 在它的 `__subclasshook__` 中认定：所有实现了 `__iter__` 的类都是 `collections.abc.Iterable` 的子类
 
-### 14.2 Iterables Versus Iterators <a name="14-2-Iterables-Versus-Iterators"></a>
+### 14.2 Iterables Versus Iterators 
 
 Any object from which the `iter()` built-in function can obtain an **iterator** is an **iterable**. 
 
@@ -3213,7 +3219,7 @@ while True:
 # To go over the seq again, a new iterator must be built.
 ```
 
-### 14.3 `Sentence` Take #2: A Classic Iterator <a name="14-3-Sentence-Take-2-A-Classic-Iterator"></a>
+### 14.3 `Sentence` Take #2: A Classic Iterator 
 
 ```python
 import re
@@ -3249,7 +3255,7 @@ class SentenceIterator:
 		return self
 ```
 
-### 14.4 `Sentence` Take #3: A Generator Function <a name="14-4-Sentence-Take-3-A-Generator-Function"></a>
+### 14.4 `Sentence` Take #3: A Generator Function 
 
 ```python
 import re
@@ -3278,7 +3284,7 @@ function is a generator factory.
 
 Suppose generator function `gen()` returns a generator object `g` by `g = gen()`. When we invoke `next(g)`, execution advances to the next `yield` in the `gen()` function body, and the `next(g)` call evaluates to the value yielded when the `gen()` is suspended. Finally, when `gen()` returns, `g` raises `StopIteration`, in accordance with the `Iterator` protocol.
 
-### 14.5 `Sentence` Take #4: A Lazy Implementation <a name="14-5-Sentence-Take-4-A-Lazy-Implementation"></a>
+### 14.5 `Sentence` Take #4: A Lazy Implementation 
 
 Nowadays, laziness is considered a good trait, at least in programming languages and APIs. A lazy implementation postpones producing values to the last possible moment. This saves memory and may avoid useless processing as well. (与 lazy evaluation 对应的是 eager evaluation)
 
@@ -3302,7 +3308,7 @@ class Sentence:
 
 **N.B.** Whenever you are using Python 3 and start wondering “Is there a lazy way of doing this?”, often the answer is “Yes.”
 
-### 14.6 `Sentence` Take #5: A Generator Expression <a name="14-6-Sentence-Take-5-A-Generator-Expression"></a>
+### 14.6 `Sentence` Take #5: A Generator Expression 
 
 A generator expression can be understood as a lazy version of a `listcomp`.
 
@@ -3336,11 +3342,11 @@ Syntax Tip: When a generator expression is passed as the single argument to a fu
 [5, 10, 15, 20]
 ```
 
-### 14.7 Generator Functions in the Standard Library <a name="14-7-Generator-Functions-in-the-Standard-Library"></a>
+### 14.7 Generator Functions in the Standard Library 
 
 参 [Python Documentation: 10.1. itertools — Functions creating iterators for efficient looping](https://docs.python.org/3/library/itertools.html)
 
-#### 14.7.1 Create Generators Yielding Filtered Data <a name="14-7-1-Create-Generators-Yielding-Filtered-Data"></a>
+#### 14.7.1 Create Generators Yielding Filtered Data 
 
 - `itertools.compress(Iterable data, Iterable mask)`: 类似于 numpy 的 `data[mask]`，只是返回结果是一个 generator
 	- E.g. `compress([1, 2, 3], [True, False, True])` returns a generator of `yield 1; yield 3`
@@ -3385,7 +3391,7 @@ def filterfalse(condition, iterable):
             yield x
 ```
 
-#### 14.7.2 Create Generators Yielding Mapped Data <a name="14-7-2-Create-Generators-Yielding-Mapped-Data"></a>
+#### 14.7.2 Create Generators Yielding Mapped Data 
 
 - `itertools.accumulate(Iterable data, Function f = operator.add`: yield $x_1, \operatorname f(x_2, x_1), \operatorname f(x_3, \operatorname f(x_2, x_1)), \dots$ for $x_i$ in `data`
 - (built-in) `enumerate(Iterable data, start=0)`: yield `(i+start, data[i])` for `i` in `range(0, len(data))`
@@ -3413,7 +3419,7 @@ def starmap(function, iterable):
         yield function(*args)
 ```
 
-#### 14.7.3 Create Generators Yielding Merged Data <a name="14-7-3-Create-Generators-Yielding-Merged-Data"></a>
+#### 14.7.3 Create Generators Yielding Merged Data 
 
 - `itertools.chain(Iterable A, ..., Iterable Z)`: yield $a_1, \dots, a_{n_A}, b_1, \dots, y_{n_Y}, z_1, \dots, z_{n_Z}$
 - `itertools.chain.from_iterable(Iterable data)`: `== itertools.chain(*data)`
@@ -3455,7 +3461,7 @@ def zip_longest(*args, **kwds):
         pass
 ```
 
-### 14.7.4 Create Generators Yielding Repetition <a name="14-7-4-Create-Generators-Yielding-Repetition"></a>
+### 14.7.4 Create Generators Yielding Repetition 
 
 - `itertools.count(start=0, step=1)`: yield $\text{start}, \text{start}+\text{step}, \text{start}+2 \cdot \text{step}, \dots$ endlessly
 - `itertools.repeat(object x[, ntimes])`: yield `x` endlessly or `ntimes` times
@@ -3501,7 +3507,7 @@ def cycle(iterable):
 [1, 1, 1, 2, 2, 2, 3, 3, 3]
 ```
 
-### 14.7.5 Create Generators Yielding Combinations and Permutations <a name="14-7-5-Create-Generators-Yielding-Combinations-and-Permutations"></a>
+### 14.7.5 Create Generators Yielding Combinations and Permutations 
 
 - `itertools.product(Iterable A, ..., Iterable Z, repeat=1)`: yield all $(a_i, b_j, \dots, z_k)$ where $a_i \in A, b_j \in B, \dots, z_k \in Z$
 	- 一共会 yield $(\vert A \vert \cdot \vert B \vert \cdot \ldots \cdot \vert Z \vert)^{\text{repeat}}$ 个 tuple
@@ -3673,7 +3679,7 @@ def permutations(iterable, r=None):
             yield tuple(pool[i] for i in indices)
 ```
 
-#### 14.7.6 Create Generators Yielding Rearranged Data <a name="14-7-6-Create-Generators-Yielding-Rearranged-Data"></a>
+#### 14.7.6 Create Generators Yielding Rearranged Data 
 
 - `itertools.groupby(Iterable X, key=None)`
 	- If `key` is `None`, set `key = lambda x: x` (identity function)
@@ -3757,7 +3763,7 @@ def tee(iterable, n=2):
 	- `c -> deque([1, 2, 3])`
 - 可见每次某个 deque yield 一个新值，它就给其他所有的 deque 都 append 这么一个新值 
 
-### 14.8 New Syntax in Python 3.3: `yield from` <a name="14-8-New-Syntax-in-Python-3-3-yield-from"></a>
+### 14.8 New Syntax in Python 3.3: `yield from` 
 
 这里只介绍了最简单最直接的用法：`yield from iterable` 等价于 `for i in iterable: yield i`。所以 `chain` 的实现可以简写一下：
 
@@ -3774,7 +3780,7 @@ def chain(*iterables):
 
 Besides replacing a loop, `yield from` creates a channel connecting the inner generator directly to the client of the outer generator. This channel becomes really important when generators are used as coroutines and not only produce but also consume values from the client code. 我们 16 章再深入讨论。
 
-### 14.9 Iterable Reducing Functions <a name="14-9-Iterable-Reducing-Functions"></a>
+### 14.9 Iterable Reducing Functions 
 
 - `all(Iterable X)`: 注意 `all([])` 是 `True`
 - `any(Iterable X)`: 注意 `any([])` 是 `False`
@@ -3798,7 +3804,7 @@ Besides replacing a loop, `yield from` creates a channel connecting the inner ge
 		- 依此类推
 		- return $r_{n}$ if $\vert X \vert = n$ 
 
-### 14.10 A Closer Look at the `iter` Function <a name="14-10-A-Closer-Look-at-the-iter-Function"></a>
+### 14.10 A Closer Look at the `iter` Function 
 
 As we’ve seen, Python calls `iter(x)` when it needs to iterate over an object `x`.
 
@@ -3830,7 +3836,7 @@ with open('mydata.txt') as fp:
 		process_line(line)
 ```
 
-### 14.11 Generators as Coroutines <a name="14-11-Generators-as-Coroutines"></a>
+### 14.11 Generators as Coroutines 
 
 [PEP 342 -- Coroutines via Enhanced Generators](https://www.python.org/dev/peps/pep-0342/) was implemented in Python 2.5. This proposal added extra methods and functionality to generator objects, most notably the `.send()` method.
 
@@ -3902,9 +3908,9 @@ This is such a major “enhancement” that it actually changes the nature of ge
 > <p align="right">-- David Beazley</p>
 > <p align="right">“A Curious Course on Coroutines and Concurrency”</p>
 
-### Soapbox <a name="14-Soapbox"></a>
+### Soapbox 
 
-#### Semantics of Generator Versus Iterator <a name="Semantics-of-Generator-Versus-Iterator"></a>
+#### Semantics of Generator Versus Iterator 
 
 A generator is an iterator; an iterator is not necessarily a generator. 
 
@@ -3924,9 +3930,9 @@ True
 False
 ```
 
-## Chapter 15 - Context Managers and `else` Blocks <a name="Chapter-15---Context-Managers-and-else-Blocks"></a>
+## Chapter 15 - Context Managers and `else` Blocks 
 
-### 15.1 Do This, Then That: `else` Blocks Beyond `if` <a name="15-1-Do-This-Then-That-else-Blocks-Beyond-if"></a>
+### 15.1 Do This, Then That: `else` Blocks Beyond `if` 
 
 - `for-else`: the `else` block will run if the `for` loop runs to completion
 	- `else` won't run if `for` is aborted by a `break` or `return`
@@ -3956,7 +3962,7 @@ The glossary then defines LBYL:
 > ##### LBYL
 > Look before you leap. This coding style explicitly tests for pre-conditions before making calls or lookups. This style contrasts with the EAFP approach and is characterized by the presence of many if statements. In a multi-threaded environment, the LBYL approach can risk introducing a race condition between “the looking” and “the leaping”. For example, the code, `if key in mapping: return mapping[key]` can fail if another thread removes key from mapping after the test, but before the lookup. This issue can be solved with locks or by using the EAFP approach.
 
-### 15.2 Context Managers and `with` Blocks <a name="15-2-Context-Managers-and-with-Blocks"></a>
+### 15.2 Context Managers and `with` Blocks 
 
 The `with` statement was designed to simplify the "try/finally" pattern, which guarantees that some operation is performed after a block of code, even if the block is aborted because of an exception, a `return` or `sys.exit()` call. The code in the "finally" clause usually releases a critical resource or restores some previous state that was temporarily changed.
 
@@ -3967,11 +3973,11 @@ The context manager protocol consists of the `__enter__` and `__exit__` methods.
 	- [Python: raise / 3 key elements of an exception](/python/2017/08/28/python-raise-3-key-elements-of-an-exception)
 	- [Python: with-statement / variable scope in with-statement](/python/2017/08/25/python-with-statement-variable-scope-in-with-statement)
 
-### 15.3 The `contextlib` Utilities <a name="15-3-The-contextlib-Utilities"></a>
+### 15.3 The `contextlib` Utilities 
  
 参 [Python Documentation: 29.6. contextlib — Utilities for with-statement contexts](https://docs.python.org/3/library/contextlib.html)
 
-### 15.4 Use `@contextlib.contextmanager` <a name="15-4-Use-@contextlib-contextmanager"></a>
+### 15.4 Use `@contextlib.contextmanager` 
 
 直接作用于一个 generator function `gen` 上，将其包装成一个 context manager (不用你自己定义 class 然后实现 context manager 的 protocol)。但是要求这个 generator function 只能 yield 一个值出来，这个 yield 的值会赋给 `with gen() as g` 的 `g`，同时 `gen()` 的运行停止，`yield` 后面的代码在 `with` block 结束后继续运行。 
 
@@ -3998,13 +4004,13 @@ with gen() as g:
 #	Found Foo! 
 ```
 
-### Soapbox <a name="15-Soapbox"></a>
+### Soapbox 
 
 From [Raymond Hettinger: What Makes Python Awesome (23:00 to 26:15)](http://pyvideo.org/pycon-us-2013/keynote-3.html):
 
 > Then--Hettinger told us--he had an insight: subroutines are the most important invention in the history of computer languages. If you have sequences of operations like `A;B;C` and `P;B;Q`, you can factor out `B` in a subroutine. It’s like factoring out the filling in a sandwich: using tuna with different breads. But what if you want to factor out the bread, to make sandwiches with wheat bread, using a different filling each time? That’s what the `with` statement offers. It’s the complement of the subroutine. 
 
-## Chapter 16 - Coroutines <a name="Chapter-16---Coroutines"></a>
+## Chapter 16 - Coroutines 
 
 We find two main senses for the verb “to yield” in dictionaries: to produce or to give way. Both senses apply in Python when we use the `yield` keyword in a generator. A line such as `yield item` produces a value that is received by the caller of `next(...)`, and it also gives way, suspending the execution of the generator so that the caller may proceed until it’s ready to consume another value by invoking `next()` again. **The caller pulls values from the generator**.
 
@@ -4014,7 +4020,7 @@ A coroutine is syntactically like a generator: just a function with the `yield` 
 
 When you start thinking of yield primarily in terms of control flow, you have the mindset to understand coroutines.
 
-### 16.1 How Coroutines Evolved from Generators <a name="16-1-How-Coroutines-Evolved-from-Generators"></a>
+### 16.1 How Coroutines Evolved from Generators 
 
 [PEP 342 -- Coroutines via Enhanced Generators](https://www.python.org/dev/peps/pep-0342/) added 3 methods to generators:
 
@@ -4023,7 +4029,7 @@ When you start thinking of yield primarily in terms of control flow, you have th
 - `gen.throw(exc_type[, exc_value[, tb_obj]])`: allows the caller of `gen` to throw an exception to be handled inside the generator
 - `gen.close()`: allows the caller of `gen` to terminate the generator
 
-### 16.2 Basic Behavior of a Generator Used as a Coroutine <a name="16-2-Basic-Behavior-of-a-Generator-Used-as-a-Coroutine"></a>
+### 16.2 Basic Behavior of a Generator Used as a Coroutine 
 
 ```python
 >>> def simple_coroutine():
@@ -4079,7 +4085,7 @@ StopIteration
 
 这一句 `b = yield a` 相当于同一个 yield 连接了一个 block：`{ yield a; b = yield }`，`send()` 对 `a` 的值没有任何影响。
 
-### 16.3 Example: Coroutine to Compute a Running Average <a name="16-3-Example-Coroutine-to-Compute-a-Running-Average"></a>
+### 16.3 Example: Coroutine to Compute a Running Average 
 
 ```python
 def averager():
@@ -4104,7 +4110,7 @@ def averager():
 15.0
 ```
 
-### 16.4 Decorators for Coroutine Priming <a name="16-4-Decorators-for-Coroutine-Priming"></a>
+### 16.4 Decorators for Coroutine Priming 
 
 ```python
 from functools import wraps
@@ -4138,7 +4144,7 @@ Then you can skip calling `next()` on `coro_avg`:
 
 The `yield from` syntax we’ll see later automatically primes the coroutine called by it, making it incompatible with decorators such as `@coroutine`. The `asyncio.coroutine` decorator from the Python 3.4 standard library is designed to work with `yield from` so it does not prime the coroutine.
 
-### 16.5 Coroutine Termination and Exception Handling <a name="16-5-Coroutine-Termination-and-Exception-Handling"></a>
+### 16.5 Coroutine Termination and Exception Handling 
 
 - `generator.throw(exc_type[, exc_value[, tb_obj]])`
 	- Causes the `yield` expression where the generator was paused to raise the exception given. 
@@ -4152,7 +4158,7 @@ The `yield from` syntax we’ll see later automatically primes the coroutine cal
 	- When receiving a `GeneratorExit`, the generator must not `yield` a value, otherwise a `RuntimeError` is raised. 
 	- If any other exception is raised by the generator, it propagates to the caller.
 
-### 16.6 Returning a Value from a Coroutine <a name="16-6-Returning-a-Value-from-a-Coroutine"></a>
+### 16.6 Returning a Value from a Coroutine 
 
 ```python
 from collections import namedtuple
@@ -4204,7 +4210,7 @@ StopIteration: Result(count=3, average=15.5)
 Result(count=3, average=15.5)
 ```
 
-### 16.7 Using `yield from` <a name="16-7-Using-yield-from"></a>
+### 16.7 Using `yield from` 
 
 `yield from` does so much more than `yield` that the reuse of the keyword is arguably misleading. Similar constructs in other languages are called `await`, and that is a much better name because it conveys some crucial points: 
 
@@ -4317,7 +4323,7 @@ main(data)
 - [Python: Yes, coroutines are complicated, but they can be used as simply as generators](/python/2017/08/29/python-yes-coroutines-are-complicated-but-they-can-be-used-as-simply-as-generators)
 - [Python: Put simply, generators are special coroutines](/python/2017/08/31/python-put-simply-generators-are-special-coroutines)
 
-### 16.8 The Meaning of `yield from` <a name="16-8-The-Meaning-of-yield-from"></a>
+### 16.8 The Meaning of `yield from` 
 
 关于 `yield`、assignment 和 return value 的逻辑，讲得基本和你总结的差不多。这里补充一下异常的情况：
 
@@ -4433,7 +4439,7 @@ class StopIteration(Exception):
 
 You’re not meant to learn about it by reading the expansion—that’s only there to pin down all the details for language lawyers.
 
-### 16.9 Use Case: Coroutines for Discrete Event Simulation <a name="16-9-Use-Case-Coroutines-for-Discrete-Event-Simulation"></a>
+### 16.9 Use Case: Coroutines for Discrete Event Simulation 
 
 > Coroutines are a natural way of expressing many algorithms, such as simulations, games, asynchronous I/O, and other forms of event-driven programming or co-operative multitasking.
 > <br/>
@@ -4442,13 +4448,13 @@ You’re not meant to learn about it by reading the expansion—that’s only th
 
 Coroutines are the fundamental building block of the `asyncio` package. A simulation shows how to implement concurrent activities using coroutines instead of threads--and this will greatly help when we tackle asyncio with in Chapter 18.
 
-#### 16.9.1 Discrete Event Simulations <a name="16-9-1-Discrete-Event-Simulations"></a>
+#### 16.9.1 Discrete Event Simulations 
 
 A discrete event simulation (DES) is a type of simulation where a system is modeled as a sequence of events. In a DES, the simulation “clock” does not advance by fixed increments, but advances directly to the simulated time of the next modeled event. For example, if we are simulating the operation of a taxi cab from a high-level perspective, one event is picking up a passenger, the next is dropping the passenger off. It doesn’t matter if a trip takes 5 or 50 minutes: when the drop off event happens, the clock is updated to the end time of the trip in a single operation. In a DES, we can simulate a year of cab trips in less than a second. This is in contrast to a continuous simulation where the clock advances continuously by a fixed--and usually small--increment.
 
 Intuitively, turn-based games are examples of DESs: the state of the game only changes when a player moves, and while a player is deciding the next move, the simulation clock is frozen. Real-time games, on the other hand, are continuous simulations where the simulation clock is running all the time, the state of the game is updated many times per second, and slow players are at a real disadvantage.
 
-#### 16.9.2 The Taxi Fleet Simulation <a name="16-9-2-The-Taxi-Fleet-Simulation"></a>
+#### 16.9.2 The Taxi Fleet Simulation 
 
 In our simulation program, `taxi_sim.py`, a number of taxi cabs are created. Each will make a fixed number of trips and then go home. A taxi leaves the garage and starts “prowling”--looking for a passenger. This lasts until a passenger is picked up, and a trip starts. When the passenger is dropped off, the taxi goes back to prowling.
 
@@ -4558,13 +4564,13 @@ sim = Simulator(taxis)
 sim.run(end_time)
 ```
 
-## Chapter 17 - Concurrency with Futures <a name="Chapter-17---Concurrency-with-Futures"></a>
+## Chapter 17 - Concurrency with Futures 
 
 This chapter focuses on the `concurrent.futures` library introduced in Python 3.2, but also available for Python 2.5 and newer as the `futures` package on PyPI. 
 
 Here I also introduce the concept of **futures**--objects representing the asynchronous execution of an operation. 
 
-### 17.1 Example: Web Downloads in Three Styles <a name="17-1-Example-Web-Downloads-in-Three-Styles"></a>
+### 17.1 Example: Web Downloads in Three Styles 
 
 To handle network I/O efficiently, you need concurrency, as it involves high latency--so instead of wasting CPU cycles waiting, it’s better to do something else until a response comes back from the network.
 
@@ -4574,7 +4580,7 @@ Three scripts will be shown below to download images of 20 country flags:
 - `flags_threadpool.py`: requests all images practically at the same time. Uses `concurrent.futures` package
 - `flags_asyncio.py`: ditto. Uses `asyncio` package
 
-#### 17.1.1 Style I: Sequential <a name="17-1-1-Style-I-Sequential"></a>
+#### 17.1.1 Style I: Sequential 
 
 ```python
 import os
@@ -4621,7 +4627,7 @@ main(download_many)
 
 The `requests` library by Kenneth Reitz is available on PyPI and is more powerful and easier to use than the `urllib.request` module from the Python 3 standard library. In fact, `requests` is considered a model Pythonic API. It is also compatible with Python 2.6 and up, while the `urllib2` from Python 2 was moved and renamed in Python 3, so it’s more convenient to use `requests` regardless of the Python version you’re targeting.
 
-#### 17.1.2 Style II: Concurrent with `concurrent.features` <a name="17-1-2-Style-II-Concurrent-with-concurrent-features"></a>
+#### 17.1.2 Style II: Concurrent with `concurrent.features` 
 
 ```python
 from concurrent import futures
@@ -4652,7 +4658,7 @@ main(download_many)
 
 This is a common refactoring when writing concurrent code: turning the body of a sequential for loop into a function to be called concurrently.
 
-#### 17.1.3 Style III: Concurrent with `asyncio` <a name="17-1-3-Style-III-Concurrent-with-asyncio"></a>
+#### 17.1.3 Style III: Concurrent with `asyncio` 
 
 ```python
 import asyncio
@@ -4687,7 +4693,7 @@ main(download_many)
 
 Will cover it in next chapter.
 
-#### 17.1.4 What Are the `Future`s? <a name="17-1-4-What-Are-the-Futures"></a>
+#### 17.1.4 What Are the `Future`s? 
 
 As of Python 3.4, there are two classes named `Future` in the standard library: `concurrent.futures.Future` and `asyncio.Future`. They serve the same purpose: an instance of either `Future` class represents a deferred computation that may or may not have completed. This is similar to the `Deferred` class in Twisted, the `Future` class in Tornado, and `Promise` objects in various JavaScript libraries.
 
@@ -4732,7 +4738,7 @@ def download_many(cc_list):
 
 Strictly speaking, none of the concurrent scripts we tested so far can perform downloads in parallel. The `concurrent.futures` examples are limited by the **Global Interpreter Lock (GIL)**, and the `flags_asyncio.py` is single-threaded.
 
-### 17.2 Blocking I/O and the GIL <a name="17-2-Blocking-I-O-and-the-GIL"></a>
+### 17.2 Blocking I/O and the GIL 
 
 参 [Python GIL: Global Interpreter Lock](/python/2017/09/03/python-gil-global-interpreter-lock)
 
@@ -4740,7 +4746,7 @@ When we write Python code, we have no control over the GIL, but a built-in funct
 
 However, all standard library functions that perform blocking I/O release the GIL when waiting for a result from the OS. This means Python programs that are I/O bound can benefit from using threads at the Python level: while one Python thread is waiting for a response from the network, the blocked I/O function releases the GIL so another thread can run.
 
-### 17.3 Launching Processes with `concurrent.futures` <a name="17-3-Launching-Processes-with-concurrent-futures"></a>
+### 17.3 Launching Processes with `concurrent.futures` 
 
 The package enables truly parallel computations because it can distribute work among multiple Python processes (using the `ProcessPoolExecutor` class)--thus bypassing the GIL and leveraging all available CPU cores, if you need to do CPU-bound processing.
 
@@ -4757,7 +4763,7 @@ There is an optional argument in `ProcessPoolExecutor` constructor, but most of 
 
 **There is no advantage in using a `ProcessPoolExecutor` for the flags download example or any I/O-bound job.** 
 
-### 17.4 Experimenting with `executor.map` <a name="17-4-Experimenting-with-executor-map"></a>
+### 17.4 Experimenting with `executor.map` 
 
 The simplest way to run several callables concurrently is with the `executor.map` function.
 
@@ -4795,15 +4801,15 @@ The `executor.map` function is easy to use but it has a feature that may or may 
 
 The combination of `executor.submit` and `futures.as_completed` is more flexible than `executor.map` because you can submit different callables and arguments, while `executor.map` is designed to run the same callable on the different arguments. In addition, the set of futures you pass to `futures.as_completed` may come from more than one `executor`--perhaps some were created by a `ThreadPoolExecutor` instance while others are from a `ProcessPoolExecutor`.
 
-### 17.5 Downloads with Progress Display and Error Handling <a name="17-5-Downloads-with-Progress-Display-and-Error-Handling"></a>
+### 17.5 Downloads with Progress Display and Error Handling 
 
 一个完整的例子，用到了 `tqdm`，需要架设 Mozilla Vaurien，略。
 
-#### 17.5.3 `threading` and `multiprocessing` <a name="17-5-3-threading-and-multiprocessing"></a>
+#### 17.5.3 `threading` and `multiprocessing` 
 
 `threading` 和 `multiprocessing` 都是底层 module，`concurrent.features` 可以看做是 `multiprocessing` 的包装，提供了简单的接口，屏蔽了底层技术细节
 
-## Chapter 18 - Concurrency with `asyncio` <a name="Chapter-18---Concurrency-with-asyncio"></a>
+## Chapter 18 - Concurrency with `asyncio` 
 
 > Concurrency is about dealing with lots of things at once.  
 > Parallelism is about doing lots of things at once.  
@@ -4817,7 +4823,7 @@ This chapter introduces `asyncio`, a package that implements concurrency with co
 
 Because it uses `yield from` expressions extensively, `asyncio` is incompatible with older versions before Python 3.3.
 
-### 18.1 Thread Versus Coroutine: A Comparison <a name="18-1-Thread-Versus-Coroutine-A-Comparison"></a>
+### 18.1 Thread Versus Coroutine: A Comparison 
 
 Here we introduce a fun example to display an animated spinner made with the ASCII characters `|/-\` on the console while some long computation is running.
 
@@ -4932,7 +4938,7 @@ Here is a summary of the main differences to note between the two supervisor imp
 - You don’t instantiate `Task` objects yourself, you get them by passing a coroutine to `asyncio.async(...)` or `loop.create_task(...)`.
 - When you get a `Task` object, it is already scheduled to run (e.g., by `asyn cio.async`); a `Thread` instance must be explicitly told to run by calling its `start` method.
 
-#### 18.1.1 `asyncio.Future`: Nonblocking by Design <a name="18-1-1-asyncio-Future-Nonblocking-by-Design"></a>
+#### 18.1.1 `asyncio.Future`: Nonblocking by Design 
 
 In `asyncio`, `BaseEventLoop.create_task(...)` takes a coroutine, schedules it to run, and returns an `asyncio.Task` instance--which is also an instance of `asyncio.Future` because `Task` is a subclass of `Future` designed to wrap a coroutine. This is analogous to how we create `concurrent.futures.Future` instances by invoking `Executor.submit(...)`.
 
@@ -4944,7 +4950,7 @@ Note that using `yield from` with a future is the coroutine equivalent of the fu
 
 - So basically you won't call `my_future.result()` nor `my_future.add_done_callback(...)` with `asyncio.Future`
 
-#### 18.1.2 Yielding from Futures, Tasks, and Coroutines <a name="18-1-2-Yielding-from-Futures-Tasks-and-Coroutines"></a>
+#### 18.1.2 Yielding from Futures, Tasks, and Coroutines 
 
 In `asyncio`, there is a close relationship between futures and coroutines because you can get the result of an `asyncio.Future` by yielding from it. This means that `res = yield from foo()` works 
 
@@ -4961,7 +4967,7 @@ In order to execute, a coroutine must be scheduled, and then it’s wrapped in a
 
 Several `asyncio` functions accept coroutines and wrap them in `asyncio.Task` objects automatically, using `asyncio.async` internally. One example is `BaseEventLoop.run_until_complete(...)`.
 
-### 18.2 Downloading with `asyncio` and `aiohttp` <a name="18-2-Downloading-with-asyncio-and-aiohttp"></a>
+### 18.2 Downloading with `asyncio` and `aiohttp` 
 
 Previously we used `requests` library, which performs blocking I/O. To leverage `asyncio`, we must replace every function that hits the network with an asynchronous version that is invoked with `yield from`. And that's why we use `aiohttp` here.
 
@@ -5005,7 +5011,7 @@ There are a lot of new concepts to grasp in `asyncio` but the overall logic is e
 
 Using the `yield from foo` syntax avoids blocking because the current coroutine is suspended, but the control flow goes back to the event loop, which can drive other coroutines. When the `foo` future or coroutine is done, it returns a result to the suspended coroutine, resuming it.
 
-### 18.3 Running Circling Around Blocking Calls <a name="18-3-Running-Circling-Around-Blocking-Calls"></a>
+### 18.3 Running Circling Around Blocking Calls 
 
 There are two ways to prevent blocking calls to halt the progress of the entire application:
 
@@ -5014,9 +5020,9 @@ There are two ways to prevent blocking calls to halt the progress of the entire 
 
 There is a memory overhead for each suspended coroutine, but it’s orders of magnitude smaller than the overhead for each thread. 
 
-### 18.4 Enhancing the `asyncio` downloader Script <a name="18-4-Enhancing-the-asyncio-downloader-Script"></a>
+### 18.4 Enhancing the `asyncio` downloader Script 
 
-#### 18.4.1 Using `asyncio.as_completed` <a name="18-4-1-Using-asyncio-as-completed"></a>
+#### 18.4.1 Using `asyncio.as_completed` 
 
 ```python
 import asyncio
@@ -5118,7 +5124,7 @@ main(download_many, DEFAULT_CONCUR_REQ, MAX_CONCUR_REQ)
 - ⑥ Iterate over the completed futures
 - ⑦ `as_completed` requires you to loop over the returned completed futures and yield from each one of them to retrieve the result instead of calling `future.result()`.
 
-#### 18.4.2 Using an `Executor` to Avoid Blocking the Event Loop <a name="18-4-2-Using-an-Executor-to-Avoid-Blocking-the-Event-Loop"></a>
+#### 18.4.2 Using an `Executor` to Avoid Blocking the Event Loop 
 
 In the Python community, we tend to overlook the fact that local filesystem access is blocking, rationalizing that it doesn’t suffer from the higher latency of network access. 
 
@@ -5152,15 +5158,16 @@ def download_one(cc, base_url, semaphore, verbose):
 - The first argument to `run_in_executor` is an executor instance; if `None`, the default thread pool executor of the event loop is used.
 - The remaining arguments are the callable and its positional arguments.
 
-### 18.5 From Callbacks to Futures and Coroutines <a name="18-5-From-Callbacks-to-Futures-and-Coroutines"></a>
+### 18.5 From Callbacks to Futures and Coroutines 
 
 略
 
-### 18.6 Writing asyncio Servers <a name="18-6-Writing-asyncio-Servers"></a>
+### 18.6 Writing asyncio Servers 
 
 略
 
-## Chapter 19 - Dynamic Attributes and Properties <a name="Chapter-19---Dynamic-Attributes-and-Properties"></a>
+# Part VI - Metaprogramming
+## Chapter 19 - Dynamic Attributes and Properties 
 
 > The crucial importance of properties is that their existence makes it perfectly safe and indeed advisable for you to expose public data attributes as part of your class’s public interface.
 > <br/>
@@ -5170,9 +5177,9 @@ Data attributes and methods are collectively known as **attributes** in Python: 
 
 > All services offered by a module should be available through a uniform notation, which does not betray whether they are implemented through storage or through computation.
 
-### 19.1 Data Wrangling with Dynamic Attributes <a name="19-1-Data-Wrangling-with-Dynamic-Attributes"></a>
+### 19.1 Data Wrangling with Dynamic Attributes 
 
-#### 19.1.1 Exploring JSON-Like Data with Dynamic Attributes <a name="19-1-1-Exploring-JSON-Like-Data-with-Dynamic-Attributes"></a>
+#### 19.1.1 Exploring JSON-Like Data with Dynamic Attributes 
 
 Consider a `dict`-like JSON object, `feed`. The syntax `feed['Schedule']['events'][40] ['name']` is cumbersome. How can we just write `feed.Schedule.events[40].name` to fetch the same attribute?
 
@@ -5205,7 +5212,7 @@ class FrozenJSON:
 			return obj
 ```
 
-#### 19.1.2 The Invalid Attribute Name Problem <a name="19-1-2-The-Invalid-Attribute-Name-Problem"></a>
+#### 19.1.2 The Invalid Attribute Name Problem 
 
 比如 `feed.class`，因为 `class` 是关键字，所以这一句会是 syntax error。
 
@@ -5223,7 +5230,7 @@ def __init__(self, mapping):
 
 同理还有 invalid identifier 的问题，比如 `feed.2be`，同样也是 syntax error。解决方案类似上面方案二，可以用 `key.isidentifier()` 来判断 key 是否是合法 identifier，不过这里要给 key 改名的话就只能靠你自己发挥了。
 
-#### 19.1.3 Flexible Object Creation with `__new__` <a name="19-1-3-Flexible-Object-Creation-with---new--"></a>
+#### 19.1.3 Flexible Object Creation with `__new__` 
 
 ```python
 from collections import abc
@@ -5256,7 +5263,7 @@ class FrozenJSON:
 			return FrozenJSON(self.__data[name])
 ```
 
-#### 19.1.4 Restructuring the OSCON Feed with `shelve` <a name="19-1-4-Restructuring-the-OSCON-Feed-with-shelve"></a>
+#### 19.1.4 Restructuring the OSCON Feed with `shelve` 
 
 The funny name of the standard `shelve` module makes sense when you realize that `pickle` is the name of the Python object serialization format. Because pickle jars are kept in shelves, it makes sense that `shelve` provides `pickle` storage.
 
@@ -5310,13 +5317,13 @@ def load_db(db):
 >>> db.close()
 ```
 
-#### 19.1.5 Linked Record Retrieval with Properties <a name="19-1-5-Linked-Record-Retrieval-with-Properties"></a>
+#### 19.1.5 Linked Record Retrieval with Properties 
 
 略
 
-### 19.2 Using a Property for Attribute Validation <a name="19-2-Using-a-Property-for-Attribute-Validation"></a>
+### 19.2 Using a Property for Attribute Validation 
 
-#### 19.2.1 `LineItem` Take #1: Class for an Item in an Order <a name="19-2-1-LineItem-Take-1-Class-for-an-Item-in-an-Order"></a>
+#### 19.2.1 `LineItem` Take #1: Class for an Item in an Order 
 
 ```python
 class LineItem:
@@ -5331,7 +5338,7 @@ class LineItem:
 
 How to handle negative weights and prices?
 
-#### 19.2.2 `LineItem` Take #2: A Validating Property <a name="19-2-2-LineItem-Take-2-A-Validating-Property"></a>
+#### 19.2.2 `LineItem` Take #2: A Validating Property 
 
 ```python
 class LineItem:
@@ -5355,17 +5362,17 @@ class LineItem:
 			raise ValueError('value must be > 0')
 ```
 
-### 19.3 A Proper Look at Properties <a name="19-3-A-Proper-Look-at-Properties"></a>
+### 19.3 A Proper Look at Properties 
 
 Although often used as a decorator `@property`, the `property` built-in is actually a class. `@property(func)` is actually calling `property` constructor.
 
 See 8.4.1 Digress: `@property` / `__getattribute__()` / `__get__()`
 
-#### 19.3.1 Properties Override Instance Attributes <a name="19-3-1-Properties-Override-Instance-Attributes"></a>
+#### 19.3.1 Properties Override Instance Attributes 
 
 略。书上的例子不可复制。
 
-#### 19.3.2 Property Documentation <a name="19-3-2-Property-Documentation"></a>
+#### 19.3.2 Property Documentation 
 
 If used with the classic call syntax, `property` can get the documentation string as the doc argument:
 
@@ -5375,7 +5382,7 @@ weight = property(get_weight, set_weight, doc='weight in kilograms')
 
 When `property` is deployed as a decorator, the docstring of the getter method--the one with the `@property` decorator itself--is used as the documentation of the property as a whole. 
 
-### 19.4 Coding a Property Factory <a name="19-4-Coding-a-Property-Factory"></a>
+### 19.4 Coding a Property Factory 
 
 We’ll create a `quantity` property factory below to avoid the `@property` repetitions.
 
@@ -5405,25 +5412,25 @@ class LineItem:
 		return self.weight * self.price
 ```
 
-### 19.5 Handling Attribute Deletion <a name="19-5-Handling-Attribute-Deletion"></a>
+### 19.5 Handling Attribute Deletion 
 
 In a property definition, the `@member.deleter` decorator is used to wrap the `def member(self)` method in charge of `del my_obj.member`.
 
 If you are not using a property, attribute deletion can also be handled by implementing the lower-level `__delattr__` special method.
 
-### 19.6 Essential Attributes and Functions for Attribute Handling <a name="19-6-Essential-Attributes-and-Functions-for-Attribute-Handling"></a>
+### 19.6 Essential Attributes and Functions for Attribute Handling 
 
 略
 
-## Chapter 20 - Attribute Descriptors <a name="Chapter-20---Attribute-Descriptors"></a>
+## Chapter 20 - Attribute Descriptors 
 
 A descriptor is a class that implements a protocol consisting of the `__get__`, `__set__`, and `__delete__` methods. The `property` class implements the full descriptor protocol. As usual with protocols, partial implementations are OK. In fact, most descriptors we see in real code implement only `__get__` and `__set__`, and many implement only one of these methods.
 
-### 20.1 Descriptor Example: Attribute Validation <a name="20-1-Descriptor-Example-Attribute-Validation"></a>
+### 20.1 Descriptor Example: Attribute Validation 
 
 As we saw in _19.4 Coding a Property Factory_, a property factory is a way to avoid repetitive coding of getters and setters by applying functional programming patterns. A property factory is a higher-order function that creates a parameterized set of accessor functions and builds a custom `property` instance from them, with closures to hold settings like the `storage_name`. The object-oriented way of solving the same problem is a descriptor class.
 
-#### 20.1.1 `LineItem` Take #3: A Simple Descriptor <a name="20-1-1-LineItem-Take-3-A-Simple-Descriptor"></a>
+#### 20.1.1 `LineItem` Take #3: A Simple Descriptor 
 
 ```python
 class Quantity:
@@ -5453,7 +5460,7 @@ class LineItem:
 	- `.price` is called "managed attribute" and `.__dict__['price']` "storage attribute".
 - ① The logic here is: `line_item.price = 0` $\Rightarrow$ `price.__set__(line_item, 0)`
 
-#### 20.1.2 `LineItem` Take #4: Automatic Storage Attribute Names <a name="20-1-2-LineItem-Take-4-Automatic-Storage-Attribute-Names"></a>
+#### 20.1.2 `LineItem` Take #4: Automatic Storage Attribute Names 
 
 A drawback of the above example is the need to repeat the names of the attributes when the descriptors are instantiated in the managed class body. Here we come up with a new solution.
 
@@ -5506,13 +5513,13 @@ def __get__(self, instance, owner):
 
 Usually we do not define a descriptor in the same module where it’s used, but in a separate utility module designed to be used across the application--even in many applications, if you are developing a framework.
 
-#### 20.1.3 `LineItem` Take #5: A New Descriptor Type <a name="20-1-3-LineItem-Take-5-A-New-Descriptor-Type"></a>
+#### 20.1.3 `LineItem` Take #5: A New Descriptor Type 
 
 Because descriptors are defined in classes, we can leverage inheritance to reuse some of the code we have for new descriptors. That’s what we’ll do in the following section.
 
 略
 
-### 20.2 Overriding Versus Nonoverriding Descriptors <a name="20-2-Overriding-Versus-Nonoverriding-Descriptors"></a>
+### 20.2 Overriding Versus Nonoverriding Descriptors 
 
 Recall that there is an important asymmetry in the way Python handles attributes. 
 
@@ -5526,19 +5533,19 @@ We can observe that:
 
 This asymmetry also affects descriptors, in effect creating two broad categories of descriptors depending on whether the `__set__` method is defined. 
 
-#### 20.2.1 Overriding Descriptor (a.k.a. Data Descriptor / Enforced Descriptor) <a name="20-2-1-Overriding-Descriptor-a-k-a--Data-Descriptor---Enforced-Descriptor"></a>
+#### 20.2.1 Overriding Descriptor (a.k.a. Data Descriptor / Enforced Descriptor) 
 
 A descriptor that implements the `__set__` method is called an overriding descriptor, because although it is a class attribute, a descriptor implementing `__set__` will override attempts to assign to instance attributes.
 
-#### 20.2.2 Overriding Descriptor Without `__get__` <a name="20-2-2-Overriding-Descriptor-Without---get--"></a>
+#### 20.2.2 Overriding Descriptor Without `__get__` 
 
 In this case, only writing is handled by the descriptor. Reading the descriptor through an instance will return the descriptor object itself (from the instance's class) because there is no `__get__` to handle that access. If a namesake (同名的) instance attribute is created with a new value via direct access to the instance `__dict__`, the `__set__` method will still override further attempts to set that attribute, but reading that attribute will simply return the new value (from the instance), instead of returning the descriptor object (from the instance's class). In other words, the instance attribute will shadow the descriptor, but only when reading. 
 
-#### 20.2.3 Nonoverriding Descriptor (a.k.a. Nondata Descriptor / Shadowable Descriptor) <a name="20-2-3-Nonoverriding-Descriptor-a-k-a--Nondata-Descriptor---Shadowable-Descriptor"></a>
+#### 20.2.3 Nonoverriding Descriptor (a.k.a. Nondata Descriptor / Shadowable Descriptor) 
 
 If a descriptor does not implement `__set__`, then it’s a nonoverriding descriptor. Setting an instance attribute with the same name will shadow the descriptor, rendering it ineffective for handling that attribute in that specific instance. 
 
-#### 20.2.4 Overwriting a Descriptor in the Class <a name="20-2-4-Overwriting-a-Descriptor-in-the-Class"></a>
+#### 20.2.4 Overwriting a Descriptor in the Class 
 
 Regardless of whether a descriptor is overriding or not, it can be overwritten by assignment to the class, e.g. `LineItem.price = 1`. 
 
@@ -5549,7 +5556,7 @@ This reveals another asymmetry regarding reading and writing attributes:
 
 In order to control the setting of attributes in a class, you have to attach descriptors to the class of the class--in other words, the metaclass. We'll discuss this topic in Chapter 21.
 
-### 20.3 Methods Are (Nonoverriding) Descriptors <a name="20-3-Methods-Are-Nonoverriding-Descriptors"></a>
+### 20.3 Methods Are (Nonoverriding) Descriptors 
 
 A function within a class becomes a bound method because all user-defined functions have a `__get__` method, therefore they operate as descriptors when attached to a class.
 
@@ -5588,7 +5595,7 @@ f.__class__.bar(f)
 
 The bound method object also has a `__call__` method, which handles the actual invocation. This method calls the original function referenced in `__func__`, passing the `__self__` attribute of the method as the first argument. That’s how the implicit binding of the conventional `self` argument works.
 
-### 20.4 Descriptor Usage Tips <a name="20-4-Descriptor-Usage-Tips"></a>
+### 20.4 Descriptor Usage Tips 
 
 - Use property to Keep It Simple
 	- The `property` built-in actually creates overriding descriptors implementing both `__set__` and `__get__`, even if you do not define a setter method. 
@@ -5604,11 +5611,11 @@ The bound method object also has a `__call__` method, which handles the actual i
 - Nonspecial methods can be shadowed by instance attributes
 	- However, this issue does not interfere with special methods. The interpreter only looks for special methods in the class itself, in other words, `repr(x)` is executed as `x.__class__.__repr__(x)`, so a redefined `x.__repr__` attribute has no effect on `repr(x)`. 
 	
-## Chapter 21 - Class Metaprogramming <a name="Chapter-21---Class-Metaprogramming"></a>
+## Chapter 21 - Class Metaprogramming 
 
 Class metaprogramming is the art of creating or customizing classes at runtime. 
 
-### 21.1 A Class Factory <a name="21-1-A-Class-Factory"></a>
+### 21.1 A Class Factory 
 
 We create a `record_factory` to mimic `collections.namedtuple`.
 
@@ -5689,7 +5696,7 @@ class MyClass(MySuperClass, MyMixin):
 
 Instances of classes created by `record_factory` have a limitation: they are not serializable--that is, they can’t be used with the `dump`/`load` functions from the `pickle` module. Solving this problem is beyond the scope of this example, which aims to show the `type` class in action in a simple use case. For the full solution, study the source code for `collections.nameduple`; search for the word “pickling.” 
 
-### 21.2 A Class Decorator for Customizing Descriptors <a name="21-2-A-Class-Decorator-for-Customizing-Descriptors"></a>
+### 21.2 A Class Decorator for Customizing Descriptors 
 
 When we left the LineItem example in “LineItem Take #5: A New Descriptor Type” , the issue of descriptive storage names was still pending: the value of attributes such as `weight` was stored in an instance attribute named `_Quantity#0`, which made debugging a bit hard. 
 
@@ -5718,7 +5725,7 @@ class LineItem:
         return self.weight * self.price
 ```
 
-### 21.3 What Happens When: Import Time Versus Runtime <a name="21-3-What-Happens-When-Import-Time-Versus-Runtime"></a>
+### 21.3 What Happens When: Import Time Versus Runtime 
 
 Python programmers talk about **import time** versus **runtime** but the terms are not strictly defined and there is a gray area between them. 
 
@@ -5732,7 +5739,7 @@ On intepreter parsing a `def` statement:
 	- In the usual case, this means that the interpreter defines top-level functions at import time, but executes their bodies only when--and if--the functions are invoked at runtime.
 - If it is a class, the story is different: at import time, the interpreter executes the body of every class, even the body of classes nested in other classes. Execution of a class body means that the attributes and methods of the class are defined, and then the class object itself is built. In this sense, the body of classes is “top-level code”: it runs at import time.
 
-### 21.4 Metaclasses 101 <a name="21-4-Metaclasses-101"></a>
+### 21.4 Metaclasses 101 
 
 A metaclass is a class factory, except that instead of a function, like `record_factory`, a metaclass is written as a class. 
 
@@ -5811,7 +5818,7 @@ Note that if `Foo.__new__()` did not return an instance of `Foo`, e.g. `return t
 > - if an explicit metaclass is given and it is not an instance of `type()`, then it is used directly as the metaclass
 > - if a) an explicit metaclass is given and it is an instance of `type()`, or b) bases are defined, then the most derived metaclass is used
 
-### 21.5 A Metaclass for Customizing Descriptors <a name="21-5-A-Metaclass-for-Customizing-Descriptors"></a>
+### 21.5 A Metaclass for Customizing Descriptors 
 
 ```python
 class EntityMeta(type):
@@ -5843,7 +5850,7 @@ class LineItem(Entity):
 
 注意执行顺序！首先 "class top-level" 执行，所以 `description = NonBlank(); weight = Quantity()； price = Quantity()` 这三句先跑，然后再绑定 `metaclass=EntityMeta`，开始跑 `EntityMeta.__init__`，从而可以去修改 `storage_name`
 
-### 21.6 The Metaclass `__prepare__` Special Method (only available in Python 3) <a name="21-6-The-Metaclass---prepare---Special-Method-only-available-in-Python-3"></a>
+### 21.6 The Metaclass `__prepare__` Special Method (only available in Python 3) 
 
 [Python Documentation: 3.3.3.1. Metaclasses](https://docs.python.org/3/reference/datamodel.html#metaclasses) says:
 
@@ -5865,7 +5872,7 @@ else:
 
 The `__prepare__` method is invoked by the interpreter before the `__new__` method in the metaclass to create the mapping that will be filled with the attributes from the class body. Besides the metaclass as first argument, `__prepare__` gets the name of the class to be constructed and its tuple of base classes, and it must return a mapping, which will be received as the last argument by `__new__` and then `__init__` when the metaclass builds a new class.
 
-### 21.7 Classes as Objects <a name="21-7-Classes-as-Objects"></a>
+### 21.7 Classes as Objects 
 
 Every class has a number of attributes defined in the Python data model:
 
@@ -5882,7 +5889,7 @@ Every class has a number of attributes defined in the Python data model:
 	- The implementation uses weak references to avoid circular references between the superclass and its subclasses--which hold a strong reference to the superclasses in their `__bases__` attribute. 
 	- The method returns the list of subclasses that currently exist in memory.
 
-### 21.8 Advices on Metaclasses <a name="21-8-Advices-on-Metaclasses"></a>
+### 21.8 Advices on Metaclasses 
 
 In the real world, metaclasses are used in frameworks and libraries that help programmers perform, among other tasks:
 

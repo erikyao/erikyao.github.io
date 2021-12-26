@@ -7,92 +7,91 @@ tags: [Book]
 ---
 {% include JB/setup %}
 
-## ToC
+ToC:
 
-- [Introduction to SQLAlchemy](#Introduction-to-SQLAlchemy)
-- PART I - SQLAlchemy Core
-    - [Chapter 1 - Schema and Types](#Chapter-1---Schema-and-Types)
-        - [1.1 Types](#1-1-Types)
-        - [1.2 Metadata](#1-2-Metadata)
-        - [1.3 Tables](#1-3-Tables)
-            - [1.3.1 Primary Keys](#1-3-1-Primary-Keys)
-            - [1.3.2 Unique and check Constraints](#1-3-2-Unique-and-check-Constraints)
-            - [1.3.3 Indices](#1-3-3-Indices)
-            - [1.3.4 Foreign Keys](#1-3-4-Foreign-Keys)
-    - [Chapter 2 - Working with Data via SQLAlchemy Core](#Chapter-2---Working-with-Data-via-SQLAlchemy-Core)
-        - [2.1 Inserting Data](#2-1-Inserting-Data)
-        - [2.2 Querying Data](#2-2-Querying-Data)
-            - [2.2.1 `ResultProxy`](#2-2-1-ResultProxy)
-            - [2.2.2 Ordering](#2-2-2-Ordering)
-            - [2.2.3 Limiting](#2-2-3-Limiting)
-            - [2.2.4 Built-In SQL Functions and Labels](#2-2-4-Built-In-SQL-Functions-and-Labels)
-            - [2.2.5 Filtering](#2-2-5-Filtering)
-            - [2.2.6 `ClauseElement`](#2-2-6-ClauseElement)
-            - [2.2.7 Operators](#2-2-7-Operators)
-            - [2.2.8 Conjunctions](#2-2-8-Conjunctions)
-        - [2.3 Updating Data](#2-3-Updating-Data)
-        - [2.4 Deleting Data](#2-4-Deleting-Data)
-        - [2.5 Joins](#2-5-Joins)
-        - [2.6 Aliases](#2-6-Aliases)
-        - [2.7 Grouping](#2-7-Grouping)
-        - [2.8 Chaining Clauses](#2-8-Chaining-Clauses)
-        - [2.9 Raw Queries](#2-9-Raw-Queries)
-    - [Chapter 3 - Exceptions and Transactions](#Chapter-3---Exceptions-and-Transactions)
-        - [3.1 Exceptions](#3-1-Exceptions)
-        - [3.2 Transactions](#3-2-Transactions)
-    - [Chapter 4 - Testing](#Chapter-4---Testing)
-    - [Chapter 5 - Reflection](#Chapter-5---Reflection)
-        - [5.1 Reflecting Individual Tables](#5-1-Reflecting-Individual-Tables)
-        - [5.2 Reflecting a Whole Database](#5-2-Reflecting-a-Whole-Database)
-        - [5.3 Query Building with Reflected Objects](#5-3-Query-Building-with-Reflected-Objects)
-- PART II - SQLAlchemy ORM
-    - [Chapter 6 - Defining Schema with SQLAlchemy ORM](#Chapter-6---Defining-Schema-with-SQLAlchemy-ORM)
-        - [6.1 Defining Tables via ORM Classes](#6-1-Defining-Tables-via-ORM-Classes)
-        - [6.2 Relationships](#6-2-Relationships)
-        - [6.3 Persisiting the Schema](#6-3-Persisiting-the-Schema)
-    - [Chapter 7 - Working with Data via SQLAlchemy ORM](#Chapter-7---Working-with-Data-via-SQLAlchemy-ORM)
-        - [7.1 The session](#7-1-The-session)
-        - [7.2 Inserting Data](#7-2-Inserting-Data)
-            - [7.2.1 `session.commit()`](#7-2-1-session-commit)
-            - [7.2.2 `session.flush()`](#7-2-2-session-flush)
-            - [7.2.3 `session.bulk_save_object()`](#7-2-3-session-bulk-save-object)
-        - [7.3 Querying Data](#7-3-Querying-Data)
-            - [7.3.1 Controlling the Columns in the Query](#7-3-1-Controlling-the-Columns-in-the-Query)
-            - [7.3.2 Ordering](#7-3-2-Ordering)
-            - [7.3.3 Limiting](#7-3-3-Limiting)
-            - [7.3.4 Built-In SQL Functions and Labels](#7-3-4-Built-In-SQL-Functions-and-Labels)
-            - [7.3.5 Filtering](#7-3-5-Filtering)
-            - [7.3.6 Operators](#7-3-6-Operators)
-            - [7.3.7 Conjunctions](#7-3-7-Conjunctions)
-        - [7.4 Updating Data](#7-4-Updating-Data)
-        - [7.5 Deleting Data](#7-5-Deleting-Data)
-        - [7.6 Joins](#7-6-Joins)
-        - [7.7 Conditional Chaining](#7-7-Conditional-Chaining)
-        - [7.8 Raw Queries](#7-8-Raw-Queries)
-    - [Chapter 8 - Understanding the Session and Exceptions](#Chapter-8---Understanding-the-Session-and-Exceptions)
-        - [8.1 The SQLAlchemy Session](#8-1-The-SQLAlchemy-Session)
-        - [8.2 Exceptions](#8-2-Exceptions)
-        - [8.3 Transactions](#8-3-Transactions)
-    - [Chapter 9 - Testing with SQLAlchemy ORM](#Chapter-9---Testing-with-SQLAlchemy-ORM)
-        - [9.1 Testing with a Test Database](#9-1-Testing-with-a-Test-Database)
-        - [9.2 Using Mocks](#9-2-Using-Mocks)
-    - [Chapter 10 - Reflection with SQLAlchemy ORM and Automap](#Chapter-10---Reflection-with-SQLAlchemy-ORM-and-Automap)
-        - [10.1 Reflecting a Database with Automap](#10-1-Reflecting-a-Database-with-Automap)
-        - [10.2 Reflected Relationships](#10-2-Reflected-Relationships)
-- PART III - Alembic (Migration Tool with Version Control)
-    - [Chapter 11 - Getting Started with Alembic](#Chapter-11---Getting-Started-with-Alembic)
-    - [Chapter 12 - Building Migrations](#Chapter-12---Building-Migrations)
-    - [Chapter 13 - Controlling Alembic](#Chapter-13---Controlling-Alembic)
-- PART IV - Advanced Topics
-    - [Chapter 14 - Cookbook](#Chapter-14---Cookbook)
-        - [14.1 Hybrid Attributes](#14-1-Hybrid-Attributes)
-        - [14.2 Association Proxy](#14-2-Association-Proxy)
-        - [14.3 Integrating SQLAlchemy with Flask](#14-3-Integrating-SQLAlchemy-with-Flask)
-        - [14.4 SQLAcodegen (自动反射生成 Model 类的文件)](#14-4-SQLAcodegen)
-    - [Chapter 15 - Where to Go from Here](#Chapter-15---Where-to-Go-from-Here)
+- [Introduction to SQLAlchemy](#introduction-to-sqlalchemy)
+- [PART I - SQLAlchemy Core](#part-i---sqlalchemy-core)
+  - [Chapter 1 - Schema and Types](#chapter-1---schema-and-types)
+    - [1.1 Types](#11-types)
+    - [1.2 Metadata](#12-metadata)
+    - [1.3 Tables](#13-tables)
+      - [1.3.1 Primary Keys](#131-primary-keys)
+      - [1.3.2 Unique and check Constraints](#132-unique-and-check-constraints)
+      - [1.3.3 Indices](#133-indices)
+      - [1.3.4 Foreign Keys](#134-foreign-keys)
+  - [Chapter 2 - Working with Data via SQLAlchemy Core](#chapter-2---working-with-data-via-sqlalchemy-core)
+    - [2.1 Inserting Data](#21-inserting-data)
+    - [2.2 Querying Data](#22-querying-data)
+      - [2.2.1 `ResultProxy`](#221-resultproxy)
+      - [2.2.2 Ordering](#222-ordering)
+      - [2.2.3 Limiting](#223-limiting)
+      - [2.2.4 Built-In SQL Functions and Labels](#224-built-in-sql-functions-and-labels)
+      - [2.2.5 Filtering](#225-filtering)
+      - [2.2.6 `ClauseElement`](#226-clauseelement)
+      - [2.2.7 Operators](#227-operators)
+      - [2.2.8 Conjunctions](#228-conjunctions)
+    - [2.3 Updating Data](#23-updating-data)
+    - [2.4 Deleting Data](#24-deleting-data)
+    - [2.5 Joins](#25-joins)
+    - [2.6 Aliases](#26-aliases)
+    - [2.7 Grouping](#27-grouping)
+    - [2.8 Chaining Clauses](#28-chaining-clauses)
+    - [2.9 Raw Queries](#29-raw-queries)
+  - [Chapter 3 - Exceptions and Transactions](#chapter-3---exceptions-and-transactions)
+    - [3.1 Exceptions](#31-exceptions)
+    - [3.2 Transactions](#32-transactions)
+  - [Chapter 4 - Testing](#chapter-4---testing)
+  - [Chapter 5 - Reflection](#chapter-5---reflection)
+    - [5.1 Reflecting Individual Tables](#51-reflecting-individual-tables)
+    - [5.2 Reflecting a Whole Database](#52-reflecting-a-whole-database)
+    - [5.3 Query Building with Reflected Objects](#53-query-building-with-reflected-objects)
+- [PART II - SQLAlchemy ORM](#part-ii---sqlalchemy-orm)
+  - [Chapter 6 - Defining Schema with SQLAlchemy ORM](#chapter-6---defining-schema-with-sqlalchemy-orm)
+    - [6.1 Defining Tables via ORM Classes](#61-defining-tables-via-orm-classes)
+    - [6.2 Relationships](#62-relationships)
+    - [6.3 Persisiting the Schema](#63-persisiting-the-schema)
+  - [Chapter 7 - Working with Data via SQLAlchemy ORM](#chapter-7---working-with-data-via-sqlalchemy-orm)
+    - [7.1 The session](#71-the-session)
+    - [7.2 Inserting Data](#72-inserting-data)
+      - [7.2.1 `session.commit()`](#721-sessioncommit)
+      - [7.2.2 `session.flush()`](#722-sessionflush)
+      - [7.2.3 `session.bulk_save_object()`](#723-sessionbulk_save_object)
+    - [7.3 Querying Data](#73-querying-data)
+      - [7.3.1 Controlling the Columns in the Query](#731-controlling-the-columns-in-the-query)
+      - [7.3.2 Ordering](#732-ordering)
+      - [7.3.3 Limiting](#733-limiting)
+      - [7.3.4 Built-In SQL Functions and Labels](#734-built-in-sql-functions-and-labels)
+      - [7.3.5 Filtering](#735-filtering)
+      - [7.3.6 Operators](#736-operators)
+      - [7.3.7 Conjunctions](#737-conjunctions)
+    - [7.4 Updating Data](#74-updating-data)
+    - [7.5 Deleting Data](#75-deleting-data)
+    - [7.6 Joins](#76-joins)
+    - [7.7 Conditional Chaining](#77-conditional-chaining)
+    - [7.8 Raw Queries](#78-raw-queries)
+  - [Chapter 8 - Understanding the Session and Exceptions](#chapter-8---understanding-the-session-and-exceptions)
+    - [8.1 The SQLAlchemy Session](#81-the-sqlalchemy-session)
+    - [8.2 Exceptions](#82-exceptions)
+    - [8.3 Transactions](#83-transactions)
+  - [Chapter 9 - Testing with SQLAlchemy ORM](#chapter-9---testing-with-sqlalchemy-orm)
+    - [9.1 Testing with a Test Database](#91-testing-with-a-test-database)
+    - [9.2 Using Mocks](#92-using-mocks)
+  - [Chapter 10 - Reflection with SQLAlchemy ORM and Automap](#chapter-10---reflection-with-sqlalchemy-orm-and-automap)
+    - [10.1 Reflecting a Database with Automap](#101-reflecting-a-database-with-automap)
+    - [10.2 Reflected Relationships](#102-reflected-relationships)
+- [PART III - Alembic (Migration Tool with Version Control)](#part-iii---alembic-migration-tool-with-version-control)
+  - [Chapter 11 - Getting Started with Alembic](#chapter-11---getting-started-with-alembic)
+  - [Chapter 12 - Building Migrations](#chapter-12---building-migrations)
+  - [Chapter 13 - Controlling Alembic](#chapter-13---controlling-alembic)
+- [PART IV - Advanced Topics](#part-iv---advanced-topics)
+  - [Chapter 14 - Cookbook](#chapter-14---cookbook)
+    - [14.1 Hybrid Attributes](#141-hybrid-attributes)
+    - [14.2 Association Proxy](#142-association-proxy)
+    - [14.3 Integrating SQLAlchemy with Flask](#143-integrating-sqlalchemy-with-flask)
+    - [14.4 SQLAcodegen (自动反射生成 Model 类的文件)](#144-sqlacodegen-自动反射生成-model-类的文件)
+  - [Chapter 15 - Where to Go from Here](#chapter-15---where-to-go-from-here)
 
-
-## Introduction to SQLAlchemy <a name="Introduction-to-SQLAlchemy"></a>
+# Introduction to SQLAlchemy 
 
 SQLAlchemy provides two major modes of usage:
 
@@ -125,7 +124,9 @@ Once we have an engine initialized, we are ready to actually open a connection t
 connection = engine.connect()
 ```
 
-## Chapter 1 - Schema and Types <a name="Chapter-1---Schema-and-Types"></a>
+# PART I - SQLAlchemy Core
+
+## Chapter 1 - Schema and Types 
 
 In order to provide access to the underlying database, SQLAlchemy needs a representation of the tables that should be present in the database. We can do this in one of three ways:
 
@@ -135,7 +136,7 @@ In order to provide access to the underlying database, SQLAlchemy needs a repres
 
 This chapter focuses on the first of these, as that is the approach used with SQLAlchemy Core; we'll cover the other two options in later chapters.
 
-### 1.1 Types <a name="1-1-Types"></a>
+### 1.1 Types 
 
 There are four categories of types we can use inside of SQLAlchemy:
 
@@ -169,7 +170,7 @@ Vendor-specific types are available within `sqlalchemy.dialects.xxx` modules whe
 from sqlalchemy.dialects.postgresql import JSON
 ```
 
-### 1.2 Metadata <a name="1-2-Metadata"></a>
+### 1.2 Metadata 
 
 Metadata is used to tie together the database structure so it can be quickly accessed inside SQLAlchemy. 
 
@@ -177,7 +178,7 @@ All Table objects associated with the same `metadata` object can be accessed via
 
 Read operations are thread-safe; however, table construction is not completely thread-safe. 
 
-### 1.3 Tables <a name="1-3-Tables"></a>
+### 1.3 Tables 
 
 A full in-memory SQLite example:
 
@@ -228,7 +229,7 @@ metadata.create_all(bind=engine)
 
 By default, `create_all` will not attempt to re-create tables that already exist in the database, and it is safe to run multiple times. 
 
-#### 1.3.1 Primary Keys <a name="1-3-1-Primary-Keys"></a>
+#### 1.3.1 Primary Keys 
 
 The above example uses column keyword arguments to define table constructs and constraints; however, it is also possible to declare them outside of a `Column` object. This is critical when you are working with an existing database.
 
@@ -256,7 +257,7 @@ my_table = Table('mytable', metadata,
 mytable.create(bind=engine)
 ```
 
-#### 1.3.2 Unique and check Constraints <a name="1-3-2-Unique-and-check-Constraints"></a>
+#### 1.3.2 Unique and check Constraints 
 
 Similarly on unique constraints and check constraints:
 
@@ -284,7 +285,7 @@ mytable.create(bind=engine)
 
 Composite check constraints are possible, e.g. `CheckConstraint('col2 > col3 + 5')`.
 
-#### 1.3.3 Indices <a name="1-3-3-Indices"></a>
+#### 1.3.3 Indices 
 
 Indices can be created in 3 ways:
 
@@ -327,7 +328,7 @@ i = Index('someindex', mytable.c.col5)
 i.create(bind=engine)
 ```
 
-#### 1.3.4 Foreign Keys <a name="1-3-4-Foreign-Keys"></a>
+#### 1.3.4 Foreign Keys 
 
 There are two ways to build a foreign key constraint `tb_A.col_x` $\Leftrightarrow$ `tb_B.col_y`:
 
@@ -348,9 +349,9 @@ tb_A = Table('tb_A', metadata,
 
 Using strings instead of an actual column allows us to separate the table definitions across multiple modules and not have to worry about the order in which our tables are loaded. This is because SQLAlchemy will only perform the resolution of that string to a table name and column the first time it is accessed. If we use hard references, such as `mytable.c.col9`, in our `ForeignKey` definitions, it will perform that resolution during module initialization and could fail depending on the order in which the tables are loaded.
 
-## Chapter 2 - Working with Data via SQLAlchemy Core <a name="Chapter-2---Working-with-Data-via-SQLAlchemy-Core"></a>
+## Chapter 2 - Working with Data via SQLAlchemy Core 
 
-### 2.1 Inserting Data <a name="2-1-Inserting-Data"></a>
+### 2.1 Inserting Data 
 
 ```python
 ins = cookies.insert().values(
@@ -454,7 +455,7 @@ ins = insert(cookies).values(
 
 For example, our company might run two separate divisions, each with its own separate inventory tables. Using the `insert` function above would allow us to use one statement and just swap the tables.
 
-### 2.2 Querying Data <a name="2-2-Querying-Data"></a>
+### 2.2 Querying Data 
 
 ```python
 from sqlalchemy.sql import select
@@ -468,7 +469,7 @@ The `select` method expects a list of columns to select; however, for convenienc
 
 It is also OK to use `s = table.select()`.
 
-#### 2.2.1 `ResultProxy` <a name="2-2-1-ResultProxy"></a>
+#### 2.2.1 `ResultProxy` 
 
 ```python
 results = rp.fetchall()
@@ -493,7 +494,7 @@ record = rp.first()
 print(record.items())  # A list of `(column_name, value)`
 ```
 
-#### 2.2.2 Ordering <a name="2-2-2-Ordering"></a>
+#### 2.2.2 Ordering 
 
 ```python
 s = select([cookies.c.cookie_name, cookies.c.quantity])
@@ -503,7 +504,7 @@ from sqlalchemy import desc
 s = s.order_by(desc(cookies.c.quantity))
 ```
 
-#### 2.2.3 Limiting <a name="2-2-3-Limiting"></a>
+#### 2.2.3 Limiting 
 
 ```python
 s = select([cookies.c.cookie_name, cookies.c.quantity])
@@ -511,7 +512,7 @@ s = s.order_by(cookies.c.quantity)
 s = s.limit(2)
 ```
 
-#### 2.2.4 Built-In SQL Functions and Labels <a name="2-2-4-Built-In-SQL-Functions-and-Labels"></a>
+#### 2.2.4 Built-In SQL Functions and Labels 
 
 SQLAlchemy can also leverage SQL functions found in the backend database. Two very commonly used database functions are `SUM()` and `COUNT()`. To use these functions, we need to import the `sqlalchemy.sql.func` module where they are found.
 
@@ -541,7 +542,7 @@ print(record.keys())  # ['inventory_count']
 print(record.inventory_count)
 ```
 
-#### 2.2.5 Filtering <a name="2-2-5-Filtering"></a>
+#### 2.2.5 Filtering 
 
 ```python
 s = select([cookies]).where(cookies.c.cookie_name == 'chocolate chip')
@@ -549,7 +550,7 @@ s = select([cookies]).where(cookies.c.cookie_name == 'chocolate chip')
 s = select([cookies]).where(cookies.c.cookie_name.like('%chocolate%'))
 ```
 
-#### 2.2.6 `ClauseElement` <a name="2-2-6-ClauseElement"></a>
+#### 2.2.6 `ClauseElement` 
 
 `ClauseElement`s are just an entity we use in a clause, and they are typically columns; however, `ClauseElement`s also come with many methods just like `like` above.
 
@@ -568,7 +569,7 @@ There are also negative versions of these methods, such as `notlike()` and `noti
 
 If we don’t use one of the methods listed, then we will have an operator in our `where` clauses, e.g. `==`. 
 
-#### 2.2.7 Operators <a name="2-2-7-Operators"></a>
+#### 2.2.7 Operators 
 
 `== None` will be converted to `IS NULL`.
 
@@ -601,7 +602,7 @@ for row in connection.execute(s):
 
 `AND`, `OR` and `NOT` are supported by `&`, `|` and `~`. However, the precedence rules need special care. E.g. `A < B & C < D` is actually `A < (B & C) < D`. USe conjuncations in such cases.
 
-#### 2.2.8 Conjunctions <a name="2-2-8-Conjunctions"></a>
+#### 2.2.8 Conjunctions 
 
 `AND`, `OR` and `NOT` are also supported by `and_()`, `or_()` and `not_()`:
 
@@ -623,7 +624,7 @@ s = select([cookies]).where(
 )
 ```
 
-### 2.3 Updating Data <a name="2-3-Updating-Data"></a>
+### 2.3 Updating Data 
 
 ```python
 from sqlalchemy import update
@@ -636,7 +637,7 @@ result = connection.execute(u)
 print(result.rowcount)  # print how many rows were updated
 ```
 
-### 2.4 Deleting Data <a name="2-4-Deleting-Data"></a>
+### 2.4 Deleting Data 
 
 ```python
 from sqlalchemy import delete
@@ -648,7 +649,7 @@ result = connection.execute(u)
 print(result.rowcount)  # print how many rows were deleted
 ```
 
-### 2.5 Joins <a name="2-5-Joins"></a>
+### 2.5 Joins 
 
 Typically, `select(table.c.column)` would genereate an SQL statement `SELECT table.column FROM table`. We can apply `select(table.c.column).select_from('XXX')` to set the `FROM` clause to `FROM XXX`. This can be used together with `joins`.
 
@@ -691,7 +692,7 @@ for row in result:
     print(row)
 ```
 
-### 2.6 Aliases <a name="2-6-Aliases"></a>
+### 2.6 Aliases 
 
 Suppose we have a table:
 
@@ -735,7 +736,7 @@ SQLAlchemy can also choose the alias name automatically, which is useful for gua
 manager = employee_table.alias()
 ```
 
-### 2.7 Grouping <a name="2-7-Grouping"></a>
+### 2.7 Grouping 
 
 ```python
 columns = [users.c.username, func.count(orders.c.order_id)]
@@ -749,7 +750,7 @@ for row in result:
     print(row)
 ```
 
-### 2.8 Chaining Clauses <a name="2-8-Chaining-Clauses"></a>
+### 2.8 Chaining Clauses 
 
 E.g.
 
@@ -806,7 +807,7 @@ class Select(HasPrefixes, HasSuffixes, GenerativeSelect):
             True_._ifnone(self._whereclause), whereclause)
 ```
 
-### 2.9 Raw Queries <a name="2-9-Raw-Queries"></a>
+### 2.9 Raw Queries 
 
 It still returns a `ResultProxy`:
 
@@ -826,16 +827,16 @@ stmt = select([users]).where(text("username='cookiemon'"))
 print(connection.execute(stmt).fetchall())
 ```
 
-## Chapter 3 - Exceptions and Transactions <a name="Chapter-3---Exceptions-and-Transactions"></a>
+## Chapter 3 - Exceptions and Transactions 
 
-### 3.1 Exceptions <a name="3-1-Exceptions"></a>
+### 3.1 Exceptions 
 
 Most common ones are `AttributeError`s and `IntegrityError`s
 
 - `AttributeError` often occurs when you attempt to access an attribute that doesn’t exist.
 - `IntegrityError` occurs when we try to do something that would violate the constraints configured on a Column or Table.
 
-### 3.2 Transactions <a name="3-2-Transactions"></a>
+### 3.2 Transactions 
 
 ```python
 transaction = connection.begin()
@@ -851,7 +852,7 @@ except IntegrityError as error:
     print(error)
 ```
 
-## Chapter 4 - Testing <a name="Chapter-4---Testing"></a>
+## Chapter 4 - Testing 
 
 This chapter covers how to perform functional tests against a database, and how to mock out SQLAlchemy queries and connections.
 
@@ -863,7 +864,7 @@ This chapter covers how to perform functional tests against a database, and how 
 from unittest import mock
 ```
 
-## Chapter 5 - Reflection <a name="Chapter-5---Reflection"></a>
+## Chapter 5 - Reflection 
 
 For testing, we use [Chinook database](https://chinookdatabase.codeplex.com/) here:
 
@@ -871,7 +872,7 @@ For testing, we use [Chinook database](https://chinookdatabase.codeplex.com/) he
 
 Schema can be found [here](http://www.sqlitetutorial.net/sqlite-sample-database/).
 
-### 5.1 Reflecting Individual Tables <a name="5-1-Reflecting-Individual-Tables"></a>
+### 5.1 Reflecting Individual Tables 
 
 `Artists` table stores artists data. It is a simple table that contains only two columns, `ArtistId` and `Name`. Here we construct a `Table` object by reflection:
 
@@ -933,7 +934,7 @@ album.append_constraint(
 
 It would be quite a bit of work to repeat the reflection process for each individual table in our database. Fortunately, SQLAlchemy lets you reflect an entire database at once.
 
-### 5.2 Reflecting a Whole Database <a name="5-2-Reflecting-a-Whole-Database"></a>
+### 5.2 Reflecting a Whole Database 
 
 ```python
 >>> metadata.reflect(bind=engine)
@@ -945,11 +946,13 @@ dict_keys(['InvoiceLine', 'Employee', 'Invoice', 'album', 'Genre',
 
 `Album` and `Artist` tables are listed twice but with different case letters. This is due to that fact that SQLAlchemy reflects the tables as they are named, and in the Chinook database they are uppercase (the `Table` objects we created manually are in lowercase). Due to SQLite’s handling of case sensitivity, both the lower- and uppercase names point to the same tables in the database.
 
-### 5.3 Query Building with Reflected Objects <a name="5-3-Query-Building-with-Reflected-Objects"></a>
+### 5.3 Query Building with Reflected Objects 
 
 As of version 1.0 of SQLAlchemy, we cannot reflect `CheckConstraints`, comments, or triggers. You also can’t reflect client-side defaults or an association between a sequence and a column. However, it is possible to add them manually using the methods described in Chapter 1.
 
-## Chapter 6 - Defining Schema with SQLAlchemy ORM <a name="Chapter-6---Defining-Schema-with-SQLAlchemy-ORM"></a>
+# PART II - SQLAlchemy ORM
+
+## Chapter 6 - Defining Schema with SQLAlchemy ORM 
 
 You define schema slightly different when using the SQLAlchemy ORM because it is focused around user-defined data objects instead of the schema of the underlying database. 
 
@@ -958,7 +961,7 @@ You define schema slightly different when using the SQLAlchemy ORM because it is
     - `declarative_base()` can return a base class with a metadata container and a mapper that maps our class to a database table. ([Full API](http://docs.sqlalchemy.org/en/latest/orm/extensions/declarative/api.html#sqlalchemy.ext.declarative.declarative_base))
     - Instances of the ORM class are mapped to records in that table if they have been saved. 
 
-### 6.1 Defining Tables via ORM Classes <a name="6-1-Defining-Tables-via-ORM-Classes"></a>
+### 6.1 Defining Tables via ORM Classes 
 
 A proper class for use with the ORM must do four things:
 
@@ -1023,7 +1026,7 @@ class SomeDataClass(Base):
                       CheckConstraint(unit_cost >= 0.00, name='unit_cost_positive'))
 ```
 
-### 6.2 Relationships <a name="6-2-Relationships"></a>
+### 6.2 Relationships 
 
 The ORM uses a similar `ForeignKey` column to constrain and link the objects; however, it also uses a `relationship` directive to provide a property that can be used to access the related object. This does add some extra database usage and overhead when using the ORM; however, the pluses of having this capability far outweigh the drawbacks. 
 
@@ -1057,7 +1060,7 @@ class LineItem(Base):
     cookie = relationship("Cookie", uselist=False)
 ```
 
-### 6.3 Persisiting the Schema <a name="6-3-Persisiting-the-Schema"></a>
+### 6.3 Persisiting the Schema 
 
 你可以先 reflect 出来，修改一番然后再存回 database 里面（意义不大，不如直接改 schema，就举个例子），或是转存到另外一个 database 里。比如你可以从线上库 reflect 出来，然后转存到 in-memory 库做测试：
 
@@ -1069,9 +1072,9 @@ engine = create_engine('sqlite:///:memory:')
 Base.metadata.create_all(engine)
 ```
 
-## Chapter 7 - Working with Data via SQLAlchemy ORM <a name="Chapter-7---Working-with-Data-via-SQLAlchemy-ORM"></a>
+## Chapter 7 - Working with Data via SQLAlchemy ORM 
 
-### 7.1 The session <a name="7-1-The-session"></a>
+### 7.1 The session 
 
 A session: 
 
@@ -1093,9 +1096,9 @@ Session = sessionmaker(bind=engine)
 session = Session()
 ```
 
-### 7.2 Inserting Data <a name="7-2-Inserting-Data"></a>
+### 7.2 Inserting Data 
 
-#### 7.2.1 `session.commit()` <a name="7-2-1-session-commit"></a>
+#### 7.2.1 `session.commit()` 
 
 ```python
 cc_cookie = Cookie(cookie_name='chocolate chip',
@@ -1119,7 +1122,7 @@ P.S. If you want to see the details of what is happening here, you can add `echo
 
 First, a fresh transaction is started, and the record is inserted into the database. Next, the engine sends the values of our insert statement. Finally, the transaction is committed to the database, and the transaction is closed. This method of processing is often called the **Unit of Work** pattern.
 
-#### 7.2.2 `session.flush()` <a name="7-2-2-session-flush"></a>
+#### 7.2.2 `session.flush()` 
 
 [Full API](http://docs.sqlalchemy.org/en/latest/orm/session_api.html#sqlalchemy.orm.session.Session.flush):
 
@@ -1144,7 +1147,7 @@ session.flush()
 # session.commit() 
 ```
 
-#### 7.2.3 `session.bulk_save_object()` <a name="7-2-3-session-bulk-save-object"></a>
+#### 7.2.3 `session.bulk_save_object()` 
 
 [Full API](http://docs.sqlalchemy.org/en/latest/orm/session_api.html#sqlalchemy.orm.session.Session.bulk_save_objects):
 
@@ -1166,7 +1169,7 @@ session.commit()
 
 另外 `bulk_save_object()` 会快过 multiple `add()`
 
-### 7.3 Querying Data <a name="7-3-Querying-Data"></a>
+### 7.3 Querying Data 
 
 ```python
 from sqlalchemy.ext.declarative import declarative_base
@@ -1200,13 +1203,13 @@ print(cookies)
     - `query().scalar()` return the first element of the first result or `None` if no rows present. If multiple rows are returned, raises `MultipleResultsFound`.
 - See [SQLAlchemy 1.2 Documentation - Query API](http://docs.sqlalchemy.org/en/latest/orm/query.html)
 
-#### 7.3.1 Controlling the Columns in the Query <a name="7-3-1-Controlling-the-Columns-in-the-Query"></a>
+#### 7.3.1 Controlling the Columns in the Query 
 
 ```python
 session.query(Cookie.cookie_name, Cookie.quantity)
 ```
 
-#### 7.3.2 Ordering <a name="7-3-2-Ordering"></a>
+#### 7.3.2 Ordering 
 
 ```python
 session.query(Cookie).order_by(Cookie.quantity)
@@ -1215,7 +1218,7 @@ from sqlalchemy import desc
 session.query(Cookie).order_by(desc(Cookie.quantity))
 ```
 
-#### 7.3.3 Limiting <a name="7-3-3-Limiting"></a>
+#### 7.3.3 Limiting 
 
 ```python
 session.query(Cookie).order_by(Cookie.quantity)[:2]  # ineffecient with a large result set
@@ -1223,7 +1226,7 @@ session.query(Cookie).order_by(Cookie.quantity)[:2]  # ineffecient with a large 
 session.query(Cookie).order_by(Cookie.quantity).limit(2)
 ```
 
-#### 7.3.4 Built-In SQL Functions and Labels <a name="7-3-4-Built-In-SQL-Functions-and-Labels"></a>
+#### 7.3.4 Built-In SQL Functions and Labels 
 
 ```python
 from sqlalchemy import func
@@ -1242,7 +1245,7 @@ print(rec_count.keys())  # ['inventory_count']
 print(rec_count.inventory_count)  # 5
 ```
 
-#### 7.3.5 Filtering <a name="7-3-5-Filtering"></a>
+#### 7.3.5 Filtering 
 
 ```python
 session.query(Cookie).filter(Cookie.cookie_name == 'chocolate chip').first()
@@ -1257,7 +1260,7 @@ session.query(Cookie).filter_by(cookie_name='chocolate chip').first()
 session.query(Cookie).filter(Cookie.cookie_name.like('%chocolate%'))
 ```
 
-#### 7.3.6 Operators <a name="7-3-6-Operators"></a>
+#### 7.3.6 Operators 
 
 ```python
 session.query(Cookie.cookie_name, 'SKU-' + Cookie.cookie_sku).all()  # add a 'SKU-' prefix to the `cookie_sku` column in the result
@@ -1266,7 +1269,7 @@ from sqlalchemy import cast
 session.query(Cookie.cookie_name, cast((Cookie.quantity * Cookie.unit_cost), Numeric(12,2)).label('inv_cost'))
 ```
 
-#### 7.3.7 Conjunctions <a name="7-3-7-Conjunctions"></a>
+#### 7.3.7 Conjunctions 
 
 3 ways to add multiple filtering conditions:
 
@@ -1290,7 +1293,7 @@ query = session.query(Cookie).filter(
 )
 ```
 
-### 7.4 Updating Data <a name="7-4-Updating-Data"></a>
+### 7.4 Updating Data 
 
 2 ways:
 
@@ -1310,7 +1313,7 @@ query = query.filter(Cookie.cookie_name == "chocolate chip")
 query.update({Cookie.quantity: Cookie.quantity + 120})
 ```
 
-### 7.5 Deleting Data <a name="7-5-Deleting-Data"></a>
+### 7.5 Deleting Data 
 
 2 ways:
 
@@ -1331,7 +1334,7 @@ query = query.filter(Cookie.cookie_name == "molasses")
 query.delete()
 ```
 
-### 7.6 Joins <a name="7-6-Joins"></a>
+### 7.6 Joins 
 
 ```python
 query = session.query(Order.order_id, 
@@ -1347,7 +1350,7 @@ query = session.query(User.username, func.count(Order.order_id))
 query = query.outerjoin(Order).group_by(User.username)
 ```
 
-### 7.7 Conditional Chaining <a name="7-7-Conditional-Chaining"></a>
+### 7.7 Conditional Chaining 
 
 ```python
 def get_orders_by_customer(cust_name, shipped=None, details=False):
@@ -1365,7 +1368,7 @@ def get_orders_by_customer(cust_name, shipped=None, details=False):
     return results
 ```
 
-### 7.8 Raw Queries <a name="7-8-Raw-Queries"></a>
+### 7.8 Raw Queries 
 
 ```python
 from sqlalchemy import text
@@ -1373,9 +1376,9 @@ from sqlalchemy import text
 query = session.query(User).filter(text("username='cookiemon'"))
 ```
 
-## Chapter 8 - Understanding the Session and Exceptions <a name="Chapter-8---Understanding-the-Session-and-Exceptions"></a>
+## Chapter 8 - Understanding the Session and Exceptions 
 
-### 8.1 The SQLAlchemy Session <a name="8-1-The-SQLAlchemy-Session"></a>
+### 8.1 The SQLAlchemy Session 
 
 4 possible states of a record object in a session:
 
@@ -1468,7 +1471,7 @@ History: History(added=['Change chocolate chip'], unchanged=(), deleted=())
 """
 ```
 
-### 8.2 Exceptions <a name="8-2-Exceptions"></a>
+### 8.2 Exceptions 
 
 - `MultipleResultsFound` Exception
     - This exception occurs when we use the `.one()` query method, but get more than one result back.
@@ -1516,7 +1519,7 @@ order.line_items  # DetachedInstanceError
 
 Because `Order.line_items` is a `relationship`, by default it doesn’t load all that data until you ask for it. In our case, we detached the instance from the session and the `relationship` doesn’t have a session to execute a query to load the itself, and it raises the `DetachedInstanceError`.
 
-### 8.3 Transactions <a name="8-3-Transactions"></a>
+### 8.3 Transactions 
 
 Transactions are a group of statements that we need to succeed or fail as a group. When we first create a session, it is not connected to the database. When we undertake our first action with the session such as a query, it starts a connection and a transaction. This means that by default, we don’t need to manually create transactions. However, if we need to handle any exceptions where part of the transaction succeeds and another part fails or where the result of a transaction creates an exception, then we must know how to control the transaction manually.
 
@@ -1578,9 +1581,9 @@ def ship_it(order_id):
         session.rollback()
 ```
 
-## Chapter 9 - Testing with SQLAlchemy ORM <a name="Chapter-9---Testing-with-SQLAlchemy-ORM"></a>
+## Chapter 9 - Testing with SQLAlchemy ORM 
 
-### 9.1 Testing with a Test Database <a name="9-1-Testing-with-a-Test-Database"></a>
+### 9.1 Testing with a Test Database 
 
 ```python
 # ----- db.py ----- # 
@@ -1651,19 +1654,19 @@ class TestApp(unittest.TestCase):
 - `setUpClass` runs only once, prior to all the tests
 - `setUp` and `tearDown` run before and after each test correspondingly
 
-### 9.2 Using Mocks <a name="9-2-Using-Mocks"></a>
+### 9.2 Using Mocks 
 
 Normally when I am going to mock out some part of the query, I still create the in-memory database, but I don’t load any data into it, and I mock out the database connection itself. This allows me to control what is returned by the [`execute()`](http://docs.sqlalchemy.org/en/latest/core/connections.html#sqlalchemy.engine.Engine.execute) and "fetch" methods (E.g. `fetchone()` for `one()`; `fetchall()` for `all()`).
 
 略
 
-## Chapter 10 - Reflection with SQLAlchemy ORM and Automap <a name="Chapter-10---Reflection-with-SQLAlchemy-ORM-and-Automap"></a>
+## Chapter 10 - Reflection with SQLAlchemy ORM and Automap 
 
 This chapter we talk about how to reflect a whole database schema into ORM classes with automap.
 
 Reflection via automap is a very useful tool; however, as of version 1.0 of SQLAlchemy we cannot reflect `CheckConstraints`, comments, or triggers. You also can’t reflect client-side defaults or an association between a sequence and a column. However, it is possible to add them manually.
 
-### 10.1 Reflecting a Database with Automap <a name="10-1-Reflecting-a-Database-with-Automap"></a>
+### 10.1 Reflecting a Database with Automap 
 
 In order to reflect a database, instead of using the `declarative_base` we’ve been using with the ORM so far, we’re going to use the `automap_base`:
 
@@ -1690,7 +1693,7 @@ Artist = Base.classes.Artist
 results = session.query(Artist).limit(10)
 ```
 
-### 10.2 Reflected Relationships <a name="10-2-Reflected-Relationships"></a>
+### 10.2 Reflected Relationships 
 
 Automap can automatically reflect and establish many-to-one, one-to-many, and many-to-many relationships. When automap creates a relationship, it creates a `<related_object>_collection` property on the object. E.g.:
 
@@ -1700,7 +1703,9 @@ for album in artist.album_collection:
     print('{} - {}'.format(artist.Name, album.Title))
 ```
 
-## Chapter 11 - Getting Started with Alembic <a name="Chapter-11---Getting-Started-with-Alembic"></a>
+# PART III - Alembic (Migration Tool with Version Control)
+
+## Chapter 11 - Getting Started with Alembic 
 
 Alembic provides a way for us to programmically create and perform migrations to handle changes to the database that we’ll need to make as our application evolves. For example, we might add columns to our tables or remove attributes from our models. We might also add entirely new models, or split an existing model into multiple models. Alembic provides a way for us to preform these types of changes by leveraging the power of SQLAlchemy.
 
@@ -1710,17 +1715,19 @@ pip install alembic
 
 略
 
-## Chapter 12 - Building Migrations <a name="Chapter-12---Building-Migrations"></a>
+## Chapter 12 - Building Migrations 
 
 略
 
-## Chapter 13 - Controlling Alembic <a name="Chapter-13---Controlling-Alembic"></a>
+## Chapter 13 - Controlling Alembic 
 
 略
 
-## Chapter 14 - Cookbook <a name="Chapter-14---Cookbook"></a>
+# PART IV - Advanced Topics
 
-### 14.1 Hybrid Attributes <a name="14-1-Hybrid-Attributes"></a>
+## Chapter 14 - Cookbook 
+
+### 14.1 Hybrid Attributes 
 
 "hybrid" means the attribute has distinct behaviors defined at the class level and at the instance level.
 
@@ -1804,7 +1811,7 @@ for cookie in session.query(Cookie).filter(Cookie.bake_more(12)):
     print('{:>20} - {}'.format(cookie.cookie_name, cookie.quantity))
 ```
 
-### 14.2 Association Proxy <a name="14-2-Association-Proxy"></a>
+### 14.2 Association Proxy 
 
 An association proxy is a pointer across a relationship to a specific attribute; it can be used to make it easier to access an attribute across a relationship in code. For example, this would come in handy if we wanted a list of ingredient names that are used to make our cookies.
 
@@ -1871,7 +1878,7 @@ session.flush()
 
 When we do this, the association proxy creates a new ingredient using the `Ingredient.__init__` for us automatically.
 
-### 14.3 Integrating SQLAlchemy with Flask <a name="14-3-Integrating-SQLAlchemy-with-Flask"></a>
+### 14.3 Integrating SQLAlchemy with Flask 
 
 ```bash
 pip install flask-sqlalchemy
@@ -1879,7 +1886,7 @@ pip install flask-sqlalchemy
 
 略
 
-### 14.4 SQLAcodegen (自动反射生成 Model 类的文件) <a name="14-4-SQLAcodegen"></a>
+### 14.4 SQLAcodegen (自动反射生成 Model 类的文件) 
 
 `SQLAcodegen` is a tool that reads the structure of an existing database and generates the appropriate SQLAlchemy model code, using the declarative style if possible.
 
@@ -1892,7 +1899,7 @@ sqlacodegen sqlite:///Chinook_Sqlite.sqlite --tables Artist,Track > db.py
 
 略
 
-## Chapter 15 - Where to Go from Here <a name="Chapter-15---Where-to-Go-from-Here"></a>
+## Chapter 15 - Where to Go from Here 
 
 Further reading list:
 
