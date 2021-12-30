@@ -722,7 +722,7 @@ public class Singleton {
     - 如果 `Singleton` 不允许继承呢？
     - 如果 `Singleton` 允许继承，那我为什么不直接用 $\texttt{[21]Subclass and Override Method}$ 呢？
 
-为了继续这个想法，我们可以再结合一个 $texttt{[10]Extract Interface}$，写成这样：
+为了继续这个想法，我们可以再结合一个 $\texttt{[10]Extract Interface}$，写成这样：
 
 ```java
 // 原代码：
@@ -916,15 +916,15 @@ class Foo {
         this.bar = new Bar();
         this.baz = new Baz(this.bar);
         this.qux = new Qux(this.baz);
-        this.quux = new Quxx(this.qux);  // 笨重
+        this.quux = new Quux(this.qux);  // 笨重
     }
 }
 ```
 
-这里 `quxx` 就是个 onion-object。考虑 `quux` 很不好实例化的情况，你会发现：
+这里 `quux` 就是个 onion-object。考虑 `quux` 很不好实例化的情况，你会发现：
 
 1. 只 parameterize `bar` 和 `baz` 并不能解决问题
-2. 全员 parameterize `bar`、`baz`、`qux` 和 `quxx` 的话:
+2. 全员 parameterize `bar`、`baz`、`qux` 和 `quux` 的话:
    - 参数列表过长
    - construction 的难度增大
 
@@ -1018,7 +1018,7 @@ class Baz {
 }
 
 class Qux {
-    public Qux(Quxx quxx) {
+    public Qux(Quux quux) {
         // pass
     }
 }
@@ -1026,7 +1026,7 @@ class Qux {
 // pass
 ```
 
-我现在要测试 `Foo`，然后发现 `Quxx`、`Qux`、`Baz`、`Bar` 全都要 new 一个，其中任何一个不方便实例化的话，`Foo` 就不方便实例化。
+我现在要测试 `Foo`，然后发现 `quux`、`Qux`、`Baz`、`Bar` 全都要 new 一个，其中任何一个不方便实例化的话，`Foo` 就不方便实例化。
 
 解决方法：
 
