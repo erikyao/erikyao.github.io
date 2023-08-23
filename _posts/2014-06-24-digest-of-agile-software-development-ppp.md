@@ -843,7 +843,7 @@ _程序27.2_ 的 factory 用得有点意思，它是直接把 factory 传给了 
 简化的代码是：
 
 ```java
-public class UnixModemConfigurator implements ModemVistor {
+public class UnixModemConfigurator implements ModemVisitor {
 	@Override
 	public void visit(HayesModem hm) {
 		hm.setConfigString("Hayes");
@@ -871,7 +871,7 @@ public class HayesModem implements Modem {
 	}
 
 	@Override
-	public void accept(ModemVistor v) {
+	public void accept(ModemVisitor v) {
 		v.visit(this);
 	}
 }
@@ -882,7 +882,7 @@ public static void main(String[] args) {
 	Modem hayes = new HayesModem();
 	Modem zoom = new ZoomModem();
 	
-	ModemVistor umc = new UnixModemConfigurator();
+	ModemVisitor umc = new UnixModemConfigurator();
 	hayes.accept(umc);
 	zoom.accept(umc);
 	
@@ -915,7 +915,7 @@ _Thinking in C++, Volume 2_ 的说法是：
 另外注意几点：
 
 1. `UnixModemConfigurator` 里<del>并没有用 `Modem` 的多态</del> (并不是你想用就能用，因为 Java 的方法参数根本就不支持多态！否则就是 [Double Dispatch](/java/2021/01/03/single-dispatch-in-java-and-python#3-java-的-single-dispatch-与-overrideoverloadstatic-bindingdynamic-binding) 了)，也没有 if-else 判断子类型，而是每个 `Modem` 子类单独写了一个 `visit` 方法，这样如果有 N 个 `Modem` 子类就要写 N 个 `visit` 重载方法。这必然是比 if-else 判断子类型来得要好。
-2. 我自然是可以定义多个 `ModemVistor` 实现，都让 `Modem` 去 `accept`。
+2. 我自然是可以定义多个 `ModemVisitor` 实现，都让 `Modem` 去 `accept`。
 
 #### <a name="acyclic_visitor"></a>Acyclic Visitor 模式
 
@@ -925,17 +925,17 @@ _Thinking in C++, Volume 2_ 的说法是：
 
 具体的变化是：
 
-1. `ModemVistor` 变成了标记接口。
-2. 单个 `Modem` 子类要实现一个 `XxxModemVistor` 接口，只实现一个 `public void visit(XxxModem xm)` 方法。
-3. 单个 `Modem` 子类实现 `accept(ModemVisitor v)` 时需要把 `v` cast 成具体的 `XxxModemVistor`。
-4. `UnixModemConfigurator` 多重 `implements XxxModemVistor, ...`。
+1. `ModemVisitor` 变成了标记接口。
+2. 单个 `Modem` 子类要实现一个 `XxxModemVisitor` 接口，只实现一个 `public void visit(XxxModem xm)` 方法。
+3. 单个 `Modem` 子类实现 `accept(ModemVisitor v)` 时需要把 `v` cast 成具体的 `XxxModemVisitor`。
+4. `UnixModemConfigurator` 多重 `implements XxxModemVisitor, ...`。
 5. 此时如果 `ZoomModem` 不需要 `setConfigString()` 功能，你就不要定义 `ZoomModemVisitor`，`UnixModemConfigurator` 也不要去 `implements ZoomModemVisitor` 就好了。
 
 书上举了个很好的比喻，这里是有 3 个 `Modem` 子类，假设我除了 `UnixModemConfigurator` 还有个 `Win32ModemConfigurator`，那么一般的 visitor 模式就构成了一个 $2 \times 3$ 矩阵，而 Acyclic Visitor 模式则构成一个 $2 \times 3$ 的稀疏矩阵 (因为可以有 `Modem` 子类不实现 `ZzzModemConfigurator` 的功能)。
 
 #### <a name="extension_object"></a>Extension Object 模式
 
-Extension Object 模式你可以看做是 Acyclic Visitor 模式的变体，而且 PO 是持有 `<VistorName, VisitorObj>` 这样一个 Map，可以进一步细分 Visitor 逻辑 
+Extension Object 模式你可以看做是 Acyclic Visitor 模式的变体，而且 PO 是持有 `<VisitorName, VisitorObj>` 这样一个 Map，可以进一步细分 Visitor 逻辑 
 
 #### <a name="visitor_usage"></a>Visitor 模式使用场景
 
