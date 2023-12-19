@@ -58,7 +58,7 @@ M_2 = \begin{bmatrix}
 \end{bmatrix}
 $$
 
-我们说这组 properties 是 non-exhausitive 的，意思是 $\exists R$ 即不是 reflexive 也不是 irreflexive 的，结合 boolean matrix representation 很容易举出一个反例。
+我们说这组 properties 是 non-exhausitive 的，意思是 $\exists R$ 既不是 reflexive 也不是 irreflexive 的，结合 boolean matrix representation 很容易举出一个反例。
 
 ### 1.3.2 Symmetry
 
@@ -76,9 +76,9 @@ $$
 
 还是结合 boolean matrix representation 记忆：
 
-1. symmetric 就是 $M_{i,j} = M{j,i}$，主对角线上随意，比如 $M_1$
-2. asymmetric 就是 $M_{i,j} \neq M{j,i}$，主对角线上全是 0，比如 $M_2$
-3. antisymmetric 就是 $M_{i,j} \neq M{j,i}$，但主对角线上随意，比如 $M_3$
+1. symmetric 就是 $M_{i,j} = M_{j,i}$，主对角线上随意，比如 $M_1$
+2. asymmetric 就是 $M_{i,j} \neq M_{j,i}$，主对角线上全是 0，比如 $M_2$
+3. antisymmetric 就是 $M_{i,j} \neq M_{j,i}$，但主对角线上随意，比如 $M_3$
 
 $$
 M_1 = \begin{bmatrix}
@@ -100,7 +100,7 @@ M_3 = \begin{bmatrix}
 \end{bmatrix} \,\,\,\,
 $$
 
-定义上有：asymmetric $\equiv$ antisymmetric $\land$ irreflexive
+:star2: 定义上有：asymmetric $\equiv$ antisymmetric $\land$ irreflexive
 
 同样，这组 properities 也不是 exhausitive 的，结合 boolean matrix representation 也很容易举出反例。
 
@@ -142,7 +142,7 @@ Proof: (1) 假定 $R$ 是 transitive $\land$ irreflexive. 假定 $\exists x,y \i
 2. connected 并不要求有 self loop
 3. strongly connected 就是 connected 并要求 $\forall x \in X$，都要有一个 $x \to x$ 的 self loop
 
-定义上有：connected $\land$ reflexive $\equiv$ strongly connected 
+:star2: 定义上有：connected $\land$ reflexive $\equiv$ strongly connected 
 
 ### 1.3.4 Uniqueness
 
@@ -178,6 +178,8 @@ $$
 $$
 
 - 我个人认为 equivalence 可以看作是 "没有任何 order"
+- partial 的意思是 "允许存在两个元素没有 order (i.e. non-comparable)"
+- total 的意思是 "任意的两个元素间都有 order (i.e. comparable)"
 
 举例：
 
@@ -189,11 +191,11 @@ $$
 
 :star2: Lemma: An $R$ which is symmetric, transitive, and serial is an equivalence relation.
 
-Proof: 由 serial 可知，$\forall x \in X, \exists y$ such that $xRy$. 
+Proof: 由 serial 可知 $\forall x \in X, \exists y$ such that $xRy$. 
 
-再加上 symmetric，可知，$\forall x \in X, \exists y$ such that $xRy$ and $yRx$.
+再加上 symmetric，可知 $\forall x \in X, \exists y$ such that $xRy$ and $yRx$.
 
-再加上 transitive，可知，$\forall x \in X, xRx$, 得到 reflexive. $\blacksquare$
+再加上 transitive，可知 $\forall x \in X, xRx$, 得到 reflexive. $\blacksquare$
 
 Uniqueness 性质的组合：
 
@@ -223,7 +225,7 @@ where $F$ is a $\textbf{Function}$.
 
 ## 2.1 Definitions
 
-假定有 functions $f,g: \mathbb{Z}^{+} \to \mathbb{R}^{+} \cup {0}$
+假定有 functions $f,g: \mathbb{Z}^{+} \to \mathbb{R}^{+} \cup \lbrace 0 \rbrace$
 
 **Big-Oh Notation:** $f = O(g)$ if $\exists$ constant $c > 0$ and $\exists n_0$ such that $\forall n \geq n_0$, $f(n) \leq c \cdot g(n)$
 
@@ -243,7 +245,7 @@ where $F$ is a $\textbf{Function}$.
 
 [Knuth describes such notations as "one-way equalities", since if the sides could be reversed](https://en.wikipedia.org/wiki/Big_O_notation#Equals_sign):
 
-> "... we could deduce ridiculous things like $n = n^2$ from the identities $n = O(n^2)$ and $n^2 = O(n^2)."
+> "... we could deduce ridiculous things like $n = n^2$ from the identities $n = O(n^2)$ and $n^2 = O(n^2)$."
 >   
 > "... the equality sign is not symmetric with respect to such notations."
 >   
@@ -266,14 +268,14 @@ Proof: (1) $O$ is reflexive, obviously.
 E.g. 
 
 $$
-f(n)=\begin {cases} 1&n\text{ is even}\\n&n\text{ is odd} \end {cases}\\
+f(n)=\begin {cases} 1&n\text{ is even}\\n&n\text{ is odd} \end {cases} \newline
 g(n)=\begin {cases} n&n\text{ is even}\\1&n\text{ is odd} \end {cases}
 $$
 
 E.g.
 
 $$
-f(n)=1 + n + n \times (-1)^n\\
+f(n)=1 + n + n \times (-1)^n \newline
 g(n)=1 + n - n \times (-1)^n
 $$
 
@@ -297,7 +299,7 @@ If $f \Theta g$, then $\exists$ constants $c_1, c_2 > 0$ and $\exists n_0$ such 
 
 If $g \Theta h$, then $\exists$ constants $c_3, c_4 > 0$ and $\exists n_1$ such that $\forall n \geq n_1$, $c_3 \cdot h(n) \leq g(n) \leq c_4 \cdot h(n)$.
 
-Therefore $\exists n_{*} = \max(n_0, n_1)$ such that $\forall n \geq n_{*}$, $c_1 \cdot c_3 \cdot h(n) \leq f(n) \leq c_2 \cdot c_4 \cdot h(n)$. I.e. $f \Theta h$. $\blacksquare$
+Therefore $\exists n_{\ast} = \max(n_0, n_1)$ such that $\forall n \geq n_{\ast}$, $c_1 \cdot c_3 \cdot h(n) \leq f(n) \leq c_2 \cdot c_4 \cdot h(n)$. I.e. $f \Theta h$. $\blacksquare$
 
 :star2: Lemma: Little-oh is a **Strict Partial Order**.
 
