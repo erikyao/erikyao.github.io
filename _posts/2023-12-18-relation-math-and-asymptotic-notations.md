@@ -268,15 +268,19 @@ Proof: (1) $O$ is reflexive, obviously.
 E.g. 
 
 $$
-f(n)=\begin {cases} 1&n\text{ is even}\\n&n\text{ is odd} \end {cases} \newline
-g(n)=\begin {cases} n&n\text{ is even}\\1&n\text{ is odd} \end {cases}
+\begin{aligned}
+f(n) &= \begin {cases} 1&n\text{ is even}\\n&n\text{ is odd} \end {cases} \newline
+g(n) &= \begin {cases} n&n\text{ is even}\\1&n\text{ is odd} \end {cases}
+\end{aligned}
 $$
 
 E.g.
 
 $$
-f(n)=1 + n + n \times (-1)^n \newline
-g(n)=1 + n - n \times (-1)^n
+\begin{aligned}
+f(n) &= 1 + n + n \times (-1)^n \newline
+g(n) &= 1 + n - n \times (-1)^n
+\end{aligned}
 $$
 
 $\blacksquare$
