@@ -9,8 +9,6 @@ tags: []
 
 # 1. Relation (Mathmatics)
 
-Changes in Service: We just updated our privacy policy here to better service our customers. We recommend reviewing the changes. {: .notice}
-
 [Wikipedia](https://en.wikipedia.org/wiki/Relation_(mathematics)) 写得挺好，这里总结一下。
 
 ## 1.1 Definition
