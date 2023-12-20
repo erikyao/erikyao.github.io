@@ -9,6 +9,8 @@ tags: []
 
 # 1. Relation (Mathmatics)
 
+Changes in Service: We just updated our privacy policy here to better service our customers. We recommend reviewing the changes. {: .notice}
+
 [Wikipedia](https://en.wikipedia.org/wiki/Relation_(mathematics)) 写得挺好，这里总结一下。
 
 ## 1.1 Definition
@@ -251,7 +253,7 @@ where $F$ is a $\textbf{Function}$.
 >   
 > "... mathematicians customarily use the $=$ sign as they use the word *is* in English: Aristotle is a man, but a man isn't necessarily Aristotle."
 
-所以有的教材会写成 $f \in O(g)$，也就是把 $O(g)$ 理解成一个 function 的集合 (或者 equivalence class)。但还是不如从 relation 的角度来理解 asymptotic notations (我就是为了这口醋包了前面多饺子)。
+所以有的教材会写成 $f \in O(g)$，也就是把 $O(g)$ 理解成一个 function 的集合 (或者 equivalence class)。但还是不如从 relation 的角度来理解 asymptotic notations (我就是为了这口醋包了前面那么多饺子)。
 
 ## 2.3 Asymptotic Relations
 
