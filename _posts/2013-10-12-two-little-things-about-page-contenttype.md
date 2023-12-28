@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "<%@ page contentType%> 注意事项两则"
-description: ""
 category: JSP
+description: ''
 tags: []
+title: <%@ page contentType%> 注意事项两则
 ---
-{% include JB/setup %}
 
 ## 1. charset=utf-8 & charset=UTF-8 are both OK
 

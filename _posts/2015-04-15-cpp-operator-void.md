@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "C++: operator void*"
-description: ""
 category: C++
+description: ''
 tags: []
+title: 'C++: operator void*'
 ---
-{% include JB/setup %}
 
 用法有点奇葩的一个 operator。总结自 [What does operator void* () mean?](http://stackoverflow.com/questions/18215827/what-does-operator-void-mean)。
 

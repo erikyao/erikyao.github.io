@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "R <<- operator"
-description: ""
 category: R
+description: ''
 tags: []
+title: R <<- operator
 ---
-{% include JB/setup %}
 
 第一次看到这个 <<- 赋值是在 [coursera 的 assignment](https://class.coursera.org/rprog-004/human_grading/view/courses/972139/assessments/3/submissions)，这里是实现了一个 cache 了 mean 结果的 vector：
 

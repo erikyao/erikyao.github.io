@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Python: Binary Search / Bisection / Binary Search Tree (BST)"
-description: ""
 category: Python
+description: ''
 tags: []
+title: 'Python: Binary Search / Bisection / Binary Search Tree (BST)'
 ---
-{% include JB/setup %}
 
 我先说下翻译的问题：
 

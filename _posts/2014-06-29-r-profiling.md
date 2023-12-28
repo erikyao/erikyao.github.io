@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "R profiling"
-description: ""
 category: R
+description: ''
 tags: []
+title: R profiling
 ---
-{% include JB/setup %}
 
 ## system.time()
 

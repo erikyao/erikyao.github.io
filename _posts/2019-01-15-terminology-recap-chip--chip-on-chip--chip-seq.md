@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Terminology Recap: ChIP / ChIP-on-chip (ChIP-chip) / ChIP-seq"
-description: ""
 category: Biology
+description: ''
 tags: []
+title: 'Terminology Recap: ChIP / ChIP-on-chip (ChIP-chip) / ChIP-seq'
 ---
-{% include JB/setup %}
 
 ## ChIP
 

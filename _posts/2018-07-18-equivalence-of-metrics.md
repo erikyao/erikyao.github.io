@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Topology Induced by Metric / Equivalence of Metrics"
-description: ""
 category: Math
-tags: [Topology]
+description: ''
+tags:
+- Topology
+title: Topology Induced by Metric / Equivalence of Metrics
 ---
-{% include JB/setup %}
 
 虽然 topology 的定义已经摆脱了 metric，但是这并不妨碍我们从 topology 的角度去研究 metric，这并不存在矛盾。
 

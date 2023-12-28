@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "R console theme"
-description: ""
 category: R
+description: ''
 tags: []
+title: R console theme
 ---
-{% include JB/setup %}
 
 R console 并没有提供 theme 选项，只有自己配 color。在 "X:[R-folder]\etc\Rconsole" 文件中可以指定 color（在 ## Colours for console and pager(s) 小节）（color 的名称在 "X:[R-folder]\etc\rgb.txt"，不过我觉得看起来很不方便）。目前配了一个觉得还不错的方案是：
 

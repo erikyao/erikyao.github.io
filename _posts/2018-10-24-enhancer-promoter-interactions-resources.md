@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Promoter-Enhancer Interactions: Resources"
-description: ""
 category: Biology
+description: ''
 tags: []
+title: 'Promoter-Enhancer Interactions: Resources'
 ---
-{% include JB/setup %}
 
 ## CAGE & FANTOM
 

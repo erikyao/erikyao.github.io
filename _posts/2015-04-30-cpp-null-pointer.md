@@ -1,11 +1,11 @@
 ---
-layout: post
-title: "C++: Null Pointer"
-description: ""
 category: C++
-tags: [C++11, pointer]
+description: ''
+tags:
+- C++11
+- pointer
+title: 'C++: Null Pointer'
 ---
-{% include JB/setup %}
 
 整理自 _C++ Primer, 5th Edition_
 

@@ -1,30 +1,12 @@
 ---
-layout: post
-title: "C++: Inheritance / virtual"
-description: ""
 category: C++
-tags: [C++11]
+description: ''
+tags:
+- C++11
+title: 'C++: Inheritance / virtual'
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
-
-ToC:
-
-- [1. Inheritance](#1-inheritance)
-  - [1.1 Basic syntax](#11-basic-syntax)
-- [1.2 public inheritance vs. protected inheritance vs. private inheritance](#12-public-inheritance-vs-protected-inheritance-vs-private-inheritance)
-- [1.3 Private inheritance is a syntactic variant of composition](#13-private-inheritance-is-a-syntactic-variant-of-composition)
-- [1.4 Private inheritance 之后重新限定 access modifier](#14-private-inheritance-之后重新限定-access-modifier)
-- [1.5 Upcasting](#15-upcasting)
-- [1.6 C++11: Inherited Constructors](#16-c11-inherited-constructors)
-- [2. Virtual functions](#2-virtual-functions)
-  - [2.1 How C++ implements late binding](#21-how-c-implements-late-binding)
-  - [2.2 Abstract class](#22-abstract-class)
-  - [2.3 Pure virtual function 也可以有实现，但是不能是 inline](#23-pure-virtual-function-也可以有实现但是不能是-inline)
-  - [2.4 Virtual functions inside constructors & destructors](#24-virtual-functions-inside-constructors--destructors)
-  - [2.5 Virtual destructors](#25-virtual-destructors)
-    - [Pure virtual destructors](#pure-virtual-destructors)
-  - [2.6 Virtual Functions in a Derived Class](#26-virtual-functions-in-a-derived-class)
-  - [2.7 Calling Base's virtual function](#27-calling-bases-virtual-function)
 	
 [late_binding]: https://farm2.staticflickr.com/1511/23812247752_b64dc0ee81_o_d.png
 	

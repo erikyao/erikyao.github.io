@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "MySQL 使用和优化基础"
-description: ""
 category: MySQL
+description: ''
 tags: []
+title: MySQL 使用和优化基础
 ---
-{% include JB/setup %}
 
 ## 1. 设计的总体原则 ##
 

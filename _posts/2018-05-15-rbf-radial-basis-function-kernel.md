@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "RBF (Radial Basis Function) Kernel"
-description: ""
 category: Math
+description: ''
 tags: []
+title: RBF (Radial Basis Function) Kernel
 ---
-{% include JB/setup %}
 
 知道了 [Radial basis function](/math/2018/05/09/radial-function-radial-basis-function-base-exponent-power) 和 [kernel function](/math/2018/05/09/kernel) 之后，Radial basis function kernel 就好理解了：它是一个 kernel function，然后属于 radial basis function 大类。
 

@@ -1,11 +1,12 @@
 ---
-layout: post
-title: "Java: the proxy parameter of the invoke() method"
-description: ""
 category: Java
-tags: [Java-AOP, Proxy, 动态代理]
+description: ''
+tags:
+- Java-AOP
+- Proxy
+- 动态代理
+title: 'Java: the proxy parameter of the invoke() method'
 ---
-{% include JB/setup %}
 
 关于动态代理，一般的代码结构为：一个业务接口、一个业务接口的实现、一个自定义的 `InvocationHandler` 实现和 main 类，如下：
 

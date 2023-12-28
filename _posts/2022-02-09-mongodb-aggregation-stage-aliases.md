@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "MongoDB Aggregation Stages: addFiels (set) / project (unset) / replaceRoot (replaceWith)"
-description: ""
 category: MongoDB
+description: ''
 tags: []
+title: 'MongoDB Aggregation Stages: addFiels (set) / project (unset) / replaceRoot
+  (replaceWith)'
 ---
-{% include JB/setup %}
 
 这一篇是吐槽。
 

@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Big-O vs Little-O notation"
-description: ""
 category: Algorithm
+description: ''
 tags: []
+title: Big-O vs Little-O notation
 ---
-{% include JB/setup %}
 
 参考：
 

@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "C++: function object"
-description: ""
 category: C++
+description: ''
 tags: []
+title: 'C++: function object'
 ---
-{% include JB/setup %}
 
 整理自：_Thinking in C++, Volume 2_
 

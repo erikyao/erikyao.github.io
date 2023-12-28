@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Middleman Patterns: Adapter / Proxy / Decorator"
-description: ""
 category: Java
-tags: [Java-DesignPattern]
+description: ''
+tags:
+- Java-DesignPattern
+title: 'Middleman Patterns: Adapter / Proxy / Decorator'
 ---
-{% include JB/setup %}
 
 我觉得用 Java 学 design pattern 有个问题就是：总是要有 interface / abstract class 介入，搞得整个 class hierarchy 非常复杂。其实我用 duck typing 的思路来看，Adapter、Proxy、Decorator 这三个模式的基本结构是一样的，都是 _客户端_、_中间商_、_旧实现_。你撇开 interface layer 看下面三个图，我只能说是完全一致！
 

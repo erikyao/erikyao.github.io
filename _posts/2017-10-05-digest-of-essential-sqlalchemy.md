@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Digest of <i>Essential SQLAlchemy</i>"
-description: ""
 category: Python
-tags: [Book]
+description: ''
+tags:
+- Book
+title: Digest of <i>Essential SQLAlchemy</i>
 ---
-{% include JB/setup %}
 
 ToC:
 
@@ -1907,4 +1906,3 @@ Further reading list:
 - If you are interested in learning more about testing or how to use pytest, Alex Grönholm has several excellent blog posts on effective testing strategies: [Part 1](http://alextechrants.blogspot.fi/2013/08/unit-testing-sqlalchemy-apps.html) and [Part 2](http://alextechrants.blogspot.fi/2014/01/unit-testing-sqlalchemy-apps-part-2.html).
 - If you want to know more about SQLAlchemy plug-ins and extensions, check out [Awesome SQLAlchemy](https://github.com/dahlia/awesome-sqlalchemy) by Hong Minhee. This resource has a great list of SQLAlchemy-related technologies.
 - If you are interested in learning more about the internals of SQLAlchemy, this has been covered by Mike Bayer in [The Architecture of Open Source Applications](http://www.aosabook.org/en/sqlalchemy.html).
-

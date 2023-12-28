@@ -1,11 +1,11 @@
 ---
-layout: post
-title: "Matrix Rank / Row Linear Dependence / &lambda; = 0 / |A| = 0 / Size of Nullspace (Kernel)"
-description: ""
 category: Math
-tags: [Math-Algebra]
+description: ''
+tags:
+- Math-Algebra
+title: Matrix Rank / Row Linear Dependence / &lambda; = 0 / |A| = 0 / Size of Nullspace
+  (Kernel)
 ---
-{% include JB/setup %}
 
 $$
 \newcommand{\icol}[1]{

@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "C: Pointer Arithmetic"
-description: ""
 category: C
-tags: [pointer]
+description: ''
+tags:
+- pointer
+title: 'C: Pointer Arithmetic'
 ---
-{% include JB/setup %}
 
 整理自 _Thinking in C++_。
 

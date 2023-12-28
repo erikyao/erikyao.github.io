@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Hypothesis Space / Underfitting / Overfitting / Bias / Variance"
-description: ""
 category: Machine-Learning
+description: ''
 tags: []
+title: Hypothesis Space / Underfitting / Overfitting / Bias / Variance
 ---
-{% include JB/setup %}
 
 ## Hypothesis Space
 

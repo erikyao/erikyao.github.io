@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "C++: type conversion operator"
-description: ""
 category: C++
+description: ''
 tags: []
+title: 'C++: type conversion operator'
 ---
-{% include JB/setup %}
 
 整理自 _C++ Primer, 5th Edition_
 

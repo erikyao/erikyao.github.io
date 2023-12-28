@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "C++ range for: To get item by value or by reference?"
-description: ""
 category: C++
-tags: [C++11]
+description: ''
+tags:
+- C++11
+title: 'C++ range for: To get item by value or by reference?'
 ---
-{% include JB/setup %}
 
 range for 就是 java 的 for each loop，C++ 里有三种形式：
 

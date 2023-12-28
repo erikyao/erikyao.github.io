@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Terminology Recap: Gene / Allele & Dominance & Zygosity / Haplotype / Genotype / Phenotype / Trait"
-description: ""
 category: Biology
+description: ''
 tags: []
+title: 'Terminology Recap: Gene / Allele & Dominance & Zygosity / Haplotype / Genotype
+  / Phenotype / Trait'
 ---
-{% include JB/setup %}
 
 ## 1. Gene
 

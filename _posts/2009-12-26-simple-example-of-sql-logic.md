@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "简单 SQL 语句的逻辑顺序"
-description: ""
 category: SQL
+description: ''
 tags: []
+title: 简单 SQL 语句的逻辑顺序
 ---
-{% include JB/setup %}
 
 　　考虑一个简单的语句：
 

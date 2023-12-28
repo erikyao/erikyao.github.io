@@ -1,46 +1,13 @@
 ---
-layout: post
-title: "ISL: Linear Regression - Part 2"
-description: ""
 category: Machine-Learning
+description: ''
 tags: []
+title: 'ISL: Linear Regression - Part 2'
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
 
 总结自 Chapter 3, An Introduction to Statistical Learning.
-
------
-
-ToC:
-
-- [3. Other Considerations in the Regression Model](#3-other-considerations-in-the-regression-model)
-	- [3.1 Qualitative Predictors](#31-qualitative-predictors)
-		- [3.1.1 Qualitative predictors with only 2 levels](#311-qualitative-predictors-with-only-2-levels)
-			- [baseline 渐进法](#baseline-渐进法)
-			- [mean 中心法](#mean-中心法)
-		- [3.1.2 Qualitative predictors with more than 2 levels](#312-qualitative-predictors-with-more-than-2-levels)
-	- [3.2 Extensions of the Linear Model](#32-extensions-of-the-linear-model)
-		- [3.2.1 Removing the Additive Assumption by Adding Interaction Term](#321-removing-the-additive-assumption-by-adding-interaction-term)
-			- [Interaction Term](#interaction-term)
-			- [Main Effect and Hierarchical Principle](#main-effect-and-hierarchical-principle)
-			- [Interaction Term with Qualitative Predictors](#interaction-term-with-qualitative-predictors)
-		- [3.2.2 Non-linear Relationships](#322-non-linear-relationships)
-	- [3.3 Potential Problems](#33-potential-problems)
-		- [3.3.1. Non-linearity of the Response-Predictor Relationships](#331-non-linearity-of-the-response-predictor-relationships)
-		- [3.3.2. Correlation of Error Terms](#332-correlation-of-error-terms)
-		- [3.3.3 Non-constant Variance of Error Terms](#333-non-constant-variance-of-error-terms)
-		- [3.3.4 Outliers](#334-outliers)
-		- [3.3.5 High Leverage Points (leverage-statistic)](#335-high-leverage-points-leverage-statistic)
-		- [3.3.6 Collinearity (共线性) (VIF)](#336-collinearity-共线性-vif)
-- [4. The Marketing Plan](#4-the-marketing-plan)
-- [5. Comparison of Linear Regression with K-Nearest Neighbors](#5-comparison-of-linear-regression-with-k-nearest-neighbors)
-- [6. Lab: Linear Regression](#6-lab-linear-regression)
-	- [6.2 Simple Linear Regression](#62-simple-linear-regression)
-	- [6.3 Multiple Linear Regression](#63-multiple-linear-regression)
-	- [6.4 Interaction Terms](#64-interaction-terms)
-	- [6.5 Non-linear Transformations of the Predictors](#65-non-linear-transformations-of-the-predictors)
-	- [6.6 Qualitative Predictors](#66-qualitative-predictors)
-	- [6.7 Writing Functions](#67-writing-functions)
 	
 -----
 	
@@ -626,4 +593,3 @@ Medium		0      1
 + 	print("The libraries have been loaded.")
 + }
 ```
-	

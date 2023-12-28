@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "What does effect size mean in GWAS?"
-description: ""
 category: Biology
+description: ''
 tags: []
+title: What does effect size mean in GWAS?
 ---
-{% include JB/setup %}
 
 这 statistics 和 biology 搁一块儿简直就是灾难：各种不讲人话的、侧面描述的、不给数学公式的定义，各种 overloaded terminology。好嘛，这又来一个 effect size。
 

@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "C++ double dispatch: 函数参数并不支持多态"
-description: ""
 category: C++
+description: ''
 tags: []
+title: 'C++ double dispatch: 函数参数并不支持多态'
 ---
-{% include JB/setup %}
 
 2021-01-03 更新：大一统至 [Single Dispatch in Java and Python](/java/2021/01/03/single-dispatch-in-java-and-python)
 

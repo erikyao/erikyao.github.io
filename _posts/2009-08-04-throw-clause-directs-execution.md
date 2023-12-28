@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Java: throw 的屏蔽作用"
-description: ""
 category: Java
-tags: [Java-Exception]
+description: ''
+tags:
+- Java-Exception
+title: 'Java: throw 的屏蔽作用'
 ---
-{% include JB/setup %}
 
 在其所在的块内 (如方法 body、`if () {...}` 等)，`throw` 语句可以屏蔽其后的语句，即在块内，该 `throw` 语句后面不能再写其他语句；但在块之外，还是可以写其他的语句的。如：
 

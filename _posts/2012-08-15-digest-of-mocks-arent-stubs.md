@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Digest of <i>Mocks Aren't Stubs</i>"
-description: ""
 category: TDD
-tags: [Article]
+description: ''
+tags:
+- Article
+title: Digest of <i>Mocks Aren't Stubs</i>
 ---
-{% include JB/setup %}
 
 ## Pre-reading ##
 

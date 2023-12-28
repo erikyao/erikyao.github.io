@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Pandas: split a DataFrame into chunks"
-description: ""
 category: Pandas
-tags: 
+description: ''
+tags: null
+title: 'Pandas: split a DataFrame into chunks'
 ---
-{% include JB/setup %}
 
 Prepare a test dataset:
 

@@ -1,15 +1,15 @@
 ---
-layout: post
-title: "What does context-free mean in CFLs?"
-description: ""
 category: Compiler
-tags: [context-free,Chomsky]
+description: ''
+tags:
+- context-free
+- Chomsky
+title: What does context-free mean in CFLs?
 ---
-{% include JB/setup %}
 
 这真的是困扰了我很多年的问题，而且我发现这还不是中文教材的锅，老外的很多教材也是上来就 CFL，也不告诉你这个 context 到底是啥 context，这个 free 是怎么个 free 法。我就纳闷了，多讲这么几句怎么就这么难呢……
 
-这个问题，还是得看 Stack Overflow，金牌答案是：[Doval on What does "context-free" mean in the term "context-free grammar"?](https://softwareengineering.stackexchange.com/a/253459)简单说就是：
+这个问题，还是得看 Stack Overflow，金牌答案是：[Doval on What does "context-free" mean in the term "context-free grammar"?](https://softwareengineering.stackexchange.com/a/253459) 简单说就是：
 
 > It means all of its production rules have a single non-terminal on their left hand side.
 

@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Covariance and Correlation"
-description: "协方差与相关系数"
 category: Math
-tags: [Math-Statistics]
+description: 协方差与相关系数
+tags:
+- Math-Statistics
+title: Covariance and Correlation
 ---
-{% include JB/setup %}
 
 ## 0. Symbols
 

@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "阻止 form submit 的方法"
-description: ""
 category: JavaScript
+description: ''
 tags: []
+title: 阻止 form submit 的方法
 ---
-{% include JB/setup %}
 
 有两个地方可以可以阻止 form submit，一是 `<form onsubmit="">` ，二是 `<form>` 下的 `<input type="submit" onclick="">` ，只要这两个函数有一个是 `return false;`，那么点击这个 button 并不会 submit form。  
 

@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Derivative and Partial Derivative"
-description: "导数与偏导数"
 category: Math
-tags: [Math-Algebra]
+description: 导数与偏导数
+tags:
+- Math-Algebra
+title: Derivative and Partial Derivative
 ---
-{% include JB/setup %}
 
 感谢 [良田围](http://www.baidu.com/p/良田围) 网友在 [偏导数有什么用](http://zhidao.baidu.com/link?url=RuoDXCMzDU5A8p8D4SoIqnefEF0aK4CsVphkspenAGIWCrb8SPv-f4ouJJysB-2-pxxC4jVN7BLguR2Yakuuja) 问题上的精彩回复，以下全文摘抄，仅加音标并稍微排版。
 
@@ -97,4 +96,4 @@ n：No of moles = 摩尔数；R ：Gas constant = 气体常数。
 * ∂u/∂y 是由 y 的单独变化，引起的 u 的绝对变化率； 
 * (1/u)∂u/∂y 是由 y 的单独变化，引起的 u 的相对变化率。
 
-针对具体的物理过程、化学工程，有具体的名称。  
+针对具体的物理过程、化学工程，有具体的名称。

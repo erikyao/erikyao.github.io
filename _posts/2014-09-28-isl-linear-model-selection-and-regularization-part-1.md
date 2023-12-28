@@ -1,32 +1,13 @@
 ---
-layout: post
-title: "ISL: Linear Model Selection and Regularization - Part 1"
-description: ""
 category: Machine-Learning
+description: ''
 tags: []
+title: 'ISL: Linear Model Selection and Regularization - Part 1'
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
 
 总结自 Chapter 6, An Introduction to Statistical Learning.
-
------
-
-ToC:
-
-- [0. Overview](#0-overview)
-- [1. Subset Selection](#1-subset-selection)
-	- [1.1 Best Subset Selection](#11-best-subset-selection)
-	- [1.2 Stepwise Selection](#12-stepwise-selection)
-		- [1.2.1 Forward Stepwise Selection](#121-forward-stepwise-selection)
-		- [1.2.2 Backward Stepwise Selection](#122-backward-stepwise-selection)
-		- [1.2.3 Hybrid Approaches](#123-hybrid-approaches)
-	- [1.3 Choosing the Optimal Model](#13-choosing-the-optimal-model)
-	- [1.3.1 $ C_p $, AIC, BIC, and Adjusted $R^2$](#131--c_p--aic-bic-and-adjusted-r2)
-	- [1.3.2 Validation and Cross-Validation](#132-validation-and-cross-validation)
-- [2. Shrinkage Methods](#2-shrinkage-methods)
-	- [2.1 Ridge Regression](#21-ridge-regression)
-	- [2.2 The Lasso](#22-the-lasso)
-	- [2.3 Selecting the Tuning Parameter](#23-selecting-the-tuning-parameter)
 
 -----
 

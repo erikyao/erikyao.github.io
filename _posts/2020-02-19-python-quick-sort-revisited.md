@@ -1,26 +1,14 @@
 ---
-layout: post
-title: "Python: Quick Sort Revisited / Relation To BST / Lomuto Partition Scheme / Hoare Partition Scheme"
-description: ""
 category: Algorithm
-tags: [Pivot]
+description: ''
+tags:
+- Pivot
+title: 'Python: Quick Sort Revisited / Relation To BST / Lomuto Partition Scheme / Hoare Partition Scheme'
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
 
 参考 [Quicksort with Python](https://stackoverflow.com/questions/18262306/quicksort-with-python)
-
-Table of Contents:
-
-<!-- TOC -->
-
-- [Prerequisite: Pivot](#prerequisite-pivot)
-- [General Idea of Quick Sort](#general-idea-of-quick-sort)
-- [Quick Sort 肆意 Pythonic 实现 / 与 BST 的联系](#quick-sort-肆意-pythonic-实现--与-bst-的联系)
-- [Lomuto Partition Scheme](#lomuto-partition-scheme)
-- [Hoare Partition Scheme](#hoare-partition-scheme)
-- [Hoare Partition Scheme Variant (Randomness improves robustness)](#hoare-partition-scheme-variant-randomness-improves-robustness)
-
-<!-- /TOC -->
 
 ## Prerequisite: Pivot
 

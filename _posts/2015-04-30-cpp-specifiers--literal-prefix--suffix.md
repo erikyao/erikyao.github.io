@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "C++: Specifiers / Literal Prefix & Suffix"
-description: ""
 category: C++
+description: ''
 tags: []
+title: 'C++: Specifiers / Literal Prefix & Suffix'
 ---
-{% include JB/setup %}
 
 ## Specifiers
 

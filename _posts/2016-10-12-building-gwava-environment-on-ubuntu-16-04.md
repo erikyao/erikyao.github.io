@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Building GWAVA environment on Ubuntu 16.04"
-description: ""
 category: Lab
+description: ''
 tags: []
+title: Building GWAVA environment on Ubuntu 16.04
 ---
-{% include JB/setup %}
 
 [GWAVA](https://www.sanger.ac.uk/sanger/StatGen_Gwava), _Genome Wide Annotation of VAriants_, is a tool aiming to predict the functional impact of non-coding genetic variants. It consists of two parts:
 

@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "jBPM 4.3 自动保存 TaskInstance 至数据库的机制"
-description: ""
 category: jBPM-4.3
+description: ''
 tags: []
+title: jBPM 4.3 自动保存 TaskInstance 至数据库的机制
 ---
-{% include JB/setup %}
 
 ### 1. org.jbpm 包下的 JbpmContext 类
 

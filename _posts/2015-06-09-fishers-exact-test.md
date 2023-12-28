@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Fisher's Exact Test for Independence"
-description: "To test whether two categorical variables are independent"
 category: Math
-tags: [Math-Statistics]
+description: To test whether two categorical variables are independent
+tags:
+- Math-Statistics
+title: Fisher's Exact Test for Independence
 ---
-{% include JB/setup %}
 
 总结自：
 

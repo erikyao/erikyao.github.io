@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Spring MVC example anatomy"
-description: ""
 category: SpringMVC
+description: ''
 tags: []
+title: Spring MVC example anatomy
 ---
-{% include JB/setup %}
 
 例子来自 [Developing a Spring Framework MVC application step-by-step](http://docs.spring.io/docs/Spring-MVC-step-by-step) ，版本是 _spring-framework-2.5.6.SEC01_。
 

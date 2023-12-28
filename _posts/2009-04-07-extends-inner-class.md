@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Java: 对内部类的继承"
-description: ""
 category: Java
-tags: [Java-InnerClass]
+description: ''
+tags:
+- Java-InnerClass
+title: 'Java: 对内部类的继承'
 ---
-{% include JB/setup %}
 
 首先我们明确下 "enclose" 这个单词的逻辑关系：OuterClass encloses InnerClass，所以外部类就是 enclosing class，内部类是 enclosed class。  
 

@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "C++ String"
-description: ""
 category: C++
+description: ''
 tags: []
+title: C++ String
 ---
-{% include JB/setup %}
 
 整理自：_Thinking in C++, Volume 2_
 

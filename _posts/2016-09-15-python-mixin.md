@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Python: Mixin"
-description: ""
 category: Python
+description: ''
 tags: []
+title: 'Python: Mixin'
 ---
-{% include JB/setup %}
 
 首先 a Mixin is class to be mixed-in，它在 python 里起到的作用类似于 interface 或者 abstract class，但是又有点微小的差别，我们来看个例子：
 

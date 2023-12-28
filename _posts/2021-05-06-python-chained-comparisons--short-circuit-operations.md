@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Python: chained comparisons / short-circuit operations"
-description: ""
 category: Python
+description: ''
 tags: []
+title: 'Python: chained comparisons / short-circuit operations'
 ---
-{% include JB/setup %}
 
 我本来只想记录下 short-circuit operations，但是 chained comparisons 我很少写，这里一并记录下。
 

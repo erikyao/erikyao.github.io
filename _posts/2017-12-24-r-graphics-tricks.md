@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "R: Graphics Tricks"
-description: ""
 category: R
-tags: [Book]
+description: ''
+tags:
+- Book
+title: 'R: Graphics Tricks'
 ---
-{% include JB/setup %}
 
 总结自 _R Graphics Cookbook_
 

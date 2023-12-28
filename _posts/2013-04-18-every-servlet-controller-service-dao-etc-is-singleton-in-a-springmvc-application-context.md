@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Every servlet, controller, service, DAO, etc is Singleton in a SpringMVC application context"
-description: ""
 category: SpringMVC
+description: ''
 tags: []
+title: Every servlet, controller, service, DAO, etc is Singleton in a SpringMVC application
+  context
 ---
-{% include JB/setup %}
 
 　　默认情况下，Servlet、Controller、Service、Dao 什么的，在 SpringMVC 中都是单例，[spring mvc declaring all beans singleton](http://stackoverflow.com/a/12147396) 有说：
 
@@ -20,4 +19,4 @@ tags: []
 
 request1 -> thread1 -> xxxControllerInstance1.process()  
 request2 -> thread2 -> xxxControllerInstance1.process()  
-request3 -> thread3 -> xxxControllerInstance1.process()  
+request3 -> thread3 -> xxxControllerInstance1.process()

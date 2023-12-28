@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Java: 匿名内部类 (anonymous inner class)：简化形式及自动向上转型"
-description: ""
 category: Java
-tags: [Java-InnerClass]
+description: ''
+tags:
+- Java-InnerClass
+title: 'Java: 匿名内部类 (anonymous inner class)：简化形式及自动向上转型'
 ---
-{% include JB/setup %}
 
 内部类的一个重要作用是隐藏继承或是对接口的实现，典型的形式是：内部类来继承或是实现接口，由外部类提供代理 constructor 方法。这些代理 constructor 方法一般都利用的向上转型，即不返回内部类对象，而是返回内部类继承的父类对象或是实现的接口对象。如：
 

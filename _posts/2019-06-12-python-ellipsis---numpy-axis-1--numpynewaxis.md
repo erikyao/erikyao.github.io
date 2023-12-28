@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Python: Ellipsis (...) / Numpy: <i>axis=-1</i> / <i>np.newaxis</i>"
-description: ""
 category: Numpy
+description: ''
 tags: []
+title: 'Python: Ellipsis (...) / Numpy: <i>axis=-1</i> / <i>np.newaxis</i>'
 ---
-{% include JB/setup %}
 
 ## Ellipsis
 

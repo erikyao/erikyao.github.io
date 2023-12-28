@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "An Example of Experimental Design"
-description: ""
 category: R
+description: ''
 tags: []
+title: An Example of Experimental Design
 ---
-{% include JB/setup %}
 
 **Question:** Does changing the text on your website improve donations?  
 
@@ -17,4 +15,4 @@ tags: []
 
 This turns out an inference analysis.  
 
-The making of the experimental steps is also called "formulating your question". Here "formulate" means "to put into a systematized statement or expression". In contrast, a good experiment must generalize to the problem you care about. 
+The making of the experimental steps is also called "formulating your question". Here "formulate" means "to put into a systematized statement or expression". In contrast, a good experiment must generalize to the problem you care about.

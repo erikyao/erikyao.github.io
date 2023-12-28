@@ -1,0 +1,24 @@
+@import "prism.css";
+
+/* **************************** */
+/* Override styles in prism.css */
+/* **************************** */
+code[class*=language-],
+pre[class*=language-] {
+  font-family: $monospace;
+  font-size:0.825em;
+  // background: #f8f8f8;
+  white-space: pre-wrap; /* enable line-wrapping */
+}
+
+pre[class*=language-]>code {
+  // original style
+  // border-left:10px solid #358ccb;
+  // box-shadow:-1px 0 0 0 #358ccb,0 0 0 1px #dfdfdf;
+
+  // border-left: unset;
+  // box-shadow: unset;
+  
+  border-left:10px solid #FAD689; /* Usuki 浅黄 */
+  box-shadow:-1px 0 0 0 #FAD689,0 0 0 1px #dfdfdf; /* Usuki 浅黄 */
+}

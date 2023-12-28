@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Terminology Recap: Functions"
-description: ""
 category: Math
+description: ''
 tags: []
+title: 'Terminology Recap: Functions'
 ---
-{% include JB/setup %}
 
 这些个术语总是见到，也总是记不住……
 

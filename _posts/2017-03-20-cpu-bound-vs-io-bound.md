@@ -1,11 +1,11 @@
 ---
-layout: post
-title: "CPU bound vs IO bound"
-description: ""
 category: OS
-tags: [CPU, IO]
+description: ''
+tags:
+- CPU
+- IO
+title: CPU bound vs IO bound
 ---
-{% include JB/setup %}
 
 From [stackoverflow: What do the terms “CPU bound” and “I/O bound” mean?](http://stackoverflow.com/questions/868568/what-do-the-terms-cpu-bound-and-i-o-bound-mean):
 

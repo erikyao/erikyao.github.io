@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Hadamard Product / Diagonal Matrix / Orthogonal Matrix"
-description: ""
 category: Math
+description: ''
 tags: []
+title: Hadamard Product / Diagonal Matrix / Orthogonal Matrix
 ---
-{% include JB/setup %}
 
 ## Hadamard Product
 

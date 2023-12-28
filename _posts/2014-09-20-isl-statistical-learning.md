@@ -1,36 +1,13 @@
 ---
-layout: post
-title: "ISL: Statistical Learning"
-description: ""
 category: Machine-Learning
+description: ''
 tags: []
+title: 'ISL: Statistical Learning'
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
 
 总结自 Chapter 2, An Introduction to Statistical Learning.
-
------
-
-ToC:
-
-- [1. What Is Statistical Learning?](#1-what-is-statistical-learning)
-	- [1.1 Why Estimate f?](#11-why-estimate-f)
-		- [1.1.1 For Prediction](#111-for-prediction)
-		- [1.1.2 For Inference](#112-for-inference)
-		- [1.1.3 Prediction vs Inference](#113-prediction-vs-inference)
-	- [1.2 How Do We Estimate $ f $?](#12-how-do-we-estimate--f-)
-		- [1.2.1 Parametric Methods](#121-parametric-methods)
-		- [1.2.2 Non-parametric Methods](#122-non-parametric-methods)
-	- [1.3 The Trade-Off Between Prediction Accuracy and Model Interpretability](#13-the-trade-off-between-prediction-accuracy-and-model-interpretability)
-	- [1.4 Supervised Versus Unsupervised Learning](#14-supervised-versus-unsupervised-learning)
-	- [1.5 Regression Versus Classification Problems](#15-regression-versus-classification-problems)
-- [2.2 Assessing Model Accuracy](#22-assessing-model-accuracy)
-	- [2.1 Measuring the Quality of Fit](#21-measuring-the-quality-of-fit)
-	- [2.2 The Bias-Variance Trade-Off](#22-the-bias-variance-trade-off)
-	- [2.3 The Classification Setting](#23-the-classification-setting)
-		- [2.3.1 The Bayes Classifier](#231-the-bayes-classifier)
-		- [2.3.2 K-Nearest Neighbors](#232-k-nearest-neighbors)
-- [3 Lab: Introduction to R](#3-lab-introduction-to-r)
 
 [trade-off]: https://farm2.staticflickr.com/1647/23894467586_88c19382ff_o_d.png
 		

@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Jekyll: Liquid cannot handle numeric tags"
-description: ""
 category: Jekyll
+description: ''
 tags: []
+title: 'Jekyll: Liquid cannot handle numeric tags'
 ---
-{% include JB/setup %}
 
 This is funny. 
 

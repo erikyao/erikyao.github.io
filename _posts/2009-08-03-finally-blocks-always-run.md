@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Java: finally 总是会被执行"
-description: ""
 category: Java
-tags: [Java-Exception]
+description: ''
+tags:
+- Java-Exception
+title: 'Java: finally 总是会被执行'
 ---
-{% include JB/setup %}
 
 `finally` 总是会被执行，即使 `try` 中有 `break`、`continue`、`return`，如：
 

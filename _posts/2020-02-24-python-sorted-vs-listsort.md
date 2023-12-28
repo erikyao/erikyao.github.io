@@ -1,21 +1,11 @@
 ---
-layout: post
-title: "Python: <i>sorted()</i> vs <i>list.sort()</i>"
-description: ""
 category: Python
+description: ''
 tags: []
+title: 'Python: <i>sorted()</i> vs <i>list.sort()</i>'
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
-
-Table of Contents:
-
-<!-- TOC -->
-
-- [Summary](#summary)
-- [Recipe 1: How to sort dict entries by keys?](#recipe-1-how-to-sort-dict-entries-by-keys)
-- [Recipe 2: How to sort a list of custom objects?](#recipe-2-how-to-sort-a-list-of-custom-objects)
-
-<!-- /TOC -->
 
 ## Summary
 

@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "C++: overloading <i>new</i> & <i>delete</i>"
-description: ""
 category: C++
+description: ''
 tags: []
+title: 'C++: overloading <i>new</i> & <i>delete</i>'
 ---
-{% include JB/setup %}
 
 整理自：_Thinking in C++_
 

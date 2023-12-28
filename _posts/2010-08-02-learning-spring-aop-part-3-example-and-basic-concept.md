@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Spring AOP 学习（三）：例子与基本概念"
-description: ""
 category: AOP
-tags: [Java-AOP]
+description: ''
+tags:
+- Java-AOP
+title: Spring AOP 学习（三）：例子与基本概念
 ---
-{% include JB/setup %}
 
 　　依旧是 LogInterceptor 的例子。下面是 beans.xml：
 

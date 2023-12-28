@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Python: <i>for-else</i> with <i>break</i>"
-description: ""
 category: Python
+description: ''
 tags: []
+title: 'Python: <i>for-else</i> with <i>break</i>'
 ---
-{% include JB/setup %}
 
 [Python Tips: 19. For - Else](http://book.pythontips.com/en/latest/for_-_else.html):
 

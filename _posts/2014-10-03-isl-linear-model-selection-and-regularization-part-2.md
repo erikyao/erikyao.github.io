@@ -1,36 +1,13 @@
 ---
-layout: post
-title: "ISL: Linear Model Selection and Regularization - Part 2"
-description: ""
 category: Machine-Learning
+description: ''
 tags: []
+title: 'ISL: Linear Model Selection and Regularization - Part 2'
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
 
 总结自 Chapter 6, An Introduction to Statistical Learning.
-
------
-
-ToC:
-
-- [3. Dimension Reduction Methods](#3-dimension-reduction-methods)
-  - [3.1 Principal Components Regression](#31-principal-components-regression)
-  - [3.2 Partial Least Squares](#32-partial-least-squares)
-- [4. Considerations in High Dimensions](#4-considerations-in-high-dimensions)
-  - [4.1 High-Dimensional Data](#41-high-dimensional-data)
-  - [4.2 What Goes Wrong in High Dimensions](#42-what-goes-wrong-in-high-dimensions)
-  - [4.3 Regression in High Dimensions](#43-regression-in-high-dimensions)
-  - [4.4 Interpreting Results in High Dimensions](#44-interpreting-results-in-high-dimensions)
-- [5. Lab 1: Subset Selection Methods](#5-lab-1-subset-selection-methods)
-  - [5.1 Best Subset Selection](#51-best-subset-selection)
-  - [5.2 Forward and Backward Stepwise Selection](#52-forward-and-backward-stepwise-selection)
-  - [5.3 Choosing Among Models Using the Validation Set Approach and Cross-Validation](#53-choosing-among-models-using-the-validation-set-approach-and-cross-validation)
-- [6. Lab 2: Ridge Regression and the Lasso](#6-lab-2-ridge-regression-and-the-lasso)
-  - [6.1 Ridge Regression](#61-ridge-regression)
-  - [6.2 The Lasso](#62-the-lasso)
-- [7. Lab 3: PCR and PLS Regression](#7-lab-3-pcr-and-pls-regression)
-  - [7.1 Principal Components Regression](#71-principal-components-regression)
-  - [7.2 Partial Least Squares](#72-partial-least-squares)
 
 -----
 	

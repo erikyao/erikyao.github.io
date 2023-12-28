@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "IR 经典模型之向量模型"
-description: ""
 category: Information-Retrieval
+description: ''
 tags: []
+title: IR 经典模型之向量模型
 ---
-{% include JB/setup %}
 
 ## 1. 向量模型同样将 dj 和 qcc 同级计算，采用的同级方式是扩展 qcc 到 t 维
 
@@ -21,4 +19,3 @@ tags: []
 * inverse doucument frequency (逆向文档频率)：设 \|Di\| = {d\|d∈D 且 ki∈d}，\|Di\| 值即表示文档集 D 中有这么多篇文档包含了词 ki；IDFi = log(\|D\| / \|Di\|)，\|D\| 为文档集中的文档个数。若 IDFi 值越大，说明 D 中包含 ki 的文档越少，从而 ki 用来区分 D 中不同文档的能力也就越大。
 * wij = TFij * IDFi
 * wi = (½ + ½ * TFij) * IDFi
-

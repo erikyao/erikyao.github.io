@@ -1,12 +1,10 @@
 ---
-layout: post
-title: "McNemar Test"
-description: ""
 category: Math
-tags: [Math-Statistics]
+description: ''
+tags:
+- Math-Statistics
+title: McNemar Test
 ---
-
-{% include JB/setup %}
 
 看 wikipedia 什么的都不好使，还是得看书 *Handbook of Parametric and Nonparametric Statistical Procedures*，写得非常清楚。
 

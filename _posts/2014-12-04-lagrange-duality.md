@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Lagrange duality"
-description: ""
 category: Machine-Learning
-tags: [SVM]
+description: ''
+tags:
+- SVM
+title: Lagrange duality
 ---
-{% include JB/setup %}
 
 总结自 [section note 5: Convex Optimization Overview, Part II](http://cs229.stanford.edu/section/cs229-cvxopt2.pdf)
 

@@ -1,11 +1,12 @@
 ---
-layout: post
-title: "WD kernel with shifts"
-description: "Digest of <i>RASE: recognition of alternatively spliced exons in C. elegans</i>"
 category: Machine-Learning
-tags: [Paper, SVM]
+description: 'Digest of <i>RASE: recognition of alternatively spliced exons in C.
+  elegans</i>'
+tags:
+- Paper
+- SVM
+title: WD kernel with shifts
 ---
-{% include JB/setup %}
 
 原文 [RASE: recognition of alternatively spliced exons in C.elegans.](http://www.ncbi.nlm.nih.gov/pubmed/15961480)
 

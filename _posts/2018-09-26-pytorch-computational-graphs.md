@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "PyTorch: Computational Graphs"
-description: ""
 category: PyTorch
+description: ''
 tags: []
+title: 'PyTorch: Computational Graphs'
 ---
-{% include JB/setup %}
 
 首先感谢有 [PyTorchViz](https://github.com/szagoruyko/pytorchviz) 这个项目 (依赖 [Graphviz](https://www.graphviz.org/)) 使得我们可以画出 PyTorch 的 computational graph。PyTorch 自己好像并没有 built-in 的机制来做这件事情。
 

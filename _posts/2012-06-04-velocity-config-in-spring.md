@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Spring: Velocity config"
-description: ""
 category: Spring
+description: ''
 tags: []
+title: 'Spring: Velocity config'
 ---
-{% include JB/setup %}
 
 Example from project: 
 
@@ -67,4 +65,3 @@ To illustrate, here is an example taken right from the default Velocity properti
 - `file.resource.loader.path = .`
 - `file.resource.loader.cache = false`
 - `file.resource.loader.modificationCheckInterval = 2`
-

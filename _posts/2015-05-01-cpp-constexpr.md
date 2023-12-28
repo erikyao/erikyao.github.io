@@ -1,11 +1,11 @@
 ---
-layout: post
-title: "C++: constexpr"
-description: ""
 category: C++
-tags: [const, C++11]
+description: ''
+tags:
+- const
+- C++11
+title: 'C++: constexpr'
 ---
-{% include JB/setup %}
 
 整理自: 
 

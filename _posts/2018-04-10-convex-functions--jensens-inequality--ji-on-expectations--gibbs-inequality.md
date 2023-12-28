@@ -1,11 +1,12 @@
 ---
-layout: post
-title: "Convex Functions / Jensen's Inequality / Jensen's Inequality on Expectations / Gibbs' Inequality / Entropy"
-description: ""
 category: Math
-tags: [convex, entropy]
+description: ''
+tags:
+- convex
+- entropy
+title: Convex Functions / Jensen's Inequality / Jensen's Inequality on Expectations
+  / Gibbs' Inequality / Entropy
 ---
-{% include JB/setup %}
 
 首先明确两点：
 

@@ -1,11 +1,11 @@
 ---
-layout: post
-title: "Support Vector Machines and Kernels"
-description: ""
 category: Machine-Learning
-tags: [SVM, Paper]
+description: ''
+tags:
+- SVM
+- Paper
+title: Support Vector Machines and Kernels
 ---
-{% include JB/setup %}
 
 之前一直没搞清楚，这里理一理思路。
 
@@ -243,4 +243,3 @@ $$
 $$
 
 where $ x_{[l:l+d]} $ is the substring of length $ d $ at position $ l $. A suggested setting for $ \beta_d $ is $ \beta_d = \frac{2(\ell-d+1)}{\ell^2 + \ell} $.
-

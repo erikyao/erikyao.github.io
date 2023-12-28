@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "C++: A quick view of design pattern"
-description: ""
 category: C++
+description: ''
 tags: []
+title: 'C++: A quick view of design pattern'
 ---
-{% include JB/setup %}
 
 整理自：_Thinking in C++, Volume 2_
 
@@ -332,4 +330,3 @@ int main() {
 You could also declare only `Shape::factory()` to be a friend, but it seems reasonably harmless to declare the entire base class as a friend.
 
 And actually different types of factories can be derived from the basic factory--we call them polymorphic factories. 这样就不用像上面把 base 声明为 friend 了。
-

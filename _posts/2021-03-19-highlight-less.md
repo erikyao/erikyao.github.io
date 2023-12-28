@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Syntax Highlighting <i>less</i>"
-description: ""
 category: Shell
+description: ''
 tags: []
+title: Syntax Highlighting <i>less</i>
 ---
-{% include JB/setup %}
 
 [Stéphane Chazelas on Syntax highlighting in the terminal](https://unix.stackexchange.com/a/267362) 总结得挺好，以下方法都可以 highlight `less` 命令的 output：
 

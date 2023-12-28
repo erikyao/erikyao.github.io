@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Closed-Form Solution"
-description: ""
 category: Math
+description: ''
 tags: []
+title: Closed-Form Solution
 ---
-{% include JB/setup %}
 
 P.S. 讲了这么多，其实 closed-form expression 就是 "解析解"，analytic expression。这两者其实有微妙的差别，但大体上你理解成是同一事物是 OK 的。而且你还能见到 "analytic closed-form solution" 这种表达方式，真的不需要 care 太多。
 

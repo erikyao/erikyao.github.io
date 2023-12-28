@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "JSON conversion"
-description: ""
 category: JavaScript
-tags: [JSON]
+description: ''
+tags:
+- JSON
+title: JSON conversion
 ---
-{% include JB/setup %}
 
 ## 1. Java Object <-> JSONObject
 

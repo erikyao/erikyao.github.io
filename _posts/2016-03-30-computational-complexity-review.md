@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Computational Complexity Review"
-description: ""
 category: Compiler
+description: ''
 tags: []
+title: Computational Complexity Review
 ---
-{% include JB/setup %}
 
 [Reduction]: https://farm2.staticflickr.com/1670/25699429983_0e32464a98_o_d.jpg
 [M_Prime]: https://farm2.staticflickr.com/1698/26278452596_b3f4a02ca9_o_d.jpg

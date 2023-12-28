@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Java: 在构造器中请谨慎使用被覆写方法"
-description: ""
 category: Java
+description: ''
 tags: []
+title: 'Java: 在构造器中请谨慎使用被覆写方法'
 ---
-{% include JB/setup %}
 
 先上代码 (adapted from _Chapter 8, Thinking in Java, Fourth Edition_)：
 

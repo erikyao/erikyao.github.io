@@ -1,39 +1,15 @@
 ---
-layout: post
-title: "ISL: Moving Beyond Linearity"
-description: ""
 category: Machine-Learning
-tags: [Spline, GAM]
+description: ''
+tags:
+- Spline
+- GAM
+title: 'ISL: Moving Beyond Linearity'
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
 
 总结自 Chapter 7, An Introduction to Statistical Learning.
-
------
-
-ToC:
-
-- [0. Overview](#0-overview)
-- [1. Polynomial Regression](#1-polynomial-regression)
-- [2. Step Functions](#2-step-functions)
-- [3. Basis Functions](#3-basis-functions)
-- [4. Regression Splines](#4-regression-splines)
-	- [4.1 Piecewise Polynomials](#41-piecewise-polynomials)
-	- [4.2 Constraints and Splines](#42-constraints-and-splines)
-	- [4.3 The Spline Basis Representation](#43-the-spline-basis-representation)
-	- [4.4 Choosing the Number and Locations of the Knots](#44-choosing-the-number-and-locations-of-the-knots)
-	- [4.5 Comparison to Polynomial Regression](#45-comparison-to-polynomial-regression)
-- [5. Smoothing Splines](#5-smoothing-splines)
-	- [5.1 An Overview of Smoothing Splines](#51-an-overview-of-smoothing-splines)
-	- [5.2 Choosing the Smoothing Parameter $ \lambda $](#52-choosing-the-smoothing-parameter--lambda-)
-- [6. Local Regression](#6-local-regression)
-- [7. Generalized Additive Models](#7-generalized-additive-models)
-	- [7.1 GAMs for Regression Problems](#71-gams-for-regression-problems)
-	- [7.2 GAMs for Classification Problems](#72-gams-for-classification-problems)
-- [8. Lab: Non-linear Modeling](#8-lab-non-linear-modeling)
-	- [8.1 Polynomial Regression and Step Functions](#81-polynomial-regression-and-step-functions)
-	- [8.2 Splines](#82-splines)
-	- [8.3 GAMs](#83-gams)
 	
 -----
 

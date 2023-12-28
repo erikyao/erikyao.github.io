@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Python: 3 ways to use metaclasses"
-description: ""
 category: Python
+description: ''
 tags: []
+title: 'Python: 3 ways to use metaclasses'
 ---
-{% include JB/setup %}
 
 ## Effective Python Item 33: Validate Subclasses with Metaclasses
 
@@ -144,4 +142,3 @@ class Customer(HasField):
     prefix = Field()
     suffix = Field()
 ```
-

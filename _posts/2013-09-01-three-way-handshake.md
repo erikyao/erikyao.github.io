@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Three-way Handshake"
-description: ""
 category: Network
+description: ''
 tags: []
+title: Three-way Handshake
 ---
-{% include JB/setup %}
 
 ![](https://farm6.staticflickr.com/5733/23552709929_21a00cabcb_o_d.png)
 

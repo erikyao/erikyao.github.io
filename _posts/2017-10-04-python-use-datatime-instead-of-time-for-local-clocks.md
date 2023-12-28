@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Python: Use <i>datatime</i> instead of <i>time</i> for local clocks"
-description: ""
 category: Python
+description: ''
 tags: []
+title: 'Python: Use <i>datatime</i> instead of <i>time</i> for local clocks'
 ---
-{% include JB/setup %}
 
 _Effective Python Item 45: Use datetime Instead of time for Local Clocks_
 

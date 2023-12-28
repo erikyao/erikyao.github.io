@@ -1,11 +1,11 @@
 ---
-layout: post
-title: "C++: The Rule of Three/Five"
-description: ""
 category: C++
-tags: [C++11, copy-constructor]
+description: ''
+tags:
+- C++11
+- copy-constructor
+title: 'C++: The Rule of Three/Five'
 ---
-{% include JB/setup %}
 
 整理自 _C++ Primer, 5th Edition_
 
@@ -55,4 +55,3 @@ In order to define these 5 operations, we first have to decide what copying an o
 - Classes that behave like values have their own state. When we copy a valuelike object, the copy and the original are independent of each other. Changes made to the copy have no effect on the original, and vice versa.
 - Classes that act like pointers (e.g. [Smart Pointers](/c++/2015/05/07/cpp11-smart-pointer-auto_ptr-is-deprecated-use-unique_ptr-instead-here-also-comes-shared_ptr-and-weak_ptr)) share state. When we copy objects of such classes, the copy and the original use the same underlying data. Changes made to the copy also change the original, and vice versa.
 	- 这个时候你可能需要参考 [C++ overloading `operator=`: shallow copy vs. deep copy / reference counting / copy on write](/c++/2015/04/04/cpp-overloading--shallow-copy-vs-deep-copy--reference-counting--copy-on-write)
-

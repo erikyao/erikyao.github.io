@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Laplacian Matrix"
-description: ""
 category: Algorithm
-tags: [Graph]
+description: ''
+tags:
+- Graph
+title: Laplacian Matrix
 ---
-{% include JB/setup %}
 
 $$
 \newcommand{\icol}[1]{
@@ -351,4 +350,4 @@ $$
 
 > If you dig a little deeper, you may notice that the functions that minimize the expression $f^{T} L f$ are the eigenvectors the the Laplacian! For unit norm functions, this expression is just the **[Rayleigh quotient](https://en.wikipedia.org/wiki/Rayleigh_quotient)** of the Laplacian matrix. And by **[Min-max theorem](https://en.wikipedia.org/wiki/Min-max_theorem)**, we have that the solutions to this minimization are just the eigenvectors!  
 > <br/>
-> Basically, the first eigenvector of the graph Laplacian is the smoothest function you can find on the graph. In case of a connected graph, it is the constant function. The second eigenvector is the next smoothest function of all graph functions that are orthogonal to the first one and so on. You can even think of the first eigenvector of the Laplacian as the **[DC component](https://en.wikipedia.org/wiki/DC_bias)** of the graph signal. The next eigenvectors are just the **higher frequency modes** of the signal. In fact, the eigenvectors of the Laplacian form an orthonormal **Fourier basis** for the space of graph functions! This tangent leads us to an exciting research area called **graph signal processing**.  
+> Basically, the first eigenvector of the graph Laplacian is the smoothest function you can find on the graph. In case of a connected graph, it is the constant function. The second eigenvector is the next smoothest function of all graph functions that are orthogonal to the first one and so on. You can even think of the first eigenvector of the Laplacian as the **[DC component](https://en.wikipedia.org/wiki/DC_bias)** of the graph signal. The next eigenvectors are just the **higher frequency modes** of the signal. In fact, the eigenvectors of the Laplacian form an orthonormal **Fourier basis** for the space of graph functions! This tangent leads us to an exciting research area called **graph signal processing**.

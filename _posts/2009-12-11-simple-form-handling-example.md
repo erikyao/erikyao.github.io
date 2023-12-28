@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Simple Form Handling Example"
-description: ""
 category: SpringMVC
+description: ''
 tags: []
+title: Simple Form Handling Example
 ---
-{% include JB/setup %}
 
 [1]: https://farm2.staticflickr.com/1477/23894468946_b8e00b61a6_o_d.png
 [2]: https://farm6.staticflickr.com/5734/23292345344_77048f9031_o_d.png

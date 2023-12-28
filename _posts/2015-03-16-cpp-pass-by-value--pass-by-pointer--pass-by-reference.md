@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "C++: pass-by-value / pass-by-pointer / pass-by-reference"
-description: ""
 category: C++
+description: ''
 tags: []
+title: 'C++: pass-by-value / pass-by-pointer / pass-by-reference'
 ---
-{% include JB/setup %}
 
 老生常谈。整理自 _Thinking in C++_。
 

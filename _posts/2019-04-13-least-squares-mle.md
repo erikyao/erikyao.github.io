@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Terminology Recap: Method of Least Squares (and its relationship with MLE)"
-description: ""
 category: Machine-Learning
+description: ''
 tags: []
+title: 'Terminology Recap: Method of Least Squares (and its relationship with MLE)'
 ---
-{% include JB/setup %}
 
 $$
 \DeclareMathOperator*{\argmin}{argmin} 

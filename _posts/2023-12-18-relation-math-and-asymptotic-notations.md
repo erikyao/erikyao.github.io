@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Relation (Math) and Asymptotic Notations"
-description: ""
 category: Math
+description: ''
 tags: []
+title: Relation (Math) and Asymptotic Notations
 ---
-{% include JB/setup %}
 
 # 1. Relation (Mathmatics)
 

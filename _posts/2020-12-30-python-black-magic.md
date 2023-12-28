@@ -1,33 +1,11 @@
 ---
-layout: post
-title: "《Python黑魔法手册》摘抄"
-description: ""
 category: Python
+description: ''
 tags: []
+title: 《Python黑魔法手册》摘抄
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
-
-## ToC
-
-- [2.14 把模块当做脚本来执行 7 种方法及原理 (`python -m`)](#214-把模块当做脚本来执行-7-种方法及原理-python--m)
-- [3.6 海象运算符的三种用法 (`:=`)](#36-海象运算符的三种用法-)
-- [3.8 Python 转义的五种表示法](#38-python-转义的五种表示法)
-- [3.10 装饰器的六种写法 (decorator)](#310-装饰器的六种写法-decorator)
-- [4.2 深入理解描述符 (descriptor)](#42-深入理解描述符-descriptor)
-- [4.3 神奇的元类编程](#43-神奇的元类编程)
-- [5.3 单行实现 for 死循环如何写 + 5.6 如何流式读取数G超大文件 (`iter(callable, sentinel)`)](#53-单行实现-for-死循环如何写--56-如何流式读取数g超大文件-itercallable-sentinel)
-- [5.4 如何关闭异常自动关联上下文 (`raise e2 from e1`)](#54-如何关闭异常自动关联上下文-raise-e2-from-e1)
-- [5.7 实现类似 defer 的延迟调用 + 5.11 在程序退出前执行代码的技巧](#57-实现类似-defer-的延迟调用--511-在程序退出前执行代码的技巧)
-- [5.14 单分派泛函数如何写 (`@singledispatch`)](#514-单分派泛函数如何写-singledispatch)
-- [5.20 让你晕头转向的 else 用法](#520-让你晕头转向的-else-用法)
-- [5.24 对齐字符串的两种方法](#524-对齐字符串的两种方法)
-- [7.1 远程登陆服务器的最佳利器 (`paramiko` 库)](#71-远程登陆服务器的最佳利器-paramiko-库)
-- [7.2 代码 BUG 变得酷炫的利器 (`pretty-errors` 库)](#72-代码-bug-变得酷炫的利器-pretty-errors-库)
-- [7.4 规整字符串提取数据的神器 (`parse` 库)](#74-规整字符串提取数据的神器-parse-库)
-- [7.5 一行代码让代码运行速度提高100倍 (`numba` & `jit`)](#75-一行代码让代码运行速度提高100倍-numba--jit)
-- [7.6 新一代的调试神器：`PySnooper`](#76-新一代的调试神器pysnooper)
-
------
 
 感谢作者[王炳明](http://magic.iswbm.com/zh/latest/aboutme.html)写了这么多内容。这本《[Python黑魔法手册](http://magic.iswbm.com/zh/latest/index.html)》语言平实，举例得当。虽然前面有些简单的 "黑魔法" 我看来也就是 "茴香豆的四种写法"，但后面高级的、有趣的内容也不少，这里摘一摘。
 

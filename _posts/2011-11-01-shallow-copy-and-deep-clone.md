@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Java: shallow copy v.s. deep clone"
-description: ""
 category: Java
+description: ''
 tags: []
+title: 'Java: shallow copy v.s. deep clone'
 ---
-{% include JB/setup %}
 
 ```java
 class Field implements Cloneable {  

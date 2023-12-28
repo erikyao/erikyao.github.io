@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Python: Heap Select / Quick Select"
-description: ""
 category: Algorithm
+description: ''
 tags: []
+title: 'Python: Heap Select / Quick Select'
 ---
-{% include JB/setup %}
 
 Question: Find the $k$-th Smallest Element in an Unsorted Array
 

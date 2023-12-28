@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Java: 涉及继承的异常声明及捕捉"
-description: ""
 category: Java
-tags: [Java-Exception]
+description: ''
+tags:
+- Java-Exception
+title: 'Java: 涉及继承的异常声明及捕捉'
 ---
-{% include JB/setup %}
 
 当有继承发生时，会伴随着重载、覆写 (包括接口方法的实现)、构造器的重写等行为。此时，如果基类或是接口的方法存在异常声明，那么导出类或是接口的实现类的对应方法该如何声明异常？同时对这些方法的调用该如何捕捉异常？下面就这 2 个问题进行探讨，你会看到，针对覆写和构造器的重写是 2 种完全不同的处理方式 (针对重载则没有任何限制)。代码如下：
 

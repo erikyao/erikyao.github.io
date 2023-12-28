@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "pdb: Your interactive python debugger"
-description: ""
 category: Python
+description: ''
 tags: []
+title: 'pdb: Your interactive python debugger'
 ---
-{% include JB/setup %}
 
 _Effective Python Item 57: Consider Interactive Debugging with pdb_
 

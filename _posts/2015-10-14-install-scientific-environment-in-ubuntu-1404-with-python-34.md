@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Install Scientific Environment in Ubuntu 14.04 With Python 3.4"
-description: ""
 category: Python
+description: ''
 tags: []
+title: Install Scientific Environment in Ubuntu 14.04 With Python 3.4
 ---
-{% include JB/setup %}
 
 ## Basic Installation Flow
 

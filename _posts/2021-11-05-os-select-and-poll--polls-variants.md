@@ -1,22 +1,11 @@
 ---
-layout: post
-title: "OS: <b>SELECT(2)</b>, <b>POLL(2)</b>, and their variants"
-description: ""
 category: OS
+description: ''
 tags: []
+title: 'OS: <b>SELECT(2)</b>, <b>POLL(2)</b>, and their variants'
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
-
-**ToC:**
-
-- [Appetizer: What do the numbers in a `man` page mean?](#appetizer-what-do-the-numbers-in-a-man-page-mean)
-- [`SELECT(2)` 和 `POLL(2)`](#select2-和-poll2)
-- [Variants: `EPOLL(7)` / `devpoll` / `KQUEUE(2)`](#variants-epoll7--devpoll--kqueue2)
-- [`SELECT(2)` + `POLL(2)/EPOLL(7)` 即是 "轮询"](#select2--poll2epoll7-即是-轮询)
-- [Python: `select` module](#python-select-module)
-- [Python: `selectors` module](#python-selectors-module)
-
------
 
 ## Appetizer: What do the numbers in a `man` page mean?
 
@@ -59,7 +48,7 @@ MANUAL SECTIONS
 [Select is fundamentally broken](https://idea.popcount.org/2017-01-06-select-is-fundamentally-broken/) 这篇精彩的 blog 就提到了 _The Design and Implementation of the FreeBSD Operating System_ 这本书针对这个应用场景在 OS 级别的处理策略：
 
 > There are four possible alternatives that avoid the blocking problem:  
-> <br/>
+>   
 > 1. Set all the descriptors in nonblocking mode. [...]
 > 2. Enable all descriptors of interest to [send] signal when I/O can be done. [...]
 > 3. Have the system provide a method for asking which descriptors are capable of performing the I/O [...]

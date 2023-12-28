@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Java: a simple delegation example"
-description: ""
 category: Java
-tags: [Delegate]
+description: ''
+tags:
+- Delegate
+title: 'Java: a simple delegation example'
 ---
-{% include JB/setup %}
 
 ```java
 public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {  

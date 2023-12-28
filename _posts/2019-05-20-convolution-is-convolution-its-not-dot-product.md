@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Convolution is convolution; it's NOT dot product"
-description: ""
 category: Math
+description: ''
 tags: []
+title: Convolution is convolution; it's NOT dot product
 ---
-{% include JB/setup %}
 
 $$
 \DeclareMathOperator*{\argmin}{argmin} 

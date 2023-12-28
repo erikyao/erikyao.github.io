@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "C: Advanced Preprocessor Features"
-description: ""
 category: C
+description: ''
 tags: []
+title: 'C: Advanced Preprocessor Features'
 ---
-{% include JB/setup %}
 
 整理自：
 

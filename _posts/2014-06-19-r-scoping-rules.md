@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "R Scoping Rules"
-description: ""
 category: R
+description: ''
 tags: []
+title: R Scoping Rules
 ---
-{% include JB/setup %}
 
 总结自 [Introduction to the R Language - Scoping Rules (pdf)](https://d396qusza40orc.cloudfront.net/rprog/lecture_slides/Scoping.pdf)
 

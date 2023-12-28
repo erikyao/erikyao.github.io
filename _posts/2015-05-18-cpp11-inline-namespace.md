@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "C++11: inline namespace"
-description: ""
 category: C++
-tags: [C++11]
+description: ''
+tags:
+- C++11
+title: 'C++11: inline namespace'
 ---
-{% include JB/setup %}
 
 搬运自 [C++11 FAQ: Inline namespace](http://www.stroustrup.com/C++11FAQ.html#inline-namespace)。
 

@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Disk Drive（磁盘驱动器）"
-description: ""
 category: Hardware
+description: ''
 tags: []
+title: Disk Drive（磁盘驱动器）
 ---
-{% include JB/setup %}
 
 　　继续补课。来自wikipedia。
 

@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Rcpp: inline 生成的临时文件举例以及 exception 相关的宏"
-description: ""
 category: R
-tags: [Rcpp]
+description: ''
+tags:
+- Rcpp
+title: 'Rcpp: inline 生成的临时文件举例以及 exception 相关的宏'
 ---
-{% include JB/setup %}
 
 总结自 _Seamless R and C++ Integration with Rcpp_
 

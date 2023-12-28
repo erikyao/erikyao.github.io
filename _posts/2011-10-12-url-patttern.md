@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "JSP: url-patttern"
-description: ""
 category: Java
-tags: [Servlet]
+description: ''
+tags:
+- Servlet
+title: 'JSP: url-patttern'
 ---
-{% include JB/setup %}
 
 ## 匹配原则
 

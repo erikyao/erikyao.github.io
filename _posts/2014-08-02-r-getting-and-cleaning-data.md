@@ -1,11 +1,11 @@
 ---
-layout: post
-title: "R: Getting and Cleaning Data"
-description: ""
 category: R
+description: ''
 tags: []
+title: 'R: Getting and Cleaning Data'
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
 
 [Boxplot]: https://farm2.staticflickr.com/1576/23838060281_5e73191cf4_o_d.png
 [Percentiles]: https://farm2.staticflickr.com/1538/23894467706_54741da322_o_d.png
@@ -19,114 +19,18 @@ coursera 课程总结。
 	- [Data Summarization and Manipulation](http://www.biostat.jhsph.edu/~ajaffe/lec_winterR/Lecture%202.pdf)
 	- [Lists and Data Cleaning](http://www.biostat.jhsph.edu/~ajaffe/lec_winterR/Lecture%203.pdf)。  
 	- _R Cookbook_。
-
------
-
-## 目录
-  
-### 1. [Basis](#ch1)
-  
-- [1.1 Overview](#overview)   
-- [1.2 Definition of Data](#what-is-data)   
-- [1.3 Components of Tidy Data](#tidydata)
-	- [1.3.1 Standards of Tidy Data Set and Tidy Data Files](#tidydataset)
-	- [1.3.2 The code book](#codebook)
-		- [How to code variables](#code-variables)
-	- [1.3.3 Scripts and Instructions](#scripts-and-instructions)
-
-### 2. [Reading Data](#ch2)
-
-- [2.1 Downloading Files](#download-files)
-- [2.2 `read.table` args: `na.strings`, `stringsAsFactors`, `comment.char`](#read-table-args)
-- [2.3 The `data.table` Package](#datatable-pkg)
-	- [2.3.1 Using `tables`](#the-tables-function)
-	- [2.3.2 Referencing](#data-table-referencing)
-	- [2.3.3 Calculation inside the data table](#calculation-in-data-table)
-	- [2.3.4 Adding new columns](#add-new-column-to-data-table)
-	- [2.3.5 Group by, `.N`, Keys and Join](#by-dotN-key-join)
-	- [2.3.6 Fast Reading](#fread)
-- [2.4 Webscraping](#webscraping)
-- [2.5 The `sqldf` Package](#sqldf-pkg)
-
-### 3. [Handling Data At The Very Beginning](#ch3)
-
-- [3.1 Subsetting and Sorting](#subset-and-sort)
-	- [3.1.1 Subsetting](#subset)
-		- [Using `subset` function](#the-subset-function)
-		- [Using `which`, `which.min`, `which.max` functions](#which)
-		- [How to remove columns?](#remove-columns)
-		- [Making new data frames by extraction](#extract-new-data-frame)
-	- [3.1.2 Sorting](#sort)
-	- [3.1.3 Ordering](#order)
-	- [3.1.4 Ordering with `plyr`](#plyr-order)
-- [3.2 Summarizing Data](#summarize)
-	- [3.2.1 `dim`, `nrow`, `ncol`, `colnames`, `head`, `tail`, `summary` and `str`](#about-rows-and-columns)
-	- [3.2.2 `quantile`](#quantile)
-		- [quartile](#quartile)
-		- [题外话：boxplot 示意](#boxplot)
-		- [$n^{th}$ quantile](#nth-quantile)
-	- [3.2.3 `table`](#table)
-	- [3.2.4 Checking NA](#check-NA)
-		- [有点粗暴的处理手段：`na.omit`](#na.omit)
-	- [3.2.5 Checking values with specific characteristics: 统计某单个变量的取值  (`%in%` and `unique`)](#check-single-var)
-	- [3.2.6 Cross Tabulation (`xtabs`): 统计多个变量的取值组合](#xtab)
-		- [Flat Table (`ftable`): formatting xtabs](#ftable)
-	- [3.2.7 Calculating the size of a dataset](#data-size)
-- [3.3 Adding New Variables (i.e. New Columns)](#add-new-var)
-	- [3.3.1 How to add columns and rows](#add-column-row)
-		- [注意 `cbind` 多个 vector 产生的是 matrix 而不是 data frame](#cbind-vector-get-matrix)
-		- [顺便说一下调整 column 顺序的方法](#re-order-column)
-	- [3.3.2 Creating mathematical variables](#add-mathematical-var)
-	- [3.3.3 Creating sequences or indices](#add-seq-or-indices)
-	- [3.3.4 Adding subset result](#add-subset-result)
-		- [`ifelse`](#ifelse)
-	- [3.3.5 Creating categorical variables](#add-categorical-var)
-		- [3.3.5.1 Creating factor variables](#add-factor-var)
-			- [Creating factor along a column](#factor-along-column)
-			- ['levels' parameter and `relevel` function](#arrange-levels)
-			- [`relevel` would affect `as.numeric()`](#relevel-and-asnumeric)
-		- [3.3.5.2 Cutting values into categories](#add-cut-var)
-			- [Using `cut` function](#the-cut-function)
-			- [Easier cutting (with `cut2`)](#the-cut2-function)
-			- [Using `mutate` function](#the-mutate-function)
-- [3.4 Reshaping Data](#reshape)
-	- [3.4.1 Melting data frames](#melt)
-	- [3.4.2 Casting data frames](#cast)
-		- [formula, `value.var` and `guess_value`](#formula-valuevar-guessvalue)
-		- [`fun.aggregate` rule](#aggregation-rule)
-		- [`margins` and `subset`](#margins-subset)
-	- [3.4.3 Calculate on groups](#calculate-on-groups)
-		- [Using `aggregate` function](#the-aggregate-function)
-- [3.5 Merging Data](#merge)	
-	- [3.5.1 Using `merge`](#the-merge-function)
-	- [3.5.2 Using `join` in the `plyr` package](#the-join-function)
-	- [3.5.3 Using `join_all` if you have multiple data frames](#the-join-all-function)
-	- [3.5.4 Using `stack` to combine vectors](#the-stack-function)
-- [3.6 Editing Text Variables](#edit-text)
-	- [3.6.1 Important points about text in data sets](#rule-for-text)
-	- [3.6.2 Best practices of processsing variable names](#process-var-name)
-		- [Make lower case when possible](#lower-case-when-possible)
-		- [Delete suffix ".1" like in "Location.1"](#delete-dot-1)
-		- [Delete underscore](#delete-underscore)
-		- [Rename a single column](#rename-a-column)
-	- [3.6.3 `grep` and `grepl`](#grep-grepl)
-	- [3.6.4 Some other String functions](#string-functions)
-	- [3.6.5 Regular Expressions](#reg-exp)
-	- [3.6.6 Working with Dates](#work-with-date)
-		- [简单说下 locale](#locale)
-		- [Use `lubridate` package](#lubridate-pkg)
 	
 -----
 
-## <a name="ch1"></a>1. Basis
+## 1. Basis
   
-### <a name="overview"></a>1.1 Overview
+### 1.1 Overview
 
 _Raw Data_ -> _Processing Script_ -> _Tidy Data_ -> Data Analysis -> Data Communication  
 
 Getting and Cleaning Data 处理的就是前三个阶段。
 
-### <a name="what-is-data"></a>1.2 Definition of Data, Raw Data and Processed Data
+### 1.2 Definition of Data, Raw Data and Processed Data
 
 Data are values of qualitative or quantitative variables, belonging to a set of items:  
 
@@ -146,7 +50,7 @@ Processed data:
 * Data that is ready for analysis
 * All processing steps should be recorded
 
-### <a name="tidydata"></a>1.3 Components of Tidy Data
+### 1.3 Components of Tidy Data
 	
 The four things you should have:
 
@@ -155,7 +59,7 @@ The four things you should have:
 1. A code book (something like a Data Dictionary).
 1. Scripts and Instructions
 
-#### <a name="tidydataset"></a>1.3.1 Standards of Tidy Data Set and Tidy Data Files
+#### 1.3.1 Standards of Tidy Data Set and Tidy Data Files
 
 For Tidy Data Set:
 
@@ -179,7 +83,7 @@ Raw Data includes:
 
 If you are sharing your data with the collaborator in Excel, the tidy data should be in one Excel file per table. They should not have multiple worksheets, no macros should be applied to the data, and no columns/cells should be highlighted. Alternatively share the data in a CSV or TAB-delimited text file.
 
-#### <a name="codebook"></a>1.3.2 The code book
+#### 1.3.2 The code book
 
 A common format for this document is a Word/text file. It should include:
 
@@ -193,7 +97,7 @@ In our genomics example, the analyst would want to know:
 * how you picked the exons you used for summarizing the genomic data (UCSC/Ensembl, etc.)
 * any other information about how you did the data collection/study design. For example, are these the first 20 patients that walked into the clinic? Are they 20 highly selected patients by some characteristic like age? Are they randomized to treatments?
 
-##### <a name="code-variables"></a>How to code variables
+##### How to code variables
 
 When you put variables into a spreadsheet there are several main categories you will run into depending on their data type:
 
@@ -214,7 +118,7 @@ When you put variables into a spreadsheet there are several main categories you 
 
 In general, try to avoid coding categorical or ordinal variables as numbers. When you enter the value for sex in the tidy data, it should be "male" or "female". The ordinal values in the data set should be "poor", "fair", and "good" not 1, 2 ,3. This will avoid potential mixups about which direction effects go and will help identify coding errors.
 
-#### <a name="scripts-and-instructions"></a>1.3.3 Scripts and Instructions
+#### 1.3.3 Scripts and Instructions
 
 You may have heard this before, but [reproducibility is kind of a big deal in computational science](http://www.sciencemag.org/content/334/6060/1226). That means, when you submit your paper, the reviewers and the rest of the world should be able to exactly replicate the analyses from raw data all the way to final results. If you are trying to be efficient, you will likely perform some summarization/data analysis steps before the data can be considered tidy.
 
@@ -234,11 +138,11 @@ In some cases it will not be possible to script every step. In that case you sho
 
 You should also include information about which system (Mac/Windows/Linux) you used the software on and whether you tried it more than once to confirm it gave the same results. Ideally, you will run this by a fellow student/labmate to confirm that they can obtain the same output file you did.
 
-## <a name="ch2"></a>2. Reading Data
+## 2. Reading Data
 
 读取 Excel、XML、JSON、MySQL、HDF5、MongoDB、zip、jpeg 这些数据的方法，我就不总结了，需要的时候再查也不迟。
 
-### <a name="download-files"></a>2.1 Downloading Files
+### 2.1 Downloading Files
 
 ```r
 if (!file.exists("data")) { ## check to see if the directory exists
@@ -253,7 +157,7 @@ list.files("./data")
 dateDownloaded <- date() ## Be sure to record when you downloaded.
 ```
 
-### <a name="read-table-args"></a>2.2 `read.table` args: `na.strings`, `stringsAsFactors`, `comment.char`
+### 2.2 `read.table` args: `na.strings`, `stringsAsFactors`, `comment.char`
 
 #### `na.strings` 参数
 
@@ -279,21 +183,21 @@ dateDownloaded <- date() ## Be sure to record when you downloaded.
 	
 这时我们就可以用 `comment.char="##"` 来跳过这些 comments
 
-### <a name="datatable-pkg"></a>2.3 The `data.table` Package
+### 2.3 The `data.table` Package
 
 * Inherits from `data.frame`
 	* All functions that accept `data.frame` also work on `data.table`
 * Written in C so it is much faster
 * Much, much faster at subsetting, group, and updating
 
-#### <a name="the-tables-function"></a>2.3.1 Using `tables` 
+#### 2.3.1 Using `tables` 
 
 ```r
 library(data.table)
 tables() ## see all the tables in memory
 ```
 
-#### <a name="data-table-referencing"></a>2.3.2 Referencing
+#### 2.3.2 Referencing
 
 ```r
 df <- data.frame(A=1:3, B=4:6, C=7:9)
@@ -318,13 +222,13 @@ dt[dt$A>1,] ## 返回 A>1 的所有行，in this case
 dt[c(2,3)] ## 返回 row 2 和 row 3
 ```
 
-#### <a name="calculation-in-data-table"></a>2.3.3 Calculation inside the data table
+#### 2.3.3 Calculation inside the data table
 
 我发现 dt 的第二维实际是在跑运算，也就是说 `dt[,exp]` 实际等同于执行了 `exp`，比如 `dt[,1+1]` 会得到 2，就像是在直接执行 1+1 一样。  
 
 而且第二维操作的 context 是 dt 内部，比如 `dt[, mean(A)]` 是可以是识别到 A 的，不用指明是 `dt$A`，这一句的作用等同于 `mean(dt$A)`
 
-#### <a name="add-new-column-to-data-table"></a>2.3.4 Adding new columns
+#### 2.3.4 Adding new columns
 
 还是利用 `dt` 的第二维，比如：
 	
@@ -353,7 +257,7 @@ dt[, E:={temp <- A+B; log(temp+5)}] ## 更复杂的添加 column 运算；{} 这
 ## 3: 3 6 9 81 2.639057
 ```
 	
-#### <a name="by-dotN-key-join"></a>2.3.5 Group by, `.N`, Keys and Join
+#### 2.3.5 Group by, `.N`, Keys and Join
 	
 ##### Group By
 	
@@ -427,27 +331,27 @@ merge(dt4, dt5) ## key 值相同的 row merge 到一起
 ## 4: c 4 7
 ```
 
-#### <a name="fread"></a>2.3.6 Fast Reading
+#### 2.3.6 Fast Reading
 	
 读取大文件到 data table 时，可以使用 `fread` 来代替常用的 `read.table`
 
-### <a name="webscraping"></a>2.4 Webscraping
+### 2.4 Webscraping
 
 这里就简单提一下概念。[Webscraping](http://en.wikipedia.org/wiki/Web_scraping): Programatically extracting data from the HTML code of websites.
 
 拿到 HTML 之后估计就要走 DOM 那一套流程了……
 
-### <a name="sqldf-pkg"></a>2.5 The `sqldf` Package
+### 2.5 The `sqldf` Package
 
 The `sqldf` package allows for execution of SQL commands on R data frames, e.g. `sqldf("select * from df where A < 50")`;
 
 之所以提一下这个 package 是因为我曾经设想过这个功能……第一眼看着觉得很屌的样子，第二眼就觉得这功能好像没啥必要（想起了那个用 #define 把 C 语言改成中文的例子）……
 
-## <a name="ch3"></a>3. Handling Data At The Very Beginning
+## 3. Handling Data At The Very Beginning
 
-### <a name="subset-and-sort"></a>3.1 Subsetting and Sorting
+### 3.1 Subsetting and Sorting
 
-#### <a name="subset"></a>3.1.1 Subsetting
+#### 3.1.1 Subsetting
 
 先制作示例 data frame：
 
@@ -491,7 +395,7 @@ v[ abs(v-mean(v)) > 2*sd(v) ]
 v[ !is.na(v) & !is.null(v) ]
 ```
 
-##### <a name="the-subset-function"></a>Using `subset` function
+##### Using `subset` function
 
 举几个例子，应该不需要再解释了：
 
@@ -508,7 +412,7 @@ subset(patient.data, select = c(-patient.id,-dosage)) # except these two columns
 
 但是 [In R, why is \[ better than `subset`?](http://stackoverflow.com/questions/9860090/in-r-why-is-better-than-subset) 说直接在 [] 写条件是比用 subset 要好的，具体请细看。
 
-##### <a name="which"></a>Using `which`, `which.min`, `which.max` functions
+##### Using `which`, `which.min`, `which.max` functions
 
 在使用 `which(vector > x)` 时要注意与 `vector > x` 的区别：
 
@@ -545,7 +449,7 @@ NA.1   NA   NA   NA
 [1] 3
 ```
 
-##### <a name="remove-columns"></a>How to remove columns?
+##### How to remove columns?
 
 有时也会遇到这样的情况：需要把原 data frame 删掉一些 column 来构成新的 data frame，这是可以把具体的 column 赋值为 NULL，比如：
 
@@ -560,7 +464,7 @@ NA.1   NA   NA   NA
 3 3 6
 ```
 
-##### <a name="extract-new-data-frame"></a>Making new data frames by extraction
+##### Making new data frames by extraction
 
 有时候和 remove column 的情况相反：我只需要原来 data frame 的某几个 columns 来构成新 data frame（如果原 column 数很多的话，一个一个删除起来很麻烦），这个操作比我想得要简单：
 
@@ -570,7 +474,7 @@ df2 <- data.frame(df$A, df$B) ## 直接拿你想要的 column 重新构造一个
 
 R 和 Java 有一点不同的是 R 的构造器真的很强大，所以不要陷入 Java 的思维去找单独的 extract 方法，灵活运用构造器可以带来很多惊喜。
 
-#### <a name="sort"></a>3.1.2 Sorting
+#### 3.1.2 Sorting
 
 ```r
 > sort(X$var1)
@@ -586,7 +490,7 @@ R 和 Java 有一点不同的是 R 的构造器真的很强大，所以不要陷
  [1] "AZ" "CA" "TX"
 ```
 
-#### <a name="order"></a>3.1.3 Ordering
+#### 3.1.3 Ordering
 
 ```r
 > df <- data.frame(A=sample(c(1, 1, 2, 2, 3)), B=sample(6:10), C=sample(11:15))
@@ -623,7 +527,7 @@ R 和 Java 有一点不同的是 R 的构造器真的很强大，所以不要陷
 > order(-df$A) ## use negative to sort descending
 ```
 
-#### <a name="plyr-order"></a>3.1.3 Ordering with `plyr`
+#### 3.1.3 Ordering with `plyr`
 
 ```r
 > library(plyr)
@@ -643,7 +547,7 @@ R 和 Java 有一点不同的是 R 的构造器真的很强大，所以不要陷
 5 1  7 15
 ```
 
-### <a name="summarize"></a>3.2 Summarizing Data
+### 3.2 Summarizing Data
 
 首先获取试验数据：
 
@@ -655,7 +559,7 @@ download.file(fileUrl,destfile="./data/restaurants.csv",method="auto") ## method
 restData <- read.csv("./data/restaurants.csv")
 ```
 
-#### <a name="about-rows-and-columns"></a>3.2.1 `dim`, `nrow`, `ncol`, `colnames`, `head`, `tail`, `summary` and `str`
+#### 3.2.1 `dim`, `nrow`, `ncol`, `colnames`, `head`, `tail`, `summary` and `str`
 
 太常用了我就不啰嗦了。
 
@@ -675,7 +579,7 @@ summary(restData)
 str(restData)
 ```
 
-#### <a name="quantile"></a>3.2.2 `quantile`
+#### 3.2.2 `quantile`
 
 ```r
 > quantile(restData$councilDistrict, na.rm=TRUE) ## remove NA
@@ -701,7 +605,7 @@ str(restData)
   1.000   2.000   9.000   7.191  11.000  14.000 
 ```
 
-<a name="quartile"></a>注意 summary 这里的 "Qu" 指的是 quartile [ˈkwɔ:taɪl] 而不是 quantile ['kwɒntaɪl]:
+注意 summary 这里的 "Qu" 指的是 quartile [ˈkwɔ:taɪl] 而不是 quantile ['kwɒntaɪl]:
 
 ![][Quartile_and_IQR]
 
@@ -712,7 +616,7 @@ str(restData)
 * Only 25% of the observations are greater than the third quartile $ Q_3 $
 * IQR, interquartile range, is the difference between the third and the first quartiles, i.e. $ IQR = Q_3 - Q_1 $
 
-<a name="boxplot"></a>这里顺带再图示一下 boxplot 的意思：
+这里顺带再图示一下 boxplot 的意思：
 
 ![][Boxplot]
 
@@ -729,13 +633,13 @@ str(restData)
 * $ Q_1 $ 也叫 lower hinge [hɪndʒ]
 * $ Q_3 $ 也叫 upper hinge
 
-<a name="nth-quantile"></a>最后注意一种表达方式：quantile a.k.a percentile，在 Week 3 Quiz 的 Question 2 中问到了 "What are the $30^{th}$ and $80^{th}$ quantiles of the resulting data?"，其实就是 $ u_{30\%} $ 和 $ u_{80\%} $，当然我更习惯写成 $ u_{0.30} $ 和 $ u_{0.80} $
+最后注意一种表达方式：quantile a.k.a percentile，在 Week 3 Quiz 的 Question 2 中问到了 "What are the $30^{th}$ and $80^{th}$ quantiles of the resulting data?"，其实就是 $ u_{30\%} $ 和 $ u_{80\%} $，当然我更习惯写成 $ u_{0.30} $ 和 $ u_{0.80} $
 
 ![][Percentiles]
 
 图片来源：[Lecture 2: Descriptive Statistics and Exploratory Data Analysis](http://www.gs.washington.edu/academics/courses/akey/56008/lecture/lecture2.pdf)
 
-#### <a name="table"></a>3.2.3 `table`
+#### 3.2.3 `table`
 
 `table` 的作用其实是统计取值的个数，比如：
 
@@ -763,7 +667,7 @@ str(restData)
 
 2 和 NORTHEASTERN 对应的 27 表示 `restData$councilDistrict == 2 && restData$policeDistrict == NORTHEASTERN` 的有 27 个（i.e. 27 rows）。
 
-#### <a name="check-NA"></a>3.2.4 Checking NA
+#### 3.2.4 Checking NA
 
 ```r
 ## You can use the complete.cases() function on a data frame, matrix, or vector, which returns a logical vector indicating which cases are complete, i.e., they have no missing values.
@@ -792,7 +696,7 @@ all(restData$zipCode > 0) ## 返回 TRUE / FALSE
 all(colSums(is.na(restData)) == 0) ## 当 column 太多时，colSums 看起来也不方便，这时用 all 就好了
 ```
 
-##### <a name="na.omit"></a>有点粗暴的处理手段：`na.omit`
+##### 有点粗暴的处理手段：`na.omit`
 
 `na.omit`: 去掉有 NA 的行
 
@@ -808,7 +712,7 @@ all(colSums(is.na(restData)) == 0) ## 当 column 太多时，colSums 看起来�
 
 一行内，哪怕只要有一个 NA，这一行也会被 `na.omit` 直接干掉。所以很有必要计算下干掉的行数的比例，比如你一下干掉 50% 的行数，这肯定是不妥的，这时就要转入 impute 程序。
 
-#### <a name="check-single-var"></a>3.2.5 Checking values with specific characteristics: 统计某单个变量的取值 (`%in%` and `unique`)
+#### 3.2.5 Checking values with specific characteristics: 统计某单个变量的取值 (`%in%` and `unique`)
 
 没啥好说的，注意 `%in%` 的用法就好（类似于 `collection.contains(obj)` 操作）。
 
@@ -837,7 +741,7 @@ FALSE  TRUE
 [1] 1 2 3 4 5 6
 ```
 
-#### <a name="xtab"></a>3.2.6 Cross Tabulation (`xtabs`): 统计多个变量的取值组合
+#### 3.2.6 Cross Tabulation (`xtabs`): 统计多个变量的取值组合
 
 这次换个小点的数据集来演示：
 
@@ -880,7 +784,7 @@ Gender   Admitted Rejected
 [1] 1198
 ```
 
-<a name="ftable"></a>当 `xtabs` 超过 2 维时，输出就有点难看了，这时可以用 `ftable` 来调整下输出的格式：
+当 `xtabs` 超过 2 维时，输出就有点难看了，这时可以用 `ftable` 来调整下输出的格式：
 
 ```r
 > xt <- xtabs(Freq ~ ., data=df)
@@ -895,7 +799,7 @@ Rejected Male        313 207 205 279 138 351
 
 注意一定要 `ftable(xtab)` 套用才行，直接 `ftable(Freq ~ ., data=df)` 的输出也是很长很散的。
 
-#### <a name="data-size"></a>3.2.7 Calculating the size of a dataset
+#### 3.2.7 Calculating the size of a dataset
 
 ```r
 > object.size(df)
@@ -906,9 +810,9 @@ Rejected Male        313 207 205 279 138 351
 0 Mb
 ```
 
-### <a name="add-new-var"></a>3.3 Adding New Variables (i.e. New Columns)
+### 3.3 Adding New Variables (i.e. New Columns)
 
-#### <a name="add-column-row"></a>3.3.1 How to add columns and rows
+#### 3.3.1 How to add columns and rows
 
 ```r
 > df <- data.frame(A=1:3, B=4:6, C=7:9) ## 原始 df
@@ -923,7 +827,7 @@ Rejected Male        313 207 205 279 138 351
 > df <- rbind(df, rep(0, 3)) ## add a row
 ```
 
-<a name="cbind-vector-get-matrix"></a>这里要强调一下：cbind 多个 vector 产生的是 matrix 而不是 data frame。之所以强调这一点是因为有些 generic function (比如 [melt](#melt)) 会根据实际的参数类型来选择不同的操作。
+这里要强调一下：cbind 多个 vector 产生的是 matrix 而不是 data frame。之所以强调这一点是因为有些 generic function (比如 [melt](#melt)) 会根据实际的参数类型来选择不同的操作。
 	
 根据 [Creating a data frame from two vectors using cbind](http://stackoverflow.com/questions/12787551/creating-a-data-frame-from-two-vectors-using-cbind)：
 
@@ -932,7 +836,7 @@ Rejected Male        313 207 205 279 138 351
 * `cbind.data.frame(A=1:3, B=4:6)` 是 df
 * `cbind(df, C=7:9)` 是 df
 
-<a name="re-order-column"></a>另外，添加 column 后总会有调整 column 顺序的需求，而且一般都是把 last column 往前排，这里介绍一种比较简单的方法：
+另外，添加 column 后总会有调整 column 顺序的需求，而且一般都是把 last column 往前排，这里介绍一种比较简单的方法：
 
 ```r
 data[, c(ncol(data),1:(ncol(data)-1))] ## move last column to first
@@ -942,7 +846,7 @@ data[, c(1:2,ncol(data),3:(ncol(data)-1))] ## move last column to third
 ## 发现规律了么？
 ```
 
-#### <a name="add-mathematical-var"></a>3.3.2 Creating mathematical variables
+#### 3.3.2 Creating mathematical variables
 
 * `abs(x)`: absolute value
 * `sqrt(x)`: square root
@@ -961,7 +865,7 @@ data[, c(1:2,ncol(data),3:(ncol(data)-1))] ## move last column to third
 * `x - mean(x)`: centering x
 * `(x - mean(x)) / sd(x)`: 计算 x 的 _z-score_
 
-#### <a name="add-seq-or-indices"></a>3.3.3 Creating sequences or indices
+#### 3.3.3 Creating sequences or indices
 
 用 `seq` 创建好再添加为新 column 就可以了：
 
@@ -977,7 +881,7 @@ seq(along = x)
 [1] 1 2 3 4 5
 ```
 
-#### <a name="add-subset-result"></a>3.3.4 Adding subset result
+#### 3.3.4 Adding subset result
 
 其实就是把 subset 的结果添加为新 column：
 
@@ -985,7 +889,7 @@ seq(along = x)
 restData$nearMe <- restData$neighborhood %in% c("Roland Park", "Homeland")
 ```
 
-<a name="ifelse"></a>还有一种 `ifelse` 操作，十分类似 Java 的三目运算符 `? :`:
+还有一种 `ifelse` 操作，十分类似 Java 的三目运算符 `? :`:
 
 ```r
 restData$zipState <- ifelse(restData$zipCode < 0, "invalid", "valid") ## restData$zipCode < 0? "invalid" : "valid"
@@ -997,17 +901,17 @@ restData$zipState <- ifelse(restData$zipCode < 0, "invalid", "valid") ## restDat
 ALevels = ifelse(df$A < 10000, "low", ifelse(df$A > 20000, "high", "med"))
 ```
 
-#### <a name="add-categorical-var"></a>3.3.5 Creating categorical variables
+#### 3.3.5 Creating categorical variables
 
-##### <a name="add-factor-var"></a>3.3.5.1 Creating factor variables
+##### 3.3.5.1 Creating factor variables
 
-<a name="factor-along-column"></a>根据 column 直接生成一个 factor 是很简单的，直接把 column 传给 `factor()` 就可以了：
+根据 column 直接生成一个 factor 是很简单的，直接把 column 传给 `factor()` 就可以了：
 
 ```r
 restData$zcf <- factor(restData$zipCode)
 ```
 
-<a name="arrange-levels"></a>有时候需要特别指定一下 levels：
+有时候需要特别指定一下 levels：
 
 ```r
 > yesno <- sample(c("yes","no"), size=10, replace=TRUE)
@@ -1033,7 +937,7 @@ Levels: no yes
 Levels: yes no
 ```
 
-<a name="relevel-and-asnumeric"></a> 这里要提一下，`relevel` 会影响 `as.numeric(factor)` 的值：
+ 这里要提一下，`relevel` 会影响 `as.numeric(factor)` 的值：
 
 ```r
 > as.numeric(factor(yesno))
@@ -1044,9 +948,9 @@ Levels: yes no
 
 可见 `as.numeric()` 的值是就是 level#，你是 level#1，那值就为 1，和 level#1 具体是什么没有关系。
 
-##### <a name="add-cut-var"></a>3.3.5.2 Cutting values into categories
+##### 3.3.5.2 Cutting values into categories
 
-###### <a name="the-cut-function"></a>Using `cut` function
+###### Using `cut` function
 
 还是用 [3.2 Summarizing Data](#summarize) 的试验数据。先看一个例子：
 
@@ -1079,7 +983,7 @@ Levels: [1,2] (2,9] (9,11] (11,14]
 
 你应该已经注意到了，`cut` 得到的结果是一个 factor，其实还可以指定 `labels=c("low", "below median", ...)` 来设置这个 factor 的 levels（注意 quantile 产生了 5 个值，但是只有 4 个区间，所以 labels 的长度也是 4）。如果直接设置 `labels=FALSE`，那么 `cut` 得到的结果就不再是一个 factor，而是一个 vector，若属于第一个分组，那么值就为 1，依此类推。
 
-###### <a name="the-cut2-function"></a>Easier cutting (with `cut2`)
+###### Easier cutting (with `cut2`)
 
 ```r
 > library(Hmisc)
@@ -1092,7 +996,7 @@ Levels: [1,2] (2,9] (9,11] (11,14]
 
 注意分组区间的开闭。结果和前面 `cut(include.lowest=TRUE)` 的恰好一致。
 
-###### <a name="the-mutate-function"></a>Using `mutate` function
+###### Using `mutate` function
 
 mutate 就是 "基因突变" "变异" 的那个意思，注意下用法就好了，和直接加 column 差不多：
 
@@ -1103,9 +1007,9 @@ restData2 <- mutate(restData, zipGroups=cut2(zipCode,g=4)) ## 作用是：以 re
 ## mutate 并不会改变 restData 的值
 ```
 
-### <a name="reshape"></a>3.4 Reshaping Data
+### 3.4 Reshaping Data
 
-#### <a name="melt"></a>3.4.1 Melting data frames
+#### 3.4.1 Melting data frames
 
 `melt` 是一个 generic function，它会根据实际的参数类型来确定具体调用哪个 melt 方法：
 	
@@ -1164,7 +1068,7 @@ melt(df, measure.vars=c("B", "C", "D")) ## 自动把剩下 A 设置成 id
 melt(df, id=1:2) ## 把第一项（A）和第二项（B）设置成 id，剩下的 var 设置成 measure.vars
 ```
 
-#### <a name="cast"></a>3.4.2 Casting data frames
+#### 3.4.2 Casting data frames
 
 `cast` 最直观的作用就是把 `melt` 的结果重新拼回来，分为 `acast` 和 `dcast` 两种，功能和用法是一样的，只是返回不同
 	
@@ -1198,7 +1102,7 @@ melt(df, id=1:2) ## 把第一项（A）和第二项（B）设置成 id，剩下�
 4 4 NA NA 13
 ```
 
-<a name="formula-valuevar-guessvalue"></a>注意这里是简写，完整一点的写法是：`dcast(mdf, A ~ variable, value.var=c("value"))`，只是 dcast 存在一个[自动识别 value.var 的机制（`guess_value` 函数）](http://127.0.0.1:22009/library/reshape2/html/guess_value.html)：
+注意这里是简写，完整一点的写法是：`dcast(mdf, A ~ variable, value.var=c("value"))`，只是 dcast 存在一个[自动识别 value.var 的机制（`guess_value` 函数）](http://127.0.0.1:22009/library/reshape2/html/guess_value.html)：
 
 > 1. Is value or (all) column present? If so, use that
 > 2. Otherwise, guess that last column is the value column
@@ -1250,7 +1154,7 @@ Using D as value column: use value.var to override.
 3 6 9 NA NA 12
 ```
 
-<a name="aggregation-rule"></a>上面还提到了 aggregation，这里其实有一个非常重要的规则：
+上面还提到了 aggregation，这里其实有一个非常重要的规则：
 
 > fun.aggregate: aggregation function needed if variables do not identify a single observation for each output cell. Defaults to `length` (with a message) if needed but not specified.
 
@@ -1290,7 +1194,7 @@ Using D as value column: use value.var to override.
 3 3 12.0
 ```
 
-<a name="margins-subset"></a>最后介绍下两个参数 margins 和 subset。
+最后介绍下两个参数 margins 和 subset。
 
 margins 这个描述起来有点困难，可以看下面代码的例子。目前已知 margins 取值可以是 formula 右边的任意一个 column 或者多个 column 的组合，或者直接 `margins=TRUE` 表示 all possible margins。文档里提到的 "grand_col" 和 "grand_row" 应该是 obsolete 了，至少我在 [源码](https://github.com/hadley/reshape/blob/master/R/helper-margins.r) 里没见着。
 
@@ -1327,7 +1231,7 @@ Using D as value column: use value.var to override.
 2 2 11
 ```
 
-#### <a name="calculate-on-groups"></a>3.4.3 Calculate on groups
+#### 3.4.3 Calculate on groups
 
 这一小节 slide 上是叫 "Averaging Values"，但是给的例子又是 sum 操作……其实就是这篇 [A quick primer on split-apply-combine problems](http://www.r-bloggers.com/a-quick-primer-on-split-apply-combine-problems) 里说的 split-apply-combine problems，也就是：
 
@@ -1381,7 +1285,7 @@ Using D as value column: use value.var to override.
 ## ave 的作用是在指定的列（或者列的 subset）上执行 FUN（默认是 mean），然后将计算结果附到该列的每个值的后面
 ```
 
-##### <a name="the-aggregate-function"></a>Using `aggregate` function
+##### Using `aggregate` function
 
 简单举个例子：
 
@@ -1401,7 +1305,7 @@ aggregate(. ~ cyl + gear, data=mtcars, FUN=mean)
 * `row.names(mtcars)` 是车名，aggregate 结果的 `row.names` 是 "1" "2" "3" "4" "5" "6" "7" "8"
 
 
-### <a name="merge"></a>3.5 Merging Data
+### 3.5 Merging Data
 
 数据准备：
 
@@ -1415,7 +1319,7 @@ reviews = read.csv("./data/reviews.csv");
 solutions = read.csv("./data/solutions.csv")
 ```
 
-#### <a name="the-merge-function"></a>3.5.1 Using `merge`
+#### 3.5.1 Using `merge`
 
 ```r
 mergedData = merge(reviews, solutions, by.x="solution_id", by.y="id", all=TRUE)
@@ -1430,7 +1334,7 @@ mergedData = merge(reviews, solutions, by.x="solution_id", by.y="id", all=TRUE)
 	
 不指定 by.x 或者 by.y 的话，merge all common column names
 
-#### <a name="the-join-function"></a>3.5.2 Using `join` in the `plyr` package
+#### 3.5.2 Using `join` in the `plyr` package
 
 Faster, but less full featured. Defaults to left join, see help file for more.
 
@@ -1451,7 +1355,7 @@ arrange(join(df1,df2), id) ## arrange 的作用是把行号和 id 都排列整�
 10 10  2.8065  0.5794
 ```
 
-#### <a name="the-join-all-function"></a>3.5.3 Using `join_all` if you have multiple data frames
+#### 3.5.3 Using `join_all` if you have multiple data frames
 
 ```r
 df1 = data.frame(id=sample(1:10), x=rnorm(10))
@@ -1472,7 +1376,7 @@ arrange(join_all(dfList), id)
 10 10 -0.3579197 -0.8578622  1.57283904
 ```
 
-#### <a name="the-stack-function"></a>3.5.4 Using `stack` to combine vectors
+#### 3.5.4 Using `stack` to combine vectors
 
 You have several vectors and you want to combine these vectors into a large one and simultaneously create a parallel factor that identifies each value’s origin. 
 
@@ -1502,9 +1406,9 @@ allGrade
 9     95   jrs
 ```
 
-### <a name="edit-text"></a>3.6 Editing Text Variables
+### 3.6 Editing Text Variables
 
-#### <a name="rule-for-text"></a>3.6.1 Important points about text in data sets
+#### 3.6.1 Important points about text in data sets
 
 * Names of variables should be
 	* All lower case when possible
@@ -1518,7 +1422,7 @@ allGrade
 	* Should usually be made into factor variables (depends on application)
 	* Should be descriptive (use TRUE/FALSE instead of 0/1 and Male/Female versus 0/1 or M/F)
 	
-#### <a name="process-var-name"></a>3.6.2 Best practices of processsing variable names
+#### 3.6.2 Best practices of processsing variable names
 
 准备数据：
 
@@ -1529,14 +1433,14 @@ download.file(fileUrl,destfile="./data/cameras.csv",method="auto")
 cameraData <- read.csv("./data/cameras.csv")
 ```
 
-##### <a name="lower-case-when-possible"></a>Make lower case when possible
+##### Make lower case when possible
 
 ```r
 names(cameraData)
 names(cameraData) <- tolower(names(cameraData)) ## BTW, toupper() makes it upper case
 ```
 
-##### <a name="delete-dot-1"></a>Delete suffix ".1" like in "Location.1"
+##### Delete suffix ".1" like in "Location.1"
 
 ```r
 > splitNames = strsplit(names(cameraData),"\\.")
@@ -1548,7 +1452,7 @@ names(cameraData) <- tolower(names(cameraData)) ## BTW, toupper() makes it upper
 [5] "intersection" "Location"  
 ```
 
-##### <a name="delete-underscore"></a>Delete underscore
+##### Delete underscore
 
 ```r
 > v <- c("A", "B", "C_1")
@@ -1566,13 +1470,13 @@ names(cameraData) <- tolower(names(cameraData)) ## BTW, toupper() makes it upper
 [1] "A"   "B"   "C11"
 ```
 
-##### <a name="rename-a-column"></a>Rename a single column
+##### Rename a single column
 
 ```r
 > names(df)[names(df) == 'old.var.name'] <- 'new.var.name'
 ```
 
-#### <a name="grep-grepl"></a>3.6.3 `grep` and `grepl`
+#### 3.6.3 `grep` and `grepl`
 
 ```r
 > grep("Alameda", cameraData$intersection) ## 返回 index
@@ -1604,7 +1508,7 @@ character(0)
 > cameraData3 <- cameraData[!grepl("Alameda",cameraData$intersection), ]
 ```
 
-#### <a name="string-functions"></a>3.6.4 Some other String functions
+#### 3.6.4 Some other String functions
 
 ```r
 > library(stringr)
@@ -1653,7 +1557,7 @@ character(0)
 [1] "001" "002" "003"
 ```
 
-#### <a name="reg-exp"></a>3.6.5 Regular Expressions
+#### 3.6.5 Regular Expressions
 
 Regular Expression has 2 components:
 
@@ -1699,7 +1603,7 @@ Regular Expression has 2 components:
 	* 比如 `^s(.*)s` 会匹配整个 "sitting at starbucks"，而不是 "sitting at s"
 	* The greediness of `*` can be turned off with the `?`, as in `^s(.*?)s$`
 
-#### <a name="work-with-date"></a>3.6.6 Working with Dates
+#### 3.6.6 Working with Dates
 
 ```r
 > d1 = date()
@@ -1742,7 +1646,7 @@ Time difference of -1 days
 [1] -1
 ```
 
-<a name="locale"></a>这里就 locale 说两句：
+这里就 locale 说两句：
 
 * 这里 "LC_TIME" 和 "C" 是 \*nix 的概念，并不是 R 特有的。设置 "LC_TIME" 为 "C" 表示 "use the default locale for LC_TIME"，具体可以参见 [What does “LC_ALL=C” do?](http://unix.stackexchange.com/questions/87745/what-does-lc-all-c-do)
 * 可以用 `strsplit(Sys.getlocale(), ";")` 来查看当前的 locale 信息。`strsplit` 是为了让输出好看一点~
@@ -1760,7 +1664,7 @@ attr(,"origin")
 [1] "1970-01-01"
 ```
 
-<a name="lubridate-pkg"></a>
+
 
 ```r
 > library(lubridate); 

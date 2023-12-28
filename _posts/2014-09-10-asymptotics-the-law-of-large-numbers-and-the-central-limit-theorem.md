@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Asymptotics: The Law of Large Numbers and The Central Limit Theorem"
-description: "大数法则与中心极限定理"
 category: Math
-tags: [Math-Statistics]
+description: 大数法则与中心极限定理
+tags:
+- Math-Statistics
+title: 'Asymptotics: The Law of Large Numbers and The Central Limit Theorem'
 ---
-{% include JB/setup %}
 
 总结自 Coursera lecture [Statistical Inference](https://class.coursera.org/statinference-005/lecture) section [07 Asymptotics](https://class.coursera.org/statinference-005/lecture/163)。新的 slide 省略了部分推导过程，最好同时参考下旧的 slide。
 

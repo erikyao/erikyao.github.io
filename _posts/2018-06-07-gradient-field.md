@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Gradient Field"
-description: ""
 category: Math
-tags: [Math-Algebra]
+description: ''
+tags:
+- Math-Algebra
+title: Gradient Field
 ---
-{% include JB/setup %}
 
 $$
 \newcommand{\icol}[1]{

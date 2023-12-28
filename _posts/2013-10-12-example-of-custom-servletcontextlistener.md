@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "自定义 ServletContextListener 的写法举例"
-description: ""
 category: Java
-tags: [Servlet]
+description: ''
+tags:
+- Servlet
+title: 自定义 ServletContextListener 的写法举例
 ---
-{% include JB/setup %}
 
 ```xml
 <context-param>

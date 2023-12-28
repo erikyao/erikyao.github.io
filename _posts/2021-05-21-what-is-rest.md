@@ -1,31 +1,11 @@
 ---
-layout: post
-title: "What is REST?"
-description: ""
 category: Thought
+description: ''
 tags: []
+title: What is REST?
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
-
-## ToC
-
-- [1. What does REST mean literally?](#1-what-does-rest-mean-literally)
-  - [1.1 Representation](#11-representation)
-  - [1.2 State & Transfer](#12-state--transfer)
-- [2. Digression](#2-digression)
-  - [2.1 REST 和 OSI 七层模型的 Representation Layer 没有啥关系](#21-rest-和-osi-七层模型的-representation-layer-没有啥关系)
-  - [2.2 What does "REST is stateless" mean?](#22-what-does-rest-is-stateless-mean)
-- [3. REST 提倡的设计原则、风格](#3-rest-提倡的设计原则风格)
-  - [3.1 演化第一步：REST 是一种 client-server (CS) architectural style](#31-演化第一步rest-是一种-client-server-cs-architectural-style)
-  - [3.2 演化第二步：REST 使用 stateless communication $\Rightarrow$ REST 是一种 client-stateless-server (CSS) style](#32-演化第二步rest-使用-stateless-communication-rightarrow-rest-是一种-client-stateless-server-css-style)
-    - [3.2.1 好处一：提高了 application 的 visibility](#321-好处一提高了-application-的-visibility)
-    - [3.2.2 好处二：提高了 application 的 reliability](#322-好处二提高了-application-的-reliability)
-    - [3.2.3 好处三：提高了 application 的 scalability](#323-好处三提高了-application-的-scalability)
-  - [3.3 演化第三步：REST 使用 cache $\Rightarrow$ REST 是一种 client-cache-stateless-server (C$SS) style](#33-演化第三步rest-使用-cache-rightarrow-rest-是一种-client-cache-stateless-server-css-style)
-  - [3.4 演化第四步：REST 使用 uniform interface](#34-演化第四步rest-使用-uniform-interface)
-  - [3.5 演化第五步：REST 是 layered system $\Rightarrow$ REST 是一种 (使用 uniform interface 的) layered-client-cache-stateless-server (LC$SS) style](#35-演化第五步rest-是-layered-system-rightarrow-rest-是一种-使用-uniform-interface-的-layered-client-cache-stateless-server-lcss-style)
-  - [3.6 演化第六步：REST 允许 code-on-demand $\Rightarrow$ REST 是一种 (使用 uniform interface 的) layered-code-on-demand-client-cache-stateless-server (LCODC$SS) style](#36-演化第六步rest-允许-code-on-demand-rightarrow-rest-是一种-使用-uniform-interface-的-layered-code-on-demand-client-cache-stateless-server-lcodcss-style)
-  - [3.7 总结](#37-总结)
 
 ## 1. What does REST mean literally?
 

@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Expectation Maximization Algorithm Intuition"
-description: ""
 category: Machine-Learning
-tags: [EM]
+description: ''
+tags:
+- EM
+title: Expectation Maximization Algorithm Intuition
 ---
-{% include JB/setup %}
 
 之前写过一篇 [Expectation-Maximization Algorithm](/machine-learning/2014/12/28/expectation-maximization-algorithm)，但是太细碎了，没有抓住核心。
 

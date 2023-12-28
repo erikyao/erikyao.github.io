@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "GET 与 POST 的区别"
-description: ""
 category: Network
+description: ''
 tags: []
+title: GET 与 POST 的区别
 ---
-{% include JB/setup %}
 
 ZT. 转载茫茫多，原文地址不可考。
 
@@ -18,4 +16,3 @@ ZT. 转载茫茫多，原文地址不可考。
 1. Get 限制 Form 表单的数据集的值必须为 ASCII 字符；而 Post 支持整个 ISO10646 字符集，默认是用 ISO-8859-1 编码。
 1. Get 是 Form 的默认方法。
 1. Post 页面不能被加入收藏夹中，Get 页面可以。
-  

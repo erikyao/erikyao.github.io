@@ -1,22 +1,17 @@
 ---
-layout: post
-title: "C++: Automatic type conversion / explicit"
-description: ""
 category: C++
-tags: [copy-constructor]
+description: ''
+tags:
+- copy-constructor
+title: 'C++: Automatic type conversion / explicit'
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
 
 整理自：_Thinking in C++_
 
 -----
 
-ToC:
-
-- [1. Constructor conversion](#1-constructor-conversion)
-- [2. explicit: banning constructor conversion](#2-explicit-banning-constructor-conversion)
-- [3. Operator conversion](#3-operator-conversion)
-- [4. Operand Reflexivity](#4-operand-reflexivity)
 
 ## 1. Constructor conversion
 

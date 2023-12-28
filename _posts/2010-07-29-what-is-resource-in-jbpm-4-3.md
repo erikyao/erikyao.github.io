@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "jBPM-4.3 流程定义 zip 包中的所有文件都是资源"
-description: ""
 category: jBPM-4.3
+description: ''
 tags: []
+title: jBPM-4.3 流程定义 zip 包中的所有文件都是资源
 ---
-{% include JB/setup %}
 
 ```java
 ZipInputStream zis = new ZipInputStream(new FileInputStream("process.jpdl.zip"));  

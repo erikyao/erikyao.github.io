@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Python: List multiplication is actually repetition"
-description: ""
 category: Python
+description: ''
 tags: []
+title: 'Python: List multiplication is actually repetition'
 ---
-{% include JB/setup %}
 
 之前遇到过这么一个例子：
 

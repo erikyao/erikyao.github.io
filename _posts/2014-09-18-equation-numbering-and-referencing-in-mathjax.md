@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Equation Numbering and Referencing in MathJax"
-description: ""
 category: Latex
-tags: [MathJax]
+description: ''
+tags:
+- MathJax
+title: Equation Numbering and Referencing in MathJax
 ---
-{% include JB/setup %}
 
 ## 1. Equation Numbering
 

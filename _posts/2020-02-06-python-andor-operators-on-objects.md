@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Python: <i>and/or</i> Operators on Objects"
-description: ""
 category: Python
+description: ''
 tags: []
+title: 'Python: <i>and/or</i> Operators on Objects'
 ---
-{% include JB/setup %}
 
 今天才发现如果是两个 objects 做 `and` 或者 `or` 的时候，返回的不是 boolean 而是 object。
 

@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Java: SimpleDateFormat 不是线程安全的"
-description: ""
 category: Java
+description: ''
 tags: []
+title: 'Java: SimpleDateFormat 不是线程安全的'
 ---
-{% include JB/setup %}
 
 见 [stackoverflow: Why is Java's SimpleDateFormat not thread-safe?](http://stackoverflow.com/questions/6840803/simpledateformat-thread-safety)
 

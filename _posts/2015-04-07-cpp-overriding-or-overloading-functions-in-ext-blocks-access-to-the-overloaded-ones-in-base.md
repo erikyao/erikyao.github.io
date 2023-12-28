@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "C++: 在子类中 override 或 overload 父类方法会屏蔽对 overloaded 方法的访问. This is different from Java!"
-description: ""
 category: C++
+description: ''
 tags: []
+title: 'C++: 在子类中 override 或 overload 父类方法会屏蔽对 overloaded 方法的访问. This is different
+  from Java!'
 ---
-{% include JB/setup %}
 
 整理自：_Thinking in C++_
 

@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Java: 有关向下转型的必要性和动态绑定的细节"
-description: ""
 category: Java
+description: ''
 tags: []
+title: 'Java: 有关向下转型的必要性和动态绑定的细节'
 ---
-{% include JB/setup %}
 
 2021-01-03 更新：大一统至 [Single Dispatch in Java and Python](/java/2021/01/03/single-dispatch-in-java-and-python)
 
@@ -62,4 +60,4 @@ Java的方法调用过程：
 
 由于无法使用动态绑定，所以要正确调用 `x.g()` 方法，向下转型 `((MoreUseful)x)` 就必不可少了。
 
-_p.s._ 方法是位于代码段内存的；对象中会存一个指针指向方法所在的代码段内存。  
+_p.s._ 方法是位于代码段内存的；对象中会存一个指针指向方法所在的代码段内存。

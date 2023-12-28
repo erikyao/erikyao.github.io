@@ -1,24 +1,13 @@
 ---
-layout: post
-title: "C++: Generic Algorithm Examples"
-description: ""
 category: C++
+description: ''
 tags: []
+title: 'C++: Generic Algorithm Examples'
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
 
 整理自：_Thinking in C++, Volume 2_
-
------
-
-ToC:
-
-- [1. `copy(a.begin, a.end, b.begin)` / `equal(a.begin, a.end, b.begin)` / `back_inserter(vector)`](#1-copyabegin-aend-bbegin--equalabegin-aend-bbegin--back_insertervector)
-- [2. `remove_copy_if(a.begin, a.end, b.begin, predicateA)` / `remove_copy_if(a.begin, a.end, b.begin, predicateA, replacement)` / `replace_if(a.begin, a.end, predicateA, replacement)`](#2-remove_copy_ifabegin-aend-bbegin-predicatea--remove_copy_ifabegin-aend-bbegin-predicatea-replacement--replace_ifabegin-aend-predicatea-replacement)
-- [3. `count_if(a.begin, a.end, predicateA)` / `find(a.begin, a.end, target)`](#3-count_ifabegin-aend-predicatea--findabegin-aend-target)
-- [4. `ostream_iterator<T>(ostream, delimiter)` / `istream_iterator<T>(istream)`](#4-ostream_iteratortostream-delimiter--istream_iteratortistream)
-- [5. `for_each(a.begin, a.end, func)`](#5-for_eachabegin-aend-func)
-- [6. `transform(a.begin, a.end, b.begin, func)`](#6-transformabegin-aend-bbegin-func)
 
 -----
 

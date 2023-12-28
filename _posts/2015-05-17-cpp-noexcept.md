@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "C++: noexcept"
-description: ""
 category: C++
-tags: [C++11]
+description: ''
+tags:
+- C++11
+title: 'C++: noexcept'
 ---
-{% include JB/setup %}
 
 整理自 _C++ Primer, 5th Edition_
 

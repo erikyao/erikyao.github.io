@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Handy Python Profiler: <i>line_profiler</i> + <i>kernprof</i>"
-description: ""
 category: Python
+description: ''
 tags: []
+title: 'Handy Python Profiler: <i>line_profiler</i> + <i>kernprof</i>'
 ---
-{% include JB/setup %}
 
 Just take a look at an exemplar output and you'll know what [they](https://github.com/rkern/line_profiler) are designed for.
 

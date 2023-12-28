@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Python: Zip"
-description: ""
 category: Python
+description: ''
 tags: []
+title: 'Python: Zip'
 ---
-{% include JB/setup %}
 
 `zip` 这个函数，用起来总是没有什么信心……我们上一下 [The Python Standard Library](https://docs.python.org/3/library/functions.html#zip) 上的示例代码看看（注意：这并非源码，因为现在已经是返回一个 `zip` 对象了）：
 

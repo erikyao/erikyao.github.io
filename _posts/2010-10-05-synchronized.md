@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Java 多线程：synchronized"
-description: ""
 category: Java
-tags: [Java-Concurrency]
+description: ''
+tags:
+- Java-Concurrency
+title: Java 多线程：synchronized
 ---
-{% include JB/setup %}
 
 首先明确一点，同步方法本质上也是一个同步控制块（仅针对于锁定 `this` 的情况，如果同步控制块锁定的不是 `this`，那么它是不能直接改写为同步方法的），区别在于同步方法的粒度是整个方法，而同步控制块的粒度可以是方法的一部分。
 

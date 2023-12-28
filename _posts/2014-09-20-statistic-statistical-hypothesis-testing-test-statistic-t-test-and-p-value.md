@@ -1,11 +1,12 @@
 ---
-layout: post
-title: "Statistic, Statistical Hypothesis Test(ing), Test Statistic, t-test and p-value"
-description: ""
 category: Math
-tags: [Math-Statistics]
+description: ''
+tags:
+- Math-Statistics
+title: Statistic, Statistical Hypothesis Test(ing), Test Statistic, t-test and p-value
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
 
 总结自：
 
@@ -14,19 +15,6 @@ tags: [Math-Statistics]
 * [Test Statistic - Wikipedia](http://en.wikipedia.org/wiki/Test_statistic)
 * [Student's t-test - Wikipedia](http://en.wikipedia.org/wiki/Student%27s_t-test)
 * [Statistics Tutorial: P-Values and T-Tables](http://www.gla.ac.uk/sums/users/jdbmcdonald/PrePost_TTest/pandt1.html)
-
------
-
-ToC:
-
-- [1. Statistic](#1-statistic)
-	- [1.1 Definition](#11-definition)
-	- [1.2 Types](#12-types)
-	- [1.3 Statistical Properties](#13-statistical-properties)
-- [2. Statistical Hypothesis Test(ing)](#2-statistical-hypothesis-testing)
-- [3. Test Statistic](#3-test-statistic)
-- [4. t-test](#4-t-test)
-- [5. p-value](#5-p-value)
 
 -----
 

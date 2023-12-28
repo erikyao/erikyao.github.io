@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "C++: pointer to class members"
-description: ""
 category: C++
+description: ''
 tags: []
+title: 'C++: pointer to class members'
 ---
-{% include JB/setup %}
 
 整理自：_Thinking in C++_
 

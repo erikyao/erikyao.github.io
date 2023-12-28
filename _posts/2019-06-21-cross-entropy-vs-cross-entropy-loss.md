@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Cross Entropy vs Cross Entropy Loss"
-description: ""
-category: Math 
-tags: [entropy]
+category: Math
+description: ''
+tags:
+- entropy
+title: Cross Entropy vs Cross Entropy Loss
 ---
-{% include JB/setup %}
 
 这俩是有区别的，我一直没有注意直到我发现公式上的区别。我没有注意的原因应该是 regression 没有显式使用 cross entropy loss，而 classification 的 cross entropy loss 是对原生 cross entropy 的扩展。
 

@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Python: play with backslashes"
-description: ""
 category: Python
-tags: [escape]
+description: ''
+tags:
+- escape
+title: 'Python: play with backslashes'
 ---
-{% include JB/setup %}
 
 最近研究 regular expression 顺便补了下 escape 的课 (参 [Escape Character / Control Character / Python Raw Strings / Python Bytes Literals](/compiler/2021/05/07/escape-character-control-character-python-raw-strings))，然后我今天就发现了 python 光一个 escape character `\` 就能玩出花儿，实验如下：
 

@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Python: Yes, coroutines are complicated, but they can be used as simply as generators"
-description: ""
 category: Python
+description: ''
 tags: []
+title: 'Python: Yes, coroutines are complicated, but they can be used as simply as
+  generators'
 ---
-{% include JB/setup %}
 
 The fact is that we often take the `.send()` sematics of coroutines too seriosly that we simply ignore the possibility to use them just like generators.
 

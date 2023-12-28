@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Eukaryotic Cell Structure"
-description: ""
 category: Biology
+description: ''
 tags: []
+title: Eukaryotic Cell Structure
 ---
-{% include JB/setup %}
 
 - Cell
 	- **Cell wall** (细胞壁)

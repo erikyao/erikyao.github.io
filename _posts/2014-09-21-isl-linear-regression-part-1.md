@@ -1,59 +1,17 @@
 ---
-layout: post
-title: "ISL: Linear Regression - Part 1"
-description: ""
 category: Machine-Learning
+description: ''
 tags: []
+title: 'ISL: Linear Regression - Part 1'
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
 
 总结自 Chapter 3, An Introduction to Statistical Learning.
-
------
-
-## 目录
-  
-### 0. [Overview](#Overview)
-
-### 1. [Simple Linear Regression](#Simple-Linear-Regression)
-  
-- [1.1 Model](#Slr-Model)   
-- [1.2 Estimating the Coefficients](#Estimating-the-Coefficients) 
-	- [1.2.1 Residual and RSS](#Residual-and-RSS)
-	- [1.2.2$\hat{\beta}_0$ and $\hat{\beta}_1$](#beta0-and-beta1)
-- [1.3 Assessing the Accuracy of the Coefficient Estimates](#Assessing-the-Accuracy-of-the-Coefficient-Estimates)
-	- [1.3.1 True Relationship](#True-Relationship)
-	- [1.3.2 Estimate Basis](#Estimate-Basis)
-		- [Unbiased Estimate](#Unbiased-Estimate)
-		- [How far off will a single estimate $\hat \mu$ be?](#Standard-Error)
-	- [1.3.3 From $\hat \mu$ to $\hat{\beta}_0$ and $\hat{\beta}_1$](#mu-to-beta)
-		- [Population Regression Line and Least Squares Line](#PRL-and-LSL)
-		- [Analogy](#Analogy)
-	- [1.3.4 Accuracy Measurements for $\hat{\beta}_0$ and $\hat{\beta}_1$](#Accuracy-Measurements-for-beta)
-		- [They are unbiased](#beta-are-unbiased)
-		- [Their Standard Error](#Standard-Error-of-beta)
-		- [Their 95% CI](#CI-of-beta)
-		- [Hypothesis Tests on the Coefficients (t-statistic and t-test)](#Hypothesis-Tests-on-beta)
-- [1.4 Assessing the Accuracy of the Model](#Assessing the-Accuracy-of-the-Model)
-	- [1.4.1 RSE: Residual Standard Error](#RSE)
-	- [1.4.2$R^2$ Statistic](#R-squared)
-
-### 2. [Multiple Linear Regression](#Multiple-Linear-Regression)
-
-- [2.1 Model](#Mlr-Model)
-- [2.2 Estimating the Coefficients](#Estimating-the-mlr-Coefficients)
-- [2.3 Question 1: Is There a Relationship Between the Response and Predictors? Or, among $\hat{\beta}_1, \cdots, \hat{\beta}_p$, is there at least one $\hat{\beta}_i \neq 0$? (F-statistic and F-test)](#Mlr-Q1)
-- [2.4 Question 2: How to Decide on Important Variables? Or, do all the predictors help to explain$y$, or is only a subset of the predictors useful?](#Mlr-Q2)
-- [2.5 Question 3: How to Measure the Model Fit? Or, how well does the model fit the data?](#Mlr-Q3)
-- [2.6 Question 4: How accurate is our prediction?](#Mlr-Q4)
-	- [2.6.1 CI for $\hat y$](#CI-for-hat-Y)
-		- [Population Regression Plane and Least Squares Plane](#PRP-and-LSP)
-	- [2.6.2 Model Bias](#Model-Bias)
-	- [2.6.3 Prediction Intervals](#Prediction-Intervals)
 		
 -----
 
-## <a name="Overview"></a>0. Overview
+## 0. Overview
 
 Linear Regression is a **supervised** learning approach, especially useful for **predicting** a **quantitative** response.  
 
@@ -69,9 +27,9 @@ It serves to answer these questions:
 7. Is there synergy among $x_i$'s?
 	* Perhaps spending $50,000 on $x_a$ and $50,000 on $x_b$ Results in more sales $Y$ than allocating $100,000 to either individually. In marketing, this is known as a _synergy_ ([ˈsɪnədʒi], 协同) effect, while in statistics it is called an _interaction_ effect.
 	
-## <a name="Simple-Linear-Regression"></a>1. Simple Linear Regression
+## 1. Simple Linear Regression
 
-### <a name="Slr-Model"></a>1.1 Model
+### 1.1 Model
 
 The simplicity of the method lies in the fact that it predicts a quantitative response $Y$ on a **single predictor** $X$. It assumes that there is approximately a linear relationship between$X$ and $Y$, as:
 
@@ -107,7 +65,7 @@ The error term $\epsilon$ is a catch-all for what we miss with this simple model
 
 这个 error term $\epsilon$ 有点物理上 "测量误差" 的感觉。我们做 estimate 就像是在 "估读"。
 
-### <a name="Estimating-the-Coefficients"></a>1.2 Estimating the Coefficients
+### 1.2 Estimating the Coefficients
 
 We want to find an intercept $\hat{\beta}_0$ and a slope $\hat{\beta}_1$ such that the resulting line is as **close** as possible to the n training data points.
 
@@ -115,7 +73,7 @@ There are a number of ways of measuring **closeness**. However, by far the most 
 
 Before introducing the _least squares_ approach, let's meet residual first.  
 
-#### <a name="Residual-and-RSS"></a>1.2.1 Residual and RSS
+#### 1.2.1 Residual and RSS
  
 Let $\hat{y}_i = \hat{\beta}_0 + \hat{\beta}_1 x_i$ be the prediction for $y$ based on the i^th value of $X$.  
 
@@ -132,7 +90,7 @@ $$
 \end{align}
 $$
 
-#### <a name="beta0-and-beta1"></a>1.2.2$\hat{\beta}_0$ and $\hat{\beta}_1$
+#### 1.2.2$\hat{\beta}_0$ and $\hat{\beta}_1$
 
 The least squares approach chooses $\hat{\beta}_0$ and $\hat{\beta}_1$ to minimize the RSS, which are
 
@@ -151,9 +109,9 @@ where $\bar y \equiv \frac{1}{n} \sum_{i=1}^{n}{y_i}$ and $\bar x \equiv \frac{1
 
 In other words, $(\ref{eq1.5})$ defines the **least squares coefficient estimates** for simple linear regression.
 
-### <a name="Assessing-the-Accuracy-of-the-Coefficient-Estimates"></a>1.3 Assessing the Accuracy of the Coefficient Estimates
+### 1.3 Assessing the Accuracy of the Coefficient Estimates
 
-#### <a name="True-Relationship"></a>1.3.1 True Relationship
+#### 1.3.1 True Relationship
 
 注意这里有三个 Relationship 层次：
 
@@ -165,17 +123,17 @@ In other words, $(\ref{eq1.5})$ defines the **least squares coefficient estimate
 
 Assessing the Accuracy of the Coefficient Estimates，那肯定是 层次(ii) 和 层次(iii) 之间的问题。
 
-#### <a name="Estimate-Basis"></a>1.3.2 Estimate Basis
+#### 1.3.2 Estimate Basis
 
 Using information from a sample to estimate characteristics of a large population is a standard statistical approach.  
 
 For example, suppose that we are interested in knowing the population mean$\mu$ of some random variable $y$. Unfortunately, $\mu$ is unknown, but we do have access to n observations from $y$, which we can write as $y_1, \cdots, y_n$, and which we can use to estimate $\mu$. A reasonable estimate is $\hat \mu = \bar y$, where $\bar y = \frac{1}{n} \sum_{i=1}^{n}{y_i}$ is the sample mean. The sample mean and the population mean are different, but in general the sample mean will provide a good estimate of the population mean.  
 
-##### <a name="Unbiased-Estimate"></a>Unbiased Estimate
+##### Unbiased Estimate
 
 If we use the sample mean$\hat \mu$ to estimate $\mu$, this estimate is **unbiased**, in the sense that on average, we expect $\hat \mu$ to equal $\mu$. It means that on the basis of one particular set of observations $y_1, \cdots, y_n$, $\hat \mu$ might overestimate $\mu$, and on the basis of another set of observations, $\hat \mu$ might underestimate $\mu$. But if we could average a huge number of estimates of $\mu$ obtained from a huge number of sets of observations, then this average would exactly equal $\mu$. Hence, an unbiased estimator does not **systematically** over- or under-estimate the true parameter.
 
-##### <a name="Standard-Error"></a>How far off will a single estimate $\hat \mu$ be?
+##### How far off will a single estimate $\hat \mu$ be?
 
 We have established that the average of $\hat \mu$'s over many data sets will be very close to $\mu$, but that a single estimate $\hat \mu$ may be a substantial underestimate or overestimate of $\mu$. How far off will $\hat \mu$ be? In general, we answer this question by computing the **standard error** of $\hat \mu$, as
 
@@ -190,17 +148,17 @@ where $\sigma$ is the standard deviation of the realizations $y_i$ of Y (In prob
 
 Roughly speaking, the standard error tells us the average amount that this estimate $\hat \mu$ differs from the actual value of $\mu$(Central Limit Theorem, $\hat \mu \to \sim \mbox{N}(\mu, \frac{\sigma^2}{n})$). It also tells us how this deviation shrinks with n — the more observations we have, the smaller the standard error of $\hat \mu$.
 
-#### <a name="mu-to-beta"></a>1.3.3 From $\hat \mu$ to $\hat{\beta}_0$ and $\hat{\beta}_1$
+#### 1.3.3 From $\hat \mu$ to $\hat{\beta}_0$ and $\hat{\beta}_1$
 
 $\hat \mu$ 是 sample mean，同时也是 estimate for population mean。类比一下，$\hat{\beta}_0$ and $\hat{\beta}_1$ 是 estimates for the model coefficients，那应该也可以叫做 "sample model coefficients"。从这个意义上来说，sample 和 training data set 也是同一层次的概念。
 
-##### <a name="PRL-and-LSL"></a>Population Regression Line and Least Squares Line
+##### Population Regression Line and Least Squares Line
 
 The model given by $(\ref{eq1.3})$ defines the _population regression line_, which is the best linear approximation to the true relationship between $X$ and $y$.  
 
 The least squares regression coefficient estimates $(\ref{eq1.5})$ characterize the _least squares line_.
 
-##### <a name="Analogy"></a>Analogy
+##### Analogy
 
 | OO                           | XX                         | 
 |------------------------------|----------------------------|
@@ -209,13 +167,13 @@ The least squares regression coefficient estimates $(\ref{eq1.5})$ characterize 
 | population mean $\mu$  | population regression line coefficient $\beta_0$ and $\beta_1$ |
 | sample mean $\hat \mu$ | least squares regression coefficient estimates $\hat{\beta}_0$ and $\hat{\beta}_1$ |
 
-#### <a name="Accuracy-Measurements-for-beta"></a>1.3.4 Accuracy Measurements for $\hat{\beta}_0$ and $\hat{\beta}_1$
+#### 1.3.4 Accuracy Measurements for $\hat{\beta}_0$ and $\hat{\beta}_1$
 
-##### <a name="beta-are-unbiased"></a>They are unbiased
+##### They are unbiased
 
 The property of unbiasedness holds for the least squares coefficient estimates given by $(\ref{eq1.5})$ as well: if we estimate $\beta_0$ and $\beta_1$ on the basis of a particular data set, then our estimates won't be exactly equal to $\beta_0$ and $\beta_1$. But if we could average the estimates obtained over a huge number of data sets, then the average of these estimates would be spot on.
 
-##### <a name="Standard-Error-of-beta"></a>Their Standard Error
+##### Their Standard Error
 
 In a similar vein, we can measure how close $\hat{\beta}_0$ and $\hat{\beta}_1$ are to the true values $\beta_0$ and $\beta_1$, by computing the standard errors
 
@@ -240,7 +198,7 @@ Notes:
 * When $X_i$'s are more spread out, $SE(\hat{\beta}_1)$ is smaller; intuitively we have more leverage to estimate a slope when this is the case. (我觉得这里的意思是 $X_i$'s 越分散，我们对 slope 的 accuracy 的 confidence 就越大)
 * When $\bar x = 0$, $SE(\hat{\beta}_0) = SE(\hat{\mu})$ and $\hat{\beta}_0 = \bar y$.
 
-##### <a name="CI-of-beta"></a>Their 95% CI
+##### Their 95% CI
 
 According to Central Limit Theorem, the 95% confidence intervals for $\beta_0$ and $\beta_1$ approximately take the form
 
@@ -255,7 +213,7 @@ $$
 
 A 95% confidence interval is defined as a range of values such that with 95% probability, the range will contain the true unknown value of the parameter.
 
-##### <a name="Hypothesis-Tests-on-beta"></a>Hypothesis Tests on the Coefficients (t-statistic and t-test)
+##### Hypothesis Tests on the Coefficients (t-statistic and t-test)
 
 The most common hypothesis test involves testing the _null hypothesis_ of
 
@@ -304,7 +262,7 @@ which measures the number of standard deviations that $\hat{\beta}_1$ is away fr
 
 We reject the null hypothesis — that is, we declare a relationship to exist between $X$ and $y$ — if the p-value, which indicates the probabilities of seeing such t-statistic if $H_0$ is true, is small enough. Typical p-value cutoffs for rejecting the null hypothesis are 5% or 1%. If p-value is below 5% or 1%, we can conclude that $\beta_1 \neq 0$.
 
-### <a name="Assessing the-Accuracy-of-the-Model"></a>1.4 Assessing the Accuracy of the Model
+### 1.4 Assessing the Accuracy of the Model
 
 和 [1.3 Assessing the Accuracy of the Coefficient Estimates](#Assessing-the-Accuracy-of-the-Coefficient-Estimates) 一样，这里讨论的仍然是  层次(ii) 和 层次(iii) 之间的关系，还没有涉及到 层次(i) 的 true relationship。  
 
@@ -314,7 +272,7 @@ We reject the null hypothesis — that is, we declare a relationship to exist be
 
 Once we have rejected the null hypothesis $\beta_1 = 0$ in favor of the alternative hypothesis $\beta_1 \neq 0$, it is natural to want to quantify **the extent to which the model fits the data**. The quality of a linear regression fit is typically assessed using two related quantities: the residual standard error (RSE) and the $R^2$ statistic.
 
-#### <a name="RSE"></a>1.4.1 RSE: Residual Standard Error
+#### 1.4.1 RSE: Residual Standard Error
 
 Recall from the model $(\ref{eq1.3})$ that associated with each observation is an error term $\epsilon_i$. Due to the presence of the error terms, even if we knew the true regression line (i.e. even if $\beta_0$ and $\beta_1$ were known), we would not be able to perfectly predict $y$ from $X$.
 
@@ -331,7 +289,7 @@ This means, if the model were correct and the true values of the unknown coeffic
 
 The RSE is considered a measure of the lack of fit of the model $(\ref{eq1.3})$ to data, i.e. if underfitting, RSE may be quite large.  
 
-#### <a name="R-squared"></a>1.4.2$R^2$ Statistic
+#### 1.4.2$R^2$ Statistic
 
 The RSE provides an absolute measure of lack of fit of the model $(\ref{eq1.3})$ to the data. But since it is measured in the units of $Y$, it is not always clear what constitutes a good RSE.
 
@@ -363,9 +321,9 @@ Though a proportion, it can still be challenging to determine what is a good $R^
 
 Only in simple linear regression setting, $R^2 = Cor(X, Y)^2$.  
 
-## <a name="Multiple-Linear-Regression"></a>2. Multiple Linear Regression
+## 2. Multiple Linear Regression
 
-### <a name="Mlr-Model"></a>2.1 Model
+### 2.1 Model
 
 $$
 \begin{equation}
@@ -377,7 +335,7 @@ $$
 
 We interpret $\beta_j$ as the average effect on $y$ of a one unit increase in j^th predictor, $X_j$, holding all other predictors fixed.
 
-### <a name="Estimating-the-mlr-Coefficients"></a>2.2 Estimating the Coefficients
+### 2.2 Estimating the Coefficients
 
 The regression coefficients $\beta_0, \beta_1, \cdots, \beta_p$ in $(\ref{eq2.1})$ are unknown, and must be estimated. Given estimates $\hat{\beta}_0, \hat{\beta}_1, \cdots, \hat{\beta}_p$, we can make predictions using the formula
 
@@ -401,7 +359,7 @@ $$
 
 The values $\hat{\beta}_0, \hat{\beta}_1, \cdots, \hat{\beta}_p$ are known as the multiple least squares regression coefficient estimates.
 
-### <a name="Mlr-Q1"></a>2.3 Question 1: Is There a Relationship Between the Response and Predictors? Or, among $\hat{\beta}_1, \cdots, \hat{\beta}_p$, is there at least one $\hat{\beta}_i \neq 0$? (F-statistic and F-test)
+### 2.3 Question 1: Is There a Relationship Between the Response and Predictors? Or, among $\hat{\beta}_1, \cdots, \hat{\beta}_p$, is there at least one $\hat{\beta}_i \neq 0$? (F-statistic and F-test)
 
 We test the null hypothesis,
 
@@ -459,7 +417,7 @@ If $ p > n$ then there are more coefficients $\beta_i$ to estimate than observat
 
 P77 提到一个重要的观点，不用使用 t-statistic and p-value for each individual predictor 来代替 F-statistic and its p-value, in Multiple Linear Regression setting.  
 
-### <a name="Mlr-Q2"></a>2.4 Question 2: How to Decide on Important Variables? Or, do all the predictors help to explain$y$, or is only a subset of the predictors useful?
+### 2.4 Question 2: How to Decide on Important Variables? Or, do all the predictors help to explain$y$, or is only a subset of the predictors useful?
 
 As discussed in the previous section, the first step in a multiple regression analysis is to compute the F-statistic and to examine the associated p-value. If we conclude on the basis of that p-value that at least one of the predictors is related to the response, then it is natural to wonder: which ones?  
 
@@ -488,7 +446,7 @@ Notes:
 * Bayesian information criterion (BIC)
 * Adjusted $R^2$
 
-### <a name="Mlr-Q3"></a>2.5 Question 3: How to Measure the Model Fit? Or, how well does the model fit the data?
+### 2.5 Question 3: How to Measure the Model Fit? Or, how well does the model fit the data?
 
 Recall that in simple linear regression setting, $R^2 = Cor(X, Y)^2$. While in multiple linear regression setting, it turns out $R^2 = Cor(Y, \hat Y)^2$. In fact one property of the fitted linear model is that it maximizes this correlation among all possible linear models.  
 
@@ -498,11 +456,11 @@ In addition to looking at the RSE and $R^2$ statistics just discussed, it can be
 
 > In particular, the linear model seems to overestimate `sales` for instances in which most of the advertising money was spent exclusively on either `TV` or `radio`. It underestimates `sales` for instances where the budget was split between the two media. This pronounced non-linear pattern cannot be modeled accurately using linear regression. It suggests a _synergy_ or _interaction_ effect between the advertising media, whereby combining the media together results in a bigger boost to sales than using any single medium.
 
-### <a name="Mlr-Q4"></a>2.6 Question 4: How accurate is our prediction?
+### 2.6 Question 4: How accurate is our prediction?
 
-#### <a name="CI-for-hat-Y"></a>2.6.1 CI for $\hat y$
+#### 2.6.1 CI for $\hat y$
 
-The coefficient estimates $\hat{\beta}_0, \hat{\beta}_1, \cdots, \hat{\beta}_p$ are estimates for $\beta_0, \beta_1, \cdots, \beta_p$. That is, <a name="PRP-and-LSP"></a>the _least squares plane_
+The coefficient estimates $\hat{\beta}_0, \hat{\beta}_1, \cdots, \hat{\beta}_p$ are estimates for $\beta_0, \beta_1, \cdots, \beta_p$. That is, the _least squares plane_
 
 $$
 \begin{equation}
@@ -528,17 +486,16 @@ $$
 
 The inaccuracy in the coefficient estimates is related to the reducible error and we can compute a confidence interval in order to determine how close $\hat y$ will be to $f(X)$. We interpret the 95% CI of $\hat y$ to mean that, with 95% in probablity the interval will contain the true value of $f(X)$.  
 
-#### <a name="Model-Bias"></a>2.6.2 Model Bias
+#### 2.6.2 Model Bias
 
 In practice assuming a linear model for f(X) is almost always an approximation of reality, so there is an additional source of potentially reducible error which we call **model bias**.  
 
 这里我们不讨论 model bias, operate as if the linear model were correct.
 
-#### <a name="Prediction-Intervals"></a>2.6.3 Prediction Intervals
+#### 2.6.3 Prediction Intervals
 
 Even if we knew the true values of the paramters, the response value cannot be predicted perfectly because of the random error $\epsilon$. We referred to this as the irreducible error. 
 
 How much will $y$Vary from $\hat y$? We use **prediction intervals** to answer this question. Prediction intervals are always wider than confidence intervals, because they incorporate both the error in the estimate for f(X) (the reducible error) and the uncertainty as to how much an individual point will differ from the population regression plane (the irreducible error).
 	
-We interpret the 95% PI of $\hat y$ to mean that, with 95% in probablity the interval will contain the true value of $y$.  
-
+We interpret the 95% PI of $\hat y$ to mean that, with 95% in probablity the interval will contain the true value of $y$.

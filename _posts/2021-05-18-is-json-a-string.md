@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Is JSON a string?"
-description: ""
-category: JavaScript 
-tags: [JSON]
+category: JavaScript
+description: ''
+tags:
+- JSON
+title: Is JSON a string?
 ---
-{% include JB/setup %}
 
 我写这篇的起因来自于这个灵魂拷问 [Is JSON a string?](https://stackoverflow.com/questions/54122999/is-json-a-string/54123061) 我觉得这又是个老外瞎用词导致的误解。
 

@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "JavaScript: ajax 注意事项"
-description: ""
 category: JavaScript
-tags: [ajax]
+description: ''
+tags:
+- ajax
+title: 'JavaScript: ajax 注意事项'
 ---
-{% include JB/setup %}
 
 ## Ajax Post 数据加号变空格
 

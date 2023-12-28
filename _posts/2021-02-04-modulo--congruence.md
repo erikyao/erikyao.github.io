@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Modulo / Congruence"
-description: ""
 category: Math
+description: ''
 tags: []
+title: Modulo / Congruence
 ---
-{% include JB/setup %}
 
 本来挺简单的概念，但是因为英语的用词非常地迷惑，所以搞得有点难懂。
 

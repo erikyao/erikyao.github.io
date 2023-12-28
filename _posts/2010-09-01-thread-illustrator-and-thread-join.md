@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Java: 多线程示意和 thread.join() 用法示意"
-description: ""
 category: Java
-tags: [Java-Concurrency]
+description: ''
+tags:
+- Java-Concurrency
+title: 'Java: 多线程示意和 thread.join() 用法示意'
 ---
-{% include JB/setup %}
 
 [1]: https://farm6.staticflickr.com/5831/23293777493_04aeb2f146_o_d.png
 [2]: https://farm6.staticflickr.com/5618/23838061221_1ba9bdc5b6_o_d.png

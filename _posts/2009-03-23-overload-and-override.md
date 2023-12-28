@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Java: overload and override / 重载与覆写"
-description: ""
 category: Java
+description: ''
 tags: []
+title: 'Java: overload and override / 重载与覆写'
 ---
-{% include JB/setup %}
 
 首先看概念：
 

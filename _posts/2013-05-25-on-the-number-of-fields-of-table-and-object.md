@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "关于表字段数量与对象字段数量的思考"
-description: ""
 category: Thought
-tags: [Experience]
+description: ''
+tags:
+- Experience
+title: 关于表字段数量与对象字段数量的思考
 ---
-{% include JB/setup %}
 
 1. `mc_lottery` 是一个大表（28个字段），对应 Lottery 也是个大对象。如果一个页面只用展示 Lottery 对象的3个字段，那么，SQL 层的传输就很浪费。
 2. 如果把 `mc_lottery` 拆成多个小表，Lottery 对象也要拆成多个小对象的话，你就需要处理事务问题，也很烦。

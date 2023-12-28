@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Pandas: one-column Boolean DataFrame vs Boolean Series"
-description: ""
 category: Pandas
+description: ''
 tags: []
+title: 'Pandas: one-column Boolean DataFrame vs Boolean Series'
 ---
-{% include JB/setup %}
 
 Caution when you apply `any` or `all` on a one-column Boolean DataFrame, or you should never apply these 2 functions to such a DataFrame because it works differently from your intention.
 

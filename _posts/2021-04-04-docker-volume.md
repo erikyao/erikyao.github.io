@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Docker: volume"
-description: ""
 category: Docker
+description: ''
 tags: []
+title: 'Docker: volume'
 ---
-{% include JB/setup %}
 
 ## 1. Volume 是什么
 
@@ -152,4 +150,3 @@ CASE 2: volume is empty; `-v my-volume:/lib:nocopy`
 CASE 3: volume is non-empty; `-v my-volume:/lib`
 
 ![](https://live.staticflickr.com/65535/51098238815_46af2412f3_o_d.png)
-

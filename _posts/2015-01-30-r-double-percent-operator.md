@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "R %any% operator"
-description: ""
 category: R
+description: ''
 tags: []
+title: R %any% operator
 ---
-{% include JB/setup %}
 
 整理自 _R Cookbook_。
 

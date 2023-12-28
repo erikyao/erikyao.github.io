@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "R: <i>commandArgs(trailingOnly)</i> and <i>--args</i>"
-description: ""
 category: R
+description: ''
 tags: []
+title: 'R: <i>commandArgs(trailingOnly)</i> and <i>--args</i>'
 ---
-{% include JB/setup %}
 
 R 的文档为什么就这么难看懂呢……
 

@@ -1,36 +1,15 @@
 ---
-layout: post
-title: "C++: A quick view of STL algorithms"
-description: ""
 category: C++
+description: ''
 tags: []
+title: 'C++: A quick view of STL algorithms'
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
 
 整理自：_Thinking in C++, Volume 2_
 
 基本都是来自 `<algorithm>`。
-
------
-
-ToC:
-
-- [缩写](#缩写)
-- [1. Filling and generating](#1-filling-and-generating)
-- [2. Counting](#2-counting)
-- [3. Manipulating sequences](#3-manipulating-sequences)
-- [4. Searching and replacing](#4-searching-and-replacing)
-- [5. Comparing ranges](#5-comparing-ranges)
-- [6. Removing elements](#6-removing-elements)
-- [7. Sorting and operations on sorted ranges](#7-sorting-and-operations-on-sorted-ranges)
-	- [7.1 Sorting](#71-sorting)
-	- [7.2 Locating elements in sorted ranges](#72-locating-elements-in-sorted-ranges)
-	- [7.3 Merging sorted ranges](#73-merging-sorted-ranges)
-	- [7.4 Set operations on sorted ranges](#74-set-operations-on-sorted-ranges)
-- [8. Heap operations](#8-heap-operations)
-- [9. Applying an operation to each element in a range](#9-applying-an-operation-to-each-element-in-a-range)
-- [10. Numeric algorithms](#10-numeric-algorithms)
-- [11. General utilities](#11-general-utilities)
 
 -----
 

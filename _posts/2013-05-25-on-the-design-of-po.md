@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "设计 PO 的一些经验"
-description: ""
 category: Thought
-tags: [Experience]
+description: ''
+tags:
+- Experience
+title: 设计 PO 的一些经验
 ---
-{% include JB/setup %}
 
 ### 1. 按 sql schema 设计
 
@@ -46,4 +45,3 @@ tags: [Experience]
 ### 4. 如果有一个复杂的 Collection
 
 比如 `Map<PO1, Map<PO2, List<PO3>>>` 这种多层的 Collection 嵌套，你需要 get 多次才能拿到 PO3 或者层层 put 才能 put 一个 PO3，此时应果断写一个 PO，作为这个复杂 Collection 的代理，屏蔽多次 get 和层层 put 的恶心逻辑
-

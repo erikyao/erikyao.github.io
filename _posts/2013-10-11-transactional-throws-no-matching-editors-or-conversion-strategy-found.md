@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "@Transactional throws \"no matching editors or conversion strategy found\""
-description: ""
 category: Spring
+description: ''
 tags: []
+title: '@Transactional throws "no matching editors or conversion strategy found"'
 ---
-{% include JB/setup %}
 
 I added `proxy-target-class="true"` at the `tx:`-statement:
 

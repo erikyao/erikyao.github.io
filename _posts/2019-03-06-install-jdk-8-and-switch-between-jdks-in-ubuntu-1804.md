@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Install Oracle JDK 8 and switch between JDKs in Ubuntu 18.04"
-description: ""
 category: Java
+description: ''
 tags: []
+title: Install Oracle JDK 8 and switch between JDKs in Ubuntu 18.04
 ---
-{% include JB/setup %}
 
 ## 1. Check installed Open JDK
 

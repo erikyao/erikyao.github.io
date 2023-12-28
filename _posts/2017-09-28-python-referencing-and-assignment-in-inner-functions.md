@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Python: Referencing and assignment in inner functions"
-description: ""
 category: Python
+description: ''
 tags: []
+title: 'Python: Referencing and assignment in inner functions'
 ---
-{% include JB/setup %}
 
 这一篇的内容在 [Digest of Fluent Python: 7.4 Variable Scope Rules](/python/2016/09/16/digest-of-fluent-python#7-4-Variable-Scope-Rules) 和 [Python: Variable scope in if-statement](/python/2017/08/18/python-variable-scope-in-if-statement) 都有讲到，但是 _Effective Python_ 的 _Item 15: Know How Closures Interact with Variable Scope_ 讲得特别好，特摘录如下。
 

@@ -1,11 +1,12 @@
 ---
-layout: post
-title: "Basic Graph Algorithms"
-description: ""
 category: Algorithm
-tags: [Graph]
+description: ''
+tags:
+- Graph
+title: Basic Graph Algorithms
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
 
 [edge_types]: https://farm2.staticflickr.com/1521/24260605262_83a3b5a6b7_o_d.png
 [Prim]: https://farm2.staticflickr.com/1676/24313784510_251a0a69f3_o_d.png
@@ -26,46 +27,6 @@ tags: [Graph]
 - [Lecture 21: Shortest Paths](http://jeffe.cs.illinois.edu/teaching/algorithms/notes/21-sssp.pdf)
 - [Lecture 20: Minimum Spanning Trees](http://jeffe.cs.illinois.edu/teaching/algorithms/notes/20-mst.pdf)
 - [Math 575 - Problem Set 9](http://people.math.sc.edu/sumner/math575spring2009/problemsets/Math575ProblemSet9.pdf)
-
------
-
-ToC:
-
-- [1. Definition](#1-definition)
-- [2. Traversing Connected Graphs](#2-traversing-connected-graphs)
-- [3. More on DFS](#3-more-on-dfs)
-- [4. Preorder and Postorder Labeling](#4-preorder-and-postorder-labeling)
-- [5. Acyclicity in Directed Graphs](#5-acyclicity-in-directed-graphs)
-- [6. Topological Sort](#6-topological-sort)
-- [7. Strongly Connected Components (SCC)](#7-strongly-connected-components-scc)
-- [8. Shortest Paths](#8-shortest-paths)
-	- [8.1 The Only SSSP Algorithm](#81-the-only-sssp-algorithm)
-	- [8.2 Dijkstra’s Algorithm](#82-dijkstras-algorithm)
-	- [8.3 Shimbel’s Algorithm](#83-shimbels-algorithm)
-- [9. All-Pairs Shortest Paths (APSP)](#9-all-pairs-shortest-paths-apsp)
-	- [9.1 Intuition 1: Run SSSP for every vertex](#91-intuition-1-run-sssp-for-every-vertex)
-	- [9.2 Johnson’s Algorithm](#92-johnsons-algorithm)
-	- [9.3 Intuition 2: Dynamic Programming](#93-intuition-2-dynamic-programming)
-	- [9.4 Intuition 3: DP + Divide and Conquer](#94-intuition-3-dp--divide-and-conquer)
-	- [9.5 Floyd-Warshall: an $ O(V^3) $ DP Alg](#95-floyd-warshall-an--ov3--dp-alg)
-	- [9.6 APSP in unweighted undirected graphs: Seidel's Alg](#96-apsp-in-unweighted-undirected-graphs-seidels-alg)
-- [10. Minimum Spanning Trees](#10-minimum-spanning-trees)
-	- [10.1 The Only MST Algorithm](#101-the-only-mst-algorithm)
-	- [10.2 Borvka’s Algorithm](#102-borvkas-algorithm)
-	- [10.3 Prim's Algorithm](#103-prims-algorithm)
-	- [10.4 Kruskal’s Algorithm](#104-kruskals-algorithm)
-- [11. Matroids (待续)](#11-matroids-待续)
-	- [11.1 Definitions (待续)](#111-definitions-待续)
-	- [11.2 Matroid Optimization Problem (待续)](#112-matroid-optimization-problem-待续)
-- [12. Matching (待续)](#12-matching-待续)
-	- [12.1 The Maximum Matching Problem](#121-the-maximum-matching-problem)
-	- [12.2 Alternating and Augmenting Paths (待续)](#122-alternating-and-augmenting-paths-待续)
-- [13. Testing Polynomial Identity (待续)](#13-testing-polynomial-identity-待续)
-	- [13.1 The Schwartz-Zippel Algorithm (待续)](#131-the-schwartz-zippel-algorithm-待续)
-	- [Digress: Permutation / Matrix Determinant (行列式)](#digress-permutation--matrix-determinant-行列式)
-	- [13.2 Application to Bipartite Matching](#132-application-to-bipartite-matching)
-- [14. Eulerian Graph](#14-eulerian-graph)
-- [15. Hamiltonian Path](#15-hamiltonian-path)
 
 -----
 

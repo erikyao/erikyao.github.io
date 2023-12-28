@@ -1,11 +1,11 @@
 ---
-layout: post
-title: "C++: Complex copy-construction & How to prevent copy-construction (thus preventing pass-by-value)"
-description: ""
 category: C++
-tags: [copy-constructor]
+description: ''
+tags:
+- copy-constructor
+title: 'C++: Complex copy-construction & How to prevent copy-construction (thus preventing
+  pass-by-value)'
 ---
-{% include JB/setup %}
 
 整理自：_Thinking in C++_
 
@@ -44,4 +44,4 @@ class T {
 };
 ```
 
-No definition is necessary because it never gets called, unless one of your member functions or a friend function needs to perform a pass-by-value. 
+No definition is necessary because it never gets called, unless one of your member functions or a friend function needs to perform a pass-by-value.

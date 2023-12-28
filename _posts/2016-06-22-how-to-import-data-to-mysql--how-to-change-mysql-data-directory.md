@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "How to import data to MySQL? / How to change MySQL data directory?"
-description: ""
 category: MySQL
+description: ''
 tags: []
+title: How to import data to MySQL? / How to change MySQL data directory?
 ---
-{% include JB/setup %}
 
 ## Commands
 

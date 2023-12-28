@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "常见 HTTP Status Code 及场景"
-description: ""
 category: Network
+description: ''
 tags: []
+title: 常见 HTTP Status Code 及场景
 ---
-{% include JB/setup %}
 
 - `302`：我们常说的 "302 跳转" 其实就是 `sendRedirect`
 - `404`：说明 URL 不对，可能是后台 URL 没发出来，可能浏览器 URL 写错，或者后台 URL 写错

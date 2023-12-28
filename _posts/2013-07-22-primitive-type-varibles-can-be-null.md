@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Java: primitive type 可以为 null"
-description: ""
 category: Java
+description: ''
 tags: []
+title: 'Java: primitive type 可以为 null'
 ---
-{% include JB/setup %}
 
 ```java
 Boolean b = null; 

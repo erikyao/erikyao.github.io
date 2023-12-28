@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Java: interface"
-description: ""
 category: Java
+description: ''
 tags: []
+title: 'Java: interface'
 ---
-{% include JB/setup %}
 
 我们大可将 `interface` 视为 abstract class 的延伸。  
 

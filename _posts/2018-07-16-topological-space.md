@@ -1,11 +1,11 @@
 ---
-layout: post
-title: "Topology / Topological Space / Redefine Neighborhood, Limit Point, Interior Point and Exterior Point"
-description: ""
 category: Math
-tags: [Topology]
+description: ''
+tags:
+- Topology
+title: Topology / Topological Space / Redefine Neighborhood, Limit Point, Interior
+  Point and Exterior Point
 ---
-{% include JB/setup %}
 
 ## Topology / Topological Space
 

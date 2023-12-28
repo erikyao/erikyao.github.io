@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "C++: A syntax constraint when defining variables in the statements of <i>if</i>, <i>while</i> and <i>switch</i>"
-description: ""
 category: C++
+description: ''
 tags: []
+title: 'C++: A syntax constraint when defining variables in the statements of <i>if</i>,
+  <i>while</i> and <i>switch</i>'
 ---
-{% include JB/setup %}
 
 整理自 _Thinking in C++_。
 
@@ -37,4 +36,3 @@ while((char c = cin.get()) != 'q') { // ERROR
 去掉括号也不行，结合律不占优势……
 
 话说我不明白为啥不能这么写……
-

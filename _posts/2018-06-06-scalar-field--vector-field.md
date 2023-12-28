@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Scalar Field / Vector Field"
-description: ""
 category: Math
-tags: [Math-Algebra]
+description: ''
+tags:
+- Math-Algebra
+title: Scalar Field / Vector Field
 ---
-{% include JB/setup %}
 
 $$
 \newcommand{\icol}[1]{

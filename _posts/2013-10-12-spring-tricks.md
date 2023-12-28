@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Spring 小技巧"
-description: ""
 category: Spring
+description: ''
 tags: []
+title: Spring 小技巧
 ---
-{% include JB/setup %}
 
 ## SpringMVC Controller 如何返回 404？
 

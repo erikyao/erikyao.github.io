@@ -1,11 +1,13 @@
 ---
-layout: post
-title: "Digest of <i>Advanced R</i> (亟待更新)"
-description: ""
 category: R
-tags: [Book, Rcpp]
+description: ''
+tags:
+- Book
+- Rcpp
+title: Digest of <i>Advanced R</i> (亟待更新)
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
 
 P.S. It was 2015 when the 1st edition of this book came out and I wrote this post. Now Hadley Wickham is working on the 2nd edition where a lot contents changed. 
 
@@ -16,229 +18,11 @@ TODO: Update or delete this post.
 [roll-mean-1]: https://farm6.staticflickr.com/5808/23812247222_c884f5ff53_o_d.png
 [search-path]: https://farm6.staticflickr.com/5806/23552708399_86ce622bb0_o_d.png
 
-## ToC
-
-- Part I. Foundations
-	- [1. Data structures](#1--Data-structures)
-		- [1.1 Quiz](#1-1-Quiz)
-		- [1.2 Atomic Vectors](#1-2-Atomic-Vectors)
-		- [1.3 Lists](#1-3-Lists)
-		- [1.4 Attributes](#1-4-Attributes)
-		- [1.5 Factors](#1-5-Factors)
-		- [1.6 Matrices and arrays](#1-6-Matrices-and-arrays)
-		- [1.7 Data frames](#1-7-Data-frames)
-	- [2. Subsetting](#2--Subsetting)
-		- [2.1 Quiz](#2-1-Quiz)
-		- [2.2 Subsetting operator <code>[]</code>](#2-2-Subsetting-operator-)
-			- [2.2.1 Subsetting atomic vectors](#2-2-1-Subsetting-atomic-vectors)
-			- [2.2.2 Subsetting lists](#2-2-2-Subsetting-lists)
-			- [2.2.3 Subsetting matrices and arrays](#2-2-3-Subsetting-matrices-and-arrays)
-			- [2.2.4 Subsetting data frames](#2-2-4-Subsetting-data-frames)
-		- [2.3 Subsetting operator <code>[[]]</code>](#2-3-Subsetting-operator-)
-			- [Simplifying vs. preserving subsetting](#Simplifying-vs--preserving-subsetting)
-			- [How does it simplify?](#How-does-it-simplify)
-			- [Out-of-bound indices](#Out-of-bound-indices)
-		- [2.4 Subsetting operator `$`](#2-4-Subsetting-operator-)
-		- [2.5 Subsetting S3 and S4 objects](#2-5-Subsetting-S3-and-S4-objects)
-		- [2.6 Subsetting and assignment](#2-6-Subsetting-and-assignment)
-		- [2.7 Applications](#2-7-Applications)
-			- [Lookup tables (character subsetting)](#Lookup-tables-character-subsetting)
-			- [Random samples/bootstrap (integer subsetting)](#Random-samples-bootstrap-integer-subsetting)
-			- [Expanding aggregated counts (integer subsetting)](#Expanding-aggregated-counts-integer-subsetting)
-	- [3. Functions](#3--Functions)
-		- [3.1 Function components](#3-1-Function-components)
-			- [Exception: Primitive functions](#Exception-Primitive-functions)
-		- [3.2 Lexical scoping](#3-2-Lexical-scoping)
-			- [3.2.1 Name Masking](#3-2-1-Name-Masking)
-			- [3.2.2 Functions vs. variables](#3-2-2-Functions-vs--variables)
-			- [3.2.3 A fresh start](#3-2-3-A-fresh-start)
-			- [3.2.4 Dynamic lookup](#3-2-4-Dynamic-lookup)
-		- [3.3 Every operation is a function call](#3-3-Every-operation-is-a-function-call)
-		- [3.4 Function arguments](#3-4-Function-arguments)
-			- [3.4.1 Calling functions](#3-4-1-Calling-functions)
-			- [3.4.2 Calling a function given a list of arguments](#3-4-2-Calling-a-function-given-a-list-of-arguments)
-			- [3.4.3 Default and missing arguments](#3-4-3-Default-and-missing-arguments)
-			- [3.4.4 Lazy evaluation](#3-4-4-Lazy-evaluation)
-			- [3.4.5 Variable argument list `...`](#3-4-5-Variable-argument-list----)
-		- [3.5 Special calls](#3-5-Special-calls)
-			- [3.5.1 Infix functions](#3-5-1-Infix-functions)
-			- [3.5.2 Replacement functions](#3-5-2-Replacement-functions)
-		- [3.6 Return values](#3-6-Return-values)
-			- [3.6.1 Invisible](#3-6-1-Invisible)
-			- [3.6.2 On exit](#3-6-2-On-exit)
-	- [4. OO field guide](#4--OO-field-guide)
-		- [4.1 Quiz](#4-1-Quiz)
-		- [4.2 Base types](#4-2-Base-types)
-		- [4.3 S3](#4-3-S3)
-			- [4.3.1 Recognising objects, generic functions, and methods](#4-3-1-Recognising-objects-generic-functions-and-methods)
-			- [4.3.2 Defining classes and creating objects](#4-3-2-Defining-classes-and-creating-objects)
-			- [4.3.3 Creating new methods and generics](#4-3-3-Creating-new-methods-and-generics)
-		- [4.4 S4](#4-4-S4)
-			- [4.4.1 Recognising objects, generic functions, and methods](#4-4-1-Recognising-objects-generic-functions-and-methods)
-			- [4.4.2 Defining classes and creating objects](#4-4-2-Defining-classes-and-creating-objects)
-			- [4.4.3 Creating new methods and generics](#4-4-3-Creating-new-methods-and-generics)
-		- [4.5 RC](#4-5-RC)
-			- [4.5.1 Defining classes and creating objects](#4-5-1-Defining-classes-and-creating-objects)
-			- [4.5.2 Recognising objects and methods](#4-5-2-Recognising-objects-and-methods)
-			- [4.5.3 Method dispatch](#4-5-3-Method-dispatch)
-		- [4.6 Picking a system](#4-6-Picking-a-system)
-	- [5. Environments](#5--Environments)
-		- [5.1 Quiz](#5-1-Quiz)
-		- [5.2 Environment basics](#5-2-Environment-basics)
-		- [5.3 Recursing over environments](#5-3-Recursing-over-environments)
-		- [5.4 Function environments](#5-4-Function-environments)
-			- [5.4.1 The enclosing environment](#5-4-1-The-enclosing-environment)
-			- [5.4.2 Binding environments](#5-4-2-Binding-environments)
-			- [5.4.3 Execution environments](#5-4-3-Execution-environments)
-			- [5.4.4 Calling environments](#5-4-4-Calling-environments)
-			- [5.4.5 Summary](#5-4-5-Summary)
-		- [5.5 Binding names to values](#5-5-Binding-names-to-values)
-		- [5.6 Using environments explicitly](#5-6-Using-environments-explicitly)
-			- [5.6.1 Avoiding copies](#5-6-1-Avoiding-copies)
-			- [5.6.2 Package state](#5-6-2-Package-state)
-			- [5.6.3 As a hashmap](#5-6-3-As-a-hashmap)
-	- [6. Debugging, condition handling, and defensive programming](#6--Debugging-condition-handling-and-defensive-programming)
-		- [6.1 Condition handling](#6-1-Condition-handling)
-			- [6.1.1 Ignore errors with a single `try()`](#6-1-1-Ignore-errors-with-a-single-try)
-			- [6.1.2 Handle conditions with `tryCatch()`](#6-1-2-Handle-conditions-with-tryCatch)
-		- [6.2 Defensive programming](#6-2-Defensive-programming)
-- Part II. Functional programming
-	- [7. Functional programming](#7--Functional-programming)
-		- [7.1 Anonymous functions](#7-1-Anonymous-functions)
-		- [7.2 Closures](#7-2-Closures)
-		- [7.3 Mutable state](#7-3-Mutable-state)
-		- [7.4 Lists of functions](#7-4-Lists-of-functions)
-	- [8. Functionals](#8--Functionals)
-		- [8.1 My first functional: `lapply()`](#8-1-My-first-functional-lapply)
-			- [Looping patterns](#Looping-patterns)
-			- [Digress: parameter order](#Digress-parameter-order)
-		- [8.2 For loop functionals: friends of `lapply()`](#8-2-For-loop-functionals-friends-of-lapply)
-			- [8.2.1 Vector output: `sapply()` and `vapply()`](#8-2-1-Vector-output-sapply-and-vapply)
-			- [8.2.2 Multiple inputs: Map (and `mapply()`)](#8-2-2-Multiple-inputs-Map-and-mapply)
-			- [8.2.3 Rolling computations](#8-2-3-Rolling-computations)
-			- [8.2.4 Parallelisation](#8-2-4-Parallelisation)
-		- [8.3 Manipulating matrices and data frames](#8-3-Manipulating-matrices-and-data-frames)
-			- [8.3.1 Matrix and array operations](#8-3-1-Matrix-and-array-operations)
-			- [8.3.2 Group apply](#8-3-2-Group-apply)
-			- [8.3.3 The `plyr` package](#8-3-3-The-plyr-package)
-		- [8.4 Manipulating lists](#8-4-Manipulating-lists)
-			- [8.4.1 `Reduce()`](#8-4-1-Reduce)
-			- [8.4.2 Predicate functionals](#8-4-2-Predicate-functionals)
-		- [8.5 Mathematical functionals](#8-5-Mathematical-functionals)
-		- [8.6 Loops that should be left as is](#8-6-Loops-that-should-be-left-as-is)
-	- [9. Function operators (FOs)](#9--Function-operators-FOs)
-		- [9.1 Behavioural FOs](#9-1-Behavioural-FOs)
-			- [9.1.1 Memoization](#9-1-1-Memoization)
-			- [9.1.2 Capturing function invocations](#9-1-2-Capturing-function-invocations)
-			- [9.1.3 Laziness](#9-1-3-Laziness)
-		- [9.2 Output FOs](#9-2-Output-FOs)
-			- [9.2.1 Minor modifications](#9-2-1-Minor-modifications)
-			- [9.2.2 Changing what a function does](#9-2-2-Changing-what-a-function-does)
-		- [9.3 Input FOs](#9-3-Input-FOs)
-			- [9.3.1 Prefilling function arguments: partial function application](#9-3-1-Prefilling-function-arguments-partial-function-application)
-			- [9.3.2 Changing input types](#9-3-2-Changing-input-types)
-		- [9.4. Combining FOs](#9-4--Combining-FOs)
-			- [9.4.1 Aggregating multiple functions into a single function](#9-4-1-Aggregating-multiple-functions-into-a-single-function)
-			- [9.4.2 Function composition](#9-4-2-Function-composition)
-			- [9.4.3 Logical predicates and boolean algebra](#9-4-3-Logical-predicates-and-boolean-algebra)
-- Part III. Metaprogramming
-	- [10. Non-standard evaluation](#10--Non-standard-evaluation)
-		- [10.1 Capturing expressions](#10-1-Capturing-expressions)
-		- [10.2 Non-standard evaluation in subset](#10-2-Non-standard-evaluation-in-subset)
-		- [10.3 Scoping issues](#10-3-Scoping-issues)
-		- [10.4 Calling from another function](#10-4-Calling-from-another-function)
-		- [10.5 More on `substitute()`](#10-5-More-on-substitute)
-			- [Adding an escape hatch to `substitute()`](#Adding-an-escape-hatch-to-substitute)
-			- [Capturing unevaluated `…`](#Capturing-unevaluated-)
-		- [10.6 The downsides of non-standard evaluation](#10-6-The-downsides-of-non-standard-evaluation)
-	- [11. Expressions](#11--Expressions)
-		- [11.1 Structure of expressions](#11-1-Structure-of-expressions)
-		- [11.2 Names](#11-2-Names)
-		- [11.3 Calls](#11-3-Calls)
-		- [11.4 Capturing the current call](#11-4-Capturing-the-current-call)
-		- [11.5 Pairlists](#11-5-Pairlists)
-		- [11.6 Parsing and deparsing](#11-6-Parsing-and-deparsing)
-		- [11.7 Walking the AST with recursive functions](#11-7-Walking-the-AST-with-recursive-functions)
-			- [11.7.1 Finding F(ALSE) and T(RUE)](#11-7-1-Finding-FALSE-and-TRUE)
-			- [11.7.2 Finding all variables created by assignment](#11-7-2-Finding-all-variables-created-by-assignment)
-			- [11.7.3 Modifying the call tree](#11-7-3-Modifying-the-call-tree)
-	- [12. Domain Specific Languages](#12--Domain-Specific-Languages)
-		- [12.1 DSL Example 1: Generating HTML](#12-1-DSL-Example-1-Generating-HTML)
-			- [12.1.1 Goal](#12-1-1-Goal)
-			- 实现细节略
-		- [12.2 DSL Example 2: Turning R mathematical expressions into LaTeX](#12-2-DSL-Example-2-Turning-R-mathematical-expressions-into-LaTeX)
-			- [12.2.1 Goal](#12-2-1-Goal)
-			- 实现细节略
-- Part IV. Performant code
-	- [13. Performance](#13--Performance)
-		- [13.1 Why is R slow?](#13-1-Why-is-R-slow)
-		- [13.2 Microbenchmarking](#13-2-Microbenchmarking)
-		- [13.3 Language performance](#13-3-Language-performance)
-			- [13.3.1 Extreme dynamism](#13-3-1-Extreme-dynamism)
-			- [13.3.2 Name lookup with mutable environments](#13-3-2-Name-lookup-with-mutable-environments)
-			- [13.3.3 Lazy evaluation overhead](#13-3-3-Lazy-evaluation-overhead)
-		- [13.4 Implementation performance](#13-4-Implementation-performance)
-			- [13.4.1 Extracting a single value from a data frame](#13-4-1-Extracting-a-single-value-from-a-data-frame)
-			- [13.4.2 `ifelse()`, `pmin()`, and `pmax()`](#13-4-2-ifelse-pmin-and-pmax)
-	- [14. Optimising code](#14--Optimising-code)
-		- [14.1 Measuring performance](#14-1-Measuring-performance)
-			- [Limitations](#Limitations)
-		- [14.2 Improving performance](#14-2-Improving-performance)
-			- [14.2.1 Best practice: Organize your code](#14-2-1-Best-practice-Organize-your-code)
-			- [14.2.2 Technique 1: Look for existing solutions](#14-2-2-Technique-1-Look-for-existing-solutions)
-			- [14.2.3 Technique 2: Unburden your functions](#14-2-3-Technique-2-Unburden-your-functions)
-			- [14.2.4 Technique 3: Vectorise](#14-2-4-Technique-3-Vectorise)
-			- [14.2.5 Technique 4: Avoid copies](#14-2-5-Technique-4-Avoid-copies)
-			- [14.2.6 Technique 5: Byte-code compile](#14-2-6-Technique-5-Byte-code-compile)
-			- [14.2.7 Case study: t-test](#14-2-7-Case-study-t-test)
-			- [14.2.8 Technique 6: Parallelise](#14-2-8-Technique-6-Parallelise)
-		- [14.3 Other techniques](#14-3-Other-techniques)
-	- [15. Memory](#15--Memory)
-	- [16. High performance functions with Rcpp](#16--High-performance-functions-with-Rcpp)
-		- [16.1 Getting started](#16-1-Getting-started)
-			- [16.1.1 Example 1: No inputs, scalar output](#16-1-1-Example-1-No-inputs-scalar-output)
-			- [16.1.2 Example 2: Scalar input, scalar output](#16-1-2-Example-2-Scalar-input-scalar-output)
-			- [16.1.3 Example 3: Vector input, scalar output](#16-1-3-Example-3-Vector-input-scalar-output)
-			- [16.1.4 Example 4: Vector input, vector output](#16-1-4-Example-4-Vector-input-vector-output)
-			- [16.1.5 Example 5: Matrix input, vector output](#16-1-5-Example-5-Matrix-input-vector-output)
-			- [16.1.6 Using `sourceCpp()`](#16-1-6-Using-sourceCpp)
-		- [16.2 Attributes and other classes](#16-2-Attributes-and-other-classes)
-			- [16.2.1 Functions](#16-2-1-Functions)
-			- [16.2.2 Other types](#16-2-2-Other-types)
-		- [16.3 Missing values](#16-3-Missing-values)
-			- [16.3.1 Scalar NAs](#16-3-1-Scalar-NAs)
-				- [Integer NA](#Integer-NA)
-				- [Double NA](#Double-NA)
-				- [Boolean NA](#Boolean-NA)
-			- [16.3.2 Vector NAs](#16-3-2-Vector-NAs)
-		- [16.4 Rcpp sugar](#16-4-Rcpp-sugar)
-			- [16.4.1 Arithmetic and logical operators](#16-4-1-Arithmetic-and-logical-operators)
-			- [16.4.2 Logical summary functions](#16-4-2-Logical-summary-functions)
-			- [16.4.3 Vector views](#16-4-3-Vector-views)
-			- [16.4.4 Other useful functions](#16-4-4-Other-useful-functions)
-		- [16.5 The STL](#16-5-The-STL)
-			- [16.5.1 Using iterators](#16-5-1-Using-iterators)
-			- [16.5.2 Sets](#16-5-2-Sets)
-		- [16.6 Case studies (略)](#16-6-Case-studies)
-		- [16.7 Using Rcpp in a package (略)](#16-7-Using-Rcpp-in-a-package)
-	- [17. R's C interface](#17--R's-C-interface)
-		- [17.1 Calling C functions from R](#17-1-Calling-C-functions-from-R)
-		- [17.2 R's C data structures](#17-2-R's-C-data-structures)
-		- [17.3 Creating and modifying vectors](#17-3-Creating-and-modifying-vectors)
-			- [17.3.1 Creating vectors and garbage collection](#17-3-1-Creating-vectors-and-garbage-collection)
-			- [17.3.2 Missing and non-finite values](#17-3-2-Missing-and-non-finite-values)
-			- [17.3.3 Accessing vector data](#17-3-3-Accessing-vector-data)
-			- [17.3.4 Character vectors and lists](#17-3-4-Character-vectors-and-lists)
-			- [17.3.5 Modifying inputs](#17-3-5-Modifying-inputs)
-			- [17.3.6 Coercing scalars](#17-3-6-Coercing-scalars)
-			- [17.3.7 Long vectors](#17-3-7-Long-vectors)
-		- [17.4 Pairlists](#17-4-Pairlists)
-		- [17.5 Input validation](#17-5-Input-validation)
-		- [17.6 Finding the C source code for a function](#17-6-Finding-the-C-source-code-for-a-function)
-
 -----
 
-## 1. Data structures <a name="1--Data-structures"></a>
+# Part I. Foundations
+
+## 1. Data structures 
 
 |     | Homogeneous   | Heterogeneous | 
 |-----|---------------|---------------| 
@@ -248,7 +32,7 @@ TODO: Update or delete this post.
 
 Note that R has no 0-dimensional, or scalar types. Individual numbers or strings, which you might think would be scalars, are actually vectors of length one.
 
-### 1.1 Quiz <a name="1-1-Quiz"></a>
+### 1.1 Quiz 
 
 **Q:** What are the three properties of a vector, other than its contents?
 
@@ -271,7 +55,7 @@ Note that R has no 0-dimensional, or scalar types. Individual numbers or strings
 
 - You can make “list-array” by assuming dimensions to a list. You can make a matrix a column of a data frame with `df$x <- matrix()`, or using `I()` when creating a new data frame `data.frame(x = I(matrix()))`.
 
-### 1.2 Atomic Vectors <a name="1-2-Atomic-Vectors"></a>
+### 1.2 Atomic Vectors 
 
 `c()` means "combine".
 
@@ -305,7 +89,7 @@ c(1, c(2, c(3, 4)))
 - `is.numeric(x)`: 虽然一般管 double 叫 numeric，但是 `is.numeric(x) == is.double(x) || is.integer(x)`
 - or, more generally, `is.atomic(x)`.
 
-### 1.3 Lists <a name="1-3-Lists"></a>
+### 1.3 Lists 
 
 Lists are sometimes called recursive vectors, because a list can contain other lists. This makes them fundamentally different from atomic vectors.
 
@@ -352,7 +136,7 @@ is.list(mod)
 
 注意：如果要把 list 转成 vector，应该用 `unlist(x)` 而不是 `as.vector(x)`；`unlist(x)` 会得到一个 named vector，如果不要 name 的话，可以用 `unname(unlist(x))`。
 
-### 1.4 Attributes <a name="1-4-Attributes"></a>
+### 1.4 Attributes 
 
 All objects can have arbitrary additional attributes, used to store metadata about the object. Attributes can be thought of as a named list (with unique names).
 
@@ -375,14 +159,14 @@ The attributes hidden by `attributes(x)` are the three most important:
 
 Each of these three attributes has a specific accessor function to get and set values. When working with these attributes, use `names(x)`, `dim(x)`, and `class(x)`, NOT `attr(x, "names")`, `attr(x, "dim")`, and `attr(x, "class")`.
 
-### 1.5 Factors <a name="1-5-Factors"></a>
+### 1.5 Factors 
 
 Factors are built on top of integer vectors using two attributes: 
 
 - `class(f) == “factor”`, which makes them behave differently from regular integer vectors and
 - `levels(f)`, which defines the set of allowed values.
 
-### 1.6 Matrices and arrays <a name="1-6-Matrices-and-arrays"></a>
+### 1.6 Matrices and arrays 
 
 Adding a `dim(x)` attribute to an atomic vector `x` allows it to behave like a multi-dimensional array. A special case of the array is the matrix, which has two dimensions.
 
@@ -391,7 +175,7 @@ Adding a `dim(x)` attribute to an atomic vector `x` allows it to behave like a m
 - `c()` generalizes to `cbind()` and `rbind()` for matrices, and to `abind()` (provided by the `abind` package) for arrays. 
 - You can transpose a matrix with `t()`; the generalized equivalent for arrays is `aperm()`.
 
-### 1.7 Data frames <a name="1-7-Data-frames"></a>
+### 1.7 Data frames 
 
 Under the hood, a data frame is a list of equal-length vectors. This makes it a 2-dimensional structure, so it shares properties of both the matrix and the list. 
 
@@ -418,11 +202,11 @@ You can coerce an object to a data frame with `as.data.frame()`:
 
 It’s a common mistake to try and create a data frame by `cbind()`ing vectors together. This doesn’t work because `cbind()` will create a matrix unless one of the arguments is already a data frame. Instead use `data.frame()` directly.
 
-## 2. Subsetting <a name="2--Subsetting"></a>
+## 2. Subsetting 
 
 It’s easiest to learn how subsetting works for atomic vectors, and then how it generalises to higher dimensions and other more complicated objects.
 
-### 2.1 Quiz <a name="2-1-Quiz"></a>
+### 2.1 Quiz 
 
 **Q:** What is the result of subsetting a vector with positive integers, negative integers, a logical vector, or a character vector?
 
@@ -447,9 +231,9 @@ It’s easiest to learn how subsetting works for atomic vectors, and then how it
 
 - A named character vector can act as a simple lookup table: `c(x = 1, y = 2, z = 3)[c("y", "z", "x")]`
 
-### 2.2 Subsetting operator [] <a name="2-2-Subsetting-operator-"></a>
+### 2.2 Subsetting operator [] 
 
-#### 2.2.1 Subsetting atomic vectors <a name="2-2-1-Subsetting-atomic-vectors"></a>
+#### 2.2.1 Subsetting atomic vectors 
 
 There are six things that you can use to subset a vector:
 
@@ -493,11 +277,11 @@ mtcars[] <- lapply(mtcars, as.integer)	# mtcars will remain as a data frame
 mtcars <- lapply(mtcars, as.integer)	# mtcars will become a list
 ```
 
-#### 2.2.2 Subsetting lists <a name="2-2-2-Subsetting-lists"></a>
+#### 2.2.2 Subsetting lists 
 
 Subsetting a list works in the same way as subsetting an atomic vector. Using `[` will always return a list.
 
-#### 2.2.3 Subsetting matrices and arrays <a name="2-2-3-Subsetting-matrices-and-arrays"></a>
+#### 2.2.3 Subsetting matrices and arrays 
 
 You can subset higher-dimensional structures in three ways:
 
@@ -520,7 +304,7 @@ You can subset higher-dimensional structures in three ways:
 		
 如果是 array 的话，上面这三种方法都需要扩展维数。
 
-#### 2.2.4 Subsetting data frames <a name="2-2-4-Subsetting-data-frames"></a>
+#### 2.2.4 Subsetting data frames 
 
 Data frames possess the characteristics of both lists and matrices: 
 
@@ -545,7 +329,7 @@ df["x"]		# return a data frame
 df[, "x"]	# return a vector
 ```
 
-### 2.3 Subsetting operator [[]] <a name="2-3-Subsetting-operator-"></a>
+### 2.3 Subsetting operator [[]] 
 
 `[[` is similar to `[`, except it can only return a single value and it allows you to pull pieces out of a list.
 
@@ -571,7 +355,7 @@ b[["a"]][["b"]][["c"]][["d"]]
 
 Because data frames are lists of columns, you can use `[[` to extract a column from data frames: `mtcars[[1]]`, `mtcars[["cyl"]]`. 
 
-#### Simplifying vs. preserving subsetting <a name="Simplifying-vs--preserving-subsetting"></a>
+#### Simplifying vs. preserving subsetting 
 
 - Simplifying subsets returns the simplest possible data structure that can represent the output, and is useful interactively because it usually gives you what you want. 
 - Preserving subsetting keeps the structure of the output the same as the input, and is generally better for programming because the result will always be the same type. 
@@ -587,7 +371,7 @@ Unfortunately, how you switch between simplifying and preserving differs for dif
 | Array       | `x[1, ]` __or__ `x[, 1]`  | `x[1, , drop = F]` __or__ `x[, 1, drop = F]` |
 | Data frame  | `x[, 1]` __or__ `x[[1]]`  | `x[, 1, drop = F]` __or__ `x[1]`             |
 
-#### How does it simplify? <a name="How-does-it-simplify"></a>
+#### How does it simplify? 
 
 ```r
 # CASE: atomic vector 
@@ -637,7 +421,7 @@ str(df[, "a"])
 #>  int [1:2] 1 2
 ```
 
-#### Out-of-bound indices <a name="Out-of-bound-indices"></a>
+#### Out-of-bound indices 
 
 `[` and `[[` differ slightly in their behaviour when the index is out of bounds (OOB)。我们干脆总结得远一些：
 
@@ -650,7 +434,7 @@ str(df[, "a"])
 | `[[`     | `NA_real_`  | Error       | `NULL`        |
 | `[[`     | `NULL`      | Error       | Error         |
 
-### 2.4 Subsetting operator $ <a name="2-4-Subsetting-operator-"></a>
+### 2.4 Subsetting operator $ 
 
 `$` is a shorthand operator, where `x$y` is equivalent to `x[["y", exact = FALSE]]`. It’s often used to access variables in a data frame, as in `mtcars$cyl` or `diamonds$carat`.
 
@@ -664,7 +448,7 @@ x[["a"]]
 #> NULL
 ```
 
-### 2.5 Subsetting S3 and S4 objects <a name="2-5-Subsetting-S3-and-S4-objects"></a>
+### 2.5 Subsetting S3 and S4 objects 
 
 - S3 objects
 	- S3 objects are made up of atomic vectors, arrays, and lists, so you can always pull apart an S3 object using the techniques described above and the knowledge you gain from `str()`.
@@ -676,7 +460,7 @@ x[["a"]]
 
 S3 and S4 objects can override the standard behaviour of `[` and `[[` so they behave differently for different types of objects.
 
-### 2.6 Subsetting and assignment <a name="2-6-Subsetting-and-assignment"></a>
+### 2.6 Subsetting and assignment 
 
 就两个小地方注意下：
 
@@ -699,9 +483,9 @@ str(y)
 #>  $ b: NULL
 ```
 
-### 2.7 Applications <a name="2-7-Applications"></a>
+### 2.7 Applications 
 
-#### Lookup tables (character subsetting) <a name="Lookup-tables-character-subsetting"></a>
+#### Lookup tables (character subsetting) 
 
 讲真，lookup 做 noun 的时候表示的是 looking something up 这样一个动作，所以把一个 var 命名为 lookup 我是有点难理解的；用 lookupTable 会好一点，但是要注意逻辑是 looking something up in this lookupTable。
 
@@ -723,7 +507,7 @@ unname(lut2[x])
 #> [1] "Known"	"Known"	"Unknown"	"Known"	"Known"	"Known"	"Known"
 ```
 
-#### Random samples/bootstrap (integer subsetting) <a name="Random-samples-bootstrap-integer-subsetting"></a>
+#### Random samples/bootstrap (integer subsetting) 
 
 ```r
 df <- data.frame(x = rep(1:3, each = 2), y = 6:1, z = letters[1:6])
@@ -741,7 +525,7 @@ df[sample(nrow(df), 3), ]
 df[sample(nrow(df), 6, rep = T), ]
 ```
 
-#### Expanding aggregated counts (integer subsetting) <a name="Expanding-aggregated-counts-integer-subsetting"></a>
+#### Expanding aggregated counts (integer subsetting) 
 
 ```r
 df <- data.frame(x = c(2, 4, 1), y = c(9, 11, 6), n = c(3, 5, 1))
@@ -762,9 +546,9 @@ df[rep(1:nrow(df), df$n), ]
 
 这里 `n` 是表示 count，比如 `(x, y, n) = (2, 9, 3)` 就表示 `(x, y) = (2, 9)` 的数据有 3 个。我们用上面的语句把这个 count 展开。
 
-## 3. Functions <a name="3--Functions"></a>
+## 3. Functions 
 
-### 3.1 Function components <a name="3-1-Function-components"></a>
+### 3.1 Function components 
 
 All R functions have three parts:
 
@@ -785,7 +569,7 @@ environment(f)
 #> <environment: R_GlobalEnv>
 ```
 
-#### Exception: Primitive functions <a name="Exception-Primitive-functions"></a>
+#### Exception: Primitive functions 
 
 There is one exception to the rule that functions have three components. Primitive functions, like `sum()`, call C code directly with `.Primitive()` interface and contain no R code. Therefore their `formals()`, `body()`, and `environment()` are all NULL:
 
@@ -808,7 +592,7 @@ is.function(f)
 is.primitive(f)
 ```
 
-### 3.2 Lexical scoping <a name="3-2-Lexical-scoping"></a>
+### 3.2 Lexical scoping 
 
 Scoping is the set of rules that govern how R looks up the value of a symbol. 比如我们有 `x <- 10`，那么 scoping is the set of rules that leads R to go from the symbol `x` to its value 10.
 
@@ -825,7 +609,7 @@ There are four basic principles behind R’s implementation of lexical scoping:
 - a fresh start
 - dynamic lookup
 
-#### 3.2.1 Name Masking <a name="3-2-1-Name-Masking"></a>
+#### 3.2.1 Name Masking 
 
 注：老实说这一节我不明白为啥叫 Name Masking，因为好像并没有讲 masking 啊……根据 [How does R handle overlapping object names?](http://www.ats.ucla.edu/stat/r/faq/referencing_objects.htm) 的说法：
 
@@ -863,7 +647,7 @@ k() # output: [1] 1 2
 
 This seems a little magical. How does R know what the value of `y` is after the function has been called? It works because `k` preserves the environment in which it was defined and because the environment includes the value of `y`. Environments gives some pointers on how you can dive in and figure out what values are stored in the environment associated with each function.
 
-#### 3.2.2 Functions vs. variables <a name="3-2-2-Functions-vs--variables"></a>
+#### 3.2.2 Functions vs. variables 
 
 The same principles apply regardless of the type of associated value — finding functions works exactly the same way as finding variables.
 
@@ -880,7 +664,7 @@ o() # output: [1] 5
 
 However, using the same name for functions and other objects will make for confusing code, and is generally best avoided.
 
-#### 3.2.3 A fresh start <a name="3-2-3-A-fresh-start"></a>
+#### 3.2.3 A fresh start 
 
 ```r
 # exists("a") returns true if variable `a` exists.
@@ -898,7 +682,7 @@ j()
 
 `j()` returns the same value, 1, every time. This is because every time a function is called, a new environment is created to host execution. A function has no way to tell what happened the last time it was run (除非我们用 `<<-`); each invocation is completely independent.
 
-#### 3.2.4 Dynamic lookup <a name="3-2-4-Dynamic-lookup"></a>
+#### 3.2.4 Dynamic lookup 
 
 Lexical scoping determines where to look for values, not when to look for them. R looks for values when the function is run, not when it’s created (但查找还是先到 definition 里去查). This means that the output of a function can be different depending on objects outside its environment:
 
@@ -933,7 +717,7 @@ f()
 
 However this hardly works because R relies on lexical scoping to find _everything_, even the `+` operator. It’s never possible to make a function completely self-contained because you must always rely on functions defined in base R or other packages.
 
-### 3.3 Every operation is a function call <a name="3-3-Every-operation-is-a-function-call"></a>
+### 3.3 Every operation is a function call 
 
 Great, the C++ way.
 
@@ -994,9 +778,9 @@ sapply(x, function(x) x[2])
 #> [1]  2  5 11
 ```
 
-### 3.4 Function arguments <a name="3-4-Function-arguments"></a>
+### 3.4 Function arguments 
 
-#### 3.4.1 Calling functions <a name="3-4-1-Calling-functions"></a>
+#### 3.4.1 Calling functions 
 
 When calling a function you can specify arguments by position, by complete name, or by partial name. Arguments are matched 
 
@@ -1006,7 +790,7 @@ When calling a function you can specify arguments by position, by complete name,
 		
 If a function uses `...`, you can only specify arguments listed after `...` with their full name.
 
-#### 3.4.2 Calling a function given a list of arguments <a name="3-4-2-Calling-a-function-given-a-list-of-arguments"></a>
+#### 3.4.2 Calling a function given a list of arguments 
 
 Suppose you had a list of function arguments. How could you then send that list to `mean()`? You need `do.call()`:
 
@@ -1022,7 +806,7 @@ mean(1:10, na.rm = TRUE)
 
 注意这里 `na.rm` 是 `args` 的一个元素，并不是 `args` 的一个参数。
 
-#### 3.4.3 Default and missing arguments <a name="3-4-3-Default-and-missing-arguments"></a>
+#### 3.4.3 Default and missing arguments 
 
 You can determine if an argument was supplied or not with the `missing()` function.
 
@@ -1040,7 +824,7 @@ i(1, 2)
 #> [1] FALSE FALSE
 ```
 
-#### 3.4.4 Lazy evaluation <a name="3-4-4-Lazy-evaluation"></a>
+#### 3.4.4 Lazy evaluation 
 
 By default, R function arguments are lazy — they’re only evaluated if they’re actually used:
 
@@ -1124,7 +908,7 @@ More technically, an unevaluated argument is called a **promise**, or (less comm
 
 The first time a promise is accessed, the expression is evaluated in the environment where it was created. This value is cached, so that subsequent access to the evaluated promise does not recompute the value (but the original expression is still associated with the value, so `substitute()` can continue to access it). You can find more information about a promise using `pryr::promise_info()`. This uses some C++ code to extract information about the promise without evaluating it, which is impossible to do in pure R code.
 
-#### 3.4.5 Variable argument list `...` <a name="3-4-5-Variable-argument-list----"></a>
+#### 3.4.5 Variable argument list `...` 
 
 - ellipsis: [ɪˈlɪpsɪs], 省略号
 
@@ -1140,14 +924,14 @@ f(a = 1, b = 2)
 
 It’s often better to be explicit rather than implicit, so you might instead ask users to supply a list of additional arguments. That’s certainly easier if you’re trying to use `...` with multiple additional functions.
 
-### 3.5 Special calls <a name="3-5-Special-calls"></a>
+### 3.5 Special calls 
 
 R supports two additional syntaxes for calling special types of functions: 
 
 - infix and 
 - replacement functions.
 
-#### 3.5.1 Infix functions <a name="3-5-1-Infix-functions"></a>
+#### 3.5.1 Infix functions 
 
 Most functions in R are “prefix” operators: the name of the function comes before the arguments. You can also create infix functions where the function name comes in between its arguments, like `+` or `-`. All user-created infix functions must start and end with `%`. R comes with the following infix functions predefined: `% %`, `%*%`, `%/%`, `%in%`, `%o%`, `%x%`.
 
@@ -1159,7 +943,7 @@ For example, we could create a new operator that pastes together strings:
 #> [1] "new string"
 ```
 
-#### 3.5.2 Replacement functions <a name="3-5-2-Replacement-functions"></a>
+#### 3.5.2 Replacement functions 
 
 Replacement functions act like they modify their arguments in place, and have the special name `xxx<-`. They typically have two arguments (`x` and `value`), although they can have more, and they must return the modified object. For example, the following function allows you to modify the second element of a vector:
 
@@ -1214,7 +998,7 @@ x
 
 When you call `modify(x, 1) <- 10`, behind the scenes R turns it into `` x <- `modify<-`(x, 1, 10) ``. This means you CANNOT do things like: `modify(get("x"), 1) <- 10` because that gets turned into the invalid code: `` get("x") <- `modify<-`(get("x"), 1, 10) ``.
 
-### 3.6 Return values <a name="3-6-Return-values"></a>
+### 3.6 Return values 
 
 The last expression evaluated in a function becomes the return value, or you can use an explicit `return()`. 
 
@@ -1232,7 +1016,7 @@ Most base R functions are pure, with a few notable exceptions:
 - S4 related functions which modify global tables of classes and methods.
 - Random number generators which produce different numbers each time you run them.
 
-#### 3.6.1 Invisible <a name="3-6-1-Invisible"></a>
+#### 3.6.1 Invisible 
 
 Functions can return **invisible** values, which are not printed out by default when you call the function.
 
@@ -1264,7 +1048,7 @@ a <- 2
 #> [1] 2
 ```
 
-#### 3.6.2 On exit <a name="3-6-2-On-exit"></a>
+#### 3.6.2 On exit 
 
 As well as returning a value, functions can set up other triggers to occur when the function is finished using `on.exit()`. This is often used as a way to guarantee that changes to the global state are restored when the function exits. The code in `on.exit()` is run regardless of how the function exits, whether with an return, an error, or simply reaching the end of the function body.
 
@@ -1283,7 +1067,7 @@ in_dir("~", getwd())
 
 Caution: If you’re using multiple `on.exit()` calls within a function, make sure to set `add = TRUE`. Unfortunately, the default in `on.exit()` is `add = FALSE`, so that every time you run it, it overwrites existing exit expressions.
 
-## 4. OO field guide <a name="4--OO-field-guide"></a>
+## 4. OO field guide 
 
 R has three object oriented systems, S3, S4, "Reference Classes" (S5), and a "Base Types" system.
 
@@ -1299,7 +1083,7 @@ R has three object oriented systems, S3, S4, "Reference Classes" (S5), and a "Ba
 
 In the examples below, you’ll need `install.packages("pryr")`, to access useful functions for examining OO properties.
 
-### 4.1 Quiz <a name="4-1-Quiz"></a>
+### 4.1 Quiz 
 
 **Q:** How do you tell what OO system (base, S3, S4, or RC) an object is associated with?
 
@@ -1316,7 +1100,7 @@ In the examples below, you’ll need `install.packages("pryr")`, to access usefu
 
 - A generic function calls specific methods depending on the class of it inputs. In S3 and S4 object systems, methods belong to generic functions, not classes like in other programming languages.
 
-### 4.2 Base types <a name="4-2-Base-types"></a>
+### 4.2 Base types 
 
 Underlying every R object is a C structure (or struct) that describes how that object is stored in memory. The struct includes the contents of the object, the information needed for memory management, and, most importantly for this section, a **type**. This is the base type of an R object. Base types are not really an object system because only the R core team can create new types. As a result, new base types are added very rarely.
 
@@ -1341,9 +1125,9 @@ is.primitive(sum)
 
 Functions that behave differently for different base types are almost always written in C, where dispatch occurs using switch statements (e.g., `switch(TYPEOF(x))`).
 
-### 4.3 S3 <a name="4-3-S3"></a>
+### 4.3 S3 
 
-#### 4.3.1 Recognising objects, generic functions, and methods <a name="4-3-1-Recognising-objects-generic-functions-and-methods"></a>
+#### 4.3.1 Recognising objects, generic functions, and methods 
 
 Most objects that you encounter are S3 objects. But unfortunately there’s no simple way to test if an object is an S3 object in base R. The closest you can come is `is.object(x) & !isS4(x)`, i.e., it’s an object, but not S4. An easier way is to use `pryr::otype()`:
 
@@ -1410,7 +1194,7 @@ methods(class = "ts")
 #>    Non-visible functions are asterisked
 ```
 
-#### 4.3.2 Defining classes and creating objects <a name="4-3-2-Defining-classes-and-creating-objects"></a>
+#### 4.3.2 Defining classes and creating objects 
 
 S3 is a simple and ad hoc system; it has no formal definition of a class. To make an object an instance of a class, you just take an existing base object and set the class attribute. You can do that during creation with `structure()`, or after the fact with `class<-()`:
 
@@ -1447,7 +1231,7 @@ foo <- function(x) {
 
 Apart from developer supplied constructor functions, S3 has no checks for correctness. This means you can change the class of existing objects. If you’ve used other OO languages, this might make you feel queasy ([ˈkwi:zi], having an unpleasantly nervous or doubtful feeling).
 
-#### 4.3.3 Creating new methods and generics <a name="4-3-3-Creating-new-methods-and-generics"></a>
+#### 4.3.3 Creating new methods and generics 
 
 一般的模式是这样的：
 
@@ -1485,7 +1269,7 @@ objB <- structure(list(), class = "b")
 f(objB) # dispatched to f.default(objB) because we don't have `f.b(x)`
 ```
 
-### 4.4 S4 <a name="4-4-S4"></a>
+### 4.4 S4 
 
 S4 works in a similar way to S3, but it adds formality and rigour. Methods still belong to functions, not classes, but:
 
@@ -1495,7 +1279,7 @@ S4 works in a similar way to S3, but it adds formality and rigour. Methods still
 
 All S4 related code is stored in the `methods` package. This package is always available when you’re running R interactively, but may not be available when running R in batch mode. For this reason, it’s a good idea to include an explicit `library(methods)` whenever you’re using S4.
 
-#### 4.4.1 Recognising objects, generic functions, and methods <a name="4-4-1-Recognising-objects-generic-functions-and-methods"></a>
+#### 4.4.1 Recognising objects, generic functions, and methods 
 
 You can identify an S4 object if: 
 
@@ -1503,7 +1287,7 @@ You can identify an S4 object if:
 - `isS4()` returns TRUE, or
 - `pryr::otype()` returns “S4”.
 
-#### 4.4.2 Defining classes and creating objects <a name="4-4-2-Defining-classes-and-creating-objects"></a>
+#### 4.4.2 Defining classes and creating objects 
 
 In S3, you can turn any object into an object of a particular class just by setting the class attribute. S4 is much stricter: you must define the representation of a class with `setClass()`, and create a new object with `new()`. You can find the documentation for a class with a special syntax: `class?className`, e.g., `class?mle`.
 
@@ -1547,7 +1331,7 @@ slot(john, "boss")
 
 If an S4 object contains (inherits from) an S3 class or a base type, it will have a special `.Data` slot which contains the underlying base type or S3 object.
 
-#### 4.4.3 Creating new methods and generics <a name="4-4-3-Creating-new-methods-and-generics"></a>
+#### 4.4.3 Creating new methods and generics 
 
 S4 provides special functions for creating new generics and methods. `setGeneric()` creates a new generic or converts an existing function into a generic. `setMethod()` takes the name of the generic, the classes the method should be associated with, and a function that implements the method:
 
@@ -1574,7 +1358,7 @@ setGeneric("myGeneric", function(x) {
 
 `standardGeneric()` is the S4 equivalent to `UseMethod()`.
 
-### 4.5 RC <a name="4-5-RC"></a>
+### 4.5 RC 
 
 They are fundamentally different to S3 and S4 because:
 
@@ -1583,7 +1367,7 @@ They are fundamentally different to S3 and S4 because:
 
 These properties make RC objects behave more like objects do in most other programming languages, e.g., Python, Ruby, Java, and C#. Reference classes are implemented using R code: they are a special S4 class that wraps around an environment.
 
-#### 4.5.1 Defining classes and creating objects <a name="4-5-1-Defining-classes-and-creating-objects"></a>
+#### 4.5.1 Defining classes and creating objects 
 
 ```r
 Account <- setRefClass("Account",
@@ -1661,26 +1445,26 @@ All reference classes eventually inherit from `envRefClass`. It provides useful 
 
 See the inheritance section in `setRefClass()` for more details.
 
-#### 4.5.2 Recognising objects and methods <a name="4-5-2-Recognising-objects-and-methods"></a>
+#### 4.5.2 Recognising objects and methods 
 
 You can recognise RC objects if they are S4 objects (`isS4(x)`) that inherit from “refClass” (`is(x, "refClass")`). `pryr::otype()` will return “RC”. RC methods are also S4 objects, with class `refMethodDef`.
 
-#### 4.5.3 Method dispatch <a name="4-5-3-Method-dispatch"></a>
+#### 4.5.3 Method dispatch 
 
 When you call `x$f()`, R will look for a method f in the class of `x`, then in its parent, then its parent’s parent, and so on. From within a method, you can call the parent method directly with `callSuper()`.
 
-### 4.6 Picking a system <a name="4-6-Picking-a-system"></a>
+### 4.6 Picking a system 
 
 - In R you usually create fairly simple objects and methods for pre-existing generic functions like `print()`, `summary()`, and `plot()`. S3 is well suited to this task, and the majority of OO code that I have written in R is S3. S3 is a little quirky, but it gets the job done with a minimum of code.
 - If you are creating more complicated systems of interrelated objects, S4 may be more appropriate. A good example is the `Matrix` package by Douglas Bates and Martin Maechler. It is designed to efficiently store and compute with many different types of sparse matrices. S4 is also used extensively by `Bioconductor` packages, which need to model complicated interrelationships between biological objects (BTW, `Bioconductor` provides many good resources for learning S4.).
 - If you’ve programmed in a mainstream OO language, RC will seem very natural. But because they can introduce side effects through mutable state.
 
-## 5. Environments <a name="5--Environments"></a>
+## 5. Environments 
 
 - The environment is the data structure that powers scoping.
 - Environments can also be useful data structures in their own right because they have reference semantics. When you modify a binding in an environment, the environment is not copied; it’s modified in place.
 
-### 5.1 Quiz <a name="5-1-Quiz"></a>
+### 5.1 Quiz 
 
 **Q:** List at least three ways that an environment is different to a list.
 
@@ -1700,7 +1484,7 @@ When you call `x$f()`, R will look for a method f in the class of `x`, then in i
 - `<-` always creates a binding in the current environment; 
 - `<<-` rebinds an existing name in a parent of the current environment.
 
-### 5.2 Environment basics <a name="5-2-Environment-basics"></a>
+### 5.2 Environment basics 
 
 The job of an environment is to associate, or **bind**, a set of names to a set of values. Each name points to an object stored elsewhere in memory:
 
@@ -1804,7 +1588,7 @@ globalenv() == environment()
 #> Error in globalenv() == environment(): comparison (1) is possible only for atomic and list types
 ```
 
-### 5.3 Recursing over environments <a name="5-3-Recursing-over-environments"></a>
+### 5.3 Recursing over environments 
 
 ```r
 library(pryr)
@@ -1832,7 +1616,7 @@ where <- function(name, env = parent.frame()) {
 }
 ```
 
-### 5.4 Function environments <a name="5-4-Function-environments"></a>
+### 5.4 Function environments 
 
 - The **enclosing environment** is the environment where the function was created. 
 	- Every function has one and only one enclosing environment.
@@ -1841,7 +1625,7 @@ where <- function(name, env = parent.frame()) {
 - Every execution environment is associated with a **calling environment**, which tells you where the function was called.
 	- For the 3 types of environment above, there may be 0, 1, or many environments associated with each function.
 	
-#### 5.4.1 The enclosing environment <a name="5-4-1-The-enclosing-environment"></a>
+#### 5.4.1 The enclosing environment 
 
 When a function is created, it gains a reference to the environment where it was made. This is the __enclosing environment__ and is used for lexical scoping. You can determine the enclosing environment of a function by calling `environment(f)`:
 
@@ -1852,7 +1636,7 @@ environment(f)
 #> <environment: R_GlobalEnv>
 ```
 
-#### 5.4.2 Binding environments <a name="5-4-2-Binding-environments"></a>
+#### 5.4.2 Binding environments 
 
 The name of a function is defined by a binding. The binding environments of a function are all the environments which have a binding to it.
 
@@ -1895,11 +1679,11 @@ This works because every package has two environments associated with it: the **
 
 When we type `var` into the console, it’s found first in the global environment. When `sd()` looks for `var()` it finds it first in its namespace environment so never looks in the `globalenv()`.
 
-#### 5.4.3 Execution environments <a name="5-4-3-Execution-environments"></a>
+#### 5.4.3 Execution environments 
 
 Each time a function is called, a new environment is created to host execution. Once the function has completed, this environment is thrown away.
 
-#### 5.4.4 Calling environments <a name="5-4-4-Calling-environments"></a>
+#### 5.4.4 Calling environments 
 
 ```r
 f2 <- function() {
@@ -1925,7 +1709,7 @@ Note that each execution environment has two parents: a calling environment and 
 
 Looking up variables in the calling environment rather than in the enclosing environment is called **dynamic scoping**. Dynamic scoping is primarily useful for developing functions that aid interactive data analysis. It is one of the topics discussed in "non-standard evaluation".
 
-#### 5.4.5 Summary <a name="5-4-5-Summary"></a>
+#### 5.4.5 Summary 
 
 总结一下：
 
@@ -1964,7 +1748,7 @@ g()
 #> <environment: 0x0000000008175e28> # SAME
 ```
 
-### 5.5 Binding names to values <a name="5-5-Binding-names-to-values"></a>
+### 5.5 Binding names to values 
 
 - The regular assignment arrow, `<-`, always creates a variable in the current environment. 
 - The deep assignment arrow, `<<-`, never creates a variable in the current environment, but instead modifies an existing variable found by walking up the parent environments. 
@@ -1997,7 +1781,7 @@ x
 #> [1] 0.373916
 ```
 
-### 5.6 Using environments explicitly <a name="5-6-Using-environments-explicitly"></a>
+### 5.6 Using environments explicitly 
 
 Environments are also useful data structures in their own right because they have **reference semantics**.
 
@@ -2041,11 +1825,11 @@ Environments are data structures useful for solving three common problems:
 - Managing state within a package.
 - Efficiently looking up values from names.
 
-#### 5.6.1 Avoiding copies <a name="5-6-1-Avoiding-copies"></a>
+#### 5.6.1 Avoiding copies 
 
 Since environments have reference semantics, you’ll never accidentally create a copy. This makes it a useful vessel for large objects. It’s a common technique for `bioconductor` packages which often have to manage large genomic objects. Changes to R 3.1.0 have made this use substantially less important because modifying a list no longer makes a deep copy. Previously, modifying a single element of a list would cause every element to be copied, an expensive operation if some elements are large. Now, modifying a list efficiently reuses existing vectors, saving much time.
 
-#### 5.6.2 Package state <a name="5-6-2-Package-state"></a>
+#### 5.6.2 Package state 
 
 Explicit environments are useful in packages because they allow you to maintain state across function calls. Normally, objects in a package are locked, so you can’t modify them directly. Instead, you can do something like this:
 
@@ -2063,11 +1847,11 @@ set_a <- function(value) {
 }
 ```
 
-#### 5.6.3 As a hashmap <a name="5-6-3-As-a-hashmap"></a>
+#### 5.6.3 As a hashmap 
 
 A hashmap is a data structure that takes constant, `O(1)`, time to find an object based on its name. Environments provide this behaviour by default, so can be used to simulate a hashmap.
 
-## 6. Debugging, condition handling, and defensive programming <a name="6--Debugging-condition-handling-and-defensive-programming"></a>
+## 6. Debugging, condition handling, and defensive programming 
 
 详细内容见 [原地址](http://adv-r.had.co.nz/Exceptions-Debugging.html)。实际操作时再来看学得更快。另外还有
 
@@ -2081,9 +1865,9 @@ A hashmap is a data structure that takes constant, `O(1)`, time to find an objec
 
 Condition handling tools, like `withCallingHandlers()`, `tryCatch()`, and `try()` allow you to take specific actions when a condition occurs.
 
-### 6.1 Condition handling <a name="6-1-Condition-handling"></a>
+### 6.1 Condition handling 
 
-#### 6.1.1 Ignore errors with a single try() <a name="6-1-1-Ignore-errors-with-a-single-try"></a>
+#### 6.1.1 Ignore errors with a single try() 
 
 `try()` allows execution to continue even after an error has occurred. If you wrap the statement that creates the error in `try()`, the error message will be printed but execution will continue
 
@@ -2155,7 +1939,7 @@ str(elements[!succeeded])
 #>  $ : chr [1:26] "a" "b" "c" "d" ...
 ```
 
-#### 6.1.2 Handle conditions with tryCatch() <a name="6-1-2-Handle-conditions-with-tryCatch"></a>
+#### 6.1.2 Handle conditions with tryCatch() 
 
 With `tryCatch()` you map conditions to handlers, named functions that are called with the condition as an input.
 
@@ -2195,7 +1979,7 @@ read.csv2("code/dummy.csv")
 #> Error in file(file, "rt"): cannot open the connection (in code/dummy.csv)
 ```
 
-### 6.2 Defensive programming <a name="6-2-Defensive-programming"></a>
+### 6.2 Defensive programming 
 
 A key principle of defensive programming is to “**fail fast**”: as soon as something wrong is discovered, signal an error. This is more work for the author of the function (you!), but it makes debugging easier for users because they get errors earlier rather than later, after unexpected input has passed through several functions.
 
@@ -2218,7 +2002,9 @@ Keep this tension in mind when writing functions.
 - If you’re writing functions to facilitate interactive data analysis, feel free to guess what the analyst wants and recover from minor misspecifications automatically. 
 - If you’re writing functions for programming, be strict. Never try to guess what the caller wants.
 
-## 7. Functional programming <a name="7--Functional-programming"></a>
+# Part II. Functional programming
+
+## 7. Functional programming 
 
 R, at its heart, is a functional programming (FP) language.
 
@@ -2251,7 +2037,7 @@ summary <- function(x) {
 
 有点厉害。
 
-### 7.1 Anonymous functions <a name="7-1-Anonymous-functions"></a>
+### 7.1 Anonymous functions 
 
 In R, functions are objects in their own right. They aren’t automatically bound to a name. If you choose not to give the function a name, you get an **anonymous function**.
 
@@ -2271,7 +2057,7 @@ function(x) 3()
 #> [1] 13
 ```
 
-### 7.2 Closures <a name="7-2-Closures"></a>
+### 7.2 Closures 
 
 Closures are functions written by functions. Closures get their name because they enclose the environment of the parent function and can access all its variables. This is useful because it allows us to have two levels of parameters: 
 
@@ -2334,7 +2120,7 @@ The parent environment of a closure is the execution environment of the function
 - The different levels are more complex, with multiple arguments and complicated bodies.
 - Some work only needs to be done once, when the function is generated.
 
-### 7.3 Mutable state <a name="7-3-Mutable-state"></a>
+### 7.3 Mutable state 
 
 Having variables at two levels allows you to maintain state across function invocations. This is possible because **while the execution environment is refreshed every time, the enclosing environment is constant**.
 
@@ -2367,7 +2153,7 @@ counter_b()
 
 是不是有点像 object 和 object member！
 
-### 7.4 Lists of functions <a name="7-4-Lists-of-functions"></a>
+### 7.4 Lists of functions 
 
 起手式：
 
@@ -2391,11 +2177,11 @@ lapply(funs, function(f) f(x))
 #> [1] 5.5
 ```
 
-## 8. Functionals <a name="8--Functionals"></a>
+## 8. Functionals 
 
 The complement to a closure is a functional, a function that takes a function as an input.
 
-### 8.1 My first functional: lapply() <a name="8-1-My-first-functional-lapply"></a>
+### 8.1 My first functional: lapply() 
 
 - Input `x` is a list.
 	- Remember that data frames are also lists.
@@ -2403,7 +2189,7 @@ The complement to a closure is a functional, a function that takes a function as
 
 ![][lapply]
 
-#### Looping patterns <a name="Looping-patterns"></a>
+#### Looping patterns 
 
 It’s useful to remember that there are three basic ways to loop over a vector:
 
@@ -2420,7 +2206,7 @@ Just as there are three basic ways to use a for loop, there are three basic ways
 - loop over the numeric indices: `lapply(seq_along(xs), function(i) {})`
 - loop over the names: `lapply(names(xs), function(nm) {})`
 
-#### Digress: parameter order <a name="Digress-parameter-order"></a>
+#### Digress: parameter order 
 
 假定有 `foo(x, y)`，如果不指定的话，`lapply(ms, foo, n)` 的参数顺序就是 `foo(m[[i]], n)`，如果指定了 `lapply(ms, foo, x=n)`，则参数顺序就是 `foo(n, m[[i]])`：
 
@@ -2447,9 +2233,9 @@ lapply(ms, foo, x=n)
 [1] 47  2
 ```
 
-### 8.2 For loop functionals: friends of lapply() <a name="8-2-For-loop-functionals-friends-of-lapply"></a>
+### 8.2 For loop functionals: friends of lapply() 
 
-#### 8.2.1 Vector output: sapply and vapply <a name="8-2-1-Vector-output-sapply-and-vapply"></a>
+#### 8.2.1 Vector output: sapply and vapply 
 
 `sapply()` and `vapply()` are very similar to `lapply()` except they simplify their output to produce an atomic vector. 
 
@@ -2505,7 +2291,7 @@ vapply2 <- function(x, f, f.value, ...) {
 }
 ```
 
-#### 8.2.2 Multiple inputs: Map (and mapply) <a name="8-2-2-Multiple-inputs-Map-and-mapply"></a>
+#### 8.2.2 Multiple inputs: Map (and mapply) 
 
 `lapply(xs, foo)` 是循环 `foo(xs[[i]])`，那么 `Map(foo, xs, ys)` 就是循环 `foo(xs[[i]], ys[[i]])`。It is equivalent to:
 
@@ -2529,7 +2315,7 @@ for (i in seq_along(xs)) {
 
 Technically, `Map()` is equivalent to `mapply()` with `simplify = FALSE`, which is almost always what you want.
 
-#### 8.2.3 Rolling computations <a name="8-2-3-Rolling-computations"></a>
+#### 8.2.3 Rolling computations 
 
 What if you need a for-loop replacement that doesn’t exist in base R? You can often create your own wrapper. For example, you might be interested in smoothing your data using a rolling (or running) mean function:
 
@@ -2585,7 +2371,7 @@ rollapply <- function(x, n, f, ...) {
 
 This is effectively the same as the implementation in `zoo::rollapply()`, which provides many more features and much more error checking.
 
-#### 8.2.4 Parallelisation <a name="8-2-4-Parallelisation"></a>
+#### 8.2.4 Parallelisation 
 
 - parallelisation: [pærəlelaɪ'zeɪʃən]
 
@@ -2612,7 +2398,7 @@ system.time(mclapply(1:500, boot_lm, mc.cores = 2))
 #>   0.706   0.065   0.774
 ```
 
-### 8.3 Manipulating matrices and data frames <a name="8-3-Manipulating-matrices-and-data-frames"></a>
+### 8.3 Manipulating matrices and data frames 
 
 In this section, we'll give a brief overview of the available options, hint at how they can help you, and point you in the right direction to learn more. We'll cover three categories of data structure functionals:
 
@@ -2620,7 +2406,7 @@ In this section, we'll give a brief overview of the available options, hint at h
 * `tapply()` summarises a vector by groups defined by another vector.
 * the `plyr` package, which generalises `tapply()` to make it easy to work with data frames, lists, or arrays as inputs, and data frames, lists, or arrays as outputs.
 
-#### 8.3.1 Matrix and array operations <a name="8-3-1-Matrix-and-array-operations"></a>
+#### 8.3.1 Matrix and array operations 
 
 You can think of `apply()` as an operation that summarises a matrix or array by **collapsing** each row or column to a single number. It has four arguments: 
 
@@ -2681,7 +2467,7 @@ outer(1:3, 1:10, "*")
 #> [3,]    3    6    9   12   15   18   21   24   27    30
 ```
 
-#### 8.3.2 Group apply <a name="8-3-2-Group-apply"></a>
+#### 8.3.2 Group apply 
 
 ```r
 x <- 1:22
@@ -2712,7 +2498,7 @@ tapply2 <- function(x, group, f, ..., simplify = TRUE) {
 }
 ```
 
-#### 8.3.3 The plyr package <a name="8-3-3-The-plyr-package"></a>
+#### 8.3.3 The plyr package 
 
 One challenge with using the base functionals is that they have grown organically over time, and have been written by multiple authors. This means that they are not very consistent:
 
@@ -2738,7 +2524,7 @@ This was one of the driving motivations behind the creation of the `plyr` packag
 
 Each of these functions splits up the input, applies a function to each piece, and then combines the results. Overall, this process is called "split-apply-combine".
 
-### 8.4 Manipulating lists <a name="8-4-Manipulating-lists"></a>
+### 8.4 Manipulating lists 
 
 Another way of thinking about functionals is as a set of general tools for altering, subsetting, and collapsing lists. Every functional programming language has three tools for this: `Map()`, `Reduce()`, and `Filter()`. We've seen `Map()` already, and the following sections describe:
 
@@ -2746,7 +2532,7 @@ Another way of thinking about functionals is as a set of general tools for alter
 - `Filter()`, a member of an important class of functionals that work with predicates, functions that return a single TRUE or FALSE.
 - 没有一点点防备，就这样讲到了 MapReduce
 
-#### 8.4.1 Reduce() <a name="8-4-1-Reduce"></a>
+#### 8.4.1 Reduce() 
 
 `Reduce()` reduces a vector, `x`, to a single value by recursively calling a function, `f`, two arguments at a time. It combines the first two elements with `f`, then combines the result of that call with the third element, and so on. Calling `Reduce(f, 1:3)` is equivalent to `f(f(1, 2), 3)`. Reduce is also known as fold, because it folds together adjacent elements in the list.
 
@@ -2771,7 +2557,7 @@ Reduce(intersect, x)
 #> [1] 1 5
 ```
 
-#### 8.4.2 Predicate functionals <a name="8-4-2-Predicate-functionals"></a>
+#### 8.4.2 Predicate functionals 
 
 A __predicate__ is a function that returns a single `TRUE` or `FALSE`, like `is.character`, `all`, or `is.NULL`. There are three useful predicate functionals in base R: 
 
@@ -2804,7 +2590,7 @@ Position(is.factor, df)
 #> [1] 2
 ```
 
-### 8.5 Mathematical functionals <a name="8-5-Mathematical-functionals"></a>
+### 8.5 Mathematical functionals 
 
 In this section we'll use some of R's built-in mathematical functionals. There are three functionals that work with functions to return single numeric values:
 
@@ -2853,7 +2639,7 @@ optimise(nll2, lambdas)$minimum
 
 Another important mathematical functional is `optim()`. It is a generalisation of `optimise()` that works with more than one dimension. If you're interested in how it works, you might want to explore the `Rvmmin` package, which provides a pure-R implementation of `optim()`. Interestingly `Rvmmin` is no slower than `optim()`, even though it is written in R, not C. For this problem, the bottleneck lies not in controlling the optimisation but with having to evaluate the function multiple times. 
 
-### 8.6 Loops that should be left as is <a name="8-6-Loops-that-should-be-left-as-is"></a>
+### 8.6 Loops that should be left as is 
 
 Some loops have no natural functional equivalent. In this section you'll learn about three common cases: 
 
@@ -2868,7 +2654,7 @@ Some loops have no natural functional equivalent. In this section you'll learn a
 	
 It's possible to torture these problems to use a functional, but it's not a good idea. You'll create code that is harder to understand, eliminating the main reason for using functionals in the first case.
 	
-## 9. Function operators (FOs) <a name="9--Function-operators-FOs"></a>
+## 9. Function operators (FOs) 
 
 A function operator is a function that takes one (or more) functions as input and returns a function as output.
 
@@ -2881,7 +2667,7 @@ The chapter covers four important types of FO:
 
 其实这一节更像是 R 的 design pattern，但是与 procedural 与 object-oriented 的做法都不一样，请仔细体会 
 
-### 9.1 Behavioural FOs <a name="9-1-Behavioural-FOs"></a>
+### 9.1 Behavioural FOs 
 
 Behavioural FOs leave the inputs and outputs of a function unchanged, but add some extra behaviour. 
 
@@ -2919,7 +2705,7 @@ download <- dot_every(10, delay_by(1, download_file))
 download <- dot_every(delay_by(download_file, 1), 10)
 ```
 
-#### 9.1.1 Memoization <a name="9-1-1-Memoization"></a>
+#### 9.1.1 Memoization 
 
 - memoize: memo + -ize, 发音这这么发
 - memoization: (computer science) A technique in which partial results are recorded (forming a memo) and then can be re-used later without having to recompute them.
@@ -2958,7 +2744,7 @@ system.time(fib2(24))
 
 It doesn’t make sense to memoise all functions. For example, a memoised random number generator is no longer random.
 
-#### 9.1.2 Capturing function invocations <a name="9-1-2-Capturing-function-invocations"></a>
+#### 9.1.2 Capturing function invocations 
 
 这里的情形其实和我们 debug 时在函数前后打 log 的做法是一样的：
 
@@ -3010,7 +2796,7 @@ zeros <- uniroot(tee(g, on_output = show), c(-5, 5))
 
 我们其实还可以再套一个 closure 把每一对 `<x, g(x)>` 都记录下来，然后再画个图啥的，具体就不展开了。
 
-#### 9.1.3 Laziness <a name="9-1-3-Laziness"></a>
+#### 9.1.3 Laziness 
 
 The function operators we've seen so far follow a common pattern:
 
@@ -3049,9 +2835,9 @@ delay_by <- function(seconds, f) {
 
 It's good practice to do that whenever you create a new FO.
 
-### 9.2 Output FOs <a name="9-2-Output-FOs"></a>
+### 9.2 Output FOs 
 
-#### 9.2.1 Minor modifications <a name="9-2-1-Minor-modifications"></a>
+#### 9.2.1 Minor modifications 
 
 - `base::Negate(f)` takes a function that returns a logical vector (i.e. a predicate function), and returns the negation of that function.
 	- negate: [nɪˈgeɪt], (grammar) to make (a word or phrase) negative
@@ -3059,7 +2845,7 @@ It's good practice to do that whenever you create a new FO.
 - `plyr::failwith(defaultResult, f)` turns a function that throws an error into a function that returns a default value when there’s an error.
 	- 不用自己写 try 或是 tryCatch 了
 	
-#### 9.2.2 Changing what a function does <a name="9-2-2-Changing-what-a-function-does"></a>
+#### 9.2.2 Changing what a function does 
 
 举两个例子：
 
@@ -3086,9 +2872,9 @@ time_it <- function(f) {
 }
 ```
 
-### 9.3 Input FOs <a name="9-3-Input-FOs"></a>
+### 9.3 Input FOs 
 
-#### 9.3.1 Prefilling function arguments: partial function application <a name="9-3-1-Prefilling-function-arguments-partial-function-application"></a>
+#### 9.3.1 Prefilling function arguments: partial function application 
 
 比如我们有一个函数有 n 个参数，但是实际应用的时候，有 m 个参数的值都是固定的。为了不用每次都写那么长一串参数，我们很容易想到写一个只有 (n-m) 个函数来把这个函数包起来。我们称这种做法为 partial function application，而 `pryr::partial()` 给我们提供了一种简写的方式：
 
@@ -3106,7 +2892,7 @@ Map(partial(f, zs = zs), xs, ys)
 
 NB: Using partial function application is a straightforward task in many functional programming languages, but it’s not entirely clear how it should interact with R’s lazy evaluation rules.
 
-#### 9.3.2 Changing input types <a name="9-3-2-Changing-input-types"></a>
+#### 9.3.2 Changing input types 
 
 `base::Vectorize()` creates a function wrapper that vectorizes the action of its argument `FUN`. 有点不好解释，看下面的例子：
 
@@ -3158,9 +2944,9 @@ plyr::colwise(median)(mtcars)
 #> 1 19.2   6 196.3 123 3.695 3.325 17.71  0  0    4    2
 ```
 
-### 9.4. Combining FOs <a name="9-4--Combining-FOs"></a>
+### 9.4. Combining FOs 
 
-#### 9.4.1 Aggregating multiple functions into a single function <a name="9-4-1-Aggregating-multiple-functions-into-a-single-function"></a>
+#### 9.4.1 Aggregating multiple functions into a single function 
 
 ```r
 summaries <- plyr::each(mean, sd, median)
@@ -3169,7 +2955,7 @@ summaries(1:10)
 #> 5.50000 3.02765 5.50000
 ```
 
-#### 9.4.2 Function composition <a name="9-4-2-Function-composition"></a>
+#### 9.4.2 Function composition 
 
 这里说的 composition 指 `f(g(x))` 这种形式，我们可以用 `pryr::compose(f, g)` 来实现：
 
@@ -3230,7 +3016,7 @@ download <- pryr::compose(
 )
 ```
 
-#### 9.4.3 Logical predicates and boolean algebra <a name="9-4-3-Logical-predicates-and-boolean-algebra"></a>
+#### 9.4.3 Logical predicates and boolean algebra 
 
 举几个例子：
 
@@ -3266,9 +3052,11 @@ Filter(not(is.numeric), iris)
 
 是不是方便多了~
 
-## 10. Non-standard evaluation <a name="10--Non-standard-evaluation"></a>
+# Part III. Metaprogramming
 
-### 10.1 Capturing expressions <a name="10-1-Capturing-expressions"></a>
+## 10. Non-standard evaluation 
+
+### 10.1 Capturing expressions 
 
 Instead of using the value, `substitute(x)` or `quote(x)` returns the code of its parameter (i.e. the expression):
 
@@ -3341,7 +3129,7 @@ library(ggplot2)
 library("ggplot2")
 ```
 
-### 10.2 Non-standard evaluation in subset <a name="10-2-Non-standard-evaluation-in-subset"></a>
+### 10.2 Non-standard evaluation in subset 
 
 ```r
 sample_df <- data.frame(a = 1:5, b = 5:1, c = c(5, 3, 1, 4, 1))
@@ -3416,7 +3204,7 @@ subset2(sample_df, a >= 4)
 #> 5 5 1 1
 ```
 
-### 10.3 Scoping issues <a name="10-3-Scoping-issues"></a>
+### 10.3 Scoping issues 
 
 There is something wrong with the previous implementation:
 
@@ -3469,7 +3257,7 @@ subset2a <- function(x, condition) {
 }
 ```
 
-### 10.4 Calling from another function <a name="10-4-Calling-from-another-function"></a>
+### 10.4 Calling from another function 
 
 这一段的论述其实我没有看懂。它主要说的问题就是外部函数把 expression 作为参数传到其调用的内部函数（比如上面的 `subset2()`）时会出现一个有点微妙的错误，比如：
 
@@ -3549,7 +3337,7 @@ eval(condition_call, x)
 Q
 ```
 
-### 10.5 More on substitute() <a name="10-5-More-on-substitute"></a>
+### 10.5 More on substitute() 
 
 To make it easier to experiment with `substitute()`, `pryr` provides the `subs()` function. It works exactly the same way as `substitute()` except it has a shorter name and **it works in the global environment**. These two features make experimentation easier:
 
@@ -3580,7 +3368,7 @@ subs(a + b, list("+" = quote(`*`)))
 #> a * b
 ```
 
-#### Adding an escape hatch to substitute() <a name="Adding-an-escape-hatch-to-substitute"></a>
+#### Adding an escape hatch to substitute() 
 
 `substitute()` is itself a function that uses non-standard evaluation and doesn’t have an escape hatch. This means we can’t use `substitute()` if we already have an expression saved in a variable:
 
@@ -3606,7 +3394,7 @@ substitute_q(x, list(a = 1, b = 2))
 - First, the expression `substitute(y, env)` is captured and `y` is replaced by the value of `x`. Because we’ve put `x` inside a list, it will be evaluated and the rules of substitute will replace `y` with its value. This yields the expression `substitute(a + b, env)`.
 - Next we evaluate `substitute(a + b, env)` given `env=list(a = 1, b = 2)` and the result will be `1 + 2`.
 
-#### Capturing unevaluated `…` <a name="Capturing-unevaluated-"></a>
+#### Capturing unevaluated `…` 
 
 Another useful technique is to capture all of the unevaluated expressions in `...`. Base R functions do this in many ways, but there’s one technique that works well across a wide variety of situations:
 
@@ -3618,7 +3406,7 @@ dots <- function(...) {
 
 This uses the `alist()` function which simply captures all its arguments. This function is the same as `pryr::dots()`. `pryr` also provides `pryr::named_dots()`, which, by using deparsed expressions as default names, ensures that all arguments are named (just like `data.frame()`).
 
-### 10.6 The downsides of non-standard evaluation <a name="10-6-The-downsides-of-non-standard-evaluation"></a>
+### 10.6 The downsides of non-standard evaluation 
 
 The biggest downside of NSE is that functions that use it are no longer **referentially transparent**. A function is referentially transparent if you can replace its arguments with their values and its behaviour doesn’t change. For example, if a function, `f()`, is referentially transparent and both `x` and `y` are 10, then `f(x)`, `f(y)`, and `f(10)` will all return the same result. Referentially transparent code is easier to reason about because the names of objects don’t matter, and because you can always work from the innermost parentheses outwards.
 
@@ -3654,11 +3442,11 @@ I think it’s worthwhile because it eliminates a lot of redundancy in the commo
 
 Non-standard evaluation allows you to write functions that are extremely powerful. However, they are harder to understand and to program with. As well as always providing an escape hatch, carefully consider both the costs and benefits of NSE before using it in a new domain.
 
-## 11. Expressions <a name="11--Expressions"></a>
+## 11. Expressions 
 
 Throughout this chapter we’re going to use tools from the `pryr` package to help see what’s going on.
 
-### 11.1 Structure of expressions <a name="11-1-Structure-of-expressions"></a>
+### 11.1 Structure of expressions 
 
 An expression is also called an **abstract syntax tree** (AST) because it represents the hierarchical tree structure of the code. We’ll use `pryr::ast()` to see this more clearly:
 
@@ -3702,7 +3490,7 @@ str(quote(a + b))
 #>  language a + b
 ```
 
-### 11.2 Names <a name="11-2-Names"></a>
+### 11.2 Names 
 
 Typically, we use `quote()` to capture names. You can also convert a string to a name with `as.name()`. However, this is most useful only when `as.name()` receives strings as input:
 
@@ -3748,7 +3536,7 @@ is.name(missing_arg)
 #> Error in eval(expr, envir, enclos): argument "missing_arg" is missing, with no default
 ```
 
-### 11.3 Calls <a name="11-3-Calls"></a>
+### 11.3 Calls 
 
 A call is very similar to a list. It has `length`, `[[` and `[` methods. The first element of the call is the function that gets called. It’s usually the name of a function:
 
@@ -3815,7 +3603,7 @@ as.call(list(quote(mean), quote(1:10)))
 #> mean(1:10)
 ```
 
-### 11.4 Capturing the current call <a name="11-4-Capturing-the-current-call"></a>
+### 11.4 Capturing the current call 
 
 - `sys.call()` captures exactly what the user typed.
 - `match.call()` makes a call that only uses named arguments. It’s like automatically calling `pryr::standardise_call()` on the result of `sys.call()`
@@ -3848,7 +3636,7 @@ update(mod, formula = . ~ . + cyl)
 
 具体实现部分省略。
 
-### 11.5 Pairlists <a name="11-5-Pairlists"></a>
+### 11.5 Pairlists 
 
 Pairlists are a holdover from R’s past. They behave identically to lists, but have a different internal representation (as a linked list rather than a vector). Pairlists have been replaced by lists everywhere except in function arguments.
 
@@ -3920,7 +3708,7 @@ curve2 <- function(expr, xlim = c(0, 1), n = 100,
 
 Functions that use a pronoun are called **anaphoric functions**. They are used in Arc (a lisp-like language), Perl, and Clojure.
 
-### 11.6 Parsing and deparsing <a name="11-6-Parsing-and-deparsing"></a>
+### 11.6 Parsing and deparsing 
 
 Sometimes code is represented as a string, rather than as an expression. You can convert a string to an expression with `parse()`. `parse()` is the opposite of `deparse()`: it takes a character vector and returns an expression object. 
 
@@ -3977,7 +3765,7 @@ simple_source <- function(file, envir = new.env()) {
 }
 ```
 
-### 11.7 Walking the AST with recursive functions <a name="11-7-Walking-the-AST-with-recursive-functions"></a>
+### 11.7 Walking the AST with recursive functions 
 
 It's easy to modify a single call with `substitute()` or `pryr::modify_call()`. For more complicated tasks we need to work directly with the AST. The base `codetools` package provides some useful motivating examples of how we can do this: \index{recursion!over ASTs}
 
@@ -4004,7 +3792,7 @@ recurse_call <- function(x) {
 }
 ```
 
-#### 11.7.1 Finding F(ALSE) and T(RUE) <a name="11-7-1-Finding-FALSE-and-TRUE"></a>
+#### 11.7.1 Finding F(ALSE) and T(RUE) 
 
 We’ll start simple with a function that determines whether a function uses the logical abbreviations `T` and `F`. Using `T` and `F` is generally considered to be poor coding practice, and is something that `R CMD check` will warn about. Let’s first compare the AST for `T` vs. `TRUE`:
 
@@ -4044,7 +3832,7 @@ logical_abbr(quote(function(x, na.rm = T) FALSE))
 #> [1] TRUE
 ```
 
-#### 11.7.2 Finding all variables created by assignment <a name="11-7-2-Finding-all-variables-created-by-assignment"></a>
+#### 11.7.2 Finding all variables created by assignment 
 
 The next task, listing all variables created by assignment, is a little more complicated. Again, we start by looking at the AST for assignment:
 
@@ -4060,7 +3848,7 @@ Assignment is a call where the first element is the name `<-`, the second is the
 
 非常精彩的一个重构的例子，具体请看书。
 
-#### 11.7.3 Modifying the call tree <a name="11-7-3-Modifying-the-call-tree"></a>
+#### 11.7.3 Modifying the call tree 
 
 The next step up in complexity is returning a modified call tree, like what you get with `bquote()`. `bquote()` is a slightly more flexible form of `quote()`: it allows you to optionally quote and unquote some parts of an expression (it’s similar to the backtick operator in Lisp). Everything is quoted, unless it’s encapsulated in `.()` in which case it’s evaluated and the result is inserted:
 
@@ -4117,7 +3905,7 @@ The main difference between this and the previous recursive functions is that af
 
 These tools are somewhat similar to Lisp macros, as discussed in [Programmer's Niche: Macros in R](http://www.r-project.org/doc/Rnews/Rnews_2001-3.pdf#page=10) by Thomas Lumley. However, macros are run at compile-time, which doesn't have any meaning in R, and always return expressions. They're also somewhat like Lisp [fexprs](http://en.wikipedia.org/wiki/Fexpr). A fexpr is a function where the arguments are not evaluated by default. The terms macro and fexpr are useful to know when looking for useful techniques from other languages.
 
-## 12. Domain Specific Languages <a name="12--Domain-Specific-Languages"></a>
+## 12. Domain Specific Languages 
 
 The combination of first class environments, lexical scoping, non-standard evaluation, and metaprogramming gives us a powerful toolkit for creating embedded domain specific languages (DSLs) in R. Embedded DSLs take advantage of a host language’s parsing and execution framework, but adjust the semantics to make them more suitable for a specific task. DSLs are a very large topic, and this chapter will only scratch the surface, focussing on important implementation techniques rather than on how you might come up with the language in the first place.
 
@@ -4137,9 +3925,9 @@ translate_sql(like == 7)
 #> <SQL> "like" = 7.0
 ```
 
-### 12.1 DSL Example 1: Generating HTML <a name="12-1-DSL-Example-1-Generating-HTML"></a>
+### 12.1 DSL Example 1: Generating HTML 
 
-#### 12.1.1 Goal <a name="12-1-1-Goal"></a>
+#### 12.1.1 Goal 
 
 Our goal is to make it easy to generate HTML from R:
 
@@ -4159,9 +3947,9 @@ with_html(body(
 </body>
 ```
 
-### 12.2 DSL Example 2: Turning R mathematical expressions into LaTeX <a name="12-2-DSL-Example-2-Turning-R-mathematical-expressions-into-LaTeX"></a>
+### 12.2 DSL Example 2: Turning R mathematical expressions into LaTeX 
 
-#### 12.2.1 Goal <a name="12-2-1-Goal"></a>
+#### 12.2.1 Goal 
 
 Our goal is to use these rules to automatically convert an R expression to its appropriate LaTeX representation. We'll tackle this in four stages:
 
@@ -4174,9 +3962,11 @@ Our goal is to use these rules to automatically convert an R expression to its a
 * Wrap unknown functions with `\textrm`: 
 	- E.g. `f(a)` => `\textrm{f}(a)`
 
-## 13. Performance <a name="13--Performance"></a>
+# Part IV. Performant code
 
-### 13.1 Why is R slow? <a name="13-1-Why-is-R-slow"></a>
+## 13. Performance 
+
+### 13.1 Why is R slow? 
 
 To understand R’s performance, it helps to think about R both a) as a language and b) as an implementation of that language.
 
@@ -4197,7 +3987,7 @@ Why is R slow? Two general reasons are:
 - The design of the R-language imposes fundamental constraints on R’s speed.
 - GNU-R is currently far from the theoretical maximum.
 
-### 13.2 Microbenchmarking <a name="13-2-Microbenchmarking"></a>
+### 13.2 Microbenchmarking 
 
 While it’s hard to know exactly how much faster a better implementation could be, a ">10x" improvement in speed seems achievable.
 
@@ -4225,7 +4015,7 @@ As with all microbenchmarks, pay careful attention to the units:
 - µs: microsecond, 1s == 1,000,000µs
 - ns: nanosecond, 1s == 1,000,000,000ns
 
-### 13.3 Language performance <a name="13-3-Language-performance"></a>
+### 13.3 Language performance 
 
 In this section, I’ll explore three trade-offs that limit the performance of the R-language: 
 
@@ -4235,7 +4025,7 @@ In this section, I’ll explore three trade-offs that limit the performance of t
 
 I’ll illustrate each trade-off with a microbenchmark, showing how it slows GNU-R down. I benchmark GNU-R because you can’t benchmark the R-language (it can’t run code). This means that the results are only suggestive of the cost of these design decisions, but are nevertheless useful.
 
-#### 13.3.1 Extreme dynamism <a name="13-3-1-Extreme-dynamism"></a>
+#### 13.3.1 Extreme dynamism 
 
 R is an extremely dynamic programming language. Almost anything can be modified after it is created, like adding new fields to an S3 object, or even changing its class. Pretty much the only things you can’t change are objects in sealed namespaces, which are created when you load a package.
 
@@ -4253,7 +4043,7 @@ for (i in 1:1e6) {
 
 The cost of finding the right method is higher for non-primitive functions. microbenchmark 部分略。
 
-#### 13.3.2 Name lookup with mutable environments <a name="13-3-2-Name-lookup-with-mutable-environments"></a>
+#### 13.3.2 Name lookup with mutable environments 
 
 It’s surprisingly difficult to find the value associated with a name in the R-language. This is due to combination of lexical scoping and extreme dynamism. This means that you can’t do name lookup just once: you have to start from scratch each time (比如我们在函数的内部访问了函数外部的一个 `a`，然后在函数内部我们自己又创建了一个 `a`).
 
@@ -4267,11 +4057,11 @@ f <- function(x, y) {
 
 Since these functions are in the global environment, R has to look through every environment in the search path, which could easily be 10 or 20 environments. microbenchmark 部分略。
 
-#### 13.3.3 Lazy evaluation overhead <a name="13-3-3-Lazy-evaluation-overhead"></a>
+#### 13.3.3 Lazy evaluation overhead 
 
 To implement lazy evaluation, R uses a promise object that contains the expression needed to compute the result and the environment in which to perform the computation. Creating these objects has some overhead, so each additional argument to a function decreases its speed a little. microbenchmark 部分略。
 
-### 13.4 Implementation performance <a name="13-4-Implementation-performance"></a>
+### 13.4 Implementation performance 
 
 The design of the R language limits its maximum theoretical performance, but GNU-R is currently nowhere near that maximum.
 
@@ -4279,7 +4069,7 @@ R is over 20 years old. It contains nearly 800,000 lines of code (about 45% C, 1
 
 Below, I’ll show two small, but illustrative, examples of parts of R that are currently slow but could, with some effort, be made faster. 
 
-#### 13.4.1 Extracting a single value from a data frame <a name="13-4-1-Extracting-a-single-value-from-a-data-frame"></a>
+#### 13.4.1 Extracting a single value from a data frame 
 
 The following microbenchmark shows seven ways to access a single value from the built-in `mtcars` dataset (to be specific, the number in the bottom-right corner). The variation in performance is startling: the slowest method takes 30x longer than the fastest. There’s no reason that there has to be such a huge difference in performance. It’s simply that no one has had the time to fix it.
 
@@ -4300,7 +4090,7 @@ microbenchmark(
 #>       .subset2    511    888  5267    982  1,150 416,000   100
 ```
 
-#### 13.4.2 ifelse(), pmin(), and pmax() <a name="13-4-2-ifelse-pmin-and-pmax"></a>
+#### 13.4.2 ifelse(), pmin(), and pmax() 
 
 Some base functions are known to be slow. For example, take the following three implementations of `squish()`, a function that ensures that the smallest value in a vector `x` is at least `a` and its largest value is at most `b`:
 
@@ -4342,7 +4132,7 @@ pmin(5:1, pi)
 
 We can often do even better by using C++.
 
-## 14. Optimising code <a name="14--Optimising-code"></a>
+## 14. Optimising code 
 
 Optimising code to make it run faster is an iterative process:
 
@@ -4359,7 +4149,7 @@ devtools::install_github("hadley/lineprof")
 
 注意会用到 Rtools（中的 make），请把类似 "E:\Rtools\bin" 这样的路径添加到 path。
 
-### 14.1 Measuring performance <a name="14-1-Measuring-performance"></a>
+### 14.1 Measuring performance 
 
 To understand performance, you use a profiler. There are a number of different types of profilers. R uses a fairly simple type called a **sampling** or **statistical profiler**. A sampling profiler stops the execution of code every few milliseconds and records which function is currently executing (along with which function called that function, and so on). For example, consider `f()`, below:
 
@@ -4413,7 +4203,7 @@ shine(l)
 
 `lineprof` provides some functions to navigate through this data structure, but they’re a bit clumsy. Instead, we’ll start an interactive explorer using the `shiny` package. `shine(l)` will open a new web page (or if you’re using RStudio, a new pane) that shows your source code annotated with information about how long each line took to run. `shine()` starts a shiny app which “blocks” your R session. To exit, you’ll need to stop the process using escape or `ctrl + c`.
 
-#### Limitations <a name="Limitations"></a>
+#### Limitations 
 
 There are some other limitations to profiling:
 
@@ -4424,7 +4214,7 @@ There are some other limitations to profiling:
 - Lazy evaluation means that arguments are often evaluated inside another function. For example, in `j(i())`, profiling would make it seem like `i()` was called by `j()` because the argument isn’t evaluated until it’s needed by `j()`. 
 	- If this is confusing, you can create temporary variables to force computation to happen earlier.
 	
-### 14.2 Improving performance <a name="14-2-Improving-performance"></a>
+### 14.2 Improving performance 
 
 The following sections introduce you to 6 basic techniques that I’ve found broadly useful:
 
@@ -4439,7 +4229,7 @@ A final technique is to rewrite in a faster language, like C++. That’s a big t
 
 Before we get into specific techniques, I’ll first describe a general strategy and organisational style that’s useful when working on performance.
 
-#### 14.2.1 Best practice: Organize your code <a name="14-2-1-Best-practice-Organize-your-code"></a>
+#### 14.2.1 Best practice: Organize your code 
 
 When tackling a bottleneck, you’re likely to come up with multiple approaches. Write a function for each approach, encapsulating all relevant behaviour. This makes it easier to check that each approach returns the correct result and to time how long it takes to run. To demonstrate the strategy, I’ll compare two approaches for computing the mean:
 
@@ -4476,7 +4266,7 @@ microbenchmark(
 
 Before you start experimenting, you should have a target speed that defines when the bottleneck is no longer a problem. Setting such a goal is important because you don’t want to spend valuable time over-optimising your code.
 
-#### 14.2.2 Technique 1: Look for existing solutions <a name="14-2-2-Technique-1-Look-for-existing-solutions"></a>
+#### 14.2.2 Technique 1: Look for existing solutions 
 
 If your bottleneck is a function in a package, it’s worth looking at other packages that do the same thing. Two good places to start are:
 
@@ -4489,7 +4279,7 @@ It’s often helpful to restrict your search to R related pages. For Google, try
 
 As discussed above, record all solutions that you find, not just those that immediately appear to be faster. Some solutions might be initially slower, but because they are easier to optimise they end up being faster. You may also be able to combine the fastest parts from different approaches.
 
-#### 14.2.3 Technique 2: Unburden your functions <a name="14-2-3-Technique-2-Unburden-your-functions"></a>
+#### 14.2.3 Technique 2: Unburden your functions 
 
 One way to do that is use a function tailored to a more specific type of input or ouput, or a more specific problem. For example:
 
@@ -4545,7 +4335,7 @@ You can also take a general-purpose function and simplify its code for your spec
 
 A final example of doing less work is to use simpler data structures. For example, when working with rows from a data frame, it’s often faster to work with row indices than the whole data frame.
 
-#### 14.2.4 Technique 3: Vectorise <a name="14-2-4-Technique-3-Vectorise"></a>
+#### 14.2.4 Technique 3: Vectorise 
 
 Vectorising your code is not just about avoiding for loops, although that’s often a step. Vectorising is about taking a “whole object” approach to a problem, thinking about vectors, not scalars. There are two key attributes of a vectorised function:
 
@@ -4556,7 +4346,7 @@ Functionals stressed the importance of vectorised code as a higher level abstrac
 
 例子略。
 
-#### 14.2.5 Technique 4: Avoid copies <a name="14-2-5-Technique-4-Avoid-copies"></a>
+#### 14.2.5 Technique 4: Avoid copies 
 
 A pernicious source of slow R code is growing an object with a loop. Whenever you use `c()`, `append()`, `cbind()`, `rbind()`, or `paste()` to create a bigger object, R must first allocate space for the new object and then copy the old object to its new home. If you're repeating this many times, like in a for loop, this can be quite expensive. You've entered Circle 2 of the ["R inferno"](http://www.burns-stat.com/pages/Tutor/R_inferno.pdf). 
 
@@ -4587,7 +4377,7 @@ microbenchmark(
 
 Modifying an object in a loop, e.g., `x[i] <- y`, can also create a copy, depending on the class of `x`. 
 
-#### 14.2.6 Technique 5: Byte-code compile <a name="14-2-6-Technique-5-Byte-code-compile"></a>
+#### 14.2.6 Technique 5: Byte-code compile 
 
 R 2.13.0 introduced a byte code compiler which can increase the speed of some code. Using the compiler is an easy way to get improvements in speed. Even if it doesn't work well for your function, you won't have invested a lot of time in the effort. The following example shows the pure R version of `lapply()`. Compiling it gives a considerable speedup, although it's still not quite as fast as the C version provided by base R. 
 
@@ -4612,11 +4402,11 @@ microbenchmark(
 
 Byte code compilation really helps here, but in most cases you're more likely to get a 5-10% improvement. All base R functions are byte code compiled by default.
 
-#### 14.2.7 Case study: t-test <a name="14-2-7-Case-study-t-test"></a>
+#### 14.2.7 Case study: t-test 
 
 一个非常详细的例子，写的很好，建议看书。
 
-#### 14.2.8 Technique 6: Parallelise <a name="14-2-8-Technique-6-Parallelise"></a>
+#### 14.2.8 Technique 6: Parallelise 
 
 Parallelisation uses multiple cores to work simultaneously on different parts of a problem. It doesn't reduce the computing time, but it saves your time because you're using more of your computer's resources. 
 
@@ -4645,15 +4435,15 @@ Life is a bit harder in Windows. 具体看书。
 
 There is some communication overhead with parallel computing. If the subproblems are very small, then parallelisation might hurt rather than help. It's also possible to distribute computation over a network of computers (not just the cores on your local computer) but that's beyond the scope of this book, because it gets increasingly complicated to balance computation and communication costs. A good place to start for more information is the [high performance computing CRAN task view](http://cran.r-project.org/web/views/HighPerformanceComputing.html).
 
-### 14.3 Other techniques <a name="14-3-Other-techniques"></a>
+### 14.3 Other techniques 
 
 介绍了一些其他的资源（文档和书），有空可以看看。
 
-## 15. Memory (很有意思，建议看书) <a name="15--Memory-很有意思，建议看书"></a>
+## 15. Memory (很有意思，建议看书) 
 
-## 16. High performance functions with Rcpp <a name="16--High-performance-functions-with-Rcpp"></a>
+## 16. High performance functions with Rcpp 
 
-### 16.1 Getting started <a name="16-1-Getting-started"></a>
+### 16.1 Getting started 
 
 `cppFunction()` allows you to write C++ functions in R:
 
@@ -4674,7 +4464,7 @@ add(1, 2, 3)
 
 When you run this code, Rcpp will compile the C++ code and construct an R function that connects to the compiled C++ function.
 
-#### 16.1.1 Example 1: No inputs, scalar output <a name="16-1-1-Example-1-No-inputs-scalar-output"></a>
+#### 16.1.1 Example 1: No inputs, scalar output 
 
 ```r
 cppFunction('int one() {
@@ -4684,7 +4474,7 @@ cppFunction('int one() {
 
 This function returns an `int` (a scalar integer). The classes for the most common types of R vectors are: `NumericVector`, `IntegerVector`, `CharacterVector`, and `LogicalVector`.
 
-#### 16.1.2 Example 2: Scalar input, scalar output <a name="16-1-2-Example-2-Scalar-input-scalar-output"></a>
+#### 16.1.2 Example 2: Scalar input, scalar output 
 
 ```r
 cppFunction('int signC(int x) {
@@ -4700,7 +4490,7 @@ cppFunction('int signC(int x) {
 
 As in R you can use `break` to exit the loop, but to skip one iteration you need to use `continue` instead of `next`.
 
-#### 16.1.3 Example 3: Vector input, scalar output <a name="16-1-3-Example-3-Vector-input-scalar-output"></a>
+#### 16.1.3 Example 3: Vector input, scalar output 
 
 ```r
 # Bad practice anyway
@@ -4722,7 +4512,7 @@ cppFunction('double sumC(NumericVector x) {
 }')
 ```
 
-#### 16.1.4 Example 4: Vector input, vector output <a name="16-1-4-Example-4-Vector-input-vector-output"></a>
+#### 16.1.4 Example 4: Vector input, vector output 
 
 ```r
 pdistR <- function(x, ys) {
@@ -4744,7 +4534,7 @@ Another useful way of making a vector is to copy an existing one: `NumericVector
 
 In the [Rcpp sugar](#) section, you’ll see how to rewrite this function to take advantage of Rcpp’s vectorised operations so that the C++ code is almost as concise ([kənˈsaɪs], brief, yet including all important information) as R code.
 
-#### 16.1.5 Example 5: Matrix input, vector output <a name="16-1-5-Example-5-Matrix-input-vector-output"></a>
+#### 16.1.5 Example 5: Matrix input, vector output 
 
 Each vector type in R has a matrix equivalent in Rcpp: `NumericMatrix`, `IntegerMatrix`, `CharacterMatrix`, and `LogicalMatrix`. For example, we could create a function that reproduces `rowSums()`:
 
@@ -4769,7 +4559,7 @@ The main differences:
 - In C++, you subset a matrix with `()`, not `[]`.
 - Use `.nrow()` and `.ncol()` methods to get the dimensions of a matrix.
 
-#### 16.1.6 Using sourceCpp() <a name="16-1-6-Using-sourceCpp"></a>
+#### 16.1.6 Using sourceCpp() 
 
 So far, we’ve used inline C++ with `cppFunction()`. This makes presentation simpler, but for real problems, it’s usually easier to use stand-alone C++ files and then source them into R using `sourceCpp()`.
 
@@ -4831,7 +4621,7 @@ microbenchmark(
 
 NB: if you run this code yourself, you’ll notice that `meanC()` is much faster than the built-in `mean()`. This is because it trades numerical accuracy for speed.
 
-### 16.2 Attributes and other classes <a name="16-2-Attributes-and-other-classes"></a>
+### 16.2 Attributes and other classes 
 
 All R objects have attributes, which can be queried and modified with `.attr()`. Rcpp also provides `.names()` as an alias for the name attribute. The following code snippet illustrates these methods. Note the use of `::create()`, a class method. This allows you to create an R vector from C++ scalar values:
 
@@ -4853,7 +4643,7 @@ NumericVector attribs() {
 
 For S4 objects, `.slot()` plays a similar role to `.attr()`.
 
-#### 16.2.1 Functions <a name="16-2-1-Functions"></a>
+#### 16.2.1 Functions 
 
 You can put R functions in an object of type `Function`. This makes calling an R function from C++ straightforward:
 
@@ -4902,13 +4692,13 @@ f("y", 1);
 f(_["x"] = "y", _["value"] = 1);
 ```
 
-#### 16.2.2 Other types <a name="16-2-2-Other-types"></a>
+#### 16.2.2 Other types 
 
 There are also classes for many more specialised language objects: `Environment`, `ComplexVector`, `RawVector`, `DottedPair`, `Language`, `Promise`, `Symbol`, `WeakReference`, and so on.
 
-### 16.3 Missing values <a name="16-3-Missing-values"></a>
+### 16.3 Missing values 
 
-#### 16.3.1 Scalar NAs <a name="16-3-1-Scalar-NAs"></a>
+#### 16.3.1 Scalar NAs 
 
 ```r
 #include <Rcpp.h>
@@ -4935,11 +4725,11 @@ str(scalar_missings())
 #>  $ : num NaN
 ```
 
-##### Integer NA <a name="Integer-NA"></a>
+##### Integer NA 
 
 With integers, missing values are stored as the smallest integer. But, since C++ doesn’t know that the smallest integer has this special behaviour, if you do anything to it you’re likely to get an incorrect value: for example, `evalCpp('NA_INTEGER + 1')` gives -2147483647.
 
-##### Double NA <a name="Double-NA"></a>
+##### Double NA 
 
 R’s NA is a special type of IEEE 754 floating point number `NaN` (Not a Number). Any comparision that involves a `NaN` (or in C++, `NAN`) always evaluates as FALSE:
 
@@ -4976,11 +4766,11 @@ evalCpp("NAN * 1")
 #> [1] NaN
 ```
 
-##### Boolean NA <a name="Boolean-NA"></a>
+##### Boolean NA 
 
 While C++’s bool has two possible values (true or false), a logical vector in R has three (TRUE, FALSE, and NA). If you coerce a length 1 logical vector, make sure it doesn’t contain any missing values otherwise they will be converted to TRUE.
 
-#### 16.3.2 Vector NAs <a name="16-3-2-Vector-NAs"></a>
+#### 16.3.2 Vector NAs 
 
 With vectors, you need to use a missing value specific to the type of vector, `NA_REAL`, `NA_INTEGER`, `NA_LOGICAL`, `NA_STRING`:
 
@@ -5049,11 +4839,11 @@ is_naC2(c(NA, 5.4, 3.2, NA))
 
 Finally, `noNA(x)` asserts that the vector `x` does not contain any missing values, and allows optimisation of some mathematical operations.
 
-### 16.4 Rcpp sugar <a name="16-4-Rcpp-sugar"></a>
+### 16.4 Rcpp sugar 
 
 Rcpp provides a lot of syntactic “sugar” to ensure that C++ functions work very similarly to their R equivalents. In fact, Rcpp sugar makes it possible to write efficient C++ code that looks almost identical to its R equivalent. If there’s a sugar version of the function you’re interested in, you should use it: it’ll be both expressive and well tested. Sugar functions aren’t always faster than a handwritten equivalent, but they will get faster in the future as more time is spent on optimising Rcpp.
 
-#### 16.4.1 Arithmetic and logical operators <a name="16-4-1-Arithmetic-and-logical-operators"></a>
+#### 16.4.1 Arithmetic and logical operators 
 
 All the basic arithmetic and logical operators are vectorised: `+` `*`, `-`, `/`, `pow`, `<`, `<=`, `>`, `>=`, `==`, `!=`, `!`.  For example, we could use sugar to considerably simplify the implementation of `pdistC()`.
 
@@ -5073,7 +4863,7 @@ NumericVector pdistC2(double x, NumericVector ys) {
 }
 ```
 
-#### 16.4.2 Logical summary functions <a name="16-4-2-Logical-summary-functions"></a>
+#### 16.4.2 Logical summary functions 
 
 The sugar function `any()` and `all()` are fully lazy so that `any(x == 0)`, for example, might only need to evaluate one element of a vector, and return a special type that can be converted into a `bool` using `.is_true()`, `.is_false()`, or `.is_na()`. We could also use this sugar to write an efficient function to determine whether or not a numeric vector contains any missing values. To do this in R, we could use `any(is.na(x))`:
 
@@ -5113,11 +4903,11 @@ microbenchmark(
 #>  any_naC(x2)   2.16   3.23   4.29   4.01   4.68    18.2   100
 ```
 
-#### 16.4.3 Vector views <a name="16-4-3-Vector-views"></a>
+#### 16.4.3 Vector views 
 
 A number of helpful functions provide a "view" of a vector: `head()`, `tail()`, `rep_each()`, `rep_len()`, `rev()`, `seq_along()`, and `seq_len()`. In R these would all produce copies of the vector, but in Rcpp they simply point to the existing vector and override the subsetting operator (`[`) to implement special behaviour. This makes them very efficient: for instance, `rep_len(x, 1e6)` does not have to make a million copies of x.
 
-#### 16.4.4 Other useful functions <a name="16-4-4-Other-useful-functions"></a>
+#### 16.4.4 Other useful functions 
 
 Finally, there's a grab bag of sugar functions that mimic frequently used R functions:
 
@@ -5128,9 +4918,9 @@ Finally, there's a grab bag of sugar functions that mimic frequently used R func
 * Dealing with duplicates: `duplicated()`, `unique()`.
 * `d/q/p/r` for all standard distributions.
 
-### 16.5 The STL <a name="16-5-The-STL"></a>
+### 16.5 The STL 
 
-#### 16.5.1 Using iterators <a name="16-5-1-Using-iterators"></a>
+#### 16.5.1 Using iterators 
 
 ```r
 #include <Rcpp.h>
@@ -5161,7 +4951,7 @@ double sum4(NumericVector x) {
 
 `accumulate()` (along with the other functions in `<numeric>`, like `adjacent_difference()`, `inner_product()`, and `partial_sum()`) is not that important because Rcpp sugar provides equivalents.
 
-#### 16.5.2 Sets <a name="16-5-2-Sets"></a>
+#### 16.5.2 Sets 
 
 The following function uses an unordered set to implement an equivalent to `duplicated()` for integer vectors. Note the use of `seen.insert(x[i]).second`: 
 
@@ -5191,11 +4981,11 @@ LogicalVector duplicatedC(IntegerVector x) {
 
 Note that unordered sets are only available in C++ 11, which means we need to use the **cpp11 plugin**, `[[Rcpp::plugins(cpp11)]]`.
 
-### 16.6 Case studies (略) <a name="16-6-Case-studies"></a>
+### 16.6 Case studies (略) 
 
-### 16.7 Using Rcpp in a package (略) <a name="16-7-Using-Rcpp-in-a-package"></a>
+### 16.7 Using Rcpp in a package (略) 
 
-## 17. R's C interface <a name="17--R's-C-interface"></a>
+## 17. R's C interface 
 
 To see R’s complete C API, look at the header file `Rinternals.h`. It’s easiest to find and display this file from within R:
 
@@ -5210,7 +5000,7 @@ I do not recommend using C for writing new high-performance code. Instead write 
 
 To understand existing C code, it’s useful to generate simple examples of your own that you can experiment with. To that end, all examples in this chapter use the `inline` package, which makes it extremely easy to compile and link C code to your current R session.
 
-### 17.1 Calling C functions from R <a name="17-1-Calling-C-functions-from-R"></a>
+### 17.1 Calling C functions from R 
 
 Generally, calling a C function from R requires two pieces: a C function and an R wrapper function that uses `.Call()`. The simple function below adds two numbers together and illustrates some of the complexities of coding in C:
 
@@ -5250,7 +5040,7 @@ add <- cfunction(c(a = "integer", b = "integer"), "
 add(1, 5)
 ```
 
-### 17.2 R's C data structures <a name="17-2-R's-C-data-structures"></a>
+### 17.2 R's C data structures 
 
 At the C-level, all R objects are stored in a common datatype, the `SEXP`, or S-expression. All R objects are S-expressions so every C function that you create must return a `SEXP` as output and take `SEXP`s as inputs. (Technically, this is a pointer to a structure with typedef `SEXPREC`.) A `SEXP` is a variant type, with subtypes for all R's data structures. The most important types are: 
 
@@ -5298,13 +5088,13 @@ sexp_type(pairlist(a = 1))
 #> [1] "LISTSXP"
 ```
 
-### 17.3 Creating and modifying vectors <a name="17-3-Creating-and-modifying-vectors"></a>
+### 17.3 Creating and modifying vectors 
 
 At the heart of every C function are conversions between R data structures and C data structures. Inputs and output will always be R data structures (`SEXP`s) and you will need to convert them to C data structures in order to do any work. 
 
 An additional complication is the garbage collector: if you don’t **protect** every R object you create, the garbage collector will think they are unused and delete them.
 
-#### 17.3.1 Creating vectors and garbage collection <a name="17-3-1-Creating-vectors-and-garbage-collection"></a>
+#### 17.3.1 Creating vectors and garbage collection 
 
 The simplest way to create a new R-level object is to use `allocVector()`. It takes two arguments, the type of `SEXP` (or `SEXPTYPE`) to create, and the length of the vector:
 
@@ -5359,7 +5149,7 @@ zeroes(10);
 #>  [1] 0 0 0 0 0 0 0 0 0 0
 ```
 
-#### 17.3.2 Missing and non-finite values <a name="17-3-2-Missing-and-non-finite-values"></a>
+#### 17.3.2 Missing and non-finite values 
 
 ```r
 is_na <- cfunction(c(x = "ANY"), '
@@ -5399,7 +5189,7 @@ is_na(c(NA, TRUE))
 #> [1]  TRUE FALSE
 ```
 
-#### 17.3.3 Accessing vector data <a name="17-3-3-Accessing-vector-data"></a>
+#### 17.3.3 Accessing vector data 
 
 Use helper functions `REAL()`, `INTEGER()`, `LOGICAL()`, `COMPLEX()`, and `RAW()` to access the C array inside numeric, integer, logical, complex, and raw vectors:
 
@@ -5429,7 +5219,7 @@ for (int i = 0; i < n; i++) {
 }
 ```
 
-#### 17.3.4 Character vectors and lists <a name="17-3-4-Character-vectors-and-lists"></a>
+#### 17.3.4 Character vectors and lists 
 
 Strings and lists are more complicated because the individual elements of a vector are `SEXP`s, not basic C data structures. 
 
@@ -5456,7 +5246,7 @@ abc()
 #> [1] "a" "b" "c"
 ```
 
-#### 17.3.5 Modifying inputs <a name="17-3-5-Modifying-inputs"></a>
+#### 17.3.5 Modifying inputs 
 
 ```r
 add_three <- cfunction(c(x = "numeric"), '
@@ -5494,7 +5284,7 @@ y
 
 If you’re working with lists, use `shallow_duplicate()` to make a shallow copy; `duplicate()` will also copy every element in the list.
 
-#### 17.3.6 Coercing scalars <a name="17-3-6-Coercing-scalars"></a>
+#### 17.3.6 Coercing scalars 
 
 There are a few helper functions that turn length one R vectors into C scalars:
 
@@ -5510,11 +5300,11 @@ And helpers to go in the opposite direction:
 * `ScalarReal(x)`: double => `REALSXP`
 * `mkString(x)`: `const char*` => `STRSXP`
 
-#### 17.3.7 Long vectors <a name="17-3-7-Long-vectors"></a>
+#### 17.3.7 Long vectors 
 
 As of R 3.0.0, R vectors can have length greater than `2^31 - 1`. This means that vector lengths can no longer be reliably stored in an `int` and if you want your code to work with long vectors, you can't write code like `int n = length(x)`. Instead use the `R_xlen_t` type and the `xlength()` function, and write `R_xlen_t n = xlength(x)`.
 
-### 17.4 Pairlists <a name="17-4-Pairlists"></a>
+### 17.4 Pairlists 
 
 In R code, there are only a few instances when you need to care about the difference between a pairlist and a list. In C, pairlists play much more important role because they are used for calls, unevaluated arguments, attributes, and in `...`. In C, lists and pairlists differ primarily in how you access and name elements.
 
@@ -5611,7 +5401,7 @@ set_attr(x, "a", 1)
 
 There are some (confusingly named) shortcuts for common setting operations: `classgets()`, `namesgets()`, `dimgets()`, and `dimnamesgets()` are the internal versions of the default methods of `class<-`, `names<-`, `dim<-`, and `dimnames<-`.
 
-### 17.5 Input validation <a name="17-5-Input-validation"></a>
+### 17.5 Input validation 
 
 It’s usually easier to valid the input at the R level:
 
@@ -5668,7 +5458,7 @@ There are also a number of helper functions which return 0 for FALSE and 1 for T
 
 Note that some of these functions behave differently to similarly named R functions with similar names. For example `isVector()` is true for atomic vectors, lists, and expressions, where `is.vector()` returns TRUE only if its input has no attributes apart from names.
 
-### 17.6 Finding the C source code for a function <a name="17-6-Finding-the-C-source-code-for-a-function"></a>
+### 17.6 Finding the C source code for a function 
 
 In the base package, R doesn’t use `.Call()`. Instead, it uses two special functions: `.Internal()` and `.Primitive()`. Finding the source code for these functions is an arduous task: you first need to look for their C function name in `src/main/names.c` and then search the R source code. `pryr::show_c_source()` automates this task using GitHub code search:
 

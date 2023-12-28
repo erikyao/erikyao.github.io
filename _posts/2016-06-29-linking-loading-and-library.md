@@ -1,11 +1,12 @@
 ---
-layout: post
-title: "Linking, Loading and Library"
-description: ""
 category: OS
-tags: [Book]
+description: ''
+tags:
+- Book
+title: Linking, Loading and Library
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
 
 [northbridge_southbridge]: https://farm8.staticflickr.com/7239/27374870374_03bd8a9661_o_d.png
 [software_hierarchy]: https://farm8.staticflickr.com/7716/27886596032_ec5a763b1a_o_d.png

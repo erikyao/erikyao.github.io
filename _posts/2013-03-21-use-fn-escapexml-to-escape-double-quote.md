@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "JSP: use ${fn:escapeXml()} to escape double quotes"
-description: ""
 category: JSP
-tags: [escape]
+description: ''
+tags:
+- escape
+title: 'JSP: use ${fn:escapeXml()} to escape double quotes'
 ---
-{% include JB/setup %}
 
 页面关系是这样的：
 

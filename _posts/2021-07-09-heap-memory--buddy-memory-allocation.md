@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "heap memory / Buddy Memory Allocation"
-description: ""
 category: OS
+description: ''
 tags: []
+title: heap memory / Buddy Memory Allocation
 ---
-{% include JB/setup %}
 
 ## 1. 再谈 heap
 

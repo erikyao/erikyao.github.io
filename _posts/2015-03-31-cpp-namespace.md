@@ -1,26 +1,13 @@
 ---
-layout: post
-title: "C++: Namespace"
-description: ""
 category: C++
+description: ''
 tags: []
+title: 'C++: Namespace'
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
 
 整理自：_Thinking in C++_
-
------
-
-ToC:
-
-- [1. Creating a namespace](#1-creating-a-namespace)
-- [2. Unnamed namespaces](#2-unnamed-namespaces)
-- [3. When friend meets namespace](#3-when-friend-meets-namespace)
-- [4. Using](#4-using)
-	- [4.1 Where to put using](#41-where-to-put-using)
-	- [4.2 Name overriding](#42-name-overriding)
-	- [4.3 `using` declaration](#43-using-declaration)
-	- [4.4 Name conflict](#44-name-conflict)
 
 -----
 
@@ -181,4 +168,3 @@ int main() {
 ```
 
 这种情况不算做 override，我猜是因为 override 是程序员自己控制的，而 namespace 成员重名程序员很难发觉，于是编译器直接报个错提示你……
-

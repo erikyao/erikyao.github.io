@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Digest of <i>Essence of Linear Algebra</i>"
-description: ""
 category: Math
-tags: [Math-Algebra]
+description: ''
+tags:
+- Math-Algebra
+title: Digest of <i>Essence of Linear Algebra</i>
 ---
-{% include JB/setup %}
 
 $$
 \newcommand{\icol}[1]{

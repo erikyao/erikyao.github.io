@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Python: Be cautious when using generators/iterators in nested loops"
-description: ""
 category: Python
+description: ''
 tags: []
+title: 'Python: Be cautious when using generators/iterators in nested loops'
 ---
-{% include JB/setup %}
 
 Simply because generators/itertors would drain.
 

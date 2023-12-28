@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "EM method for identifying motifs in unaligned biopolymer sequences"
-description: ""
 category: Machine-Learning
-tags: [Paper]
+description: ''
+tags:
+- Paper
+title: EM method for identifying motifs in unaligned biopolymer sequences
 ---
-{% include JB/setup %}
 
 总结下 [Unsupervised Learning of Multiple Motifs in Biopolymers Using Expectation Maximization](http://link.springer.com/article/10.1007%2FBF00993379) 中的 EM 方法。
 
@@ -146,4 +145,3 @@ where $ fout_l $ is the frequency of the letter $ l $ in all positions of the se
 [1]C. E. Lawrence and A. A. Reilly, “[An expectation maximization (EM) algorithm for the identification and characterization of common sites in unaligned biopolymer sequences](http://www.ncbi.nlm.nih.gov/pubmed/2184437),” Proteins, vol. 7, no. 1, pp. 41–51, 1990.
 
 [2]G. Z. Hertz, G. W. Hartzell, and G. D. Stormo, “[Identification of consensus patterns in unaligned DNA sequences known to be functionally related](http://www.ncbi.nlm.nih.gov/pubmed/2193692),” Comput. Appl. Biosci., vol. 6, no. 2, pp. 81–92, Apr. 1990.
-

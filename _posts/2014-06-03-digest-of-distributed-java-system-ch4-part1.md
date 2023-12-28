@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "《分布式 Java 应用：基础与实践》第四章总结其一：集合类"
-description: ""
 category: Java
-tags: [Book]
+description: ''
+tags:
+- Book
+title: 《分布式 Java 应用：基础与实践》第四章总结其一：集合类
 ---
-{% include JB/setup %}
 
 - `ArrayList`: 非线程安全  
 - `LinkedList`: 非线程安全
@@ -27,4 +26,4 @@ private static final Object PRESENT = new Object();
 - `HashMap`: 非线程安全，且多线程下，`get()` 有可能导致 high CPU。多线程下请使用 `ConcurrentHashMap`  
   
 - `TreeMap`: 非线程安全，排序是一个红黑树实现  
-- `Hashtable`: `HashMap` 的历史版本，功能不及 `HashMap`，但是是线程安全的  
+- `Hashtable`: `HashMap` 的历史版本，功能不及 `HashMap`，但是是线程安全的

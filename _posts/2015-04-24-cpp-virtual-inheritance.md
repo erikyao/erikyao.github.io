@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "C++: Virtual Inheritance"
-description: ""
 category: C++
+description: ''
 tags: []
+title: 'C++: Virtual Inheritance'
 ---
-{% include JB/setup %}
 
 整理自：
 

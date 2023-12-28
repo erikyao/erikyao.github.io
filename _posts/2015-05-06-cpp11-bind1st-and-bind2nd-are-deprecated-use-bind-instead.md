@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "C++11: bind1st() and bind2nd() are deprecated. Use bind() instead."
-description: ""
 category: C++
-tags: [C++11]
+description: ''
+tags:
+- C++11
+title: 'C++11: bind1st() and bind2nd() are deprecated. Use bind() instead.'
 ---
-{% include JB/setup %}
 
 整理自：
 

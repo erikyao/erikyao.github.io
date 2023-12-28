@@ -1,27 +1,15 @@
 ---
-layout: post
-title: "C++: Operator Overloading"
-description: ""
 category: C++
+description: ''
 tags: []
+title: 'C++: Operator Overloading'
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
 
 整理自：_Thinking in C++_
 
 [Basic_guidelines]: https://farm2.staticflickr.com/1528/23838060001_564e45f95b_o_d.png
-
------
-
-ToC:
-
-- [1. Intro](#1-intro)
-- [2. Overloadable operators](#2-overloadable-operators)
-	- [2.1 Examples](#21-examples)
-	- [2.2 Arguments & return values](#22-arguments--return-values)
-	- [2.3 Unusual operators](#23-unusual-operators)
-	- [2.4 Operators you can’t overload](#24-operators-you-cant-overload)
-- [3. Member function or not](#3-member-function-or-not)
 
 -----
 

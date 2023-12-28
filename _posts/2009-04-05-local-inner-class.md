@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Java: 局部内部类 (local inner class)"
-description: ""
 category: Java
-tags: [Java-InnerClass]
+description: ''
+tags:
+- Java-InnerClass
+title: 'Java: 局部内部类 (local inner class)'
 ---
-{% include JB/setup %}
 
 如果把 `{...}` 这么一段称为 “域”，那么方法 body 明显是一个域，方法 body 中的 `if {}` 或是 `for {}` 之类的也是域。在方法 body 或是方法 body 中其他域里定义的类就是局部内部类。  
 

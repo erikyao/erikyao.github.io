@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Rcpp Hierarchy"
-description: ""
 category: R
-tags: [Rcpp]
+description: ''
+tags:
+- Rcpp
+title: Rcpp Hierarchy
 ---
-{% include JB/setup %}
 
 ## 1. The C beneath R 
 

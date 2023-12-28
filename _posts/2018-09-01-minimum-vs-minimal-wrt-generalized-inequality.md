@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Minimum vs Minimal w.r.t. generalized inequality"
-description: ""
 category: Math
+description: ''
 tags: []
+title: Minimum vs Minimal w.r.t. generalized inequality
 ---
-{% include JB/setup %}
 
 假定有一个 proper cone $K$，它定义了一个 generalized inequality 关系 $\preceq_K$。
 

@@ -1,11 +1,12 @@
 ---
-layout: post
-title: "Expectation-Maximization Algorithm"
-description: "Digest of <i>A Gentle Tutorial of the EM Algorithm and its Application to Parameter Estimation for Gaussian Mixture and Hidden Markov Models</i>"
 category: Machine-Learning
-tags: [Paper, EM]
+description: Digest of <i>A Gentle Tutorial of the EM Algorithm and its Application
+  to Parameter Estimation for Gaussian Mixture and Hidden Markov Models</i>
+tags:
+- Paper
+- EM
+title: Expectation-Maximization Algorithm
 ---
-{% include JB/setup %}
 
 原文 [A Gentle Tutorial of the EM Algorithm and its Application to Parameter Estimation for Gaussian Mixture and Hidden Markov Models](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.161.948)。
 

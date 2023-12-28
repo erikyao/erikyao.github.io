@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Lab Memo: Use Cases for Pipeline Refactoring"
-description: ""
 category: Lab
+description: ''
 tags: []
+title: 'Lab Memo: Use Cases for Pipeline Refactoring'
 ---
-{% include JB/setup %}
 
 [Pipeline]: https://farm6.staticflickr.com/5755/23567557869_3e00975672_o_d.png
 
@@ -30,4 +28,4 @@ There is another issue for engineering:
 
 - Better project/folder structure for 
 	- multilingual scripts, and
-	- intermediate/final data files 
+	- intermediate/final data files

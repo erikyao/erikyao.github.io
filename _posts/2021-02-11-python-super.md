@@ -1,11 +1,11 @@
 ---
-layout: post
-title: "Python: super()"
-description: ""
 category: Python
+description: ''
 tags: []
+title: 'Python: super()'
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
 
 `super()` 实在是有点复杂，所以它的 [doc](https://docs.python.org/3/library/functions.html#super) 的信息量看起来就很有限。
 
@@ -22,16 +22,6 @@ tags: []
 Python 3.8.2 (default, Dec 21 2020, 15:06:04) 
 [Clang 12.0.0 (clang-1200.0.32.29)] on darwin
 ```
-
-## ToC
-
-- [无参形式 `super()`](#无参形式-super)
-- [二参形式 `super(T, obj)`](#二参形式-supert-obj)
-  - [`super(T, obj)` 如何查找 `T` 的父类？](#supert-obj-如何查找-t-的父类)
-  - [为何能找到 sibling class？](#为何能找到-sibling-class)
-- [二参形式 `super(T, S)`](#二参形式-supert-s)
-- [一参形式 `super(T)`](#一参形式-supert)
-- [Method invocation from a super object](#method-invocation-from-a-super-object)
 
 ## 无参形式 `super()`
 

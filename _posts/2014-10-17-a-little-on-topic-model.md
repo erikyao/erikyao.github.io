@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "A Little on Topic Model"
-description: ""
 category: Machine-Learning
-tags: [NLP]
+description: ''
+tags:
+- NLP
+title: A Little on Topic Model
 ---
-{% include JB/setup %}
 
 总结自：
 

@@ -1,11 +1,11 @@
 ---
-layout: post
-title: "Python: sequences of booleans"
-description: ""
 category: Python
-tags: [pandas, numpy]
+description: ''
+tags:
+- pandas
+- numpy
+title: 'Python: sequences of booleans'
 ---
-{% include JB/setup %}
 
 R 里面常见的一个用法是 `dataframe[boolSeq, "foo"]`，pandas 里也是一样:
 

@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Python: Put simply, generators are special coroutines"
-description: ""
 category: Python
+description: ''
 tags: []
+title: 'Python: Put simply, generators are special coroutines'
 ---
-{% include JB/setup %}
 
 ## `next(coro) == coro.send(None)`
 

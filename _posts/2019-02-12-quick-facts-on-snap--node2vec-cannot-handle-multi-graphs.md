@@ -1,11 +1,11 @@
 ---
-layout: post
-title: "Quick facts on SNAP / Node2vec cannot handle multi-graphs"
-description: ""
 category: Machine-Learning
-tags: [SNAP, node2vec]
+description: ''
+tags:
+- SNAP
+- node2vec
+title: Quick facts on SNAP / Node2vec cannot handle multi-graphs
 ---
-{% include JB/setup %}
 
 # 1. Quick Facts On SNAP
 

@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "C++: <i>new T</i> and <i>new T()</i> are different!"
-description: ""
 category: C++
+description: ''
 tags: []
+title: 'C++: <i>new T</i> and <i>new T()</i> are different!'
 ---
-{% include JB/setup %}
 
 To hell with you, C++!
 

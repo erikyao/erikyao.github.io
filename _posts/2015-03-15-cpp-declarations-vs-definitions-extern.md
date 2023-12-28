@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "C++: declarations vs. definitions / extern"
-description: ""
 category: C++
+description: ''
 tags: []
+title: 'C++: declarations vs. definitions / extern'
 ---
-{% include JB/setup %}
 
 整理自 _Thinking in C++_。
 

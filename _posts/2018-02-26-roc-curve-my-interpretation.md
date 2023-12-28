@@ -1,11 +1,11 @@
 ---
-layout: post
-title: "ROC Curve: my interpretation"
-description: ""
 category: Machine-Learning
-tags: [ROC, PRC]
+description: ''
+tags:
+- ROC
+- PRC
+title: 'ROC Curve: my interpretation'
 ---
-{% include JB/setup %}
 
 [roc_curve]: https://farm5.staticflickr.com/4782/40747956572_b8cf50ecdc_z_d.jpg
 [roc_curve_error]: https://farm5.staticflickr.com/4774/38980106050_aebae1d24a_z_d.jpg

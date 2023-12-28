@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "C++: initializer_list"
-description: ""
 category: C++
-tags: [C++11]
+description: ''
+tags:
+- C++11
+title: 'C++: initializer_list'
 ---
-{% include JB/setup %}
 
 总结自：
 

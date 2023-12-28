@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "C++: array in argument list"
-description: ""
 category: C++
+description: ''
 tags: []
+title: 'C++: array in argument list'
 ---
-{% include JB/setup %}
 
 整理自 _Thinking in C++_。
 

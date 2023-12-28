@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "scikit-learn: Pipeline"
-description: ""
 category: sklearn
+description: ''
 tags: []
+title: 'scikit-learn: Pipeline'
 ---
-{% include JB/setup %}
 
 Pipeline 的作用，见名知意，就是把多个 processor units chain up 起来。Pipeline 要求前 $N-1$ 个 processor units 是 `Transformer`，最后一个 processor unit 是 `Estimator`。我们举个例子看看就很好理解了：
 
@@ -92,4 +90,3 @@ Pipeline `fit()` 的逻辑是：
 
 1. 我可以在 `GridSearchCV()` 里尝试一个 Transformer 的不同参数。比如，是先 $\log_2(X)$ 再 predict 还是先 $\ln(X)$ 再 predict。
 1. 我可以设计一个 Transformer dispatcher，根据参数来指定具体使用哪个 Transformer。比如接收到 `type="log2"`，我就 delegate 一个 $\log_2(X)$ 的 transformer； 接收到 `type="abs"`，就 delegate 一个 $\vert X \vert$ 的 transformer。
-

@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "jBPM-4.3 中 deploymentId 和definitionId 应该是一对一的关系"
-description: ""
 category: jBPM-4.3
+description: ''
 tags: []
+title: jBPM-4.3 中 deploymentId 和definitionId 应该是一对一的关系
 ---
-{% include JB/setup %}
 
 部署的时候，`deploy()` 返回的就是 deploymentId。deploymentId 虽然是个 String，不过仅包含数字，目前我还不清楚它的生成策略。  
 

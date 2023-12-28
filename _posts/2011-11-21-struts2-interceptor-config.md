@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "struts2: interceptor config"
-description: ""
 category: Struts
+description: ''
 tags: []
+title: 'struts2: interceptor config'
 ---
-{% include JB/setup %}
 
 为了解决昨天晚上碰到的 aLock 那个吞 Exception 的问题，下午配了一下 struts 2 的拦截器。  
 

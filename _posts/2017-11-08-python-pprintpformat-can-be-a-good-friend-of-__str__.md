@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Python: <i>pprint.pformat</i> can be a good friend of <i>__str__</i>"
-description: ""
 category: Python
+description: ''
 tags: []
+title: 'Python: <i>pprint.pformat</i> can be a good friend of <i>__str__</i>'
 ---
-{% include JB/setup %}
 
 ```python
 import pprint

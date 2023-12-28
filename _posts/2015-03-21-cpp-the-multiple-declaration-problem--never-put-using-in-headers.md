@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "C++: The multiple-declaration problem / Never put <i>using</i> in headers"
-description: ""
 category: C++
+description: ''
 tags: []
+title: 'C++: The multiple-declaration problem / Never put <i>using</i> in headers'
 ---
-{% include JB/setup %}
 
 整理自 _Thinking in C++_。
 

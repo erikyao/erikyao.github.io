@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Spring: \"Could not resolve placeholder\" 解决方案"
-description: ""
 category: Spring
+description: ''
 tags: []
+title: 'Spring: "Could not resolve placeholder" 解决方案'
 ---
-{% include JB/setup %}
 
 除去 properites 文件路径错误、拼写错误外，出现 "Could not resolve placeholder" 很有可能是使用了多个 `PropertyPlaceholderConfigurer` 或者多个 `<context:property-placeholder>` 的原因。 
 

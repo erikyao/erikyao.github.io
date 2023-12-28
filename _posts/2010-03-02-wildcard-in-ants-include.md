@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Ant 路径之 **"
-description: ""
 category: Ant
+description: ''
 tags: []
+title: Ant 路径之 **
 ---
-{% include JB/setup %}
 
 ```xml
 <fileset dir="${lib.dir}" includes="*.jar"/>

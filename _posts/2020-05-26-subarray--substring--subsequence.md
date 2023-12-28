@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Subarray / Substring / Subsequence"
-description: ""
 category: LeetCode
+description: ''
 tags: []
+title: Subarray / Substring / Subsequence
 ---
-{% include JB/setup %}
 
 ## Subsequence
 

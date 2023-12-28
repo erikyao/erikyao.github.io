@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "@Autowired not working 的问题"
-description: ""
 category: Spring
+description: ''
 tags: []
+title: '@Autowired not working 的问题'
 ---
-{% include JB/setup %}
 
 Looks like the `UserService` class is missing a 'stereotype' annotation like `@Component` or `@Service`. You also have to configure the Spring classpath scanning using the following configuration:
 

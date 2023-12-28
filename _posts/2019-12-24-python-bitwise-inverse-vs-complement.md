@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Python: Bitwise Inverse Operator vs Complements vs Nagatives"
-description: ""
 category: Python
+description: ''
 tags: []
+title: 'Python: Bitwise Inverse Operator vs Complements vs Nagatives'
 ---
-{% include JB/setup %}
 
 参考 [Stack Overflow: How does the bitwise complement operator (~ tilde) work? Answer by Anthony](https://stackoverflow.com/a/791340/11640888)。
 

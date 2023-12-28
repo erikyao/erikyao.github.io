@@ -1,39 +1,16 @@
 ---
-layout: post
-title: "ISL: Tree Based Methods"
-description: ""
 category: Machine-Learning
-tags: [Bootstrap, Bagging, Boosting]
+description: ''
+tags:
+- Bootstrap
+- Bagging
+- Boosting
+title: 'ISL: Tree Based Methods'
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
 
 总结自 Chapter 8, An Introduction to Statistical Learning.
-
------
-
-ToC:
-
-- [0. Overview](#0-overview)
-- [1. The Basics of Decision Trees](#1-the-basics-of-decision-trees)
-	- [1.1 Regression Trees](#11-regression-trees)
-		- [Predicting Baseball Players’ Salaries Using Regression Trees](#predicting-baseball-players-salaries-using-regression-trees)
-		- [Prediction via Stratification of the Feature Space](#prediction-via-stratification-of-the-feature-space)
-		- [Tree Pruning](#tree-pruning)
-	- [1.2 Classification Trees](#12-classification-trees)
-	- [1.3 Trees Versus Linear Models](#13-trees-versus-linear-models)
-	- [1.4 Advantages and Disadvantages of Trees](#14-advantages-and-disadvantages-of-trees)
-- [2. Bagging, Random Forests, Boosting](#2-bagging-random-forests-boosting)
-	- [2.1 Bagging](#21-bagging)
-		- [Out-of-Bag Error Estimation](#out-of-bag-error-estimation)
-		- [Variable Importance Measures](#variable-importance-measures)
-	- [2.2 Random Forests](#22-random-forests)
-	- [2.3 Boosting](#23-boosting)
-		- [Boosting for binary categorization](#boosting-for-binary-categorization)
-- [3. Lab: Decision Trees](#3-lab-decision-trees)
-	- [3.1 Fitting Classification Trees](#31-fitting-classification-trees)
-	- [3.2 Fitting Regression Trees](#32-fitting-regression-trees)
-	- [3.3 Bagging and Random Forests](#33-bagging-and-random-forests)
-	- [3.4 Boosting](#34-boosting)
 
 -----
 

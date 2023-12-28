@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Pandas: Accessing the index of a row in an <i>apply</i> function"
-description: ""
 category: Pandas
-tags: [apply]
+description: ''
+tags:
+- apply
+title: 'Pandas: Accessing the index of a row in an <i>apply</i> function'
 ---
-{% include JB/setup %}
 
 You CANNOT access each row's index via `lambda x: x.index` in `DataFrame.apply(axis=1)` because `apply` treats each row as a `numpy` object, not a `Series`. However you can use `lambda x: x.name` to access each row's name, which happens to equal its index.
 

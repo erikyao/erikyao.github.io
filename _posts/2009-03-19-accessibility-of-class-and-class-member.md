@@ -1,12 +1,9 @@
 ---
-layout: post
-title: "Java: 关于 class 和 class member 的访问权限"
-description: ""
 category: Java
+description: ''
 tags: []
+title: 'Java: 关于 class 和 class member 的访问权限'
 ---
-{% include JB/setup %}
-
 
 ## class的访问权限
 

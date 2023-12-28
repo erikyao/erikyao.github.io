@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "C++: Aggregate initialization"
-description: ""
 category: C++
-tags: [const]
+description: ''
+tags:
+- const
+title: 'C++: Aggregate initialization'
 ---
-{% include JB/setup %}
 
 整理自 _Thinking in C++_。
 

@@ -1,11 +1,12 @@
 ---
-layout: post
-title: "C++: const object / const member & const member function / mutable"
-description: ""
 category: C++
-tags: [const]
+description: ''
+tags:
+- const
+title: 'C++: const object / const member & const member function / mutable'
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
 
 整理自：
 
@@ -15,19 +16,6 @@ tags: [const]
 
 [const-function]: https://farm6.staticflickr.com/5724/23894467506_9fdc7f0b45_o_d.png
 
------
-
-ToC:
-
-- [1. const object](#1-const-object)
-- [2. const member](#2-const-member)
-	- [2.1 Non-static const member (runtime constant)](#21-non-static-const-member-runtime-constant)
-	- [2.2 static const member (compile-time constant)](#22-static-const-member-compile-time-constant)
-- [3. const member function](#3-const-member-function)
-	- [3.1 武学正统](#31-武学正统)
-	- [3.2 旁门左道：mutable member](#32-旁门左道mutable-member)
-- [4. 总结](#4-总结)
-	
 -----
 
 ## 1. const object

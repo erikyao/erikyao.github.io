@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Smoothing"
-description: ""
 category: Math
-tags: [Math-Statistics]
+description: ''
+tags:
+- Math-Statistics
+title: Smoothing
 ---
-{% include JB/setup %}
 
 [True]: https://farm8.staticflickr.com/7317/27418140070_e99a753003_o_d.png
 [With_Noise]: https://farm8.staticflickr.com/7183/27417679270_96e6c206c4_o_d.png

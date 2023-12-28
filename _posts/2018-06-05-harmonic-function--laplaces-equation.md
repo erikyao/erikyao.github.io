@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Harmonic Function / Laplace's equation"
-description: ""
 category: Math
+description: ''
 tags: []
+title: Harmonic Function / Laplace's equation
 ---
-{% include JB/setup %}
 
 harmonic 这个词的意思太多了，比如在 periodic signals 里翻译成 “[谐波](https://zh.wikipedia.org/wiki/%E8%B0%90%E6%B3%A2)”。而 Harmonic Function 的翻译是 "[调和函数](https://zh.wikipedia.org/wiki/%E8%B0%83%E5%92%8C%E5%87%BD%E6%95%B0)"
 

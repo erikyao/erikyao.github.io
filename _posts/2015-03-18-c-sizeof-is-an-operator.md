@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "C: sizeof is an operator"
-description: ""
 category: C
+description: ''
 tags: []
+title: 'C: sizeof is an operator'
 ---
-{% include JB/setup %}
 
 整理自 _Thinking in C++_。
 

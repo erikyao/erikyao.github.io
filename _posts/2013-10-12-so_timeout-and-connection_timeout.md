@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "SO_TIMEOUT and CONNECTION_TIMEOUT"
-description: ""
 category: Network
+description: ''
 tags: []
+title: SO_TIMEOUT and CONNECTION_TIMEOUT
 ---
-{% include JB/setup %}
 
 SO_TIMEOUT == 'http.socket.timeout':
 

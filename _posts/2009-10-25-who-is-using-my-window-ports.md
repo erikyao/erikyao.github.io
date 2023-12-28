@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "windows 下查看端口是否被占用的方法"
-description: ""
 category: Windows
-tags: [port]
+description: ''
+tags:
+- port
+title: windows 下查看端口是否被占用的方法
 ---
-{% include JB/setup %}
 
 假如我们需要确定谁占用了我们的 80 端口。  
 

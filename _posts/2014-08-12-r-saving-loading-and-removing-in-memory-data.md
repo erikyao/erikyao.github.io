@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "R: Saving, Loading and Removing in-memory Data"
-description: ""
 category: R
+description: ''
 tags: []
+title: 'R: Saving, Loading and Removing in-memory Data'
 ---
-{% include JB/setup %}
 
 ## Saving R Data
 

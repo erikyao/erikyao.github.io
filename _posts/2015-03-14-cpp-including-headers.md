@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "C++: Including headers"
-description: ""
 category: C++
+description: ''
 tags: []
+title: 'C++: Including headers'
 ---
-{% include JB/setup %}
 
 整理自 _Thinking in C++_。
 

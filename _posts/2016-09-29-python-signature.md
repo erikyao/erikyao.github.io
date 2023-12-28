@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Python: Signature"
-description: ""
 category: Python
+description: ''
 tags: []
+title: 'Python: Signature'
 ---
-{% include JB/setup %}
 
 Just a reminder that we have such objects to inspect the function signatures， as [PEP 362 -- Function Signature Object](https://www.python.org/dev/peps/pep-0362/) indicates.
 

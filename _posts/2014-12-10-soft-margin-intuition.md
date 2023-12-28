@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Soft Margin Intuition"
-description: ""
 category: Machine-Learning
-tags: [SVM]
+description: ''
+tags:
+- SVM
+title: Soft Margin Intuition
 ---
-{% include JB/setup %}
 
 起手式：
 

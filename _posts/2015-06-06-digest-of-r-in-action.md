@@ -1,11 +1,12 @@
 ---
-layout: post
-title: "Digest of <i>R in Action</i>"
-description: ""
 category: R
-tags: [Book]
+description: ''
+tags:
+- Book
+title: Digest of <i>R in Action</i>
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
 
 [figure-06-02]: https://farm2.staticflickr.com/1719/23812247562_7db87956f3_o_d.png
 [figure-06-05]: https://farm2.staticflickr.com/1576/23293776153_024b62491f_o_d.png
@@ -19,7 +20,6 @@ tags: [Book]
 [figure-06-16]: https://farm6.staticflickr.com/5823/23920545895_d60eb8a5b2_o_d.png
 [figure-06-17]: https://farm2.staticflickr.com/1653/23920545885_35ee010448_o_d.png
 
-TODO: 直接在 toc 里分 part 1234
 
 ## 1. Introduction to R
 

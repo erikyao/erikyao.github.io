@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "The compilation process"
-description: ""
 category: C++
+description: ''
 tags: []
+title: The compilation process
 ---
-{% include JB/setup %}
 
 整理自 _Thinking in C++_。
 

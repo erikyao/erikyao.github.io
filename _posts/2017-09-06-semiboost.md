@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "SemiBoost"
-description: ""
 category: Machine-Learning
+description: ''
 tags: []
+title: SemiBoost
 ---
-{% include JB/setup %}
 
 The inconsistency among the unlabeled examples:
 

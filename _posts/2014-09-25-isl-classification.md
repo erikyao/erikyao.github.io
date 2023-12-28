@@ -1,38 +1,14 @@
 ---
-layout: post
-title: "ISL: Classification"
-description: ""
 category: Machine-Learning
-tags: [LDA]
+description: ''
+tags:
+- LDA
+title: 'ISL: Classification'
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
 
 总结自 Chapter 4, An Introduction to Statistical Learning.
-
------
-
-ToC:
-
-- [1. An Overview of Classification](#1-an-overview-of-classification)
-- [2. Why Not Linear Regression?](#2-why-not-linear-regression)
-- [3. Logistic Regression](#3-logistic-regression)
-	- [3.1 The Logistic Model](#31-the-logistic-model)
-	- [3.2 Estimating the Regression Coefficients](#32-estimating-the-regression-coefficients)
-	- [3.3 Making Predictions](#33-making-predictions)
-	- [3.4 Multiple Logistic Regression](#34-multiple-logistic-regression)
-	- [3.5 Logistic Regression for >2 Response Classes](#35-logistic-regression-for-2-response-classes)
-- [4. Linear Discriminant Analysis](#4-linear-discriminant-analysis)
-	- [4.1 Using Bayes’ Theorem for Classification](#41-using-bayes-theorem-for-classification)
-	- [4.2 Linear Discriminant Analysis for $p = 1$](#42-linear-discriminant-analysis-for-p--1)
-	- [4.3 Linear Discriminant Analysis for $p > 1$](#43-linear-discriminant-analysis-for-p--1)
-	- [4.4 Quadratic Discriminant Analysis](#44-quadratic-discriminant-analysis)
-- [5. A Comparison of Classification Methods](#5-a-comparison-of-classification-methods)
-- [6. Lab: Logistic Regression, LDA, QDA, and KNN](#6-lab-logistic-regression-lda-qda-and-knn)
-	- [6.2 Logistic Regression](#62-logistic-regression)
-	- [6.3 Linear Discriminant Analysis](#63-linear-discriminant-analysis)
-	- [6.4 Quadratic Discriminant Analysis](#64-quadratic-discriminant-analysis)
-	- [6.5 K-Nearest Neighbors](#65-k-nearest-neighbors)
-	- [6.6 An Application to Caravan Insurance Data](#66-an-application-to-caravan-insurance-data)
 
 -----
 

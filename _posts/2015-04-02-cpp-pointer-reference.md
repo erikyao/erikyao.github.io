@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "C++: pointer reference"
-description: ""
 category: C++
+description: ''
 tags: []
+title: 'C++: pointer reference'
 ---
-{% include JB/setup %}
 
 整理自：_Thinking in C++_
 

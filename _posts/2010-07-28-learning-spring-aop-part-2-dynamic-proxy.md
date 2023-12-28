@@ -1,11 +1,12 @@
 ---
-layout: post
-title: "Spring AOP 学习（二）：动态代理"
-description: ""
 category: AOP
-tags: [Java-AOP, Proxy, 动态代理]
+description: ''
+tags:
+- Java-AOP
+- Proxy
+- 动态代理
+title: Spring AOP 学习（二）：动态代理
 ---
-{% include JB/setup %}
 
 如果系统中有 500 个类，每个类都要添加日志功能，此时无论是直接修改源代码、继承还是组合，都是十分巨大的工作量。此时 AOP 可以帮我们解决这个问题。  
 

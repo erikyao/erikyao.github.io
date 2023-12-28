@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "RSS, MSE, RMSE, RSE, TSS, R<sup>2</sup> and Adjusted R<sup>2</sup>"
-description: ""
 category: Machine-Learning
+description: ''
 tags: []
+title: RSS, MSE, RMSE, RSE, TSS, R<sup>2</sup> and Adjusted R<sup>2</sup>
 ---
-{% include JB/setup %}
 
 This post is written by courtesy of:
 

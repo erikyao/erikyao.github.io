@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Java 内部类：对外部类的访问及 .this 和 .new"
-description: ""
 category: Java
-tags: [Java-InnerClass]
+description: ''
+tags:
+- Java-InnerClass
+title: Java 内部类：对外部类的访问及 .this 和 .new
 ---
-{% include JB/setup %}
 
 ```java
 class Outer {   

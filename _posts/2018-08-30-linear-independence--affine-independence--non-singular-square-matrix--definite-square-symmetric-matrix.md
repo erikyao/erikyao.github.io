@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Linear Independence / Affine Independence / Non-singular Square Matrix / Definite Square Symmetric Matrix"
-description: ""
 category: Math
+description: ''
 tags: []
+title: Linear Independence / Affine Independence / Non-singular Square Matrix / Definite
+  Square Symmetric Matrix
 ---
-{% include JB/setup %}
 
 ## Linear Independence / Affine Independence
 

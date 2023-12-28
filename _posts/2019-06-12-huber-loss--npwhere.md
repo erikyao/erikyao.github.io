@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Huber loss / <i>np.where</i>"
-description: ""
 category: Numpy
+description: ''
 tags: []
+title: Huber loss / <i>np.where</i>
 ---
-{% include JB/setup %}
 
 Huber loss:
 

@@ -1,40 +1,11 @@
 ---
-layout: post
-title: "LeetCode: Stock Problems"
-description: ""
 category: LeetCode
+description: ''
 tags: []
+title: 'LeetCode: Stock Problems'
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
-
-<!-- TOC -->
-
-- [0. 文字游戏](#0-文字游戏)
-    - [0.1 Stock I 的 "at most 1 transaction"](#01-stock-i-的-at-most-1-transaction)
-    - [0.2 Stock II 的 "you must sell the stock before you buy again"](#02-stock-ii-的-you-must-sell-the-stock-before-you-buy-again)
-- [1. LeetCode #121: Stock I](#1-leetcode-121-stock-i)
-    - [1.1 at most 1 transaction](#11-at-most-1-transaction)
-    - [1.2 解法是 DP / max sub](#12-解法是-dp--max-sub)
-- [2. LeetCode #122: Stock II](#2-leetcode-122-stock-ii)
-    - [2.1 as many transactions as you like](#21-as-many-transactions-as-you-like)
-    - [2.2 解法是 Greedy](#22-解法是-greedy)
-- [3. LeetCode #123: Stock III](#3-leetcode-123-stock-iii)
-    - [3.1 at most 2 transactions](#31-at-most-2-transactions)
-    - [3.2 解法是 DP，要点是充分利用 `subs`](#32-解法是-dp要点是充分利用-subs)
-- [4. LeetCode #188: Stock IV](#4-leetcode-188-stock-iv)
-    - [4.1 at most $k$ transactions](#41-at-most-k-transactions)
-    - [4.2 这题需要跳出 max sub 的 1-D DP 的思路，向 2-D DP 迈进](#42-这题需要跳出-max-sub-的-1-d-dp-的思路向-2-d-dp-迈进)
-    - [4.3 DP (top-down) 以及它的性能问题](#43-dp-top-down-以及它的性能问题)
-    - [4.4 DP (buttom-up)](#44-dp-buttom-up)
-    - [4.5 讨论：何时才是 reduce 成 Stock II？](#45-讨论何时才是-reduce-成-stock-ii)
-- [5. LeetCode #309: Stock with Cooldown](#5-leetcode-309-stock-with-cooldown)
-    - [5.1 as many transactions as you like](#51-as-many-transactions-as-you-like)
-    - [5.2 受状态机启发的、使用 $O(3n)$ space 的 DP (buttom-up)](#52-受状态机启发的使用-o3n-space-的-dp-buttom-up)
-- [6. LeetCode #714: Stock with Transaction Fee](#6-leetcode-714-stock-with-transaction-fee)
-    - [6.1 as many transactions as you like](#61-as-many-transactions-as-you-like)
-    - [6.2 受状态机启发的、使用 $O(2n)$ space 的 DP (buttom-up)](#62-受状态机启发的使用-o2n-space-的-dp-buttom-up)
-
-<!-- /TOC -->
 
 ## 0. 文字游戏
 

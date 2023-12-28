@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "关于 Java 继承的新认识：导出类调用基类方法其实是向上转型"
-description: ""
 category: Java
+description: ''
 tags: []
+title: 关于 Java 继承的新认识：导出类调用基类方法其实是向上转型
 ---
-{% include JB/setup %}
 
 前面对继承的理解常常用到了这么一用表述：`Base` 的代码会被复制到 `Ext` 中。其实这么理解欠妥，看代码：
 
@@ -31,4 +29,4 @@ class Ext extends Base {
 
 所以我们至多只能说 `getInfo()` 被复制到 `Ext` 的方法列表里。  
 
-当然，"复制说" 还是很形象的，有助理解，细节方面自己知道就好。  
+当然，"复制说" 还是很形象的，有助理解，细节方面自己知道就好。

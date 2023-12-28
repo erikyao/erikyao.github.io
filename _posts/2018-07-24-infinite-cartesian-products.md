@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Infinite Cartesian Products"
-description: ""
 category: Math
+description: ''
 tags: []
+title: Infinite Cartesian Products
 ---
-{% include JB/setup %}
 
 其实只是 Terence Tao 大神的定义写得稍微有一点绕，整体还是好理解的。
 

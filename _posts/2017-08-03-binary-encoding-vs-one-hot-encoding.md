@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Binary Encoding vs One hot Encoding"
-description: ""
-category: 
+category: null
+description: ''
 tags: []
+title: Binary Encoding vs One hot Encoding
 ---
-{% include JB/setup %}
 
 需要注意的是：one-hot encoding 应该是 binary encoding 的特殊情况。one-hot 的意思就是：只有一个 bit 是高位（1）；类似还有 one-cold encoding
 

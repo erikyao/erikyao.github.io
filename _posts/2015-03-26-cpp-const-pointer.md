@@ -1,11 +1,11 @@
 ---
-layout: post
-title: "C++: Const Pointer"
-description: ""
 category: C++
-tags: [const, pointer]
+description: ''
+tags:
+- const
+- pointer
+title: 'C++: Const Pointer'
 ---
-{% include JB/setup %}
 
 在 2010-09-26 原作基础上修改。日期改到 2015-03-26 使本文进入 C++ 文章群落，方便查阅。
 

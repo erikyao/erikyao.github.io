@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "org.apache.cxf.interceptor.Fault: Could not send Message"
-description: ""
 category: CXF
+description: ''
 tags: []
+title: 'org.apache.cxf.interceptor.Fault: Could not send Message'
 ---
-{% include JB/setup %}
 
 说明与 esb 服务器通讯不正常。  
 

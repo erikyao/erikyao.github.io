@@ -1,11 +1,11 @@
 ---
-layout: post
-title: "Digest of <i>Working Effectively with Legacy Code</i>"
-description: ""
 category: TDD
-tags: [Book, Java-TDD]
+description: ''
+tags:
+- Book
+- Java-TDD
+title: Digest of <i>Working Effectively with Legacy Code</i>
 ---
-{% include JB/setup %}
 
 [4-reasons-to-change]: https://farm9.staticflickr.com/8842/28276622872_ee20c98b6d_o_d.jpg
 

@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Signal Peptide & Protein Targeting"
-description: ""
 category: Biology
+description: ''
 tags: []
+title: Signal Peptide & Protein Targeting
 ---
-{% include JB/setup %}
 
 科普向。
 

@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Terminology Recap: DNase / DHS / Dnase-seq"
-description: ""
 category: Biology
+description: ''
 tags: []
+title: 'Terminology Recap: DNase / DHS / Dnase-seq'
 ---
-{% include JB/setup %}
 
 ## DNase I
 

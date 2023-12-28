@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Gradient and Directional Derivative"
-description: ""
 category: Math
-tags: [Math-Algebra]
+description: ''
+tags:
+- Math-Algebra
+title: Gradient and Directional Derivative
 ---
-{% include JB/setup %}
 
 Original post is [The Gradient and Directional Derivative](https://math.oregonstate.edu/home/programs/undergrad/CalculusQuestStudyGuides/vcalc/grad/grad.html) from _Mathematics School, Oregon State University_. Here I thank the author(s) sincerely. 
 

@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Deploy carefully!"
-description: ""
 category: Thought
-tags: [Experience]
+description: ''
+tags:
+- Experience
+title: Deploy carefully!
 ---
-{% include JB/setup %}
 
 ## Deploy 最需要注意的问题
 

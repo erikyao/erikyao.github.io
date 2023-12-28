@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "jbpm 4.3: variable 的 name 和 mapped-name"
-description: ""
 category: jBPM-4.3
+description: ''
 tags: []
+title: 'jbpm 4.3: variable 的 name 和 mapped-name'
 ---
-{% include JB/setup %}
 
 看似是一个 variable 有 `name` 和 `mapped-name` 两个名称，其实情况很复杂。看例子。  
 
@@ -105,4 +103,4 @@ public class AccessVariable extends TestCase {
 
 但 `name` 和 `mapped-name` 变量没有任何关系，如 `hint 3` 所示，`"var"` 的值不会影响 `"variable"`，反过来 `"variable"` 的值也不会影响 `"var"`。  
 
-且 `mapped-name` 变量对 `ti` 和 `ci` 来说更像是两个变量，其作用域严格区分，没有任何交集，如 `hint 4` 所示。  
+且 `mapped-name` 变量对 `ti` 和 `ci` 来说更像是两个变量，其作用域严格区分，没有任何交集，如 `hint 4` 所示。

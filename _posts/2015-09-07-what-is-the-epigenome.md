@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "What is the epigenome?"
-description: ""
 category: Biology
+description: ''
 tags: []
+title: What is the epigenome?
 ---
-{% include JB/setup %}
 
 摘自 [Genetic Home Reference - Handbook](http://ghr.nlm.nih.gov/handbook)。
 
@@ -17,4 +15,4 @@ Epigenetic changes can help determine whether genes are turned on or off and can
 
 A common type of epigenomic modification is called methylation. Methylation involves attaching small molecules called methyl groups, each consisting of one carbon atom and three hydrogen atoms, to segments of DNA. When methyl groups are added to a particular gene, that gene is turned off or silenced, and no protein is produced from that gene. 
 
-Because errors in the epigenetic process, such as modifying the wrong gene or failing to add a compound to a gene, can lead to abnormal gene activity or inactivity, they can cause genetic disorders. Conditions including cancers, metabolic disorders, and degenerative disorders have all been found to be related to epigenetic errors. 
+Because errors in the epigenetic process, such as modifying the wrong gene or failing to add a compound to a gene, can lead to abnormal gene activity or inactivity, they can cause genetic disorders. Conditions including cancers, metabolic disorders, and degenerative disorders have all been found to be related to epigenetic errors.

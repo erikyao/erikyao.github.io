@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "mongoexport is WAY FASTER than MongoDB Compass' Export Collection UI, but..."
-description: ""
 category: MongoDB
+description: ''
 tags: []
+title: mongoexport is WAY FASTER than MongoDB Compass' Export Collection UI, but...
 ---
-{% include JB/setup %}
 
 首先这俩工具对没有耐心的人真的非常不友好：
 

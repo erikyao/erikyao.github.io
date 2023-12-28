@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Python: <i>try-except-else-finally</i>"
-description: ""
 category: Python
+description: ''
 tags: []
+title: 'Python: <i>try-except-else-finally</i>'
 ---
-{% include JB/setup %}
 
 Python 的 `try-except-finally` 和 Java 的 `try-catch-finally` 其实是一样的，烦就烦在中间那个 `else` 上：
 

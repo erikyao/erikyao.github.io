@@ -1,11 +1,11 @@
 ---
-layout: post
-title: "《分布式 Java 应用：基础与实践》第四章总结其二：并发工具类"
-description: ""
 category: Java
-tags: [Book, Java-Concurrency]
+description: ''
+tags:
+- Book
+- Java-Concurrency
+title: 《分布式 Java 应用：基础与实践》第四章总结其二：并发工具类
 ---
-{% include JB/setup %}
 
 [Semaphore]: https://farm6.staticflickr.com/5642/23838060971_d285378e3f_o_d.png
 

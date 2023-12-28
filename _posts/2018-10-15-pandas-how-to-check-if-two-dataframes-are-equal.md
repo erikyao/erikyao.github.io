@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Pandas: How to check if two DataFrames are equal"
-description: ""
 category: Pandas
+description: ''
 tags: []
+title: 'Pandas: How to check if two DataFrames are equal'
 ---
-{% include JB/setup %}
 
 Suppose those 2 DataFrames has identical column names.
 

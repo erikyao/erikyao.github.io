@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Java: private、package 权限字段不可继承 + 向上转型的新理解"
-description: ""
 category: Java
+description: ''
 tags: []
+title: 'Java: private、package 权限字段不可继承 + 向上转型的新理解'
 ---
-{% include JB/setup %}
 
 base class 的 `private` member 是不可继承的(详细请参见 [Java: 关于 class 和 class member 的访问权限](/java/2009/03/19/accessibility-of-class-and-class-member))，所以在 ext class 中也不会有这些 member。
 

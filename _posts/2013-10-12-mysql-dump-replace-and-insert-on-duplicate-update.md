@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "MySQL dump, replace and insert-on-duplicate-update"
-description: ""
 category: MySQL
+description: ''
 tags: []
+title: MySQL dump, replace and insert-on-duplicate-update
 ---
-{% include JB/setup %}
 
 ## Dump
 
@@ -22,4 +20,3 @@ tags: []
 比如：`INSERT INTO table (a,b,c) VALUES (1,2,3) ON DUPLICATE KEY UPDATE c=c+1;`  
 
 参 [INSERT ... ON DUPLICATE KEY UPDATE Syntax](http://dev.mysql.com/doc/refman/5.0/en/insert-on-duplicate.html)
-

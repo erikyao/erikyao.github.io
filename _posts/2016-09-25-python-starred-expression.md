@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Python: &#42;expression"
-description: ""
 category: Python
+description: ''
 tags: []
+title: 'Python: &#42;expression'
 ---
-{% include JB/setup %}
 
 ## Argument Unpacking: `*expression` and `**expression` inside function calls
 

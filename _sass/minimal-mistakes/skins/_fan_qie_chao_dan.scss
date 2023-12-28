@@ -1,0 +1,31 @@
+/* ==========================================================================
+   Fan Qie Chao Dan (番茄炒蛋) skin, derived from Air skin
+   ========================================================================== */
+
+/* Colors */
+$background-color: #eeeeee !default;
+$code-color: #113285; /* Konjyo 绀青 */
+$code-background-color: #FCFAF2 !default; /* Shironeri 白练 */
+$text-color: #222831 !default;
+$muted-text-color: #393e46 !default;
+$primary-color: #fc3a52 !default; /* Sunrise skin primary color */
+$border-color: mix(#fff, #393e46, 75%) !default;
+$footer-background-color: #F6C555 !default; /* Kuchinashi 梔子黄 */
+$link-color: mix(#000, $primary-color, 10%) !default;
+$link-color-hover: mix(#fff, $link-color, 25%) !default;
+$link-color-visited: mix(#000, $link-color, 25%) !default;
+$masthead-link-color: $text-color !default;
+$masthead-link-color-hover: $text-color !default;
+$navicon-link-color-hover: mix(#fff, $text-color, 80%) !default;
+
+$active-color: #FAD689 !default; /* Usuki 浅黄 */
+
+
+
+.page__footer {
+  color: $text-color !important;
+}
+
+.page__footer-follow .social-icons .svg-inline--fa {
+  color: inherit;
+}

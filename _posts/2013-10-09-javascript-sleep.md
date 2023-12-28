@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "JavaScript: sleep"
-description: ""
 category: JavaScript
+description: ''
 tags: []
+title: 'JavaScript: sleep'
 ---
-{% include JB/setup %}
 
 ## 模拟 sleep 功能
 

@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Homeomorphism / Open Map / Close Map / Embedding"
-description: ""
 category: Math
+description: ''
 tags: []
+title: Homeomorphism / Open Map / Close Map / Embedding
 ---
-{% include JB/setup %}
 
 ## Homeomorphism
 

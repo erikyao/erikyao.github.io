@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "&lt;form&gt;&lt;input name=?&gt;"
-description: ""
 category: JavaScript
+description: ''
 tags: []
+title: '&lt;form&gt;&lt;input name=?&gt;'
 ---
-{% include JB/setup %}
 
 ## `<form>` 下的 `<input>` 必须写 name
 

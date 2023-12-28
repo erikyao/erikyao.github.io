@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Python: IDLE won't display anything for an expression evaluated to None"
-description: ""
 category: Python
+description: ''
 tags: []
+title: 'Python: IDLE won''t display anything for an expression evaluated to None'
 ---
-{% include JB/setup %}
 
 This is trivial but sometimes misleading.
 

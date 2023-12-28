@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Scripting Experience"
-description: ""
 category: Linux
-tags: [Experience]
+description: ''
+tags:
+- Experience
+title: Scripting Experience
 ---
-{% include JB/setup %}
 
 # Backup My Ubuntu
 

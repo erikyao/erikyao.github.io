@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "DSA setting at SSH client end"
-description: ""
 category: SSH
+description: ''
 tags: []
+title: DSA setting at SSH client end
 ---
-{% include JB/setup %}
 
 I met a problem setting up SSH and git today, and I am happy to share my workaround just in case you met the same problem. 
 

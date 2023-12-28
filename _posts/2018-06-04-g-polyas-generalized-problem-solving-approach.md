@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "G. Polya’s generalized problem solving approach"
-description: ""
 category: Lab
+description: ''
 tags: []
+title: G. Polya’s generalized problem solving approach
 ---
-{% include JB/setup %}
 
 Quote from [How To Solve](https://en.wikipedia.org/wiki/How_to_Solve_It) by George Polya.
 

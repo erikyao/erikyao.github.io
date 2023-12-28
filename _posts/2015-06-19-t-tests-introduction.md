@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "t-tests introduction"
-description: ""
 category: Math
-tags: [Math-Statistics]
+description: ''
+tags:
+- Math-Statistics
+title: t-tests introduction
 ---
-{% include JB/setup %}
 
 参考资料：
 

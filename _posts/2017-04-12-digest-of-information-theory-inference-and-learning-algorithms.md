@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Digest of <i>Information Theory, Inference, and Learning Algorithms</i>"
-description: ""
 category: Math
-tags: [Book]
+description: ''
+tags:
+- Book
+title: Digest of <i>Information Theory, Inference, and Learning Algorithms</i>
 ---
-{% include JB/setup %}
 
 ## 1. Introduction to Information Theory
 

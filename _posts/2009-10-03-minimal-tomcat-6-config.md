@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Tomcat 6.0 环境变量和 Tomcat Manager Account"
-description: ""
 category: Tomcat
+description: ''
 tags: []
+title: Tomcat 6.0 环境变量和 Tomcat Manager Account
 ---
-{% include JB/setup %}
 
 有的文章上说只用 `CATALINA_HOME` 这么一个，也有的说是 `CATALINA_HOME`、`CATALINA_BASE`、`TOMCAT_HOME` 这3个。我看 Tomcat Document，`CATALINA_HOME` 好像是必须的，还有地方提到了 `CATALINA_BASE`，既然这样的话，那就三个都设置好了。
 

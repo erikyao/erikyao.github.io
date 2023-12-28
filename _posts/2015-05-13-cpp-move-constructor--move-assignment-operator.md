@@ -1,33 +1,15 @@
 ---
-layout: post
-title: "C++: move constructor & move assignment operator / lvalue & rvalue / reference qualifier"
-description: ""
 category: C++
-tags: [C++11, copy-constructor]
+description: ''
+tags:
+- C++11
+- copy-constructor
+title: 'C++: move constructor & move assignment operator / lvalue & rvalue / reference qualifier'
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
 
 整理自 _C++ Primer, 5th Edition_
-
------
-
-ToC:
-
-- [1. Rvalue References](#1-rvalue-references)
-	- [1.1 Lvalues Persist; Rvalues Are Ephemeral](#11-lvalues-persist-rvalues-are-ephemeral)
-	- [1.2 Variables Are Lvalues](#12-variables-are-lvalues)
-	- [1.3 The Library move() Function](#13-the-library-move-function)
-- [2. Move Constructor and Move Assignment](#2-move-constructor-and-move-assignment)
-	- [2.1 Move Constructor 的 Exception 的问题](#21-move-constructor-的-exception-的问题)
-	- [2.2 Move-Assignment Operator](#22-move-assignment-operator)
-	- [2.3 A Moved-from Object Must Be Destructible](#23-a-moved-from-object-must-be-destructible)
-	- [2.4 The Synthesized Move Operations](#24-the-synthesized-move-operations)
-	- [2.5 Rvalues Are Moved, Lvalues Are Copied...](#25-rvalues-are-moved-lvalues-are-copied)
-	- [2.6 ...But Rvalues Are Copied If There Is No Move Constructor](#26-but-rvalues-are-copied-if-there-is-no-move-constructor)
-	- [2.7 Advice: Don’t Be Too Quick to Move](#27-advice-dont-be-too-quick-to-move)
-	- [2.8 Defining a Derived Move Constructor](#28-defining-a-derived-move-constructor)
-- [3. Rvalue References and Member Functions](#3-rvalue-references-and-member-functions)
-	- [Reference Qualifier](#reference-qualifier)
 
 -----
 

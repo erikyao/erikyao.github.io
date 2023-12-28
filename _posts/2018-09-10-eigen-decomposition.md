@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Eigen-decomposition"
-description: ""
 category: Math
+description: ''
 tags: []
+title: Eigen-decomposition
 ---
-{% include JB/setup %}
 
 给定方阵 $A$，如果 $\exists \lambda, \mathbf{v} \neq \mathbf{0}$ 满足 $A \mathbf{v} = \lambda \mathbf{v}$，我们称 $\lambda$ 是 $A$ 的一个 eigenvalue，$\mathbf{v}$ 是 $A$ 对应 $\lambda$ 的 eigenvector.
 

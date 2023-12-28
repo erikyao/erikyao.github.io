@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Octave: fmincg and Anonymous Functions"
-description: ""
 category: Octave
+description: ''
 tags: []
+title: 'Octave: fmincg and Anonymous Functions'
 ---
-{% include JB/setup %}
 
 One-vs-all Classfication 的作业里用到了 `fmincg`，但是语法有点奇怪：
 
@@ -34,4 +32,3 @@ public ReturnType anony(Theta t) {
 	return lrCostFunction(t, X, (y == c), lambda);
 }
 ```
-

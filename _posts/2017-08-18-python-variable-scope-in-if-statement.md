@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Python: Variable scope in <i>if</i>-statement"
-description: ""
 category: Python
+description: ''
 tags: []
+title: 'Python: Variable scope in <i>if</i>-statement'
 ---
-{% include JB/setup %}
 
 In Java, this is wrong and you cannot even compile:
 
@@ -85,4 +83,4 @@ if __name__ == '__main__':
 
 although you'll get a `UnboundLocalError`. 
 
-The error message suggests that `if 1 > 2: a = 1` declares a variable `a` but does not assign a value to it. 
+The error message suggests that `if 1 > 2: a = 1` declares a variable `a` but does not assign a value to it.

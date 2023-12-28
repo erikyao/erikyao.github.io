@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Java: first catch"
-description: ""
 category: Java
-tags: [Java-Exception]
+description: ''
+tags:
+- Java-Exception
+title: 'Java: first catch'
 ---
-{% include JB/setup %}
 
 `try` 块里有异常抛出时，程序会进入 _**第一个**_ 异常类型匹配的 `catch` 块执行，其他的 `catch` 块不执行。  
 

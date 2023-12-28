@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Java: main 方法细则若干"
-description: ""
 category: Java
+description: ''
 tags: []
+title: 'Java: main 方法细则若干'
 ---
-{% include JB/setup %}
 
 ### 0. 代码
 

@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "C++ Explicit Operators"
-description: ""
 category: C++
+description: ''
 tags: []
+title: C++ Explicit Operators
 ---
-{% include JB/setup %}
 
 整理自 _Thinking in C++_。
 

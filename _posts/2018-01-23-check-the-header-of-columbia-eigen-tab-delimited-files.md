@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Check the header of Columbia Eigen tab delimited files"
-description: ""
-category: 
+category: null
+description: ''
 tags: []
+title: Check the header of Columbia Eigen tab delimited files
 ---
-{% include JB/setup %}
 
 Precomputed Eigen scores are available at [Download Eigen/Eigen-PC scores](http://www.columbia.edu/~ii2135/download.html).
 
@@ -52,4 +50,3 @@ Update: Thanks to _Iuliana Ionita-Laza_, `zcat` is a better command. It works di
 Erik:Downloads$ zcat Eigen_hg19_noncoding_annot_chr21.tab.bgz | head -n1
 chr  position  ref  alt  GERP_NR  GERP_RS  PhyloPri  PhyloPla  PhyloVer  PhastPri  PhastPla  PhastVer  H3K4Me1  H3K4Me3  H3K27ac  TFBS_max  TFBS_sum  TFBS_num  OCPval  DnaseSig  DnasePval  FaireSig  FairePval  PolIISig  PolIIPval  ctcfSig  ctcfPval  cmycSig  cmycPval  Eigen-raw  Eigen-phred  Eigen-PC-raw  Eigen-PC-phred
 ```
-

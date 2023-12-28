@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "C++: local scope"
-description: ""
 category: C++
+description: ''
 tags: []
+title: 'C++: local scope'
 ---
-{% include JB/setup %}
 
 按 [Difference between local scope and function scope](http://stackoverflow.com/a/7933839) 的说法：
 

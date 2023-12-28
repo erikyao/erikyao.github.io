@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Python: global declaration not needed in main"
-description: ""
 category: Python
+description: ''
 tags: []
+title: 'Python: global declaration not needed in main'
 ---
-{% include JB/setup %}
 
 ```python
 DATA_DIR = "./data"

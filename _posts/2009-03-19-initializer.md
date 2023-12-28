@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Java: initializer"
-description: ""
 category: Java
+description: ''
 tags: []
+title: 'Java: initializer'
 ---
-{% include JB/setup %}
 
 A block-formed initializer can be appended after the fields declared.  
 

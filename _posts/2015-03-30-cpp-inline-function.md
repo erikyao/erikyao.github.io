@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "C++: inline function"
-description: ""
 category: C++
+description: ''
 tags: []
+title: 'C++: inline function'
 ---
-{% include JB/setup %}
 
 整理自 _Thinking in C++_
 

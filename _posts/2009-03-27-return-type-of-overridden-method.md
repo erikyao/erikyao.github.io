@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Java: 关于覆写方法的 return type"
-description: ""
 category: Java
+description: ''
 tags: []
+title: 'Java: 关于覆写方法的 return type'
 ---
-{% include JB/setup %}
 
 在 [overload and override: 重载与覆写](/java/2009/03/23/overload-and-override) 里面提到过，如果在 base class 中有一个可继承的方法，在 ext class 中添加一个同签名的方法则是覆写行为。其实，覆写对 return type 还是有要求的。  
 

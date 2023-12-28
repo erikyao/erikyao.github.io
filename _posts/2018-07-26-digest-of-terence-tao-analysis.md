@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Digest of Terence Tao Analysis"
-description: ""
 category: Math
+description: ''
 tags: []
+title: Digest of Terence Tao Analysis
 ---
-{% include JB/setup %}
 
 ## Chapters
 

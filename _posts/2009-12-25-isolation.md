@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Isolation"
-description: ""
 category: Database
+description: ''
 tags: []
+title: Isolation
 ---
-{% include JB/setup %}
 
 [Dirty_Read]: https://farm6.staticflickr.com/5656/23624880920_95574a7d25_o_d.png
 [Nonrepeatable_Read]: https://farm6.staticflickr.com/5664/23552710379_1c571a15dc_o_d.png

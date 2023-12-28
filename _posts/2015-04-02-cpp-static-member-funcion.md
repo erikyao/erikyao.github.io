@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "C++: static member funcion"
-description: ""
 category: C++
+description: ''
 tags: []
+title: 'C++: static member funcion'
 ---
-{% include JB/setup %}
 
 整理自：_Thinking in C++_
 

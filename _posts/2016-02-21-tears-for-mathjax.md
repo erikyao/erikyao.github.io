@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "MathJax 血泪史"
-description: ""
 category: Jekyll
-tags: [MathJax]
+description: ''
+tags:
+- MathJax
+title: MathJax 血泪史
 ---
-{% include JB/setup %}
 
 Github Pages 升级到了 Jekyll 3.0，而且将使用 kramdown 解析引擎。我紧跟大部队，local build 环境也升级了，但是发现了 MathJax 有超级多的问题，特来写下血泪史……
 
@@ -85,4 +84,3 @@ latex 里有 `\vert` 就用 `\vert` 吧……顺便双竖线是 `\Vert`。
 ## 7. `*` 会被识别为斜体……我也是……没啥好说的
 
 `\ast` is your good friend. 顺便 `\star` 也蛮好看的~
-

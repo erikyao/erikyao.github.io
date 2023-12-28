@@ -1,24 +1,14 @@
 ---
-layout: post
-title: "C++: 6 things you must know about functions"
-description: ""
 category: C++
-tags: [C++11]
+description: ''
+tags:
+- C++11
+title: 'C++: 6 things you must know about functions'
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
 
 整理自 _C++ Primer, 5th Edition_ & _Thinking in C++_
-
------
-
-ToC:
-
-- [Never Return a Reference or Pointer to a Local Object](#never-return-a-reference-or-pointer-to-a-local-object)
-- [Reference Returns Are Lvalues](#reference-returns-are-lvalues)
-- [List Initializing the Return Value](#list-initializing-the-return-value)
-- [Using a Trailing Return Type](#using-a-trailing-return-type)
-- [Return from main](#return-from-main)
-- [Empty argument list](#empty-argument-list)
 
 -----
 

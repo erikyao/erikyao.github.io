@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Parametric vs. non-parametric models"
-description: ""
 category: Math
-tags: [Math-Statistics]
+description: ''
+tags:
+- Math-Statistics
+title: Parametric vs. non-parametric models
 ---
-{% include JB/setup %}
 
 在查 non-parametric tests 时，Wikipedia 上提到了 [Non-parametric models](https://en.wikipedia.org/wiki/Nonparametric_statistics#Non-parametric_models)，于是干脆就记录一下。参考 [Wikipedia: Parametric model](https://en.wikipedia.org/wiki/Parametric_model)。
 

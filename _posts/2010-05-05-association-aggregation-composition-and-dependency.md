@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "UML 类图之关联、聚合、组合、依赖"
-description: ""
 category: UML
-tags: [Java-DesignPattern]
+description: ''
+tags:
+- Java-DesignPattern
+title: UML 类图之关联、聚合、组合、依赖
 ---
-{% include JB/setup %}
 
 [association]: https://farm2.staticflickr.com/1565/23624880750_e11ceece0a_o_d.png
 [aggregation]: https://farm2.staticflickr.com/1713/23624880760_1a8f3a1773_o_d.png

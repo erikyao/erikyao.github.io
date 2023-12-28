@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Python: <i>itertools.groupby()</i> and <i>pd.DataFrame.groupby()</i> are different!"
-description: ""
 category: Python
+description: ''
 tags: []
+title: 'Python: <i>itertools.groupby()</i> and <i>pd.DataFrame.groupby()</i> are different!'
 ---
-{% include JB/setup %}
 
 Looks like I've been wrong for years... maybe because I am too familiar with the SQL-style `groupby` operation.
 

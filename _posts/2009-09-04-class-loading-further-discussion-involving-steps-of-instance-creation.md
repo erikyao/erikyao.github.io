@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Java Class Loading: further discussion involving steps of instance creation"
-description: ""
 category: Java
-tags: [JVM]
+description: ''
+tags:
+- JVM
+title: 'Java Class Loading: further discussion involving steps of instance creation'
 ---
-{% include JB/setup %}
 
 本文对 
 

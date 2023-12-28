@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Python: pass-by-reference"
-description: ""
 category: Python
+description: ''
 tags: []
+title: 'Python: pass-by-reference'
 ---
-{% include JB/setup %}
 
 再次提出这个问题是因为遇到了一个 "想在 function 中修改 list 内容" 的场景，而正确的写法应该是用 slice-then-assign:
 

@@ -1,11 +1,11 @@
 ---
-layout: post
-title: "Unified EL implicit objects are vulnerable to XSS attack"
-description: ""
 category: JSP
-tags: [XSS, CSRF]
+description: ''
+tags:
+- XSS
+- CSRF
+title: Unified EL implicit objects are vulnerable to XSS attack
 ---
-{% include JB/setup %}
 
 XSS，Cross-site scripting，类型有：
 
@@ -22,5 +22,3 @@ XSS，Cross-site scripting，类型有：
 jsp 中的防范策略：web 接口的参数进行约束验证，尽量使用 jstl 方式（比如最基本的 `<c:out>` 都有特殊符号转码的功能）而不是 EL 隐式对象（比如 `${param.uid}` 这种）输出页面内容，参见 [Unified EL](https://www.owasp.org/index.php/JSP_JSTL#Unified_EL)
 
 更多 XSS 内容有：[XSS Filter Evasion Cheat Sheet](https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet)、[Spring MVC 防御 CSRF、XSS 和 SQL 注入攻击](http://www.cnblogs.com/Mainz/archive/2012/11/01/2749874.html)
-
-

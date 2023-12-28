@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Python: sharing states between processes"
-description: ""
 category: Python
+description: ''
 tags: []
+title: 'Python: sharing states between processes'
 ---
-{% include JB/setup %}
 
 首先复习一下：
 
@@ -107,4 +105,3 @@ if __name__ == '__main__':
         print(d)
         print(l)
 ```
-

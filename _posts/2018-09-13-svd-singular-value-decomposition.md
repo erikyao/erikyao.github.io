@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "SVD: Singular Value Decomposition"
-description: ""
 category: Math
+description: ''
 tags: []
+title: 'SVD: Singular Value Decomposition'
 ---
-{% include JB/setup %}
 
 这次我们从结论出发反推。
 

@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Advanced Algorithms"
-description: ""
 category: Algorithm
+description: ''
 tags: []
+title: Advanced Algorithms
 ---
-{% include JB/setup %}
 
 [Set_Cover_and_Hitting_Set]: https://farm2.staticflickr.com/1539/26140812480_d847804b02_o_d.png
 [LP-dual-1]: https://farm8.staticflickr.com/7169/26528138410_82f6dc984f_o_d.png
@@ -1168,8 +1166,3 @@ _**Lemma:**_ $\forall$ planar graph $G$ with $R(G) = r$, $tw(G) \leq 3r$.
 An independent set of a graph $G$ is a set of vertices in $G$, no two of which are adjacent. In Maximum Weighted Independent Set (MWIS) problem, each vertex is assigned a weight.
 
 Let $G$ be a planar graph. Choose an arbitrary vertex $r$ as root and build a spanning tree via BFS.
-
-
-
-
-

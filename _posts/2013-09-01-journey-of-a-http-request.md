@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "一个 http 请求的详细过程"
-description: ""
 category: Network
+description: ''
 tags: []
+title: 一个 http 请求的详细过程
 ---
-{% include JB/setup %}
 
 ZT. 转载茫茫多，原文地址不可考。
 

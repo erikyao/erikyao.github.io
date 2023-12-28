@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Spring AOP 学习（四）：简单 XML 配置 "
-description: ""
 category: AOP
-tags: [Java-AOP]
+description: ''
+tags:
+- Java-AOP
+title: 'Spring AOP 学习（四）：简单 XML 配置 '
 ---
-{% include JB/setup %}
 
 紧接着 [Spring AOP 学习（三）：例子与基本概念](/aop/2010/08/02/learning-spring-aop-part-3-example-and-basic-concept) 中的例子。其实 Spring AOP 注解的概念理解了后，看 XML 配置就是件很简单的事情了。
 

@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "SQL: Autocommit does not guarantee immediate committing"
-description: ""
 category: SQL
-tags: [Autocommit]
+description: ''
+tags:
+- Autocommit
+title: 'SQL: Autocommit does not guarantee immediate committing'
 ---
-{% include JB/setup %}
 
 If you just google, you may find _**autocommit**_ a vaguely defined term.
 

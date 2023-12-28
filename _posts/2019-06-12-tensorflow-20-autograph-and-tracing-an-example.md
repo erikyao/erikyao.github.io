@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Tensorflow 2.0 Autograph and Tracing: an example"
-description: ""
 category: Tensorflow
+description: ''
 tags: []
+title: 'Tensorflow 2.0 Autograph and Tracing: an example'
 ---
-{% include JB/setup %}
 
 首先说下为啥需要把代码转成 graph。我觉得可能主要有两点考虑：
 

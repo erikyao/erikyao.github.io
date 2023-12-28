@@ -1,11 +1,15 @@
 ---
-layout: post
-title: "Digest of <i>Effective Java</i>"
-description: ""
 category: Java
-tags: [Book, Java-InnerClass, Java-Exception, Java-Concurrency, Java-Collection, Java-DesignPattern]
+description: ''
+tags:
+- Book
+- Java-InnerClass
+- Java-Exception
+- Java-Concurrency
+- Java-Collection
+- Java-DesignPattern
+title: Digest of <i>Effective Java</i>
 ---
-{% include JB/setup %}
 
 [item_22_object_adapter_pattern]: https://farm6.staticflickr.com/5732/23552709759_9134c3618d_o_d.png
 [item_22_class_adapter_pattern]: https://farm2.staticflickr.com/1529/23894468486_6238760336_o_d.png

@@ -1,11 +1,12 @@
 ---
-layout: post
-title: "Python: How to pip-install packages in virtualenv"
-description: ""
 category: Python
-tags: [pip, sudo, virtualenv]
+description: ''
+tags:
+- pip
+- sudo
+- virtualenv
+title: 'Python: How to pip-install packages in virtualenv'
 ---
-{% include JB/setup %}
 
 My aim is to install ALL packages I need for a project to a non-default location.
 

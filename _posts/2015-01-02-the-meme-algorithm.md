@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "The MEME algorithm"
-description: ""
 category: Machine-Learning
-tags: [Paper]
+description: ''
+tags:
+- Paper
+title: The MEME algorithm
 ---
-{% include JB/setup %}
 
 接上一篇 [EM method for identifying motifs in unaligned biopolymer sequences](http://erikyao.github.io/machine-learning/2014/12/29/em-method-for-identifying-motifs-in-unaligned-biopolymer-sequences)，我们接着介绍 [Unsupervised Learning of Multiple Motifs in Biopolymers Using Expectation Maximization](http://link.springer.com/article/10.1007%2FBF00993379) 提出的 MEME 算法。
 

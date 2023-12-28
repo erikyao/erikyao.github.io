@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "C++: friend"
-description: ""
 category: C++
+description: ''
 tags: []
+title: 'C++: friend'
 ---
-{% include JB/setup %}
 
 整理自 _Thinking in C++_。
 
@@ -114,4 +112,3 @@ public:
 ```
 
 这语法要求好恶心……
-

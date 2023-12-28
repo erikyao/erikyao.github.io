@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Python: <i>enumerate()</i>"
-description: ""
 category: Python
+description: ''
 tags: []
+title: 'Python: <i>enumerate()</i>'
 ---
-{% include JB/setup %}
 
 ## 1. `enumerate(start=0)`
 

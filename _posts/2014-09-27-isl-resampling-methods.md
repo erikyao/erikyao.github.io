@@ -1,33 +1,14 @@
 ---
-layout: post
-title: "ISL: Resampling Methods"
-description: ""
 category: Machine-Learning
-tags: [Bootstrap]
+description: ''
+tags:
+- Bootstrap
+title: 'ISL: Resampling Methods'
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
 
 总结自 Chapter 5, An Introduction to Statistical Learning.
-
------
-
-ToC:
-
-- [0. Overview](#0-overview)
-- [1. Cross-Validation](#1-cross-validation)
-	- [1.1 The Validation Set Approach](#11-the-validation-set-approach)
-	- [1.2 Leave-One-Out Cross-Validation](#12-leave-one-out-cross-validation)
-	- [1.3 k-Fold Cross-Validation](#13-k-fold-cross-validation)
-	- [1.4 Bias-Variance Trade-Off for k-Fold Cross-Validation](#14-bias-variance-trade-off-for-k-fold-cross-validation)
-	- [1.5 Cross-Validation on Classification Problems](#15-cross-validation-on-classification-problems)
-- [2. The Bootstrap](#2-the-bootstrap)
-- [3. Lab: Cross-Validation and the Bootstrap](#3-lab-cross-validation-and-the-bootstrap)
-	- [3.1 The Validation Set Approach](#31-the-validation-set-approach)
-	- [3.2 Leave-One-Out Cross-Validation](#32-leave-one-out-cross-validation)
-	- [3.3 k-Fold Cross-Validation](#33-k-fold-cross-validation)
-	- [3.4 The Bootstrap](#34-the-bootstrap)
-		- [3.4.1 Estimating the Accuracy of a Statistic of Interest](#341-estimating-the-accuracy-of-a-statistic-of-interest)
-		- [3.4.2 Estimating the Accuracy of a Linear Regression Model](#342-estimating-the-accuracy-of-a-linear-regression-model)
 
 -----
 
@@ -303,4 +284,3 @@ P195 没啥新内容
 P196 论述了 CV 没有依赖某些假设，所以得到 estimate 比那些依赖假设的公式其实要来的准。
 
 注意下 `xxx.fn` 这个函数可以 return 多个值，比如 `return (coef(lm(mpg~horsepower, data=data, subset=index)))` 这样。我们知道 `coef()` 是 return 了 slope 和 intercept 两个值，这样 `boot()` 的结果里 Bootstrap Statistics 就有 `t1*`、`t2*` 两行，依此类推。
-

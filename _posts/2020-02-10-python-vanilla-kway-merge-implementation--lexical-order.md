@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Python: Vanilla $k$-way Merge Implementation & Lexical Order"
-description: ""
 category: Python
+description: ''
 tags: []
+title: 'Python: Vanilla $k$-way Merge Implementation & Lexical Order'
 ---
-{% include JB/setup %}
 
 ## $k$-way Merge ($k$ 路归并)
 

@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "C++: constructors and destructors"
-description: ""
 category: C++
+description: ''
 tags: []
+title: 'C++: constructors and destructors'
 ---
-{% include JB/setup %}
 
 整理自 _Thinking in C++_。
 

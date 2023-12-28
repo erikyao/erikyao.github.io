@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "C++: Template Trait"
-description: ""
 category: C++
-tags: [template]
+description: ''
+tags:
+- template
+title: 'C++: Template Trait'
 ---
-{% include JB/setup %}
 
 具体见 [Traits: a new and useful template technique](http://www.cantrip.org/traits.html)。这里只说下感想：
 

@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Java: ScheduledExecutorService 的 scheduleAtFixedRate() 方法注意事项两则"
-description: ""
 category: Java
+description: ''
 tags: []
+title: 'Java: ScheduledExecutorService 的 scheduleAtFixedRate() 方法注意事项两则'
 ---
-{% include JB/setup %}
 
 ## `ScheduledExecutorService.scheduleAtFixedRate()` 内部任务发生异常时，不会继续定时运行
 

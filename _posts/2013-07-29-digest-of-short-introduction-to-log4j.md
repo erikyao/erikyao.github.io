@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Digest of <i>Short introduction to log4j</i>"
-description: ""
 category: log4j
-tags: [Article]
+description: ''
+tags:
+- Article
+title: Digest of <i>Short introduction to log4j</i>
 ---
-{% include JB/setup %}
 
 摘自 [Short introduction to log4j](http://logging.apache.org/log4j/1.2/manual.html)，自加评论。
 
@@ -213,4 +212,3 @@ The typical cost of walking the hierarchy is typically 3 times slower than when 
 ### 3. Actually outputting log messages
 
 This is the cost of formatting the log output and sending it to its target destination. Here again, a serious effort was made to make layouts (formatters) perform as quickly as possible. The same is true for appenders. The typical cost of actually logging is about 100 to 300 microseconds.
-

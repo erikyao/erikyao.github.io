@@ -1,11 +1,12 @@
 ---
-layout: post
-title: "《分布式 Java 应用：基础与实践》第二章总结：SOA 扫盲"
-description: ""
 category: Java
-tags: [Book, Java-DistributedSystem, SOA]
+description: ''
+tags:
+- Book
+- Java-DistributedSystem
+- SOA
+title: 《分布式 Java 应用：基础与实践》第二章总结：SOA 扫盲
 ---
-{% include JB/setup %}
 
 　　系统大了就要拆分，比如豆瓣读书、豆瓣电影和豆瓣音乐。  
 

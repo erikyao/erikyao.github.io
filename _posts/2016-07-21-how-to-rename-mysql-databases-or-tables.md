@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "How to rename MySQL databases or tables?"
-description: ""
 category: MySQL
+description: ''
 tags: []
+title: How to rename MySQL databases or tables?
 ---
-{% include JB/setup %}
 
 场景：我有一套老的数据，比如 2015 年发布的 `db`，现在 2016 年发布了新的数据，它的 dump file 里还是用的老的 database name `db`，我想把这两套数据都存在数据库里。
 

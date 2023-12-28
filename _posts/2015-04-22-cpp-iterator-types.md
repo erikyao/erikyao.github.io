@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "C++: Iterator Types"
-description: ""
 category: C++
+description: ''
 tags: []
+title: 'C++: Iterator Types'
 ---
-{% include JB/setup %}
 
 整理自：
 

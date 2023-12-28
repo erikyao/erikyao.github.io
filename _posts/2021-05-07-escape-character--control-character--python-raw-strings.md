@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Escape Character / Control Character / Python Raw Strings / Python Bytes Literals"
-description: ""
 category: Compiler
-tags: [escape]
+description: ''
+tags:
+- escape
+title: Escape Character / Control Character / Python Raw Strings / Python Bytes Literals
 ---
-{% include JB/setup %}
 
 这么多年了，我终于决定要探一探这个 "escape" 到底是啥意思。看了一圈下来，这些概念虽然说不上是乱成一锅粥，但的确够喝一壶的了。
 
@@ -205,4 +204,3 @@ bytesescapeseq ::=  "\" <any ASCII character>
 ```
 
 - `bytesliteral` 的构成和 `stringliteral` 类似，但是一定要有 1 个 `bytesprefix`
-  

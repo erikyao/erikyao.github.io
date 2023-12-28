@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "C++: There are void pointers but no void references"
-description: ""
 category: C++
+description: ''
 tags: []
+title: 'C++: There are void pointers but no void references'
 ---
-{% include JB/setup %}
 
 整理自 _Thinking in C++_。
 

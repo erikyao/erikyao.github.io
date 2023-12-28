@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "C++: Introduction to iostream"
-description: ""
 category: C++
+description: ''
 tags: []
+title: 'C++: Introduction to iostream'
 ---
-{% include JB/setup %}
 
 整理自：_Thinking in C++, Volume 2_ & _C++ Primer, 5th Edition_
 

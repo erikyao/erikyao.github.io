@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Python: <i>raise</i> / 3 key elements of an exception"
-description: ""
 category: Python
+description: ''
 tags: []
+title: 'Python: <i>raise</i> / 3 key elements of an exception'
 ---
-{% include JB/setup %}
 
 ## 1. `raise`-statement in Python 2
 

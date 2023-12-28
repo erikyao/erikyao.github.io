@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Bayesian Interpretation for Ridge Regression and the Lasso + Exercise 7"
-description: ""
 category: Machine-Learning
-tags: [Bayes]
+description: ''
+tags:
+- Bayes
+title: Bayesian Interpretation for Ridge Regression and the Lasso + Exercise 7
 ---
-{% include JB/setup %}
 
 
 

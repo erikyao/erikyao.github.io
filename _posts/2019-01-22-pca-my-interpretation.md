@@ -1,11 +1,11 @@
 ---
-layout: post
-title: "PCA: my interpretation"
-description: ""
 category: Math
-tags: [Math-Algebra, PCA]
+description: ''
+tags:
+- Math-Algebra
+- PCA
+title: 'PCA: my interpretation'
 ---
-{% include JB/setup %}
 
 $$
 \newcommand{\icol}[1]{

@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Eigenbasis / Eigenspace"
-description: ""
 category: Math
+description: ''
 tags: []
+title: Eigenbasis / Eigenspace
 ---
-{% include JB/setup %}
 
 Given a eigenvalue $\lambda$ of matrix $A$, the null space (kernel) of $A - \lambda I$ is called the **eigenspace** of $A$ associated with $\lambda$.
 

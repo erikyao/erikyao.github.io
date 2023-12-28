@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "R PCA Example"
-description: ""
 category: Machine-Learning
-tags: [PCA]
+description: ''
+tags:
+- PCA
+title: R PCA Example
 ---
-{% include JB/setup %}
 
 [4_faces]: https://farm6.staticflickr.com/5788/23292344324_63f5375fa3_o_d.png
 [variance_explained]: https://farm6.staticflickr.com/5761/23292344304_ddcff38623_o_d.png

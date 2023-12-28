@@ -1,11 +1,11 @@
 ---
-layout: post
-title: "SICP: Recursion vs Iteration"
-description: ""
 category: SICP
+description: ''
 tags: []
+title: 'SICP: Recursion vs Iteration'
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
 
 SICP 的 _Section 1.2.1 Linear Recursion and Iteration_ 着重强调了 "无论是 recursive process 还是 iterative process，写出来都是 recursive procedure"，但其实只需要稍微归纳一下，"procedure vs process" 与 "recursion vs iteration" 这两组的交叉关系就能很明了。我觉得 SICP 没有大胆下结论是因为：
 
@@ -13,18 +13,6 @@ SICP 的 _Section 1.2.1 Linear Recursion and Iteration_ 着重强调了 "无论�
 - 各语言的实现方式不同。同样的逻辑，Lisp 实现出来是 iteration，但 C 语言实现出来可能就是 recursion
 
 我们这里分不同的 context 来讨论 Recursion vs Iteration 这个问题。
-
-## ToC
-
-- [狭义地说，Linear Iteration 是 Linear Recursion 的特殊情况](#狭义地说linear-iteration-是-linear-recursion-的特殊情况)
-- [Non-linear 的情况？](#non-linear-的情况)
-- [Tail Recursion / Tail Call](#tail-recursion--tail-call)
-- [Procedure vs Process](#procedure-vs-process)
-- [Looping Constructs / 不同语言对 Iteration 的实现 / Tail Call Optimization](#looping-constructs--不同语言对-iteration-的实现--tail-call-optimization)
-- [LeetCode 答题技巧：Recursion](#leetcode-答题技巧recursion)
-  - [CASE 1: 如何改写成 tail recursion?](#case-1-如何改写成-tail-recursion)
-  - [CASE 2: `while stack:` 模拟 call stack](#case-2-while-stack-模拟-call-stack)
-- [LeetCode 答题技巧：Dynamic Programming](#leetcode-答题技巧dynamic-programming)
 
 ## 狭义地说，Linear Iteration 是 Linear Recursion 的特殊情况
 

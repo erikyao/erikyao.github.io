@@ -1,47 +1,15 @@
 ---
-layout: post
-title: "ISL: Unsupervised Learning"
-description: ""
 category: Machine-Learning
-tags: [PCA, Cluster]
+description: ''
+tags:
+- PCA
+- Cluster
+title: 'ISL: Unsupervised Learning'
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
 
 总结自 Chapter 10, An Introduction to Statistical Learning.
-
------
-
-ToC:
-
-- [0. Overview](#0-overview)
-- [1. The Challenge of Unsupervised Learning](#1-the-challenge-of-unsupervised-learning)
-- [2. Principal Components Analysis](#2-principal-components-analysis)
-	- [2.1 What Are Principal Components?](#21-what-are-principal-components)
-	- [2.2 Another Interpretation of Principal Components](#22-another-interpretation-of-principal-components)
-	- [2.3 More on PCA](#23-more-on-pca)
-		- [Scaling the Variables](#scaling-the-variables)
-		- [Uniqueness of the Principal Components](#uniqueness-of-the-principal-components)
-		- [The Proportion of Variance Explained](#the-proportion-of-variance-explained)
-		- [Deciding How Many Principal Components to Use](#deciding-how-many-principal-components-to-use)
-	- [2.4 Other Uses for Principal Components](#24-other-uses-for-principal-components)
-- [3. Clustering Methods](#3-clustering-methods)
-	- [3.1 K-Means Clustering](#31-k-means-clustering)
-	- [3.2 Hierarchical Clustering](#32-hierarchical-clustering)
-		- [Interpreting a Dendrogram](#interpreting-a-dendrogram)
-		- [The Hierarchical Clustering Algorithm](#the-hierarchical-clustering-algorithm)
-		- [Choice of Dissimilarity Measure](#choice-of-dissimilarity-measure)
-	- [3.3 Practical Issues in Clustering](#33-practical-issues-in-clustering)
-		- [Small Decisions with Big Consequences](#small-decisions-with-big-consequences)
-		- [Validating the Clusters Obtained](#validating-the-clusters-obtained)
-		- [Other Considerations in Clustering](#other-considerations-in-clustering)
-		- [A Tempered Approach to Interpreting the Results of Clustering](#a-tempered-approach-to-interpreting-the-results-of-clustering)
-- [4. Lab 1: Principal Components Analysis](#4-lab-1-principal-components-analysis)
-- [5. Lab 2: Clustering](#5-lab-2-clustering)
-	- [5.1 K-Means Clustering](#51-k-means-clustering)
-	- [5.2 Hierarchical Clustering](#52-hierarchical-clustering)
-- [6. Lab 3: NCI60 Data Example](#6-lab-3-nci60-data-example)
-	- [6.1 PCA on the NCI60 Dat](#61-pca-on-the-nci60-dat)
-	- [6.2 Clustering the Observations of the NCI60 Data](#62-clustering-the-observations-of-the-nci60-data)
 
 -----
 

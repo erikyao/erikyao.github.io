@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Java: foreach 与 iterable"
-description: ""
 category: Java
+description: ''
 tags: []
+title: 'Java: foreach 与 iterable'
 ---
-{% include JB/setup %}
 
 `Iterable` 是一个接口，它只有一个方法 `iterator()`，要求返回一个 `Iterator`。
 

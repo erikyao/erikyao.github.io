@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "a weird problem caused by encoding"
-description: ""
 category: JSP
-tags: [Experience]
+description: ''
+tags:
+- Experience
+title: a weird problem caused by encoding
 ---
-{% include JB/setup %}
 
 copy 一段代码到 jsp，tomcat 的 catalina.err 总说：`org.apache.jasper.JasperException: /WEB-INF/jsp/admin/lottery/add.jsp(425,32) equal symbol expected`。  
 

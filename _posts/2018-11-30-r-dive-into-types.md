@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "R: dive into types"
-description: ""
 category: R
+description: ''
 tags: []
+title: 'R: dive into types'
 ---
-{% include JB/setup %}
 
 - [1. 预备知识：`class()` / `typeof()` / `mode()` / `storage.mode()`](#1-预备知识class--typeof--mode--storagemode)
 - [2. 预备知识：R Basic Types 总览](#2-预备知识r-basic-types-总览)
@@ -269,4 +267,3 @@ NULL
 [R Language Definition - 2.1.7 Builtin objects and special forms](https://cran.r-project.org/doc/manuals/r-patched/R-lang.html#Builtin-objects-and-special-forms) 也提到：
 
 > The difference between the two lies in the argument handling. Builtin functions have all their arguments evaluated and passed to the internal function, in accordance with _call-by-value_, whereas special functions pass the unevaluated arguments to the internal function.
-

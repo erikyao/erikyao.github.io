@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "C++: Standard Type Transformation Templates"
-description: ""
 category: C++
+description: ''
 tags: []
+title: 'C++: Standard Type Transformation Templates'
 ---
-{% include JB/setup %}
 
 整理自 _C++ Primer, 5th Edition_
 

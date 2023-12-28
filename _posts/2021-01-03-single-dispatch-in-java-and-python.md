@@ -1,22 +1,11 @@
 ---
-layout: post
-title: "Single Dispatch in Java and Python"
-description: ""
 category: Java
+description: ''
 tags: []
+title: Single Dispatch in Java and Python
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
-
-## ToC
-
-- [ToC](#toc)
-- [1. 基本概念](#1-基本概念)
-- [2. Java 的 Single Dispatch 与多态](#2-java-的-single-dispatch-与多态)
-- [3. Java 的 Single Dispatch 与 Override、Overload、Static Binding、Dynamic Binding](#3-java-的-single-dispatch-与-overrideoverloadstatic-bindingdynamic-binding)
-- [4. Python 对 method 的 Single Dispatch](#4-python-对-method-的-single-dispatch)
-- [5. Python 对 function 的 Single Dispatch](#5-python-对-function-的-single-dispatch)
-- [6. 模拟实现 Double Dispatch](#6-模拟实现-double-dispatch)
-- [7. 更多讨论](#7-更多讨论)
 
 ## 1. 基本概念
 

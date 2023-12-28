@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Digest of <i>Effective C++</i>"
-description: ""
 category: C++
-tags: [Book]
+description: ''
+tags:
+- Book
+title: Digest of <i>Effective C++</i>
 ---
-{% include JB/setup %}
 
 ## 目录
 

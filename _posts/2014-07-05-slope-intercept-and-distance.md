@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Slope, Intercept and Distance"
-description: "斜率、截距以及点到直线的距离"
 category: Math
-tags: [Math-Algebra]
+description: 斜率、截距以及点到直线的距离
+tags:
+- Math-Algebra
+title: Slope, Intercept and Distance
 ---
-{% include JB/setup %}
 
 ## 斜率（Slope）
 

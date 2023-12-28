@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Python: synchronization primitives"
-description: ""
-category: 
+category: null
+description: ''
 tags: []
+title: 'Python: synchronization primitives'
 ---
-{% include JB/setup %}
 
 我本来只是想研究下 `Condition` 怎么用 (因为 java 里没见过)，但既然展开了就写一篇记录一下吧。
 

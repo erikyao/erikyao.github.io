@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "设计 Controller 的一些经验"
-description: ""
 category: Thought
-tags: [Experience]
+description: ''
+tags:
+- Experience
+title: 设计 Controller 的一些经验
 ---
-{% include JB/setup %}
 
 ### (1)
 

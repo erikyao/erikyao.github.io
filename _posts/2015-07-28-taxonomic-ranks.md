@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Taxonomic Ranks"
-description: ""
 category: Biology
+description: ''
 tags: []
+title: Taxonomic Ranks
 ---
-{% include JB/setup %}
 
 - taxonomy: [tækˈsɒnəmi], 分类学
 - taxonomic: [ˌtæksə'nɒmɪk]

@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Subnet Mask"
-description: ""
 category: Network
+description: ''
 tags: []
+title: Subnet Mask
 ---
-{% include JB/setup %}
 
 IP 层提供了 IP 地址，IPv4 是 4 byte，`32 bit == 网络号 (#network) + 主机号 (#host)`，所谓 #network 就是区分 A 类、B 类、C 类网的那个。  
 

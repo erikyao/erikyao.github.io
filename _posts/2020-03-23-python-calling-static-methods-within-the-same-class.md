@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Python: calling static methods within the same class / recursive static methods"
-description: ""
 category: Python
+description: ''
 tags: []
+title: 'Python: calling static methods within the same class / recursive static methods'
 ---
-{% include JB/setup %}
 
 假设我们有一个 `class Test`，有一个 `@staticmethod foo`：
 

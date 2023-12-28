@@ -1,111 +1,12 @@
 ---
-layout: post
-title: "Digest of <i>Dive into Python 3</i>"
-description: ""
 category: Python
-tags: [Book]
+description: ''
+tags:
+- Book
+title: Digest of <i>Dive into Python 3</i>
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
-
-ToC:
-
-- [Chapter 1. Your First Python Program](#chapter-1-your-first-python-program)
-  - [1.4. The `Import` Search Path](#14-the-import-search-path)
-  - [1.5. Everything Is An Object](#15-everything-is-an-object)
-  - [1.7. Exceptions](#17-exceptions)
-  - [1.10. Running Scripts](#110-running-scripts)
-- [Chapter 2. Native Datatypes](#chapter-2-native-datatypes)
-  - [2.1. Diving In](#21-diving-in)
-  - [2.2. Booleans](#22-booleans)
-  - [2.3. Numbers](#23-numbers)
-  - [2.4. Lists](#24-lists)
-  - [2.5. Tuples](#25-tuples)
-  - [2.6. Sets](#26-sets)
-  - [2.7. Dictionaries](#27-dictionaries)
-  - [2.8. `None`](#28-none)
-- [Chapter 3. Comprehensions](#chapter-3-comprehensions)
-  - [3.2. Workingwith Files And Directories](#32-workingwith-files-and-directories)
-  - [3.3. List Comprehensions](#33-list-comprehensions)
-  - [3.4. Dictionary Comprehensions](#34-dictionary-comprehensions)
-  - [3.5. Set Comprehensions](#35-set-comprehensions)
-- [Chapter 4. Strings](#chapter-4-strings)
-  - [4.1. Some Boring Stuff You Need To Understand Before You Can Dive In](#41-some-boring-stuff-you-need-to-understand-before-you-can-dive-in)
-  - [4.2. Unicode](#42-unicode)
-  - [4.3. Diving In](#43-diving-in)
-  - [4.4. Formatting Strings](#44-formatting-strings)
-    - [4.4.1. Compound Field Names](#441-compound-field-names)
-    - [4.4.2. Format Specifiers](#442-format-specifiers)
-  - [4.5. Other Common String Methods](#45-other-common-string-methods)
-  - [4.6. Strings vs. Bytes](#46-strings-vs-bytes)
-  - [4.7. Postscript: Character Encoding Of Python Source Code](#47-postscript-character-encoding-of-python-source-code)
-- [Chapter 5. Regular Expressions (略)](#chapter-5-regular-expressions-略)
-- [Chapter 6. Closures & Generators](#chapter-6-closures--generators)
-  - [6.1. Diving In](#61-diving-in)
-  - [6.2. I Know, Let’s Use Regular Expressions!](#62-i-know-lets-use-regular-expressions)
-  - [6.3. A List Of Functions](#63-a-list-of-functions)
-  - [6.4. A List Of Patterns](#64-a-list-of-patterns)
-  - [6.5. A File Of Patterns](#65-a-file-of-patterns)
-  - [6.6. Generators](#66-generators)
-    - [6.6.1. A Fibonacci Generator <](#661-a-fibonacci-generator-)
-    - [6.6.2. A Plural Rule Generator](#662-a-plural-rule-generator)
-- [Chapter 7. Classes & Iterators](#chapter-7-classes--iterators)
-  - [7.1. Diving In](#71-diving-in)
-  - [7.2. Defining Classes](#72-defining-classes)
-  - [7.3. Instantiating Classes](#73-instantiating-classes)
-  - [7.4. Instance Variables](#74-instance-variables)
-  - [7.5. A Fibonacci Iterator](#75-a-fibonacci-iterator)
-  - [7.6. A Plural Rule Iterator](#76-a-plural-rule-iterator)
-- [Chapter 8. Advanced Iterators](#chapter-8-advanced-iterators)
-  - [8.3. Finding The Unique Items In A Sequence](#83-finding-the-unique-items-in-a-sequence)
-  - [8.4. Making Assertions](#84-making-assertions)
-  - [8.5. Generator Expressions](#85-generator-expressions)
-  - [8.6. Calculating Permutations… The Lazy way!](#86-calculating-permutations-the-lazy-way)
-  - [8.7. Other Fun Stuff In The `itertools` Module](#87-other-fun-stuff-in-the-itertools-module)
-  - [8.8. A New Kind Of String Manipulation](#88-a-new-kind-of-string-manipulation)
-  - [8.9. Evaluating Arbitrary Strings As Python Expressions](#89-evaluating-arbitrary-strings-as-python-expressions)
-  - [8.10. Putting It All Together （略）](#810-putting-it-all-together-略)
-- [Chapter 9. Unit Testing](#chapter-9-unit-testing)
-  - [9.2. A Single Question](#92-a-single-question)
-  - [9.3. "Halt And Catch Fire"](#93-halt-and-catch-fire)
-  - [9.4. More Halting, More Fire](#94-more-halting-more-fire)
-  - [9.5. And One More Thing...](#95-and-one-more-thing)
-- [Chapter 10. Refactoring](#chapter-10-refactoring)
-  - [10.1. Diving In](#101-diving-in)
-  - [10.2. Handling Changing Requirements](#102-handling-changing-requirements)
-  - [10.3. Refactoring](#103-refactoring)
-- [Chapter 11. Files](#chapter-11-files)
-  - [11.2. Reading From Text Files](#112-reading-from-text-files)
-    - [11.2.1. Character Encoding Rears Its Ugly Head](#1121-character-encoding-rears-its-ugly-head)
-    - [11.2.2. Stream Objects](#1122-stream-objects)
-    - [11.2.3. Reading Data From A Text File](#1123-reading-data-from-a-text-file)
-    - [11.2.4. Closing Files](#1124-closing-files)
-    - [11.2.5. Closing Files Automatically](#1125-closing-files-automatically)
-    - [11.2.6. Reading Data One Line At A Time](#1126-reading-data-one-line-at-a-time)
-  - [11.3. Writing To Text Files](#113-writing-to-text-files)
-  - [11.4. Binary Files](#114-binary-files)
-  - [11.5. Stream Objects From Non-File Sources](#115-stream-objects-from-non-file-sources)
-    - [11.5.1. Handling Compressed Files (略)](#1151-handling-compressed-files-略)
-  - [11.6. Standard Input, Output, And Error](#116-standard-input-output-and-error)
-    - [11.6.1. Redirecting Standard Output](#1161-redirecting-standard-output)
-- [Chapter 12. Xml (略)](#chapter-12-xml-略)
-- [Chapter 13. Serializing Python Objects](#chapter-13-serializing-python-objects)
-  - [13.1. Diving In](#131-diving-in)
-  - [13.2. Saving Data To A Pickle File](#132-saving-data-to-a-pickle-file)
-  - [13.3. Loading Data From A Pickle File](#133-loading-data-from-a-pickle-file)
-  - [13.4. Pickling without A File](#134-pickling-without-a-file)
-  - [13.6. Debugging Pickle Files (略)](#136-debugging-pickle-files-略)
-  - [13.7. Serializing Python Objects To Be Read By Other Languages](#137-serializing-python-objects-to-be-read-by-other-languages)
-  - [13.8. Saving Data To A Json File (略)](#138-saving-data-to-a-json-file-略)
-  - [13.9. Mapping Of Python Datatypes To Json (略)](#139-mapping-of-python-datatypes-to-json-略)
-  - [13.10. Serializing Datatypes Unsupported By Json (略)](#1310-serializing-datatypes-unsupported-by-json-略)
-  - [13.11. Loading Data From A Json File (略)](#1311-loading-data-from-a-json-file-略)
-- [Chapter 14. Http Web Services (略)](#chapter-14-http-web-services-略)
-- [Chapter 15. Case Study: Porting `chardet` To Python 3 (略)](#chapter-15-case-study-porting-chardet-to-python-3-略)
-- [Chapter 16. Packaging Python Libraries (略)](#chapter-16-packaging-python-libraries-略)
-- [Chapter 17. Porting Code To Python 3 With `2to3` (略)](#chapter-17-porting-code-to-python-3-with-2to3-略)
-- [Chapter 18. Special Method Names (略)](#chapter-18-special-method-names-略)
-
------
 
 ## Chapter 1. Your First Python Program
 
@@ -1811,4 +1712,4 @@ You can also serialize to a `bytes` object in memory.
 
 ## Chapter 17. Porting Code To Python 3 With `2to3` (略) 
 
-## Chapter 18. Special Method Names (略) 
+## Chapter 18. Special Method Names (略)

@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Python: MySQLdb"
-description: ""
 category: Python
-tags: [MySQL-client]
+description: ''
+tags:
+- MySQL-client
+title: 'Python: MySQLdb'
 ---
-{% include JB/setup %}
 
 ## 1. `MySQLdb` Installation
 

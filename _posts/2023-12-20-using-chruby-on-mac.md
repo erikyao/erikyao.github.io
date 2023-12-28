@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Using chruby on Mac"
-description: ""
 category: Ruby
+description: ''
 tags: []
+title: Using chruby on Mac
 ---
-{% include JB/setup %}
 
 # 1. macOS 自带的 Ruby
 
@@ -128,5 +126,3 @@ echo 'ruby-3.2.2' >> .ruby-version
 简写形式应该也是可以的。当你 `cd` 到这个 directory，`chruby` 的 auto-switch 功能 detect 到这么一个 `.ruby-version` 文件后，它就能自动给你 switch 到这个版本。
 
 如果你想每次启动 terminal 都固定 switch 到 `ruby-3.2.2`，你也可以把 `chruby ruby-3.2.2` 写到 `.zshrc`。
-
-

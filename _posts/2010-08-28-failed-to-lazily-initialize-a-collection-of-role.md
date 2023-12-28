@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "hibernate 延迟加载的错误"
-description: ""
 category: Hibernate
+description: ''
 tags: []
+title: hibernate 延迟加载的错误
 ---
-{% include JB/setup %}
 
 异常信息：`failed to lazily initialize a collection of role: <容器类对象>, no session or session was closed`
 

@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "C++: Temporary Objects, are you Rvalues?"
-description: ""
 category: C++
-tags: [const]
+description: ''
+tags:
+- const
+title: 'C++: Temporary Objects, are you Rvalues?'
 ---
-{% include JB/setup %}
 
 问题源自：_Thinking in C++_
 

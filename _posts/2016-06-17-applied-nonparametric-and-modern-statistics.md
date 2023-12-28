@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Applied Nonparametric and Modern Statistics"
-description: ""
 category: Math
-tags: [Math-Statistics]
+description: ''
+tags:
+- Math-Statistics
+title: Applied Nonparametric and Modern Statistics
 ---
-{% include JB/setup %}
 
 Course site: [Applied Nonparametric and Modern Statistics](http://www.biostat.jhsph.edu/~ririzarr/Teaching/754/)
 
@@ -74,4 +73,3 @@ If we are going to “model” $(\ref{eq1.1})$, we gain insight into the importa
 We will then move on to the case where we have many covariates, then cases where the expectation needs to be transformed, and various other generalization. 
 
 ## 2. Overview of various smoothers
-

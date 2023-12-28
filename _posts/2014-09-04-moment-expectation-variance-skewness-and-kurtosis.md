@@ -1,28 +1,12 @@
 ---
-layout: post
-title: "Moment, Expectation, Variance, Skewness and Kurtosis"
-description: "矩、期望、方差、偏度与峰度"
 category: Math
-tags: [Math-Statistics]
+description: 矩、期望、方差、偏度与峰度
+tags:
+- Math-Statistics
+title: Moment, Expectation, Variance, Skewness and Kurtosis
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
-
-ToC:
-
-- [0. Dictionary](#0-dictionary)
-- [1. Moment](#1-moment)
-	- [1.1 Definition in Physics](#11-definition-in-physics)
-	- [1.2 Raw Moment](#12-raw-moment)
-	- [1.3 Central Moment](#13-central-moment)
-	- [1.4 Standardized Moment](#14-standardized-moment)
-- [2. Expectation](#2-expectation)
-	- [2.1 Expectation Equals Arithmetic Mean](#21-expectation-equals-arithmetic-mean)
-	- [2.2 Expectation Operator](#22-expectation-operator)
-- [3. Variance](#3-variance)
-- [4. Skewness](#4-skewness)
-- [5. Kurtosis](#5-kurtosis)
-
------
 
 ## 0. Dictionary
 

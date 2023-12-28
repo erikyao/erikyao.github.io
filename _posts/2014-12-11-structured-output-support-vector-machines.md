@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Structured Output Support Vector Machines"
-description: ""
 category: Machine-Learning
-tags: [SVM]
+description: ''
+tags:
+- SVM
+title: Structured Output Support Vector Machines
 ---
-{% include JB/setup %}
 
 总结自 [Flexible discriminative learning with
 structured output support vector machines](http://www.robots.ox.ac.uk/~vedaldi/assets/svm-struct-matlab/tutorial/ssvm-tutorial-handout.pdf)，非常好的一份 tutorial。

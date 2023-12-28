@@ -1,28 +1,13 @@
 ---
-layout: post
-title: "C++ Exception Handling / auto_ptr"
-description: ""
 category: C++
+description: ''
 tags: []
+title: C++ Exception Handling / auto_ptr
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
 
 整理自：_Thinking in C++, Volume 2_
-
------
-
-ToC:
-
-- [1. Throwing](#1-throwing)
-- [2. Catching all](#2-catching-all)
-- [3. Re-throwing](#3-re-throwing)
-- [4. When an exception is never caught](#4-when-an-exception-is-never-caught)
-- [5. Exceptions during construction](#5-exceptions-during-construction)
-	- [auto_ptr](#auto_ptr)
-- [6. Function-level try-blocks](#6-function-level-try-blocks)
-- [7. Standard exceptions](#7-standard-exceptions)
-- [8. Declaring a throw](#8-declaring-a-throw)
-- [9. Exception safety](#9-exception-safety)
 
 -----
 
@@ -235,4 +220,3 @@ What happens if the copy constructor that is called for the return value in the 
 The problem is that this function attempts to do two things at once: (1) return a value, and (2) change the state of the stack. It is better to separate these two actions into two separate member functions, which is exactly what the standard stack class does. (In other words, follow the design practice of cohesion—every function should do one thing well.) Exception-safe code leaves objects in a consistent state and does not leak resources.
 
 另外还有一个概念叫 exception neutral，指不吞 exception。一个设计良好的 lib 应该同时具备 exception safe 和 exception neutral 这两个特性。
-

@@ -1,27 +1,11 @@
 ---
-layout: post
-title: "Closest Pair of Points"
-description: ""
 category: LeetCode
+description: ''
 tags: []
+title: Closest Pair of Points
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
-
-**ToC**
-- [1. 问题](#1-问题)
-- [2. 思路](#2-思路)
-  - [2.1 大盘](#21-大盘)
-  - [2.2 Trival Cases](#22-trival-cases)
-  - [2.3 Non-Trival Cases / 如何求 $\delta_{T}$](#23-non-trival-cases--如何求-delta_t)
-    - [技术细节：How to Divide](#技术细节how-to-divide)
-    - [Lemma 1](#lemma-1)
-    - [Lemma 2](#lemma-2)
-    - [技术细节：如何高效计算 $Sy$](#技术细节如何高效计算-sy)
-- [3. 代码](#3-代码)
-  - [3.1 Band / 点 / 点集](#31-band--点--点集)
-  - [3.2 单独给 "解" 这个概念定一个类](#32-单独给-解-这个概念定一个类)
-  - [3.3 divide & conquer](#33-divide--conquer)
-  - [3.4 Test Cases](#34-test-cases)
 
 ## 1. 问题
 

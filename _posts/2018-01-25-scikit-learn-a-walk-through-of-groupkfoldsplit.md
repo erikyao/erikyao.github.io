@@ -1,11 +1,11 @@
 ---
-layout: post
-title: "scikit-learn: A walk through of <i>GroupKFold.split()</i>"
-description: ""
 category: sklearn
-tags: [cross-validation, np.unique]
+description: ''
+tags:
+- cross-validation
+- np.unique
+title: 'scikit-learn: A walk through of <i>GroupKFold.split()</i>'
 ---
-{% include JB/setup %}
 
 Suppose $X["groups"] = \begin{bmatrix} a \newline b \newline b \newline c \newline c \newline c \end{bmatrix}$ and `n_splits=3`.
 

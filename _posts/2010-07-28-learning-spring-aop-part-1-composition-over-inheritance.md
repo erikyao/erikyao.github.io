@@ -1,11 +1,13 @@
 ---
-layout: post
-title: "Spring AOP 学习（一）：组合对比继承的优势"
-description: ""
 category: AOP
-tags: [Java-AOP, Proxy, Delegate, 动态代理]
+description: ''
+tags:
+- Java-AOP
+- Proxy
+- Delegate
+- 动态代理
+title: Spring AOP 学习（一）：组合对比继承的优势
 ---
-{% include JB/setup %}
 
 来自尚学堂 Spring 视频教程；作文字总结。
 

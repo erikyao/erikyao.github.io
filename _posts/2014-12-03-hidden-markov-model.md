@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Hidden Markov Models"
-description: ""
 category: Machine-Learning
-tags: [HMM]
+description: ''
+tags:
+- HMM
+title: Hidden Markov Models
 ---
-{% include JB/setup %}
 
 总结自 [Hidden Markov Models](http://www.comp.leeds.ac.uk/roger/HiddenMarkovModels/html_dev/main.html)
 

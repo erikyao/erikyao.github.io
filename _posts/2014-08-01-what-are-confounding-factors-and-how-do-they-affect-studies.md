@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "What are Confounding Factors and How do they Affect Studies?"
-description: ""
-category: Math 
-tags: [Math-Statistics]  
----  
-{% include JB/setup %}  
+category: Math
+description: ''
+tags:
+- Math-Statistics
+title: What are Confounding Factors and How do they Affect Studies?
+---
   
 confound 的意思是：
 

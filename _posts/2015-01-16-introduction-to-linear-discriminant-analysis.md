@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Introduction to Linear Discriminant Analysis"
-description: ""
 category: Machine-Learning
-tags: [LDA]
+description: ''
+tags:
+- LDA
+title: Introduction to Linear Discriminant Analysis
 ---
-{% include JB/setup %}
 
 参考自 [Multi-label Linear Discriminant Analysis](http://link.springer.com/chapter/10.1007/978-3-642-15567-3_10)
 

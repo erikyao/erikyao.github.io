@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "How to use @link, @see and @code in JavaDoc"
-description: ""
 category: Java
-tags: [JavaDoc]
+description: ''
+tags:
+- JavaDoc
+title: How to use @link, @see and @code in JavaDoc
 ---
-{% include JB/setup %}
 
 ## @link
 
@@ -49,4 +48,3 @@ tags: [JavaDoc]
 注意评论里有说：
 
 > Another unfortunate, if you have blocks in your example code using curly braces "{}", the first closing brace will terminate the @code block.
-

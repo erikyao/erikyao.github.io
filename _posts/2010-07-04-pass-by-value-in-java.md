@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Java 的值传递"
-description: ""
 category: Java
+description: ''
 tags: []
+title: Java 的值传递
 ---
-{% include JB/setup %}
 
 [1]: https://farm2.staticflickr.com/1558/23624880720_3cf08752b9_o_d.png
 [2]: https://farm2.staticflickr.com/1477/23552710069_3891f8d3c7_o_d.png

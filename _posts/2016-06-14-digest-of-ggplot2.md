@@ -1,98 +1,15 @@
 ---
-layout: post
-title: "Digest of <i>ggplot2</i>"
-description: ""
 category: R
-tags: [Book, ggplot]
+description: ''
+tags:
+- Book
+- ggplot
+title: Digest of <i>ggplot2</i>
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
 
 [6-5-legend-position]: https://farm5.staticflickr.com/4682/39207350172_fe5b317949_m_d.jpg
-
-ToC:
-
-- [第一章 - 简介](#第一章---简介)
-	- [1.1 Welcome to ggplot2](#11-welcome-to-ggplot2)
-	- [1.3 What is the grammar of graphics?](#13-what-is-the-grammar-of-graphics)
-	- [1.4 How does ggplot2 fit in with other R graphics?](#14-how-does-ggplot2-fit-in-with-other-r-graphics)
-- [第二章 - 从 `qplot` 入门](#第二章---从-qplot-入门)
-	- [2.2 diamonds / dsmall 数据集](#22-diamonds--dsmall-数据集)
-	- [2.3 基本用法](#23-基本用法)
-	- [2.4 图形属性 (aesthetic attributes, e.g. color, size and shape)](#24-图形属性-aesthetic-attributes-eg-color-size-and-shape)
-	- [2.5 几何对象 (geom)](#25-几何对象-geom)
-		- [2.5.1 添加 smooth 曲线](#251-添加-smooth-曲线)
-		- [2.5.2 jitter plot 与 boxplot](#252-jitter-plot-与-boxplot)
-		- [2.5.3 histogram 与 density plot](#253-histogram-与-density-plot)
-		- [2.5.4 Bar charts](#254-bar-charts)
-		- [2.5.5 Time series with line and path plots](#255-time-series-with-line-and-path-plots)
-	- [2.6 分面 (facet)](#26-分面-facet)
-	- [2.7 Other options for `qplot`](#27-other-options-for-qplot)
-- [第三章 - 语法突破](#第三章---语法突破)
-	- [3.2 mpg 数据集](#32-mpg-数据集)
-	- [3.3 散点图绘制的详细过程](#33-散点图绘制的详细过程)
-	- [3.4 更复杂的图形示例](#34-更复杂的图形示例)
-	- [3.5 图层 (layer) 的组件](#35-图层-layer-的组件)
-	- [3.6 ggplot 对象](#36-ggplot-对象)
-- [第四章 - 用图层构建图像](#第四章---用图层构建图像)
-	- [4.2 创建 ggplot 对象](#42-创建-ggplot-对象)
-	- [4.3 添加图层 (layer)](#43-添加图层-layer)
-	- [4.4 `ggplot(data=?)` 参数设置](#44-ggplotdata-参数设置)
-	- [4.5 `ggplot(mapping=aes(...))` 参数设置](#45-ggplotmappingaes-参数设置)
-		- [4.5.1 `aes` 的扩展、覆盖、移除](#451-aes-的扩展覆盖移除)
-		- [4.5.2 图形属性：设定 (setting) 与映射 (mapping) 的区别](#452-图形属性设定-setting-与映射-mapping-的区别)
-		- [4.5.3 分组: `aes(group=?)`](#453-分组-aesgroup)
-		- [4.5.4 匹配图形属性与图形对象](#454-匹配图形属性与图形对象)
-	- [4.6 几何对象 (geom)](#46-几何对象-geom)
-	- [4.7 统计变换 (stat)](#47-统计变换-stat)
-	- [4.8 `geom_xxx(position=?)` 或 `stat_xxx(position=?)` 参数设置](#48-geom_xxxposition-或-stat_xxxposition-参数设置)
-	- [4.9 整合](#49-整合)
-		- [4.9.1 灵活使用 geom 与 stat](#491-灵活使用-geom-与-stat)
-		- [4.9.2 统计量复用: `stat_identity()`](#492-统计量复用-stat_identity)
-		- [4.9.3 不同图层可以使用不同的 `data=?`和 `mapping=aes(...)` 设置](#493-不同图层可以使用不同的-data和-mappingaes-设置)
-- [第五章 - ggplot2 工具箱](#第五章---ggplot2-工具箱)
-	- [5.2 图层的分类](#52-图层的分类)
-	- [5.3 基本的 geom](#53-基本的-geom)
-	- [5.4 展示数据分布的 geom](#54-展示数据分布的-geom)
-	- [5.5 处理遮盖 (overplotting)](#55-处理遮盖-overplotting)
-	- [5.6 如何绘制曲面图](#56-如何绘制曲面图)
-	- [5.7 如何绘制地图](#57-如何绘制地图)
-	- [5.8 如何展示 uncertainty](#58-如何展示-uncertainty)
-	- [5.9 统计摘要: `stat_summary()`](#59-统计摘要-stat_summary)
-	- [5.10 如何添加图形注解 (label, text, etc.)](#510-如何添加图形注解-label-text-etc)
-	- [5.11 如何体现数据的 weight](#511-如何体现数据的-weight)
-- [第六章 - Scale, axis and legend](#第六章---scale-axis-and-legend)
-	- [6.2 scale 的工作原理](#62-scale-的工作原理)
-	- [6.3 scale 的用法](#63-scale-的用法)
-	- [6.4 scale 详解](#64-scale-详解)
-		- [6.4.1 `scale_*_*(name=?)` 与 `labs()`](#641-scale__name-与-labs)
-		- [6.4.2 `scale_x_*(limits=?, breaks=?, labels=?)` 与 formatter](#642-scale_x_limits-breaks-labels-与-formatter)
-		- [6.4.3 `scale_colour_*` 与 `scale_fill_*`](#643-scale_colour_-与-scale_fill_)
-		- [6.4.4 `scale_*_manual`](#644-scale__manual)
-		- [6.4.5 `scale_*_identity`](#645-scale__identity)
-	- [6.5 legend and axis](#65-legend-and-axis)
-- [第七章 - Facet and coord system](#第七章---facet-and-coord-system)
-	- [7.2 分面 (facet)](#72-分面-facet)
-		- [7.2.1 `facet_grid`](#721-facet_grid)
-		- [7.2.2 `facet_wrap`](#722-facet_wrap)
-		- [7.2.3 `facet_*(scales=?, space=?)` 参数设置](#723-facet_scales-space-参数设置)
-		- [7.2.4 如果某个图层的 data 没有 formula 指定的变量](#724-如果某个图层的-data-没有-formula-指定的变量)
-		- [7.2.5 `aes(group=?)` vs faceting](#725-aesgroup-vs-faceting)
-		- [7.2.6 `geom_*(position="dodge")` vs faceting](#726-geom_positiondodge-vs-faceting)
-		- [7.2.7 如何处理连续型的 facet variable](#727-如何处理连续型的-facet-variable)
-	- [7.3 Coord system](#73-coord-system)
-		- [7.3.1 坐标系变换](#731-坐标系变换)
-		- [7.3.2 stat 依赖于坐标系](#732-stat-依赖于坐标系)
-		- [7.3.3 Cartesian 坐标系](#733-cartesian-坐标系)
-		- [7.3.4 Non-Cartesian 坐标系](#734-non-cartesian-坐标系)
-- [第八章 - Polishing your plots for publication](#第八章---polishing-your-plots-for-publication)
-	- [8.1 主题 (theme)](#81-主题-theme)
-		- [8.1.1 内置主题](#811-内置主题)
-		- [8.1.2 主题元素的设置](#812-主题元素的设置)
-	- [8.2 自定义 scale 和 geom](#82-自定义-scale-和-geom)
-	- [8.3 保存作图到文件](#83-保存作图到文件)
-	- [8.4 多图排列](#84-多图排列)
-- [第九章 - Data Manipulation](#第九章---data-manipulation)
-- [第十章 - 减少重复性的工作](#第十章---减少重复性的工作)
 
 ## 第一章 - 简介 
 

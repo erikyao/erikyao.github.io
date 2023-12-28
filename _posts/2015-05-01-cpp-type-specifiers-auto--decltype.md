@@ -1,11 +1,11 @@
 ---
-layout: post
-title: "C++ Type Specifiers: auto / decltype"
-description: ""
 category: C++
-tags: [C++11, const]
+description: ''
+tags:
+- C++11
+- const
+title: 'C++ Type Specifiers: auto / decltype'
 ---
-{% include JB/setup %}
 
 整理自 _C++ Primer, 5th Edition_
 

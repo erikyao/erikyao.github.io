@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "visibility symbol in UML"
-description: ""
 category: Java
-tags: [UML]
+description: ''
+tags:
+- UML
+title: visibility symbol in UML
 ---
-{% include JB/setup %}
 
 ![](https://farm6.staticflickr.com/5819/23812248802_95e3ef521a_o_d.png)
 

@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "jBPM-4.3 &lt;process&gt; 标签 name 属性中的短横线会变成下划线赋给 key 属性"
-description: ""
 category: jBPM-4.3
+description: ''
 tags: []
+title: jBPM-4.3 &lt;process&gt; 标签 name 属性中的短横线会变成下划线赋给 key 属性
 ---
-{% include JB/setup %}
 
 　　假设我部署了一个 jpdl.xml，&lt;process name="test-vehicle"&gt;，那么，查询出的 ProcessDefinition 的属性如下：
 

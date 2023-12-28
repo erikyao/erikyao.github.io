@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Machine Learning: Dimensionality Reduction"
-description: "A Note from Ng"
 category: Machine-Learning
-tags: [PCA]
+description: A Note from Ng
+tags:
+- PCA
+title: 'Machine Learning: Dimensionality Reduction'
 ---
-{% include JB/setup %}
 
 ## 1. Motivation
 

@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "IR 经典模型之布尔模型"
-description: ""
 category: Information-Retrieval
+description: ''
 tags: []
+title: IR 经典模型之布尔模型
 ---
-{% include JB/setup %}
 
 ## 1. 经典模型的前提概念
 

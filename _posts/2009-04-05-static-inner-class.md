@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Java: static inner class"
-description: ""
 category: Java
-tags: [Java-InnerClass]
+description: ''
+tags:
+- Java-InnerClass
+title: 'Java: static inner class'
 ---
-{% include JB/setup %}
 
 ![](https://farm2.staticflickr.com/1651/23293777973_188ed6b8c0_o_d.png)
 
@@ -17,4 +16,4 @@ static 内部类表示这个内部类的定义是属于外部类的，但是 sta
 
 接口中允许有内部类存在，且接口中的内部类默认为 `public` + `static`，所以一定是 static 内部类。接口中的内部类可以实现这个接口本身。如果想要为接口创建公用代码，使得接口的不同实现都能使用这些代码，可以使用接口中的内部类。  
 
-还有，可以使用 static 内部类来放置外部类的 main 测试方法。  
+还有，可以使用 static 内部类来放置外部类的 main 测试方法。

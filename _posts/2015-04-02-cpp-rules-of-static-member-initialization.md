@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "C++: Rules of static member initialization"
-description: ""
 category: C++
-tags: [const]
+description: ''
+tags:
+- const
+title: 'C++: Rules of static member initialization'
 ---
-{% include JB/setup %}
 
 整理自：_Thinking in C++_
 

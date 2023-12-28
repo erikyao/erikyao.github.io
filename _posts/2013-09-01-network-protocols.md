@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Network Protocols"
-description: ""
 category: Network
+description: ''
 tags: []
+title: Network Protocols
 ---
-{% include JB/setup %}
 
 网络协议：为计算机网络中进行数据交换而建立的规则、标准或约定的集合。  
 

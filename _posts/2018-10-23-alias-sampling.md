@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Alias Sampling"
-description: ""
 category: Math
-tags: [Math-Statistics]
+description: ''
+tags:
+- Math-Statistics
+title: Alias Sampling
 ---
-{% include JB/setup %}
 
 Two brilliant posts on this sampling technique:
 

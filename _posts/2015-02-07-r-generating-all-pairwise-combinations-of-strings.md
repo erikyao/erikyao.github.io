@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "R: Generating All Pairwise Combinations of Strings"
-description: ""
 category: R
+description: ''
 tags: []
+title: 'R: Generating All Pairwise Combinations of Strings'
 ---
-{% include JB/setup %}
 
 来自 _R Cookbook_。
 

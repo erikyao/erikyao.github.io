@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "C++: <i>override</i>"
-description: ""
 category: C++
-tags: [C++11]
+description: ''
+tags:
+- C++11
+title: 'C++: <i>override</i>'
 ---
-{% include JB/setup %}
 
 基本就是 java `@Override` 的作用：
 

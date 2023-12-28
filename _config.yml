@@ -1,148 +1,157 @@
-# This is the default format. 
-# For more see: http://jekyllrb.com/docs/permalinks/
-permalink: /:categories/:year/:month/:day/:title 
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely edit after that. If you find
+# yourself editing this file very often, consider using Jekyll's data files
+# feature for the data you need to update frequently.
+#
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
 
-exclude: [".rvmrc", ".rbenv-version", "README.md", "Rakefile", "changelog.md", "*.bak", node_modules]
+# Site settings
+# These are used to personalize your new site. If you look in the HTML files,
+# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
+# You can create any custom variable you would like, and they will be accessible
+# in the templates via {{ site.myvariable }}.
+locale: "zh-CN"
+title: "listcomp Pro"
+title_separator: "-"
+subtitle: "温故而知新"
+name: "Yao Yao"
+# Description will appear in document head meta (for Google search results) and in feed.xml site description.
+description: >- # this means to ignore newlines until next YAML key
+  Yao Yao's personal blog
+# masthead_title: "My Custom Title" # title displayed next to logo
+# logo: "/assets/images/88x88.png" # masthead logo
+# breadcrumbs: true  # Breadcrumb start link text and separator character can be configured in the UI Text data file
 
+url: "https://blog.listcomp.com"
+base_url:
+repository: "erikyao/erikyao.github.io"
+head_scripts:
+  - "/assets/js/prism.js"
+  - "/assets/js/config-mathjax.js" # must be imported before the `tex-mml-chtml.js` below
+  - "https://polyfill.io/v3/polyfill.min.js?features=es6"
+  - "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+# email: ""
+twitter_username: "YaoY87"
+github_username: "erikyao"
+minimal_mistakes_skin: "fan_qie_chao_dan" # "default", "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
+
+search: true
+lunr:
+  search_within_pages: true # index all pages, otherwise only the first 50 words of a post or page’s body content is added to the Lunr search index
+
+# Build settings
 markdown: kramdown
-highlighter: rouge
+# highlighter: rouge
+# kramdown:
+#   input: GFM
+#   syntax_highlighter: rouge
+highlighter: none
 kramdown:
   input: GFM
-  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    disable : true
+remote_theme: mmistakes/minimal-mistakes
+# Outputting
+# permalink: /:categories/:title/
+permalink: /:categories/:year/:month/:day/:title 
+paginate: 5 # amount of posts to show
+paginate_path: /page:num/
+timezone: "America/Los_Angeles" # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 
-# Themes are encouraged to use these universal variables 
-# so be sure to set them if your theme uses them.
-#
-author: Yao Yao
-title: Yao's blog
-header-img: img/Sicily-Morocco-and-Seville-Banner-1.jpg
+include:
+  - _pages
 
-# This will be used as your sites meta description as well
-description: "Blog by Yao Yao, a former Java programmer and now a researcher in computational biology."
+# Exclude from processing.
+# The following items will not be processed, by default. Create a custom list
+# to override the default setting.
+# exclude:
+#   - Gemfile
+#   - Gemfile.lock
+#   - node_modules
+#   - vendor/bundle/
+#   - vendor/cache/
+#   - vendor/gems/
+#   - vendor/ruby/
 
-baseurl: ""
-  
-twitter_username: YaoY87
-github_username:  erikyao
-email_username: yaoy.cs
-copyright_name: Yao Yao
-# facebook_username:  IronSummitMedia
-  
-tagline: Site Tagline
+# Plugins (previously gems:)
+plugins:
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-gist
+  - jekyll-feed
+  - jemoji
+  - jekyll-include-cache
 
-# The production_url is only used when full-domain names are needed
-# such as sitemap.txt 
-# Most places will/should use BASE_PATH to make the urls
-#
-# If you have set a CNAME (pages.github.com) set your custom domain here.
-# Else if you are pushing to username.github.io, replace with your username.
-# Finally if you are pushing to a GitHub project page, include the project name at the end.
-#
-production_url : http://erikyao.github.io
+# Can be moved to /_data/authors.yml
+# See https://mmistakes.github.io/minimal-mistakes/docs/authors/
+author:
+  name     : "Yao Yao"
+  avatar   : "/assets/images/avataaars.png"
+  bio      : "A lover of mathematical foundations. A programmer in the best languages."
+  location : "SF Bay Area"
+  links:
+    # - label: "Website"
+    #   icon: "fas fa-fw fa-link"
+    #   url: "https://"
+    - label: "LinkedIn"
+      icon: "fab fa-fw fa-linkedin-in"
+      url: "https://www.linkedin.com/in/yyao/"
+    - label: "Twitter"
+      icon: "fab fa-fw fa-twitter-square"
+      url: "https://twitter.com/YaoY87"
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/erikyao"
+    # - label: "Instagram"
+    #   icon: "fab fa-fw fa-instagram"
+    #   url: "https://instagram.com/"
 
-plugins: [jekyll-sitemap, jekyll-paginate, jekyll-feed, jemoji]
+footer:
+  links:
+    # - label: "Twitter"
+    #   icon: "fab fa-fw fa-twitter-square"
+    #   url: "https://twitter.com/"
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/erikyao/erikyao.github.io"
+    # - label: "Instagram"
+    #   icon: "fab fa-fw fa-instagram"
+    #   url: "https://instagram.com/"
 
-paginate: 10
-paginate_path: "p-:num"
+defaults:
+  # _posts
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: single
+      classes: wide2 # new class, see customized mimimal_mistakes.scss
+      author_profile: false
+      show_date: true
+      read_time: true
+      comments: true
+      share: true
+      related: true
+  # _pages
+  - scope:
+      path: "_pages"
+      type: pages
+    values:
+      layout: single
+      # classes: wide
+      author_profile: true
 
-# All Jekyll-Bootstrap specific configurations are namespaced into this hash
-#
-JB :
-  version : 0.3.0
+comments:
+  provider: "disqus"
+  disqus:
+    short_name: "erikyao"
 
-  # All links will be namespaced by BASE_PATH if defined.
-  # Links in your website should always be prefixed with {{BASE_PATH}}
-  # however this value will be dynamically changed depending on your deployment situation.
-  #
-  # CNAME (http://yourcustomdomain.com)
-  #   DO NOT SET BASE_PATH 
-  #   (urls will be prefixed with "/" and work relatively)
-  #
-  # GitHub Pages (http://username.github.io)
-  #   DO NOT SET BASE_PATH 
-  #   (urls will be prefixed with "/" and work relatively)
-  #
-  # GitHub Project Pages (http://username.github.io/project-name)
-  #
-  #   A GitHub Project site exists in the `gh-pages` branch of one of your repositories.
-  #  REQUIRED! Set BASE_PATH to: http://username.github.io/project-name
-  #
-  # CAUTION:
-  #   - When in Localhost, your site will run from root "/" regardless of BASE_PATH
-  #   - Only the following values are falsy: ["", null, false]
-  #   - When setting BASE_PATH it must be a valid url.
-  #     This means always setting the protocol (http|https) or prefixing with "/"
-  BASE_PATH : false
-
-  # By default, the asset_path is automatically defined relative to BASE_PATH plus the enabled theme.
-  # ex: [BASE_PATH]/assets/themes/[THEME-NAME]
-  #
-  # Override this by defining an absolute path to assets here.
-  # ex: 
-  #   http://s3.amazonaws.com/yoursite/themes/watermelon
-  #   /assets
-  #
-  ASSET_PATH : /assets/themes/clean-blog
-
-  # These paths are to the main pages Jekyll-Bootstrap ships with.
-  # Some JB helpers refer to these paths; change them here if needed.
-  #
-  archive_path: /archive.html
-  categories_path : /categories.html
-  tags_path : /tags.html
-  atom_path : /atom.xml
-  rss_path : /rss.xml
-
-  # Settings for comments helper
-  # Set 'provider' to the comment provider you want to use.
-  # Set 'provider' to false to turn commenting off globally.
-  #
-  comments :
-    provider : disqus
-    disqus :
-      short_name : erikyao
-    # livefyre :
-      # site_id : 123
-    # intensedebate :
-      # account : 123abc
-    # facebook :
-      # appid : 123
-      # num_posts: 5
-      # width: 580
-      # colorscheme: light
-   
-  # Settings for analytics helper
-  # Set 'provider' to the analytics provider you want to use.
-  # Set 'provider' to false to turn analytics off globally.
-  #        
-  # analytics :
-    # provider : google 
-    # google : 
-        # tracking_id : 'UA-123-12'
-    # getclicky :
-      # site_id : 
-    # mixpanel :
-        # token : '_MIXPANEL_TOKEN_'
-    # piwik :
-        # baseURL : 'myserver.tld/piwik' # Piwik installation address (without protocol)
-        # idsite : '1'                   # the id of the site on Piwik
-
-  # Settings for sharing helper. 
-  # Sharing is for things like tweet, plusone, like, reddit buttons etc.
-  # Set 'provider' to the sharing provider you want to use.
-  # Set 'provider' to false to turn sharing off globally.
-  #
-  sharing :
-    provider : false
-    
-  # Settings for all other include helpers can be defined by creating 
-  # a hash with key named for the given helper. ex:
-  #
-  #   pages_list :
-  #     provider : "custom"   
-  #
-  # Setting any helper's provider to 'custom' will bypass the helper code
-  # and include your custom code. Your custom file must be defined at:
-  #   ./_includes/custom/[HELPER]
-  # where [HELPER] is the name of the helper you are overriding.
-  
+category_archive:
+  type: liquid
+  path: /categories/
+tag_archive:
+  type: liquid
+  path: /tags/

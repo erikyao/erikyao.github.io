@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "C++: <i>typename</i> & <i>template</i>"
-description: ""
 category: C++
-tags: [template]
+description: ''
+tags:
+- template
+title: 'C++: <i>typename</i> & <i>template</i>'
 ---
-{% include JB/setup %}
 
 ## typename
 

@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "C++: Default function arguments & Placeholder arguments"
-description: ""
 category: C++
+description: ''
 tags: []
+title: 'C++: Default function arguments & Placeholder arguments'
 ---
-{% include JB/setup %}
 
 整理自 _Thinking in C++_。
 

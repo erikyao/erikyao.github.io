@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Statistical Data Types"
-description: ""
 category: Math
-tags: [Math-Statistics]
+description: ''
+tags:
+- Math-Statistics
+title: Statistical Data Types
 ---
-{% include JB/setup %}
 
 [1]: https://farm2.staticflickr.com/1633/24254040286_610d54c7f9_o_d.png
 [2]: https://farm2.staticflickr.com/1638/23912339669_22690ebc0c_o_d.png

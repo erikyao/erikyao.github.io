@@ -1,11 +1,12 @@
 ---
-layout: post
-title: "Python: Socket Programming 101"
-description: ""
 category: Network
-tags: [socket]
+description: ''
+tags:
+- socket
+title: 'Python: Socket Programming 101'
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
 
 参考 [Socket Programming in Python (Guide)](https://realpython.com/python-sockets/) 的前半部分，代码有改动。另外我觉得这个例子用两个 ipython 来玩更方便理解。
 
@@ -13,19 +14,6 @@ tags: [socket]
 
 - [Python Docs: socket - Low-level networking interface](https://docs.python.org/3/library/socket.html)
 - [Python HOWTOs: Socket Programming HOWTO](https://docs.python.org/3/howto/sockets.html)
-
-目录：
-- [0. Echo Server & Client](#0-echo-server--client)
-  - [0.1 Random Port Number in Client-side Connection Socket](#01-random-port-number-in-client-side-connection-socket)
-  - [0.2 Connection Socket 的方向性](#02-connection-socket-的方向性)
-- [1. `socket.socket(family, type)` / Address Family / Socket Type](#1-socketsocketfamily-type--address-family--socket-type)
-- [2. `socket.bind(address)`](#2-socketbindaddress)
-- [Prerequisite: Blocking / Non-Blocking / Timeout Mode](#prerequisite-blocking--non-blocking--timeout-mode)
-- [Prerequisite: Connection Queue / IO Buffer](#prerequisite-connection-queue--io-buffer)
-- [3. `socket.listen(backlog)`](#3-socketlistenbacklog)
-- [4. `socket.accept()`](#4-socketaccept)
-- [5. `socket.recv(bufsize)`](#5-socketrecvbufsize)
-- [6. `socket.send()` / `socket.sendall()`](#6-socketsend--socketsendall)
 
 ## 0. Echo Server & Client
 

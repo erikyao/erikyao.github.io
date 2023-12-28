@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "C++: dereference"
-description: ""
 category: C++
+description: ''
 tags: []
+title: 'C++: dereference'
 ---
-{% include JB/setup %}
 
 整理自：
 

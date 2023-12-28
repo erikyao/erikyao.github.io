@@ -1,11 +1,11 @@
 ---
-layout: post
-title: "C++ explicit cast operator: static_cast / const_cast / reinterpret_cast / dynamic_cast"
-description: ""
 category: C++
-tags: [const]
+description: ''
+tags:
+- const
+title: 'C++ explicit cast operator: static_cast / const_cast / reinterpret_cast /
+  dynamic_cast'
 ---
-{% include JB/setup %}
 
 整理自 _Thinking in C++_ 和 [MSDN: Casting Operators](https://msdn.microsoft.com/en-us/library/5f6c9f8h.aspx)。
 

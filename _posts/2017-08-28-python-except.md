@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Python: <i>except</i>"
-description: ""
 category: Python
+description: ''
 tags: []
+title: 'Python: <i>except</i>'
 ---
-{% include JB/setup %}
 
 简单说一下。`except` 可以接一个 tuple 表示捕捉多种类型的异常，也可以不带任何参数表示捕捉 everything（当然这是一个 anti-pattern）。
 

@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Pointer Swizzling"
-description: ""
 category: OS
+description: ''
 tags: []
+title: Pointer Swizzling
 ---
-{% include JB/setup %}
 
 　　swizzle 本来的用法应该是 to swizzle a beverage with a spoon，基本就是 "搅动" 的意思。pointer swizzling 有的翻译叫 “指针混写”，第一眼看上去简直不知所云。  
 

@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Java: 依赖、依赖注入（DI）以及控制反转（IoC）"
-description: ""
 category: Spring
-tags: [Java-DesignPattern]
+description: ''
+tags:
+- Java-DesignPattern
+title: 'Java: 依赖、依赖注入（DI）以及控制反转（IoC）'
 ---
-{% include JB/setup %}
 
 ## 1. 何为依赖
 

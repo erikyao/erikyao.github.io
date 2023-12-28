@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "IE 下的奇葩注意事项"
-description: ""
 category: JavaScript
-tags: [IE]
+description: ''
+tags:
+- IE
+title: IE 下的奇葩注意事项
 ---
-{% include JB/setup %}
 
 ## IE 6 下，json 内部末尾不能有逗号
 

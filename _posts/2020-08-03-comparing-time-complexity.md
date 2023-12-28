@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Algorithm Quizzes"
-description: ""
 category: Algorithm
+description: ''
 tags: []
+title: Algorithm Quizzes
 ---
-{% include JB/setup %}
 
 ## Quiz 1
 

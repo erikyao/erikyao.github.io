@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "ML Terminology"
-description: ""
 category: Machine-Learning
+description: ''
 tags: []
+title: ML Terminology
 ---
-{% include JB/setup %}
 
 ## Confusion matrix $\subset$ Contingency table
 

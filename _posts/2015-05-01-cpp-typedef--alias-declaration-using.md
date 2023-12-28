@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "C++: typedef & alias declaration (using)"
-description: ""
 category: C++
-tags: [C++11]
+description: ''
+tags:
+- C++11
+title: 'C++: typedef & alias declaration (using)'
 ---
-{% include JB/setup %}
 
 整理自 _C++ Primer, 5th Edition_
 

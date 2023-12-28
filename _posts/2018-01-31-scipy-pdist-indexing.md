@@ -1,11 +1,11 @@
 ---
-layout: post
-title: "scipy: pdist indexing"
-description: ""
 category: scipy
-tags: [pdist, dense-matrix]
+description: ''
+tags:
+- pdist
+- dense-matrix
+title: 'scipy: pdist indexing'
 ---
-{% include JB/setup %}
 
 `scipy.spatial.distance.pdist(X)` gives the pair-wise distances of `X`, $\operatorname{dist}(X[i], X[i])$ not included. The distances are stored in a dense matrix `D`. 
 

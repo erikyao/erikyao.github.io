@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Ring / Ring of sets"
-description: ""
 category: Math
+description: ''
 tags: []
+title: Ring / Ring of sets
 ---
-{% include JB/setup %}
 
 我研究一下 ring 主要是因为我看到有些 measure 的定义用到了 $\delta$-ring，但是后来我决定暂时不用这个定义……
 

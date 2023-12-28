@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Python: It's safe to slice a list with index out of range"
-description: ""
 category: Python
+description: ''
 tags: []
+title: 'Python: It''s safe to slice a list with index out of range'
 ---
-{% include JB/setup %}
 
 用单个下标 access 直接返回 list 的单个 element，用 slice (或者严格一点说是用一个 `slice` object 去 access) 返回一个 sub-list，这俩都是很常见的操作。但是：
 

@@ -1,31 +1,11 @@
 ---
-layout: post
-title: "Python: Heaps"
-description: ""
 category: Python
+description: ''
 tags: []
+title: 'Python: Heaps'
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
-
-<!-- TOC -->
-- [1. Heaps](#1-heaps)
-    - [1.1 Definition](#11-definition)
-    - [1.2 Array Implementation of Heaps / Index 换算](#12-array-implementation-of-heaps--index-换算)
-    - [1.3 Internal Heap Operations](#13-internal-heap-operations)
-        - [1.3.1 Insert A New Node & `sift_up`](#131-insert-a-new-node--sift_up)
-        - [1.3.2 Delete The Root & `sift_down`](#132-delete-the-root--sift_down)
-        - [1.3.3 Build A Heap From A List (`heapify`)](#133-build-a-heap-from-a-list-heapify)
-            - [1.3.3.1 Top-down with `sift_up`](#1331-top-down-with-sift_up)
-            - [1.3.3.2 Bottom-up with `sift_down`](#1332-bottom-up-with-sift_down)
-            - [1.3.3.3 Performance Analysis](#1333-performance-analysis)
-        - [1.4 Vanilla Heap Implementation](#14-vanilla-heap-implementation)
-- [2. Heap Sort](#2-heap-sort)
-- [3. Python `heapq` Module](#3-python-heapq-module)
-    - [3.1 Basic Operations](#31-basic-operations)
-    - [3.2 `nlargest` / `nsmallest` / $k$ 路归并](#32-nlargest--nsmallest--k-路归并)
-- [4. Priority Queue](#4-priority-queue)
-
-<!-- /TOC -->
 
 参考:
 
@@ -470,7 +450,3 @@ priority queue 是一个 **abstract** data structure，类似 interface 的意�
 | unordered array       | O(1)      | O(n)      | O(n)    |
 | unordered list        | O(1)      | O(n)      | O(n)    |
 | binary heap           | O(log n)  | O(log n)  | O(1)    |
-
-
-
-

@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "clover 测试 servlet，提示找不到类 com_cenqua_clover/CoverageRecorder 的解决方法"
-description: ""
 category: Continuous-Integration
+description: ''
 tags: []
+title: clover 测试 servlet，提示找不到类 com_cenqua_clover/CoverageRecorder 的解决方法
 ---
-{% include JB/setup %}
 
 使用 clover-for-eclipse 时，发现测试一个简单的 Dynamic Web Project 时，servlet 总是显示不出来，提示找不到类 com_cenqua_clover/CoverageRecorder。  
 

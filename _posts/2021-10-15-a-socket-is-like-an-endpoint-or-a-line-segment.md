@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "A socket is like an endpoint... or a line segment"
-description: ""
 category: Network
-tags: [socket]
+description: ''
+tags:
+- socket
+title: A socket is like an endpoint... or a line segment
 ---
-{% include JB/setup %}
 
 ## 如何形象理解 socket
 

@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "R Generating Random Numbers and Random Sampling"
-description: ""
 category: R
+description: ''
 tags: []
+title: R Generating Random Numbers and Random Sampling
 ---
-{% include JB/setup %}
 
 [正态分布的区间特性]: https://farm6.staticflickr.com/5686/23552709249_feabd51978_o_d.png
 [随机变量_X]: https://farm2.staticflickr.com/1711/23293776583_a720234a9c_o_d.jpg

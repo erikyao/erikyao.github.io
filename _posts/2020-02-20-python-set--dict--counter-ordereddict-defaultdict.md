@@ -1,40 +1,11 @@
 ---
-layout: post
-title: "Python: set / dict / Counter / OrderedDict / defaultdict"
-description: ""
 category: Python
+description: ''
 tags: []
+title: 'Python: set / dict / Counter / OrderedDict / defaultdict'
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
-
-<!-- TOC -->
-
-- [1. `set`](#1-set)
-    - [1.1 测试集合间的关系](#11-测试集合间的关系)
-    - [1.2 多个集合做运算](#12-多个集合做运算)
-    - [1.3 用其他的集合更新自己](#13-用其他的集合更新自己)
-    - [1.4 操作自己的元素](#14-操作自己的元素)
-- [2. `dict`](#2-dict)
-    - [2.1 built-in 操作](#21-built-in-操作)
-    - [2.2 获取 key/value 集合的操作](#22-获取-keyvalue-集合的操作)
-    - [2.3 默认值的操作](#23-默认值的操作)
-    - [2.4 其余](#24-其余)
-- [3. `collections.Counter`](#3-collectionscounter)
-    - [3.1 初始化](#31-初始化)
-    - [3.2 与 `dict` 不同的实现](#32-与-dict-不同的实现)
-    - [3.3 `dict` 没有的新接口](#33-dict-没有的新接口)
-    - [3.4 Mathematical Operators (binary)](#34-mathematical-operators-binary)
-    - [3.5 Mathematical Operators (unary)](#35-mathematical-operators-unary)
-- [4. `collections.OrderedDict`](#4-collectionsordereddict)
-    - [4.1 顺序性](#41-顺序性)
-    - [4.2 与 `dict` 不同的实现](#42-与-dict-不同的实现)
-    - [4.3 `dict` 没有的新接口](#43-dict-没有的新接口)
-    - [4.4 应用](#44-应用)
-- [5. `collections.defaultdict`](#5-collectionsdefaultdict)
-    - [5.1 构造器](#51-构造器)
-    - [5.2 `__missing__(self, key)`](#52-__missing__self-key)
-
-<!-- /TOC -->
 
 ## 1. `set`
 

@@ -1,30 +1,11 @@
 ---
-layout: post
-title: "Terminology Recap: Random Variable / Distribution / PMF / PDF / Independence / Marginal Distribution / Joint Distribution / Conditional Random Variable"
-description: ""
 category: Math
+description: ''
 tags: []
+title: 'Terminology Recap: Random Variable / Distribution / PMF / PDF / Independence / Marginal Distribution / Joint Distribution / Conditional Random Variable'
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
-
-TOC:
-
-<!-- TOC -->
-
-- [Prerequisite #1 : $\sigma$-algebra](#prerequisite-1--\sigma-algebra)
-- [Prerequisite #2 : Borel Set / Borel $\sigma$-algebra](#prerequisite-2--borel-set--borel-\sigma-algebra)
-- [Prerequisite #3 : Measurable Function / Measurable Space](#prerequisite-3--measurable-function--measurable-space)
-- [Prerequisite #4 : Measure / Measure Space](#prerequisite-4--measure--measure-space)
-- [Prerequisite #5 : Probability Measure / Probability Space](#prerequisite-5--probability-measure--probability-space)
-- [Prerequisite #3/#4/#5 Summary](#prerequisite-345-summary)
-- [1. Random Variable](#1-random-variable)
-- [2. Distribution of a Random Variable](#2-distribution-of-a-random-variable)
-- [3. Probability Mass Functions (for the discrete), and Probability Density Functions (for the continuous)](#3-probability-mass-functions-for-the-discrete-and-probability-density-functions-for-the-continuous)
-- [4. Tilde $\sim$ / i.i.d.](#4-tilde-\sim--iid)
-- [5. Independence / Marginal Distribution / Join Distribution](#5-independence--marginal-distribution--join-distribution)
-- [6. Conditional Random Variable](#6-conditional-random-variable)
-
-<!-- /TOC -->
 
 主要参考：
 

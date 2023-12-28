@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Terminology Recap: Genome / Chromosome / Nucleosome / Chromatin / Chromatid / DNA / Double Strands / Coordinates System / Upstream & Downstream / TSS Distance"
-description: ""
 category: Biology
+description: ''
 tags: []
+title: 'Terminology Recap: Genome / Chromosome / Nucleosome / Chromatin / Chromatid
+  / DNA / Double Strands / Coordinates System / Upstream & Downstream / TSS Distance'
 ---
-{% include JB/setup %}
 
 ## 1. Genome 
 
@@ -125,5 +124,3 @@ DNA/RNA 其实是 molecule 的名称，所以 genome 和 DNA/RNA 的关系大致
             - $\Rightarrow \operatorname{TSS-dist}(s,g) = (s.chromStart - \operatorname{TSS}(g)) \times \operatorname{strand}(g)$
     - If $s$ is in the upstream of $g$, $\operatorname{TSS-dist}(s,g) < 0$, whichever strand $g$ is on
     - If $s$ is in the downstream of $g$, $\operatorname{TSS-dist}(s,g) > 0$, whichever strand $g$ is on
-
-

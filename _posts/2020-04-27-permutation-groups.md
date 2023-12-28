@@ -1,11 +1,11 @@
 ---
-layout: post
-title: "Permutation Groups / Permutation Notations / Order of A Permutation / Transpositions"
-description: ""
 category: Math
+description: ''
 tags: []
+title: Permutation Groups / Permutation Notations / Order of A Permutation / Transpositions
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
 
 参考文献：
 
@@ -13,20 +13,6 @@ tags: []
 - [The Order of a Permutation](http://mathonline.wikidot.com/the-order-of-a-permutation)
 - [Class 17: More Permutations ](http://www.math.caltech.edu/~2015-16/1term/ma006a/17.%20More%20permutations.pdf)
 - [The Sign of a Permutation by Matt Baker](https://mattbakerblog.files.wordpress.com/2014/11/permutations.pdf)
-
-Table of Contents:
-
-<!-- TOC -->
-
-- [1. Permutation Groups](#1-permutation-groups)
-- [2. Permutation Notations / Order of A Permutation](#2-permutation-notations--order-of-a-permutation)
-- [3. Transpositions](#3-transpositions)
-  - [3.1 Transposition Decomposition and Commutativity](#31-transposition-decomposition-and-commutativity)
-  - [3.2 How to Decompose a $k$-Cycle into Transpositions: $c_k = \tau_1 \tau_2 \dots \tau_{k-1}$](#32-how-to-decompose-a-k-cycle-into-transpositions-c_k--tau_1-tau_2-dots-tau_k-1)
-  - [3.3 How to Compose a Permutation with A Transposition: $\sigma \tau = ?, \tau \sigma = ?$](#33-how-to-compose-a-permutation-with-a-transposition-sigma-tau---tau-sigma--)
-  - [3.4 Inversions / Parity / Sign of A Permutation](#34-inversions--parity--sign-of-a-permutation)
-
-<!-- /TOC -->
 
 ## 1. Permutation Groups
 
@@ -329,4 +315,4 @@ Proof: 根据 transposition decomposition，任意一个 $k$-cycle ($k \geq 2$) 
 
 特别地，我们认为 1-cycle 贡献了 0 个 inversion
 
-于是 $\operatorname{inv}(\sigma) = \sum_{i=1}^{N_c} k_i - 1 = n - N_c. \blacksquare$ 
+于是 $\operatorname{inv}(\sigma) = \sum_{i=1}^{N_c} k_i - 1 = n - N_c. \blacksquare$

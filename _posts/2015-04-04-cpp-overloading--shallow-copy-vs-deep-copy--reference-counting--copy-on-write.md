@@ -1,11 +1,11 @@
 ---
-layout: post
-title: "C++ overloading `operator=`: shallow copy vs. deep copy / reference counting / copy on write"
-description: ""
 category: C++
-tags: [copy-constructor]
+description: ''
+tags:
+- copy-constructor
+title: 'C++ overloading `operator=`: shallow copy vs. deep copy / reference counting
+  / copy on write'
 ---
-{% include JB/setup %}
 
 整理自：_Thinking in C++_
 

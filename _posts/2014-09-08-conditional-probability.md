@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Conditional Probability"
-description: ""
 category: Math
-tags: [Math-Statistics]
+description: ''
+tags:
+- Math-Statistics
+title: Conditional Probability
 ---
-{% include JB/setup %}
 
 总结自 Coursera lecture [Statistical Inference](https://class.coursera.org/statinference-005/lecture) section [03 Conditional probability](https://class.coursera.org/statinference-005/lecture/157)。
 

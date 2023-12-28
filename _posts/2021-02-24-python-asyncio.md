@@ -1,22 +1,11 @@
 ---
-layout: post
-title: "Python: asyncio"
-description: ""
 category: asyncio
+description: ''
 tags: []
+title: 'Python: asyncio'
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
-
-## ToC
-
-- [1. `yield` is a pun](#1-yield-is-a-pun)
-- [2. blocking / non-blocking](#2-blocking--non-blocking)
-  - [应该尽量避免 main process/thread 被 block](#应该尽量避免-main-processthread-被-block)
-  - [IO-bound vs CPU-bound tasks wrapped in coroutines](#io-bound-vs-cpu-bound-tasks-wrapped-in-coroutines)
-- [3. Why asyncio is fast?](#3-why-asyncio-is-fast)
-- [4. Race Conditions?](#4-race-conditions)
-- [5. 题外话：`time.sleep()` vs `asyncio.sleep()`](#5-题外话timesleep-vs-asynciosleep)
-- [6. 题外话：与 GIL 的区别与联系](#6-题外话与-gil-的区别与联系)
 
 ## 1. `yield` is a pun
 

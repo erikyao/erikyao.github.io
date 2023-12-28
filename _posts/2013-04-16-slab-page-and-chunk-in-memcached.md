@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "slab, page and chunk in memcached"
-description: ""
 category: Memcached
+description: ''
 tags: []
+title: slab, page and chunk in memcached
 ---
-{% include JB/setup %}
 
 ## slab / page / chunk
 
@@ -18,5 +16,3 @@ tags: []
 7. 为减少 chunk 的浪费，目前一般采取 1.25^n 的 slab 增长策略
 8. Memcached 在启动时通过 \-m 指定最大使用内存，但是这个不会一启动就占用，是随着需要逐步分配给各 slab 的。如果一个新的缓存数 据要被存放，memcached 首先选择一个合适的 slab，然后查看该 slab 是否还有空闲的 chunk，如果有则直接存放进去；如果没有则要进行申 请。slab 申请内存时以 page 为单位，所以在申请时，无论数据大小为多少，都会有 1M 大小的 page 被分配给该 slab。申请到 page 后，slab 会将这个 page 的内存按 chunk 的大小进行切分，这样就变成了一个 chunk 的数组，在从这个 chunk 数组中选择一个用于存储数据。
 9. page 一旦被分配，在 memcached 重启前不会被回收或者重新分配
-
-

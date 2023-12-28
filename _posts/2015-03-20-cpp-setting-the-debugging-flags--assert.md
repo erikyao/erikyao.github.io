@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "C++: Setting the debugging flags / assert"
-description: ""
 category: C++
+description: ''
 tags: []
+title: 'C++: Setting the debugging flags / assert'
 ---
-{% include JB/setup %}
 
 整理自 _Thinking in C++_。
 

@@ -1,11 +1,12 @@
 ---
-layout: post
-title: "Digest of <i>Test Driven Development</i>"
-description: ""
-category: [Java]
-tags: [Book, Java-TDD]
+category:
+- Java
+description: ''
+tags:
+- Book
+- Java-TDD
+title: Digest of <i>Test Driven Development</i>
 ---
-{% include JB/setup %}
 
 [这本书](http://book.douban.com/subject/1230036) 的副标题是 "By Example"，所以整书适合一口气读完，也不用每个例子都敲一遍，顺着作者思路走完一遍就可以了。  
 

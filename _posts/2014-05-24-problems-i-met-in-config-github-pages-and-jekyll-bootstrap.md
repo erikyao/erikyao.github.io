@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "调教 GitHub Pages 与 jekyll bootstrap 时遇到的一些问题"
-description: ""
 category: Jekyll
-tags: [MathJax]
+description: ''
+tags:
+- MathJax
+title: 调教 GitHub Pages 与 jekyll bootstrap 时遇到的一些问题
 ---
-{% include JB/setup %}
 
 ## 1. User, Organization, and Project Pages
 

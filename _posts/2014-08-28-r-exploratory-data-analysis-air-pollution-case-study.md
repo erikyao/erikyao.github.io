@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "R Exploratory Data Analysis: Air Pollution Case Study"
-description: ""
 category: R
+description: ''
 tags: []
+title: 'R Exploratory Data Analysis: Air Pollution Case Study'
 ---
-{% include JB/setup %}
 
 对 [Air Pollution Case Study](https://class.coursera.org/exdata-005/lecture/69) 的总结。  
 

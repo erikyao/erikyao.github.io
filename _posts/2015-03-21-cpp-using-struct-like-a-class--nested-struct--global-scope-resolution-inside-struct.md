@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "C++: Using struct like a class / Nested struct / Global scope resolution inside struct"
-description: ""
 category: C++
+description: ''
 tags: []
+title: 'C++: Using struct like a class / Nested struct / Global scope resolution inside
+  struct'
 ---
-{% include JB/setup %}
 
 整理自 _Thinking in C++_。
 

@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "C++ Primitive Built-in Types"
-description: ""
 category: C++
+description: ''
 tags: []
+title: C++ Primitive Built-in Types
 ---
-{% include JB/setup %}
 
 整理自 _C++ Primer, 5th Edition_
 

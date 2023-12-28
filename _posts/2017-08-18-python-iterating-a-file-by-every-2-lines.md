@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Python: Iterating a file by every 2 lines"
-description: ""
 category: Python
+description: ''
 tags: []
+title: 'Python: Iterating a file by every 2 lines'
 ---
-{% include JB/setup %}
 
 一个有点鸡贼的方法：
 

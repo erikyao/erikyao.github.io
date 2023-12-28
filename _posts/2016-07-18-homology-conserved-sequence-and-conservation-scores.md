@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Homology, Conserved Sequence and Conservation Scores"
-description: ""
 category: Biology
+description: ''
 tags: []
+title: Homology, Conserved Sequence and Conservation Scores
 ---
-{% include JB/setup %}
 
 - homology: [həˈmɒlədʒi]
 - homologous: [həˈmɒləgəs]
@@ -137,5 +135,3 @@ Article: [Evolutionarily conserved elements in vertebrate, insect, worm, and yea
 ### SiPhy: SIte-specific PHYlogenetic analysis
 
 Article: [Identifying novel constrained elements by exploiting biased substitution patterns](http://bioinformatics.oxfordjournals.org/content/25/12/i54.short)
-
-

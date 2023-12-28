@@ -1,11 +1,11 @@
 ---
-layout: post
-title: "Service Locator Pattern"
-description: ""
 category: Java
-tags: [Article, Java-DesignPattern]
+description: ''
+tags:
+- Article
+- Java-DesignPattern
+title: Service Locator Pattern
 ---
-{% include JB/setup %}
 
 Martin Fowler 的 [Inversion of Control Containers and the Dependency Injection pattern](http://martinfowler.com/articles/injection.html) 中提到的。
 

@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Java: Arrays.asList()"
-description: ""
 category: Java
+description: ''
 tags: []
+title: 'Java: Arrays.asList()'
 ---
-{% include JB/setup %}
 
 `Arrays.asList()` 这个方法有点特殊，这里记录一下。  
 

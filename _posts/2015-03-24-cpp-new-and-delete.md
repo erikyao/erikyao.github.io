@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "C++: new & delete"
-description: ""
 category: C++
+description: ''
 tags: []
+title: 'C++: new & delete'
 ---
-{% include JB/setup %}
 
 整理自 _Thinking in C++_。
 
@@ -54,5 +52,3 @@ There’s a special syntax when you’re deleting an array. It’s as if you mus
 	* 写成 `delete []myArray;` 也可以
 	* The empty brackets tell the compiler to generate code that fetches the number of objects in the array, stored somewhere when the array is created, and calls the destructor for that many array objects. This is actually an improved syntax from the earlier form, which you may still occasionally see in old code: `delete [100]myArray;`
 * Every use of `new` should be balanced by a `delete`, and every use of `new[]` should be balanced by a `delete[]`.
-
-

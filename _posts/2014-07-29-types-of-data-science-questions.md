@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Types of Data Science Questions"
-description: ""
 category: Machine-Learning
+description: ''
 tags: []
+title: Types of Data Science Questions
 ---
-{% include JB/setup %}
 
 摘自 [Six Types Of Analyses Every Data Scientist Should Know](http://datascientistinsights.com/2013/01/29/six-types-of-analyses-every-data-scientist-should-know) 和 [Types of Questions](https://class.coursera.org/datascitoolbox-005/lecture/57)；两者内容基本相同。
 
@@ -100,6 +98,3 @@ Features:
 * Usually modeled by a deterministic set of equations (physical/engineering science)
 * Generally the random component of the data is measurement error
 * If the equations are known but the parameters are not, they may be inferred with data analysis
-
-
-

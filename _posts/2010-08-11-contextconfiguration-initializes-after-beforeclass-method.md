@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Spring TestContext 测试框架中 @BeforeClass 方法无法使用 @ContextConfiguration 初始化的 bean"
-description: ""
 category: Spring
+description: ''
 tags: []
+title: Spring TestContext 测试框架中 @BeforeClass 方法无法使用 @ContextConfiguration 初始化的 bean
 ---
-{% include JB/setup %}
 
 例如我们有：
 

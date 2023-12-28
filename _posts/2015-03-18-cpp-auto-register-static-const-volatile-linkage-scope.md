@@ -1,11 +1,12 @@
 ---
-layout: post
-title: "C++: auto / register / static / const / volatile / linkage / scope"
-description: ""
 category: C++
-tags: [const]
+description: ''
+tags:
+- const
+title: 'C++: auto / register / static / const / volatile / linkage / scope'
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
 
 [linkage]: https://farm2.staticflickr.com/1595/23552708989_a3cd413238_o_d.png
 
@@ -42,30 +43,6 @@ _Thinking in C++_ 的路线是：
 中间穿插讲了 linkage。
 
 首先我觉得这个分类不利于理解，对 variable 而言，按 "Variable Scope" 和 "Storage Classes" 交叉分类再清楚不过了；然后我觉得应该先讲 linkage，讲了 linkage 之后很多效果就可以用 linkage 解释了，不用浪费那么多口舌；最后，`const` 和 `volatile` 是属于大类 "Type Qualifiers" 的。
-
------
-
-## 目录
-
-1. [linkage](#linkage)
-	* internal linkage
-	* external linkage
-	* no linkage
-1. [Variable Scope](#variable-scope)
-	* global
-	* local
-1. [Storage Classes](#storage-classes)
-	* [`auto`](#auto)
-	* [`register`](#register)
-	* [`static`](#static)
-	* `extern`: 参 [C++: declarations vs. definitions / extern](/c++/2015/03/15/cpp-declarations-vs-definitions-extern)
-	* `mutable`: not covered here
-1. [Type Qualifiers](#type-qualifiers)
-	* [`const`](#const)
-		* [`extern`: forcing `const` into external linkage](#extern)
-	* [`volatile`](#volatile)
-	* `restrict`: only in C99; does not exist in C++; not covered here
-1. [Summary](#summary)
 
 -----
 	

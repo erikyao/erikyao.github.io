@@ -1,26 +1,14 @@
 ---
-layout: post
-title: "C++: Introduction to Templates"
-description: ""
 category: C++
-tags: [template]
+description: ''
+tags:
+- template
+title: 'C++: Introduction to Templates'
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
 
 整理自：_Thinking in C++, Volume 1 & Volume 2_
-
------
-
-ToC:
-
-- [1. Basic template syntax](#1-basic-template-syntax)
-- [2. Non-inline function definitions in templates](#2-non-inline-function-definitions-in-templates)
-- [3. Better put template definition in headers](#3-better-put-template-definition-in-headers)
-- [4. Non-type template parameters](#4-non-type-template-parameters)
-- [5. Function templates](#5-function-templates)
-  - [Function template overloading](#function-template-overloading)
-- [6. Template template parameters](#6-template-template-parameters)
-- [7. Member Templates](#7-member-templates)
 
 -----
 

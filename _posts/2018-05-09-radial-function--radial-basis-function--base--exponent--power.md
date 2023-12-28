@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Radial Function / Radial Basis Function / Base / Exponent / Power"
-description: ""
 category: Math
+description: ''
 tags: []
+title: Radial Function / Radial Basis Function / Base / Exponent / Power
 ---
-{% include JB/setup %}
 
 ## Radial Function
 

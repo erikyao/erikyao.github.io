@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Cell Cycle"
-description: ""
 category: Biology
+description: ''
 tags: []
+title: Cell Cycle
 ---
-{% include JB/setup %}
 
 [Phases]: https://farm6.staticflickr.com/5754/23292343584_1fbfa3ec11_o_d.png
 [Schematic]: https://farm6.staticflickr.com/5748/23894466776_604e7b332e_o_d.png

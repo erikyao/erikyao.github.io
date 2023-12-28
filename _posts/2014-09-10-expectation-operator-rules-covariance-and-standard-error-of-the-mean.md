@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Expectation Operator Rules, Covariance and Standard Error of the Mean"
-description: ""
 category: Math
-tags: [Math-Statistics]
+description: ''
+tags:
+- Math-Statistics
+title: Expectation Operator Rules, Covariance and Standard Error of the Mean
 ---
-{% include JB/setup %}
 
 ## 1. Expectation Operator Rules
 

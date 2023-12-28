@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "C++: <i>static</i> inside functions"
-description: ""
 category: C++
+description: ''
 tags: []
+title: 'C++: <i>static</i> inside functions'
 ---
-{% include JB/setup %}
 
 总结自：
 

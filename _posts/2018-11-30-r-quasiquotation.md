@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "R: Quasiquotation"
-description: ""
-category: R 
+category: R
+description: ''
 tags: []
+title: 'R: Quasiquotation'
 ---
-{% include JB/setup %}
 
 ## 1. An example of statement evaluation
 

@@ -1,11 +1,11 @@
 ---
-layout: post
-title: "Bernoulli vs Multinoulli (Categorical) vs Binomial vs Multinomial / Gaussian / Poisson Distributions"
-description: ""
 category: Math
-tags: [Math-Statistics]
+description: ''
+tags:
+- Math-Statistics
+title: Bernoulli vs Multinoulli (Categorical) vs Binomial vs Multinomial / Gaussian
+  / Poisson Distributions
 ---
-{% include JB/setup %}
 
 参考：
 

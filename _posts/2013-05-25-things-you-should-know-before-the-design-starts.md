@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "有关设计的一些事后诸葛亮"
-description: ""
 category: Thought
-tags: [Experience]
+description: ''
+tags:
+- Experience
+title: 有关设计的一些事后诸葛亮
 ---
-{% include JB/setup %}
 
 1. 交互稿没画边界情况的话后患无穷，态度一定要强硬，直接拒收！
 1. 至少在部署前要询问是否有统计需求，产品不会提醒你加统计日志的，都是事后才说。

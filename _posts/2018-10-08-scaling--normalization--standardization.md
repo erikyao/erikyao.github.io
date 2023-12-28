@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Scaling / Normalization / Standardization"
-description: ""
 category: Math
+description: ''
 tags: []
+title: Scaling / Normalization / Standardization
 ---
-{% include JB/setup %}
 
 
 ## 1. Scaling

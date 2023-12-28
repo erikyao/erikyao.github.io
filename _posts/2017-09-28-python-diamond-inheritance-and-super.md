@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Python: Diamond Inheritance and <i>super</i>"
-description: ""
 category: Python
+description: ''
 tags: []
+title: 'Python: Diamond Inheritance and <i>super</i>'
 ---
-{% include JB/setup %}
 
 参 _Effective Python Item 25: Initialize Parent Classes with super_。
 

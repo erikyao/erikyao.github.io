@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "R Debugging"
-description: ""
 category: R
+description: ''
 tags: []
+title: R Debugging
 ---
-{% include JB/setup %}
 
 ## 1. log
 

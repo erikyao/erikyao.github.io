@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "C++: Simple object assignment means copying. This is different from Java!"
-description: ""
 category: C++
-tags: [copy-constructor]
+description: ''
+tags:
+- copy-constructor
+title: 'C++: Simple object assignment means copying. This is different from Java!'
 ---
-{% include JB/setup %}
 
 整理自：_Thinking in C++_
 

@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Python: Query reference sequences using <i>rpy2</i> and <i>BSgenome</i>"
-description: ""
 category: Python
-tags: [Bioconductor]
+description: ''
+tags:
+- Bioconductor
+title: 'Python: Query reference sequences using <i>rpy2</i> and <i>BSgenome</i>'
 ---
-{% include JB/setup %}
 
 Usually this job is done in R, as deescribed in [Using R + Bioconductor to Get Flanking Sequence Given Genomic Coordinates](http://www.gettinggeneticsdone.com/2011/04/using-rstats-bioconductor-to-get.html). An R sample could be this simple:
 

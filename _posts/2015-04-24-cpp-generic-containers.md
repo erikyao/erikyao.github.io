@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "C++: Generic Containers"
-description: ""
 category: C++
-tags: [C++11]
+description: ''
+tags:
+- C++11
+title: 'C++: Generic Containers'
 ---
-{% include JB/setup %}
 
 整理自：_Thinking in C++, Volume 2_ & _C++ Primer, 5th Edition_
 

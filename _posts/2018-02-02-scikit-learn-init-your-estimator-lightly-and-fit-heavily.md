@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "scikit-learn: init your estimator lightly and fit heavily"
-description: ""
 category: sklearn
-tags: [cross-validation]
+description: ''
+tags:
+- cross-validation
+title: 'scikit-learn: init your estimator lightly and fit heavily'
 ---
-{% include JB/setup %}
 
 If you run `cross_validate(n_jobs > 1)` with your own estimator, pay attention that your estimator will be copied per job.
 

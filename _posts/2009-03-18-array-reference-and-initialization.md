@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Java: array reference and initialization"
-description: ""
 category: Java
+description: ''
 tags: []
+title: 'Java: array reference and initialization'
 ---
-{% include JB/setup %}
 
 ## array reference
 

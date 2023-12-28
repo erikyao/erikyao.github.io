@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Is vector space a field? And what are: Groups / Rings / Fields / Vector Spaces?"
-description: ""
 category: Math
-tags: [Math-Algebra]
+description: ''
+tags:
+- Math-Algebra
+title: 'Is vector space a field? And what are: Groups / Rings / Fields / Vector Spaces?'
 ---
-{% include JB/setup %}
 
 Quote from [Lecture 3, 6.S897 Algebra and Computation by Madhu Sudan, MIT](http://people.csail.mit.edu/madhu/ST12/scribe/lect03.pdf):
 

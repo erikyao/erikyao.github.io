@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Java 多线程：终止线程的方法"
-description: ""
 category: Java
-tags: [Java-Concurrency]
+description: ''
+tags:
+- Java-Concurrency
+title: Java 多线程：终止线程的方法
 ---
-{% include JB/setup %}
 
 虽说 Thread 类提供了 `stop()` 和 `suspend()` 方法，但这两种方法过于粗暴，如果线程占用了一些资源（如打开了一个文件，建立了一个数据库连接什么的），直接 `stop()` 或是 `suspend()` 是会产生问题的。
 

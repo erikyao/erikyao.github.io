@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "R Data Types - Part 1: Basis, Vectors, Matrices & Lists"
-description: ""
 category: R
+description: ''
 tags: []
+title: 'R Data Types - Part 1: Basis, Vectors, Matrices & Lists'
 ---
-{% include JB/setup %}
 
 参照 [R Programming slides on cousera (pdf)](https://d396qusza40orc.cloudfront.net/rprog/lecture_slides/DataTypes.pdf)，作总结。
 

@@ -1,11 +1,11 @@
 ---
-layout: post
-title: "C++: More on const"
-description: ""
 category: C++
-tags: [const, pointer]
+description: ''
+tags:
+- const
+- pointer
+title: 'C++: More on const'
 ---
-{% include JB/setup %}
 
 整理自 _Thinking in C++_
 
@@ -104,4 +104,3 @@ int main() {
 	//! f6().modify();	// CANNOT be modified
 }
 ```
-

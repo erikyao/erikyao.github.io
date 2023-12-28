@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "C++ Lambda Expression"
-description: ""
 category: C++
-tags: [C++11]
+description: ''
+tags:
+- C++11
+title: C++ Lambda Expression
 ---
-{% include JB/setup %}
 
 整理自：
 

@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "R Data Types - Part 2: Factors"
-description: ""
 category: R
+description: ''
 tags: []
+title: 'R Data Types - Part 2: Factors'
 ---
-{% include JB/setup %}
 
 摘抄自 [Factors in R](https://www.stat.berkeley.edu/classes/s133/factors.html)，部分删改和注释。
 

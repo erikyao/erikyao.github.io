@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "C++: Overloading on return values is NOT allowed (neither in java)"
-description: ""
 category: C++
+description: ''
 tags: []
+title: 'C++: Overloading on return values is NOT allowed (neither in java)'
 ---
-{% include JB/setup %}
 
 整理自 _Thinking in C++_。
 

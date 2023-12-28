@@ -1,11 +1,12 @@
 ---
-layout: post
-title: "Digest of <i>Agile Software Development: Principles, Patterns, and Practices</i>"
-description: ""
-category: [Java]
-tags: [Book, Java-DesignPattern]
+category:
+- Java
+description: ''
+tags:
+- Book
+- Java-DesignPattern
+title: 'Digest of <i>Agile Software Development: Principles, Patterns, and Practices</i>'
 ---
-{% include JB/setup %}
 
 [active_object_sequence]: https://farm2.staticflickr.com/1545/23293777163_46ab6095ab_o_d.png
 [acyclic_visitor_pattern]: https://farm2.staticflickr.com/1620/23552709709_e3771dc04c_o_d.png

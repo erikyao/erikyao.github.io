@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Parametric vs. non-parametric tests"
-description: ""
 category: Math
-tags: [Math-Statistics]
+description: ''
+tags:
+- Math-Statistics
+title: Parametric vs. non-parametric tests
 ---
-{% include JB/setup %}
 
 参考资料：
 

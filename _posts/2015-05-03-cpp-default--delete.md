@@ -1,11 +1,11 @@
 ---
-layout: post
-title: "C++: <i>=default</i> & <i>=delete</i>"
-description: ""
 category: C++
-tags: [C++11, copy-constructor]
+description: ''
+tags:
+- C++11
+- copy-constructor
+title: 'C++: <i>=default</i> & <i>=delete</i>'
 ---
-{% include JB/setup %}
 
 参考：
 

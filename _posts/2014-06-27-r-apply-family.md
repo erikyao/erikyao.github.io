@@ -1,30 +1,15 @@
 ---
-layout: post
-title: "R apply family"
-description: ""
 category: R
+description: ''
 tags: []
+title: R apply family
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
 
 参考资料：[A brief introduction to “apply” in R](http://nsaunders.wordpress.com/2010/08/20/a-brief-introduction-to-apply-in-r)
 
 部分更新内容来自 _R Cookbook_。
-
------
-
-ToC:
-
-- [1. `lapply`: Apply a Function to Each Element of a List or Vector](#1-lapply-apply-a-function-to-each-element-of-a-list-or-vector)
-- [2. `sapply`: Simplify the Result of `lapply`](#2-sapply-simplify-the-result-of-lapply)
-  - [2.1 `sapply` example: Removing low-correlation variables from a set of predictors](#21-sapply-example-removing-low-correlation-variables-from-a-set-of-predictors)
-  - [2.2 `vapply`: Safer `sapply`](#22-vapply-safer-sapply)
-- [3. `mapply`: Apply a Function to Parallel Vectors or Lists (a Multivariate Version of `sapply`)](#3-mapply-apply-a-function-to-parallel-vectors-or-lists-a-multivariate-version-of-sapply)
-- [4. `apply`: Apply a Function over Array Margins (e.g. to Every Row or to Every Column)](#4-apply-apply-a-function-over-array-margins-eg-to-every-row-or-to-every-column)
-- [5. `tapply`: Apply a Function over a Ragged Array (i.e. lapply after splitting a column)](#5-tapply-apply-a-function-over-a-ragged-array-ie-lapply-after-splitting-a-column)
-- [6. `split`: Split a Vector (or list) or Data Frame into Groups by a Factor or List of Factors](#6-split-split-a-vector-or-list-or-data-frame-into-groups-by-a-factor-or-list-of-factors)
-- [7. `by`: Apply a Function to Groups of Rows (i.e. `lapply` after splitting a data frame)](#7-by-apply-a-function-to-groups-of-rows-ie-lapply-after-splitting-a-data-frame)
-- [Family Tree](#family-tree)
 
 -----
 

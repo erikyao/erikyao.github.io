@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "C++: typedef sees <i>int*</i> and <i>int&</i> as new types"
-description: ""
 category: C++
+description: ''
 tags: []
+title: 'C++: typedef sees <i>int*</i> and <i>int&</i> as new types'
 ---
-{% include JB/setup %}
 
 长久以来我就有这么一种理解：`int *` 其实可以做一种新类型。因为在函数的参数列表里，你把 `int *` 看做是一种新类型明显更容易理解些。但是我又不得不注意以下这个事实：
 

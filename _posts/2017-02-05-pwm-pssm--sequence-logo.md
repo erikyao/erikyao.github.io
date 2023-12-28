@@ -1,11 +1,11 @@
 ---
-layout: post
-title: "PWM (PSSM) / Sequence Logo"
-description: ""
 category: Biology
-tags: [Markov, Entropy]
+description: ''
+tags:
+- Markov
+- Entropy
+title: PWM (PSSM) / Sequence Logo
 ---
-{% include JB/setup %}
 
 [PFM_seq_logo]: https://farm1.staticflickr.com/760/31894131414_220e9ec2aa_z_d.jpg
 [transition_matrix]: https://farm1.staticflickr.com/303/31896244584_c764104066_z_d.jpg

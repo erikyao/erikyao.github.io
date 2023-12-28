@@ -1,32 +1,18 @@
 ---
-layout: post
-title: "《分布式 Java 应用：基础与实践》第三章总结其一：理解 JVM（未完待续）"
-description: ""
 category: Java
-tags: [Book, JVM]
+description: ''
+tags:
+- Book
+- JVM
+title: 《分布式 Java 应用：基础与实践》第三章总结其一：理解 JVM（未完待续）
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
-
-Toc: 
-
-- [0. JVM 大概](#session0)  
-- [1. Java 代码的执行](#session1)
-	* [1.1 编译（javac）](#javac)
-	* [1.2 加载（ClassLoader）](#classloader)
-	* [1.3 执行](#exe)
 
 [JVM]: https://farm2.staticflickr.com/1574/23812248622_971a1f1af9_o_d.png
 [javac-flow]: https://farm6.staticflickr.com/5707/23292344914_0c82d3db96_o_d.png
 
-----------  
-  
-----------  
-
 ## 0. JVM 大概
-  
-----------  
-  
-----------  
 
 ![][JVM]
 
@@ -35,15 +21,7 @@ Toc:
 - [Understanding JVM Internals](http://www.cubrid.org/blog/dev-platform/understanding-jvm-internals) 的 figure 4 
 - [The Java Virtual Machine --by Bill Venners](http://www.artima.com/insidejvm/ed2/jvm2.html) 的 figure 5-1
 
-----------  
-  
-----------  
-
 ## 1. Java 代码的执行
-  
-----------  
-  
-----------  
 
 ### 1.1 编译（javac）
 

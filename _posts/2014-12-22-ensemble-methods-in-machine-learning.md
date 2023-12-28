@@ -1,11 +1,11 @@
 ---
-layout: post
-title: "Ensemble Methods in Machine Learning"
-description: ""
 category: Machine-Learning
-tags: [Bagging, Boosting]
+description: ''
+tags:
+- Bagging
+- Boosting
+title: Ensemble Methods in Machine Learning
 ---
-{% include JB/setup %}
 
 总结自 [Ensemble Methods in Machine Learning](http://link.springer.com/chapter/10.1007%2F3-540-45014-9_1)
 

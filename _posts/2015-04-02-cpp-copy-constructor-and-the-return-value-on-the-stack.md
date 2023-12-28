@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "C++: Copy-constructor & the return value on the stack"
-description: ""
 category: C++
-tags: [copy-constructor]
+description: ''
+tags:
+- copy-constructor
+title: 'C++: Copy-constructor & the return value on the stack'
 ---
-{% include JB/setup %}
 
 整理自：
 

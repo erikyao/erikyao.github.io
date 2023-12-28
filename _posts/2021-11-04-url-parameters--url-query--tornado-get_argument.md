@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "URL Parameters / URL Query / Tornado <i>get_argument()</i>"
-description: ""
-category: Network 
-tags: [URL]
+category: Network
+description: ''
+tags:
+- URL
+title: URL Parameters / URL Query / Tornado <i>get_argument()</i>
 ---
-{% include JB/setup %}
 
 ## URL Parameters / URL Query
 

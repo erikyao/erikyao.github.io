@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Java Class Loading: an example"
-description: ""
 category: Java
-tags: [JVM]
+description: ''
+tags:
+- JVM
+title: 'Java Class Loading: an example'
 ---
-{% include JB/setup %}
 
 class loading 是一个比较复杂的过程。一般说来，类是在其 static member 被访问时被加载的。在加载时会做的一件事是：初始化 static member 和 static 代码段 (static block, i.e. `static {......}`)，当然，static 是只会被执行 only once 的。
 

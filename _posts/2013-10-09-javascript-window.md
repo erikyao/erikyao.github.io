@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "JavaScript: window 注意事项"
-description: ""
 category: JavaScript
+description: ''
 tags: []
+title: 'JavaScript: window 注意事项'
 ---
-{% include JB/setup %}
 
 ## 调用 `window.open()` 的注意事项
 

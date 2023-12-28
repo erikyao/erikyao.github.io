@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Visitor Pattern Revisited"
-description: ""
 category: Java
-tags: [Java-DesignPattern]
+description: ''
+tags:
+- Java-DesignPattern
+title: Visitor Pattern Revisited
 ---
-{% include JB/setup %}
 
 我们在 _PPP_ 里其实有讲 [visitor pattern](https://blog.listcomp.com/java/2014/06/24/digest-of-agile-software-development-ppp#dp_visitor)，但最近在读的 [_Crafting Interpreters_](https://craftinginterpreters.com/) 提供了一个绝妙的解读，虽然只能适用于 vanilla 的 visitor pattern，但还是值得记录下。
 

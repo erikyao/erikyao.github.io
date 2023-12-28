@@ -1,19 +1,12 @@
 ---
-layout: post
-title: "Variable / Bound Variable / Free Variable / Scope / Closure"
-description: ""
 category: Compiler
-tags: [Closure]
+description: ''
+tags:
+- Closure
+title: Variable / Bound Variable / Free Variable / Scope / Closure
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
-
-## TOC
-
-- [1. Name Binding / Name Resolution / Variable / Indentifier / Value / Reference](#1-name-binding--name-resolution--variable--indentifier--value--reference)
-- [2. Bound Variable / Free Variable / Scope](#2-bound-variable--free-variable--scope)
-- [3. Lexical Scope / Lexical Scoping / Dynamic Scope / Dynamic Scoping](#3-lexical-scope--lexical-scoping--dynamic-scope--dynamic-scoping)
-- [4. 题外话：Execution Context of Javascript](#4-题外话execution-context-of-javascript)
-- [5. Closure](#5-closure)
 
 ## 1. Name Binding / Name Resolution / Variable / Indentifier / Value / Reference
 
@@ -300,4 +293,3 @@ print_hello()  # Output: Hello
 ```
 
 另外在 Advanced R 1st edition 里讲的 ~~"Closures are functions written by functions"~~ 现在看来就是 BS (参我的 [Digest of Advanced R](http://yaoyao.codes/r/2015/07/08/digest-of-advanced-r#7-2-Closures)；2nd edition 已经没有这么讲了)。
-

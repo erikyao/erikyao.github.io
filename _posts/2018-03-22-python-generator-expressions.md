@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Python: Generator Expressions / joblib.Parallel"
-description: ""
 category: Python
+description: ''
 tags: []
+title: 'Python: Generator Expressions / joblib.Parallel'
 ---
-{% include JB/setup %}
 
 其实 [Digest of Fluent Python](/python/2016/09/16/digest-of-fluent-python#14-6-Sentence-Take-5-A-Generator-Expression) 里有讲，只是我实在是太不习惯它的用法了：
 

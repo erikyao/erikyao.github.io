@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Generative Models"
-description: ""
 category: Machine-Learning
-tags: [generative]
+description: ''
+tags:
+- generative
+title: Generative Models
 ---
-{% include JB/setup %}
 
 参考自 [Introduction to Semi-Supervised Learning](https://www.morganclaypool.com/doi/abs/10.2200/S00196ED1V01Y200906AIM006)。
 

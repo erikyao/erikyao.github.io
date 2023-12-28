@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "JavaScript: onclick 注意事项"
-description: ""
 category: JavaScript
+description: ''
 tags: []
+title: 'JavaScript: onclick 注意事项'
 ---
-{% include JB/setup %}
 
 ## 迅速切换 `onclick` 函数的写法
 

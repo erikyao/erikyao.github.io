@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "R: implicit return values / return value of an assignment"
-description: ""
 category: R
+description: ''
 tags: []
+title: 'R: implicit return values / return value of an assignment'
 ---
-{% include JB/setup %}
 
 The last expression evaluated in a function becomes the return value.
 

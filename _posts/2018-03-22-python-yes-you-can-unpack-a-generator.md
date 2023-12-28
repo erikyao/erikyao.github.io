@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Python: Yes, you can unpack a generator!"
-description: ""
 category: Python
+description: ''
 tags: []
+title: 'Python: Yes, you can unpack a generator!'
 ---
-{% include JB/setup %}
 
 ```python
 def square_and_cube(x):

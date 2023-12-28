@@ -1,22 +1,11 @@
 ---
-layout: post
-title: "Terminology Recap: Generative Models / Discriminative Models / Frequentist Machine Learning / Bayesian Machine Learning / Supervised Learning / Unsupervised Learning / Linear Regression / Naive Bayes Classifier"
-description: ""
 category: Machine-Learning
+description: ''
 tags: []
+title: 'Terminology Recap: Generative Models / Discriminative Models / Frequentist Machine Learning / Bayesian Machine Learning / Supervised Learning / Unsupervised Learning / Linear Regression / Naive Bayes Classifier'
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
-
-<!-- TOC -->
-
-- [1. Generative vs Discriminative](#1-generative-vs-discriminative)
-- [2. Frequentist vs Bayesian](#2-frequentist-vs-bayesian)
-- [3. Generative vs Discriminative, Frequentist vs Bayesian](#3-generative-vs-discriminative-frequentist-vs-bayesian)
-- [4. Unsupervised vs Supervised](#4-unsupervised-vs-supervised)
-- [5. Frequentist Discriminative Example: Linear Regression](#5-frequentist-discriminative-example-linear-regression)
-- [6. Bayesian Generative Example: Naive Bayes Classifier](#6-bayesian-generative-example-naive-bayes-classifier)
-
-<!-- /TOC -->
 
 ## 1. Generative vs Discriminative
 

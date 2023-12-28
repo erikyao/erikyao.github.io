@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "Terminology Recap: Preemptive / Cooperative / Multitasking / Multithreading / Race Condition"
-description: ""
 category: OS
+description: ''
 tags: []
+title: 'Terminology Recap: Preemptive / Cooperative / Multitasking / Multithreading
+  / Race Condition'
 ---
-{% include JB/setup %}
 
 ## Preemptive / Cooperative / Multitasking
 

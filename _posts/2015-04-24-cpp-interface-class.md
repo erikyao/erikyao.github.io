@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "C++: Interface Class"
-description: ""
 category: C++
+description: ''
 tags: []
+title: 'C++: Interface Class'
 ---
-{% include JB/setup %}
 
 整理自：_Thinking in C++, Volume 2_
 

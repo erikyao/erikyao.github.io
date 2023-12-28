@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "MySQL REGEXP"
-description: ""
 category: MySQL
-tags: [regexp]
+description: ''
+tags:
+- regexp
+title: MySQL REGEXP
 ---
-{% include JB/setup %}
 
 　　参考 [Regular Expressions - User Guide](http://www.zytrax.com/tech/web/regex.htm)
 

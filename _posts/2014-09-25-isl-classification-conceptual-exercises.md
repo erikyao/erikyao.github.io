@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "ISL: Classification - Conceptual Exercises"
-description: ""
 category: Machine-Learning
+description: ''
 tags: []
+title: 'ISL: Classification - Conceptual Exercises'
 ---
-{% include JB/setup %}
 
 Exercises of Chapter 4, An Introduction to Statistical Learning.
 

@@ -1,47 +1,11 @@
 ---
-layout: post
-title: "LeetCode: Min Sub and Max Sub Problems"
-description: ""
 category: LeetCode
+description: ''
 tags: []
+title: 'LeetCode: Min Sub and Max Sub Problems'
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
-
-Table of Contents:
-
-<!-- TOC -->
-
-- [1. 求 min/max sub-array 或 sub-string 问题的套路](#1-求-minmax-sub-array-或-sub-string-问题的套路)
-    - [1.1 思路套路](#11-思路套路)
-    - [1.2 求 min sub 问题的代码套路](#12-求-min-sub-问题的代码套路)
-    - [1.3 求 max sub 问题的代码套路](#13-求-max-sub-问题的代码套路)
-    - [1.4 min/max sub 与 DP (buttom-up) 与 MI 的关系](#14-minmax-sub-与-dp-buttom-up-与-mi-的关系)
-        - [1.4.1 举例：LeetCode #121: Stock I](#141-举例leetcode-121-stock-i)
-        - [1.4.2 举例：LeetCode #53: Max-sum Subarray](#142-举例leetcode-53-max-sum-subarray)
-            - [1.4.2.1 这题在 EPI 书上错得离谱](#1421-这题在-epi-书上错得离谱)
-            - [1.4.2.2 MI 思路](#1422-mi-思路)
-- [2. LeetCode #76: Minimum Window Substring](#2-leetcode-76-minimum-window-substring)
-    - [2.1 问题描述 / 变体](#21-问题描述--变体)
-    - [2.2 变体其实是陷阱](#22-变体其实是陷阱)
-    - [2.3 min sub 套路实现](#23-min-sub-套路实现)
-- [3. LeetCode #3: The "Longest Substring Without Repeating Characters" Problem](#3-leetcode-3-the-longest-substring-without-repeating-characters-problem)
-    - [3.1 max sub 套路实现](#31-max-sub-套路实现)
-    - [3.2 min sub 套路实现](#32-min-sub-套路实现)
-- [4. LeetCode #487 & #1004: Max Consecutive Ones](#4-leetcode-487--1004-max-consecutive-ones)
-    - [4.1 LeetCode #487 的 max sub 套路实现](#41-leetcode-487-的-max-sub-套路实现)
-    - [4.2 LeetCode #1004 的 max sub 套路实现](#42-leetcode-1004-的-max-sub-套路实现)
-    - [4.3 LeetCode #1004 的 min sub 套路实现](#43-leetcode-1004-的-min-sub-套路实现)
-- [5. LeetCode #209: Minimum Size Subarray Sum](#5-leetcode-209-minimum-size-subarray-sum)
-- [6. 反面教材 - LeetCode #560: Subarray Sum Equals $k$](#6-反面教材---leetcode-560-subarray-sum-equals-k)
-    - [6.1 这题不能用 min sub 的套路](#61-这题不能用-min-sub-的套路)
-    - [6.2 思路：巧妙利用 cumulative sum 的特性](#62-思路巧妙利用-cumulative-sum-的特性)
-    - [6.3 用 `Counter` 改进](#63-用-counter-改进)
-- [7. LeetCode #55: Jump Game](#7-leetcode-55-jump-game)
-    - [7.1 首先这题其实可以用 DP (top-down)](#71-首先这题其实可以用-dp-top-down)
-    - [7.2 但这题也能转化成一个 max sub 的问题](#72-但这题也能转化成一个-max-sub-的问题)
-    - [7.3 小改进：Early Termination](#73-小改进early-termination)
-
-<!-- /TOC -->
 
 ## 1. 求 min/max sub-array 或 sub-string 问题的套路
 

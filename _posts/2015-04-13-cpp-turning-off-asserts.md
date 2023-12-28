@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "C++: Turning off asserts"
-description: ""
 category: C++
+description: ''
 tags: []
+title: 'C++: Turning off asserts'
 ---
-{% include JB/setup %}
 
 整理自：_Thinking in C++, Volume 2_
 

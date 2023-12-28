@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Sqlmap Namespace"
-description: ""
 category: iBatis
+description: ''
 tags: []
+title: Sqlmap Namespace
 ---
-{% include JB/setup %}
 
 　　若设置了 `useStatementNamespaces="true"`，如：
 
@@ -61,6 +59,3 @@ protected String getStatementById(String id) {
     return statement;
 }
 ```
-
-
-

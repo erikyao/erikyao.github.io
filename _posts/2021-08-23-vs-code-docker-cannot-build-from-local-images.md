@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "VS Code Docker: cannot build from local images"
-description: ""
 category: vs-code
+description: ''
 tags: []
+title: 'VS Code Docker: cannot build from local images'
 ---
-{% include JB/setup %}
 
 当你的 Dockerfile 是 `FROM` 一个 local image，然后你在 VS Code 里右键你的 Dockerfile 再 `Build Image...`，你可能会看到这样一个 error:
 

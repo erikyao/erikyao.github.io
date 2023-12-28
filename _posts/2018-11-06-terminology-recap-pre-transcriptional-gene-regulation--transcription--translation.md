@@ -1,42 +1,11 @@
 ---
-layout: post
-title: "Terminology Recap: Pre-transcriptional Gene Regulation / Transcription / Translation / mRNA / TF / TFBS / Promoter / Enhancer / Silencer / Insulator / Exon / Intron / Codon / Alternative Splicing / Gene Isoform / Protein Isoform / ORF"
-description: ""
 category: Biology
+description: ''
 tags: []
+title: 'Terminology Recap: Pre-transcriptional Gene Regulation / Transcription / Translation / mRNA / TF / TFBS / Promoter / Enhancer / Silencer / Insulator / Exon / Intron / Codon / Alternative Splicing / Gene Isoform / Protein Isoform / ORF'
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
-
-<!-- TOC -->
-
-- [1. Overview](#1-overview)
-- [2. Transcription](#2-transcription)
-    - [2.1 Transcription Initiation](#21-transcription-initiation)
-        - [2.1.1 预备知识：Histone Acetylation (乙酰化) / Deacetylation (去乙酰化)](#211-预备知识histone-acetylation-乙酰化--deacetylation-去乙酰化)
-        - [2.1.2 预备知识：RNA / RNA Polymerase](#212-预备知识rna--rna-polymerase)
-        - [2.1.3 预备知识：TF / GTF](#213-预备知识tf--gtf)
-        - [2.1.4 PIC](#214-pic)
-    - [2.2 Post-transcriptional Modification](#22-post-transcriptional-modification)
-        - [2.2.1 5' Capping](#221-5-capping)
-        - [2.2.2 Polyadenylation](#222-polyadenylation)
-        - [2.2.3 Splicing](#223-splicing)
-            - [2.2.3.1 mRNA structure / Exon & Intron](#2231-mrna-structure--exon--intron)
-            - [2.2.3.3 Alternative Splicing](#2233-alternative-splicing)
-            - [2.2.3.4 Related Topics: Protein Isoform & Gene Isoform](#2234-related-topics-protein-isoform--gene-isoform)
-- [3. Translation](#3-translation)
-    - [3.1 Codon / Start Codon](#31-codon--start-codon)
-    - [3.2 Related Topics: Coding Strand (Sense Strand) / Non-coding Strand (Template Strand)](#32-related-topics-coding-strand-sense-strand--non-coding-strand-template-strand)
-    - [3.3 Related Topics: Reading Frame / Open Reading Frame](#33-related-topics-reading-frame--open-reading-frame)
-    - [3.4 tRNA 是 amino acid 的搬运工](#34-trna-是-amino-acid-的搬运工)
-- [4. Pre-transcriptional Gene Regulation](#4-pre-transcriptional-gene-regulation)
-    - [4.1 Regulatory regions in DNA: promoters, enhancers, silencers, and insulators / TFBS](#41-regulatory-regions-in-dna-promoters-enhancers-silencers-and-insulators--tfbs)
-        - [4.1.1 Promoter](#411-promoter)
-        - [4.1.2 Enhancer](#412-enhancer)
-        - [4.1.3 Silencer](#413-silencer)
-        - [4.1.4 Insulator](#414-insulator)
-    - [4.2 Summary](#42-summary)
-
-<!-- /TOC -->
 
 ## 1. Overview
 

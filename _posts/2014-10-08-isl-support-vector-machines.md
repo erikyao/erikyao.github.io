@@ -1,42 +1,14 @@
 ---
-layout: post
-title: "ISL: Support Vector Machines"
-description: ""
 category: Machine-Learning
-tags: [SVM]
+description: ''
+tags:
+- SVM
+title: 'ISL: Support Vector Machines'
+toc: true
+toc_sticky: true
 ---
-{% include JB/setup %}
 
 总结自 Chapter 9, An Introduction to Statistical Learning.
-
------
-
-ToC:
-
-- [0. Overview](#0-overview)
-- [1. Maximal Margin Classifier](#1-maximal-margin-classifier)
-	- [1.1 What Is a Hyperplane?](#11-what-is-a-hyperplane)
-	- [1.2 Classification Using a Separating Hyperplane](#12-classification-using-a-separating-hyperplane)
-	- [1.3 The Maximal Margin Classifier](#13-the-maximal-margin-classifier)
-	- [1.4 Construction of the Maximal Margin Classifier](#14-construction-of-the-maximal-margin-classifier)
-	- [1.5 The Non-separable Case](#15-the-non-separable-case)
-- [2. Support Vector Classifiers](#2-support-vector-classifiers)
-	- [2.1 Overview of the Support Vector Classifier](#21-overview-of-the-support-vector-classifier)
-	- [2.2 Details of the Support Vector Classifier](#22-details-of-the-support-vector-classifier)
-- [3. Support Vector Machines](#3-support-vector-machines)
-	- [3.1 Classification with Non-linear Decision Boundaries](#31-classification-with-non-linear-decision-boundaries)
-	- [3.2 The Support Vector Machine](#32-the-support-vector-machine)
-	- [3.3 An Application to the Heart Disease Data](#33-an-application-to-the-heart-disease-data)
-- [4. SVMs with More than Two Classes](#4-svms-with-more-than-two-classes)
-	- [4.1 One-Versus-One Classification](#41-one-versus-one-classification)
-	- [4.2 One-Versus-All Classification](#42-one-versus-all-classification)
-- [5. Relationship to Logistic Regression](#5-relationship-to-logistic-regression)
-- [6. Lab: Support Vector Machines](#6-lab-support-vector-machines)
-	- [6.1 Support Vector Classifier](#61-support-vector-classifier)
-	- [6.2 Support Vector Machine](#62-support-vector-machine)
-	- [6.3 ROC Curves](#63-roc-curves)
-	- [6.4 SVM with Multiple Classes](#64-svm-with-multiple-classes)
-	- [6.5 Application to Gene Expression Data](#65-application-to-gene-expression-data)
 
 -----
 

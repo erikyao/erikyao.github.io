@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "C: function pointers"
-description: ""
 category: C
-tags: [pointer]
+description: ''
+tags:
+- pointer
+title: 'C: function pointers'
 ---
-{% include JB/setup %}
 
 整理自 _Thinking in C++_。
 

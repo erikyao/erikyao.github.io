@@ -1,11 +1,9 @@
 ---
-layout: post
-title: "Terminology Recap: SNP / SNV / LD / GWAS / eQTL / DNA Microarray (DNA chip)"
-description: ""
 category: Biology
+description: ''
 tags: []
+title: 'Terminology Recap: SNP / SNV / LD / GWAS / eQTL / DNA Microarray (DNA chip)'
 ---
-{% include JB/setup %}
 
 ## 1. SNP
 

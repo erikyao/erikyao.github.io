@@ -1,11 +1,10 @@
 ---
-layout: post
-title: "C++: template specialization"
-description: ""
 category: C++
-tags: [template]
+description: ''
+tags:
+- template
+title: 'C++: template specialization'
 ---
-{% include JB/setup %}
 
 整理自：_Thinking in C++, Volume 2_
 
