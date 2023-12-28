@@ -128,7 +128,7 @@ defaults:
       type: posts
     values:
       layout: single
-      classes: wide2 # new class, see customized mimimal_mistakes.scss
+      classes: wide2 # new class, see customized minimal_mistakes.scss
       author_profile: false
       show_date: true
       read_time: true
