@@ -155,3 +155,7 @@ category_archive:
 tag_archive:
   type: liquid
   path: /tags/
+
+feed:
+  posts_limit: 10
+  disable_in_development: true
