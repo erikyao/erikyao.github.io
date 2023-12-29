@@ -26,7 +26,7 @@ description: >- # this means to ignore newlines until next YAML key
 # breadcrumbs: true  # Breadcrumb start link text and separator character can be configured in the UI Text data file
 
 url: "https://blog.listcomp.com"
-base_url:
+base_url: ""
 repository: "erikyao/erikyao.github.io"
 head_scripts:
   - "/assets/js/prism.js"
