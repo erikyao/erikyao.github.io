@@ -59,6 +59,8 @@
   }
 
   .page__related {
+    float: left;
+    width: 100%;
     @include breakpoint($large) {
       padding-left: 0;
     }
