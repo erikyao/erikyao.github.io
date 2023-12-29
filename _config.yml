@@ -147,7 +147,7 @@ defaults:
 comments:
   provider: disqus
   disqus:
-    short_name: "erikyao"
+    short_name: "blog-listcomp-com"
 
 category_archive:
   type: liquid
