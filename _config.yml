@@ -21,7 +21,7 @@ name: "Yao Yao"
 # Description will appear in document head meta (for Google search results) and in feed.xml site description.
 description: "Yao Yao's personal blog"
 # masthead_title: "My Custom Title" # title displayed next to logo
-# logo: "/assets/images/88x88.png" # masthead logo
+logo: "/assets/images/pan-flute.png" # masthead logo
 # breadcrumbs: true  # Breadcrumb start link text and separator character can be configured in the UI Text data file
 
 url: "https://blog.listcomp.com"
