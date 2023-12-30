@@ -32,9 +32,6 @@ head_scripts:
   - "/assets/js/config-mathjax.js" # must be imported before the `tex-mml-chtml.js` below
   - "https://polyfill.io/v3/polyfill.min.js?features=es6"
   - "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
-# email: ""
-twitter_username: "YaoY87"
-github_username: "erikyao"
 minimal_mistakes_skin: "fan_qie_chao_dan" # "default", "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 
 search: true
@@ -147,6 +144,11 @@ comments:
   provider: disqus
   disqus:
     shortname: erikyao
+
+# Social Sharing
+twitter:
+  username: YaoY87
+og_image: "/assets/images/avataaars.png" # Open Graph/Twitter default site image
 
 category_archive:
   type: liquid
