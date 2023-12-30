@@ -150,6 +150,13 @@ twitter:
   username: YaoY87
 og_image: "/assets/images/avataaars.png" # Open Graph/Twitter default site image
 
+# Analytics
+analytics:
+  provider: "google-gtag" # the code in _includes/analytics-providers/google-gtag.html matches GA's instruction to me
+  google:
+    tracking_id: "G-460RPZ9051" # now it's called "measurement id" but the config should work
+    anonymize_ip: false # default
+
 category_archive:
   type: liquid
   path: /categories/
