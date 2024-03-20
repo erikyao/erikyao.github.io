@@ -228,8 +228,8 @@ Instantaneous Descriptions of a Turing Machine:
 - The TM is in the start state, and the head is at the leftmost input symbol.
 - TM ID’s: (我觉得更合适的名字应该叫 TM State ID)
 	- An ID is a string $\alpha q \beta$, where 
-		- $\alpha = $ string from the leftmost nonblank to tape head (exclusive)
-		- $\beta = $ string from the tape head (inclusive) to the rightmost nonblanks. 
+		- $\alpha =$ string from the leftmost nonblank to tape head (exclusive)
+		- $\beta =$ string from the tape head (inclusive) to the rightmost nonblanks. 
 			- I.e. the symbol to the right of $q$ is the one being scanned. 
 		- If an ID is in the form of $\alpha q$, it is scanning a $B$. 
 	- As for PDA’s (Pushdown automaton) we may use symbols 
@@ -390,10 +390,10 @@ Designing the UTM:
 	- E.g., all moves have five components, no two moves have the same state/symbol as first two components.
 	- If $M$ is not valid, its language is empty, so the UTM immediately halts without accepting.
 - Step 2: Assuming the code for $M$ is valid, the UTM next examines $M$ to see how many of its own tape cells it needs to represent one symbol of $M$.
-	- How to do this: we discover the longest block of $0$s representing a tape symbol and add one cell to that for a marker (e.g. $\text{#}$) between symbols of $M$'s tape. 
+	- How to do this: we discover the longest block of $0$s representing a tape symbol and add one cell to that for a marker (e.g. $\text{\#}$) between symbols of $M$'s tape. 
 	- Thus if say $X_7$ is the highest numbered symbol then we'll use 8 squares to represent one symbol of $M$. 
 		- Symbol $X_i$ will be represented $i$ $0$s and $7-i$ blanks followed by a marker outside. 
-		- For example, here's how we would represent $X_5$: $00000BB\text{#}$. 
+		- For example, here's how we would represent $X_5$: $00000BB\text{\#}$. 
 - Step 3: Initialize Tape 2 to represent the tape of $M$ with input $w$, and initialize Tape 3 to hold the start state (always $q_1$ so it is represented by a single $0$).
 - Step 4: Simulate $M$.
 	- Look for a move on Tape 1 that matches the state on Tape 3 and the tape symbol under the head on Tape 2.
@@ -416,7 +416,7 @@ Designing the UTM:
 	- Thus, our assumption that there was an algorithm for $L_u$ is wrong.
 	- $L_u$ is RE, but not recursive.
 	
-$\tag*{$\square$}$
+$\blacksquare$
 	
 这个证明需要好好解读与总结：
 
@@ -522,7 +522,7 @@ Properties of Languages:
 
 - Any set of languages is a _**property**_ of languages.
 	- Example: The infiniteness property is the set of infinite languages.
-	- If a language $L$ "has property infiniteness", it means "L \in \text{ property infiniteness}"
+	- If a language $L$ "has property infiniteness", it means "$L \in \text{ property infiniteness}$"
 	- In what follows, we’ll focus on properties of RE languages, because we can’t represent other languages by TM’s.
 - We shall think of a property as a problem about Turing machines.
 	- 我们可以认为 property $P = \lbrace L \vert L \text{ has property } P \rbrace$。从这个角度看，property 是一个关于 languages 的 language；进一步，property 是一个 problem。
@@ -534,16 +534,16 @@ Properties of Languages:
 - There are two (_**trivial**_) properties $P$ for which $L_P$ is decidable.
 	1. The always-false property, which contains no RE languages.
 		- E.g. "this language is not RE."
-		- How do we decide this property? I.e. the algorithm for this property is: Given an input $ w $, ignore it and say no (reject).
+		- How do we decide this property? I.e. the algorithm for this property is: Given an input $w$, ignore it and say no (reject).
 		- Empty language is a RE language.
 	1. The always-true property, which contains every RE language.
 		- E.g. "this language is RE."
-		- How do we decide this property? I.e. the algorithm for this property is: Given an input $ w $, ignore it and say yes (accept).
+		- How do we decide this property? I.e. the algorithm for this property is: Given an input $w$, ignore it and say yes (accept).
 - Rice’s Theorem: For every other (i.e. non-trivial) property $P$, $L_P$ is undecidable.
 
 Reductions:
 
-- A reduction from language $ L $ to language $ L' $ is an algorithm (TM that always halts) that takes a string $ w $ and converts it to a string $ x $, with the property that: $ x $ is in $ L' $ if and only if $ w $ is in $ L $.
+- A reduction from language $L$ to language $L'$ is an algorithm (TM that always halts) that takes a string $w$ and converts it to a string $x$, with the property that: $x$ is in $L'$ if and only if $w$ is in $L$.
 - The value of having such a reduction is that it tells us $L$ is no harder than $L'$, at least as far as decidability is concerned.
 - TM’s as Transducers
 	- We have regarded TM’s as acceptors of strings.
@@ -562,39 +562,39 @@ Reductions:
 Proof of Rice’s Theorem
 
 - Proof Skeleton
-	- We shall show that for every nontrivial property $ P $ of the RE languages, $ L_P $ is undecidable.
-	- We show how to reduce $ L_u $ to $ L_P $.
-	- Since we know $ L_u $ is undecidable, it follows that $ L_P $ is also undecidable.
+	- We shall show that for every nontrivial property $P$ of the RE languages, $L_P$ is undecidable.
+	- We show how to reduce $L_u$ to $L_P$.
+	- Since we know $L_u$ is undecidable, it follows that $L_P$ is also undecidable.
 - The Reduction
-	- The input to $L_u$, is a TM $ M $ and an input $ w $ for $M$. Then our reduction algorithm produces the code for a TM $ M' $.
-	- Define property $ P = "M \text{ accepts } w" $.
-		- Thus $L(M')$ has property $ P $ if and only if $ M $ accepts $ w $.
-			- "$L(M')$ has property $ P $" 也就意味着 "$M'$ accepts a language with property $P$"
+	- The input to $L_u$, is a TM $M$ and an input $w$ for $M$. Then our reduction algorithm produces the code for a TM $M'$.
+	- Define property $P = "M \text{ accepts } w"$.
+		- Thus $L(M')$ has property $P$ if and only if $M$ accepts $w$.
+			- "$L(M')$ has property $P$" 也就意味着 "$M'$ accepts a language with property $P$"
 		- That is $M' \in L_P$ if and only if $\langle M,w \rangle \in L_u$.
-	- $ M' $ has two tapes, used for:
-		1. Simulates another TM $ M_L $ on $M'$'s own input, say $x$
+	- $M'$ has two tapes, used for:
+		1. Simulates another TM $M_L$ on $M'$'s own input, say $x$
 			- The transducer (which in fact is $M$) does not deal with or see $x$
-		1. Simulates $ M $ on $ w $.
-			- Note: neither $ M $, $ M_L $, nor $ w $ is input to $ M' $.
-	- Assume that the empty language $ \emptyset $ does not have property $ P $.
-		- If it does, consider the complement of $ P $, say $Q$. $ \emptyset $ then has property $Q$.
+		1. Simulates $M$ on $w$.
+			- Note: neither $M$, $M_L$, nor $w$ is input to $M'$.
+	- Assume that the empty language $\emptyset$ does not have property $P$.
+		- If it does, consider the complement of $P$, say $Q$. $\emptyset$ then has property $Q$.
 		- If we could prove that $Q$ are undecidable, then $P$ must be undecidable. That is if $L_P$ were a recursive language, then so would be $L_Q$ since the recursive languages are closed under complementation.
-	- Let $ L $ be any language with property $ P $, and let $ M_L $ be a TM that accepts $ L $.
-- Design of $ M' $
-	1. On the second tape, $ M' $ writes $ w $ and then simulate $ M $ on $ w $.
-	1. If $ M $ accepts $ w $, then simulate $ M_L $ on the input $ x $ on the first tape.
-	1. $ M' $ accepts its input $ x $ if and only if $ M_L $ accepts $ x $, i.e. $x \in L$.
+	- Let $L$ be any language with property $P$, and let $M_L$ be a TM that accepts $L$.
+- Design of $M'$
+	1. On the second tape, $M'$ writes $w$ and then simulate $M$ on $w$.
+	1. If $M$ accepts $w$, then simulate $M_L$ on the input $x$ on the first tape.
+	1. $M'$ accepts its input $x$ if and only if $M_L$ accepts $x$, i.e. $x \in L$.
 		- If $M$ does not accept $w$, $M'$ never gets to the stage where it simulate $M_L$, and therefore $M'$ accept nothing.
-		- In this case, $M'$ defines an empty language, which does not have property $ P $.
-	1. Suppose $ M $ accepts $ w $.
-		- Then $ M' $ simulates $ M_L $ and therefore accepts $ x $ if and only if $ x $ is in $ L $.
-		- That is, $ L(M) = L $, $ L(M') $ has property $ P $, and $ M' \in L_P $.
-	1. Suppose $ M $ does not accept $ w $.
-		- Then $ M' $ never starts the simulation of $ M_L $, and never accepts its input $ x $.
-		- Thus, $ L(M') = \emptyset $, and $ L(M') $ does not have property $ P $.
-		- That is, $ M' \not \in L_P $.
-	1. Thus, the algorithm that converts $ M $ and $ w $ to $ M' $ is a reduction of $ L_u $ to $ L_P $.
-		- Thus, $ L_P $ is undecidable.
+		- In this case, $M'$ defines an empty language, which does not have property $P$.
+	1. Suppose $M$ accepts $w$.
+		- Then $M'$ simulates $M_L$ and therefore accepts $x$ if and only if $x$ is in $L$.
+		- That is, $L(M) = L$, $L(M')$ has property $P$, and $M' \in L_P$.
+	1. Suppose $M$ does not accept $w$.
+		- Then $M'$ never starts the simulation of $M_L$, and never accepts its input $x$.
+		- Thus, $L(M') = \emptyset$, and $L(M')$ does not have property $P$.
+		- That is, $M' \not \in L_P$.
+	1. Thus, the algorithm that converts $M$ and $w$ to $M'$ is a reduction of $L_u$ to $L_P$.
+		- Thus, $L_P$ is undecidable.
 		
 ![][M_Prime]
 ![][Picture_of_Reduction]
@@ -628,11 +628,11 @@ Language:
 - A language $L$ is a set of "yes-instances"
 	- $x$ is a "yes-instance" if $x \in L$ 
 - Language $S$ is _**Turing-recognizable**_ (“recursively enumerable / r.e.”) if $\exists$ TM $M$, such that $\forall x$
-	- $x \in S  \Rightarrow M $ accepts $x$
-	- $x \not\in S  \Rightarrow M $ rejects $x$ or runs forever
+	- $x \in S  \Rightarrow M$ accepts $x$
+	- $x \not\in S  \Rightarrow M$ rejects $x$ or runs forever
 - Language $S$ is _**Turing-decidable**_ (“recursive”) if $\exists$ TM $M$, such that $\forall x$
-	- $x \in S  \Rightarrow M $ accepts $x$
-	- $x \not\in S  \Rightarrow M $ rejects $x$
+	- $x \in S  \Rightarrow M$ accepts $x$
+	- $x \not\in S  \Rightarrow M$ rejects $x$
 - An _**algorithm**_ formally is a TM which 
 	1. halts on any input regardless of whether that input is accepted or not, and
 	1. accepts (a language) by final state 
@@ -645,11 +645,11 @@ Programming conventions:
 - Describe a TM “program” in terms of tape modifications & head movements
 - “Mark” cells on the tape (e.g., $a \rightarrow \acute{a}$)
 
-E.g. TM algorithm for $ \text{Palindromes} = \lbrace x \vert x = reverse(x) \rbrace $:
+E.g. TM algorithm for $\text{Palindromes} = \lbrace x \vert x = reverse(x) \rbrace$:
 
-1. “Mark” first char (e.g., $ O \rightarrow \emptyset$), remember that char in internal state
+1. “Mark” first char (e.g., $O \rightarrow \emptyset$), remember that char in internal state
 1. If char to the right is “marked” or blank, then accept; else scan right until blank or a “marked” char
-1. If $ \text{prev char} \neq \text{remembered char} $, reject; else mark it
+1. If $\text{prev char} \neq \text{remembered char}$, reject; else mark it
 1. Scan left to leftmost unmarked char; if no more unmarked chars, accept; else repeat from step #1
 
 Universal Machines:
@@ -658,7 +658,7 @@ Universal Machines:
 	- Convention: every string encodes some TM
 	- $\langle M \rangle$: encoding of a TM $M$
 	- $\langle M,x \rangle$: encoding of a TM $M$ and a string $x$
-- $ L_{acc} = \lbrace \langle M,x \rangle \vert M \text{ is a TM that accepts } x \rbrace $ is Turing-recognizable (RE)
+- $L_{acc} = \lbrace \langle M,x \rangle \vert M \text{ is a TM that accepts } x \rbrace$ is Turing-recognizable (RE)
 	- Suppose there such a TM $U$ that accept $\langle M,x \rangle$, i.e. $U(\langle M,x \rangle) = \text{yes}$.
 	- $U \text{ accepts } \langle M,x \rangle \iff \langle M,x \rangle \in L_{acc}$.
 	- In other words, $U$ recognizes $L_{acc}$, i.e. $L(U) = L_{acc}$
@@ -666,22 +666,22 @@ Universal Machines:
 
 Design of Universal TM:
 
-- On input $ \langle M,x \rangle $, use 3 tapes:
+- On input $\langle M,x \rangle$, use 3 tapes:
 	- one for description of $M$
 	- one for $M$'s work tape contents
 	- one for $M$'s current state
 - Transitions: $\langle \text{state, char, newstate, newchar, direction} \rangle$
-- Legal to say “simulate execution of $ M $ on input $ x $” in our TM pseudocode!
-	– If $ M $ halts on $ x $, the simulation will also halt
-	– “Simulate execution of $ M $ on input $ x $ for $ t $ steps” also possible (always halts)
-	- Can simulate $ t $ steps of a TM in $ O(t \log t) $ steps
+- Legal to say “simulate execution of $M$ on input $x$” in our TM pseudocode!
+	– If $M$ halts on $x$, the simulation will also halt
+	– “Simulate execution of $M$ on input $x$ for $ t $ steps” also possible (always halts)
+	- Can simulate $t$ steps of a TM in $O(t \log t)$ steps
 	
 ### Diagonalization and Reduction (Lecture 2 & 3)
 	
 Diagonalization:
 
-- $ L_{acc} = \lbrace \langle M,x \rangle \vert M \text{ is a TM that accepts } x \rbrace $ is not Turing-decidable (“recursive”)
-	- Likewise, $ L_{halt} = \lbrace \langle M,x \rangle \vert M \text{ is a TM that halts } x \rbrace $ 
+- $L_{acc} = \lbrace \langle M,x \rangle \vert M \text{ is a TM that accepts } x \rbrace$ is not Turing-decidable (“recursive”)
+	- Likewise, $L_{halt} = \lbrace \langle M,x \rangle \vert M \text{ is a TM that halts } x \rbrace$ 
 - 这里的 $L_{acc}$ 即前面 Jeff Ullman 的 $L_u$
 
 (Turing) Reductions:
@@ -705,7 +705,7 @@ Diagonalization:
 		- go find an $M$ such that $L(M) = L$
 		- go find an $M$ such that $M(x)=\text{yes}$ if $x$ is/satisfies "blab blah blah"
 - Definition:
-	- We say $L_1 \leq_T L_2$ ("$L_1$ Turing-reduces to $L_2$") if there is an algorithm that decides $ L_1 $ using a (hypothetical) algorithm that decides $ L_2 $.
+	- We say $L_1 \leq_T L_2$ ("$L_1$ Turing-reduces to $L_2$") if there is an algorithm that decides $L_1$ using a (hypothetical) algorithm that decides $L_2$.
 - Inference:
 	- CASE 1: implication
 		- Ground Truth: $L_2$ is decidable
@@ -722,22 +722,22 @@ Diagonalization:
 			- However, we already know that $L_1$ is undecidable.
 			- Therefore the assumption is invalid.
 - E.g. show that $L_{empty} = \lbrace \langle M \rangle \vert M \text{ is a TM and } L(M) = \emptyset \rbrace$ is undecidable.
-	- Choose $ L_{acc} = \lbrace \langle M,x \rangle \vert M \text{ is a TM that accepts } x \rbrace $ as $L_1$
+	- Choose $L_{acc} = \lbrace \langle M,x \rangle \vert M \text{ is a TM that accepts } x \rbrace$ as $L_1$
 	- $L_{empty}$ is $L_2$. 
 		- Assume there exists an algorithm $M_{empty}$.
 	- Construct an algorithm $M_{acc}$ using $M_{empty}$:
 		- Signature: $M_{acc}(\langle M,x \rangle)$
 		- For every single pair of input $\langle M_i,x_j \rangle$: 
 			- Construct an TM $M_{ij}^{\star}(z) = \lbrace \text{ignore } z; \text{return } M_i(x_j) \rbrace$
-				- 根据 $ L_{acc} $ 的语义，$ M_i $ 要么 accept $ x_j $，要么 reject
-				- CASE 1: If $ M_i $ accepts $ x_j $, $M_i(x_j)=\text{yes}$.
+				- 根据 $L_{acc}$ 的语义，$M_i$ 要么 accept $x_j$，要么 reject
+				- CASE 1: If $M_i$ accepts $x_j$, $M_i(x_j)=\text{yes}$.
 					- Therefore $M_{ij}^{\star}(z) = \lbrace \text{ignore } z; \text{return yes} \rbrace$. 
 					- I.e. $M_{ij}^{\star}$ accept every $z$.
 					- I.e. $M_{ij}^{\star}$ accept everything.
 					- I.e. $L(M_{ij}^{\star}) = \Omega$ (全集)
 					- I.e. $\langle M_{ij}^{\star} \rangle \not \in L_{empty}$.
 					- I.e. $M_{empty}(\langle M_{ij}^{\star} \rangle) = \text{no}$.
-				- CASE 2: If $ M_i $ rejects $ x_j $, $M_i(x_j)=\text{no}$.
+				- CASE 2: If $M_i$ rejects $x_j$, $M_i(x_j)=\text{no}$.
 					- Therefore $M_{ij}^{\star}(z) = \lbrace \text{ignore } z; \text{return no} \rbrace$. 
 					- I.e. $M_{ij}^{\star}$ rejects every $z$.
 					- I.e. $M_{ij}^{\star}$ accept nothing.
@@ -746,11 +746,11 @@ Diagonalization:
 					- I.e. $M_{empty}(\langle M_{ij}^{\star} \rangle) = \text{yes}$.
 			- If $M_{empty}(\langle M_{ij}^{\star} \rangle) = \text{yes}$
 				- I.e. $\langle M_{ij}^{\star} \rangle \in L_{empty}$
-				- 一路反推到 CASE 2，我们有 $ M_i $ rejects $ x_j $
+				- 一路反推到 CASE 2，我们有 $M_i$ rejects $x_j$
 				- 此时我们的 $M_{acc}(\langle M_i,x_j \rangle)$ 要 return no
 			- If $M_{empty}(\langle M_{ij}^{\star} \rangle) = \text{no}$
 				- I.e. $\langle M_{ij}^{\star} \rangle \not \in L_{empty}$
-				- 一路反推到 CASE 1，我们有 $ M_i $ accepts $ x_j $
+				- 一路反推到 CASE 1，我们有 $M_i$ accepts $x_j$
 				- 此时我们的 $M_{acc}(\langle M_i,x_j \rangle)$ 要 return yes
 	- Now we showed $L_{acc} \leq_T L_{empty}$. We assumed $L_{empty}$ is decidable, so $L_{acc}$ is also decidable, which is against the truth. Therefore the assumption is invalid and $L_{empty}$ is undecidable.
 	- 最难的地方在 "Construct an algorithm $M_{acc}$ using $M_{empty}$" 这一步，请结合 $M_{acc}$ 和 $M_{empty}$ 综合考虑。一般的的套路是：
@@ -819,7 +819,7 @@ _**Proof.**_
 	- If $M_i$ accepts $x_j$, $M_{ij}^{\star}$ 等价于 $M_Y$，此时 $M_{ij}^{\star}$ 应该具有 property $P$.
 	- If $M_i$ rejects $x_j$, $M_{ij}^{\star}$ 等价于 $\emptyset$，此时 $M_{ij}^{\star}$ 应该不具有 property $P$
 
-$\tag*{$\square$}$
+$\blacksquare$
 
 ### Kolmogorov Complexity (or, “optimal compression is hard!”) (Lecture 5 & 6) @ [Algorithmic Information Theory and Kolmogorov Complexity](http://www.lirmm.fr/~ashen/uppsala-notes.pdf)
 
@@ -829,7 +829,7 @@ Problem:
 - 假设有一个 decompression algorithm $U$ that $U(y)=x$
 - $K_U(x) = \min \lbrace \lvert y \rvert \vert U(y)=x \rbrace$
 	- How small $x$ can be compressed?
-	- Here $ \lvert y \rvert $ denotes the length of a binary string $ y $
+	- Here $\lvert y \rvert$ denotes the length of a binary string $ y $
 - In other words, the _**complexity**_ of $x$ is defined as the length of the shortest description of $x$ if each binary string $y$ is considered as a description of $U(y)$
 
 Optimal decompression algorithm:
@@ -838,15 +838,15 @@ Optimal decompression algorithm:
 - For the trivial decompression algorithm $U(y) = y$ we have $K_U(x) = \vert x \vert$. 
 - One can try to find better decompression algorithms, where “better” means “giving smaller complexities”
 
-_**Definition 1.**_ An algorithm $ U $ is _**asymptotically not worse**_ than an algorithm $ V $ if $ K_U(x) \leq K_V(x)+C $ for some constant $ C $ and for all $ x $.
+_**Definition 1.**_ An algorithm $ U $ is _**asymptotically not worse**_ than an algorithm $V$ if $K_U(x) \leq K_V(x)+C$ for some constant $c$ and for all $x$.
 
-_**Theorem 1.**_ There exists an decompression algorithm $ U $ which is asymptotically not worse than any other algorithm $ V $.
+_**Theorem 1.**_ There exists an decompression algorithm $U$ which is asymptotically not worse than any other algorithm $V$.
 
 Such an algorithm is described as _**asymptotically optimal**_. 
 
-- The complexity $ K_U $ with respect to an asymptotically optimal $ U $ is called _**Kolmogorov complexity**_.
-- Assume that some asymptotically optimal decompression algorithm $U$ is fixed, the Kolmogorov complexity of a string $ x $ is denoted by $ K(x) $ ($=K_U(x)$).
-	- The complexity $ K(x) $ can be interpreted as the amount of information in $ x $ or the “compressed size” of $ x $.
+- The complexity $K_U$ with respect to an asymptotically optimal $U$ is called _**Kolmogorov complexity**_.
+- Assume that some asymptotically optimal decompression algorithm $U$ is fixed, the Kolmogorov complexity of a string $x$ is denoted by $K(x)$ ($=K_U(x)$).
+	- The complexity $K(x)$ can be interpreted as the amount of information in $x$ or the “compressed size” of $x$.
 	
 The construction of optimal decompression algorithm:
 
@@ -857,7 +857,7 @@ Basic properties of Kolmogorov complexity:
 
 - 待补充。
 
-Algorithmic properties of $ K $
+Algorithmic properties of $K$
 
 - 结合 Berry Paradox 补充
 
@@ -865,7 +865,7 @@ Complexity and incompleteness:
 
 - 不懂
 
-Algorithmic properties of $ K $ (continued):
+Algorithmic properties of $K$ (continued):
 
 - 不懂
 
@@ -881,40 +881,40 @@ Axioms of complexity:
 
 #### Definition
 
-If $ P $ is a program which outputs a string $ x $, then $ P $ is a _**description**_ of $ x $. The length of the description is just the length of $ P $ as a character string, multiplied by the number of bits in a character (e.g. 7 for ASCII).
+If $P$ is a program which outputs a string $x$, then $P$ is a _**description**_ of $x$. The length of the description is just the length of $P$ as a character string, multiplied by the number of bits in a character (e.g. 7 for ASCII).
 
-We could, alternatively, choose an encoding for Turing machines $\langle M \rangle$. If $ M $ is a Turing Machine which, on input $ w $, outputs string $ x $, then the concatenated string $\langle M \rangle w$ is a description of $ x $.
+We could, alternatively, choose an encoding for Turing machines $\langle M \rangle$. If $M$ is a Turing Machine which, on input $w$, outputs string $x$, then the concatenated string $\langle M \rangle w$ is a description of $x$.
 
-Any string $ s $ has at least one description, namely the program:
+Any string $s$ has at least one description, namely the program:
 
 ```
 function GenerateFixedString()
     return s
 ```
 
-If a description of $ s $, $ d(s) $, is of minimal length (i.e. it uses the fewest bits), it is called a minimal description of $ s $. Thus, the length of $ d(s) $ (i.e. the number of bits in the description) is the Kolmogorov complexity of $ s $, written $ K(s) $. Symbolically, $ K(s) = \vert d(s) \vert $.
+If a description of $s$, $d(s)$, is of minimal length (i.e. it uses the fewest bits), it is called a minimal description of $s$. Thus, the length of $d(s)$ (i.e. the number of bits in the description) is the Kolmogorov complexity of $s$, written $K(s)$. Symbolically, $K(s) = \vert d(s) \vert$.
 
 #### Invariance theorem
 
 ##### Informal treatment
 
-_**Theorem.**_ Given any description language $ L $, the optimal description language is at least as efficient as $ L $, with some constant overhead.
+_**Theorem.**_ Given any description language $L$, the optimal description language is at least as efficient as $L$, with some constant overhead.
 
-_**Proof:**_ Any description $ D $ in $ L $ can be converted into a description in the optimal language by first describing $ L $ as a computer program $ P $ (part 1), and then using the original description $ D $ as input to that program (part 2). The total length of this new description $ D' $ is (approximately): $ \vert D' \vert = \vert P \vert + \vert D \vert $.
+_**Proof:**_ Any description $ D $ in $L$ can be converted into a description in the optimal language by first describing $L$ as a computer program $P$ (part 1), and then using the original description $ D $ as input to that program (part 2). The total length of this new description $ D' $ is (approximately): $\vert D' \vert = \vert P \vert + \vert D \vert$.
 
-The length of $ P $ is a constant that doesn't depend on $ D $. So, there is at most a constant overhead, regardless of the object described. Therefore, the optimal language is universal up to this additive constant. $\tag*{$\square$}$
+The length of $P$ is a constant that doesn't depend on $ D $. So, there is at most a constant overhead, regardless of the object described. Therefore, the optimal language is universal up to this additive constant. $\blacksquare$
 
 ##### A more formal treatment
 
-_**Theorem.**_ If $ K_1 $ and $ K_2 $ are the complexity functions relative to Turing complete description languages $ L_1 $ and $ L_2 $, then there is a constant $ c $ – which depends only on the languages $ L_1 $ and $ L_2 $ chosen – such that
+_**Theorem.**_ If $K_1$ and $K_2$ are the complexity functions relative to Turing complete description languages $L_1$ and $L_2$, then there is a constant $c$ – which depends only on the languages $L_1$ and $L_2$ chosen – such that
 
 $$
-	\forall s, -c \leq K_1(s) - K_2(s) \leq c.
+\forall s, -c \leq K_1(s) - K_2(s) \leq c.
 $$
 
-Proof: By symmetry, it suffices to prove that there is some constant $ c $ such that for all strings $ s $, $ K_1(s) \leq K_2(s) + c $.
+Proof: By symmetry, it suffices to prove that there is some constant $c$ such that for all strings $s$, $K_1(s) \leq K_2(s) + c$.
 
-Now, suppose there is a program in the language $ L_1 $ which acts as an interpreter for $ L_2 $:
+Now, suppose there is a program in the language $L_1$ which acts as an interpreter for $L_2$:
 
 ```
 function InterpretL2(string p)
@@ -923,58 +923,58 @@ function InterpretL2(string p)
 
 Running `InterpretL2` on input `p` returns the result of running `p`.
 
-Thus, if $ P $ is a program in $ L_2 $ which is a minimal description of $ s $, then `InterpretL2(P)` returns the string $ s $. The length of this description of $ s $ is the sum of
+Thus, if $P$ is a program in $L_2$ which is a minimal description of $s$, then `InterpretL2(P)` returns the string $s$. The length of this description of $s$ is the sum of
 
-- The length of the program `InterpretL2`, which we can take to be the constant $ c $.
-- The length of $ P $ which by definition $ =K_2(s) $.
+- The length of the program `InterpretL2`, which we can take to be the constant $c$.
+- The length of $P$ which by definition $=K_2(s)$.
 
-This proves the desired upper bound. $\tag*{$\square$}$
+This proves the desired upper bound. $\blacksquare$
 
 #### Basic results
 
-In the following discussion, let $ K(s) $ be the complexity of the string $ s $.
+In the following discussion, let $K(s)$ be the complexity of the string $s$.
 
-_**Theorem.**_ There is a constant $ c $ such that $ \forall s, K(s) \leq \vert s \vert + c $.
+_**Theorem.**_ There is a constant $c$ such that $\forall s, K(s) \leq \vert s \vert + c$.
 
-_**Theorem.**_ There exist strings of arbitrarily large Kolmogorov complexity. Formally: for each $ n \in \mathbb{N} $, there is a string $ s $ with $ K(s) \geq n $.
+_**Theorem.**_ There exist strings of arbitrarily large Kolmogorov complexity. Formally: for each $n \in \mathbb{N}$, there is a string $s$ with $K(s) \geq n$.
 
-_**Proof:**_ Otherwise all of the infinitely many possible finite strings could be generated by the finitely many programs with a complexity below $ n $ bits. $\tag*{$\square$}$
+_**Proof:**_ Otherwise all of the infinitely many possible finite strings could be generated by the finitely many programs with a complexity below $ n $ bits. $\blacksquare$
 
-_**Theorem.**_ $ K $ is not a computable function. In other words, there is no program which takes a string $ s $ as input and produces the integer $ K(s) $ as output.
+_**Theorem.**_ $K$ is not a computable function. In other words, there is no program which takes a string $s$ as input and produces the integer $K(s)$ as output.
 
 _**Chain rule for Kolmogorov complexity:**_ 
 
 $$
-	K(X,Y) = K(X) + K(Y \vert X) + O(\log(K(X,Y)))
+K(X,Y) = K(X) + K(Y \vert X) + O(\log(K(X,Y)))
 $$
 
-It states that the shortest program that reproduces $ X $ and $ Y $ is no more than a logarithmic term larger than a program to reproduce $ X $ and a program to reproduce $ Y $ given $ X. $ Using this statement, one can define an analogue of _**mutual information**_ for Kolmogorov complexity.
+It states that the shortest program that reproduces $x$ and $Y$ is no more than a logarithmic term larger than a program to reproduce $x$ and a program to reproduce $Y$ given $X$. Using this statement, one can define an analogue of _**mutual information**_ for Kolmogorov complexity.
 
 #### Compression
 
-A string $ s $ is _**compressible**_ by a number $ c $ if it has a description whose length does not exceed $ \vert s \vert −c $ bits. This is equivalent to saying that $ K(s) \leq \vert s \vert −c $. Otherwise, $ s $ is _**incompressible**_ by $ c $. 
+A string $s$ is _**compressible**_ by a number $c$ if it has a description whose length does not exceed $\vert s \vert −c$ bits. This is equivalent to saying that $K(s) \leq \vert s \vert −c$. Otherwise, $s$ is _**incompressible**_ by $c$. 
 
-A string incompressible by 1 is said to be _**simply incompressible**_--–by the pigeonhole principle, which applies _**because every compressed string maps to only one uncompressed string**_, incompressible strings must exist, since there are $ 2^n $ bit strings of length n, but only $ 2^n - 1 $ shorter strings.
+A string incompressible by 1 is said to be _**simply incompressible**_--–by the pigeonhole principle, which applies _**because every compressed string maps to only one uncompressed string**_, incompressible strings must exist, since there are $2^n$ bit strings of length n, but only $2^n - 1$ shorter strings.
 
-There are $ 2^n $ bitstrings of length $ n $. The number of descriptions of length not exceeding $ n-c $ is given by the geometric series:
+There are $2^n$ bitstrings of length $n$. The number of descriptions of length not exceeding $n-c$ is given by the geometric series:
 
 $$
 1 + 2 + 2^2 + ... + 2^{n-c} = 2^{n-c+1} - 1
 $$
 
-There remain at least $ 2^n - 2^{n-c+1} + 1 $ bitstrings of length $ n $ that are incompressible by $ c $. To determine the probability, divide by $ 2^n $.
+There remain at least $2^n - 2^{n-c+1} + 1$ bitstrings of length $n$ that are incompressible by $c$. To determine the probability, divide by $2^n$.
 
 #### Chaitin's incompleteness theorem
 
 We know that, in the set of all possible strings, most strings are complex in the sense that they cannot be described in any significantly "compressed" way. However, it turns out that the fact that a specific string is complex cannot be formally proven, if the complexity of the string is above a certain threshold.
 
-_**Theorem.**_ There exists a constant $ L $ (which only depends on the particular axiomatic system and the choice of description language) such that there does not exist a string $ s $ for which the statement
+_**Theorem.**_ There exists a constant $L$ (which only depends on the particular axiomatic system and the choice of description language) such that there does not exist a string $s$ for which the statement
 
 $$
-	K(s) \geq L \text{(as formalized in } S \text{)}
+K(s) \geq L \text{(as formalized in } S \text{)}
 $$
 
-can be proven within the axiomatic system $ S $.
+can be proven within the axiomatic system $s$.
 
 Proof by contradiction using Berry's paradox. 略
 
@@ -983,18 +983,18 @@ Proof by contradiction using Berry's paradox. 略
 Resource bounds:
 
 - $M$ has (worst case) running time $ T $ if $\forall$ string $x$, $M$ halts after at most $T(\vert x \vert)$ steps.
-- $M$ has (worst case) space usage $ S $ if $\forall$ string $x$, $M$ writes on at most $S(\vert x \vert)$ tape cells.
+- $M$ has (worst case) space usage $s$ if $\forall$ string $x$, $M$ writes on at most $S(\vert x \vert)$ tape cells.
 
 Basic Complexity Class:
 
-- $\text{DTIME}(f(n)) = \lbrace L \vert L \text{ decided by a (deterministic) TM with running time } O(f(n)) \rbrace $
+- $\text{DTIME}(f(n)) = \lbrace L \vert L \text{ decided by a (deterministic) TM with running time } O(f(n)) \rbrace$
 	- $\text{D}$ for "deterministic"
-	- Formally, $ L \in TIME(f(n)) $ if there is a TM $M$ and a constant $c$ such that 
+	- Formally, $L \in TIME(f(n))$ if there is a TM $M$ and a constant $c$ such that 
 		1. $M$ decides $L$, and 
 		1. $M$ runs in time $c \cdot f$; 
-			- i.e., for all $x$ (of length at least 1), $M(x)$ halts in at most $c \cdot f(\lvert x \rvert) $ steps.
+			- i.e., for all $x$ (of length at least 1), $M(x)$ halts in at most $c \cdot f(\lvert x \rvert)$ steps.
 	- E.g. $\text{DTIME}(n^2) = \text{set of all problems that can be solved in quadratic time}$
-- $\text{DSPACE}(f(n)) = \lbrace L \vert L \text{ decided by a TM that uses spaces } O(f(n)) \rbrace $
+- $\text{DSPACE}(f(n)) = \lbrace L \vert L \text{ decided by a TM that uses spaces } O(f(n)) \rbrace$
 - Language / decision problem = set of strings (yes-instances)
 - Complexity class = set of languages
 
@@ -1014,7 +1014,7 @@ Standard Complexity Classes:
 Translating from “Complexity Theory Speak”:
 
 - Is $X \in \text{PSPACE}$?
-	- Can problem $ X $ be solved using polynomial space?
+	- Can problem $x$ be solved using polynomial space?
 - Is $\text{PSPACE} \subseteq P$?
 	- Can every problem solvable in polynomial space also be solved in polynomial time?
 - This is true: $P \subseteq \text{PSPACE}$
@@ -1028,26 +1028,26 @@ Relationships between Complexity Classes:
 Complementation @ [Complement Classes and the Polynomial Time Hierarchy](http://cs.brown.edu/courses/cs159/lect.06.Hierarchy.pdf):
 
 - 这里先声明下，全集可以表示为 $\Omega$、$\sum^{\star}$ 或者 $\lbrace 0,1 \rbrace^{\star}$
-- The complement of a decision problem $ \mathcal{L} $, denoted $co\mathcal{L}$, is the set of “No”-instances of $ \mathcal{L} $.
+- The complement of a decision problem $\mathcal{L}$, denoted $co\mathcal{L}$, is the set of “No”-instances of $\mathcal{L}$.
 	- 一般来说，我们可以认为 $co\mathcal{L} = \overline{\mathcal{L}} = \Omega \setminus \mathcal{L}$
-	- 严格来说，$\mathcal{L} \cup co\mathcal{L} = WF_{\mathcal{L}} \subseteq \Omega $ where $WF_{\mathcal{L}}$ is the set of _**well-formed strings**_ describing “Yes” and “No” instances. That is, $ co\mathcal{L} = WF_{\mathcal{L}} − \mathcal{L} $.
+	- 严格来说，$\mathcal{L} \cup co\mathcal{L} = WF_{\mathcal{L}} \subseteq \Omega$ where $WF_{\mathcal{L}}$ is the set of _**well-formed strings**_ describing “Yes” and “No” instances. That is, $co\mathcal{L} = WF_{\mathcal{L}} − \mathcal{L}$.
 		- 只是通常会限定 $WF_{\mathcal{L}} = \Omega$
 	- 举个例子:Every positive integer $x>1$ is either composite (合数) or prime (质数)
-		- 如果限定 $ \Omega = WF_{\mathcal{L}} = \lbrace x \vert x \text{ is a positive integer and } x > 1 \rbrace $
-			- $ \mathcal{L} = \lbrace x \vert x \text{ is prime } \rbrace$
-			- $ co\mathcal{L} = \overline{\mathcal{L}} = \lbrace x \vert x \text{ is not prime }\rbrace = \lbrace x \vert x \text{ is composite }\rbrace$
-		- 如果仅限定 $ \Omega = WF_{\mathcal{L}} = \lbrace x \vert x \text{ is a positive integer }\rbrace $
-			- $ co\mathcal{L} = \overline{\mathcal{L}} = \lbrace x \vert x \text{ is not prime }\rbrace \neq \lbrace x \vert x \text{ is composite }\rbrace$
+		- 如果限定 $\Omega = WF_{\mathcal{L}} = \lbrace x \vert x \text{ is a positive integer and } x > 1 \rbrace$
+			- $\mathcal{L} = \lbrace x \vert x \text{ is prime } \rbrace$
+			- $co\mathcal{L} = \overline{\mathcal{L}} = \lbrace x \vert x \text{ is not prime }\rbrace = \lbrace x \vert x \text{ is composite }\rbrace$
+		- 如果仅限定 $\Omega = WF_{\mathcal{L}} = \lbrace x \vert x \text{ is a positive integer }\rbrace$
+			- $co\mathcal{L} = \overline{\mathcal{L}} = \lbrace x \vert x \text{ is not prime }\rbrace \neq \lbrace x \vert x \text{ is composite }\rbrace$
 			- 因为 1 既不是 prime 也不是 composite
 - The complement of a complexity class is the set of complements of languages in the class.
 	- $\mathcal{C} = \lbrace \mathcal{L} \vert \mathcal{L} \text{ has complexity } \mathcal{C} \rbrace$
-	- $co\mathcal{C} = \lbrace co\mathcal{L} \vert \mathcal{L} \in \mathcal{C} \rbrace $
+	- $co\mathcal{C} = \lbrace co\mathcal{L} \vert \mathcal{L} \in \mathcal{C} \rbrace$
 	- 注意 $co\mathcal{C}$ 和 $\overline{\mathcal{C}}$ 没有半毛钱的关系
 		- $\overline{\mathcal{C}} = \lbrace \mathcal{L} \vert \mathcal{L} \text{ does NOT have complexity } \mathcal{C} \rbrace$
 		- $co\mathcal{C} = \lbrace \mathcal{L} \vert \mathcal{L} \text{'s complement has complexity } \mathcal{C} \rbrace$
 			- $\mathcal{L} \text{'s complement has complexity } \mathcal{C}$ 并不能说明 $\mathcal{L} \text{ has } \mathcal{C} \text{ or not}$
-- _**Theorem 1.**_ $\mathcal{C}_1 \subseteq \mathcal{C}_2 \hspace{1em} \Rightarrow  \hspace{1em} co\mathcal{C}_1 \subseteq co\mathcal{C}_2 $
-- _**Theorem 2.**_ $\mathcal{C}_1 = \mathcal{C}_2 \hspace{1em} \Rightarrow  \hspace{1em} co\mathcal{C}_1 = co\mathcal{C}_2 $
+- _**Theorem 1.**_ $\mathcal{C}_1 \subseteq \mathcal{C}_2 \hspace{1em} \Rightarrow  \hspace{1em} co\mathcal{C}_1 \subseteq co\mathcal{C}_2$
+- _**Theorem 2.**_ $\mathcal{C}_1 = \mathcal{C}_2 \hspace{1em} \Rightarrow  \hspace{1em} co\mathcal{C}_1 = co\mathcal{C}_2$
 - Closure under complementation means: $\mathcal{C} = co\mathcal{C}$
 	- We say such class $\mathcal{C}$ are "closed under complementation".
 - _**Theorem 3.**_ If $\mathcal{C}$ is a deterministic time or space complexity class, then $\mathcal{C} = co\mathcal{C}$.
@@ -1058,7 +1058,7 @@ Complementation @ [Complement Classes and the Polynomial Time Hierarchy](http://
 			- vise versa
 		- $co\text{PSPACE} = \text{PSPACE}$
 	- Why? For any class $\mathcal{C}$ defined by a deterministic TM $M$, just switch accpet/reject behavior and you get a TM $coM$ that decide $co\mathcal{C}$
-		- i.e. $ M(\mathcal{L}) = \text{yes} \hspace{1em} \Rightarrow \hspace{1em} coM(co\mathcal{L}) = \text{yes}$, in the same bound of time or space.
+		- i.e. $M(\mathcal{L}) = \text{yes} \hspace{1em} \Rightarrow \hspace{1em} coM(co\mathcal{L}) = \text{yes}$, in the same bound of time or space.
 
 $NP$:
 
@@ -1066,9 +1066,9 @@ $NP$:
 	- "nondeterministic" = "nondeterministically solvable in time" = "solvable in time by a nondeterministical TM"
 - _**Definition 1.**_ A problem is assigned to the $NP$ class if it is solvable in polynomial time by a nondeterministic TM.
 	- $NP = \lbrace \text{problems that can be solved by a nondeterministic TM in poly time} \rbrace$
-- _**Definition 2.**_ $NP = \text{set of decision problems } L $, where
+- _**Definition 2.**_ $NP = \text{set of decision problems } L$, where
 	- $L = \lbrace x \vert \exists w : M(x,w) = 1 \rbrace$
-	- $M$ halts in polynomial time, as a function of $ \lvert x \rvert $ alone.
+	- $M$ halts in polynomial time, as a function of $\lvert x \rvert$ alone.
 	- $x$: instance
 	- $w$: proof / witness / solution
 	- 简单理解就是，我们没有办法直接确定是否有 $x \in L$ (nondeterministic)，只能通过 $(x,w)$ 是否满足 $L$ 的条件来判断这个 $x$ 是否有 $\in L$
@@ -1076,24 +1076,24 @@ $NP$:
 	
 $co\text{NP}$
 	
-- _**Definition.**_ $co\text{NP} = \text{set of decision problems } L $, where
+- _**Definition.**_ $co\text{NP} = \text{set of decision problems } L$, where
 	- $L = \lbrace x \vert \not\exists w : M(x,w) = 1 \rbrace$
 	- 等价于 $L = \lbrace x \vert \forall w : M(x,w) = 0 \rbrace$
 	- 等价于 $L = \lbrace x \vert \forall w : M(x,w) = 1 \rbrace$
-	- $M$ halts in polynomial time, as a function of $ \lvert x \rvert $ alone.
+	- $M$ halts in polynomial time, as a function of $\lvert x \rvert$ alone.
 - 举例待补充	
 
 $P$ vs $NP$ vs $co\text{NP}$
 
-_**Theorem 1.**_ $ P \subseteq NP $
+_**Theorem 1.**_ $P \subseteq NP$
 
 _**Proof:**_ Take any $L \in P$, then $\exists$ a PTM $M$ such that $L = \lbrace x \vert M(x) = 1 \rbrace$.
 
-Define $M'(x,w) = \lbrace \text{ignore } w; \text{return } M(x) \rbrace$. Therefore $L=\lbrace x \vert \exists w : M,(x,w) = 1 \rbrace \in NP$ $\tag*{$\square$}$
+Define $M'(x,w) = \lbrace \text{ignore } w; \text{return } M(x) \rbrace$. Therefore $L=\lbrace x \vert \exists w : M,(x,w) = 1 \rbrace \in NP$ $\blacksquare$
 
-_**Theorem 2.**_ $ P \subseteq co\text{NP} $
+_**Theorem 2.**_ $P \subseteq co\text{NP}$
 
-_**Proof:**_ Ditto. $\tag*{$\square$}$
+_**Proof:**_ Ditto. $\blacksquare$
 
 Closure Properties of $NP$, $co\text{NP}$
 
@@ -1132,7 +1132,7 @@ which means:
 
 _**Theorem.**_ If $A \leq_P B$ and $A$ is $\text{NP}$-hard, then $B$ is $\text{NP}$-hard.
 
-_**Proof:**_ $\forall L \in \text{NP} : L \leq_P A \leq_P B \Rightarrow L \leq_P B$ $\tag*{$\square$}$
+_**Proof:**_ $\forall L \in \text{NP} : L \leq_P A \leq_P B \Rightarrow L \leq_P B$ $\blacksquare$
 
 - If $A \leq_P B$ and $B \in \text{P}$ $\Rightarrow A \in \text{P}$
 - If $A \leq_P B$ and $B \in \text{NP}$ $\Rightarrow A \in \text{NP}$
@@ -1142,7 +1142,7 @@ _**Proof:**_ $\forall L \in \text{NP} : L \leq_P A \leq_P B \Rightarrow L \leq_P
 
 _**Claim.**_ $X \in \text{NP}$
 
-_**Proof:**_ Can be checked in poly time as a function of length of $M,x,T$ (by universal TM). $\tag*{$\square$}$
+_**Proof:**_ Can be checked in poly time as a function of length of $M,x,T$ (by universal TM). $\blacksquare$
 
 _**Claim.**_ $\forall A \in \text{NP}, A \leq_P X$
 
@@ -1150,11 +1150,11 @@ _**Proof:**_ $A \in \text{NP}$, so $A = \lbrace x \vert \exists w : M_A(x,w) = 1
 
 Define $1^{p(\vert x \vert)}$ a string of $p(\vert x \vert)$ ones. Consider $f(x)=\langle M_A,x,1^{p(\vert x \vert)}\rangle$.
 
-$\forall x \in A : f(x) \in X$. Therefore $A \leq_P X$. $\tag*{$\square$}$
+$\forall x \in A : f(x) \in X$. Therefore $A \leq_P X$. $\blacksquare$
 
 ### Cook-Levin Theorem & Natural NP-complete problems (Lecture 9 & 10)
 
-_**Cook-Levin Theorem.**_ $ SAT = \lbrace \varphi \vert \varphi \text{ is a satisfiable boolean formula} \rbrace $ is NP-complete
+_**Cook-Levin Theorem.**_ $SAT = \lbrace \varphi \vert \varphi \text{ is a satisfiable boolean formula} \rbrace$ is NP-complete
 
 How to $SAT \leq_P 3SAT$:
 
@@ -1163,7 +1163,7 @@ How to $SAT \leq_P 3SAT$:
 	- If $s$ is TRUE, then $\overline{x_4} \vee x_2 \vee x_5$ must be TRUE
 	- If $s$ is FALSE, then $x_1 \vee x_3$ must be TRUE
 	- which means, one of $x_1 \vee x_3$ and $\overline{x_4} \vee x_2 \vee x_5$ must be true
-- Further break into: $(x_1 \vee x_3 \vee s) \wedge (\overline{s} \vee \overline{x_4} \vee t) \wedge (\overline{t} \vee x_2 \vee x_5) $
+- Further break into: $(x_1 \vee x_3 \vee s) \wedge (\overline{s} \vee \overline{x_4} \vee t) \wedge (\overline{t} \vee x_2 \vee x_5)$
 
 ### NP in terms of nondeterministic computation (Lecture 11)
 
@@ -1187,7 +1187,7 @@ Nondeterministic TM acceptance:
 - Define _**accepting thread**_: a computation thread eventually reaches $(q_{\text{accept}}, \cdot, \cdot)$
 - NTM accepts $x$ $\iff \exists$ an accepting thread on $x$
 - NTM rejects $x$ $\iff \not \exists$ an accepting thread on $x$ $\iff$ all threads rejects $x$
-- Running time of NTM on $x$: max $\text{#}$ of steps among all threads
+- Running time of NTM on $x$: max $\text{\#}$ of steps among all threads
 - Space usage of NTM on $x$: max tape usage among all threads
 
 Pitfalls of NTM:
@@ -1198,8 +1198,8 @@ Pitfalls of NTM:
 
 $NTIME$, $NSPACE$ & $NP$
 
-- $\text{NTIME}(f(n)) = \lbrace L \vert L \text{ accepted by a NTM with running time } O(f(n)) \rbrace $
-- $\text{NSPACE}(f(n)) = \lbrace L \vert L \text{ accepted by a NTM that uses spaces } O(f(n)) \rbrace $
+- $\text{NTIME}(f(n)) = \lbrace L \vert L \text{ accepted by a NTM with running time } O(f(n)) \rbrace$
+- $\text{NSPACE}(f(n)) = \lbrace L \vert L \text{ accepted by a NTM that uses spaces } O(f(n)) \rbrace$
 - $\text{NP} = \bigcup_{k=1,2,\dots} \text{NTIME}(n^k)$ 
 
 _**Claim:**_ for $\text{NP}$, the witness-checking definition and the NTM definition are equivalent.
@@ -1269,7 +1269,7 @@ Ladner's theorem:
 	
 _**Claim:**_ all finite languages are in $P$.
 
-_**Proof:**_ A finite language is a finite list of all yes-instances. Build an algorithm to compare input to this list and running time is bounded. $\tag*{$\square$}$
+_**Proof:**_ A finite language is a finite list of all yes-instances. Build an algorithm to compare input to this list and running time is bounded. $\blacksquare$
 
 _**Claim:**_ if $L = 3SAT \setminus A$ where $A$ is finite, then $L$ is $NP$-complete.
 
@@ -1280,7 +1280,7 @@ $3SAT \leq_P L$:
 - If $x \in A$ (比方说 $A$ 只有 $x_1,x_2,x_3$ 三个 literal 并只有两个 clause), convert $x$ to an instance in $L$
 - If $x \notin A$, $x \in L$ by definition.  
 
-$\tag*{$\square$}$
+$\blacksquare$
 
 Ladner's theorem 证明略
 
@@ -1305,7 +1305,7 @@ Polynomial Hierarchy:
 	- $\Pi_0 = co\text{P} = \text{P}$
 	- $\Pi_1 = co\text{NP}$
 	- $\Pi_k = co\Sigma_k$
-- $\text{#}$ of quantifiers doesn't matter. E.g. $L = \lbrace x \vert \forall w_1 \forall w_2 \exists w_3 \exists w_4 \exists w_5: M(x, w_1, w_2, w_3, w_4, w_5) =1 \rbrace$
+- $\text{\#}$ of quantifiers doesn't matter. E.g. $L = \lbrace x \vert \forall w_1 \forall w_2 \exists w_3 \exists w_4 \exists w_5: M(x, w_1, w_2, w_3, w_4, w_5) =1 \rbrace$
 	- Obviously, $L \in \Pi_5$
 	- But also $L = \lbrace x \vert \forall (w_1,w_2) \exists (w_3, w_4, w_5): M(x, \vec{w})=1 \rbrace$, so $L \in \Pi_2$
 	
@@ -1322,7 +1322,7 @@ _**Proof**_ of $\Sigma_k \subseteq \Sigma_{k+1} \cap \Pi_{k+1}$:
 
 Suppose $L = \lbrace x \vert \exists w_1 \forall w_2 \cdots \exists w_k: M(x, \vec{w})=1 \rbrace \in \Sigma_k$.
 
-Then $L = \lbrace x \vert \exists w_1 \forall w_2 \cdots \exists w_k \forall w_{junk}: M(x, \vec{w})=1 \rbrace \in \Sigma_{k+1}$ and $L = \lbrace x \vert \forall w_{junk} \exists w_1 \forall w_2 \cdots \exists w_k: M(x, \vec{w})=1 \rbrace \in \Pi_{k+1}$ $\tag*{$\square$}$
+Then $L = \lbrace x \vert \exists w_1 \forall w_2 \cdots \exists w_k \forall w_{junk}: M(x, \vec{w})=1 \rbrace \in \Sigma_{k+1}$ and $L = \lbrace x \vert \forall w_{junk} \exists w_1 \forall w_2 \cdots \exists w_k: M(x, \vec{w})=1 \rbrace \in \Pi_{k+1}$ $\blacksquare$
 
 Polynomial Hierarchy:
 
@@ -1351,7 +1351,7 @@ L &= \lbrace x \vert \exists w_1 \exists w_2' \forall w_3' \cdots \square w_{k+1
 \end{align}
 $$
 
-(2) If $\Sigma_k = \Pi_k = \Sigma_{k+1}$, then $\Sigma_{k+1} = \Sigma_k = co\Pi_k = co\Sigma_{k+1} = \Pi_{k+1}$ $\tag*{$\square$}$
+(2) If $\Sigma_k = \Pi_k = \Sigma_{k+1}$, then $\Sigma_{k+1} = \Sigma_k = co\Pi_k = co\Sigma_{k+1} = \Pi_{k+1}$ $\blacksquare$
 
 ### Oracle computations and a characterization of PH (Lecture 16 & 17)
 
@@ -1370,7 +1370,7 @@ Oracle complexity classes:
 	- $\text{NP}^A = \lbrace \text{decision problems solvable by a non-det poly-time } A\text{-OTM} \rbrace$
 - Let $\text{C}$ be a complexity class, then
 	- $\text{P}^\text{C} = \bigcup_{L \in \text{C}} \text{P}^L$
-		- $\text{P}^\text{C} = \lbrace \text{problems solvable by a poly-time OTM with some problem from C as its oracle} \rbrace $
+		- $\text{P}^\text{C} = \lbrace \text{problems solvable by a poly-time OTM with some problem from C as its oracle} \rbrace$
 	- $\text{NP}^C = \bigcup_{L \in \text{C}} \text{NP}^L$
 		- Differenet threads of an $\text{NP}$ computation can ask different oracle queries for $L \in \text{C}$
 		
@@ -1384,7 +1384,7 @@ _**Claim:**_ If $L$ is a $\text{C}$-complete problem, then $\text{P}^L = \text{P
 
 _**Proof:**_ By Karp reduction. 
 
-注意，我们的确是有 $\text{P}^\text{C} = \bigcup_{L \in \text{C}} \text{P}^L$，但是我们不要求一定要 $\exists L$ 是 $\text{C}$-complete 的。 $\tag*{$\square$}$
+注意，我们的确是有 $\text{P}^\text{C} = \bigcup_{L \in \text{C}} \text{P}^L$，但是我们不要求一定要 $\exists L$ 是 $\text{C}$-complete 的。 $\blacksquare$
 
 
 - $\text{P}^{\text{P}} = \text{P}$
@@ -1452,7 +1452,7 @@ CASE 2: on accepting thread $y$, oracle answer is NO.
 
 $x \in L(M^{\ast}) \Rightarrow$ $\exists y_1: (x, y_1) \in coL'$
 
-Because $coL' \in \Sigma_{k-1}$, $\lbrace x \vert \exists y_1: (x, y_1) \in coL' \rbrace \in \Sigma_{k-1}$ (合并 $\exists y_1$ 和 $\exists w_2$). Based on the fact that $\Sigma_{k-1} \subseteq \Sigma_{k}$, we can still conclude that $\lbrace x \vert \exists y_1: (x, y_1) \in coL' \rbrace \in \Sigma_{k}$. $\tag*{$\square$}$
+Because $coL' \in \Sigma_{k-1}$, $\lbrace x \vert \exists y_1: (x, y_1) \in coL' \rbrace \in \Sigma_{k-1}$ (合并 $\exists y_1$ 和 $\exists w_2$). Based on the fact that $\Sigma_{k-1} \subseteq \Sigma_{k}$, we can still conclude that $\lbrace x \vert \exists y_1: (x, y_1) \in coL' \rbrace \in \Sigma_{k}$. $\blacksquare$
 
 ### Space complexity (in terms of configuration graphs) (Lecture 18)
 
@@ -1472,7 +1472,7 @@ Configuration graphs:
 		- Here, $\lvert w \rvert \leq$ space usage of the TM
 	- $i$: input tape head
 	- $j$: work tape head
-- Possible $\text{#}$ of configurations
+- Possible $\text{\#}$ of configurations
 	- Suppose $M$ uses $f(n)$ space on input of length $n$
 	- $C_M(n) \leq \lvert Q \rvert \cdot \lvert \Gamma \rvert \cdot n \cdot f(n) = 2^{O(f(n))}$, as long as $f(n) \geq \log n$
 	- Note that since the input is fixed and the input tape is read-only, we do not need to consider all possible length-$n$ strings that can be written on the input tape.
@@ -1501,7 +1501,7 @@ M'(x):
 - $M'$ runs in $C_M(n)$ time
 - If $M$ hasn't halted in $C_M(n)$ steps, it must be in an infinite loop
 
-$\tag*{$\square$}$
+$\blacksquare$
 
 ### $\text{PSPACE}$-completeness (Lecture 18 & 19)
 
@@ -1587,7 +1587,7 @@ CONN(G, s, t):
 ```
 
 - Scan adjacency matrix cells one by one to detect `_curr → _next` edge
-- 2 variables: `_curr` and `_next` $\Rightarrow 2 \log n $ space
+- 2 variables: `_curr` and `_next` $\Rightarrow 2 \log n$ space
 
 (2) $CONN$ is $\text{NL}$-hard
 
@@ -1608,7 +1608,7 @@ for each configuration i:
 		(if i or j is not a legal state, simply output 0)
 ```
 
-The algorithm requires $O(\log n)$ space for `i` and `j`, and to check for a legal transition. $\tag*{$\square$}$
+The algorithm requires $O(\log n)$ space for `i` and `j`, and to check for a legal transition. $\blacksquare$
 
 _**Corollary:**_ $\text{NL} \subseteq \text{P}$
 
@@ -1621,7 +1621,7 @@ A(x):
 	run BFS on f(x) to see whether exists s → t path
 ```
 
-So $A \in \text{P}$. $\tag*{$\square$}$
+So $A \in \text{P}$. $\blacksquare$
 
 Summary:
 
@@ -1650,13 +1650,13 @@ Path(a,b,i):
 	- stack frame of each iteration: space to write down `a,b,i,v` $\Rightarrow O(\log n)$
 	- Totally: $\log n \times O(\log n) = O(\log^2 n)$
 	
-$\tag*{$\square$}$
+$\blacksquare$
 	
 Savitch's theorem: $\text{NSPACE}(s) \subseteq \text{DSPACE}(s^2)$ (for $s > log(n)$)
 
 - Implies that "Nondeterminisim saves at most quadratic amount of space"
 
-_**Proof:**_ 待续 $\tag*{$\square$}$
+_**Proof:**_ 待续 $\blacksquare$
 
 _**Corollary 7:**_ If $s(n) \geq \log n$ is space constructible, then $\text{NSPACE}(s(n)) = co\text{NSPACE}(s(n))$.
 
@@ -1664,28 +1664,28 @@ _**Corollary 8:**_ $\text{NL} = co\text{NL}$.
 
 参 Katz §7
 
-### Counting complexity / $\text{#P}$ / $\text{#P}$-completeness / Parsimonious Reductions (Lecture 21)
+### Counting complexity / $\text{\#P}$ / $\text{\#P}$-completeness / Parsimonious Reductions (Lecture 21)
 
 Complexity of Counting:
 
 - So far in the class: decision problems
 - This unit: counting problems
 
-Counting complexity classes $\text{FP}$, $\text{#P}$
+Counting complexity classes $\text{FP}$, $\text{\#P}$
 
 - For this lecture, “function” means $f : \lbrace 0,1 \rbrace^{\ast} \mapsto \mathbb{N}$ ($\mathbb{N}$ for "Natural number")
 - $\text{FP} = \lbrace \text{functions computable in deterministically poly time} \rbrace$
-- If $M$ is a Nondet TM, define: $\text{#M}(x)=\text{number of accepting threads of } M \text{ on input } x$
+- If $M$ is a Nondet TM, define: $\text{\#M}(x)=\text{number of accepting threads of } M \text{ on input } x$
 	- 注意这是一个 function，不是一个 decision problem
 	- 这个 function 即是一个 counting problem
-	- 实际应用时，$M$ 可以是一个 problem，e.g. $\text{#SAT}$: given boolean formula $\phi$, determine $\text{#}$ of satisfying assignments of $\phi$
-- $\text{#P} = \lbrace \text{#M} \vert M \text{ is a Nondet poly-time TM} \rbrace$
-	- $\text{#P} = \lbrace \text{functions that count # of accepting threads of a NTM} \rbrace$
-	- A function $f : \lbrace 0,1 \rbrace^{\ast} \mapsto \mathbb{N}$ is $\in \text{#P}$ if $\exists$ a TM $M$ running in poly time such that $f(x) = \text{#M}(x)$
+	- 实际应用时，$M$ 可以是一个 problem，e.g. $\text{\#SAT}$: given boolean formula $\phi$, determine $\text{\#}$ of satisfying assignments of $\phi$
+- $\text{\#P} = \lbrace \text{\#M} \vert M \text{ is a Nondet poly-time TM} \rbrace$
+	- $\text{\#P} = \lbrace \text{functions that count \# of accepting threads of a NTM} \rbrace$
+	- A function $f : \lbrace 0,1 \rbrace^{\ast} \mapsto \mathbb{N}$ is $\in \text{\#P}$ if $\exists$ a TM $M$ running in poly time such that $f(x) = \text{\#M}(x)$
 	
-_**Claim:**_ $\text{FP} \subset \text{#P}$
+_**Claim:**_ $\text{FP} \subset \text{\#P}$
 
-_**Proof:**_ Idea: given $f \in \text{FP}$, design a poly-time NTM $M$ that $\text{#M}(x) = f(x)$.
+_**Proof:**_ Idea: given $f \in \text{FP}$, design a poly-time NTM $M$ that $\text{\#M}(x) = f(x)$.
 
 ```python
 M(x):
@@ -1696,18 +1696,18 @@ M(x):
 
 In this way, $i = 1,2,\dots,f(x)$ will be accepted, thus $f(x)$ accepting thread.
 
-优化策略：searching space 可能会很大，比如 $f(x)=10$，你却在 $1,\dots,99999$ 的范围内 guess。此时你可以限制 guess 的 $i$ 不超过 $f(x)$ 的 bit 数。 $\tag*{$\square$}$
+优化策略：searching space 可能会很大，比如 $f(x)=10$，你却在 $1,\dots,99999$ 的范围内 guess。此时你可以限制 guess 的 $i$ 不超过 $f(x)$ 的 bit 数。 $\blacksquare$
 
-_**Claim:**_ $\text{#P}$ is closed under addition & multiplication
+_**Claim:**_ $\text{\#P}$ is closed under addition & multiplication
 
-_**Proof:**_ Equal to prove $f,g \in \text{#P} \Rightarrow f+g \in \text{#P}$ and $f \ast g \in \text{#P}$
+_**Proof:**_ Equal to prove $f,g \in \text{\#P} \Rightarrow f+g \in \text{\#P}$ and $f \ast g \in \text{\#P}$
 
 Let 
 
-- $f(x)$ $\text{#}$ accepting threads of $M_f$ on $x$
-- $g(x)$ $\text{#}$ accepting threads of $M_g$ on $x$
+- $f(x)$ $\text{\#}$ accepting threads of $M_f$ on $x$
+- $g(x)$ $\text{\#}$ accepting threads of $M_g$ on $x$
 
-(1) $f+g \in \text{#P}$
+(1) $f+g \in \text{\#P}$
 
 Define $M_{f+g}$
 
@@ -1722,7 +1722,7 @@ M_fg(x):
 
 相当于把 $M_f(x)$ 和 $M_g(x)$ 这两棵 computation tree 的 root 连接到一个新的 root 上，称为一棵新的 computation tree。
 
-(2) $f \ast g \in \text{#P}$
+(2) $f \ast g \in \text{\#P}$
 
 Define $M_{f \ast g}$
 
@@ -1733,19 +1733,19 @@ M_fg(x):
 		return M_g(x)
 ```
 
-相当于把 $M_f(x)$ 的 computation tree 的每一个 leaf 上连接一棵 $M_g(x)$ 的 computation tree。$\tag*{$\square$}$
+相当于把 $M_f(x)$ 的 computation tree 的每一个 leaf 上连接一棵 $M_g(x)$ 的 computation tree。$\blacksquare$
 
-_**Claim:**_ if $\text{FP} = \text{#P}$ then $\text{P} = \text{NP}$
+_**Claim:**_ if $\text{FP} = \text{\#P}$ then $\text{P} = \text{NP}$
 
-_**Proof:**_ Already known that $\text{#SAT} \in \text{#P}$, so if $\text{FP} = \text{#P}$, $\text{#SAT} \in \text{FP}$.
+_**Proof:**_ Already known that $\text{\#SAT} \in \text{\#P}$, so if $\text{FP} = \text{\#P}$, $\text{\#SAT} \in \text{FP}$.
 
-$\text{NP}$-complete problem $SAT$ can be solved in poly time by running $\text{#SAT}(x)$ and see if the result $>0$. $\tag*{$\square$}$
+$\text{NP}$-complete problem $SAT$ can be solved in poly time by running $\text{\#SAT}(x)$ and see if the result $>0$. $\blacksquare$
 
-$\text{#P}$-hardness
+$\text{\#P}$-hardness
 
 - Not equivalent definitions, but both commonly used
-	- Def. 1: $f$ is $\text{#P}$-hard if a poly time algorithm for $f$ implies $\text{#P} = \text{FP}$ (thus $\text{P} = \text{NP}$)
-	- Def. 2: $f$ is $\text{#P}$-hard if $\forall g \in \text{#P}, g \leq_1 f$ via a parsimonious reduction
+	- Def. 1: $f$ is $\text{\#P}$-hard if a poly time algorithm for $f$ implies $\text{\#P} = \text{FP}$ (thus $\text{P} = \text{NP}$)
+	- Def. 2: $f$ is $\text{\#P}$-hard if $\forall g \in \text{\#P}, g \leq_1 f$ via a parsimonious reduction
 	
 Parsimonious Reduction
 
@@ -1754,28 +1754,28 @@ Parsimonious Reduction
 
 _**Claim:**_ if $g \leq_1 f$ and $f \in \text{FP}$, then $g \in \text{FP}$
 
-_**Claim:**_ The counting version of any $\text{NP}$-complete problem is $\text{#P}$-complete, i.e. if $M$ is a NTM where $L(M)$ is $\text{NP}$-complete, then $\text{#M}$ is $\text{#P}$-complete.
+_**Claim:**_ The counting version of any $\text{NP}$-complete problem is $\text{\#P}$-complete, i.e. if $M$ is a NTM where $L(M)$ is $\text{NP}$-complete, then $\text{\#M}$ is $\text{\#P}$-complete.
 
-_**Proof:**_ Use $\text{#P}$-hardness definition 1.
+_**Proof:**_ Use $\text{\#P}$-hardness definition 1.
 
-If $\text{#M} \in \text{FP}$, I can solve $L(M)$, a $\text{NP}$-complete problem in poly time by computing whether $\text{#M}(x) > 0$. $\tag*{$\square$}$
+If $\text{\#M} \in \text{FP}$, I can solve $L(M)$, a $\text{NP}$-complete problem in poly time by computing whether $\text{\#M}(x) > 0$. $\blacksquare$
 
-_**Claim:**_ $\text{#SAT}$ is $\text{#P}$-complete
+_**Claim:**_ $\text{\#SAT}$ is $\text{\#P}$-complete
 
-_**Proof:**_ Use $\text{#P}$-hardness definition 2.
+_**Proof:**_ Use $\text{\#P}$-hardness definition 2.
 
 Given arbitrary $M$ and $x$, construct formula $\phi$ such that $\exists w : M(x,w) = 1 \iff \phi \text{ is satisfiable}$.
 
-Let $f(w) = \text{#} w \text{ that } M(x,w) = 1$. Obviously,
+Let $f(w) = \text{\#} w \text{ that } M(x,w) = 1$. Obviously,
 
-- $f \in \text{#P}$ and $f$ can represent $\forall \cdot \in \text{#P}$
-- $f(w) = \text{#SAT}(\phi)$. 
+- $f \in \text{\#P}$ and $f$ can represent $\forall \cdot \in \text{\#P}$
+- $f(w) = \text{\#SAT}(\phi)$. 
 
-$\Rightarrow \text{#SAT}$ is $\text{#P}$-hard. $\tag*{$\square$}$
+$\Rightarrow \text{\#SAT}$ is $\text{\#P}$-hard. $\blacksquare$
 
 待续。 Katz §23 需要大量补充进来
 
-### $\text{#P}$-completeness of the permanent (Lecture 22)
+### $\text{\#P}$-completeness of the permanent (Lecture 22)
 
 暂略
 
@@ -1796,7 +1796,7 @@ $\Rightarrow \text{#SAT}$ is $\text{#P}$-hard. $\tag*{$\square$}$
 		- 也就是说，给定 $x$，我们在穷举 $r = r^{(1)},r^{(2)} \dots$:
 			- 对某些 $r^{(i)}$，$M(x;r^{(i)}) = 1$
 			- 对某些 $r^{(j)}$，$M(x;r^{(j)}) = 0$
-			- 这样一来就存在一个 frequency 即 $\frac{\text{# } r^{(i)} : M(x;r^{(i)}) = 1}{\lvert r \vert}$。概率就这么出来了。
+			- 这样一来就存在一个 frequency 即 $\frac{\text{\# } r^{(i)} : M(x;r^{(i)}) = 1}{\lvert r \vert}$。概率就这么出来了。
 			- 如果你给了一个新的 $x'$，那么会有一组新的 $r^{(i')}$ 和 $r^{(j')}$，概率也会不同
 				- 也就是说，同一个 $r^{(i)}$ 值，不一定有 $M(x;r^{(i)}) = M(x';r^{(i)})$
 	- How long is $r$? I.e. $\lvert r \vert = ?$
@@ -1804,12 +1804,12 @@ $\Rightarrow \text{#SAT}$ is $\text{#P}$-hard. $\tag*{$\square$}$
 	- 如果给定 $x$，把 $r$ 看做一个变量，那么 $M(x)$ 即是一个 distribution induced by uniform $r$
 		- 你也可以把 $M(x)$ 看做是一个 Nondet TM，每一个 $r^{(i)}$ 对应一条 computation thread
 - Randomized TM $M(x;r)$ runs in poly time (poly in $\lvert x \vert$)
-	- 这个很好理解，因为 $\textbf{RT} = \text{# of steps} = \lvert r \rvert = p(\lvert x \rvert)$
+	- 这个很好理解，因为 $\textbf{RT} = \text{\# of steps} = \lvert r \rvert = p(\lvert x \rvert)$
 	
 PPT = probabilistic, polynomial-time
 
 - An algorithm $A$ is probabilistic polynomial time (PPT) if it uses randomness (i.e, flips coins) and its running time is bounded by some polynomial in the input size.
-- Alternatively, "expected poly time" means $\exists$ a polynomial (这里指 “多項式”) $p()$ such that $\mathrm{E}[\text{# of steps}] = p(\lvert x \rvert)$
+- Alternatively, "expected poly time" means $\exists$ a polynomial (这里指 “多項式”) $p()$ such that $\mathrm{E}[\text{\# of steps}] = p(\lvert x \rvert)$
 
 $\text{RP}$ = Randomized Poly-time
 
@@ -1854,7 +1854,7 @@ x \not \in L &\Rightarrow \Pr[M'(x) = 0] = 1^t = 1
 \end{align}
 $$
 
-注意 $x \in L$ 时的 $\Pr[M'(x) = 0]$ 不等于 $x \not \in L$ 时的 $\Pr[M'(x) = 0]$. $\tag*{$\square$}$
+注意 $x \in L$ 时的 $\Pr[M'(x) = 0]$ 不等于 $x \not \in L$ 时的 $\Pr[M'(x) = 0]$. $\blacksquare$
 
 所以 $\Pr[M(x) = 1] \geq \frac{1}{2}$ 里的 $\frac{1}{2}$ 其实可以是任意的 $\frac{1}{t}$。这个 amplification 更大的意义在于，如果我在多次试验 $M(x)^{(1)},M(x)^{(2)},\dots,M(x)^{(n)},\dots$ 中:
 
@@ -1917,7 +1917,7 @@ Chernoff Bound: How to calculate $x \in L \Rightarrow \Pr[M'(x) = 1]=?$
 ![][IID]
 
 - Suppose $X_1,X_2,\dots,X_t$ are IID and $\Pr[X_i = 1] = p$ (this is how they are "identical"), then Chernoff Bound states that $\Pr[\sum X_i > (1+\epsilon)tp] < \exp(-\frac{tp}{2}\epsilon^2)$.
-	- 简单理解就是，$\Pr[\text{total # of heads I observed} \ggg \text{total # of heads I expected}]$ is exponentially small
+	- 简单理解就是，$\Pr[\text{total \# of heads I observed} \ggg \text{total \# of heads I expected}]$ is exponentially small
 	- 这个其实就是 quantile 的理论，见下图
 	
 ![][IID_2]
@@ -1966,7 +1966,7 @@ _**Proof:**_ $\text{BPP}$ is closed under complement, i.e. $\text{BPP} = co\text
 
 下面我们全力证明 $\text{BPP} \in \Sigma_2$。
 
-暂略。 $\tag*{$\square$}$
+暂略。 $\blacksquare$
 
 ### Non-uniformity in terms of circuits & advice / $\text{P/poly}$ (Lecture 25)
 
@@ -1981,7 +1981,7 @@ Circuits
 
 - A circuit $C_n$ has $n$-bit input and is constructed with AND gates, OR gates and NOT gates.
 - A circuit $C_n$ computes a function $f_C : \lbrace 0, 1 \rbrace^n \mapsto \lbrace 0, 1 \rbrace$
-- Define $SIZE(C_n)=\text{# of gates in } C_n$ and $DEPTH(C_n)=$max path length from input to output
+- Define $SIZE(C_n)=\text{\# of gates in } C_n$ and $DEPTH(C_n)=$max path length from input to output
 - Define Circuit family $C = \lbrace C_1, C_2, \dots \rbrace$
 	- $C_i$ has $i$-bit input
 	- $C$ accepts $x$ if $C_{\lvert x \rvert}(x) = 1$
@@ -2000,7 +2000,7 @@ _**Proof:**_ Suppose $x \in L$ and $\lvert x \rvert = n$. Thus $x = x_1 x_2 \dot
 
 Use the identity $f(x_1 x_2 \dots x_n) = (x_1 \wedge f(1 x_2 \dots x_n)) \vee (\overline{x_1} \wedge f(0 x_2 \dots x_n))$ to recursively construct a circuit for $f$.
 
-The size of the circuit is: $s(n) = 3 + 2s(n−1)$ with base case $s(1) = 1$, which solves to $s(n) = 2 \times 2^n − 3 = O(2^n)$. $\tag*{$\square$}$
+The size of the circuit is: $s(n) = 3 + 2s(n−1)$ with base case $s(1) = 1$, which solves to $s(n) = 2 \times 2^n − 3 = O(2^n)$. $\blacksquare$
 
 注意解题技巧：我们这里说的 $n$，其实都是 $\lvert x \rvert$，所以你上来一个 $x \in L$ 其实都是包含了 $\lvert x \rvert = n$。
 
@@ -2049,7 +2049,7 @@ $M$ runs in poly-time. Therefore $x \in L \iff M(x, a_{\lvert x \rvert}) = 1$, i
 
 Take any $L \in \text{P/}poly$. Then $\exists$ a poly-time TM $M$ and a set of advices $A = \lbrace a_1, a_2, \dots \rbrace$ such that $\forall x \in L, M(x, a_{\lvert x \rvert}) = 1$.
 
-According to _**Theorem (Cook-Levin)**_, any poly-time TM can be written as a poly-size circuit, so define $C_{\lvert x \rvert}$ to be the circuit with the same behavior as $M(x, a_{\lvert x \rvert}) = 1$. Thus $L \in \text{PSIZE}$, i.e $\text{P/}poly \subseteq \text{PSIZE}$. $\tag*{$\square$}$
+According to _**Theorem (Cook-Levin)**_, any poly-time TM can be written as a poly-size circuit, so define $C_{\lvert x \rvert}$ to be the circuit with the same behavior as $M(x, a_{\lvert x \rvert}) = 1$. Thus $L \in \text{PSIZE}$, i.e $\text{P/}poly \subseteq \text{PSIZE}$. $\blacksquare$
 
 ### Karp-Lipton theorem / Meyer's theorem (Lecture 26)
 
@@ -2072,7 +2072,7 @@ $$
 \end{align}
 $$
 
-So $\Pi_2 \text{SAT} \in \Sigma_2$, i.e. $\text{PH} = \Sigma_2$. $\tag*{$\square$}$
+So $\Pi_2 \text{SAT} \in \Sigma_2$, i.e. $\text{PH} = \Sigma_2$. $\blacksquare$
 
 _**Meyer's theorem**_ If $\text{EXP} \subseteq \text{P/}poly$, then $\text{EXP} = \Sigma_2$
 
@@ -2100,7 +2100,8 @@ M \text{ accepts } x \iff & \exists \text{ (poly-size circuits) } ST,HD,TP: \new
 	& ST(x,t), HD(x,t) \text{ and } TP(x,t,i) \text{ are consistent with } M \newline
 	& \text{and } ST(x, t_{max}) = q_{accept}
 \end{align}
-$$ $\tag*{$\square$}$
+$$ 
+$\blacksquare$
 
 -----
 
