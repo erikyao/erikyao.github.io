@@ -170,6 +170,7 @@ Orderings:
 $$
 \begin{aligned}
 \textbf{Equivalence Relation} &\equiv R \text{ which is } \textit{ reflexive } \land \textit{ symmetric } \land \textit{ transitive } \\
+\textbf{Pre-order} &\equiv R \text{ which is } \textit{ reflexive } \land \textit{ transitive } \\
 \textbf{Partial Order} &\equiv R \text{ which is } \textit{ reflexive } \land \textit{ antisymmetric } \land \textit{ transitive } \\
 \textbf{Strict Partial Order} &\equiv R \text{ which is } \textit{ irreflexive } \land \textit{ asymmetric } \land \textit{ transitive } \\
 \textbf{Total Order} &\equiv R \text{ which is } \textit{ reflexive } \land \textit{ antisymmetric } \land \textit{ transitive } \land \textit{ connected } \\
@@ -178,6 +179,7 @@ $$
 $$
 
 - 我个人认为 equivalence 可以看作是 "没有任何 order"
+- pre-order 的意思是 "almost a partial order" 或者 "one more step and you'll get a partial order"
 - partial 的意思是 "允许存在两个元素没有 order (i.e. non-comparable)"
 - total 的意思是 "任意的两个元素间都有 order (i.e. comparable)"
 
