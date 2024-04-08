@@ -24,7 +24,7 @@ description: "Yao Yao's personal blog"
 logo: "/assets/images/pan-flute.png" # masthead logo
 # breadcrumbs: true  # Breadcrumb start link text and separator character can be configured in the UI Text data file
 
-url: "https://blog.listcomp.com"
+url: "https://listcomp.com"
 base_url: "" # see https://github.com/mmistakes/minimal-mistakes/issues/2527
 repository: "erikyao/erikyao.github.io"
 head_scripts:
