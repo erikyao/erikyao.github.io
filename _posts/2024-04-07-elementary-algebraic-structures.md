@@ -97,29 +97,29 @@ A ring is a set with two binary operations, often called $\oplus$ (addition) and
 - $(R, \otimes, \bar1)$ is a monoid
 - $\otimes$ is distributive w.r.t $\oplus$, i.e. $a \otimes (b \oplus c) = (a \otimes b) \oplus (a \otimes c)$
 
-虽然我们这里用了 $\bar0$ 和 $\bar1$ 来表示 identity elements，以区分具体的数 $0$ 和 $1$。
+我们这里用 $\bar0$ 和 $\bar1$ 来表示 identity elements，以区分具体的数 $0$ 和 $1$。
 
-存在 trivial ring (a.k.a zero ring)，即只有一个元素的 ring，比如 $\{\varepsilon\}$，它的 $\bar0 = \bar1 = \varepsilon$
+存在 trivial ring (a.k.a zero ring)，即只有一个元素的 ring，比如 $\{\varepsilon\}$，它的 $\bar0 = \bar1 = \varepsilon$.
 
-- 这其实是一个 lemma: if $\bar0 = \bar1$ $\implies$ then $R$ is a zero ring
+- 这其实是一个 lemma: if $\bar0 = \bar1$ $\implies$ then $R$ is a trival ring
 
 ## Absorbing Element / Annihilating Element / Annihilator
 
-$\forall a \in R$, 有：
+Given a ring $(R, \oplus, \otimes, \bar0, \bar1)$, $\forall a \in R$, 有：
 
 - 因为 $\bar0 \oplus \bar0 = \bar0$ (by monoid definition)
 - 所以 $\bar0 \otimes a = (\bar0 \oplus \bar0) \otimes a = (\bar0 \otimes a) \oplus (\bar0 \otimes a)$
 - 等式两边同时 $\oplus$ 加上 $(\bar0 \otimes a)$ 的 *inverse*，可得 $\bar0 = \bar0 \otimes a$
 
-我们称 $\bar0$ 为 left annihilator (w.r.t. $\otimes$)。同理  $\bar0$ 也是 right annihilator (因为 $\forall a \in R$, 有 $\bar0 = a \otimes \bar0$).
+我们称 $\bar0$ 为 left annihilator (w.r.t. $\otimes$)。同理 $\bar0$ 也是 right annihilator (因为同样可以推出 $\forall a \in R$, 有 $\bar0 = a \otimes \bar0$).
 
 ## Semiring
 
 我们可以用 $(R, \oplus, \otimes, \bar0, \bar1)$ 表示一个 semiring，它满足：
 
-- $(R, \oplus, \bar0)$is an abelian monoid
+- $(R, \oplus, \bar0)$ is an abelian monoid
 - $(R, \otimes, \bar1)$ is a monoid
-- $\otimes$ is distributive w.r.t $\oplus$, i.e. $a \otimes (b \oplus c) = (a \otimes b) \oplus (a \otimes c)$
+- $\otimes$ is distributive w.r.t. $\oplus$, i.e. $a \otimes (b \oplus c) = (a \otimes b) \oplus (a \otimes c)$
 
 可见 semiring 就是没有 $\oplus$ *inverse* 的 ring (i.e. abelian monoid 与 abelian group 的区别)。
 
@@ -132,9 +132,11 @@ A field is a commutative ring where $\bar0 \neq \bar1$ and $\forall a \in R \
 我们揉碎了说。假设用 $(R, \oplus, \otimes, \bar0, \bar1)$ 表示一个 field，它满足：
 
 - $(R, \oplus, \otimes, \bar0, \bar1)$ 自然也是一个 commutative ring
-- $(R, \oplus, \bar0)$ is an abelian group (a.k.a. additive group)
+- $(R, \oplus, \bar0)$ is an abelian group
+  - a.k.a. the additive group within the field
 - $(R, \otimes, \bar1)$ is an abelian monoid
-- $(R \setminus \\{\bar0\\}, \otimes, \bar1)$ is an abelian group (a.k.a. multiplicative group)
-- $\otimes$ is distributive w.r.t $\oplus$, i.e. $a \otimes (b \oplus c) = (a \otimes b) \oplus (a \otimes c)$
+- $(R \setminus \\{\bar0\\}, \otimes, \bar1)$ is an abelian group
+  - a.k.a. the multiplicative group within the field
+- $\otimes$ is distributive w.r.t. $\oplus$, i.e. $a \otimes (b \oplus c) = (a \otimes b) \oplus (a \otimes c)$
 - $\bar0 \neq \bar1$
-  - this requirement is by convention to exclude the trivial ring
+  - this requirement is by convention to exclude trivial ring
