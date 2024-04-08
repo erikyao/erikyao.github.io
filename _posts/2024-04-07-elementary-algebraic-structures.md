@@ -79,8 +79,7 @@ A semigroup is simply an associative magma, as:
 
 所以层级关系有：
 ```txt
-      _______
-     / field \
+     _________
     /  group  \
    /   monoid  \
   /  semigroup  \
