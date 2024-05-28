@@ -136,7 +136,7 @@ int main() {
 */
 ```
 
-更多关于 constructor initializer list 的说明见 [C++: const object / const member & const member function / mutable](/c++/2015/03/29/cpp-const-object--const-member--const-member-function--mutable)。
+更多关于 constructor initializer list 的说明见 [C++: const object / const member & const member function / mutable](/c++/2015/03/29/cpp-const-object-const-member-const-member-function-mutable)。
 
 ## Default constructors
 

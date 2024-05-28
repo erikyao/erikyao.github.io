@@ -117,9 +117,9 @@ private:
 	* 但是并没有说 non-const object 就只能 call non-const member function
 	* 简单说就是这样：
 
--> ![][const-function] <-
+![][const-function]
 
-A const member function 
+A const member function:
 	
 * CANNOT modify any non-static data members 
 * CANNOT call any non-const member functions
