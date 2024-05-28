@@ -40,7 +40,7 @@ const char* const& min<const char*>(const char* const& a,
 int main() {
     const char *s2 = "say \"Ni-!\"", *s1 = "knights who";
     cout << min(s1, s2) << endl;
-    cout << min<<(s1, s2) << endl;
+    cout << min<>(s1, s2) << endl;
 }
  
 // output: 
