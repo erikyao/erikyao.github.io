@@ -7,6 +7,8 @@ tags:
 title: 'PCA: my interpretation'
 ---
 
+合着按着我自己的思路才是最好理解的。PCA 的整个过程其实就是：**寻找一个基变换 (change of basis)，使得新坐标系内的 axes 的功效可以量化**。这个量化的意思是，如果新坐标系内有 x'-axis 和 y'-axis，我可以明确地写出 $\frac{\operatorname{effect}(\text{x'-axis})}{\operatorname{effect}(\text{y'-axis})} = \gamma$ 这么一个比值。那么这个量化是怎么做的呢？用的是原数据集沿该 axis 所保留的 covariance matrix。
+
 $$
 \newcommand{\icol}[1]{
   \bigl[ \begin{smallmatrix} #1 \end{smallmatrix} \bigr]
@@ -16,8 +18,6 @@ $$
   \begin{smallmatrix}(#1)\end{smallmatrix}
 }
 $$
-
-合着按着我自己的思路才是最好理解的。PCA 的整个过程其实就是：**寻找一个基变换 (change of basis)，使得新坐标系内的 axes 的功效可以量化**。这个量化的意思是，如果新坐标系内有 x'-axis 和 y'-axis，我可以明确地写出 $\frac{\operatorname{effect}(\text{x'-axis})}{\operatorname{effect}(\text{y'-axis})} = \gamma$ 这么一个比值。那么这个量化是怎么做的呢？用的是原数据集沿该 axis 所保留的 covariance matrix。
 
 ## 第一步：Centering
 
