@@ -3,8 +3,7 @@ category: Math
 description: ''
 tags:
 - Math-Algebra
-title: Matrix Rank / Row Linear Dependence / &lambda; = 0 / |A| = 0 / Size of Nullspace
-  (Kernel)
+title: Matrix Rank / Row Linear Dependence / λ = 0 / |A| = 0 / Size of Nullspace (Kernel)
 ---
 
 $$
