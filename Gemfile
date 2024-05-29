@@ -7,6 +7,7 @@ gem "minimal-mistakes-jekyll"
 gem "tzinfo-data"
 gem "wdm", "~> 0.1.0" if Gem.win_platform?
 
+# See https://mmistakes.github.io/minimal-mistakes/docs/installation/#install-dependencies
 # The following plugins are automatically loaded by the theme-gem:
 #   gem "jekyll-paginate"
 #   gem "jekyll-sitemap"
