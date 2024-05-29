@@ -11,7 +11,7 @@ title: 'C++: function object'
 
 ## 1. Intro
 
-在 [C++: Generic Algorithm Examples](/c++/2015/04/21/cpp-generic-algorithm-examples#ga2) 我们写过一个叫做 `gt15(int x)` 的函数，如果能把这个函数封装成一个对象 `Gt(15)` 明显会更灵活。这样的对象我们称为 function object，而实现的手段就是重载 `operator()` (function call operator):
+在 [C++: Generic Algorithm Examples](/c++/2015/04/21/cpp-generic-algorithm-examples#ga2) 我们写过一个叫做 `gt15(int x)` 的函数，如果能把这个函数封装成一个对象 `Gt(15)` 明显会更灵活。这样的对象我们称为 function object，而实现的手段就是重载 `operator()` (the function-call operator):
 
 ```cpp
 #include <iostream>
@@ -20,8 +20,8 @@ using namespace std;
 class Gt {
     int than;
 public:
-    Gt(int than) : than(than) {}
-    bool operator()(int x) const { // 注意语法 
+    Gt(int than) : than(than) {}  // 注意冒号后面是 member initializer list
+    bool operator()(int x) const {  // 注意语法 
         return x > than;
     }
 };
@@ -36,19 +36,20 @@ int main() {
 
 注意重载 `operator()` 的语法：
 
-- `operator()` 表示你这个对象 `gt15` 可以当函数 `gt15()` 用
-- 而 `operator()(int x)` 表示你这个函数是 `gt15(int x)` 形式
-- 如果是无参函数，你要写成 `operator()()`。
+- `operator()` 这个整体表示 `()` 这个 operator，相当于 python 的 `__call__`
+- `operator()(int x)` 就类似 `__call__(x: int)`
+- 如果是无参的 opeartor，你要写成 `operator()()`。
 
 我们进一步观察，其实可以把 `int than;` 变成 `template<T>`。这里我们不示范了，因为 lib 已经有写了，但是又稍微有点不同：
 
 ```cpp
-template <class T> struct greater : binary_function <T,T,bool> {
+template <class T> 
+struct greater : binary_function <T,T,bool> {
 	bool operator() (const T& x, const T& y) const {return x>y;}
 };
 ```
 
-首先它是一个 struct；然后它不像我们的 Gt 可以初始化一个参数，而且只能像 `greater<int>(15, 20)` 这样传两个参数进去才能用。这个 greater 无法直接用于 [C++: Generic Algorithm Examples](/c++/2015/04/21/cpp-generic-algorithm-examples#ga2) 的场景，所以我们需要进一步封装：
+首先它是一个 struct；然后它不像我们的 `Gt` 可以初始化一个参数，而且只能像 `greater<int>(15, 20)` 这样传两个参数进去才能用。这个 `greater` 无法直接用于 [C++: Generic Algorithm Examples](/c++/2015/04/21/cpp-generic-algorithm-examples#ga2) 的场景，所以我们需要进一步封装：
 
 ```cpp
 bind2nd(greater<int>(), 15));
@@ -58,7 +59,7 @@ bind2nd(greater<int>(), 15));
 - 我们经常会看到直接在这个 temporary 上调用函数，比如 `greater<int>()(37, 15)`，这一句是对等于我们的 `gt15(37)`
 	- 所以不要把 `greater<int>()` 当成是调用 `operator()`
 
-`bind2nd` 的意思是 "bind the 2nd parameter"，所以这一句的效果就是把 `greater<int>()` 这个 Binary Function 对象（虽然是个 struct，姑且这么称呼）变成了一个 Unary Function 对象，功能上等同于我们的 `Gt gt15(15);`。
+`bind2nd` 的意思是 "bind the 2nd parameter"，所以这一句的效果就是把 `greater<int>()` 这个 `BinaryFunction` 对象（虽然是个 struct，姑且这么称呼）变成了一个 `UnaryFunction` 对象，功能上等同于我们的 `Gt gt15(15);`。
 
 同理还有 `bind1st`。
 
@@ -94,25 +95,25 @@ int main() {
 
 ## 3. Standard function objects
 
-| Name          | Type            | Result produced                |
-|---------------|-----------------|--------------------------------|
-| plus          | BinaryFunction  | arg1 + arg2                    |
-| minus         | BinaryFunction  | arg1 - arg2                    |
-| multiplies    | BinaryFunction  | arg1 * arg2                    |
-| divides       | BinaryFunction  | arg1 / arg2                    |
-| modulus       | BinaryFunction  | arg1 % arg2                    |
-| negate        | UnaryFunction   | -arg1                          |
-| equal_to      | BinaryPredicate | arg1 == arg2                   |
-| not_equal_to  | BinaryPredicate | arg1 != arg2                   |
-| greater       | BinaryPredicate | arg1 > arg2                    |
-| less          | BinaryPredicate | arg1 < arg2                    |
-| greater_equal | BinaryPredicate | arg1 >= arg2                   |
-| less_equal    | BinaryPredicate | arg1 <= arg2                   |
-| logical_and   | BinaryPredicate | arg1 && arg2                   |
-| Logical_or    | BinaryPredicate | arg1 || arg2                   |
-| logical_not   | UnaryPredicate  | !arg1                          |
-| unary_negate  | Unary Logical   | !(UnaryPredicate(arg1))        |
-| binary_negate | Binary Logical  | !(BinaryPredicate(arg1, arg2)) |
+| Name            | Type            | Result produced                 |
+|-----------------|-----------------|---------------------------------|
+| `plus`          | BinaryFunction  | `arg1 + arg2`                   |
+| `minus`         | BinaryFunction  | `arg1 - arg2`                   |
+| `multiplies`    | BinaryFunction  | `arg1 * arg2`                   |
+| `divides`       | BinaryFunction  | `arg1 / arg2`                   |
+| `modulus`       | BinaryFunction  | `arg1 % arg2`                   |
+| `negate`        | UnaryFunction   | `-arg1`                         |
+| `equal_to`      | BinaryPredicate |` arg1 == arg2`                  |
+| `not_equal_to`  | BinaryPredicate | `arg1 != arg2`                  |
+| `greater`       | BinaryPredicate | `arg1 > arg2 `                  |
+| `less`          | BinaryPredicate | `arg1 < arg2`                   |
+| `greater_equal` | BinaryPredicate | `arg1 >= arg2`                  |
+| `less_equal`    | BinaryPredicate | `arg1 <= arg2`                  |
+| `logical_and`   | BinaryPredicate | `arg1 && arg2`                  |
+| `Logical_or`    | BinaryPredicate | `arg1 || arg2`                  |
+| `logical_not`   | UnaryPredicate  | `!arg1`                         |
+| `unary_negate`  | UnaryLogical    | `!(UnaryPredicate(arg1))`       |
+| `binary_negate` | BinaryLogical   | `!(BinaryPredicate(arg1, arg2))`|
 
 ## 4. Function object adaptors
 
