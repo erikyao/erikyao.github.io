@@ -4,7 +4,14 @@ description: ''
 tags:
 - Math-Algebra
 title: Digest of <i>Essence of Linear Algebra</i>
+toc: true
+toc_sticky: true
 ---
+
+Greatest thanks to [3Blue1Brown](http://www.3blue1brown.com/)!
+
+- [Bilibili](https://space.bilibili.com/88461692#/channel/detail?cid=9450)
+- [YouTube](https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab)
 
 $$
 \newcommand{\icol}[1]{
@@ -15,11 +22,6 @@ $$
   \begin{smallmatrix}(#1)\end{smallmatrix}
 }
 $$
-
-Greatest thanks to [3Blue1Brown](http://www.3blue1brown.com/)!
-
-- [Bilibili](https://space.bilibili.com/88461692#/channel/detail?cid=9450)
-- [YouTube](https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab)
 
 ## Chapter 1 - Vectors, what even are they?
 

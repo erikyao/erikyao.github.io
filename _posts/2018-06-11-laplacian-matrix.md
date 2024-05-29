@@ -4,25 +4,21 @@ description: ''
 tags:
 - Graph
 title: Laplacian Matrix
+toc: true
+toc_sticky: true
 ---
-
-$$
-\newcommand{\icol}[1]{
-  \bigl[ \begin{smallmatrix} #1 \end{smallmatrix} \bigr]
-}
-$$
 
 ## 1. Definition
 
 Quote from [Wikipedia: Laplacian matrix](https://en.wikipedia.org/wiki/Laplacian_matrix):
 
-Given a simple graph $G$ with $n$ vertices, its Laplacian matrix $L_{n\times n}$ is defined as:
-
-$$
-L = D - A,
-$$
-
-where $D$ is the degree matrix and $A$ is the adjacency matrix of the graph. Since $G$ is a simple graph, $A$ only contains $1$s or $0$s and its diagonal elements are all $0$s.
+> Given a simple graph $G$ with $n$ vertices, its Laplacian matrix $L_{n\times n}$ is defined as:
+> 
+> $$
+> L = D - A,
+> $$
+> 
+> where $D$ is the degree matrix and $A$ is the adjacency matrix of the graph. Since $G$ is a simple graph, $A$ only contains $1$s or $0$s and its diagonal elements are all $0$s.
 
 In the case of directed graphs, either the indegree or outdegree might be used, depending on the application.
 
@@ -224,6 +220,12 @@ L_{u, v} \overset{\text{def}}{=} \begin{bmatrix}
     1 & -1 \\
     -1 & 1
 \end{bmatrix}
+$$
+
+$$
+\newcommand{\icol}[1]{
+  \bigl[ \begin{smallmatrix} #1 \end{smallmatrix} \bigr]
+}
 $$
 
 Then we have $(f(u) - f(v))^2 = \icol{f(u) & f(v)} L_{u, v} \icol{f(u) \newline f(v)}$

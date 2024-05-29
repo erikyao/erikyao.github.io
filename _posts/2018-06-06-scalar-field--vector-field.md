@@ -4,17 +4,19 @@ description: ''
 tags:
 - Math-Algebra
 title: Scalar Field / Vector Field
+toc: true
+toc_sticky: true
 ---
+
+首先我们在 [Is vector space a field? And what are: Groups / Rings / Fields / Vector Spaces?](/math/2018/06/06/is-vector-space-a-field-and-what-are-groups-rings-fields-vector-spaces) 讲的 field 是 algebra 的概念，但是 scalar field 和 vector field 里的 field 是 geometry 的概念，所以 scalar field、vector field 和 "group、ring、field" 里的这个 field 是不搭边的。
+
+然后很多定义里用到的 map 或者 mapping，你可以简单理解为 function。[Is there any difference between mapping and function?](https://math.stackexchange.com/questions/95741/is-there-any-difference-between-mapping-and-function) 提到 function 一般是映射到 $\mathbb{R}$，但是 map 可以映射到 anyting，比如说映射到一个 vector space $V$。
 
 $$
 \newcommand{\icol}[1]{
   \bigl[ \begin{smallmatrix} #1 \end{smallmatrix} \bigr]
 }
 $$
-
-首先我们在 [Is vector space a field? And what are: Groups / Rings / Fields / Vector Spaces?](/math/2018/06/06/is-vector-space-a-field-and-what-are-groups-rings-fields-vector-spaces) 讲的 field 是 algebra 的概念，但是 scalar field 和 vector field 里的 field 是 geometry 的概念，所以 scalar field、vector field 和 "group、ring、field" 里的这个 field 是不搭边的。
-
-然后很多定义里用到的 map 或者 mapping，你可以简单理解为 function。[Is there any difference between mapping and function?](https://math.stackexchange.com/questions/95741/is-there-any-difference-between-mapping-and-function) 提到 function 一般是映射到 $\mathbb{R}$，但是 map 可以映射到 anyting，比如说映射到一个 vector space $V$。
 
 ## Vector Field
 
@@ -26,7 +28,7 @@ A **vector field** in a 3D space is a map, which assigns each point $(x, y, z)$ 
 
 Quote from [Wikipedia: Vector field](https://en.wikipedia.org/wiki/Vector_field):
 
-If each component of $\vec F$ is continuous, then $\vec F$ is a **continuous vector field**, and more generally $\vec F$ is a **$C^k$ vector field** if each component of $\vec F$ is $k$ times continuously differentiable.
+> If each component of $\vec F$ is continuous, then $\vec F$ is a **continuous vector field**, and more generally $\vec F$ is a **$C^k$ vector field** if each component of $\vec F$ is $k$ times continuously differentiable.
 
 我自己做了一个例子：想象 $x^2 + y^2 = 1$ 这个圆在顺时针转动（圆心不动），每个点都沿切线有一个速度，这个切线速度我们用一个单位向量表示（暂不考虑向量长度的物理意义）。考虑圆与 axes 的 4 个焦点：
 

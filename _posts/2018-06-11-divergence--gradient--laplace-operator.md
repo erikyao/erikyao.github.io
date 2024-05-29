@@ -4,6 +4,8 @@ description: ''
 tags:
 - Math-Algebra
 title: Divergence / Gradient / Laplace Operator
+toc: true
+toc_sticky: true
 ---
 
 注意这里反复使用了 $\nabla$，但要注意的是，$\nabla$ 并不是一个有统一定义的 operator，它只是一个符号而已，在不同的高阶 operator 定义中有不同的解读和记法。具体可以参见 [Wikipedia: Del](https://en.wikipedia.org/wiki/Del)
@@ -14,7 +16,7 @@ title: Divergence / Gradient / Laplace Operator
 
 Quote from [Wikipedia: Divergence](https://en.wikipedia.org/wiki/Divergence):
 
-Let $x$, $y$, $z$ be a system of Cartesian coordinates in 3-dimensional Euclidean space, and let $\mathbf{i}$, $\mathbf{j}$, $\mathbf{k}$ be the corresponding basis of unit vectors. The **divergence** of a continuously differentiable vector field $F = U \mathbf{i} + V \mathbf{j} + W \mathbf{k}$ is defined as the scalar-valued function:
+> Let $x$, $y$, $z$ be a system of Cartesian coordinates in 3-dimensional Euclidean space, and let $\mathbf{i}$, $\mathbf{j}$, $\mathbf{k}$ be the corresponding basis of unit vectors. The **divergence** of a continuously differentiable vector field $F = U \mathbf{i} + V \mathbf{j} + W \mathbf{k}$ is defined as the scalar-valued function:
 
 $$
 \operatorname {div} \mathbf {F} = \nabla \cdot \mathbf {F} = \left ( {\frac {\partial }{\partial x}}, {\frac {\partial }{\partial y}}, {\frac {\partial }{\partial z}} \right) \cdot (U,V,W) = {\frac {\partial U}{\partial x}} + {\frac {\partial V}{\partial y}} + { \frac {\partial W}{\partial z}}.

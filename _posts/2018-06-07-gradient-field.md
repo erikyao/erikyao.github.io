@@ -4,13 +4,9 @@ description: ''
 tags:
 - Math-Algebra
 title: Gradient Field
+toc: true
+toc_sticky: true
 ---
-
-$$
-\newcommand{\icol}[1]{
-  \bigl[ \begin{smallmatrix} #1 \end{smallmatrix} \bigr]
-}
-$$
 
 ## Gradient Field: a better way to interpret
 
@@ -21,6 +17,12 @@ $$
 从 gradient 的定义来看，它天生是一个 vector field。需要注意的是，我们并不需要先有一个函数 $f(x, y)$ 才能做出 vector field，只是刚好 $\nabla f(x,y)$ 是一个 vector field。
 
 还是用 $z = f(x,y) = 4x^2 + y^2$ 的例子。
+
+$$
+\newcommand{\icol}[1]{
+  \bigl[ \begin{smallmatrix} #1 \end{smallmatrix} \bigr]
+}
+$$
 
 $\nabla f(x,y) = \langle 8x,2y \rangle = \icol{8x \newline 2y}$ 其实是这么一个 vector field (以下都是 Wolfram 代码)：
 

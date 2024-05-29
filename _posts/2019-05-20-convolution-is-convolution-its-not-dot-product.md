@@ -3,7 +3,18 @@ category: Math
 description: ''
 tags: []
 title: Convolution is convolution; it's NOT dot product
+toc: true
+toc_sticky: true
 ---
+
+我真的是出离愤怒。我不知道最开始把 convolution 看做 dot product 的人是怎么想的！有 convolution 的公式不用，非要用这么蹩脚的 intuition？而且明显 convolution 和 [Hadamard product](/math/2018/09/06/hadamard-product-diagonal-matrix-orthogonal-matrix) 的关系更大一点呢，咋没见人提？
+
+本文主要参考：
+
+- [Wikipedia: Convolution](https://en.wikipedia.org/wiki/Convolution)
+- [HIPR2: Convolution](https://homepages.inf.ed.ac.uk/rbf/HIPR2/convolve.htm)
+- [StackExchange: In a convolutional neural network (CNN), when convolving the image, is the operation used the dot product or the sum of element-wise multiplication?](https://stats.stackexchange.com/questions/335321/in-a-convolutional-neural-network-cnn-when-convolving-the-image-is-the-opera)
+- [StackExchange: What is the physical meaning of the convolution of two signals?](https://dsp.stackexchange.com/questions/4723/what-is-the-physical-meaning-of-the-convolution-of-two-signals)
 
 $$
 \DeclareMathOperator*{\argmin}{argmin} 
@@ -16,15 +27,6 @@ $$
   \Bigl[ \begin{smallmatrix} #1 \end{smallmatrix} \Bigr]
 }
 $$
-
-我真的是出离愤怒。我不知道最开始把 convolution 看做 dot product 的人是怎么想的！有 convolution 的公式不用，非要用这么蹩脚的 intuition？而且明显 convolution 和 [Hadamard product](/math/2018/09/06/hadamard-product-diagonal-matrix-orthogonal-matrix) 的关系更大一点呢，咋没见人提？
-
-本文主要参考：
-
-- [Wikipedia: Convolution](https://en.wikipedia.org/wiki/Convolution)
-- [HIPR2: Convolution](https://homepages.inf.ed.ac.uk/rbf/HIPR2/convolve.htm)
-- [StackExchange: In a convolutional neural network (CNN), when convolving the image, is the operation used the dot product or the sum of element-wise multiplication?](https://stats.stackexchange.com/questions/335321/in-a-convolutional-neural-network-cnn-when-convolving-the-image-is-the-opera)
-- [StackExchange: What is the physical meaning of the convolution of two signals?](https://dsp.stackexchange.com/questions/4723/what-is-the-physical-meaning-of-the-convolution-of-two-signals)
 
 ## 1-D Convolution
 

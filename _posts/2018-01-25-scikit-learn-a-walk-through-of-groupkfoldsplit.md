@@ -7,7 +7,7 @@ tags:
 title: 'scikit-learn: A walk through of <i>GroupKFold.split()</i>'
 ---
 
-Suppose $X["groups"] = \begin{bmatrix} a \newline b \newline b \newline c \newline c \newline c \end{bmatrix}$ and `n_splits=3`.
+Suppose $X[\text{"groups"}] = \begin{bmatrix} a \newline b \newline b \newline c \newline c \newline c \end{bmatrix}$ and `n_splits=3`.
 
 Then `GroupKFold.split(X, y, X["groups"])` will run into the [`_iter_test_indices`](https://github.com/scikit-learn/scikit-learn/blob/a24c8b46/sklearn/model_selection/_split.py#L487) method which simply yields the indices of the test folds.
 
@@ -17,8 +17,10 @@ unique_groups, groups = np.unique(groups, return_inverse=True)
 ```
 
 $$
-unique\_groups = \begin{bmatrix} a \\ b \\ c \end{bmatrix} \\
-groups = \begin{bmatrix} 0 \\ 1 \\ 1 \\ 2 \\ 2 \\ 2 \end{bmatrix}
+\begin{align}
+unique\_groups &= \begin{bmatrix} a \\ b \\ c \end{bmatrix} \newline
+groups &= \begin{bmatrix} 0 \\ 1 \\ 1 \\ 2 \\ 2 \\ 2 \end{bmatrix}
+\end{align}
 $$
 
 So this `groups` is an interesting index: if `X["groups"]` has $n$ unique values, `groups` could assign $n$ markers to the original `X["groups"]`. E.g.
@@ -52,8 +54,10 @@ n_samples_per_group = n_samples_per_group[indices]
 ```
 
 $$
-indices = \begin{bmatrix} 2 \\ 1 \\ 0 \end{bmatrix} \\ 
-n\_samples\_per\_group = \begin{bmatrix} 3 \\ 2 \\ 1 \end{bmatrix} 
+\begin{align}
+indices &= \begin{bmatrix} 2 \\ 1 \\ 0 \end{bmatrix} \newline
+n\_samples\_per\_group &= \begin{bmatrix} 3 \\ 2 \\ 1 \end{bmatrix} 
+\end{align}
 $$
 
 ```python
