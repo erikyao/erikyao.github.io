@@ -17,14 +17,19 @@ Given a set $X$, a relation $R$ over $X$ is a set of ordered pairs of elements f
 
 - 你也可以扩展成 $R \subseteq \lbrace (x,y) \mid (x,y) \in X \times Y \rbrace$，但这么定义就排除了 $(y,x)$ 形式的元素 (类型不匹配)
 
-$(x,y) \in R$ 也可以写作 infix 形式 $xRy$，意思就是 "$x,y$ 满足 $R$ 关系"。
+符号上有：
+- $(x,y) \in R$ 也可以写作 infix 形式 $xRy$，意思就是 "$x,y$ 满足 $R$ 关系"
+- 自创用法：我在本文用 $x \cancel{R} y$ 表示 "$x,y$ 不满足 $R$ 关系"
+- 自创用法：我在本文用 $x \oslash_{R} y$ 表示 "$x,y$ 在 $R$ 下是 incomparable 的"
+  - i.e. $x \oslash_{R} y \iff x \cancel{R} y \land y \cancel{R} x$
 
 ## 1.2 Representation of Relations
 
 如果 $X$ 是一个 discrete 的集合，$R$ 的 size 有限，那么可以 R 可以表示成：
 
 1. directed graph: 每一组 $xRy$ 都用一条 $x \to y$ 的 edge 表示
-2. boolean matrix: 每一组 $xRy$ 都表示 $M_{x,y} = 1$，矩阵 $M$ 总没有填 1 的部分默认都是 0
+2. boolean matrix: 每一组 $xRy$ 都表示 $M_{x,y} = 1$，每一组 $x \cancel{R} y$ 都表示 $M_{x,y} = 0$
+   - 如果 $x \oslash_{R} y$，那么 $M_{x,y} = 0$ 就是 undefined，此时 $M$ 也不能算是 boolean matrix 了
 
 如果 $X$ 是 $\mathbb{R}$：
 
@@ -39,10 +44,9 @@ $(x,y) \in R$ 也可以写作 infix 形式 $xRy$，意思就是 "$x,y$ 满足 $R
 
 **Irreflexive:** $\forall x \in X, x \cancel{R} x$
 
-- $\cancel{R}$ 是我自创的符号，表示 "不满足 $R$ 关系"
-- 我们可以完全不用它的英文名字，也不用管中文翻译 (因为后面对称性的命名简直灾难！)，结合 boolean matrix representation 来记忆：
-  - **reflexive** 就是主对角线全是 1，比如 $M_1$
-  - **irreflexive** 就是主对角线全是 0，比如 $M_2$
+我们可以完全不用它的英文名字，也不用管中文翻译 (因为后面对称性的命名简直灾难！)，结合 boolean matrix representation 来记忆：
+- **reflexive** 就是主对角线全是 1，比如 $M_1$
+- **irreflexive** 就是主对角线全是 0，比如 $M_2$
 
 $$
 M_1 = \begin{bmatrix}
@@ -173,6 +177,7 @@ $$
 \textbf{Pre-order} &\equiv R \text{ which is } \textit{ reflexive } \land \textit{ transitive } \\
 \textbf{Partial Order} &\equiv R \text{ which is } \textit{ reflexive } \land \textit{ antisymmetric } \land \textit{ transitive } \\
 \textbf{Strict Partial Order} &\equiv R \text{ which is } \textit{ irreflexive } \land \textit{ asymmetric } \land \textit{ transitive } \\
+\textbf{Strict Weak Order} &\equiv \text{a strict partial order } R \text{ whose incomparable relation } \oslash_R \textit{ is an equivalence relation } \\
 \textbf{Total Order} &\equiv R \text{ which is } \textit{ reflexive } \land \textit{ antisymmetric } \land \textit{ transitive } \land \textit{ connected } \\
 \textbf{Strict Total Order} &\equiv R \text{ which is } \textit{ irreflexive } \land \textit{ asymmetric } \land \textit{ transitive } \land \textit{ connected }
 \end{aligned}
@@ -180,7 +185,7 @@ $$
 
 - 我个人认为 equivalence 可以看作是 "没有任何 order"
 - pre-order 的意思是 "almost a partial order" 或者 "one more step and you'll get a partial order"
-- partial 的意思是 "允许存在两个元素没有 order (i.e. non-comparable)"
+- partial 的意思是 "允许存在两个元素没有 order (i.e. incomparable)"
 - total 的意思是 "任意的两个元素间都有 order (i.e. comparable)"
 
 举例：
@@ -188,8 +193,20 @@ $$
 - **Equivalence Relation:** equality $=$
 - **Partial Order:** subset $\subseteq$
 - **Strict Partial Order:** strict subset $\subset$
+- **Strict Weak Order:** 类似赛马、F-1 赛车、或者田径比赛的 ranking $<$：
+  - $x < y$ 表示 "$x$ 比 $y$ 排名靠前"
+  - $x = y$ 表示 "$x$ 比 $y$ 排名相同" (成绩相同，并列第 X 名)
+  - 但存在 "没有完赛" 的情况，所有没有完赛的选手的成绩是 incomparable 的，且是 equivalent 的
 - **Total Order:** less than or equal to $\leq$
 - **Strict Total Order:** less than $<$
+
+注意 strict subset $\subset$ 不是 strict weak order，原因：
+- $\oslash_{\subset}$ 不是 transitive 的，所以不是 equivalence relation
+- 假设 $\exists$ 集合 $X,Y,Z$
+  - $X \oslash_{\subset} Y \iff X \not\subset Y \land Y \not\subset X$
+  - $Y \oslash_{\subset} Z \iff Y \not\subset Z \land Z \not\subset Y$
+  - 但可能有 $X \subset Z$ 或者 $Z \subset X$
+  - e.g. $X = \{ 1 \}, Y = \{ 3 \}, Z = \{ 1,2 \}$
 
 :star2: Lemma: An $R$ which is symmetric, transitive, and serial is an equivalence relation.
 
