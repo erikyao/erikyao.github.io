@@ -18,3 +18,7 @@ end
 
 gem "webrick", "~> 1.8"
 gem "rake"
+
+# For local Jekyll deployment without accessing remote_theme
+# Gemfile is not used by GitHub Pages so it is fine to add here.
+gem "minimal-mistakes-jekyll"
