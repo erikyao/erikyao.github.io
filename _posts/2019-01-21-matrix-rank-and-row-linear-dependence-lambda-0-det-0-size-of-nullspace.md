@@ -3,18 +3,8 @@ category: Math
 description: ''
 tags:
 - Math-Algebra
-title: Matrix Rank / Row Linear Dependence / λ = 0 / |A| = 0 / Size of Nullspace (Kernel)
+title: Matrix Rank / Row Linear Dependence / λ = 0 / &#124;A&#124; = 0 / Size of Nullspace (Kernel)
 ---
-
-$$
-\newcommand{\icol}[1]{
-  \bigl[ \begin{smallmatrix} #1 \end{smallmatrix} \bigr]
-}
-
-\newcommand{\irow}[1]{
-  \begin{smallmatrix}(#1)\end{smallmatrix}
-}
-$$
 
 ## 1. Matrix Rank
 
@@ -42,6 +32,16 @@ $$
 $\dim(\operatorname{rowsp}(A)) = \dim(\operatorname{colsp}(A))$ 是一个可以 [证明](https://en.wikipedia.org/wiki/Rank_(linear_algebra)#Proofs_that_column_rank_=_row_rank) 的性质，这里不展开。
 
 这里具体说一下数量限制：
+
+$$
+\newcommand{\icol}[1]{
+  \bigl[ \begin{smallmatrix} #1 \end{smallmatrix} \bigr]
+}
+
+\newcommand{\irow}[1]{
+  \begin{smallmatrix}(#1)\end{smallmatrix}
+}
+$$
 
 - $\dim(\operatorname{rowsp}(A)) \leq m$
     - 你最理想的状态就是你的 $m$ 个 rows 全部 linearly independent，那好，我直接把这个 $m$ 个 rows 全部当做 basis，那么我的 $\dim(\operatorname{rowsp}(A)) = m$
