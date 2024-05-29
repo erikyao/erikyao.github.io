@@ -89,9 +89,12 @@ int main() {
 - **Generator**: Takes no arguments. The standard library provides one generator, the function `rand()` declared in `<cstdlib>`, and has some algorithms, such as `generate_n()`, which apply generators to a sequence.
 - **Unary Function**: Takes a single argument. ReturnType includes `void`.
 - **Binary Function**: Takes two arguments. ReturnType includes `void`.
-- **Unary Predicate**: A Unary Function that returns a bool.
-- **Binary Predicate**: A Binary Function that returns a bool.
-- **Strict Weak Ordering**: A binary predicate that allows for a more general interpretation of “equality.” Some of the standard containers consider two elements equivalent if neither is less than the other (using `operator<`). This is important when comparing floating-point values, and objects of other types where `operator==` is unreliable or unavailable. This notion also applies if you want to sort a sequence of data records (structs) on a subset of the struct’s fields. That comparison scheme is considered a strict weak ordering because two records with equal keys are not really “equal” as total objects, but they are equal as far as the comparison you’re using is concerned. 
+- **Unary Predicate**: A Unary Function that returns a `bool`.
+- **Binary Predicate**: A Binary Function that returns a `bool`.
+
+有些算法要求 binary predicate 要满足 strict weak order 的定义，参考 [Special Relations / Combinations of Properties](/math/2023/12/18/relation-math-and-asymptotic-notations#136-special-relations--combinations-of-properties):
+    - It allows for a more general interpretation of “equality.” Some of the standard containers consider two elements equivalent if neither is less than the other (using `operator<`). This is important when comparing floating-point values, and objects of other types where `operator==` is unreliable or unavailable. 
+    - This notion also applies if you want to sort a sequence of data records (structs) on a subset of the struct’s fields. That comparison scheme is considered a strict weak ordering because two records with equal keys are not really “equal” as total objects, but they are equal as far as the comparison you’re using is concerned. 
 
 ## 3. Standard function objects
 
@@ -103,7 +106,7 @@ int main() {
 | `divides`       | BinaryFunction  | `arg1 / arg2`                   |
 | `modulus`       | BinaryFunction  | `arg1 % arg2`                   |
 | `negate`        | UnaryFunction   | `-arg1`                         |
-| `equal_to`      | BinaryPredicate |` arg1 == arg2`                  |
+| `equal_to`      | BinaryPredicate | `arg1 == arg2`                  |
 | `not_equal_to`  | BinaryPredicate | `arg1 != arg2`                  |
 | `greater`       | BinaryPredicate | `arg1 > arg2 `                  |
 | `less`          | BinaryPredicate | `arg1 < arg2`                   |
