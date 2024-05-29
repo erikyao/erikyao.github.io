@@ -29,7 +29,7 @@ Given a set $X$, a relation $R$ over $X$ is a set of ordered pairs of elements f
 
 1. directed graph: 每一组 $xRy$ 都用一条 $x \to y$ 的 edge 表示
 2. boolean matrix: 每一组 $xRy$ 都表示 $M_{x,y} = 1$，每一组 $x \cancel{R} y$ 都表示 $M_{x,y} = 0$
-   - 如果 $x \oslash_{R} y$，那么 $M_{x,y} = 0$ 就是 undefined，此时 $M$ 也不能算是 boolean matrix 了
+   - 如果 $x \oslash_{R} y$，那么 $M_{x,y}$ 就是 undefined，此时 $M$ 也不能算是 boolean matrix 了
 
 如果 $X$ 是 $\mathbb{R}$：
 
@@ -206,7 +206,7 @@ $$
   - $X \oslash_{\subset} Y \iff X \not\subset Y \land Y \not\subset X$
   - $Y \oslash_{\subset} Z \iff Y \not\subset Z \land Z \not\subset Y$
   - 但可能有 $X \subset Z$ 或者 $Z \subset X$
-  - e.g. $X = \{ 1 \}, Y = \{ 3 \}, Z = \{ 1,2 \}$
+  - e.g. $X = \lbrace 1 \rbrace, Y = \lbrace 3 \rbrace, Z = \lbrace 1,2 \rbrace$
 
 :star2: Lemma: An $R$ which is symmetric, transitive, and serial is an equivalence relation.
 
