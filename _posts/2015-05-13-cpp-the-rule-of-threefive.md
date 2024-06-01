@@ -11,17 +11,17 @@ title: 'C++: The Rule of Three/Five'
 
 -----
 
-There 5 (only 3 before C++11) basic operations to control copies of class objects: 
+There are 5 (only 3 before C++11) basic operations to control copies of class objects: 
 
 - copy constructor
 - copy-assignment operator
-- destructor. Moreover
+- destructor
 - (C++11) move constructor
 - (C++11) move-assignment operator
 
 Ordinarily these 5 operations should be thought of as a unit. In general, it is unusual to need one without needing to define them all.
 
-One rule of thumb to use when you decide whether a class needs to define its own versions of these 5 operations is to decide first whether the class needs a destructor: 
+One rule of thumb is to decide **first** whether the class needs a destructor: 
 
 - Often, the need for a destructor is more obvious than the need for the copy constructor or assignment operator. 
 - If the class needs a destructor, it almost surely needs a copy constructor and copy-assignment operator as well.
