@@ -7,10 +7,9 @@ toc: true
 toc_sticky: true
 ---
 
-## Appetizer: What do the numbers in a `man` page mean?
+# Appetizer: What do the numbers in a `man` page mean?
 
 根据 [Andy Dalton & Michael Mrozek](https://unix.stackexchange.com/a/3587):
-
 > The `man` page for `man` itself (`man man`) explains it and lists the standard ones.
 
 ```txt
@@ -31,14 +30,12 @@ MANUAL SECTIONS
 
 所以有的文章会用 `SELECT(2)` 和 `POLL(2)` 这样的写法来强调 `select()` 和 `poll()` 是 System Calls。
 
-## `SELECT(2)` 和 `POLL(2)`
+# `SELECT(2)` 和 `POLL(2)`
 
 `man select`:
-
 > **select()** examines the I/O descriptor sets whose addresses are passed in <ins>readfds</ins>, <ins>writefds</ins>, and <ins>errorfds</ins> to see if some of their descriptors are ready for reading, are ready for writing, or have an exceptional condition pending, respectively.
 
 `man poll`:
-
 > **poll()** examines a set of file descriptors to see if some of them are ready for I/O or if certain events have occurred on them.
 
 - 这个 `man poll` 感觉没有抓住实质，我们暂时忽略它
@@ -46,7 +43,6 @@ MANUAL SECTIONS
 其实记住最典型的应用场景就可以了：假设我是一个 server，我 accept 了很多的 client sockets (which IS-A type of file descriptor)，我怎么确定哪个 client socket 给我发了 message？我如何挑选出这个 client socket 来 reply 它？
 
 [Select is fundamentally broken](https://idea.popcount.org/2017-01-06-select-is-fundamentally-broken/) 这篇精彩的 blog 就提到了 _The Design and Implementation of the FreeBSD Operating System_ 这本书针对这个应用场景在 OS 级别的处理策略：
-
 > There are four possible alternatives that avoid the blocking problem:  
 >   
 > 1. Set all the descriptors in nonblocking mode. [...]
@@ -55,11 +51,10 @@ MANUAL SECTIONS
 > 4. Have the process register with the [operating] system all the events including I/O on descriptors that it is interested in tracking.
 
 `SELECT(2)` 和 `POLL(2)` 实现的是**策略 (3)**:
-
 - `POLL(2)` 负责收集 descriptors
 - `SELECT(2)` 负责 _"asking which descriptors are capable of performing the I/O"_ from the poll
 
-## Variants: `EPOLL(7)` / `devpoll` / `KQUEUE(2)`
+# Variants: `EPOLL(7)` / `devpoll` / `KQUEUE(2)`
 
 `SELECT(2)` 和 `POLL(2)` 源于 Unix，后续的变种有:
 
@@ -71,7 +66,7 @@ MANUAL SECTIONS
 
 注意：虽然这些变种都仍然使用 `SELECT(2)`，但目前我不知道它们的 `SELECT(2)` 是不是有啥区别……
 
-## `SELECT(2)` + `POLL(2)/EPOLL(7)` 即是 "轮询"
+# `SELECT(2)` + `POLL(2)/EPOLL(7)` 即是 "轮询"
 
 这个 _"asking which descriptors are capable of performing the I/O"_ 并没有多么的 fancy，我甚至觉得它可以简单理解成：
 
@@ -85,7 +80,6 @@ def select(poll, timeout):
 ```
 
 "轮询" 这个翻译还是 OK 的，poll 做 verb 本身的意思就有：
-
 - _poll sb._ => to record the opinion or vote of sb.
 - _poll sth._ => (in Computer Science/Telecommunications) to check the status of sth., especially as part of a repeated cycle.
 
@@ -94,18 +88,16 @@ def select(poll, timeout):
 关于 `EPOLL(7)` 可以阅读 [Async IO on Linux: select, poll, and epoll](https://jvns.ca/blog/2017/06/03/async-io-on-linux--select--poll--and-epoll/)，这篇也简略 cover 了很多相关的基础概念。
 
 `EPOLL(7)` 也有它自己的问题，可以参见 (还是那个作者的)：
-
 - [Epoll is fundamentally broken 1/2](https://idea.popcount.org/2017-02-20-epoll-is-fundamentally-broken-12/)
 - [Epoll is fundamentally broken 2/2](https://idea.popcount.org/2017-03-20-epoll-is-fundamentally-broken-22/)
 
 这两篇非常的细节，但我觉得主要的 takeaway 应该是：**`EPOLL(7)` 的使用有它的 best practice**，当你真正需要**直接**使用 `EPOLL(7)` 的时候，再研究也不迟。
 
-## Python: `select` module
+# Python: `select` module
 
 我铺了这么多，就是为了引出 [`select` — Waiting for I/O completion](https://docs.python.org/3/library/select.html) 这个 module，现在看它的代码就能很清楚地理解它们的层级关系了。
 
-## Python: `selectors` module
+# Python: `selectors` module
 
 [`selectors` — High-level I/O multiplexing](https://docs.python.org/3/library/selectors.html) 是建立在 `select` 之上的一个高一级别的 module，无非就是屏蔽了 `select` 过于琐碎的技术细节 (毕竟是 OS-specific 的)。docs 也说了：
-
 > Users are encouraged to use this module instead, unless they want precise control over the OS-level primitives used.
