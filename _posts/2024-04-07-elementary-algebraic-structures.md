@@ -152,16 +152,6 @@ Also written as a tuple $(R, \circ)$ if we consider $\bar{e}$ associated with $\
 
 同时 commutative monoid 也 a.k.a. abelian monoid.
 
-### Pre-ordering on Monoids
-
-[wikipedia](https://en.wikipedia.org/wiki/Monoid#Commutative_monoid) 说：
-
-> Any commutative monoid is endowed with its algebraic preordering $\leq$, defined by $x \leq y$ if there exists $z$ such that $x + z = y$.
-
-但并不是说 "只有 commutative monoid 才有 pre-order"。Non-commutative 的 monoid 也可以有，见[讨论](https://math.stackexchange.com/questions/2463279/natural-pre-order-for-non-commutative-monoids)。
-
-可能是 commutative monoid 的 pre-order 更普遍，具体的细节我们不用深究。
-
 ## Group $\Rightarrow$ Invertible Monoid $(R, \circ, \bar{e})$
 
 A group is a monoid with *inverse*.
