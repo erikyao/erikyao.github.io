@@ -45,13 +45,31 @@ A semigroup is simply an associative magma, as:
   
 只是这个 "halfway" 离 group 离得有点远……
 
+## Band $\Rightarrow$ Idempotent Semigroup $(R, \circ)$
+
+A band is simply an idempotent semigroup $(R, \circ)$, such that:
+
+- $\forall a \in R, a \circ a = a$
+
+## Semilattice $\Rightarrow$ Commutative Band $(R, \circ)$
+
+A semilattice is simply a commutative band $(R, \circ)$, such that:
+
+- $\forall a,b \in R, \, a \circ b = b \circ a$
+
+### Bounded Semilattice $\Rightarrow$ Semilattice + Identity $\Rightarrow$Idempotent Abelian Monoid $(R, \circ, \bar{e})$
+
+A semilattice $(R, \circ)$ is bounded if $\exists$ an identity element $\bar{e} \in R$ such that:
+
+- $\forall a \in R, \, a \circ \bar{e} = \bar{e} \circ a = a$
+
 ## Monoid $\Rightarrow$ Semigroup + Identity $\Rightarrow$ $(R, \circ, \bar{e})$
 
 A monoid can be denoted by $(R, \circ, e)$ such that:
 
 - $(R, \circ)$ is a semigroup
 - $\bar{e} \in R$ is the identity element w.r.t. $\circ$
-    - i.e. $\forall a \in R$, we have $a \circ \bar{e} = \bar{e} \circ a = a$
+    - i.e. $\forall a \in R, \, a \circ \bar{e} = \bar{e} \circ a = a$
 
 Also written as a tuple $(R, \circ)$ if we consider $\bar{e}$ associated with $\circ$ internally.
 
