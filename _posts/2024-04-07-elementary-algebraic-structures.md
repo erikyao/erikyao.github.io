@@ -7,6 +7,66 @@ toc: true
 toc_sticky: true
 ---
 
+# Overiew
+
+$$
+\begin{align}
+\operatorname{Magma \, (Groupid)} \, (R, \circ) 
+    &= \operatorname{Set} \, R \, \Join \, \operatorname{Op} \, \circ \newline
+\operatorname{Semigroup} \, (R, \circ) 
+    &= \operatorname{Magma} \, (R, \circ) \, \Join \, \text{Associativity} \newline
+
+\newline
+
+\operatorname{Band} \, (R, \circ) 
+    &= \operatorname{Semigroup} \, (R, \circ) \, \Join \, \text{Idempotency} \newline
+    &= \operatorname{Magma} \, (R, \circ) \, \Join \, \text{Associativity} \, \Join \, \text{Idempotency} \newline
+\operatorname{Semilattice} \, (R, \circ) 
+    &= \operatorname{Band} \, (R, \circ) \, \Join \, \text{Commutativity} \newline
+    &=\operatorname{Semigroup} \, (R, \circ) \, \Join \, \text{Idempotency} \Join \, \text{Commutativity} \newline
+    &=\operatorname{Magma} \, (R, \circ) \, \Join \, \text{Associativity} \, \Join \, \text{Idempotency} \Join \, \text{Commutativity} \newline
+
+\newline
+
+\operatorname{Monoid} \, (R, \circ, \bar{e}) 
+    &= \operatorname{Semigroup} \, (R, \circ) \, \Join \, \operatorname{Identity} \, \bar{e} \newline
+\operatorname{Abelian Monoid} \, (R, \circ, \bar{e}) 
+    &= \operatorname{Monoid} \, (R, \circ, \bar{e}) \, \Join \, \text{Commutativity} \newline
+
+\newline
+
+\operatorname{Bounded Semilattice} \, (R, \circ, \bar{e}) 
+    &= \operatorname{Semilattice} \, (R, \circ) \, \Join \, \operatorname{Identity} \, \bar{e} \newline
+    &= \operatorname{Abelian Monoid} \, (R, \circ, \bar{e})  \, \Join \, \text{Idempotency} \newline
+
+\newline
+
+\operatorname{Group} \, (R, \circ, \bar{e}) 
+    &= \operatorname{Monoid} \, (R, \circ, \bar{e}) \, \Join \, \text{Invertibility} \newline
+\operatorname{Abelian Group} \, (R, \circ, \bar{e}) 
+    &= \operatorname{Group} \, (R, \circ, \bar{e}) \, \Join \, \text{Commutativity} \newline
+
+\newline
+
+\operatorname{Semiring \, (Rig)} \, (R, \boldsymbol{+}, \boldsymbol{\times}, \bar0, \bar1)
+    &\vdash \operatorname{Abelian Monoid} \, (R, \boldsymbol{+}, \bar{0}) \newline
+    &\vdash \operatorname{Monoid} \, (R, \boldsymbol{\times}, \bar{1}) \newline
+    &\vdash \text{<other properties>} \newline
+\operatorname{Ring} \, (R, \boldsymbol{+}, \boldsymbol{\times}, \bar0, \bar1)
+    &= \operatorname{Semiring} \, (R, \boldsymbol{+}, \boldsymbol{\times}, \bar0, \bar1) \, \Join \, \text{Invertibility (w.r.t. Addition)} \newline
+    &\vdash \operatorname{Abelian Group} \, (R, \boldsymbol{+}, \bar{0}) \newline
+    &\vdash \operatorname{Monoid} \, (R, \boldsymbol{\times}, \bar{1}) \newline 
+    &\vdash \text{<other properties>} \newline
+\operatorname{Field} \, (R, \boldsymbol{+}, \boldsymbol{\times}, \bar0, \bar1)
+    &= \operatorname{Ring} \, (R, \boldsymbol{+}, \boldsymbol{\times}, \bar0, \bar1) \, \Join \, \text{Non-triviality}  \, \Join \, \text{Commutativity} \newline
+    & \, \, \Join \, \text{Invertibility (w.r.t. Multiplication on } R \setminus \lbrace \bar{0} \rbrace \text{)} \newline
+    &\vdash \operatorname{Abelian Group} \, (R, \boldsymbol{+}, \bar{0}) \newline
+    &\vdash \operatorname{Abelian Group} \, (R \setminus \lbrace \bar{0} \rbrace, \boldsymbol{\times}, \bar{1}) \newline
+    &\vdash \operatorname{Abelian Monoid} \, (R, \boldsymbol{\times}, \bar{1}) \newline 
+    &\vdash \text{<other properties>} \newline
+\end{align}
+$$
+
 # AS with 0 Operation
 
 ## Set $\Rightarrow R$
