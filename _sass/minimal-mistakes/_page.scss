@@ -88,10 +88,10 @@ body {
 }
 
 .page__content {
-  h2 {
-    padding-bottom: 0.5em;
-    border-bottom: 1px solid $border-color;
-  }
+  // h2 {
+  //   padding-bottom: 0.5em;
+  //   border-bottom: 1px solid $border-color;
+  // }
 
 	h1, h2, h3, h4, h5, h6 {
 		.header-link {
@@ -99,6 +99,7 @@ body {
 			left: 0.5em;
 			opacity: 0;
 			font-size: 0.8em;
+      font-family: 'Palatino', $monospace;
 			-webkit-transition: opacity 0.2s ease-in-out 0.1s;
 			-moz-transition: opacity 0.2s ease-in-out 0.1s;
 			-o-transition: opacity 0.2s ease-in-out 0.1s;
