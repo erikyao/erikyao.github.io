@@ -104,7 +104,8 @@ M_3 = \begin{bmatrix}
 \end{bmatrix} \,\,\,\,
 $$
 
-:star2: 定义上有：asymmetric $\equiv$ antisymmetric $\land$ irreflexive
+:star2: 定义上有：asymmetric $\equiv$ antisymmetric $\land$ irreflexive 
+{: .notice--success}
 
 同样，这组 properities 也不是 exhausitive 的，结合 boolean matrix representation 也很容易举出反例。
 
@@ -133,6 +134,7 @@ flowchart LR
 ```
 
 :star2: 定义上有：transitive $\land$ irreflexive $\equiv$ transitive $\land$ asymmetric
+{: .notice--success}
 
 Proof: (1) 假定 $R$ 是 transitive $\land$ irreflexive. 假定 $\exists x,y \in X$ 同时满足 $xRy$ 和 $yRx$ (从而不满足 asymmetric)
 
@@ -147,6 +149,7 @@ Proof: (1) 假定 $R$ 是 transitive $\land$ irreflexive. 假定 $\exists x,y \i
 3. strongly connected 就是 connected 并要求 $\forall x \in X$，都要有一个 $x \to x$ 的 self loop
 
 :star2: 定义上有：connected $\land$ reflexive $\equiv$ strongly connected 
+{: .notice--success}
 
 ### 1.3.4 Uniqueness
 
@@ -208,7 +211,8 @@ $$
   - 但可能有 $X \subset Z$ 或者 $Z \subset X$
   - e.g. $X = \lbrace 1 \rbrace, Y = \lbrace 3 \rbrace, Z = \lbrace 1,2 \rbrace$
 
-:star2: Lemma: An $R$ which is symmetric, transitive, and serial is an equivalence relation.
+:star2: **Lemma:** An $R$ which is symmetric, transitive, and serial is an equivalence relation.
+{: .notice--success}
 
 Proof: 由 serial 可知 $\forall x \in X, \exists y$ such that $xRy$. 
 
@@ -274,7 +278,8 @@ where $F$ is a $\textbf{Function}$.
 
 ## 2.3 Asymptotic Relations
 
-:star2: Lemma: Big-Oh is a **Partial Order**.
+:star2: **Lemma:** Big-Oh is a **Partial Order**.
+{: .notice--success}
 
 Proof: (1) $O$ is reflexive, obviously.
 
@@ -304,9 +309,11 @@ $$
 
 $\blacksquare$
 
-:star2: Lemma: Big-Omega is a **Partial Order**.
+:star2: **Lemma:** Big-Omega is a **Partial Order**.
+{: .notice--success}
 
-:star2: Lemma: Big-Theta is a **Equivalence Relation**.
+:star2: **Lemma:** Big-Theta is an **Equivalence Relation**.
+{: .notice--success}
 
 Proof: (1) $\Theta$ is reflexive, obviously.
 
@@ -324,6 +331,8 @@ If $g \Theta h$, then $\exists$ constants $c_3, c_4 > 0$ and $\exists n_1$ such 
 
 Therefore $\exists n_{\ast} = \max(n_0, n_1)$ such that $\forall n \geq n_{\ast}$, $c_1 \cdot c_3 \cdot h(n) \leq f(n) \leq c_2 \cdot c_4 \cdot h(n)$. I.e. $f \Theta h$. $\blacksquare$
 
-:star2: Lemma: Little-oh is a **Strict Partial Order**.
+:star2: **Lemma:** Little-oh is a **Strict Partial Order**.
+{: .notice--success}
 
-:star2: Lemma: Little-omega is a **Strict Partial Order**.
+:star2: **Lemma:** Little-omega is a **Strict Partial Order**.
+{: .notice--success}
