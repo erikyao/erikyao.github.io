@@ -48,6 +48,19 @@ $$
 
 \newline
 
+\operatorname{Lattice} \, (R, \boldsymbol{\vee}, \boldsymbol{\wedge})
+    &\vdash \operatorname{Semilattice} \, (R, \boldsymbol{\vee}) \newline
+    &\vdash \operatorname{Semilattice} \, (R, \boldsymbol{\wedge}) \newline
+    &\vdash \text{<other properties>} \newline
+
+\operatorname{Bounded \, Lattice} \, (R, \boldsymbol{\vee}, \boldsymbol{\wedge}, \bot, \top)
+    &= \operatorname{Lattice} \, (R, \boldsymbol{\vee}, \boldsymbol{\wedge})  \, \Join \, \operatorname{Identity} \, \bot  \, \Join \, \operatorname{Identity} \, \top \newline
+    &\vdash \operatorname{Bounded Semilattice} \, (R, \boldsymbol{\vee}, \bot) \newline
+    &\vdash \operatorname{Bounded Semilattice} \, (R, \boldsymbol{\wedge}, \top) \newline
+    &\vdash \text{<other properties>} \newline
+
+\newline
+
 \operatorname{Semiring \, (Rig)} \, (R, \boldsymbol{+}, \boldsymbol{\times}, \bar0, \bar1)
     &\vdash \operatorname{Abelian Monoid} \, (R, \boldsymbol{+}, \bar{0}) \newline
     &\vdash \operatorname{Monoid} \, (R, \boldsymbol{\times}, \bar{1}) \newline
@@ -174,9 +187,33 @@ A group is a monoid with *inverse*.
 
 # AS with 2 Operations
 
+## Lattice $\Rightarrow (R, \boldsymbol{\vee}, \boldsymbol{\wedge})$
+
+A lattice is a set with two binary operations, often called $\boldsymbol{\vee}$ (**join**) and $\boldsymbol{\wedge}$ (**meet**). 
+
+我们可以用 $(R, \boldsymbol{\vee}, \boldsymbol{\wedge})$ 表示一个 lattice，它满足：
+
+- $(R, \boldsymbol{\vee})$ is a semilattice
+    - a.k.a. the join-semilattice
+- $(R, \boldsymbol{\wedge})$ is a semilattice
+    - a.k.a. the meet-semilattice
+- absorption laws
+    - $\forall a, b \in R, \, a \vee (a \wedge b) = a$
+    - $\forall a, b \in R, \, a \wedge (a \vee b) = a$
+
+## Bounded Lattice $\Rightarrow$ Lattice + Identities $\Rightarrow  (R, \boldsymbol{\vee}, \boldsymbol{\wedge}, \bot, \top)$
+
+我们可以用 $(R, \boldsymbol{\vee}, \boldsymbol{\wedge}, \bot, \top)$ 表示一个 bounded lattice，它满足：
+
+- $(R, \boldsymbol{\vee}, \boldsymbol{\wedge})$ is a lattice
+- $(R, \boldsymbol{\vee}, \bot)$ is a bounded semilattice
+    - $\bot$ is a.k.a. **least element, minimum, or bottom**
+- $(R, \boldsymbol{\wedge}, \top)$ is a bounded semilattice
+    - $\top$ is a.k.a. **greatest element, maximum, or top**
+
 ## Semiring (Rig) $\Rightarrow (R, \boldsymbol{+}, \boldsymbol{\times}, \bar0, \bar1)$
 
-A semiring is a set with two binary operations, often called $\boldsymbol{+}$ (addition) and $\boldsymbol{\times}$ (multiplication). 
+A semiring is a set with two binary operations, often called $\boldsymbol{+}$ (**addition**) and $\boldsymbol{\times}$ (**multiplication**). 
 
 我们可以用 $(R, \boldsymbol{+}, \boldsymbol{\times}, \bar0, \bar1)$ 表示一个 semiring，它满足：
 
