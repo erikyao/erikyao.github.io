@@ -7,13 +7,13 @@ toc: true
 toc_sticky: true
 ---
 
-# AS with 0 operation
+# AS with 0 Operation
 
 ## Set $\Rightarrow R$
 
 Set is the very basic algebraic structure without any binary operation.
 
-# AS with 1 operation
+# AS with 1 Operation
 
 ## Magma (Groupid) $\Rightarrow (R, \circ)$
 
