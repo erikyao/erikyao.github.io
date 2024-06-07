@@ -20,7 +20,14 @@ $navicon-link-color-hover: mix(#fff, $text-color, 80%) !default;
 
 $active-color: #FAD689 !default; /* Usuki 浅黄 */
 
-
+/* Override headline color */
+/* AnuPpuccin color scheme */
+$h-color-1: rgb(210, 15, 57) !default;
+$h-color-2: rgb(254, 100, 11) !default;
+$h-color-3: rgb(64, 160, 43) !default;
+$h-color-4: rgb(23, 146, 153) !default;
+$h-color-5: rgb(114, 135, 253) !default;
+$h-color-6: rgb(136, 57, 239) !default;
 
 .page__footer {
   color: $text-color !important;
