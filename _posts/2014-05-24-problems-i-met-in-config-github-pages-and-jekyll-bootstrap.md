@@ -19,9 +19,9 @@ url | http://username.github.io | http://username.github.io/projectname，其实
 很多老的教程都是教你建 Project Pages 的（gh-pages 是最显著的特征，比如这篇 [搭建一个免费的，无限流量的Blog----github Pages和Jekyll入门](http://www.ruanyifeng.com/blog/2012/08/blogging_with_jekyll.html)），可能原先并没有 User & Organization Pages。不过两者并没有太大的区别，注意下 branch 就好了
 
 
-## 2. username.github.io 和 username.github.com
+## 2. `username.github.io` 和 `username.github.com`
 
-jekyll bootstrap 的教程 [Jekyll QuickStart](http://jekyllbootstrap.com/usage/jekyll-quick-start.html) 里用的是 username.github.com，其实这应该是原先的 User & Organization Pages 地址，见 [Should I rename <username.github.com> repositories to <username.github.io>?](https://help.github.com/articles/should-i-rename-username-github-com-repositories-to-username-github-io)，而且现在 username.github.com 会直接 redirect 到 username.github.io
+jekyll bootstrap 的教程 [Jekyll QuickStart](http://jekyllbootstrap.com/usage/jekyll-quick-start.html) 里用的是 `username.github.com`，其实这应该是原先的 User & Organization Pages 地址，见 [Should I rename username.github.com repositories to username.github.io?](https://help.github.com/articles/should-i-rename-username-github-com-repositories-to-username-github-io)，而且现在 `username.github.com` 会直接 redirect 到 `username.github.io`
 
 
 ## 3. Install jekyll
@@ -69,7 +69,7 @@ I just gave it up.
 
 先后试了两套页面，结构可以参考 [Jekyll Pagination - More awkward than it needs to be](http://patrick-mckinley.com/tech/jekyll-pagination.html)。但是最后的结果总是一样：本地一点问题都没有，push 上去第一页死活是空白，page2 开始又一切正常。找不出是哪里出问题。  
 
-曾经想过将站点文件归到一个 \_src 文件夹，然后和 jekyll build 出的 \_site 一起 push 过去，后来觉得何必呢……等 pagination 特性更新好了，搜出来的 issue 也不少，目前没有 pagination 也足够我用了。
+曾经想过将站点文件归到一个 `_src` 文件夹，然后和 jekyll build 出的 `_site` 一起 push 过去，后来觉得何必呢……等 pagination 特性更新好了，搜出来的 issue 也不少，目前没有 pagination 也足够我用了。
 
 
 ## 8. MathJax

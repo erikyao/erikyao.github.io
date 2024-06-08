@@ -29,12 +29,12 @@ See [Automatic Equation Numbering](http://docs.mathjax.org/en/latest/tex.html#te
 
 效果是：	
 
-$$
-\begin{equation}
-	Y \approx \beta_0 + \beta_1 X
-	\tag{1.1}
-\end{equation} 
-$$
+> $$
+> \begin{equation}
+> 	Y \approx \beta_0 + \beta_1 X
+> 	\tag{1.1}
+> \end{equation} 
+> $$
 
 ## 2. Equation Referencing
 
@@ -55,30 +55,30 @@ $$
 	
 显示效果没有变化：	
 
-$$
-\begin{equation}
-	Y \approx \beta_0 + \beta_1 X
-	\tag{1.1}
-	\label{eq1.1}
-\end{equation} 
-$$
+> $$
+> \begin{equation}
+> 	Y \approx \beta_0 + \beta_1 X
+> 	\tag{1.1}
+> 	\label{eq1.1}
+> \end{equation} 
+> $$
 
 但是现在可以通过 `\ref{}` 来生成一个 Anchor：  
 
 ```latex
-According to $ \ref{eq1.1} $, we have ...
+According to $\ref{eq1.1}$, we have ...
 ```
 
 效果是：  
 
-According to $ \ref{eq1.1} $, we have ...
+> According to $\ref{eq1.1}$, we have ...
 
 如果想让公式编号自带括号的话，可以用 `amsmath` package 的 `\eqref{}`:
 
 ```latex
-According to $ \eqref{eq1.1} $, we have ...
+According to $\eqref{eq1.1}$, we have ...
 ```
 
 效果是：  
 
-According to $ \eqref{eq1.1} $, we have ...
+> According to $\eqref{eq1.1}$, we have ...
