@@ -90,23 +90,32 @@ Then $(R, \wedge, \vee)$ is a lattice. $\blacksquare$
 Proof: (1) $x \wedge y = x \Rightarrow x \vee y = y$
 
 我们有 absorption law: 
+
 $$
 \begin{equation}
-\forall x, y \in R, \, x \vee (x \wedge y) = x \tag{1} \label{eq:1}
+    \forall x, y \in R, \, x \vee (x \wedge y) = x 
+    \tag{1} 
+    \label{eq:1}
 \end{equation}
 $$
 
 我们可以调换 $x, y$，把 absorption law 转写成：
+
 $$
 \begin{equation}
-\forall x, y \in R, \, y \vee (y \wedge x) = y \tag{2} \label{eq:2}
+    \forall x, y \in R, \, y \vee (y \wedge x) = y 
+    \tag{2} 
+    \label{eq:2}
 \end{equation}
 $$
 
 当 $x \wedge y = x$ 时，因为 lattice 的 commutative 性质，我们有：
+
 $$
 \begin{equation}
-x \wedge y = y \wedge x = x \tag{3} \label{eq:3}
+    x \wedge y = y \wedge x = x 
+    \tag{3} 
+    \label{eq:3}
 \end{equation}
 $$
 
@@ -114,7 +123,8 @@ $$
 
 $$
 \begin{equation}
-y \vee x = y = x \vee y \tag{4}
+    y \vee x = y = x \vee y 
+    \tag{4}
 \end{equation}
 $$
 
