@@ -35,7 +35,7 @@ Conversely, given a poset $(R, \leq)$ in which $\forall$ pair of elements $(x, y
 
 我们先来证明 (1) 中的 $(R, \leq)$ is a poset
 
-Proof: 
+<mark>Proof:</mark> 
 (Reflexive) 
 - 因为 semilattice 是 idempotent 的，所以 $x \wedge x = x$，所以 $x \leq x$
 
@@ -87,7 +87,7 @@ Then $(R, \wedge, \vee)$ is a lattice. $\blacksquare$
 
 **Claim:** Given a lattice $(R, \wedge, \vee)$, $x \wedge y = x \iff x \vee y = y$
 
-Proof: (1) $x \wedge y = x \Rightarrow x \vee y = y$
+<mark>Proof:<mark> (1) $x \wedge y = x \Rightarrow x \vee y = y$
 
 我们有 absorption law: 
 
