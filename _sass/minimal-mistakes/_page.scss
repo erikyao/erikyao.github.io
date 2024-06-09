@@ -116,6 +116,16 @@ body {
     font-size: 1em;
   }
 
+  blockquote {
+    font-size: 0.925em;  // to force MathJax inside blockquote into the same font-size
+  }
+
+  blockquote p {
+    // font-style: italic;
+    font-family: $monospace;
+    font-size: 0.925em;  // to override the global p font-size
+  }
+
   /* paragraph indents */
   p {
     margin: 0 0 $indent-var;
