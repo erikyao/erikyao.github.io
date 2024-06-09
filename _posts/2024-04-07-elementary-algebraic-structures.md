@@ -94,6 +94,7 @@ A magma (a.k.a. groupid) can be denoted by $(R, \circ)$, such that:
 
 - $R$ is a set $R$ 
 - $\circ: R \times R \to R$ is a binary operation
+  - 注意这其实表明了 $R$ is closed under $\circ$
 
 ## Semigroup $\Rightarrow$ Associative Magma $(R, \circ)$ 
 
@@ -180,6 +181,9 @@ A group is a monoid with *inverse*.
 ## Lattice $\Rightarrow (R, \boldsymbol{\vee}, \boldsymbol{\wedge})$
 
 A lattice is a set with two binary operations, often called $\boldsymbol{\vee}$ (**join**) and $\boldsymbol{\wedge}$ (**meet**). 
+
+注意词义 overloading: 有的教材会把 $a \vee b$ 的 **值** 称为 "join of $a,b$"，相当于 join == greatest lower bound；同理，也会把 $a \wedge b$ 的 **值** 称为 "meet of $a,b$"，相当于 meet == least upper bound.
+{: .notice--info}
 
 我们可以用 $(R, \boldsymbol{\vee}, \boldsymbol{\wedge})$ 表示一个 lattice，它满足：
 
