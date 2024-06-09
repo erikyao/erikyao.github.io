@@ -7,7 +7,9 @@ toc: true
 toc_sticky: true
 ---
 
-参考: [https://math.hawaii.edu/~jb/math618/os2uh_17.pdf](https://math.hawaii.edu/~jb/math618/os2uh_17.pdf)
+参考: 
+- [https://math.hawaii.edu/~jb/math618/os2uh_17.pdf](https://math.hawaii.edu/~jb/math618/os2uh_17.pdf)
+- [https://math.mit.edu/~fgotti/docs/Courses/Combinatorial Analysis/37. Intro to Lattices/Intro to Lattices.pdf](https://math.mit.edu/~fgotti/docs/Courses/Combinatorial%20Analysis/37.%20Intro%20to%20Lattices/Intro%20to%20Lattices.pdf)
 
 # 引子：Pre-ordering on Monoids
 
@@ -145,3 +147,27 @@ x \leq y \iff x \wedge y = x \iff x \vee y = y
 $$
 
 也就是意味着，"用 $\wedge$ 去定义 $\leq$" 和 "用 $\vee$ 去定义 $\leq$" 是等效的。
+
+# 更精炼的定义
+
+前面说 "$\forall$ pair of elements $(x, y)$ of $R$ has a greatest lower bound $\operatorname{glb}(x,y)$"，其实可以递归描述成 "$\forall$ nonempty finite subset of $R$ has a meet"，于是我们有：
+
+**Definition 1:** A poset $R$ is a **meet-semilattice** (resp. **join-semilattice**) if $\forall$ nonempty finite subset of $R$ has a meet (resp. join).
+
+**Definition 2:** A poset that is both a meet-semilattice and a join-semilattice is a **lattice**.
+
+**Observation 1:** Every finite meet-semilattice (resp. join-semilattice) $R$ is bounded by $\bigwedge R$ (resp. $\bigvee R$)
+
+**Observation 2:** Every finite lattice $R$ is bounded by $\bigwedge R$ and $\bigvee R$
+
+**Proposition 1:** Every finite meet-semilattice (resp. join-semilattice) also bounded by $\bigvee R$ (resp. $\bigwedge R$) is a lattice.
+
+<mark>Proof:</mark> 假设 $R$ 是一个 finite meet-semilattice also bounded by $\bigvee R$. 往证：$\forall$ pair of elements $x, y \in R$ has a join.
+
+构造 $S = \lbrace z \in R \mid x \leq z \text{ and } y \leq z \rbrace$. 因为 $R$ 是 finite meet-semilattice 且 $S$ 是 $R$ 的 finite subset，所以 $S$ has a meet $m$. 往证：$m$ is the join of $x,y$.
+
+明显 $x$ 是 $S$ 的一个 lower bound，由于 $m$ 是 $S$ 的 greatest lower bound，所以 $x \leq m$；同理 $y \leq m$。所以 $m$ 是 $x,y$ 的一个 upper bound。往证：$m$ is the least upper bound of $x,y$.
+
+考虑 $x,y$ 的 $\forall$ upper bound $m'$，一定有 $m' \in S$，且由于 $S$ 的 meet 是 $m$，所以 $m \leq m'$，所以 $m$ is the least upper bound of $x,y$。
+
+结论成立。$\blacksquare$
