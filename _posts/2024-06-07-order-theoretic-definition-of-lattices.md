@@ -87,7 +87,7 @@ Then $(R, \wedge, \vee)$ is a lattice. $\blacksquare$
 
 **Claim:** Given a lattice $(R, \wedge, \vee)$, $x \wedge y = x \iff x \vee y = y$
 
-<mark>Proof:<mark> (1) $x \wedge y = x \Rightarrow x \vee y = y$
+<mark>Proof:</mark> (1) $x \wedge y = x \Rightarrow x \vee y = y$
 
 我们有 absorption law: 
 
