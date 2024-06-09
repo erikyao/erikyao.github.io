@@ -202,8 +202,10 @@ A lattice is a set with two binary operations, often called $\boldsymbol{\vee}$ 
 - $(R, \boldsymbol{\vee}, \boldsymbol{\wedge})$ is a lattice
 - $(R, \boldsymbol{\vee}, \bot)$ is a bounded semilattice
     - $\bot$ is a.k.a. **least element, minimum, or bottom**
+    - $\bot$ is also denoted by $\bar{0}$ or $\bigvee R$
 - $(R, \boldsymbol{\wedge}, \top)$ is a bounded semilattice
     - $\top$ is a.k.a. **greatest element, maximum, or top**
+    - $\top$ is also denoted by $\bar{1}$ or $\bigwedge R$
 
 ## Semiring (Rig) $\Rightarrow (R, \boldsymbol{+}, \boldsymbol{\times}, \bar0, \bar1)$
 
