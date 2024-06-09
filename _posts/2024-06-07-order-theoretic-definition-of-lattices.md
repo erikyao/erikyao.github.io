@@ -25,15 +25,21 @@ Poset = Partially Ordered Set. 这个简写还蛮常用的。
 
 **Theorem 2.1: Meet semilattices 与 Posets 等价**
 
-(1) Meet Semilattice $(R, \wedge)$ $\Rightarrow$ Poset $(R, \leq)$
+**(1) Meet Semilattice $(R, \wedge)$ $\Rightarrow$ Poset $(R, \leq)$**
 
 In a meet semilattice $(R, \wedge)$, define $x \leq y \iff x \wedge y = x$. Then $(R, \leq)$ is a poset  in which $\forall$ pair of elements $(x, y)$ has a greatest lower bound $\operatorname{glb}(x,y) = x \wedge y$. 
 
-(2) Poset $(R, \leq)$ $\Rightarrow$ Join Semilattice $(R, \wedge)$
+**(2) Poset $(R, \leq)$ $\Rightarrow$ Join Semilattice $(R, \wedge)$**
 
 Conversely, given a poset $(R, \leq)$ in which $\forall$ pair of elements $(x, y)$ has a greatest lower bound $\operatorname{glb}(x,y)$, define $x \wedge y = \operatorname{glb}(x, y)$. Then $(R, \wedge)$ is a semilattice. $\blacksquare$
 
-我们先来证明 (1) 中的 $(R, \leq)$ is a poset
+注意 $\operatorname{glb}(x,y) = x \wedge y$ 这个值不一定等于 $x$ 或者 $y$。考虑 **Theorem 2.1 (1)** 中 comparable vs incomparable 的情况：
+
+- comparable: $x \leq y \iff x \wedge y = x$，于是  $\operatorname{glb}(x,y) = x$
+- comparable: $y \leq x \iff x \wedge y = y$，于是  $\operatorname{glb}(x,y) = y$
+- incomparable: $x \oslash y \iff x \wedge y \neq x \text{ and } x \wedge y \neq y$，于是  $\operatorname{glb}(x,y) \neq x \text{ and } \operatorname{glb}(x,y) \neq y$，更严格来说是 $\operatorname{glb}(x,y) < x \text{ and } \operatorname{glb}(x,y) < y$
+
+我们来证明 **Theorem 2.1 (1)** 中的 $(R, \leq)$ is a poset
 
 <mark>Proof:</mark> 
 (Reflexive) 
@@ -51,15 +57,15 @@ Conversely, given a poset $(R, \leq)$ in which $\forall$ pair of elements $(x, y
 
 于是 $(R, \leq)$ is a poset. $\blacksquare$
 
-同样的思路也可以证明 (2) 中的 $(R, \wedge)$ is semilattice.
+同样的思路也可以证明 **Theorem 2.1 (2)** 中的 $(R, \wedge)$ is semilattice.
 
 **Theorem 2.2: Join semilattices 与 Posets 等价**
 
-(1) Join Semilattice $(R, \vee)$ $\Rightarrow$ Poset $(R, \geq)$
+**(1) Join Semilattice $(R, \vee)$ $\Rightarrow$ Poset $(R, \geq)$**
 
 In a meet semilattice $(R, \vee)$, define $x \geq y \iff x \vee y = x$. Then $(R, \geq)$ is a poset  in which $\forall$ pair of elements $(x, y)$ has a least upper bound $\operatorname{lub}(x,y) = x \vee y$. 
 
-(2) Poset $(R, \geq)$ $\Rightarrow$ Join Semilattice $(R, \vee)$
+**(2) Poset $(R, \geq)$ $\Rightarrow$ Join Semilattice $(R, \vee)$**
 
 Conversely, given a poset $(R, \geq)$ in which $\forall$ pair of elements $(x, y)$ has a least upper bound $\operatorname{lub}(x,y)$, define $x \vee y = \operatorname{lub}(x, y)$. Then $(R, \vee)$ is a semilattice. $\blacksquare$
 
@@ -67,13 +73,13 @@ Conversely, given a poset $(R, \geq)$ in which $\forall$ pair of elements $(x, y
 
 **Theorem 2.3: Lattices 与 Posets 等价**
 
-(1) Lattice $(R, \wedge, \vee)$ $\Rightarrow$ Poset $(R, \leq)$
+**(1) Lattice $(R, \wedge, \vee)$ $\Rightarrow$ Poset $(R, \leq)$**
 
 In a lattice $(R, \wedge, \vee)$, define $x \leq y \iff x \wedge y = x$. Then $(R, \leq)$ is a poset in which $\forall$ pair of elements $(x, y)$ has 
 - a greatest lower bound $\operatorname{glb}(x,y) = x \wedge y$, and 
 - a least upper bound $\operatorname{lub}(x,y) = x \vee y$.
 
-(2) Poset $(R, \leq)$ $\Rightarrow$ Lattice  $(R, \wedge, \vee)$
+**(2) Poset $(R, \leq)$ $\Rightarrow$ Lattice  $(R, \wedge, \vee)$**
 
 Conversely, given a poset $(R, \leq)$ in which $\forall$ pair of elements $(x, y)$ has 
 - a greatest lower bound $\operatorname{glb}(x,y)$, and
