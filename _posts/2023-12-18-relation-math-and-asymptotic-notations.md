@@ -177,6 +177,7 @@ Orderings:
 $$
 \begin{aligned}
 \textbf{Equivalence Relation} &\equiv R \text{ which is } \textit{ reflexive } \land \textit{ symmetric } \land \textit{ transitive } \\
+\textbf{Congruence Relation} &\equiv \text{an equivalence relation } R \text{ which is "compatible" with the associated operation on $X$} \\
 \textbf{Pre-order} &\equiv R \text{ which is } \textit{ reflexive } \land \textit{ transitive } \\
 \textbf{Partial Order} &\equiv R \text{ which is } \textit{ reflexive } \land \textit{ antisymmetric } \land \textit{ transitive } \\
 \textbf{Strict Partial Order} &\equiv R \text{ which is } \textit{ irreflexive } \land \textit{ asymmetric } \land \textit{ transitive } \\
@@ -194,6 +195,8 @@ $$
 举例：
 
 - **Equivalence Relation:** equality $=$
+- **Congruence Relation:** "congruent modulo $n$", as in $a \equiv b \pmod n$
+  - See [下文 1.3.7](#137-%E9%A2%98%E5%A4%96%E8%AF%9Dcongruence-relation)
 - **Partial Order:** subset $\subseteq$
 - **Strict Partial Order:** strict subset $\subset$
 - **Strict Weak Order:** 类似赛马、F-1 赛车、或者田径比赛的 ranking $<$：
@@ -243,6 +246,19 @@ $$
 $$
 
 where $F$ is a $\textbf{Function}$.
+
+### 1.3.7 题外话：Congruence Relation
+
+**Definition:** Let $(S, \circ)$ be an algebraic structure. Suppose $\circ$ is a $n$-ary operation. Let $R$ be an equivalence relation on $S$. If $\forall x_1,\dots,x_n,y_1,\dots,y_n \in S$:
+
+$$
+x_1 R y_1, \, x_2 R y_2, \, \dots, \text{ and } x_n R y_n \Longrightarrow (x_1 \circ x_2 \circ \dots \circ x_n) R (y_1 \circ y_2 \circ \dots \circ y_n)
+$$
+
+we call $R$ **compatible** with $\circ$ and $R$ is a **congruence relation** on $S$.
+
+同理也有 "congruence class", "$x,y$ are congruent" 这些说法
+{: .notice--info}
 
 # 2. Asymptotic Notations
 
