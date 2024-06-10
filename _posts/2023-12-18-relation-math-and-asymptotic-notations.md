@@ -176,6 +176,7 @@ Orderings:
 
 $$
 \begin{aligned}
+\textbf{Similarity Relation} &\equiv R \text{ which is } \textit{ reflexive } \land \textit{ symmetric } \\
 \textbf{Equivalence Relation} &\equiv R \text{ which is } \textit{ reflexive } \land \textit{ symmetric } \land \textit{ transitive } \\
 \textbf{Congruence Relation} &\equiv \text{an equivalence relation } R \text{ which is "compatible" with the associated operation on $X$} \\
 \textbf{Pre-order} &\equiv R \text{ which is } \textit{ reflexive } \land \textit{ transitive } \\
@@ -194,6 +195,7 @@ $$
 
 举例：
 
+- **Similarity Relation:** 限定误差范围内的约等于 $\approx$
 - **Equivalence Relation:** equality $=$
 - **Congruence Relation:** "congruent modulo $n$", as in $a \equiv b \pmod n$
   - See [下文 1.3.7](#137-%E9%A2%98%E5%A4%96%E8%AF%9Dcongruence-relation)
