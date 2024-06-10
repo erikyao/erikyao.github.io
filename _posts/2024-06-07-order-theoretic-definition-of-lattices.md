@@ -27,13 +27,13 @@ Poset = Partially Ordered Set. 这个简写还蛮常用的。
 
 **Theorem 2.1: Meet semilattices 与 Posets 等价**
 
-**(1) Meet Semilattice $(R, \wedge)$ $\Rightarrow$ Poset $(R, \leq)$**
+**(1) Meet Semilattice $(S, \wedge)$ $\Rightarrow$ Poset $(S, \leq)$**
 
-In a meet semilattice $(R, \wedge)$, define $x \leq y \iff x \wedge y = x$. Then $(R, \leq)$ is a poset  in which $\forall$ pair of elements $(x, y)$ has a greatest lower bound $\operatorname{glb}(x,y) = x \wedge y$. 
+In a meet semilattice $(S, \wedge)$, define $x \leq y \iff x \wedge y = x$. Then $(S, \leq)$ is a poset  in which $\forall$ pair of elements $(x, y)$ has a greatest lower bound $\operatorname{glb}(x,y) = x \wedge y$. 
 
-**(2) Poset $(R, \leq)$ $\Rightarrow$ Join Semilattice $(R, \wedge)$**
+**(2) Poset $(S, \leq)$ $\Rightarrow$ Join Semilattice $(S, \wedge)$**
 
-Conversely, given a poset $(R, \leq)$ in which $\forall$ pair of elements $(x, y)$ has a greatest lower bound $\operatorname{glb}(x,y)$, define $x \wedge y = \operatorname{glb}(x, y)$. Then $(R, \wedge)$ is a semilattice. $\blacksquare$
+Conversely, given a poset $(S, \leq)$ in which $\forall$ pair of elements $(x, y)$ has a greatest lower bound $\operatorname{glb}(x,y)$, define $x \wedge y = \operatorname{glb}(x, y)$. Then $(S, \wedge)$ is a semilattice. $\blacksquare$
 
 注意 $\operatorname{glb}(x,y) = x \wedge y$ 这个值不一定等于 $x$ 或者 $y$。考虑 **Theorem 2.1 (1)** 中 comparable vs incomparable 的情况：
 
@@ -41,7 +41,7 @@ Conversely, given a poset $(R, \leq)$ in which $\forall$ pair of elements $(x, y
 - comparable: $y \leq x \iff x \wedge y = y$，于是  $\operatorname{glb}(x,y) = y$
 - incomparable: $x \oslash y \iff x \wedge y \neq x \text{ and } x \wedge y \neq y$，于是  $\operatorname{glb}(x,y) \neq x \text{ and } \operatorname{glb}(x,y) \neq y$，更严格来说是 $\operatorname{glb}(x,y) < x \text{ and } \operatorname{glb}(x,y) < y$
 
-我们来证明 **Theorem 2.1 (1)** 中的 $(R, \leq)$ is a poset
+我们来证明 **Theorem 2.1 (1)** 中的 $(S, \leq)$ is a poset
 
 <mark>Proof:</mark> 
 (Reflexive) 
@@ -57,33 +57,33 @@ Conversely, given a poset $(R, \leq)$ in which $\forall$ pair of elements $(x, y
 - 若 $y \leq z$，则 $y \wedge z = y$
 - 若 $x \leq y \leq z$，根据 semilattice 的 associative 性质，我们有 $x \wedge z = (x \wedge y) \wedge z = x \wedge (y \wedge z) = x \wedge y = x$，于是 $x \leq z$
 
-于是 $(R, \leq)$ is a poset. $\blacksquare$
+于是 $(S, \leq)$ is a poset. $\blacksquare$
 
-同样的思路也可以证明 **Theorem 2.1 (2)** 中的 $(R, \wedge)$ is semilattice.
+同样的思路也可以证明 **Theorem 2.1 (2)** 中的 $(S, \wedge)$ is semilattice.
 
 **Theorem 2.2: Join semilattices 与 Posets 等价**
 
-**(1) Join Semilattice $(R, \vee)$ $\Rightarrow$ Poset $(R, \geq)$**
+**(1) Join Semilattice $(S, \vee)$ $\Rightarrow$ Poset $(S, \geq)$**
 
-In a meet semilattice $(R, \vee)$, define $x \geq y \iff x \vee y = x$. Then $(R, \geq)$ is a poset  in which $\forall$ pair of elements $(x, y)$ has a least upper bound $\operatorname{lub}(x,y) = x \vee y$. 
+In a meet semilattice $(S, \vee)$, define $x \geq y \iff x \vee y = x$. Then $(S, \geq)$ is a poset  in which $\forall$ pair of elements $(x, y)$ has a least upper bound $\operatorname{lub}(x,y) = x \vee y$. 
 
-**(2) Poset $(R, \geq)$ $\Rightarrow$ Join Semilattice $(R, \vee)$**
+**(2) Poset $(S, \geq)$ $\Rightarrow$ Join Semilattice $(S, \vee)$**
 
-Conversely, given a poset $(R, \geq)$ in which $\forall$ pair of elements $(x, y)$ has a least upper bound $\operatorname{lub}(x,y)$, define $x \vee y = \operatorname{lub}(x, y)$. Then $(R, \vee)$ is a semilattice. $\blacksquare$
+Conversely, given a poset $(S, \geq)$ in which $\forall$ pair of elements $(x, y)$ has a least upper bound $\operatorname{lub}(x,y)$, define $x \vee y = \operatorname{lub}(x, y)$. Then $(S, \vee)$ is a semilattice. $\blacksquare$
 
 # Order-Theoretic Definition of Lattices
 
 **Theorem 2.3: Lattices 与 Posets 等价**
 
-**(1) Lattice $(R, \wedge, \vee)$ $\Rightarrow$ Poset $(R, \leq)$**
+**(1) Lattice $(S, \wedge, \vee)$ $\Rightarrow$ Poset $(S, \leq)$**
 
-In a lattice $(R, \wedge, \vee)$, define $x \leq y \iff x \wedge y = x$. Then $(R, \leq)$ is a poset in which $\forall$ pair of elements $(x, y)$ has 
+In a lattice $(S, \wedge, \vee)$, define $x \leq y \iff x \wedge y = x$. Then $(S, \leq)$ is a poset in which $\forall$ pair of elements $(x, y)$ has 
 - a greatest lower bound $\operatorname{glb}(x,y) = x \wedge y$, and 
 - a least upper bound $\operatorname{lub}(x,y) = x \vee y$.
 
-**(2) Poset $(R, \leq)$ $\Rightarrow$ Lattice  $(R, \wedge, \vee)$**
+**(2) Poset $(S, \leq)$ $\Rightarrow$ Lattice  $(S, \wedge, \vee)$**
 
-Conversely, given a poset $(R, \leq)$ in which $\forall$ pair of elements $(x, y)$ has 
+Conversely, given a poset $(S, \leq)$ in which $\forall$ pair of elements $(x, y)$ has 
 - a greatest lower bound $\operatorname{glb}(x,y)$, and
 - a least upper bound $\operatorname{lub}(x,y)$,
 
@@ -91,9 +91,9 @@ define
 - $x \wedge y = \operatorname{glb}(x, y)$, and
 - $x \vee y = \operatorname{lub}(x, y)$. 
 
-Then $(R, \wedge, \vee)$ is a lattice. $\blacksquare$
+Then $(S, \wedge, \vee)$ is a lattice. $\blacksquare$
 
-**Claim:** Given a lattice $(R, \wedge, \vee)$, $x \wedge y = x \iff x \vee y = y$
+**Claim:** Given a lattice $(S, \wedge, \vee)$, $x \wedge y = x \iff x \vee y = y$
 
 <mark>Proof:</mark> (1) $x \wedge y = x \Rightarrow x \vee y = y$
 
@@ -101,9 +101,9 @@ Then $(R, \wedge, \vee)$ is a lattice. $\blacksquare$
 
 $$
 \begin{equation}
-    \forall x, y \in R, \, x \vee (x \wedge y) = x 
+    \forall x, y \in S, \, x \vee (x \wedge y) = x 
     \tag{1} 
-    \label{eq:1}
+    \label{eq1}
 \end{equation}
 $$
 
@@ -111,9 +111,9 @@ $$
 
 $$
 \begin{equation}
-    \forall x, y \in R, \, y \vee (y \wedge x) = y 
+    \forall x, y \in S, \, y \vee (y \wedge x) = y 
     \tag{2} 
-    \label{eq:2}
+    \label{eq2}
 \end{equation}
 $$
 
@@ -123,11 +123,11 @@ $$
 \begin{equation}
     x \wedge y = y \wedge x = x 
     \tag{3} 
-    \label{eq:3}
+    \label{eq3}
 \end{equation}
 $$
 
-将 $\eqref{eq:3}$ 带入 $\eqref{eq:2}$，并再次根据 commutative 性质，得到：
+将 $\eqref{eq3}$ 带入 $\eqref{eq2}$，并再次根据 commutative 性质，得到：
 
 $$
 \begin{equation}
@@ -150,24 +150,24 @@ $$
 
 # 更精炼的定义
 
-前面说 "$\forall$ pair of elements $(x, y)$ of $R$ has a greatest lower bound $\operatorname{glb}(x,y)$"，其实可以递归描述成 "$\forall$ nonempty finite subset of $R$ has a meet"，于是我们有：
+前面说 "$\forall$ pair of elements $(x, y)$ of $S$ has a greatest lower bound $\operatorname{glb}(x,y)$"，其实可以递归描述成 "$\forall$ nonempty finite subset of $S$ has a meet"，于是我们有：
 
-**Definition 1:** A poset $R$ is a **meet-semilattice** (resp. **join-semilattice**) if $\forall$ nonempty finite subset of $R$ has a meet (resp. join).
+**Definition 1:** A poset $S$ is a **meet-semilattice** (resp. **join-semilattice**) if $\forall$ nonempty finite subset of $S$ has a meet (resp. join).
 
 **Definition 2:** A poset that is both a meet-semilattice and a join-semilattice is a **lattice**.
 
-**Observation 1:** Every finite meet-semilattice (resp. join-semilattice) $R$ is bounded by $\bigwedge R$ (resp. $\bigvee R$)
+**Observation 1:** Every finite meet-semilattice (resp. join-semilattice) $S$ is bounded by $\bigwedge S$ (resp. $\bigvee S$)
 
-**Observation 2:** Every finite lattice $R$ is bounded by $\bigwedge R$ and $\bigvee R$
+**Observation 2:** Every finite lattice $S$ is bounded by $\bigwedge S$ and $\bigvee S$
 
-**Proposition 1:** Every finite meet-semilattice (resp. join-semilattice) also bounded by $\bigvee R$ (resp. $\bigwedge R$) is a lattice.
+**Proposition 1:** Every finite meet-semilattice (resp. join-semilattice) also bounded by $\bigvee S$ (resp. $\bigwedge S$) is a lattice.
 
-<mark>Proof:</mark> 假设 $R$ 是一个 finite meet-semilattice also bounded by $\bigvee R$. 往证：$\forall$ pair of elements $x, y \in R$ has a join.
+<mark>Proof:</mark> 假设 $S$ 是一个 finite meet-semilattice also bounded by $\bigvee S$. 往证：$\forall$ pair of elements $x, y \in S$ has a join.
 
-构造 $S = \lbrace z \in R \mid x \leq z \text{ and } y \leq z \rbrace$. 因为 $R$ 是 finite meet-semilattice 且 $S$ 是 $R$ 的 finite subset，所以 $S$ has a meet $m$. 往证：$m$ is the join of $x,y$.
+构造 $S_{xy} = \lbrace z \in S \mid x \leq z \text{ and } y \leq z \rbrace$. 因为 $S$ 是 finite meet-semilattice 且 $S_{xy} 是 $S$ 的 finite subset，所以 $S_{xy}$ has a meet $m$. 往证：$m$ is the join of $x,y$.
 
-明显 $x$ 是 $S$ 的一个 lower bound，由于 $m$ 是 $S$ 的 greatest lower bound，所以 $x \leq m$；同理 $y \leq m$。所以 $m$ 是 $x,y$ 的一个 upper bound。往证：$m$ is the least upper bound of $x,y$.
+明显 $x$ 是 $S_{xy}$ 的一个 lower bound，由于 $m$ 是 $S_{xy}$ 的 meet, i.e. greatest lower bound，所以 $x \leq m$；同理 $y \leq m$。所以 $m$ 是 $x,y$ 的一个 upper bound。往证：$m$ is the least upper bound of $x,y$.
 
-考虑 $x,y$ 的 $\forall$ upper bound $m'$，一定有 $m' \in S$，且由于 $S$ 的 meet 是 $m$，所以 $m \leq m'$，所以 $m$ is the least upper bound of $x,y$。
+考虑 $x,y$ 的 $\forall$ upper bound $m'$，一定有 $m' \in S_{xy}$，且由于 $S_{xy}$ 的 meet 是 $m$，所以 $m \leq m'$，所以 $m$ is the least upper bound of $x,y$。
 
 结论成立。$\blacksquare$
