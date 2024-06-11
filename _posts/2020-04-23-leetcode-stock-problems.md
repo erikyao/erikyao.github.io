@@ -36,7 +36,7 @@ Stock 系列的问题啊，边界条件是有点烦的。它烦不是因为它�
 
 ## 1. LeetCode #121: Stock I
 
-以下搬运自 [LeetCode: Min Sub and Max Sub Problems](http://yaoyao.codes/leetcode/2020/02/21/leetcode-maxsub-minsub-problems#141-举例leetcode-121-stock-i)
+以下搬运自 [LeetCode: Min Sub and Max Sub Problems](/leetcode/2020/02/21/leetcode-maxsub-minsub-problems#141-举例leetcode-121-stock-i)
 
 ### 1.1 at most 1 transaction
 

@@ -250,7 +250,7 @@ Execution context stack for the above code:
 
 ## 5. Closure
 
-关于 closure 具体长什么样子，我觉得看我自己的 [Digest of Fluent Python - 5.6 Function Introspection - Function Closure](http://yaoyao.codes/python/2016/09/16/digest-of-fluent-python#Function-Closure) 就好了：
+关于 closure 具体长什么样子，我觉得看我自己的 [Digest of Fluent Python - 5.6 Function Introspection - Function Closure](/python/2016/09/16/digest-of-fluent-python#Function-Closure) 就好了：
 
 ```python
 def print_msg(msg):
@@ -281,7 +281,7 @@ print_hello()  # Output: Hello
 
 - 需要注意的是：closure 包含 function 本身 (从 OOP 的角度来看也应是如此)，上面 `inspect.getclosurevars()` 返回的只是 closure 内 variable 的情况
 
-从这个 OOP 的角度来说，我觉得可以直接把 closure 理解成一个 `Function` class。R 里面 closure 就直接成了 a type of functions (参我的 [R: dive into types - 4.深入 function types](http://yaoyao.codes/r/2018/11/30/r-dive-into-types#4-深入-function-types)；现在看来这篇也有点 out of date 了):
+从这个 OOP 的角度来说，我觉得可以直接把 closure 理解成一个 `Function` class。R 里面 closure 就直接成了 a type of functions (参我的 [R: dive into types - 4.深入 function types](/r/2018/11/30/r-dive-into-types#4-深入-function-types)；现在看来这篇也有点 out of date 了):
 
 ```r
 > typeof(str)
@@ -292,4 +292,4 @@ print_hello()  # Output: Hello
 [1] "special"
 ```
 
-另外在 Advanced R 1st edition 里讲的 ~~"Closures are functions written by functions"~~ 现在看来就是 BS (参我的 [Digest of Advanced R](http://yaoyao.codes/r/2015/07/08/digest-of-advanced-r#7-2-Closures)；2nd edition 已经没有这么讲了)。
+另外在 Advanced R 1st edition 里讲的 ~~"Closures are functions written by functions"~~ 现在看来就是 BS (参我的 [Digest of Advanced R](/r/2015/07/08/digest-of-advanced-r#7-2-Closures)；2nd edition 已经没有这么讲了)。

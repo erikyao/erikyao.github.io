@@ -803,7 +803,7 @@ $x$          | $x_1$         | $x_2$         | $\cdots$     | $x_n$
 
 Having defined the operation of convergence on metric spaces, we now define a couple other related notions, including that of open set, closed set, interior, exterior, boundary, and adherent point. The study of such notions is known as **point-set topology** (点集拓扑).
 
-- 讲真，我前面写了那么多 [open set](http://yaoyao.codes/math/2018/06/28/open-set)，还是大神的描述更好懂
+- 讲真，我前面写了那么多 [open set](/math/2018/06/28/open-set)，还是大神的描述更好懂
 
 **Definition 12.2.1** (Balls). 这个基本就是 neighborhood $\Phi(x_0, r)$，不过书上的符号更精确：
 
@@ -878,13 +878,13 @@ $$
 **Proposition 12.2.15** (Basic properties of open and closed sets). Let $(X, d)$ be a metric space, $E \subset X$, and $x_0 \in X$.
 
 1. 球 $B_{(X, d)}(x_0, r) := \lbrace x \in X \mid d(x, x_0) < r \rbrace$ 是开集；闭球 $\lbrace x \in X \mid d(x, x_0) < r \rbrace$ 是闭集
-1. 任何单点集 $\lbrace x_0 \rbrace$ 是闭集
-1. 有限个开集的 $\cap$ 也是开集；有限个闭集的 $\cup$ 也是闭集
-1. 假设有 index set $I$ (可以是有限的、可数的或者不可数的)：
+2. 任何单点集 $\lbrace x_0 \rbrace$ 是闭集
+3. 有限个开集的 $\cap$ 也是开集；有限个闭集的 $\cup$ 也是闭集
+4. 假设有 index set $I$ (可以是有限的、可数的或者不可数的)：
     - 若 $\lbrace E_i \rbrace_{i \in I}$ 是 $X$ 上的一族开集，则 $\underset{i \in I}{\bigcup} E_i$ 也是开集
     - 若 $\lbrace E_i \rbrace_{i \in I}$ 是 $X$ 上的一族闭集，则 $\underset{i \in I}{\bigcap} E_i$ 也是闭集
-1. $int(E)$ 是 $E$ 内的最大开集，i.e. $\forall V \subset E$ where $V$ is open, $V \subseteq int(E)$
-1. $\overline{E}$ 是包含 $E$ 的最小闭集，i.e. $\forall V \supset E$ where $V$ is open, $V \supseteq \overline{E}$
+5. $int(E)$ 是 $E$ 内的最大开集，i.e. $\forall V \subset E$ where $V$ is open, $V \subseteq int(E)$
+6. $\overline{E}$ 是包含 $E$ 的最小闭集，i.e. $\forall V \supset E$ where $V$ is open, $V \supseteq \overline{E}$
 
 注意：
 

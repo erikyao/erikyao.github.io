@@ -146,7 +146,7 @@ foo("Fourty Two")
 
 ## 6. 模拟实现 Double Dispatch
 
-这个其实在 [C++ double dispatch: 函数参数并不支持多态](/c++/2015/04/26/cpp-double-dispatch) 和 [PPP: Visitor Pattern](http://yaoyao.codes/java/2014/06/24/digest-of-agile-software-development-ppp#ch28) 有讲，暂时不重复了。
+这个其实在 [C++ double dispatch: 函数参数并不支持多态](/c++/2015/04/26/cpp-double-dispatch) 和 [PPP: Visitor Pattern](/java/2014/06/24/digest-of-agile-software-development-ppp#ch28) 有讲，暂时不重复了。
 
 ## 7. 更多讨论
 

@@ -48,7 +48,7 @@ $$
 - $\dim(\operatorname{colsp}(A)) \leq n$
     - 理由同上
 - $\dim(\mathrm{im}(A)) \leq m$
-    - 注意 $\mathrm{im}(A) \subseteq \mathbb{R}^m$ (值域 image 是达域 codomain 的子空间，参 [Terminology Recap: Functions](http://yaoyao.codes/math/2018/10/06/terms-of-functions))
+    - 注意 $\mathrm{im}(A) \subseteq \mathbb{R}^m$ (值域 image 是达域 codomain 的子空间，参 [Terminology Recap: Functions](/math/2018/10/06/terms-of-functions))
     - $\dim(\mathbb{R}^m) = m$，所以 $\dim(\mathrm{im}(A)) \leq m$
     - 你可能要问：对于任意一个 $\vec v_{n \times 1}$，有 $A \vec v = \vec w_{m \times 1}$，那么这所有的 $\vec w_{m \times 1}$ 构成的 space 为什么可能会有 dimension $\< m$?
         - 想象 3-D space 中的一个 plane，这个 plane 由一组 $\vec w_{3 \times 1}$ 构成，但是 plane 的 dimension 为 2
