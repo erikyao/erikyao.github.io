@@ -309,7 +309,7 @@ Closure of $R$ 一定是对 $\pi$ 的 coarsening。假定 $R$ 的某个 closure 
 
 ## _join_ 的定义
 
-我们已知 $\pi_1 \curlyvee \pi_2$ 不一定是 partition (但一定是 cover)，所以一定是不能定义 $\vee \coloneqq \curlyvee$ 的，它连 $\vee: \Pi \times \Pi \to \Pi$ 这个最基础的要求都达不到。
+我们已知 $\pi_1 \curlyvee \pi_2$ 不一定是 partition (但一定是 cover)，所以一定是不能定义 $\vee := \curlyvee$ 的，它连 $\vee: \Pi \times \Pi \to \Pi$ 这个最基础的要求都达不到。
 
 但如果我们能取 $\pi_1 \curlyvee \pi_2$ 背后的 relation $R_1 \cup R_2$ 的 transitive closure，i.e. 把 $R_1 \cup R_2$ 升级为一个 equivalence，i.e. 把 $\pi_1 \curlyvee \pi_2$ 升级为一个 partition，那么这第一步的 $\vee: \Pi \times \Pi \to \Pi$ 就成功了。后续只要能证明 $\vee$ 引出的 $\leq$ 是 partial order，那么一切都会好起来的。
 
