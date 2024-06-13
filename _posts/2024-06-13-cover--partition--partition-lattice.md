@@ -32,7 +32,7 @@ is a similarity relation.
 
 ## Cover $\Leftarrow$ Similarity Relation
 
-If $R$ is a similarity relation on $A$, given an element $a \in A$, the **similarity class** of $a$ is defined as $[a]_{R} = \lbracea' \in A \mid a' R a \rbrace$.
+If $R$ is a similarity relation on $A$, given an element $a \in A$, the **similarity class** of $a$ is defined as $[a]_{R} = \lbrace a' \in A \mid a' R a \rbrace$.
 
 Then the family of subsets of $A$, denoted by $\kappa$, given by
 
@@ -65,7 +65,7 @@ is an equivalence relation.
 
 ## Partition $\Leftarrow$ Equivalence Relation
 
-Similarly, if $R$ is an equivalence relation on $A$, given an element $a \in A$, the **equivalence class** of $a$ is defined as $[a]_{R} = \lbracea' \in A \mid a' R a\rbrace$.
+Similarly, if $R$ is an equivalence relation on $A$, given an element $a \in A$, the **equivalence class** of $a$ is defined as $[a]_{R} = \lbrace a' \in A \mid a' R a \rbrace$.
 
 E.g. If $x =_2 y \iff x = y \pmod 2$ (where $x,y \in \mathbb{N}$), then equivalence relation $=_2$ split $\mathbb{N}$ into 2 equivalence classes, odd numbers and even numbers.
 
