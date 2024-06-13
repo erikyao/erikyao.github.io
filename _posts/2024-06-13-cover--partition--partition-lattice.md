@@ -51,7 +51,7 @@ is a cover of $A$.
     - We call elements of $\pi$ **pairwise disjoint** or **mutually exclusive**
     - Furthermore, $\bigcap \pi = \varnothing$
 
-**Definition:** The elements of $P$ are called the blocks, parts, or cells, of the partition.
+**Definition:** The elements of $\pi$ are called the blocks, parts, or cells, of the partition.
 
 ## Partition $\Rightarrow$ Equivalence Relation
 

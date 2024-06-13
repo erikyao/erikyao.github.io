@@ -45,7 +45,7 @@ Following the definition of closure (Math):
 
 - $S^{+}$ is the **reflexive closure** of $S$ if $S^{+}$ is the smallest superset of $S$ that is reflexive
 - $S^{+}$ is the **symmetric closure** of $S$ if $S^{+}$ is the smallest superset of $S$ that is symmetric
-- $S^{+}$ is the **transitive closure** of $S$ if $S^{+}$ is the smallest superset of $S$ that is reflexive
+- $S^{+}$ is the **transitive closure** of $S$ if $S^{+}$ is the smallest superset of $S$ that is transitive
 
 **Proposition 2:** The transitive closure of a similarity (relation) is an equivalence (relation).
 
