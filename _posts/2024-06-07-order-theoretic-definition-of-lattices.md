@@ -1,15 +1,11 @@
 ---
-title: "Order-Theoretic Definition of Lattices"
+title: "Order-Theoretic Definition of Lattices (Poset == Lattice)"
 description: ""
 category: Math
 tags: []
 toc: true
 toc_sticky: true
 ---
-
-参考: 
-- [https://math.hawaii.edu/~jb/math618/os2uh_17.pdf](https://math.hawaii.edu/~jb/math618/os2uh_17.pdf)
-- [https://math.mit.edu/~fgotti/docs/Courses/Combinatorial Analysis/37. Intro to Lattices/Intro to Lattices.pdf](https://math.mit.edu/~fgotti/docs/Courses/Combinatorial%20Analysis/37.%20Intro%20to%20Lattices/Intro%20to%20Lattices.pdf)
 
 # 引子：Pre-ordering on Monoids
 
@@ -171,3 +167,8 @@ $$
 考虑 $x,y$ 的 $\forall$ upper bound $m'$，一定有 $m' \in S_{xy}$，且由于 $S_{xy}$ 的 meet 是 $m$，所以 $m \leq m'$，所以 $m$ is the least upper bound of $x,y$。
 
 结论成立。$\blacksquare$
+
+# References
+
+> - [https://math.hawaii.edu/~jb/math618/os2uh_17.pdf](https://math.hawaii.edu/~jb/math618/os2uh_17.pdf)
+> - [https://math.mit.edu/~fgotti/docs/Courses/Combinatorial Analysis/37. Intro to Lattices/Intro to Lattices.pdf](https://math.mit.edu/~fgotti/docs/Courses/Combinatorial%20Analysis/37.%20Intro%20to%20Lattices/Intro%20to%20Lattices.pdf)
