@@ -127,6 +127,9 @@ A band is simply an idempotent semigroup $(S, \circ)$, such that:
 
 ## Semilattice $\Rightarrow$ Commutative Band $(S, \circ)$
 
+本文是从 AS 角度定义，从 Poset 的角度定义请参考 [Order-Theoretic Definition of Lattices](/math/2024/06/07/order-theoretic-definition-of-lattices).
+{: .notice--info}
+
 A semilattice is simply a commutative band $(S, \circ)$, such that:
 
 - $\forall a,b \in S, \, a \circ b = b \circ a$
@@ -180,6 +183,9 @@ A group is a monoid with *inverse*.
 
 ## Lattice $\Rightarrow (S, \boldsymbol{\vee}, \boldsymbol{\wedge})$
 
+本文是从 AS 角度定义，从 Poset 的角度定义请参考 [Order-Theoretic Definition of Lattices](/math/2024/06/07/order-theoretic-definition-of-lattices).
+{: .notice--info}
+
 A lattice is a set with two binary operations, often called $\boldsymbol{\vee}$ (**join**) and $\boldsymbol{\wedge}$ (**meet**). 
 
 注意词义 overloading: 有的教材会把 $a \vee b$ 的 **值** 称为 "join of $a,b$"，相当于 join == greatest lower bound；同理，也会把 $a \wedge b$ 的 **值** 称为 "meet of $a,b$"，相当于 meet == least upper bound.
@@ -195,7 +201,7 @@ A lattice is a set with two binary operations, often called $\boldsymbol{\vee}$ 
     - $\forall a, b \in S, \, a \vee (a \wedge b) = a$
     - $\forall a, b \in S, \, a \wedge (a \vee b) = a$
 
-## Bounded Lattice $\Rightarrow$ Lattice + Identities $\Rightarrow  (S, \boldsymbol{\vee}, \boldsymbol{\wedge}, \bot, \top)$
+### Bounded Lattice $\Rightarrow$ Lattice + Identities $\Rightarrow  (S, \boldsymbol{\vee}, \boldsymbol{\wedge}, \bot, \top)$
 
 我们可以用 $(S, \boldsymbol{\vee}, \boldsymbol{\wedge}, \bot, \top)$ 表示一个 bounded lattice，它满足：
 
