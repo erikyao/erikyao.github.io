@@ -7,12 +7,12 @@ toc: true
 toc_sticky: true
 ---
 
-# References
+# 0. References
 
 > - https://staff.fnwi.uva.nl/d.j.n.vaneijck2/software/demo_s5/EREL.pdf
 > - https://www.ellerman.org/book-draft-the-logic-of-partitions/
  
-# Cover
+# 1. Cover
 
 **Definition:** Given a set $A$, a **cover** of $A$, denoted by $\kappa = \lbrace A_1, A_2, \dots, A_n \rbrace$, is a family of subsets of $A$ (i.e. $\forall A_i \subseteq A$), which satisfies:
 
@@ -42,7 +42,20 @@ $$
 
 is a cover of $A$.
 
-# Partition
+## Fusion vs Fission (in Haskell)
+
+fusion 和 fission 首先是核物理的术语：
+
+- fusion: 核聚变
+- fission: 核裂变
+
+Haskell 中用来形容对 cover 的变形，非常形象地说明了变形的方向：
+
+- the **fusion** of a cover $\Longrightarrow$ the **finest coarsening** of the cover that turns it into a partition
+    - 等价于 cover 的 transitive closure. See [Closure (Math) ▪️ Closures of Relations](/math/2024/06/12/closure-math-closures-of-relations#closures-of-relations)
+- the **fission** of a cover $\Longrightarrow$ the **coarsest refinement** of the cover that turns it into a partition
+
+# 2. Partition
 
 **Definition:** Given a set $A$, a **partition** of $A$, denoted by $\pi = \lbrace A_1, A_2, \dots, A_n \rbrace$, is a family of subsets of $A$ (i.e. $\forall A_i \subseteq A$), which satisfies:
 
@@ -91,7 +104,7 @@ A set equipped with an equivalence relation or a partition is sometimes called a
 
 **Definition:** We define the **index** of partition $\pi$, as the number of blocks in $\pi$, i.e. $\vert \pi \vert$
 
-# Closure Properties
+# 3. Closure Properties
 
 ## Closure under Union: ✅ Similarities (Covers) ❌ Equivalences (Partitions)
 
@@ -193,7 +206,7 @@ $$
 - $\pi_1 \curlywedge \pi_2 = \big\lbrace \lbrace 1 \rbrace, \lbrace 2 \rbrace, \lbrace 3 \rbrace, \lbrace 4 \rbrace \big\rbrace$
 - $R_1 \cap R_2 = \lbrace (1,1), (2,2), (3,3), (4,4) \rbrace$
 
-# Partition Lattice
+# 4. Partition Lattice
 
 ## 构建 Lattice 的思路
 
