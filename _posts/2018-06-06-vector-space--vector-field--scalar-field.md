@@ -8,11 +8,17 @@ toc: true
 toc_sticky: true
 ---
 
+$$
+\newcommand{\icol}[1]{
+  \bigl[ \begin{smallmatrix} #1 \end{smallmatrix} \bigr]
+}
+$$
+
 ## Vector Space
 
 我们在 [Digest of Essence of Linear Algebra](/math/2016/11/17/digest-of-essence-of-linear-algebra#chapter-11---abstract-vector-spaces) 的末尾提了一嘴，但没有说严格的数学定义，这里补充一下。
 
-**Definition:** A vector space $S$ over a scalar field $K$, is a non-empty set of vectors $V$ equipped with vector addition $+: V \times V \to V$ and scalar multiplication $\cdot: K \times V \to V$, which satisfy the two closure axioms $C1, C2$ as well as the eight vector space axioms $A1 - A8$:
+**Definition:** A vector space over a scalar field $K$, is a non-empty set of vectors $V$ equipped with vector addition $+: V \times V \to V$ and scalar multiplication $\cdot: K \times V \to V$, which satisfy the two closure axioms $C1, C2$ as well as the eight vector space axioms $A1 - A8$:
 - $C1$ (Closure under vector addition) Given $\boldsymbol{v}, \boldsymbol{w} \in V$, $\boldsymbol{v} + \boldsymbol{w} \in V$
 - $C2$ (Closure under scalar multiplication) Given $\boldsymbol{v} \in V$ and $\alpha \in K$, $\alpha \boldsymbol{v} \in V$
 
@@ -31,15 +37,15 @@ For arbitrary vectors $\boldsymbol{u}, \boldsymbol{v}, \boldsymbol{w} \in V$, an
 
 - 最常见的 $K$ 即是 $\mathbb{R}$，但也可以是任何抽象的 field，只要满足 axioms 即可
 
-如果我们把 vector space $S$ 写成 $(S, \times, \cdot)$ w.r.t. $V,K$，似乎可以讨论下 $S$ 属于哪种 [Elementary Algebraic Structures](/math/2024/04/07/elementary-algebraic-structures):
+如果我们把 vector space over field $K$ 写成 $(V, +, \cdot)_{K}$，似乎可以讨论下 $V$ 属于哪种 [Elementary Algebraic Structures](/math/2024/04/07/elementary-algebraic-structures):
 
 - 如果 $V \neq K$:
-  - 那么 $\cdot: K \times V \to V$ 这个 operator 就不满足最基础的 Monoid 的要求，所以 $(S, \cdot, 1)$ 就啥也不是
-  - 但是 $(S, +, \vec{0})$ 构成 Abelian Group
+  - 那么 $\cdot: K \times V \to V$ 这个 operator 就不满足最基础的 Monoid 的要求，所以 $(V, \cdot, 1)$ 就啥也不是
+  - 但是 $(V, +, \vec{0})$ 构成 Abelian Group
 - 如果 $V = K$:
-  - 有点难 argue $(S \setminus \lbrace \vec{0} \rbrace, \cdot, \vec{1})$ 构成 Abelian Group
+  - 有点难 argue $(V \setminus \lbrace \vec{0} \rbrace, \cdot, \vec{1})$ 构成 Abelian Group
     - 所以很难说 vector space 能构成 field
-  - 但如果你反过来看，任意的 field $K$ 都能构成一个 vector space $(S, \times, \cdot)$ w.r.t. $K,K$
+  - 但如果你反过来看，任意的 field $K$ 都能构成一个 vector space $(K, +, \cdot)_{K}$
     - 我们总结成：**Any field is a vector space over itself**.
 
 ## Vector Field
@@ -47,12 +53,6 @@ For arbitrary vectors $\boldsymbol{u}, \boldsymbol{v}, \boldsymbol{w} \in V$, an
 ### 定义
 
 首先注意 vector field 和 algebraic structures 中的 field 不相干，它纯纯就是个函数。
-
-$$
-\newcommand{\icol}[1]{
-  \bigl[ \begin{smallmatrix} #1 \end{smallmatrix} \bigr]
-}
-$$
 
 Quote from [Lecture 19: Vectorfields, Math S21a: Multivariable calculus by Oliver Knill, Harvard Summer School](http://www.math.harvard.edu/~knill/teaching/summer2011/handouts/53-vectorfield.pdf):
 
