@@ -280,3 +280,75 @@ A field is a commutative ring where $\bar0 \neq \bar1$ and $\forall a \in S \
 - $\boldsymbol{\times}$ is distributive w.r.t. $\boldsymbol{+}$, i.e. $a \boldsymbol{\times} (b \boldsymbol{+} c) = (a \boldsymbol{\times} b) \boldsymbol{+} (a \boldsymbol{\times} c)$
 - $\bar0 \neq \bar1$
   - this requirement is by convention to exclude trivial ring
+
+# Vector-related AS
+
+## Vector Space $\Rightarrow (V, \boldsymbol{+}, \vec{0}, \boldsymbol{\cdot}, \bar1)_K$
+
+我们在 [Digest of Essence of Linear Algebra](/math/2016/11/17/digest-of-essence-of-linear-algebra#chapter-11---abstract-vector-spaces) 的末尾提了一嘴，但没有说严格的数学定义，这里补充一下。
+
+A vector space over a _scalar field_ $K$, say $(K, \oplus, \otimes, \bar0, \bar1)$, is a non-empty _set of vectors_ $V$ with with two binary operations:
+
+1. vector addition $\boldsymbol{+}: V \times V \to V$, and 
+2. scalar multiplication $\boldsymbol{\cdot}: K \times V \to V$,
+
+which satisfy the two closure axioms $C1, C2$ as well as the eight vector space axioms $A1 - A8$:
+
+- $C1$ (Closure under vector addition) Given $\boldsymbol{v}, \boldsymbol{w} \in V$, $\boldsymbol{v} \boldsymbol{+} \boldsymbol{w} \in V$
+- $C2$ (Closure under scalar multiplication) Given $\boldsymbol{v} \in V$ and $\alpha \in K$, $\alpha \boldsymbol{v} \in V$
+
+For arbitrary vectors $\boldsymbol{u}, \boldsymbol{v}, \boldsymbol{w} \in V$, and arbitrary scalars $\alpha, \beta \in K$:
+
+- $A1$ (Commutativity of addition) $\boldsymbol{v + w} = \boldsymbol{w + v}$
+- $A2$ (Associativity of addition) $(\boldsymbol{u + v}) \boldsymbol{+} \boldsymbol{w} = \boldsymbol{u} \boldsymbol{+} (\boldsymbol{v+w})$
+- $A3$ (Existence of a zero vector) $\exists \vec{0} \in V$ such that $\vec{0} \boldsymbol{+} \boldsymbol{v} = \boldsymbol{v} \boldsymbol{+} \vec{0} = \boldsymbol{v}$
+- $A4$ (Existence of additive inverses) $\forall \boldsymbol{v} \in V$, $\exists \boldsymbol{-v} \in V$ such that $\boldsymbol{v} \boldsymbol{+} (\boldsymbol{-v}) = (\boldsymbol{-v}) \boldsymbol{+} \boldsymbol{v} = \vec{0}$
+- $A5$ (Distributivity of scalar multiplication over vector addition) $\alpha (\boldsymbol{v+w}) = \alpha \boldsymbol{v} \boldsymbol{+} \alpha \boldsymbol{w}$
+- $A6$ (Distributivity of scalar addition over scalar multiplication) $(\alpha \oplus \beta) \boldsymbol{v} = \alpha \boldsymbol{v} \boldsymbol{+} \beta\boldsymbol{v}$
+- $A7$ (Associativity of scalar multiplication) $(\alpha \otimes \beta) \boldsymbol{v} = \alpha (\beta \boldsymbol{v})$
+- $A8$ (Scalar multiplication with $\bar1$ is the identity) $\bar1 \boldsymbol{v} = \boldsymbol{v}$
+
+注意：
+
+- 最常见的 $K$ 即是 $\mathbb{R}$，但也可以是任何抽象的 field，只要满足 axioms 即可
+- 仅讨论 set $V$ 和 set $K$ 的话：
+    - 如果 $V \neq K$:
+        - 那么 scalar multiplication $\boldsymbol{\cdot}: K \times V \to V$ 这个 operator 就不满足最基础的 Monoid 的要求，所以 $(V, \boldsymbol{\cdot}, \bar1)$ 就啥也不是
+        - 但是 $(V, \boldsymbol{+}, \vec{0})$ 构成 Abelian Group
+    - 如果 $V = K$:
+        - 你可以： 
+            - 假设 $\bar1 = \vec1$
+            - 假设 vector addition $\boldsymbol{+}$ 等价于 $\oplus$
+            - 假设 scalar multiplication $\boldsymbol{\cdot}$ 等价于 $\otimes$
+        - 但即使这样，也很难论证 $(V \setminus \lbrace \vec{0} \rbrace, \boldsymbol{\cdot}, \vec{1})$ 一定能构成 Abelian Group
+            - 所以很难说 vector space 一定能构成 field
+        - 但如果你反过来看，任意的 field $K$ 都能构成一个 vector space $(K, \oplus, \bar{0}, \otimes, \bar1)_{K}$
+            - 我们总结成：**Any field is a vector space over itself**.
+
+## Algebra $\Rightarrow$ Vector Space + Bilinear Vector Multiplication $\Rightarrow (V, \boldsymbol{+}, \boldsymbol{\times}, \vec{0}, \boldsymbol{\cdot}, \bar1)_K$
+
+我们可以用 $(V, \boldsymbol{+}, \boldsymbol{\times}, \vec{0}, \boldsymbol{\cdot}, \bar1)_K$ 表示一个 Algebra，它满足：
+
+- $(V, \boldsymbol{+}, \vec{0}, \boldsymbol{\cdot}, \bar1)_K$ is a vector space over a field $(K, \oplus, \otimes, \bar0, \bar1)$
+- vector multiplication $\boldsymbol{\times} : V \times V \to V$ is a **bilinear** mapping, i.e. it satisfies:
+    1. Left distributivity w.r.t. vector addition: $\boldsymbol{w} \boldsymbol{\times} (\boldsymbol{u+v}) = \boldsymbol{w \times u} \boldsymbol{+} \boldsymbol{w} \boldsymbol{\times} \boldsymbol{v}$
+    2. Right distributivity w.r.t. vector addition: $(\boldsymbol{u + v}) \boldsymbol{\times} \boldsymbol{w} = \boldsymbol{u \times w} \boldsymbol{+} \boldsymbol{v \times w}$
+    3. Compatibility with scalars: $(\alpha \boldsymbol{u}) \boldsymbol{\times} (\beta \boldsymbol{v}) = (\alpha \beta) (\boldsymbol{u} \boldsymbol{\times} \boldsymbol{v})$
+
+一般我们称：
+
+- $V$ is an **algebra** over field $K$
+    - or $V$ is a $K$-_algebra_
+- $K$ is the _base field_ of $V$
+
+仅讨论 set $V$ 和 set $K$ 的话：
+
+- 如果 $V \neq K$:
+    - 类似 vector space 的讨论，$(V, \boldsymbol{\cdot}, \bar1)$ 还是啥也不是
+    - 类似 vector space 的讨论，$(V, \boldsymbol{+}, \vec{0})$ 还是能构成 Abelian Group
+    - 但是 $(V, \boldsymbol{+}, \boldsymbol{\times}, \vec{0})$ 就很尴尬，因为没有 $\vec{1}$，所以它够不上 Semiring
+        - 于是有的教材会强行要求 $\boldsymbol{\times}$ 的定义要带上 $\vec{1}$，使得 $(V, \boldsymbol{+}, \boldsymbol{\times}, \vec{0}, \vec{1})$ 构成 Ring
+            - 带有 $\vec{1}$ 的 Algebra 也称 Unitary Algebra
+- 如果 $V = K$:
+    - 类似地，任意的 field $K$ 都能构成一个 Algebra $(K, \oplus, \otimes, \bar{0}, \otimes, \bar1)_{K}$
+        - 我们总结成：**Any field is an algebra over itself**.
