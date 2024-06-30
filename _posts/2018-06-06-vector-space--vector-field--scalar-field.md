@@ -8,45 +8,15 @@ toc: true
 toc_sticky: true
 ---
 
+## Vector Space
+
+见 [Vector Space](/math/2024/04/07/elementary-algebraic-structures#vector-space-rightarrow-v-boldsymbol-vec0-boldsymbolcdot-bar1_k)
+
 $$
 \newcommand{\icol}[1]{
   \bigl[ \begin{smallmatrix} #1 \end{smallmatrix} \bigr]
 }
 $$
-
-## Vector Space
-
-我们在 [Digest of Essence of Linear Algebra](/math/2016/11/17/digest-of-essence-of-linear-algebra#chapter-11---abstract-vector-spaces) 的末尾提了一嘴，但没有说严格的数学定义，这里补充一下。
-
-**Definition:** A vector space over a scalar field $K$, is a non-empty set of vectors $V$ equipped with vector addition $+: V \times V \to V$ and scalar multiplication $\cdot: K \times V \to V$, which satisfy the two closure axioms $C1, C2$ as well as the eight vector space axioms $A1 - A8$:
-- $C1$ (Closure under vector addition) Given $\boldsymbol{v}, \boldsymbol{w} \in V$, $\boldsymbol{v} + \boldsymbol{w} \in V$
-- $C2$ (Closure under scalar multiplication) Given $\boldsymbol{v} \in V$ and $\alpha \in K$, $\alpha \boldsymbol{v} \in V$
-
-For arbitrary vectors $\boldsymbol{u}, \boldsymbol{v}, \boldsymbol{w} \in V$, and arbitrary scalars $\alpha, \beta \in K$:
-
-- $A1$ (Commutativity of addition) $\boldsymbol{v} + \boldsymbol{w} = \boldsymbol{w} + \boldsymbol{v}$
-- $A2$ (Associativity of addition) $(\boldsymbol{u} + \boldsymbol{v}) + \boldsymbol{w} = \boldsymbol{u} + (\boldsymbol{v} + \boldsymbol{w})$
-- $A3$ (Existence of a zero vector) $\exists \vec{0} \in V$ such that $\vec{0} + \boldsymbol{v} = \boldsymbol{v} + \vec{0} = \boldsymbol{v}$
-- $A4$ (Existence of additive inverses) $\forall \boldsymbol{v} \in V$, $\exists \boldsymbol{-v} \in V$ such that $\boldsymbol{v} + (\boldsymbol{-v}) = (\boldsymbol{-v}) + \boldsymbol{v} = \vec{0}$
-- $A5$ (Distributivity of scalar multiplication over vector addition) $\alpha (\boldsymbol{v} + \boldsymbol{w}) = \alpha \boldsymbol{v} + \alpha \boldsymbol{w}$
-- $A6$ (Distributivity of scalar addition over scalar multiplication) $(\alpha+\beta) \boldsymbol{v} = \alpha \boldsymbol{v} + \beta\boldsymbol{v}$
-- $A7$ (Associativity of scalar multiplication) $(\alpha \beta) \boldsymbol{v} = \alpha (\beta \boldsymbol{v})$
-- $A8$ (Scalar multiplication with 1 is the identity) $1 \boldsymbol{v} = \boldsymbol{v}$
-
-注意：
-
-- 最常见的 $K$ 即是 $\mathbb{R}$，但也可以是任何抽象的 field，只要满足 axioms 即可
-
-如果我们把 vector space over field $K$ 写成 $(V, +, \cdot)_{K}$，似乎可以讨论下 $V$ 属于哪种 [Elementary Algebraic Structures](/math/2024/04/07/elementary-algebraic-structures):
-
-- 如果 $V \neq K$:
-  - 那么 $\cdot: K \times V \to V$ 这个 operator 就不满足最基础的 Monoid 的要求，所以 $(V, \cdot, 1)$ 就啥也不是
-  - 但是 $(V, +, \vec{0})$ 构成 Abelian Group
-- 如果 $V = K$:
-  - 有点难 argue $(V \setminus \lbrace \vec{0} \rbrace, \cdot, \vec{1})$ 构成 Abelian Group
-    - 所以很难说 vector space 能构成 field
-  - 但如果你反过来看，任意的 field $K$ 都能构成一个 vector space $(K, +, \cdot)_{K}$
-    - 我们总结成：**Any field is a vector space over itself**.
 
 ## Vector Field
 
