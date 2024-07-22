@@ -2,7 +2,7 @@
 category: Java
 description: ''
 tags: []
-title: 'Java: entends & interface'
+title: 'Java: extends & interface'
 ---
 
 一个 imp class 可以同时实现多个 interface，格式如下：
