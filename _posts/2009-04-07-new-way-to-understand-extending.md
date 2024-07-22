@@ -25,7 +25,7 @@ class Ext extends Base {
 } 
 ```
 
-很明显，`Base` 的 `private String info` 是不能被继承的，所以就算 `getInf()` 的代码被复制到 `Ext` 中，`Ext` 也是无法调用的 `getInfo()` 的，因为 `Ext` 中没有 `info` 字段。所以 `e.getInf()` 其实隐藏了 `e` 的向上转型。  
+很明显，`Base` 的 `private String info` 是不能被继承的，所以就算 `getInfo()` 的代码被复制到 `Ext` 中，`Ext` 也是无法调用的 `getInfo()` 的，因为 `Ext` 中没有 `info` 字段。所以 `e.getInfo()` 其实隐藏了 `e` 的向上转型。  
 
 所以我们至多只能说 `getInfo()` 被复制到 `Ext` 的方法列表里。  
 
