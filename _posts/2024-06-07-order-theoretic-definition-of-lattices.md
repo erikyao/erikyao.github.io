@@ -160,7 +160,7 @@ $$
 
 <mark>Proof:</mark> 假设 $S$ 是一个 finite meet-semilattice also bounded by $\bigvee S$. 往证：$\forall$ pair of elements $x, y \in S$ has a join.
 
-构造 $S_{xy} = \lbrace z \in S \mid x \leq z \text{ and } y \leq z \rbrace$. 因为 $S$ 是 finite meet-semilattice 且 $S_{xy} 是 $S$ 的 finite subset，所以 $S_{xy}$ has a meet $m$. 往证：$m$ is the join of $x,y$.
+构造 $S_{xy} = \lbrace z \in S \mid x \leq z \text{ and } y \leq z \rbrace$. 因为 $S$ 是 finite meet-semilattice 且 $S_{xy}$ 是 $S$ 的 finite subset，所以 $S_{xy}$ has a meet $m$. 往证：$m$ is the join of $x,y$.
 
 明显 $x$ 是 $S_{xy}$ 的一个 lower bound，由于 $m$ 是 $S_{xy}$ 的 meet, i.e. greatest lower bound，所以 $x \leq m$；同理 $y \leq m$。所以 $m$ 是 $x,y$ 的一个 upper bound。往证：$m$ is the least upper bound of $x,y$.
 
