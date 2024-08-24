@@ -32,7 +32,7 @@ Ordinarily these 5 operations should be thought of as a unit. In general, it is 
 	
 -----
 	
-For some classes, the compiler defines these synthesized members as `=delete` (参 [C++: =default & =delete](/c++/2015/05/03/cpp-default--delete)):
+For some classes, the compiler defines these synthesized members as `=delete` (参 [C++: =default & =delete](/c++/2015/05/03/cpp-default-delete)):
 
 - The synthesized destructor will be `=delete` 
 	- if the class has a member whose own destructor is `=delete` or is inaccessible (e.g., private).
@@ -60,4 +60,4 @@ Classes that behave like values have their own state. When we copy a valuelike o
 
 Classes that act like pointers (e.g. [Smart Pointers](/c++/2015/05/07/cpp11-smart-pointer-auto_ptr-is-deprecated-use-unique_ptr-instead-here-also-comes-shared_ptr-and-weak_ptr)) share state. When we copy objects of such classes, the copy and the original use the same underlying data. Changes made to the copy also change the original, and vice versa.
 
-- 这个时候你可能需要参考 [C++ overloading `operator=`: shallow copy vs. deep copy / reference counting / copy on write](/c++/2015/04/04/cpp-overloading--shallow-copy-vs-deep-copy--reference-counting--copy-on-write)
+- 这个时候你可能需要参考 [C++ overloading `operator=`: shallow copy vs. deep copy / reference counting / copy on write](/c++/2015/04/04/cpp-overloading-shallow-copy-vs-deep-copy-reference-counting-copy-on-write)
