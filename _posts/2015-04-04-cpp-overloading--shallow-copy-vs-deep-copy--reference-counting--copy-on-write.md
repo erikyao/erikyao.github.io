@@ -25,12 +25,13 @@ Deep copy 自然是最万全的做法，copy 的时候把 pointer 指向的内�
 
 # Shallow copy 策略
 
-如果使用的是 shallow copy，需要注意：
+## Shallow copy + Read-only / Reference counting
 
-- 若 `t1.ptr` 和 `t2.ptr` 所指向的这同一块内存是 read-only，i.e. 无论是 `t1`、`t2` 还是 `tn` 都不会去写这块内存，那大家倒也相安无事
-	- 但需要注意的是 destruction。如果我 `t1` destruction 的时候顺带把这块内存也 destruction 了，那 `t2.ptr` 就成了 wild pointer。
+若 `t1.ptr` 和 `t2.ptr` 所指向的这同一块内存是 read-only，i.e. 无论是 `t1`、`t2` 还是 `tn` 都不会去写这块内存，那大家倒也相安无事。
+
+但需要注意的是 destruction。如果我 `t1` destruction 的时候顺带把这块内存也 destruction 了，那 `t2.ptr` 就成了 wild pointer。
 	
-解决这个问题的办法就是 reference counting（引用计数）：
+解决这个问题的办法就是 **reference counting**（引用计数）：
 
 - Copy-construction or assignment means attaching another pointer to an existing object and incrementing the reference count. 
 - Destruction means reducing the reference count and destroying the object if the reference count goes to zero.
@@ -38,9 +39,11 @@ Deep copy 自然是最万全的做法，copy 的时候把 pointer 指向的内�
 	- Copy-construction or assignment of `t1` means attaching another pointer `t2.ptr` to the existing object `p` and incrementing the reference count in `p`. 
 	- Destruction of `t2` means reducing the reference count in `p` and destroying the object `p` if the reference count goes to zero.
 
-- 若你使用了 shallow copy 还偏要对 `t1.ptr` 和 `t2.ptr` 所指向的这同一块内存做 write 操作，可以额外再用一个 copy-on-write 技术
+## Shallow copy + Write / Copy-on-write
 
-copy-on-write 就是 “等我要做写操作的时候再 deep copy”，某种程度上有点像 lazy initialization，都是比较 lazy，事到临头才开始操作：
+若你使用了 shallow copy 还偏要对 `t1.ptr` 和 `t2.ptr` 所指向的这同一块内存做 write 操作，可以考虑用 copy-on-write 技术
+
+copy-on-write 就是 “等我要做写操作的时候再 deep copy”，某种程度上有点像 lazy initialization，都是事到临头才开始操作：
 
 - 假设是 `t2` 要发起写操作：
 	- If the reference count in `p` is greater than one, `t2` must make a personal copy of `p` for `t2.ptr` before writing it. 我们假设这个 copy of `p` 的名字为 `papa`，`papa` 的 reference counting 为初始值 1
