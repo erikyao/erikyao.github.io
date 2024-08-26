@@ -16,8 +16,8 @@ There are 5 (only 3 before C++11) basic operations to control copies of class ob
 1. destructor $\Rightarrow$ `~X()`
 2. $\mathtt{copy}$ constructor $\Rightarrow$ `X(const X&)`
 3. $\mathtt{move}$ constructor $\Rightarrow$ `X(X&&)` (Since C++11)
-4. $\mathtt{copy}$ assignment $\Rightarrow$ `operator = (const X&)`
-5. $\mathtt{move}$ assignment $\Rightarrow$ `operator = (X&&)` (Since C++11)
+4. $\mathtt{copy}$ assignment $\Rightarrow$ `X& operator=(const X&)`
+5. $\mathtt{move}$ assignment $\Rightarrow$ `X& operator=(X&&)` (Since C++11)
 
 Ordinarily these 5 operations should be thought of as a unit. In general, it is unusual to need one without needing to define them all.
 
