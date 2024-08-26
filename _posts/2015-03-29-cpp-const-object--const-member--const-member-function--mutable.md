@@ -18,9 +18,11 @@ toc_sticky: true
 
 -----
 
-## 1. const object
+# 1. const object
 
-NO **non-static** data member of the const object can be changed during the object’s lifetime. 用 java 的话说就是 "const 对象的状态不可变"。
+Given a const object `const_obj`, $\forall$ non-static data member `const_obj.data`, it cannot be changed during the `const_obj`'s lifetime. 
+
+用 java 的话说就是 "const 对象的状态不可变"。
 
 ```cpp
 class X {
@@ -44,13 +46,13 @@ int main() {
 }
 ```
 
-## 2. const member
+# 2. const member
 
-### 2.1 Non-static const member (runtime constant)
+## 2.1 Non-static const member (runtime constant)
 
-Const member means “This member is constant for the lifetime of the object.” However, each different object may contain a different value for that constant.
+A const member means “this member is constant for the lifetime of the object.” However, each different object may contain a different value for that constant.
 
-When you create an ordinary (non-static) `const` inside a class, you CANNOT give it an initial value. This initialization must occur in the constructor (constructor 意味着 runtime), but in a special place in the constructor called **constructor initializer list**.
+When you create an ordinary (non-static) const memberA inside a class, you CANNOT give it an initial value. This initialization must occur in the constructor (constructor 意味着 runtime), but in a special place in the constructor called **constructor initializer list**.
 
 我们来感受一下 constructor initializer list 迷の语法：
 
@@ -93,9 +95,9 @@ int main() {
 
 注释说得够清楚了，就不啰嗦了。
 
-### 2.2 static const member (compile-time constant)
+## 2.2 static const member (compile-time constant)
 
-Static const member means “there’s only one instance of the member, regardless of how many objects of the class are created”.
+A static const member means “there’s only one instance of the member, regardless of how many objects of the class are created”.
 
 You must provide the initializer at the point of definition of the static const member. 这个其实是 static 的要求。也正因为如此，static const member 应该是在 compile time 就可以分配内存，所以也称为 compile-time constant。
 
@@ -108,14 +110,15 @@ private:
 };
 ```
 
-## 3. const member function
+# 3. const member function
 
-### 3.1 武学正统
+## 3.1 武学正统：一般情况
 
 * A member function that is not specifically declared `const` is treated as one that will modify data members in an object, and the compiler will not allow you to call it for a const object.
 * Declaring a member function with the `const` keyword specifies that the function is a "read-only" function that does not modify the object for which it is called. 声明为 const 的 member function 编译器就允许 const object 来 call。
 	* 但是并没有说 non-const object 就只能 call non-const member function
-	* 简单说就是这样：
+
+简单说就是这样：
 
 ![][const-function]
 
@@ -193,7 +196,7 @@ int main() {
 * const member function 可以修改 non-const static member
 	* 从这个角度也说明：修改 static member 不算修改 object 的状态，毕竟 static member 可以看做是 class 所有，不计入 object 的状态内
 
-### 3.2 旁门左道：mutable member
+## 3.2 旁门左道：mutable member
 
 上一节说道：A const member function CANNOT modify any non-static data members，那对一般的 non-static + non-const 的 common member 而言，可以开一个后门使其被 const member 修改，这个后门就是 `mutable`.
 
@@ -234,12 +237,13 @@ int main() {
 
 我们对标准的、严格要求的 const object 称为 bitwise const，意思是 every bit is const；对 mutable 这样开后门的 const object 称为 logical const，嗯，原则上的 const。
 
-## 4. 总结
+# 4. 总结
 
 const object:
 
-* static member 不计入 object 状态
-* mutable member 不计入 object 状态
+* static member 不计入 object 的状态
+* mutable member 不计入 object 的状态
+* 其余的 data member (无论是否是 const) 构成 object 的状态
 * const object 的状态不可改
 
 const member function：
