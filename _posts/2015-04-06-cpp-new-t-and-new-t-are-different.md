@@ -5,7 +5,8 @@ tags: []
 title: 'C++: <i>new T</i> and <i>new T()</i> are different!'
 ---
 
-To hell with you, C++!
+2024-08-26 后记：已经不需要太 care 了，现在已经很少用 `new` 了
+{: .notice--info}
 
 -----
 
