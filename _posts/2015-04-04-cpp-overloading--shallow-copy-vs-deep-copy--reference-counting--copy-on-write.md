@@ -3,14 +3,14 @@ category: C++
 description: ''
 tags:
 - copy-constructor
-title: 'C++ overriding copy assignment `operator=` / shallow copy vs. deep copy / reference counting / copy on write'
+title: 'C++ overloading copy assignment `operator=` / shallow copy vs. deep copy / reference counting / copy on write'
 ---
 
 整理自：_Thinking in C++_
 
 -----
 
-# Overriding 时需要考虑 deep copy vs shallow copy 的问题
+# overloading 时需要考虑 deep copy vs shallow copy 的问题
 
 [Default assigment operator= in c++ is a shallow copy?](http://stackoverflow.com/questions/5096464/default-assigment-operator-in-c-is-a-shallow-copy) 有一个回答讲的非常清晰：
 
