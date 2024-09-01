@@ -16,7 +16,7 @@ When you supply the type for the template parameter, whether explicitly or impli
 
 ## Explicit specialization
 
-You can also provide the code yourself for a given template specialization, should the need arise. E.g.:
+You (as a template provider, instead of a template user) can also provide the code yourself for a given template specialization, should the need arise. E.g.:
 
 ```cpp
 #include <cstring>
@@ -25,7 +25,8 @@ using std::strcmp;
 using std::cout;
 using std::endl;
  
-template<class T> const T& min(const T& a, const T& b) {
+template<class T> 
+const T& min(const T& a, const T& b) {
     return (a < b) ? a : b;
 }
  
@@ -69,7 +70,7 @@ class vector<bool, allocator<bool>> {...};
 
 ## Partial specialization
 
-Class templates can also be partially specialized (However, we cannot partially specialize a function template.), meaning that at least one of the template parameters is left “open” in some way in the specialization. 比如上面的 `template<class T, class Allocator = allocator<T>>`，我们可以指定 T 为 bool，但是 Allocator 可以留着不指定。
+Class templates can also be partially specialized (However, we cannot partially specialize a function template.), meaning that at least one of the template parameters is left "open" in some way in the specialization. 比如上面的 `template<class T, class Allocator = allocator<T>>`，我们可以指定 `T` 为 `bool`，但是 `Allocator` 可以留着不指定。
 
 ```cpp
 template<class T, class Allocator = allocator<T>>
@@ -81,24 +82,24 @@ class vector<bool, Allocator> {...};
 
 这样只要是 `vector<bool, Whatever>` 都会落到上面的这个实现上。
 
-但是 "is left “open” in some way" 并不是只有 "留着不指定" 这么一种形式。[partial template specialization](http://en.cppreference.com/w/cpp/language/partial_specialization) 上举得例子还有：
+但是 "is left 'open' in some way" 并不是只有 "留着不指定" 这么一种形式。[partial template specialization](http://en.cppreference.com/w/cpp/language/partial_specialization) 上举得例子还有：
 
 ```cpp
+// primary template
 template<class T1, class T2, int I>
-class A {};					// primary template
+class A {};					
  
+// partial specialization where T2 is a pointer to T1
 template<class T, int I>
-class A<T, T*, I> {};		// partial specialization where T2 is a pointer to T1
- 
-template<class T, class T2, int I>
-class A<T*, T2, I> {};	// partial specialization where T1 is a pointer
- 
+class A<T, T*, I> {};
+
+// partial specialization where T1 is a pointer
+template<class T1, class T2, int I>
+class A<T1*, T2, I> {};
+
+// partial specialization where T1 is int, I is 5, and T2 is a pointer
 template<class T>
-class A<int, T*, 5> {};	// partial specialization where T1 is int, I is 5,
-							// and T2 is a pointer
- 
-template<class X, class T, int I>
-class A<X, T*, I> {};		// partial specialization where T2 is a pointer
+class A<int, T*, 5> {};	
 ```
 
 具体的规则见上面的链接。反正 partial specialization 的原则就是：**You must specialize something, but not all.**
