@@ -92,11 +92,11 @@ auto sp4 = shared_ptr<int>(sp3);  // OK. copy-construction from sp3
 sp4.use_count;  // == 2. 这个 field 即是 shared count
 ```
 
-# 4. `_weak_ptr` / ~~`make_weak`~~
+# 4. `weak_ptr` / ~~`make_weak`~~
 
-使用 `shared_ptr` 可能有 [cyclic dependency 的问题](https://stackoverflow.com/questions/22185896/what-is-the-cyclic-dependency-issue-with-shared-ptr)，简单说就是：`class A` 持有一个 `shared_ptr<B>`，同时 `class B` 持有一个 `shared_ptr<A>`。这个问题有多种解决方案，其中之一是把 `shared_ptr` 改成 `_weak_ptr`。(See [C++ Core Guidelines - R.24](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#r23-use-make_unique-to-make-unique_ptrs))
+使用 `shared_ptr` 可能有 [cyclic dependency 的问题](https://stackoverflow.com/questions/22185896/what-is-the-cyclic-dependency-issue-with-shared-ptr)，简单说就是：`class A` 持有一个 `shared_ptr<B>`，同时 `class B` 持有一个 `shared_ptr<A>`。这个问题有多种解决方案，其中之一是把 `shared_ptr` 改成 `weak_ptr`。(See [C++ Core Guidelines - R.24](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#r23-use-make_unique-to-make-unique_ptrs))
 
-`_weak_ptr` 的创建，有：
+`weak_ptr` 的创建，有：
 
 - ⭕ 从另一个 `weak_ptr` $\mathtt{copy}$-construct
 - ⭕ 从另一个 `weak_ptr` $\mathtt{move}$-construct
