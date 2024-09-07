@@ -115,10 +115,10 @@ wp.use_count();  // == 1. 实际是 sp.use_count()
 wp.expired();    // bool. whether the referenced object is already destroyed
 wp.lock();       // returns `expired() ? shared_ptr<T>() : shared_ptr<T>(*this)`
 
-if (shared_ptr<int> new_sp = gw.lock())  // N.B. new `shared_ptr` created here
+if (shared_ptr<int> new_sp = wp.lock())  // N.B. new `shared_ptr` created here
     cout << "wp is not expired. value == " << *new_sp << endl;
 else
-    cout << "wp is expired."; << endl
+    cout << "wp is expired."; << endl;
 ```
 
 另外不存在 `make_weak` 函数。
