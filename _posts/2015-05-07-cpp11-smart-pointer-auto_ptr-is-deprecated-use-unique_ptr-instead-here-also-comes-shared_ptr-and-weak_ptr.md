@@ -5,6 +5,8 @@ tags:
 - C++11
 - pointer
 title: 'C++11 Smart Pointer: <i>auto_ptr</i> is deprecated. Use other <i>smart pointers</i>.'
+toc: true
+toc_sticky: true
 ---
 
 我们在 [C++ Exception Handling / auto_ptr](/c++/2015/04/13/cpp-exception-handling#auto_ptr) 里介绍了 RAII wrapper for pointers: `auto_ptr`，但是它在 C++11 又被 deprecated 了……对应的 replacement 是 `unique_ptr`。顺带还推出了 `shared_ptr` 和 `weak_ptr`。
@@ -13,13 +15,13 @@ title: 'C++11 Smart Pointer: <i>auto_ptr</i> is deprecated. Use other <i>smart p
 
 (Diagram Credit: _Learn C++ By Example_ by Frances Buontempo)
 
-## Header
+# 1. Header
 
 ```cpp
 #include <memory>
 ```
 
-## `unique_ptr` / `make_unique`
+# 2. `unique_ptr` / `make_unique`
 
 `unique_ptr`:
 
@@ -66,7 +68,7 @@ make_unique<T>(arg1, arg2, ...);  // pointing to T(arg1, arg2, ...)
 make_unique<T, T_ARG1, T_ARG2, ...>(arg1, arg2, ...);  // pointing to T(arg1, arg2, ...)
 ```
 
-## `shared_ptr`/ `make_shared`
+# 3. `shared_ptr`/ `make_shared`
 
 `shared_ptr`:
 
@@ -90,7 +92,7 @@ auto sp4 = shared_ptr<int>(sp3);  // OK. copy-construction from sp3
 sp4.use_count;  // == 2. 这个 field 即是 shared count
 ```
 
-## `_weak_ptr` / ~~`make_weak`~~
+# 4. `_weak_ptr` / ~~`make_weak`~~
 
 使用 `shared_ptr` 可能有 [cyclic dependency 的问题](https://stackoverflow.com/questions/22185896/what-is-the-cyclic-dependency-issue-with-shared-ptr)，简单说就是：`class A` 持有一个 `shared_ptr<B>`，同时 `class B` 持有一个 `shared_ptr<A>`。这个问题有多种解决方案，其中之一是把 `shared_ptr` 改成 `_weak_ptr`。(See [C++ Core Guidelines - R.24](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#r23-use-make_unique-to-make-unique_ptrs))
 
@@ -121,7 +123,7 @@ else
 
 另外不存在 `make_weak` 函数。
 
-## `<typename Deleter>`
+# 5. `Deleter`
 
 `unique_ptr` 和 `shared_ptr` 都可以在创建时附带一个 `Deleter d`，比如：
 
