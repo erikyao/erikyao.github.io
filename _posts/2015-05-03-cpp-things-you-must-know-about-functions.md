@@ -3,7 +3,7 @@ category: C++
 description: ''
 tags:
 - C++11
-title: 'C++: 6 things you must know about functions'
+title: 'C++: Notes on `return` / Empty argument list'
 toc: true
 toc_sticky: true
 ---
