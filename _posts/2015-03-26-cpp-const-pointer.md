@@ -156,3 +156,27 @@ int main() {
 * 即使你是把一个 `T*`（`&t`）赋给一个 `const T*`（`pct2`），你也不能通过这个 `const T*` 去修改它的值，虽然你可以用 `T*` 直接去修改（`t.modify();`）
 	* 由此看来，`const T*` 其实是一种契约精神！（说不能改就不能改）
 	* 这一点和 [C++: Const Reference](/c++/2015/03/28/cpp-const-reference#rules) 是相同的
+
+# 5. 特殊情况
+
+## 5.1 Force assignment with casting 
+	
+前面有讲：不能把 `const T*` argument 传给一个 `T*` parameter
+	
+However, you can always use a **cast** to force such an assignment, but this is bad programming practice because you are then breaking the constness of the object, along with any safety promised by the const.
+
+```cpp
+//: C08:PointerAssignment.cpp
+const int e = 2;
+int* w = (int*)&e; 	// Legal but bad practice
+
+int main() {}
+```
+
+## 5.2 Character array literals
+
+"不能把 `const T*` 赋值给一个 `T*`" 还有一个例外就是 `char* cp = "howdy";`：
+
+* With `char* cp = "howdy";`, a **character array literal** (`"howdy"` in this case) is created by the compiler as a constant character array, and the result of the quoted character array is its starting address in memory.
+* However, if you try to change the values in a character array literal, the behavior is undefined, although it will probably work on many machines.
+* If you want to be able to modify the string, put it in an array: `char cp[] = "howdy";`（这和上式有个毛的区别！）
