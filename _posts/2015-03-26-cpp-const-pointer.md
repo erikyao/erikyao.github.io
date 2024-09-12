@@ -11,16 +11,13 @@ title: 'C++: Const Pointer'
 
 -----
 
-## 1. pointer to const
+# 1. pointer to const
 
-首先确定一点，int const i; 与 const int i; 是一样的，都是定义一个只读的 int i。 
+首先确定一点：`int const i;` 与 `const int i;` 是一样的，都是定义一个 read-only 的 `int i`。 
  
-所以 int const \*p; 与 const int \*p; 也是一样的，都是定义一个只读的 int \*p。我们称这样的 p 为 pointer to const
+所以 `int const *p;` 与 `const int *p;` 也是一样的，都是定义一个 read-only 的 `int *p`。我们称这样的 `p` 为 **pointer to const**
 
-* `const int *p;`: Starting from the identifier, we read “p is a pointer, which points to a const int.” 
-* `int const *p;`: p is an ordinary pointer to an int that is const
-
-但是，不管是 int const \*p; 还是 const int \*p;，这里有几点需要注意：
+这里有几点需要注意：
 
 ```cpp
 #include <stdio.h>  
@@ -38,21 +35,19 @@ int main() {
 }
 ```
 
-* 首先是 \*p 只读，并不是 p 只读，所以 p 的值是可以改的（p = &i2;）
-* 第二，&i1 只是一个 int \*，所以把一个int \* 赋值给 const int \* 是可以的（const int \*p = &i1;）
-* 第三，p = &i2; 之后，对 &i2 这块地址的访问就有两种方式，一是非 const 的 i2，二是 const 的 \*p，所以可以有 i2 = 80;，而不能有 \*p = 100;
+1. `*p` read-only，并不是 `p` read-only，所以 `p` 的值是可以改的（`p = &i2;`）
+2. `&i1` 只是一个 `int *`，所以把一个 `int *` 赋值给 `const int *` 是可以的（`const int *p = &i1;`）
+3. `p = &i2;` 之后，对 `&i2` 这块地址的访问就有两种方式，一是非 `const` 的 `i2`，二是 `const` 的 `*p`，所以可以有 `i2 = 80;`，而不能有 `*p = 100;`
 
-## 2. const pointer
+# 2. const pointer
 
-int \* const p; 是定义了一个只读的 p，所以假如有 int \* const p = &i1; 之后，就不能再有 p = &i2;了。但是 \*p 的值是可以随便改的。我们称这样的 p 为 const pointer
+`int* const p;` 是定义了一个 read-only 的 `p`，所以假如有 `int* const p = &i1;` 之后，就不能再有 `p = &i2;`了。但是 `*p` 的值是可以随便改的。我们称这样的 `p` 为 **const pointer**
 
-* `int * const p = &i1;`: p is a pointer, which is const, that points to an int
+# 3. const pointer to const
 
-## 3. const pointer to const
+`const int* const p;` 就是说 `p` 和 `*p` 都是 read-only，结合 [1](#1-pointer-to-const) 和 [2](#2-const-pointer) 即可得它的特性。
 
-const int \* const p; 就是说 p 和 \*p 都是只读的，结合 1、2 即可得它的特性。
-
-## 4. 大实验
+# 4. 大实验
 
 ```cpp
 class T { };
@@ -125,7 +120,7 @@ int main() {
 * 不能把 `const T*` 实参传给一个 `T*` 形参
 	* 反过来把 `T*` 实参传给一个 `const T*` 形参是可以的
 	* 这一点和 [C++: Const Reference](/c++/2015/03/28/cpp-const-reference#rules) 是类似的
-* `T* const` 除了 const 特性外，与 `T*` 性质是一样的（同上述 4 条）
+* `T* const` 除了 `const` 特性外，与 `T*` 性质是一样的（同上述 4 条）
 
 ```cpp
 class T {
@@ -158,6 +153,6 @@ int main() {
 ```
 
 * `const T` 本身的值不能改
-* 即使你是把一个 `T*`（&t）赋给一个 `const T*`（pct2），你也不能通过这个 `const T*` 去修改它的值，虽然你可以用 `T*` 直接去修改（t.modify();）
+* 即使你是把一个 `T*`（`&t`）赋给一个 `const T*`（`pct2`），你也不能通过这个 `const T*` 去修改它的值，虽然你可以用 `T*` 直接去修改（`t.modify();`）
 	* 由此看来，`const T*` 其实是一种契约精神！（说不能改就不能改）
 	* 这一点和 [C++: Const Reference](/c++/2015/03/28/cpp-const-reference#rules) 是相同的
