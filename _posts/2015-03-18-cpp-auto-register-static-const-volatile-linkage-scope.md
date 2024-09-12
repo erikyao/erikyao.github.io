@@ -46,9 +46,9 @@ _Thinking in C++_ 的路线是：
 
 -----
 	
-## <a name="linkage"></a>1. linkage
+# 1. linkage
 
-### Digress: Identifiers vs. Names
+## Digress: Identifiers vs. Names
 
 在调查 linkage 的时候，发现书上用的是 "identifier"，MSDN 和其他的一些地方用的是 "name"，应该是习惯用语，具体的细节我就不扣了。
 
@@ -72,11 +72,12 @@ _Thinking in C++_ 的路线是：
 
 在 linkage 这个问题上，不管是 identifier 还是 name，我觉得简单理解为 variable 或者 function 应该就足够了……
 
-### Internal linkage vs. External linkage
+## Internal linkage vs. External linkage
 
 Linkage describes how identifiers can or can not refer to the same entity throughout the whole program or one single translation unit.
 
-* linkage: the manner or style of being linked
+linkage: the manner or style of being linked
+{: .notice--info}
 
 There are two types of linkage: 
 
@@ -87,31 +88,31 @@ There are two types of linkage:
 	* External linkage means that a single piece of storage is created to represent the identifier for all translation units being compiled. The storage is created once, and the linker must resolve all other references to that storage. 
 	* Identifiers with external linkage can be accessed from other translation units by declaring them with the keyword `extern`.
 	
-注意书上用的原词是 "file"，这里用了标准用词 "translation unit"，其定义是：
+注意书上用的原词是 "file"，这里用了标准用词 "translation unit"，其定义是 (出自 [What is external linkage and internal linkage in C++](http://stackoverflow.com/questions/1358400/what-is-external-linkage-and-internal-linkage-in-c))：
 
-* A translation unit is a source file plus all the headers you `#include`d in it, from which the compiler creates the object file. (出自 [What is external linkage and internal linkage in C++](http://stackoverflow.com/questions/1358400/what-is-external-linkage-and-internal-linkage-in-c))
+> A translation unit is a source file plus all the headers you `#include`d in it, from which the compiler creates the object file. 
 
-<a name="linkage-example"></a>而 #include 的作用基本可以理解为 "copy the included file into the current one"。在实际应用中，要注意区分 #include 和 declare。举个例子：
+<a name="linkage-example"></a>而 `#include` 的作用基本可以理解为 "copy the included file into the current one"。在实际应用中，要注意区分 #include 和 declare。举个例子：
 
-* 如果我在 lib.h 写了 `const int STASH_NUM = 8;`，这是个 internal linkage
-* 我在 main.cpp 里用 `extern const int STASH_NUM;` 是无法 declare 到这个 const int，使用时会报 "undefined reference"
-	* 因为 lib.h 和 main.cpp 是两个不同的 translation units，因为 internal linkage，所以 main.cpp 看不到 lib.h 里的 `const int STASH_NUM = 8;`
-* 如果我在 main.cpp 里写的是 `#include 'lib.h'`，这时 main.cpp 和 lib.h 是同一个 translation unit。而同一个 translation unit 是可以看到 `const int STASH_NUM = 8;` 的，所以 main.cpp 可以直接用 `STASH_NUM`，此时也不需要写 `extern const int STASH_NUM;`（因为没必要；但是你写了也不会报错）
+* 如果我在 `lib.h` 写了 `const int STASH_NUM = 8;`，这是个 internal linkage
+* 我在 `main.cpp` 里用 `extern const int STASH_NUM;` 是无法 declare 到这个 `const int`，使用时会报 "undefined reference"
+	* 因为 `lib.h` 和 `main.cpp` 是两个不同的 translation units，因为 internal linkage，所以 `main.cpp` 看不到 lib.h 里的 `const int STASH_NUM = 8;`
+* 如果我在 `main.cpp` 里写的是 `#include 'lib.h'`，这时 `main.cpp` 和 `lib.h` 是同一个 translation unit。而同一个 translation unit 是可以看到 `const int STASH_NUM = 8;` 的，所以 `main.cpp` 可以直接用 `STASH_NUM`，此时也不需要写 `extern const int STASH_NUM;`（因为没必要；但是你写了也不会报错）
 
-后面 extern const 还有个更大的 [例子](#global-const-example)。
+后面 `extern const` 还有个更大的 [例子](#global-const-example)。
 
-### No linkage
+## No linkage
 	
 Any name that has neither external linkage nor internal linkage has no linkage (i.e. the linker doesn’t know about this name, 因为这个 name 根本就不需要被 link). The only names that have no linkage are:
 
 * Function parameters.
 * Block-scoped names not declared as extern or static. (大部分的 local variable 就落到这个大类了)
-* Enumerators. (定义 enum 时，{} 内的那一系列常量我们称为 enumerator)
+* Enumerators. (定义 enum 时，`{}` 内的那一系列常量我们称为 enumerator)
 	* enum 和 enumerator 的 scope 和 linkage，C++ standard 是修改过的，不同的 standard 有不同的定义，所以需要考虑这个问题的时候再仔细 google 下，不要死记硬背
 	* 这个定义是从 MSDN 扒下来的，我也不知道它用的是哪个标准……
 * Names declared in a `typedef` statement. An exception is when the `typedef` statement is used to provide a name for an unnamed class type. The name may then have external linkage if the class has external linkage.
 
-## <a name="variable-scope"></a>2. Variable Scope
+# 2. Variable Scope
 
 A scope is a region of the program and broadly speaking there are three places, where variables can be declared:
 
@@ -125,7 +126,7 @@ A scope is a region of the program and broadly speaking there are three places, 
 	* _**By default**_, an object or variable that is defined outside all blocks <font color="red">has static duration and external linkage.</font>
 		* Static duration means that the object or variable is allocated when the program starts and is deallocated when the program ends.
 		
-### Digress: file scope
+## Digress: file scope
 		
 另外还有个词叫 file scope，MSDN 的说法是：
 
@@ -138,15 +139,15 @@ A scope is a region of the program and broadly speaking there are three places, 
 
 书上后来自己又说："Ordinarily, any name at file scope (that is, not nested inside a class or function) is visible throughout all translation units in a program." 所以我觉得按 MSDN 的说法理解就好。
 	
-## <a name="storage-classes"></a>3. Storage Classes
+# 3. Storage Classes
 
-### <a name="auto"></a>3.1 auto
+## 3.1 auto
 
 They are often called **automatic** variables because they automatically come into being when the scope is entered and automatically go away when the scope closes. 
 
 The `auto` storage class is the _**default**_ storage class for all local variables, so it is never necessary to declare something as an `auto`.
 
-### <a name="register"></a>3.2 register
+## 3.2 register
 
 The `register` storage class is used to define local variables that should be stored in a register instead of RAM (if possible) (for faster access speed). This means that the variable has a maximum size equal to the register size (usually one word) and can't have the unary `&` operator applied to it (as it does not have a memory location).
 
@@ -156,7 +157,7 @@ However, there is no guarantee that the variable will be placed in a register or
 	* 至于为什么 register 不能是 global 的理由，我觉得这篇 [Why cant register variables be made global?](http://stackoverflow.com/questions/3486715/why-cant-register-variables-be-made-global) 并没有解释得很清楚，姑且一看
 * You can use a register variable as a formal argument in a function (i.e., in the argument list).
 
-### <a name="static"></a>3.3 static
+## 3.3 static
 
 The static `keyword` can be used in the following situations: 
 
@@ -173,11 +174,11 @@ The static `keyword` can be used in the following situations:
 
 Static global variables (我造的这个词；姑且这么用) are extant throughout the life of a program, just like common global variables. 但是 static global variable 的一个好处是它是 file scope：scope 限定了，出问题的几率也就下降了。
 
-## <a name="type-qualifiers"></a>4. Type Qualifiers
+# 4. Type Qualifiers
 
-### <a name="const"></a>4.1 const
+## 4.1 const
 
-#### 4.1.1 #define 有什么不好
+### 4.1.1 `#define` 有什么不好
 
 比如 `#define PI 3.14159`。缺点有：
 
@@ -186,12 +187,12 @@ Static global variables (我造的这个词；姑且这么用) are extant throug
 * `PI` cannot be a constant of a user-defined type. 
 * The meaning of `PI` lasts from the point it is defined to the end of the file; the preprocessor doesn’t recognize scoping.
 
-#### 4.1.2 Linkage type of const
+### 4.1.2 Linkage type of const
 
 * In C, constant values default to external linkage
 * In C++, constant values _**default**_ to <font color="red">internal linkage</font>.
 
-#### 4.1.3 <a name="extern"></a>extern: forcing const into external linkage
+### 4.1.3 extern: forcing const into external linkage
 
 注意我们在 [C++: declarations vs. definitions / extern](/c++/2015/03/15/cpp-declarations-vs-definitions-extern) 说的 “This is only a declaration; it’s defined elsewhere.” 只是 `extern` 的功能之一。
 
@@ -201,12 +202,12 @@ Static global variables (我造的这个词；姑且这么用) are extant throug
 
 所以，要做一个 global const (我造的词)，要用 `extern`。不过也要注意写的形式，下面举几个例子。
 
-#### 4.1.4 <a name="global-const-example"></a>Examples of declaring and defining global const
+### 4.1.4 Examples of declaring and defining global const
 
 首先说下 rule of thumb:
 
-* Declare in lib.h
-* Define in lib.cpp
+* Declare in `lib.h`
+* Define in `lib.cpp`
 
 ```cpp
 /***** CASE 1 *****/
@@ -403,14 +404,14 @@ int main(int argc, char* argv[]) {
 
 总结并更新下 rule of thumb:
 
-* Declare in lib.h
-* Declare + define in lib.cpp
-* Declare + use in main.cpp
-* 因为 lib.h 本身只有一个 declaration，所以在这种情况下，在 lib.cpp 和 main.cpp 中，你 `#include "MyLib.h"` 和写 `extern const int STASH_NUM;` 效果是一样的，都是 declare（CASE 7、8、9、10）
-	* 如果 lib.h 本身是 declare + define，那你 #include 的作用也应该等同于 declare + define，此时就和单单 declare 的情况不同了。参 [linkage 中的例子](#linkage-example)。
+* Declare in `lib.h`
+* Declare + define in `lib.cpp`
+* Declare + use in `main.cpp`
+* 因为 `lib.h` 本身只有一个 declaration，所以在这种情况下，在 `lib.cpp` 和 `main.cpp` 中，你 `#include "MyLib.h"` 和写 `extern const int STASH_NUM;` 效果是一样的，都是 declare（CASE 7、8、9、10）
+	* 如果 `lib.h` 本身是 declare + define，那你 `#include` 的作用也应该等同于 declare + define，此时就和单单 declare 的情况不同了。参 [linkage 中的例子](#linkage-example)。
 * 重复 declare 不犯法（CASE 11）
 
-如果直接在 lib.h 里 declare + define (比如 `extern const int STASH_NUM = 8;`)、然后不写 lib.cpp，会出现很奇怪的效果：
+如果直接在 `lib.h` 里 declare + define (比如 `extern const int STASH_NUM = 8;`)、然后不写 `lib.cpp`，会出现很奇怪的效果：
 
 ```cpp
 /***** CASE 12 *****/
@@ -440,7 +441,7 @@ int main(int argc, char* argv[]) {
 }
 ```
 
-* CASE 13 好解释：#include 进来相当于直接在 main 之前 declare + define
+* CASE 13 好解释：`#include` 进来相当于直接在 main 之前 declare + define
 * CASE 12 我实在不懂，它和 CASE 10 有嘛区别嘛！
 	* 顺带记录一下我用的是 TDM-GCC 4.8.1 64-bit Release
 	
@@ -449,19 +450,19 @@ int main(int argc, char* argv[]) {
 感谢 [chetui](https://disqus.com/by/chetui) 的评论！
 
 > Case 10: 会生成两个.o:   
->   MyLib.h 和 MyLib.cpp 编译成 MyLib.o，  
->   MyLib.cpp 编译成 MyMain.o，  
-> extern const 这句的意思是：在编译时即使没有找到 STASH_NUM 的定义也不要报错，因为有可能这个变量被定义在外部，链接时链进去就好了。然后两个 .o 链接成同一个 a.out 时，在 MyLib.o 里找到了 STASH_NUM 的定义，链接成功。
+>   `MyLib.h` 和 `MyLib.cpp` 编译成 MyLib.o，  
+>   `MyLib.cpp` 编译成 `MyMain.o`，  
+> `extern const` 这句的意思是：在编译时即使没有找到 `STASH_NUM` 的定义也不要报错，因为有可能这个变量被定义在外部，链接时链进去就好了。然后两个 `.o` 链接成同一个 `a.out` 时，在 `MyLib.o` 里找到了 `STASH_NUM` 的定义，链接成功。
 
 <!-- -->
 
-> Case 12: 只有一个编译单元 MyMain.o，里面没有 include MyLib.h。所以 MyLib.h 根本没有存在感，它并没有参与编译个链接。
+> Case 12: 只有一个编译单元 `MyMain.o`，里面没有 `#include MyLib.h`。所以 `MyLib.h` 根本没有存在感，它并没有参与编译个链接。
 
 -> _~~~~~~~~~~ 2015-07-19 更新结束 ~~~~~~~~~~_ <-
 	
 -> _~~~~~~~~~~ 2015-03-26 更新开始 ~~~~~~~~~~_ <-
 
-我稍微设计了一个试验，猜测：lib.h 里 extern const 的 initialization 貌似是会被忽略的（而前面 [linkage 的例子](#linkage-example) 里，lib.h 里 declare + define 一个 common const 是没有问题的）。看代码：
+我稍微设计了一个试验，猜测：`lib.h` 里 `extern const` 的 initialization 貌似是会被忽略的（而前面 [linkage 的例子](#linkage-example) 里，`lib.h` 里 declare + define 一个 common `const` 是没有问题的）。看代码：
 
 ```cpp
 /***** CASE 14 *****/
@@ -483,16 +484,17 @@ int main(int argc, char* argv[]) {
 
 -> _~~~~~~~~~~ 2015-03-26 更新结束 ~~~~~~~~~~_ <-
 	
-#### 4.1.5 其他注意事项
+### 4.1.5 其他注意事项
 
-* In C++, a const must always have an initialization value (in C, this is not true).
+* In C++, a `const` must always have an initialization value (in C, this is not true).
 * You can add suffixes to force the type of floating-point number: `f` or `F` forces a `float`, `L` or `l` forces a `long double`; otherwise the number will be a `double`.
 
-### <a name="volatile"></a>4.2 volatile
+## 4.2 volatile
 
 Whereas the qualifier `const` tells the compiler “This never changes” (which allows the compiler to perform extra optimizations), the qualifier `volatile` tells the compiler “You never know when this will change,” and prevents the compiler from performing any optimizations based on the stability of that variable. 
 
-* 或者理解为：`volatile` means “This data may change outside the knowledge of the compiler.” (possibly through multitasking, multithreading or interrupts)
+或者理解为：`volatile` means “This data may change outside the knowledge of the compiler.” (possibly through multitasking, multithreading or interrupts)
+{: .notice--info}
 
 Use this keyword when you read some value outside the control of your code, such as a register in a piece of communication hardware. A volatile variable is **always** read whenever its value is required, even if it was just read the line before. 
 
@@ -511,11 +513,12 @@ In the same way that a class may define `const` member functions, it can also de
 
 _~~~~~~~~~~ 2015-05-19 补充完毕 ~~~~~~~~~~_
 
-## <a name="summary"></a>5. Summary
+# 5. Summary
 
 ![][linkage]
 
-* "common" 指 non-static + non-extern
+"common" 指 non-static + non-extern
+{: .notice--info}
 
 根据 [Linkage Types](https://www.informit.com/guides/content.aspx?g=cplusplus&seqNum=41)，有：
 
