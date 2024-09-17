@@ -13,7 +13,7 @@ toc_sticky: true
 
 -----
 
-## 1. `lapply`: Apply a Function to Each Element of a List or Vector
+# 1. `lapply`: Apply a Function to Each Element of a List or Vector
 
 `lapply(X, func, ...)` 可以理解成：
 
@@ -27,18 +27,18 @@ for (T xn : X) {
 return result;
 ```
 
-If X is not a list, it will be coerced to a list using `as.list`.
+If `X` is not a list, it will be coerced to a list using `as.list`.
 
 ```r
 if (!is.vector(X) || is.object(X)) 
 	X <- as.list(X)
 ```
 
-lapply always returns a list, regardless of the class of the input.
+`lapply` always returns a list, regardless of the class of the input.
 
 apply family 里常见 anonymous function，比如这个 `lapply(x, function(x) x[,1])` 就是取 `list<Matrix>` 中每个 matrix 的第一列。
 
-## 2. `sapply`: Simplify the Result of `lapply`
+# 2. `sapply`: Simplify the Result of `lapply`
 
 The simplification rule is:
 
@@ -61,40 +61,50 @@ The simplification rule is:
  "factor" "factor" "integer" "numeric"
 ```
 
-### 2.1 `sapply` example: Removing low-correlation variables from a set of predictors
+## 2.1 `sapply` example: Removing low-correlation variables from a set of predictors
 
 Suppose that `resp` is a response variable (a vector) and `pred` is a data frame of predictor variables. Suppose further that we have too many predictors and therefore want to select the top 10 as measured by correlation with the response.
 
 The first step is to calculate the correlation between each predictor and response. In R, that’s a one-liner:
 
-	> cors <- sapply(pred, cor, y=resp)
+```r
+> cors <- sapply(pred, cor, y=resp)
+```
 	
 Any arguments beyond the second one in `sapply` are passed to `cor`, so the function call will be `cor(pred[[i]],y=resp)`, which calculates the correlation between the given column and `resp`.
 
 The result `cors` is a vector of correlations, one for each column. We use the `rank` function to find the positions of the correlations that have the largest magnitude:
 
-	> mask <- (rank(-abs(cors)) <= 10)
+```r
+> mask <- (rank(-abs(cors)) <= 10)
+```
 	
 `rank` 的作用是把 vector 的元素按升序排列，返回一个序号 vector，比如
 
-	> rank(c(4,6,5))
-	[1] 1 3 2  ## 表示 4 是一号位，6 是三号位，5 是二号位
+```r
+> rank(c(4,6,5))
+[1] 1 3 2  ## 表示 4 是一号位，6 是三号位，5 是二号位
+```
 	
 我们知道 `abs(cors)` 是越大越相关，于是 `-abs(cors)` 是越小越相关，给 `-abs(cors)` 排序的话排在前头的都是小值，所以 `rank(-abs(cors)) <= 10` 是前 10 位，也就是最小的 10 个 `-abs(cors)` 的位置，也就是最相关的 10 个 predictor 的位置（有点绕，自己体会下）。
 
 Using `mask`, we can select just those columns from the data frame:
 
-	> best.pred <- pred[,mask]
+```r
+> best.pred <- pred[,mask]
+```
 
 At this point, we can regress `resp` against `best.pred`, knowing that we have chosen the predictors with the highest correlations:
 
-	> lm(resp ~ best.pred)
+```r
+> lm(resp ~ best.pred)
+```
 	
-### 2.2 `vapply`: Safer `sapply`
+## 2.2 `vapply`: Safer `sapply`
 
 `vapply` is similar to `sapply`, but has a pre-specified type of return value, so it can be safer (and sometimes faster) to use.
 
-## 3. `mapply`: Apply a Function to Parallel Vectors or Lists (a Multivariate Version of `sapply`)
+# 3. `mapply`: Apply a Function to Parallel Vectors or Lists (a Multivariate Version of `sapply`)
 
 举个例子：
 
@@ -127,10 +137,12 @@ return list;
 
 `mapply` 可以用于多个 vector 也可以用于多个 list：
 
-	> mapply(f, vec1, vec2, ..., vecN)
-	> mapply(f, list1, list2, ..., listN)
+```r
+> mapply(f, vec1, vec2, ..., vecN)
+> mapply(f, list1, list2, ..., listN)
+```
 
-## 4. `apply`: Apply a Function over Array Margins (e.g. to Every Row or to Every Column)
+# 4. `apply`: Apply a Function over Array Margins (e.g. to Every Row or to Every Column)
 
 `apply(X, MARGIN, FUN, ...)`  
 
@@ -182,11 +194,9 @@ return list;
 [2,]    1    1    1
 ```
 
-对 matrix 而言，`margin = 1` 就是 apply by row，`margin = 2` 就是 apply by column，此时 the function being called should expect one argument, a
-vector, which will be one row or one column from the matrix；如果 `margin = c(1, 2)` 就是 apply by every single element，此时 function 就只需要接收 single element 作为参数。
+对 matrix 而言，`margin = 1` 就是 apply by row，`margin = 2` 就是 apply by column，此时 the function being called should expect one argument, a vector, which will be one row or one column from the matrix；如果 `margin = c(1, 2)` 就是 apply by every single element，此时 function 就只需要接收 single element 作为参数。
 
-对 data frame 而言，如果你要 apply by column，其实可以不用 `apply(margin=2)` 这么麻烦（and in this case R will convert your data frame to a
-matrix and then apply your function），直接用 `lapply` 或者 `sapply` 就行，因为 data frame 本质上是一个 list，list 的元素就是它的 column。
+对 data frame 而言，如果你要 apply by column，其实可以不用 `apply(margin=2)` 这么麻烦（and in this case R will convert your data frame to a matrix and then apply your function），直接用 `lapply` 或者 `sapply` 就行，因为 data frame 本质上是一个 list，list 的元素就是它的 column。
 
 ```r
 > x <- array(rep(1, 24), c(2, 3, 4))
@@ -247,18 +257,18 @@ For sums and means of matrix dimensions, we have some shortcuts.
 
 The shortcut functions are much faster，因为有专门优化过.
 
-## 5. `tapply`: Apply a Function over a Ragged Array (i.e. lapply after splitting a column)
+# 5. `tapply`: Apply a Function over a Ragged Array (i.e. lapply after splitting a column)
 
 `function (X, INDEX, FUN = NULL, ..., simplify = TRUE)`  
 
-* X: an atomic object, typically a vector.
-* INDEX: list of one or more factors, each of same length as X. The elements are coerced to factors by `as.factor`.
-* FUN: the function to be applied, or NULL. In the case of functions like +, %*%, etc., the function name must be backquoted or quoted. If FUN is NULL, tapply returns a vector which can be used to subscript the multi-way array tapply normally produces.
-* simplify: If FALSE, tapply always returns an array of mode "list". If TRUE (the default), then if FUN always returns a scalar, tapply returns an array with the mode of the scalar.
+* `X`: an atomic object, typically a vector.
+* `INDEX`: list of one or more factors, each of same length as `X`. The elements are coerced to factors by `as.factor`.
+* `FUN`: the function to be applied, or `NULL`. In the case of functions like `+`, `%*%`, etc., the function name must be backquoted or quoted. If `FUN` is `NULL`, `tapply` returns a vector which can be used to subscript the multi-way array tapply normally produces.
+* `simplify`: If `FALSE`, `tapply` always returns an array of mode "list". If `TRUE` (the default), then if `FUN` always returns a scalar, `tapply` returns an array with the mode of the scalar.
 
 又有新概念了…… "Ragged Array"。其实这个在 Java 里也有，也叫 "Jagged Array"，就是指子数组不整齐的多维数组，比如 `{ {1, 2}, {3, 4, 5} }` 这样的。R 里的 Ragged Array 也是这个意思，所以这里的 Array 又不是多维 matrix 的那个 Array（你们多想个名字出来会死啊！）  
 
-然后我们的 `tapply` 并不是直接作用在 Ragged Array 上的，这个 Ragged Array 是由 X 和 INDEX 两个参数拼起来的。以最简单的情况，X 是 vector、INDEX 是 factor 举个例子：
+然后我们的 `tapply` 并不是直接作用在 Ragged Array 上的，这个 Ragged Array 是由 `X` 和 `INDEX` 两个参数拼起来的。以最简单的情况，`X` 是 vector、`INDEX` 是 factor 举个例子：
 
 ```r
 > X <- 1:9
@@ -291,7 +301,7 @@ The shortcut functions are much faster，因为有专门优化过.
 
 说白了就是 `tapply(X, INDEX, fun)` == `lapply(split(X, INDEX), fun)`，我们先用 `split` 来对某一个 column 做 grouping，得到一个 list of vectors，也就是 list of groups，然后对这个 list of groups 做 `lapply`
 
-## 6. `split`: Split a Vector (or list) or Data Frame into Groups by a Factor or List of Factors
+# 6. `split`: Split a Vector (or list) or Data Frame into Groups by a Factor or List of Factors
 
 最常见的就是 data frame 中有一个 column 是 factor，我们称其为 grouping factor。`split(x,y)` 的意思就是 `split x by factor y into a list of vectors`。
 
@@ -361,7 +371,7 @@ List of 10
  $ a.5: int(0) 
 ```
 
-可见 `X$m.n` == `X$m` ∩ `X$n`。  
+可见 `X$m.n` == `X$m` $\cap$ `X$n`。  
 
 `drop = TRUE` 的作用是去掉空行：
 
@@ -387,7 +397,7 @@ Both functions return a list of vectors, where each vector contains the elements
  
 The `unstack` function goes one step further: if all vectors have the same length, it converts the list into a data frame.
 
-## 7. `by`: Apply a Function to Groups of Rows (i.e. `lapply` after splitting a data frame)
+# 7. `by`: Apply a Function to Groups of Rows (i.e. `lapply` after splitting a data frame)
 
 `split` 一个 column 得到一个 list of vectors，`split` 一个 data frame 会得到一个 list of data frames。所以 `by(dfrm, factor, fun)` 就是先 `split` 这个 `dfrm` by `factor`，然后在得到的 list of data frames 上 `lapply` 执行 `fun`。与 `tapply` 很像，我们可以直接理解为：`by(dfrm, factor, fun)` == `lapply(split(dfrm, factor), fun)`。
 
@@ -404,6 +414,6 @@ The `unstack` function goes one step further: if all vectors have the same lengt
 > lapply(models, confint) ## print confidence intervals of each linear model
 ```
 
-## Family Tree
+# Family Tree
 
 ![](https://farm6.staticflickr.com/5823/23624880050_d664616d41_o_d.png)
