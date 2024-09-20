@@ -2,8 +2,7 @@
 category: C++
 description: ''
 tags: []
-title: 'C++: Using struct like a class / Nested struct / Global scope resolution inside
-  struct'
+title: 'C++: Using struct like a class / Nested struct / Global scope resolution inside struct'
 ---
 
 整理自 _Thinking in C++_。
@@ -12,7 +11,7 @@ title: 'C++: Using struct like a class / Nested struct / Global scope resolution
 
 ## Using `struct` like a class
 
-整个第四章的中心应该是安利 class，所以一上来说了 C lib 这里不好那里不好。然后改进的切入点就是 "why not make functions members of structs?"，于是就有了这样 struct 的新用法（部分代码省略）：
+整个第四章的中心应该是安利 class，所以一上来说了 C lib 这里不好那里不好。然后改进的切入点就是 "why not make functions members of structs?"，于是就有了这样 `struct` 的新用法（部分代码省略）：
 
 ```cpp
 //: C04:CppLib.h
@@ -61,11 +60,11 @@ void Stash::cleanup() {
 }
 ```
 
-1. 不需要 `typedef`，声明变量时也不需要写全称 `struct Stash s;`，直接写 `Stash s;` 就好了（当然 C++ 下写全称也不会判错）
-	* 而且不需要 `new`。`Stash s;` 就像 `int i;` 一样有效，然后可以紧接着 `s.cleanup();` 调用函数
-	* 如果你 `new` 了，得到的还是个指针，这时调用函数反而要写 `s->cleanup();`
-1. 现在调用可以直接 `s.cleanup();` 了，不像原来 `cleanup(&s);`
-1. 可以直接在 struct 内部写函数的实现（直接 declare + define）
+上述 C++ style `struct` 和 old school 的 [C style `struct`](/c/2015/03/19/c-struct) 的区别在于：
+
+1. 不需要 `typedef` 式，声明变量时也不需要写全称 `struct Stash s;`，直接写 `Stash s;` 就好了（当然 C++ 下写全称也不会判错）
+1. 可以直接在 `struct` 内部写函数的实现（直接 declare + define）
+	- 有了 member function 之后，可以直接 `s.cleanup();` 了，不像原来只能 `cleanup(&s);`
 1. 如果要分离函数声明和实现，那么在 cpp 文件里的写法要用 `::`，变成 `void Stash::initialize(int size) { ... }`
 	* `::`: scope resolution operator
 	* 注意在 cpp 文件里，你看不到 field 名，但是可以像 Java 一样直接用。我们也不是每时每刻都在写 `this.foo = xxx;`。
@@ -73,10 +72,10 @@ void Stash::cleanup() {
 	
 _~~~~~~~~~~ 2015-05-15 更新 ~~~~~~~~~~_
 
-- struct 的 member 默认是 public
-	- class member 默认是 private
-- struct 也可以继承，而且默认是 public 继承
-	- class 继承默认是 private 继承
+- `struct` 的 member 默认是 `public`
+	- `class` member 默认是 `private`
+- `struct` 也可以继承，而且默认是 `public` 继承
+	- `class` 继承默认是 `private` 继承
 	
 _~~~~~~~~~~ 2015-05-15 更新完毕 ~~~~~~~~~~_
 	
@@ -125,7 +124,7 @@ void Stack::push(void* dat) {
 
 ## Global scope resolution inside struct
 
-主要的目的是想在 struct 内部访问到 global 的同名 function 或者 variable，注意写法：
+主要的目的是想在 `struct` 内部访问到 global 的同名 function 或者 variable，注意写法：
 
 ```cpp
 int a;
