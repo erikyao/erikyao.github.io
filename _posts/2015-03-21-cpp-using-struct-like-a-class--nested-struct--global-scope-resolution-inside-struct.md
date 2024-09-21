@@ -9,7 +9,7 @@ title: 'C++: Using struct like a class / Nested struct / Global scope resolution
 
 -----
 
-## Using `struct` like a class
+# Using `struct` like a class
 
 整个第四章的中心应该是安利 class，所以一上来说了 C lib 这里不好那里不好。然后改进的切入点就是 "why not make functions members of structs?"，于是就有了这样 `struct` 的新用法（部分代码省略）：
 
@@ -63,9 +63,9 @@ void Stash::cleanup() {
 上述 C++ style `struct` 和 old school 的 [C style `struct`](/c/2015/03/19/c-struct) 的区别在于：
 
 1. 不需要 `typedef` 式，声明变量时也不需要写全称 `struct Stash s;`，直接写 `Stash s;` 就好了（当然 C++ 下写全称也不会判错）
-1. 可以直接在 `struct` 内部写函数的实现（直接 declare + define）
+2. 可以直接在 `struct` 内部写函数的实现（直接 declare + define）
 	- 有了 member function 之后，可以直接 `s.cleanup();` 了，不像原来只能 `cleanup(&s);`
-1. 如果要分离函数声明和实现，那么在 cpp 文件里的写法要用 `::`，变成 `void Stash::initialize(int size) { ... }`
+3. 如果要分离函数声明和实现，那么在 cpp 文件里的写法要用 `::`，变成 `void Stash::initialize(int size) { ... }`
 	* `::`: scope resolution operator
 	* 注意在 cpp 文件里，你看不到 field 名，但是可以像 Java 一样直接用。我们也不是每时每刻都在写 `this.foo = xxx;`。
 	* 这样分一个 header 一个 cpp，也是一种 "接口与实现的分离"
@@ -79,7 +79,7 @@ _~~~~~~~~~~ 2015-05-15 更新 ~~~~~~~~~~_
 	
 _~~~~~~~~~~ 2015-05-15 更新完毕 ~~~~~~~~~~_
 	
-## Nested struct
+# Nested struct
 
 ```cpp
 #ifndef STACK_H
@@ -119,10 +119,10 @@ void Stack::push(void* dat) {
 	head = newLink;
 }
 
-...
+// ...
 ```
 
-## Global scope resolution inside struct
+# Global scope resolution inside struct
 
 主要的目的是想在 `struct` 内部访问到 global 的同名 function 或者 variable，注意写法：
 
