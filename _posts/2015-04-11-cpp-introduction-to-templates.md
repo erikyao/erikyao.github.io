@@ -54,7 +54,7 @@ int main() {
 
 _~~~~~~~~~~ 2015-05-16 补充；来自 C++ Primer, 5th Edition ~~~~~~~~~~_
 
-Under C++11, we can make a template type parameter a friend:
+Under C++11, we can make a template type parameter a `friend`:
 
 ```cpp
 template <typename Type> class Bar {
@@ -91,7 +91,7 @@ Any reference to a template’s class name must be accompanied by its template a
 
 Even if you create non-inline function definitions, you’ll usually want to put all declarations and definitions for a template into a header file. This may seem to violate the normal header file rule of “Don’t put in anything that allocates storage,” (which prevents multiple definition errors at link time), but template definitions are special. Anything preceded by `template<...>` means the compiler won’t allocate storage for it at that point, but will instead wait until it’s told to (by a template instantiation). So you’ll almost always put the entire template declaration and definition in the header file, for ease of use.
 
-There are times when you may need to place the template definitions in a separate cpp file to satisfy special needs (for example, forcing template instantiations to exist in only a single Windows dll file). Most compilers have some mechanism to allow this; you’ll have to investigate your particular compiler’s documentation to use it.
+There are times when you may need to place the template definitions in a separate `.cpp` file to satisfy special needs (for example, forcing template instantiations to exist in only a single Windows dll file). Most compilers have some mechanism to allow this; you’ll have to investigate your particular compiler’s documentation to use it.
 
 ## 4. Non-type template parameters
 
@@ -115,15 +115,16 @@ public:
 1. 不管是 type parameter 还是 non-type parameter，都可以有 default value，也可以都没有 default value。
 	- 但是 You can provide default arguments only for class templates, but not function templates.
 	- Once you introduce a default argument, all the subsequent template parameters must also have defaults.
-1. You must provide a compile-time constant value for the non-type parameter. 比如上面的 size，你写 `int i = 100; Stack<MyType, i> stack;` 是不行的，因为 i 是变量；如果是 `const int i = 100;` 就可以。
+1. You must provide a compile-time constant value for the non-type parameter. 比如上面的 `size`，你写 `int i = 100; Stack<MyType, i> stack;` 是不行的，因为 `i` 是变量；如果是 `const int i = 100;` 就可以。
 1. 可以只有 non-type parameter 而没有 type parameter，比如 `std::bitset` 就是如此。
-1. A non-type template-parameter shall be one of the following (optionally cv-qualified) types:
+1. A non-type template-parameter shall be one of the following (optionally **cv-qualified**) types:
 	- integral or enumeration type,
 	- pointer to object or pointer to function,
-	- lvalue reference to object or lvalue reference to function,
+	- _lvalue_ reference to object or _lvalue_ reference to function,
 	- pointer to member,
-	- std::nullptr_t.
-1. const 和 volatile 合称 cv-qualifier；cv-qualified 的意思是 either const or volatile, or both
+	- `std::nullptr_t`.
+1. `const` 和 `volatile` 合称 **cv-qualifier**
+    - cv-qualified 的意思是 either const or volatile, or both
 
 ## 5. Function templates
 
