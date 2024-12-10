@@ -27,13 +27,34 @@ ruby 2.6.10p210 (2022-04-12 revision 67958) [universal.x86_64-darwin22]
 
 但根据 [Don't Use System Ruby](https://dontusesystemruby.com/#/?id=what-is-system-ruby) 的说法，`homebrew install ruby` 也算是 system ruby。我个人觉得理由有：
 
-1. `homebrew` 自身需要 macOS 自带的 `ruby 2.6`，安装新的 ruby 会产生各种 symlink，再加上 `gem` 的 symlink，很容 messy
+1. `homebrew` 自身需要 macOS 自带的 `ruby 2.6`，安装新的 ruby 会产生各种 symlink，再加上 `gem` 的 symlink，很容易 messy
 2. `homebrew` 安装的 ruby 缺乏一个 explicit 的 environment switching 的动作，以至于有时候你不知道你会使用哪个 ruby
 
 所以我们的 alternative 是 [ruby-install](https://github.com/postmodern/ruby-install):
 
 ```bash
-homebrew install ruby-install
+brew install ruby-install
+```
+
+存在多种 ruby interpreter 可以安装，比如 [JRuby](http://jruby.org/) (类似 CPython?)。可以通过 `ruby-install` 命令查看：
+
+```bash
+~ ᐅ ruby-install
+Stable ruby versions:
+  ruby:
+    3.0.6
+    3.1.4
+    3.2.2
+  jruby:
+    9.4.5.0
+  truffleruby:
+    23.1.1
+  truffleruby-graalvm:
+    23.1.1
+  mruby:
+    3.0.0
+
+~ ᐅ ruby-install 3.2.2
 ```
 
 # 3. Ruby Env Management with `chruby`
@@ -45,7 +66,7 @@ Ruby 的 environment management 工具其实还有 [RVM](https://rvm.io/), [rben
 ## 3.1 Installation：
 
 ```bash
-homebrew install chruby
+brew install chruby
 ```
 
 然后需要配置 `.zshrc`，酌情添加下面两行：
@@ -72,28 +93,12 @@ source /usr/local/share/chruby/auto.sh
 
 我们可以 `chruby ruby-3.2.2` 切换过去，甚至可以用简写 `chruby ruby` 或者 `chruby 3.2.2`，前提是这里 interpreter name `ruby` 或者 version `3.2.2` 能唯一 match 到你现有的某个 env 上。
 
-存在其他的 interpreter 比如 [JRuby](http://jruby.org/) (类似 CPython?)，可以通过 `ruby-install` 查看：
-
-```bash
-~ ᐅ ruby-install
-Stable ruby versions:
-  ruby:
-    3.0.6
-    3.1.4
-    3.2.2
-  jruby:
-    9.4.5.0
-  truffleruby:
-    23.1.1
-  truffleruby-graalvm:
-    23.1.1
-  mruby:
-    3.0.0
-```
-
 切换之后，我们可以看到新的 path 和 version：
 
 ```bash
+~ ᐅ chruby
+   * ruby-3.2.2
+
 ~ ᐅ where ruby
 /Users/<username>/.rubies/ruby-3.2.2/bin/ruby
 /usr/bin/ruby
