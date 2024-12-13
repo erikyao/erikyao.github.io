@@ -121,11 +121,11 @@ public class Main {
 
 Java 中具体哪些情况是 static binding？哪些是 dynamic binding？可以参考 [Java 的 Single Dispatch 与 Override、Overload、Static Binding、Dynamic Binding](https://listcomp.com/java/2021/01/03/single-dispatch-in-java-and-python#3-java-%E7%9A%84-single-dispatch-%E4%B8%8E-overrideoverloadstatic-bindingdynamic-binding)
 
-# Q3: Does static binding always happen at compile-time?
+# Q3: Does static ("early") binding (of instance methods) always happen at compile-time?
 
 Yes (should be)
 
-# Q4: Does dynamic binding always happen at runtime?
+# Q4: Does dynamic ("late") binding (of instance methods) always happen at runtime?
 
 Yes (should be)
 
@@ -149,7 +149,7 @@ C++ 的话：你有一个 compiler，所以 compile-time 就是 compilation 的 
 
 它们的名称里都有 dynamic，所以它们的关系有：
 
-- single dispatch 本质是个 dispatch strategy
+- single dispatch 本质是个 dispatch strategy，一门 programming language 可以选择使用这个 strategy，也可以选择不使用它
 - single dispatch **relies on** dynamic binding
 - dynamic binding **enables** single dispatch
 
@@ -199,6 +199,7 @@ RTT Reflection (more broader than Introspection) means a language has extra abil
 
 - Java 有一些 core language feature 和 RTTI 是一致的 (但名字不一定叫 RTTI)
 - Java 有 reflection 是比 RTTI 更 broader 的 feature
+    - 有的材料说 Java 是有 reflection-based introspection，就 whatever ¯\_(ツ)_/¯
 
 # Q10: Does Java's `instanceof` always happen at runtime?
 
@@ -252,17 +253,19 @@ class DerivedSerializableClass extends SerializableClass
     - 可能存在某些 optimization 技术，比如：在确定 `myDog` object 不会 re-bind 到其他类型时，compiler 直接把 `myDog` 类型记录成 `Dog`，从而避免 dynamic binding 的 overhead。但这不是 general 的 case
 - 所以我作为一个 compiler 只能把 `myDog` 的 type 记录成 `Animal`，然后交给 runtime 去 dynamic binding
 
-# Q12: What's the relationship between RTTI and dynamic binding?
+# Q12: What's the relationship between RTTI and dynamic ("late") binding (of instance methods)?
 
 没有关系。
 
-我觉得我会产生 "它们有点联系" 的错觉，大概是因为以前考到有材料说 "可以用 downcast 来理解多态"，但这只是个比喻。**dynamic binding 不需要做 type conversion.**
+我觉得我会产生 "它们有点联系" 的错觉，大概是因为以前看到有材料说 "可以用 downcast 来理解多态"，但这只是个比喻。**dynamic binding 不需要做 type conversion.**
+
+看个例子：
 
 ```cpp
 class Base {
 public:
     virtual void foo() { std::cout << "Base foo" << std::endl; }
-    virtual ~Base() {} // Virtual destructor
+    virtual ~Base() {}
 };
 
 class Derived : public Base {
@@ -284,15 +287,14 @@ int main() {
 }
 ```
 
-`ptr->foo();` 这一步不需要做 downcast，所以说 dynamic binding 和 RTTI 没有关系
+- `ptr->foo();` 这一步不需要做 downcast，所以说 dynamic binding 和 RTTI 没有关系
+- `dynamic_cast<Derived*>(ptr)->foo();` 这一步仍然是 dynamic binding，因为你 (as a compiler) 无法确定是否还有 `class MoreDerived : public Derived`
 
-`dynamic_cast<Derived*>(ptr)->foo();` 这一步任然是 dynamic binding，因为你 (as a compiler) 无法确定是否还有 `class MoreDerived : public Derived`
-
-当然，直接 `dynamic_cast<Derived*>(ptr)->foo();` 这么写不推荐，更 safe 的写法是：
+最后一个题外话：直接 `dynamic_cast<Derived*>(ptr)->foo();` 这么写不推荐，更 safe 的写法是：
 
 ```cpp
-Derived* derivedPtr = dynamic_cast<Derived*>(ptr);
 // dynamic_cast might return nullptr if the cast fails
+Derived* derivedPtr = dynamic_cast<Derived*>(ptr);
 if (derivedPtr) {
     derivedPtr->foo(); // Safe to call
 }
