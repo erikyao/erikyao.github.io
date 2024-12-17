@@ -1,7 +1,7 @@
 ---
 category: C++
 description: ''
-tags: []
+tags: [RTTI]
 title: 'C++: typeid'
 ---
 
@@ -70,10 +70,11 @@ int main() {
 ```
 
 - Notice that RTTI ignores top-level `const` and `volatile` qualifiers.
-- It turns out that you can’t store the result of a typeid operation in a `type_info` object, because there are no accessible constructors and assignment is disallowed. You must use it as we have shown. 
-- In addition, the actual string returned by `type_info::name()` is compiler dependent. 
+	- 因为 cv-qualifiers 表示的是 compile-time limits，RTTI 没有获取 cv-qualifiers 的机制 (或者说 cv-qualifiers 的信息没有保存给 runtime)，所以 RTTI 的选择是直接忽略掉
+- You can’t store the result of a `typeid` operation in a `type_info` object, because there are no accessible constructors, and assignment is disallowed. You must use it as we have shown. 
+- The actual string returned by `type_info::name()` is compiler dependent. 
 - Applying `typeid` to an expression that dereferences a null pointer will cause a `bad_typeid` exception (also defined in `<typeinfo>`).
-- You can also apply `typeid` to nested class.
-- You can also ask a `type_info` object if it precedes another `type_info` object in the implementation-defined “collation sequence”.
-	- `if(typeid(foo).before(typeid(bar)))`
+- You can apply `typeid` to nested class.
+- You can ask a `type_info` object if it precedes another `type_info` object in the implementation-defined “collation sequence”.
+	- E.g. `if(typeid(foo).before(typeid(bar)))`
 	- This is useful if you use `type_info` objects as keys.

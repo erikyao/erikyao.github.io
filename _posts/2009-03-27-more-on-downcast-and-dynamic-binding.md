@@ -11,13 +11,11 @@ title: 'Java: 有关向下转型的必要性和动态绑定的细节'
 
 在 [多态](/java/2009/03/27/polymorphism) 里面说过：
 
-> 除了 static 方法和 final 方法 (final 包含 private) 外，Java 对其他所有的方法都采用 dynamic binding. -- _P151, Chapter 8, Thinking in Java, Fourth Edition_
+> 除了 `static` 方法和 `final` 方法 (`final` 包含 `private`) 外，Java 对其他所有的方法都采用 dynamic binding. -- _P151, Chapter 8, Thinking in Java, Fourth Edition_
 
 不过下面的这个例子也许会让人有点吃惊 (also from _Chapter 8, Thinking in Java, Fourth Edition_)：
 
 ```java
-//RTTI: Run-Time Type Identification  
-  
 class Useful {  
 	public void f() {System.out.println("Useful.f()");}  
 }  
@@ -26,17 +24,17 @@ class MoreUseful extends Useful {
 	public void f() {System.out.println("MoreUseful.f()");}  
 	public void g() {System.out.println("MoreUseful.g()");}  
 }     
-  
-public class RTTI {  
+
+public class Demo {  
 	public static void main(String[] args) {  
 		Useful x = new MoreUseful();  
 		  
 		x.f();  
-		//x.g(); // 编译错误：找不到符号  
-		((MoreUseful)x).g(); // OK. This is Downcast/RTTI  
+		// x.g(); // 编译错误：找不到符号  
+		((MoreUseful)x).g(); // OK. This is Downcast/RTTI (Run-Time Type Identification)
 	}  
 }  
-//output:  
+// output:  
 /* 
 	MoreUseful.f() 
 	MoreUseful.g() 

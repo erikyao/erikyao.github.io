@@ -11,7 +11,7 @@ title: 'Java: 多态'
 
 ## 1. 向上转型 (upcast)
 
-一个子类的 object 可以用父类的 reference 来指向，即我们可以不用子类的 reference 而是升级使用父类的 reference。如：`Base b = new Ext();`
+可以用父类的 reference 来指向一个子类的 object，如：`Base b = new Ext();`
 
 ---
 

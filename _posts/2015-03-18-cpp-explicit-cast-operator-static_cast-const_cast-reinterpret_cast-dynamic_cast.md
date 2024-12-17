@@ -3,6 +3,7 @@ category: C++
 description: ''
 tags:
 - const
+- RTII
 title: 'C++ explicit cast operator: static_cast / const_cast / reinterpret_cast /
   dynamic_cast'
 ---
@@ -11,54 +12,55 @@ title: 'C++ explicit cast operator: static_cast / const_cast / reinterpret_cast 
 
 -----
 
-## Digression: 函数式 operator
+## 0. Overview
 
-C++ has an additional casting syntax, which follows the function call syntax. E.g.:
+C++ 中，下列的 cast 形式都是合法的：
 
 ```cpp
 int main() {
-	float a = float(200);
-	// This is equivalent to:
-	float b = (float)200;
+	float f = 42.0f;
+
+	int a = (int)f;               // C-style
+	int b = int(f);               // C++ constructor
+	int c = static_cast<int>(f);  // C++-style
 }
 ```
 
-本文要说的 `static_cast` / `const_cast` / `reinterpret_cast` / `dynamic_cast` 都是 explicit cast operator，但是你看下调用代码：
+推荐使用的是第三种形式，即 explicit cast operator，有：
 
-```cpp
-int i = 200;
-long l = static_cast<long>(i);
-```
+- `static_cast`
+- `const_cast`
+- `reinterpret_cast`
+- `dynamic_cast` 
 
-你管这个叫 operator？！这明明是 generic function！又不能像 `sizeof` 那样某些情况下不用括号……总之我接受唔到！（谁管你……
-
-## 0. Overview
-
-那明明 `(float)200` 就可以搞定的事，我为啥要 `static_cast<long>(200)` 搞这么复杂？事实证明，C++ 也不是吃饱了撑着才搞这些，是有目的的。感谢 [独酌逸醉](http://www.cnblogs.com/chinazhangjie) 的这篇 [C++类型转换运算符(Type Conversion Operators)](http://www.cnblogs.com/chinazhangjie/archive/2010/08/19/1803051.html)，解释得很清楚：
+那明明 `(int)f` 就可以搞定的事，我为啥要 `static_cast<int>(f)` 搞这么复杂？事实证明，C++ 也不是吃饱了撑着才搞这些，是有目的的。感谢 [独酌逸醉](http://www.cnblogs.com/chinazhangjie) 的这篇 [C++ 类型转换运算符 (Type Conversion Operators)](http://www.cnblogs.com/chinazhangjie/archive/2010/08/19/1803051.html)，解释得很清楚：
 
 > 这些操作符取代了以往小圆括号所代表的旧式转型，能够清楚阐明转型的目的。小圆括号转型可替换 `dynamic_cast` 之外的其他三种转型，也因此你运用它时，你无法明确显示用它的确切理由。  
 > <br/>
-> 这些新式转型操作符给了编译器更多的信息，让编译器清楚知道转型的理由，并在转型失败时释出一份错误报告。
+> 这些新式转型操作符给了编译器更多的信息，让编译器清楚知道转型的理由，并在转型失败时释出一份错误报告[^1]。
 
-错误报告应该是指 [`bad_cast` Exception](https://msdn.microsoft.com/en-us/library/82f1eehz.aspx) 这样的异常。
+[^1]: "错误报告" 应该是指 [`bad_cast` Exception](https://msdn.microsoft.com/en-us/library/82f1eehz.aspx) 这样的异常。
 
-那我们看下这 4 个 operator 分别用于什么场景、阐述了哪些 cast 目的：
+这 4 个 explicit cast operator 的 spec 很有点复杂，具体可以看 [这份总结](https://stackoverflow.com/a/332086/11640888)，或者我们只用记一些 rules of thumb by [Fred Larson & Mateen Ulhaq](https://stackoverflow.com/a/332070/11640888):
 
 * `static_cast`:
-	* For “well-behaved” and “reasonably well-behaved” casts.
-	* 其实就是最常见的类似 `(float)200` 这样的转换
+	* For “well-behaved” and “reasonably well-behaved” casts
+		* E.g. 最常见的 ordinary type conversions
 * `const_cast`: 
-	* To cast away `const` and/or `volatile`.
-	* 取消 `const` 或者 `volatile` 效果（debuff?）
+	* For casting away (i.e. cancel) `const`/`volatile`. 
+	* Avoid this unless you are stuck using a `const`-incorrect API.
 * `reinterpret_cast`:
-	* Allows any pointer to be converted into any other pointer type. (不同 type 的 pointer 互转)
-	* Also allows any integral type to be converted into any pointer type and vice versa. (`int` 类与各种 type 的 pointer 互转)
+	* For low-level reinterpreting of bit patterns. 
+		* E.g. converting a pointer to another pointer type. (i.e. 不同 type 的 pointer 互转)
+		* E.g. converting an integral type to another pointer type and vice versa. (`int` 类与各种 type 的 pointer 互转)
+	* Use with extreme caution.
 * `dynamic_cast`:
-	* 用于多态
+	* For converting pointers/references within an inheritance hierarchy (i.e. for polymorphic types)
+	* Relies on RTTI, has a run-time performance penalty.
 	
 下面举几个例子。
 
-## 1. static_cast
+## 1. `static_cast`
 
 ```cpp
 void func(int) {}
@@ -107,7 +109,7 @@ int main() {
 }
 ```
 
-## 2. const_cast
+## 2. `const_cast`
 
 ```cpp
 int main() {
@@ -123,7 +125,7 @@ int main() {
 }
 ```
 
-## 3. reinterpret_cast
+## 3. `reinterpret_cast`
 
 ```cpp
 #include <iostream>
@@ -170,7 +172,7 @@ int main() {
 }
 ```
 
-## 4. dynamic_cast
+## 4. `dynamic_cast`
 
 ```cpp
 #include <iostream>
