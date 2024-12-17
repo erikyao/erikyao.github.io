@@ -13,7 +13,7 @@ toc_sticky: true
 
 ## 还是得有一个 `$HOME/.zshenv`
 
-prezto 的 config files 原件在 `${ZDOTDIR:-$HOME}"/.zprezto/runcoms` 下，安装过程中会 `ln -s` 到 `${ZDOTDIR:-$HOME}/zsh`。问题是：它其中有一个 `.zshenv` file，而 zsh 似乎只会去找 `/ect/.zshenv` 和 `$HOME/.zshenv`，并不会去找 `${ZDOTDIR:-$HOME}/zsh/.zshenv`，所以我觉得还是要有一个 `$HOME/.zshenv` 去 source `${ZDOTDIR:-$HOME}/.zshenv`。
+prezto 的 config files 原件在 `${ZDOTDIR:-$HOME}"/.zprezto/runcoms` 下，安装过程中会 `ln -s` 到 `${ZDOTDIR:-$HOME}/zsh`。问题是：它其中有一个 `.zshenv` file，而 zsh 似乎只会去找 `/etc/.zshenv` 和 `$HOME/.zshenv`，并不会去找 `${ZDOTDIR:-$HOME}/zsh/.zshenv`，所以我觉得还是要有一个 `$HOME/.zshenv` 去 source `${ZDOTDIR:-$HOME}/.zshenv`。
 
 ## 在 `$HOME/.zshenv` 中设置 `$ZDOTDIR`
 
@@ -74,7 +74,7 @@ export XDG_PROJECTS_DIR=${XDG_PROJECTS_DIR:-$HOME/Projects}
 
 我就改了下 prompt theme，然后添加了一个 Git 的 module，改动都在 `$ZDOTDIR/.zpreztorc` 文件中：
 
-```
+```bash
 # Set the Prezto modules to load (browse modules).
 # The order matters.
 zstyle ':prezto:load' pmodule \
@@ -105,7 +105,7 @@ zstyle ':prezto:module:prompt' theme 'peepcode' "❯"  # My prompt theme
 
 # 2. Homebrew
 
-需要注意的是：Intel 和 Apple Silicon 架构下的 homebrew 的路径是不一样的，具体可以参考 [mac.install.guide | Homebrew](https://mac.install.guide/homebrew/3)
+需要注意的是：Intel 和 Apple Silicon 架构下的 homebrew 的路径是不一样的，具体可以参考 [mac.install.guide \| Homebrew](https://mac.install.guide/homebrew/3)
 
 另外可以善用 `brew doctor` 命令来 verify installation 是否成功
 
@@ -123,7 +123,7 @@ export SDKMAN_DIR="$HOME/.sdkman"
 
 # 4. Pyenv for Python
 
-See [PyEnv | Installation](https://github.com/pyenv/pyenv?tab=readme-ov-file#installation)
+See [PyEnv \| Installation](https://github.com/pyenv/pyenv?tab=readme-ov-file#installation)
 
 最终会在 `$ZDOTDIR/.zshrc` 加一句：
 
@@ -135,7 +135,7 @@ eval "$(pyenv init -)" # install pyenv into your shell as a shell function, enab
 
 # 5. NVM for node.js
 
-See [NVM | Installing and Updating](https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating)
+See [NVM \| Installing and Updating](https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating)
 
 最终会在 `$ZDOTDIR/.zshrc` 加一句：
 
