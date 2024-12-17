@@ -49,8 +49,8 @@ kramdown:
   input: GFM
   syntax_highlighter_opts:
     disable : true
-# remote_theme: mmistakes/minimal-mistakes
-theme: minimal-mistakes-jekyll
+remote_theme: mmistakes/minimal-mistakes
+# theme: minimal-mistakes-jekyll
 # Outputting
 # permalink: /:categories/:title/
 permalink: /:categories/:year/:month/:day/:title 
