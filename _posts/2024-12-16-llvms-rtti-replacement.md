@@ -15,7 +15,7 @@ LLVM 禁止使用 C++ native RTTI，主要是嫌弃 native RTTI 的 performance�
 - `llvm::dyn_cast<>`: something like `dynamic_cast`
     - `llvm::dyn_cast_if_present`: a variant of `llvm::dyn_cast<>`, but accepts `nullptr`
 
-我们通过 `llvm::isa<>` 来探查以下 LLVM-style RTTI 到底是怎么实现的，它的设计如下：
+我们通过 `llvm::isa<>` 来探查一下 LLVM-style RTTI 到底是怎么实现的，它的设计如下：
 
 ```cpp
 class Animal {  // 基类
