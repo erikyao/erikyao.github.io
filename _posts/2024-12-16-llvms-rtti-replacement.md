@@ -3,8 +3,8 @@ title: "LLVM's RTTI Replacement"
 description: ""
 category: C++
 tags: [RTTI, LLVM]
-toc: true
-toc_sticky: true
+toc: false
+toc_sticky: false
 ---
 
 LLVM 禁止使用 C++ native RTTI，主要是嫌弃 native RTTI 的 performance，并不是说 LLVM 不需要 RTTI 这个 feature。我们可以说 LLVM 自己实现了一套新的 RTTI (以下称 LLVM-style RTTI)，它有:
