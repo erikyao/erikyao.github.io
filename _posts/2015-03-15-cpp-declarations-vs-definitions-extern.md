@@ -13,7 +13,7 @@ To create a program with multiple files, functions in one file must access funct
 
 ## 1. Declarations vs. definitions
 
-* A declaration introduces a name–-an identifier–-to the compiler. It tells the compiler “This function or this variable exists somewhere, and here is what it should look like.” 
+* A declaration introduces a name –- an identifier –- to the compiler. It tells the compiler “This function or this variable exists somewhere, and here is what it should look like.” 
 	* `int func1(int length, int width);`
 * A definition, on the other hand, says: “Make this variable here” or “Make this function here.” It allocates storage for the name.
 	* `int func1(int length, int width) { ... }`
@@ -38,8 +38,6 @@ extern int a;
 extern int func1(int length, int width);
 int func1(int length, int width); // equivalent
 ```
-	
-虽然对 function declaration 是多于的，我觉得都加上 `extern` 更统一一点。
 
 _2015-03-25 更新：_
 

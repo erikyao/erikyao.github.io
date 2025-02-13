@@ -50,34 +50,23 @@ _Thinking in C++_ 的路线是：
 
 ## Digress: Identifiers vs. Names
 
-在调查 linkage 的时候，发现书上用的是 "identifier"，MSDN 和其他的一些地方用的是 "name"，应该是习惯用语，具体的细节我就不扣了。
+在调查 linkage 的时候，发现书上用的是 "identifier"，MSDN 和其他的一些地方用的是 "name"，它俩基本等价
 
-* Identifier: a sequence of characters used to denote one of the following:
-	* Object or variable name
-	* Class, structure, or union name
-	* Enumerated type name
-	* Member of a class, structure, union, or enumeration
-	* Function or class-member function
-	* typedef name
-	* Label name
-	* Macro name
-	* Macro parameter
-* Name: below are all considered a name
-	* Object
-	* Reference
-	* Function
-	* Type
-	* Template
-	* Namespace
+以下这些都是 name/id:
 
-在 linkage 这个问题上，不管是 identifier 还是 name，我觉得简单理解为 variable 或者 function 应该就足够了……
+* object or variable name
+* function or member method name
+* `class`, `struct`, or `union` name
+* `enum` type name
+* member of a `class`, `struct`, `union`, or `enum`
+* `typedef` type name
+* `goto` label name
+* macro name
+* macro parameter
 
 ## Internal linkage vs. External linkage
 
 Linkage describes how identifiers can or can not refer to the same entity throughout the whole program or one single translation unit.
-
-linkage: the manner or style of being linked
-{: .notice--info}
 
 There are two types of linkage: 
 
@@ -92,11 +81,11 @@ There are two types of linkage:
 
 > A translation unit is a source file plus all the headers you `#include`d in it, from which the compiler creates the object file. 
 
-<a name="linkage-example"></a>而 `#include` 的作用基本可以理解为 "copy the included file into the current one"。在实际应用中，要注意区分 #include 和 declare。举个例子：
+<a name="linkage-example"></a>而 `#include` 的作用基本可以理解为 "copy the included file into the current one"。在实际应用中，要注意区分 `#include` 和 declare。举个例子：
 
 * 如果我在 `lib.h` 写了 `const int STASH_NUM = 8;`，这是个 internal linkage
 * 我在 `main.cpp` 里用 `extern const int STASH_NUM;` 是无法 declare 到这个 `const int`，使用时会报 "undefined reference"
-	* 因为 `lib.h` 和 `main.cpp` 是两个不同的 translation units，因为 internal linkage，所以 `main.cpp` 看不到 lib.h 里的 `const int STASH_NUM = 8;`
+	* 因为 `lib.h` 和 `main.cpp` 是两个不同的 translation units，因为 internal linkage，所以 `main.cpp` 看不到 `lib.h` 里的 `const int STASH_NUM = 8;`
 * 如果我在 `main.cpp` 里写的是 `#include 'lib.h'`，这时 `main.cpp` 和 `lib.h` 是同一个 translation unit。而同一个 translation unit 是可以看到 `const int STASH_NUM = 8;` 的，所以 `main.cpp` 可以直接用 `STASH_NUM`，此时也不需要写 `extern const int STASH_NUM;`（因为没必要；但是你写了也不会报错）
 
 后面 `extern const` 还有个更大的 [例子](#global-const-example)。
@@ -106,8 +95,8 @@ There are two types of linkage:
 Any name that has neither external linkage nor internal linkage has no linkage (i.e. the linker doesn’t know about this name, 因为这个 name 根本就不需要被 link). The only names that have no linkage are:
 
 * Function parameters.
-* Block-scoped names not declared as extern or static. (大部分的 local variable 就落到这个大类了)
-* Enumerators. (定义 enum 时，`{}` 内的那一系列常量我们称为 enumerator)
+* Block-scoped names not declared as `extern` or `static`. (大部分的 local variable 就落到这个大类了)
+* Enumerators. (定义 `enum` 时，`{}` 内的那一系列常量我们称为 enumerator)
 	* enum 和 enumerator 的 scope 和 linkage，C++ standard 是修改过的，不同的 standard 有不同的定义，所以需要考虑这个问题的时候再仔细 google 下，不要死记硬背
 	* 这个定义是从 MSDN 扒下来的，我也不知道它用的是哪个标准……
 * Names declared in a `typedef` statement. An exception is when the `typedef` statement is used to provide a name for an unnamed class type. The name may then have external linkage if the class has external linkage.
@@ -120,7 +109,7 @@ A scope is a region of the program and broadly speaking there are three places, 
 	* 这样的 variable 我们称为 formal parameters
 * Inside a function or a block
 	* 这样的 variable 我们称为 local variables
-	* they are “local” to a function.
+	* they are local to a function.
 * Outside of all functions
 	* 这样的 variable 我们称为 global variables
 	* _**By default**_, an object or variable that is defined outside all blocks <font color="red">has static duration and external linkage.</font>
@@ -153,19 +142,19 @@ The `register` storage class is used to define local variables that should be st
 
 However, there is no guarantee that the variable will be placed in a register or even that the access speed will increase. It is just a hint to the compiler. (向后兼容的产物（笑）)
 
-* A register variable can be declared only within a block (you cannot have global or static register variables).
-	* 至于为什么 register 不能是 global 的理由，我觉得这篇 [Why cant register variables be made global?](http://stackoverflow.com/questions/3486715/why-cant-register-variables-be-made-global) 并没有解释得很清楚，姑且一看
-* You can use a register variable as a formal argument in a function (i.e., in the argument list).
+* A `register` variable can be declared only within a block (you cannot have global or `static` register variables).
+	* 至于为什么 `register` 不能是 global 的理由，我觉得这篇 [Why cant register variables be made global?](http://stackoverflow.com/questions/3486715/why-cant-register-variables-be-made-global) 并没有解释得很清楚，姑且一看
+* You can use a `register` variable as a formal argument in a function (i.e., in the argument list).
 
 ## 3.3 static
 
 The static `keyword` can be used in the following situations: 
 
 * When you declare a variable or function at file scope (global and/or namespace scope), the `static` keyword <font color="red">specifies that the variable or function has internal linkage</font>. 
-	* When you declare a static variable, the variable has <font color="red">static duration</font> and the compiler initializes it to 0 unless you specify another value.
+	* When you declare a `static` variable, the variable has <font color="red">static duration</font> and the compiler initializes it to 0 unless you specify another value.
 * When you declare a variable in a function, the `static` keyword specifies that the variable retains its state between calls to that function.
 * When you declare a data member in a class declaration, the `static` keyword specifies that one copy of the member is shared by all instances of the class. 
-	* A static data member must be defined at file scope. 
+	* A `static` data member must be defined at file scope. 
 	* An integral data member that you declare as `const static` can have an initializer.
 * When you declare a member function in a class declaration, the `static` keyword specifies that the function is shared by all instances of the class. 
 	* A static member function cannot access an instance member because the function does not have an implicit `this` pointer. 
@@ -194,7 +183,7 @@ Static global variables (我造的这个词；姑且这么用) are extant throug
 
 ### 4.1.3 extern: forcing const into external linkage
 
-注意我们在 [C++: declarations vs. definitions / extern](/c++/2015/03/15/cpp-declarations-vs-definitions-extern) 说的 “This is only a declaration; it’s defined elsewhere.” 只是 `extern` 的功能之一。
+注意我们在 [C++: declarations vs. definitions / extern](/c++/2015/03/15/cpp-declarations-vs-definitions-extern) 说的 “This is only a declaration; it's defined elsewhere.” 只是 `extern` 的功能之一。
 
 我们来看下 `extern` 用法的标准解释（来自 [MSDN: Using extern to Specify Linkage](https://msdn.microsoft.com/en-us/library/0603949d.aspx)）：
 
@@ -491,19 +480,19 @@ int main(int argc, char* argv[]) {
 
 ## 4.2 volatile
 
-Whereas the qualifier `const` tells the compiler “This never changes” (which allows the compiler to perform extra optimizations), the qualifier `volatile` tells the compiler “You never know when this will change,” and prevents the compiler from performing any optimizations based on the stability of that variable. 
+Whereas the qualifier `const` tells the compiler "this never changes" (which allows the compiler to perform extra optimizations), the qualifier `volatile` tells the compiler "you never know when this will change," and prevents the compiler from performing any optimizations based on the stability of that variable. 
 
-或者理解为：`volatile` means “This data may change outside the knowledge of the compiler.” (possibly through multitasking, multithreading or interrupts)
+或者理解为：`volatile` means "this data may change outside the knowledge of the compiler." (possibly through multitasking, multithreading or interrupts)
 {: .notice--info}
 
-Use this keyword when you read some value outside the control of your code, such as a register in a piece of communication hardware. A volatile variable is **always** read whenever its value is required, even if it was just read the line before. 
+Use this keyword when you read some value outside the control of your code, such as a `register` in a piece of communication hardware. A `volatile` variable is **always** read whenever its value is required, even if it was just read the line before. 
 
-* If the compiler says, “I read this data into a register earlier, and I haven’t touched that register,” normally it wouldn’t need to read the data again. 
-* But if the data is volatile, the compiler cannot make such an assumption because the data may have been changed by another process, and it must reread that data rather than optimizing the code to remove what would normally be a redundant read.
+* If the compiler says, "I read this data into a register earlier, and I haven't touched that register," normally it wouldn't need to read the data again. 
+* But if the data is `volatile`, the compiler cannot make such an assumption because the data may have been changed by another process, and it must re-read that data rather than optimizing the code to remove what would normally be a redundant read.
 
-You can also create `const volatile` objects, which can’t be changed by the client programmer but instead change through some outside agency.
+You can also create `const volatile` objects, which can't be changed by the client programmer but instead change through some outside agency.
 
-As with `const`, you can use `volatile` for data members, member functions, and objects themselves. You can only call volatile member functions for volatile objects. 鉴于 The syntax of `volatile` is identical to that for `const`，所以 volatile object / member / member function 的语法请参考 [C++: const object / const member & const member function / mutable](/c++/2015/03/29/cpp-const-object--const-member--const-member-function--mutable)。
+As with `const`, you can use `volatile` for data members, member functions, and objects themselves. You can only call `volatile` member functions for `volatile` objects. 鉴于 the syntax of `volatile` is identical to that for `const`，所以 volatile object / member / member function 的语法请参考 [C++: const object / const member & const member function / mutable](/c++/2015/03/29/cpp-const-object-const-member-const-member-function-mutable)。
 
 _~~~~~~~~~~ 2015-05-19 补充；来自 C++ Primer, 5th Edition ~~~~~~~~~~_
 
@@ -517,22 +506,22 @@ _~~~~~~~~~~ 2015-05-19 补充完毕 ~~~~~~~~~~_
 
 ![][linkage]
 
-"common" 指 non-static + non-extern
+"common" 指 non-`static` + non-`extern`
 {: .notice--info}
 
 根据 [Linkage Types](https://www.informit.com/guides/content.aspx?g=cplusplus&seqNum=41)，有：
 
 * Internal linkage: 
 	* name of a static object
-	* a static function
+	* a `static` function
 	* a member of an anonymous union
 	* a member of an anonymous namespace
 	* a `typedef` name
-	* a const object not declared `extern`
+	* a `const` object not declared `extern`
 * External linkage:
 	* ordinary functions that aren't explicitly declared as `static`
 	* global objects
-	* const objects explicitly declared `extern`
+	* `const` objects explicitly declared `extern`
 	* classes
 	* enumerations and their enumerators (文章写于 2003 年；存疑)
 	* templates
