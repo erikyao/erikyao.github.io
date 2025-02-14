@@ -21,11 +21,11 @@ toc_sticky: true
 
 ## 1.1 要区分 hardware 的物理特性 🆚 guarantee
 
-比如 TSO 中，你 `thread 1` write 的内容会先到 store buffer 中，在被 flush 到 shared memory 之前，其他的 thread 看不到这个 write，但 `thread 1` 自己能看到 (因为它 read 时会先 read store buffer)。这就属于 hardware 的物理特性。
+比如 TSO 中，你 `thread_1` write 的内容会先到 store buffer 中，在被 flush 到 shared memory 之前，其他的 thread 看不到这个 write，但 `thread_1` 自己能看到 (因为它 read 时会先 read store buffer)。这就属于 hardware 的物理特性。
 
 又比如 DRF-SC，它是某些 CPU 提供的 guarantee，它就很难从物理上看出来，但是某些 CPU 就是有这个性质。
 
-## 1.2 不要用 [memory ordering](https://en.wikipedia.org/wiki/Memory_ordering) 去总结所有的特性 / 使用 Litmus Test 更准确
+## 1.2 不要用 memory ordering 去总结所有的特性 / 使用 Litmus Test 更准确
 
 比如[有人](https://gist.github.com/matu3ba/1a777c478a77fefb36181135a44bc47a)讲：
 
@@ -80,9 +80,11 @@ x = 1
 
 ## 1.4 要会动态调整抽象的粒度
 
-Hardware (CPU/Core/Multi-process) 有 memory models，所以有 memory consistency 特性的研究。Software (Language/Compiler/Multi-thread) 呢？它没有 physical 的 memory model，但如果你抽象出 `load`、`write`、`location`、`variable`、`const` 这些概念，software 一样也有 memory consistency 的问题。
+以下我们用 HW (hardware) 指 CPU/Core/Multi-process，用 SW (software) 指 Language/Compiler/Multi-thread。
 
-Hardware (CPU/Core/Multi-process) 有 caches，所以有 cache coherence 特性的研究。但是 coherence 不一定非要局限于 cache 呀，我 general 的 memory 是不是也可以有 coherence？所以类似地，software (language/compiler/multi-thread） 也可以有 coherence 问题。
+HW 是真的有 memory architecture，所以有 memory consistency 特性的研究。SW 没有 physical 的 memory model，但如果你抽象出 `load`、`write`、`location`、`variable`、`const` 这些概念，SW 一样也有 memory consistency 的问题。
+
+HW 有 caches，所以有 cache coherence 特性的研究。但[后面](#32-define-consistency-agnostic-coherence-from-a-programmers-perspective-ie-consistency-like-definition)我们能看到用 memory consistency 类似的方式来定义 cache coherence，理论上可以不依赖于 cache 结构。
 
 鉴于 memory consistency 和 cache coherence 逐渐称为了通用的研究课题，[A Primer on Memory Consistency and Cache Coherence](https://pages.cs.wisc.edu/~markhill/papers/primer2020_2nd_edition.pdf) 大胆开麦：
 
@@ -153,7 +155,7 @@ Herb Sutter 的 [`atomic<>` Weapons](https://www.youtube.com/watch?v=A8eCGOqgvH4
 
 **Definition 3:** A program contains a _data race_ (or simply a _race_) **if it has a sequentially consistent execution** that reaches a racy state.
 
-把 program state 换成 execution，我们可以重写一下 Definition 3：Given a program $P$, if $\exists$ an SC execution $E$ of $P$ that is racy $\implies$ $P$ has a data race
+把 program state 换成 execution，我们可以重写一下 **Definition 3:** Given a program $P$, if $\exists$ an SC execution $E$ of $P$ that is racy $\implies$ $P$ has a data race
 
 考虑逆否命题：Program $P$ is DRF (data-race-free) $\implies$ all its SC executions are DRF
 
@@ -202,7 +204,7 @@ SC execution 是这样一种 multi-core 的 execution (by [Leslie Lamport](https
         - 我们要考虑应该只是 `thread_1` 和 `thread_2` 的 worker function 的 program order
 - 最后我们来看下 "is the same **as if**" 的这个 "as if" 是啥意思。[amon](https://softwareengineering.stackexchange.com/a/422086) 有一个很妙的解读：
     > The behaviour of all processes was _as if_ they had been executed in a particular order, although this agreed-upon order was different from the actual temporal order. We don't care about _when_ a write is observed, only about the order between writes.
-    - 这里涉及了 strict consistency 和 atomicity，我们后面会详述
+    - 这里涉及了 strict consistency 和 atomicity，我们[后面会详述](#33-writes-are-serialized-这类的描述很有帮助)
 
 ### 2.3.2 SC Consistency Model
 
@@ -249,7 +251,7 @@ An SC implementation permits only SC executions.
 
 你可能要问："DRF program 仍然可能有 non-SC execution" 有什么问题么？它又不影响 program 的性质？
 
-的确是这样，按照 DRF 的定义，DRF program 是可以有 non-SC execution 的。但我们提出 DRF 是为了 reasoning：
+的确是这样，按照 [DRF 的定义](#22-drf-是-program--execution-的-property)，DRF program 是可以有 non-SC execution 的。但我们提出 DRF 是为了 reasoning：
 
 - 想象你在 debugging，你已经判断出 program 是 DRF 的，但 HW 却仍然允许 program 出现 data race，那我这个程序就没法写了
 - 从另一个角度来说，你要 non-SC 的 execution 也做到 data race free 似乎也太难了一点，我都想象不出要怎么弄
@@ -354,7 +356,7 @@ Consistency-Agnostic Coherence protocal 必须要满足两个 invariants：
 1. Strict Consistency requires that writes take effect in the order they were executed. This would require atomic writes that propagate immediately to all other processes.
 2. Sequential Consistency is weaker than Strict Consistency, and it does not require that writes take effect immediately/atomically, but merely that all processes observe writes in the same order, i.e. that they agree on a total order of operations.
 
-假设；
+假设：
 
 - 我们用 `W(x)a` 表示 "write to memory location `x` with value `a`"
 - 我们用 `R(x)a` 表示 "read memory location `x` and get value `a`"
@@ -587,7 +589,7 @@ Russ Cox 在 [Programming Language Memory Models](https://research.swtch.com/plm
 2. weak synchronization (“acquire/release”, coherence-only) atomics
 3. no synchronization (“relaxed”, for hiding races) atomics
 
-我们到后面 C++ 的部分再详述
+我们到[后面 C++ 的部分再详述](#54-c-atomics-中的-lasr)
 
 # 5. LA/SR
 
@@ -597,7 +599,7 @@ Load-Aquire/Store-Release 是两个 non-standalone barriers
 
 一句话：帮助 weaker-than-SC model 实现 DRF-SC。
 
-考虑一个 weaker-than-SC model。首先它可能只有 coherence，那么仿照 2.3.2 的定义，这么 model 可能只要求了：
+考虑一个 weaker-than-SC model。首先它可能只有 coherence，那么仿照 [2.3.2 SC Consistency Model](#232-sc-consistency-model) 的定义，这个 model 可能只要求了：
 
 - All cores insert their `load`s and `store`s **to the same address** into the order $<_m$ respecting their $<_p$:
     - If $L(a) <_p L'(a) \Rightarrow L(a) <_m L(a)$ (`#LoadLoad` to same address)
@@ -605,7 +607,7 @@ Load-Aquire/Store-Release 是两个 non-standalone barriers
     - If $S(a) <_p S'(a) \Rightarrow S(a) <_m S'(a)$ (`#StoreStore` to same address) 
     - If $S(a) <_p L(a) \Rightarrow S(a) <_m L(a)$ (`#StoreLoad` to same address) 
 
-SC model 的 "regardless of whether they are to the same or different addresses (i.e., $a=b$ or $a \neq b$)" 我这个 eaker-than-SC model 实现不了，那问题来了：我这么实现 DRF-SC？或者说我怎么能实现类似 $L(a) <_p L(b) \Rightarrow L(a) <_m L(b)$？
+SC model 的 "regardless of whether they are to the same or different addresses (i.e., $a=b$ or $a \neq b$)" 我这个 weaker-than-SC model 实现不了，那问题来了：我这么实现 DRF-SC？或者说我怎么能实现类似 $L(a) <_p L(b) \Rightarrow L(a) <_m L(b)$？
 
 思路是引入 barrier/fence，若我们能实现：
 
