@@ -377,7 +377,7 @@ A Strict Consistent Execution is like:
 4:                     R(x)b  R(x)b
 ```
 
-我们可以认为：
+总结这个 Strict Consistent Execution：
 
 - If `W(x)a` $<_t$ `W(x)b` $\Rightarrow$ `W(x)a` $<_m$ `W(x)b` (因为是 atomically write and immediately propagate)
 - If `W(x)a` $<_m$ `W(x)b` $\Rightarrow$ `thread_3` 和 `thread_4` 不可能有 `R(x)b; R(x)a;` 这样的结果
@@ -396,7 +396,7 @@ A Sequential Consistent Execution is like:
 4:                     R(x)b  R(x)a
 ```
 
-要点：
+总结这个 Sequential Consistent Execution：
 
 - `W(x)a` $<_t$ `W(x)b` 并不能保证 `W(x)a` $<_m$ `W(x)b` (可能因为不是 atomically write，也可能因为没有 immediately propagate) (考虑 TSO 的 store buffer)
 - 这里我们实际有 `W(x)b` $<_m$ `W(x)a`，而且 `thread_3` 和 `thread_4` 得到的 `R(x)b; R(x)a;` 结果是 ok 的
@@ -406,7 +406,7 @@ A Sequential Consistent Execution is like:
 
 > The behaviour of all processes was _as if_ they had been executed in a particular order, although this agreed-upon order was different from the actual temporal order. We don't care about _when_ a write is observed, only about the order between writes.
 
-这个例子本质和 1.2 的例子是一致的：
+这个例子本质和 [1.2 Litmus Test: Coherence](#12-不要用-memory-ordering-去总结所有的特性--使用-litmus-test-更准确) 的例子是一致的：
 
 ```txt
 Litmus Test: Coherence
@@ -630,7 +630,7 @@ SC model 的 "regardless of whether they are to the same or different addresses 
 
 ## 5.1 什么是 Release & Acquire?
 
-来自 [Release Consistency (RC)](https://ieeexplore.ieee.org/document/134503)，它的主要观点是：**(4-way) $\operatorname{FENCE}$ is an overkill** in that:
+来自 [Release Consistency (RC)](https://ieeexplore.ieee.org/document/134503)，它的主要观点是：**(4-way) $\operatorname{FENCE}$ is an overkill**. 可以改用两个 one-way:
 
 - a synchronization `acquire` needs only a succeeding $\operatorname{FENCE}$
 - a synchronization `release` needs only a preceding $\operatorname{FENCE}$
@@ -749,7 +749,7 @@ atomic_store_explicit(&x, 1, std::memory_order_release);
 x.store(1, std::memory_order_release);
 ```
 
-Russ Cox 在 [Programming Language Memory Models | Acquire/release atomics](https://research.swtch.com/plmm#acqrel) 中讲了一段让我挠头的话：
+Russ Cox 在 [Programming Language Memory Models - Acquire/release atomics](https://research.swtch.com/plmm#acqrel) 中讲了一段让我挠头的话：
 
 > Recall that the sequentially consistent atomics required the behavior of all the atomics in the program to be consistent with some global interleaving—a total order—of the execution. Acquire/release atomics do not. They only require a sequentially consistent interleaving of the operations on a single memory location. That is, they only require coherence. The result is that a program using acquire/release atomics with more than one memory location may observe executions that cannot be explained by a sequentially consistent interleaving of all the acquire/release atomics in the program, arguably a violation of DRF-SC!
 
