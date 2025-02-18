@@ -589,7 +589,7 @@ Russ Cox 在 [Programming Language Memory Models](https://research.swtch.com/plm
 2. weak synchronization (“acquire/release”, coherence-only) atomics
 3. no synchronization (“relaxed”, for hiding races) atomics
 
-我们到[后面 C++ 的部分再详述](#54-c-atomics-中的-lasr)
+我们到[后面 C++ 的部分再详述](#55-c-atomics-中的-lasr)
 
 # 5. LA/SR
 
