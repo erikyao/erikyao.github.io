@@ -256,7 +256,25 @@ An SC implementation permits only SC executions.
 - 想象你在 debugging，你已经判断出 program 是 DRF 的，但 HW 却仍然允许 program 出现 data race，那我这个程序就没法写了
 - 从另一个角度来说，你要 non-SC 的 execution 也做到 data race free 似乎也太难了一点，我都想象不出要怎么弄
 
-## 2.5 DRF0 是一个 sychronization model (and you probably don't have to study it too much)
+## 2.5 Question: 使用 Weaker Model + DRF-SC 的 HW，与使用 SC 的 HW 相比，在 performance 上有什么优势？
+
+尤其考虑到一个 DRF 的 program：它在 weaker-than-SC 但是 DRF-SC 的 HW 上也是 SC 执行的，那么这样和 SC model 的 HW 有什么分别？
+
+这属于 optimization 的问题，最浅显的一个例子：TSO 的 store buffer 就是一种 optimization。再进一步减弱到 Relaxed Model，optimization 的方便程度会更大 (因为 SC 太严格)。
+
+而且实际应用中，某些 optimization 是可以违反我们这里谈到的 definition/principle 的，比如 [A Primer on Memory Consistency and Cache Coherence](https://pages.cs.wisc.edu/~markhill/papers/primer2020_2nd_edition.pdf) 的 _5.1.2 OPPORTUNITIES TO EXPLOIT REORDERING_ 介绍的 "opening the coherence box":
+
+> We previously advocated decoupling consistency and coherence to manage intellectual complexity. Alternatively, relaxed models can provide better performance than strong models by "opening the coherence box." For example, an implementation might allow a subset of cores to load the new value from a store even as the rest of the cores can still load the old value, temporarily breaking coherence’s single-writer–multiple-reader invariant. This situation can occur, for example, when two thread contexts logically share a per-core write buffer or when two cores share an L1 data cache. However, “opening the coherence box” incurs considerable intellectual and verification complexity, bringing to mind the Greek myth about Pandora’s box. As we will discuss in _Section 5.6.2_, IBM Power permits the above optimizations.
+
+这个 optimization 的手段都可以打破 coherence 的约束 (当然是在某些特定的情况下)，所以 optimization 的方法论你可以认为是非常 wild 的。
+
+综上，这个问题你可以这样泛泛地理解：
+
+1. 理论模型永远是理论模型，现实总会有点出入
+2. optimization 属于 "现实" 那一 part，且手段可能很 wild
+3. 所以一个 relaxed model + DRF-SC 能允许的 optimization 应该要比 SC model 能允许的更强力，所以 performance 上会更好
+
+## 2.6 DRF0 是一个 sychronization model (and you probably don't have to study it too much)
 
 很多论文会追溯到 [Weak ordering - a new definition](https://dl.acm.org/doi/abs/10.1145/325096.325100) 这篇 1990 年的论文。它提出了 DRF0 as a sychronization model:
 
@@ -554,7 +572,7 @@ retry:
 
 更多可以参考 [Cliff Fan - ARM64 exclusive Load/Store](https://duetorun.com/blog/20231007/a64-load-store-exclusive/)
 
-## 4.5 思考：要会动态调整 atomicity 的粒度
+## 4.5 要会动态调整 atomicity 的粒度
 
 考虑 "increment" 这么一个操作，例如 `i++`。一般 assembly 会需要 3 条 instructions：
 
@@ -575,7 +593,7 @@ retry:
 - `STADD x0, [x1]` $\Rightarrow$ atomically add and store as `[x1] <- x0 + [x1]` 
 - `STADDL x0, [x1]` $\Rightarrow$ `STADD` with release semantics
 
-## 4.6 思考：Atomicity + Synchronzation
+## 4.6 Atomicity + Synchronzation
 
 实际应用时，atomic variable/operations 常常附带 synchronization 功效。
 
