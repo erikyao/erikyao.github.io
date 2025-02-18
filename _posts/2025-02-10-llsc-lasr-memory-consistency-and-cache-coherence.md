@@ -628,7 +628,7 @@ SC model 的 "regardless of whether they are to the same or different addresses 
     - 参上文
 3. (TSO-style) Every `load` gets its value from the last `store` before it to the same address, i.e. $\vert L(a) \vert = \vert \max_{<} \lbrace S(a) \mid S(a) <_m L(a) \text{ or } S(a) <_p L(a) \rbrace \vert$ where $\max_{<}$ denotes "latest in order"
 
-## 5.1 什么是 Release & Acquire?
+## 5.1 什么是 Release/Acquire?
 
 来自 [Release Consistency (RC)](https://ieeexplore.ieee.org/document/134503)，它的主要观点是：**(4-way) $\operatorname{FENCE}$ is an overkill**. 可以改用两个 one-way:
 
@@ -697,7 +697,65 @@ Load-Aquire/Store-Release 是两个 non-standalone barriers，且它们也常常
 - If $L(a) <_p \operatorname{SR}(b) \Rightarrow L(a) <_m \operatorname{SR}(b)$ (类似 `#LoadStore` 的效果)
 - If $S(a) <_p \operatorname{SR}(b) \Rightarrow S(a) <_m \operatorname{SR}(b)$ (类似 `#StoreStore` 的效果)
 
-## 5.4 C++ Atomics 中的 LA/SR
+## 5.4 Problem: (纯使用) Release/Acquire 或者 LA/SR 没法实现 SC
+
+我们在开头 [5.0 为什么需要 barrier (a.k.a. fence)？](#50-为什么需要-barrier-aka-fence) 说 barrier (fence) 的作用是 "帮助 weaker-than-SC model 实现 DRF-SC"，但如果只使用 Release/Acquire 或者 LA/SR 是没法实现 SC 的 (Release & Acquire 是可以的)
+
+Russ Cox 在 [Programming Language Memory Models - Acquire/release atomics](https://research.swtch.com/plmm#acqrel) 举了一个例子：
+
+```txt
+Litmus Test: Store Buffering
+Can this program see r1 = 0, r2 = 0?
+
+    // Thread 1           // Thread 2
+    x = 1                 y = 1
+    r1 = y                r2 = x
+
+On sequentially consistent hardware: no.
+On x86 (or other TSO): yes!
+On ARM/POWER: yes!
+On Java (using volatiles): no.
+On C++11 (sequentially consistent atomics): no.
+On C++11 (acquire/release atomics): yes!
+```
+
+如果这里我们只有 LA/SR 可以用，那么这个 Litmus Test 的代码就是：
+
+```cpp
+    // Thread 1           // Thread 2
+    x.store(1, REL)       y.store(1, REL)
+    r1 = y.load(ACQ)      r2 = x.load(ACQ)
+```
+
+可以更直白地示意为：
+
+```cpp
+    // Thread 1           // Thread 2
+    ----- REL -----       ----- REL -----
+    x.store(1)            y.store(1)
+    r1 = y.load()         r2 = x.load()
+    ----- ACQ -----       ----- ACQ -----
+```
+
+这里的 problem 在于：
+
+- `thread_1` 的 `x.store(1)` 和 `y.load()` 可以有 reordering
+- `thread_2` 的 `y.store(1)` 和 `x.load()` 可以有 reordering
+- 除非你这里 `----- REL -----` 和 `----- ACQ -----` 围起来的部分只有 "针对 same memory location 的读写"，换言之，**这里只有 coherence 能保证对 same memory location 的 SC**
+
+Russ Cox 在 [Programming Language Memory Models - Acquire/release atomics](https://research.swtch.com/plmm#acqrel) 是这样总结的：
+
+> Recall that the sequentially consistent atomics required the behavior of all the atomics in the program to be consistent with some global interleaving—a total order—of the execution. Acquire/release atomics do not. They only require a sequentially consistent interleaving of the operations on a single memory location. That is, they only require coherence. The result is that a program using acquire/release atomics with more than one memory location may observe executions that cannot be explained by a sequentially consistent interleaving of all the acquire/release atomics in the program, arguably a violation of DRF-SC!
+
+注意他这里说的 "Acquire/release atomics" 指的是 LA/SR，但你上升到 general 的 Release/Acquire 也是一样的，都无法保证 fully SC，只有 coherence 带来的 same memory location 的 SC。因为你这里需要一个 `#StoreLoad` 来保证 `x.store(1)` 和 `y.load()`、以及 `y.store(1)` 和 `x.load()` 的 order，但 Release/Acquire 很尴尬地恰好没有 `#StoreLoad`:
+
+![](https://live.staticflickr.com/65535/54286084836_19d57c687d_o_d.png)
+
+(图片来源：[Acquire and Release Semantics](https://preshing.com/20120913/acquire-and-release-semantics/))
+
+我觉得我们这里需要理解：[Release Consistency (RC)](https://ieeexplore.ieee.org/document/134503) 毕竟是 1990 年的作品，理论还在发展中。
+
+## 5.5 C++ Atomics 中的 LA/SR
 
 基本的 `load`/`store` 可以这样写：
 
@@ -748,14 +806,3 @@ atomic_store_explicit(&x, 1, std::memory_order_release);
     // EQUIVALENT TO
 x.store(1, std::memory_order_release);
 ```
-
-Russ Cox 在 [Programming Language Memory Models - Acquire/release atomics](https://research.swtch.com/plmm#acqrel) 中讲了一段让我挠头的话：
-
-> Recall that the sequentially consistent atomics required the behavior of all the atomics in the program to be consistent with some global interleaving—a total order—of the execution. Acquire/release atomics do not. They only require a sequentially consistent interleaving of the operations on a single memory location. That is, they only require coherence. The result is that a program using acquire/release atomics with more than one memory location may observe executions that cannot be explained by a sequentially consistent interleaving of all the acquire/release atomics in the program, arguably a violation of DRF-SC!
-
-挠头的地方在于：
-
-- 我不知道他这里是特指 C++ 的 atomics 还是 general 的 atomics
-- `acquire`/`release` 来自于 RC model，RC model is weaker than SC model，所以 `acquire`/`release` 没有 SC guarantee 不是很正常？
-- 采用 RC model 的 HW 可以 use some coherence protocol as a black box，这也是很正常的
-- 我觉得他可能只是要强调 `acquire`/`release` 没有 SC，这也能解释他把 `acquire`/`release` 叫做 "coherence-only"
