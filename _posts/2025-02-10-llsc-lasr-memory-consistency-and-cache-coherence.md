@@ -290,8 +290,8 @@ An SC implementation permits only SC executions.
 不怎么严谨地说：
 
 - consistency 关注的是 multi-thread/core 在 shared memory 上的 operation ordering
-- coherence 关注的是 "如果 `core_1` 有一个 write，我怎么 make this write visible to `core_2`"
-    - 它不涉及 shared memory
+- coherence 关注的是 "如果 `core_1` 有一个 write，我怎么 make this write visible to `core_2`?"
+    - 它 (从 HW 结构上来讲) 不涉及 shared memory
     - 你可以简单理解成 "CPU 要如何实现一个 `store`?"，细节问题包括：
         - 我要如何刷新所有 core 的 cache？
         - 我是等刷新结束后才允许 `store` return，还是先让 `store` return 再刷新？
@@ -310,11 +310,11 @@ An SC implementation permits only SC executions.
 
 我们可以把 coherence protocol 分成两大类：
 
-1. Consistency-Agnostic Coherence
+1. **Consistency-Agnostic Coherence**
     - a write is made visible to all other cores before returning (i.e. synchronously propagated)
     - **等价于** 一个 atomic memory system (with no caches)
         - 意味着 core pipeline 可以 assume it is interacting with an atomic memory system with no caches present (i.e. an illusion of atomic memory)
-2. Consistency-Directed Coherence
+2. **Consistency-Directed Coherence**
     - proposed more recently, to support throughput-based GP-GPUs (general-purpose graphics processing units)
     - a write can return before it has been made visible to all processors (i.e. asynchronously propagated)
     - must ensure that the order in which writes are eventually made visible adheres to the ordering rules mandated by the consistency model
