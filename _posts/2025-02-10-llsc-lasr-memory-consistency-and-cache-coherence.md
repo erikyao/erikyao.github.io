@@ -331,7 +331,7 @@ Consistency-Agnostic Coherence protocal 必须要满足两个 invariants：
 
 ## 3.2 Define Consistency-Agnostic Coherence from a Programmer's Perspective (i.e. Consistency-like Definition)
 
-有很多。
+学界有多种定义，[A Primer on Memory Consistency and Cache Coherence](https://pages.cs.wisc.edu/~markhill/papers/primer2020_2nd_edition.pdf) 就列出了 3 种。
 
 **Definition 1:** A coherent system must appear to execute all threads’ loads and stores to a single memory location in a total order that respects the program order of each thread.
 
