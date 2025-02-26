@@ -1,5 +1,5 @@
 ---
-title: "LLVM uses plain, unscoped `enum`s (instead of scoped `enum class`es)"
+title: "LLVM uses plain, unscoped enums (instead of scoped enum classes)"
 description: ""
 category: LLVM
 tags: []
@@ -35,12 +35,12 @@ Animal::AnimalKind ak = Animal::AK_Horse;
 
 这里涉及到两个问题：
 
-1. plain `enum`s are unscoped
-2. `enum class`es and `enum struct`s are scoped
+1. plain `enum` is unscoped
+2. `enum class` and `enum struct` are scoped
 
-Since C++11, `enum class`es and `enum struct`s are recommended (原因：plain `enum`s 有隐式类型转换，即 under the hood 一个 plain `enum` 本质还是一个 `int` 之类的). 但 LLVM 的老代码主体还是 plain `enum`s。
+Since C++11, `enum class` and `enum struct` are recommended (原因：plain `enum` 有隐式类型转换，即 under the hood 一个 plain `enum` 本质还是一个 `int` 之类的). 但 LLVM 的老代码主体还是 plain `enum`。
 
-plain `enum`s 具有 "unscoped" 的属性，即: 对 `enum <name>(optional) { <enumerator> = <constant-expression> , ... }` 有：
+plain `enum` 具有 "unscoped" 的属性，即: 对 `enum <name>(optional) { <enumerator> = <constant-expression> , ... }` 有：
 
 > Each `<enumerator>` becomes a named constant of the enumeration's type (that is, `<name>`), **visible in the enclosing scope**, and can be used whenever constants are required.
 
