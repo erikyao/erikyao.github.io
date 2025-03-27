@@ -9,7 +9,7 @@ title: 'PyTorch: Computational Graphs'
 
 一个简单的例子 (直接在 notebook 中运行)：
 
-```
+```python
 import torch as t
 from torchviz import make_dot
 
