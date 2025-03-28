@@ -22,7 +22,7 @@ toc_sticky: true
 
 ## Shunting Yard Algorithm 的外壳
 
-我个人的修为不是很够，这个 C 代码看得我头疼，因为写得很 geeky。
+我个人的修为不是很够，这个 C 代码看得我头疼，因为写得很 geeky.
 
 它整体上还是个 [Shunting Yard Algorithm](/compiler/2025/03/20/shunting-yard-algorithm)，大方向上只有一个痛点需要解决：
 
@@ -104,7 +104,7 @@ while(--natom > 0)
 
 总结一下就是：
 
-- `if` 至多只输出一个 `.`，且它会保留 `natom >= 1`，暗示了 "后续还有继续 concat 操作的操作"
+- `if` 至多只输出一个 `.`，且它会保留 `natom >= 1`，暗示了 "后续还有继续 concat 操作的可能"
 - `while` 至多也只输出一个 `.`，但它会清空 `natom = 0`，暗示了 "后续应该没有 concat 操作了"
     - 这个暗示在 "遇到 `|` 时" 触发，makes sense
 
