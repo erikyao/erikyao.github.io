@@ -10,6 +10,8 @@ See [Overriding Theme Defaults](https://mmistakes.github.io/minimal-mistakes/doc
 
 `single.html` is from minimal-mistakes' commit [b82680b](https://github.com/mmistakes/minimal-mistakes/blob/85e1ba131e93a1eedaa92ed20abf4bec3ef0847b/_layouts/single.html). May need manual updates in the future.
 
+## Modification 1: Turned off `sanntize`
+
 In my commit [2e219f3](https://github.com/erikyao/erikyao.github.io/commit/2e219f35cf9907fb9b9258368c299f80a3180d3f), the `sanitize` option is set to `false` when including the `toc.html`. This change can preseve the "code block" style in headings, when rendering the ToC.
 
 More ToC rendering options can be found in minimal-mistakes' [`_include/toc.html`](https://github.com/mmistakes/minimal-mistakes/blob/85e1ba131e93a1eedaa92ed20abf4bec3ef0847b/_includes/toc.html#L26):
