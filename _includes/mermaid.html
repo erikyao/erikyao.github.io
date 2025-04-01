@@ -1,0 +1,23 @@
+<script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11.6.0/+esm'
+    let config = { 
+        startOnLoad: true,
+        
+        theme: "neutral",
+        themeVariables: {
+            nodeBorder: '#FF6B6B', // Red border for nodes
+
+            fontSize: '1em',  // Default is 16px
+            fontFamily: 'Menlo, Consolas, Monaco, "Ubuntu Mono", monospace'
+        },
+
+        flowchart: { 
+            useMaxWidth: true,  // Respect container width
+            htmlLabels: true  // Enable HTML in node labels (for formatting)
+        } 
+    };
+    mermaid.initialize(config);
+    await mermaid.run({
+        nodes: document.querySelectorAll('.language-mermaid'),
+    });
+</script>
