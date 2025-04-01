@@ -38,7 +38,7 @@ Animal::AnimalKind ak = Animal::AK_Horse;
 1. plain `enum` is unscoped
 2. `enum class` and `enum struct` are scoped
 
-Since C++11, `enum class` and `enum struct` are recommended (原因：plain `enum` 有隐式类型转换，即 under the hood 一个 plain `enum` 本质还是一个 `int` 之类的). 但 LLVM 的老代码主体还是 plain `enum`。
+Since C++11, `enum class` and `enum struct` are recommended (原因：plain `enum` 有隐式类型转换，即 under the hood 一个 plain `enum` 本质还是一个 `int` 之类的)。但 LLVM 的老代码主体还是 plain `enum`.
 
 plain `enum` 具有 "unscoped" 的属性，即: 对 `enum <name>(optional) { <enumerator> = <constant-expression> , ... }` 有：
 
@@ -46,4 +46,4 @@ plain `enum` 具有 "unscoped" 的属性，即: 对 `enum <name>(optional) { <en
 
 也有不严谨的说法叫 "the namespace of the `enum` is promoted".
 
-更多内容请参考 [CppReference - Enumeration declaration](https://en.cppreference.com/w/cpp/language/enum)。
+更多内容请参考 [CppReference - Enumeration declaration](https://en.cppreference.com/w/cpp/language/enum).
