@@ -57,5 +57,5 @@ The full configuration is:
 
 Note that: 
 
-- You may find many articles/LLMs recommend using `mermaid.init()`, but this method is already deprecated.
-- Instead you should use `mermaid.run()` on every `<pre class="language-mermaid">` tag, which is translated directly from a ````mermaid`-marked Markdown code block.
+- You may find many articles/LLMs recommend using `mermaid.init()`, but this method is already deprecated in Mermaid.js v10.
+- Instead you should use [`mermaid.run()`](https://mermaid.js.org/config/usage.html#using-mermaid-run) on every `<pre class="language-mermaid">` tag, which is translated directly from a ````mermaid`-marked Markdown code block.
