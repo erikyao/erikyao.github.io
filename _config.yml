@@ -139,10 +139,41 @@ defaults:
       # classes: wide
       author_profile: true
 
+# Config from giscus.app
+# 
+# <script src="https://giscus.app/client.js"
+#         data-repo="erikyao/erikyao.github.io"
+#         data-repo-id="MDEwOlJlcG9zaXRvcnkxOTg1MDUwOQ=="
+#         data-category="Giscus Comments"
+#         data-category-id="DIC_kwDOAS7lDc4CopwG"
+#         data-mapping="pathname"
+#         data-strict="0"
+#         data-reactions-enabled="1"
+#         data-emit-metadata="0"
+#         data-input-position="bottom"
+#         data-theme="light"
+#         data-lang="en"
+#         data-loading="lazy"
+#         crossorigin="anonymous"
+#         async>
+# </script>
+#
+# See https://github.com/mmistakes/minimal-mistakes/blob/master/_includes/comments-providers/giscus.html for property name mapping.
+
 comments:
-  provider: disqus
-  disqus:
-    shortname: erikyao
+  provider: giscus
+  giscus:
+    repo_id: "MDEwOlJlcG9zaXRvcnkxOTg1MDUwOQ=="
+    category_name: "Giscus Comments"
+    category_id: "DIC_kwDOAS7lDc4CopwG"
+    discussion_term: "pathname"
+    strict: 0
+    reactions_enabled: 1
+    emit_metadata: 0
+    input_position: "bottom"
+    theme: "light"
+    lang: "en"
+    lazy: 1
 
 # Social Sharing
 twitter:
