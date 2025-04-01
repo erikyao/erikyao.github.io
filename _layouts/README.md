@@ -2,13 +2,21 @@
 
 Copy the original `_layouts/xxx.html` to this folder for modification/customization.
 
-See [Overriding Theme Defaults](https://mmistakes.github.io/minimal-mistakes/docs/overriding-theme-defaults/)
+See [Overriding Theme Defaults](https://mmistakes.github.io/minimal-mistakes/docs/overriding-theme-defaults/).
 
 # "single" layout
 
 "single" layout is my default one for "pages" and "posts", as configured in my `_config.yml`.
 
-`single.html` is from minimal-mistakes' commit [b82680b](https://github.com/mmistakes/minimal-mistakes/blob/85e1ba131e93a1eedaa92ed20abf4bec3ef0847b/_layouts/single.html). May need manual updates in the future.
+`_layouts/single.html` is from minimal-mistakes' commit [ef464c8](https://github.com/mmistakes/minimal-mistakes/blob/ef464c868ea950e54d228564246e54a2720d1bec/_layouts/single.html). May need manual updates in the future.
+
+Note that "single" layout is inherited from ["default"](https://github.com/mmistakes/minimal-mistakes/blob/master/_layouts/default.html). The rendering process is like:
+
+1. copy all the tags from `_layouts/single.html`
+2. paste to the `{{ content }}` line of `_layout/default.html`
+3. render the altered `_layout/default.html`
+
+so your modification to "single" layout should only happens in `_layouts/single.html`.
 
 ## Modification 1: Turned off `sanntize`
 
