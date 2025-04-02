@@ -30,9 +30,11 @@ where "single" is my default layout for posts.
 In my own [_includes/head/custom.html](https://github.com/mmistakes/minimal-mistakes/blob/master/_includes/head/custom.html) I added:
 
 ```html
+{% raw %}
 {% if page.mermaid %}
     {% include mermaid.html %}
 {% endif %}
+{% endraw %}
 ```
 
 which means:
