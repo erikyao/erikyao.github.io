@@ -244,6 +244,10 @@ flowchart LR
     end
 
     L(["s = new SplitState()"]) o--o NFA
+
+    D ~~~ H
+    E ~~~ H
+    F ~~~ H
     
     classDef hidden display: none;
     style H fill:#FAD689
@@ -263,7 +267,7 @@ flowchart LR
 
 假定我们有 `input = <expr>*`，且 `<expr>` 已经对应了一个 NFA `n1`，它理应在 stack 中，我们先把 `n1` 从 stack 中弹出。
 
-和 `+` 的处理非常类似：我们可以加一个 `SplitState s`，使其一条路径经过 `n1`，另一条路径不经过 `n1`；但要额外让 `n1` 绕回 `s` 构成 loop:
+和 `?` 的处理非常类似：我们可以加一个 `SplitState s`，使其一条路径经过 `n1`，另一条路径不经过 `n1`；但要额外让 `n1.open_ends` 接到 `s` 上构成 loop:
 
 ```mermaid
 flowchart LR
@@ -291,12 +295,12 @@ flowchart LR
     L(["s = new SplitState()"]) --o NFA
     
     classDef hidden display: none;
-    style A fill:#FAD689
+    style H fill:#FAD689
 ```
 
 此时我们可以选择新建一个 NFA `n2` 或者复用 `n1`，只需要满足：
 
-- 以 `n1.start` 开始
+- 以 `s` 开始
 - `s` 是唯一的 open end
 
 然后我们把这个新的 `n2` 或者修改过的 `n1` 压入 stack.
@@ -305,7 +309,7 @@ flowchart LR
 
 假定我们有 `input = <expr>+`，且 `<expr>` 已经对应了一个 NFA `n1`，它理应在 stack 中，我们先把 `n1` 从 stack 中弹出。
 
-和 `*` 的构造一模一样，只是这次我们的新 NFA 要从 `s` 开始：
+和 `*` 的构造一模一样，只是这次我们的新 NFA 要从 `n1` 开始：
 
 ```mermaid
 flowchart LR
@@ -333,15 +337,15 @@ flowchart LR
     F --> H
     
     classDef hidden display: none;
-    style H fill:#FAD689
+    style A fill:#FAD689
 ```
 
-我们新建一个 NFA `n2`，使其：
+此时我们可以选择新建一个 NFA `n2` 或者复用 `n1`，只需要满足：
 
-- `n2.start = s`
-- `n2.open_ends = [s]`
+- 以 `n1.start` 开始
+- `s` 是唯一的 open end
 
-然后我们把这个新的 `n2` 压入 stack.
+然后我们把这个新的 `n2` 或者修改过的 `n1` 压入 stack.
 
 ## 3.3 Alteration
 
