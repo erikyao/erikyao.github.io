@@ -27,7 +27,7 @@ where "single" is my default layout for posts.
 
 # how to config
 
-In my own [_includes/head/custom.html](https://github.com/mmistakes/minimal-mistakes/blob/master/_includes/head/custom.html) I added:
+In my own [_includes/head/custom.html](https://github.com/erikyao/erikyao.github.io/blob/master/_includes/head/custom.html) I added:
 
 ```html
 {% raw %}{% if page.mermaid %}
@@ -37,7 +37,7 @@ In my own [_includes/head/custom.html](https://github.com/mmistakes/minimal-mist
 
 which means:
 
-1. the real configuration goes into a separate `_includes/mermaid.html` ([example](https://github.com/erikyao/erikyao.github.io/blob/master/_includes/mermaid.html)).
+1. the real configuration goes into a separate `_includes/mermaid.html` ([example](https://github.com/erikyao/erikyao.github.io/blob/master/_includes/mermaid.html))
 2. only when a post has `mermaid: true` in its frontmatter, Mermaid.js is loaded for rendering
 
 In `_includes/mermaid.html`, configuration goes like:
