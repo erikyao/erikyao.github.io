@@ -75,7 +75,7 @@ The whole picture of the configuration is like:
 
 ```mermaid
 flowchart LR
-    A([_layouts/single.html]) -->|inherited from| B([_layout/default.html])
+    A([_layouts/single.html]) -->|inherited<br/>from| B([_layout/default.html])
     B -->|includes| C([_includes/head.html])
     B -->|includes| D([_includes/head/custom.html])
     D -->|if page.mermaid, <br/>includes| E([_includes/mermaid.html])
