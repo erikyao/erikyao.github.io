@@ -2,7 +2,7 @@
 category: Python
 description: ''
 tags: []
-title: 'Python: <i>__all__</i>'
+title: 'Python: `__all__`'
 ---
 
 _Effective Python Item 50: Use Packages to Organize Modules and Provide Stable APIs_
