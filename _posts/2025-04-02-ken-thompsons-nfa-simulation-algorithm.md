@@ -225,6 +225,20 @@ flowchart LR
 
 只需要 8 次 transitions.
 
+Russ Cox 给出的 time complexity 为：
+
+- DFS + backtrace: $O(2^n)$:
+    - 你相当于是有一个长度为 $n$ 的 `array[n]`，你选择 `array[i] = 1` 就表示用第 $i$ 个 $a?$ 去匹配一个 $a$
+    - 每个 `array[i]` 都有 `1` 和 `0` 两种选择
+    - 所以一定有 $2^n$ 种可能
+- BFS: $O(n^2)$
+    - 这个规律还蛮明显的：
+        - 当 $n=1$ 时，$q_0$ 到 $q_1, q_2$ 有 $2$ 条 edges
+        - 当 $n=2$ 时，$q_0$ 到 $q_3, q_4, q_5$ 有 $2 + 4$ 条 edges
+        - 当 $n=k$ 时，$q_0$ 到 $q_{\frac{k^2 + k}{2}}, \dots, q_{\frac{k^2 + 3k}{2}}$ 有 $2 + 4 + \dots + 2k$ 条 edges
+    - 就是一种杨辉三角形
+    - 所以最多只需要尝试 $\frac{(2+2n) \times n}{2} = O(n^2)$ 条 edges
+
 我们给出一个 python 实现：
 
 ```python
