@@ -29,7 +29,7 @@ toc_sticky: true
 
 虽然我们有 DCFG 这个武器，但在 programming language **design** 这个领域，ambiguity 还是很容易被引入的。论文给了几个例子 (但要注意它写于 2004，所以不确定现在的解决方案)：
 
-1. `vector<vector<float>> MyMatrix;` 连续两个 `>` 可能会被识别成 input stream 的 `>>` operator (幽默 C++！)
+1. `vector<vector<float>> MyMatrix;` 连续两个 `>` 可能会被识别成 input stream 的 `>>` operator (幽默 C++!)
 2. the "dangling ELSE" problem
 3. C++ 某些 token sequence 可能同时满足 `<definition>` 和 `<statement>`
 4. The syntax of lambda abstractions, `let` expressions, and conditionals in Haskell is **unresolvably** ambiguous in the CFG paradigm.
@@ -52,17 +52,17 @@ toc_sticky: true
 
 # 2. PEGs are (somewhat) Recognitive
 
-论文的用词是 recognition-based，我就直接用 recognitive 这个词了。
+论文的用词是 recognition-based, 我就直接用 recognitive 这个词了。
 
 > Simple languages can be expressed easily in either paradigm.
 
 - Generative: $\lbrace w \in a^* \mid w = (aa)^n \rbrace$
 - Recognitive: $\left\lbrace w \in a^* \mid \vert w \vert \mod 2 = 0 \right\rbrace$
 
-文中直接把 PEG 称为 recognition-based，有点不好理解，我觉得可以从两个角度考虑：
+文中直接把 PEG 称为 recognition-based, 有点不好理解，我觉得可以从两个角度考虑：
 
 1. 我们回忆一下 PEG 的全称：Parsing Expression Grammars。可见 PEG 就是为了 parsing 设计的，那 parsing 自然就是 recognition 的过程
-1. recognitive grammar 看上去需要有某种 "predicate" 能直接判断出是否有 $w \in L$。但 PEG 只有两个 **syntactic predicates** `&e`、`!e`，其余的 production/rule 也是形如 `Definition <- Identifier LEFTARROW Expression` 这样 generative 的形式。从 grammar definition 的角度，我觉得称 PEG "有 recognitive 的成分" 是更准确的理解
+1. recognitive grammar 本意就是 "grammar $G$ can recognize sequence $w$", 所以应该要有某种 "predicate" 能直接判断出是否有 $w \in L$。但其实 PEG 只有两个 **syntactic predicates** `&e`、`!e`，其余的 production/rule 也是形如 `Definition <- Identifier LEFTARROW Expression` 这样 generative 的形式。从 grammar definition 的角度，我觉得称 PEG "有 recognitive 的成分" 是更准确的理解
 
 # 3. Formal Definition of PEGs
 
@@ -75,23 +75,28 @@ toc_sticky: true
     - $V_N \cap V_T = \varnothing$
 - $R$ is a finite set of rules
     - Each rule $r \in R$ is like $A \gets e$ where $A \in V_N$ and $e$ is a **parsing expression**. 
-- $e_S$ is a parsing expression termed "the start expression". 
+- $e_S$ is the start parsing expression 
 
 $\blacksquare$
 
 ## 3.2 Parsing Expressions
 
+在 PEG 的 context 下，我们一般也把 parsing expression 简称为 expression. 假设我们把 expression 的集合记做 $E(G)$.
+
 **Definition:** We define **parsing expressions** _inductively_ as follows:
 
-1. empty string $\varepsilon$ is a parsing expression
-2. any terminal $\forall a \in V_T$ is a parsing expression
-3. any nonterminal $\forall A \in V_N$ is a parsing expression
-4. sequence $e_1 e_2$ is a parsing expression, if $e_1$ and $e_2$ both are
-5. prioritized choice $e_1 / e_2$ is a parsing expression, if $e_1$ and $e_2$ both are
-6. zero-or-more repetition $e^\ast$ is a parsing expression, if $e$ is
-7. $\operatorname{not}$-predicate $!e$ is a parsing expression, if $e$ is
+1. $\varepsilon \in E(G)$
+2. $\forall a \in V_T, a \in E(G)$ 
+3. $\forall A \in V_N, A \in E(G)$
+4. If both $e_1, e_2 \in E(G)$, then the sequence $e_1 e_2 \in E(G)$
+5. If both $e_1, e_2 \in E(G)$, then the prioritized choice $e_1 / e_2 \in E(G)$
+6. If $e \in E(G)$, then the zero-or-more repetition $e^\ast \in P_E$
+7. If $e \in E(G)$, then the $\operatorname{not}$-predicate $!e \in P_E$
 
 $\blacksquare$
+
+我觉得 parsing expression 这个概念提出来也是蛮没有必要的，它本质就是 "合法的 RHS"。比如上述第 5 点：如果 $e_1$ 和 $e_2$ 都是 "合法的 RHS"，那么 $e_1 / e_2$ 也是一个 "合法的 RHS"
+{: .notice--info}
 
 基于上述定义，我们可以扩展得到：
 
@@ -101,8 +106,6 @@ $\blacksquare$
 3. one-or-more repetition $e^+$ is equivalent to $e e^\ast$
 4. $\operatorname{and}$-predicate $\&e$ is equivalent to $!(!e)$
 
-在 PEG 的 context 下，我们一般也把 parsing expression 简称为 expression
-
 **Definition:** Expression set $E(G)$ of PEG $G$ is the set containing:
 
 1. the start expression $e_S$,
@@ -111,7 +114,7 @@ $\blacksquare$
 
 $\blacksquare$
 
-文中很神奇地没有定义什么叫做 "sub-expression"，只是举了个例子：如果 $e_1 / e_2$ 是 expression，那么 $e_1$ 和 $e_2$ 就是它的 sub-expressions.
+文中很神奇地没有定义什么叫做 "sub-expression", 只是举了个例子：如果 $e_1 / e_2$ 是 expression，那么 $e_1$ 和 $e_2$ 就是它的 sub-expressions.
 {: .notice--info}
 
 ## 3.3 Rules
@@ -130,7 +133,7 @@ $\blacksquare$
 
 ### 3.4.1 $e_1 / e_2$ 与 backtracking
 
-$e_1 / e_2 / \dots / e_n$ 的 matching 规则是：
+Prioritized choice $e_1 / e_2 / \dots / e_n$ 的 matching 规则是：
 
 1. 首先 match $e_1$ (即看 $w \in V_T^*$ 能否 reduce 到 $e_1$)，若不能 match，再去 match $e_2$，依此类推
 2. 如果某个 $e_i$ match 成功，那么直接 `break`，整个 matching 结束，后续的 $e_{i+1} / \dots / e_n$ 都不会被考虑
@@ -147,7 +150,7 @@ $e_1 / e_2 / \dots / e_n$ 的 matching 规则是：
 
 ### 3.4.2 $e_1 e_2$ 与 backtracking
 
-sequence 的 matching 规则比较直接：如果 $e_1$ match，那么就继续 match $e_2$，依此类推
+Sequence $e_1 e_2 \dots e_n$ 的 matching 规则比较直接：如果 $e_1$ match，那么就继续 match $e_2$，依此类推
 
 只考虑两个 sub-expressions，即 $e_1 e_2$ 时，match 失败的情况有两种：
 
@@ -161,7 +164,7 @@ sequence 的 matching 规则比较直接：如果 $e_1$ match，那么就继续 
 这俩 predicates 的 backtracking 你可以有两种理解方式：
 
 1. 它们 match 成功后 (或者说 unconditionally，即无论 match 成功、失败) 都要 backtracks to the starting point
-2. 它们只 match 但不 consume token
+2. 或者说：它们只 match 但不 consume token
 
 举几个例子：
 
@@ -181,17 +184,18 @@ sequence 的 matching 规则比较直接：如果 $e_1$ match，那么就继续 
 
 这一节还是得用文章 _3.3 Interpretation of a Grammar_ 的符号。
 
-当我们写 $(e, w) \Rightarrow^+ w'$ 时，我们的意思是：
+我们规定 $(e, w) \Rightarrow^+ w'$ 的意思是：
 
 - $e$ is a parsing expression (to start with in the parsing/recognition process)
 - $w \in V_T^*$ is the input text/string to be parsed/recognized
 - $w' \in V_T^*$ is a substring of $w$ that is successfully matched and consumed in the parsing/recognition process
 - 合起来的意思就是：我们要 parse $w$，选择的初始 expression 是 $e$，经过一步或多步 (可能还用到了其他的 expression)，最终成功 match 了 $w$ 中的 $w'$ 部分，$w'$ 后面的部分待续
 
-当我们写 $(e, w) \Rightarrow^+ \Finv$ 时，我们的意思是：
+我们规定 $(e, w) \Rightarrow^+ \Finv$ 的意思是：
 
-- $\not \exists w'$ such that $(e, w) \Rightarrow^+ w'$
-- 即 $w \in V_N^*$ 从 expression $e$ 开始的 matching 失败 (where $\Finv$ is a special symbol that indicates failure)
+- $\Finv$ is a special symbol that indicates failure
+- 我们要 parse $w \in V_N^*$，选择的初始 expression 是 $e$，但是 matching 失败
+- I.e. $\not \exists w'$ such that $(e, w) \Rightarrow^+ w'$
 
 **Definition:** 
 
