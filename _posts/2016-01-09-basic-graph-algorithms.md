@@ -63,7 +63,7 @@ _**Subgraph:**_
 
 _**Walk**_, _**Path**_, _**Cycle**_ and _**Connectivity**_:
 
-- A _**walk**_ is a sequence of vertices, $v_1, v_2, \dots, v_k $, s.t. $ \forall 1 \le i \le k $, $ \lbrace v_i, v_{i+1} \rbrace \in E$.
+- A _**walk**_ is a sequence of vertices, $v_1, v_2, \dots, v_k$, s.t. $\forall 1 \le i \le k$, $\lbrace v_i, v_{i+1} \rbrace \in E$.
 	- $v_1$ and $v_k$ are the _**endpoints**_ of the walk; while
 	- $v_2, v_3, \dots, v_{k-1}$ are _**internal vertices**_.
 - A walk is _**closed**_ if $v_k == v_1$, and _**open**_ if $v_k \neq v_1$.
@@ -871,7 +871,7 @@ _**RT:**_ $O(E \log E) = O(E \log V)$, dominated by the sorting.
 
 A matroid $M$ is a finite collection of finite sets that satisfies three axioms:
 
-- **Non-emptiness:** The empty set $ \emptyset $ is in $M$. (Thus, $M$ is not itself empty.)
+- **Non-emptiness:** The empty set $\emptyset$ is in $M$. (Thus, $M$ is not itself empty.)
 - **Heredity:** If a set $X$ is an element of $M$, then any subset of $X$ is also in $M$.
 - **Exchange:** (a.k.a **Augmentation**) If $X$ and $Y$ are two sets in $M$ where $\lvert X \rvert > \lvert Y \rvert$, then there $\exists$ an element $x \in X \setminus Y$ such that $Y \cup \lbrace x \rbrace$ is in $M$.
 
@@ -879,9 +879,9 @@ A matroid $M$ is a finite collection of finite sets that satisfies three axioms:
 
 - The sets in $M$ are typically called _**independent sets**_. 
 	- Therefore, the three axioms can also be stated as:
-		- **Non-emptiness**: The empty set $ \emptyset $ is independent.
+		- **Non-emptiness**: The empty set $\emptyset$ is independent.
 		- **Heredity**: If a set $X$ is independent, then any subset of $X$ is also independent.
-		- **Exchange** (a.k.a **Augmentation**): If $X$ and $Y$ are two independent sets where $ \lvert X \rvert > \lvert Y \rvert $, then there $\exists$ an element $ x \in X \setminus Y $ such that $ Y \cup \lbrace x \rbrace $ is also independent.
+		- **Exchange** (a.k.a **Augmentation**): If $X$ and $Y$ are two independent sets where $\lvert X \rvert > \lvert Y \rvert$, then there $\exists$ an element $x \in X \setminus Y$ such that $Y \cup \lbrace x \rbrace$ is also independent.
 - The union of all sets in $M$ is called the _**ground set**_.
 	- In set theory, a collection, $F$, of subsets of a given set $S$ is called a _**family**_ of subsets of $S$.
 	- Therefore, a matroid is a family of subsets of its ground set.
@@ -892,7 +892,7 @@ A matroid $M$ is a finite collection of finite sets that satisfies three axioms:
 	- "Maximal" means it is not a proper subset of any other independent set. E.g.
 		- Ground set $U = \lbrace 1,2,3 \rbrace$
 		- $M = \lbrace \text{subsets of } U \text{ of size at most 2} \rbrace = \lbrace \emptyset, \lbrace 1 \rbrace, \lbrace 2 \rbrace, \lbrace 3 \rbrace, \lbrace 1,2 \rbrace, \lbrace 1,3 \rbrace, \lbrace 2,3 \rbrace \rbrace$
-		- $\lbrace 1,2 \rbrace $, $ \lbrace 1,3 \rbrace $ and $ \lbrace 2,3 \rbrace$ are all bases.
+		- $\lbrace 1,2 \rbrace$, $\lbrace 1,3 \rbrace$ and $\lbrace 2,3 \rbrace$ are all bases.
 	- The exchange property implies that every basis of a matroid has the same cardinality (i.e. size).
 	- The _**rank**_ of a matroid is the size of its bases.
 - A subset of the ground set that is not in $M$ is a _**dependent set**_.
@@ -903,7 +903,7 @@ A matroid $M$ is a finite collection of finite sets that satisfies three axioms:
 Here are several other examples of matroids; some of these we will see again later.
 
 - **Linear matroid:** Let $A$ be any $n \times m$ matrix. A subset $I \subseteq \lbrace 1, 2, \dots, n \rbrace$ is independent if and only if the corresponding subset of columns of $A$ is linearly independent.
-- **Uniform matroid $ U_{k,n} $:** A subset $X \subseteq \lbrace 1, 2, \dots, n \rbrace$ is independent if and only if $\lvert X \rvert \leq k$. Any subset of $\lbrace 1, 2, \dots, n \rbrace$ of size $k$ is a basis; any subset of size $k + 1$ is a circuit.
+- **Uniform matroid $U_{k,n}$:** A subset $X \subseteq \lbrace 1, 2, \dots, n \rbrace$ is independent if and only if $\lvert X \rvert \leq k$. Any subset of $\lbrace 1, 2, \dots, n \rbrace$ of size $k$ is a basis; any subset of size $k + 1$ is a circuit.
 - **Matching matroid:** Let $G = (V, E)$ be an arbitrary undirected graph. A subset $I \subseteq V$ is independent if there is a matching in $G$ that covers $I$.
 
 _**TODO:**_ Lecture note 和笔记本上还有些例子待补充。
@@ -978,7 +978,7 @@ _**Lemma 2.3**_ If $M$ is a matching and $P$ is an alternating path with respect
 
 _**TODO:**_ proof of CASE 1
 
-_**Lemma 2.5**_ Let $G = (V, E)$ be an undirected graph and let $M_1$ and $M_2$ be matchings in $G$. Then, the subgraph $(V, M1 \oplus M2)$ is composed of isolated vertices, alternating paths and alternating cycles with respect to both $M_1$ and $M_2$.
+_**Lemma 2.5**_ Let $G = (V, E)$ be an undirected graph and let $M_1$ and $M_2$ be matchings in $G$. Then, the subgraph $(V, M_1 \oplus M_2)$ is composed of isolated vertices, alternating paths and alternating cycles with respect to both $M_1$ and $M_2$.
 
 _**Lemma 2.6**_ Let $G = (V, E)$ be an undirected graph and let $M$ and $M'$ be matchings in $G$ such that $\lvert M' \rvert = \lvert M \rvert + k$, where $k \geq 1$. Then, there are at least $k$ vertex-disjoint augmenting paths in $G$ with respect to $M$. At least one of these augmenting paths is of length at most $\frac{n}{k} − 1$.
 
@@ -1009,7 +1009,7 @@ _**TODO:**_ bipartite graphs & `AltBFS` alg
 
 ### 13.1 The Schwartz-Zippel Algorithm (待续)
 
-检测两个 polynomial $Q$ 和 $R$ 是否相等，等价于检测 polynomial $P = Q - R$ 是否恒为 0，i.e. 是否有 $P \equiv 0$.
+检测两个 polynomial $Q$ 和 $R$ 是否相等，等价于检测是否有 polynomial $P = Q - R \equiv 0$ (i.e. 是否恒为 $0$).
 
 首先来看 polynomial degree 的概念：
 
@@ -1024,7 +1024,7 @@ _**TODO:**_ bipartite graphs & `AltBFS` alg
 
 The idea of the algorithm is very simple: assign values $r_1, \dots, r_n$ chosen independently and uniformly at random from a finite set $S$ to $x_1, \dots, x_n$. Test if $P(r_1, \dots, r_n) = 0$.
 
-_**Claim 2.1**_ If $P \not\equiv  $, then $Pr[P(r_1, \dots, r_n) = 0] \leq \frac{d}{\lvert S \rvert}$ where $d$ is the degree of $P$.
+_**Claim 2.1**_ If $P \not\equiv 0$, then $Pr[P(r_1, \dots, r_n) = 0] \leq \frac{d}{\lvert S \rvert}$ where $d$ is the degree of $P$.
 
 假设我们有 $\lvert S \rvert = 10d$，那么 $Pr[P(r_1, \dots, r_n) = 0] \leq \frac{1}{10}$。我跑它个 $n$ 次，它全为 0 的概率应该 $\leq (\frac{1}{10})^n$.
 
@@ -1044,16 +1044,16 @@ A _**permutation**_ of a set $X$ is a bijection $\pi: X \rightarrow X$. E.g. $\l
 - $\pi(2) = 1$
 - $\pi(3) = 2$
 
-$\lbrace 1,2,3 \rbrace \rightarrow \lbrace 3,1,2 \rbrace$ 至少需要 2 _**swaps**_。 一次 swap 只能交换两个 elements。假设一个 permutation 变化至少需要 $k$ swaps，那么 _**sign of permutation**_ $sign(\pi) = (-1)^k$.
+$\lbrace 1,2,3 \rbrace \rightarrow \lbrace 3,1,2 \rbrace$ 至少需要 2 _**swaps**_。 一次 swap 只能交换两个 elements。假设一个 permutation 变化至少需要 $k$ swaps，那么 _**sign of permutation**_ $\operatorname{sign}(\pi) = (-1)^k$.
 
-_**TODO:**_ Prove that sign is well defined, i.e. 对同一个 $\pi$，这个定义不可能产生不同的 $sign(\pi)$。
+_**TODO:**_ Prove that $\oepratorname{sign}$ is well defined, i.e. 对同一个 $\pi$，这个定义不可能产生不同的 $\operatorname{sign}(\pi)$。
 
-Given an $n \times n$ matrix $A = [a_{i,j}] $, $ Det(A) = \sum_{\pi}{sign(\pi) \cdot a_{1,\pi(1)} \cdot a_{2,\pi(2)} \dots \cdot a_{n,\pi(n)}}$.
+Given an $n \times n$ matrix $A = [a_{i,j}]$, $Det(A) = \sum_{\pi}{\operatorname{sign}(\pi) \cdot a_{1,\pi(1)} \cdot a_{2,\pi(2)} \dots \cdot a_{n,\pi(n)}}$.
 
 E.g. $n = 2$, $Det(A) = 1 \cdot a_{11} \cdot a_{22} + (-1) \cdot a_{12} \cdot a_{21}$.
 
-- $\pi_1: \lbrace 1,2 \rbrace \rightarrow \lbrace 1,2 \rbrace $; $ sign(\pi_1) = 1$
-- $\pi_2: \lbrace 1,2 \rbrace \rightarrow \lbrace 2,1 \rbrace $; $ sign(\pi_2) = -1$
+- $\pi_1: \lbrace 1,2 \rbrace \rightarrow \lbrace 1,2 \rbrace $; $\operatorname{sign}(\pi_1) = 1$
+- $\pi_2: \lbrace 1,2 \rbrace \rightarrow \lbrace 2,1 \rbrace $; $\operatorname{sign}(\pi_2) = -1$
 
 ### 13.2 Application to Bipartite Matching
 
