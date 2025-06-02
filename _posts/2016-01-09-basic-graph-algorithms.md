@@ -1,4 +1,4 @@
----
+'---
 category: Algorithm
 description: ''
 tags:
@@ -388,7 +388,7 @@ So we can come up with an idea to find all SCC in $G$:
 - ...
 - till $G$ is empty.
 
-所以问题转换为 'to find a sink SCC"。又因为，只要找到了一个 sink SCC 的 vertex，就能 `DFS` 得到 sink SCC，所以问题进一步转换为 "to find a vertex in a sink SCC"。
+所以问题转换为 "to find a sink SCC"。又因为，只要找到了一个 sink SCC 的 vertex，就能 `DFS` 得到 sink SCC，所以问题进一步转换为 "to find a vertex in a sink SCC"。
 
 - Digress: How to find a SCC given a vertex $v$ in graph $G$, i.e. to find a SCC of $G$ containing $v$?
 	- `DFS(v,G)` $\Rightarrow Reach(v,G) = \lbrace \text{vertices that } v \text{ can reach in } G \rbrace$
@@ -807,7 +807,7 @@ def Borvka(G):
 _**RT:**_
 
 - To find all safe edges, just examine every edge (check with $F$). $\Longrightarrow O(E)$
-- To test whether $F$ is connected, actually you can just count the $\#$ of edges, using the [conclusion](http://mathworld.wolfram.com/Forest.html):
+- To test whether $F$ is connected, actually you can just count the \# of edges, using the [conclusion](http://mathworld.wolfram.com/Forest.html):
 	- A forest with $k$ components and $n$ nodes has $n-k$ graph edges.
 		- I proved a related observation in homework 1--If a connected graph with $n$ vertices has $n-1$ edges, it’s a tree. $\Longrightarrow O(1)$
 - \# of iterations of the while-loop?
@@ -1150,4 +1150,4 @@ $\exists$ a Hamiltonia cycle if $\exists j \text{ s.t. } H(v_j,V) = True \text {
 
 _**DP table:**_ (# of $v_i$) $\times$ $\lvert S \rvert$ = $V \times 2^V$
 
-_**RT:**_ time to fill a cell $\times$ DP table size = $V \times V \times 2^V = V^2 2^V$
+_**RT:**_ time to fill a cell $\times$ DP table size = $V \times V \times 2^V = V^2 2^V$'
