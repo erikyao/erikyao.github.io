@@ -1,8 +1,7 @@
-'---
+---
 category: Algorithm
 description: ''
-tags:
-- Graph
+tags: 'Graph'
 title: Basic Graph Algorithms
 toc: true
 toc_sticky: true
@@ -17,8 +16,8 @@ toc_sticky: true
 
 参考：
 
-- [Lecture 18: Basic Graph Algorithms](http://jeffe.cs.illinois.edu/teaching/algorithms/notes/19-dfs.pdf)
-- [Lecture 19: Depth-First Search](http://jeffe.cs.illinois.edu/teaching/algorithms/notes/19-dfs.pdf)
+- [Chapter 5: Basic Graph Algorithms](https://courses.grainger.illinois.edu/cs374/sp2019/notes/05-graphs.pdf)
+- [Chapter 6: Depth-First Search](https://courses.grainger.illinois.edu/cs374/sp2019/notes/06-dfs.pdf)
 - [Wikipedia: Glossary of graph theory](https://en.wikipedia.org/wiki/Glossary_of_graph_theory)
 - [CS 137 - Graph Theory - Lecture 2](http://www.cs.toronto.edu/~stacho/cs137/cs137-lec2.pdf)
 - [COMPSCI 330: Design and Analysis of Algorithms - Lecture #5](https://www.cs.duke.edu/courses/fall14/cps130/notes/scribe5.pdf)
@@ -30,85 +29,120 @@ toc_sticky: true
 
 -----
 
-## 1. Definition
+# 1. Definition
 
-_**Simple Graph:**_
+## 1.1 Simple Graph
 
-- Graphs without loops and parallel edges are often called _**simple graphs**_; 
-	- loop: an edge from a vertex to itself
-	- parallel edges: multiple edges with the same endpoints 
-		- 注意 endpoint 表示的是_**端点**_，并不一定是终点 (ending point)，也可以是起点
-- Non-simple graphs are sometimes called _**multigraphs**_. 
-- Despite the formal definitional gap, most algorithms for simple graphs extend to non-simple graphs with little or no modification.
+**Definition:** Graphs without loops and parallel edges are often called _**simple graphs**_.
 
-The definition of a graph as a pair of sets, $(V, E)$ forbids graphs with loops and/or parallel edges. 也就是说，用 $(V, E)$ 表示的图都_**默认**_是 simple graph.
+- loop: an edge from a vertex to itself
+- parallel edges: multiple edges with the same endpoints 
+	- 注意 endpoint 表示的是 _**端点**_，并不一定是终点 (ending point)，也可以是起点
 
-We may (informally) use $V$ to denote the number of vertices in a graph (i.e. $\vert V \vert$), and $E$ to denote the number of edges (i.e. $\vert E \vert$). Thus, in any undirected graph we have $0 \le E \le {V \choose 2}$ and in any directed graph we have $0 \le E \le V(V − 1)$.
+Non-simple graphs are sometimes called _**multigraphs**_. 
+{: .notice--info}
 
-_**Neighbor**_ and _**Degree**_:
+Despite the formal definitional gap, most algorithms for simple graphs extend to non-simple graphs with little or no modification.
+{: .notice--info}
 
-- For an undirected graph: 
-	- If there is an edge $\lbrace u, v \rbrace$ (or denoted $u \to v$), then `u` and `v` are **neighbors** mutually.
-	- `degree(u)` == # of $u$'s neighbors
-- For a directed graph:
+The definition of a graph as a pair of sets, $(V, E)$ forbids graphs with loops and/or parallel edges. 也就是说，用 $(V, E)$ 表示的图都 _**默认**_ 是 simple graph. 
+{: .notice--info}
+
+We may (informally) use $V$ to denote the number of vertices in a graph (i.e. $\vert V \vert$), and $E$ to denote the number of edges (i.e. $\vert E \vert$). Thus, in any undirected graph we have $0 \le E \le {V \choose 2}$ and in any directed graph we have $0 \le E \le V(V − 1)$. 
+{: .notice--info}
+
+In this note we use the following terms:
+
+- **"Graph"**, which generally means an undirected graph
+- **"Digraph"**, which is used for directed graphs specifically
+
+## 1.2 Neighbor and Degree
+
+In this note we use the following notations for edges:
+
+- $\lbrace u, v \rbrace$ can be a directed or undirected edge
+- $u \to v$ represents a directed edge only
+
+**Definition:** If there is an edge $\lbrace u, v \rbrace$, then $u$ and $v$ are **neighbors** mutually.
+
+- For a undirected graph: 
+	- $\operatorname{degree}(u)$ == :hash: of $u$'s neighbors
+- For a digraph:
 	- If there is an edge $u \to v$, then 
-		- $u$ is a _**predecessor**_ of $v$, and (注意 predecessor 这个词并没有对应的动词)
-		- $v$ is a _**successor**_ of $u$.
-	- `in-degree(u)` == # of $u$'s predecessors
-	- `out-degree(u)` == # of $u$'s successors
+		- $u$ is a _**predecessor**_ of $v$
+		- $v$ is a _**successor**_ of $u$
+	- $\operatorname{in-degree}(u)$ == :hash: of $u$'s predecessors
+	- $\operatorname{out-degree}(u)$ == :hash: of $u$'s successors
 
-_**Subgraph:**_
+注意 predecessor 这个词并没有对应的动词。
+{: .notice--info}
 
-- A graph $G' = (V', E')$ is a _**subgraph**_ of $G = (V, E)$ if $V' \subseteq V$ and $E' \subseteq E$.
+## 1.3 Subgraph
 
-_**Walk**_, _**Path**_, _**Cycle**_ and _**Connectivity**_:
+**Definition:** A graph $G' = (V', E')$ is a _**subgraph**_ of $G = (V, E)$ if $V' \subseteq V$ and $E' \subseteq E$.
 
-- A _**walk**_ is a sequence of vertices, $v_1, v_2, \dots, v_k$, s.t. $\forall 1 \le i \le k$, $\lbrace v_i, v_{i+1} \rbrace \in E$.
-	- $v_1$ and $v_k$ are the _**endpoints**_ of the walk; while
-	- $v_2, v_3, \dots, v_{k-1}$ are _**internal vertices**_.
-- A walk is _**closed**_ if $v_k == v_1$, and _**open**_ if $v_k \neq v_1$.
+## 1.4 Walk, Path, and Cycle 
+
+**Definition:** A _**walk**_ is a sequence of vertices, $\overline{v_1 v_2 \dots v_k}$, s.t. $\forall 1 \le i \le k$, $\lbrace v_i, v_{i+1} \rbrace \in E$.
+
+- $v_1$ and $v_k$ are the _**endpoints**_ of the walk
+- $v_2, v_3, \dots, v_{k-1}$ are _**internal vertices**_
 - The length of a walk is the number of edges, thus $k-1$.
-	- _**Note:**_ a walk can consist of only a single node, with length 0.
 
-<!-- -->
+A walk can consist of only a single node, with length $0$. 
+{: .notice--info}
 
-- A _**path**_ is a walk that does not repeat vertices.
-	- So by definition, a path must be an open walk.
-- A _**cycle**_ is a closed walk that does not repeat vertices except the endpoints.
-	- A cycle has at least 1 edge; it is not allowed to have a length of 0.
-- Cycles of $n$ vertices are often denoted by $C_n$. (你把 $C_n$ 的 $n$ 理解为有 $n$ 条 edge 或是 length 为 $n$ 也是可以的) Thus,
-	- $C_1$ is a loop, 
-	- $C_2$ is a digon (a pair of parallel undirected edges in a multigraph, or a pair of antiparallel edges in a directed graph), and 
-	- $C_3$ is a triangle.
+**Definition:** A walk is _**closed**_ if $v_k = v_1$, and _**open**_ if $v_k \neq v_1$.
+
+**Definition:** A _**path**_ is a walk that does not repeat vertices.
+
+- So by definition, a path must be an _open_ walk.
+
+**Definition:** A _**cycle**_ is a _closed_ walk that does not repeat vertices except the endpoints.
+
+- A cycle has at least 1 edge; it is not allowed to have a length of $0$.
+
+Cycles of $n$ vertices are often denoted by $C_n$. (你把 $C_n$ 的 $n$ 理解为有 $n$ 条 edge 或是 length 为 $n$ 也是可以的). E.g.
+
+- $C_1$ is a loop
+- $C_2$ is a digon (a pair of parallel undirected edges in a multigraph, or a pair of antiparallel edges in a digraph) 
+- $C_3$ is a triangle.
 	
-<!-- -->
+## 1.5 Connectivity and Component
 
-- A graph $G$ is _**connected**_ if $\forall$ 2 verices of $G$, $\exists$ a path between them. (其实你定义为 $\exists$ a walk 也是可以的，因为 $\forall$ 2 verices 一定是不同的两点，所以 walk 会升级为 path，不影响大局)
-- Otherwise, $G$ is _**disconnected**_ and it decomposes into connected _**components**_.
-	- $G$'s components are its maximal connected subgraphs.
-		- By "maximal", it means you cannot add any element to $(V', E')$ of the subgraph $G'$ while keeping it connected.
-	- So the term "connected components" is actually redundant; components are connected by definition.
-	- Two vertices are in the same component $\iff$ there is a path between them.
-- A directed graph is _**strongly connected**_ if $\forall$ 2 verices of $G$, $\exists$ a directed path between them.
-	- Practically, the definition of component is only suitable for undirected graphs.
+**Definition:** A graph $G$ is _**connected**_ if $\forall$ 2 verices of $G$, $\exists$ a path between them. (其实你定义为 $\exists$ a walk 也是可以的，因为 $\forall$ 2 verices 一定是不同的两点，所以 walk 会升级为 path，不影响大局) Otherwise, $G$ is _**disconnected**_ and it decomposes into connected _**components**_.
 
-<!-- -->
+**Definition:** A graph $G$'s _**components**_ are its maximal connected subgraphs.
 
-- An undirected graph is _**acyclic**_ if it contains no cycles, i.e. amongst all its subgraphs, none is a cycle.
-	- Undirected acyclic graphs are also called _**forests**_.
-		- 注意 forest 不一定就是 disconnected 的，有可能 disconnected 有可能 connected
-	- A _**tree**_ is a undirected, connected acyclic graph, or equivalently, one component of a forest. 
-	- A _**spanning tree**_ of a graph $G$ is a subgraph that is a tree and contains every vertex of $G$. 
-		- A graph has a spanning tree $\iff$ it is connected. 
-	- A _**spanning forest**_ of $G$ is a collection of spanning trees, one for each a connected component of $G$.
-- A directed graph is _**acyclic**_ if it does not contain a directed cycle. 
-	- Directed acyclic graphs are often called _**DAGs**_.
+- By "maximal", it means you cannot add any element to $(V', E')$ of the subgraph $G'$ while keeping it connected.
+- So the term "connected components" is actually redundant; components are connected by definition.
+- Two vertices are in the same component $\iff$ there is a path between them.
+
+Practically, the definition of component is only suitable for undirected graphs.
+{: .notice--info}
+
+**Definition:** A digraph is _**strongly connected**_ if $\forall$ 2 verices of $G$, $\exists$ a directed path between them.
+
+## 1.6 Acyclicity
+
+**Definition:** An undirected graph is _**acyclic**_ if it contains no cycles, i.e. amongst all its subgraphs, none is a cycle. Undirected acyclic graphs are also called _**forests**_.
+
+注意 forest 不一定就是 disconnected 的，有可能 disconnected 有可能 connected
+{: .notice--info}
+
+**Definition:** A _**tree**_ is a undirected, connected acyclic graph, or equivalently, one component of a forest. 
+
+**Definition:** A _**spanning tree**_ of a graph $G$ is a subgraph that is a tree and contains every vertex of $G$. 
+
+**Lemma:** A graph has a spanning tree $\iff$ it is connected. 
+
+**Definition:** A _**spanning forest**_ of $G$ is a collection of spanning trees, one for each connected component of $G$.
+
+**Definition:** A digraph is _**acyclic**_ if it does not contain a directed cycle. Directed acyclic graphs are often called _**DAGs**_.
 	
-<!-- -->
+Any vertex in a DAG that has no incoming vertices is called a _**source**_; any vertex with no outgoing edges is called a _**sink**_. Every DAG has at least one source and one sink, but may have more than one of each. For example, in the graph with only vertices but no edges, every vertex is a source and every vertex is a sink.
 	
-Any vertex in a DAG that has no incoming vertices is called a _**source**_; any vertex with no outgoing edges is called a _**sink**_. Every DAG has at least one source and one sink, but may have more than one of each. For example, in the graph with `n` vertices but no edges, every vertex is a source and every vertex is a sink.
-	
-## 2. Traversing Connected Graphs
+# 2. Traversing Connected Graphs / DFS / BFS
 
 To keep things simple, we'll consider only undirected graphs here, although the algorithms also work for directed graphs with minimal changes.
 
@@ -119,7 +153,7 @@ The simplest graph-traversal algorithm is _**DFS, depth-first search**_. This al
 def RecursiveDFS(v):
 	if v is unmarked:
 		mark v
-		for each edge v → w:
+		for each edge {v,w}:
 			RecursiveDFS(w)
 ```
 
@@ -131,7 +165,7 @@ def IterativeDFS(s):
 		v <- POP
 		if v is unmarked:
 			mark v
-			for each edge v → w:
+			for each edge {v,w}:
 				PUSH(w)
 ```
 
@@ -145,16 +179,16 @@ def IterativeDFS(s):
 		v <- POP
 		if v is unmarked:
 			mark v
-			for each edge v → w:
+			for each edge {v,w}:
 				if w is not visited:
 					PUSH(w)
 ```
 
-The generic graph traversal algorithm stores a set of candidate edges in some data structure that I’ll call a "bag". The only important properties of a bag are that we can put stuff into it and then later take stuff back out. A stack is a particular type of bag, but certainly not the only one.
+The generic graph traversal algorithm stores a set of candidate edges in some data structure that I’ll call a "bag". The only important properties of a bag are that we can put stuff into it and then later take stuff back out. **A stack is a particular type of bag**, but certainly not the only one.
 
 _**N.B.**_ If you replace the stack above with a queue, you will get _**BFS, breadth-first search**_. And the breadth-first spanning tree formed by the parent edges contains shortest paths from the start vertex `s` to every other vertex in its connected component.
 
-另外一个需要注意的是，还有一种改良方法是：stack 存储 `(v, parent(v))`。这么做并不是为了提升效率，而是为了方便遍历后迅速定位 path。
+另外一个需要注意的是，还有一种改良方法是：stack 存储 `(v, parent(v))`。这么做并不是为了提升效率，而是为了方便遍历后迅速定位 path.
 
 ```python
 # s: a source vertex
@@ -165,36 +199,41 @@ def Traverse(s):
 		if v is unmarked:
 			mark v
 			parent(v) <- p
-			for each edge v → w:
-				put (v,w) into the bag
+			for each edge {v,w}:
+				put (v, w) into the bag
 ```
 
 For any node `v`, the path of parent edges `(v, parent(v), parent(parent(v)), . . .)` eventually leads back to `s`.
 
-题外话：If $G$ is not connected, then `Traverse(s)` only visits the nodes in the connected component of the start vertex `s`. If we want to visit all the nodes in every component, run `Traverse` on every node. (Let's call it `TraverseAll`.) Since `Traverse` computes a spanning tree of one component, `TraverseAll` computes a spanning forest of $G$.
+If $G$ is not connected, then `Traverse(s)` only visits the nodes in the connected component of the start vertex `s`. If we want to visit all the nodes in every component, run `Traverse` on every node. (Let's call it `TraverseAll`.) Since `Traverse` computes a spanning tree of one component, `TraverseAll` computes a spanning forest of $G$.
+{: .notice--info}
 
-## 3. More on DFS
+# 3. BFS/DFS 与 Spanning Tree
 
-首先补充两个概念。Graph 里我们说 predecessor 和 successor，Tree 里面我们用 ancestor 和 descendant；不仅如此，我们还有 proper ancestor 和 proper descendant:
+首先补充两个概念。Graph 里我们说 predecessor 和 successor，Tree 里面我们用 ancestor 和 descendant；不仅如此，我们还有 proper ancestor 和 proper descendant.
 
 Suppose $T$ is a rooted tree with root $r$; $a$ and $b$ are 2 nodes of $T$.
 
-- $a$ is an _**ancestor**_ of $b$ if $a$ is in the path $b \to r$.
-	- $b$ could be the ancestor of $b$ itself.
-	- $a$ is a _**proper ancestor**_ of $b$ if $a$ is an ancestor of $b$ and $a$ is not $b$ itself.
-- $b$ is an _**descendant**_ of $a$ if $a$ is in the path $b \to r$.
+**Definition:** If $a$ is in the path $\overline{b \dots r}$, then:
+
+- $a$ is an _**ancestor**_ of $b$
+	- $b$ could be the ancestor of $b$ itself
+- $b$ is an _**descendant**_ of $a$
 	- $a$ could be the descendant of $a$ itself.
-	- $b$ is a _**proper descendant**_ of $a$ if $b$ is an descendant of $a$ and $b$ is not $a$ itself.
+- $a$ is a _**proper ancestor**_ of $b$ if $a$ is an ancestor of $b$ and $a$ is not $b$ itself.
+- $b$ is a _**proper descendant**_ of $a$ if $b$ is an descendant of $a$ and $b$ is not $a$ itself.
 
-Suppose $G$ is a connected undirected graph, $T$ is a depth-first spanning tree computed by calling `DFS(s)`.
+**Both DFS and BFS can generate spanning trees from graphs.**
 
-_**Lemma 1.**_ For any node `v`, the vertices that are marked during the execution of `DFS(v)` are the proper descendants of `v` in $T$.
+Suppose $G$ is a connected undirected graph, $T$ is a depth-first spanning tree computed by calling `RecursiveDFS(s)` where `s` is the root of the $T$.
 
-_**Lemma 2.**_ For every edge `v → w` in $G$, either `v` is an ancestor of `w` in $T$, or `v` is a descendant of `w` in $T$.
+_**Lemma 1.**_ For any node `v`, the vertices that are marked during the execution of `RecursiveDFS(v)` are the proper descendants of `v` in $T$.
 
-_**Proof:**_ Assume without loss of generality that `v` is marked before `w`. Then `w` is unmarked when `DFS(v)` is invoked, but marked when `DFS(v)` returns, so the previous lemma implies that `w` is a proper descendant of `v` in $T$.
+_**Lemma 2.**_ For every edge `{v,w}` in $G$, either `v` is an ancestor of `w` in $T$, or `v` is a descendant of `w` in $T$.
 
-## 4. Preorder and Postorder Labeling
+_**Proof:**_ Assume without loss of generality that `v` is marked before `w`. Then `w` is unmarked when `RecursiveDFS(v)` is invoked, but marked when `RecursiveDFS(v)` returns, so the previous lemma implies that `w` is a proper descendant of `v` in $T$. $\blacksquare$
+
+# 4. Preorder and Postorder Labeling
 
 ```python
 def PrePostLabel(G):
@@ -213,7 +252,7 @@ def LabelComponent(v, clock):
 	prev(v) <- clock
 	clock <- clock + 1
 	
-	for each edge v → w:
+	for each edge {v,w}:
 		if w is unmarked:
 			clock <- LabelComponent(w, clock)
 	
@@ -244,13 +283,14 @@ return 6;
 | prev | 0 | 1 | 2 |
 | post | 5 | 4 | 3 |
 
-_**N.B.**_ 其实这里我觉得把 `prev(a)` 看做 "start time of accessing a" 或者 "time before accessing a"、把 `post(a)` 看做 "finish time of accessing a" 或者 "time after accessing a" 更好理解一点。
+其实这里我觉得把 `prev(a)` 看做 "start time of accessing a" 或者 "time before accessing a"、把 `post(a)` 看做 "finish time of accessing `a`" 或者 "time after accessing `a`" 更好理解一点。
+{: .notice--info}
 
 Consider $a$ and $b$, where $b$ is marked after $a$. Then we must have `prev(a) < prev(b)`. Moreover, _**Lemma 1**_ implies that if $b$ is a descendant of $a$, then `post(a) > post(b)`, and otherwise ("otherwise" 并不是是指 "$b$ is an ancestor of $a$"，而是指 "$b$ is not a descendant of $a$"，再结合 "$b$ is marked after $a$" 这个事实，只有一种可能是 "$a$ 和 $b$ 属于不同的 components"), `prev(b) > post(a)` (此时 $a$ component 遍历完了才轮到 $b$，`prev(b)` 的赋值必定在 `post(a)` 之后)。
 
-Thus, for any two vertices $a$ and $b$, the intervals `[prev(a), post(a)]` and `[prev(b), post(b)]` are either disjoint or nested; in particular, if $a \to b$ is an edge, _**Lemma 2**_ implies that the intervals must be nested.
+Thus, for any two vertices $a$ and $b$, the intervals `[prev(a), post(a)]` and `[prev(b), post(b)]` are either disjoint or nested; in particular, if edge $\lbrace a,b \rbrace$ exists, _**Lemma 2**_ implies that the intervals must be nested.
 
-## 5. Acyclicity in Directed Graphs
+# 5. Acyclicity in Directed Graphs
 
 _**Lemma 2**_ implies that any depth-first spanning tree $T$ divides the edges of $G$ into two classes: 
 
@@ -259,7 +299,7 @@ _**Lemma 2**_ implies that any depth-first spanning tree $T$ divides the edges o
 
 其实这里可以进一步细分。考虑到 $T \subseteq G$ ($T$ 是 $G$ 的 subgraph)，这样至少有两个部分：$T$ 和 $G \setminus T$。
 
-We call an edge $a \to b$ exists in $G$ (注意范围，是 $G$ 中的 edge，并不限定在 $T$ 中):
+We call an edge $a \to b$ exists in $G$:
 
 - if $a \to b$ is an edge in $T$, a _**tree edge**_.
 	- 意思即是 $T$ 中所有的 edge 都叫 $G$ 的 tree edge
@@ -312,9 +352,9 @@ def IsAcyclicDFS(v):
 	return True
 ```
 
-## 6. Topological Sort
+# 6. Topological Sort
 
-A _**topological ordering**_ of a directed graph $G$ is a total order $\prec$ on the vertices such that $a \prec b$ for every edge $a \to b$. Less formally, a topological ordering arranges the vertices along a horizontal line so that all edges point from left to right. 
+A _**topological ordering**_ of a digraph $G$ is a total order $\prec$ on the vertices such that $a \prec b$ for every edge $a \to b$. Less formally, a topological ordering arranges the vertices along a horizontal line so that all edges point from left to right. 
 
 A topological ordering is clearly impossible if the graph $G$ has a directed cycle -- the rightmost vertex of the cycle would have an edge pointing to the left! On the other hand, every DAG has a topological order.
 
@@ -357,11 +397,11 @@ def DFSAll(G):
 
 _**RT:**_ 所以 Topological Sort 的时间复杂度和 `DFSAll` 是一样的，都是 $O(V+E)$
 
-## 7. Strongly Connected Components (SCC)
+# 7. Strongly Connected Components (SCC)
 
-In a directed graph $G = (V,E)$, vertex $a$ is _**connected**_ to vertex $b$ if there exists a path $a \to b$.
+In a digraph $G = (V,E)$, vertex $a$ is _**connected**_ to vertex $b$ if there exists a path $a \to b$.
 
-In a directed graph $G = (V,E)$, vertex $a$ is _**strongly connected**_ to $b$ if there exists a path $a \to b$, and also a path $b \to a$.
+In a digraph $G = (V,E)$, vertex $a$ is _**strongly connected**_ to $b$ if there exists a path $a \to b$, and also a path $b \to a$.
 
 If $a$ is strongly connected to $b$, we write $a \sim b$, and $\sim$ is an equivalence relation.
 
@@ -369,7 +409,7 @@ If $a$ is strongly connected to $b$, we write $a \sim b$, and $\sim$ is an equiv
 - _**Transitivity:**_ if $a \sim b$ and $b \sim c$, then $a \sim c$.
 - _**Symmetry:**_ if $a \sim b$, then $b \sim a$.
 
-In a directed graph $G = (V,E)$, a _**Strongly Connected Component (SCC)**_ is a maximal subgraph $S = (V_s, E_s)$ s.t. $\forall$ two vertices $a, b \in V_s$, $a \sim b$.
+In a digraph $G = (V,E)$, a _**Strongly Connected Component (SCC)**_ is a maximal subgraph $S = (V_s, E_s)$ s.t. $\forall$ two vertices $a, b \in V_s$, $a \sim b$.
 
 - 注意这里 maximal 并不是 SCC 的特殊要求，而是因为 component 本身就是 maximal subgraph
 - Undirected graph 的 component 在平面上很好认，一定是一个独立且完整的 subgraph，比如一整段的 path 或是一整个 cycle
@@ -377,7 +417,7 @@ In a directed graph $G = (V,E)$, a _**Strongly Connected Component (SCC)**_ is a
 
 We can see SCCs as equivalence classes of $~$.
 
-For any directed graph $G$, the strong component graph $scc(G)$ is another directed graph obtained by contracting each strong component of $G$ to a single (meta-)vertex and collapsing parallel edges.
+For any digraph $G$, the strong component graph $scc(G)$ is another digraph obtained by contracting each strong component of $G$ to a single (meta-)vertex and collapsing parallel edges.
 
 Let $C$ be any strong component of $G$ that is a sink in $scc(G)$; we call $C$ a _**sink component**_. Every vertex in $C$ can reach every other vertex in $C$, so a depth-first search from any vertex in $C$ visits every vertex in $C$. On the other hand, because $C$ is a sink component, there is no edge from $C$ to any other strong component, so a depth-first search starting in $C$ visits only vertices in $C$.
 
@@ -417,15 +457,15 @@ Actually you even don't have to repeat the "find-remove" procedure. The Kosaraju
 		- If $a$ can reach a vertex `i`, because `post(a) > post(i)`, then $a$ and `i` are strongly connected. 
 			- The current iteration in `DFSALL(G)` calling `DFS` goes further and will find an SCC at last.
 
-## 8. Shortest Paths
+# 8. Shortest Paths
 
-Given a weighted directed graph $G = (V,E,w)$, a source vertex $s$ and a target vertex $t$, find the shortest $s \to t$ regarding $w$.
+Given a weighted digraph $G = (V,E,w)$, a source vertex $s$ and a target vertex $t$, find the shortest $s \to t$ regarding $w$.
 
 A more general problem is called _**single source shortest path**_ or _**SSSP**_: find the shortest path from $s$ to every other vertex in $G$.
 
 _**N.B.**_ Throughout this post, we will explicitly consider only directed graphs. All of the algorithms described in this lecture also work for undirected graphs with some minor modifications, but only if negative edges are prohibited. On the other hand, it's OK for directed graphs to have negative edges in this problem. However, negative cycles, which make this problem meaningless, are prohibited.
 
-### 8.1 The Only SSSP Algorithm
+## 8.1 The Only SSSP Algorithm
 
 Let's define:
 
@@ -470,7 +510,7 @@ def GenericSSSP(s):
 
 Just as with graph traversal, different “bag” data structures for the give us different algorithms. There are three obvious choices to try: a stack, a queue, and a priority queue. Unfortunately, if we use a stack, the resulting algorithm performs $O(V^2)$ relaxation steps in the worst case!  The other two possibilities are much more efficient.
 
-### 8.2 Dijkstra’s Algorithm
+## 8.2 Dijkstra’s Algorithm
 
 If we implement the bag using a priority queue, where the priority of a vertex `v` is its tentative distance `dist(v)`, we obtain Dijkstra’s Algorithm
 
@@ -482,7 +522,7 @@ Dijkstra’s algorithm is particularly well-behaved if the graph has _**NO negat
 
 Since the priority of each vertex in the priority queue is its tentative distance from `s`, the algorithm performs a `decreasePriority` operation every time an edge is relaxed. Thus, the algorithm performs at most $E$ `decreasePriority`. Similarly, there are at most $V$ `enqueue` and `getMinPriority` operations. Thus, if we implement the priority queue with a Fibonacci heap, the total running time of Dijkstra’s algorithm is $O(E + V \log V)$; if we use a regular binary heap, the running time is $O(E \log V)$.
 
-### 8.3 Shimbel’s Algorithm
+## 8.3 Shimbel’s Algorithm
 
 If we replace the heap in Dijkstra’s algorithm with a FIFO queue, we obtain Shimbel’s Algorithm. Shimbel’s algorithm is efficient even if there are negative edges, and it can be used to quickly detect the presence of negative cycles. If there are no negative edges, however, Dijkstra’s algorithm is faster.
 
@@ -503,21 +543,21 @@ Repeat $V-1$ 次的考虑是，从 `s` 到某个 `t` 的路径最多有 $V$ 个 
 
 In each phase, we scan each vertex at most once, so we relax each edge at most once, so the running time of a single phase is $O(E)$. Thus, the overall running time of Shimbel’s algorithm is $O(VE)$.
 
-## 9. All-Pairs Shortest Paths (APSP)
+# 9. All-Pairs Shortest Paths (APSP)
 
 - `dist(u, v)` is the length of the shortest $s \rightsquigarrow b$ path.
 - `pred(u, v)` is the second-to-last vertex on the shortest $s \rightsquigarrow b$ path, i.e. the vertex before `v` on the path.
 
 The output of our shortest path algorithms will be a pair of $V \times V$ arrays encoding all $V^2$ distances and predecessors.
 
-### 9.1 Intuition 1: Run SSSP for every vertex
+## 9.1 Intuition 1: Run SSSP for every vertex
 
 - Shimbel’s: $V \cdot \Theta(VE) = \Theta(V^2E) = O(V^4)$ 
 - Dijkstra’s: $V \cdot \Theta(E + V \log V) = \Theta(VE + V^2 \log V) = O(V^3)$ 
 
 For graphs with negative edge weights, Dijkstra’s algorithm can take exponential time, so we can’t get this improvement directly.
 
-### 9.2 Johnson’s Algorithm
+## 9.2 Johnson’s Algorithm
 
 Johnson's 的出发点很简单：How to get rid of negative edges while keeping the SP? 解决了这个问题，就可以 run Dijkstra’s for every vertex 了。
 
@@ -562,7 +602,7 @@ def JohnsonAPSP(G=(V,E), w):
 
 _**RT:**_ $V \cdot \Theta(E + V \log V) = \Theta(VE + V^2 \log V)$
 
-### 9.3 Intuition 2: Dynamic Programming
+## 9.3 Intuition 2: Dynamic Programming
 
 $$
 \begin{equation}
@@ -632,7 +672,7 @@ def Shimbel_APSP(V, E, w):
 
 _**RT:**_ $O(V^2 E)$
 
-### 9.4 Intuition 3: DP + Divide and Conquer
+## 9.4 Intuition 3: DP + Divide and Conquer
 
 $$
 \begin{equation}
@@ -680,7 +720,7 @@ def DC_Shimbel_APSP(V, E, w):
 
 _**RT:**_ $O(V^3 \log V)$
 
-### 9.5 Floyd-Warshall: an $O(V^3)$ DP Alg
+## 9.5 Floyd-Warshall: an $O(V^3)$ DP Alg
 
 All the DP algs above are still a factor of $O(\log V)$ slower than Johnson’s algorithm. Here we come up to a faster one.
 
@@ -730,11 +770,11 @@ def FloydWarshall(V, E, w):
 
 _**RT:**_ $O(V^3)$ for 3 for-loops over $V$.
 
-### 9.6 APSP in unweighted undirected graphs: Seidel's Alg
+## 9.6 APSP in unweighted undirected graphs: Seidel's Alg
 
 待续
 
-## 10. Minimum Spanning Trees
+# 10. Minimum Spanning Trees
 
 和 Shortest Path 一样，MST 的 minimum 指的也是 tree 的各个 edges 的 weight 之和，$w(T)=\sum_{e \in T}{w(e)}$ 最小。所以也可以理解为 lightest spanning tree。
 
@@ -745,7 +785,7 @@ _**P.S.**_ 注意用词：
 
 To keep things simple, I’ll assume that all the edge weights are distinct: $w(e) \neq w(e')$ for any pair of edges $e$ and $e'$. Distinct weights guarantee that the minimum spanning tree of the graph is unique. For example, if all the edges have weight 1, then every spanning tree is a minimum spanning tree with weight $V − 1$.
 
-### 10.1 The Only MST Algorithm
+## 10.1 The Only MST Algorithm
 
 The generic minimum spanning tree algorithm MAINTAINS an acyclic subgraph $F$ of the input graph $G=(V,E)$, which we will call an _intermediate spanning forest_. $F$ is a subgraph of the minimum spanning tree of $G$, and every component of $F$ is a minimum spanning tree of its vertices. Initially, $F$ consists of $n$ one-node trees. The generic algorithm merges trees together by adding certain edges between them. When the algorithm halts, $F$ consists of a single $n$-node tree, which must be the minimum spanning tree. Obviously, we have to be careful about which edges we add to the evolving forest, since not every edge is in the minimum spanning tree.
 
@@ -774,23 +814,23 @@ $$
 w(e) > w(e_s) \Longrightarrow w(T + e_s - e) < w(T) \Longrightarrow (T + e_s - e) \text{ is lighter than MST. } 
 $$
 	
-Contradiction.
+Contradiction. $\blacksquare$
 
 _**Lemma 2.**_ MST contains no useless edge.
 
 _**Proof:**_ Adding any useless edge to $F$ would introduce a cycle.
 
-注意 useless edge 的 endpoints 是在一个 component 中的，而 component 又是 connected 的，所以这两个 endpoints 一定是连通的，你再把这两个 endpoints 连接起来，一定会有 cycle。
+注意 useless edge 的 endpoints 是在一个 component 中的，而 component 又是 connected 的，所以这两个 endpoints 一定是连通的，你再把这两个 endpoints 连接起来，一定会有 cycle.
 
-Our generic minimum spanning tree algorithm repeatedly adds one or more safe edges to the evolving forest $F$. Whenever we add new edges to $F$, some undecided edges become safe, and others become useless. To specify a particular algorithm, we must decide which safe edges to add, and we must describe how to identify new safe and new useless edges, at each iteration of our generic template.
+Our generic minimum spanning tree algorithm repeatedly adds one or more safe edges to the evolving forest $F$. Whenever we add new edges to $F$, some undecided edges become safe, and others become useless. To specify a particular algorithm, we must decide which safe edges to add, and we must describe how to identify new safe and new useless edges, at each iteration of our generic template. $\blacksquare$
 
-### 10.2 Borvka’s Algorithm
+## 10.2 Borvka’s Algorithm
 
 The Borvka algorithm can be summarized in one line:
 
 > Borvka: Add ALL the safe edges and recurse.
 
-We can find all the safe edge in the graph in $O(E)$ time as follows. First, we count the components of $F$ using whatever-first search, using the standard wrapper function (See [4. Preorder and Postorder Labeling](#4-preorder-and-postorder-labeling)). As we count, we label every vertex with its component number; that is, every vertex in the first traversed component gets label 1, every vertex in the second component gets label 2, and so on.
+We can find all the safe edge in the graph in $O(E)$ time as follows. First, we count the components of $F$ using whatever-first search, using the standard wrapper function (See [4. Preorder and Postorder Labeling](#4-preorder-and-postorder-labeling)). As we count, we label every vertex with its component number; that is, every vertex in the first traversed component gets label $1$, every vertex in the second component gets label $2$, and so on.
 
 ```python
 def Borvka(G):
@@ -809,7 +849,7 @@ _**RT:**_
 - To find all safe edges, just examine every edge (check with $F$). $\Longrightarrow O(E)$
 - To test whether $F$ is connected, actually you can just count the \# of edges, using the [conclusion](http://mathworld.wolfram.com/Forest.html):
 	- A forest with $k$ components and $n$ nodes has $n-k$ graph edges.
-		- I proved a related observation in homework 1--If a connected graph with $n$ vertices has $n-1$ edges, it’s a tree. $\Longrightarrow O(1)$
+		- I proved a related observation in homework 1 -- If a connected graph with $n$ vertices has $n-1$ edges, it’s a tree. $\Longrightarrow O(1)$
 - \# of iterations of the while-loop?
 	- Each iteration reduces the number of components of $F$ by at least a factor of two—the worst case occurs when the components coalesce in pairs. 
 		- _coalesce:_ [ˌkoʊəˈles], (of separate elements) To join into a single mass or whole.
@@ -820,11 +860,11 @@ _**RT:**_
 
 In short, if you ever need to implement a minimum-spanning-tree algorithm, use Borvka. On the other hand, if you want to _**prove things**_ about minimum spanning trees effectively, you really need to know the next two algorithms as well.
 
-### 10.3 Prim's Algorithm
+## 10.3 Prim's Algorithm
 
 Initially, $T$ consists of an arbitrary vertex of the graph. The algorithm repeats the following step until $T$ spans the whole graph:
 
-> Jarník: Repeatedly add T’s safe edge to T.
+> Jarník: Repeatedly add $T$’s safe edge to $T$.
 
 ```python
 def Prim(G):
@@ -843,7 +883,7 @@ To implement Jarník’s algorithm, we keep all the edges adjacent to $T$ in a p
 
 Similar to Dijkstra’s algorithm, if we implement the priority queue with a Fibonacci heap, the total running time would be $O(E + V \log V)$.
 
-### 10.4 Kruskal’s Algorithm
+## 10.4 Kruskal’s Algorithm
 
 > Kruskal: Scan all edges in increasing weight order; if an edge is safe, add it to F.
 
@@ -865,9 +905,9 @@ def Kruskal(G):
 
 _**RT:**_ $O(E \log E) = O(E \log V)$, dominated by the sorting.
 
-## 11. Matroids (待续)
+# 11. Matroids (待续)
 
-### 11.1 Definitions (待续)
+## 11.1 Definitions (待续)
 
 A matroid $M$ is a finite collection of finite sets that satisfies three axioms:
 
@@ -908,7 +948,7 @@ Here are several other examples of matroids; some of these we will see again lat
 
 _**TODO:**_ Lecture note 和笔记本上还有些例子待补充。
 
-### 11.2 Matroid Optimization Problem (待续)
+## 11.2 Matroid Optimization Problem (待续)
 
 Now suppose each element of the ground set of a matroid $M$ is given an arbitrary non-negative weight, i.e. $w: U \rightarrow \mathbb{R}^{+}$. The matroid optimization problem is to compute a basis with maximum total weight. For example, if $M$ is the cycle matroid for a graph $G$, the matroid optimization problem asks us to find the maximum spanning tree of $G$.
 
@@ -937,9 +977,9 @@ _**RT:**_ $O(n \log n) + n F(n)$. $F(n)$ 应该是 depends on 具体的应用。
 
 _**TODO:**_ 补充 proof
 
-## 12. Matching (待续)
+# 12. Matching (待续)
 
-### 12.1 The Maximum Matching Problem
+## 12.1 The Maximum Matching Problem
 
 Let $G = (V, E)$ be an undirected graph. A set $M \subseteq E$ is a _**matching**_ if no pair of edges in $M$ have a common vertex. 
 
@@ -947,7 +987,7 @@ A vertex $v$ is _**matched**_ if it is contained in an edge of $M$, and _**unmat
 
 In the maximum matching problem we are asked to find a matching $M$ of maximum size.
 
-### 12.2 Alternating and Augmenting Paths (待续)
+## 12.2 Alternating and Augmenting Paths (待续)
 
 Let $G = (V, E)$ be a graph and let $M$ be a matching in $G$. A path $P$ is said to be an _**alternating path**_ with respect to $M$ if and only if among every two consecutive edges along the path, exactly one belongs to $M$. 我们也可以简称 $P$ is $M$-alternating.
 
@@ -1005,9 +1045,9 @@ def MaxMatching(G):
 
 _**TODO:**_ bipartite graphs & `AltBFS` alg
 
-## 13. Testing Polynomial Identity (待续)
+# 13. Testing Polynomial Identity (待续)
 
-### 13.1 The Schwartz-Zippel Algorithm (待续)
+## 13.1 The Schwartz-Zippel Algorithm (待续)
 
 检测两个 polynomial $Q$ 和 $R$ 是否相等，等价于检测是否有 polynomial $P = Q - R \equiv 0$ (i.e. 是否恒为 $0$).
 
@@ -1030,7 +1070,7 @@ _**Claim 2.1**_ If $P \not\equiv 0$, then $Pr[P(r_1, \dots, r_n) = 0] \leq \frac
 
 _**TODO:**_ 补充证明
 
-### Digress: Permutation / Matrix Determinant (行列式)
+## Digress: Permutation / Matrix Determinant (行列式)
 
 _**onto function:**_ A function $f: A \rightarrow B$ is called onto if $\forall b \in B$, $\exists a \in A$ such that $f(a) = b$, i.e. all elements in $B$ are used. Such functions are also referred to as _**surjective**_ (满射).
 
@@ -1055,7 +1095,7 @@ E.g. $n = 2$, $Det(A) = 1 \cdot a_{11} \cdot a_{22} + (-1) \cdot a_{12} \cdot a_
 - $\pi_1: \lbrace 1,2 \rbrace \rightarrow \lbrace 1,2 \rbrace $; $\operatorname{sign}(\pi_1) = 1$
 - $\pi_2: \lbrace 1,2 \rbrace \rightarrow \lbrace 2,1 \rbrace $; $\operatorname{sign}(\pi_2) = -1$
 
-### 13.2 Application to Bipartite Matching
+## 13.2 Application to Bipartite Matching
 
 Although bipartite matching is easy to solve in deterministic polynomial time using flow techniques, it remains an important open question whether there exists an efficient parallel deterministic algorithm for this problem.
 
@@ -1073,7 +1113,7 @@ _**Claim 2.3**_ $G$ contains a perfect matching if and only if $Det(A_G) \not\eq
 
 $Det(A) = - x_{11} \cdot x_{23} \cdot x_{32}$. 根据 $x_{ij}$ 的下标，我们可以看出 $\lbrace (p_1, q_1), (p_2, q_3), (p_3, q_2) \rbrace$ 是一个 perfect matching。
 
-## 14. Eulerian Graph
+# 14. Eulerian Graph
 
 _**Eulerian path:**_ a path, $e_1 e_2 \cdots e_E$, which contains each edge exactly once.
 
@@ -1108,7 +1148,7 @@ We describe an Euler cycle in $G$ like this:
 - If $n$ is even, then $K_n$ is traversable iff $n=2$.
 	- If a graph is not traversable, it cannot be Eulerian.
 
-## 15. Hamiltonian Path
+# 15. Hamiltonian Path
 
 _**Hamiltonian path:**_ a simple path that contains all vertices.
 
