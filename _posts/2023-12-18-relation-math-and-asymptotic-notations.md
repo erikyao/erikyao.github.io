@@ -5,6 +5,7 @@ tags: []
 title: Relation (Math) and Asymptotic Notations
 toc: true
 toc_sticky: true
+mermaid: true
 ---
 
 # 1. Relation (Mathmatics)
