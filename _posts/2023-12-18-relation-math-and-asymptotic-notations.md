@@ -184,6 +184,7 @@ $$
 - pre-order 的意思是 "almost a partial order" 或者 "one more step and you'll get a partial order"
 - partial 的意思是 "允许存在两个元素没有 order (i.e. incomparable)"
 - total 的意思是 "任意的两个元素间都有 order (i.e. comparable)"
+  - total order 也称 **linear order**
 
 举例：
 
