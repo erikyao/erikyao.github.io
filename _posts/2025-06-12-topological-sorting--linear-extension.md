@@ -153,7 +153,7 @@ flowchart LR
 
 对 $v_i \oslash_{\rightsquigarrow} v_j$，我们可以 augment 成 $v_i \prec v_j$ (i.e. $s = \overline{v_0 v_i v_j}$)，也可以 augment 成  $v_j \prec v_i$ (i.e. $s = \overline{v_0 v_j v_i}$)
 
-Counting the number of linear extensions of a partial order is $\#P$-complete (and well studied).
+Counting the number of linear extensions of a partial order is $\\#P$-complete (and well studied).
 {: .notice--info}
 
 # 3. How algorithms of DFS & BFS eliminate the arbitrariness
