@@ -5,7 +5,7 @@ tags: []
 title: Relation (Math) and Asymptotic Notations
 toc: true
 toc_sticky: true
-mermaid: true
+mermaid: false
 ---
 
 # 1. Relation (Mathmatics)
@@ -124,15 +124,6 @@ $$
 2. if $x = y \neq z$，obvious implication
 3. if $x = z \neq y$，transitive 等价于：如果有 $x \to y \to x$ 这样一个 loop，那么就会有 $x \to x$ 的 self loop
 4. if $x \neq y = z$, obvious implication
-
-```mermaid
-flowchart LR
-  node_1(("X"))
-  node_2(("Y"))
-  node_1 --> node_2
-  node_2 --> node_1
-  node_1 --> node_1
-```
 
 :star2: 定义上有：transitive $\land$ irreflexive $\equiv$ transitive $\land$ asymmetric
 {: .notice--success}
