@@ -1,5 +1,5 @@
 ---
-title: "Appetizer #2 Before Parsing: CFG Disambigution (with intro to Parse Tree & Ambiguity)"
+title: "Appetizer #2 Before Parsing: CFG Disambiguation (with intro to Parse Tree & Ambiguity)"
 description: ""
 category: Compiler
 tags: []
