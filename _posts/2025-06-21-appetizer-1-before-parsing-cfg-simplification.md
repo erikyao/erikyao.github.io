@@ -76,7 +76,7 @@ $\blacksquare$
 
 The grammar $G_1 = (V_1, T, S, P_1)$ is fully generating. 
 
-**Definition:** **VDG (Variable Dependency Graph)**, on a given Grammar $G=(V, T, S, P)$ can be constructed like below:
+**Definition:** **VDG (Variable Dependency Graph)** of a given Grammar $G=(V, T, S, P)$ can be constructed like below:
 
 1. For each variable $A \in V$, draw a vertex
 2. For each production $A \to xBy \in P$, draw an edge $A \leadsto B$
