@@ -32,12 +32,12 @@ Types of Redundancy：
 
 # 1. Eliminate $\varepsilon$-productions
 
-如果有一个 CFG $G$ 和它的 CFL $L$，消除 $\varepsilon$-productions 之后会得到一个新的 CFG $G'$ 和新的 CFL $L' = L− \{ \varepsilon \}$.
+如果有一个 CFG $G$ 和它的 CFL $L$，消除 $\varepsilon$-productions 之后会得到一个新的 CFG $G'$ 和新的 CFL $L' = L− \lbrace \varepsilon \rbrace$.
 
-你也可以选择在 $L'$ 中保留 $\varepsilon$. 如果你需要这么做，可以在 $G'$ 保留一个 $S \to \varepsilon$ (while all other $A \to \varepsilon$ production rules are eliminated)。
+你也可以选择在 $L'$ 中保留 $\varepsilon$. 如果你需要这么做，可以在 $G'$ 保留一个 $S \to \varepsilon$.
 {: .notice--info}
 
-Dummy Start Symbol: 工程中还有一个 preprocessing practice 是给 $G$ 加一个 dummy production $S_0 \to S$，目的是 "确保 start symbol 不会出现在 production 的 body (i.e. RHS) 中"。因为如果你允许 $S \to \varepsilon$ 并同时有 $A \to S$ 时，会 imply $A \to \varepsilon$，工程上处理起来不是很清爽。我个人认为即时你没有允许 $S \to \varepsilon$，这个 preprocessing 也是个 good practice.
+**Dummy Start Symbol:** 工程中还有一个 preprocessing practice 是给 $G$ 加一个 dummy production $S_0 \to S$，目的是 "确保 start symbol 不会出现在 production 的 body (i.e. RHS) 中"。因为如果你允许 $S \to \varepsilon$ 并同时有 $A \to S$ 时，会 imply $A \to \varepsilon$，工程上处理起来不是很清爽。我个人认为即时你没有允许 $S \to \varepsilon$，这个 preprocessing 也是个 good practice.
 {: .notice--info}
 
 **Procedure:**
