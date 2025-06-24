@@ -61,6 +61,17 @@ Types of Redundancy：
 2. 如果你消除了一个具体的 $A \to B$，然后有 $B \to \beta$：可以直接添加一条 $A \to \beta$ 到 $P$
 3. Repeat step 1~2 直到所有的 unit-production 都被消除
 
+<div class="notice--info" markdown="1">
+Bonus: cycle-free grammar
+
+A cycle in a grammar means a derivation $A \overset{+}{\Rightarrow} A$. Consider the following cases:
+
+1.  If we have $A \to A \mid \alpha \mid \cdots$, following the above procedure, we drop $A \to A$ but keep $A \to \alpha \mid \cdots$ in $P$
+2. If we have $\begin{cases} A \to B \mid \alpha \mid \cdots \newline B \to A \mid \beta \mid \cdots \end{cases} \;$, we drop $A \to B$ and then augment into $A \to \alpha \mid \cdots \mid A \mid \beta \mid \cdots$. Problem is reduced to Case 1.
+
+Therefore, **eliminating unit productions (with $\varepsilon$-productions already eliminated) guarantees a cycle-free grammar.**
+</div>
+
 # 3. Eliminate useless productions
 
 **Procedure:** Remove non-generating productions
