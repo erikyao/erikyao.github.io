@@ -80,7 +80,7 @@ Indirect left recursion involves multiple derivation steps, like $\begin{cases} 
 1. Relabel the variables in some order $A_1, A_2, \dots, A_n$. Any order should work, but the naive one (left-to-right in any single production, top-down in the production list) is the most straightforward.
 2. If there is an indirect left recursion, it must be like $\begin{cases} A_i \to A_j \alpha \newline A_j \to A_i \beta \end{cases} \;$ (or more productions involved, depending on the length of the $A_i$-loop in VDG described above).
 3. Therefore whenever we see a production $A_j \to A_i \beta$ where $j > i$, it is **possible** that $A_i$ has an indirect left recursion.
-    - We say "possible" because there might be no $A_i \leadsto A_j$ path in the VDG to begin with.
+    - We say "possible" because an $A_i \leadsto A_j$ path might not exist in the VDG to begin with.
  
 $\blacksquare$
 
