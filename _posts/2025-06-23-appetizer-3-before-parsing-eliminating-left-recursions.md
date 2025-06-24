@@ -40,13 +40,8 @@ and done! The rewriting simply converts left recursion to right recursion.
 
 <div class="notice--info" markdown="1">
 If you don't like introducing a $\varepsilon$-production, rewrite this way:
-
-$$
-\begin{align}
-A & \to \beta \mid \beta A' \newline
-A' & \to \alpha \mid \alpha A'
-\end{align}
-$$
+\begin{align} A & \to \beta \mid \beta A' \newline
+A' & \to \alpha \mid \alpha A' \end{align}
 </div>
 
 If we have more productions like:
@@ -66,13 +61,8 @@ $$
 
 <div class="notice--info" markdown="1">
 If you don't like introducing a $\varepsilon$-production, rewrite this way:
-
-$$
-\begin{align}
-A & \to \beta_1 \mid \beta_2 \mid \cdots \mid \beta_n \mid \beta_1 A' \mid \beta_2 A' \mid \cdots \mid \beta_n A' \newline
-A' & \to \alpha_1 \mid \alpha_2 \mid \cdots \mid \alpha_m \mid \alpha_1 A' \mid \alpha_2 A' \mid \cdots \mid \alpha_m A'
-\end{align}
-$$
+\begin{align} A & \to \beta_1 \mid \beta_2 \mid \cdots \mid \beta_n \mid \beta_1 A' \mid \beta_2 A' \mid \cdots \mid \beta_n A' \newline
+A' & \to \alpha_1 \mid \alpha_2 \mid \cdots \mid \alpha_m \mid \alpha_1 A' \mid \alpha_2 A' \mid \cdots \mid \alpha_m A' \end{align}
 </div>
 
 # Eliminating Indirect Left Recursion
@@ -81,11 +71,11 @@ Indirect left recursion involves multiple derivation steps, like $\begin{cases} 
 
 **Intuition:** If we know there would be an indirect left recursion $A \overset{+}{\Rightarrow} A \alpha$, we can repeatedly substitute the leftmost variable $B$ in production $A \to B\beta$ until it becomes a direct left recursion.
 
-**Problem:** How do we find such variable $A$ that is bound to an indirect left recursion? It' simply not practical to try all variables in $V$.
+**Problem:** How do we find such variable $A$ that is bound to an indirect left recursion? It' simply not practical to try all variables in $V$. 
 
-**Method #1:** VDG (Variable Dependency Graph) on LHS variables and leftmost variables on RHS. E.g. draw an edge $A \to B$ if $\exists (A \to B \beta) \in P$. If vertex $A$ has a loop in VDG, then it has an indirect left recursion.
+**Method #1:** VDG (Variable Dependency Graph) on LHS variables and leftmost variables on RHS. E.g. draw an edge $A \to B$ if $\exists (A \to B \beta) \in P$. If vertex $A$ has a loop in VDG, then it has an indirect left recursion. $\blacksquare$
 
-**Method #2:** Variable Relabeling;
+**Method #2:** Variable Relabeling:
 
 1. Relabel the variables in some order $A_1, A_2, \dots, A_n$. Any order should work, but the naive one (left-to-right in any single production, top-down in the production list) is the most straightforward.
 2. If there is an indirect left recursion, it must be like $\begin{cases} A_i \to A_j \alpha \newline A_j \to A_i \beta \end{cases} \;$ (or more productions involved, depending on the length of the $A_i$-loop in VDG described above).
@@ -98,7 +88,7 @@ However anyway we can just substitute $A_i$ in such $A_j \to A_i \beta$ producti
 
 In the Dragon Book we have the following algorithm:
 
-![[CFG-Elimiate-Left-Recursion-Alg.png|600]]
+![](https://live.staticflickr.com/65535/54611750029_c101d24887_z.jpg)
 
 Note that it uses subscripts $i,j$ the other way, where $j < i$ is guaranteed in the double for-loops.
 {: .notice--info}
