@@ -39,7 +39,7 @@ $$
 and done! The rewriting simply converts left recursion to right recursion.
 
 <div class="notice--info" markdown="1">
-If you don't like introducing a $\varepsilon$-production, rewrite this way:
+If you don't like introducing an $\varepsilon$-production, rewrite this way:
 \begin{align} A & \to \beta \mid \beta A' \newline
 A' & \to \alpha \mid \alpha A' \end{align}
 </div>
@@ -60,7 +60,7 @@ A' & \to \alpha_1 A' \mid \alpha_2 A' \mid \cdots \mid \alpha_m A' \mid \varepsi
 $$
 
 <div class="notice--info" markdown="1">
-If you don't like introducing a $\varepsilon$-production, rewrite this way:
+If you don't like introducing an $\varepsilon$-production, rewrite this way:
 \begin{align} A & \to \beta_1 \mid \beta_2 \mid \cdots \mid \beta_n \mid \beta_1 A' \mid \beta_2 A' \mid \cdots \mid \beta_n A' \newline
 A' & \to \alpha_1 \mid \alpha_2 \mid \cdots \mid \alpha_m \mid \alpha_1 A' \mid \alpha_2 A' \mid \cdots \mid \alpha_m A' \end{align}
 </div>
