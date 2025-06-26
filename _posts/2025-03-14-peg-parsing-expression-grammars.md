@@ -34,12 +34,12 @@ toc_sticky: true
 3. C++ 某些 token sequence 可能同时满足 `<definition>` 和 `<statement>`
 4. The syntax of lambda abstractions, `let` expressions, and conditionals in Haskell is **unresolvably** ambiguous in the CFG paradigm.
 
-一般的解决方法有两种：
+一般的解决方法有两种 (可以参考 [Appetizer #2 Before Parsing: CFG Disambiguation](/compiler/2025/06/22/appetizer-2-before-parsing-cfg-disambiguation))：
 
 1. rewrite your CFG and make it unambiguous
 2. 使用人为的 rules 去规定 parsing 的行为
 
-使用第二种方法一般是出于迫不得已，比如：(1) rewrite 的工作量太大；(2) 理论上 rewrite 也无法解决某些 unambiguous 的情况。且它有一个后果就是：你这么搞了以后，你的 grammar 理论上就不再是一个合法的 CFG 了。
+使用第二种方法一般是出于迫不得已，比如：(1) rewrite 的工作量太大；(2) 存在 rewrite 也无法解决的情况 (比如 inherently ambiguous)。且 rewrite 有一个后果就是：你这么搞了以后，你的 grammar 理论上就不再是一个合法的 CFG 了。
 
 > Many sensible syntactic constructs are inherently ambiguous when expressed in a CFG, commonly leading language designers to abandon syntactic formality and rely on informal metarules to solve these problems.
 
@@ -59,10 +59,7 @@ toc_sticky: true
 - Generative: $\lbrace w \in a^* \mid w = (aa)^n \rbrace$
 - Recognitive: $\left\lbrace w \in a^* \mid \vert w \vert \mod 2 = 0 \right\rbrace$
 
-文中直接把 PEG 称为 recognition-based, 有点不好理解，我觉得可以从两个角度考虑：
-
-1. 我们回忆一下 PEG 的全称：Parsing Expression Grammars。可见 PEG 就是为了 parsing 设计的，那 parsing 自然就是 recognition 的过程
-1. recognitive grammar 本意就是 "grammar $G$ can recognize sequence $w$", 所以应该要有某种 "predicate" 能直接判断出是否有 $w \in L$。但其实 PEG 只有两个 **syntactic predicates** `&e`、`!e`，其余的 production/rule 也是形如 `Definition <- Identifier LEFTARROW Expression` 这样 generative 的形式。从 grammar definition 的角度，我觉得称 PEG "有 recognitive 的成分" 是更准确的理解
+文中直接把 PEG 称为 recognition-based, 有点不好理解，我的理解是：recognitive grammar 本意就是 "grammar $G$ can recognize sequence $w$", 所以应该要有某种 "predicate" 能直接判断出是否有 $w \in L$。但其实 PEG 只有两个 **syntactic predicates** `&e`、`!e`，其余的 production/rule 也是形如 `Definition <- Identifier LEFTARROW Expression` 这样 generative 的形式。从 grammar definition 的角度，我觉得称 PEG "有 recognitive 的成分" 是更准确的理解
 
 # 3. Formal Definition of PEGs
 
@@ -150,14 +147,14 @@ Prioritized choice $e_1 / e_2 / \dots / e_n$ 的 matching 规则是：
 
 ### 3.4.2 $e_1 e_2$ 与 backtracking
 
-Sequence $e_1 e_2 \dots e_n$ 的 matching 规则比较直接：如果 $e_1$ match，那么就继续 match $e_2$，依此类推
+Sequence $e_1 e_2 \dots e_n$ 的 matching 规则比较直接：如果 $e_1$ match，那么就继续 match $e_2$，依此类推。
 
 只考虑两个 sub-expressions，即 $e_1 e_2$ 时，match 失败的情况有两种：
 
 1. $e_1$ match 失败
 2. $e_1$ match 成功，但 $e_2$ match 失败
 
-这两种情况下，parser 都需要 backtrack 到 parsing $e_1$ 起始的位置
+这两种情况下，parser 都需要 backtrack 到 parsing $e_1$ 起始的位置。
 
 ### 3.4.3 $\&e$、$!e$ 与 backtracking
 
@@ -182,7 +179,7 @@ Sequence $e_1 e_2 \dots e_n$ 的 matching 规则比较直接：如果 $e_1$ matc
 
 ### 3.4.5 Quirk: Match 和 Fail 的中间态
 
-这一节还是得用文章 _3.3 Interpretation of a Grammar_ 的符号。
+这一节还是得用文章 _3.3 Interpretation of a Grammar_ 的符号，有点痛苦。
 
 我们规定 $(e, w) \Rightarrow^+ w'$ 的意思是：
 
@@ -204,15 +201,22 @@ Sequence $e_1 e_2 \dots e_n$ 的 matching 规则比较直接：如果 $e_1$ matc
 - **Match set** of expression $e$ in $G$ is defined as $M_G(e) = \lbrace w \mid e \text{ matches } w 
 \text{ in } G \rbrace$
 
+$\blacksquare$
+
 **Definition:**
 
 - If expression $e$ either matches or fails on a string $w \in V_T^*$, we say $e$ **handles** $w$ 
 - If grammar $G$'s start expression $e_S$ handles $w$, we say $G$ **handles** $w$
 - $G$ is **complete** if it handles $\forall w \in V_T^*$
 
+$\blacksquare$
+
 这里就有一个疑问：从 "handle" 的定义来看，似乎存在 "neither matches nor fails on $w$" 的情况？的确是有的，但更容易理解的说法是 "matching will never terminate"，本质是因为存在 grammar 有 "无限递归" 的毛病。如 [GRAMMAR::PEG(N) 0.1 "Grammar operations and usage"](https://nnsa.dl.ac.uk/MIDAS/manual/ActiveTcl8.5.7.0.290198-html/tcllib/grammar_peg/peg.html) 所说：
 
 > A grammar is **wellformed** if it is **not left-recursive**. Such grammars are also **complete**, which means that they always succeed or fail on all input sentences. For an **incomplete** grammar on the other hand, input sentences exist for which an attempt to match them against the grammar will not terminate.
+
+可以参考 [Appetizer #3 Before Parsing: Eliminating Left Recursions](/compiler/2025/06/23/appetizer-3-before-parsing-eliminating-left-recursions)
+{: .notice--info}
 
 注意前面 [3.4.4 Greedy $e?$, $e^\ast$, and $e^+$](#344-greedy-e-e-and-e) 中的例子：expression $e = a^*a$ 去 match input like $aaa$：由于 greedy 特性，这个 matching 应该判定为 failure 而不是 never terminate
 {: .notice--info}
@@ -221,18 +225,18 @@ Sequence $e_1 e_2 \dots e_n$ 的 matching 规则比较直接：如果 $e_1$ matc
 
 证明部分我略过了，需要时直接看原文。
 
-**Definition:** The language of a PEG $G = (V_N,V_T,R,e_S)$ is defined as $L(G) = \lbrace x \in V_T^* \mid e_S \text{ matches } x \rbrace$.
+**Definition:** The language of a PEG $G = (V_N,V_T,R,e_S)$ is defined as $L(G) = \lbrace x \in V_T^* \mid e_S \text{ matches } x \rbrace$. $\blacksquare$
 
 Note that:
 
 > ... $e_S$ only needs to succeed on input string $x$ for $x$ to be included in $L(G)$; $e_S$ **need not consume all** of string $x$... This definition contrasts with TS and gTS, in which partially consumed input strings are excluded from the language and classified as _partial-acceptance failures_.
 
-**Definition:** A language $L$ over an alphabet $V_T$ is a parsing expression language (**PEL**) $\iff$ $\exists$ PEG $G$ whose language is $L$.
+**Definition:** A language $L$ over an alphabet $V_T$ is a parsing expression language (**PEL**) $\iff$ $\exists$ PEG $G$ whose language is $L$. $\blacksquare$
 
-**Theorem:** The class of PELs includes (some) non-context-free languages.
+**Theorem:** The class of PELs includes (some) non-context-free languages. $\blacksquare$
 
 {% capture notice-text %}
-无法相信作者在文中没有标定是 "includes some" 还是 "include all"！根据 [Computational Model for Parsing Expression Grammars](https://arxiv.org/abs/2406.14911): 
+无法相信作者在文中没有标定是 "includes some" 还是 "includes all"！根据 [Computational Model for Parsing Expression Grammars](https://arxiv.org/abs/2406.14911): 
 
 > From the 60's it is known that PELs contain DCFLs as a subclass and some non-context-free languages like $a^nb^nc^n$ as well.
 {% endcapture %}
@@ -242,4 +246,4 @@ Note that:
   {{ notice-text | markdownify }}
 </div>
 
-**Theorem:** Given an arbitrary PEG $G$, it's generally undecidable whether its language $L(G)$ is empty.
+**Theorem:** Given an arbitrary PEG $G$, it's generally undecidable whether its language $L(G)$ is empty. $\blacksquare$
