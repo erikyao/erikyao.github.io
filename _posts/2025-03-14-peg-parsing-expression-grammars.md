@@ -17,6 +17,8 @@ toc_sticky: true
 - gTS: generalized TS
 - GTPDL: Generalized TDPL
 
+PEG parser 代码可以参考我自己的 [toy_peg_parser](https://github.com/erikyao/toy_peg_parser/blob/main/src/__init__.py).
+
 # 1. The Chomsky Hierarchy is Generative
 
 论文教的这节历史课还是蛮不错的：
