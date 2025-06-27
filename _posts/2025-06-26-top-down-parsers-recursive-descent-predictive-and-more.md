@@ -47,7 +47,7 @@ Examples:
 
 理想情况下你可以认为 $LL(k) = \mathcal{P}$.
 
-现实世界中，你可能会有些 $LL(k)$ variant，比方说：我主体框架是个 $LL(1)$ parser，但其中有一个 production $A \to \alpha \mid \beta$ 是用 special rule 限定的。此时你这个 parser 肯定不是严格意义的 $LL(1)$，但它也能算是 predictive. 此时就是 $LL(k) \subset= \mathcal{P}$.
+现实世界中，你可能会有些 $LL(k)$ variant，比方说：我主体框架是个 $LL(1)$ parser，但其中有一个 production $A \to \alpha \mid \beta$ 是用 special rule 限定的。此时你这个 parser 肯定不是严格意义的 $LL(1)$，但它也能算是 predictive. 此时就是 $LL(k) \subset \mathcal{P}$.
 
 # 3. $LL(k)$: "Table-Driven" vs "Hardcoded"
 
