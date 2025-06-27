@@ -15,7 +15,7 @@ Let:
 - $\mathcal{Q}$ be the set of all recursive descent parsers
 - $\Delta$ be the set of all top-down parsers
 
-Basic relationship:
+Informally we have the following relationship:
 
 - $\mathcal{P} \subset \Delta$
 - $\mathcal{Q} \subset \Delta$
