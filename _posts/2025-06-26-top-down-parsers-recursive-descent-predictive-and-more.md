@@ -30,8 +30,7 @@ $$
 \mathcal{P} &= \lbrace p \in \Delta \mid p \text{ deterministically picks a production for derivation in each step} \rbrace \newline
 \mathcal{P}^\complement &= \lbrace p \in \Delta \mid p \text{ undeterministically picks a production, backtracking if failed} \rbrace \newline
 \mathcal{Q} &= \lbrace p \in \Delta \mid p \text{ calls procedure } A() \text{, which recusively calls } X_1(), \dots, X_n() \text{, if production } A \to X_1 \dots X_n \text{ is picked} \rbrace \newline
-\mathcal{Q}^\complement &= \lbrace p \in \Delta \mid p \text{ maintains
-a stack explicitly, rather than implicitly via recursive calls} \rbrace \newline
+\mathcal{Q}^\complement &= \lbrace p \in \Delta \mid p \text{ maintains a stack explicitly, rather than implicitly via recursive calls} \rbrace \newline
 \end{aligned}
 $$
 
