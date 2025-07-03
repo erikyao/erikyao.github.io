@@ -1,5 +1,5 @@
 ---
-title: "Top Down Parsers: Recursive Descent, Predictive, and More"
+title: "Top-Down Parsers: Recursive Descent, Predictive, and More"
 description: ""
 category: Compiler
 tags: []
