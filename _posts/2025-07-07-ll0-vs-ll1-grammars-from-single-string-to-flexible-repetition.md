@@ -48,4 +48,6 @@ toc_sticky: true
 <STATEMENT> ::= 'return' <VALUE> | 'print' <VALUE> | <STATEMENT>
 ```
 
-它就可以有任意多个 `return` 或者 `print` statements，所以它的 $\vert L(G) \vert = \infty$.
+它就可以有任意多个 `return` 或者 `print` statements，所以它的 $\vert L(G) \vert = \infty$. 
+
+这也就是所谓的 "one-or-more" pattern. {: .notice--info}
