@@ -19,13 +19,15 @@ toc_sticky: true
 
 PEG parser 代码可以参考我自己的 [toy_peg_parser](https://github.com/erikyao/toy_peg_parser).
 
+Another reference implementation is [MyTeenyTinyCompiler/parse.py](https://github.com/erikyao/MyTeenyTinyCompiler/blob/main/parse.py), which is inspired by [Let's make a Teeny Tiny compiler](https://austinhenley.com/blog/teenytinycompiler1.html) by [Austin Z. Henley](https://austinhenley.com/blog.html).
+
 # 1. The Chomsky Hierarchy is Generative
 
 论文教的这节历史课还是蛮不错的：
 
 > Chomsky’s **generative** system of grammars, from which the ubiquitous context-free grammars (CFGs) and regular expressions (REs) arise, was originally designed as a formal tool for modelling and analyzing natural (human) languages. Due to their elegance and expressive power, computer scientists adopted generative grammars for describing machine-oriented languages as well. 
 
-这个 generative 的 nature 挪用到 programming languages 时还是存在水土不服的：
+这个 "generative" 的 nature 挪用到 programming languages 时还是存在水土不服的：
 
 > The ability of a CFG to express ambiguous syntax is an important and powerful tool for natural languages. Unfortunately, this power gets in the way when we use CFGs for machine-oriented languages that are intended to be precise and unambiguous. Ambiguity in CFGs is difficult to avoid even when we want to, and it makes general CFG parsing an inherently super-linear-time problem.
 
