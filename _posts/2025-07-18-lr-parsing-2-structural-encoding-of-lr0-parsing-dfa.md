@@ -1,5 +1,5 @@
 ---
-title: "LR Parsing #2: Encoding of LR(0) Parsing DFA"
+title: "LR Parsing #2: Encoding of the Structure of LR(0) Parsing DFA"
 description: ""
 category: Compiler
 tags: []
