@@ -109,5 +109,5 @@ Note the difference between "canonical" and "normal" in English.
 |**Canonical**|A **standardized, unique, and complete** form chosen among many possible representations|规范的 / 标准的|
 |**Normal**|A **typical or usual** form, possibly one of many|正常的 / 常规的|
 
-Technically, the DFA constructed above misses a dead state for "empty set of items". i.e. there should have existed $\varnothing \in C$. As a result, $(X, \varnothing)$ should be a valid configuration.
+Technically, the DFA constructed above misses a dead state for "empty set of items". i.e. there should have existed $\varnothing \in C$. 
 {: .notice--warning}

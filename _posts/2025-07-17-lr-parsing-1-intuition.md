@@ -109,7 +109,6 @@ stack == ['a', 'B', 'E']       # 7. Reduce 'e |> E'
 
 **Informal Definition:** A **viable prefix** is a string that can appear in the stack during parsing. On the other hand, the stack can only contain viable prefix during parsing. $\blacksquare$
 
-
 # Clue 4️⃣: Viable Prefixes form a regular language => LR Parsers are DFAs
 
 Knuth's breakthrough came from several connected realizations:
