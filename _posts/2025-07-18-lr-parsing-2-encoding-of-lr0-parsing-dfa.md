@@ -1,7 +1,7 @@
 ---
 title: "LR Parsing #2: Encoding of LR(0) Parsing DFA"
 description: ""
-category: 
+category: Compiler
 tags: []
 toc: true
 toc_sticky: true
