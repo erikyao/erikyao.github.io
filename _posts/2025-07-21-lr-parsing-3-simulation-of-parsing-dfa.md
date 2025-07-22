@@ -72,7 +72,7 @@ On reading $c$, to determine the next action, you can imagine there is a functio
 
 You can also imagine a $\operatorname{GOTO}$ function such that $\operatorname{GOTO}(\mathcal{S_2}, c) = \mathcal{S_3}$. 
 
-This $\operatorname{GOTO}$ function is exactly the same one we talked about in [LR Parsing #2: Encoding of LR(0) Parsing DFA](/compiler/2025/07/18/lr-parsing-2-encoding-of-lr0-parsing-dfa).
+This $\operatorname{GOTO}$ function is exactly the same one we talked about in [LR Parsing #2: Structural Encoding of LR(0) Parsing DFA](/compiler/2025/07/18/lr-parsing-2-structural-encoding-of-lr0-parsing-dfa).
 {: .notice--info}
 
 **In reality, we organize all values of these 2 functions into a parsing table.** Note that, no matter whether it's an $LR(0)$, $SLR(1)$, or $LR(1)$ parser, **the structure of their parsing tables is the same; the difference lies in how the tables are constructed.** We will talk about the construction of parsing tables in our next post.
@@ -144,7 +144,7 @@ $$
 \big[ (\_, \mathcal{S_0}), (A, \mathcal{S_4}) \big] \mid d e
 $$
 
-I found Knuth's Parsing Table easier to understand, partly because of its consistency with the $\operatorname{GOTO}$ function we talked about in [LR Parsing #2: Encoding of LR(0) Parsing DFA](/compiler/2025/07/18/lr-parsing-2-encoding-of-lr0-parsing-dfa). Modern parsing tables use a compact notation like _shift3_, meaning a _shift_ action together with a go-to state $3$.
+I found Knuth's Parsing Table easier to understand, partly because of its consistency with the $\operatorname{GOTO}$ function we talked about in [LR Parsing #2: Structural Encoding of LR(0) Parsing DFA](/compiler/2025/07/18/lr-parsing-2-structural-encoding-of-lr0-parsing-dfa). Modern parsing tables use a compact notation like _shift3_, meaning a _shift_ action together with a go-to state $3$.
 {: .notice--info}
 
 # 5. Pseudo Code
