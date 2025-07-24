@@ -69,7 +69,7 @@ In `_includes/mermaid.html`, configuration goes like:
 Note that: 
 
 - You may find many articles/LLMs recommend using `mermaid.init()`, but this method is already [deprecated](https://mermaid.js.org/config/usage.html#calling-mermaid-init-deprecated) in Mermaid.js v10.
-- Instead you should call `mermaid.run()` on every `<pre class="language-mermaid">` tag, which is translated directly from a respective `` ```mermaid``-marked Markdown code block. See [doc](https://mermaid.js.org/config/usage.html#using-mermaid-run).
+- Instead you should call `mermaid.run()` on every `<pre class="language-mermaid">` tag, which is translated directly from a respective <code>```mermaid</code>-marked Markdown code block. See [doc](https://mermaid.js.org/config/usage.html#using-mermaid-run).
 
 The whole picture of the configuration is like:
 
