@@ -25,6 +25,9 @@ where "single" is my default layout for posts.
 
 [_includes/head/custom.html](https://github.com/mmistakes/minimal-mistakes/blob/master/_includes/head/custom.html) is a simple blank page, so once you check it out into your own repo, you don't have to worry about syncing with Minimal Mistakes.
 
+[_includes/footer/custom.html](https://github.com/mmistakes/minimal-mistakes/blob/master/_includes/footer/custom.html) is another good option.
+{: .notice--info}
+
 # how to config
 
 In my own [_includes/head/custom.html](https://github.com/erikyao/erikyao.github.io/blob/master/_includes/head/custom.html) I added:
@@ -44,7 +47,12 @@ In `_includes/mermaid.html`, configuration goes like:
 
 ```js
 <script type="module">
-    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11.6.0/+esm'
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@latest/dist/mermaid.esm.min.mjs"
+    import elkLayouts from "https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@latest/dist/mermaid-layout-elk.esm.min.mjs"
+
+    // register ELK
+    mermaid.registerLayoutLoaders(elkLayouts)
+
     let config = { 
         startOnLoad: true,
         
@@ -82,3 +90,59 @@ flowchart LR
     E --> F@{ shape: braces, label: '&lt;script type="module"&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;import mermaid ...<br/>&lt;script&gt;' }
     style F text-align:left
 ```
+
+# how to use `elk` layout algorithm
+
+Mermaid's default layout algorithm is `Dagre`, but the optional `elk` (Eclipse Layout Kernel) layout algorithm offers optimized arrangement, potentially reducing overlapping and improving readability. (Great if you want smaller graphs)
+
+Now according to [How to Select a Layout Algorithm:](https://mermaid.js.org/intro/syntax-reference.html#how-to-select-a-layout-algorithm), you can config using `elk` with YAML frontmatter right above your embedded mermaid code. E.g.
+
+```md
+---
+config:
+  layout: elk
+  look: handDrawn
+---
+flowchart TB
+  A[Start] --> B{Decision}
+  B -->|Yes| C[Continue]
+  B -->|No| D[Stop]
+```
+
+```mermaid
+---
+config:
+  layout: elk
+  look: handDrawn
+---
+flowchart TB
+  A[Start] --> B{Decision}
+  B -->|Yes| C[Continue]
+  B -->|No| D[Stop]
+```
+
+In comparison:
+
+```md
+---
+config:
+  look: handDrawn
+---
+flowchart TB
+  A[Start] --> B{Decision}
+  B -->|Yes| C[Continue]
+  B -->|No| D[Stop]
+```
+
+```mermaid
+---
+config:
+  look: handDrawn
+---
+flowchart TB
+  A[Start] --> B{Decision}
+  B -->|Yes| C[Continue]
+  B -->|No| D[Stop]
+```
+
+However, the importing of `elk` javascript module is not well documented. I found the working solution from [Issue#5969 - live editor uses layout: elk for adaptive rendering. This isn't documented anywhere](https://github.com/mermaid-js/mermaid/issues/5969#issuecomment-2645923926).
