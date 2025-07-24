@@ -10,7 +10,10 @@ mermaid: true
 
 # best place to config Mermaid.js 
 
-Thanks to Minimal Mistakes, it's [_includes/head/custom.html](https://github.com/mmistakes/minimal-mistakes/blob/master/_includes/head/custom.html). Why? See [doc](https://mmistakes.github.io/minimal-mistakes/docs/layouts/#head).
+Thanks to _Minimal Mistakes_, it's [_includes/head/custom.html](https://github.com/mmistakes/minimal-mistakes/blob/master/_includes/head/custom.html). Why? See [doc](https://mmistakes.github.io/minimal-mistakes/docs/layouts/#head).
+
+[_includes/footer/custom.html](https://github.com/mmistakes/minimal-mistakes/blob/master/_includes/footer/custom.html) is another good option.
+{: .notice--info}
 
 The inheritance and inclusion relationships between the pages involved in my case are:
 
@@ -21,12 +24,9 @@ flowchart LR
     B -->|includes| D([_includes/head/custom.html])
 ```
 
-where "single" is my default layout for posts.
+where `single` is my default layout for posts.
 
 [_includes/head/custom.html](https://github.com/mmistakes/minimal-mistakes/blob/master/_includes/head/custom.html) is a simple blank page, so once you check it out into your own repo, you don't have to worry about syncing with Minimal Mistakes.
-
-[_includes/footer/custom.html](https://github.com/mmistakes/minimal-mistakes/blob/master/_includes/footer/custom.html) is another good option.
-{: .notice--info}
 
 # how to config
 
@@ -41,7 +41,7 @@ In my own [_includes/head/custom.html](https://github.com/erikyao/erikyao.github
 which means:
 
 1. the real configuration goes into a separate `_includes/mermaid.html` ([example](https://github.com/erikyao/erikyao.github.io/blob/master/_includes/mermaid.html))
-2. only when a post has `mermaid: true` in its frontmatter, Mermaid.js is loaded for rendering
+2. only when a post has `mermaid: true` in its frontmatter, _mermaid.js_ is loaded for rendering
 
 In `_includes/mermaid.html`, configuration goes like:
 
@@ -76,7 +76,7 @@ In `_includes/mermaid.html`, configuration goes like:
 
 Note that: 
 
-- You may find many articles/LLMs recommend using `mermaid.init()`, but this method is already [deprecated](https://mermaid.js.org/config/usage.html#calling-mermaid-init-deprecated) in Mermaid.js v10.
+- You may find many articles/LLMs recommend using `mermaid.init()`, but this method is already [deprecated](https://mermaid.js.org/config/usage.html#calling-mermaid-init-deprecated) in _mermaid.js v10_.
 - Instead you should call `mermaid.run()` on every `<pre class="language-mermaid">` tag, which is translated directly from a respective <code>```mermaid</code>-marked Markdown code block. See [doc](https://mermaid.js.org/config/usage.html#using-mermaid-run).
 
 The whole picture of the configuration is like:
@@ -93,9 +93,9 @@ flowchart LR
 
 # how to use `elk` layout algorithm
 
-Mermaid's default layout algorithm is `Dagre`, but the optional `elk` (Eclipse Layout Kernel) layout algorithm offers optimized arrangement, potentially reducing overlapping and improving readability. (Great if you want smaller graphs)
+_mermaid.js_' default layout algorithm is `Dagre`, but the optional `elk` (Eclipse Layout Kernel) layout algorithm offers optimized arrangement, potentially reducing overlapping and improving readability. (Great if you want smaller graphs.)
 
-Now according to [How to Select a Layout Algorithm:](https://mermaid.js.org/intro/syntax-reference.html#how-to-select-a-layout-algorithm), you can config using `elk` with YAML frontmatter right above your embedded mermaid code. E.g.
+Now according to [How to Select a Layout Algorithm](https://mermaid.js.org/intro/syntax-reference.html#how-to-select-a-layout-algorithm), you can config using `elk` (and some other styling) with YAML frontmatter right above your embedded mermaid code. E.g.
 
 ```md
 ---
@@ -124,10 +124,6 @@ flowchart TB
 In comparison:
 
 ```md
----
-config:
-  look: handDrawn
----
 flowchart TB
   A[Start] --> B{Decision}
   B -->|Yes| C[Continue]
@@ -135,10 +131,6 @@ flowchart TB
 ```
 
 ```mermaid
----
-config:
-  look: handDrawn
----
 flowchart TB
   A[Start] --> B{Decision}
   B -->|Yes| C[Continue]
