@@ -162,7 +162,7 @@ Additionally, you can also consider $LR$ parsing as:
 
 $$
 \Big[ \;
-    \Big( \begin{array}{c} \_ \newline \mathcal{S_0} \end{array} \Big)
+    \Big( \begin{array}{c} \_ \newline \textcolor{LimeGreen}{\mathcal{S_0}} \end{array} \Big)
    
     \overbrace{
         \underbrace{
