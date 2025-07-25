@@ -171,6 +171,7 @@ $$
         }_{\textcolor{LimeGreen}{\text{rightmost inside stack}}}
     }^{\textcolor{magenta}{\text{leftmost of input}}}
 \Big]
+\Big\vert
 \begin{array}{ll} \textcolor{magenta}{d} \newline \text{} \end{array} 
 \begin{array}{ll} \textcolor{magenta}{e} \newline \text{} \end{array}
 $$
