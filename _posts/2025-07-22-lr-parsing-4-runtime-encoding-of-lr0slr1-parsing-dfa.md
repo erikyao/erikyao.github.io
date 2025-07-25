@@ -112,6 +112,7 @@ S -> a    // production 3
 ---
 config:
   layout: elk
+  look: handDrawn
 ---
 flowchart LR
     subgraph I0["State#0"]
@@ -131,7 +132,7 @@ flowchart LR
 
     subgraph I2["State#2"]
         direction TB
-        H["$$S \to \cdot a$$"]
+        H["$$S \to a S \cdot $$"]
     end
 
     subgraph I3["State#3"]
@@ -139,9 +140,110 @@ flowchart LR
         I["$$S' \to S \cdot$$"]
     end
 
-    I0 -->|$$a$$| I1  -->|$$S$$| I2
+    I0 -->|$$a$$| I1 -->|$$S$$| I2
     I0 -->|$$S$$| I3
     I1 -->|$$a$$| I1
 
     style I3 color:#f66
 ```
+
+"State#3" in red font represents the accept state.
+{: .notice--info}
+
+If we construct a $LR(0)$ parsing table for the grammar, we'll get:
+
+|State#|ACTION               |           |GOTO|    |
+|------|---------------------|-----------|----|----|
+|      | $a$                 | $\Finv$   | $a$| $S$|
+|$0$   | _shift_             |           |$1$ |$3$ |
+|$1$   | _shift_ / _reduce 3_| _reduce 3_|$1$ |$2$ |
+|$2$   | _reduce 2_          | _reduce 2_|    |    |
+|$3$   |                     | _accept_  |    |    |
+
+The conflict at $T_{\operatorname{ACTION}}(I_1, a)$ is a dedilemmalima at such a configuration:
+
+$$
+\big[ (\_, I_0), (a, I_1) \big] \mid a
+$$
+
+- you can either _shift_ the input $a$
+- or _reduce_ the current $a$ on stack top
+
+If we construct a $SLR(1)$ parsing table for the grammar, we'll get:
+
+|State#|ACTION      |           |GOTO|    |
+|------|------------|-----------|----|----|
+|      | $a$        | $\Finv$   | $a$| $S$|
+|$0$   | _shift_    |           |$1$ |$3$ |
+|$1$   | _shift_    | _reduce 3_|$1$ |$2$ |
+|$2$   | _reduce 2_ | _reduce 2_|    |    |
+|$3$   |            | _accept_  |    |    |
+
+since $\operatorname{FOLLOW}(S) = \lbrace \Finv \rbrace$ and therefore for the $I_0$ row, only $T_{\operatorname{ACTION}}(I_1, \Finv)$ is marked _reduce_.
+
+It means at the same configuration:
+
+$$
+\big[ (\_, I_0), (a, I_1) \big] \mid a
+$$
+
+$SLR(1)$ will prefer _shifting_ in a new $a$ over _reducing_ the current $a$ on stack top.
+
+# 5. Digression: Different Representation of DFA and Parsing Table
+
+[ComVis](https://comvis.pr.ac.rs/lr0-parser.jsp) will represent our DFA as:
+
+```mermaid
+---
+config:
+  layout: elk
+  look: handDrawn
+---
+flowchart LR
+    subgraph I0["State#0"]
+        direction TB
+        A["$$S' \to \cdot S$$"]
+        B["$$S \to \cdot aS$$"]
+        C["$$S \to \cdot a$$"]
+    end
+
+    subgraph I1["State#1"]
+        direction TB
+        D["$$S \to a \cdot S$$"]
+        E["$$S \to a \cdot$$"]
+        F["$$S \to \cdot aS$$"]
+        G["$$S \to \cdot a$$"]
+    end
+
+    subgraph I2["State#2"]
+        direction TB
+        H["$$S \to a S \cdot $$"]
+    end
+
+    subgraph I3["State#3"]
+        direction TB
+        I["$$S' \to S \cdot \Finv$$"]
+    end
+
+    subgraph I4["State#4"]
+        direction TB
+        J["$$S' \to S \Finv \cdot$$"]
+    end
+
+    I0 -->|$$a$$| I1 -->|$$S$$| I2
+    I0 -->|$$S$$| I3 -->|$$\Finv$$| I4
+    I1 -->|$$a$$| I1
+
+    style I4 color:#f66
+```
+
+and the corresponding $SLR(1)$ parsing table would be like:
+
+|State#|ACTION      |           |GOTO|
+|------|------------|-----------|----|
+|      | $a$        | $\Finv$   | $S$|
+|$0$   | _shift 1_  |           | $3$|
+|$1$   | _shift 1_  | _reduce 3_|$2$ |
+|$2$   | _reduce 2_ | _reduce 2_|    |
+|$3$   |            | _shift 4_ |    |
+|$4$   | _accept_   | _accept_  |    |
