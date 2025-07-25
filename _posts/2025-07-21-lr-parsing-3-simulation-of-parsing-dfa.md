@@ -147,7 +147,35 @@ $$
 I found Knuth's Parsing Table easier to understand, partly because of its consistency with the $\operatorname{GOTO}$ function we talked about in [LR Parsing #2: Structural Encoding of LR(0) Parsing DFA](/compiler/2025/07/18/lr-parsing-2-structural-encoding-of-lr0-parsing-dfa). Modern parsing tables use a compact notation like _shift3_, meaning a _shift_ action together with a go-to state $3$.
 {: .notice--info}
 
-# 5. Pseudo Code
+# 5. What does $LR$ mean?
+
+- $L$: the input string is processed $\text{Left}$ to right
+- $R$: the whole parsing process is a $\text{Rightmost}$ derivation in reverse
+
+I don't think the $R$ part intuitive enough.
+{: .notice--info}
+
+Additionally, you can also consider $LR$ parsing as:
+
+- from a global perspective, always doing <span style="color:magenta">leftmost</span> reduction on the input string
+- from a local perspective, always doing <span style="color:LimeGreen">rightmost</span> reduction inside the stack
+
+$$
+\Big[ 
+    \Big( \begin{array}{ll} \_ \newline \mathcal{S_0} \end{array} \Big)
+    \overbrace{
+        \underbrace{
+            \Big( \begin{array}{ll} \textcolor{magenta}{a} \newline \textcolor{LimeGreen}{\mathcal{S_1}} \end{array} \Big)
+            \Big( \begin{array}{ll} \textcolor{magenta}{b} \newline \textcolor{LimeGreen}{\mathcal{S_2}} \end{array} \Big)
+            \Big( \begin{array}{ll} \textcolor{magenta}{c} \newline \textcolor{LimeGreen}{\mathcal{S_3}} \end{array} \Big)
+        }_{\textcolor{LimeGreen}{\text{rightmost inside stack}}}
+    }^{\textcolor{magenta}{\text{leftmost of input}}}
+\Big]
+\begin{array}{ll} \textcolor{magenta}{d} \newline \text{} \end{array} 
+\begin{array}{ll} \textcolor{magenta}{e} \newline \text{} \end{array}
+$$
+
+# 6. Pseudo Code
 
 Suppose:
 
