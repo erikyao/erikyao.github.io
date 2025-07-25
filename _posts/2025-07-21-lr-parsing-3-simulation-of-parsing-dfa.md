@@ -158,7 +158,7 @@ I don't think the $R$ part intuitive enough.
 Additionally, you can also consider $LR$ parsing as:
 
 - from a global perspective, always doing <span style="color:magenta">leftmost</span> reduction on the input string
-- from a local perspective, always doing <span style="color:LimeGreen">rightmost</span> reduction inside the stack
+- from a local perspective, always doing <span style="color:YellowGreen">rightmost</span> reduction inside the stack
 
 $$
 \Big[ 
