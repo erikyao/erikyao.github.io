@@ -161,20 +161,24 @@ Additionally, you can also consider $LR$ parsing as:
 - from a local perspective, always doing <span style="color:YellowGreen">rightmost</span> reduction inside the stack
 
 $$
-\Big[ 
-    \Big( \begin{array}{ll} \_ \newline \mathcal{S_0} \end{array} \Big)
+\Big[ \;
+    \Big( \begin{array}{c} \_ \newline \mathcal{S_0} \end{array} \Big)
+   
     \overbrace{
         \underbrace{
-            \Big( \begin{array}{ll} \textcolor{magenta}{a} \newline \textcolor{LimeGreen}{\mathcal{S_1}} \end{array} \Big)
-            \Big( \begin{array}{ll} \textcolor{magenta}{b} \newline \textcolor{LimeGreen}{\mathcal{S_2}} \end{array} \Big)
-            \Big( \begin{array}{ll} \textcolor{magenta}{c} \newline \textcolor{LimeGreen}{\mathcal{S_3}} \end{array} \Big)
+            \Big( \begin{array}{c} \textcolor{magenta}{a} \newline \textcolor{LimeGreen}{\mathcal{S_1}} \end{array} \Big)
+            \Big( \begin{array}{c} \textcolor{magenta}{b} \newline \textcolor{LimeGreen}{\mathcal{S_2}} \end{array} \Big)
+            \Big( \begin{array}{c} \textcolor{magenta}{c} \newline \textcolor{LimeGreen}{\mathcal{S_3}} \end{array} \Big)
         }_{\textcolor{LimeGreen}{\text{rightmost inside stack}}}
     }^{\textcolor{magenta}{\text{leftmost of input}}}
-\Big]
-\Big\vert
-\begin{array}{ll} \textcolor{magenta}{d} \newline \text{ } \end{array} 
-\begin{array}{ll} \textcolor{magenta}{e} \newline \text{ } \end{array}
+    
+\; \Big]
+\; \Big \vert \;
+\begin{array}{c} \textcolor{magenta}{d} \newline \text{ } \end{array} \;
+\begin{array}{c} \textcolor{magenta}{e} \newline \text{ } \end{array}
 $$
+
+
 
 # 6. Pseudo Code
 
