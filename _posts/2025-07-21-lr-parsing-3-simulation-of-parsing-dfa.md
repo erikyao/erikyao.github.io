@@ -162,18 +162,18 @@ Additionally, you can also consider $LR$ parsing as:
 
 $$
 \Big[ 
-    \Big( \begin{array}{cc} \_ \newline \mathcal{S_0} \end{array} \Big)
+    \Big( \begin{array}{ll} \_ \newline \mathcal{S_0} \end{array} \Big)
     \overbrace{
         \underbrace{
-            \Big( \begin{array}{cc} \textcolor{magenta}{a} \newline \textcolor{LimeGreen}{\mathcal{S_1}} \end{array} \Big)
-            \Big( \begin{array}{cc} \textcolor{magenta}{b} \newline \textcolor{LimeGreen}{\mathcal{S_2}} \end{array} \Big)
-            \Big( \begin{array}{cc} \textcolor{magenta}{c} \newline \textcolor{LimeGreen}{\mathcal{S_3}} \end{array} \Big)
+            \Big( \begin{array}{ll} \textcolor{magenta}{a} \newline \textcolor{LimeGreen}{\mathcal{S_1}} \end{array} \Big)
+            \Big( \begin{array}{ll} \textcolor{magenta}{b} \newline \textcolor{LimeGreen}{\mathcal{S_2}} \end{array} \Big)
+            \Big( \begin{array}{ll} \textcolor{magenta}{c} \newline \textcolor{LimeGreen}{\mathcal{S_3}} \end{array} \Big)
         }_{\textcolor{LimeGreen}{\text{rightmost inside stack}}}
     }^{\textcolor{magenta}{\text{leftmost of input}}}
 \Big]
 \Big\vert
-\begin{array}{cc} \textcolor{magenta}{d} \newline \text{} \end{array} 
-\begin{array}{cc} \textcolor{magenta}{e} \newline \text{} \end{array}
+\begin{array}{ll} \textcolor{magenta}{d} \newline \text{ } \end{array} 
+\begin{array}{ll} \textcolor{magenta}{e} \newline \text{ } \end{array}
 $$
 
 # 6. Pseudo Code
