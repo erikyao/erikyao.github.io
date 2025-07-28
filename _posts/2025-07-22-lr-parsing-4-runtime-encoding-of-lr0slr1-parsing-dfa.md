@@ -37,7 +37,7 @@ $\forall I_i \in C$, fill the $LR(0)$ parsing table following the rules below:
 |   |                                                                        | mark $T_{\operatorname{GOTO}}[i, a] = j$                                          |
 | 2 |if $\exists A \in V$ such that $\operatorname{GOTO}(I_i, A) = I_j$      | mark $T_{\operatorname{GOTO}}[i, A] = j$                                          |
 | 3 |if $\exists [S' \to S \cdot] \in I_i$                                   | mark $T_{\operatorname{ACTION}}[i, \Finv] = \text{"accept"}$                      |
-| 4 |if $\exists [A \to a \cdot] \in I_i$, $A \neq S'$, and $A \to a$ is production $k$   | $\forall e \in \Sigma \cup \lbrace \Finv \rbrace$, mark $T_{\operatorname{ACTION}}[i, e] = \text{"reduce k"}$|
+| 4 |if $\exists [A \to \alpha \cdot] \in I_i$, $A \neq S'$, and $A \to \alpha$ is production $k$   | $\forall e \in \Sigma \cup \lbrace \Finv \rbrace$, mark $T_{\operatorname{ACTION}}[i, e] = \text{"reduce k"}$|
 
 All entries not marked by the procedure can be considered $\text{"error"}$, and indicate that the input string is not accepted by the grammar.
 {: .notice--info}
@@ -81,7 +81,7 @@ $SLR(1)$ differs with $LR(0)$ on Rule 4. For $SLR(1)$, we have:
 
 | **Rule** |**Condition**                                               |**Table Construction**                                                          |
 |---|------------------------------------------------------------|---------------------------------------------------------------------------------------|
-| 4 |if $\exists [A \to a \cdot] \in I_i$, and $A \to a$ is production $k$   | $\forall e \in \operatorname{FOLLOW}(A)$, mark $T_{\operatorname{ACTION}}[i, e] = \text{"reduce k"}$|
+| 4 |if $\exists [A \to \alpha \cdot] \in I_i$, and $A \to \alpha$ is production $k$   | $\forall e \in \operatorname{FOLLOW}(A)$, mark $T_{\operatorname{ACTION}}[i, e] = \text{"reduce k"}$|
 
 # 3. Shift-Reduce Conflicts
 
