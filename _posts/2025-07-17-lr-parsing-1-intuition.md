@@ -61,7 +61,6 @@ Xj(("$$X_{j}$$")) --> Y(($$Y$$))
 Xj1(("$$X_{j+1}$$")) --> Y
 D(($$\cdots$$)) --> Y
 Xk(("$$X_{k}$$")) --> Y
-
 ```
 
 exists in the parse tree, for some $j$ and $Y$, and then such a string $X_j X_{j+1} \cdots X_k$ is a handle. $\blacksquare$
@@ -75,6 +74,9 @@ exists in the parse tree, for some $j$ and $Y$, and then such a string $X_j X_{j
 Knuth 还额外补充道：
 
 > The reader may easily verify, in fact, that "handle pruning" always produces, in reverse, the derivation obtained by replacing the *rightmost* intermediate character at each step, and this may be regarded as an alternative way to define the concept of handle. During the pruning process, all leaves to the right of the handle are terminals, if we begin with all terminal leaves.
+
+Bottom-up parsing 也可以被视为一个 “识别 handle、确认 handle” 的过程。
+{: .notice--info}
  
 # Clue 2️⃣: Array Buffer for Pruning => Stack
 
