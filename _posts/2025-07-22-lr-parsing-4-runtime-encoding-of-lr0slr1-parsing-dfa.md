@@ -87,9 +87,12 @@ $SLR(1)$ differs with $LR(0)$ on Rule 4. For $SLR(1)$, we have:
 
 $T_{\operatorname{GOTO}}$ is impossible to have conflicts.
 
-$T_{\operatorname{ACTION}}$ may have shift-reduce conflicts, i.e. one entry $T_{\operatorname{ACTION}}(I_i, a)$ may have two values, a $\text{"shift"}$ and a $\text{"reduce k"}$.
+$T_{\operatorname{ACTION}}$ may have conflicts, the most common being _shift-reduce_ conflicts, i.e. one entry $T_{\operatorname{ACTION}}(I_i, a)$ may have two values, a $\text{"shift"}$ and a $\text{"reduce k"}$.
 
-It's impossible to have other types of conflicts in $T_{\operatorname{ACTION}}$.
+It's impossible to have _shift-shift_ conflicts in $T_{\operatorname{ACTION}}$.
+{: .notice--info}
+
+_Reduce-reduce_ conflicts are possible but kinda rare. E.g. when you grammar has both $A \to a$ and $B \to a$, how do you reduce $a \rhd ?$
 {: .notice--info}
 
 **Theorem:** If any conflicting actions result from $LR(0)$ parsing table construction, we say the grammar is not $LR(0)$. $\blacksquare$
