@@ -166,8 +166,8 @@ $$
 \big[ (\_, I_0), (a, I_1) \big] \mid a
 $$
 
-- you can either _shift_ the input $a$
-- or _reduce_ the current $a$ on stack top
+- you can either _shift_ the input $a$ (according to $[S \to \cdot a S]$)
+- or _reduce_ the current $a$ on stack top (according to $[S \to \cdot a]$)
 
 If we construct a $SLR(1)$ parsing table for the grammar, we'll get:
 
