@@ -138,3 +138,48 @@ flowchart TB
 ```
 
 However, the importing of `elk` javascript module is not well documented. I found the working solution from [Issue#5969 - live editor uses layout: elk for adaptive rendering. This isn't documented anywhere](https://github.com/mermaid-js/mermaid/issues/5969#issuecomment-2645923926).
+
+# rendering issue under Safari
+
+Safari's module loader is more sensitive to timing issues. The interaction between `startOnLoad` and manual initialization may create race conditions that Safari handles less gracefully.
+
+A workaround is to wrap the initialization code into a IIFE (Immediately Invoked Function Expression), and add `document` ready state check:
+
+```js
+<script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@latest/dist/mermaid.esm.min.mjs"
+    import elkLayouts from "https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@latest/dist/mermaid-layout-elk.esm.min.mjs"
+    (async () => {
+        // register ELK
+        mermaid.registerLayoutLoaders(elkLayouts)
+
+        let config = { 
+            startOnLoad: false,
+            theme: "neutral",
+            themeVariables: {
+                nodeBorder: '#FF6B6B',  // Red border for nodes
+                fontSize: '1em',  // Default is 16px
+                fontFamily: 'Menlo, Consolas, Monaco, "Ubuntu Mono", monospace'
+            },
+            flowchart: { 
+                useMaxWidth: true,  // Respect container width
+                htmlLabels: true  // Enable HTML in node labels (for formatting)
+            } 
+        };
+
+        mermaid.initialize(config);
+        
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', async () => {
+                await mermaid.run({
+                    nodes: document.querySelectorAll('.language-mermaid'),
+                });
+            });
+        } else {
+            await mermaid.run({
+                nodes: document.querySelectorAll('.language-mermaid'),
+            });
+        }
+    })();
+</script>
+```
