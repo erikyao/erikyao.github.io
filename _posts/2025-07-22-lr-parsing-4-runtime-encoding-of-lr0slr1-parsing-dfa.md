@@ -81,7 +81,7 @@ $SLR(1)$ differs with $LR(0)$ on Rule 4. For $SLR(1)$, we have:
 
 | **Rule** |**Condition**                                               |**Table Construction**                                                          |
 |---|------------------------------------------------------------|---------------------------------------------------------------------------------------|
-| 4 |if $\exists [A \to \alpha \cdot] \in I_i$, and $A \to \alpha$ is production $k$   | $\forall e \in \operatorname{FOLLOW}(A)$, mark $T_{\operatorname{ACTION}}[i, e] = \text{"reduce k"}$|
+| 4 |if $\exists [A \to \alpha \cdot] \in I_i$, $A \neq S'$, and $A \to \alpha$ is production $k$   | $\forall e \in \operatorname{FOLLOW}(A)$, mark $T_{\operatorname{ACTION}}[i, e] = \text{"reduce k"}$|
 
 # 3. Shift-Reduce Conflicts
 
