@@ -160,7 +160,7 @@ If we construct a $LR(0)$ parsing table for the grammar, we'll get:
 |$2$   | _reduce 2_          | _reduce 2_|    |    |
 |$3$   |                     | _accept_  |    |    |
 
-The conflict at $T_{\operatorname{ACTION}}(I_1, a)$ is a dedilemmalima at such a configuration:
+The conflict at $T_{\operatorname{ACTION}}(I_1, a)$ is a dilemma at such a configuration:
 
 $$
 \big[ (\_, I_0), (a, I_1) \big] \mid a
