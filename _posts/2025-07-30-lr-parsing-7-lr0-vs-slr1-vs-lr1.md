@@ -311,13 +311,21 @@ In this way, we can consider $\forall A \in V$:
 2. $SLR(1)$ as having a narrower range of lookaheads, i.e. $\operatorname{LA}(A) = \operatorname{FOLLOW}(A)$
 3. $LR(1)$ as having the narrowest range of lookaheads, i.e. $\operatorname{LA}(A) \subseteq \operatorname{FOLLOW}(A)$
 
-# 3. Propagation of Lookaheads
+# 3. Digression: Propagation of Lookaheads
 
 从 [$\operatorname{GOTO}^{(1)}$](/compiler/2025/07/27/lr-parsing-6-upgrade-to-lr1#13-operatornamegoto1-rightarrow-natural-extension-of-lr0s-operatornamegoto) 的定义可以看出，lookahead 对 transition 没有任何的影响，它更像是 transition 中 carry-on 的信息：transition 你得把它带上，但是不需要用它。
 
 lookahead 的作用更集中在 transition chain 的头和尾：initializing closure 和 determining reduction. 而 initializing 的源头又在于 $[S' \to \cdot S, \Finv]$，所以你可以把 lookaheads 理解成 $[S' \to \cdot S, \Finv]$ 埋好的 sentinels.
 
-# 4. Beyond $LR(1)$
+# 4. The Expressive Power Perspective
+
+|Grammar |Granularity of Parsing Table Construction Rules|Possibility of Conflicts|so a conflict-free grammar must be ... structually|Expressive Power|
+|--------|-----------------------------------------------|------------------------|--------------------------------------------------|----------------|
+|$LR(0)$ | Coarse                                        | 🔴 High                | most restrictive                                 | 🟢 Low         |
+|$SLR(1)$| Medium                                        | 🟡 Medium              | medium restrictive                               | 🟡 Medium      |
+|$LR(1)$ | Fine                                          | 🟢 Low                 | least restrictive                                | 🔴 High        |
+
+# 5. Beyond $LR(1)$
 
 First of all, $LR(1)$ cannot fix [ambiguity](/compiler/2025/06/22/appetizer-2-before-parsing-cfg-disambiguation).
 
@@ -372,3 +380,4 @@ flowchart LR
     I0 -->|$$b$$| I3
     I3 -->|$$a$$| I5
 ```
+
