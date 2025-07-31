@@ -10,6 +10,9 @@ mermaid: true
 
 - Reference: [SLR and LR(1) Parsing](https://web.stanford.edu/class/archive/cs/cs143/cs143.1128/handouts/110%20LR%20and%20SLR%20Parsing.pdf)
 
+Note that an $LR(1)$ parser is often called a **canonical LR parser**. (As opposed to approximations like in $SLR$ or $LALR$? Yes. Because of Knuth is "canonical"? Also yes!)
+{: .notice--info}
+
 -----
 
 # 1. Structural Encoding
