@@ -74,7 +74,7 @@ $$
 
 # 2. $SLR(1)$ Parsing Table Construction
 
-Note that $SLR$ and $SLR(1)$ are interchangable, and there is no other $SLR(k)$ where $k \neq 1$.
+Note that $SLR$ and $SLR(1)$ are interchangable, and $SLR(k>1)$ does exist but is out of our discussion here.
 {: .notice--info}
 
 $SLR(1)$ differs with $LR(0)$ on Rule 4. For $SLR(1)$, we have:
