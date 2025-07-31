@@ -120,6 +120,8 @@ Knuth's breakthrough came from several connected realizations:
 
 # Formal Defition FYI
 
+Extra Reference: [UW CSE 401](https://courses.cs.washington.edu/courses/cse401/19au/resources.html)
+
 ## Handle
 
 **Definition:** Given a grammar $G=(V, \Sigma, S, P)$, if $S \, \underset{\text{rm}}{\overset{\ast}{\Rightarrow}} \, \alpha A w \underset{\text{rm}}{\Rightarrow} \alpha \beta w$, then **from the perspective of $\alpha \beta w$**, the pair $(A \to \beta, i)$ is a **handle** of it, where:
