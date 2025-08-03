@@ -71,7 +71,7 @@ $$
 \begin{align}
 &\text{// compute the GOTO item set } J \text{ of item set } I \text{ on symbol } X \qquad \newline 
 &\textbf{procedure } \mathrm{GOTO}(I:\text{Set[Item]}, X \in V \cup \Sigma) \text{ -> Set[Item]:} \nonumber \qquad \newline 
-& \qquad J = \lbrace \rbrace \qquad \newline
+& \qquad J = \varnothing \qquad \newline
 & \qquad \text{// dot must preceed } X \text{ and } X \text{ must exist in position}\qquad \newline 
 & \qquad \text{for each item } [A \rightarrow \alpha \cdot X \beta] \in I \text{: } \qquad \newline 
 & \qquad\qquad J\text{. add(} [A \rightarrow \alpha X \cdot \beta] \text{)} \qquad \newline 
