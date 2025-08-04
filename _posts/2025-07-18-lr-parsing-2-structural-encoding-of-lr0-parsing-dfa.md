@@ -56,7 +56,7 @@ $$
 & \qquad \text{repeat until } I' \text{ is not changed} \text{: }\qquad \newline 
 & \qquad\qquad\text{for each item } [A \rightarrow \alpha \cdot B \beta] \in I' \text{: } \qquad \newline  
 & \qquad\qquad\qquad \text{if } \exists (B \rightarrow \gamma) \in P \text{: } \qquad \newline 
-& \qquad\qquad\qquad\qquad I'\text{.add(} [B \rightarrow \cdot \gamma] \text{)} \qquad \newline 
+& \qquad\qquad\qquad\qquad I'\text{.add}([B \rightarrow \cdot \gamma]) \qquad \newline 
 & \qquad \text{return } I'
 \end{align}
 $$
@@ -74,7 +74,7 @@ $$
 & \qquad J = \varnothing \qquad \newline
 & \qquad \text{// dot must preceed } X \text{ and } X \text{ must exist in position}\qquad \newline 
 & \qquad \text{for each item } [A \rightarrow \alpha \cdot X \beta] \in I \text{: } \qquad \newline 
-& \qquad\qquad J\text{. add(} [A \rightarrow \alpha X \cdot \beta] \text{)} \qquad \newline 
+& \qquad\qquad J\text{. add}([A \rightarrow \alpha X \cdot \beta]) \qquad \newline 
 & \qquad \text{return } \operatorname{CLOSURE}(J)
 \end{align}
 $$
@@ -96,7 +96,7 @@ $$
 & \qquad\qquad\qquad \text{for each symbol } X \text{: } \qquad \newline
 & \qquad\qquad\qquad\qquad J = \operatorname{GOTO}(I, X) \qquad \newline
 & \qquad\qquad\qquad\qquad \text{if } J \neq \varnothing \text{: } \qquad \newline 
-& \qquad\qquad\qquad\qquad\qquad C\text{. add(} J \text{)} \qquad \newline 
+& \qquad\qquad\qquad\qquad\qquad C\text{. add}(J) \qquad \newline 
 & \qquad \text{return } C
 \end{align}
 $$

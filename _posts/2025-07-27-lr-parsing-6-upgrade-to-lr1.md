@@ -38,7 +38,7 @@ $$
 & \qquad\qquad\text{for each item } [A \rightarrow \underline\alpha \cdot B \underline\beta, a] \in I' \text{: } \qquad \newline  
 & \qquad\qquad\qquad \text{if } \exists (B \rightarrow \underline\gamma) \in P \text{: } \qquad \newline 
 & \qquad\qquad\qquad\qquad \text{for each terminal } b \in \operatorname{FIRST}(\underline\beta a) \text{:  // a new for-loop!} \qquad \newline 
-& \qquad\qquad\qquad\qquad\qquad I'\text{.add(} [B \rightarrow \cdot \underline\gamma, b] \text{)} \qquad \newline 
+& \qquad\qquad\qquad\qquad\qquad I'\text{.add}([B \rightarrow \cdot \underline\gamma, b]) \qquad \newline 
 & \qquad \text{return } I'
 \end{align}
 $$
@@ -63,7 +63,7 @@ $$
 & \qquad J = \varnothing \qquad \newline
 & \qquad \text{// dot must preceed } X \text{ and } X \text{ must exist in position}\qquad \newline 
 & \qquad \text{for each item } [A \rightarrow \underline\alpha \cdot X \underline\beta, a] \in I \text{: } \qquad \newline 
-& \qquad\qquad J\text{. add(} [A \rightarrow \underline\alpha X \cdot \underline\beta, a] \text{)} \qquad \newline 
+& \qquad\qquad J\text{. add}([A \rightarrow \underline\alpha X \cdot \underline\beta, a]) \qquad \newline 
 & \qquad \text{return } \operatorname{CLOSURE}(J)
 \end{align}
 $$
@@ -83,7 +83,7 @@ $$
 & \qquad\qquad\qquad \text{for each symbol } X \text{: } \qquad \newline
 & \qquad\qquad\qquad\qquad J = \operatorname{GOTO}(I, X) \qquad \newline
 & \qquad\qquad\qquad\qquad \text{if } J \neq \varnothing \text{: } \qquad \newline 
-& \qquad\qquad\qquad\qquad\qquad C\text{. add(} J \text{)} \qquad \newline 
+& \qquad\qquad\qquad\qquad\qquad C\text{. add}(J) \qquad \newline 
 & \qquad \text{return } C
 \end{align}
 $$
