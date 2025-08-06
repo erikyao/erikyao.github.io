@@ -415,7 +415,7 @@ In a digraph $G = (V,E)$, a _**Strongly Connected Component (SCC)**_ is a maxima
 - Undirected graph 的 component 在平面上很好认，一定是一个独立且完整的 subgraph，比如一整段的 path 或是一整个 cycle
 - SCC 则不同，独立的一整段 path 或是一个 cycle 可能只有一部分是 strongly connected 的，但是这一部分也符合 SCC 的定义，也可以是 SCC
 
-We can see SCCs as equivalence classes of $~$.
+We can see SCCs as equivalence classes of $\sim$.
 
 For any digraph $G$, the strong component graph $scc(G)$ is another digraph obtained by contracting each strong component of $G$ to a single (meta-)vertex and collapsing parallel edges.
 
