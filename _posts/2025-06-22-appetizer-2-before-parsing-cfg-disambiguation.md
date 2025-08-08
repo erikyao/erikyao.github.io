@@ -8,9 +8,9 @@ toc_sticky: true
 mermaid: true
 ---
 
-# Parse Tree
+# 1. Parse Tree
 
-## Definition
+## 1.1 Definition
 
 <div class="notice--info" markdown="1">
 **Derivation Tree is a better name**
@@ -30,7 +30,7 @@ Parse Tree 的另一个名字 -- Derivation Tree -- 明显是一个更好的名�
 
 **Definition:** **Yield (产物) or frontier** of a parse tree is the concatenated string of leaf labels (left–right).
 
-## Derivation $\iff$ Parse Tree $\mid$ Sentential Form $\iff$ Yield
+## 1.2 Derivation $\iff$ Parse Tree $\mid$ Sentential Form $\iff$ Yield
 
 **Theorem:** CFG $G$ has a derivation $A \overset{*}{\Rightarrow} \alpha$ $\iff$ $\exists$ a parse tree with root labeled $A$ and a yield of $\alpha$. $\blacksquare$
 
@@ -75,13 +75,13 @@ Therefore there exist derivation $A \overset{\ast}{\Rightarrow} X_1 X_2 \dots X_
 5. $A \overset{*}{\underset{\text{rm}}{\Rightarrow}} w$
 </div>
 
-# Ambiguity
+# 2. Ambiguity
 
-## Definition
+## 2.1 Definition
 
 **Definition:** A grammar $G = (V,T,P,S)$ is said to be **ambiguous (歧义的)** if $\exists w \in L(G)$ for which derivation $S \overset{*}{\Rightarrow} w$ two different parse trees.
 
-“判定任意给定的 CFG $G$ 是否歧义” 是一个不可判定问题。
+“判定任意给定的 CFG $G$ 是否歧义” 是一个不可判定 (undecidable) 问题。
 {: .notice--info}
 
 **Definition:** Given a language $L$, if every CFG of $L$ is ambiguous, then $L$ is **inherently ambiguous (固有歧义)**
@@ -92,7 +92,7 @@ Example: $L=\lbrace a^ib^jc^k \mid i=j \text{ or } j=k \rbrace$
 $L$ 中任何形为 $a^nb^nc^n$ 的串，总会有两棵 parse tree，所以 $L$ 是固有歧义的
 </div>
 
-## Sentential Form 与 Derivation 与 Parse Tree 的数量关系
+## 2.2 Sentential Form 与 Derivation 与 Parse Tree 的数量关系
 
 我们先区分一下 derivation:
 
@@ -174,7 +174,7 @@ flowchart LR
     T6 --- TT2
 ```
 
-## Ambiguous Grammar Example #1: arithmetic operator precedence
+## 2.3 Ambiguous Grammar Example #1: arithmetic operator precedence
 
 假设我们有这么个语法：
 
@@ -217,7 +217,7 @@ flowchart TD
     end
 ```
 
-## Ambiguous Grammar Example #2: dangling ELSE problem
+## 2.4 Ambiguous Grammar Example #2: dangling ELSE problem
 
 假设我们有这么个语法：
 
@@ -260,13 +260,25 @@ $$
 
 你写成 python 有 indent 保证，但是输入给 parser 的时候往往是 $\text{if } E_1 \text{ then if } E_2 \text{ then } \dots$ 这种 flattened 的形式。
 
-# Disambiguation
+## 2.5 Ambiguous Grammar Example #3: type/variable ambiguity in C/C++
 
-## Method #1: Rewrite the Grammar
+这个例子就很搞笑：
+
+```cpp
+// What does this mean? 
+x * y;
+```
+
+- 正常人都会认为这就是 $x \times y$ 乘法运算
+- 但如果我们前面有 `typdef ... x`，那这里是 declare 了一个 pointer `y` of type `x`
+
+# 3. Disambiguation
+
+## 3.1 Method #1: Rewrite the Grammar
 
 **有些文法的歧义性，可以通过重新设计文法来消除**。
 
-比如 [Example #1](#ambiguous-grammar-example-1-arithmetic-operator-precedence) 的文法可以修改为：
+比如 [Example #1](#23-ambiguous-grammar-example-1-arithmetic-operator-precedence) 的文法可以修改为：
 
 $$
 \begin{aligned}
@@ -290,7 +302,7 @@ flowchart TD
     T --- T2[$$T$$] --- I3[$$I$$] --- a3@{ shape: dbl-circ, label: $$a$$ }
 ```
 
-比如 [Example #2](#ambiguous-grammar-example-2-dangling-else-problem) 的文法可以修改为：
+比如 [Example #2](#24-ambiguous-grammar-example-2-dangling-else-problem) 的文法可以修改为：
 
 $$
 \begin{aligned}
@@ -303,7 +315,9 @@ $$
 \end{aligned}
 $$
 
-## Method #2: Syntactic Predicates / Alternative Precedence
+[Example #2](#24-ambiguous-grammar-example-2-dangling-else-problem) 更简单的一种解决方案就是给 `if` 加一个 explicit 的 ending mark，比如 `endif` 或是 `}`. 这也算是一种 rewrite.
+
+## 3.2 Method #2: Syntactic Predicates / Alternative Precedence
 
 指像 ANTLR 之类的有 special instructions 或者 rules 可以指定优先匹配哪个 alternative production.
 
@@ -319,3 +333,13 @@ INT: [0-9]+;
 ```
 
 当输入为 `INT + INT * INT` 时，因为 `expr '+' expr` 写在 `expr '*' expr` 前面，所以 `expr '+' expr` 的优先级更高，于是会优先匹配 `INT + INT`.
+
+## 3.3 Method #3: Lexer Hack
+
+[Lexer Hack](https://en.wikipedia.org/wiki/Lexer_hack) 是完全针对 [Example #3](#25-ambiguous-grammar-example-3-typevariable-ambiguity-in-cc) 的特殊解决方案，具体的做法就是 (参考 [LL and LR in Context: Why Parsing Tools Are Hard](https://blog.reverberate.org/2013/09/ll-and-lr-in-context-why-parsing-tools.html))：
+
+> Give the lexer access to the symbol table so it can lex a type name differently than a regular variable.
+
+这篇 blog 同时也提到：
+
+> In other words, this ambiguity is resolved according to the semantic context of the statement. People sometimes refer to this as a “context-sensitive,” (like the article [The context sensitivityof C’s grammar](https://eli.thegreenplace.net/2007/11/24/the-context-sensitivity-of-cs-grammar/)), but context-sensitive grammar is a very specific term that has a mathematical meaning in the Chomsky hierarchy of languages.
