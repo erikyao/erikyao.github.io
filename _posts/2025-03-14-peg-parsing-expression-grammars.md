@@ -7,6 +7,8 @@ toc: true
 toc_sticky: true
 ---
 
+# -1: 写在前面
+
 本文是 [Parsing Expression Grammars: A Recognition-Based Syntactic Foundation](https://pdos.csail.mit.edu/~baford/packrat/popl04/) by Bryan Ford@MIT 的读文笔记。这篇论文佶屈聱牙，我这里用人话总结一下。
 
 另外涉及 TS/TDPL and gTS/GTDPL 的部分这里直接略过，我暂时用不上。这几个缩写的混乱程度一看就知不好惹：
@@ -20,6 +22,18 @@ toc_sticky: true
 PEG parser 代码可以参考我自己的 [toy_peg_parser](https://github.com/erikyao/toy_peg_parser).
 
 Another reference implementation is [MyTeenyTinyCompiler/parse.py](https://github.com/erikyao/MyTeenyTinyCompiler/blob/main/parse.py), which is inspired by [Let's make a Teeny Tiny compiler](https://austinhenley.com/blog/teenytinycompiler1.html) by [Austin Z. Henley](https://austinhenley.com/blog.html).
+
+# 0. Abstract
+
+The main ideas of PEGs:
+
+- **Solving Ambiguity: PEGs inherently prevent ambiguity by design**.
+- **Recognition-Based Nature:** While generative grammars define a language by generating its strings, a recognition-based system like PEGs defines a language through rules or predicates that determine whether a given string is part of the language.
+- **Linear-Time Parsing:** A linear-time parser can be built for any PEG.
+- **Unified Language Definition:** PEGs allow for a unified description of both lexical and hierarchical syntax within a single grammar.
+    - This is a fancy way of saying: **PEGs are stylistically similar to CFGs with RE-like features**.
+- **Expressiveness:** PEGs can express all deterministic $LR(k)$ languages and many others, including some non-context-free languages.
+- **Backtracking:** The parsing mechanism for PEGs involves backtracking.
 
 # 1. The Chomsky Hierarchy is Generative
 
@@ -40,21 +54,23 @@ Another reference implementation is [MyTeenyTinyCompiler/parse.py](https://githu
 
 一般的解决方法有两种 (可以参考 [Appetizer #2 Before Parsing: CFG Disambiguation](/compiler/2025/06/22/appetizer-2-before-parsing-cfg-disambiguation))：
 
-1. rewrite your CFG and make it unambiguous
-2. 使用人为的 rules 去规定 parsing 的行为
+1. **rewrite** your CFG and make it unambiguous
+2. **meta-rules**, i.e. 使用人为的 rules 去规定 parsing 的行为
 
-使用第二种方法一般是出于迫不得已，比如：(1) rewrite 的工作量太大；(2) 存在 rewrite 也无法解决的情况 (比如 inherently ambiguous)。且 rewrite 有一个后果就是：你这么搞了以后，你的 grammar 理论上就不再是一个合法的 CFG 了。
+使用 meta-rules 一般是出于迫不得已，比如：(1) rewrite 的工作量太大；(2) 存在 rewrite 也无法解决的情况 (比如 inherently ambiguous)。但 meta-rules 有一个后果就是：你这么搞了以后，你的 grammar 理论上就不再是一个合法的 CFG 了。
 
-> Many sensible syntactic constructs are inherently ambiguous when expressed in a CFG, commonly leading language designers to abandon syntactic formality and rely on informal metarules to solve these problems.
+> Many sensible syntactic constructs are inherently ambiguous when expressed in a CFG, commonly leading language designers to abandon syntactic formality and rely on informal meta-rules to solve these problems.
 
 上面 4 个例子的解决方案是：
 
 1. workaround: 写成 `vector<vector<float> > MyMatrix;`，加一个空格；或者用 PEG 写法
 2. rewrite
 3. an informal meta-rule that such a sequence is always interpreted as a `<definition>` if possible
-4. an informal "longest match" meta-rule
+4. an informal "_longest-match_" meta-rule
 
-# 2. PEGs are (somewhat) Recognitive
+# 2. PEGs are Recognitive (to some extent) and Unambiguous (100%, by design)
+
+## 2.1 Recognitive
 
 论文的用词是 recognition-based, 我就直接用 recognitive 这个词了。
 
@@ -64,6 +80,23 @@ Another reference implementation is [MyTeenyTinyCompiler/parse.py](https://githu
 - Recognitive: $\left\lbrace w \in a^* \mid \vert w \vert \mod 2 = 0 \right\rbrace$
 
 文中直接把 PEG 称为 recognition-based, 有点不好理解，我的理解是：recognitive grammar 本意就是 "grammar $G$ can recognize sequence $w$", 所以应该要有某种 "predicate" 能直接判断出是否有 $w \in L$。但其实 PEG 只有两个 **syntactic predicates** `&e`、`!e`，其余的 production/rule 也是形如 `Definition <- Identifier LEFTARROW Expression` 这样 generative 的形式。从 grammar definition 的角度，我觉得称 PEG "有 recognitive 的成分" 是更准确的理解
+
+## 2.2 Unambiguous
+
+**PEGs are unambiguous by design.** 它有这么一些结构能解决 ambiguity 的问题：
+
+1. **Prioritized Choice Operator ($/$):** This operator explicitly tests alternative patterns in order and unconditionally uses the first successful match. This deterministic rule inherently prevents the kind of ambiguity seen in CFGs where multiple alternatives might successfully parse the same input, leading to multiple parse trees.
+2. **Greedy Repetition Operators ($?, \ast, +$):** Work like "_longest-match_" meta-rule
+3. **Syntactic Predicates ($\&e, !e$):** Enable explicit control over parsing behavior.
+
+正式的证明其实隐藏在 Section 3.3 中的一个 theorem：
+
+**Theorem:** : If $(e,x) \Rightarrow (n_1,o_1)$ and $(e,x) \Rightarrow (n_2,o_2)$, then $n_1 = n_2$
+and $o_1 = o_2$. That is, the relation $\Rightarrow_{G}$ is a function. $\blacksquare$
+
+我们先不管这些符号是什么意思。这个 theorem 的意思就是：**for any given parsing expression $e$ and input string $x$, there is only one unique outcome**.
+
+This functional property means that a PEG will always yield a single, unique parse result (or failure) for any given input, **making it inherently unambiguous**.
 
 # 3. Formal Definition of PEGs
 
@@ -236,6 +269,8 @@ Note that:
 > ... $e_S$ only needs to succeed on input string $x$ for $x$ to be included in $L(G)$; $e_S$ **need not consume all** of string $x$... This definition contrasts with TS and gTS, in which partially consumed input strings are excluded from the language and classified as _partial-acceptance failures_.
 
 **Definition:** A language $L$ over an alphabet $V_T$ is a parsing expression language (**PEL**) $\iff$ $\exists$ PEG $G$ whose language is $L$. $\blacksquare$
+
+**Theorem:** The class of PELs is closed under union, intersection, and complement. $\blacksquare$
 
 **Theorem:** The class of PELs includes (some) non-context-free languages. $\blacksquare$
 
