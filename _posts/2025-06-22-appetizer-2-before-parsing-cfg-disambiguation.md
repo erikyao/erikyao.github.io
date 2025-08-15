@@ -317,11 +317,11 @@ $$
 
 [Example #2](#24-ambiguous-grammar-example-2-dangling-else-problem) 更简单的一种解决方案就是给 `if` 加一个 explicit 的 ending mark，比如 `endif` 或是 `}`. 这也算是一种 rewrite.
 
-## 3.2 Method #2: Syntactic Predicates / Alternative Precedence
+## 3.2 Method #2: Syntactic Predicates / Alternative Precedence / Meta-Rules
 
-指像 ANTLR 之类的有 special instructions 或者 rules 可以指定优先匹配哪个 alternative production.
+指像 ANTLR 之类的有 special instructions 或者 meta-rules 可以指定优先匹配哪个 alternative production.
 
-比如 ANTLR 有 "First Written, Fist Match" 原则 (i.e. greedy choice)，比如：
+比如 ANTLR 有 _"First Written, Fist Match"_ 原则 (i.e. greedy choice)，比如：
 
 ```antlr4
 expr: expr '+' expr   # Add
