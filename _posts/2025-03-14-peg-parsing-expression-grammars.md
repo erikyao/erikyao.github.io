@@ -30,6 +30,7 @@ The main ideas of PEGs:
 - **Solving Ambiguity: PEGs inherently prevent ambiguity by design**.
 - **Recognition-Based Nature:** While generative grammars define a language by generating its strings, a recognition-based system like PEGs defines a language through rules or predicates that determine whether a given string is part of the language.
 - **Linear-Time Parsing:** A linear-time parser can be built for any PEG.
+    - This parsing algorithm is [Packrat Parsing](https://bford.info/pub/lang/packrat-icfp02.pdf)
 - **Unified Language Definition:** PEGs allow for a unified description of both lexical and hierarchical syntax within a single grammar.
     - This is a fancy way of saying: **PEGs are stylistically similar to CFGs with RE-like features**.
 - **Expressiveness:** PEGs can express all deterministic $LR(k)$ languages and many others, including some non-context-free languages.
