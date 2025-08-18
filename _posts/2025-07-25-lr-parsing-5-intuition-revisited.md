@@ -152,6 +152,9 @@ flowchart LR
 
 这也就是 parser 程序的智慧所在：**我们不需要一个完整定义的、复杂的 DPDA，我们可以用一个简单的 DFA + Stack 等效地实现 DPDA 的效果**。
 
+Related and interesting as well: [How to simulate backreferences, lookaheads, and lookbehinds in finite state automata?](https://cs.stackexchange.com/questions/2557/how-to-simulate-backreferences-lookaheads-and-lookbehinds-in-finite-state-auto)
+{: .notice--info}
+
 # 3. $LR$ Parsing DFA 的确能识别 Viable Prefixes，但需要一点改动
 
 这个改动就是把 $LR$ Parsing DFA 的 states 全部设置成 accept states:
