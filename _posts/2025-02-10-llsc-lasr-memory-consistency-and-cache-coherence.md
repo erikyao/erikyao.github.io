@@ -230,7 +230,7 @@ An SC implementation permits only SC executions.
 
 [Jeff Preshing](https://preshing.com/20120930/weak-vs-strong-memory-models/) 给 memory models 分了 4 大类：
 
-![](https://live.staticflickr.com/65535/54288902392_0abdb78cc6_w_d.jpg)
+![](https://live.staticflickr.com/65535/54288902392_0abdb78cc6_z.jpg)
 
 当然 consistency model 有比 SC 更 stong 的，只是实际应用中 HW 和 SW 都用不上。实际应用中，HW 用 SC 的都很少，主要是因为 SC 的约束太强，weaker consistency model 允许的 CPU 优化的空间更大。
 
