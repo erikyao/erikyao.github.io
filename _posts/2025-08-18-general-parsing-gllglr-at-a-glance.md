@@ -19,4 +19,4 @@ toc_sticky: true
 
 ![](https://live.staticflickr.com/65535/54728755867_a9bb76f5bd_z.jpg)
 
-GP 处理 conflicts 以及 ambiguity 用的都是同一个招数：spawns parallel parsing processes on conflicts/ambiguous parse trees. 这样会导致 $O(n^3)$ 的复杂度，为了提升新能，GP 会使用 [Graph-Structured Stack (GSS)](https://en.wikipedia.org/wiki/Graph-structured_stack).
+GP 处理 conflicts 以及 ambiguity 用的都是同一个招数：spawns parallel parsing processes on conflicts/ambiguous parse trees. 这样会导致 $O(n^3)$ 的复杂度，为了提升性能，GP 会使用 [Graph-Structured Stack (GSS)](https://en.wikipedia.org/wiki/Graph-structured_stack).
