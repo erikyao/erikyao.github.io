@@ -11,7 +11,7 @@ toc_sticky: true
 
 我真的只是想了解下 LL/SC 和 LA/SR，但没想到它们背后的知识是茫茫多。
 
-一般会提到 memory models。它 truely 说的是 physical 的 CPU 的 memory architecture，不是纯研究用的理论模型。比如 [x86-TSO (Total Store Order)](https://research.swtch.com/hwmm#x86) 的 store buffer 结构：
+一般会提到 memory models. 它 truely 说的是 physical 的 CPU 的 memory architecture，不是纯研究用的理论模型。比如 [x86-TSO (Total Store Order)](https://research.swtch.com/hwmm#x86) 的 store buffer 结构：
 
 ![](https://live.staticflickr.com/65535/54319646241_5e7a35829f_w_d.jpg)
 
@@ -72,7 +72,7 @@ x = 1
 
 > ... even on ARM/POWER: threads in the system must agree about a total order for the writes to a single memory location. That is, threads must agree which writes overwrite other writes. This property is called called _coherence_.
 
-所以 Litmus Test 更能反映出 CPU/Memory Model 的特性。你可以把它理解成是一种 CPU/Memory Model 的 Unit Test。缺点是没法形成大一统的理解，但同时我们也要理解大一统的难度。
+所以 Litmus Test 更能反映出 CPU/Memory Model 的特性。你可以把它理解成是一种 CPU/Memory Model 的 Unit Test; 缺点是没法形成大一统的理解，但同时我们也要理解大一统的难度。
 
 ## 1.3 暂时还不能信 AI
 
@@ -80,13 +80,13 @@ x = 1
 
 ## 1.4 要会动态调整抽象的粒度
 
-以下我们用 HW (hardware) 指 CPU/Core/Multi-process，用 SW (software) 指 Language/Compiler/Multi-thread。
+以下我们用 HW (hardware) 指 CPU/Core/Multi-process，用 SW (software) 指 Language/Compiler/Multi-thread.
 
 HW 是真的有 memory architecture，所以有 memory consistency 特性的研究。SW 没有 physical 的 memory model，但如果你抽象出 `load`、`write`、`location`、`variable`、`const` 这些概念，SW 一样也有 memory consistency 的问题。
 
 HW 有 caches，所以有 cache coherence 特性的研究。但[后面](#32-define-consistency-agnostic-coherence-from-a-programmers-perspective-ie-consistency-like-definition)我们能看到用 memory consistency 类似的方式来定义 cache coherence，理论上可以不依赖于 cache 结构。
 
-鉴于 memory consistency 和 cache coherence 逐渐称为了通用的研究课题，[A Primer on Memory Consistency and Cache Coherence](https://pages.cs.wisc.edu/~markhill/papers/primer2020_2nd_edition.pdf) 大胆开麦：
+鉴于 memory consistency 和 cache coherence 逐渐成为了通用的研究课题，[A Primer on Memory Consistency and Cache Coherence](https://pages.cs.wisc.edu/~markhill/papers/primer2020_2nd_edition.pdf) 大胆开麦：
 
 - Consistency == Memory Consistency == Memory Consistency Model == Memory Model
 - Coherence == Cache Coherence
@@ -217,12 +217,12 @@ SC execution 是这样一种 multi-core 的 execution (by [Leslie Lamport](https
 
 An SC Execution requires:
 
-1. All cores insert their `load`s and `store`s into the order $<_m$ respecting their $<_p$, regardless of whether they are to the same or different addresses (i.e., $a=b$ or $a \neq b$). There are 4 cases:
+1. All cores insert their `load`s and `store`s into the order $<_{m}$ respecting their $<_{p}$, regardless of whether they are to the same or different addresses (i.e., $a=b$ or $a \neq b$). There are 4 cases:
     - If $L(a) <_p L(b) \Rightarrow L(a) <_m L(b)$  (`#LoadLoad`)
     - If $L(a) <_p S(b) \Rightarrow L(a) <_m S(b)$  (`#LoadStore`) 
     - If $S(a) <_p S(b) \Rightarrow S(a) <_m S(b)$  (`#StoreStore`) 
     - If $S(a) <_p L(b) \Rightarrow S(a) <_m L(b)$  (`#StoreLoad`) 
-2. Every `load` gets its value from the last `store` before it (in $<_m$ order) to the same address, i.e. $\vert L(a) \vert = \vert \max_{<_m} \lbrace S(a) \mid S(a) <_m L(a) \rbrace \vert$ where $\max_{<_m}$ denotes "latest in memory order"
+2. Every `load` gets its value from the last `store` before it (in $<_{m}$ order) to the same address, i.e. $\vert L(a) \vert = \vert \max_{<_{m}} \lbrace S(a) \mid S(a) <_{m} L(a) \rbrace \vert$ where $\max_{<_{m}}$ denotes "latest in memory order"
 
 An SC implementation permits only SC executions.
 
@@ -236,7 +236,7 @@ An SC implementation permits only SC executions.
 
 按 [A Primer on Memory Consistency and Cache Coherence](https://pages.cs.wisc.edu/~markhill/papers/primer2020_2nd_edition.pdf) 的定义:
 
-**Definition:** A memory consistency model supports "SC for DRF programs" if all executions of all DRF programs are SC executions. (This support usually requires some special actions for synchronization operations.)
+**Definition:** A memory consistency model supports "SC for DRF programs" if all executions of all DRF programs are SC executions. (This support usually requires some special actions for synchronization operations.) $\blacksquare$
 
 可以这样理解：
 
@@ -260,7 +260,7 @@ An SC implementation permits only SC executions.
 
 尤其考虑到一个 DRF 的 program：它在 weaker-than-SC 但是 DRF-SC 的 HW 上也是 SC 执行的，那么这样和 SC model 的 HW 有什么分别？
 
-这属于 optimization 的问题，最浅显的一个例子：TSO 的 store buffer 就是一种 optimization。再进一步减弱到 Relaxed Model，optimization 的方便程度会更大 (因为 SC 太严格)。
+这属于 optimization 的问题，最浅显的一个例子：TSO 的 store buffer 就是一种 optimization. 再进一步减弱到 Relaxed Model，optimization 的方便程度会更大 (因为 SC 太严格)。
 
 而且实际应用中，某些 optimization 是可以违反我们这里谈到的 definition/principle 的，比如 [A Primer on Memory Consistency and Cache Coherence](https://pages.cs.wisc.edu/~markhill/papers/primer2020_2nd_edition.pdf) 的 _5.1.2 OPPORTUNITIES TO EXPLOIT REORDERING_ 介绍的 "opening the coherence box":
 
@@ -278,7 +278,7 @@ An SC implementation permits only SC executions.
 
 很多论文会追溯到 [Weak ordering - a new definition](https://dl.acm.org/doi/abs/10.1145/325096.325100) 这篇 1990 年的论文。它提出了 DRF0 as a sychronization model:
 
-**Definition:** A program obeys the synchronization model Data-Race-Free-O (DRFO), if and only if
+**Definition:** A program obeys the synchronization model Data-Race-Free-0 (DRF0), if and only if
 
 1. all synchronization operations are recognizable by the hardware and each accesses exactly one memory location, and
 2. for any execution on the idealized system (where all memory accesses are executed atomically and in program order), all conflicting accesses are ordered by the happens-before relation correspouding to the execution. 
@@ -306,7 +306,7 @@ An SC implementation permits only SC executions.
     - Despite being on the CPU chip, LLC is logically a "memory-side" cache
     - Cores and LLC communicate with each other over an interconnection network
 
-一个具体的 coherence 方案或者实现，我们可以称为 coherence protocol 或者 interface (比如图中的 `read-request()` 这些)
+一个具体的 coherence 方案或者实现，我们可以称为 coherence protocol 或者 interface (比如图中的 `read-request()` 这些)。
 
 我们可以把 coherence protocol 分成两大类：
 
@@ -319,7 +319,7 @@ An SC implementation permits only SC executions.
     - a write can return before it has been made visible to all processors (i.e. asynchronously propagated)
     - must ensure that the order in which writes are eventually made visible adheres to the ordering rules mandated by the consistency model
 
-我们这里只讨论 Consistency-Agnostic Coherence
+我们这里只讨论 Consistency-Agnostic Coherence.
 
 ## 3.1 Define Consistency-Agnostic Coherence from an Implementation Perspective
 
@@ -463,13 +463,13 @@ LL/SC 的全称存在两种写法：
 1. Load-Link/Store-Conditional
 2. Load-Linked/Store-Conditional
 
-就蛮无语的。它的本意就是 LL 与 SC 这两个 operations 的 combo。
+就蛮无语的。它的本意就是 LL 与 SC 这两个 operations 的 combo.
 
 **LL/SC 可以实现对单个 address 的 atomic read-modify-write operation**。存在对 multiple addresses 的版本 [LLX/SCX](https://dl.acm.org/doi/10.1145/2484239.2484273).
 
 ## 4.0 为什么需要 atomic operation?
 
-atomic 是一种技术手段，前面的 Strict Consistency 和 Consistency-Agnostic Coherence 都需要 atomic operations
+atomic 是一种技术手段，前面的 Strict Consistency 和 Consistency-Agnostic Coherence 都需要 atomic operations.
 
 ## 4.1 Link 的含义
 
@@ -486,13 +486,13 @@ link 这个名字起得也是蛮奇怪的：
 
 ## 4.2 Conditional 的含义
 
-这里 condition on 的其实就是 linked or not 的状态；Store-Conditional 的意思就是：I (as a process/thread) store a value, but the operation is conditional (on the link)
+这里 condition on 的其实就是 linked or not 的状态；Store-Conditional 的意思就是：I (as a process/thread) store a value, but the operation is conditional (on the link).
 
-而且 Store-Conditional 操作成功后会清除掉 link
+而且 Store-Conditional 操作成功后会清除掉 link.
 
 ## 4.3 Python 伪码示意
 
-link 在 ARMv8 中是用 [Exclusive Monitor](https://developer.arm.com/documentation/100934/0100/Exclusive-monitors) 实现的："link 了一个 address" 在 ARMv8 中就等价于 "把 address 放入 exclusive monitor"。
+link 在 ARMv8 中是用 [Exclusive Monitor](https://developer.arm.com/documentation/100934/0100/Exclusive-monitors) 实现的："link 了一个 address" 在 ARMv8 中就等价于 "把 address 放入 exclusive monitor".
 
 我们可以考虑最简单的 [Local Exclusive Monitor](https://developer.arm.com/documentation/102670/0301/Memory-system/L1-memory-system/L1-data-memory-system/Local-exclusive-monitor) 的情况：
 
@@ -580,7 +580,7 @@ retry:
 1. register value `+1`
 1. store the register value to memory
 
-这种情况很容易出现 data race，但如果你的 "increment" 操作整体是 atomic 的，就可以避免 data race。
+这种情况很容易出现 data race，但如果你的 "increment" 操作整体是 atomic 的，就可以避免 data race.
 
 除了 LL/SC 以外，要注意 assembly 可能本身就有 atomic 的 instruction，比如 ARM v8.1 对比 v8，新增了对下列运算的 single instruction:
 
@@ -611,11 +611,11 @@ Russ Cox 在 [Programming Language Memory Models](https://research.swtch.com/plm
 
 # 5. LA/SR
 
-Load-Aquire/Store-Release 是两个 non-standalone barriers
+Load-Aquire/Store-Release 是两个 non-standalone barriers.
 
 ## 5.0 为什么需要 barrier (a.k.a. fence)？
 
-一句话：帮助 weaker-than-SC model 实现 DRF-SC。
+一句话：帮助 weaker-than-SC model 实现 DRF-SC.
 
 考虑一个 weaker-than-SC model。首先它可能只有 coherence，那么仿照 [2.3.2 SC Consistency Model](#232-sc-consistency-model) 的定义，这个 model 可能只要求了：
 
@@ -644,7 +644,7 @@ SC model 的 "regardless of whether they are to the same or different addresses 
     - If $\operatorname{FENCE} <_p S(a) \Rightarrow \operatorname{FENCE} <_m S(a)$ (`#FenceStore`)
 2. All cores insert their `load`s and `store`s **to the same address** into the order $<_m$ respecting their $<_p$
     - 参上文
-3. (TSO-style) Every `load` gets its value from the last `store` before it to the same address, i.e. $\vert L(a) \vert = \vert \max_{<} \lbrace S(a) \mid S(a) <_m L(a) \text{ or } S(a) <_p L(a) \rbrace \vert$ where $\max_{<}$ denotes "latest in order"
+3. (TSO-style) Every `load` gets its value from the last `store` before it to the same address, i.e. $\vert L(a) \vert = \vert \max_{<} \lbrace S(a) \mid S(a) <_{m} L(a) \text{ or } S(a) <_{p}  L(a) \rbrace \vert$ where $\max_{<}$ denotes "latest in order"
 
 ## 5.1 什么是 Release/Acquire?
 
@@ -717,7 +717,7 @@ Load-Aquire/Store-Release 是两个 non-standalone barriers，且它们也常常
 
 ## 5.4 Problem: (纯使用) Release/Acquire 或者 LA/SR 没法实现 SC
 
-我们在开头 [5.0 为什么需要 barrier (a.k.a. fence)？](#50-为什么需要-barrier-aka-fence) 说 barrier (fence) 的作用是 "帮助 weaker-than-SC model 实现 DRF-SC"，但如果只使用 Release/Acquire 或者 LA/SR 是没法实现 SC 的 (Release & Acquire 是可以的)
+我们在开头 [5.0 为什么需要 barrier (a.k.a. fence)？](#50-为什么需要-barrier-aka-fence) 说 barrier (fence) 的作用是 "帮助 weaker-than-SC model 实现 DRF-SC"，但如果只使用 Release/Acquire 或者 LA/SR 是没法实现 SC 的 (Release & Acquire 是可以的).
 
 Russ Cox 在 [Programming Language Memory Models - Acquire/release atomics](https://research.swtch.com/plmm#acqrel) 举了一个例子：
 
