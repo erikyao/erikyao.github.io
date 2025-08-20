@@ -383,7 +383,7 @@ Consistency-Agnostic Coherence protocal 必须要满足两个 invariants：
     2. `W(x)b`
     3. `R(x)_; R(x)_;`
     4. `R(x)_; R(x)_;`
-- 在 $<^{p}$ (program order) 和 $<^{m}$ (global memory order) 的基础上再增加一个 $<_t$ (temporal order)
+- 在 $<^{p}$ (program order) 和 $<^{m}$ (global memory order) 的基础上再增加一个 $<^{t}$ (temporal order)
 
 A Strict Consistent Execution is like:
 
@@ -395,9 +395,9 @@ A Strict Consistent Execution is like:
 4:                     R(x)b  R(x)b
 ```
 
-总结这个 Strict Consistent Execution：
+总结这个 Strict Consistent Execution:
 
-- If `W(x)a` $<_t$ `W(x)b` $\Rightarrow$ `W(x)a` $<^{m}$ `W(x)b` (因为是 atomically write and immediately propagate)
+- If `W(x)a` $<^{t}$ `W(x)b` $\Rightarrow$ `W(x)a` $<^{m}$ `W(x)b` (因为是 atomically write and immediately propagate)
 - If `W(x)a` $<^{m}$ `W(x)b` $\Rightarrow$ `thread_3` 和 `thread_4` 不可能有 `R(x)b; R(x)a;` 这样的结果
     - 取决于 ordering，`thread_3` 和 `thread_4` 可能的结果有很多，我们这里仅针对我们的例子来说明
     - 这也说明 "observe writes in the same order" 的这个 "observe" 并不是 "read" 的意思，更好的理解是：
@@ -416,7 +416,7 @@ A Sequential Consistent Execution is like:
 
 总结这个 Sequential Consistent Execution：
 
-- `W(x)a` $<_t$ `W(x)b` 并不能保证 `W(x)a` $<^{m}$ `W(x)b` (可能因为不是 atomically write，也可能因为没有 immediately propagate) (考虑 TSO 的 store buffer)
+- `W(x)a` $<^{t}$ `W(x)b` 并不能保证 `W(x)a` $<^{m}$ `W(x)b` (可能因为不是 atomically write，也可能因为没有 immediately propagate) (考虑 TSO 的 store buffer)
 - 这里我们实际有 `W(x)b` $<^{m}$ `W(x)a`，而且 `thread_3` 和 `thread_4` 得到的 `R(x)b; R(x)a;` 结果是 ok 的
     - 此时就不可能有 `R(x)a; R(x)b;` 的结果
 
@@ -465,7 +465,7 @@ LL/SC 的全称存在两种写法：
 
 就蛮无语的。它的本意就是 LL 与 SC 这两个 operations 的 combo.
 
-**LL/SC 可以实现对单个 address 的 atomic read-modify-write operation**。存在对 multiple addresses 的版本 [LLX/SCX](https://dl.acm.org/doi/10.1145/2484239.2484273).
+**LL/SC 可以实现对单个 address 的 atomic read-modify-write operation**. 存在对 multiple addresses 的版本 [LLX/SCX](https://dl.acm.org/doi/10.1145/2484239.2484273).
 
 ## 4.0 为什么需要 atomic operation?
 
@@ -603,21 +603,21 @@ Russ Cox 在 [Programming Language Memory Models](https://research.swtch.com/plm
 
 而且他总结 [C++ 有三种 atomics](https://research.swtch.com/plmm#cpp)：
 
-1. strong synchronization (“sequentially consistent”) atomics
-2. weak synchronization (“acquire/release”, coherence-only) atomics
-3. no synchronization (“relaxed”, for hiding races) atomics
+1. strong synchronization ("sequentially consistent") atomics
+2. weak synchronization ("acquire/release", coherence-only) atomics
+3. no synchronization ("relaxed", for hiding races) atomics
 
-我们到[后面 C++ 的部分再详述](#55-c-atomics-中的-lasr)
+我们到[后面 C++ 的部分再详述](#55-c-atomics-中的-lasr).
 
 # 5. LA/SR
 
-Load-Aquire/Store-Release 是两个 non-standalone barriers.
+Load-Acquire/Store-Release 是两个 non-standalone barriers.
 
-## 5.0 为什么需要 barrier (a.k.a. fence)？
+## 5.0 为什么需要 barrier (a.k.a. fence)?
 
 一句话：帮助 weaker-than-SC model 实现 DRF-SC.
 
-考虑一个 weaker-than-SC model。首先它可能只有 coherence，那么仿照 [2.3.2 SC Consistency Model](#232-sc-consistency-model) 的定义，这个 model 可能只要求了：
+考虑一个 weaker-than-SC model. 首先它可能只有 coherence，那么仿照 [2.3.2 SC Consistency Model](#232-sc-consistency-model) 的定义，这个 model 可能只要求了：
 
 - All cores insert their `load`s and `store`s **to the same address** into the order $<^{m}$ respecting their $<^{p}$:
     - If $L(a) <^{p} L'(a) \Rightarrow L(a) <^{m} L(a)$ (`#LoadLoad` to same address)
@@ -625,16 +625,16 @@ Load-Aquire/Store-Release 是两个 non-standalone barriers.
     - If $S(a) <^{p} S'(a) \Rightarrow S(a) <^{m} S'(a)$ (`#StoreStore` to same address) 
     - If $S(a) <^{p} L(a) \Rightarrow S(a) <^{m} L(a)$ (`#StoreLoad` to same address) 
 
-SC model 的 "regardless of whether they are to the same or different addresses (i.e., $a=b$ or $a \neq b$)" 我这个 weaker-than-SC model 实现不了，那问题来了：我这么实现 DRF-SC？或者说我怎么能实现类似 $L(a) <^{p} L(b) \Rightarrow L(a) <^{m} L(b)$？
+SC model 的 "regardless of whether they are to the same or different addresses (i.e., $a=b$ or $a \neq b$)" 我这个 weaker-than-SC model 实现不了，那问题来了：我怎么实现 DRF-SC？或者说我怎么能实现类似 $L(a) <^{p} L(b) \Rightarrow L(a) <^{m} L(b)$？
 
-思路是引入 barrier/fence，若我们能实现：
+思路是引入 barrier/fence. 若我们能实现：
 
 - If $L(a) <^{p} \operatorname{FENCE} \Rightarrow L(a) <^{m} \operatorname{FENCE}$ (`#LoadFence`) where $\operatorname{FENCE}$ is a barrier/fence instruction
 - If $\operatorname{FENCE} <^{p} L(b) \Rightarrow \operatorname{FENCE} <^{m} L(b)$ (`#FenceLoad`)
 
 那我们综合起来就有 $L(a) <^{p} \operatorname{FENCE} <^{p} L(b) \Rightarrow L(a) <^{m} \operatorname{FENCE} <^{m} L(b)$
 
-[A Primer on Memory Consistency and Cache Coherence](https://pages.cs.wisc.edu/~markhill/papers/primer2020_2nd_edition.pdf) 是这样定义一个 weaker-than-SC model 的 (just as an example, not a standard):
+[A Primer on Memory Consistency and Cache Coherence](https://pages.cs.wisc.edu/~markhill/papers/primer2020_2nd_edition.pdf) 定义了这么一个 weaker-than-SC model (just as an example, not a standard):
 
 1. All cores insert their `load`s, `store`s, and `fence`s into the order $<^{m}$ respecting:
     - If $L(a) <^{p} \operatorname{FENCE} \Rightarrow L(a) <^{m} \operatorname{FENCE}$ (`#LoadFence`)
@@ -648,7 +648,7 @@ SC model 的 "regardless of whether they are to the same or different addresses 
 
 ## 5.1 什么是 Release/Acquire?
 
-来自 [Release Consistency (RC)](https://ieeexplore.ieee.org/document/134503)，它的主要观点是：**(4-way) $\operatorname{FENCE}$ is an overkill**. 可以改用两个 one-way:
+来自 [Release Consistency (RC)](https://ieeexplore.ieee.org/document/134503)，它的主要观点是：**(4-way) $\operatorname{FENCE}$ is an overkill**，可以改用两个 one-way:
 
 - a synchronization `acquire` needs only a succeeding $\operatorname{FENCE}$
 - a synchronization `release` needs only a preceding $\operatorname{FENCE}$
@@ -666,14 +666,14 @@ formally 有 RC requires that:
     - `#ReleaseAcquire`
     - `#ReleaseRelease`
 
-注意 RC 并没有 requires 下列类似 `#LoadAcquire` 的 ordering：
+注意 RC 并没有 require 下列类似 `#LoadAcquire` 的 ordering:
 
 - $L(a) <^{p} \operatorname{ACQ} \not\Rightarrow L(a) <^{m} \operatorname{ACQ}$
 - $S(a) <^{p} \operatorname{ACQ} \not\Rightarrow S(a) <^{m} \operatorname{ACQ}$
 - $\operatorname{REL} <^{p} L(a) \not\Rightarrow \operatorname{REL} <^{m} L(a)$ 
 - $\operatorname{REL} <^{p} S(a) \not\Rightarrow \operatorname{REL} <^{m} S(a)$ 
 
-## 5.2 什么是 non-standard barrier
+## 5.2 什么是 non-standard barrier?
 
 barrier (instruction) 可以分两类：
 
@@ -687,11 +687,11 @@ barrier (instruction) 可以分两类：
     - `LDAXR` (Exclusive Load-Acquire)
     - `STLXR` (Exclusive Store-Release)
 
-## 5.3 Load-Aquire/Store-Release
+## 5.3 Load-Acquire/Store-Release
 
-Load-Aquire/Store-Release 是两个 non-standalone barriers，且它们也常常一起作为组合技使用。
+Load-Acquire/Store-Release 是两个 non-standalone barriers，且它们也常常一起作为组合技使用。
 
-- Load-Aquire $\operatorname{LA}(a)$ 可以简单理解成一个 atomic 的 $\overline{L(a); \, \operatorname{ACQ}};$ operation
+- Load-Acquire $\operatorname{LA}(a)$ 可以简单理解成一个 atomic 的 $\overline{L(a); \, \operatorname{ACQ}};$ operation
 - Store-Release $\operatorname{SR}(a)$ 可以简单理解成一个 atomic 的 $\overline{\operatorname{REL}; \, S(a);}$ operation
 
 ```nasm
@@ -717,7 +717,7 @@ Load-Aquire/Store-Release 是两个 non-standalone barriers，且它们也常常
 
 ## 5.4 Problem: (纯使用) Release/Acquire 或者 LA/SR 没法实现 SC
 
-我们在开头 [5.0 为什么需要 barrier (a.k.a. fence)？](#50-为什么需要-barrier-aka-fence) 说 barrier (fence) 的作用是 "帮助 weaker-than-SC model 实现 DRF-SC"，但如果只使用 Release/Acquire 或者 LA/SR 是没法实现 SC 的 (Release & Acquire 是可以的).
+我们在开头 [5.0 为什么需要 barrier (a.k.a. fence)?](#50-为什么需要-barrier-aka-fence) 说 barrier (fence) 的作用是 "帮助 weaker-than-SC model 实现 DRF-SC"，但如果只使用 Release/Acquire 或者 LA/SR 是没法实现 SC 的 ($\operatorname{FENCE}$ 是可以的).
 
 Russ Cox 在 [Programming Language Memory Models - Acquire/release atomics](https://research.swtch.com/plmm#acqrel) 举了一个例子：
 
@@ -763,9 +763,9 @@ On C++11 (acquire/release atomics): yes!
 
 Russ Cox 在 [Programming Language Memory Models - Acquire/release atomics](https://research.swtch.com/plmm#acqrel) 是这样总结的：
 
-> Recall that the sequentially consistent atomics required the behavior of all the atomics in the program to be consistent with some global interleaving—a total order—of the execution. Acquire/release atomics do not. They only require a sequentially consistent interleaving of the operations on a single memory location. That is, they only require coherence. The result is that a program using acquire/release atomics with more than one memory location may observe executions that cannot be explained by a sequentially consistent interleaving of all the acquire/release atomics in the program, arguably a violation of DRF-SC!
+> Recall that the sequentially consistent atomics required the behavior of all the atomics in the program to be consistent with some global interleaving – a total order – of the execution. Acquire/release atomics do not. They only require a sequentially consistent interleaving of the operations on a single memory location. That is, they only require coherence. The result is that a program using acquire/release atomics with more than one memory location may observe executions that cannot be explained by a sequentially consistent interleaving of all the acquire/release atomics in the program, arguably a violation of DRF-SC!
 
-注意他这里说的 "Acquire/release atomics" 指的是 LA/SR，但你上升到 general 的 Release/Acquire 也是一样的，都无法保证 fully SC，只有 coherence 带来的 same memory location 的 SC。因为你这里需要一个 `#StoreLoad` 来保证 `x.store(1)` 和 `y.load()`、以及 `y.store(1)` 和 `x.load()` 的 order，但 Release/Acquire 很尴尬地恰好没有 `#StoreLoad`:
+注意他这里说的 "Acquire/release atomics" 指的是 LA/SR，但你上升到 general 的 Release/Acquire 也是一样的，都无法保证 fully SC, 只有 coherence 带来的 same memory location 的 SC. 因为你这里需要一个 `#StoreLoad` 来保证 `x.store(1)` 和 `y.load()`、以及 `y.store(1)` 和 `x.load()` 的 order，但 Release/Acquire 很尴尬地恰好没有 `#StoreLoad`:
 
 ![](https://live.staticflickr.com/65535/54286084836_19d57c687d_o_d.png)
 
@@ -792,7 +792,7 @@ atomic_store(&x, 1);
 x.store(1);
 ```
 
-也可以指定你的 consistency model。C++ 的 `<atomic>` 有定义：
+也可以指定你的 consistency model. C++ 的 `<atomic>` 有定义：
 
 ```cpp
 enum memory_order
