@@ -299,7 +299,7 @@ An SC implementation permits only SC executions.
 
 按 [A Primer on Memory Consistency and Cache Coherence](https://pages.cs.wisc.edu/~markhill/papers/primer2020_2nd_edition.pdf) 的图示：
 
-![](https://live.staticflickr.com/65535/54322838522_8f8e924958_w_d.jpg)
+![](https://live.staticflickr.com/65535/54322838522_8f8e924958_z.jpg)
 
 - 我们说 cache consistency 的 cache 其实指的是 core 内部的 private cache，每个 core 都有一个
 - LLC == Last-Level Cache, which is shared by all cores
