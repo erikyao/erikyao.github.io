@@ -9,13 +9,13 @@ toc_sticky: true
 
 # References
 
-要研究 Packrat Parsing 自然是要参考正主的文章 [Packrat Parsing: Simple, Powerful, Lazy, Linear Time](https://bford.info/pub/lang/packrat-icfp02.pdf)，但这篇的一个难点是揉了很多 functional programming (in Haskell) 的 implementation details 进去，你不懂 Haskell 就很难理解其中的精妙，但如果你只是要掌握 idea 的话，是完全可以脱离 Haskell 去读这篇的。
+要研究 Packrat Parsing 自然是要参考正主 Bryan Ford 的文章 [Packrat Parsing: Simple, Powerful, Lazy, Linear Time](https://bford.info/pub/lang/packrat-icfp02.pdf)，但这篇的一个难点是揉了很多 functional programming (in Haskell) 的 implementation details 进去，你不懂 Haskell 就很难理解其中的精妙，但如果你只是要掌握 idea 的话，是完全可以脱离 Haskell 去读这篇的。
 
 后续我会用 Guido van Rossum 大人的 [PEG Parsing Series Overview](https://medium.com/@gvanrossum_83706/peg-parsing-series-de5d41b2ed60) 系列来上手。
 
 # What is a Packrat Parser?
 
-packrat 的意思是：(1) a bushy-tailed rodent of western North America that has well-developed cheek pouches and that hoards food and miscellaneous objects; (2) a person who collects or hoards especially unneeded items. 简单说就是 "囤积癖者"。
+packrat 的意思是：(1) a bushy-tailed rodent of western North America that has well-developed cheek pouches and that hoards food and miscellaneous objects; (2) a person who collects or hoards especially unneeded items. 简单说就是 "囤积癖患者"。
 {: .notice--info}
 
 从大类上说，packrat parser 是一个针对 [PEG](/compiler/2025/03/14/peg-parsing-expression-grammars) 的 backtracking parser + memorization + lazy evaluation.
@@ -26,6 +26,11 @@ packrat 的意思是：(1) a bushy-tailed rodent of western North America that h
 | Recursive Descent Parser |  ✅                   | 
 | Predictive Parser        |  ❌                   | 
 | Backtracking Parser      |  ✅                   | 
+
+packrat parser 没有像 $LL(1)$ 或者 $LR(1)$ 那样用到 lookahead，所以它不是一个 predictive 的 parser. 
+
+但很多材料写道：可以把 PEG 理解成有 unlimited lookaheads (假设你有 prioritized choice expression $e_1 / e_2$，如果最终我们选择了 $e_2$，那么 $e_1$ 被 parse 的部分就都是 lookaheads)。我个人觉得没有必要这么理解。
+{: .notice--danger}
 
 ## Ingredient 1: Backtracking Parser
 
