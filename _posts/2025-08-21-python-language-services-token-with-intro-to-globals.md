@@ -9,7 +9,8 @@ toc_sticky: true
 
 # 1. Python `token` module
 
-Source Code: [cpython/Lib/token.py](https://github.com/python/cpython/blob/3.13/Lib/token.py).
+- Docs: [`token` — Constants used with Python parse trees](https://docs.python.org/3/library/token.html)
+- Source Code: [cpython/Lib/token.py](https://github.com/python/cpython/blob/3.13/Lib/token.py)
 
 它的源头是 [cpython/Grammar/Tokens](https://github.com/python/cpython/blob/3.13/Grammar/Tokens) (这是个文本文件)，然后通过 [cpython/Tools/build/generate_token.py](https://github.com/python/cpython/blob/3.13/Tools/build/generate_token.py) 的 `make_py(infile="Grammar/Tokens", outfile='Lib/token.py')` 生成而来的。
 
