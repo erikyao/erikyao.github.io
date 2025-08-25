@@ -9,7 +9,7 @@ toc_sticky: true
 
 # Parse Trees vs ASTs
 
-- Parse Tree = **(Concrete) Syntax Tree** = **100% syntactic** representation of the source code
+- Parse Tree = CST = **(Concrete) Syntax Tree** = **100% syntactic** representation of the source code
 - AST = **Abstract Syntax Tree** = **less syntactic, more semantic**
 
 Why do we need ASTs when we already have parse trees?
@@ -40,14 +40,14 @@ Optimizations like constant folding, inlining, loop unrolling, etc. operate on _
 In principle you could optimize on a parse tree, but it's not very pragmatic. E.g. Constant folding on the AST is trivial. On the parse tree, you'd have to traverse through many redundant nodes.
 {: .notice--info}
 
-## AST merit 4: IR generation and (target) code generation
+## AST merit 4: IR generation (or target code generation if no IR)
 
-ASTs are easier to be mapped to IR or target code. E.g. `(a+b)` vs `a+b`, they should have the same IR or target code, but their: 
+ASTs are easier to be mapped to IR. E.g. `(a+b)` vs `a+b`, they should have the same IR, but their: 
 
 - parse trees are different
 - ASTs are identical
 
-This can be crucial, because you want identical IR or target code for semantically identical code.
+This can be crucial, because you want identical IR for semantically identical code.
 {: .notice--info}
 
 ## AST merit 5: Tooling (refactoring, static analysis, IDEs)
@@ -59,7 +59,7 @@ E.g. renaming a variable `x` to `y`:
 - AST: find all identifier nodes named `x`.
 - Parse tree: you’d need to navigate a jungle of grammar rules to even find identifiers.
 
-# `parser` module (deleted since v3.9)
+# `parser` module (removed since Python v3.9)
 
 - v3.8 Docs: [`parser` — Access Python parse trees](https://docs.python.org/3.8/library/parser.html)
 - v3.8 Source Code: `cpython/Modules/parsermodule.c` inside [v3.8.16](https://github.com/python/cpython/releases/tag/v3.8.16)
