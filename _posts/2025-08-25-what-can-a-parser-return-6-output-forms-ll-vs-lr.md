@@ -16,7 +16,7 @@ Summary:
     - ✅ regex engine
     - ✅ syntax checker
 
-For $LL$ parsers, each parsing function returns `True` if parsing matched, `False` otherwise. E.g.
+For $LL$ parsers, each parsing function returns `True` if parsing matched, `False` otherwise. E.g.:
 
 ```python
 def program() -> bool:
@@ -53,9 +53,7 @@ Summary:
 
 - Scenario: ✅ most common output in compilers
 
-For $LL$ parsers: similar to returning parse trees, but now returns a simplified AST node (e.g. [BinOp](/compiler/2025/08/25/python-language-services-ast-module-vs-deprecated-parser-module-for-parse-trees#ast-module)).
-
-E.g. when parsing `3+4`:
+For $LL$ parsers: similar to returning parse trees, but now returns a simplified AST node (e.g. [BinOp](/compiler/2025/08/25/python-language-services-ast-module-vs-deprecated-parser-module-for-parse-trees#ast-module)). E.g. when parsing `3+4`:
 
 ```python
 def addition() -> ParseTree:
@@ -79,7 +77,7 @@ For $LR$ parsers:
 - Have to specify _semantic actions_ to rules/productions in the grammar
 - When performing a reduction, its associated _semantic action_ is performed to created an AST node
 
-E.g.
+E.g.:
 
 ```ebnf
 Expr : Expr '+' Term { $$ = make_binop('+', $1, $3); }
@@ -147,7 +145,8 @@ if (<condition>) {
 }
 ```
 
-Note that there should be similar _semantic actions_ for `condition` and `statements`
+Note that there should be similar _semantic actions_ for `condition` and `statements` accordingly.
+{: .notice--info}
 
 # Output Type 6: IR
 
