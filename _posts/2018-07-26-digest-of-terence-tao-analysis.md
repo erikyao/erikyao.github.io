@@ -3,9 +3,11 @@ category: Math
 description: ''
 tags: []
 title: Digest of Terence Tao Analysis
+toc: true
+toc_sticky: true
 ---
 
-## Chapters
+# Chapters Overview
 
 | Chapter | Title                                          | System                  | Tool                                                           | Side Product                                |
 |---------|------------------------------------------------|-------------------------|----------------------------------------------------------------|---------------------------------------------|
@@ -30,9 +32,9 @@ title: Digest of Terence Tao Analysis
 | 18      | Lebesgue measure                               | $f: \mathbb{R}^n \to \mathbb{R}$ | Open set / Cover                                      |                                             |
 | 19      | Lebesgue integration (多元积分)                  | $f: \mathbb{R}^n \to \mathbb{R}$ | Lebesgue measure / Riemann integral                   |                                             |
 
-## Chapter 6 - Limits of sequences
+# Chapter 6 - Limits of sequences
 
-### 6.1 Cauchy ([koʊˈʃiː]) sequence
+## 6.1 Cauchy ([koʊˈʃiː]) sequence
 
 **Definition 5.1.3** ($\epsilon$-steadiness). Let $\epsilon > 0$. A sequence $(a_n)^{\infty}_{n=m}$ is said to be **$\epsilon$-steady** $\iff$ each pair $a_j, a_k$ of sequence elements is $\epsilon$-close for every natural number $j, k$. 
 
@@ -44,7 +46,7 @@ title: Digest of Terence Tao Analysis
 
 ![](https://farm1.staticflickr.com/932/42850172585_8ec7e1da33_z_d.jpg)
 
-### 6.2 adherent point (附着点) / limit point (极限点) / isolated point (孤立点)
+## 6.2 adherent point (附着点) / limit point (极限点) / isolated point (孤立点)
 
 | System                | Concept                                                              | Definition                                                                                                                                                                                      |
 |-----------------------|----------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -76,9 +78,9 @@ title: Digest of Terence Tao Analysis
 - 如果我们把 sequence 看做一个 set 的话，并定义 tail of sequence $(a_n)\_{n=m}^{\infty}$ after $n = N \geq m$ 为 $T((a_n)_{n=m}^{\infty}, N) = \lbrace a_i \mid N \leq i \leq \infty, i \in \mathbb{N} \rbrace$
     - $x$ is **continually $\epsilon$-adherent** to $(a_n)\_{n=m}^{\infty}$ $\iff$ $\forall N$, $\phi(x, \epsilon) \cap T((a_n)_{n=m}^{\infty}, N) \neq \emptyset$
 
-### 6.3 convergence & limit
+## 6.3 convergence & limit
 
-注意收敛与极限本身就是连体概念，"收敛到 $L$" 也就意味着 "极限为 $L$"
+注意收敛与极限本身就是连体概念，"收敛到 $L$" 也就意味着 "极限为 $L$".
 
 | System                | Concept                                                          | Definition                                                                                    |
 |-----------------------|------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|
@@ -113,15 +115,15 @@ title: Digest of Terence Tao Analysis
     - 可以把函数收敛看做是 "定义域元素序列" 与 "值域元素序列" 联动的过程
 - **Lemma 9.9.7** $(a_n)$ and $(b_n)$ are equivalent $\iff$ $\underset{n \to \infty}{\lim} (a_n - b_n) = 0$
 
-### 6.4 boundedness
+## 6.4 boundedness
 
 **Definition 6.1.16** (Bounded sequences). A sequence $(a_n)_{n=m}^{\infty}$ of real numbers is bounded by a real number $M>0$ $\iff \forall i$, $\vert a_i \vert \leq M$.
 
 **Definition 9.1.22** (Bounded sets). A subset $X$ of the real line is said to be bounded if for some real number $M>0$ we have $X \subset [-M, M]$.
 
-### 6.5 收敛 & 有界 & Cauchy (Part 1)
+## 6.5 收敛 & 有界 & Cauchy (Part 1)
 
-#### 结论一：收敛必定 Cauchy
+### 结论一：收敛必定 Cauchy
 
 **[Proof](https://proofwiki.org/wiki/Convergent_Sequence_is_Cauchy_Sequence):** Let $(a_n)$ be a sequence that converges to the limit $L$.
 
@@ -141,7 +143,7 @@ $$
 
 Thus $(a_n)$ is a Cauchy sequence. $\blacksquare$
 
-#### 结论二：Cauchy 必定有界
+### 结论二：Cauchy 必定有界
 
 **[Proof](https://proofwiki.org/wiki/Cauchy_Sequence_is_Bounded):** Let $(a_n)$ be a Cauchy sequence.
 
@@ -180,9 +182,9 @@ Thus, taking $b=x_{N_1}$ and $K=\max \lbrace K′,1 \rbrace$, we have shown that
 
 So, $(a_n)$ is bounded. $\blacksquare$
 
-#### 结论三：收敛必定有界（由结论一与结论二推出）
+### 结论三：收敛必定有界（由结论一与结论二推出）
 
-#### 结论四 & 五：有界不一定收敛；有界不一定 Cauchy
+### 结论四 & 五：有界不一定收敛；有界不一定 Cauchy
 
 例子：
 
@@ -190,7 +192,7 @@ $$
 a_n =\begin{cases}0 & \text{if } n \text{ is even} \\1 & \text{if } n \text{ is odd}\end{cases} 
 $$
 
-### 6.6 Subsequence (子序列)
+## 6.6 Subsequence (子序列)
 
 **Definition 6.6.1** (Subsequences). Let $(a_n)\_{n=0}^{\infty}$ and $(b_n)\_{n=0}^{\infty}$ be sequences of real numbers. We say that $(b_n)$ is a subsequence of $(a_n)$ $\iff$ $\exists$ function $f: \mathbb{N} \to \mathbb{N}$ which is strictly increasing (i.e., $f(n + 1) > f(n)$, $\forall n \in \mathbb{N}$) such that $b_i = a_{f(i)}$, $\forall i \in \mathbb{N}$.
 
@@ -202,42 +204,46 @@ $$
     - $\iff$
 - $(a_n)\_{n=0}^{\infty}$ 的每个子序列都收敛到 $L$
 
+$\blacksquare$
+
 **Proposition 6.6.6** (Subsequences related to limit points). 以下两命题等价：
 
 - 序列 $(a_n)\_{n=0}^{\infty}$ 有极限点 $L$
     - $\iff$
 - 存在 $(a_n)\_{n=0}^{\infty}$ 的子序列收敛到 $L$
 
-**Theorem 6.6.8** (Bolzano-Weierstrass theorem). 序列有界 $\Rightarrow$ 序列至少有一个子序列收敛 (亦即，序列至少有一个极限点，See Proposition 6.6.6)
+$\blacksquare$
 
-### 6.7 收敛 & 有界 & Cauchy (Part 2)
+**Theorem 6.6.8** (Bolzano-Weierstrass theorem). 序列有界 $\Rightarrow$ 序列至少有一个子序列收敛 (亦即，序列至少有一个极限点，See Proposition 6.6.6). $\blacksquare$
 
-#### 结论六：如果序列收敛，那么极限是序列唯一的极限点
+## 6.7 收敛 & 有界 & Cauchy (Part 2)
+
+### 结论六：如果序列收敛，那么极限是序列唯一的极限点
 
 **Proof:** 因为序列收敛（假设收敛到 $L$），那么它的所有的子序列都收敛到 $L$，从而不可能有子序列收敛到其他的值，亦即所有子序列对应的极限点都是 $L$ (See Proposition 6.6.6)，亦即 $L$ 是唯一的极限点。 $\blacksquare$
 
-#### 结论七：有唯一极限点不一定收敛
+### 结论七：有唯一极限点不一定收敛
 
 例子：$\lbrace 1, 2, 1, 4, 1, 6, \dots 1, 2n, \dots \rbrace$ 有唯一极限点 $1$，但是它是无界的，更谈不上收敛
 
-#### 结论八：如果序列有界且发散，则序列可以有两个不同的极限点
+### 结论八：如果序列有界且发散，则序列可以有两个不同的极限点
 
 **[Proof](https://math.stackexchange.com/a/298828):** 序列 $(a_n)$ 有界，根据 Bolzano-Weierstrass theorem，我们可以构建一个子序列，假设收敛到 $p$。
 
 因为 $(a_n)$ 发散，所以 $(a_n)$ 不收敛到 $p$，所以存在 $\epsilon'$，对任意 $N$，都存在 $i_N \geq N$ 使得 $\vert a_{i\_N} - p \vert > \epsilon'$。取这样所有的 $a_{i\_N}$ 构成序列 $(a_n')$，它也是 $(a_n)$ 的子序列，所以 $(a_n')$ 也有界，再根据 Bolzano-Weierstrass theorem，$(a_n')$ 有一个子序列 $(a_n'')$ 收敛到 $q$。因为 $(a_n')$ 每一项都远离 $p$，所以 $(a_n'')$ 的每一项都远离 $p$，所以 $(a_n'')$ 不可能收敛到 $p$，亦即 $q \neq p$。
 
-又因为 $(a_n'')$ 同时也是 $(a_n)$ 的子序列，所以相当于 $(a_n)$ 有两个极限点：$p$ 和 $q$。$\blacksquare$
+又因为 $(a_n'')$ 同时也是 $(a_n)$ 的子序列，所以相当于 $(a_n)$ 有两个极限点：$p$ 和 $q$. $\blacksquare$
 
 - $(a_n)$ 明显不可能每一项都远离 $p$ 但它的子序列 $(a_n')$ 可以做到每一项都远离 $p$，这看上去有点矛盾，但我可以举一个例子：
     - $a_n = \begin{cases}1 & \text{if } n \text{ is odd} \\\\ 2 & \text{if } n \text{ is even}\end{cases}$ 有界且发散
     - 令 $f(n) = 2n - 1$，$b_i = a_{f(i)}$，那么 $(b_n)$ 是 $(a_n)$ 的子序列，且 $(b_n)$ 全为 1，收敛到 1
     - 令 $f(n) = 2n$，$c_i = a_{f(i)}$，那么 $(c_n)$ 是 $(a_n)$ 的子序列，且 $(c_n)$ 全为 2，收敛到 2
 
-#### 结论九：如果序列有界且极限点唯一，那么序列收敛
+### 结论九：如果序列有界且极限点唯一，那么序列收敛
 
 **Proof:** 假设 $(a_n)$ 有界且有唯一极限点 $L$，那么根据 Proposition 6.6.6，$(a_n)$ 存在子序列 $(b_n)$ 收敛到 $L$。若 $(a_n)$ 还存在子序列 $(c_n)$ 发散，根据结论八，$(c_n)$ 可以有两个极限点，换言之 $(a_n)$ 也可以有两个极限点，矛盾。所以 $(a_n)$ 所有子序列收敛，又因为极限点唯一，所以 $(a_n)$ 收敛 (根据 Proposition 6.6.5)。 $\blacksquare$
 
-#### 结论十：Cauchy 必收敛
+### 结论十：Cauchy 必收敛
 
 **[Proof](http://www.maths.qmul.ac.uk/~ig/MAS111/Cauchy%20Criterion.pdf):** 设 $(a_n)$ 是 Cauchy。根据结论二 "Cauchy 必定有界" 和 Bolzano-Weierstrass theorem "有界必有子序列收敛"，可以假设 $(a_{n\_k})$ 是一个收敛的子序列，并收敛到 $L$，即 $\underset{k \to \infty}{a_{n\_k}} = L$
 
@@ -253,17 +259,17 @@ $$
 \vert a_i - L \vert = \vert (a_i - a_{n_j}) + (a_{n_j} - L) \vert \leq \vert a_i - a_{n_j} \vert + \vert a_{n_j} - L \vert < \frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon
 $$
 
-所以 $(a_n)$ 也收敛到 $L$。$\blacksquare$
+所以 $(a_n)$ 也收敛到 $L$. $\blacksquare$
 
-#### 大总结
+### 大总结
 
 - 收敛 $\iff$ Cauchy $\iff$ 有界且极限点唯一（结论一、二、三、六、九、十）
 - 收敛 $_{\nLeftarrow}^{\Rightarrow}$ 有界 $\Rightarrow$ 有子序列收敛 $\Rightarrow$ 存在一个对应的极限点（结论四、Bolzano-Weierstrass theorem、Proposition 6.6.6）
 - 收敛 $_{\nLeftarrow}^{\Rightarrow}$ 有唯一极限点（结论七）
 
-## Chapter 9 - Continuous functions on $\mathbb{R}$
+# Chapter 9 - Continuous functions on $\mathbb{R}$
 
-### 9.1 $\mathbb{R}$ set: adherent point / limit point / isolated point / closure / relations to subsequences
+## 9.1 $\mathbb{R}$ set: adherent point / limit point / isolated point / closure / relations to subsequences
 
 adherent point、limit point、isolated point 的定义参 Section 6.2。需要注意的是：
 
@@ -278,7 +284,9 @@ adherent point、limit point、isolated point 的定义参 Section 6.2。需要�
     - 注意：考虑到序列是可以有重复元素的，所以 **"由 $X$ 元素组成的序列 $(a_n)$" 并不要求 $(a_n)$ 使用 $X$ 中的全部元素**
 - 这个 lemma 简单说就是：$X$ 的附着点可以通过 $X$ 的元素的极限获得
 
-**Definition 9.1.10** (Closure). Let $X$ be a subset of $\mathbb{R}$. The **closure** of $X$, sometimes denoted $\overline X$ is defined to be the set of all the adherent points of $X$.
+$\blacksquare$
+
+**Definition 9.1.10** (Closure). Let $X$ be a subset of $\mathbb{R}$. The **closure** of $X$, sometimes denoted $\overline X$ is defined to be the set of all the adherent points of $X$. $\blacksquare$
 
 - 考虑到 "所有 $x \in X$ 都是 $X$ 的附着点" (See section 6.2)，可以有 $\overline X = X \cup \lbrace l \mid l \text{ is an adherent point outside } X \rbrace$
 - Elementary properties of closures:
@@ -296,7 +304,7 @@ adherent point、limit point、isolated point 的定义参 Section 6.2。需要�
     - $\overline{\mathbb{R}} = \mathbb{R}$
     - $\overline{\emptyset} = \emptyset$
 
-**Definition 9.1.15** (Closed sets). A set $X \subseteq \mathbb{R}$ is said to be **closed** if $\overline{X} = X$, i.e. $X$ contains all of its adherent points.
+**Definition 9.1.15** (Closed sets). A set $X \subseteq \mathbb{R}$ is said to be **closed** if $\overline{X} = X$, i.e. $X$ contains all of its adherent points. $\blacksquare$
 
 - 也相当于：闭集不存在 adherent point outside itself
 - 所以 $\mathbb{N}$, $\mathbb{Z}$, $\mathbb{R}$, $\emptyset$ 是闭集，$\mathbb{Q}$ 是开集
@@ -309,11 +317,15 @@ adherent point、limit point、isolated point 的定义参 Section 6.2。需要�
     - > [so by closed it means that "we can't escape by limit"](https://math.stackexchange.com/a/299767)
 - If $\forall$ 由 $X$ 元素组成的收敛序列 $(a_n)$ 都有 $\underset{n \to \infty}{\lim} a_n \in X$ $\Rightarrow$ $X$ is closed
 
+$\blacksquare$
+
 **Theorem 9.1.24** (Heine-Borel theorem for the line). 设 $X \subseteq \mathbb{R}$，以下两命题等价:
 
 - $X$ 是闭集且有界
     - $\iff$
 - $\forall$ 由 $X$ 元素组成的序列 $(a_n)$，存在它的一个子序列 $(a_{n_j})$ 收敛到 $L$ 并且 $L \in X$
+
+$\blacksquare$
 
 **[Proof](https://math.stackexchange.com/questions/659249/the-heine-borel-theorem-for-the-real-line):**
 
@@ -340,7 +352,7 @@ Let's construct a family of sets, $A_n = \lbrace a \in X \mid \vert x \vert > n 
 
 因为 $(a_n)$ 收敛到 $L$，所以 $(a_n)$ 所有的子序列都收敛到 $L' \notin X$ (Proposition 6.6.5)，所以不可能存在一个子序列 $(a_{n_j})$ 收敛到 $L \in X$。矛盾。$\blacksquare$
 
-### 9.2 Limits of functions
+## 9.2 Limits of functions
 
 部分概念 See Section 6.3
 
@@ -349,6 +361,8 @@ Let's construct a family of sets, $A_n = \lbrace a \in X \mid \vert x \vert > n 
 - $\underset{x \to x_0; x \in E}{\lim}f(x) = L$
     - $\iff$
 - $\forall$ 由 $E$ 元素构成并收敛到 $x_0$ 的序列 $(a_n)\_{n=0}^{\infty}$，函数值序列 $(f(a_n))\_{n=0}^{\infty}$ 收敛到 $L$
+
+$\blacksquare$
 
 **[Proof](https://proofwiki.org/wiki/Limit_of_Function_by_Convergent_Sequences):**
 
@@ -382,6 +396,8 @@ $$
 \text{if } \underset{x \to x_0; x \in E}{\lim}f(x) = L \text{, and } \underset{n \to \infty}{\lim}a_n = x_0 (a_i \in E) \Rightarrow \text{ then } \underset{n \to \infty}{\lim} f(a_n) = L
 $$
 
+$\blacksquare$
+
 - 注：我们值考虑 $x_0$ 是 $E$ 的附着点的情况，是因为根据 Corollary 9.3.10，如果 $x_0$ 不是 $E$ 的附着点，不可能有 $\underset{n \to \infty}{\lim}a_n = x_0$ (极限是极限点，极限点必然是附着点)
 
 **Proposition 9.3.18** (Limits are local). Let $X \subseteq \mathbb{R}$, $f: X \to \mathbb{R}$, $E \subseteq X$, $x_0$ be an adherent point of $E$, $L$ be a real number, and $\delta > 0$. Then:
@@ -389,6 +405,8 @@ $$
 $$
 \underset{x \to x_0; x \in E}{\lim}f(x) = L \iff \underset{x \to x_0; x \in E \cap (x_0 - \delta, x_0 + \delta)}{\lim}f(x) = L
 $$
+
+$\blacksquare$
 
 **[Proof](http://www.math.ucla.edu/~tao/resource/general/131ah.1.03w/HW6.pdf):**
 
@@ -402,7 +420,7 @@ Suppose that $(x_n)$ is a sequence of terms in $X$, not necessarily $\delta$-clo
 
 Thus for any sequence $(x_n)$ converging to $x_0$, $(f(x_n))$ converges to $L$. $\blacksquare$
 
-### 9.3 Continuous functions
+## 9.3 Continuous functions
 
 **Definition 9.4.1** (Continuity). Let $X \subseteq \mathbb{R}$, $f: X \to \mathbb{R}$, $x_0 \in X$ (所以 $x_0$ 必然是 adherent point).
 
@@ -412,6 +430,8 @@ $f$ is **continuous** at $x_0$ $\iff$ $\underset{x \to x_0; x \in X}{\lim}f(x) =
 
 $f$ is **continuous** on $X$ $\iff$ $\forall x_0 \in X$, $f$ is continuous at $x_0$
 
+$\blacksquare$
+
 **Proposition 9.4.7** (Equivalent formulations of continuity). Let $X \subseteq \mathbb{R}$, $f: X \to \mathbb{R}$, $x_0 \in X$. 以下三命题等价：
 
 - $f$ is continuous at $x_0$
@@ -420,7 +440,9 @@ $f$ is **continuous** on $X$ $\iff$ $\forall x_0 \in X$, $f$ is continuous at $x
     - $\iff$
 - $\forall \epsilon > 0$, $\exists \delta > 0$ such that $\forall x \in X$, if $\vert x - x_0 \vert < \delta$ then $\vert f(x) - L \vert \leq \epsilon$ (Definition 9.3.6)
 
-### 9.4 Uniform continuity (一致连续性)
+$\blacksquare$
+
+## 9.4 Uniform continuity (一致连续性)
 
 考虑 "定义域序列" 与 "值域序列" 联动时，这两个序列的震荡幅度。假设 $f$ 在 $x_1$, $x_2$ 两点上连续，所以 $\forall \epsilon: \exists \delta_1, \delta_2$ such that $f \vert_{x \in \Phi(x_1, \delta_1)}$ is $\epsilon$-close to $f(x_1)$, and $f \vert_{x \in \Phi(x_2, \delta_2)}$ is $\epsilon$-close to $f(x_2)$. 对同一个固定的 $\epsilon$，"值域序列" 的震荡区间 $\Phi(f(x_1), \epsilon)$ 与 $\Phi(f(x_2), \epsilon)$ 的 size 是一样大的，但是 "定义域序列" 的震荡区间 $\Phi(x_1, \delta_1)$ 和 $\Phi(x_2, \delta_2)$ 的差别可能会很大。尤其当定义域是开区间时，越靠近边缘 adherent point 时，"定义域序列" 的震荡区间的变化可能会越大。
 
@@ -428,7 +450,7 @@ $f$ is **continuous** on $X$ $\iff$ $\forall x_0 \in X$, $f$ is continuous at $x
 
 **Definition 9.9.2** (Uniform continuity). Let $X \subseteq \mathbb{R}$, $f: X \to \mathbb{R}$. 
 
-$f$ is **uniformly continuous** $\iff \forall \epsilon: \exists$ a uniform $\delta > 0$ such that whenever $x$ and $x_0$ are $\delta$-close, $f(x)$ and $f(x_0)$ are $\epsilon$-close.
+$f$ is **uniformly continuous** $\iff \forall \epsilon: \exists$ a uniform $\delta > 0$ such that whenever $x$ and $x_0$ are $\delta$-close, $f(x)$ and $f(x_0)$ are $\epsilon$-close. $\blacksquare$
 
 - 考虑与 "连续" 概念的 quantifier order 的区别：
     - 函数连续：$\forall x_0: \forall \epsilon: \exists \delta: \vert x - x_0 \vert < \delta \Rightarrow \vert f(x) - f(x_0) \vert < \epsilon$
@@ -440,11 +462,13 @@ $f$ is **uniformly continuous** $\iff \forall \epsilon: \exists$ a uniform $\del
     - $\iff$
 - $\forall$ 由 $X$ 元素构成的等价序列 $(a_n)$ 和 $(b_n)$，$(f(a_n))$ 与 $(f(b_n))$ 也等价
 
-**Proposition 9.9.12** Let $X \subseteq \mathbb{R}$, $f: X \to \mathbb{R}$ be a uniformly continuous function. 若由 $X$ 元素构成的序列$(a_n)$ 是 Cauchy，则 $(f(a_n))$ 也是 Cauchy
+$\blacksquare$
 
-**Proposition 9.9.15** Let $X \subseteq \mathbb{R}$, $f: X \to \mathbb{R}$ be a uniformly continuous function. If $E$ is a bounded subset of $X$，then $f(E)$ is also bounded.
+**Proposition 9.9.12** Let $X \subseteq \mathbb{R}$, $f: X \to \mathbb{R}$ be a uniformly continuous function. 若由 $X$ 元素构成的序列$(a_n)$ 是 Cauchy，则 $(f(a_n))$ 也是 Cauchy. $\blacksquare$
 
-**Proposition 9.9.16** Let $a < b$ be real numbers, $f: [a, b] \to \mathbb{R}$ be a continuous function on $[a, b]$. Then $f$ is actually uniformly continuous.
+**Proposition 9.9.15** Let $X \subseteq \mathbb{R}$, $f: X \to \mathbb{R}$ be a uniformly continuous function. If $E$ is a bounded subset of $X$，then $f(E)$ is also bounded. $\blacksquare$
+
+**Proposition 9.9.16** Let $a < b$ be real numbers, $f: [a, b] \to \mathbb{R}$ be a continuous function on $[a, b]$. Then $f$ is actually uniformly continuous. $\blacksquare$
 
 - 亦即：定义域是闭区间的连续函数必定一致连续
 - 举例：$f(x) = x^2$，(1) 若定义域是 $\mathbb{R}$，则它不是一致收敛；(2) 若定义域是闭区间 $[a,b]$，则它一致收敛。
@@ -459,7 +483,7 @@ $f$ is **uniformly continuous** $\iff \forall \epsilon: \exists$ a uniform $\del
 
 $\forall \epsilon: \exists \delta = \frac{\epsilon}{2b}$ such that $\vert x-y \vert < \delta \Rightarrow \vert x^2 - y^2 \vert < \epsilon$. $\blacksquare$
 
-### 9.5 连续、一致连续与函数映射性质
+## 9.5 连续、一致连续与函数映射性质
 
 - Proposition 9.3.9：连续函数把收敛序列映射成收敛序列
 - Proposition 9.9.12：一致连续函数把 Cauchy 序列映射成 Cauchy 序列
@@ -470,7 +494,7 @@ $\forall \epsilon: \exists \delta = \frac{\epsilon}{2b}$ such that $\vert x-y \v
 - Proposition 9.9.8：一对等价序列，经过一致连续函数映射，得到的两个结果序列仍然等价
 - Proposition 9.9.15：一致连续函数把有界集映射成有界集
 
-### Extra Notes
+## Extra Notes
 
 - Theorem 6.4.18 (Completeness of the reals). 实数序列 Cauchy $\iff$ 收敛
     - In the language of metric spaces (see Chapter 12), Theorem 6.4.18 asserts that the real numbers are a **complete** metric space--hat they do not contain "holes" the same way the rationale do. (Certainly the rationale have lots of Cauchy sequences which do not converge to other rationale; take for instance the sequence $1,1.4,1.41,1.414,1.4142,\dots$ which converges to the irrational $\sqrt{2}$.) 
@@ -481,7 +505,7 @@ $\forall \epsilon: \exists \delta = \frac{\epsilon}{2b}$ such that $\vert x-y \v
 - Heine-Borel theorem for the line: 
     - In the language of metric space topology, it asserts that every subset of the real line which is closed and bounded, is also **compact**. A more general version of this theorem can be found in Theorem 12.5.7.
 
-## Chapter 10 - Differentiation of functions (函数的微分)
+# Chapter 10 - Differentiation of functions (函数的微分)
 
 **Definition 10.1.1** (Differentiability at a point). Let $X \subset \mathbb{R}$, and let $x \in X$ and also a limit point of $X$. Let $f: X \to \mathbb{R}$ be a function. If 
 
@@ -499,13 +523,15 @@ If:
 
 we leave $f'(x_0)$ undefined and say $f$ is not differentiable at $x_0$ on $X$.
 
+$\blacksquare$
+
 注：
 
 - We need $x_0$ to be a limit point in order for $x_0$ to be adherent to $X - \lbrace x_0 \rbrace$, otherwise the limit would automatically be undefined.
 - 实际应用中 $X$ 大多为区间，区间上的所有点都是 limit point (Lemma 9.1.21)，所以一般也无需注意这个问题
 - 函数可以看做是 "定义域序列" 和 "值域序列" 的联动，i.e. $(x) \vert_{x \in X}$ vs $(f(x)) \vert_{x \in X}$，那么导数就可以看做是 "定义域序列" 与 "微分序列" 的联动，i.e. $(x) \vert_{x \in X}$ vs $(\frac{f(x) - f(x_0)}{x - x_0}) \vert_{x \in X}$
 
-**Proposition 10.1.10** (Differentiability implies continuity). 若 $f$ 在 $x_0$ 处可微，则 $f$ 在 $x_0$ 处连续
+**Proposition 10.1.10** (Differentiability implies continuity). 若 $f$ 在 $x_0$ 处可微，则 $f$ 在 $x_0$ 处连续。$\blacksquare$
 
 **[Proof No.1](http://www-math.mit.edu/~djk/18_01/chapter02/proof04.html):**
 
@@ -542,13 +568,13 @@ $$
 
 又因为 $\delta' \leq \frac{\epsilon'}{\epsilon + \left \| f'(x_0) \right \|}$，所以有 $\left \| f(x) - f(x_0) \right \| \leq \frac{\epsilon'}{\epsilon + \left \| f'(x_0) \right \|} \cdot \left ( \epsilon + \left \| f'(x_0) \right \| \right ) = \epsilon'$，矛盾。$\blacksquare$
 
-### 10.2 Local maxima, local minima, and derivatives (局部最大最小值与导数)
+## 10.2 Local maxima, local minima, and derivatives (局部最大最小值与导数)
 
-**Definition 10.2.1** (Local maxima and minima). Let $X \subset \mathbb{R}$, and $f: X \to \mathbb{R}$ be a function. $f$ **attains a local maximum/minimum at $x_0$** $\iff$ $\exists \delta > 0$ such that $f\vert_{x \cap (x_0 - \delta, x_0 + \delta)}$ attains a maximum/minimum at $x_0$.
+**Definition 10.2.1** (Local maxima and minima). Let $X \subset \mathbb{R}$, and $f: X \to \mathbb{R}$ be a function. $f$ **attains a local maximum/minimum at $x_0$** $\iff$ $\exists \delta > 0$ such that $f\vert_{x \cap (x_0 - \delta, x_0 + \delta)}$ attains a maximum/minimum at $x_0$. $\blacksquare$
 
 - Makes sense. 你要达到局部最大最小，那一定要有一个 "局部" 才行，这个 "局部" 就是 neighborhood $\Phi(x_0, \delta)$
 
-**Proposition 10.2.6** (Fermat's Theorem on stationary points). Let $a < b$ be real numbers, and $f: (a,b) \to \mathbb{R}$ be a function. 如果 $x_0 \in (a, b)$、$f$ 在 $x_0$ 处可微、且 $f$ 在 $x_0$ 处达到局部最大最小值 $\Rightarrow$ 那么 $f'(x_0) = 0$.
+**Proposition 10.2.6** (Fermat's Theorem on stationary points). Let $a < b$ be real numbers, and $f: (a,b) \to \mathbb{R}$ be a function. 如果 $x_0 \in (a, b)$、$f$ 在 $x_0$ 处可微、且 $f$ 在 $x_0$ 处达到局部最大最小值 $\Rightarrow$ 那么 $f'(x_0) = 0$. $\blacksquare$
 
 **[Proof](http://mathonline.wikidot.com/fermat-s-theorem-for-extrema):**
 
@@ -579,7 +605,7 @@ $$
     - $f(x) = x^3$ 在 $x=0$ 处有 $f'(0) = 0$，但 $f(0)$ 既不是最大值也不是最小值
     - 对 convex 而言，$f'(x) = 0$ 的点是 global minimum；对 concave 而言，$f'(x) = 0$ 的点是 global maximum。(See Corollary 1 of [Theory of convex functions, A.A. Ahmadi@Princeton](http://www.princeton.edu/~amirali/Public/Teaching/ORF523/S16/ORF523_S16_Lec7_gh.pdf))
 
-**Theorem 10.2.7** (Rolle's theorem). Let $a < b$ be real numbers, and $f: [a,b] \to \mathbb{R}$. $f$ 连续且在 $(a,b)$ 上可微. 如果 $f(a) = f(b)$ $\Rightarrow$ 那么 $\exists x \in (a,b)$ 使得 $f'(x) = 0$.
+**Theorem 10.2.7** (Rolle's theorem). Let $a < b$ be real numbers, and $f: [a,b] \to \mathbb{R}$. $f$ 连续且在 $(a,b)$ 上可微. 如果 $f(a) = f(b)$ $\Rightarrow$ 那么 $\exists x \in (a,b)$ 使得 $f'(x) = 0$. $\blacksquare$
 
 **[Proof](https://en.wikipedia.org/wiki/Rolle%27s_theorem#Proof_of_the_generalized_version):**
 
@@ -591,7 +617,7 @@ $$
  
  (2) 如果最大值/最小值出现在一点 $c \in (a, b)$，那么根据 Proposition 10.2.6 (Fermat's Theorem on stationary points)，$f'(c) = 0$。$\blacksquare$
 
-**Corollary 10.2.9** (Mean value theorem, 平均值定理; Rolle's theorem 的重要推论). Let $a < b$ be real numbers, and $f: [a,b] \to \mathbb{R}$. $f$ 连续且在 $(a,b)$ 上可微 $\Rightarrow$ 那么 $\exists x \in (a, b)$ 使得 $f'(x) = \frac{f(b) - f(a)}{b-a}$.
+**Corollary 10.2.9** (Mean value theorem, 平均值定理; Rolle's theorem 的重要推论). Let $a < b$ be real numbers, and $f: [a,b] \to \mathbb{R}$. $f$ 连续且在 $(a,b)$ 上可微 $\Rightarrow$ 那么 $\exists x \in (a, b)$ 使得 $f'(x) = \frac{f(b) - f(a)}{b-a}$. $\blacksquare$
 
 **[Proof](http://math.caltech.edu/~nets/lecture9.pdf):**
 
@@ -599,9 +625,9 @@ Construct $g(x) = f(x) - \frac{f(b) - f(a)}{b-a} \cdot (x - a)$. Note that $g(a)
 
 根据 Proposition 9.4.9 (Arithmetic preserves continuity) 和 Theorem 10.1.13 (Differential calculus) 的 sum rule (和法则)，$g(x)$ 与 $f(x)$ 一样连续且在 $(a,b)$ 上可微。根据 Rolle's theorem，$\exists c \in (a,b)$ 使得 $g'(x) = f'(x) - \frac{f(b) - f(a)}{b-a} = 0$，亦即 $f'(x) = \frac{f(b) - f(a)}{b-a}$。$\blacksquare$
 
-**Definition 10.2.10** (Lipschitz continuous function). Let $a < b$ be real numbers, and $f: [a,b] \to \mathbb{R}$. If $\forall x,y \in [a, b]$ such that $\vert f(x) - f(y) \vert \leq M \cdot \vert x - y \vert$, we call $f$ a **Lipschitz continuous function** and $M > 0$ the **Lipschitz constant**.
+**Definition 10.2.10** (Lipschitz continuous function). Let $a < b$ be real numbers, and $f: [a,b] \to \mathbb{R}$. If $\forall x,y \in [a, b]$ such that $\vert f(x) - f(y) \vert \leq M \cdot \vert x - y \vert$, we call $f$ a **Lipschitz continuous function** and $M > 0$ the **Lipschitz constant**. $\blacksquare$
 
-**Corollary 10.2.11** (具有有界导数的函数必定 Lipschitz 连续). Let $M > 0$, $a < b$ be real numbers, and $f: [a,b] \to \mathbb{R}$. $f$ 连续、在 $(a,b)$ 上可微、且 $\forall x \in (a, b)$ 有 $\vert f'(x) \vert \leq M$ (即 $f'(x)$ 在 $(a, b)$ 上有界)，则 $f$ 是 $M$-Lipschitz 连续函数。
+**Corollary 10.2.11** (具有有界导数的函数必定 Lipschitz 连续). Let $M > 0$, $a < b$ be real numbers, and $f: [a,b] \to \mathbb{R}$. $f$ 连续、在 $(a,b)$ 上可微、且 $\forall x \in (a, b)$ 有 $\vert f'(x) \vert \leq M$ (即 $f'(x)$ 在 $(a, b)$ 上有界)，则 $f$ 是 $M$-Lipschitz 连续函数。 $\blacksquare$
 
 **Proof:** 
 
@@ -609,9 +635,9 @@ Construct $g(x) = f(x) - \frac{f(b) - f(a)}{b-a} \cdot (x - a)$. Note that $g(a)
 
 又因为 $\vert f'(c) \vert \leq M$，所以 $\vert f(x) - f(y) \vert \leq M \cdot \vert x - y \vert$。$\blacksquare$
 
-### 10.3 Monotone functions and derivatives (单调性与导数)
+## 10.3 Monotone functions and derivatives (单调性与导数)
 
-**Proposition 10.3.1** Let $X \subset \mathbb{R}$, and let $x \in X$ and also a limit point of $X$. Let $f: X \to \mathbb{R}$ be a function. 如果 $f$ 单调增且在 $x_0$ 可微，则 $f'(x_0) \geq 0$; 如果 $f$ 单调减且在 $x_0$ 可微，则 $f'(x_0) \leq 0$。
+**Proposition 10.3.1** Let $X \subset \mathbb{R}$, and let $x \in X$ and also a limit point of $X$. Let $f: X \to \mathbb{R}$ be a function. 如果 $f$ 单调增且在 $x_0$ 可微，则 $f'(x_0) \geq 0$; 如果 $f$ 单调减且在 $x_0$ 可微，则 $f'(x_0) \leq 0$. $\blacksquare$
 
 - 存在单调但并不总是可微的函数，比如 $f(x) =\begin{cases}x - 1 & x < 0 \\\\ x + 1 & x > 0\end{cases}$
 - 严格单调增并不意味着 $f'(x_0) > 0$，比如 $f(x) = x^3, f'(0) = 0$。严格单调减同理。
@@ -623,22 +649,24 @@ Construct $g(x) = f(x) - \frac{f(b) - f(a)}{b-a} \cdot (x - a)$. Note that $g(a)
 - 如果 $\forall x \in [a, b]$，$f'(x) < 0$，则 $f$ 严格单调减
 - 如果 $\forall x \in [a, b]$，$f'(x) = 0$，则 $f$ 是常值函数
 
-**Proof:** 对 $\forall p, q \in [a, b]$，假设 $p < q$，用 Corollary 10.2.9 (Mean value theorem) $\blacksquare$
+$\blacksquare$
+
+**Proof:** 对 $\forall p, q \in [a, b]$，假设 $p < q$，用 Corollary 10.2.9 (Mean value theorem). $\blacksquare$
 
 - 注意：如果定义域不是一个闭区间的形式，那么可能存在 "处处$f'(x) > 0$，但 $f$ 并不严格单调增" 的情况
     - 注意开区间 $(a, b) \subset [a, b]$，所以如果不是闭区间而是一个开区间的话，Proposition 10.3.3 也成立
     - 但对于 "有洞" 的情况，就不好说了
         - 比如 $X = \mathbb{R} - \lbrace 0 \rbrace$，$f: X \to \mathbb{R}$ 定义为 $f(x) = \begin{cases}x + 1 & x < 0 \\\\ x - 1 & x > 0\end{cases}$，$f(-0.5) > f(0.5)$
 
-### 10.4 L'Hopital's rule
+## 10.4 L'Hopital's rule
 
 [知乎：如何解释洛必达法则？](https://www.zhihu.com/question/28862411)
 
-## Chapter 11 - The Riemann integral
+# Chapter 11 - The Riemann integral
 
 Riemann 积分定义的是 **定积分** (**definite integral**)，即定义在固定区间上的积分。
 
-### 11.1 Upper and lower Riemann integrals (上 Riemann 积分 / 下 Riemann 积分 / Riemann 积分)
+## 11.1 Upper and lower Riemann integrals (上 Riemann 积分 / 下 Riemann 积分 / Riemann 积分)
 
 首先复习一下 $\sup$ 和 $\inf$：
 
@@ -688,27 +716,27 @@ Riemann 可积性的保持：假设 $I$ 是有界区间，$f: I \to \mathbb{R}$ 
     - $g = g_{+} + g_{-}$
     - $f \times g = f_{+} g_{+} + f_{+} g_{-} + f_{-} g_{+} + f_{-} g_{-}$，四个小项都可积，所以整体可积，证明见书上
 
-### 11.2 连续函数的 Riemann 可积性
+## 11.2 连续函数的 Riemann 可积性
 
-**Theorem 11.5.1** (有界区间上的一致连续函数可积). 设 $I$ 是有界区间，$f: I \to \mathbb{R}$ 一致连续，则 $f$ Riemann 可积
+**Theorem 11.5.1** (有界区间上的一致连续函数可积). 设 $I$ 是有界区间，$f: I \to \mathbb{R}$ 一致连续，则 $f$ Riemann 可积。$\blacksquare$
 
 考虑 Proposition 9.9.16 (闭区间上的连续函数一致连续)，我们可以有：
 
-**Corollary 11.5.2** (闭区间上的连续函数可积). 设 $I$ 是闭区间 $[a, b]$，$f: I \to \mathbb{R}$ 连续，则 $f$ Riemann 可积
+**Corollary 11.5.2** (闭区间上的连续函数可积). 设 $I$ 是闭区间 $[a, b]$，$f: I \to \mathbb{R}$ 连续，则 $f$ Riemann 可积。$\blacksquare$
 
 - 如果是开区间，$f$ 可能无界，也就必然不可积。比如 $f(x) = \frac{1}{x}$ 在 $(0,1)$ 上就不可积
 
-**Proposition 11.5.3** (有界区间上的连续有界函数可积). 设 $I$ 是有界区间，$f: I \to \mathbb{R}$ 连续且有界，则 $f$ Riemann 可积
+**Proposition 11.5.3** (有界区间上的连续有界函数可积). 设 $I$ 是有界区间，$f: I \to \mathbb{R}$ 连续且有界，则 $f$ Riemann 可积。$\blacksquare$
 
-**Proposition 11.5.6** (有界区间上的逐段连续有界函数可积). 设 $I$ 是有界区间，$f: I \to \mathbb{R}$ 有界且逐段连续，则 $f$ Riemann 可积
+**Proposition 11.5.6** (有界区间上的逐段连续有界函数可积). 设 $I$ 是有界区间，$f: I \to \mathbb{R}$ 有界且逐段连续，则 $f$ Riemann 可积。$\blacksquare$
 
-### 11.3 连续函数的 Riemann 可积性
+## 11.3 连续函数的 Riemann 可积性
 
-**Proposition 11.6.1** (闭区间上的单调函数可积). 设 $I$ 是闭区间 $[a, b]$，$f: I \to \mathbb{R}$ 单调，则 $f$ Riemann 可积
+**Proposition 11.6.1** (闭区间上的单调函数可积). 设 $I$ 是闭区间 $[a, b]$，$f: I \to \mathbb{R}$ 单调，则 $f$ Riemann 可积。$\blacksquare$
 
-**Corollary 11.6.2** (有界区间上的有界单调函数可积). 设 $I$ 是有界区间，$f: I \to \mathbb{R}$ 单调且有界，则 $f$ Riemann 可积
+**Corollary 11.6.2** (有界区间上的有界单调函数可积). 设 $I$ 是有界区间，$f: I \to \mathbb{R}$ 单调且有界，则 $f$ Riemann 可积。$\blacksquare$
 
-### 11.4 Fundamental theorems of calculus
+## 11.4 Fundamental theorems of calculus
 
 - 注意单词：
     - calculus 指 "微积分学"
@@ -721,7 +749,7 @@ $$
 F(x) = \int_{[a, b]} f
 $$
 
-则 $F$ 连续。进而，如果 $x_0 \in [a, b]$ 且 $f$ 在 $x_0$ 处连续，则 $F$ 在 $x_0$ 处可微并且 $F'(x_0) = f(x_0)$
+则 $F$ 连续。进而，如果 $x_0 \in [a, b]$ 且 $f$ 在 $x_0$ 处连续，则 $F$ 在 $x_0$ 处可微并且 $F'(x_0) = f(x_0)$. $\blacksquare$
 
 - 这个 $f$ 与 $F$ 的关系总是有点拎不清，举例子是最好的方法
     - 比如 $f(x) = 2x$，$F(x) = x^2 - a^2$
@@ -731,7 +759,7 @@ $$
     - **每个连续的 Riemann 可积函数都有 antiderivative**
         - 但是要注意：不是每个有 antiderivative 的函数都是 Riemann 可积
 
-**Definition 11.9.3** (Antiderivatives). 设 $I$ 是有界区间，$f: I \to \mathbb{R}$, $F: I \to \mathbb{R}$. 如果 $F$ 在 $I$ 上可微且 $\forall x \in I: F'(x) = f(x)$，则称 $F$ 为 $f$ 的 **antiderivative**。
+**Definition 11.9.3** (Antiderivatives). 设 $I$ 是有界区间，$f: I \to \mathbb{R}$, $F: I \to \mathbb{R}$. 如果 $F$ 在 $I$ 上可微且 $\forall x \in I: F'(x) = f(x)$，则称 $F$ 为 $f$ 的 **antiderivative**. $\blacksquare$
 
 - 又是个拎不清的概念，简单说：
     - $f'$ is the derivative of $f$. (已知 $f$ 求它的导数 $f'$)
@@ -745,6 +773,8 @@ $$
 \int_{[a,b]} f = F(b) - F(a)
 $$
 
+$\blacksquare$
+
 - 拎不清拎不清！简单说就是 $\int_{[a,b]} f' = f(b) - f(a)$
     - **导数的积分等于本身的差**
 - 注意 Theorem 11.9.1 讲 **积分的导数等于本身**，Theorem 11.9.4 讲 **导数的积分等于本身的差**，区别在于：
@@ -752,11 +782,11 @@ $$
     - 求积分得到的是一个值
 - 结合 Theorem 11.9.1 说到的 **每个连续的 Riemann 可积函数都有 antiderivative**，可以推出：**每个连续的 Riemann 可积函数的积分都可以用它的 antiderivative 的差求得**
 
-## Chapter 12 - Metric Spaces
+# Chapter 12 - Metric Spaces
 
-### 12.1 基本定义
+## 12.1 基本定义
 
-**Lemma 12.1.1** Let $(x_n)$ be a sequence of real numbers, and let $x$ be another real number. Then $\underset{n \to \infty}{\lim} x_n = x \iff \underset{n \to \infty}{\lim} d(x_n - x) = 0$.
+**Lemma 12.1.1** Let $(x_n)$ be a sequence of real numbers, and let $x$ be another real number. Then $\underset{n \to \infty}{\lim} x_n = x \iff \underset{n \to \infty}{\lim} d(x_n - x) = 0$. $\blacksquare$
 
 现在我们想把这个收敛的概念推广，比如说使其可以应用到 complex 序列、vector 序列、matrix 序列、function 序列或者序列的序列等等。一个高效一点的方法是定义一个抽象的 space，它包括 complex space、vector space 等等这些 space，让后我们在这个抽象的 space 上一次性定义收敛的概念。这种抽象的空间，目前我们会遇到的有两类：
 
@@ -797,9 +827,11 @@ $x^{(k)}$    | $x_1^{(k)}$   | $x_2^{(k)}$   | $\cdots$     | $x_n^{(k)}$
 $\downarrow$ | $\downarrow$  | $\downarrow$  | $\downarrow$ | $\downarrow$
 $x$          | $x_1$         | $x_2$         | $\cdots$     | $x_n$      
 
+$\blacksquare$
+
 可能出现 "依 $d_1$ 收敛到 $x_1$" 但是 "依 $d_2$ 收敛到 $x_2$" 或者 "依 $d_2$ 发散" 这种类似的情况，说明 **changing the metric on a space can greatly affect the nature of convergence (also called the topology) on that space**
 
-### 12.2 Point-set topology of metric spaces
+## 12.2 Point-set topology of metric spaces
 
 Having defined the operation of convergence on metric spaces, we now define a couple other related notions, including that of open set, closed set, interior, exterior, boundary, and adherent point. The study of such notions is known as **point-set topology** (点集拓扑).
 
@@ -811,6 +843,8 @@ $$
 B_{(X, d)}(x_0, r) := \lbrace x \in X \mid d(x, x_0) < r \rbrace
 $$
 
+$\blacksquare$
+
 **Definition 12.2.5** (Interior, exterior, boundary). 已知 metric space $(X, d)$, $E \subset X$, $x_0 \in X$:
 
 - $x_0$ is an **interior point** of $E$ $\iff \exists r > 0: B(x_0, r) \subseteq E$
@@ -820,13 +854,15 @@ $$
 - $x_0$ is a **boundary point** of $E$ $\iff$ its either an interior point nor an exterior point of $E$
     - $\partial E = \lbrace x \mid x \text{ is a boundary point of } E \rbrace$
 
+$\blacksquare$
+
 注意：
 
 - 内点必定 $\in E$
 - 外点必定 $\notin E$
 - 边界点可能 $\in E$ 也可能 $\notin E$
 
-**Definition 12.2.9** (Closure). 已知 metric space $(X, d)$, $E \subset X$, $x_0 \in X$. $x_0$ is an **adherent point** of $E$ $\iff \forall r > 0: B(x_0, r) \cap E \neq \emptyset$. $\overline{E} = \lbrace x \mid x \text{ is an adherent point of } E \rbrace$
+**Definition 12.2.9** (Closure). 已知 metric space $(X, d)$, $E \subset X$, $x_0 \in X$. $x_0$ is an **adherent point** of $E$ $\iff \forall r > 0: B(x_0, r) \cap E \neq \emptyset$. $\overline{E} = \lbrace x \mid x \text{ is an adherent point of } E \rbrace$. $\blacksquare$
 
 **Proposition 12.2.10**. 已知 metric space $(X, d)$, $E \subset X$, $x_0 \in X$. 下列命题等价：
 
@@ -835,6 +871,8 @@ $$
 - $x_0$ is either an interior point or a boundary point of $E$
     - $\iff$
 - 存在由 $E$ 中元素构成的序列 $(x_n)$ 依 $d$ 收敛到 $x_0$
+
+$\blacksquare$
 
 **[Proof](http://mathonline.wikidot.com/adherent-points-and-convergent-sequences-in-metric-spaces):**
 
@@ -868,6 +906,8 @@ $$
     - 如果使用 $d_{disc}$，那么任意集合都是 open & closed
     - 所以，"不是开集" 不能推出 "一定是闭集"；"不是闭集" 也不能推出 "一定是开集"
 
+$\blacksquare$
+
 注意：
 
 - 结合 Proposition 12.2.10 说的：**由 $E$ 中元素构成的序列 $(x_n)$ 若是依 $d$ 收敛，它一定只能收敛到一个附着点，亦即只能收敛到 $\overline{E}$ 的一个元素上**，可以得出：
@@ -886,12 +926,14 @@ $$
 5. $int(E)$ 是 $E$ 内的最大开集，i.e. $\forall V \subset E$ where $V$ is open, $V \subseteq int(E)$
 6. $\overline{E}$ 是包含 $E$ 的最小闭集，i.e. $\forall V \supset E$ where $V$ is open, $V \supseteq \overline{E}$
 
+$\blacksquare$
+
 注意：
 
 - 开集的 infinite union 是开集；但 infinite intersection 不一定开。参 [Neighborhood / Open Set / Continuity / Limit Points / Closure / Interior / Exterior / Boundary](/math/2018/06/28/open-set)
 - 闭集是反过来的：infinite intersection 继续闭；infinite union 不一定闭
 
-### 12.3 Relative Topology (相对拓扑)
+## 12.3 Relative Topology (相对拓扑)
 
 metric 的选择会影响开集、闭集的判定；同样，**ambient space** (环境空间) $X$ 的选择也会对判定有影响，比如：
 
@@ -904,15 +946,15 @@ metric 的选择会影响开集、闭集的判定；同样，**ambient space** (
 
 后略。
 
-### 12.4 Cauchy sequences and complete metric spaces
+## 12.4 Cauchy sequences and complete metric spaces
 
-**Proposition** (12.4 补充一) Cauchy 序列的子序列任然是 Cauchy
+**Proposition** (12.4 补充一) Cauchy 序列的子序列任然是 Cauchy. $\blacksquare$
 
 **Proof:** 假设 $(x_n)$ 是 Cauchy，那么 $\forall \epsilon > 0: \exists n_{\epsilon}: \forall p,q \geq n_{\epsilon}: d(x_p, x_q) \leq \epsilon$。
 
 对于子序列 $(y_n)$ where $y_i = x_{f(i)}$，也必然 $\exists n'\_{\epsilon} \geq f^{-1}(n\_{\epsilon})$ (也就是说 $f(n'\_{\epsilon}) \geq n\_{\epsilon}$；注意 $f$ 是严格增) such that $\forall p,q \geq n'_{\epsilon}: d(y_p, y_q) \leq \epsilon$。$\blacksquare$
 
-**Proposition** (12.4 补充二) 如果 Cauchy 序列有子序列收敛到 $L$，则 Cauchy 序列本身也收敛到 $L$
+**Proposition** (12.4 补充二) 如果 Cauchy 序列有子序列收敛到 $L$，则 Cauchy 序列本身也收敛到 $L$. $\blacksquare$
 
 **[Proof](https://proofwiki.org/wiki/Convergent_Subsequence_of_Cauchy_Sequence_in_Metric_Space):** 假设 $(x_n)$ 是 Cauchy，它的子序列 $(y_n)$ 收敛到 $L$
 
@@ -931,9 +973,9 @@ $$
 \forall \epsilon: \exists P: \forall p > P: d(x_p, L) \leq d(x_p, x_{f(k)}) + d(x_{f(k)}, L) < \frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon
 $$
 
-即 $(x_n)$ 收敛到 $L$。$\blacksquare$
+即 $(x_n)$ 收敛到 $L$. $\blacksquare$
 
-**Definition 12.4.10** (Complete metric spaces). A metric space $(X, d)$ is said to be **complete** $\iff$ $\forall$ Cauchy sequence $(x_n)$ in $(X, d)$, $(x_n)$ converges in $(X, d)$.
+**Definition 12.4.10** (Complete metric spaces). A metric space $(X, d)$ is said to be **complete** $\iff$ $\forall$ Cauchy sequence $(x_n)$ in $(X, d)$, $(x_n)$ converges in $(X, d)$. $\blacksquare$
 
 - Complete metric spaces have some nice properties. For instance, they are **intrinsically closed**: 它们在任何其他空间上，都是 closed 
 - 这很好理解，closed set 的一个特点就是其上收敛的序列一定会收敛到 closed set 内部；complete space 也是一样，收敛一定会收敛到自己内部，所以 complete space 是 closed set
@@ -941,6 +983,8 @@ $$
 **Proposition 12.4.12**. (a) Let $(X, d)$ be a metric space, and let $(Y, d \vert_{Y \times Y})$ be a subspace of $(X, d)$. If $(Y, d \vert_{Y \times Y})$ is complete, then $Y$ must be closed in $X$.
 
 (b) Conversely, suppose that $(X, d)$ is a complete metric space, and $Y$ is a closed subset of $X$. Then the subspace $(Y, d \vert_{Y \times Y})$ is also complete.
+
+$\blacksquare$
 
 - 一个 incomplete 的 metric space，可能在某些空间上是 closed 但在另外一些空间内就不是 closed
     - 比如 $\mathbb{Q}$ 在 $\mathbb{Q}$ 上就是 closed 的 (Definition 12.2.12 全集既 open 又 closed)
@@ -951,17 +995,19 @@ $$
     - $X$ 在 $\overline X$ 上不是 closed 的
     - 比如 $\mathbb{Q}$ 一个可能的 completion 就是 $\mathbb{R}$
 
-### 12.5  Compact metric spaces
+## 12.5  Compact metric spaces
 
-#### 12.5.1 引子
+### 12.5.1 引子
 
-首先复习一下 real line 上的 Heine-Borel theorem：
+首先复习一下 real line $mathbb{R}$ 上的 Heine-Borel theorem: 
 
 **Theorem 9.1.24** (Heine-Borel theorem for the line). 设 $X \subseteq \mathbb{R}$，以下两命题等价:
 
 - (a-1) $X$ 是闭集；(a-2) 且有界
     - $\iff$
 - (b-1) $\forall$ 由 $X$ 元素组成的序列 $(a_n)$，存在它的一个子序列 $(a_{n_j})$ 收敛到 $L$；(b-2) 并且 $L \in X$
+
+$\blacksquare$
 
 现在我们想把这个定理推广到一般的 metric space 上。对于一般的 metric space：
 
@@ -972,11 +1018,11 @@ $$
 
 以下我们先完成两个新 definition 的任务：
 
-**Definition 12.5.3** (Bounded sets). Let $(X, d)$ be a metric space, and let $Y \subset X$. We say that $Y$ is **bounded** $\iff \exists$ a ball $B(x, r)$ in $X$ which contains $Y$.
+**Definition 12.5.3** (Bounded sets). Let $(X, d)$ be a metric space, and let $Y \subset X$. We say that $Y$ is **bounded** $\iff \exists$ a ball $B(x, r)$ in $X$ which contains $Y$. $\blacksquare$
 
-**Definition 12.5.1** (Compactness). A metric space $(X, d)$ is said to be **compact** $\iff$ every sequence in $(X, d)$ has at least one convergent subsequence. A subset $Y$ of a metric space $(X, d)$ is said to be compact if the subspace $(Y, d\vert_{Y \times Y} )$ is compact.
+**Definition 12.5.1** (Compactness). A metric space $(X, d)$ is said to be **compact** $\iff$ every sequence in $(X, d)$ has at least one convergent subsequence. A subset $Y$ of a metric space $(X, d)$ is said to be compact if the subspace $(Y, d\vert_{Y \times Y} )$ is compact. $\blacksquare$
 
-#### 12.5.2 推广 Heine-Borel theorem 到一般 metric space 并不那么简单
+### 12.5.2 推广 Heine-Borel theorem 到一般 metric space 并不那么简单
 
 我们本是希望把 Heine-Borel theorem 推广到一般的 metric space 上，但是实际上情况有点复杂：
 
@@ -985,6 +1031,8 @@ $$
 - (a) $E$ 是闭集且有界
     - $\iff$
 - (b) $E$ 是 compact 的
+
+$\blacksquare$
 
 注意这里的情况比较复杂是因为：
 
@@ -996,9 +1044,9 @@ $$
     - 所以严格来说 Theorem 9.1.24 (Heine-Borel theorem for the line) 应该分开写成两个定理
     - 我们在 Theorem 12.5.7 这里沿这个思路先解决 (b-1) $\Rightarrow$ (b-2) 的问题
 
-#### 12.5.3 证明 $(a) \Leftarrow (b)$ 对一般 metric space 成立
+### 12.5.3 证明 $(a) \Leftarrow (b)$ 对一般 metric space 成立
 
-**Proposition 12.5.5**. Let $(X, d)$ be a compact metric space. Then $(X, d)$ is both complete and bounded.
+**Proposition 12.5.5**. Let $(X, d)$ be a compact metric space. Then $(X, d)$ is both complete and bounded. $\blacksquare$
 
 **Proof:** 基本可以照搬 Theorem 9.1.24 的 $\Leftarrow$ 方向的证明 $\blacksquare$
 
@@ -1006,11 +1054,11 @@ $$
 
 **Corollary 12.5.6** (Compact sets are closed and bounded). Let $(X, d)$ be a metric space, and let $Y$ be a compact subset of $X$. Then $Y$ is closed and bounded. $\blacksquare$
 
-#### 12.5.4 证明 $(a) \Rightarrow (b)$ 对 Euclidean space 成立
+### 12.5.4 证明 $(a) \Rightarrow (b)$ 对 Euclidean space 成立
 
 接着我们处理 $(a) \Rightarrow (b)$ 的部分。
 
-首先我们看 Proposition 12.1.18 的那个图。
+首先我们看 Proposition 12.1.18 的那个图：
 
 vector       |   1st         | 2nd           | $\cdots$     | $n$-th      
 -------------| ------------- | ------------- | ------------ | ------------ 
@@ -1023,7 +1071,7 @@ $x$          | $x_1$         | $x_2$         | $\cdots$     | $x_n$
 
 如果 $E \subset \mathbb{R}^n$ 是闭集且有界，那么它的每一个分量空间 $E_i \subset \mathbb{R}, i=1,2,\dots,n$ 应该也是闭集且有界的。
 
-我们用反证法：假设 $\exists (x^{k})$ 没有子序列收敛。根据 Proposition 12.1.18，这意味着分量序列 $(x_i^{k})$ 也没有子序列收敛 (注意这里下标 $i$ 表示 “第 $i$-th 分量”；上标 $(k)$ 才是 cursor)。
+**Proof:** 我们用反证法：假设 $\exists (x^{k})$ 没有子序列收敛。根据 Proposition 12.1.18，这意味着分量序列 $(x_i^{k})$ 也没有子序列收敛 (注意这里下标 $i$ 表示 “第 $i$-th 分量”；上标 $(k)$ 才是 cursor).
 
 但由于 $E_i \subset \mathbb{R}, i=1,2,\dots,n$ 是闭集且有界的，根据 Theorem 9.1.24 (Heine-Borel theorem for the line)， $\forall$ 由 $E_i$ 元素组成的序列都应该有一个收敛子序列，矛盾。$\blacksquare$
 
@@ -1033,19 +1081,19 @@ $x$          | $x_1$         | $x_2$         | $\cdots$     | $x_n$
 1. 证明 "实数线段" 是 compact 的
 1. 在 Prodcut Topology (积空间) 领域有 **[Tychonoff's theorem](http://pi.math.cornell.edu/~kbrown/4530/tychonoff.pdf):** compact space 的笛卡尔积也是 compact 的
 
-#### 12.5.5 为什么 $(a) \Rightarrow (b)$ 对一般 metric space 不成立
+### 12.5.5 为什么 $(a) \Rightarrow (b)$ 对一般 metric space 不成立
 
-考虑 $(\mathbb{Z}, d_{disc})$。首先它是 complete 的 (序列只可能收敛到整数)；然后它是有界的 (任意两个整数的距离不超过 1，所以一个 $r=1$ 的球就可以包含 $\mathbb{Z}$)。但是序列 $1,2,3,\cdots$ 没有收敛的子序列 (你要收敛必须有 $\cdots, x, x, x, \cdots$ 这样连续相等的 tail 序列)。
+考虑 $(\mathbb{Z}, d_{disc})$. 首先它是 complete 的 (序列只可能收敛到整数)；然后它是有界的 (任意两个整数的距离不超过 1，所以一个 $r=1$ 的球就可以包含 $\mathbb{Z}$)。但是序列 $1,2,3,\cdots$ 没有收敛的子序列 (你要收敛必须有 $\cdots, x, x, x, \cdots$ 这样连续相等的 tail 序列)。
 
 这个例子也说明分析学的作用，因为这个空间完全没有办法用几何学来表示，但是不妨碍我们研究出它的性质。
 
-#### 12.5.6 强推 Heine-Borel theorem 到一般 metric space：将条件 (a) "闭集且有界" 改成 "complete 且 totally bounded (全有界)"
+### 12.5.6 强推 Heine-Borel theorem 到一般 metric space：将条件 (a) "闭集且有界" 改成 "complete 且 totally bounded (全有界)"
 
-**Definition 12.5.10** (Totally bounded sets; Exercise 12.5.10) A metric space $(X, d)$ is called **totally bounded** if $\forall \epsilon > 0: \exists$ $n$ ($n$ is a positive integer) points $x^{(1)}, \dots, x^{(n)}$ and $n$ balls $B(x^{(1)}, \epsilon), \dots, B(x^{(n)}, \epsilon)$ which cover $X$ (i.e., $X = \bigcup_{i = 1}^{n} B(x^{(i)}, \epsilon)$. 
+**Definition 12.5.10** (Totally bounded sets; Exercise 12.5.10) A metric space $(X, d)$ is called **totally bounded** if $\forall \epsilon > 0: \exists$ $n$ ($n$ is a positive integer) points $x^{(1)}, \dots, x^{(n)}$ and $n$ balls $B(x^{(1)}, \epsilon), \dots, B(x^{(n)}, \epsilon)$ which cover $X$ (i.e., $X = \bigcup_{i = 1}^{n} B(x^{(i)}, \epsilon)$. $\blacksquare$
 
 - 不同的 $\epsilon$ 可以有不同的 $n$
 
-**Proposition 12.5.10 (a)** (Exercise 12.5.10). Totally Bounded Metric Space is Bounded.
+**Proposition 12.5.10 (a)** (Exercise 12.5.10). Totally Bounded Metric Space is Bounded. $\blacksquare$
 
 **[Proof](http://www.math.ucla.edu/~tao/resource/general/121.1.00s/compact.pdf):** Let $(X, d)$ be totally bounded so $\forall \epsilon > 0$ there exist $B(x^{(1)}, \epsilon), \dots, B(x^{(n)}, \epsilon)$ that cover $X$. 
 
@@ -1062,6 +1110,8 @@ Because $X = \bigcup_{i = 1}^{n} B(x^{(i)}, \epsilon)$, we can conclude that $X 
 - (a) $(X,d)$ complete 且 totally bounded
     - $\iff$
 - (b) $(X,d)$ 是 compact 的
+
+$\blacksquare$
 
 **Proof:**
 
@@ -1133,13 +1183,13 @@ $$
 
 矛盾。所以序列 $(x_n)$ 不可能有子序列收敛，但这又与 compact 的定义矛盾，得证。$\blacksquare$
 
-### 12.6 [Cover (覆盖)](https://en.wikipedia.org/wiki/Cover_(topology))
+## 12.6 [Cover (覆盖)](https://en.wikipedia.org/wiki/Cover_(topology))
 
 待续。
 
 - 注意 metric space 里，compactness 和 sequential compactness 本质上等价
 - 但是在 general topological space 里，这俩概念不同
-- 参考 https://math.stackexchange.com/questions/44907/whats-going-on-with-compact-implies-sequentially-compact
+- 参考 [What's going on with "compact implies sequentially compact"?](https://math.stackexchange.com/questions/44907/whats-going-on-with-compact-implies-sequentially-compact)
 
 [抽象猴：如何清晰、形象化地解释点集拓扑中“紧”这个概念？](https://www.zhihu.com/question/19593104/answer/87795807):
 
@@ -1149,13 +1199,13 @@ $$
 
 > 根据定义，紧空间的任意开覆盖有有限子覆盖，必须要好好体会“任意”这个词，显然，我们可以用一个很大的瓶子把所有东西装进去，但这只是一种情况，紧空间说的是“任意”，对使用“任意”大小的瓶子来装进这些元素，都能挑选出有限多个瓶子结束战斗...这就表明，这些元素只有分布的很紧时，才能够使用有限的任意小的瓶子来装。
 
-更多参考：[pluskid：拓扑空间的紧性](http://blog.pluskid.org/?p=785)
+更多参考：[pluskid：拓扑空间的紧性](http://blog.pluskid.org/?p=785)。
 
 另外感觉涉及到 cover 的部分就需要 "Chapter 8 - 无限集合" 的理论辅助了。
 
-## Chapter 13 - Continuous functions on metric spaces
+# Chapter 13 - Continuous functions on metric spaces
 
-### 13.5 拓扑空间
+## 13.5 拓扑空间
 
 metric space 的部分概念可以推广到 topological space。这个推广的思路是：不要把 $d$ 看做 topological space 的基础对象，因为一般的 topological space 中根本就没有 metric (所以明显有些 topological space 不是 metric space)。**代替 metric 的是 open set family (开集族)**：
 
@@ -1177,11 +1227,11 @@ topological space 不存在 Cauchy、complete、bounded 这三个概念，有 co
 
 - [Why is Completeness not a Topological Property?](https://math.stackexchange.com/questions/1565350/why-is-completeness-not-a-topological-property)
 
-## Chapter 17 - 多元微分
+# Chapter 17 - 多元微分
 
-### 17.8 The implicit function theorem (隐函数)
+## 17.8 The implicit function theorem (隐函数)
 
-#### 17.8.1 函数图像 (graph) 与集合曲线 (curve)
+### 17.8.1 函数图像 (graph) 与集合曲线 (curve)
 
 先考虑 $\mathbb{R}^2$ 的情况。假设有函数 $f: X \to \mathbb{R}$ 和集合 $A = \lbrace (x, y) \mid \text{some condition} \rbrace$
 
@@ -1203,7 +1253,7 @@ topological space 不存在 Cauchy、complete、bounded 这三个概念，有 co
 
 扩展到高维并 generalize，我们可能会问：给定一个集合 $\lbrace \mathbf{x} \in \mathbb{R}^{n} \mid f(\mathbf{x}) = 0 \rbrace$, where $f: \mathbb{R}^n \to \mathbb{R}$，这个集合曲面 (surface; 扩展到高维就从曲线升级到曲面了) 是否是一个函数 $g: \mathbb{R}^{n-1} \to \mathbb{R}$ 的图像？
 
-#### 17.8.2 隐函数定理
+### 17.8.2 隐函数定理
 
 **Theorem 17.8.1** (Implicit function theorem). 假设有：
 
@@ -1221,12 +1271,14 @@ topological space 不存在 Cauchy、complete、bounded 这三个概念，有 co
 - 集合曲面 $\lbrace \mathbf{x} \in V \mid f(\mathbf{x}) = 0 \rbrace$ 是函数 $g$ 的图像
     - 我们把 $(x_1, \cdots, x_{n-1})$ 写作 $\mathbf{x_{\bar n}}$，那么函数 $g$ 的图像就是 $\lbrace (\mathbf{x_{\bar n}}, g(\mathbf{x_{\bar n}})) \mid \mathbf{x_{\bar n}} \in U \rbrace$
 
+$\blacksquare$
+
 注意几个原始概念：
 
 - 形如 $f(\mathbf{x}) = 0$ 的 relation 我们称为 **implicit equation**
 - 如果我们把 $f(\mathbf{x}) = 0$ 中的 $\mathbf{x}$ 的其中一项用其余的 $n-1$ 项表达出来的话，比方说得到 $x_n = g(\mathbf{x_{\bar n}})$，那么这个函数 $g: \mathbb{R}^{n-1} \to \mathbb{R}$ 就称为 $f(\mathbf{x}) = 0$ 定义的 **implicit function**
 
-#### 17.8.3 关于 $\frac{\partial f}{\partial x_n} (\mathbf{y}) \neq 0$ 的讨论 / gradient / manifold
+### 17.8.3 关于 $\frac{\partial f}{\partial x_n} (\mathbf{y}) \neq 0$ 的讨论 / gradient / manifold
 
 我们在前面看到 $\frac{\partial f}{\partial x_n} (\mathbf{y}) \neq 0$ 这个条件的重要性。但是什么情况下会有 $\frac{\partial f}{\partial x_n} (\mathbf{y}) = 0$？
 
@@ -1235,7 +1287,7 @@ topological space 不存在 Cauchy、complete、bounded 这三个概念，有 co
     - $\mathbf{y}$ 的值是多少根本不重要
 - 如果 $\frac{\partial f}{\partial x_n}$ 有 $x_0$ 的项，$\mathbf{y}$ 的值也可能导致 $\frac{\partial f}{\partial x_n} (\mathbf{y}) = 0$
 
-考虑 gradient $\nabla f(\mathbf{y}) = (\frac{\partial f}{\partial x_1}(\mathbf{y}), \cdots, \frac{\partial f}{\partial x_n}(\mathbf{y}))$
+考虑 gradient $\nabla f(\mathbf{y}) = (\frac{\partial f}{\partial x_1}(\mathbf{y}), \cdots, \frac{\partial f}{\partial x_n}(\mathbf{y}))$:
 
 - 只要 $\nabla f(\mathbf{y}) \neq \mathbf{0}$，我们就能找到一个 $x_i$ 去做 implicit function
 - 如果存在 $\mathbf{y}$ 使得 $\nabla f(\mathbf{y}) = \mathbf{0}$，我们称 $\mathbf{y}$ 为 $f$ 的 **critical point (临界点)**
