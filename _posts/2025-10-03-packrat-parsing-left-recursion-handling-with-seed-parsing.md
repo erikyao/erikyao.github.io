@@ -82,18 +82,18 @@ Seed-growing should stop when we have reached the longest match.
 
 We can define a memorization map like `memos(non-terminal, pos) = (result, endpos)`. 
 
-To define $E_0 := \texttt{MisMatch}$, we can initialize $\operatorname{memos}(E, 0) = (\texttt{MisMatch}, \_)$.
+To define $E_0 := \texttt{MisMatch}$, we can initialize $\operatorname{memos}(E, 0) = (\texttt{MisMatch}, 0)$.
 
 The seed-growing process is like:
 
 |      Position      | $0$ | $1$ | $2$ | $3$ | $4$ |   $5$   | Old $\operatorname{memos}(E, 0)$ | New $\operatorname{memos}(E, 0)$ |
 |:------------------:|:---:|:---:|:---:|:---:|:---:|:-------:|:--------------------------------:| -------------------------------- |
 | Non-terminal\Input | $n$ | $+$ | $n$ | $+$ | $n$ | $\Finv$ |                                  |                                  |
-|       $E_0$        | ❌  |     |     |     |     |         |    $(\texttt{MisMatch}, \_)$     |                                  |
-|       $E_1$        | 🔴  |     |     |     |     |         |    $(\texttt{MisMatch}, \_)$     | $(\texttt{Match}(n), 1)$         |
+|       $E_0$        | ❌  |     |     |     |     |         |    $(\texttt{MisMatch}, 0)$     |                                  |
+|       $E_1$        | 🔴  |     |     |     |     |         |    $(\texttt{MisMatch}, 0)$     | $(\texttt{Match}(n), 1)$         |
 |       $E_2$        | 🔴  | 🟡  | 🟡  |     |     |         |     $(\texttt{Match}(n), 1)$     | $(\texttt{Match}(n+n), 3)$       |
 |       $E_3$        | 🔴  | 🟡  | 🟡  | 🟢  | 🟢  |         |    $(\texttt{Match}(n+n), 3)$    | $(\texttt{Match}(n+n+n), 5)$     |
-|       $E_4$        | 🔴  |     |     |     |     |         |   $(\texttt{Match}(n+n+n), 5)$   | $(\texttt{Match}(n), 1)$         |
+|       $E_4$        | 🔵  |     |     |     |     |         |   $(\texttt{Match}(n+n+n), 5)$   | $(\texttt{Match}(n), 1)$         |
 
 When matching $E_4$ we find the new `endpos` becomes `1` and is less than the old `endpos` of `5`, we know we have re-entered the "matching loop", and the old $\operatorname{memos}(E, 0) = (\texttt{Match}(n+n+n), 5)$ should be returned as the final parsing result.
 
