@@ -92,8 +92,8 @@ $c_0 \to c_1 \to \dots \to c_k$ 这个 chain 何尝不是一种 version controll
 
 此时我们给 $L$ 加了一些新的 feature，考虑这么两种情况：
 
-1. 添加了新的 production rule，$L$ 变成了新语言 $L'$
-2. 添加了新的 keyword/syntax，$L$ 变成了新语言 $L''$
+1. 添加了新的 production rule，$L$ 变成了新语言 $L' \supset L$
+2. 添加了新的 keyword/syntax，$L$ 变成了新语言 $L'' \supset L$
 
 如果我们不想去修改 $c_0$ 再从头开始 bootstrapping，那么我们在写 $c_{k+1}$ 时就要坚持一个原则：
 
