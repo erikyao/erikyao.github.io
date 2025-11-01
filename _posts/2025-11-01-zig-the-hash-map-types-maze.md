@@ -15,33 +15,31 @@ If you've ever been confused by Zig's `HashMap` types, you're not alone. With 12
 
 Zig's hash maps vary across three independent dimensions:
 
-1. **Storage Strategy**
-   - Unordered: traditional implementation
-   - Ordered: double-array implementation
+1. **Storage**
+   - Unordered
+   - Ordered
 2. **Contexy**
-   - Manual: users have to specify `.ctx` attribute on initialization
-   - `Auto`: pre-configured `.ctx` attribute for value key types, by standard lib
-   - `String`: pre-configured `.ctx` attribute for string keys especially, by standard lib
+   - Manual
+   - `Auto`
+   - `String`
 3. **Memory Management**
-   - Managed: memory allocation is delegated to `.allocator` attribute of the hash map instance (user gain convenience)
-   - `Unmanaged`: users have to specify an `allocator` instance when using some APIs (users gain flexibility)
+   - Managed
+   - `Unmanaged`
 
 This gives us: $2 \times 3 \times 2 = 12$ total `HashMap` types. See [std](https://ziglang.org/documentation/master/std/).
 
-## 1.1 Dimension 1: Storage Strategy
+## 1.1 Dimension 1: Storage
 
 This is the most fundamental choice, as it affects performance characteristics and whether insertion order is preserved. In standard lib, they are even implemented as individual modules. See [hash_map.zig](https://ziglang.org/documentation/master/std/#src/std/hash_map.zig) and [array_hash_map.zig](https://ziglang.org/documentation/master/std/#src/std/array_hash_map.zig).
 
-
-- `HashMap`: The classic hash table implementation. Fast lookups, but no order guarantees.
-- `ArrayHashMap`: Uses arrays to store keys and values separately, with a hash table for indexing. Preserves insertion order.
-
-**Performance note:** Array-backed maps are typically faster for iteration but may be slightly slower for lookups compared to traditional hash maps.
-{: .notice--info}
+- `HashMap`: The classic hash table implementation. 
+  - Fast lookups, but no order guarantees.
+- `ArrayHashMap`: Uses double arrays to store keys and values separately, with a hash table for indexing. 
+  - Preserves insertion order.
 
 ## 1.2 Dimension 2: Context (i.e. Key Handling)
 
-In Zig, a `Context` type that is essentially a set of the hashing and equality functions (similar to Python's `__hash__` and `__eq__` methods, or Java's `hashCode()` and `equals()`), determines how keys are hashed and compared. 
+In Zig, a `Context` type, which is essentially a set of the hashing and equality functions (similar to Python's `__hash__` and `__eq__` methods, or Java's `hashCode()` and `equals()`), determines how keys are hashed and compared. 
 
 ### 1.2.1 Manual Context: `HashMap` / `ArrayHashMap`
 
@@ -63,7 +61,7 @@ Best when you have custom types needing special hashing or equality logic.
 
 ### 1.2.2 `Auto` Context: `AutoHashMap` / `AutoArrayHashMap`
 
-Uses Zig's automatic hashing (`std.hash.autoHash`) and equality comparison (`std.meta.eql(a, b)`). Works great for value types.
+Uses Zig's automatic hashing (`std.hash.autoHash`) and equality comparison (`std.meta.eql(a, b)`).
 
 ```zig
 var m1 = std.AutoHashMap(u32, []const u8).init(allocator);
@@ -92,12 +90,10 @@ var m1 = std.StringHashMap(i32).init(allocator);
 var m2 = std.StringArrayHashMap(i32).init(allocator);
 ```
 
-Use when your keys are strings. This is the correct choice for string keys, not `AutoHashMap`.
+This is the correct choice for string keys, not `AutoHashMap`.
 {: .notice--warning}
 
 ## 1.3 Dimension 3: Memory Management
-
-Every hash map type comes in two flavors:
 
 ### 1.3.1 Managed (Default)
 
