@@ -90,7 +90,7 @@ var m1 = std.StringHashMap(i32).init(allocator);
 var m2 = std.StringArrayHashMap(i32).init(allocator);
 ```
 
-This is the correct choice for string keys, not `AutoHashMap`.
+**Important:** This is the correct choice for string keys, not `AutoHashMap`.
 {: .notice--warning}
 
 ## Dimension 3: Memory Management
@@ -106,8 +106,8 @@ map.remove(1);          // no allocator parameter needed
 map.deinit();           // uses stored allocator
 ```
 
-**Pros:** More convenient, less parameter passing
-**Cons:** Slightly larger memory footprint (stores allocator pointer)
+- **Pros:** More convenient, less parameter passing
+- **Cons:** Slightly larger memory footprint (stores allocator pointer)
 
 ### `Unmanaged`
 
@@ -120,8 +120,8 @@ map.remove(allocator, 1);        // must pass allocator
 map.deinit(allocator);           // must pass allocator
 ```
 
-**Pros:** Smaller memory footprint, more flexible (can use different allocators)
-**Cons:** More verbose, easy to forget allocator parameter
+- **Pros:** Smaller memory footprint, more flexible (can use different allocators)
+- **Cons:** More verbose, easy to forget allocator parameter
 
 # 2. Summary
 
@@ -137,7 +137,7 @@ Follow this simple decision tree:
    - No $\Rightarrow$ Use `HashMap` family
    - Yes $\Rightarrow$ Use `ArrayHashMap` family
 
-**2. What are my keys?**
+**2. Type of my keys?**
    - Strings $\Rightarrow$ Use `String*HashMap`
    - Integers/Enums/Simple structs $\Rightarrow$ Use `Auto*HashMap`
    - Custom types needing special hashing $\Rightarrow$ Use base `HashMap` / `ArrayHashMap`
