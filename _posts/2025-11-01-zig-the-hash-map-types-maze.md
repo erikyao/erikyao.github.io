@@ -11,7 +11,7 @@ toc_sticky: true
 
 If you've ever been confused by Zig's `HashMap` types, you're not alone. With 12 different `HashMap` types in the standard library and some misleading names, it can feel overwhelming. But there's actually a clear, logical structure once you understand the categorization.
 
-## 1.0 The Big Picture: 12 Hash Maps, 3 Dimensions
+## The Big Picture: 12 Hash Maps, 3 Dimensions
 
 Zig's hash maps vary across three independent dimensions:
 
@@ -28,7 +28,7 @@ Zig's hash maps vary across three independent dimensions:
 
 This gives us: $2 \times 3 \times 2 = 12$ total `HashMap` types. See [std](https://ziglang.org/documentation/master/std/).
 
-## 1.1 Dimension 1: Storage
+## Dimension 1: Storage
 
 This is the most fundamental choice, as it affects performance characteristics and whether insertion order is preserved. In standard lib, they are even implemented as individual modules. See [hash_map.zig](https://ziglang.org/documentation/master/std/#src/std/hash_map.zig) and [array_hash_map.zig](https://ziglang.org/documentation/master/std/#src/std/array_hash_map.zig).
 
@@ -37,11 +37,11 @@ This is the most fundamental choice, as it affects performance characteristics a
 - `ArrayHashMap`: Uses double arrays to store keys and values separately, with a hash table for indexing. 
   - Preserves insertion order.
 
-## 1.2 Dimension 2: Context (i.e. Key Handling)
+## Dimension 2: Context (i.e. Key Handling)
 
 In Zig, a `Context` type, which is essentially a set of the hashing and equality functions (similar to Python's `__hash__` and `__eq__` methods, or Java's `hashCode()` and `equals()`), determines how keys are hashed and compared. 
 
-### 1.2.1 Manual Context: `HashMap` / `ArrayHashMap`
+### Manual Context: `HashMap` / `ArrayHashMap`
 
 The base types where you provide everything yourself. Maximum control, maximum verbosity.
 
@@ -59,7 +59,7 @@ var map = std.HashMap(
 Best when you have custom types needing special hashing or equality logic.
 {: .notice--info}
 
-### 1.2.2 `Auto` Context: `AutoHashMap` / `AutoArrayHashMap`
+### `Auto` Context: `AutoHashMap` / `AutoArrayHashMap`
 
 Uses Zig's automatic hashing (`std.hash.autoHash`) and equality comparison (`std.meta.eql(a, b)`).
 
@@ -81,7 +81,7 @@ var m2 = std.AutoArrayHashMap(u32, []const u8).init(allocator);
 **Important:** Despite the name, `AutoHashMap` is not truly "general purpose" – it's optimized for value keys only.
 {: .notice--warning}
 
-### 1.2.3 `String` Context: `StringHashMap` / `StringArrayHashMap`
+### `String` Context: `StringHashMap` / `StringArrayHashMap`
 
 Specialized for string keys (`[]const u8`). Hashes and compares string content, not pointers.
 
@@ -93,9 +93,9 @@ var m2 = std.StringArrayHashMap(i32).init(allocator);
 This is the correct choice for string keys, not `AutoHashMap`.
 {: .notice--warning}
 
-## 1.3 Dimension 3: Memory Management
+## Dimension 3: Memory Management
 
-### 1.3.1 Managed (Default)
+### Managed (Default)
 
 Stores the allocator inside the hash map structure (as `.allocator`).
 
@@ -109,7 +109,7 @@ map.deinit();           // uses stored allocator
 **Pros:** More convenient, less parameter passing
 **Cons:** Slightly larger memory footprint (stores allocator pointer)
 
-### 1.3.2 `Unmanaged`
+### `Unmanaged`
 
 Does not store the allocator. You must pass it to every method that allocates.
 
@@ -125,11 +125,11 @@ map.deinit(allocator);           // must pass allocator
 
 # 2. Summary
 
-## 2.1 Naming Pattern
+## Naming Pattern
 
 The naming follows a pattern like `[Context][Storage][Memory]`, like `StringArrayHashMapUnmanaged` = `String` context + `Array` storage + `Unmanaged` allocator.
 
-## 2.2 Decision Tree: Which One Should I Use?
+## Decision Tree: Which One Should I Use?
 
 Follow this simple decision tree:
 
@@ -146,7 +146,7 @@ Follow this simple decision tree:
    - Yes (most common) $\Rightarrow$ Use managed version (default)
    - No (need flexibility/smaller size) $\Rightarrow$ Use `*Unmanaged` version
 
-## 2.3 Performance Considerations
+## Performance Considerations
 
 `HashMap` (Traditional)
 - **Lookups** Fast (O(1) average)
