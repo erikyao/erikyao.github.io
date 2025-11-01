@@ -1,5 +1,5 @@
 ---
-title: "`defer` and `errdefer` in Zig"
+title: "Zig: `defer` / `errdefer`"
 description: ""
 category: Zig
 tags: []
