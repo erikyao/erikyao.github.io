@@ -19,11 +19,11 @@ toc_sticky: false
 
 `defer` 的作用其实是：
 
-> Register an expression to be executed when the scope exits for whatever reason.
+> **Register** an expression to be executed when the scope exits for whatever reason.
 
 同理 `errdefer` 的作用可以解释为：
 
-> Register an expression to be executed when the scope exits due to an error.
+> **Register** an expression to be executed when the scope exits due to an error.
 
 你也可以理解成：
 
