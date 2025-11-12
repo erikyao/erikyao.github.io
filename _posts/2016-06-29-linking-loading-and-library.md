@@ -29,44 +29,46 @@ toc_sticky: true
 ![][northbridge_southbridge]
 
 - northbridge:
-    - Intel 旧称 _Memory Controller Hub_ (MCH)，现在普遍把 graphics card 也连过来，所以也 a.k.a. _Graphics and Memory Controller Hub_ (GMCH)
+    - Intel 旧称 _Memory Controller Hub_ (MCH)
+      - 现在普遍把 graphics card 也连过来，所以也 a.k.a. _Graphics and Memory Controller Hub_ (GMCH)
     - northbridge 连接高速设备，比如 CPU、Memory、GPU
-    - 相对于 southbridge，northbridge 用的是高速 bus
+      - 所以 northbridge 用的是高速 bus (相对于 southbridge)
 - southbridge: 
     - Intel 旧称 _I/O Controller Hub_ (ICH)
     - southbridge 连接低速设备，比如 USB, audio, serial, system BIOS, interrupt controller and IDE channels.
-    - 相对于 northbridge，southbridge 肯定用的是低速 bus
+      - 所以 southbridge 用的是低速 bus (相对于 northbridge)
 
-multi-core processor 其实是 multi-processors 的变体：
+MCP (Multi-Core Processor) 其实是 MP (multi-processors) 的变体：
 
-- 一个 multi-core processor 内部其实是多个精简版的 processors (至少是精简掉了 cache；故称为 core) 拼在一起，共用一套 cache
-    - processor 内部的 cache 是非常贵的，multi-core processor 这么设计一来减少成本方便投入民用，二来其实民用也用不上标准的 multi-processors
+- 一个 MCP 内部其实是多个精简版的 processors (至少是精简掉了 cache；故称为 core) 拼在一起，共用一套 cache
+    - processor 内部的 cache 是非常贵的，MCP 这么设计一来减少成本方便投入民用，二来其实民用也没有必要用标准的 MP
     - 相当于是把低级别的 processor 当做组件来设计了一个高级一点的 processor
-- multi-core processor 可以看做是 SMP (Symmetrical Multi-Processing) 的一种实现
+- MCP 可以看做是 SMP (Symmetrical Multi-Processing) 的一种实现
     - symmetrical 指各个 processor 间是平等的关系 (i.e. 不存在 master-slave 之类的关系) 
 
 软件在 OS 层面的分类：
 
-- 系统软件
-    - OS kernel, drivers, runtime libraries, other system tools
-    - 开发工具 (Development Tools)：compiler, debugger, assembler, development libraries
-- 应用程序 (Application) 
+- System Software (系统软件)
+    - System Management Software: OS kernel, drivers, RTL (runtime libraries)
+    - System Development Software: compiler, debugger, assembler, development libraries
+- Application Software (应用程序)  
 
 ![][software_hierarchy]
 
-> Any problem in computer science can be solved by another layer of indirection. (In computer programming, _**indirection**_ is the ability to reference something using a name, reference, or container instead of the value itself.)
+<div class="notice--info" markdown="1">
+Any problem in computer science can be solved by another layer of indirection. (In computer programming, _**indirection**_ is the ability to reference something using a name, reference, or container instead of the value itself.)
 
-indirection 的逻辑关系：
+具体的 indirection 例子有：
 
-- Application 和 Development Tools 使用的都是 OS API
-- OS API 由 runtime libraries 提供，比如：
-    - Linux 下的 `glibc` 提供 POSIX API
-    - Windows 下的 `Win32` 提供 32-bit Windows API
-- runtime libraries 使用的是 OS 提供的 SCI (system call interface)，而 SCI 的实现方式一般是 software interrupt
+1. Application Software 和 System Development Software 都是使用 RTL (runtime libraries) 提供的 OS API，比如：
+    - Linux 下的 RTL `glibc` 提供 POSIX API
+    - Windows 下的 RTL `Win32` 提供 32-bit Windows API
+2. RTL 使用的是 OS 提供的 SCI (System Call Interface)
+    - SCI 的实现方式一般是 software interrupt
+</div>
 
-> 注意 runtime library 是 library 的一种。
-> 且由于它和 OS 的关系紧密，所以它一般是 platform-specific 或 vendor-specific.
-> 后面说的 DLL 和 SLL，重点在于 linking 的方式，它们和 runtime library 不是在同一个维度上对 library 这个概念做区分。
+注意 RTL 是 library 的一种。且由于它和 OS 的关系紧密，所以它一般是 platform-specific 或 vendor-specific. 后面说的 DLL 和 SLL，重点在于 linking 的方式，它们和 RTL 不是在同一个维度上对 library 这个概念做区分。
+{: .notice--warning}
 
 硬件抽象：
 
@@ -77,29 +79,29 @@ indirection 的逻辑关系：
 
 (Memory 的) Segmentation (分段):
 
-- 简单说就是根据 application 的需要划分 memory 供其使用
+- 简单说就是根据 application 的需要，划分 memory 供其使用
 - 实际包含了 virtual memory 到 physical memory 的映射步骤
     - virtual memory 的目的主要是为了方便管理
-    - 映射往往包含了其他信息，比如实际的 physical memory 的 start 和 offset，这样跨 segment 的 memory access 很容易被系统 detect 到并 refuse
+    - 映射往往包含了其他信息，比如实际的 physical memory 的 start 和 offset，这样跨 segment 的 memory access 很容易被系统 detect 到 (注意这种 access 是应该被禁止的)
     - 这个映射由 MMU (memory management unit) 来管理；MMU 一般都集成在 CPU 内部
 
 (Memory/Disk 的) Paging (分页):
 
 - 简单说就是把 memory/disk 划分成更小的单位：page
 - virtual memory、physical memory 和 disk 会用一个统一的 page size (一般是 4KB)
-    - 所以有 VP (virtual page)、PP (physical page) 和 DP (disk page)
+    - 所以有 virtual page、physical page 和 disk page
 - 这样允许只 load 一部分文件 (from disk) 到 memory、或者 virtualize 一部分 memory 到 disk (指虚拟内存)
 
 # Part 2. 静态链接 (Static Linking)
 
 ## 2. 编译和链接
 
-`gcc hello.c` 生成 `a.out` 的过程实际包含了 4 个步骤：
+`gcc main.c` 生成 `a.out` 的过程实际包含了 4 个步骤：
 
 1. Preprocessing
-    - 命令：`gcc -E hello.c -o hello.i`
-    - 输入：源文件 `hello.c` 外加 `stdio.h` 之类的头文件
-    - 输出：`hello.i`
+    - 命令：`gcc -E main.c -o main.i`
+    - 输入：源文件 `main.c` 外加 `stdio.h` 之类的头文件
+    - 输出：`main.i`
     - 操作：
         - 展开 `#define`
         - 执行 `#if` 之流
@@ -108,41 +110,51 @@ indirection 的逻辑关系：
         - 添加 line number
         - 保留 `#progma` 编译器指令
 2. Compilation
-    - 命令：`cc1 hello.c -o hello.s` 或者 `gcc -S hello.c -o hello.s`
+    - 命令：`cc1 main.c -o main.s` 或者 `gcc -S main.c -o main.s`
         - 现在版本的 GCC 的 `cc1` 命令实际合并了 processing 和 compilation
-    - 输入：`hello.i`
-    - 输出：`hello.s`
-    - 操作：词法分析、语法分析、语义分析及优化后生成汇编代码
+    - 输入：`main.i`
+    - 输出：`main.s`
+    - 操作：词法分析、语法分析、语义分析及优化后生成 assembly 汇编代码 
 3. Assembling
-    - 命令：`as hello.s -o hello.o` 或者 `gcc -c hello.s -o hello.o`
-    - 输入：`hello.s`
-    - 输出：`hello.o`
-    - 操作：将汇编代码转成机器指令
-4. Linking
-    - 简化版的命令：`ld -static crt1.o crti.o crtbeginT.o hello.o -start-group -lgcc -lgcc_eh -lc-end-group crtend.o crtn.o -o a.out`
-    - 输入：`hello.o`
-    - 输出：`a.out`
-    - 操作：？？？
+    - 命令：`as main.s -o main.o` 或者 `gcc -c main.s -o main.o`
+    - 输入：`main.s`
+    - 输出：`main.o` (relocatable object file)
+    - 操作：将 assembly 转成 binary 的 machine code
+4. Static Linking
+    - 简化版的命令：`ld -static crt1.o crti.o crtbeginT.o main.o -start-group -lgcc -lgcc_eh -lc-end-group crtend.o crtn.o -o a.out`
+    - 输入：`main.o`
+    - 输出：`a.out` (executable object file)
+    - 操作：将 `main.o` 与用到的 libs 合并成一个完整的 executable
 
-> `gcc` 可以看做是一个最顶层的 command，它再分包给 compiler `cc1`、assembler `as`、或者 linker `ld`，来完成具体的任务
+`gcc` 可以看做是一个最顶层的 command，它再分包给 compiler `cc1`、assembler `as`、或者 linker `ld`，来完成具体的任务
+{: .notice--info}
+
+第 5 步：loading (包含了 dynamic linking) 就是在执行 `a.out` 时，将 `a.out` 读入内存的这么一个动作。但此时已经和 `gcc` 无关了。
+{: .notice--info}
     
-对静态语言 C/C++ 而言，模块 (你可以简单理解成一个模块就是一个 `.o` 文件) 间的通信有两种方式：
+对静态语言 C/C++ 而言，"module 间的通信" (你可以简单理解成一个 module 就是一个 `.o` 文件) 只有一种方式，就是 "module 间的 symbol referencing" (具体包括 "module 间的 function call" 和 "module 间的 variable access").
 
-1. 模块间的 function call
-2. 模块间的 variable access
+静态语言 static language 不等价于 static-typed language，它是一个更宽泛的概念，可以参考 [What qualifies a programming language as dynamic?](https://stackoverflow.com/questions/4913105/what-qualifies-a-programming-language-as-dynamic)
+{: .notice--info}
 
-这两种方式可以统一描述为 “模块间的 symbol referencing”
+而 linking 的作用是把多个 modules (`.o` files) 捏成一个 module (`.out`)，所以 linker 的本质工作可以简单理解为 "实现 module 间的 symbol referencing"。比如 `main.c` 调用 `func.c` 中的一个函数 `foo()`，由于这两个 `.c` 文件是分开编译的，所以在编译 `main.c` 时，compiler 并不知道 `foo()` 的地址，所以 compiler 会把 `main.c` 中调用 `foo()` 的 statement 编译为一个 placeholder (比如编译成 `jump to -1`)，留给 linker 去确定 `foo()` 的地址。
 
-> 静态语言 static language 不等价于 static-typed language，它是一个更宽泛的概念，可以参考 [What qualifies a programming language as dynamic?](https://stackoverflow.com/questions/4913105/what-qualifies-a-programming-language-as-dynamic)
-    
-Linking 的任务就是把模块间互相 symbol referencing 的部分处理好，具体包括：
+更细致地看，linker 要负责如下这些工作：
 
 - Address and Storage Allocation
+  - linker assigns actual memory addresses (inside the `.out` file) to all code and data. E.g. 
+    - `main()` might get address `0x401000`
+    - `func()` might get address `0x401050`
+    - Global variables get addresses in the data section
+      - linker 会 merges similar sections，比如 all `.text` sections together, all `.data` sections together, etc.
 - Symbol Resolution (a.k.a. Symbol Binding, Naming Binding)
+  - 在 linking 之前，in `main.c`, there's a reference to `func()` (marked as "undefined" or "external")
+  - linking 过程中，linker 发现 `func()` is defined in `func.o` and resolves the reference from `main.o`
+    - resolve 的作用只是记录 "`func()` 在 `func.o` 中" 这么一个 connection
 - Relocation
-- 比如 `main.c` 调用 `func.c` 的一个函数 `foo()`，由于这两个 `.c` 文件是分开编译的，所以在编译 `main.c` 时，compiler 并不知道 `foo()` 的地址，所以 compiler 会把调用 `foo()` 的指令 pending，留给 linker 去确定 `foo()` 的地址
+  - 根据 resolution 的记录，linker 将 `main()` 中的 reference to `func()` 修改为 a jump to the correct address (inside the `.out` file) of `func()`
 
-## 3. Object File (i.e. `.o` 文件) 里都有啥
+## 3. Object File Sections
 
 文件格式有：
 
@@ -150,24 +162,24 @@ Linking 的任务就是把模块间互相 symbol referencing 的部分处理好�
 - Windows: PE (Portable Executable) 格式，是 COFF 的变种
 - Linux: ELF (Executable Linkable Format) 格式，是 COFF 的变种
 
-| OS      | File Type                            | Extension | Remark                | Format |
-|---------|--------------------------------------|-----------|-----------------------|--------|
-| Windows | (中间) 目标文件 / object file         | `.obj`    |                       | PE     |
-|         | 可执行文件 / executable              | `.exe`    |                       | PE     |
+| OS      | File Type                                 | Extension | Remark                | Format |
+|---------|-------------------------------------------|-----------|-----------------------|--------|
+| Windows | (中间) 目标文件 / (relocatable) object file | `.obj`    |                       | PE     |
+|         | 可执行文件 / executable (object file)      | `.exe`    |                       | PE     |
 |         | 动态链接库 / Dynamic Linking Library (DLL) | `.dll`    |                       | PE     |
 |         | 静态链接库 / Static Linking Library (SLL)  | `.lib`    |                       | PE     |
-| Linux   | (中间) 目标文件 / object file         | `.o`      |                       | ELF    |
-|         | 可执行文件 / executable              | `.out`    |                       | ELF    |
+| Linux   | (中间) 目标文件 / (relocatable) object file | `.o`      |                       | ELF    |
+|         | 可执行文件 / executable (object file)      | `.out`    |                       | ELF    |
 |         | 动态链接库 / Dynamic Linking Library (DLL) | `.so`     | Shared Object library | ELF    |
 |         | 静态链接库 / Static Linking Library (SLL)  | `.a`      | Archive library       | ELF    |
 
-> 似乎没有人把 Static Linking Library 缩写成 SLL，我猜是因为 `.dll` 文件格式的使用场景更多，所以 DLL 的写法更流行
+似乎没有人把 Static Linking Library 缩写成 SLL，我猜是因为 `.dll` 文件格式的使用场景更多，所以 DLL 的写法更流行
+{: .notice--info}
     
 PE 和 ELF 这两种格式其实是相似的，且都有划分成 section：
 
 - `.code` 或者 `.text` section
-    - 存放 Executable Code
-    - 即源代码编译后的机器指令 
+    - 存放 Executable Code (binary 的 machine code)
 - `.data` section: 
     - 存放 Initialized Data
     - 即 **已经初始化的** `static` variables 
@@ -176,16 +188,18 @@ PE 和 ELF 这两种格式其实是相似的，且都有划分成 section：
     - 存放 Uninitialized Data
     - 即 **未初始化的** `static` variables 
         - 未初始化的 global variables 和 `static` local variable 都默认为 0，但是没有必要放在 `.data`
-    > Some people like to remember it as 'Better Save Space.' Since the BSS segment only holds variables that don't have any value yet, it doesn't actually need to store the image of these variables. The size that BSS will require at runtime is recorded in the object file, but BSS (unlike the data segment) doesn't take up any actual space in the object file. -- Peter van der Linden
 - `.rodata` section
     - 存 readonly 数据，比如 `const`
     - 有的编译器会把字符串常量放 `.rodata`，有的会放 `.data`
 - ELF 格式的文件的开头还有一个 header，包含如下信息:
-    - 文件是否可执行？
+    - flag "文件是否可执行？"
         - 如果可执行，还要记录入口地址
-    - 是 SLL 还是 DLL？
+    - flag "是 SLL 还是 DLL？"
     - 目标硬件、目标 OS etc.
     - Section Table: 各个 section 在文件中的偏移位置 etc.
+
+Some people like to remember it as 'Better Save Space.' Since the BSS segment only holds variables that don't have any value yet, it doesn't actually need to store the image of these variables. The size that BSS will require at runtime is recorded in the object file, but BSS (unlike the data segment) doesn't take up any actual space in the object file. -- Peter van der Linden
+{: .notice--info}
 
 Why sectioning (为啥要划分这些 sections)?
 
@@ -234,7 +248,8 @@ Why sectioning (为啥要划分这些 sections)?
 
 A complete ABI, such as the _Intel Binary Compatibility Standard_ (iBCS), allows a program from one operating system supporting that ABI to run without modifications on any other such system, provided that necessary shared libraries are present, and similar prerequisites are fulfilled.
 
-> 从这个角度来说，Java 字节码有遵循一套很好的 ABI
+从这个角度来说，Java 字节码有遵循一套很好的 ABI
+{: .notice--info}
 
 Other ABIs standardize details such as the C++ name mangling, exception propagation, and calling convention between compilers on the same platform, but do not require cross-platform compatibility.
   
@@ -379,9 +394,61 @@ dynamic linking 的基本思想：把 linking 这个过程推迟到 runtime 再�
         - 线程保有自己的全局变量副本也是可以的，用到的技术是 Thread Local Storage
 - 缺点：每次装载都要 link，但是这个时间损失不算大，5% 以下，可以接受
 
-[DLL hell](http://stackoverflow.com/a/1379312):
+[DLL hell](http://stackoverflow.com/a/1379312): It's when App `A` installs a Shared DLL vers 1.0, App `B` comes and updates the Shared DLL to vers 1.1 which should be compatible but there are slightly different behaviors, then App `A` stops working correctly and reinstalls vers 1.0 then App `B` stops working ... now imagine this with more than 2 apps, let's say a dozen: DLL Hell.
+{: .notice--info}
 
-> It's when App A installs a Shared DLL vers 1.0, App B comes and updates the Shared DLL to vers 1.1 which should be compatible but there are slightly different behaviors, then App A stops working correctly and reinstalls vers 1.0 then App B stops working ... now imagine this with more than 2 apps let's say a dozen: DLL Hell.
+可以简单把 static linking 理解为 disk 层面的 linking:
+
+```
+====================
+||      DISK      ||
+====================
++-------+----------+
+|        \         |
+| main.o  | func.o |  == two separated files linked into one a.out
+|        /         |
++-------+----------+
+
+====================
+||      RAM       ||
+====================
++------------------+
+|                  |
+|      a.out       |  == one memory space for a.out
+|                  |
++------------------+
+```
+
+而 dynamic linking 就是 RAM 层面的 linking:
+
+```
+========================
+||        DISK        ||
+========================
++--------+    +--------+
+|        |    |        |
+| main.o |    | func.o |  == two separate files
+|        |    |        |
++--------+    +--------+
+
+========================
+||        RAM         ||
+========================
++--------+    +--------+
+|        |    |        |
+| main.o |    | func.o |  == two memory spaces
+|        |    |        |
++--------+    +--------+
+
+=========================
+||       RAM           ||
+=========================
++-------+    +----------+
+|        \    \         |
+| main.o  | -> | func.o |  == linking between the two memory spaces
+|        /    /         |
++-------+    +----------+
+```
 
 ### 7.4 Lazy Binding
 
@@ -393,7 +460,7 @@ dynamic linking 的基本思想：把 linking 这个过程推迟到 runtime 再�
 
 ### 7.7 Explicit Runtime Linking
 
-让 executable 在运行时自行装载指定的模块，不需要时可以将其卸载。最常见的例子是 Web Server。
+让 executable 在运行时自行装载指定的 module，不需要时可以将其卸载。最常见的例子是 Web Server.
 
 ## 8. Linux Shared Library 的组织
 
@@ -514,7 +581,8 @@ OS 在 load 完 executable 之后，首先运行的并不是 `main()` 的第一�
 
 执行这些 `main()` 前后的代码的函数称为 Entry function 或者 Entry Point，它往往是 runtime lib 的一部分。OS 在创建 process 后，会调用这个 entry function。
 
-- 若是 C++，entry function 还要负责全局 object 的 `new` 和销毁
+若是 C++，entry function 还要负责全局 object 的 `new` 和销毁
+{: .notice--info}
 
 按 “静态链接 vs 动态链接 `glibc`” 和 “`glibc` 用于 executable vs 用于 shared lib”，我们可以组合出 4 种场景。“静态链接 `glibc` 用于 executable ” 时，entry function 是 `_start` (这是 `ld` linker 指定的，however, customizable)
 
@@ -532,7 +600,7 @@ OS 在 load 完 executable 之后，首先运行的并不是 `main()` 的第一�
 
 略
 
-### 11.3 rRuntime Lib 与 Multi-thread
+### 11.3 Runtime Lib 与 Multi-thread
 
 #### 11.3.3 TLS (Thread Local Storage) 的实现
 
