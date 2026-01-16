@@ -1,3 +1,12 @@
+---
+title: "Linking the Dots #2: Forward Declarations"
+description: ""
+category: Compiler
+tags: []
+toc: true
+toc_sticky: true
+---
+
 # Intro
 
 In [Linking the Dots #1: An Example of Linking](/compiler/2026/01/16/linking-the-dots-1-an-example-of-linking), we have the following source code:
