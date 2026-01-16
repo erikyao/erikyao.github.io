@@ -1,5 +1,5 @@
 ---
-title: "Linking the Dots #6: The blind,"
+title: "Linking the Dots #6: The \"<i>blind, unverified, external symbolic imports</i>\" Mental Model of Forward Declarations of Variables and Functions"
 description: ""
 category: Compiler
 tags: []
