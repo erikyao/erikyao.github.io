@@ -29,18 +29,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const icons = {
     // ... existing icons ...
-    note: '📝',
+    note: '📒',
     info: 'ⓘ',
     example: '🧩',
     caution: '⚠️',
-    abstract: '🤏',
+    abstract: '👉',
     faq: '❓',
     cite: '🔖',
     theory: '⚛️',
     
     // Your custom icons
     // Use emoji, Unicode symbols, or even HTML/SVG
-    star: '⭐'
+    // star: '⭐'
   };
 
   // Find all blockquote elements in the document
