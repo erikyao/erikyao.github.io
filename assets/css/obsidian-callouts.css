@@ -1,0 +1,100 @@
+/* Obsidian-style Callouts for Minimal Mistakes */
+
+.callout {
+  padding: 0.25em;
+  margin: 1em 0;
+  border-left: 4px solid;
+  border-radius: 4px;
+  background-color: rgba(var(--callout-color), 0.1);
+}
+
+.callout-title {
+  display: flex;
+  align-items: flex-start;
+  font-weight: 600;
+  margin-bottom: 0.5em;
+  gap: 0.5em;
+}
+
+.callout-icon {
+  flex-shrink: 0;
+  line-height: 1.5;
+}
+
+.callout-content {
+  margin-left: 0;
+}
+
+.callout-content > *:last-child {
+  margin-bottom: 0;
+}
+
+/* Callout Types */
+.callout-note {
+  --callout-color: 8, 109, 221;
+  border-left-color: rgb(8, 109, 221);
+}
+
+.callout-tip,
+.callout-hint,
+.callout-important {
+  --callout-color: 0, 191, 165;
+  border-left-color: rgb(0, 191, 165);
+}
+
+.callout-warning,
+.callout-caution,
+.callout-attention {
+  --callout-color: 255, 153, 0;
+  border-left-color: rgb(255, 153, 0);
+}
+
+.callout-danger,
+.callout-error {
+  --callout-color: 233, 49, 71;
+  border-left-color: rgb(233, 49, 71);
+}
+
+.callout-success,
+.callout-check,
+.callout-done {
+  --callout-color: 8, 185, 78;
+  border-left-color: rgb(8, 185, 78);
+}
+
+.callout-question,
+.callout-help,
+.callout-faq {
+  --callout-color: 100, 108, 255;
+  border-left-color: rgb(100, 108, 255);
+}
+
+.callout-info {
+  --callout-color: 0, 184, 212;
+  border-left-color: rgb(0, 184, 212);
+}
+
+.callout-quote,
+.callout-cite {
+  --callout-color: 158, 158, 158;
+  border-left-color: rgb(158, 158, 158);
+}
+
+.callout-example {
+  --callout-color: 124, 77, 255;
+  border-left-color: rgb(124, 77, 255);
+}
+
+.callout-abstract,
+.callout-summary,
+.callout-tldr {
+  --callout-color: 0, 176, 255;
+  border-left-color: rgb(0, 176, 255);
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  .callout {
+    background-color: rgba(var(--callout-color), 0.15);
+  }
+}
