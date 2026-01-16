@@ -1,5 +1,5 @@
 ---
-title: "Linking the Dots #2: Forward Declarations"
+title: "Linking the Dots #2: Forward Declarations in C"
 description: ""
 category: Compiler
 tags: []

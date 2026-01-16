@@ -1,5 +1,5 @@
 ---
-title: "Linking the Dots #1: An Example of Linking"
+title: "Linking the Dots #1: An Example of Linking in C"
 description: ""
 category: Compiler
 tags: []
