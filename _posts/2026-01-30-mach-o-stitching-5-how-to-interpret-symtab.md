@@ -278,20 +278,20 @@ if n_desc & N_WEAK_DEF == 1:
 
 Normally, the dependency flow is:
 
-```
-Executable program
-    ↓ (loads and uses)
-Dynamic library
+```txt
+    Executable program
+        ↓ (loads and uses)
+    Dynamic library
 ```
 
 The executable depends on the library.
 
 With plugins, the dependency flow is **reversed**:
 
-```
-Executable program (host application)
-    ↑ (plugin uses symbols from)
-Plugin (loaded at runtime)
+```txt
+    Executable program (host application)
+        ↑ (plugin uses symbols from)
+    Plugin (loaded at runtime)
 ```
 
 The plugin depends on the executable that loaded it.
