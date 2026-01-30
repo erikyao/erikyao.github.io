@@ -96,4 +96,5 @@ Load command 3
 > [!NOTE] `_main` 与 `LC_MAIN`
 > 
 > `_main` 通常被视为 `extdef`, 目的是为了让 OS 或者 `dyld` 能够从文件外部“看到”并跳转到这个函数。如果你把 `main` 设为 `static` (虽然 C 标准不允许这样做)，linker 就找不到它，程序也就无法启动。
+> 
 > `LC_MAIN` 中指定的 offset 就是 `_main` 在 executable 中的起始位置。
