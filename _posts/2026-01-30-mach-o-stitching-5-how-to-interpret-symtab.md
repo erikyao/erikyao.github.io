@@ -60,6 +60,7 @@ Load command 2
 > [!caution] `xxd` with `-e` option shows little-endian
 > 
 > 比 big-endian 直观一点。
+> 
 > endianness 记不住的话，有一个诀窍：我们日常的计数都是 little-endian (least significant byte (LSB) at the lowest memory address).
 
 symtab 的 entry/record 的 size 是 16 bytes. 每个 entry/record conceptually 是一个 `struct nlist_64` object:
@@ -271,6 +272,7 @@ if n_desc & N_WEAK_DEF == 1:
 > [!NOTE] reference/definition distinction
 > 
 > The distinction exists at the **binary/linker level**, not the source language level (i.e. the distinction is not language-specific). Once any language compiles down to machine code in Mach-O format (on macOS/iOS), the symbol table must distinguish between:
+> 
 > - Symbols this binary provides (definitions)
 > - Symbols this binary needs from elsewhere (references)
 
@@ -335,11 +337,9 @@ strtab 紧跟在 symtab 后面。由于我们这里有两个 symbols (`nsym == 2
 strtab 的本质是一个 C-string 的 sequence. E.g.: 
 
 ```bash
-ᐅ xxd vanilla.o | tail -n1  # check the binary content of vanilla.o
-000002d0: 005f 6d61 696e 005f 6100 0000 0000 0000  ._main._a.......
+ᐅ xxd -d -s 720 vanilla.o
+00000720: 005f 6d61 696e 005f 6100 0000 0000 0000  ._main._a..
 ```
-
-> [!NOTE] `0x000002d0 == 720 == stroff`
 
 | Offset     | Content   |
 | ---------- | --------- |
@@ -402,4 +402,5 @@ Load command 6
 > [!note] `__LINKEDIT` segment typically contains **no sections**, unlike `__TEXT` and `__DATA`
 > 
 > It's just a blob of raw linking metadata that other load commands (like `LC_SYMTAB`, `LC_DYSYMTAB`, `LC_DYLD_INFO`) reference by providing offsets into it.
+> 
 > 也真是这个原因，我们用 `otool` 没法查看 `__LINKEDIT`
