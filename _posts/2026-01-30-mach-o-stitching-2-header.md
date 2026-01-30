@@ -1,5 +1,5 @@
 ---
-title: "Mach O Stitching #2: Header"
+title: "Mach-O Stitching #2: Header"
 description: ""
 category: Compiler
 tags: []

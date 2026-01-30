@@ -1,5 +1,5 @@
 ---
-title: "Mach O Stitching #1: Basic Structure"
+title: "Mach-O Stitching #1: Basic Structure"
 description: ""
 category: Compiler
 tags: []
