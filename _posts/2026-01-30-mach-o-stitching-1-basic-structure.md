@@ -41,7 +41,8 @@ The `filetype` field in the Mach header will show the type.
 
 # 1. Basic Structure of a Mach-O File
 
-> [!NOTE]  `ld` and `dyld` on MacOS
+> [!NOTE] `ld` and `dyld` on MacOS
+> 
 > - `ld` == **L**ink e**D**itor, the static linker 
 > - `dyld` == **DY**namic **L**ink e**D**itor, the dynamic linker
 
