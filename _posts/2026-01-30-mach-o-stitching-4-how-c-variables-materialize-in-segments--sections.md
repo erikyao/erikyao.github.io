@@ -3,8 +3,8 @@ title: "Mach-O Stitching #4: How C Variables Materialize in Segments & Sections"
 description: ""
 category: Compiler
 tags: []
-toc: true
-toc_sticky: true
+toc: false
+toc_sticky: false
 ---
 
 # Code
