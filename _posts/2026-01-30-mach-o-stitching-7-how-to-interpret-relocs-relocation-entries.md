@@ -1,5 +1,5 @@
 ---
-title: "Mach O Stitching #7: How to Interpret Relocs (Relocation Entries)"
+title: "Mach-O Stitching #7: How to Interpret Relocs (Relocation Entries)"
 description: ""
 category: Compiler
 tags: []
@@ -132,7 +132,9 @@ address  pcrel length extern type    scattered symbolnum/value
 > [!NOTE] Float numbers like `101.0` are stored in `(__TEXT, __literal4)` section for optimization
 > 
 > `2 (__TEXT,__literal4)` 前面的 `2` 表示 offset $2$ in the section.
+> 
 > 但 `43` 这样的 `int` 就不需要这么处理。原因是：`float` 的 size 太大，直接塞到 assembly instruction 里面会导致 instruction 本身的 size 太大；而 `int` 就不会有这个问题。
+> 
 > 这算是个比较特殊的 reloc，我们这里就不深究了。我们这里专注于 symbols.
 
 我们拿这条输出为例：
