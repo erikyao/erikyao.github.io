@@ -105,6 +105,7 @@ Section                        # section #4 is (__TEXT, __eh_frame)
 ```
 
 > [!NOTE] 注意这个 unnamed segment 起到的是一个 "list of `(segment, section)`" 的作用
+> 
 > 或者你理解成一个 meta-segment 也行
 
 ## Load Command 1 $\Rightarrow$ `LC_BUILD_VERSION` $\Rightarrow$ 引导 checking version compatibility
@@ -132,6 +133,7 @@ Load command 2
 ```
 
 > [!info] FYI
+> 
 > The 2 symbols are:
 > 
 > ```bash
@@ -191,6 +193,7 @@ Load command 3
 
 
 > [!caution] `extdef` means **external & defined**, not _externally defined_
+> 
 > See [[6. How to Interpret Dysymtab#Experiment Result]].
 
 A **dynamic symbol** is a symbol (function or variable name) that is either:
@@ -201,20 +204,25 @@ A **dynamic symbol** is a symbol (function or variable name) that is either:
     - **可以理解成 "current module's symbol contribution"**, e.g. current module's global variables and functions (they are `extern` by default)
 
 > [!caution] The name "dynamic symbol" is MISLEADING
+> 
 > dynamic symbol 并不意味着 dynamic linking: 它可能被 dynamic linker resolve, 也可能被 static linker resolve
 
 > [!caution] The name "dynamic symbol table" is MISLEADING
+> 
 > 首先 there is NO such table as "dynamic symbol table".
 > 其次 `LC_DYSYMTAB` 不仅仅包含了 dynamic symbol 的信息，它还有很多 auxiliary 的信息。
 
 > [!NOTE] Why `iundefsym = 2` but `nundefsym = 0`?
+> 
 > Because `iundefsym = 2` means **"if there were any undefined symbols, they would start at index `2`"**. Note that symbol `_main` and `_a` have occupied indices `0` and `1` in our example.
 > In short, `iundefsym` is just pointing to where the undefined symbols _would_ begin in the symbol table, and `nundefsym = 0` means there are actually **no undefined symbols** at that position.
 
 > [!NOTE] Symbol grouping in symtab
+> 
 > 考虑到 `LC_DYSYMTAB` 这样的设计，我们可以推测出：symtab 中的 symbols 必须要按照 `localsym/extdefsym/undefsym` 这样做了 grouping.
 > symbols 在物理上是不能散乱地排列的。
 
 > [!info] symbols 在组内的 sorting
+> 
 > 对于 `extdefsym` 和 `undefsym`，Mach-O 还要求在组内按**symbol name 进行排序**。这意味着 `dyld` 可以使用 binary search 快速定位 symbol, 而不需要线性扫描。
 

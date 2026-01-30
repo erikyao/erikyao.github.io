@@ -57,7 +57,8 @@ Load command 2
 00000720: 616d5f00 5f006e69 00000061 00000000   ._main._a.......
 ```
 
-> [!caution] `xxd` with `-e` option shows little-endian 
+> [!caution] `xxd` with `-e` option shows little-endian
+> 
 > 比 big-endian 直观一点。
 > endianness 记不住的话，有一个诀窍：我们日常的计数都是 little-endian (least significant byte (LSB) at the lowest memory address).
 
@@ -109,6 +110,7 @@ SYMBOL TABLE:
 表示这个 symbol 对应的 string (i.e. 这个 symbol 的 name) 在 strtab 中的 index
 
 > [!caution] 注意这个 index 是 index of characters，不是 index of strings
+> 
 > 比如 `n_strx == 2` 表示 symbol name 的起始的 char 是 `strtab[2]`，而不是表示 "the 2nd string".
 
 ## `n_type` 
@@ -267,6 +269,7 @@ if n_desc & N_WEAK_DEF == 1:
 ```
 
 > [!NOTE] reference/definition distinction
+> 
 > The distinction exists at the **binary/linker level**, not the source language level (i.e. the distinction is not language-specific). Once any language compiles down to machine code in Mach-O format (on macOS/iOS), the symbol table must distinguish between:
 > - Symbols this binary provides (definitions)
 > - Symbols this binary needs from elsewhere (references)
@@ -345,6 +348,7 @@ strtab 的本质是一个 C-string 的 sequence. E.g.:
 | `000002d7` | `_a\0`    |
 
 > [!NOTE] strtab 第一个 entry almost always 是 `\0`
+> 
 > 这是个 convention so that (1) unnamed or anonymous symbols (which are rare) can have `n_strx == 0` and (2) invalid or deleted symbols can have `n_strx == 0` as a special marker
 
 在我们的 `LC_SYMTAB` 例子中，`strsize == 16` 其实是因为有 padding for alignment，因为理论上来说，一个 `\0` 加上一个 `_main\0` 再加上一个 `_a\0` 只占了 10-byte 的空间，但为了 alignment，这个 strtab 会被 pad 成：
@@ -357,6 +361,7 @@ strtab 的本质是一个 C-string 的 sequence. E.g.:
 | `000002d8` | `\0\0\0\0\0\0\0` | 6    |
 
 > [!NOTE] foreign keys to strtab
+> 
 > 可以把 `n_strx` 理解成 symtab 到 strtab 的一个 foreign key. 这个设计使得这两个 tables 都是 aligned, reading 的效率非常高
 
 # 4. symtab/strtab 的物理位置
@@ -395,5 +400,6 @@ Load command 6
 ```
 
 > [!note] `__LINKEDIT` segment typically contains **no sections**, unlike `__TEXT` and `__DATA`
+> 
 > It's just a blob of raw linking metadata that other load commands (like `LC_SYMTAB`, `LC_DYSYMTAB`, `LC_DYLD_INFO`) reference by providing offsets into it.
 > 也真是这个原因，我们用 `otool` 没法查看 `__LINKEDIT`
