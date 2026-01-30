@@ -194,7 +194,7 @@ Load command 3
 
 > [!caution] `extdef` means **external & defined**, not _externally defined_
 > 
-> See [[6. How to Interpret Dysymtab#Experiment Result]].
+> See [Mach-O Stitching #6: How to Interpret Dysymtab > Experiment Result](https://listcomp.com/compiler/2026/01/30/mach-o-stitching-6-how-to-interpret-dysymtab#experiment-result).
 
 A **dynamic symbol** is a symbol (function or variable name) that is either:
 
