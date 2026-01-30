@@ -3,8 +3,8 @@ title: "Mach-O Stitching #2: Header"
 description: ""
 category: Compiler
 tags: []
-toc: true
-toc_sticky: true
+toc: false
+toc_sticky: false
 ---
 
 ```c
