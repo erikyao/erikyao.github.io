@@ -1,5 +1,5 @@
 ---
-title: "Mach O Stitching #5: How to Interpret Symtab"
+title: "Mach-O Stitching #5: How to Interpret Symtab"
 description: ""
 category: Compiler
 tags: []
