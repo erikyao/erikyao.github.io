@@ -191,7 +191,6 @@ Load command 3
         nlocrel 0  # count of Local Relocation Entries
 ```
 
-
 > [!caution] `extdef` means **external & defined**, not _externally defined_
 > 
 > See [Mach-O Stitching #6: How to Interpret Dysymtab > Experiment Result](https://listcomp.com/compiler/2026/01/30/mach-o-stitching-6-how-to-interpret-dysymtab#experiment-result).
