@@ -689,21 +689,22 @@ mark_for_alteration(address=reloc.address, type=reloc.type, ...);
 - static linker 扫描 object file，收集 relocs
 - static linker 根据 relocs 生成 GOT (因为 static linker 知道 external variables 在哪儿)
 - static linker 此时已经知道了 GOT 在 executable 中的物理位置了，它再回头算 `reloc.address` 与对应的 GOT entry 之间的 offset (注意还有 `%rip` 要参与运算)
-- 这个算出来的 offset 就是 external variables 的 `displacement`
+  - 这个算出来的 offset 就是 external variables 的 `displacement`
+- stataic linker 把这个 `displacement` 写入 `reloc.address`
+- executable 生成完毕，等到 loader 执行
 
 ```txt
 (__TEXT,__text) in object file        (__DATA, .data/.bss) in executable
 +--------------------+                +--------------------------+
 | Instruction:       |                | External _shared_int     |
 | movq	(%rip), %rax |                | Address: 0x3000          |
-+---------+----------+                | Value: 42               |
++---------+----------+                | Value: 42                |
           |                           +--------------------------+
-          | 1. Calculate RIP + Offset               ^
+          |                                         ^
           v                                         |
-(.got) in executable                                | 3. 最终跳转
+(.got) in executable                                | 
 +-------------------------+                         |
 | [Entry for _shared_int] |                         |
 | Content: 0x3000         | ------------------------+
 +-------------------------+ 
-      2. 链接器/加载器填入地址
 ```
