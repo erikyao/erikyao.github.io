@@ -9,57 +9,64 @@ mermaid: true
 ---
 
 ```mermaid
+---
+config:
+  themeVariables:
+    fontFamily: 'monospace'
+    fontSize: '14px'
+---
+
 classDiagram
     class STRTAB {
-        +Index 0: \0
-        +Index 1: _shared_int\0
-        +Index 13: _shared_float\0
-        +Index 27: _main\0
-        +Index 33: _shared_func\0
+        +Index  0 -> "\0"
+        +Index  1 -> "_shared_int\0"
+        +Index 13 -> "_shared_float\0"
+        +Index 27 -> "_main\0"
+        +Index 33 -> "_shared_func\0"
     }
 
     class SYMTAB {
         <<Master Table>>
-        +Index 0: [n_strx: 27, n_value: 0, external: True, n_sect: 15, type="SECT", n_desc=0, str="_main"]
-        +Index 1: [n_strx: 13, n_value: 0, external: True, n_sect: 1, type="UNDF", n_desc=0, str="shared_float"]
-        +Index 2: [n_strx: 33, n_value: 0, external: True, n_sect: 1, type="UNDF", n_desc=0, str="shared_func"]
-        +Index 3: [n_strx: 1, n_value: 0, external: True, n_sect: 1, type="UNDF", n_desc=0, str="shared_int"]
+        +Index 0 -> (n_strx=27, ..., n_sect=15, type="SECT", str="_main")
+        +Index 1 -> (n_strx=13, ..., n_sect=1, type="UNDF", str="shared_float")
+        +Index 2 -> (n_strx=33, ..., n_sect=1, type="UNDF", str="shared_func")
+        +Index 3 -> (n_strx=1, ..., n_sect=1, type="UNDF", str="shared_int")
     }
 
     class DYSYMTAB {
         <<Index View>>
-        +ilocalsym: 0
-        +nlocalsym: 0
-        +iextdefsym: 0
-        +nextdefsym: 1
-        +iundefsym: 1
-        +nundefsym: 3
+        +ilocalsym = 0
+        +nlocalsym = 0
+        +iextdefsym = 0
+        +nextdefsym = 1
+        +iundefsym = 1
+        +nundefsym = 3
     }
 
     class RELOC_ENTRIES {
         <<Junction Table>>
-        +address 0x00000053: [pcrel: True, length: long, extern: True, type: "BRANCH", scattered: False, symbol_num: 2, symbol_value: "_shared_func"] 
-        +address 0x0000004c: [pcrel: True, length: long, extern: True, type: "BRANCH", scattered: False, symbol_num: 2, symbol_value: "_shared_func"] 
-        +address 0x00000045: [pcrel: True, length: long, extern: True, type: "BRANCH", scattered: False, symbol_num: 2, symbol_value: "_shared_func"] 
-        +address 0x00000032: [pcrel: True, length: long, extern: True, type: "GOT_LD", scattered: False, symbol_num: 1, symbol_value: "_shared_float"] 
-        +address 0x0000001f: [pcrel: True, length: long, extern: True, type: "GOT_LD", scattered: False, symbol_num: 1, symbol_value: "_shared_float"] 
-        +address 0x00000012: [pcrel: True, length: long, extern: True, type: "GOT_LD", scattered: False, symbol_num: 3, symbol_value: "_shared_int"] 
+        +address 0x00000053 -> (pcrel=True, ..., type="BRANCH", symbol_num=2, value="_shared_func")
+        +address 0x0000004c -> (pcrel=True, ..., type="BRANCH", symbol_num=2, value="_shared_func")
+        +address 0x00000045 -> (pcrel=True, ..., type="BRANCH", symbol_num=2, value="_shared_func")
+        +address 0x00000032 -> (pcrel=True, ..., type="GOT_LD", symbol_num=1, value="_shared_float")
+        +address 0x0000001f -> (pcrel=True, ..., type="GOT_LD", symbol_num=1, value="_shared_float")
+        +address 0x00000012 -> (pcrel=True, ..., type="GOT_LD", symbol_num=3, value="_shared_int")
     }
     
     class ADDRESS_SPACE {
         <<Master Table>>
-        +address 0x00000012: [machine_code: 0x00000000, assembly: "disp32<\%rip>"]
-        +address 0x0000001f: [machine_code: 0x00000000, assembly: "disp32<\%rip>" ]
-        +address 0x00000032: [machine_code: 0x00000000, assembly: "disp32<\%rip>"]
-        +address 0x00000045: [machine_code: 0x00000000, assembly: "disp32<\%rip>"]
-        +address 0x0000004c: [machine_code: 0x00000000, assembly: "disp32<\%rip>"]
-        +address 0x00000053: [machine_code: 0x00000000, assembly: "disp32<\%rip>"]
+        +address 0x00000012 -> (machine_code=0x00000000, assembly="disp32<\%rip>")
+        +address 0x0000001f -> (machine_code=0x00000000, assembly="disp32<\%rip>")
+        +address 0x00000032 -> (machine_code=0x00000000, assembly="disp32<\%rip>")
+        +address 0x00000045 -> (machine_code=0x00000000, assembly="disp32<\%rip>")
+        +address 0x0000004c -> (machine_code=0x00000000, assembly="disp32<\%rip>")
+        +address 0x00000053 -> (machine_code=0x00000000, assembly="disp32<\%rip>")
     }
 
-    RELOC_ENTRIES ..> SYMTAB : "JOIN (symbol_num -> Index)"
-    RELOC_ENTRIES ..> ADDRESS_SPACE : "JOIN (address -> address)"
     SYMTAB ..> STRTAB : "FK Lookup (n_strx)"
-    DYSYMTAB -- SYMTAB : "Slices / Filters"
+    SYMTAB <-- DYSYMTAB : "Slices / Filters"
+    RELOC_ENTRIES ..> SYMTAB : "JOIN (symbol_num -> Index)"
+    RELOC_ENTRIES ..> ADDRESS_SPACE : "JOIN (address -> address)" 
 ```
 
 - **strtab** 本质是个 string buffer, 不是 table
