@@ -8,7 +8,7 @@ toc: true
 toc_sticky: true
 ---
 	
-[late_binding]: https://farm2.staticflickr.com/1511/23812247752_b64dc0ee81_o_d.png
+[late_binding]: https://live.staticflickr.com/1511/23812247752_4e98b55343_z.jpg
 	
 -----
 

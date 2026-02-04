@@ -11,9 +11,9 @@ title: 'C++: Copy-constructor & the return value on the stack'
 - _Thinking in C++_
 - [LearnCpp: 7.9 — The stack and the heap](http://www.learncpp.com/cpp-tutorial/79-the-stack-and-the-heap)
 
-[function_frame_1]: https://farm2.staticflickr.com/1608/23894467526_f92a9b7358_o_d.png
-[function_frame_2]: https://farm6.staticflickr.com/5790/23293776353_b73a3a58b8_o_d.png
-[function_frame_3]: https://farm2.staticflickr.com/1523/23920546245_3901a22e4c_o_d.png
+[function_frame_1]: https://live.staticflickr.com/1608/23894467526_5c824cdcd3_n.jpg
+[function_frame_2]: https://live.staticflickr.com/5790/23293776353_3ae4352cc2_z.jpg
+[function_frame_3]: https://live.staticflickr.com/1523/23920546245_265fae062f_z.jpg
 
 -----
 
@@ -21,7 +21,7 @@ title: 'C++: Copy-constructor & the return value on the stack'
 
 类似于 java 的 `obj.clone();` 的感觉，copy-constructor 的作用也是生成一个原对象的 copy，而且 copy-constructor 是 class 默认会提供的（就像默认构造器一样，也有一个默认 copy-constructor）。
 
-_~~~~~~~~~~ 2015-05-14 补充；来自 C++ Primer, 5th Edition ~~~~~~~~~~_
+_### 2015-05-14 补充；来自 C++ Primer, 5th Edition ###_
 
 Copy initialization happens when we 
 
@@ -35,7 +35,7 @@ Copy initialization happens when we
 - Call `insert()` or `push()` on some library containers
 	- By contrast, elements created by `emplace()` are direct initialized.
 	
-_~~~~~~~~~~ 2015-05-14 补充完毕 ~~~~~~~~~~_
+_### 2015-05-14 补充完毕 ###_
 
 下面我们通过一个实验来展开。
 

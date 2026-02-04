@@ -8,7 +8,7 @@ toc: true
 toc_sticky: true
 ---
 
-[linkage]: https://farm2.staticflickr.com/1595/23552708989_a3cd413238_o_d.png
+[linkage]: https://live.staticflickr.com/1595/23552708989_939d4c7585_b.jpg
 
 整理自：
 

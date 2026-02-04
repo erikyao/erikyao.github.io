@@ -14,7 +14,7 @@ toc_sticky: true
 * [MSDN: Constant Member Functions](https://msdn.microsoft.com/zh-cn/library/6ke686zh.aspx)
 * [MSDN: Mutable Data Members (C++)](https://msdn.microsoft.com/en-us/library/4h2h0ktk.aspx)
 
-[const-function]: https://farm6.staticflickr.com/5724/23894467506_9fdc7f0b45_o_d.png
+[const-function]: https://live.staticflickr.com/5724/23894467506_2f435b6414_b.jpg
 
 -----
 

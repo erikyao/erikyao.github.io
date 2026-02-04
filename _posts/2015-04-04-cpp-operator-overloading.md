@@ -9,7 +9,7 @@ toc_sticky: true
 
 整理自：_Thinking in C++_
 
-[Basic_guidelines]: https://farm2.staticflickr.com/1528/23838060001_564e45f95b_o_d.png
+[Basic_guidelines]: https://live.staticflickr.com/1528/23838060001_4db2a0b41d_z.jpg
 
 -----
 
