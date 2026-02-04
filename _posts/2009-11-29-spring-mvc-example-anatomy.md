@@ -5,9 +5,9 @@ tags: []
 title: Spring MVC example anatomy
 ---
 
-例子来自 [Developing a Spring Framework MVC application step-by-step](http://docs.spring.io/docs/Spring-MVC-step-by-step) ，版本是 _spring-framework-2.5.6.SEC01_。
+例子来自 [Developing a Spring Framework MVC application step-by-step](http://docs.spring.io/docs/Spring-MVC-step-by-step)，版本是 _spring-framework-2.5.6.SEC01_。
 
-![](https://farm6.staticflickr.com/5754/23624881030_43a4c82b85_o_d.png)
+![](https://live.staticflickr.com/5754/23624881030_98ed3a33de_b.jpg)
 
 ## 1. `DispatchServlet` 接过浏览器的 `/hello.htm` 请求
 
@@ -101,7 +101,9 @@ public static final String MESSAGE_SOURCE_BEAN_NAME = "messageSource";
 另外，bean name 和 bean id 的区别：
 
 > Either one would work. It depends on your needs:
+> 
 > If your bean identifier contains special character(s) for example (/viewSummary.html), it (the slash) won't be allowed as the bean id, because it's not a valid XML ID. In such cases you could skip defining the bean id and supply the bean name instead.
+> 
 > The name attribute also helps in defining aliases for your bean, since it allows specifying multiple identifiers for a given bean.
 
 ## 5. JSP dispatched to browser by DispatchServlet

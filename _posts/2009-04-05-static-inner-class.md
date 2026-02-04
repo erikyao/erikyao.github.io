@@ -6,7 +6,7 @@ tags:
 title: 'Java: static inner class'
 ---
 
-![](https://farm2.staticflickr.com/1651/23293777973_188ed6b8c0_o_d.png)
+![](https://live.staticflickr.com/1651/23293777973_cfff1e5a84_n.jpg)
 
 一般的内部类是不能有 static member 的，因为普通的内部类必须创建对象，不需要有 static member 只属于内部类本身，所以 static member 对普通内部类来说是没有意义也是不允许的。同样，static 内部类也是 static，所以一般的内部类中也不能有 static 内部类。  
 

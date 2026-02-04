@@ -5,19 +5,22 @@ tags: []
 title: Simple Form Handling Example
 ---
 
-[1]: https://farm2.staticflickr.com/1477/23894468946_b8e00b61a6_o_d.png
-[2]: https://farm6.staticflickr.com/5734/23292345344_77048f9031_o_d.png
-[3]: https://farm2.staticflickr.com/1678/23920547615_61c51d6831_o_d.png
+[1]: https://live.staticflickr.com/1477/23894468946_3bd514886b.jpg
+[2]: https://live.staticflickr.com/5734/23292345344_1fea140db1.jpg
+[3]: https://live.staticflickr.com/1678/23920547615_1f902862c9_c.jpg
 
-继续 [Spring MVC example anatomy](/springmvc/2009/11/29/spring-mvc-example-anatomy) 中springapp的例子。  
+继续 [Spring MVC example anatomy](/springmvc/2009/11/29/spring-mvc-example-anatomy) 中 `springapp` 的例子。  
 
-`PriceIncreaseController extends SimpleFormController`。`SimpleFormController` 有2个视图：`formView` 用来显示 form，`successView` 则是 form 提交后转到的页面。  
+`PriceIncreaseController extends SimpleFormController`。`SimpleFormController` 有 2 个视图：
 
-当我们从 hello.htm (实际是 hello.jsp) 上点击 priceincrease.htm 的超链接时，实际是发送了一个 GET 方法的请求，然后处理流程如下：
+1. `formView` 用来显示 form
+2. `successView` 则是 form 提交后转到的页面。  
+
+当我们从 `hello.htm` (实际是 `hello.jsp`) 上点击 `priceincrease.htm` 的超链接时，实际是发送了一个 `GET` 方法的请求，然后处理流程如下：
 
 ![][1]
 
-如果 priceincrease.jsp 页面上需要显示一些数据，可以通过 `formBackingObject()` 方法来初始化 Command Object，这个接下来再讲。  
+如果 `priceincrease.jsp` 页面上需要显示一些数据，可以通过 `formBackingObject()` 方法来初始化 Command Object，这个接下来再讲。  
 
 一般使用 DI 来设置 `SimpleFormController` 的 `formView` 和 `successView`：
 
