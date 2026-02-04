@@ -6,9 +6,9 @@ tags:
 title: 'Java: 多线程示意和 thread.join() 用法示意'
 ---
 
-[1]: https://farm6.staticflickr.com/5831/23293777493_04aeb2f146_o_d.png
-[2]: https://farm6.staticflickr.com/5618/23838061221_1ba9bdc5b6_o_d.png
-[3]: https://farm2.staticflickr.com/1637/23920547175_cb21513ed5_o_d.png
+[1]: https://live.staticflickr.com/5831/23293777493_6c3fb7677e_w.jpg
+[2]: https://live.staticflickr.com/5618/23838061221_d798ab3615_w.jpg
+[3]: https://live.staticflickr.com/1637/23920547175_30095c1b53.jpg
 
 简单理解，一个线程就是程序的一条直行路径，比如下面这段：
 

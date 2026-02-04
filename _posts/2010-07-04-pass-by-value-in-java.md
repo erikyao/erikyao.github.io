@@ -5,10 +5,10 @@ tags: []
 title: Java 的值传递
 ---
 
-[1]: https://farm2.staticflickr.com/1558/23624880720_3cf08752b9_o_d.png
-[2]: https://farm2.staticflickr.com/1477/23552710069_3891f8d3c7_o_d.png
-[3]: https://farm2.staticflickr.com/1720/23292345074_b707c469d9_o_d.png
-[4]: https://farm6.staticflickr.com/5797/23838061301_a52e87df52_o_d.png
+[1]: https://live.staticflickr.com/1558/23624880720_fc91c4bf4d_w.jpg
+[2]: https://live.staticflickr.com/1477/23552710069_482b93e217_w.jpg
+[3]: https://live.staticflickr.com/1720/23292345074_546743c016_w.jpg
+[4]: https://live.staticflickr.com/5797/23838061301_1a4c253fa1_w.jpg
 
 所谓的值传递 (pass-by-value) 指的是：传递给方法的是参数值的一个 copy。Java 方法使用的永远是值传递 (很多地方说到的“引用传递”其实也可以看做是值传递，概念搞多了反而还不好理解，干脆说死一点，Java 就只使用值传递)。  
 

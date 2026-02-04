@@ -115,7 +115,7 @@ public class UserDAOProxy implements UserDAO {
 
 `userDAOProxy` 的 `save()` 方法的实际过程是：
 
-![](https://farm2.staticflickr.com/1524/23920547275_da4272d983_o_d.png)
+![](https://live.staticflickr.com/1524/23920547275_f31758bdd1_b.jpg)
 
 Spring AOP 为系统添加业务逻辑的动态代理方法大抵就是这样。  
 
