@@ -8,18 +8,18 @@ tags:
 title: 'Digest of <i>Agile Software Development: Principles, Patterns, and Practices</i>'
 ---
 
-[active_object_sequence]: https://farm2.staticflickr.com/1545/23293777163_46ab6095ab_o_d.png
-[acyclic_visitor_pattern]: https://farm2.staticflickr.com/1620/23552709709_e3771dc04c_o_d.png
-[bridge_pattern_example]: https://farm2.staticflickr.com/1642/23812248442_07cd5f2b2d_o_d.png
-[bridge_UML_class_diagram]: https://farm6.staticflickr.com/5685/23293777103_b0e9f672ca_o_d.png
-[command_pattern]: https://farm2.staticflickr.com/1674/23624880250_bf05132ca4_o_d.png
-[facade_pattern]: https://farm2.staticflickr.com/1561/23920546825_1b79c0d298_o_d.png
-[mediator_pattern]: https://farm2.staticflickr.com/1509/23292344694_afcc9de4dc_o_d.gif
-[proxy_pattern]: https://farm2.staticflickr.com/1472/23293776973_a0e319beed_o_d.png
-[state_diagram]: https://farm2.staticflickr.com/1607/23894468176_36fb300989_o_d.png
-[Turnstile_class]: https://farm6.staticflickr.com/5761/23552709639_a58204476b_o_d.png
-[Turnstile_seq]: https://farm2.staticflickr.com/1587/23838060571_1e7eddc8b7_o_d.png
-[visitor_pattern]: https://farm6.staticflickr.com/5702/23894468116_48f9685360_o_d.png
+[active_object_sequence]: https://live.staticflickr.com/65535/55078791729_b5d43cb5fa_c.jpg
+[acyclic_visitor_pattern]: https://live.staticflickr.com/65535/55078896840_b45e4155f6_z.jpg
+[bridge_pattern_example]: https://live.staticflickr.com/65535/55078791714_084469e784.jpg
+[bridge_UML_class_diagram]: https://live.staticflickr.com/65535/55078737193_b0019690b5_z.jpg
+[command_pattern]: https://live.staticflickr.com/65535/55077635612_eeb13ef2d4_c.jpg
+[facade_pattern]: https://live.staticflickr.com/65535/55077635567_edbcd284c3_z.jpg
+[mediator_pattern]: https://live.staticflickr.com/65535/55078896800_60c875b188.jpg
+[proxy_pattern]: https://live.staticflickr.com/65535/55078896805_7074da2c70.jpg
+[state_diagram]: https://live.staticflickr.com/65535/55078896810_e346f4c280_z.jpg
+[Turnstile_class]: https://live.staticflickr.com/65535/55078535936_36aca015b0_c.jpg
+[Turnstile_seq]: https://live.staticflickr.com/65535/55078535931_b06eba5e4f_z.jpg
+[visitor_pattern]: https://live.staticflickr.com/65535/55078535916_bde5f637e9_z.jpg
 
 ## 目录 
 

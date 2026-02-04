@@ -6,8 +6,8 @@ tags:
 title: R PCA Example
 ---
 
-[4_faces]: https://farm6.staticflickr.com/5788/23292344324_63f5375fa3_o_d.png
-[variance_explained]: https://farm6.staticflickr.com/5761/23292344304_ddcff38623_o_d.png
+[4_faces]: https://live.staticflickr.com/5788/23292344324_25c827b472_b.jpg
+[variance_explained]: https://live.staticflickr.com/5761/23292344304_5e829373ff_w.jpg
 [face.rda]: https://wxdkqa.bn1304.livefilestore.com/y3mPHUkhk8q9P2iyyabsYdgoCs8L-3IDHzDGwOyHYXT0mVwa2c1FcrQfLX1IhsFwUKhUh6LA5mI79ob3nx8LSe9JI-pz1s9yA-TjqzCBOjnPMDupCFzzRdIMn8Rhhmw61Mk/2014-09-09-r-pca-example.face.rda?download&psid=1
 
 ## 0. More Math Definitions
@@ -15,7 +15,7 @@ title: R PCA Example
 If $X$ is a matrix with each variable in a column and each observation in a row then the `SVD` is a "matrix decomposition" that decomposes the original matrix into 3 separate matrices as
 
 $$
-	X = U*D*V^T 
+X = U*D*V^T 
 $$
 
 _**P.S.**_ Octave 里是 `[U, S, V] = svd(X)`，$X = U \ast S \ast V^T$，只是记号不同而已)

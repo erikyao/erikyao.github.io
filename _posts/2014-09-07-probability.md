@@ -34,20 +34,20 @@ title: Probability
 A probability measure, $P$, is a function from the collection of possible events so that the following hold:
 
 1. For an event $E \subset \Omega$, $0 \leq P(E) \leq 1$
-2. <!-- -->$P(\Omega) = 1$
+2. $P(\Omega) = 1$
 3. If $E_1$ and $E_2$ are mutually exclusive events, $P(E_1 \cup E_2) = P(E_1) + P(E_2)$.
 
 Part 3 of the definition implies **finite additivity**: $P(\bigcup_{i=1}^{n} A_i) = \sum_{i=1}^n P(A_i)$, where the $A_i$ are mutually exclusive. 
 
 ## 4. Consequences (推论)
 
-* <!-- -->$P(\phi) = 0$
-* <!-- -->$P(E) = 1 - P(E^c)$
+* $P(\phi) = 0$
+* $P(E) = 1 - P(E^c)$
 * If $A \subset B$, then $P(A) \leq P(B)$
-* <!-- -->$P(A \cup B) = P(A) + P(B) - P(A \cap B) = 1 - P(A^c \cap B^c)$
-* <!-- -->$P(A \cap B^c) = P(A) - P(A \cap B)$
-* <!-- -->$P(\bigcup_{i=1}^{n} E_i) \leq \sum_{i=1}^n P(E_i)$
-* <!-- -->$P(\bigcup_{i=1}^{n} E_i) \geq max(P(E_i))$
+* $P(A \cup B) = P(A) + P(B) - P(A \cap B) = 1 - P(A^c \cap B^c)$
+* $P(A \cap B^c) = P(A) - P(A \cap B)$
+* $P(\bigcup_{i=1}^{n} E_i) \leq \sum_{i=1}^n P(E_i)$
+* $P(\bigcup_{i=1}^{n} E_i) \geq max(P(E_i))$
 
 ## 5. Random variables
 
@@ -56,10 +56,10 @@ Part 3 of the definition implies **finite additivity**: $P(\bigcup_{i=1}^{n} A_i
 	* Discrete 
 	* Continuous
 * Discrete random variable are random variables that take on only a countable number of possibilities.
-	* <!-- -->$P(X = k)$
+	* $P(X = k)$
 	* described by PMF
 * Continuous random variable can take any value on the real line or some subset of the real line.
-	* <!-- -->$P(X \in A)$
+	* $P(X \in A)$
 	* discribed by PDF and CDF
 
 ## 6. PMF: Probability Mass Function
@@ -74,7 +74,7 @@ To be a valid PMF, $p$ must satisfy:
 E.g., let $X$ be the result of a coin flip where $X=0$ represents tails and $X=1$ represents heads. Suppose that we do not know whether or not the coin is fair. Let $\theta$ be the probability of a head expressed as a proportion (between 0 and 1). Then we get: 
 
 $$
-	p(x) = \theta^x (1 - \theta)^{1-x},\, \text{for x = 0,1} 
+p(x) = \theta^x (1 - \theta)^{1-x},\, \text{for x = 0,1} 
 $$
 
 PMF 其实就是分布律，用来描述 discrete random variable
@@ -97,7 +97,7 @@ To be a valid PDF, $f$ must satisfy:
 The CDF of a random variable $X$ is defined as the function:
 
 $$
-	F(x) = P(X \leq x) 
+F(x) = P(X \leq x) 
 $$
 
 This definition applies regardless of whether is discrete or continuous.  
@@ -105,7 +105,7 @@ This definition applies regardless of whether is discrete or continuous.
 The SF of a random variable $X$ is defined as:
 
 $$
-	S(x) = P(X > x) 
+S(x) = P(X > x) 
 $$
 
 Notice that $S(x) = 1 - F(x)$
@@ -137,8 +137,8 @@ If $\alpha = 2$ and $\beta = 1$, then $B(\alpha, \beta) = \frac{1!\times0!}{2!} 
 > abline(h=1.5, v=0.75)
 ```
 
-![](https://farm6.staticflickr.com/5684/23552709119_86e55bfc5a_o_d.png)
+![](https://live.staticflickr.com/5684/23552709119_dd010d2c51_n.jpg)
 
 $$
-	F(0.75) = \frac{1.5 \times 0.75}{2} = 0.5625
+F(0.75) = \frac{1.5 \times 0.75}{2} = 0.5625
 $$

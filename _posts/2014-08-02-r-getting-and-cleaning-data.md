@@ -7,9 +7,9 @@ toc: true
 toc_sticky: true
 ---
 
-[Boxplot]: https://farm2.staticflickr.com/1576/23838060281_5e73191cf4_o_d.png
-[Percentiles]: https://farm2.staticflickr.com/1538/23894467706_54741da322_o_d.png
-[Quartile_and_IQR]: https://farm2.staticflickr.com/1682/23624879870_858091eff7_o_d.png
+[Boxplot]: https://live.staticflickr.com/1576/23838060281_31d6b76eac.jpg
+[Percentiles]: https://live.staticflickr.com/1538/23894467706_0c84f73154_w.jpg
+[Quartile_and_IQR]: https://live.staticflickr.com/1682/23624879870_991fd1a781_n.jpg
 
 coursera 课程总结。
   

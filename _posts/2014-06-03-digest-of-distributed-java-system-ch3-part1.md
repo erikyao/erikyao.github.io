@@ -9,8 +9,8 @@ toc: true
 toc_sticky: true
 ---
 
-[JVM]: https://farm2.staticflickr.com/1574/23812248622_971a1f1af9_o_d.png
-[javac-flow]: https://farm6.staticflickr.com/5707/23292344914_0c82d3db96_o_d.png
+[JVM]: https://live.staticflickr.com/1574/23812248622_376deb9170.jpg
+[javac-flow]: https://live.staticflickr.com/5707/23292344914_cf5807f4f4_z.jpg
 
 ## 0. JVM 大概
 

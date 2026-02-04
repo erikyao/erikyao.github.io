@@ -5,8 +5,8 @@ tags: []
 title: R Generating Random Numbers and Random Sampling
 ---
 
-[正态分布的区间特性]: https://farm6.staticflickr.com/5686/23552709249_feabd51978_o_d.png
-[随机变量_X]: https://farm2.staticflickr.com/1711/23293776583_a720234a9c_o_d.jpg
+[正态分布的区间特性]: https://live.staticflickr.com/5686/23552709249_624c152af9_w.jpg
+[随机变量_X]: https://live.staticflickr.com/1711/23293776583_6398893196_b.jpg
 
 ## 感性复习：如何理解钟形曲线
 
