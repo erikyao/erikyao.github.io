@@ -358,7 +358,7 @@ $$
 
 - **Marginal** distribution of $X$ 其实就是 $X$'s individual distribution，它只在 joint distribution 这个 context 下有意义。语出二维的 discrete joint distribution table，比如：
 
-![](https://farm8.staticflickr.com/7876/33386079698_41a7ba4624_z_d.jpg)
+![](https://live.staticflickr.com/7876/33386079698_41a7ba4624_z.jpg)
 
 (2) Joint distribution function is the product of all marginal distribution functions:
 

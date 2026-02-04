@@ -26,7 +26,7 @@ ChIP 的具体定义和过程是 ([source](http://www.bio.brandeis.edu/haberlab/
 
 > Chromatin immunoprecipitation, or ChIP, refers to a procedure used to determine whether a given protein binds to or is localized to a specific DNA sequence in vivo. 
 
-![](https://farm5.staticflickr.com/4842/46704878472_6261f02bf5_z_d.jpg)
+![](https://live.staticflickr.com/4842/46704878472_6261f02bf5_c.jpg)
 
 - in vivo: (of a process) performed or taking place in a living organism. 亦即 ChIP，严格来说只有第一步，需要在活体细胞中执行
 - formaldehyde 即甲醛。[Wikipedia](https://zh.wikipedia.org/wiki/%E7%94%B2%E9%86%9B) 曰：

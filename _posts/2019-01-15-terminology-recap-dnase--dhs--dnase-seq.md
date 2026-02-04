@@ -31,7 +31,7 @@ DHS = DNase I Hypersensitive Site.
 
 下面这个视频介绍了如何定位 DHS：
 
-[![](https://farm2.staticflickr.com/1978/45558420181_11997d493c_z_d.jpg)](https://www.youtube.com/watch?v=es-SMWgX84w)
+[![](https://live.staticflickr.com/65535/55078827633_f6bbc99e06_z.jpg)](https://www.youtube.com/watch?v=es-SMWgX84w)
 
 - 蓝色的球是 histone/chromatin
 - 左边的 strand，gene 没有从 histone 中展开，认为是 inactive、或者是没有表达的
