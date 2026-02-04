@@ -6,6 +6,6 @@ tags:
 title: visibility symbol in UML
 ---
 
-![](https://farm6.staticflickr.com/5819/23812248802_95e3ef521a_o_d.png)
+![](https://live.staticflickr.com/5819/23812248802_a46587867c_b.jpg)
 
-　　参见 [Visibility attributes in UML diagrams](http://publib.boulder.ibm.com/infocenter/rsdvhelp/v6r0m1/index.jsp?topic=%2Fcom.ibm.xtools.viz.java.doc%2Ftopics%2Fcvisibility.html)
+参见 [Visibility attributes in UML diagrams](http://publib.boulder.ibm.com/infocenter/rsdvhelp/v6r0m1/index.jsp?topic=%2Fcom.ibm.xtools.viz.java.doc%2Ftopics%2Fcvisibility.html)

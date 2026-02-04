@@ -15,4 +15,4 @@ title: Network Protocols
 * 语义：用来说明通信双方应当怎么做；用于协调与差错处理的控制信息。
 * 时序：详细说明事件的先后顺序；速度匹配和排序等
 
-![](https://farm2.staticflickr.com/1643/23812248792_0ee197a130_o_d.png)
+![](https://live.staticflickr.com/1643/23812248792_a624a9fb26_b.jpg)
