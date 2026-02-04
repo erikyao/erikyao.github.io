@@ -27,7 +27,7 @@ The tracks are the thin concentric circular strips on a floppy medium or platter
 
 可以简单地认为扇区的分布是均匀的，如下图所示，这时每个磁道的扇区数相等。不过这么一来不同磁道上的扇区面积不等，若要求每个扇区保存的数据容量相同的话，那么不同磁道上扇区的数据密度就会相差非常大。所以一般的做法是内圈 (比如内1/3) 磁道的扇区数最少，中圈 (比如中1/3) 的稍多，外圈 (比如外1/3) 的磁道数最多。
 
-[](https://live.staticflickr.com/5811/23920547675_df5560f48a_n.jpg)
+![](https://live.staticflickr.com/5811/23920547675_df5560f48a_n.jpg)
 
 ## (3) Cylinder (柱面)
 
