@@ -10,7 +10,7 @@ title: Parametric vs. non-parametric models
 
 -----
 
-In statistics, a **parametric model** or **parametric family** or **finite-dimensional model** is a family of distributions that can be described using a **finite** number of parameters. These parameters are usually collected together to form a single $ k $-dimensional parameter vector $ \theta = (\theta_1, \theta_2, \cdots, \theta_k) $.
+In statistics, a **parametric model** or **parametric family** or **finite-dimensional model** is a family of distributions that can be described using a **finite** number of parameters. These parameters are usually collected together to form a single $k$-dimensional parameter vector $\theta = (\theta_1, \theta_2, \cdots, \theta_k)$.
 
 Parametric models are contrasted with the **semi-parametric**, **semi-nonparametric**, and **non-parametric** models, all of which consist of an infinite set of “parameters” for description. The distinction between these four classes is as follows:
 

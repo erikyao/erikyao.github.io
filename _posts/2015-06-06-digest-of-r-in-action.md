@@ -8,17 +8,17 @@ toc: true
 toc_sticky: true
 ---
 
-[figure-06-02]: https://farm2.staticflickr.com/1719/23812247562_7db87956f3_o_d.png
-[figure-06-05]: https://farm2.staticflickr.com/1576/23293776153_024b62491f_o_d.png
-[figure-06-06]: https://farm2.staticflickr.com/1707/23292343914_f0636f7c4a_o_d.png
-[figure-06-07]: https://farm6.staticflickr.com/5761/23292343904_37de42f0a6_o_d.png
-[figure-06-08]: https://farm2.staticflickr.com/1571/23920545955_2b491fb267_o_d.png
-[figure-06-09]: https://farm6.staticflickr.com/5675/23920545935_e47b919cce_o_d.png
-[figure-06-10]: https://farm2.staticflickr.com/1682/23624879260_f9c6d25ced_o_d.png
-[figure-06-13]: https://farm2.staticflickr.com/1485/23293776043_a9811405b1_o_d.png
-[figure-06-15]: https://farm6.staticflickr.com/5778/23552708619_9c18684ac4_o_d.png
-[figure-06-16]: https://farm6.staticflickr.com/5823/23920545895_d60eb8a5b2_o_d.png
-[figure-06-17]: https://farm2.staticflickr.com/1653/23920545885_35ee010448_o_d.png
+[figure-06-02]: https://live.staticflickr.com/1719/23812247562_61729e3ae3.jpg
+[figure-06-05]: https://live.staticflickr.com/1576/23293776153_aa509d7c1c.jpg
+[figure-06-06]: https://live.staticflickr.com/1707/23292343914_f349a8bd64.jpg
+[figure-06-07]: https://live.staticflickr.com/5761/23292343904_9f4a6433ce.jpg
+[figure-06-08]: https://live.staticflickr.com/1571/23920545955_386403c802.jpg
+[figure-06-09]: https://live.staticflickr.com/5675/23920545935_bf2aa620fc.jpg
+[figure-06-10]: https://live.staticflickr.com/1682/23624879260_feaa1c10ec.jpg
+[figure-06-13]: https://live.staticflickr.com/1485/23293776043_ba408f88eb.jpg
+[figure-06-15]: https://live.staticflickr.com/5778/23552708619_ebedfaa030.jpg
+[figure-06-16]: https://live.staticflickr.com/5823/23920545895_70c3143b46.jpg
+[figure-06-17]: https://live.staticflickr.com/1653/23920545885_92a03302c3.jpg
 
 
 ## 1. Introduction to R
@@ -960,9 +960,3 @@ mean of the differences
 #### 7.4.3 When there are more than two groups
 
 What do you do if you want to compare more than two groups? If you can assume that the data are independently sampled from normal populations, you can use analysis of variance (ANOVA). ANOVA is a comprehensive methodology that covers many experimental and quasi-experimental designs.
-
-## 8. Regression
-
-## 10. 
-
-TODO: In designing experimental and quasi-experimental studies, it’s important to determine if the sample size is adequate for detecting the effects of interest (power analysis)

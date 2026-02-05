@@ -5,7 +5,7 @@ tags: []
 title: 'Lab Memo: Use Cases for Pipeline Refactoring'
 ---
 
-[Pipeline]: https://farm6.staticflickr.com/5755/23567557869_3e00975672_o_d.png
+[Pipeline]: https://live.staticflickr.com/65535/55079024688_75591aec69_z.jpg
 
 ![][Pipeline]
 

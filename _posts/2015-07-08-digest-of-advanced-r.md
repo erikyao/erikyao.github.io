@@ -13,10 +13,10 @@ P.S. It was 2015 when the 1st edition of this book came out and I wrote this pos
 
 TODO: Update or delete this post.
 
-[curve-demo-1]: https://farm6.staticflickr.com/5650/23292343704_0917e5ef3b_o_d.png
-[lapply]: https://farm2.staticflickr.com/1625/23920545705_e466826c92_o_d.png
-[roll-mean-1]: https://farm6.staticflickr.com/5808/23812247222_c884f5ff53_o_d.png
-[search-path]: https://farm6.staticflickr.com/5806/23552708399_86ce622bb0_o_d.png
+[curve-demo-1]: https://live.staticflickr.com/5650/23292343704_b1d9b67b9b_z.jpg
+[lapply]: https://live.staticflickr.com/1625/23920545705_3b0ace28f3.jpg
+[roll-mean-1]: https://live.staticflickr.com/5808/23812247222_1fbfa3ec11_z.jpg
+[search-path]: https://live.staticflickr.com/5806/23552708399_ac0ce658b0_b.jpg
 
 -----
 

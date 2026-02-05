@@ -10,9 +10,9 @@ title: McNemar Test
 
 - McNemar: [mæk nə mar]
 
-[table-20-01]: https://farm6.staticflickr.com/5799/23894466946_125667e84b_o_d.png
-[table-20-02]: https://farm2.staticflickr.com/1557/23812247342_3961cf5e86_o_d.png
-[table-20-03]: https://farm2.staticflickr.com/1709/23920545715_09e6dc8760_o_d.png
+[table-20-01]: https://live.staticflickr.com/5799/23894466946_0232038cc8_z.jpg
+[table-20-02]: https://live.staticflickr.com/1557/23812247342_24d52433d9_z.jpg
+[table-20-03]: https://live.staticflickr.com/1709/23920545715_8ed243ba53.jpg
 
 ## 1. Overview
 
@@ -27,7 +27,7 @@ The McNemar test can be employed to evaluate:
 		- Random assignment
 - or a **before–after design** (pretest vs. posttest)
 
-The 2 × 2 table depicted in Table 20.1 summarizes the McNemar test model.
+The 2×2 table depicted in Table 20.1 summarizes the McNemar test model.
 
 ![][table-20-01]
 
@@ -78,29 +78,29 @@ In Example 20.2, the frequencies recorded in Cells `b` and `c`, respectively, re
 
 If there is a shift in attitude from the pretest to the posttest (specifically from pro-animal research to anti-animal research), one would expect the proportion of subjects in Cell `c` to be larger than the proportion of subjects in Cell `b`.
 
-It will be assumed that **in the underlying population**, $ \pi_b $ and $ \pi_c $ represent the following proportions: 
+It will be assumed that **in the underlying population**, $\pi_b$ and $\pi_c$ represent the following proportions: 
 
-$ \pi_b = \frac{b}{b+c} $
+$\pi_b = \frac{b}{b+c}$
 
-$ \pi_c = \frac{c}{b+c} $
+$\pi_c = \frac{c}{b+c}$
 
-If there is no difference between the two experimental conditions (in the case of a true experiment) or between the pretest and the posttest (in the case of a before–after design), the following will be true: $ \pi_b = \pi_c = .5 $. 
+If there is no difference between the two experimental conditions (in the case of a true experiment) or between the pretest and the posttest (in the case of a before–after design), the following will be true: $\pi_b = \pi_c = .5$. 
 
-With respect to the sample data, the values $ \pi_b $ and $ \pi_c $ are estimated with the values $ p_b $ and $ p_c $, which in the case of Examples 20.1 and 20.2 are $ p_b = \frac{13}{13 + 41} = .24 $ and $ p_c = \frac{41}{13 + 41} = .76 $.
+With respect to the sample data, the values $\pi_b$ and $\pi_c$ are estimated with the values $p_b$ and $p_c$, which in the case of Examples 20.1 and 20.2 are $p_b = \frac{13}{13 + 41} = .24$ and $p_c = \frac{41}{13 + 41} = .76$.
 
 Employing the above information the null and alternative hypotheses for the McNemar test can now be stated:
 
-- Null hypothesis $ H_0 $: $ \pi_b = \pi_c $
+- Null hypothesis $H_0$: $\pi_b = \pi_c$
 	- (In the underlying population the sample represents, the proportion of observations in Cell `b` equals the proportion of observations in Cell `c`.)
-- Alternative hypothesis $ H_a $: $ \pi_b \neq \pi_c $
+- Alternative hypothesis $H_a $: $\pi_b \neq \pi_c$
 	- (In the underlying population the sample represents, the proportion of observations in Cell `b` does not equal the proportion of observations in Cell `c`.)
 	- This is a **nondirectional alternative hypothesis** and it is evaluated with a **two-tailed test**. 
-	- In order to be supported, $ p_b $ can be either significantly larger or significantly smaller than $ p_c $.
-- Or alternative hypothesis $ H_a $: $ \pi_b > \pi_c $
+	- In order to be supported, $p_b$ can be either significantly larger or significantly smaller than $p_c$.
+- Or alternative hypothesis $H_a$: $\pi_b > \pi_c$
 	- (In the underlying population the sample represents, the proportion of observations in Cell `b` is greater than the proportion of observations in Cell `c`.) 
 	- This is a **directional alternative hypothesis** and it is evaluated with a **one-tailed test**. 
-	- In order to be supported, $ p_b $ must be significantly larger than $ p_c $.
-- Or alternative hypothesis $ H_a $: $ \pi_b < \pi_c $
+	- In order to be supported, $p_b$ must be significantly larger than $p_c$.
+- Or alternative hypothesis $H_a$: $\pi_b < \pi_c$
 	- 同理
 	
 ## 4. Test Computations
@@ -124,20 +124,20 @@ $$
 
 ## 5. Interpretation of the Test Results
 
-查表得，for $ DF = 1 $ the tabled critical two-tailed .05 and .01 chi-square values are
+查表得，for $DF = 1$ the tabled critical two-tailed .05 and .01 chi-square values are
 
-- $ \chi^2_{0.05} = 3.84 $ (which corresponds to the chi-square value at the 95th percentile)
-- $ \chi^2_{0.01} = 6.63 $ (which corresponds to the chi-square value at the 99th percentile)
+- $\chi^2_{0.05} = 3.84$ (which corresponds to the chi-square value at the 95th percentile)
+- $\chi^2_{0.01} = 6.63$ (which corresponds to the chi-square value at the 99th percentile)
 
 The tabled critical one-tailed .05 and .01 values are 
 
-- $ \chi^2_{0.05} = 2.71 $ (which corresponds to the chi-square value at the 90th percentile) 
-- $ \chi^2_{0.01} = 5.43 $ (which corresponds to the chi-square value at the 98th percentile)
+- $\chi^2_{0.05} = 2.71$ (which corresponds to the chi-square value at the 90th percentile) 
+- $\chi^2_{0.01} = 5.43$ (which corresponds to the chi-square value at the 98th percentile)
 
 We can conclude the following:
 
-- Since the obtained value $ \chi^2 = 14.52 $ is greater than the tabled critical two-tailed values $ \chi^2_{0.05} = 3.84 $ and $ \chi^2_{0.01} = 6.63 $, the nondirectional alternative hypothesis $ \pi_b \neq \pi_c $ is supported at both the .05 and .01 levels. 
-- Since the obtained value $ \chi^2 = 14.52 $ is greater than the tabled critical one-tailed values $ \chi^2_{0.05} = 2.71 $ and $ \chi^2_{0.01} = 5.43 $, the directional alternative hypothesis $ \pi_b < \pi_c $ is supported at both the .05 and .01 levels (since $ p_b = .24 $ is less than $ p_c = .76 $).
+- Since the obtained value $\chi^2 = 14.52$ is greater than the tabled critical two-tailed values $\chi^2_{0.05} = 3.84$ and $\chi^2_{0.01} = 6.63$, the nondirectional alternative hypothesis $\pi_b \neq \pi_c$ is supported at both the .05 and .01 levels. 
+- Since the obtained value $\chi^2 = 14.52$ is greater than the tabled critical one-tailed values $\chi^2_{0.05} = 2.71$ and $\chi^2_{0.01} = 5.43$, the directional alternative hypothesis $\pi_b < \pi_c$ is supported at both the .05 and .01 levels (since $p_b = .24$ is less than $p_c = .76$).
 
 A summary of the analysis of Examples 20.1 and 20.2 with the McNemar test follows:
 

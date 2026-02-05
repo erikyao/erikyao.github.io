@@ -11,7 +11,7 @@ title: Chi-Square Test for Independence
 - [Stat Trek: Chi-Square Test for Independence](http://stattrek.com/chi-square-test/independence.aspx)
 - [Wikipedia: Chi-squared test](http://en.wikipedia.org/wiki/Chi-squared_test)
 
-<!-- -->
+-----
 
 - Chi: [kaɪ]
 
@@ -21,7 +21,7 @@ title: Chi-Square Test for Independence
 
 ## What is a chi-square test
 
-A chi-square test is also referred to as $ \chi^2 $ test ($ \chi $ 这个符号在 latex 里就是 `\chi`).
+A chi-square test is also referred to as $\chi^2$ test ($\chi$ 这个符号在 latex 里就是 `\chi`).
 
 The test is applied when you have two [categorical variables](http://stattrek.com/statistics/dictionary.aspx?definition=Categorical%20variable) from a single population. It is used to determine whether these two categorical variables are independent.
 
@@ -45,31 +45,31 @@ The test procedure is appropriate when the following conditions are met:
 
 ## State the Hypotheses
 
-Given variable $ A $ (which has $ r $ levels), and variable $ B $ (which has $ c $ levels), 
+Given variable $A$ (which has $r$ levels), and variable $B$ (which has $c$ levels), 
 
-- $ H_0 $: variable $ A $ and variable $ B $ are independent. 
-- $ H_a $: variable $ A $ and variable $ B $ are not independent.
+- $H_0$: variable $A$ and variable $B$ are independent. 
+- $H_a$: variable $A$ and variable $B$ are not independent.
 
 ## Analyze Sample Data
 
-- **Degrees of freedom:** $ DF = (r - 1) * (c - 1) $
-- **Expected frequencies:** $ E_{r,c} = (n_r * n_c) / n $
-	- $ E_{r,c} $ is the expected frequency count for level $ r $ of variable $ A $ and level $ c $ of variable $ B $
-	- $ n_r $ is the total number of sample observations at level $ r $ of variable $ A $
-	- $ n_c $ is the total number of sample observations at level $ c $ of variable $ B $
-	- $ n $ is the total sample size
-- **Test statistic:** $ \chi^2 = \sum{\left [ \frac{(O_{r,c} - E_{r,c})^2}{E_{r,c}} \right ]} $
-	- $ O_{r,c} $ is the observed frequency count for level $ r $ of variable $ A $ and level $ c $ of variable $ B $
-- **p-value:** 计算时需要 $ DF $ 和 $ \chi^2 $ 两个值，可以使用 [Chi-Square Calculator: Online Statistical Table](http://stattrek.com/online-calculator/chi-square.aspx)
+- **Degrees of freedom:** $DF = (r - 1) * (c - 1)$
+- **Expected frequencies:** $E_{r,c} = \frac{n_r * n_c}{n}$
+	- $E_{r,c}$ is the expected frequency count for level $r$ of variable $A$ and level $c$ of variable $B$
+	- $n_r$ is the total number of sample observations at level $r$ of variable $A$
+	- $n_c$ is the total number of sample observations at level $c$ of variable $B$
+	- $n$ is the total sample size
+- **Test statistic:** $\chi^2 = \sum{\left [ \frac{(O_{r,c} - E_{r,c})^2}{E_{r,c}} \right ]}$
+	- $O_{r,c}$ is the observed frequency count for level $r$ of variable $A$ and level $c$ of variable $B$
+- **p-value:** 计算时需要 $DF$ 和 $\chi^2$ 两个值，可以使用 [Chi-Square Calculator: Online Statistical Table](http://stattrek.com/online-calculator/chi-square.aspx)
 
 ## Example
 
-![](https://farm2.staticflickr.com/1602/23812247442_27aa358c50_o_d.png)
+![](https://live.staticflickr.com/1602/23812247442_fae84f2dd5.jpg)
 
 **Question:** Is there a gender gap? Do the men's voting preferences differ significantly from the women's preferences?
 
-- $ H_0 $: "Gender" and "Voting Preference" are independent. 
-- $ H_a $: "Gender" and "Voting Preference" are not independent.
+- $H_0$: "Gender" and "Voting Preference" are independent. 
+- $H_a$: "Gender" and "Voting Preference" are not independent.
 
 $$
 \begin{align}
@@ -86,6 +86,6 @@ $$
 \end{align}
 $$
 
-查表得 $ P(DF=3, \chi^2>16.2) = 0.0003 $.
+查表得 $P(DF=3, \chi^2>16.2) = 0.0003$.
 
 Since the p-value (0.0003) is less than the significance level (0.05), we cannot accept the null hypothesis. Thus, we conclude that there is a relationship between gender and voting preference.
