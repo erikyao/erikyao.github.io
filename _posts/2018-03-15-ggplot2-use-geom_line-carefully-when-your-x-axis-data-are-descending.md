@@ -35,7 +35,7 @@ p_path_rev <- ggplot(data=df_rev, mapping=aes(x=x, y=y)) +
 plot_grid(p_line, p_path, p_line_rev, p_path_rev)
 ```
 
-![](https://farm1.staticflickr.com/796/40832875091_baf8ddec61_z_d.jpg)
+![](https://live.staticflickr.com/796/40832875091_baf8ddec61.jpg)
 
 [geom_line connects dots on the wrong axis](https://stackoverflow.com/a/36156406) mentioned that:
 

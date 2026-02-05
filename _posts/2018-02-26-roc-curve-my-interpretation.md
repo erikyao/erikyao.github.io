@@ -7,10 +7,10 @@ tags:
 title: 'ROC Curve: my interpretation'
 ---
 
-[roc_curve]: https://farm5.staticflickr.com/4782/40747956572_b8cf50ecdc_z_d.jpg
-[roc_curve_error]: https://farm5.staticflickr.com/4774/38980106050_aebae1d24a_z_d.jpg
-[t_monotonically_decreasing]: https://farm5.staticflickr.com/4779/40747956412_96d23250c2_z_d.jpg
-[tpr_gt_fpr]: https://live.staticflickr.com/65535/39897435045_3b9afeede4_z_d.jpg
+[roc_curve]: https://live.staticflickr.com/4782/40747956572_b8cf50ecdc_c.jpg
+[roc_curve_error]: https://live.staticflickr.com/4774/38980106050_aebae1d24a_c.jpg
+[t_monotonically_decreasing]: https://live.staticflickr.com/4779/40747956412_96d23250c2_c.jpg
+[tpr_gt_fpr]: https://live.staticflickr.com/65535/39897435045_3b9afeede4_c.jpg
 
 首先我们来看个例子：
 
@@ -79,9 +79,9 @@ auroc_df.to_csv("auroc_test.tsv", sep='\t', index=False, header=True)
 
 规律：
 
-- $\lbrace fpr_j \rbrace$：从 0 单调递增到 1
-- $\lbrace tpr_j \rbrace$：从 0 单调递增到 1
-- $\lbrace t_j \rbrace$：从 1 单调递减到 0
+- $\lbrace fpr_j \rbrace$: 从 0 单调递增到 1
+- $\lbrace tpr_j \rbrace$: 从 0 单调递增到 1
+- $\lbrace t_j \rbrace$: 从 1 单调递减到 0
 
 所以 ROC curve 第一个点一定是 $(0,0)$，对应 $t_0 = 1$；最后一个点一定是 $(1,1)$，对应 $t_{n-1} = 0$。
 
@@ -94,7 +94,6 @@ ggplot(data=auroc_df[0:10, ], mapping=aes(x=False.Positive.Rate, y=True.Positive
 ![][t_monotonically_decreasing]
 
 注意用 python 画图时，会出现 $tpr_j > tpr_{j+1}$ 的情况。看上去是违背了单调性。<del>其原因是对 float 处理的误差</del>。比如其实是 $tpr_j = tpr_{j+1} = 0.81366$，但 python 读取后变成了 $tpr_j = 0.81366001 > tpr_{j+1} = 0.81365999$。（此处存疑；参 [ggplot2: use geom_line() carefully when your x-axis data are descending](/r/2018/03/15/ggplot2-use-geom_line-carefully-when-your-x-axis-data-are-descending)）
-
 
 误差导致的作图如下：
 

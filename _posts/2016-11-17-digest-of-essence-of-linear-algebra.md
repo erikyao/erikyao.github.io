@@ -8,6 +8,11 @@ toc: true
 toc_sticky: true
 ---
 
+[determinant]: https://live.staticflickr.com/807/40256097215_9f32e14a05_c.jpg
+[u_x]: https://live.staticflickr.com/788/39364279940_6cb5d99125_c.jpg
+[u_y]: https://live.staticflickr.com/798/39364280100_c7f948a764_c.jpg
+[vector_axioms]: https://live.staticflickr.com/870/39382665400_86c741a816_c.jpg
+
 Greatest thanks to [3Blue1Brown](http://www.3blue1brown.com/)!
 
 - [Bilibili](https://space.bilibili.com/88461692#/channel/detail?cid=9450)
@@ -198,7 +203,7 @@ Another way to think about it is to consider $\hat i$ and $\hat j$. Notice that 
 
 If the determinant of a matrix is 0, the basis vectors inside this matrix are linearly depenedent.
 
-![determinant](https://farm1.staticflickr.com/807/40256097215_9f32e14a05_z_d.jpg)
+![determinant][determinant]
 
 $$
 \operatorname{det}(M_2M_1) = \operatorname{det}(M_2) \operatorname{det}(M_1)
@@ -262,12 +267,12 @@ $$
 \end{aligned}
 $$
 
-$(\vec v)^{T}$ 是这么一个 transformation：将 2-D space squash 到 1-D 数轴，basis $\icol{1 \newline 0}$ 压到数轴上 $a$ 这个点，basis $\icol{0 \newline 1}$ 压到数轴上 $b$ 这个点，$(\vec v)^{T} \vec w$ 就表示 $\vec w$ 会被压到数轴上 $ac + bd$ 这个点。
+$(\vec v)^{T}$ 是这么一个 transformation: 将 2-D space squash 到 1-D 数轴，basis $\icol{1 \newline 0}$ 压到数轴上 $a$ 这个点，basis $\icol{0 \newline 1}$ 压到数轴上 $b$ 这个点，$(\vec v)^{T} \vec w$ 就表示 $\vec w$ 会被压到数轴上 $ac + bd$ 这个点。
 
 反之 $(\vec w)^{T} \vec v$ 也可以这么理解。
 
-![](https://farm1.staticflickr.com/788/39364279940_6cb5d99125_z_d.jpg)
-![](https://farm1.staticflickr.com/798/39364280100_c7f948a764_z_d.jpg)
+![][u_x]
+![][u_y]
 
 ## Chapter 8 - Cross products
 
@@ -423,7 +428,7 @@ Thses sets of vetor-ish things (arrows, lists of numbers, functions, etc) are ca
 
 我们有 8 条 rules for vectors addition and scaling:
 
-![](https://farm1.staticflickr.com/870/39382665400_86c741a816_z_d.jpg)
+![][vector_axioms]
 
 These rules are called **axioms**. If a space statisfies these 8 axioms, it is a vector space. **Axioms are not rules of nature, but an interface** (consider Java Interface!)
 
