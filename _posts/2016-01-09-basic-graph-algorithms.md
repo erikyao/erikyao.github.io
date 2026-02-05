@@ -7,12 +7,12 @@ toc: true
 toc_sticky: true
 ---
 
-[edge_types]: https://farm2.staticflickr.com/1521/24260605262_83a3b5a6b7_o_d.png
-[Prim]: https://farm2.staticflickr.com/1676/24313784510_251a0a69f3_o_d.png
-[Kruskal]: https://farm2.staticflickr.com/1549/24314202720_46d5257df4_o_d.png
-[Alternating_Path]: https://farm2.staticflickr.com/1698/24582419389_f2308538e0_o_d.png
-[perfect_bipartite_matching]: https://farm2.staticflickr.com/1519/24963603071_125e5a9695_o_d.png
-[Tutte_matrix]: https://farm2.staticflickr.com/1517/25056902185_53078b7d1e_o_d.png
+[edge_types]: https://live.staticflickr.com/1521/24260605262_1a957dd569.jpg
+[Prim]: https://live.staticflickr.com/1676/24313784510_ea7ec14d3a_z.jpg
+[Kruskal]: https://live.staticflickr.com/1549/24314202720_e171b90655_c.jpg
+[Alternating_Path]: https://live.staticflickr.com/1698/24582419389_7c596aa665_w.jpg
+[perfect_bipartite_matching]: https://live.staticflickr.com/1519/24963603071_7b5892fcc2_m.jpg
+[Tutte_matrix]: https://live.staticflickr.com/1517/25056902185_69338e3209_m.jpg
 
 参考：
 

@@ -5,11 +5,11 @@ tags: []
 title: Computational Complexity Review
 ---
 
-[Reduction]: https://farm2.staticflickr.com/1670/25699429983_0e32464a98_o_d.jpg
-[M_Prime]: https://farm2.staticflickr.com/1698/26278452596_b3f4a02ca9_o_d.jpg
-[Picture_of_Reduction]: https://farm2.staticflickr.com/1617/26031609730_046b650ddd_o_d.jpg
-[IID]: https://farm8.staticflickr.com/7786/27414670346_2e21a634c7_o_d.png
-[IID_2]: https://farm8.staticflickr.com/7405/27449203455_b6320e6f58_o_d.png
+[Reduction]: https://live.staticflickr.com/1670/25699429983_ee4e8d125f.jpg
+[M_Prime]: https://live.staticflickr.com/1698/26278452596_4f34f93e76_z.jpg
+[Picture_of_Reduction]: https://live.staticflickr.com/1617/26031609730_f2b6b1ed27_z.jpg
+[IID]: https://live.staticflickr.com/7786/27414670346_3c1de342b9_b.jpg
+[IID_2]: https://live.staticflickr.com/7405/27449203455_175e001dab_z.jpg
 
 ## 1. Turing Machines @ [Automata by Jeff Ullman](https://class.coursera.org/automata-003/lecture)
 
