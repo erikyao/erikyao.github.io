@@ -1285,4 +1285,4 @@ ggplot(mpg, aes(displ, hwy)) +
 
 ## Chapter 23 - R Markdown Formats (略)
 
-## Chapter 23 - R Markdown Workflow (略)
+## Chapter 24 - R Markdown Workflow (略)

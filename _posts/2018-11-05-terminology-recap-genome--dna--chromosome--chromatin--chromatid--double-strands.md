@@ -2,8 +2,7 @@
 category: Biology
 description: ''
 tags: []
-title: 'Terminology Recap: Genome / Chromosome / Nucleosome / Chromatin / Chromatid
-  / DNA / Double Strands / Coordinates System / Upstream & Downstream / TSS Distance'
+title: 'Terminology Recap: Genome / Chromosome / Nucleosome / Chromatin / Chromatid / DNA / Double Strands / Coordinates System / Upstream & Downstream / TSS Distance'
 ---
 
 ## 1. Genome 
