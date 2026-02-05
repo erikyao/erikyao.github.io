@@ -7,7 +7,7 @@ tags:
 title: Digest of <i>Working Effectively with Legacy Code</i>
 ---
 
-[4-reasons-to-change]: https://farm9.staticflickr.com/8842/28276622872_ee20c98b6d_o_d.jpg
+[4-reasons-to-change]: https://live.staticflickr.com/8842/28276622872_347d8fb484.jpg
 
 # Part I - The Mechanics of Change
 

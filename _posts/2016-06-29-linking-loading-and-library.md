@@ -1,5 +1,5 @@
 ---
-category: OS
+category: Compiler
 description: ''
 tags:
 - Book
@@ -8,13 +8,14 @@ toc: true
 toc_sticky: true
 ---
 
-[northbridge_southbridge]: https://farm8.staticflickr.com/7239/27374870374_03bd8a9661_o_d.png
-[software_hierarchy]: https://farm8.staticflickr.com/7716/27886596032_ec5a763b1a_o_d.png
-[VMA]: https://farm8.staticflickr.com/7340/27501582064_3637703587_z_d.jpg
-[stack_frame]: https://farm8.staticflickr.com/7494/27522590674_7d738b9527_o_d.png
-[cdecl_example]: https://farm8.staticflickr.com/7300/28103751046_170da00863_o_d.png
-[fd]: https://farm8.staticflickr.com/7428/27858238310_160dce9cd6_o_d.jpg
-[system_call_example]: https://farm8.staticflickr.com/7460/27859201890_5e02591a17_o_d.png
+[northbridge_southbridge]: https://live.staticflickr.com/7239/27374870374_681eaeb068_z.jpg
+[software_hierarchy]: https://live.staticflickr.com/7716/27886596032_ce95391476_z.jpg
+[VMA]: https://live.staticflickr.com/7340/27501582064_3637703587_z.jpg
+[stack_frame]: https://live.staticflickr.com/7494/27522590674_e972e89d03_w.jpg
+[cdecl_example]: https://live.staticflickr.com/7300/28103751046_51b7d04c4d_c.jpg
+[fd]: https://live.staticflickr.com/7428/27858238310_180730c512.jpg
+[system_call_example]: https://live.staticflickr.com/7460/27859201890_b38f4ace05_c.jpg
+[ELF_Section_Segment]: https://live.staticflickr.com/65535/54268930640_a4c4e84f05_c.jpg
 
 《程序员的自我修养——链接、装载与库》泛读
 
@@ -342,7 +343,7 @@ Section / Segment / VMA (Virtual Memory Area) 的区别与联系：
     - 对同一个 ELF 文件，sectioning 是 _**Linking View**_，segmentation 是 _**Execution View**_
         - 你可以理解为同一本书的内容，但配套了两个不同颗粒度的目录
 
-![](https://live.staticflickr.com/65535/54268930640_a4c4e84f05_w_d.jpg)
+![][ELF_Section_Segment]
 
 - VMA:
     - 本质是 VAS 中的一个 memory segment 

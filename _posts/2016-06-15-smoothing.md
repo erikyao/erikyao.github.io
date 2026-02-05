@@ -6,16 +6,16 @@ tags:
 title: Smoothing
 ---
 
-[True]: https://farm8.staticflickr.com/7317/27418140070_e99a753003_o_d.png
-[With_Noise]: https://farm8.staticflickr.com/7183/27417679270_96e6c206c4_o_d.png
-[Bin_Smooth]: https://farm8.staticflickr.com/7702/27417679460_20540feeeb_o_d.png
-[Moving_Avg]: https://farm8.staticflickr.com/7413/27417679400_893cf1a55f_o_d.png
-[Running_Line]: https://farm8.staticflickr.com/7392/27417679360_999b289051_o_d.png
-[Loess]: https://farm8.staticflickr.com/7307/27621492431_83db6396f3_o_d.png
-[Spline]: https://farm8.staticflickr.com/7423/27621492341_055330c284_o_d.png
-[Under_Over]: https://farm8.staticflickr.com/7215/27417679300_c6d09edee4_o_d.png
+[True]: https://live.staticflickr.com/7317/27418140070_1d02a3454a_w.jpg
+[With_Noise]: https://live.staticflickr.com/7183/27417679270_9ff6c7d0e0_w.jpg
+[Bin_Smooth]: https://live.staticflickr.com/7702/27417679460_383c5aaa78_w.jpg
+[Moving_Avg]: https://live.staticflickr.com/7413/27417679400_61d2487445_w.jpg
+[Running_Line]: https://live.staticflickr.com/7392/27417679360_fe9c7af8fd_w.jpg
+[Loess]: https://live.staticflickr.com/7307/27621492431_51574d0eca_w.jpg
+[Spline]: https://live.staticflickr.com/7423/27621492341_dc26dcf288_w.jpg
+[Under_Over]: https://live.staticflickr.com/7215/27417679300_8d69ce8deb_n.jpg
 
-总结自 [2. Smoothing](http://www2.stat.duke.edu/~banks/218-lectures.dir/dmlect2.pdf)。
+总结自 [2. Smoothing](http://www2.stat.duke.edu/~banks/218-lectures.dir/dmlect2.pdf).
 
 -----
 
