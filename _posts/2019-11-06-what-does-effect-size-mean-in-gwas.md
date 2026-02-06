@@ -65,7 +65,7 @@ $$
 
 GWAS 中你其实有两个观测对象：genotypes (or SNP alleles) 和 phenotypes，再分一个 experimental 和 control，其实你会有 4 组数据（假设是 bi-allelic；然后 phenotype 只有两种）。参考 [CMU: Genomes and Complex Diseases](http://www.cs.cmu.edu/~sssykim/teaching/f14/slides/gwas.pdf):
 
-![](https://live.staticflickr.com/65535/49026617791_39a39f87fc_w_d.jpg)
+![](/assets/posts/2019-11-06-what-does-effect-size-mean-in-gwas/gwas_data_grouping.jpg)
 
 那么怎么算 _effect size of an allele on the phenotype_?
 
@@ -76,7 +76,7 @@ GWAS 中你其实有两个观测对象：genotypes (or SNP alleles) 和 phenotyp
 
 但其实我们用的是 Regression coefficient 哒！你会想问：这个 regression 要咋做？参考 [CMU: Genomes and Complex Diseases](http://www.cs.cmu.edu/~sssykim/teaching/f14/slides/gwas.pdf):
 
-![](https://live.staticflickr.com/65535/49026106773_06a7a011b7_z_d.jpg)
+![](/assets/posts/2019-11-06-what-does-effect-size-mean-in-gwas/genotype_regression.jpg)
 
 - 这里 phenotype 是 continuous 的，但 discrete (categorical) 的情况也是类似的
 

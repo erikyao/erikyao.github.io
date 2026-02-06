@@ -139,7 +139,7 @@ $$
 - 参考资料 [Maximum Likelihood Estimation For Regression](https://medium.com/quick-code/maximum-likelihood-estimation-for-regression-65f9c99f815d)
 - 这个例子是否能说明：只要出现了 minimizing $\operatorname{MSE}$ 的算法都能找到对应的 Gaussian model 的解释？
 
-![](https://live.staticflickr.com/7838/47575663751_0ba0125717_z_d.jpg)
+![](/assets/posts/2019-04-11-generative-discriminative-frequentist-bayesian/47575663751_0ba0125717_z_d.jpg)
 
 最后说一下 prediction：
 

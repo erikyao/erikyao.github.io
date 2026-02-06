@@ -35,7 +35,7 @@ p_path_rev <- ggplot(data=df_rev, mapping=aes(x=x, y=y)) +
 plot_grid(p_line, p_path, p_line_rev, p_path_rev)
 ```
 
-![](/assets/posts/2018-03-15-ggplot2-use-geom_line-carefully-when-your-x-axis-data-are-descending/geom_4x4.jpg)
+![](/assets/posts/2018-03-15-ggplot2-use-geom_line-carefully-when-your-x-axis-data-are-descending/geom_2x2.jpg)
 
 [geom_line connects dots on the wrong axis](https://stackoverflow.com/a/36156406) mentioned that:
 

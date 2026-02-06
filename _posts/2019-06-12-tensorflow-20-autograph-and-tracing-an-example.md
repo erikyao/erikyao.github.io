@@ -12,15 +12,15 @@ title: 'Tensorflow 2.0 Autograph and Tracing: an example'
 
 那把代码转成 graph 其实有 3 个步骤 (_Hands-On Machine Learning with Scikit-Learn, Keras, and Tensorflow_ 这张图上只标了两步，有点 misleading)：
 
-![](https://live.staticflickr.com/65535/48053029838_869100878d_z_d.jpg)
+![](/assets/posts/2019-06-12-tensorflow-20-autograph-and-tracing-an-example/code_to_graph.jpg)
 
 1. Autograph
     - 把原生 python 代码转成中间 python 代码
     - 我要吐槽下这个名字：autograph 并没有把代码 automatically 转化成 graph 啊，这才第一步啊，这个名字是不是欠妥？
-1. Symbolic Execution
+2. Symbolic Execution
     - 就是右上角传入的那个 `n`，我们称之为 symbolic tensor (只有符号意义，没有实际的值)
     - 你可以把这个 symbolic execution 想象成是 debugging 时一步步 step over 的过程 (然后 tracer 来 trace)
-1. Tracing
+3. Tracing
     - Tracer 对 symbolic execution 的代码会区别对待：
         - 如果遇到的是一个 Tensorflow operation (简单说就是 `tf.XXX()` 代码)，会把这个 operation 当做一个节点添加到 graph 里
         - **如果不是，那么 tracer 会直接执行这句代码，但是不会把它加到 graph 里**
