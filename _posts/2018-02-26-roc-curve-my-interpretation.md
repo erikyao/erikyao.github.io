@@ -7,10 +7,10 @@ tags:
 title: 'ROC Curve: my interpretation'
 ---
 
-[roc_curve]: https://live.staticflickr.com/4782/40747956572_b8cf50ecdc_c.jpg
-[roc_curve_error]: https://live.staticflickr.com/4774/38980106050_aebae1d24a_c.jpg
-[t_monotonically_decreasing]: https://live.staticflickr.com/4779/40747956412_96d23250c2_c.jpg
-[tpr_gt_fpr]: https://live.staticflickr.com/65535/39897435045_3b9afeede4_c.jpg
+[roc_curve]: /assets/posts/2018-02-26-roc-curve-my-interpretation/roc_curve.jpg
+[roc_curve_error]: /assets/posts/2018-02-26-roc-curve-my-interpretation/roc_curve_error.jpg
+[t_monotonically_decreasing]: /assets/posts/2018-02-26-roc-curve-my-interpretation/t_monotonically_decreasing.jpg
+[tpr_gt_fpr]: /assets/posts/2018-02-26-roc-curve-my-interpretation/tpr_gt_fpr.jpg
 
 首先我们来看个例子：
 

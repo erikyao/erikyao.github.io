@@ -45,7 +45,7 @@ There is a nice way to describe the gradient geometrically. Consider $z=f(x,y)=4
     - When $n=3$, a level set is called a **level surface**
     - When $n>3$, a level set is called a **level hypersurface**
 
-![](https://live.staticflickr.com/800/40350203525_548d1e15bc_w.jpg)
+![](/assets/posts/2018-04-04-gradient-and-directional-derivative/40350203525_548d1e15bc_w.jpg)
 
 The gradient vector $\langle 8x,2y \rangle$ is plotted at the 3 points $(\sqrt{1.25}, 0)$, $(1,1)$, $(0, \sqrt{5})$. As the plot shows, the gradient vector at $(x,y)$ is **normal** to the level curve through $(x,y)$. As we will see below, the gradient vector points in the direction of greatest rate of increase of $f(x,y)$.
 

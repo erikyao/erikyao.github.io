@@ -21,7 +21,7 @@ title: Hypothesis Space / Underfitting / Overfitting / Bias / Variance
 
 [ISL](http://www-bcf.usc.edu/~gareth/ISL/ISLR%20Seventh%20Printing.pdf) 有图：
 
-![](https://farm1.staticflickr.com/972/42143353121_e3f2c2e34f_z_d.jpg)
+![](/assets/posts/2018-05-15-hypothesis-space--underfitting--overfitting--bias--variance/fig-6-7.jpg)
 
 介绍 Hypothesis Space 的最主要的用意是：把 learning 解释成在 vector space 中 search 一个最佳 vector 的过程，这样非常有助于理解 bias 和 variance
 
@@ -29,7 +29,7 @@ title: Hypothesis Space / Underfitting / Overfitting / Bias / Variance
 
 最直白的还是这张 [What are the concise meaning and interpretation of bias and variance in machine learning and statistics?](https://www.quora.com/What-are-the-concise-meaning-and-interpretation-of-bias-and-variance-in-machine-learning-and-statistics/answer/Ved-35) 里的图:
 
-![](https://farm1.staticflickr.com/911/40338714420_bba25af60c_o_d.jpg)
+![](/assets/posts/2018-05-15-hypothesis-space--underfitting--overfitting--bias--variance/var_vs_bias.jpg)
 
 一个蓝色的点表示在一个 dataset 上 learn 到的 $\mathbf{w}$ (注意在这张图里，我们没有必要讨论这是在 training data 还是 test data 上得到结果)，红心是真正能反映这个 dataset 规律的 optimum $\mathbf{w'}$。
 
