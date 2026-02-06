@@ -38,7 +38,7 @@ Parse Tree 的另一个名字 -- Derivation Tree -- 明显是一个更好的名�
 
 Base Case: $k=1$. If $A \to \alpha_1 \alpha_2 \dots \alpha_n$, then $\exists$ a parse tree with height 1:
 
-![](https://live.staticflickr.com/65535/54607999278_a684889cb9_n.jpg)
+![](/assets/posts/2025-06-22-appetizer-2-before-parsing-cfg-disambiguation/cfg-parsetree-1.jpg)
 
 Induction Step: suppose the assumption holds for all $\leq k$-step derivation $A \overset{\leq k}{\Rightarrow} \beta$.
 
@@ -46,19 +46,19 @@ For $k+1$-step derivation $A \overset{k}{\Rightarrow} \beta \Rightarrow \alpha$,
 
 There must be a non-terminal $X$ in $\beta$ and a production $X \to \gamma$, who together derive $\beta \Rightarrow \alpha$ . We can add $X \to \gamma$ to the above parse tree. The new tree is valid.
 
-![](https://live.staticflickr.com/65535/54607787796_40b26a11b2_n.jpg)
+![](/assets/posts/2025-06-22-appetizer-2-before-parsing-cfg-disambiguation/cfg-parsetree-2.jpg)
 
 ($\Leftarrow$) Proof by induction on the number of internal nodes $k$ of the parse tree.
 
 Base Case: If the parse tree has only $1$ internal node, then it must be the root, and the height of the parse tree must be $1$. This means $A \to \alpha_1 \alpha_2 \dots \alpha_n$ must be a production, and the derivation holds.
 
-![](https://live.staticflickr.com/65535/54607981224_e9df36ecf3_n.jpg)
+![](/assets/posts/2025-06-22-appetizer-2-before-parsing-cfg-disambiguation/cfg-parsetree-3.jpg)
 
 Induction Step:  suppose the assumption holds for all parse tree with $\leq k$ internal nodes.
 
 Now if we have a parse tree with $k+1$ internal nodes 的 parse tree like this:
 
-![](https://live.staticflickr.com/65535/54607787801_2c9d230f0b_n.jpg)
+![](/assets/posts/2025-06-22-appetizer-2-before-parsing-cfg-disambiguation/cfg-parsetree-4.jpg)
 
 - It's certain that the parse tree for $A \Rightarrow X_1 X_2 \dots X_n$ has $\leq k$ internal nodes
 - Similarly the parse tree for $\forall X_i \Rightarrow \alpha_i$ has $\leq k$ internal nodes

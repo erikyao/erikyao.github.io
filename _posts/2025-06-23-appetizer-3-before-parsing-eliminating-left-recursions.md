@@ -88,7 +88,7 @@ However anyway we can just substitute $A_i$ in such $A_j \to A_i \beta$ producti
 
 In the Dragon Book we have the following algorithm:
 
-![](https://live.staticflickr.com/65535/54611750029_c101d24887_z.jpg)
+![](/assets/posts/2025-06-23-appetizer-3-before-parsing-eliminating-left-recursions/alg-4-19.jpg)
 
 Note that it uses subscripts $i,j$ the other way, where $j < i$ is guaranteed in the double for-loops.
 {: .notice--info}

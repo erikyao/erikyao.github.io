@@ -356,11 +356,11 @@ T -> (E)
 
 the book _Parsing Techniques_ constructed a NFA for it:
 
-![](https://live.staticflickr.com/65535/54700734220_225b50dc67.jpg)
+![](/assets/posts/2025-07-31-lr-parsing-8-lalr1-as-approximation-of-lr1/grammar-NFA.jpg)
 
 and lookaheads are carried over by two types of channels within the NFA:
 
-![](https://live.staticflickr.com/65535/54700403286_737572c250.jpg)
+![](/assets/posts/2025-07-31-lr-parsing-8-lalr1-as-approximation-of-lr1/grammar-NFA-channel.jpg)
 
 - $\square$ is like a placeholder for lookaheads
 - dotted lines represent <span style="color:LightCoral">"propagated"</span> channel
@@ -509,7 +509,7 @@ flowchart LR
 
 _Dragon Book_ 是用这么一个 table 来记录这个 fixed-point 的计算过程的：
 
-![](https://live.staticflickr.com/65535/54723112604_d112a36314.jpg)
+![](/assets/posts/2025-07-31-lr-parsing-8-lalr1-as-approximation-of-lr1/lookahead-attachment.jpg)
 
 其中 `INIT` 就是 $SL$，后续的 `PASS` 就根据 $PL$ 来做。
 

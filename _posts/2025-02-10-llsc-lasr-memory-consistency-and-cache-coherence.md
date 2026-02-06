@@ -13,11 +13,11 @@ toc_sticky: true
 
 一般会提到 memory models. 它 truely 说的是 physical 的 CPU 的 memory architecture，不是纯研究用的理论模型。比如 [x86-TSO (Total Store Order)](https://research.swtch.com/hwmm#x86) 的 store buffer 结构：
 
-![](https://live.staticflickr.com/65535/54319646241_5e7a35829f_w_d.jpg)
+![](/assets/posts/2025-02-10-llsc-lasr-memory-consistency-and-cache-coherence/x86-TSO.jpg)
 
 比如 [ARM/POWER 的 Relaxed Memory Model](https://research.swtch.com/hwmm#relaxed)：
 
-![](https://live.staticflickr.com/65535/54318751852_4521ef0130_w_d.jpg)
+![](/assets/posts/2025-02-10-llsc-lasr-memory-consistency-and-cache-coherence/ARM-POWER-RMM.jpg)
 
 ## 1.1 要区分 hardware 的物理特性 🆚 guarantee
 
@@ -163,7 +163,7 @@ Herb Sutter 的 [`atomic<>` Weapons](https://www.youtube.com/watch?v=A8eCGOqgvH4
 
 [DRFx: A Simple and Efficient Memory Model for Concurrent Programming Languages](https://web.cs.ucla.edu/~todd/research/pldi10.pdf) 的这个 venn diagram 很说明问题：
 
-![](https://live.staticflickr.com/65535/54321476127_d2bc92d274_w_d.jpg)
+![](/assets/posts/2025-02-10-llsc-lasr-memory-consistency-and-cache-coherence/ExecutionSets.jpg)
 
 - $\text{SC}$ represents the set of all executions that are sequentially consistent w.r.t. a program $P$. 
 - $\text{DRF}$ is the set of executions that are data-race free
@@ -230,7 +230,7 @@ An SC implementation permits only SC executions.
 
 [Jeff Preshing](https://preshing.com/20120930/weak-vs-strong-memory-models/) 给 memory models 分了 4 大类：
 
-![](https://live.staticflickr.com/65535/54288902392_0abdb78cc6_z.jpg)
+![](/assets/posts/2025-02-10-llsc-lasr-memory-consistency-and-cache-coherence/weak-strong-memory-models.jpg)
 
 当然 consistency model 有比 SC 更 stong 的，只是实际应用中 HW 和 SW 都用不上。实际应用中，HW 用 SC 的都很少，主要是因为 SC 的约束太强，weaker consistency model 允许的 CPU 优化的空间更大。
 
@@ -299,7 +299,7 @@ An SC implementation permits only SC executions.
 
 按 [A Primer on Memory Consistency and Cache Coherence](https://pages.cs.wisc.edu/~markhill/papers/primer2020_2nd_edition.pdf) 的图示：
 
-![](https://live.staticflickr.com/65535/54322838522_8f8e924958_z.jpg)
+![](/assets/posts/2025-02-10-llsc-lasr-memory-consistency-and-cache-coherence/coherence_vs_consistency.jpg)
 
 - 我们说 cache consistency 的 cache 其实指的是 core 内部的 private cache，每个 core 都有一个
 - LLC == Last-Level Cache, which is shared by all cores
@@ -767,7 +767,7 @@ Russ Cox 在 [Programming Language Memory Models - Acquire/release atomics](http
 
 注意他这里说的 "Acquire/release atomics" 指的是 LA/SR，但你上升到 general 的 Release/Acquire 也是一样的，都无法保证 fully SC, 只有 coherence 带来的 same memory location 的 SC. 因为你这里需要一个 `#StoreLoad` 来保证 `x.store(1)` 和 `y.load()`、以及 `y.store(1)` 和 `x.load()` 的 order，但 Release/Acquire 很尴尬地恰好没有 `#StoreLoad`:
 
-![](https://live.staticflickr.com/65535/54286084836_19d57c687d_o_d.png)
+![](/assets/posts/2025-02-10-llsc-lasr-memory-consistency-and-cache-coherence/barrier-types-fence.png)
 
 (图片来源：[Acquire and Release Semantics](https://preshing.com/20120913/acquire-and-release-semantics/))
 
