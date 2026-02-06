@@ -68,6 +68,6 @@ Configuration file: ~/Git-repo/xxx.github.io/_config.yml
 
 After nearly 2 hours I found it was caused by a typo of mine in a tag field, where I typed `1`.
 
-![](https://farm2.staticflickr.com/1729/41668684795_b600384a12_o_d.png)
+![](/assets/posts/2018-06-04-jekyll-liquid-cannot-handle-numeric-tags/41668684795_b600384a12_o_d.png)
 
 Liquid CANNOT handle such numeric tags! SMH.

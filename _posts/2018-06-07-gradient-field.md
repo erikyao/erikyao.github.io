@@ -14,7 +14,7 @@ toc_sticky: true
 
 换成 Gradient Field 去理解就轻松很多。
 
-从 gradient 的定义来看，它天生是一个 vector field。需要注意的是，我们并不需要先有一个函数 $f(x, y)$ 才能做出 vector field，只是刚好 $\nabla f(x,y)$ 是一个 vector field。
+从 gradient 的定义来看，它天生是一个 vector field。需要注意的是，我们并不需要先有一个函数 $f(x, y)$ 才能做出 vector field，只是刚好 $\nabla f(x,y)$ 是一个 vector field.
 
 还是用 $z = f(x,y) = 4x^2 + y^2$ 的例子。
 
@@ -30,9 +30,9 @@ $\nabla f(x,y) = \langle 8x,2y \rangle = \icol{8x \newline 2y}$ 其实是这么�
 VectorPlot[{8x, 2y}, {x, -3, 3}, {y, -3, 3}]
 ```
 
-![](https://farm2.staticflickr.com/1755/41936155394_c0f3cf16b6_z_d.jpg)
+![](/assets/posts/2018-06-07-gradient-field/1.jpg)
 
-定义椭圆 $4x^2 + y^2 = c$，其实是限定了 $\nabla f(x,y) = \icol{8x \newline 2y}$ 这个函数的 domain。限定之后得到的 vector 的集合即是这个椭圆上的 gradient vectors。
+定义椭圆 $4x^2 + y^2 = c$，其实是限定了 $\nabla f(x,y) = \icol{8x \newline 2y}$ 这个函数的 domain。限定之后得到的 vector 的集合即是这个椭圆上的 gradient vectors.
 
 考虑 3-D space 内的椭圆抛物面。**这时需要把几何方程 $z = 4x^2 + y^2$ 改写成三元函数 $g(x, y, z) = 4x^2 + y^2 + 0 \cdot z$**。然后 $\nabla g(x,y,z) = \langle 8x,2y,0 \rangle = \icol{8x \newline 2y \newline 0}$ 其实是这么一个 vector field:
 
@@ -40,9 +40,9 @@ VectorPlot[{8x, 2y}, {x, -3, 3}, {y, -3, 3}]
 VectorPlot3D[{8x, 2y, 0}, {x, -3, 3}, {y, -3, 3}, {z, -3, 3}]
 ```
 
-![](https://farm2.staticflickr.com/1752/40846208890_5aea2e3aec_z_d.jpg)
+![](/assets/posts/2018-06-07-gradient-field/2.jpg)
  
-同理，定义椭圆抛物面 $4x^2 + y^2 + 0 \cdot z = c$，其实是限定了 $\nabla g(x,y,z) = \icol{8x \newline 2y \newline 0}$ 的 domain。限定之后得到的 vector 的集合即是这个椭圆抛物面上的 gradient vectors。
+同理，定义椭圆抛物面 $4x^2 + y^2 + 0 \cdot z = c$，其实是限定了 $\nabla g(x,y,z) = \icol{8x \newline 2y \newline 0}$ 的 domain。限定之后得到的 vector 的集合即是这个椭圆抛物面上的 gradient vectors.
 
 如果从 $z$-axis 上方看这个 vector field：
 
@@ -51,7 +51,7 @@ VectorPlot3D[{8x, 2y, 0}, {x, -3, 3}, {y, -3, 3}, {z, -3, 3}]
 Show[%2,ViewPoint->{0,0,\[Infinity]}]  
 ```
 
-![](https://farm2.staticflickr.com/1750/40846208820_ecc0712684_z_d.jpg)
+![](/assets/posts/2018-06-07-gradient-field/3.jpg)
 
 它和 $\nabla f(x,y) = \icol{8x \newline 2y}$ 其实是一样的，即你用任意的 $z=c$ 平面去截这个 3-D space，得到的平面内都是 $\nabla f(x,y)$ 这个 field。这和 level set 的解释是一样的。但是明显更好理解了。
 
@@ -81,4 +81,4 @@ If $H(x, y)$ is a function of two variables, then $\langle H_y(x, y), −H_x(x, 
 
 An example is the harmonic oscillator $H(x, y) = x^2 + y^2$. Its vector field $\langle Hy(x, y), − Hx(x, y) \rangle = \langle y, −x \rangle$. 
 
-The flow lines of a Hamiltonian vector fields are located on the level curves of $H$
+The flow lines of a Hamiltonian vector fields are located on the level curves of $H$.

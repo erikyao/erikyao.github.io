@@ -54,7 +54,7 @@ Quote from [Lecture 19: Vectorfields, Math S21a: Multivariable calculus by Olive
 
 **我们把这 4 个向量分别移动到对应的 4 个交点上（起点重合）**，可以得到：
 
-![](https://farm2.staticflickr.com/1755/42631307851_f2d9e223a5_m_d.jpg)
+![](/assets/posts/2018-06-06-vector-space--vector-field--scalar-field/1.jpg)
 
 这个 vector field 的定义可以归纳为 $\vec F(x, y) = \langle y, -x \rangle = \icol{y \newline -x}$。如果限定 $\vec F$ 的 domain 为 $\lbrace (x, y) \mid x^2 + y^2 = 1 \rbrace$，那么 $\vec F$ 的 image 就是圆上所有顺时针切线单位向量的集合。
 
@@ -64,19 +64,19 @@ Quote from [Lecture 19: Vectorfields, Math S21a: Multivariable calculus by Olive
 VectorPlot[{y, -x}, {x, -3, 3}, {y, -3, 3}]
 ```
 
-![](https://farm2.staticflickr.com/1741/41734955725_c6f6c8541e_z_d.jpg)
+![](/assets/posts/2018-06-06-vector-space--vector-field--scalar-field/2.jpg)
 
 可见向量的长度其实是有实际意义的。不过很多 vector field 的示意图里，由于 magnitude 的问题，向量经常画成统一的长度，然后用颜色来表示向量的长度级别。
 
 其实这个概念你联系物理应用就很好理解。磁场 (Magnetic Field)、洋流 (Ocean Current)、风向以及其他各种流体力学，比如风洞 (Wind Tunnel) 测试，都可以用 vector field 表示：
 
-![](https://farm2.staticflickr.com/1742/42584095142_346ef6fa9e_z_d.jpg)
+![](/assets/posts/2018-06-06-vector-space--vector-field--scalar-field/3.jpg)
 
-![](https://farm2.staticflickr.com/1760/27765941547_59ab885ecc_z_d.jpg)
+![](/assets/posts/2018-06-06-vector-space--vector-field--scalar-field/4.jpg)
 
-![](https://farm2.staticflickr.com/1723/27765941507_04df6b9893_z_d.jpg)
+![](/assets/posts/2018-06-06-vector-space--vector-field--scalar-field/5.jpg)
 
-![](https://farm2.staticflickr.com/1737/42584095012_4fce9c8369_z_d.jpg)
+![](/assets/posts/2018-06-06-vector-space--vector-field--scalar-field/6.jpg)
 
 **所以 vector field 无非是用向量表示空间内每个点的 "运动趋势"**，只是 $\vec F(\dots)$ 这个向量需要移动到对应的点上。
 
@@ -118,4 +118,4 @@ A **scalar field** in a space is a function mapping each point $(x, y, z, \dots)
 DensityPlot[x-y,{x,-10000,10000},{y,-10000,10000}]
 ```
 
-![](https://farm2.staticflickr.com/1736/41935536714_0993d10b50_z_d.jpg)
+![](/assets/posts/2018-06-06-vector-space--vector-field--scalar-field/7.jpg)

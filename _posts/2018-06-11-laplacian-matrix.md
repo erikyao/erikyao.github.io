@@ -30,9 +30,9 @@ $$
 
 E.g., here is a simple example of undirected graph and its Laplacian matrix.
 
-![](https://farm1.staticflickr.com/896/42694234382_d4d95ac4db_z_d.jpg)
+![](/assets/posts/2018-06-11-laplacian-matrix/graph_matrix.jpg)
 
-至于 Symmetric normalized Laplacian 和 Random-walk normalized Laplacian 请看 Wikipedia
+至于 Symmetric normalized Laplacian 和 Random-walk normalized Laplacian 请看 Wikipedia.
 
 ## 2. Why is it called "Laplacian"?
 
@@ -70,7 +70,7 @@ $$
     - 后面 $G$ 的 degree matrix 和 adjacency matrix 也是按 undirected graph 的算法算的
 - 但是他的 $E$ 是有方向的。这完全是人为的规定，因为如果不定义 $E$ 的方向，讨论起来就很麻烦，而且 $E$ 的方向其实不重要：假设 $e = (u, v)， \nabla f \mid_{e} = 2$，那么如果我们定义 $e = (v, u)$，那么很明显这时的 $\nabla f \mid_{e} = -2$。方向仅仅会改变最终结果的正负号而已，不影响你理解整个的思想。
 
-![](https://farm2.staticflickr.com/1727/40951248530_f371520af1_o_d.png)
+![](/assets/posts/2018-06-11-laplacian-matrix/example.png)
 
 $E$ 的方向是：
 
