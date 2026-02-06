@@ -123,6 +123,6 @@ $\operatorname{reference}^{[2]}$ 的例子见 [C++: pass-by-value / pass-by-poin
 
 画个表阐述下：
 
-![](https://live.staticflickr.com/5733/23812247862_9f3a18452e_n.jpg)
+![](/assets/posts/2015-03-17-cpp-dereference/23812247862_9f3a18452e_n.jpg)
 
 红蓝 CP，表示 "反操作" 关系的同时也表示这三个操作其实是联系非常紧密的；而 $\operatorname{reference}^{[2]}$ 的 `int &ra = a;` 操作和这三个并没有太大关系，用灰色表示不相关。

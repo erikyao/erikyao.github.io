@@ -9,7 +9,7 @@ toc_sticky: true
 
 整理自：_Thinking in C++_
 
-[Basic_guidelines]: https://live.staticflickr.com/1528/23838060001_4db2a0b41d_z.jpg
+[Basic_guidelines]: /assets/posts/2015-04-04-cpp-operator-overloading/Basic_guidelines.jpg
 
 -----
 

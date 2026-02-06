@@ -11,9 +11,9 @@ title: 'C++: Copy-constructor & the return value on the stack'
 - _Thinking in C++_
 - [LearnCpp: 7.9 — The stack and the heap](http://www.learncpp.com/cpp-tutorial/79-the-stack-and-the-heap)
 
-[function_frame_1]: https://live.staticflickr.com/1608/23894467526_5c824cdcd3_n.jpg
-[function_frame_2]: https://live.staticflickr.com/5790/23293776353_3ae4352cc2_z.jpg
-[function_frame_3]: https://live.staticflickr.com/1523/23920546245_265fae062f_z.jpg
+[function_frame_1]: /assets/posts/2015-04-02-cpp-copy-constructor-and-the-return-value-on-the-stack/function_frame_1.jpg
+[function_frame_2]: /assets/posts/2015-04-02-cpp-copy-constructor-and-the-return-value-on-the-stack/function_frame_2.jpg
+[function_frame_3]: /assets/posts/2015-04-02-cpp-copy-constructor-and-the-return-value-on-the-stack/function_frame_3.jpg
 
 -----
 

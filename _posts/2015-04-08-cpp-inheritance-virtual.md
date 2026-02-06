@@ -8,7 +8,7 @@ toc: true
 toc_sticky: true
 ---
 	
-[late_binding]: https://live.staticflickr.com/1511/23812247752_4e98b55343_z.jpg
+[late_binding]: /assets/posts/2015-04-08-cpp-inheritance-virtual/late_binding.jpg
 	
 -----
 
