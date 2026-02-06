@@ -57,11 +57,11 @@ toc_sticky: true
 
 一个还算 ok 的比喻是把 identifier 看做是 tag/label: 
 
-![](https://live.staticflickr.com/65535/50688235407_e4f855ee18_q_d.jpg)
+![](/assets/posts/2020-12-05-variable--bound-variable--free-variable--scope--closure/tag.jpg)
 
 做了个动画来总结下上述的概念：
 
-![](https://s8.gifyu.com/images/2020-12-05-variable--bound-variable--free-variable--scope--closure.name_binding_resolution.gif)
+![](/assets/posts/2020-12-05-variable--bound-variable--free-variable--scope--closure/name_binding_resolution.gif)
 
 ## 2. Bound Variable / Free Variable / Scope
 
@@ -139,9 +139,9 @@ def f(x):
 
 具体的一个实现可以参考 [Let’s Build A Simple Interpreter. Part 14: Nested Scopes and a Source-to-Source Compiler](https://ruslanspivak.com/lsbasi-part14/)，这个系列针对的是 perl 语言。借用三张图给点直观的感受：
 
-![](https://live.staticflickr.com/65535/50689079887_a2ed29b601_w_d.jpg)
-![](https://live.staticflickr.com/65535/50688250988_6928e7dd7b_w_d.jpg)
-![](https://live.staticflickr.com/65535/50689079827_14a037dedf_w_d.jpg)
+![](/assets/posts/2020-12-05-variable--bound-variable--free-variable--scope--closure/lsbasi-part14-1.jpg)
+![](/assets/posts/2020-12-05-variable--bound-variable--free-variable--scope--closure/lsbasi-part14-2.jpg)
+![](/assets/posts/2020-12-05-variable--bound-variable--free-variable--scope--closure/lsbasi-part14-3.jpg)
 
 再看 dynamic scoping：binding of a name is given by the most recent declaration encountered during run-time。具体看下面这个例子 (python 是 lexical scoping，bash 是 dynamic scoping；注意 bash 的 `local` 关键字)：
 
@@ -240,7 +240,7 @@ console.log('Inside Global Execution Context');
 
 Execution context stack for the above code:
 
-![](https://live.staticflickr.com/65535/50690508586_03fa25543a_c_d.jpg)
+![](/assets/posts/2020-12-05-variable--bound-variable--free-variable--scope--closure/execution_content_stack.jpg)
 
 看起来有点像 dynamic scoping，但这个概念和 scope 是不一样的，按 [Understanding Scope and Context in JavaScript](http://ryanmorr.com/understanding-scope-and-context-in-javascript)：
 
