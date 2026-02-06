@@ -6,8 +6,8 @@ tags:
 title: Digest of <i>Molecular Biology for Computer Scientists</i>
 ---
 
-[figure-01]: https://live.staticflickr.com/5752/23894466826_35d7d080d0.jpg
-[figure-02]: https://live.staticflickr.com/5709/23812247172_1fbfa3ec11_z.jpg
+[figure-01]: /assets/posts/2015-07-27-digest-of-molecular-biology-for-computer-scientists/figure-01.jpg
+[figure-02]: /assets/posts/2015-07-27-digest-of-molecular-biology-for-computer-scientists/figure-02.jpg
 
 ## 1. What Is Life?
 

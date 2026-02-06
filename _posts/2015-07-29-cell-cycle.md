@@ -5,8 +5,8 @@ tags: []
 title: Cell Cycle
 ---
 
-[Phases]: https://live.staticflickr.com/5754/23292343584_b84063cf5b_c.jpg
-[Schematic]: https://live.staticflickr.com/5748/23894466776_8dab837479_w.jpg
+[Phases]: /assets/posts/2015-07-29-cell-cycle/Phases.jpg
+[Schematic]: /assets/posts/2015-07-29-cell-cycle/Schematic.jpg
 
 总结自；
 
