@@ -19,7 +19,7 @@ title: 'Python: Binary Search / Bisection / Binary Search Tree (BST)'
 
 几何学上的概念是简单的。比如我有一个 $x$-axis，或者直线 $(-\infty, +\infty)$，我在 $x=1$ 处切一刀，就做了一个 bisection，直线 $x=1$ 即是 bisector，如下图：
 
-![](https://live.staticflickr.com/65535/49528075303_5851573627_w_d.jpg)
+![](/assets/posts/2017-10-04-python-biserach-bisection-bst/bisect.jpg)
 
 那在 python 有 `bisect.bisect_left` 和 `bisect.bisect_right`，为什么要分两个？它们有什么区别？
 
@@ -30,12 +30,12 @@ title: 'Python: Binary Search / Bisection / Binary Search Tree (BST)'
 - `bisect.bisect_right(X, 1)` 就等价于 bisect `X` at the right boundary of (the neighborhood of) `1`
     - 那么 $x=1$ 这个点就属于左半边
 
-![](https://live.staticflickr.com/65535/49528075298_366c4cb359_w_d.jpg)
-![](https://live.staticflickr.com/65535/49528585481_2c96001da4_w_d.jpg)
+![](/assets/posts/2017-10-04-python-biserach-bisection-bst/bisect_left.jpg)
+![](/assets/posts/2017-10-04-python-biserach-bisection-bst/bisect_right.jpg)
 
 那从另外一个角度来说，如果直线上不存在 $x=1$ 这个点，比如说变成两条射线 $(-\infty, 1) \cup (1, +\infty)$，那么自然就不用管 $x=1$ 这个点的归属问题了。这个时候 `bisect_left(X, 1) == bisect_right(X, 1)`：
 
-![](https://live.staticflickr.com/65535/49528585461_0b5749d23c_w_d.jpg)
+![](/assets/posts/2017-10-04-python-biserach-bisection-bst/bisect_equal.jpg)
 
 ## 2. Bisection in Python
 

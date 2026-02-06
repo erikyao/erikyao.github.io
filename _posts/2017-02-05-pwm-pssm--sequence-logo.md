@@ -7,8 +7,8 @@ tags:
 title: PWM (PSSM) / Sequence Logo
 ---
 
-[PFM_seq_logo]: https://live.staticflickr.com/760/31894131414_220e9ec2aa_b.jpg
-[transition_matrix]: https://live.staticflickr.com/303/31896244584_c764104066.jpg
+[PFM_seq_logo]: /assets/posts/2017-02-05-pwm-pssm--sequence-logo/PFM_seq_logo.jpg
+[transition_matrix]: /assets/posts/2017-02-05-pwm-pssm--sequence-logo/transition_matrix.jpg
 
 - PWM: Position Weight Matrix
 - PSSM: Position-Specific Scoring Matrix

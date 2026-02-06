@@ -7,7 +7,7 @@ title: 'Handy Python Profiler: <i>line_profiler</i> + <i>kernprof</i>'
 
 Just take a look at an exemplar output and you'll know what [they](https://github.com/rkern/line_profiler) are designed for.
 
-![](https://live.staticflickr.com/4411/35537257544_24366ab950_c.jpg)
+![](/assets/posts/2017-08-04-handy-python-profiler-line-profiler-kernprof/kernprof.jpg)
 
 Usage:
 

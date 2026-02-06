@@ -5,8 +5,8 @@ tags: []
 title: 'Python GIL: Global Interpreter Lock'
 ---
 
-[GIL-vs-Process]: https://live.staticflickr.com/4362/36824252206_bd6fe5a2e6.jpg
-[GIL-vs-Thread]: https://live.staticflickr.com/4434/36872027291_1003ba8dc5_c.jpg
+[GIL-vs-Process]: /assets/posts/2017-09-03-python-gil-global-interpreter-lock/GIL-vs-Process.jpg
+[GIL-vs-Thread]: /assets/posts/2017-09-03-python-gil-global-interpreter-lock/GIL-vs-Thread.jpg
 
 [Wiki Python: GlobalInterpreterLock](https://wiki.python.org/moin/GlobalInterpreterLock):
 
