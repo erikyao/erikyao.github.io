@@ -63,7 +63,7 @@ backtracking parser 的 performance 问题的一大症结就是：浪费算力�
 - 你的 input `w` 的长度为 $n$，于是一共有 $n+1$ 个 substrings: `w[0:] = w`, `w[1:]`, `w[2:]`, ..., `w[n:] = ""`
 - 把这 $n+1$ 个 substrings 输入给这 $k$ 个 functions，得到 $k(n+1)$ 个 pre-computed 的结果，可以组织成一个 table $T$
 
-![](https://live.staticflickr.com/65535/54732920685_cde351fcfd_z.jpg)
+![](/assets/posts/2025-08-18-packrat-parsing-designed-for-pegs/matrix_of_parsing_results.jpg)
 
 注意 $T$ 的计算过程：
 

@@ -11,7 +11,7 @@ toc_sticky: true
 
 I came across this figure in the paper of [_Medeiros, Mascarenhas, and Ierusalimschy (2014)_](https://www.sciencedirect.com/science/article/pii/S0167642314000288):
 
-![](https://live.staticflickr.com/65535/54829378692_7ff0414939_z.jpg)
+![](/assets/posts/2025-10-03-how-to-read-inference-rules-peg-semantics-as-an-example/inference-rules.jpg)
 
 These are **inference rules**, the building blocks of **operational semantics**. They look intimidating at first, but once you know how to read them, they tell you precisely how a language construct behaves.
 
