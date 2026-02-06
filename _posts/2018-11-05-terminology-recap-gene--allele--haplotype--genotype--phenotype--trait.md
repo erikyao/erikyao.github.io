@@ -2,8 +2,7 @@
 category: Biology
 description: ''
 tags: []
-title: 'Terminology Recap: Gene / Allele & Dominance & Zygosity / Haplotype / Genotype
-  / Phenotype / Trait'
+title: 'Terminology Recap: Gene / Allele & Dominance & Zygosity / Haplotype / Genotype / Phenotype / Trait'
 ---
 
 ## 1. Gene
@@ -139,7 +138,7 @@ Trait 可以看做 "一类 phenotype 的集合"。比如 `phenotype 1 == black h
 
 我们回头看 [问题二](#问题二)，可以画出下面这个图：
 
-![](https://farm2.staticflickr.com/1911/45691479932_b607fc74ed_o_d.png)
+![](/assets/posts/2018-11-05-terminology-recap-gene--allele--haplotype--genotype--phenotype--trait/big_picture.png)
 
 总结如下：
 

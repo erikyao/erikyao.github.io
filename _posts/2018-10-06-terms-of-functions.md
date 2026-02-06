@@ -37,7 +37,7 @@ $X$ 称为 **domain** (domain of definition，定义域)，$Y$ 称为 **codomain
 - surjective == 满射
 - bijective == 双射
 
-![](https://farm2.staticflickr.com/1940/31293409518_2db77007fc_z_d.jpg)
+![](/assets/posts/2018-10-06-terms-of-functions/function_types.jpg)
 
 概念挺简单，我大概 15 年前就学会了，但是这三个词真的是难记，这里简单说一下：
 

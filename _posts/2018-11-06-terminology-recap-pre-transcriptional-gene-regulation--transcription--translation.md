@@ -169,7 +169,7 @@ The minimal PIC = _RNA pol II_ + 6 GTF
 
 注意这其实是个非常复杂的过程，具体可以参考 [Transcriptional control and the role of silencers in transcriptional regulation in eukaryotes](https://www.ncbi.nlm.nih.gov/pubmed/9512455) 的 Figure 1：
 
-![](https://farm5.staticflickr.com/4806/43956688730_ef64500cc6_k_d.jpg)
+![](/assets/posts/2018-11-06-terminology-recap-pre-transcriptional-gene-regulation--transcription--translation/figure-1.jpg)
 
 - `GAGA` factor 的作用是 chromatin priming, which mark genes for future expression
 - INR == INitiator Element
@@ -249,11 +249,11 @@ Splicing 就是把 pre-mRNA 的 intron 切掉、把 exon 拼在一起、最终�
 
 下图是一般情况，即 "原始 5' UTR" 和 "原始 3' UTR" 不包含 intron 的示意图：
 
-![](https://farm2.staticflickr.com/1943/45046661764_aa41944c4d_z_d.jpg)
+![](/assets/posts/2018-11-06-terminology-recap-pre-transcriptional-gene-regulation--transcription--translation/UTR_without_intro.jpg)
 
 下图是 rare 情况，即 "原始 5' UTR" 和 "原始 3' UTR" 包含 intron 的示意图：
 
-![](https://farm5.staticflickr.com/4819/43954115550_24784c09f0_z_d.jpg)
+![](/assets/posts/2018-11-06-terminology-recap-pre-transcriptional-gene-regulation--transcription--translation/UTR_with_intro.jpg)
 
 ##### 2.2.3.3 Alternative Splicing
 
@@ -342,7 +342,7 @@ DNA 的 **coding strand** (a.k.a **sense strand**) 指与 mRNA sequence 相同�
 
 > An ORF is a continuous stretch of codons that contain a start codon (usually `AUG`) and a stop codon (usually `UAA`, `UAG` or `UGA`).
 
-![](https://farm5.staticflickr.com/4890/31902798608_fd14bd8410_o_d.png)
+![](/assets/posts/2018-11-06-terminology-recap-pre-transcriptional-gene-regulation--transcription--translation/reading_frame_and_orf.png)
 
 ### 3.4 tRNA 是 amino acid 的搬运工
 
@@ -409,7 +409,7 @@ Eukaryotic Promoter Sequence:
     - **proximal**: ~250nt upstream from TSS
     - **distal**: even further
 
-![](https://farm5.staticflickr.com/4893/45725146872_20cb4458be_z_d.jpg)
+![](/assets/posts/2018-11-06-terminology-recap-pre-transcriptional-gene-regulation--transcription--translation/Eukaryotic_Promoter_Sequence.jpg)
 
 #### 4.1.2 Enhancer
 
@@ -448,7 +448,7 @@ Eukaryotic Promoter Sequence:
     - Histone-barrier: 阻止区域内的 gene 被 histone deacetylation 而卷入 chromatin，从而避免 gene 因此不能被 transcribe
 - 单个 insulator 有可能同时发挥上述两个作用
 
-![](https://farm5.staticflickr.com/4876/45775566311_21d9033b39_z_d.jpg)
+![](/assets/posts/2018-11-06-terminology-recap-pre-transcriptional-gene-regulation--transcription--translation/Insulator.jpg)
 
 ### 4.2 Summary
 

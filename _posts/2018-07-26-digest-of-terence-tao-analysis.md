@@ -44,7 +44,7 @@ toc_sticky: true
 
 这张图有助理解：Cauchy 就是这么一种 "振幅越来越小" 的感觉：
 
-![](https://farm1.staticflickr.com/932/42850172585_8ec7e1da33_z_d.jpg)
+![](/assets/posts/2018-07-26-digest-of-terence-tao-analysis/Cauchy.jpg)
 
 ## 6.2 adherent point (附着点) / limit point (极限点) / isolated point (孤立点)
 

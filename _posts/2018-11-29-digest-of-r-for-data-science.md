@@ -8,15 +8,15 @@ toc: true
 toc_sticky: true
 ---
 
-[Chapter 21 - R Markdown]: https://farm5.staticflickr.com/4912/46120175122_3361a842c9_z_d.jpg
-[Part I - Exploration]: https://farm5.staticflickr.com/4866/46120175052_df275ae438_z_d.jpg
-[Part II - Wrangle]: https://farm5.staticflickr.com/4894/46120174952_b882541c26_z_d.jpg
-[Part III - Program]: https://farm5.staticflickr.com/4871/46120175002_f947ec6ee8_z_d.jpg
-[Part IV - Model]: https://farm5.staticflickr.com/4834/46120174882_20a733b994_z_d.jpg
-[Part V - Communicate]: https://farm5.staticflickr.com/4858/46120174832_5fc4e85075_z_d.jpg
+[Chapter_21_RMD]: /assets/posts/2018-11-29-digest-of-r-for-data-science/Chapter_21_RMD.jpg
+[Part_I_Exploration]: /assets/posts/2018-11-29-digest-of-r-for-data-science/Part_I_Exploration.jpg
+[Part_II_Wrangle]: /assets/posts/2018-11-29-digest-of-r-for-data-science/Part_II_Wrangle.jpg
+[Part_III_Program]: /assets/posts/2018-11-29-digest-of-r-for-data-science/Part_III_Program.jpg
+[Part_IV_Model]: /assets/posts/2018-11-29-digest-of-r-for-data-science/Part_IV_Model.jpg
+[Part_V_Communicate]: /assets/posts/2018-11-29-digest-of-r-for-data-science/Part_V_Communicate.jpg
 
-[tidyverse]: https://farm5.staticflickr.com/4883/45258677075_0357a7bde4_z_d.jpg
-[tidyverse_wickham_pres]: https://farm5.staticflickr.com/4912/45258677005_97af07dce7_z_d.jpg
+[tidyverse]: /assets/posts/2018-11-29-digest-of-r-for-data-science/tidyverse.jpg
+[tidyverse_wickham_pres]: /assets/posts/2018-11-29-digest-of-r-for-data-science/tidyverse_wickham_pres.jpg
 
 # Part 0 - Overview
 
@@ -30,7 +30,7 @@ toc_sticky: true
 
 # Part I - Exploration
 
-![][Part I - Exploration]
+![][Part_I_Exploration]
 
 ## Chapter 1 - Data Visualization with `ggplot2`
 
@@ -713,7 +713,7 @@ mtcars %<>% transform(cyl = cyl * 2)
 
 # Part II - Wrangle
 
-![][Part II - Wrangle]
+![][Part_II_Wrangle]
 
 ## Chapter 7 - Tibbles with `tibble`
 
@@ -958,7 +958,7 @@ All `stringr` functions start with `str_`:
 
 # Part III - Program
 
-![][Part III - Program]
+![][Part_III_Program]
 
 ## Chapter 14 - Pipes with `magrittr` (Relocated 到 Chapter 3 和 Chapter 4 之间)
 
@@ -1173,7 +1173,7 @@ x %>% accumulate(`+`)
 
 # Part IV - Model
 
-![][Part IV - Model]
+![][Part_IV_Model]
 
 ## Chapter 18 - Model Basics with `modelr` (略)
 
@@ -1183,7 +1183,7 @@ x %>% accumulate(`+`)
 
 # Part V - Communicate
 
-![][Part V - Communicate]
+![][Part_V_Communicate]
 
 ## Chapter 21 - R Markdown
 
@@ -1191,7 +1191,7 @@ x %>% accumulate(`+`)
 
 When you _knit_ the `.Rmd` file, it is send to `knitr`, which executes all of the code chunks and creates a new `.md` document which includes the code and its output. The `.md` file is then processed by `pandoc`, which is responsible for creating the finished file.
 
-![][Chapter 21 - R Markdown]
+![][Chapter_21_RMD]
 
 ### 21.2 Bibliographies and Citations
 

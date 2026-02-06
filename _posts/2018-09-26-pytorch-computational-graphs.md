@@ -21,7 +21,7 @@ c = a + b
 make_dot(var=c, params={"a": a, "b": b})
 ```
 
-![](https://farm2.staticflickr.com/1973/44011086785_4f3e40c167_z_d.jpg)
+![](/assets/posts/2018-09-26-pytorch-computational-graphs/nb_cell_1.jpg)
 
 查看 `torchviz::make_dot()` 的[源代码](https://github.com/szagoruyko/pytorchviz/blob/master/torchviz/dot.py)，发现：
 
@@ -30,7 +30,7 @@ make_dot(var=c, params={"a": a, "b": b})
 - `c.grad_fn.next_functions` 是个 tuple，包含两个 `AccumulateGrad`
 - `AccumulateGrad.variable` 可以回溯到 `a` 和 `b`
 
-![](https://farm2.staticflickr.com/1943/44923719451_57f940faa4_z_d.jpg)
+![](/assets/posts/2018-09-26-pytorch-computational-graphs/nb_cell_2.jpg)
 
 `c.grad_fn.next_functions` 这棵 tree，唯一可能的构建时间是在 `c = a + b`。我猜测是 PyTorch 是 overload 了 `Tensor` 的 `+`，但是这一点有点难验证，原因：
 

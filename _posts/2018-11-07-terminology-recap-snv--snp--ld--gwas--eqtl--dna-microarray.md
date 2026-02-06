@@ -28,7 +28,7 @@ SNP == Single-Nucleotide Polymorphism
 - 如果一个 SNP 既不是 coding SNP 也不是 regulatory SNP，我想不出什么途径它可以影响 trait
     - 你可能会问那这个 SNP 它 vary 一下的意义何在？这是一个值得研究的问题……
 
-另外提到了 trait，多说一句：trait 是 tissue/cell-type specific，比如 `eye color == blue` 这个 trait 你只可能在 eye cells 中体现。若假设 SNP `s` 对这个 trait 有 regulation 的影响，它也只能是在 eye cell 中影响 regulation。在其他的 tissue/cell 中，`s` 应该没有作用 (这应该是由细胞分化和更高层的 gene regulation 决定机制控制的)
+另外提到了 trait，多说一句：trait 是 tissue/cell-type specific，比如 `eye color == blue` 这个 trait 你只可能在 eye cells 中体现。若假设 SNP `s` 对这个 trait 有 regulation 的影响，它也只能是在 eye cell 中影响 regulation。在其他的 tissue/cell 中，`s` 应该没有作用 (这应该是由细胞分化和更高层的 gene regulation 决定机制控制的)。
 
 ## 2. SNV
 
@@ -41,9 +41,9 @@ SNP == Single-Nucleotide Polymorphism
 
 [YouTube: Recombination and linkage disequilibrium](https://www.youtube.com/watch?v=3gKbh8Jioxo):
 
-> Linkage disequilibrium (LD): a specific allele at the first locus is associated with a specific allele at the second locus more often than expected by chance
+> Linkage disequilibrium (LD): a specific allele at the first locus is associated with a specific allele at the second locus more often than expected by chance.
 
-![](https://farm8.staticflickr.com/7853/32868520258_4bb69fb73d_z_d.jpg)
+![](/assets/posts/2018-11-07-terminology-recap-snv--snp--ld--gwas--eqtl--dna-microarray/linkage_disequilibrium.jpg)
 
 - 所以 LD 其实是一个 scenario，它涉及到两个 locus/gene/SNP (假设为 $s_1$ 和 $s_2$)，这两个 locus/gene/SNP 的 4 个 allele (先假设它有 4 个；$s_{1A}$, $s_{1a}$, $s_{2B}$, $s_{2b}$) 的 4 种组合 ($s_{1A} + s_{2B}$, $s_{1A} + s_{2b}$, $s_{1a} + s_{2B}$, $s_{1a} + s_{2b}$) 在 population 中的 frequency 并不是平均的 25%, 25%, 25%, 25%
 - 从统计的角度来说：LD 意味 genotype at $s_1$ is **dependent** of genotype at $s_2$
@@ -78,7 +78,7 @@ eQTL = Expression Quantitative Trait Loci
 > <br/>
 > Consider a continued genotypic distribution. When a threshold is crossed, the phenotype will jump onto another level. It passes from one category to another, or from one phenotype to another. An example of a threshold trait is mastitis in dairy cows. The inheritance is polygenetic, but the only thing that can be recorded is whether a cow contains the disease or not, not at which point on the continued normal distribution it should be recorded.
 
-![](https://farm8.staticflickr.com/7804/31802777117_202ce7f82e_z_d.jpg)
+![](/assets/posts/2018-11-07-terminology-recap-snv--snp--ld--gwas--eqtl--dna-microarray/quantitative_vs_qualitative_traits.jpg)
 
 ### 5.2 QTL
 
@@ -91,7 +91,7 @@ eQTL = Expression Quantitative Trait Loci
 
 classical QTL analysis 的过程大概是这样的 ([source](https://www.zhihu.com/question/27695566/answer/40741777))：
 
-![](https://farm5.staticflickr.com/4815/46755402751_9d33823f27_z_d.jpg)
+![](/assets/posts/2018-11-07-terminology-recap-snv--snp--ld--gwas--eqtl--dna-microarray/classical_QTL_analysis.jpg)
 
 - x-axis 是 trait (因为是 quantitative 所以才能这么量化) (i.e. phenotype)
 - y-axis 是 population 中 genotype 的数量
@@ -104,6 +104,8 @@ classical QTL analysis 的过程大概是这样的 ([source](https://www.zhihu.c
 
 - 我觉得这解释了为什么 eQTL 不缩写成 EQTL，因为 EQT 这个说法解释不通 (但是为何不缩写成 QEL？)
 
+![](/assets/posts/2018-11-07-terminology-recap-snv--snp--ld--gwas--eqtl--dna-microarray/eQTL_analysis.PNG)
+
 那么 gene expression 如何量化呢？其中一个手段是 [YouTube: DNA microarrays](https://www.youtube.com/watch?v=VNsThMNjKhM) (一个更详细的介绍是 [YouTube: DNA Microarray Methodology](https://www.youtube.com/watch?v=0ATUjAxNf6U))。这一大类的量化 gene expression 的手段，我们统称为 [Gene Expression Profiling](https://en.wikipedia.org/wiki/Gene_expression_profiling)
 
 - DNA Microarray 又叫 DNA Chip
@@ -113,8 +115,8 @@ classical QTL analysis 的过程大概是这样的 ([source](https://www.zhihu.c
 - QTL: Locus $\overset{\text{correlates}}{\longrightarrow}$ Quantitative Trait
 - eQTL: Locus $\overset{\text{correlates}}{\longrightarrow}$ (Quantitative) Gene Expression $\overset{\text{affects}}{\longrightarrow}$ Trait
 
-eQTL 作为和 trait 有关的 locus，自然也是 GWAS 的研究对象
+eQTL 作为和 trait 有关的 locus，自然也是 GWAS 的研究对象。
 
 ### Digression: DNA Microarray $\in$ Transcriptome Profiling
 
-所以今后看到 profiling 就应该知道它指的是一大类的方法。Transcriptome Profiling 就是量化 transcriptome (the sum total of all the messenger RNA molecules expressed from the genes of an organism) 的手段。那 DNA Microarray 能量化 gene expression，那是自然也能量化 transcriptome 的
+所以今后看到 profiling 就应该知道它指的是一大类的方法。Transcriptome Profiling 就是量化 transcriptome (the sum total of all the messenger RNA molecules expressed from the genes of an organism) 的手段。那 DNA Microarray 能量化 gene expression，那是自然也能量化 transcriptome 的。

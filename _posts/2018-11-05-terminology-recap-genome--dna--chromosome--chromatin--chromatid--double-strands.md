@@ -70,7 +70,7 @@ DNA/RNA 其实是 molecule 的名称，所以 genome 和 DNA/RNA 的关系大致
 
 我们前面一路从 DNA zoom in 到 chromosome，现在进一步 zoom in 到 strand：
 
-![](https://farm2.staticflickr.com/1569/26527566606_8d3e8d559b_o_d.png)
+![](/assets/posts/2018-11-05-terminology-recap-genome--dna--chromosome--chromatin--chromatid--double-strands/upstream-downstream-TSS.png)
 
 - `chromStart` and `chromEnd` are columns from table `snp142` of database `hg19` in UCSC Genome Browser
 - `txStart` and `txEnd` are columns from table `ensGene` of database `hg19` in UCSC Genome Browser
