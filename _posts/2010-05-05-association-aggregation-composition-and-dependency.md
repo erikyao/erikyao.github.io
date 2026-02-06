@@ -6,9 +6,9 @@ tags:
 title: UML 类图之关联、聚合、组合、依赖
 ---
 
-[association]: https://live.staticflickr.com/1565/23624880750_3468483c3d_n.jpg
-[aggregation]: https://live.staticflickr.com/1713/23624880760_ce140b7673_w.jpg
-[composition]: https://live.staticflickr.com/5775/23552710139_af37dd6a0a_w.jpg
+[association]: /assets/posts/2010-05-05-association-aggregation-composition-and-dependency/association.jpg
+[aggregation]: /assets/posts/2010-05-05-association-aggregation-composition-and-dependency/aggregation.jpg
+[composition]: /assets/posts/2010-05-05-association-aggregation-composition-and-dependency/composition.jpg
 
 一直没有搞清楚这几个概念，这里做总结。来自《大话设计模式》。
 

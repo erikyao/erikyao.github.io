@@ -5,9 +5,9 @@ tags: []
 title: Simple Form Handling Example
 ---
 
-[1]: https://live.staticflickr.com/1477/23894468946_3bd514886b.jpg
-[2]: https://live.staticflickr.com/5734/23292345344_1fea140db1.jpg
-[3]: https://live.staticflickr.com/1678/23920547615_1f902862c9_c.jpg
+[1]: /assets/posts/2009-12-11-simple-form-handling-example/1.jpg
+[2]: /assets/posts/2009-12-11-simple-form-handling-example/2.jpg
+[3]: /assets/posts/2009-12-11-simple-form-handling-example/3.jpg
 
 继续 [Spring MVC example anatomy](/springmvc/2009/11/29/spring-mvc-example-anatomy) 中 `springapp` 的例子。  
 

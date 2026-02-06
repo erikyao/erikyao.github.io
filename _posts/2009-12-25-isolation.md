@@ -5,9 +5,9 @@ tags: []
 title: Isolation
 ---
 
-[Dirty_Read]: https://live.staticflickr.com/5656/23624880920_ee5066dcfa.jpg
-[Nonrepeatable_Read]: https://live.staticflickr.com/5664/23552710379_4629e3bdab_z.jpg
-[Phantom_Read]: https://live.staticflickr.com/5786/23292345284_981c2e1baa.jpg
+[Dirty_Read]: /assets/posts/2009-12-25-isolation/Dirty_Read.jpg
+[Nonrepeatable_Read]: /assets/posts/2009-12-25-isolation/Nonrepeatable_Read.jpg
+[Phantom_Read]: /assets/posts/2009-12-25-isolation/Phantom_Read.jpg
 
 参考 [Isolation (database systems)](http://en.wikipedia.org/wiki/Isolation_%28database_systems%29#Read_phenomena)
 
