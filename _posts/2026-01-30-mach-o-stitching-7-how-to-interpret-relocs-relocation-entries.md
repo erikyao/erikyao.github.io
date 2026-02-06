@@ -7,6 +7,10 @@ toc: true
 toc_sticky: true
 ---
 
+可参考 CSAPP $\rhd$ Chapter 7 – Linking $\rhd$ Sec. 7.7 – Relocation.
+
+-----
+
 # Experiment Code
 
 ```c
