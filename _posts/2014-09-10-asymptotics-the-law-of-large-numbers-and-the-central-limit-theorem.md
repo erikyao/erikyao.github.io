@@ -40,7 +40,7 @@ plot(1:n, means, type = "l", lwd = 2, frame = FALSE, ylab = "cumulative means", 
 abline(h = 0)
 ```
 
-![](https://live.staticflickr.com/1573/23920546385_9fafc58bff_w.jpg)
+![](/assets/posts/2014-09-10-asymptotics-the-law-of-large-numbers-and-the-central-limit-theorem/23920546385_9fafc58bff_w.jpg)
 
 ### 1.3 Consistency and Bias of an estimator
 

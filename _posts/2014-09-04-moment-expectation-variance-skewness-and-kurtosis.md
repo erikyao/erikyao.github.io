@@ -146,7 +146,7 @@ Skewness is a measure of asymmetry [əˈsɪmɪtri]:
 
 注意看图的时候，skewness 是个非常 confusing 的概念：
 
-![](https://live.staticflickr.com/4803/45310349774_6abd32be0d_w.jpg)
+![](/assets/posts/2014-09-04-moment-expectation-variance-skewness-and-kurtosis/skewness.jpg)
 
 - 左图：Negative skew ($\gamma_1 < 0$) == The distribution is skewed to the **LEFT** == Mean is on the left side of the peak 
 	- while the peak is pulled towards **RIGHT**

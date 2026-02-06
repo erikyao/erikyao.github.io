@@ -137,7 +137,7 @@ If $\alpha = 2$ and $\beta = 1$, then $B(\alpha, \beta) = \frac{1!\times0!}{2!} 
 > abline(h=1.5, v=0.75)
 ```
 
-![](https://live.staticflickr.com/5684/23552709119_dd010d2c51_n.jpg)
+![](/assets/posts/2014-09-07-probability/23552709119_dd010d2c51_n.jpg)
 
 $$
 F(0.75) = \frac{1.5 \times 0.75}{2} = 0.5625

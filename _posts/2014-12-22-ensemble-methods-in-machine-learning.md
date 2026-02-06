@@ -37,7 +37,7 @@ Given
 * $h_n$, the hypothesis (function) provided by the $n^{th}$ classifier
 * $f$, the true hypothesis (function)
 
-![](https://live.staticflickr.com/5632/23624879700_27a7a25d5c_c.jpg)
+![](/assets/posts/2014-12-22-ensemble-methods-in-machine-learning/23624879700_27a7a25d5c_c.jpg)
 
 * Statistical reason: An ensemble can "average" their votes and reduce the risk of choosing the wrong classifier.
 	* The inner blue curve denotes the set of hypotheses that all give good accuracy on the training data.

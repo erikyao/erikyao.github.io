@@ -9,7 +9,7 @@ toc_sticky: true
 
 总结自 Chapter 2, An Introduction to Statistical Learning.
 
-[trade-off]: https://live.staticflickr.com/1647/23894467586_5f424b7d77.jpg
+[trade-off]: /assets/posts/2014-09-20-isl-statistical-learning/trade-off.jpg
 		
 -----
 	
