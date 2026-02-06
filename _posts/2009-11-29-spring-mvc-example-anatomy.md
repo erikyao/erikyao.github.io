@@ -7,7 +7,7 @@ title: Spring MVC example anatomy
 
 例子来自 [Developing a Spring Framework MVC application step-by-step](http://docs.spring.io/docs/Spring-MVC-step-by-step)，版本是 _spring-framework-2.5.6.SEC01_。
 
-![](https://live.staticflickr.com/5754/23624881030_98ed3a33de_b.jpg)
+![](/assets/posts/2009-11-29-spring-mvc-example-anatomy/23624881030_98ed3a33de_b.jpg)
 
 ## 1. `DispatchServlet` 接过浏览器的 `/hello.htm` 请求
 
