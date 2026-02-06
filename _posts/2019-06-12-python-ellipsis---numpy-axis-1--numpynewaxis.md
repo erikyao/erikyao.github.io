@@ -43,7 +43,7 @@ Used to increase the dimension of the current array, directly from the slicing p
 
 A great illustration of how it works is from [Stack Overflow: How does numpy.newaxis work and when to use it?](https://stackoverflow.com/a/41267079):
 
-![](https://i.stack.imgur.com/zkMBy.png)
+![](/assets/posts/2019-06-12-python-ellipsis---numpy-axis-1--numpynewaxis/zkMBy.png)
 
 Tensorflow has a similar `tf.newaxis`; it works the same way:
 
