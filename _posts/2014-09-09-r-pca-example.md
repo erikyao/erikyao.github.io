@@ -6,9 +6,8 @@ tags:
 title: R PCA Example
 ---
 
-[4_faces]: https://live.staticflickr.com/5788/23292344324_25c827b472_b.jpg
-[variance_explained]: https://live.staticflickr.com/5761/23292344304_5e829373ff_w.jpg
-[face.rda]: https://wxdkqa.bn1304.livefilestore.com/y3mPHUkhk8q9P2iyyabsYdgoCs8L-3IDHzDGwOyHYXT0mVwa2c1FcrQfLX1IhsFwUKhUh6LA5mI79ob3nx8LSe9JI-pz1s9yA-TjqzCBOjnPMDupCFzzRdIMn8Rhhmw61Mk/2014-09-09-r-pca-example.face.rda?download&psid=1
+[4_faces]: /assets/posts/2014-09-09-r-pca-example/4_faces.jpg
+[variance_explained]: /assets/posts/2014-09-09-r-pca-example/variance_explained.jpg
 
 ## 0. More Math Definitions
 
@@ -46,7 +45,7 @@ Knn, or k-nearest-neighbors, is a policy that take the k (10 by default in the c
 
 ## 2. Face Example
 
-Load the .rda file [face.rda][face.rda].
+Load the .rda file [face.rda][/assets/posts/2014-09-09-r-pca-example/face.rda].
 
 ```r
 load("face.rda")
