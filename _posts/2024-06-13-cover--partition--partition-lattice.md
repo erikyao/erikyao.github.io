@@ -317,7 +317,7 @@ $\leq$ 是 partial order，证明可以参考后面 [_join_ 的定义](#join-%E7
     - 使得 $\vert \pi \vert \downarrow$，意味着 equivalence class 更融合
     - 使得 $\vert R \vert \uparrow$，意味着 equivalence 的要求更水 (大多数元素都可以有 equivalence 关系)
 
-Closure of $R$ 一定是对 $\pi$ 的 coarsening。假定 $R$ 的某个 closure 是 $R^+$，且 $R^+$ 对应的 partition 是 $\pi^+$。因为 $R \subseteq R^+$，所以 $\vert R \vert \leq \vert R^+ \vert$，对应 $\pi \leq \pi^+$，所以说是对 $\pi$ 的 coarsening
+Closure of $R$ 一定是对 $\pi$ 的 coarsening。假定 $R$ 的某个 closure 是 $R^+$，且 $R^+$ 对应的 partition 是 $\pi^+$。因为 $R \subseteq R^+$，所以 $\vert R \vert \leq \vert R^+ \vert$，对应 $\pi \leq \pi^+$，所以说是对 $\pi$ 的 coarsening.
 {: .notice--info}
 
 ## _join_ 的定义
