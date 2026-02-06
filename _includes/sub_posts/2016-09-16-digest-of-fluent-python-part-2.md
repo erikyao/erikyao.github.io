@@ -1,7 +1,7 @@
-[2-1-mutable-seq-class-diagram]:  https://farm9.staticflickr.com/8299/29123468724_a69b68e2cf_z_d.jpg
-[3-1-generic-mapping-class-diagram]: https://farm6.staticflickr.com/5532/31713578772_56b2bb734c_z_d.jpg
-[3-8-generic-set-class-diagram]: https://farm1.staticflickr.com/605/31059283963_57b19e44a8_z_d.jpg
-[3-9-hash-collision]: https://farm1.staticflickr.com/712/31766685701_de0cb54f86_z_d.jpg
+[2-1-mutable-seq-class-diagram]: /assets/posts/2016-09-16-digest-of-fluent-python-part-2/2-1-mutable-seq-class-diagram.jpg
+[3-1-generic-mapping-class-diagram]: /assets/posts/2016-09-16-digest-of-fluent-python-part-2/3-1-generic-mapping-class-diagram.jpg
+[3-8-generic-set-class-diagram]: /assets/posts/2016-09-16-digest-of-fluent-python-part-2/3-8-generic-set-class-diagram.jpg
+[3-9-hash-collision]: /assets/posts/2016-09-16-digest-of-fluent-python-part-2/3-9-hash-collision.jpg
 
 # Chapter 2 - An array of Sequences 
 

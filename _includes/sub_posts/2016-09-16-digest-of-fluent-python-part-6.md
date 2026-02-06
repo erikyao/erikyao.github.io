@@ -1,5 +1,5 @@
-[21-4-object-type]: https://farm5.staticflickr.com/4333/37163854232_ee8efc2396_z_d.jpg
-[21-4-metaclass]: https://farm5.staticflickr.com/4358/36498898824_16ac200d04_z_d.jpg
+[21-4-object-type]: /assets/posts/2016-09-16-digest-of-fluent-python-part-6/21-4-object-type.jpg
+[21-4-metaclass]: /assets/posts/2016-09-16-digest-of-fluent-python-part-6/21-4-metaclass.jpg
 
 # Chapter 19 - Dynamic Attributes and Properties 
 

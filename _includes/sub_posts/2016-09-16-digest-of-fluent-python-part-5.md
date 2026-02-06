@@ -1,5 +1,5 @@
-[14-Iterables-vs-Iterators-vs-Generators]: https://farm5.staticflickr.com/4358/36136184210_35769554c8_z_d.jpg
-[16-7-yield-from-flow]: https://farm5.staticflickr.com/4407/36117389284_91ae52fe71_z_d.jpg
+[14-Iterables-vs-Iterators-vs-Generators]: /assets/posts/2016-09-16-digest-of-fluent-python-part-5/14-Iterables-vs-Iterators-vs-Generators.jpg
+[16-7-yield-from-flow]: /assets/posts/2016-09-16-digest-of-fluent-python-part-5/16-7-yield-from-flow.jpg
 
 # Chapter 14 - Iterables, Iterators, and Generators 
 

@@ -1,6 +1,6 @@
-[7-1-free-variable]: https://farm5.staticflickr.com/4325/36297071625_b624ab287a_o_d.png
-[11-3-collections-abc]: https://farm5.staticflickr.com/4390/36490611835_0c2312925b_z_d.jpg
-[13-5-Rich-Comparison-Operators]: https://farm5.staticflickr.com/4340/35696326944_2eea27878a_z_d.jpg
+[7-1-free-variable]: /assets/posts/2016-09-16-digest-of-fluent-python-part-4/7-1-free-variable.png
+[11-3-collections-abc]: /assets/posts/2016-09-16-digest-of-fluent-python-part-4/11-3-collections-abc.jpg
+[13-5-Rich-Comparison-Operators]: /assets/posts/2016-09-16-digest-of-fluent-python-part-4/13-5-Rich-Comparison-Operators.jpg
 
 # Chapter 7 - Function Decorators and Closures 
 
