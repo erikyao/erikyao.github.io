@@ -304,7 +304,7 @@ $\leq$ 是 partial order，证明可以参考后面 [_join_ 的定义](#join-%E7
     - 这个 procedure 我们称为 "the refining/refinement of $\pi$"
     - 最后得到一个新 partition $\psi$ 满足 $\psi \leq \pi$，这个结果 $\psi$ 我们称 "a refinement of $\pi$"
 
-![](https://live.staticflickr.com/65535/53788260543_6d2fb6fede_c_d.jpg)
+![](/assets/posts/2024-06-13-cover--partition--partition-lattice/coarsening_vs_refining.jpg)
 
 总结下规律：
 

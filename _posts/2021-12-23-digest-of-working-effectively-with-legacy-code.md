@@ -173,7 +173,7 @@ Part III 就一章，我也是醉了。对的，我就是要先写 Chapter 25，
     2. 如果 dependency 的替身不好做，我们就虚化、弱化 dependency class 的结构
     3. 给 dependency 做替身，然后在 object seam 里替换 dependency
 
-![](https://live.staticflickr.com/65535/51784572991_affa9a03ce_c_d.jpg)
+![](/assets/posts/2021-12-23-digest-of-working-effectively-with-legacy-code/24-methods.jpg)
 
 ### $\dagger$ Link Seam / Preprocessing Seam
 

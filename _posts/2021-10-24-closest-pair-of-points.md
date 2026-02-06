@@ -55,7 +55,7 @@ $Lemma\,1$: 假设存在跨越 $L$ 的最优解，即假设存在 point $q \in Q
 
 这么一来，我们可以限定在子空间 $B = \lbrace (x,y) \mid L - \delta \leq x \leq L + \delta \rbrace$ (可以理解为一个宽度为 $2 \times \delta$ 的 band) 内寻找 $\delta_{T}$.
 
-![](https://live.staticflickr.com/65535/51627659204_f0c5cc0c15_c_d.jpg)
+![](/assets/posts/2021-10-24-closest-pair-of-points/lemma_1.jpg)
 
 理论上，子空间 $B$ 内仍然可能有 $O(n)$ 个点，如果 brute force，最终仍然会上升到 $O(n^2)$. 此时我们需要 $Lemma\,2$.
 
@@ -75,7 +75,7 @@ $Lemma\,1$: 假设存在跨越 $L$ 的最优解，即假设存在 point $q \in Q
 
 假设 $G(s)$ 内不包括 $s$ 的点集为 $Z(s)$，有 $\| Z(s) \| \leq 7$.
 
-![](https://live.staticflickr.com/65535/51627659189_a1c10172c4_c_d.jpg)
+![](/assets/posts/2021-10-24-closest-pair-of-points/lemma_2.jpg)
 
 **关键：** $Z(s)$ 是 $s$ **以北空间内**，能配合 $s$ 同时满足 $Cond\,2$ 和 $Cond\,3$ 的点 $s'$ 的超集
 
