@@ -13,6 +13,7 @@ copy 一段代码到 jsp，tomcat 的 catalina.err 总说：`org.apache.jasper.J
 试了千百遍，又发现：自己手动输入的代码是没有问题的，只有 copy 的代码出问题，换了下编码，真相大白：尼玛的等号什么时候也这么坑爹了！
 
 - UTF-8下
-![](https://live.staticflickr.com/1534/23838061111_efc3cc04bf_z.jpg)
+![](/assets/posts/2013-10-12-a-weird-problem-caused-by-encoding/23838061111_efc3cc04bf_z.jpg)
+
 - GBK下 
-![](https://live.staticflickr.com/5649/23293777293_6b6abf97d5_z.jpg)
+![](/assets/posts/2013-10-12-a-weird-problem-caused-by-encoding/23293777293_6b6abf97d5_z.jpg)

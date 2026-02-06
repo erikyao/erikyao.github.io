@@ -5,7 +5,7 @@ tags: []
 title: Three-way Handshake
 ---
 
-![](https://live.staticflickr.com/5733/23552709929_08a6ffc1ca.jpg)
+![](/assets/posts/2013-09-01-three-way-handshake/23552709929_08a6ffc1ca.jpg)
 
 TCP 协议采用三次握手建立一个连接。  
  

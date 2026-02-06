@@ -9,8 +9,8 @@ toc: true
 toc_sticky: true
 ---
 
-[JVM]: https://live.staticflickr.com/1574/23812248622_376deb9170.jpg
-[javac-flow]: https://live.staticflickr.com/5707/23292344914_cf5807f4f4_z.jpg
+[JVM]: /assets/posts/2014-06-03-digest-of-distributed-java-system-ch3-part1/JVM.jpg
+[javac-flow]: /assets/posts/2014-06-03-digest-of-distributed-java-system-ch3-part1/javac-flow.jpg
 
 ## 0. JVM 大概
 

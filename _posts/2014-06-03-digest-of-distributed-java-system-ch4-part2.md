@@ -7,7 +7,7 @@ tags:
 title: 《分布式 Java 应用：基础与实践》第四章总结其二：并发工具类
 ---
 
-[Semaphore]: https://live.staticflickr.com/5642/23838060971_6c0d52ac0a_m.jpg
+[Semaphore]: /assets/posts/2014-06-03-digest-of-distributed-java-system-ch4-part2/Semaphore.jpg
 
 ### XxxBlockingQueue
 
