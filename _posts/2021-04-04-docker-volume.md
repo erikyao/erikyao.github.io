@@ -141,12 +141,12 @@ docker volume 和 mount 的一个区别就是：
 
 CASE 1: volume is empty; `-v my-volume:/lib`
 
-![](https://live.staticflickr.com/65535/51097976138_b7228c7317_o_d.png)
+![](/assets/posts/2021-04-04-docker-volume/case-1.png)
 
 CASE 2: volume is empty; `-v my-volume:/lib:nocopy`
 
-![](https://live.staticflickr.com/65535/51097531162_816aa46498_o_d.png)
+![](/assets/posts/2021-04-04-docker-volume/case-2.png)
 
 CASE 3: volume is non-empty; `-v my-volume:/lib`
 
-![](https://live.staticflickr.com/65535/51098238815_46af2412f3_o_d.png)
+![](/assets/posts/2021-04-04-docker-volume/case-3.png)

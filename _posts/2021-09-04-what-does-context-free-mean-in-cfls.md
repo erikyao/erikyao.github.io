@@ -34,4 +34,4 @@ P.S. 我就没遇到一本教材有提 CSL 的，这对比一下不是很利于�
 
 问题下面还有一位 [Basile Starynkevitch 的 comment](https://softwareengineering.stackexchange.com/questions/253454/what-does-context-free-mean-in-the-term-context-free-grammar#comment509884_253454)，提到了 [Chomsky hierarchy](https://en.wikipedia.org/wiki/Chomsky_hierarchy)，哪天需要重学 Languages vs Automation 的时候可以参考下。这张表和这个图在教材里竟然看不到我也是不理解……
 
-![](https://live.staticflickr.com/65535/51425997109_d3ea5fb038_k_d.jpg)
+![](/assets/posts/2021-09-04-what-does-context-free-mean-in-cfls/Chomsky_hierarchy.jpg)

@@ -25,9 +25,9 @@ heap 从结构上来说是一个 complete binary tree，数据上它要满足 **
     - `root.data` 是最大值
 - 注意我们并没有规定 sibling 之间的大小关系
     
-下图左边是 min-heap，右图是 max-heap：
+下图左边是 min-heap，右图是 max-heap:
     
-![](https://live.staticflickr.com/65535/49554518236_e9cde373c8_w_d.jpg)
+![](/assets/posts/2020-02-18-python-heaps/min-heap-max-heap.jpg)
 
 ### 1.2 Array Implementation of Heaps / Index 换算
 
@@ -86,7 +86,7 @@ insert 一个新元素到 min-heap 可以这么做：
 1. 根据新元素的 index 找它的 parent 的 index，比较大小。如果新元素小于它的 parent，swap
 1. 依此类推，一路往上 swap
 
-![](https://live.staticflickr.com/65535/49554760257_a98a12051f_d.jpg)
+![](/assets/posts/2020-02-18-python-heaps/insert-heap.jpg)
 
 这个 "把元素往上层 swap" 的操作即是 `sift_up`，它的 time complexity：
 
@@ -133,7 +133,7 @@ def heapify(lst):
 
 ##### 1.3.3.2 Bottom-up with `sift_down`
 
-从低层构造的话，有这么几个 insights：
+从低层构造的话，有这么几个 insights:
 
 - leaf 节点不需要做 `sift_down`
 - 必须要等到低层节点的 `sift_down` 做完了，高层节点才能做 `sift_down`
@@ -153,15 +153,15 @@ def heapify(lst):
     return heap
 ```
 
-举例：比如这个 `[9, 6, 5, 2, 3]`，做了两次 `sift_down`，注意第二次 `i=1` 时 (不使用 `N[0]` 所以 `N[1]` 是 root) 时，是 swap 了两次
+举例：比如这个 `[9, 6, 5, 2, 3]`，做了两次 `sift_down`，注意第二次 `i=1` 时 (不使用 `N[0]` 所以 `N[1]` 是 root) 时，是 swap 了两次：
 
-![](https://live.staticflickr.com/65535/49554760282_98e4a37c99_z_d.jpg)
+![](/assets/posts/2020-02-18-python-heaps/sift_down.jpg)
 
 ##### 1.3.3.3 Performance Analysis
 
 [How can building a heap be O(n) time complexity?](https://stackoverflow.com/a/18742428) 答案里有很精彩的分析。
 
-以下我们考虑 worst case，假设每次 comparison 都执行了 swap。
+以下我们考虑 worst case，假设每次 comparison 都执行了 swap.
 
 Top-down with `sift_up`:
 
@@ -177,7 +177,7 @@ $$
 \frac{n}{2} \times (h-1) + \frac{n}{4} \times (h-2) + \dots + 2 \times 1 + 1 \times 0
 $$
 
-然后有 $h = \log n$。考虑到最后一层已经是 $O(n \log n)$ 了，所以 Top-down with `sift_up` 的 worst-case time complexity 是 $O(n \log n)$。
+然后有 $h = \log n$. 考虑到最后一层已经是 $O(n \log n)$ 了，所以 Top-down with `sift_up` 的 worst-case time complexity 是 $O(n \log n)$.
 
 Bottom-up with `sift_down`：
 
@@ -194,14 +194,13 @@ $$
 \frac{n}{2} \times 0 + \frac{n}{4} \times 1 + \dots + 2 \times (h-2) + 1 \times (h-1)
 $$
 
-这个和式按 Taylor series 展开可以得到极限 $n$，所以 Bottom-up with `sift_down` 的 worst-case time complexity 是 $O(n)$。
+这个和式按 Taylor series 展开可以得到极限 $n$，所以 Bottom-up with `sift_down` 的 worst-case time complexity 是 $O(n)$.
 
 #### 1.4 Vanilla Heap Implementation
 
-下面我们来手动写一个不使用 `N[0]` 的 min-heap
+下面我们来手动写一个不使用 `N[0]` 的 min-heap.
 
 - 额外加了一个 `current_size` 字段，避免总是去取 `len(N)`
-
 
 ```python
 class MinHeap:
@@ -323,7 +322,7 @@ print(heap)
 # Output: [6, 7, 10, 12, 15, 17]
 ```
 
-另外在帖子 [Implementing heap in Python](https://codereview.stackexchange.com/questions/156027/implementing-heap-in-python) 提到了：可以使用 generic 的 less-than operator 来比较 element 的大小，进而实现 object 的 heap (类似于 java 的 `Comparator` 接口的思想)
+另外在帖子 [Implementing heap in Python](https://codereview.stackexchange.com/questions/156027/implementing-heap-in-python) 提到了：可以使用 generic 的 less-than operator 来比较 element 的大小，进而实现 object 的 heap (类似于 java 的 `Comparator` 接口的思想)。
 
 ```python
 import operator
@@ -376,7 +375,7 @@ $$
 \frac{n}{2} \times (h-1) + \frac{n}{4} \times (h-2) + \dots + 2 \times 1 + 1 \times 0
 $$
 
-最终还是 $O(n \log n)$
+最终还是 $O(n \log n)$.
 
 ## 3. Python `heapq` Module
 
@@ -429,7 +428,7 @@ nsmallest(n, iterable, key=None)  # 返回 iterable 中最小的 n 个元素，�
 merge(*iterables, key=None, reverse=False)
 ```
 
-$k$ 路归并可以参考 [Python: Vanilla k-way Merge Implementation & Lexical Order](/python/2020/02/10/python-vanilla-kway-merge-implementation-lexical-order)
+$k$ 路归并可以参考 [Python: Vanilla k-way Merge Implementation & Lexical Order](/python/2020/02/10/python-vanilla-kway-merge-implementation-lexical-order).
 
 ## 4. Priority Queue
 

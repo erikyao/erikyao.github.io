@@ -9,17 +9,17 @@ toc_sticky: true
 
 ## 1. 问题
 
-给定平面上的一个点集 $P = \lbrace p_1, \dots, p_n \rbrace$，求 Euclidean distance 最小的一对 $(p_i, p_j) \text{ where } p_i, p_j \in P$。
+给定平面上的一个点集 $P = \lbrace p_1, \dots, p_n \rbrace$，求 Euclidean distance 最小的一对 $(p_i, p_j) \text{ where } p_i, p_j \in P$.
 
 - 这个问题在天文 (星体距离)、民航等领域还是有很多应用的
 
-本文参考 _Sec 5.4, Algorithm Design by Jon Kleinberg etc._ 且为了讨论的方便，我们不妨假设：no two points in $P$ have the same x-coordinate or the same y-coordinate
+本文参考 _Sec 5.4, Algorithm Design by Jon Kleinberg etc._ 且为了讨论的方便，我们不妨假设：no two points in $P$ have the same x-coordinate or the same y-coordinate.
 
 ## 2. 思路
 
 ### 2.1 大盘
 
-brute force 能 $O(n^2)$，用 divide & conquer 能控制在 $O(n \log n)$。
+brute force 能 $O(n^2)$，用 divide & conquer 能控制在 $O(n \log n)$.
 
 那用 divide & conquer 无外乎这么个套路：
 
@@ -43,41 +43,41 @@ brute force 能 $O(n^2)$，用 divide & conquer 能控制在 $O(n \log n)$。
 
 #### 技术细节：How to Divide
 
-我们可以把 $P$ 按 x-coordinate 排序，得到 $P_x$，然后取 mid point 做 split line $L$，划分成左半边的点集 $Q$ 和右半边的点集 $R$
+我们可以把 $P$ 按 x-coordinate 排序，得到 $P_x$，然后取 mid point 做 split line $L$，划分成左半边的点集 $Q$ 和右半边的点集 $R$.
 
 - 提前说一下：这题涉及的符号有点多，注意区分 "2D-space" 和 "set of points"
 
 #### Lemma 1
 
-假设我们已经把 $P$ 划分成左半边的点集 $Q$ 和右半边的点集 $R$，并求得了 $Q$ 上的 $\delta_{C1}$ 和 $R$ 上的 $\delta_{C2}$，我们取 $\delta = min(\delta_{C1}, \delta_{C2})$
+假设我们已经把 $P$ 划分成左半边的点集 $Q$ 和右半边的点集 $R$，并求得了 $Q$ 上的 $\delta_{C1}$ 和 $R$ 上的 $\delta_{C2}$，我们取 $\delta = min(\delta_{C1}, \delta_{C2})$.
 
-$Lemma\,1$: 假设存在跨越 $L$ 的最优解，即假设存在 point $q \in Q$ and point $r \in R$ 且 $d(q, r) < \delta$，那么 $q$ 和 $r$ 到 $L$ 的距离都不可能超过 $\delta$
+$Lemma\,1$: 假设存在跨越 $L$ 的最优解，即假设存在 point $q \in Q$ and point $r \in R$ 且 $d(q, r) < \delta$，那么 $q$ 和 $r$ 到 $L$ 的距离都不可能超过 $\delta$.
 
-这么一来，我们可以限定在子空间 $B = \lbrace (x,y) \mid L - \delta \leq x \leq L + \delta \rbrace$ (可以理解为一个宽度为 $2 \times \delta$ 的 band) 内寻找 $\delta_{T}$。
+这么一来，我们可以限定在子空间 $B = \lbrace (x,y) \mid L - \delta \leq x \leq L + \delta \rbrace$ (可以理解为一个宽度为 $2 \times \delta$ 的 band) 内寻找 $\delta_{T}$.
 
 ![](https://live.staticflickr.com/65535/51627659204_f0c5cc0c15_c_d.jpg)
 
-理论上，子空间 $B$ 内仍然可能有 $O(n)$ 个点，如果 brute force，最终仍然会上升到 $O(n^2)$。此时我们需要 $Lemma\,2$。
+理论上，子空间 $B$ 内仍然可能有 $O(n)$ 个点，如果 brute force，最终仍然会上升到 $O(n^2)$. 此时我们需要 $Lemma\,2$.
 
 #### Lemma 2
 
-我们假设子空间 $B$ 上的点集为 $S$。如果存在 $\delta_{T}$，它所对应的两个点 $s,s' \in S$ 至要满足：
+我们假设子空间 $B$ 上的点集为 $S$. 如果存在 $\delta_{T}$，它所对应的两个点 $s,s' \in S$ 至要满足：
 
 - ~~$Cond\,1$: $s$ 与 $s'$ 分居 $L$ 两侧~~
 - $Cond\,2$: $s$ 和 $s'$ 到 $L$ 的距离都不超过 $\delta$ ($Lemma\,1$)
 - $Cond\,3$: $d(s, s') < \delta$
 
-可以看出：$Cond\,3$ implies $Cond\,1$ (如果同侧两个点满足 $Cond\,3$，那么 $\delta$ 一开始就不可能是 $\delta_{C1}$ 或者 $\delta_{C2}$)，所以我们实际可以 discard $Cond\,1$。
+可以看出：$Cond\,3$ implies $Cond\,1$ (如果同侧两个点满足 $Cond\,3$，那么 $\delta$ 一开始就不可能是 $\delta_{C1}$ 或者 $\delta_{C2}$)，所以我们实际可以 discard $Cond\,1$.
 
-我们考虑 $S$ 上的任意一个点 $s$。我们给 $Lemma\,2$ 做这么一个 setup：锚定 $s$ 的 y-coordinate (记作 $y_s$)，**以 $y=y_s$ 这条直线为 buttom line**，则 $s$ 可以确定 $G(s) = \lbrace (x,y) \mid L - \delta \leq x \leq L + \delta, \, y_s \leq y \leq y_s + \delta \rbrace$ 这个一个 (矩形) 子空间。
+我们考虑 $S$ 上的任意一个点 $s$. 我们给 $Lemma\,2$ 做这么一个 setup: 锚定 $s$ 的 y-coordinate (记作 $y_s$)，**以 $y=y_s$ 这条直线为 buttom line**，则 $s$ 可以确定 $G(s) = \lbrace (x,y) \mid L - \delta \leq x \leq L + \delta, \, y_s \leq y \leq y_s + \delta \rbrace$ 这个一个 (矩形) 子空间。
 
-在 $G(s)$ 上做长度为 $\frac{\delta}{2}$ 的 grid，可以用反证法证明 1 个 cell 内不可能有两个点。换言之，对任意的 $s$，它所决定的这个子空间 $G(s)$ 内至多只有 8 个点 (包括 $s$)。
+在 $G(s)$ 上做长度为 $\frac{\delta}{2}$ 的 grid，可以用反证法证明 1 个 cell 内不可能有两个点。换言之，对任意的 $s$，它所决定的这个子空间 $G(s)$ 内至多只有 8 个点 (包括 $s$).
 
-假设 $G(s)$ 内不包括 $s$ 的点集为 $Z(s)$，有 $\| Z(s) \| \leq 7$。
+假设 $G(s)$ 内不包括 $s$ 的点集为 $Z(s)$，有 $\| Z(s) \| \leq 7$.
 
 ![](https://live.staticflickr.com/65535/51627659189_a1c10172c4_c_d.jpg)
 
-**关键：**$Z(s)$ 是 $s$ **以北空间内**，能配合 $s$ 同时满足 $Cond\,2$ 和 $Cond\,3$ 的点 $s'$ 的超集
+**关键：** $Z(s)$ 是 $s$ **以北空间内**，能配合 $s$ 同时满足 $Cond\,2$ 和 $Cond\,3$ 的点 $s'$ 的超集
 
 - $Z(s)$ 内的点一定满足 $Cond\,2$，可能满足但不一定满足 $Cond\,3$
 - $Z(s)$ 以北的点一定无法满足 $Cond\,3$
@@ -97,7 +97,7 @@ def delta_T(S):
     return min(min_dist_list)  # and later check if this value is less than delta
 ```
 
-确定点集 $S$ 是容易的 (针对 $P$，用 band $B$ 做 x-axis 上的约束)；但是给定 $s$，求 $Z(s)$ 是有点麻烦的。你可以用 $G(s)$ 去约束 $P$，但这需要遍历 $P$，也就是 $O(n)$，这会导致上述 `delta_T` 涨到 $O(n^2)$。$Lemma\,2$ 的作用就在于把求 $Z(s)$ 的消耗降到了 $O(1)$。它是如何做到的呢？
+确定点集 $S$ 是容易的 (针对 $P$，用 band $B$ 做 x-axis 上的约束)；但是给定 $s$，求 $Z(s)$ 是有点麻烦的。你可以用 $G(s)$ 去约束 $P$，但这需要遍历 $P$，也就是 $O(n)$，这会导致上述 `delta_T` 涨到 $O(n^2)$. $Lemma\,2$ 的作用就在于把求 $Z(s)$ 的消耗降到了 $O(1)$. 它是如何做到的呢？
 
 因为我们已经确定了 $\| Z(s) \| \leq 7$，且 $y=y_s$ 这条直线为 buttom line，所以 $s$ 的 y-coordinate 比 $\forall s' \in Z(s)$ 的 y-coordinate 都要小。如果我们把 $S$ 按 y-coordinate 排序，得到 $S_y$，且假设 $s \text{ is } S_y[i]$，那么 $Z_7(s) = \lbrace S_y[i+1], \dots, S_y[i+7] \rbrace$ 这 7 个点的集合**一定会是 $Z(s)$ 的超集**。首先使用超集来搜索对正确性没有影响；然后我们看下复杂度上的收益：
 
@@ -135,7 +135,7 @@ def delta_T(S):
 
 最后，我们献上：
 
-$Lemma\,2$: 假设存在两个点 $s,s' \in S$ 且 $d(s, s') < \delta$，那么 $s$ 和 $s'$ 在 $S_y$ 中的 index 差不会超过 7
+$Lemma\,2$: 假设存在两个点 $s,s' \in S$ 且 $d(s, s') < \delta$，那么 $s$ 和 $s'$ 在 $S_y$ 中的 index 差不会超过 7.
 
 书上的这个常数是 15。虽然我们能看到它的 $G(s)$ 是一个 16-cell 的正方形 grid，但我实在没搞清楚它是如何 setup 的，我觉得我这个常数 7 的论述已经很 OK 了，就不深究了。
 
@@ -306,7 +306,7 @@ def closest_pair_of_trans_points(py_list: PointList, l, delta):
 
 ### 3.4 Test Cases
 
-Credit to [Closest Pair Implemetation Python](https://stackoverflow.com/questions/28237581/closest-pair-implemetation-python)
+Credit to [Closest Pair Implemetation Python](https://stackoverflow.com/questions/28237581/closest-pair-implemetation-python).
 
 ```python
 p_coords = [(0,0),(7,6),(2,20),(12,5),(16,16),(5,8),(19,7),(14,22),(8,19),(7,29),(10,11),(1,13)]

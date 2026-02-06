@@ -12,7 +12,7 @@ toc_sticky: true
 
 ## Prerequisite: Pivot
 
-Quick Sort 是一个使用 pivot 的算法，鉴于我对 pivot 实在苦手，这里展开详细说说
+Quick Sort 是一个使用 pivot 的算法，鉴于我对 pivot 实在苦手，这里展开详细说说。
 
 先还是熟悉下这个单词吧：
 
@@ -20,7 +20,7 @@ Quick Sort 是一个使用 pivot 的算法，鉴于我对 pivot 实在苦手，�
 - 然后这个词的本意应该是杠杆系统里的 "支点"
 - 然后在篮球里 pivot 指 "支撑脚"
 
-![](https://live.staticflickr.com/65535/49558973482_e90687d030_w_d.jpg)
+![](/assets/posts/2020-02-19-python-quick-sort-revisited/pivot.jpg)
 
 那在程序里，有个类似的概念是 binary search 的 `mid = lo + (hi - lo) // 2`，但是：
 
@@ -76,7 +76,7 @@ def quicksort(xs):
 - `< pivot` 的都 partition 到了 left subtree
 - `> pivot` 的都 partition 到了 right subtree
 
-所以我们可以这么说：**every run of quicksort corresponds to a building process of a BST**
+所以我们可以这么说：**every run of quicksort corresponds to a building process of a BST**.
 
 ## Lomuto Partition Scheme
 
@@ -130,7 +130,7 @@ quicksort([12, 11, 13, 5, 6, 7])
     - 然后接着递归下一步会调用 `partition(xs, k, k-1)`，仍然是 return `k`
     - 不会停止
 
-Lomuto Partition Scheme 是 in-place 操作。当 `xs` 本身是一个 desc sorted 的 array 时，Lomuto Partition Scheme 的 time compleixity 会 degrade 成 $O(n^2)$
+Lomuto Partition Scheme 是 in-place 操作。当 `xs` 本身是一个 desc sorted 的 array 时，Lomuto Partition Scheme 的 time compleixity 会 degrade 成 $O(n^2)$.
 
 - 有点像做 decision tree 的时候挑到了一个非常糟糕的 split point
 
@@ -192,7 +192,7 @@ while(True) {
 };
 ```
 
-所以你在 `else` 做完 swap 之后，重新进入 `while(True)` 的时候，do while 仍然会至少执行一次 `lo += 1` 和 `hi -= 1`，所以你改写成 while 之后必须要手动加上这么两句，否则的话会死循环。死循环会出现的一个场景比如 `xs[start] == xs[end] == pivot`，如果没有那两句的话，`xs[lo]` 和 `xs[hi]` 会在不停地在原地做 swap
+所以你在 `else` 做完 swap 之后，重新进入 `while(True)` 的时候，do while 仍然会至少执行一次 `lo += 1` 和 `hi -= 1`，所以你改写成 while 之后必须要手动加上这么两句，否则的话会死循环。死循环会出现的一个场景比如 `xs[start] == xs[end] == pivot`，如果没有那两句的话，`xs[lo]` 和 `xs[hi]` 会在不停地在原地做 swap.
 
 `# ANCHOR 1` 处可以有变化，但有基本法：
 
@@ -202,7 +202,7 @@ while(True) {
     - 防止 `pivot = xs[end]` 是 `min(xs)` 可能引起的死循环
 - 这里我就不展开了，太碎了，太繁了，太细节了，这也是我不喜欢 Hoare Partition Scheme 的原因
 
-Hoare Partition Scheme 也是 in-place 操作。当 `xs` 本身是一个 desc sorted 的 array 时，Hoare Partition Scheme 的 time compleixity 会 degrade 成 $O(n^2)$
+Hoare Partition Scheme 也是 in-place 操作。当 `xs` 本身是一个 desc sorted 的 array 时，Hoare Partition Scheme 的 time compleixity 会 degrade 成 $O(n^2)$.
 
 ## Hoare Partition Scheme Variant (Randomness improves robustness)
 

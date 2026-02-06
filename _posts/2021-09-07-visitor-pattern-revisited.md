@@ -12,13 +12,13 @@ title: Visitor Pattern Revisited
 
 假设我现在的 class hierarchy 是一个父类 + 一堆子类。"添加一个 new subclass" 这个操作是容易的；但是 "在父类里定义一个 new method，然后在每个 existing subclasses 都实现一遍这个方法" 这个操作是繁的。这就好比是一个 $\operatorname{Class} \times \operatorname{Method}$ 的 matrix:
 
-![](https://live.staticflickr.com/65535/51434908291_dd2a608f49_o_d.png)
+![](/assets/posts/2021-09-07-visitor-pattern-revisited/class_x_method.png)
 
 - 你添加 row 是容易的，但是添加 column 是繁的
 
-如果我们跳脱出 OO，看一下 FP (Functionnal Programming) 的情形，就会发现它们类似地有一个 $\operatorname{Type} \times \operatorname{Function}$ 的 matrix
+如果我们跳脱出 OO，看一下 FP (Functionnal Programming) 的情形，就会发现它们类似地有一个 $\operatorname{Type} \times \operatorname{Function}$ 的 matrix:
 
-![](https://live.staticflickr.com/65535/51435650884_660d4e8850_o_d.png)
+![](/assets/posts/2021-09-07-visitor-pattern-revisited/type_x_function.png)
 
 - 每个 function 内都要做 type matching (想象 switch-case) 来细分 function 的逻辑。但如果 type matching 的逻辑是固定的，那么 "添加一个 new function" 这个操作不复杂
 - 但如果要添加一个新的 type，我要跑到每个 function 里面写一个新的 type matching 的 case，就很繁
