@@ -8,18 +8,18 @@ tags:
 title: 'Digest of <i>Agile Software Development: Principles, Patterns, and Practices</i>'
 ---
 
-[active_object_sequence]: https://live.staticflickr.com/65535/55078791729_b5d43cb5fa_c.jpg
-[acyclic_visitor_pattern]: https://live.staticflickr.com/65535/55078896840_b45e4155f6_z.jpg
-[bridge_pattern_example]: https://live.staticflickr.com/65535/55078791714_084469e784.jpg
-[bridge_UML_class_diagram]: https://live.staticflickr.com/65535/55078737193_b0019690b5_z.jpg
-[command_pattern]: https://live.staticflickr.com/65535/55077635612_eeb13ef2d4_c.jpg
-[facade_pattern]: https://live.staticflickr.com/65535/55077635567_edbcd284c3_z.jpg
-[mediator_pattern]: https://live.staticflickr.com/65535/55078896800_60c875b188.jpg
-[proxy_pattern]: https://live.staticflickr.com/65535/55078896805_7074da2c70.jpg
-[state_diagram]: https://live.staticflickr.com/65535/55078896810_e346f4c280_z.jpg
-[Turnstile_class]: https://live.staticflickr.com/65535/55078535936_36aca015b0_c.jpg
-[Turnstile_seq]: https://live.staticflickr.com/65535/55078535931_b06eba5e4f_z.jpg
-[visitor_pattern]: https://live.staticflickr.com/65535/55078535916_bde5f637e9_z.jpg
+[active_object_sequence]: /assets/posts/2014-06-24-digest-of-agile-software-development-ppp/active_object_sequence.jpg
+[acyclic_visitor_pattern]: /assets/posts/2014-06-24-digest-of-agile-software-development-ppp/acyclic_visitor_pattern.jpg
+[bridge_pattern_example]: /assets/posts/2014-06-24-digest-of-agile-software-development-ppp/bridge_pattern_example.jpg
+[bridge_UML_class_diagram]: /assets/posts/2014-06-24-digest-of-agile-software-development-ppp/bridge_UML_class_diagram.jpg
+[command_pattern]: /assets/posts/2014-06-24-digest-of-agile-software-development-ppp/command_pattern.jpg
+[facade_pattern]: /assets/posts/2014-06-24-digest-of-agile-software-development-ppp/facade_pattern.jpg
+[mediator_pattern]: /assets/posts/2014-06-24-digest-of-agile-software-development-ppp/mediator_pattern.jpg
+[proxy_pattern]: /assets/posts/2014-06-24-digest-of-agile-software-development-ppp/proxy_pattern.jpg
+[state_diagram]: /assets/posts/2014-06-24-digest-of-agile-software-development-ppp/state_diagram.jpg
+[Turnstile_class]: /assets/posts/2014-06-24-digest-of-agile-software-development-ppp/Turnstile_class.jpg
+[Turnstile_seq]: /assets/posts/2014-06-24-digest-of-agile-software-development-ppp/Turnstile_seq.jpg
+[visitor_pattern]: /assets/posts/2014-06-24-digest-of-agile-software-development-ppp/visitor_pattern.jpg
 
 ## 目录 
 

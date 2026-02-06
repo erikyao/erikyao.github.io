@@ -416,4 +416,4 @@ The `unstack` function goes one step further: if all vectors have the same lengt
 
 # Family Tree
 
-![](https://live.staticflickr.com/5823/23624880050_6925d4c3d8_b.jpg)
+![](/assets/posts/2014-06-27-r-apply-family/23624880050_6925d4c3d8_b.jpg)

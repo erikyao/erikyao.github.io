@@ -11,9 +11,9 @@ tags:
 title: Digest of <i>Effective Java</i>
 ---
 
-[item_22_object_adapter_pattern]: https://live.staticflickr.com/5732/23552709759_a71e1ce310.jpg
-[item_22_class_adapter_pattern]: https://live.staticflickr.com/1529/23894468486_73845c6738.jpg
-[item_67_Observer]: https://live.staticflickr.com/1579/23552709749_3c0288ac6c_c.jpg
+[item_22_object_adapter_pattern]: /assets/posts/2014-06-04-digest-of-effective-java/item_22_object_adapter_pattern.jpg
+[item_22_class_adapter_pattern]: /assets/posts/2014-06-04-digest-of-effective-java/item_22_class_adapter_pattern.jpg
+[item_67_Observer]: /assets/posts/2014-06-04-digest-of-effective-java/item_67_Observer.jpg
 
 ## 目录
 

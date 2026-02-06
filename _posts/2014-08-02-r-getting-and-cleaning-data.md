@@ -7,9 +7,9 @@ toc: true
 toc_sticky: true
 ---
 
-[Boxplot]: https://live.staticflickr.com/1576/23838060281_31d6b76eac.jpg
-[Percentiles]: https://live.staticflickr.com/1538/23894467706_0c84f73154_w.jpg
-[Quartile_and_IQR]: https://live.staticflickr.com/1682/23624879870_991fd1a781_n.jpg
+[Boxplot]: /assets/posts/2014-08-02-r-getting-and-cleaning-data/Boxplot.jpg
+[Percentiles]: /assets/posts/2014-08-02-r-getting-and-cleaning-data/Percentiles.jpg
+[Quartile_and_IQR]: /assets/posts/2014-08-02-r-getting-and-cleaning-data/Quartile_and_IQR.jpg
 
 coursera 课程总结。
   
