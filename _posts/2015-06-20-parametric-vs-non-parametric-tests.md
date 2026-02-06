@@ -13,7 +13,7 @@ title: Parametric vs. non-parametric tests
 - [Parametric vs. non-parametric tests](http://changingminds.org/explanations/research/analysis/parametric_non-parametric.htm)
 - [Levels of Measurement](http://www.socialresearchmethods.net/kb/measlevl.php)
 
-[alternative_tests]: https://live.staticflickr.com/1593/23624879030_b2089c5c78_b.jpg
+[alternative_tests]: /assets/posts/2015-06-20-parametric-vs-non-parametric-tests/alternative_tests.jpg
 
 ----- 
 

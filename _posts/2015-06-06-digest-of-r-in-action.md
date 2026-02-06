@@ -8,17 +8,17 @@ toc: true
 toc_sticky: true
 ---
 
-[figure-06-02]: https://live.staticflickr.com/1719/23812247562_61729e3ae3.jpg
-[figure-06-05]: https://live.staticflickr.com/1576/23293776153_aa509d7c1c.jpg
-[figure-06-06]: https://live.staticflickr.com/1707/23292343914_f349a8bd64.jpg
-[figure-06-07]: https://live.staticflickr.com/5761/23292343904_9f4a6433ce.jpg
-[figure-06-08]: https://live.staticflickr.com/1571/23920545955_386403c802.jpg
-[figure-06-09]: https://live.staticflickr.com/5675/23920545935_bf2aa620fc.jpg
-[figure-06-10]: https://live.staticflickr.com/1682/23624879260_feaa1c10ec.jpg
-[figure-06-13]: https://live.staticflickr.com/1485/23293776043_ba408f88eb.jpg
-[figure-06-15]: https://live.staticflickr.com/5778/23552708619_ebedfaa030.jpg
-[figure-06-16]: https://live.staticflickr.com/5823/23920545895_70c3143b46.jpg
-[figure-06-17]: https://live.staticflickr.com/1653/23920545885_92a03302c3.jpg
+[figure-06-02]: /assets/posts/2015-06-06-digest-of-r-in-action/figure-06-02.jpg
+[figure-06-05]: /assets/posts/2015-06-06-digest-of-r-in-action/figure-06-05.jpg
+[figure-06-06]: /assets/posts/2015-06-06-digest-of-r-in-action/figure-06-06.jpg
+[figure-06-07]: /assets/posts/2015-06-06-digest-of-r-in-action/figure-06-07.jpg
+[figure-06-08]: /assets/posts/2015-06-06-digest-of-r-in-action/figure-06-08.jpg
+[figure-06-09]: /assets/posts/2015-06-06-digest-of-r-in-action/figure-06-09.jpg
+[figure-06-10]: /assets/posts/2015-06-06-digest-of-r-in-action/figure-06-10.jpg
+[figure-06-13]: /assets/posts/2015-06-06-digest-of-r-in-action/figure-06-13.jpg
+[figure-06-15]: /assets/posts/2015-06-06-digest-of-r-in-action/figure-06-15.jpg
+[figure-06-16]: /assets/posts/2015-06-06-digest-of-r-in-action/figure-06-16.jpg
+[figure-06-17]: /assets/posts/2015-06-06-digest-of-r-in-action/figure-06-17.jpg
 
 
 ## 1. Introduction to R

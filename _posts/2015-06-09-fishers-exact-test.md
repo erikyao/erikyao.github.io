@@ -12,9 +12,9 @@ title: Fisher's Exact Test for Independence
 - [Wikipedia: Fisher's exact test](http://en.wikipedia.org/wiki/Fisher's_exact_test)
 - [Fisher's exact test of independence](http://www.biostathandbook.com/fishers.html)
 
-[0-10-12-2]: https://live.staticflickr.com/1571/23293775923_c653be32c9_n.jpg
-[1-9-11-3]: https://live.staticflickr.com/5813/23920545795_ea0446ebd2_n.jpg
-[2x2_table]: https://live.staticflickr.com/1541/23624879070_be4ced47b0_w.jpg
+[0-10-12-2]: /assets/posts/2015-06-09-fishers-exact-test/0-10-12-2.jpg
+[1-9-11-3]: /assets/posts/2015-06-09-fishers-exact-test/1-9-11-3.jpg
+[2x2_table]: /assets/posts/2015-06-09-fishers-exact-test/2x2_table.jpg
 
 -----
 

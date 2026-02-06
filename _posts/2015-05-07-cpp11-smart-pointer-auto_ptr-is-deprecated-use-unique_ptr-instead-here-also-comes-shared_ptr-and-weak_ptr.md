@@ -11,7 +11,7 @@ toc_sticky: true
 
 我们在 [C++ Exception Handling / auto_ptr](/c++/2015/04/13/cpp-exception-handling#auto_ptr) 里介绍了 RAII wrapper for pointers: `auto_ptr`，但是它在 C++11 又被 deprecated 了……对应的 replacement 是 `unique_ptr`。顺带还推出了 `shared_ptr` 和 `weak_ptr`。
 
-![](https://live.staticflickr.com/65535/53976660985_7859f0e897_w_d.jpg)
+![](/assets/posts/2015-05-07-cpp11-smart-pointer-auto_ptr-is-deprecated-use-unique_ptr-instead-here-also-comes-shared_ptr-and-weak_ptr/53976660985_7859f0e897_w_d.jpg)
 
 (Diagram Credit: _Learn C++ By Example_ by Frances Buontempo)
 

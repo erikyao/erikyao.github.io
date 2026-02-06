@@ -64,7 +64,7 @@ Given variable $A$ (which has $r$ levels), and variable $B$ (which has $c$ level
 
 ## Example
 
-![](https://live.staticflickr.com/1602/23812247442_fae84f2dd5.jpg)
+![](/assets/posts/2015-06-09-chi-square-test/23812247442_fae84f2dd5.jpg)
 
 **Question:** Is there a gender gap? Do the men's voting preferences differ significantly from the women's preferences?
 

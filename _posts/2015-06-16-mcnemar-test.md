@@ -10,9 +10,9 @@ title: McNemar Test
 
 - McNemar: [mæk nə mar]
 
-[table-20-01]: https://live.staticflickr.com/5799/23894466946_0232038cc8_z.jpg
-[table-20-02]: https://live.staticflickr.com/1557/23812247342_24d52433d9_z.jpg
-[table-20-03]: https://live.staticflickr.com/1709/23920545715_8ed243ba53.jpg
+[table-20-01]: /assets/posts/2015-06-16-mcnemar-test/table-20-01.jpg
+[table-20-02]: /assets/posts/2015-06-16-mcnemar-test/table-20-02.jpg
+[table-20-03]: /assets/posts/2015-06-16-mcnemar-test/table-20-03.jpg
 
 ## 1. Overview
 

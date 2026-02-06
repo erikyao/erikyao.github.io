@@ -26,7 +26,7 @@ auto fcn(It beg, It end) -> decltype(*beg) {
 
 - Type Transformation Template 并没有要求只能在 template function 中使用
 
-![](https://live.staticflickr.com/1611/23838059871_c295c4c7e4_z.jpg)
+![](/assets/posts/2015-05-17-cpp-standard-type-transformation-templates/23838059871_c295c4c7e4_z.jpg)
 
 具体到我们这个场景，使用 `remove_reference` 就好了，transform 之后的新类型保存在一个 public member `type` 中：
 
