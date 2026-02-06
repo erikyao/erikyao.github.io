@@ -9,7 +9,7 @@ toc: true
 toc_sticky: true
 ---
 
-[6-5-legend-position]: https://live.staticflickr.com/4682/39207350172_fe5b317949_z.jpg
+[6-5-legend-position]: /assets/posts/2016-06-14-digest-of-ggplot2/6-5-legend-position.jpg
 
 ## 第一章 - 简介 
 

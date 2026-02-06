@@ -6,14 +6,14 @@ tags:
 title: Smoothing
 ---
 
-[True]: https://live.staticflickr.com/7317/27418140070_1d02a3454a_w.jpg
-[With_Noise]: https://live.staticflickr.com/7183/27417679270_9ff6c7d0e0_w.jpg
-[Bin_Smooth]: https://live.staticflickr.com/7702/27417679460_383c5aaa78_w.jpg
-[Moving_Avg]: https://live.staticflickr.com/7413/27417679400_61d2487445_w.jpg
-[Running_Line]: https://live.staticflickr.com/7392/27417679360_fe9c7af8fd_w.jpg
-[Loess]: https://live.staticflickr.com/7307/27621492431_51574d0eca_w.jpg
-[Spline]: https://live.staticflickr.com/7423/27621492341_dc26dcf288_w.jpg
-[Under_Over]: https://live.staticflickr.com/7215/27417679300_8d69ce8deb_n.jpg
+[True]: /assets/posts/2016-06-15-smoothing/True.jpg
+[With_Noise]: /assets/posts/2016-06-15-smoothing/With_Noise.jpg
+[Bin_Smooth]: /assets/posts/2016-06-15-smoothing/Bin_Smooth.jpg
+[Moving_Avg]: /assets/posts/2016-06-15-smoothing/Moving_Avg.jpg
+[Running_Line]: /assets/posts/2016-06-15-smoothing/Running_Line.jpg
+[Loess]: /assets/posts/2016-06-15-smoothing/Loess.jpg
+[Spline]: /assets/posts/2016-06-15-smoothing/Spline.jpg
+[Under_Over]: /assets/posts/2016-06-15-smoothing/Under_Over.jpg
 
 总结自 [2. Smoothing](http://www2.stat.duke.edu/~banks/218-lectures.dir/dmlect2.pdf).
 

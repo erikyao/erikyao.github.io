@@ -7,12 +7,12 @@ toc: true
 toc_sticky: true
 ---
 
-[edge_types]: https://live.staticflickr.com/1521/24260605262_1a957dd569.jpg
-[Prim]: https://live.staticflickr.com/1676/24313784510_ea7ec14d3a_z.jpg
-[Kruskal]: https://live.staticflickr.com/1549/24314202720_e171b90655_c.jpg
-[Alternating_Path]: https://live.staticflickr.com/1698/24582419389_7c596aa665_w.jpg
-[perfect_bipartite_matching]: https://live.staticflickr.com/1519/24963603071_7b5892fcc2_m.jpg
-[Tutte_matrix]: https://live.staticflickr.com/1517/25056902185_69338e3209_m.jpg
+[edge_types]: /assets/posts/2016-01-09-basic-graph-algorithms/edge_types.jpg
+[Prim]: /assets/posts/2016-01-09-basic-graph-algorithms/Prim.jpg
+[Kruskal]: /assets/posts/2016-01-09-basic-graph-algorithms/Kruskal.jpg
+[Alternating_Path]: /assets/posts/2016-01-09-basic-graph-algorithms/Alternating_Path.jpg
+[perfect_bipartite_matching]: /assets/posts/2016-01-09-basic-graph-algorithms/perfect_bipartite_matching.jpg
+[Tutte_matrix]: /assets/posts/2016-01-09-basic-graph-algorithms/Tutte_matrix.jpg
 
 参考：
 

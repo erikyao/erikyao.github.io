@@ -6,8 +6,8 @@ tags:
 title: Statistical Data Types
 ---
 
-[1]: https://live.staticflickr.com/1633/24254040286_e7a72a4e51_z.jpg
-[2]: https://live.staticflickr.com/1638/23912339669_d6da4a60a6_z.jpg
+[1]: /assets/posts/2016-01-08-statistical-data-types/1.jpg
+[2]: /assets/posts/2016-01-08-statistical-data-types/2.jpg
 
 Today I feel it necessary to master some stats terms for better discussions of machine learning problems. 
 

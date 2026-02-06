@@ -8,10 +8,10 @@ toc: true
 toc_sticky: true
 ---
 
-[determinant]: https://live.staticflickr.com/807/40256097215_9f32e14a05_c.jpg
-[u_x]: https://live.staticflickr.com/788/39364279940_6cb5d99125_c.jpg
-[u_y]: https://live.staticflickr.com/798/39364280100_c7f948a764_c.jpg
-[vector_axioms]: https://live.staticflickr.com/870/39382665400_86c741a816_c.jpg
+[determinant]: /assets/posts/2016-11-17-digest-of-essence-of-linear-algebra/determinant.jpg
+[u_x]: /assets/posts/2016-11-17-digest-of-essence-of-linear-algebra/u_x.jpg
+[u_y]: /assets/posts/2016-11-17-digest-of-essence-of-linear-algebra/u_y.jpg
+[vector_axioms]: /assets/posts/2016-11-17-digest-of-essence-of-linear-algebra/vector_axioms.jpg
 
 Greatest thanks to [3Blue1Brown](http://www.3blue1brown.com/)!
 

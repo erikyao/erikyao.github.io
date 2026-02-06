@@ -8,14 +8,14 @@ toc: true
 toc_sticky: true
 ---
 
-[northbridge_southbridge]: https://live.staticflickr.com/7239/27374870374_681eaeb068_z.jpg
-[software_hierarchy]: https://live.staticflickr.com/7716/27886596032_ce95391476_z.jpg
-[VMA]: https://live.staticflickr.com/7340/27501582064_3637703587_z.jpg
-[stack_frame]: https://live.staticflickr.com/7494/27522590674_e972e89d03_w.jpg
-[cdecl_example]: https://live.staticflickr.com/7300/28103751046_51b7d04c4d_c.jpg
-[fd]: https://live.staticflickr.com/7428/27858238310_180730c512.jpg
-[system_call_example]: https://live.staticflickr.com/7460/27859201890_b38f4ace05_c.jpg
-[ELF_Section_Segment]: https://live.staticflickr.com/65535/54268930640_a4c4e84f05_c.jpg
+[northbridge_southbridge]: /assets/posts/2016-06-29-linking-loading-and-library/northbridge_southbridge.jpg
+[software_hierarchy]: /assets/posts/2016-06-29-linking-loading-and-library/software_hierarchy.jpg
+[VMA]: /assets/posts/2016-06-29-linking-loading-and-library/VMA.jpg
+[stack_frame]: /assets/posts/2016-06-29-linking-loading-and-library/stack_frame.jpg
+[cdecl_example]: /assets/posts/2016-06-29-linking-loading-and-library/cdecl_example.jpg
+[fd]: /assets/posts/2016-06-29-linking-loading-and-library/fd.jpg
+[system_call_example]: /assets/posts/2016-06-29-linking-loading-and-library/system_call_example.jpg
+[ELF_Section_Segment]: /assets/posts/2016-06-29-linking-loading-and-library/ELF_Section_Segment.jpg
 
 《程序员的自我修养——链接、装载与库》泛读
 

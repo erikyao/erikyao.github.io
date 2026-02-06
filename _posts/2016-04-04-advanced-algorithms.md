@@ -5,9 +5,9 @@ tags: []
 title: Advanced Algorithms
 ---
 
-[Set_Cover_and_Hitting_Set]: https://live.staticflickr.com/1539/26140812480_86f19f96ca_z.jpg
-[LP-dual-1]: https://live.staticflickr.com/7169/26528138410_ab32df5f79_n.jpg
-[LP-dual-2]: https://live.staticflickr.com/7653/26528138420_47e7184c2b_n.jpg
+[Set_Cover_and_Hitting_Set]: /assets/posts/2016-04-04-advanced-algorithms/Set_Cover_and_Hitting_Set.jpg
+[LP-dual-1]: /assets/posts/2016-04-04-advanced-algorithms/LP-dual-1.jpg
+[LP-dual-2]: /assets/posts/2016-04-04-advanced-algorithms/LP-dual-2.jpg
 
 ## Approximation Algorithms @ [Erickson §31](http://jeffe.cs.illinois.edu/teaching/algorithms/notes/31-approx.pdf)
 
