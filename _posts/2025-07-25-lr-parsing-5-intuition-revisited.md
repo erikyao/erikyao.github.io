@@ -15,7 +15,7 @@ mermaid: true
 - [LR Parsing #1: Intuition](/compiler/2025/07/17/lr-parsing-1-intuition):
     - stack 上的是 viable prefix
     - viable prefixes 构成 regular language
-    - regular langunage 于是有 DFA
+    - regular language 于是有 DFA
 - [LR Parsing #2: Structural Encoding of LR(0) Parsing DFA](/compiler/2025/07/18/lr-parsing-2-structural-encoding-of-lr0-parsing-dfa)
     - 如何构建这个 DFA
 - [LR Parsing #4: Runtime Encoding of LR(0)/SLR(1) Parsing DFA (How to Construct the Parsing Tables)](/compiler/2025/07/22/lr-parsing-4-runtime-encoding-of-lr0slr1-parsing-dfa)
