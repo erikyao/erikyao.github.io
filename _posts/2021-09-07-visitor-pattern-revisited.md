@@ -128,6 +128,6 @@ public class Main {
 
 PPP 里认为 visitor pattern 的作用还有 "separating an algorithm from an object structure"，但这个作用在我们的例子里无法体现。我觉得 visitor pattern 的作用得按情况区分：
 
-- 如果是 "多子类" 的场景，它的作用是 "聚拢分散的 method 实现"
+- 如果是 "多子类" 的场景，它的作用是 "聚拢分散的 method 实现"，可以想象成把所有的子类的某个接口方法的实现 (比如上面的 `config`) 统一 slice 掉，然后转移到了 Visitor 中了
 - 如果是 "单个类" 的场景，它的作用是 "割离 method 实现"
   - somehow 是统一的
