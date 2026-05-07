@@ -97,6 +97,7 @@ Note that an (relocatable) object file is not fully linked while an executable (
      - Symbol pointers added (as placeholders for addresses that `dyld` will resolve at runtime) to `(__DATA, __got)` (Global Offset Table)
 
 > [!info] `__DATA_CONST` segment and **RELRO**
+> 
 > In modern Mach-O files, `__got` is moved to a specific segment called `__DATA_CONST`.
 > This allows the dynamic linker to write to them during load time (binding) and then `mprotect` them to read-only for the rest of the execution (a security feature called **RELRO**, Relocation Read-Only).
 
