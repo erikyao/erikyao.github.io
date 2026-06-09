@@ -55,8 +55,8 @@ DNA 由下面两类元素构成：
     - The basic repeating structural (and functional) unit of chromatin is the **nucleosome**, which contains 8 histone proteins and about 146 bp of DNA
     - 参 [DNA Packaging: Nucleosomes and Chromatin](https://www.nature.com/scitable/topicpage/dna-packaging-nucleosomes-and-chromatin-310)
 - cell 在不分裂的情况下，可以认为：一条 further condensed chromatin 就是一条 **chromosome**
-- cell 在分裂的情况下 (具体在 [Cell Cycle](/biology/2015/07/29/cell-cycle) 的 $S$ phase)，一条 chromosome 会被复制成两条 **chromatids**
-    - Every 2 chromatids are connected by a **centromere**.
+- cell 在分裂的情况下 (具体在 [Cell Cycle](/biology/2015/07/29/cell-cycle) 的 $S$ phase)，一条 chromosome 会被复制成两条 **sister chromatids**
+    - Every 2 sister chromatids are connected by a **centromere**.
     - Every chromatid has a short **p-arm** ("p" for "petit") and a long **q-arm** ("q" for "queue")
     - 我们在研究单条 chromosome 的时候仍然会使用 p-arm、q-arm 和 centromere 来细分单条 chromosome 的结构
     - **注意：** 我们经常看到的 chromosome 的图片都是一个 _X-shaped with 4 arms_ 的结构，这其实是分裂中的两条 chromatids，**注意这并不是 chromosome 的正常形态，人体内并不是有 23 对这样的 X-shaped chromosomes** (我 TM 被这个图片骗惨了！)
@@ -82,20 +82,20 @@ What do we mean when we say $\text{chr}_{18}$?
 
 我们可以说 "人体每个细胞都有 a pair of $\text{chr}_{18}$'s":
 
-- 我们可以用 $\text{chr}_{18}^{\text{m}}$ (**maternal**) and $\text{chr}_{18}^{\text{p}}$ (**paternal**) 表示 from which parent it is inherited.
-- 我们 **conceptually** 会把 $\text{chr}_{18}^{\text{m}}$ 和 $\text{chr}_{18}^{\text{p}}$ 给 pair up 起来，并称它俩是 **homologous chromosomes** (或 **homologs** for short),
+- 我们可以用 $\text{chr}\_{18}^{\text{m}}$ (**maternal**) and $\text{chr}\_{18}^{\text{p}}$ (**paternal**) 表示 from which parent it is inherited.
+- 我们 **conceptually** 会把 $\text{chr}\_{18}^{\text{m}}$ 和 $\text{chr}\_{18}^{\text{p}}$ 给 pair up 起来，并称它俩是 **homologous chromosomes** (或 **homologs** for short),
   - homologous 的原义是指 identical to one another in shape and size
     - 但这明显不意味着 "identical in sequence"
-  - $\text{chr}_{18}^{\text{m}}$ and $\text{chr}_{18}^{\text{p}}$ are homologs to each other, and only to each other.
+  - $\text{chr}\_{18}^{\text{m}}$ and $\text{chr}\_{18}^{\text{p}}$ are homologs to each other, and only to each other.
   - For females, $\text{X}$ and $\text{X}$ are homologs to each other, and only to each other.
   - For males, $\text{X}$ and $\text{Y}$ are not homologs, they are **heterologs**
-  - 我们说这是 **conceptually paired up** 是因为在 cell 中，$\text{chr}_{18}^{\text{m}}$ 和 $\text{chr}_{18}^{\text{p}}$ 自由游动的，它们之间没有任何的物理结构连接，**即使在细胞分裂期间也没有**
+  - 我们说这是 **conceptually paired up** 是因为在 cell 中，$\text{chr}\_{18}^{\text{m}}$ 和 $\text{chr}\_{18}^{\text{p}}$ 自由游动的，它们之间没有任何的物理结构连接，**即使在细胞分裂期间也没有**
 
 > [!info] 我们可以把 homology 表示为一个 equivalence relation $\overset{\text{H}}{\sim}$
 > 
 > **Definition:** 
 > 
-> - For autosomes, $\text{chr}_{i}^{\text{m}} \overset{\text{H}}{\sim} \text{chr}_{j}^{\text{p}} \iff i = j.$
+> - For autosomes, $\text{chr}\_{i}^{\text{m}} \overset{\text{H}}{\sim} \text{chr}\_{j}^{\text{p}} \iff i = j.$
 > - For allosomes, $\alpha \overset{\text{H}}{\sim} \beta \iff \alpha = \beta.$ 
 > 
 > $\blacksquare$ 
@@ -103,8 +103,8 @@ What do we mean when we say $\text{chr}_{18}$?
 但 $\text{chr}_{18}$ 往往是歧义的，需要看 context，它可以表示：
 
 1. the general chromosome type, like No. $18$ in all autosomes
-2. one homolog, either $\text{chr}_{18}^{\text{m}}$ or $\text{chr}_{18}^{\text{p}}$
-3. the pair $\text{chr}_{18}^{\text{m}} + \text{chr}_{18}^{\text{p}}$
+2. one homolog, either $\text{chr}\_{18}^{\text{m}}$ or $\text{chr}\_{18}^{\text{p}}$
+3. the pair $\text{chr}\_{18}^{\text{m}} + \text{chr}\_{18}^{\text{p}}$
 
 数量关系上有：
 
