@@ -9,12 +9,12 @@ title: 'Terminology Recap: Genome / Chromosome / Nucleosome / Chromatin / Chroma
 
 Genome is the genetic material of an organism. It consists of DNA, or RNA in RNA viruses. 具体说来，下列元素都属于 genome：
 
-- DNA
+- DNA, 包括：
     - protein-coding genes
     - pseudogenes
     - transposon (TE - transposoble element)
-    - DNA elements that can 'jump' to a new genomic location
-- RNA
+    - DNA elements that can "jump" to a new genomic location
+- RNA, 包括：
     - rRNA (ribosomal RNA)
     - tRNA (transfer RNA)
     - short non-coding RNA
@@ -36,34 +36,80 @@ DNA/RNA 其实是 molecule 的名称，所以 genome 和 DNA/RNA 的关系大致
 
 ## 2. Chromosome / Chromatin / Nucleosome / Chromatid / DNA / Double Strands
 
-- DNA 是大分子名，Double Strand (or Double Helix) 是它的物理结构，它由下面两类元素构成：
-    - Nucleotide ([‘nju:klɪətaɪd], 核苷酸)，包括：
-        - Adenine ([‘ædənɪn], 腺嘌吟)
-        - Cytosine ([‘saɪtəʊsi:n], 胞嘧啶)
-        - Guanine ([‘gwɑ:ni:n], 鸟嘌呤)
-        - Thymine ([‘θaɪmi:n], 胸腺嘧啶)
-    - Sugar-Phosphate Backbone
+## 2.1 DNA / Double Strands
+
+DNA 是 molecule 的名字，Double Strand (or Double Helix) 是它的物理结构
+
+DNA 由下面两类元素构成：
+
+- Nucleotide ([‘nju:klɪətaɪd], 核苷酸)，包括：
+    - Adenine ([‘ædənɪn], 腺嘌吟)
+    - Cytosine ([‘saɪtəʊsi:n], 胞嘧啶)
+    - Guanine ([‘gwɑ:ni:n], 鸟嘌呤)
+    - Thymine ([‘θaɪmi:n], 胸腺嘧啶)
+- Sugar-Phosphate Backbone
+
+## 2.2 Chromatin / Nucleosome / Chromatid
+
 - DNA + histone 的 complex 整体叫做 **chromotin**
     - The basic repeating structural (and functional) unit of chromatin is the **nucleosome**, which contains 8 histone proteins and about 146 bp of DNA
     - 参 [DNA Packaging: Nucleosomes and Chromatin](https://www.nature.com/scitable/topicpage/dna-packaging-nucleosomes-and-chromatin-310)
-- cell 在不分裂的情况下，可以认为：一条 further condensed chromatin 就是一条 chromosome
-    - chromosome 按功能分类可以分为 allosome ([‘ælʊsəʊm], 性染色体) / autosome ([‘ɔ:təsəʊm], 常染色体)
-    - 人体的 autosome 是按长度从长到短编号的，最长的是 1 号，最短的是 22 号
-    - 类似 _chr18_ 这样的都是 1 条 chromosome 的名字，我们说人体每个细胞都有 a pair of _chr18_'s
-        - pair up 的两条 chromosomes 称为 **homologous** chromosomes (或 homologs for short), 原义是指 identical to one another in shape and size，但明显 `XY` 不能算
-        - "identical in shape and size" 明显不意味着 "identical in sequence"
-        - We can specify **maternal** _chr18_ and **paternal** _chr18_ to indicate from which parent it is inherited.
-- cell 在分裂的情况下 (具体在 [Cell Cycle](/biology/2015/07/29/cell-cycle) 的 S phase)，一条 chromatin 会分裂成两条 chromatids
-    - Every chromatid has a short **p-arm** ("p" for "petit") and a long **q-arm** ("q" for "queue")
+- cell 在不分裂的情况下，可以认为：一条 further condensed chromatin 就是一条 **chromosome**
+- cell 在分裂的情况下 (具体在 [Cell Cycle](/biology/2015/07/29/cell-cycle) 的 $S$ phase)，一条 chromosome 会分裂成两条 **chromatids**
     - Every 2 chromatids are connected by a **centromere**.
+    - Every chromatid has a short **p-arm** ("p" for "petit") and a long **q-arm** ("q" for "queue")
     - 我们在研究单条 chromosome 的时候仍然会使用 p-arm、q-arm 和 centromere 来细分单条 chromosome 的结构
     - **注意：** 我们经常看到的 chromosome 的图片都是一个 _X-shaped with 4 arms_ 的结构，这其实是分裂中的两条 chromatids，**注意这并不是 chromosome 的正常形态，人体内并不是有 23 对这样的 X-shaped chromosomes** (我 TM 被这个图片骗惨了！)
         - 更多讨论见 [Quora: Why a chromosome is represented as X shaped with four chromatids while by definition it has two chromatids?](https://www.quora.com/Why-a-chromosome-is-represented-as-X-shaped-with-four-chromatids-while-by-definition-it-has-two-chromatids)
 
-数量关系：
+> [!caution] Chromatin 🆚 Chromatid
+>
+> chromatin 是 chromosome 的物理结构、组成部分。
+> 
+> chromatid 是 chromosome 在细胞增殖时的特殊形态。
+> 
+> 它俩就不是一个维度上的概念，不需要去考虑它们的区别与联系。
 
-- Every human cell has `23 pairs == 46 chromosomes`
-- `1 chromosome == 2 strands`
+## 2.3 Chromosome
+
+chromosome 按功能分类可以分为: 
+
+1. allosome ([‘ælʊsəʊm], 性染色体)
+2. autosome ([‘ɔ:təsəʊm], 常染色体)
+    - 人体的 autosome 是按长度从长到短编号的，最长的是 $1$ 号，最短的是 $22$ 号
+
+What do we mean when we say $\text{chr}_{18}$?
+
+我们可以说 "人体每个细胞都有 a pair of $\text{chr}_{18}$'s":
+
+- 我们可以用 $\text{chr}_{18}^{\text{m}}$ (**maternal**) and $\text{chr}_{18}^{\text{p}}$ (**paternal**) 表示 from which parent it is inherited.
+- 我们 **conceptually** 会把 $\text{chr}_{18}^{\text{m}}$ 和 $\text{chr}_{18}^{\text{p}}$ 给 pair up 起来，并称它俩是 **homologous chromosomes** (或 **homologs** for short),
+  - homologous 的原义是指 identical to one another in shape and size
+    - 但这明显不意味着 "identical in sequence"
+  - $\text{chr}_{18}^{\text{m}}$ and $\text{chr}_{18}^{\text{p}}$ are homologs to each other, and only to each other.
+  - For females, $\text{X}$ and $\text{X}$ are homologs to each other, and only to each other.
+  - For males, $\text{X}$ and $\text{Y}$ are not homologs, they are **heterologs**
+  - 我们说这是 **conceptually paired up** 是因为在 cell 中，$\text{chr}_{18}^{\text{m}}$ 和 $\text{chr}_{18}^{\text{p}}$ 自由游动的，它们之间没有任何的物理结构连接，**即使在细胞分裂期间也没有**
+
+> [!info] 我们可以把 homology 表示为一个 equivalence relation $\overset{\text{H}}{\sim}$
+> 
+> **Definition:** 
+> 
+> - For autosomes, $\text{chr}_{i}^{\text{m}} \overset{\text{H}}{\sim} \text{chr}_{j}^{\text{p}} \iff i = j.$
+> - For allosomes, $\alpha \overset{\text{H}}{\sim} \beta \iff \alpha = \beta.$ 
+> 
+> $\blacksquare$ 
+
+但 $\text{chr}_{18}$ 往往是歧义的，需要看 context，它可以表示：
+
+1. the general chromosome type, like No. $18$ in all autosomes
+2. one homolog, either $\text{chr}_{18}^{\text{m}}$ or $\text{chr}_{18}^{\text{p}}$
+3. the pair $\text{chr}_{18}^{\text{m}} + \text{chr}_{18}^{\text{p}}$
+
+数量关系上有：
+
+- Every human cell has $23$ pairs, that's $46$ chromosomes
+- $1$ chromosome has $2$ strands
 - So every human cell has 92 strands 
 
 ## 3. Coordinates Systems / Upstream & Downstream / TSS Distance
