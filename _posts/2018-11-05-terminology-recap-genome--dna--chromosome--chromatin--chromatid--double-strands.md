@@ -5,7 +5,7 @@ tags: []
 title: 'Terminology Recap: Genome / Chromosome / Nucleosome / Chromatin / Chromatid / DNA / Double Strands / Coordinates System / Upstream & Downstream / TSS Distance'
 ---
 
-## 1. Genome 
+# 1. Genome 
 
 Genome is the genetic material of an organism. It consists of DNA, or RNA in RNA viruses. 具体说来，下列元素都属于 genome：
 
@@ -34,7 +34,7 @@ Genome is the genetic material of an organism. It consists of DNA, or RNA in RNA
 
 DNA/RNA 其实是 molecule 的名称，所以 genome 和 DNA/RNA 的关系大致相当于 "一坨炭" 和 "碳分子" 的关系
 
-## 2. Chromosome / Chromatin / Nucleosome / Chromatid / DNA / Double Strands
+# 2. Chromosome / Chromatin / Nucleosome / Chromatid / DNA / Double Strands
 
 ## 2.1 DNA / Double Strands
 
@@ -110,9 +110,9 @@ What do we mean when we say $\text{chr}_{18}$?
 
 - Every human cell has $23$ pairs, that's $46$ chromosomes
 - $1$ chromosome has $2$ strands
-- So every human cell has 92 strands 
+- So every human cell has $92$ strands 
 
-## 3. Coordinates Systems / Upstream & Downstream / TSS Distance
+# 3. Coordinates Systems / Upstream & Downstream / TSS Distance
 
 我们前面一路从 DNA zoom in 到 chromosome，现在进一步 zoom in 到 strand：
 
@@ -122,7 +122,7 @@ What do we mean when we say $\text{chr}_{18}$?
 - `txStart` and `txEnd` are columns from table `ensGene` of database `hg19` in UCSC Genome Browser
 - 0-based coordinate system is used here
 
-### 3.1 Coordinates Systems
+## 3.1 Coordinates Systems
 
 参考 [Tutorial: Cheat Sheet For One-Based Vs Zero-Based Coordinate Systems](https://www.biostars.org/p/84686/):
 
@@ -137,13 +137,13 @@ What do we mean when we say $\text{chr}_{18}$?
     - $chromStart_{0} = chromStart_{1} - 1$
     - $chromEnd_{0} = chromEnd_{1}$
 
-### 3.2 Upstream & Downstream
+## 3.2 Upstream & Downstream
 
 - **Upstream:** direction $\Rightarrow 5'$
 - **Downstream:** direction $\Rightarrow 3'$
     - 参考 [Upstream and downstream (DNA)](https://en.wikipedia.org/wiki/Upstream_and_downstream_(DNA))
 
-### 3.3 Directions of Strands
+## 3.3 Directions of Strands
 
 - 参考 [Question: Forward And Reverse Strand Conventions](https://www.biostars.org/p/3423/)
 - This designation of `(+)`/`(-)` strand is arbitrary.
@@ -156,7 +156,7 @@ What do we mean when we say $\text{chr}_{18}$?
     - If $\operatorname{strand}(g) =$ `(-)` $\Rightarrow \operatorname{TSS}(g) = g.txEnd$
         - N.B. $g.txStart < g.txEnd$ always holds
 
-### 3.4 TSS Distance
+## 3.4 TSS Distance
 
 - **TSS:** Transcription Start Site`
     - **TSS distance:** actually means "distance to TSS"
