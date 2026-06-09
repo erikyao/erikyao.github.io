@@ -34,7 +34,7 @@ cell cycle 是增殖的 mechanism，或者说；细胞增殖 $\iff$ cell is runn
   - root 是 zygote $Z$
   - 每个 leaf 都是 terminally differentiated cell type $T \in \mathbf{T}_{\text{TD}}$
     - 所谓 terminally differentiated 就是指无法再分化的 cell
-- 但如果我们只想研究某单个 $c_k$ 的分化路径 (也不一定要从 zygote 开始)，那么这个局部的 path $c_i \rightarrow \dots \rightarrow c_k$ 我们也称为一个 (局部的) 分化过程
+- 但如果我们只想研究某单个 $T_k$ 的分化路径 (也不一定要从 zygote 开始)，那么这个局部的 path $T_i \rightarrow \dots \rightarrow T_k$ 我们也称为一个 (局部的) 分化过程
 - reversible differentiation 即是允许在 differentiation 的 graph 或者 path 中存在 cycle
 - termimal differentiation 即是 destination 为 $T \in \mathbf{T}_{\text{TD}}$ 的 differentiation
 
