@@ -55,7 +55,7 @@ DNA 由下面两类元素构成：
     - The basic repeating structural (and functional) unit of chromatin is the **nucleosome**, which contains 8 histone proteins and about 146 bp of DNA
     - 参 [DNA Packaging: Nucleosomes and Chromatin](https://www.nature.com/scitable/topicpage/dna-packaging-nucleosomes-and-chromatin-310)
 - cell 在不分裂的情况下，可以认为：一条 further condensed chromatin 就是一条 **chromosome**
-- cell 在分裂的情况下 (具体在 [Cell Cycle](/biology/2015/07/29/cell-cycle) 的 $S$ phase)，一条 chromosome 会分裂成两条 **chromatids**
+- cell 在分裂的情况下 (具体在 [Cell Cycle](/biology/2015/07/29/cell-cycle) 的 $S$ phase)，一条 chromosome 会被复制成两条 **chromatids**
     - Every 2 chromatids are connected by a **centromere**.
     - Every chromatid has a short **p-arm** ("p" for "petit") and a long **q-arm** ("q" for "queue")
     - 我们在研究单条 chromosome 的时候仍然会使用 p-arm、q-arm 和 centromere 来细分单条 chromosome 的结构
